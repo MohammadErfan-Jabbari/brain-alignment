@@ -1,0 +1,95 @@
+# Research Landscape — Brain-Alignment-Guided Distillation
+
+**Last updated:** 2026-06-08 (seeded from the prior Nexus dossier + oracle review)
+**Stage:** Map (frontier mapping). Literature is strong; this is a digest, not a fresh survey.
+
+> Full provenance: `literature/_prior-work/` holds the 26 KB literature dossier and the 10 KB oracle
+> review verbatim. Canonical per-paper notes are in `literature/canonical/`. This file is the map.
+
+## The gap (one sentence)
+
+The literature *measures* LLM↔brain alignment and shows it behaves interestingly under scale and
+compression, but **no one has used brain alignment as the distillation objective and then tested
+whether preserving it buys anything practical.** That untested loop is the contribution space.
+
+## Prior art, organized
+
+### A. What the alignment signal is, and what drives it (anchors)
+
+| Paper | Note | What it gives us |
+|---|---|---|
+| Gao et al. 2024 | `gao-2024_scaling-not-instruction-brain-alignment` | Alignment rises with scale; instruction-tuning adds little at matched params → use a **base** teacher for naturalistic alignment. |
+| Oota et al. 2026 | `oota-2026_brain-encoding-scale-compression` | Benchmark perf and brain alignment **partially dissociate** under compression; alignment saturates ~3B and is fairly robust to AWQ/SmoothQuant (GPTQ worse). **This dissociation is the primary falsifiability anchor.** |
+| Oota et al. 2023 | `oota-2023_joint-linguistic-processing-brain-lms` | Alignment is built largely of **syntactic structure** that varies with layer depth → compression that destroys mid-layer syntax should be detectable. |
+| Aw & Toneva 2023 | `aw-2023_narrative-summarization-improves-brain-alignment` | Training objective shapes brain-relevant structure **beyond** next-word prediction → alignment is learnable, not just emergent from scale. |
+| Merlin & Toneva 2024 | `merlin-2024_beyond-next-word-brain-alignment` | A residual alignment component survives controls for word-level + next-word prediction → there is a **non-trivial target** standard KD won't capture. |
+| Alkhamissi 2025 | `alkhamissi-2025_llms-outgrow-human-language-network` | Larger LMs can outgrow the human language network — bears on the saturation/scale story. |
+| Yin 2025 | `yin-2025_associative-memory-improves-lm-brain-alignment` | Associative-memory mechanisms improve alignment — a possible lever. |
+| Zhu 2025 | `zhu-2025_probabilistic-neural-behavioral-representation-alignment` | Probabilistic neural/behavioral alignment — candidate measurement framing. |
+
+### B. Counter-evidence (the brakes — these are mandatory, not optional)
+
+| Paper | Note | The brake it applies |
+|---|---|---|
+| Feghhi et al. 2024 | `feghhi-2024_case-against-over-reliance-brain-scores` | **Mandatory protocol override.** Shuffled splits inflate scores via temporal autocorrelation; untrained GPT-2 "explains" data via length/position. → contiguous splits, nuisance baselines, gains shown *after* confound subtraction. |
+| Oota et al. 2024 | `oota-2024_speech-lms-lack-brain-semantics` | **Anti-confound brake.** Aggregate alignment can mask different mechanisms (speech models' alignment was low-level phonology). → never report raw scores; decompose feature space. |
+
+### C. Distillation / compression baselines (the method must compose with these)
+
+| Paper | Note | Role |
+|---|---|---|
+| Wang 2020 (MiniLM) | `wang-2020_minilm-self-attention-distillation` | Relation-space KD; reference architecture; alignment loss must work with decoupled teacher/student dims. |
+| Liu 2022 (MGSKD) | `liu-2022_multi-granularity-structural-kd` | Hierarchical layer routing; brain alignment slots into the sample/discourse tier. |
+| Fu 2021 (LRC-BERT) | `fu-2021_lrc-bert-contrastive-kd` | Angular/contrastive transfer; brain alignment is geometric, may compose naturally. |
+| Zhang 2025 (AlignDistil) | `zhang-2025_aligndistil-token-level-policy-distillation` | Alignment-as-token-level-distillation; suggests alignment losses can decompose without per-step recordings. |
+| Zhou 2022 (MetaDistil) | `zhou-2022_bert-learns-to-teach-metadistil` | Learned-teacher distillation; possible meta-objective. |
+| Jia 2024 | `jia-2024_adversarial-moment-matching-llm-distillation` | Token-prob copying is a weak proxy; behavioral/value imitation is stronger — supports a behavioral target. |
+
+### D. Systems-side constraints
+
+| Paper | Note | Constraint it raises |
+|---|---|---|
+| Ji 2025 | `ji-2025_calibration-data-pruning-llms` | Calibration **data distribution** matters more than the pruning algorithm → calibration corpus is a first-order design variable. |
+| Tang 2025 (RazorAttention) | `tang-2025_razorattention-kv-cache-compression` | Functional head asymmetry → do brain-alignment heads overlap retrieval heads? Possible selective-compression lever. |
+
+### E. Measurement & theory tools
+
+- `kornblith-2019_cka-similarity-representations` — CKA, a candidate differentiable-ish alignment proxy.
+- `huh-2024_platonic-representation-hypothesis` — why cross-model representations may converge to a
+  shared (brain-predictive) geometry; theoretical backing for generalization.
+
+## Baseline matrix the thesis must run (from the frontier map)
+
+1. Perplexity-only KD (matched student size, data, optimization budget).
+2. Structure-aware KD (MiniLM- or MGSKD-class).
+3. Alignment-guided objective at the same compression ratio.
+4. Hybrid (alignment + utility) under matched resources.
+
+## Stage-3 guardrails (predeclared, non-negotiable)
+
+- Matched compression ratio and training budget across all baselines.
+- All-seed reporting (≥ 3 seeds) for neural predictivity and utility.
+- Predeclare the minimum margin over perplexity-only KD before claiming a contribution.
+- Anti-confound evaluation: contiguous (not shuffled) splits; nuisance-feature controls (length,
+  position, static embeddings); report gains after confound subtraction.
+- Predeclare the calibration-data policy for pruning/quantization baselines.
+
+**Must-not-claim:** no causal cognitive equivalence from an encoding-model gain; no universal
+robustness from one benchmark family.
+
+## Known risks / kill scenarios
+
+- Alignment may be purely emergent from parameter count with no transferable geometric signature →
+  distillation kills it → thesis dead.
+- The effect may be small (+0.03–0.05 R²) and the measurement matrix enormous → is it worth proving?
+- "Edge" is unspecified → reviewers ask "why care?" Need a named deployment scenario.
+- **SPOF:** a language-fMRI benchmark with adequate power and an open license must be accessible.
+  None is staged on disk yet (see `02-environment.md`). This is the first thing to de-risk.
+- The alignment↔utility trade-off might be a step function (collapses below a threshold, trivial
+  above) → reduces the thesis to "don't over-compress."
+
+## New-search needs (not covered by the frozen dossier)
+
+- Language-fMRI datasets: Pereira 2018, Nastase *Narratives*, LeBel 2023, Fedorenko lab releases —
+  which are open, sized, and English/multilingual? **Power analysis required.**
+- Recent (2026) brain-alignment-for-compression work to confirm the gap is still open.
