@@ -1,0 +1,23 @@
+# Python / uv
+.venv/
+__pycache__/
+*.pyc
+.python-version.local
+
+# Heavy artifacts — keep off git, live on the 1.2T data volume
+data/
+outputs/
+checkpoints/
+runs/
+wandb/
+*.ckpt
+*.pt
+*.safetensors
+
+# Scratch
+tmp/
+.tmx/
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store

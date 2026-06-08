@@ -1,0 +1,23 @@
+[project]
+name = "brain-alignment"
+version = "0.0.0"
+description = "Brain-alignment-guided methods for LLMs (master's thesis, UC3M). Distillation is the first use case of the LLM-to-brain mapping."
+requires-python = ">=3.11"
+dependencies = []
+
+# This is a research environment, not a distributable package.
+# `package = false` keeps uv from trying to build/install this directory,
+# so we get a clean venv with no src/ layout or sample modules.
+# Add libraries as we go with `uv add <pkg>`; always run code with `uv run`.
+[tool.uv]
+package = false
+
+# Pin torch (and friends) to the CUDA 12.8 wheel index when we add them,
+# matching the proven setup on this box (see brain-jepa). Ready in advance.
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
