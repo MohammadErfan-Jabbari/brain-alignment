@@ -4,7 +4,14 @@ version = "0.0.0"
 description = "Brain-alignment-guided methods for LLMs (master's thesis, UC3M). Distillation is the first use case of the LLM-to-brain mapping."
 requires-python = ">=3.11"
 dependencies = [
+    "datasets>=5.0.0",
     "huggingface-hub>=1.18.0",
+    "nibabel>=5.4.2",
+    "nilearn>=0.13.1",
+    "scikit-learn>=1.9.0",
+    "scipy>=1.17.1",
+    "torch>=2.11.0",
+    "transformers>=5.10.2",
 ]
 
 # This is a research environment, not a distributable package.
