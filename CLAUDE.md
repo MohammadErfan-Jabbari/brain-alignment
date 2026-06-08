@@ -1,0 +1,84 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working in this repository.
+
+# brain-alignment — MSc thesis research repo
+
+This repo is the execution home for Erfan's master's thesis (ML for Health, UC3M) on **using the
+linear mapping between LLM middle layers and brain activation as a usable signal** — with
+**brain-alignment-guided distillation** as the first concrete use case. It is a single-paper research
+workspace, not a software product.
+
+## Read this first, every session
+
+1. `docs/upspeed.md` — where we are, what's next, blockers. **Always read before doing anything.**
+2. `docs/tasks.md` — the path behind and ahead.
+3. Then the relevant deep doc: `docs/00-charter.md` (idea/scope), `docs/01-research-landscape.md`
+   (literature + the gap), `docs/02-environment.md` (compute/data/how-to-run),
+   `docs/03-methodology.md` (how we work and why).
+
+`docs/` is the persistent research brain — see `docs/README.md` for the full map. If something
+matters past this session, it goes in `docs/`, not just in chat.
+
+## How we run code
+
+- **Always `uv run`.** This is a minimal uv project (Python 3.11, `.venv/`, `[tool.uv] package=false`
+  — no `src/` scaffolding). Add libraries with `uv add <pkg>` as the work demands.
+- Set `export HF_HOME=/home/centcom/data/hf-cache` to reuse cached models (Qwen2.5 0.5–7B, GPT-2
+  family, pythia-1b).
+- torch is pinned to the cu128 wheel index (already in `pyproject.toml`). 4× L40S available; single
+  node, no Slurm/Docker/tmux — long runs are background processes.
+- Heavy artifacts go under `data/` and `outputs/` (gitignored), never on the overlay root.
+
+## How we do research (the spine, kept light)
+
+Follow the epistemic path in `docs/03-methodology.md`: Notice → Commit → Map → **Claim** → **Design**
+→ **Run** → **Judge** → Argue → Compound. The non-negotiables:
+
+- Multiple competing hypotheses, not one cherished one. **Kill criteria predeclared.**
+- **Lock the design before running** (baselines at matched budget, controls, seeds, stop rule).
+- Keep raw evidence separate from interpretation.
+- **Specific numbers with uncertainty and the named test.** "Δ = +0.06 ± 0.01, n=3, contiguous
+  split" — never "it worked better." ≥ 3 seeds for stochastic experiments.
+- Anti-confound is mandatory for any brain-alignment number (Feghhi/Oota): contiguous splits,
+  nuisance baselines, gains shown after confound subtraction. See `docs/learnings.md` L003.
+- Root cause, not symptom. Strongest baseline, never a strawman.
+
+Use the **Elon/Feynman/Naval** frame (`docs/references/reasoning-frame.md`) when designing or
+deciding: real goal + delete false constraints; plain mechanism + where it breaks; smallest durable
+change that compounds.
+
+## Working with Erfan
+
+- Direct, no ceremony. **Challenge when there are grounds** — don't agree by default; if he's wrong,
+  say so and why. Prompts may have typos; infer intent.
+- Simple/single-step → just do it. Complex/vague/risky → plan first, then go. If we discussed the
+  plan this session, proceed freely.
+
+## Git
+
+This repo is **not yet a git repo** (see `docs/tasks.md`). Once it is: scoped staging only (never
+`git add -A`/`.`), no `--amend`, no destructive ops without explicit approval, push only when asked.
+
+## Subagents (`.claude/agents/`)
+
+| Agent | Use when |
+|---|---|
+| `lit-scout` | Search across sources for papers on a topic; return a ranked, deduped shortlist. |
+| `paper-digest` | Read a paper (PDF/arXiv/URL) → a canonical note in `docs/literature/canonical/`. |
+| `oracle-reviewer` | Adversarially stress-test a hypothesis or design before committing compute. Reproduces the prior HOLD-review value. |
+| `session-logger` | At session end: write `docs/timeline/…`, REPLACE `docs/upspeed.md`, update `tasks.md`/`learnings.md`. |
+
+Add more agents/skills only when a need recurs (adaptive semistructure). We deliberately did **not**
+port the Nexus v2 stage-machine — see `docs/decisions/decisions.md` D001.
+
+## Session close ritual
+
+End every working session by running `session-logger` (or doing it by hand): immutable timeline log,
+refreshed `upspeed.md`, moved tasks, and any hard-won lesson appended to `docs/learnings.md`.
+
+## Maintenance
+
+These instructions, the docs, and the agents are living. When a workflow keeps getting reconstructed,
+or a mistake repeats, update the relevant file. Per Erfan's global rule, propose changes to his
+private/global instructions before editing them — but this repo's own files are ours to keep current.
