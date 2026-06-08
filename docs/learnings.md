@@ -28,4 +28,25 @@ Two counter-evidence papers (Feghhi 2024, Oota 2024) show brain-alignment scores
 splits + nuisance subtraction is not a result. Bake the anti-confound protocol in from day one, not
 at review time.
 
+### L004 — 2026-06-09 — Synthetic fMRI tests the plumbing, never the science; and the nuisance must be capacity-matched
+
+Two lessons from building E001. (1) A synthetic stand-in built as a linear map of *teacher* features
+cannot test whether brain alignment is preservable under distillation: plain KD already pulls the
+student toward the teacher, so it is near-optimal for that synthetic target and any extra brain loss
+can only distract (we saw a small, monotonic-in-λ *negative* Δ). Synthetic validates the pipeline and
+the anti-confound machinery — that they run and don't rubber-stamp a positive — and nothing more. The
+real verdict needs neural data whose structure is not trivially teacher-derived (LeBel ds003020).
+(2) In a variance partition, the nuisance block and the contextual block must get **equal capacity**:
+a raw 768-dim static-embedding nuisance silently absorbed the signal and drove unique_r2 to ≈0 until
+both blocks were PCA-reduced to the same rank per fold. An unfair partition can manufacture *or* erase
+an effect — match the dimensionality.
+
+### L005 — 2026-06-09 — Pereira's OSF node (crwz7) is stimuli-only; "open benchmark" ≠ "neural data in hand"
+
+The SPOF survey cleared the data-access risk (LeBel/Narratives/Pereira all open, no-login), but the
+Pereira OSF bundle `Pereira_Materials.zip` turned out to contain only sentences + GloVe + ROI masks,
+**not** the per-subject voxel responses (those live on a separate host). Verify what a download
+actually contains before treating a benchmark as "ready" — an open license and a 276 MB zip are not
+the same as having the fMRI matrix. This is why E001 ran on the hybrid path, not real responses.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->

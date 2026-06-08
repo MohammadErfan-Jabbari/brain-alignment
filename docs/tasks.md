@@ -5,21 +5,20 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 
 ## Now (current focus)
 
-- [ ] **Survey + pick the language-fMRI benchmark, with a power analysis** — the #1 SPOF that gates
-      everything. Survey Pereira 2018, Nastase *Narratives*, LeBel 2023, Fedorenko releases. Check:
-      open license, N participants, noise ceiling, English/multilingual. Can the available N detect a
-      +0.05 effect? Use `lit-scout` (+ `paper-digest` for the finalists). Write findings into a new
-      `docs/04-data-benchmarks.md` with a clear recommendation. Commit atomically as you go.
+- [ ] **Stage real neural responses + re-run E001 for the real verdict.** The harness is built and
+      synthetic-validated; the scientific question is still open. Pull **LeBel `ds003020` one subject**
+      (anonymous S3 `--no-sign-request`, check size first, ≤ few GB) or source the **Pereira neural
+      responses** (crwz7 was stimuli-only, L005), then run `--backend pereira`/lebel. De-risks A1/A2.
+- [ ] **Decide the form of $\mathcal{L}_{\text{brain}}$** on real data. Trainable head (current
+      placeholder, overfits — D010) vs frozen encoding-map loss vs CKA proxy. Write as a design note.
 
 ## Next (de-risk the thesis — ordered by leverage)
 
-- [ ] **Decide the form of $\mathcal{L}_{\text{brain}}$.** Frozen encoding model as fixed loss? CKA-style
-      differentiable proxy? Compare candidates; write it up as a hypothesis-adjacent design note.
-- [ ] **Run the toy pilot** (oracle's highest-value action): GPT-2 medium → small, measure
-      encoding-model fit before/after an alignment loss. Forces the real pipeline; de-risks A1/A2.
-      Models already cached (`02-environment.md`). → spawn `experiments/toy-pilot-gpt2.md`.
-- [ ] **Fresh literature pass (2026):** confirm the gap is still open; pull any new
-      brain-alignment-for-compression work. Use `lit-scout` + `paper-digest`.
+- [ ] **`paper-digest` the finalists** → `docs/literature/canonical/`: LeBel 2023 (primary benchmark),
+      Merlin & Toneva 2026 "When LMs Lose Their Mind" (reframe trigger), Narratives (generalisation).
+- [ ] **Address the reframe flag (D008/`04`):** Merlin & Toneva 2026 proved the A3 premise via
+      fine-tuning; sharpen the contribution to **compression/distillation at matched budget** so A3
+      isn't scooped. Fold into `01-research-landscape.md` and H001.
 
 ## Later (once the pilot says go)
 
@@ -31,11 +30,16 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 
 ## Infrastructure / housekeeping
 
-- [ ] **Initialize git** in this repo (currently not a git repo). Scoped commits only.
-- [ ] First `uv add torch transformers datasets accelerate scikit-learn scipy` when the pilot starts.
+- [ ] Consider disabling the GateGuard fact-forcing hook for long autonomous runs (Session-2 friction).
 
 ## Done
 
+- [x] 2026-06-09 — **Language-fMRI benchmark survey + power analysis** → `docs/04-data-benchmarks.md`.
+      SPOF resolved (D008): LeBel ds003020 primary, Narratives generalisation, Pereira plumbing.
+- [x] 2026-06-09 — **Toy pilot harness built + validated** (synthetic): GPT-2-medium→small distillation,
+      encoding model, anti-confound partition, ≥3 seeds → `scripts/`, `configs/`, `docs/experiments/E001`.
+      (Real-data run moved to "Now"; synthetic cannot answer the science — L004.)
+- [x] 2026-06-09 — `uv add torch transformers datasets scikit-learn scipy nibabel nilearn` (pilot deps).
 - [x] 2026-06-08 — Swarm reconnaissance of Nexus + brain-alignment idea; built `docs/` knowledge base.
 - [x] 2026-06-08 — Minimal uv environment (`uv run` verified, Python 3.11, no scaffolding).
 - [x] 2026-06-08 — Repo `CLAUDE.md`, curated subagents, reasoning-frame reference.

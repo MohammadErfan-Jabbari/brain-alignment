@@ -68,3 +68,36 @@ unchanged: scoped staging only (never `git add -A`/`.`), no `--amend`, push only
 **Rationale:** Erfan wants a detailed, granular overview of how the repo evolved — and the decision
 log + timeline remain the canonical research record.
 **Reverses if:** never expected — it is a working norm.
+
+### D008 — 2026-06-09 — Benchmark choice: LeBel ds003020 primary, Narratives generalisation, Pereira plumbing
+
+**Decision:** Adopt **LeBel et al. 2023 (OpenNeuro `ds003020`)** as the primary language-fMRI benchmark
+for the thesis result (powered within-subject deep-sampling, reported noise ceiling, CC0/CC-BY, anonymous
+S3/DataLad — no login). Use **Narratives (`ds002345`)** as the cross-subject generalisation check and
+**Pereira 2018 (OSF `crwz7`)** as the lightweight plumbing sanity-test. Full survey + power analysis in
+`../04-data-benchmarks.md`.
+**Rationale:** Resolves the #1 SPOF (`01-research-landscape.md`): an open, adequately powered benchmark
+must exist. Three do, none gated. The charter's data-access kill condition is not triggered.
+**Reverses if:** the LeBel neural data proves impractical to stage, or a better-powered open benchmark
+appears; then promote Narratives or pull a second LeBel subject.
+
+### D009 — 2026-06-09 — E001 pilot ran the hybrid path (real sentences + synthetic fMRI), not real neural data
+
+**Decision:** The toy pilot (E001) was built data-independent and validated on **real Pereira sentences
+paired with synthetic fMRI**, because the cleanly-downloadable Pereira bundle (crwz7) contains stimuli
+but not neural responses (L005). We did **not** fabricate a real-data result; the harness is left
+one config swap from the real neural matrix.
+**Rationale:** Follows the overnight instruction to be adaptive about the data dependency and not block:
+build everything, smoke-test on a synthetic stand-in, leave it ready to plug real data in. A synthetic
+result is labelled as plumbing-only everywhere (E001, L004), never as evidence about the thesis.
+**Reverses if:** never — it is a faithful record of what was run. The next step (real fMRI) supersedes it.
+
+### D010 — 2026-06-09 — Brain-alignment loss form is still open; trainable head is a placeholder
+
+**Decision:** E001 implements $\mathcal{L}_{\text{brain}}$ as a trainable linear head from the student's
+middle layer to the training fMRI. This is a **placeholder**, not the locked design. The frozen
+teacher-encoding-map loss and a CKA-style differentiable proxy remain live candidates to compare on real
+data (still the open "decide the form of $\mathcal{L}_{\text{brain}}$" task).
+**Rationale:** The head overfits the contiguous train block on synthetic data; a frozen map or geometric
+(CKA) loss may generalise better and avoids a learned head. Decide empirically once neural data is staged.
+**Reverses if:** the head form wins on real data, or a different proxy proves superior.
