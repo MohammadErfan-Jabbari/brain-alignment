@@ -3,7 +3,9 @@ name = "brain-alignment"
 version = "0.0.0"
 description = "Brain-alignment-guided methods for LLMs (master's thesis, UC3M). Distillation is the first use case of the LLM-to-brain mapping."
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "huggingface-hub>=1.18.0",
+]
 
 # This is a research environment, not a distributable package.
 # `package = false` keeps uv from trying to build/install this directory,
