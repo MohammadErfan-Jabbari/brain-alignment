@@ -45,3 +45,26 @@ oracle review from the Nexus v1 archive into `docs/literature/`.
 **Rationale:** Adaptive semistructure — earn each agent. The adversarial `oracle-reviewer` reproduces
 the single most valuable artifact from the prior work (the HOLD review that exposed the gaps).
 **Reverses if:** a dropped agent proves repeatedly needed.
+
+### D006 — 2026-06-08 — Scope lock: MSc thesis, feasibility-first, edge deferred
+
+**Decision:** This repo serves Erfan's **MSc thesis (ML for Health, UC3M)** — the NeurIPS track is
+dropped. Tentative deadline **~end of August 2026** (exact TBD). The first objective is a
+**fundamental feasibility question — does the LLM↔brain alignment signal actually carry usable
+information that helps a downstream task, beyond confounds?** The "edge"/deployment framing is
+**explicitly deferred** until that question is answered.
+**Rationale:** Erfan's direction: establish whether the claim holds before designing for deployment.
+Matches the prior oracle review (operationalize + de-risk first) and avoids over-claiming.
+**Reverses if:** the feasibility question resolves positively and we move to the deployment story.
+
+### D007 — 2026-06-08 — Continuous atomic commits as the granular project timeline
+
+**Decision:** Commit changes **continuously and atomically** — each meaningful step is its own scoped
+commit with a proper conventional-commit message — so git history is a fine-grained, inspectable
+record of file changes over time. This is **in addition to, never a replacement for, the docs
+record:** decisions still go in this file and every session still gets a `../timeline/` log. Docs
+carry the *why* (reasoning, narrative); git carries the *what/when* (mechanical diffs). Rules
+unchanged: scoped staging only (never `git add -A`/`.`), no `--amend`, push only when asked.
+**Rationale:** Erfan wants a detailed, granular overview of how the repo evolved — and the decision
+log + timeline remain the canonical research record.
+**Reverses if:** never expected — it is a working norm.

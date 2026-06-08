@@ -55,10 +55,19 @@ change that compounds.
 - Simple/single-step → just do it. Complex/vague/risky → plan first, then go. If we discussed the
   plan this session, proceed freely.
 
-## Git
+## Git — commit continuously and atomically
 
-This repo is **not yet a git repo** (see `docs/tasks.md`). Once it is: scoped staging only (never
-`git add -A`/`.`), no `--amend`, no destructive ops without explicit approval, push only when asked.
+The repo is a git repo on `main`. **Commit every meaningful step as its own scoped, atomic commit**
+with a proper conventional-commit message (`docs:`, `feat(agents):`, `chore:`, …) so the git history
+is a granular, inspectable record of file changes. Don't batch unrelated changes into one commit;
+don't let work pile up uncommitted. (Decision D007.)
+
+This is **in addition to, not a replacement for, the docs record.** Always keep recording decisions
+in `docs/decisions/decisions.md` and writing a `docs/timeline/` log each session — docs carry the
+*why*, git carries the *what/when*.
+
+Rules (unchanged): scoped staging only — never `git add -A`/`.`; stage explicit paths; no `--amend`
+(prefer a new commit); no destructive ops without explicit approval; **push only when asked.**
 
 ## Subagents (`.claude/agents/`)
 

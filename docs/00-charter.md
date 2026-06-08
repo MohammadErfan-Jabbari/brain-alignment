@@ -1,16 +1,13 @@
 # Project Charter — Brain-Alignment-Guided Methods for LLMs
 
 **Owner:** MohammadErfan Jabbari
-**Program:** MSc, Machine Learning for Health — Universidad Carlos III de Madrid (UC3M)
+**Program:** MSc, Machine Learning for Health — Universidad Carlos III de Madrid (UC3M). Erfan is a
+pre-PhD student finishing this master; the thesis is the deliverable. (NeurIPS track is dropped.)
 **Repo:** `/home/centcom/data/brain-alignment` (single-node, centcom)
-**Status:** Activating — moving from literature-strong / execution-light to a first pilot.
-**Created:** 2026-06-08
-
-> ⚠️ **Two facts to confirm with Erfan** (placeholders until then):
-> 1. **Deadline.** The prior Nexus notes carried a NeurIPS-2026 date of **2026-05-07**, which is
->    already past. The binding date now is the **UC3M MSc thesis deadline — TBD**.
-> 2. **Program/affiliation.** Prior Nexus/global notes say "PhD, IMDEA Networks." Erfan now states
->    "MSc, ML for Health, UC3M." Using the latter; flag if both are true (e.g. thesis feeds a PhD).
+**Status:** Activating — **fundamental feasibility first** (does the alignment signal actually help?),
+not yet a deployment story.
+**Deadline:** ~end of August 2026 (tentative — exact date TBD, confirm).
+**Created:** 2026-06-08 · **Scope locked:** 2026-06-08 (see `decisions/decisions.md` D006).
 
 ---
 
@@ -51,6 +48,16 @@ subject to FLOPs / latency / parameter budgets.
 - Bridges Erfan's ML-for-health background (brain benchmarks) with efficient/edge models.
 - Clean gap: the literature *measures* brain alignment but rarely *uses it as the objective*.
 
+## The first question (gates everything)
+
+Before any method, distillation design, or "edge" story, the thesis must answer one fundamental
+question: **does the LLM-middle-layer ↔ brain-activation mapping actually carry usable information —
+information that helps a downstream task — once confounds are stripped out?** If the apparent signal
+is mostly nuisance (length, position, low-level features, split leakage), or is trivially preserved/
+destroyed regardless of objective, then the premise fails and the thesis reframes. We establish this
+*first*, with the smallest honest experiment, and only then build the method. Everything below serves
+this question; the deployment ("edge") framing is explicitly deferred until it is answered.
+
 ## The three falsifiable assumptions the thesis rests on
 
 (From the prior oracle review — these are inherited from observational literature, **not yet tested
@@ -90,4 +97,5 @@ the whole thesis. *"This is where this thesis will live or die."*
 - The named language-fMRI benchmark (Pereira / Narratives / LeBel-style) and its power analysis.
 - The concrete form of $\mathcal{L}_{\text{brain}}$ (frozen encoding model as fixed loss? CKA-style?
   differentiable proxy?).
-- The "edge" deployment scenario the title leans on.
+- The "edge" deployment scenario — **explicitly deferred.** We do not design for deployment until the
+  fundamental question above (does the signal help, beyond confounds?) is answered.
