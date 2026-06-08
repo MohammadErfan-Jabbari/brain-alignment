@@ -1,0 +1,47 @@
+{
+  "_comment": "Toy brain-alignment distillation pilot. Teacher gpt2-medium -> student gpt2. Two arms (baseline lambda_brain=0 vs brain lambda_brain>0) at matched budget; report unique_r2 (encoding R^2 after nuisance subtraction) on a contiguous held-out eval block. See scripts/README.md and docs/03-methodology.md.",
+
+  "backend": "synthetic",
+  "data_dir": null,
+  "experiment": "384sentences",
+  "subject": null,
+
+  "_sentences_note": "Hybrid path: real Pereira 2018 stimulus sentences (downloaded from OSF crwz7, no login) paired with synthetic fMRI. Set backend=pereira + data_dir to swap in the real neural responses, which align row-for-row to these sentences.",
+  "sentences_file": "data/pereira/Pereira_Materials/stimuli_384sentences.txt",
+
+  "teacher": "gpt2-medium",
+  "student": "gpt2",
+
+  "seeds": [0, 1, 2],
+  "epochs": 3,
+  "lr": 5e-5,
+  "batch_size": 8,
+  "max_length": 64,
+  "pool": "mean",
+  "extract_bs": 16,
+
+  "kd_temperature": 2.0,
+  "lambda_kd": 1.0,
+  "lambda_brain": 1.0,
+
+  "eval_frac": 0.3,
+  "k_folds": 5,
+  "n_pca": 50,
+
+  "n_items": 384,
+  "n_voxels": 200,
+  "syn_signal": 1.0,
+  "syn_nuisance": 0.7,
+  "syn_noise": 1.0,
+
+  "smoke_overrides": {
+    "seeds": [0],
+    "epochs": 1,
+    "n_items": 64,
+    "n_voxels": 40,
+    "k_folds": 3,
+    "n_pca": 20,
+    "batch_size": 8,
+    "extract_bs": 8
+  }
+}
