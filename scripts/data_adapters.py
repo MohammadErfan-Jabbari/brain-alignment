@@ -191,3 +191,91 @@ def load_pereira(
     meta = {"backend": "pereira", "experiment": experiment, "subject": subject,
             "file": str(path), "n_items": Y.shape[0], "n_voxels": Y.shape[1], "fields": keys}
     return sents, Y, meta
+
+
+# --------------------------------------------------------------------------- #
+# Tuckute et al. 2024 (OSF ru38b) — sentence-level LH language-ROI responses
+# --------------------------------------------------------------------------- #
+# Train participants used by the paper to fit the encoding model (the 5 "train"
+# UIDs; the other 5 are held-out evaluation participants). Source: the noise
+# ceiling file (NC-allroi-data.csv, UIDs column) and the paper's methods.
+TUCKUTE_TRAIN_UIDS = (848, 853, 865, 875, 876)
+
+# The six LH language ROIs shipped in the public CSV. `lang_LH_netw` is the
+# network mean over the five sub-ROIs; keeping it as a 7th column would double
+# count, so the default voxel set is the five sub-ROIs (and `netw` is offered as
+# a 1-D target for a quick scalar check).
+TUCKUTE_SUBROIS = ("lang_LH_AntTemp", "lang_LH_IFG", "lang_LH_IFGorb",
+                   "lang_LH_MFG", "lang_LH_PostTemp")
+
+
+def load_tuckute(
+    data_dir: str | Path,
+    condition: str = "B",
+    uids: tuple[int, ...] | None = None,
+    rois: tuple[str, ...] | None = None,
+    target: str = "subrois",
+) -> tuple[list[str], np.ndarray, dict]:
+    """Load Tuckute 2024 sentence-level fMRI: LH language-ROI BOLD per sentence.
+
+    The public release (`data.tar` from OSF ru38b) is a long-format CSV:
+    one row per (sentence x ROI x participant). `response_target` is the
+    session-wise-z-scored, voxel-averaged BOLD in each ROI. We pivot it to a
+    dense (n_sentences, n_roi) matrix, averaging across the chosen participants
+    (default: the 5 train UIDs, matching the paper's encoding-model fit).
+
+    This is ROI-level (coarse, 5-6 dims), not voxelwise — a documented limitation
+    — but it is REAL neural data with a published noise ceiling (the synthetic
+    pilot's gap, L004). Isolated sentences also sidestep the temporal-autocorr
+    leakage that plagues naturalistic data (a Feghhi-relevant plus).
+
+    `target`: "subrois" -> (n,5) matrix of the five sub-ROIs;
+              "netw"    -> (n,1) the network-mean column.
+    Rows are ordered by `item_id` (deterministic, contiguous-split friendly).
+    """
+    import pandas as pd
+
+    data_dir = Path(data_dir)
+    cands = sorted(data_dir.rglob("brain-lang-data_participant_*.csv"))
+    if not cands:
+        raise FileNotFoundError(
+            f"Tuckute participant CSV not found under {data_dir} "
+            f"(expected brain-lang-data_participant_*.csv)")
+    df = pd.read_csv(cands[0])
+
+    uids = uids or TUCKUTE_TRAIN_UIDS
+    df = df[(df["cond"] == condition) & (df["target_UID"].isin(uids))]
+    if df.empty:
+        raise ValueError(f"No rows for cond={condition}, uids={uids} in {cands[0]}")
+
+    if target == "netw":
+        rois = ("lang_LH_netw",)
+    else:
+        rois = rois or TUCKUTE_SUBROIS
+
+    # Pivot: mean response_target over participants -> (item_id x roi).
+    sub = df[df["roi"].isin(rois)]
+    pivot = (sub.groupby(["item_id", "roi"])["response_target"].mean()
+                .unstack("roi").reindex(columns=list(rois)))
+    pivot = pivot.sort_index()                      # order by item_id
+    if pivot.isna().any().any():
+        raise ValueError("NaNs after pivot — a sentence/ROI is missing for the chosen UIDs")
+
+    # Sentence text per item_id (identical across participants/ROIs).
+    text_map = (df.drop_duplicates("item_id").set_index("item_id")["sentence"])
+    sents = [str(text_map.loc[i]) for i in pivot.index]
+    Y = pivot.to_numpy(dtype=np.float32)
+
+    # Noise ceiling for the language network, if the NC file is present.
+    nc = None
+    nc_files = sorted(data_dir.rglob("NC-allroi-data.csv"))
+    if nc_files:
+        ncdf = pd.read_csv(nc_files[0])
+        row = ncdf[ncdf["roi"] == "anatglasser_LHRH_LangNetw"]
+        if not row.empty:
+            nc = float(row["nc"].iloc[0])
+
+    meta = {"backend": "tuckute", "condition": condition, "uids": list(uids),
+            "rois": list(rois), "file": str(cands[0]), "n_items": Y.shape[0],
+            "n_voxels": Y.shape[1], "noise_ceiling_langnetw": nc}
+    return sents, Y, meta
