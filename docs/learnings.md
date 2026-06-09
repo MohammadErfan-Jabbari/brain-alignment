@@ -49,4 +49,14 @@ Pereira OSF bundle `Pereira_Materials.zip` turned out to contain only sentences 
 actually contains before treating a benchmark as "ready" — an open license and a 276 MB zip are not
 the same as having the fMRI matrix. This is why E001 ran on the hybrid path, not real responses.
 
+### L006 — 2026-06-09 — Cited "datasets" in the alignment literature routinely fail basic in-scope checks; verify before assuming anything
+
+Three related sub-lessons from building the dataset registry:
+
+(1) Two datasets cited in alignment papers turned out not to be usable neural data on inspection: zhu-2025 is monkey motor / mouse visual cortex data (non-language, out of scope), and yin-2025 "Association" is a synthetic GPT-4 NLP fine-tuning set whose neural ground truth is just Narratives — not a new neural dataset at all. Do not assume a dataset cited in an alignment paper is (a) in scope, (b) a real neural dataset, or (c) not already covered by a benchmark you have. Check modality and source first.
+
+(2) Packaged benchmarks (neural-nlp/brain-score) routinely differ from original papers on subject count. Multiple registries showed n_packaged < n_paper. Always record which subset a number refers to and note the discrepancy; a brain-score leaderboard number may not reflect full-cohort power.
+
+(3) License is often NOT STATED for OSF-hosted data (Fedorenko, Blank, Tuckute, Le Petit Prince all had no explicit license on their OSF nodes). "Open" access does not mean "known license." Treat license as unverified until the actual data files are inspected; record it as NOT STATED, not assumed.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->
