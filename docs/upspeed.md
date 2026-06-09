@@ -1,39 +1,37 @@
 # Upspeed — read first, write last
 
-**Last updated:** 2026-06-09 (Session 3 — analysis — dataset registry + paper-repos corpus)
+**Last updated:** 2026-06-10 (Session 4 — working — real-data A2 pass + inversion reframe)
 
 ## Current state
 
-Phase = **Map → Claim/Design**. The dataset landscape is now fully catalogued (`05-dataset-registry.md`). 21 paper repos are shallow-cloned locally for inspection. The pilot harness (E001) is built, anti-confound-baked, and validated on synthetic data — it is one real-data pull away from producing a scientific verdict. **Real neural data is still not on disk.**
+Phase = **Run → Judge**, climbing the R03 ladder. **The premise survived its first real-data test.** Real neural data is now on disk (two datasets), and the foundational A2 question — does an LM's representation predict brain activity *beyond confounds* — is **answered YES on real data** (E002). The thesis is no longer blocked on data or on the feasibility-of-signal question. The open risk has moved up the ladder to **A3** (does the signal *buy* anything practical).
 
-One live decision is open before the first pull: **re-evaluate D008 (LeBel primary) against denizenslab CC0** — the registry surfaced denizenslab as the fastest open path (regression-ready, working code, CC0 license) and Tuckute 2024 as a high-noise-ceiling candidate (r≈0.56). This must be resolved before pulling anything.
+Erfan's overnight "use fMRI to train the LM" idea was interrogated from first principles and against the literature: it is **real but largely already published** (brain-tuning, text LMs included). The unscooped contribution is narrower and is written up in **`reports/R03`** — read it.
 
-## What was done (Session 3 — analysis)
+## What was done (Session 4 — working)
 
-1. **`docs/05-dataset-registry.md`** built and committed (cd79447). 11 neural/behavioral datasets with full feature profiles (modality, subjects, stimuli, license, access, noise ceiling, use-case fit, status). Key findings: zhu-2025 is non-language (out of scope), yin-2025 "Association" is synthetic NLP not a neural dataset (AUX), Tuckute 2024 is a serious PRIMARY candidate (noise ceiling r≈0.56). Division of labour between `04`/`R02`/`05` clarified and written into each file.
-2. **Paper-repos reference corpus** built and committed (8178046): `scripts/paper-repos.tsv` (manifest) + `scripts/clone_paper_repos.sh` (idempotent shallow-clone). Ran it: 21 repos in `data/paper-repos/` (~8.6 GB, gitignored), 0 failures. Resolved two open URLs from R02 (feghhi, merlin).
-3. **L006** appended to `docs/learnings.md` (dataset provenance discipline).
+1. **Two real datasets staged (D013).** Tuckute 2024 (`data/tuckute2024/`, real ROI-level, 1000 sentences × 5 LH lang ROIs + noise ceilings) and LeBel ds003020 UTS03 (`data/lebel_ds003020/preprocessed_data/UTS03/`, ~20 GB voxelwise, **HDF5 response matrix verified present** — L005). Pulled via `osfclient` + anonymous S3 `awscli` (no DataLad needed).
+2. **E002 ran — A2 PASS on real data.** `scripts/run_encoding_feasibility.py` + `load_tuckute`. Trained unique mid-layer R²: gpt2 +0.0200, gpt2-medium +0.0187, **Qwen2.5-0.5B +0.0362** (best, 10% of NC); untrained controls **negative** across 3 seeds. → `experiments/E002_*.md`, `outputs/E002_tuckute_feasibility.json`.
+3. **R03 written** — first-principles direction doc: info-budget bound (brain = weak regularizer), the 2025–26 scooping map, 3 framings (F1 distillation / F2 low-data / F3 fMRI-free proxy), kill-gated ladder. + canonical note `moussa-2025_brain-tuning-speech-lms.md`, landscape update, L007/L008.
 
-## What to do next
+## What to do next (R03 ladder order)
 
-1. **Re-evaluate D008: LeBel ds003020 vs denizenslab CC0 vs Tuckute 2024.** Compare noise ceiling, subject count, download size, existing loader. Make the decision, record it. This is a short working-session task before any data pull.
-2. **Pull the chosen dataset (one subject).** Verify the fMRI matrix is actually present in the download (L005 — don't assume). Keep under a few GB.
-3. **Re-run E001 on real neural data** (`--backend <chosen>`) — this is the actual scientific verdict on A1/A2.
-4. **Decide $\mathcal{L}_{\text{brain}}$** (frozen encoding-map loss vs CKA proxy vs trainable head) on real data. Write as a design note.
-5. **`paper-digest`** Merlin & Toneva 2026 and LeBel 2023 — still pending from prior sessions. Needed for G1 reframe check and literature notes.
+1. **Layer 1 — is the signal a lever?** Brain-tune Qwen2.5-0.5B (or GPT-2) on Tuckute; verify unique R² *rises* with the brain loss. Cheapest next step — Tuckute is wired, harness exists. The first **working** experiment of the next session.
+2. **LeBel time-series adapter** (FIR/lag, contiguous story splits) — makes the powered voxelwise benchmark runnable. Data on disk; loader is the work. **Not a config swap** (correcting earlier optimism).
+3. **Layer 2 (A3)** — does induced/preserved alignment buy OOD generalisation or low-data sample-efficiency? The untested assumption; the thesis's real risk now.
+4. **Decide $\mathcal{L}_{\text{brain}}$ form** on real Tuckute data (frozen encoding map vs CKA proxy vs trainable head — D010 still open).
+5. **`paper-digest`** Merlin&Toneva 2026, Bilgin/Wehbe 2026 (text-LM brain-tuning), LeBel 2023, arXiv 2602.07547 (compression-robustness counter-evidence).
 
 ## Blockers
 
-- **Real neural data not yet on disk.** This is the only blocker that matters. Nothing else is rate-limiting.
-- D008 LeBel-primary decision should be re-examined before pulling (denizenslab CC0 and Tuckute 2024 are now credible alternatives).
+- **None rate-limiting.** Data is staged, signal is confirmed real. The next steps are method/experiment work, not data or feasibility gates.
+- Framing watch: pitch the thesis as **alignment-guided distillation at matched budget (F1) / low-data regularizer (F2)**, NOT "use fMRI to train an LM" (scooped). Must engage arXiv 2602.07547 (compression already preserves alignment → compete on the trade-off curve).
 
 ## Key facts
 
-- **Run Python:** always `uv run` (`.venv`, Python 3.11). `export HF_HOME=/home/centcom/data/hf-cache`.
-- **Pilot:** `uv run python scripts/run_toy_pilot.py --config configs/toy_pilot.json [--smoke]`. See `scripts/README.md`.
-- **Compute:** 4× L40S, single node, background processes for long runs.
-- **Data staged:** `data/pereira/Pereira_Materials/` (stimuli, GloVe, ROI masks — no neural responses). `data/paper-repos/` (21 shallow-cloned repos, gitignored).
-- **Dataset registry:** `docs/05-dataset-registry.md` — full landscape. Tuckute 2024 (r≈0.56 noise ceiling, 165 subjects, 2.7k sentences) is now a serious PRIMARY candidate alongside LeBel.
-- **denizenslab CC0:** fastest open path — regression-ready, working code in `speech-llm-brain` repo, CC0 license, ~50 subjects, reading + listening. Re-evaluate before pulling LeBel.
-- **Git:** `main`. Commit continuously and atomically (D007); push only when asked.
-- **GateGuard hooks disabled** for this repo via `.claude/settings.json` (D012).
+- **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache`. GPUs: 4× L40S (use a free index via `CUDA_VISIBLE_DEVICES`). Background long runs via the harness background runner (plain `nohup &` died silently once this session — prefer the harness mechanism).
+- **E002 rerun:** `CUDA_VISIBLE_DEVICES=0 HF_HUB_OFFLINE=1 uv run python scripts/run_encoding_feasibility.py --models gpt2 gpt2-medium Qwen/Qwen2.5-0.5B --untrained-seeds 0 1 2`
+- **Datasets on disk:** Tuckute (`data/tuckute2024/data/`), LeBel UTS03 (`data/lebel_ds003020/preprocessed_data/UTS03/`), Pereira stimuli (`data/pereira/`), 21 paper repos (`data/paper-repos/`). All gitignored.
+- **Download tooling** (`osfclient`, `awscli`, `boto3`, `h5py`) is `uv pip install`ed into `.venv` (not in pyproject — transient infra).
+- **Direction doc:** `reports/R03_brain-as-training-signal.md` is now the live map of the idea + ladder.
+- **Git:** `main`. Commit continuously/atomically (D007); push only when asked. GateGuard hooks disabled (D012).

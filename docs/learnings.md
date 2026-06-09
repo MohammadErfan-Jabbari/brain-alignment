@@ -59,4 +59,12 @@ Three related sub-lessons from building the dataset registry:
 
 (3) License is often NOT STATED for OSF-hosted data (Fedorenko, Blank, Tuckute, Le Petit Prince all had no explicit license on their OSF nodes). "Open" access does not mean "known license." Treat license as unverified until the actual data files are inspected; record it as NOT STATED, not assumed.
 
+### L007 — 2026-06-10 — A2 holds on real data: trained LMs carry unique language-network signal; untrained do not
+
+The question synthetic fMRI could not answer (L004) is now answered on real neural data (Tuckute 2024, E002). Trained LM mid-layer representations predict LH-language-network BOLD with **positive unique R²** after length/position/static-embedding subtraction under contiguous splits (gpt2 +0.020, gpt2-medium +0.019, Qwen2.5-0.5B +0.036), while same-architecture **untrained** networks score **negative** across 3 seeds. The trained−untrained gap (+0.030 to +0.050) is the honest signal; NC-normalised it is 5–10% of a 0.35 ceiling. Three durable points: (1) the anti-confound harness discriminates correctly on real data, not just synthetic — it neither rubber-stamps nor erases. (2) Model quality tracks alignment (Qwen > GPT-2), the expected ordering. (3) Absolute ROI-level R² is small *by design*; always report it NC-normalised and against the untrained control, never raw. This is an A2 pass, not an A3 or distillation claim — the ladder (R03 §5) climbs one rung.
+
+### L008 — 2026-06-10 — The inversion idea ("use fMRI to train an LM") is already published, text LMs included
+
+Erfan's overnight idea — invert alignment from measurement to training signal — is real but **largely scooped** as of 2025–26: brain-tuning for speech (Moussa/Toneva ICLR'25, NeurIPS'25) and **for text LMs** (Bilgin/Wehbe ICLR'26, GPT-2 + LLaMA-2), plus causal proof alignment is load-bearing at matched perplexity (Merlin/Toneva ICLR'26). The unscooped slice is narrow and specific: brain alignment as the objective **in distillation/compression at matched student budget**, framed as a *trade-off curve* (because post-hoc compression already preserves alignment — arXiv 2602.07547). Lesson: before committing to a "novel inversion," run the focused prior-art sweep first — the bare idea was three published papers deep. The first-principles info-budget argument (brain = weak regularizer, R03 §2) is what locates the genuinely open corner. Captured in R03.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->
