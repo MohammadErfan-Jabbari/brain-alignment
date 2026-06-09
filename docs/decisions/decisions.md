@@ -101,3 +101,23 @@ data (still the open "decide the form of $\mathcal{L}_{\text{brain}}$" task).
 **Rationale:** The head overfits the contiguous train block on synthetic data; a frozen map or geometric
 (CKA) loss may generalise better and avoids a learned head. Decide empirically once neural data is staged.
 **Reverses if:** the head form wins on real data, or a different proxy proves superior.
+
+### D011 — 2026-06-09 — Two explicit session modes: working (produce evidence) vs analysis (communicate it)
+
+**Decision:** Formalize that work in this repo runs in one of two declared modes. A **working session**
+takes a task/goal and produces evidence — implement, run, analyze, store results (phases Design → Run →
+Judge; outputs in `../experiments/`, decisions, learnings). An **analysis session** consumes and
+communicates that evidence — recall what was done, explain concepts, digest results, produce figures,
+write manuscript/report sections (phases Argue → Compound; outputs in `../manuscript/`). Each session
+declares its mode at the start; the close ritual and `upspeed.md` framing follow the mode. Binding rule:
+**an analysis session may only report numbers a working session actually recorded in `docs/`** — a
+missing number is a gap to flag, never one to invent. Encoded in `../../CLAUDE.md` ("Two kinds of
+session") and `../03-methodology.md` ("Two session modes"); analysis outputs home created at
+`../manuscript/`.
+**Rationale:** The two modes have opposite self-deception risks — a working session over-fits the hoped
+result (guarded by kill criteria / locked design / anti-confound), an analysis session narrates past the
+evidence (guarded by the cite-or-flag rule). Naming the seam keeps each honest and tells every session
+which standard applies. Pure adaptive semistructure: the distinction recurs every session, so it earns a
+rule. No new machinery — just a mode label and an output home.
+**Reverses if:** the modes blur in practice (most sessions cross the seam anyway) and the label stops
+adding clarity, or a third recurring mode appears that the binary doesn't capture.
