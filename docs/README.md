@@ -22,6 +22,7 @@ We do *not* run the heavy Nexus stage-machine here. See `03-methodology.md` for 
 | `timeline/` | Immutable session logs `YYYY-MM-DD-HHMM.md`. The path we actually walked. | End of each session |
 | `hypotheses/` | One file per hypothesis (`HNNN_…`). Falsifiable claim + kill criteria. | Stage: Claim onward |
 | `experiments/` | One file per experiment: design + iteration log + results. | Stage: Design onward |
+| `reports/` | Living per-topic syntheses (`R01…`). Rewritten in place as new info lands. Distinct from canonical notes (per-paper) and the landscape map (frontier). **Analysis-session output.** | When a topic gains info |
 | `manuscript/` | The thesis: drafted prose sections + final selected figures. **Analysis-session output.** | Analysis sessions |
 | `literature/canonical/` | One note per paper actually read (self-contained copies). | When a paper is read |
 | `literature/_prior-work/` | Provenance: the prior dossier, oracle review, origin idea (frozen, read-only history). | Never edited |
@@ -36,3 +37,4 @@ We do *not* run the heavy Nexus stage-machine here. See `03-methodology.md` for 
 - **Negative results are results.** Record them in `learnings.md` and the relevant hypothesis.
 - Dates are absolute (`2026-06-08`), never "today" / "last week".
 - Session logs are immutable; `upspeed.md` is overwritten each session (history lives in `timeline/`).
+- **Prose is not hard-wrapped: one line per paragraph (and per bullet/cell), let editors soft-wrap.** Hard wraps render as broken double-spaced text when an editor inserts blank lines between physical lines. New files follow this; existing hard-wrapped files get reflowed lazily when next edited.
