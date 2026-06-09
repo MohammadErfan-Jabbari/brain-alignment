@@ -9,6 +9,25 @@ linear mapping between LLM middle layers and brain activation as a usable signal
 **brain-alignment-guided distillation** as the first concrete use case. It is a single-paper research
 workspace, not a software product.
 
+## Two kinds of session — know which you're in
+
+Work in this repo runs in one of two modes. **Decide which at the start of every session** (the user
+usually signals it; if not, infer from the ask and say which you assumed). They have different jobs,
+different outputs, and a different close ritual. (Decision D011; mechanics in `docs/03-methodology.md`.)
+
+| | **Working session** | **Analysis session** |
+|---|---|---|
+| Trigger | "do X / run X / implement X / get the verdict on X" | "explain X / why did we X / make a figure of X / write the X section / digest the results" |
+| Epistemic phases | **Design → Run → Judge** (produce evidence) | **Argue → Compound** (consume + communicate evidence) |
+| Primary output | code, runs, results in `docs/experiments/`, decisions, learnings | understanding (chat), figures, manuscript/report prose in `docs/manuscript/` |
+| Touches the science? | **Yes** — generates new evidence | **No** — reads existing evidence; never invents a number |
+| Close ritual | timeline log + REPLACE `upspeed.md` framed on *what ran / what's next to run* | timeline log + REPLACE `upspeed.md` framed on *what's now understood / written / figured* |
+
+The non-negotiable that binds both: **an analysis session may only report numbers that a working
+session actually produced and recorded.** If a figure or a paragraph needs a number that isn't in the
+`docs/` brain, that is a gap to flag — not a number to invent or estimate. Raw evidence stays separate
+from interpretation in both modes.
+
 ## Read this first, every session
 
 1. `docs/upspeed.md` — where we are, what's next, blockers. **Always read before doing anything.**
@@ -83,8 +102,11 @@ port the Nexus v2 stage-machine — see `docs/decisions/decisions.md` D001.
 
 ## Session close ritual
 
-End every working session by running `session-logger` (or doing it by hand): immutable timeline log,
-refreshed `upspeed.md`, moved tasks, and any hard-won lesson appended to `docs/learnings.md`.
+End **every** session — working or analysis — by running `session-logger` (or doing it by hand):
+immutable timeline log, refreshed `upspeed.md`, moved tasks, and any hard-won lesson appended to
+`docs/learnings.md`. The logger asks which mode the session was and frames the close accordingly (a
+working session logs *what ran / what's next to run*; an analysis session logs *what's understood /
+written / figured*). See "Two kinds of session" above and `docs/03-methodology.md`.
 
 ## Maintenance
 
