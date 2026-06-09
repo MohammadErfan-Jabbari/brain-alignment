@@ -8,9 +8,13 @@
 
 ## The gap (one sentence)
 
-The literature *measures* LLM↔brain alignment and shows it behaves interestingly under scale and
-compression, but **no one has used brain alignment as the distillation objective and then tested
-whether preserving it buys anything practical.** That untested loop is the contribution space.
+The literature *measures* LLM↔brain alignment, and — as of 2025–26 — *also uses fMRI as a training
+signal* (brain-tuning: Moussa/Toneva for speech, Bilgin/Wehbe for text LMs). What no one has done is
+use brain alignment as the objective **in distillation/compression at a matched student budget**, then
+test whether *preserving* it (vs a perplexity-only student) buys anything practical. That untested loop
+is the contribution space — and it must survive one live complication: brain alignment is already fairly
+robust to *post-hoc* compression (arXiv 2602.07547), so the thesis must show distillation differs, or
+that it improves the alignment/utility *trade-off curve* at matched compression. See R03.
 
 ## Prior art, organized
 
@@ -22,6 +26,8 @@ whether preserving it buys anything practical.** That untested loop is the contr
 | Oota et al. 2026 | `oota-2026_brain-encoding-scale-compression` | Benchmark perf and brain alignment **partially dissociate** under compression; alignment saturates ~3B and is fairly robust to AWQ/SmoothQuant (GPTQ worse). **This dissociation is the primary falsifiability anchor.** |
 | Oota et al. 2023 | `oota-2023_joint-linguistic-processing-brain-lms` | Alignment is built largely of **syntactic structure** that varies with layer depth → compression that destroys mid-layer syntax should be detectable. |
 | Aw & Toneva 2023 | `aw-2023_narrative-summarization-improves-brain-alignment` | Training objective shapes brain-relevant structure **beyond** next-word prediction → alignment is learnable, not just emergent from scale. |
+| Moussa et al. 2025 (ICLR/NeurIPS) | `moussa-2025_brain-tuning-speech-lms` | **Closest prior to our loop.** L2-voxelwise fMRI loss fine-tunes ~90M speech LMs; +30% late-language alignment, consistent downstream gains, <0.7% of training data. Speech only; no compression/distillation at matched budget; text LMs untested → our contribution space. |
+| Bilgin, Wehbe et al. 2026 (ICLR) | *(to digest)* | **Text-LM brain-tuning exists.** fMRI-augmented training of GPT-2 (124M) and LLaMA-2 (7B) on Friends fMRI beats text-only, scales with size, generalises across subjects, helps VL-Commonsense. Models grow (add a brain module), **not** compress → the distillation gap still holds. |
 | Merlin & Toneva 2024 | `merlin-2024_beyond-next-word-brain-alignment` | A residual alignment component survives controls for word-level + next-word prediction → there is a **non-trivial target** standard KD won't capture. |
 | Alkhamissi 2025 | `alkhamissi-2025_llms-outgrow-human-language-network` | Larger LMs can outgrow the human language network — bears on the saturation/scale story. |
 | Yin 2025 | `yin-2025_associative-memory-improves-lm-brain-alignment` | Associative-memory mechanisms improve alignment — a possible lever. |
