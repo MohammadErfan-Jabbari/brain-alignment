@@ -39,6 +39,8 @@ from interpretation in both modes.
 `docs/` is the persistent research brain — see `docs/README.md` for the full map. If something
 matters past this session, it goes in `docs/`, not just in chat.
 
+**Reports (`docs/reports/`) are written full width — one line per paragraph, no hard wrapping.**
+
 ## How we run code
 
 - **Always `uv run`.** This is a minimal uv project (Python 3.11, `.venv/`, `[tool.uv] package=false`
