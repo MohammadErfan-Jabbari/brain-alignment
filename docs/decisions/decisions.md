@@ -139,3 +139,25 @@ purpose is writing docs. Tradeoff accepted: the env var is static, so working se
 **Reverses if:** we want the gate back for code-heavy working sessions (unset the relevant id, or set
 it only in the gitignored `settings.local.json`), or a future incident shows the gate would have caught
 a real mistake.
+
+### D013 — 2026-06-10 — Stage TWO real datasets: Tuckute 2024 (fast Layer-0/1 testbed) + LeBel UTS03 (powered Layer-3 primary)
+
+**Decision:** Re-evaluated D008's "LeBel primary, pull first" against the registry's denizenslab/Tuckute
+candidates and chose to stage **both** ends of the design space rather than one. (1) **Tuckute et al. 2024**
+(OSF `ru38b`, `data.tar`, ~8 MB) — 1000 isolated baseline sentences × 5 LH language ROIs, 5-train-participant
+average, published noise ceiling; downloaded + extracted to `data/tuckute2024/`. (2) **LeBel `ds003020`,
+subject UTS03** preprocessed responses (~20 GB, 84 story HDF5s) — synced from OpenNeuro S3
+(`aws s3 sync --no-sign-request`, no login, no DataLad needed) to `data/lebel_ds003020/preprocessed_data/UTS03/`.
+**Tools:** `osfclient` + `awscli` `uv pip install`ed into the venv (transient infra, not pyproject deps;
+DataLad/git-annex were unavailable and unnecessary — anonymous S3 sufficed).
+**Rationale:** Tuckute is tiny, real, ROI-level, highest-ceiling, and — being isolated sentences — sidesteps
+the temporal-autocorrelation leakage of naturalistic data; it is the fastest path to a real-data A2 verdict
+(E002, run this session) and matches the existing sentence-level harness almost directly. LeBel stays the
+D008 *powered within-subject thesis-result* benchmark (CC_norm ceiling) but needs a time-series/FIR adapter,
+so it is staged-not-run. Keeping both means Layer-0/1 work starts immediately (Tuckute) without blocking the
+powered Layer-3 result (LeBel). **D008 is refined, not reversed:** LeBel remains primary-for-the-result;
+Tuckute is primary-for-the-pilot. denizenslab was passed over for now (no published noise ceiling; Tuckute
+gives a real one at comparable friction).
+**Reverses if:** Tuckute's ROI-level coarseness proves too low-dimensional to discriminate the distillation
+arms (then promote LeBel voxelwise sooner, or pull a denizenslab subject), or LeBel's adapter proves
+impractical.
