@@ -17,5 +17,7 @@ Rules:
 - `R01_llm-brain-mapping.md` — the linear map between LLM internals and brain activation: what it is,
   what drives it, how it behaves under scale/compression, and how to measure it without fooling
   yourself.
+- `R02_datasets-and-code.md` — datasets & code provenance across the reading list: which fMRI/ECoG
+  sets are open and where to pull them, and which encoding/distillation repos we can reuse.
 </content>
 </invoke>
