@@ -1,0 +1,35 @@
+# Paper code repos to clone as reference examples.
+# Cloned (shallow, --depth 1) into data/paper-repos/ by scripts/clone_paper_repos.sh.
+# This manifest is TRACKED (reproducible "what"); the clones are gitignored (the bytes).
+# Format: <url><TAB><category><TAB><paper/key>   — blank lines and #-comments ignored.
+
+# --- Brain-alignment: encoding models + anti-confound ---
+https://github.com/subbareddy248/linguistic-properties-brain-alignment	brain-align	oota-2023
+https://github.com/subbareddy248/speech-llm-brain	brain-align	oota-2024
+https://github.com/gab709/brain-llm-beyond-next-word	brain-align	merlin-2024
+https://github.com/awwkl/brain_language_summarization	brain-align	aw-2023
+https://github.com/mtoneva/brain_language_nlp	brain-align	toneva-baseline
+https://github.com/ebrahimfeghhi/beyond-brainscore	brain-align	feghhi-2024
+https://github.com/RiverGao/scaling_finetuning	brain-align	gao-2024
+https://github.com/lemonsis/Association	brain-align	yin-2025
+https://github.com/zhuyu-cs/PNBA	brain-align	zhu-2025
+https://github.com/gretatuckute/drive_suppress_brains	brain-align	tuckute-2024
+
+# --- Brain-Score lineage (used by feghhi/alkhamissi; packages Pereira/Fedorenko/Blank) ---
+https://github.com/mschrimpf/neural-nlp	brainscore	schrimpf-2021
+https://github.com/brain-score/language	brainscore	brainscore-language
+
+# --- Data loaders worth reusing ---
+https://github.com/HuthLab/deep-fMRI-dataset	data-loader	lebel-2023
+https://github.com/snastase/narratives	data-loader	narratives
+https://github.com/languageMIT/naturalstories	data-loader	futrell-2018
+
+# --- Representation-similarity / candidate alignment-loss ---
+https://github.com/minyoungg/platonic-rep	repr-sim	huh-2024
+
+# --- Distillation / compression baselines ---
+https://github.com/microsoft/unilm	distill	wang-2020-minilm
+https://github.com/LC97-pku/MGSKD	distill	liu-2022
+https://github.com/JetRunner/MetaDistil	distill	zhou-2022
+https://github.com/jiachenwestlake/MMKD	distill	jia-2024
+https://github.com/OpenRLHF/OpenRLHF	distill	zhang-2025
