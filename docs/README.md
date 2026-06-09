@@ -18,6 +18,8 @@ We do *not* run the heavy Nexus stage-machine here. See `03-methodology.md` for 
 | `01-research-landscape.md` | Literature frontier map: prior art, the gap, the falsifiable assumptions, anti-confound protocol, baselines. | When literature shifts |
 | `02-environment.md` | centcom facts: GPUs, disk, uv, cached models, datasets, how to run. | When the environment changes |
 | `03-methodology.md` | The lightweight idea→evidence path we follow, and what we deliberately dropped from Nexus and why. | Rarely |
+| `04-data-benchmarks.md` | Powered survey + decision (D008) on the four language-fMRI benchmarks we committed to. | When the benchmark choice shifts |
+| `05-dataset-registry.md` | Living watchlist of *every* dataset that might be relevant (neural/behavioral/NLP), with features + use-case fit + status. | When a candidate dataset is found |
 | `decisions/decisions.md` | Append-only decision log (ADR-style, D001…). | When a real decision is made |
 | `timeline/` | Immutable session logs `YYYY-MM-DD-HHMM.md`. The path we actually walked. | End of each session |
 | `hypotheses/` | One file per hypothesis (`HNNN_…`). Falsifiable claim + kill criteria. | Stage: Claim onward |
