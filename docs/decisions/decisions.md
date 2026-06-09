@@ -121,3 +121,21 @@ which standard applies. Pure adaptive semistructure: the distinction recurs ever
 rule. No new machinery — just a mode label and an output home.
 **Reverses if:** the modes blur in practice (most sessions cross the seam anyway) and the label stops
 adding clarity, or a third recurring mode appears that the binary doesn't capture.
+
+### D012 — 2026-06-09 — Disable the noisy ECC fact-forcing/doc-warning hooks for this repo
+
+**Decision:** Create tracked `../../.claude/settings.json` with
+`env.ECC_DISABLED_HOOKS = pre:edit-write:gateguard-fact-force,pre:bash:gateguard-fact-force,pre:write:doc-file-warning`.
+Hook profile stays `standard`; every other ECC hook (push guard, context monitor, MCP health, session
+lifecycle/metrics) keeps running. Settles the Session-2 friction item.
+**Rationale:** The GateGuard fact-forcing gate fires on the *first* Edit/Write/Bash and demands a
+generic "list importers / data schemas / quote the instruction" preamble. In a docs-heavy solo research
+repo (mostly markdown with occasional small Python scripts) those questions are near-empty and the gate
+is pure latency — it fired 6× while editing markdown this session. Real rigor here is enforced by the
+methodology (oracle-reviewer, predeclared kill criteria, anti-confound protocol, the D011 cite-or-flag
+rule), not a per-edit gate. `doc-file-warning` is not a safety control and is noise in a repo whose
+purpose is writing docs. Tradeoff accepted: the env var is static, so working sessions editing
+`scripts/*.py` also lose the gate; judged acceptable for a single-owner repo.
+**Reverses if:** we want the gate back for code-heavy working sessions (unset the relevant id, or set
+it only in the gitignored `settings.local.json`), or a future incident shows the gate would have caught
+a real mistake.

@@ -30,7 +30,8 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 
 ## Infrastructure / housekeeping
 
-- [ ] Consider disabling the GateGuard fact-forcing hook for long autonomous runs (Session-2 friction).
+- [x] 2026-06-09 — **Disabled the GateGuard fact-forcing + doc-file-warning ECC hooks** for this repo via
+      `.claude/settings.json` `ECC_DISABLED_HOOKS` (D012). Settles the Session-2 friction.
 
 ## Done
 
