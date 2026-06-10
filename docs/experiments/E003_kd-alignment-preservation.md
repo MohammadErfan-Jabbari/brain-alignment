@@ -89,11 +89,44 @@ CUDA_VISIBLE_DEVICES=0 uv run python scripts/run_kd_alignment.py --seeds 0 1 2
 
 ## Results
 
-_(pending run)_
+Ran 2026-06-10 on 4× L40S (cold arm on GPU 0, warm controls on GPU 3, parallel; ~58 min wall). KD corpus = 96k wikitext-103 sentences (2k held out for perplexity), deduped against Tuckute. Trained arms over 3 seeds; references deterministic. The two parallel runs scored the same references on different GPUs and **reproduced them to ~0.0003** — the measurement is stable. Positive controls behave: off-the-shelf gpt2 ≈ teacher (ρ′≈1.0), untrained gpt2 at the floor.
+
+**Headline table** — unique R² at the fixed verdict layer (L7 for 12L gpt2-arch, L14 teacher, L3 distilgpt2), NC-normalised (NC=0.353), floor-anchored retention ρ′=(A−A₀)/(A_T−A₀) with bootstrap 95% CI, Δ=A_T−A_s, p(no-drop)=bootstrap P(no drop from teacher), held-out perplexity.
+
+| Arm | init / objective | unique R² | NC-norm | ρ′ [95% CI] | Δ vs teacher | p(no-drop) | ppl |
+|---|---|---|---|---|---|---|---|
+| **teacher** gpt2-medium | pretrained | +0.0188 | 0.053 | — | — | — | 74 |
+| **gpt2** | pretrained (conventional) | +0.0195 | 0.055 | 1.02 [0.77, 1.27] | ≈0 | 0.57 | 105 |
+| **lmft_warm** | warm + plain LM finetune | +0.0174 | 0.049 | 0.95 [0.81, 1.13] | +0.0016 | 0.265 | 44 |
+| **kd_warm** | warm + pure logit KD | +0.0144 | 0.041 | 0.84 [0.67, 1.04] | +0.0046 | 0.061 | 95 |
+| **distilgpt2** | real distillation (6L/82M, +hidden-cosine) | +0.0076 | 0.021 | 0.60 [0.42, 0.84] | +0.0119 | 0.001 | 169 |
+| **kd_cold** | **random + pure logit KD** | +0.0005 | 0.002 | 0.37 [0.14, 0.58] | +0.0181 | 0.000 | 477 |
+| **untrained** | random (floor) | −0.0102 | −0.029 | 0 | — | — | ~50000 |
+
+(distilgpt2 ρ′ is anchored to its own teacher gpt2, not gpt2-medium.) Raw output: `outputs/E003_cold.json`, `outputs/E003_warm.json`.
+
+**The robust finding — a monotone alignment gradient.** Ordered by how much the representation was rebuilt through the KD channel rather than inherited from conventional pretraining: conventional gpt2 (ρ′≈1.0) > warm-KD (0.84) > full distillation distilgpt2 (0.60) > from-scratch cold-KD (0.37) > floor (0). The **rank order is robust to PCA rank** (holds at n_pca ∈ {25,50,100}) even though the absolute magnitudes are not (see below). From-scratch logit KD lands far below the teacher (Δ=+0.018, p<0.001) despite learning language (ppl 50000→477); a real published distillation retains only ~60% of its teacher's alignment above floor (Δ=+0.012, p=0.001). **So the kill-test did *not* return "perplexity-only KD preserves alignment by default"** — the `oota-2026`-style preserve-for-free outcome that would have complicated F1 the way it complicates quantization.
+
+**The over-reach the post-run adversarial review caught — alignment co-varies with perplexity.** The tempting next claim — "KD sheds alignment *beyond* the perplexity it costs" — is **not supported at this benchmark.** Across the five trained/distilled points, alignment is tightly predicted by log-perplexity (Pearson r=−0.88); fitting align = 0.050 − 0.0079·ln(ppl) puts kd_warm **exactly on the line** (residual +0.0001) and leaves off-the-shelf gpt2 as the lone outlier *above* it (+0.006). The two dissociations that would separate "KD-specific shedding" from "alignment tracks LM quality" are both **marginal, not significant**: kd_warm has lower alignment than gpt2 despite better ppl, but bootstrap P(gpt2≤kd_warm)=0.092; and at matched budget lmft_warm beats kd_warm on both ppl and alignment, but P(lmft≤kd_warm)=0.085. Both lean on a single unreplicated gpt2 and (under a paired-fold test) on one fold carrying ~44% of the signal. The cold-arm result is further confounded with **under-training** (ppl 477 = 4.5× the teacher) — its near-floor alignment partly just reflects "a worse LM," exactly the convergence-guard caveat the design predeclared.
+
+**PCA-rank sensitivity (a real caveat on magnitudes).** The absolute unique-R² at the verdict layer declines with PCA rank for every model, and the two confounded arms **flip sign**: kd_cold = +0.009 / −0.004 / −0.010 and distilgpt2 = +0.017 / +0.008 / −0.004 at n_pca = 25 / 50 / 100. The gradient's *ordering* is preserved at every rank, but the quoted shed fractions (16–63%) should be read as rank-dependent, not exact.
 
 ## Interpretation
 
-_(pending run)_
+**Verdict (predeclared decision rule): MODERATE / PARTIAL HEADROOM — route to confirmation, do not over-claim.** By the locked rule, kd_cold at ρ′=0.37 (CI [0.14, 0.58]) is in the PARTIAL band (0.33 < ρ′ < 0.80), bordering LARGE; the drop from teacher is highly significant. So the kill-test cleanly rules out the *preserve-for-free* outcome — there is genuine alignment headroom that perplexity-only KD does not recover, growing with compression aggressiveness — **but it does not license "F1 has a confirmed job" as a settled causal claim**, because the headroom co-varies with perplexity and the KD-specific dissociation is only p≈0.1 at this ROI-coarse (5-dim, NC≈0.35) benchmark.
+
+**What this means for F1, stated honestly.** F1 is neither killed nor confirmed by E003. It is *not* in the `oota-2026` trap (alignment is plainly lost under real/aggressive distillation, not preserved by default), so the thesis cell stays open and motivated. But the load-bearing question — *is there alignment recoverable beyond what the perplexity objective already implies?* — is unresolved here. That is the right question for the next experiment, and E003's deflation sharpens its design precisely: **E004 must compare alignment-guided KD (λ_brain>0) against perplexity-only KD at *matched perplexity*, not just matched budget.** If the brain term buys alignment at matched ppl, that is exactly the dissociation E003 could not establish — and it is the only evidence that would convert "headroom" into "confirmed job." Per R04 §4 / `06` §4, F1 still lives on the rate–distortion trade-off curve; E003 shows the perplexity-only curve sits well below the teacher's alignment ceiling under aggressive compression, but cannot yet attribute that gap to the compression *objective* rather than to LM quality.
+
+**What licenses the next steps (two confirmations the design predeclared for a PARTIAL outcome):**
+1. **A converged cold arm** — re-run from-scratch logit KD to *matched perplexity* (not just matched step budget), to de-confound under-training from alignment shedding. Cheap follow-up; needs more KD compute or a smaller perplexity target.
+2. **LeBel UTS03 voxelwise** — the powered benchmark (thousands of voxels vs 5 ROIs) where a real ~0.005 gap is detectable; Tuckute is adequate only as a screen. Adapter is the pending Layer-3 work.
+3. **E004 itself** (alignment-guided KD vs perplexity-only KD at matched perplexity) is the experiment that actually tests F1.
+
+**Caveats carried forward:** ROI-coarse benchmark (screen, not powered); cold arm under-trained (ppl 4.5× teacher); distilgpt2 carries capacity + hidden-cosine confounds (so its retention is upper-bound-friendly); absolute magnitudes are PCA-rank-sensitive (ordering is not). Negative/qualified results count (charter, D007) — the kill-test did its job: it eliminated both the naive "F1 confirmed" over-read and the "F1 dead (preserve-by-default)" outcome, leaving one precise, well-scoped next experiment.
+
+## Post-run review (adversarial, integrated above)
+
+An Opus skeptic was tasked to *refute* the preliminary "F1 confirmed" read and succeeded on the causal claim: verified P(gpt2≤kd_warm)=0.092 (not significant), the r=−0.88 log-ppl fit with kd_warm on the line and gpt2 the outlier, the kd_cold/distilgpt2 PCA sign-flips, and that dropping the two confounded arms leaves no significant shed. Its verdict — "NEEDS-SOFTENING: the data support 'perplexity-only KD from scratch lands below teacher alignment, and alignment tracks LM quality,' but not 'KD sheds alignment beyond ppl'" — is adopted as the verdict above. What survives its attack: the from-scratch sub-teacher result (Δ=0.018, p<0.001, though under-training-confounded), the PCA-robust gradient *ordering*, the floor-anchored fixed-layer design, and cross-GPU reproducibility (~0.0003).
 
 ## Review (adversarial, pre-run — integrated into the locked design above)
 
