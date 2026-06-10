@@ -20,6 +20,7 @@ We do *not* run the heavy Nexus stage-machine here. See `03-methodology.md` for 
 | `03-methodology.md` | The lightweight idea→evidence path we follow, and what we deliberately dropped from Nexus and why. | Rarely |
 | `04-data-benchmarks.md` | Powered survey + decision (D008) on the four language-fMRI benchmarks we committed to. | When the benchmark choice shifts |
 | `05-dataset-registry.md` | Living watchlist of *every* dataset that might be relevant (neural/behavioral/NLP), with features + use-case fit + status. | When a candidate dataset is found |
+| `06-theory-grounding.md` | Maps Erfan's MSc coursework (Info Theory for ML + Probabilistic ML) to the thesis: the formal bounds/definitions/theorems behind R03's argument (MI generalization bound, DPI, conditional MI, rate-distortion), with pointers to the course notes under `data/course-material/`. | When a course concept becomes load-bearing |
 | `decisions/decisions.md` | Append-only decision log (ADR-style, D001…). | When a real decision is made |
 | `timeline/` | Immutable session logs `YYYY-MM-DD-HHMM.md`. The path we actually walked. | End of each session |
 | `hypotheses/` | One file per hypothesis (`HNNN_…`). Falsifiable claim + kill criteria. | Stage: Claim onward |

@@ -39,6 +39,16 @@ from interpretation in both modes.
 `docs/` is the persistent research brain — see `docs/README.md` for the full map. If something
 matters past this session, it goes in `docs/`, not just in chat.
 
+**Three external sources feed the thesis — use them, don't re-derive from them:** (1) the **papers**
+(`docs/literature/canonical/`, frontier map in `01-research-landscape.md`); (2) the **datasets**
+(`04-data-benchmarks.md`, `05-dataset-registry.md`); (3) Erfan's **master's coursework** in Information
+Theory for ML and Probabilistic ML, mapped to the thesis in **`docs/06-theory-grounding.md`**. The
+coursework is the math grounding: when a claim needs a formal bound/definition/theorem (the MI
+generalization bound, the data-processing inequality, conditional MI = "unique R²", rate-distortion =
+the F1 trade-off curve), cite the course note via `06-theory-grounding.md` instead of re-deriving it.
+Raw notes live under gitignored `data/course-material/` (already preprocessed — **do not re-OCR the
+lecture PDFs**; the `*_study.md`/`*_OCR.md` notes beat any fresh OCR pass).
+
 **Reports (`docs/reports/`) are written full width — one line per paragraph, no hard wrapping.**
 
 ## How we run code
