@@ -167,8 +167,8 @@ def build_xy(stories, model, tok, layer, subject="UTS03", trim=5, ndelays=4,
         ds = downsample_to_tr(wf, ws)                          # (n_tr, d)
         ds = zscore(ds[5 + trim:-trim], axis=0)                # feat[10:-5], matches source
         resp = load_response(st, subject)
-        resp = zscore(resp[trim:-trim], axis=0)                # BOLD[trim:-trim]
-        m = min(len(ds), len(resp))                            # guard off-by-one
+        resp = zscore(resp, axis=0)                            # BOLD as-is (LeBel get_response: no trim; feat[10:-5] aligns to it)
+        m = min(len(ds), len(resp))                            # guard tiny off-by-one
         Xs.append(ds[:m]); Ys.append(resp[:m]); lens.append(m)
     X = make_delayed(np.nan_to_num(np.vstack(Xs)), range(1, ndelays + 1))
     Y = np.nan_to_num(np.vstack(Ys))
