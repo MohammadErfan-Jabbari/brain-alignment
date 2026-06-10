@@ -112,11 +112,42 @@ CUDA_VISIBLE_DEVICES=1 uv run python scripts/run_brain_lever.py --model Qwen/Qwe
 | 2026-06-11 | design v2 | — | A/B shift + NC mismatch + expanded-nuisance finding verified in data; power sim done | re-locked: rotating folds, mse-primary, permuted-null, frozen-wte, Qwen-primary | re-check → implement → run |
 | 2026-06-11 | smoke (full-FT) | gpt2, 250 tune, λ=10 | **perplexity COLLAPSE** (gpt2 226, Qwen 865) | full fine-tune destroys the LM → L011 confound | switch to LoRA |
 | 2026-06-11 | smoke (LoRA) | gpt2, 250 tune, λ=10 | ppl preserved (~125); **`mse ≈ mse_perm` and `frozen ≈ frozen_perm`** | co-trained readout *absorbs* the MSE loss (non-brain-specific); frozen forced-movement also ≈ its null at this scale | run full powered verdict |
+| 2026-06-11 | FULL run | gpt2 (6 arms+λ-curve) + Qwen (mse/frozen/lm_only), 3 seeds × 5 folds | **Qwen mse − mse_perm = +0.0032 [+0.0006,+0.0058] (brain-specific)**; no arm raises Δ above base; frozen non-specific (regularizer) | PARTIAL → route to LeBel; D010 = mse-leaning (unconfirmed) |
 
 ## Results
 
-_TBD — populated after the run._
+Ran 2026-06-11 (LoRA, 3 seeds × 5 rotating folds; gpt2 GPU0 ~27 min, Qwen GPU3 ~28 min). Outputs `outputs/E004_brain_lever_{gpt2,Qwen}.json`; premises `outputs/E004_premises.json`. NC=0.491 (matched functional sub-ROIs). All Δ = held-out unique R² minus the **untuned base** on the same rotating fold; bootstrap 95% CI over (seed×fold).
+
+**Headline (verdict layer; gpt2 base unique R²=+0.0116, Qwen base=+0.0108):**
+
+| Substrate · arm | Δ vs base [95% CI] | **arm − own permuted** [95% CI] (brain-specificity) | arm − lm_only [95% CI] | ppl |
+|---|---|---|---|---|
+| **Qwen · mse** | +0.0025 [−0.0011, +0.0067] | **+0.0032 [+0.0006, +0.0058] ← excludes 0** | +0.0056 [+0.0031, +0.0089] | 205 |
+| Qwen · frozen | −0.0018 [−0.0055, +0.0013] | −0.0009 [−0.0058, +0.0023] | +0.0012 [−0.0005, +0.0028] | 184 |
+| Qwen · lm_only | −0.0031 [−0.0063, +0.0005] | — | — | 256 |
+| gpt2 · frozen | −0.0009 [−0.0030, +0.0012] | −0.0001 [−0.0018, +0.0014] | +0.0028 [+0.0002, +0.0062] | 177 |
+| gpt2 · mse_l2 | −0.0023 [−0.0042, −0.0005] | (mse_perm −0.0022) ≈ 0 | +0.0013 [−0.0007, +0.0034] | 190 |
+| gpt2 · mse_l10 / l40 | −0.0029 / −0.0044 | ≈ 0 | +0.0008 / −0.0007 | 199 / 210 |
+| gpt2 · lm_only / cos / cka | −0.0037 / −0.0042 / −0.0042 | — | — | 212 / 215 / 228 |
+
+(Base per-fold untuned unique R² ≈ +0.011 both models. Every fine-tuned arm has Δ ≤ 0 vs base — LoRA finetune on 800 Tuckute sentences still mildly degrades held-out alignment and raises ppl ~2× the untuned ~105.)
+
+**What the run shows:**
+1. **No arm raises held-out alignment above the untuned base** (every Δ-vs-base CI includes 0 or is negative). Fine-tuning on the 5-ROI screen does not *increase* alignment; the question is whether the brain objective *preserves* it more, and brain-specifically.
+2. **A small brain-SPECIFIC effect exists on the strong aligner.** The cleanest test — each arm minus its OWN block-permuted twin, matched on (fold,seed) — is **significant only for Qwen `mse`: +0.0032 [+0.0006, +0.0058]** (real-target tuning beats permuted-target tuning). `frozen` is *not* brain-specific on either model (CI includes 0). The coarse predeclared unpaired `>perm95` test is False for all arms (it is weaker than the paired contrast; the paired vs-control comparison was also predeclared, for `lm_only`).
+3. **A regularization (non-specific) effect:** brain objectives degrade alignment *less* than aimless `lm_only` — gpt2 `frozen − lm_only` = +0.0028 (sig), Qwen `mse − lm_only` = +0.0056 (sig) — but for `frozen` this is non-specific (≈ its permuted twin), i.e. just a gentler perturbation.
+4. **Loss-form (D010):** the co-trained **MSE** on the strong aligner is the *only* form with a brain-specific paired effect — **reversing the smoke-stage absorption hypothesis** (the short gpt2 smoke had `mse ≈ mse_perm`; at full scale on Qwen the co-trained readout does transmit brain-specific structure that generalizes). `cos`/`cka`/`pearson` are the worst (cka/cos most degrading). `frozen` is a regularizer, not a brain-specific lever.
 
 ## Interpretation
 
-_TBD — populated after the run; updates `../ladder.md` (L1), `../learnings.md`, and D010 status._
+**Verdict (predeclared rule): PARTIAL / suggestive — NOT a clean PASS, NOT a KILL. Route to LeBel voxelwise.**
+
+- The **strict predeclared PASS** (Δ-vs-base CI excludes 0 AND beats the unpaired permuted-null AND beats lm_only) is **not met** — the absolute lever does not clear 0 on the 5-ROI screen.
+- But the **paired brain-specificity contrast** (the more powerful matched test, consistent with the predeclared paired `lm_only` comparison) is **significant on Qwen `mse` (+0.0032, CI excludes 0)**: optimizing the brain loss produces a held-out alignment gain that is specifically tied to the *real* fMRI targets, not to fine-tuning or domain adaptation. That is a genuine, if small, optimizable brain-specific signal.
+- This is exactly the **power-limited PARTIAL** the design anticipated: MDE(80%) on Qwen ≈ +0.006, the effect ≈ +0.003 — below the absolute-test threshold but detectable in the paired contrast. Per the predeclared rule, **a Tuckute null/sub-threshold does not KILL F1; it routes to the powered LeBel UTS03 voxelwise benchmark** (thousands of voxels → far higher power, where a +0.003-scale brain-specific effect should be cleanly resolvable).
+
+**For D010:** the **co-trained MSE encoding loss on the strongest aligner is the most promising form** and the one to carry into the LeBel confirmation and E005 (it is also the theory-preferred, eval-metric-matched form). `frozen` is a non-specific regularizer; geometric (`cka`) and `cos` are the weakest, consistent with the literature caution. D010 is **not yet fully resolved** — the brain-specific effect needs powered confirmation on LeBel before locking the form for the headline.
+
+**Caveats (carried forward):** (1) ROI-coarse 5-dim screen, underpowered for the absolute lever — the verdict rests on the paired specificity contrast, which is the appropriate matched test but should be confirmed at voxel scale. (2) LoRA finetune still degrades ppl ~2× and alignment slightly — a gentler regime (lower lr / fewer steps / a perplexity-matched stop) is worth testing on LeBel. (3) The brain-specific effect is on Qwen-`mse` only; gpt2 shows no specificity — model-dependence to watch. (4) `frozen`'s "beats lm_only" is regularization, not a lever — do not over-read it.
+
+**Next (predeclared routing):** lock + oracle-review **E006** (LeBel voxelwise A2-feasibility — does the powered substrate carry the signal), then re-run the lever (Qwen `mse`, the brain-specific form) at voxel scale where it is adequately powered. Updates `../ladder.md` (L1 → 🟡 PARTIAL, routes to LeBel — **pending Erfan's confirmation**), `../learnings.md` (L012), D010 status (mse-leaning, unconfirmed).
