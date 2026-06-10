@@ -2,6 +2,9 @@
 
 **Last updated:** 2026-06-10 (Session 6 — working — E003 KD-alignment kill-test, Layer 2a)
 
+> **Canonical state lives in [`ladder.md`](ladder.md)** (the rung board + next step, D015). This file is
+> the last-session prose; if it disagrees with the ladder, the ladder wins. With no task, run `/orient`.
+
 ## Current state
 
 Phase = **Run → Judge**, on the R03 ladder. Two rungs now hold on real data: **Layer 0/A2** (E002, the encoding signal is real) and now **Layer 2a** (E003, the perplexity-only-KD kill-test). E003's verdict is a **qualified PARTIAL**: ordinary perplexity/logit KD does **not** preserve a teacher's brain alignment for free — there is a clean monotone gradient (conventional gpt2 ≈ teacher > warm-KD ρ′=0.84 > distilgpt2 0.60 > from-scratch cold-KD 0.37 > floor), and from-scratch logit KD lands far below the teacher (Δ=0.018, p<0.001). So F1 is **not** in the `oota-2026` "preserve-by-default" trap. **But** the stronger claim — that KD sheds alignment *beyond* the perplexity it costs — is **unresolved**: alignment co-varies with LM quality (Pearson −0.88 on log-ppl), the KD-specific dissociation is only p≈0.1, and the cold arm is under-trained (ppl 4.5× teacher). F1 is therefore **neither killed nor confirmed** — it has plausible headroom worth one precise next experiment.

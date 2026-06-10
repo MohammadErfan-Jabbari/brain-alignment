@@ -30,8 +30,12 @@ from interpretation in both modes.
 
 ## Read this first, every session
 
-1. `docs/upspeed.md` — where we are, what's next, blockers. **Always read before doing anything.**
-2. `docs/tasks.md` — the path behind and ahead.
+0. `docs/ladder.md` — **the canonical status board: which rungs are done, with what verdict, and the
+   single next step (impl or analysis). This is the source of truth for project state — when any doc
+   disagrees with it, it wins and the others get fixed.** With no specific task, run `/orient` (it reads
+   the board and briefs you).
+1. `docs/upspeed.md` — last-session prose: what ran, blockers, key facts.
+2. `docs/tasks.md` — the granular backlog behind and ahead.
 3. Then the relevant deep doc: `docs/00-charter.md` (idea/scope), `docs/01-research-landscape.md`
    (literature + the gap), `docs/02-environment.md` (compute/data/how-to-run),
    `docs/03-methodology.md` (how we work and why).
@@ -115,10 +119,14 @@ port the Nexus v2 stage-machine — see `docs/decisions/decisions.md` D001.
 ## Session close ritual
 
 End **every** session — working or analysis — by running `session-logger` (or doing it by hand):
-immutable timeline log, refreshed `upspeed.md`, moved tasks, and any hard-won lesson appended to
-`docs/learnings.md`. The logger asks which mode the session was and frames the close accordingly (a
-working session logs *what ran / what's next to run*; an analysis session logs *what's understood /
-written / figured*). See "Two kinds of session" above and `docs/03-methodology.md`.
+immutable timeline log, refreshed `upspeed.md`, moved tasks, any hard-won lesson appended to
+`docs/learnings.md`, and — **the keystone of the state-tracking process (D015)** — an updated
+`docs/ladder.md`: flip the rung status, record the verdict, and rewrite the "Next session" block.
+**The ladder update must be confirmed with Erfan before it lands** (a rung flips to ✅ only on a
+verdict he has agreed); never update the board on a unilateral read. The logger asks which mode the
+session was and frames the close accordingly (a working session logs *what ran / what's next to run*;
+an analysis session logs *what's understood / written / figured*). See "Two kinds of session" above
+and `docs/03-methodology.md`.
 
 ## Maintenance
 

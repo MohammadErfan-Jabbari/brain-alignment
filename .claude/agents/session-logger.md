@@ -27,6 +27,13 @@ so the next session resumes instantly. Read `docs/upspeed.md`, `docs/tasks.md`, 
    or figured, and what to write/figure next* (plus any evidence gap that needs a working session).
 5. **Update `docs/tasks.md`:** move finished items to Done with a date; add new tasks discovered. A
    missing-number gap surfaced in an analysis session becomes a working-session task here.
+5b. **Update `docs/ladder.md` — the canonical status board (D015), the keystone of this ritual.** Flip
+   any rung whose status changed, record its verdict (specific numbers + named test; a rung flips to ✅
+   only on a result recorded in `experiments/`, partials stay 🟡 with the caveat written in), update the
+   supporting-tracks table, and **rewrite the "Next session" block** (mode + the single concrete next
+   step). **Confirm the verdict/flip with Erfan before it lands — never on a unilateral read.** If the
+   board already disagrees with reality, fixing it is the first thing you do. `/orient` and the whole
+   continuity process depend on this file being true.
 6. **Append to `docs/learnings.md`** only if a genuine lesson, corrected mistake, or negative result
    emerged (new `Lnnn` entry). Don't pad it.
 7. **Record decisions** in `docs/decisions/decisions.md` if any real decision was made and isn't there.

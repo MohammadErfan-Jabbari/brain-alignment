@@ -185,3 +185,24 @@ compute — the subagent recon established this before any extraction was attemp
 **Reverses if:** portability of the raw notes themselves becomes necessary (then un-ignore `*.md` under
 `data/course-material/`, < 1 MB of text), or a course concept currently marked "adjacent" (Fisher/Cramér-Rao,
 the Block-4 VAE papers) becomes load-bearing and needs a `paper-digest` pass.
+
+### D015 — 2026-06-10 — State lives in a maintained ladder board + an `/orient` start command; stop hand-carrying it between sessions
+
+**Decision:** Make `docs/ladder.md` the **single canonical status board** for project state: the kill-gated
+scientific rungs (R03 §5 / R04 §8), each with status, the experiment + verdict that addressed it, and the next
+action — plus a "Next session" block (mode + concrete step). It is the source of truth; when `upspeed.md`,
+`tasks.md`, or R03/R04 disagree, the ladder wins and they get fixed. R03 §5 keeps the *narrative/why*; the ladder
+holds the *live status*. Maintained at **every** session close, **after Erfan confirms the verdict** (a rung flips
+to ✅ only on an agreed, `experiments/`-recorded result; partials stay 🟡). Wired into the CLAUDE.md "Read this
+first" list (item 0) and close ritual, and into the `session-logger` agent (new step 5b). Add a project command
+`/orient` (`.claude/commands/orient.md`): with no specific task, it reads the ladder + upspeed + tasks + latest
+timeline, reports where we are and the single next step (implementation or analysis), and **waits for go-ahead** —
+read-only, no work until Erfan confirms.
+**Rationale:** Erfan's friction: passing experiment outputs and "what's next" between sessions by hand is
+error-prone and confusing, and state was scattered across upspeed / tasks / R03 §5 / R04 §8. One maintained board +
+a start command makes the docs the source of truth and removes the need to write a long bespoke implementation
+prompt each session. The human-confirmation gate keeps the board honest (it is the one file the whole continuity
+process trusts) and matches the methodology's "raw evidence separate from interpretation, verdicts adjudicated, not
+assumed." Adaptive semistructure: this artifact is earned — the need recurred every session.
+**Reverses if:** the board and upspeed.md prove redundant (collapse one into the other), or `/orient` drifts from
+the docs and stops being trustworthy.
