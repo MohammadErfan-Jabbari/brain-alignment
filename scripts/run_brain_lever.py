@@ -89,8 +89,27 @@ def load_model(name: str, device: str):
 
 def freeze_input_embeddings(model):
     """Freeze wte/embed_tokens (review #5). On tied models the lm_head is tied to
-    it and is frozen too — acceptable: only the contextual computation may move."""
+    it and is frozen too — acceptable: only the contextual computation may move.
+    (Redundant under LoRA, which freezes the whole base; kept for the --no-lora path.)"""
     model.get_input_embeddings().weight.requires_grad_(False)
+
+
+def lora_targets(model_name: str):
+    """Model-appropriate LoRA target modules. gpt2 uses Conv1D (c_attn/c_proj/c_fc);
+    Qwen uses standard linear attention+MLP projections."""
+    if "gpt2" in model_name or "distilgpt2" in model_name:
+        return ["c_attn", "c_proj", "c_fc"]
+    return ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+
+
+def wrap_lora(model, model_name, r=16, alpha=32, dropout=0.05):
+    """Wrap with LoRA adapters (base LM frozen by construction -> no catastrophic
+    forgetting; perplexity stays near base). The literature regime (bilgin/merlin/
+    moussa). Embeddings are frozen automatically (not a target module)."""
+    from peft import LoraConfig, get_peft_model, TaskType
+    cfg = LoraConfig(task_type=TaskType.CAUSAL_LM, r=r, lora_alpha=alpha,
+                     lora_dropout=dropout, target_modules=lora_targets(model_name), bias="none")
+    return get_peft_model(model, cfg)
 
 
 def outer_folds(n: int, k: int):
@@ -109,16 +128,21 @@ def masked_mean(hs, attn):
 
 
 def brain_tune(model, tok, texts, Y, kind, lam_brain, lam_lm, layer, device,
-               epochs, lr, batch_size, seed, frozen_W=None):
+               epochs, lr, batch_size, seed, frozen_W=None, use_lora=True,
+               model_name="gpt2", lora_r=16):
     """Fine-tune `model` with lam_brain*L_brain + lam_lm*CE on (texts, Y).
-    kind=None -> lm_only (CE only). frozen_W -> (W,xm,xs,ym) numpy for the frozen arm."""
+    kind=None -> lm_only (CE only). frozen_W -> (W,xm,xs,ym) numpy for the frozen arm.
+    use_lora -> wrap with LoRA (base frozen, perplexity preserved); merged before return."""
     import torch
     from torch import nn
 
-    freeze_input_embeddings(model)
-    model.train()
     n_roi = Y.shape[1]
     d = model.config.hidden_size
+    if use_lora:
+        model = wrap_lora(model, model_name, r=lora_r)   # base + embeddings frozen
+    else:
+        freeze_input_embeddings(model)
+    model.train()
     params = [p for p in model.parameters() if p.requires_grad]
 
     readout = None
@@ -165,6 +189,8 @@ def brain_tune(model, tok, texts, Y, kind, lam_brain, lam_lm, layer, device,
             torch.nn.utils.clip_grad_norm_(params, 1.0)
             opt.step()
     model.eval()
+    if use_lora:
+        model = model.merge_and_unload()   # fold adapters into a plain model for scoring
     return model
 
 
@@ -204,11 +230,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="gpt2")
     ap.add_argument("--arms", nargs="+",
-                    default=["mse", "lm_only", "permuted", "cos", "pearson", "frozen", "cka"])
+                    default=["mse", "frozen", "lm_only", "cos", "pearson", "cka"])
+    ap.add_argument("--permute-kinds", nargs="*", default=["mse", "frozen"],
+                    help="kinds that get a matched permuted-fMRI null twin (brain-specificity test)")
     ap.add_argument("--seeds", nargs="+", type=int, default=[0, 1, 2])
     ap.add_argument("--folds", type=int, default=5)
     ap.add_argument("--epochs", type=int, default=3)
-    ap.add_argument("--lr", type=float, default=5e-5)
+    ap.add_argument("--lr", type=float, default=None, help="default 2e-4 (LoRA) / 5e-5 (full-FT)")
+    ap.add_argument("--no-lora", dest="use_lora", action="store_false", help="full fine-tune instead of LoRA")
+    ap.set_defaults(use_lora=True)
+    ap.add_argument("--lora-r", type=int, default=16)
     ap.add_argument("--batch-size", type=int, default=16)
     ap.add_argument("--lambda-lm", type=float, default=1.0)
     ap.add_argument("--lambda-grid", nargs="*", type=float, default=None,
@@ -218,6 +249,8 @@ def main():
     ap.add_argument("--data-dir", default="data/tuckute2024")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
+    if args.lr is None:
+        args.lr = 2e-4 if args.use_lora else 5e-5
 
     import torch
     device = P.pick_device()
@@ -241,6 +274,21 @@ def main():
     S_all = P.static_embedding_features(base, tok, texts, device)
 
     mse_lams = args.lambda_grid if args.lambda_grid else [ARM_LAMBDA["mse"]]
+    # Precompute conditions: real arms + a matched permuted-fMRI twin per permute-kind.
+    # Each twin tests the brain-SPECIFICITY of its kind (a real lever beats its own null).
+    conditions = []  # (tag, kind, lambda_brain, perm)  perm: False=real, int=draw index
+    for arm in args.arms:
+        if arm == "lm_only":
+            conditions.append(("lm_only", None, 0.0, False))
+        elif arm == "mse":
+            for lam in mse_lams:
+                conditions.append(("mse" if len(mse_lams) == 1 else f"mse_l{lam:g}", "mse", lam, False))
+        else:
+            conditions.append((arm, arm, ARM_LAMBDA[arm], False))
+    for pk in args.permute_kinds:
+        for d in range(args.n_perm):
+            conditions.append((f"{pk}_perm" if args.n_perm == 1 else f"{pk}_perm{d}", pk, ARM_LAMBDA[pk], d))
+    print("conditions:", [c[0] for c in conditions])
     results = {"model": args.model, "layer": layer, "nc_matched": nc,
                "anat_nc_legacy": meta["noise_ceiling_langnetw"], "config": vars(args),
                "base_perplexity": base_ppl, "folds": {}, "raw": []}
@@ -267,19 +315,7 @@ def main():
               f"(NC {a0/nc:+.3f})  imageability tune/eval={bal['imageability'][0]:.2f}/{bal['imageability'][1]:.2f} ==", flush=True)
 
         for seed in args.seeds:
-            for arm in args.arms:
-                # build the (kind, lambda, permute) spec
-                if arm == "lm_only":
-                    specs = [("lm_only", None, 0.0, False)]
-                elif arm == "permuted":
-                    specs = [(f"permuted{d}", "mse", ARM_LAMBDA["mse"], d) for d in range(args.n_perm)]
-                elif arm == "mse":
-                    specs = [("mse" if len(mse_lams) == 1 else f"mse_l{lam:g}", "mse", lam, False)
-                             for lam in mse_lams]
-                else:
-                    specs = [(arm, arm, ARM_LAMBDA[arm], False)]
-
-                for tag, kind, lam, perm in specs:
+                for tag, kind, lam, perm in conditions:
                     P.set_seed(seed)
                     m, _ = load_model(args.model, device)
                     Ytune = tn["Y"]
@@ -294,12 +330,14 @@ def main():
                         frozen_W = BL.fit_ridge_readout(Xb, Ytune, alpha=100.0)
                     m = brain_tune(m, tok, tn["texts"], Ytune, kind, lam, args.lambda_lm,
                                    layer, device, args.epochs, args.lr, args.batch_size, seed,
-                                   frozen_W=frozen_W)
+                                   frozen_W=frozen_W, use_lora=args.use_lora,
+                                   model_name=args.model, lora_r=args.lora_r)
                     a_s, a_folds = score_unique_r2(m, tok, ev["texts"], ev["Y"], ev["Z"], ev["S"], layer, device)
                     ppl = eval_perplexity(m, tok, heldout, device) if heldout else None
                     delta = a_s - a0
                     results["raw"].append({"fold": fi, "seed": seed, "arm": tag, "kind": kind,
-                                           "lambda_brain": lam, "unique_r2": a_s, "delta": delta,
+                                           "is_perm": bool(perm is not False), "lambda_brain": lam,
+                                           "unique_r2": a_s, "delta": delta,
                                            "nc_norm": a_s / nc, "perplexity": ppl})
                     print(f"  [{tag:12s} s{seed}] unique_r2={a_s:+.4f} (NC {a_s/nc:+.3f})  "
                           f"Δ={delta:+.4f}{'' if ppl is None else f'  ppl={ppl:.1f}'}", flush=True)
@@ -311,33 +349,40 @@ def main():
     raw = results["raw"]
     arms_seen = sorted({r["arm"] for r in raw})
     summary = {}
-    perm_deltas = [r["delta"] for r in raw if r["arm"].startswith("permuted")]
+    # nulls keyed by kind: each real readout arm is tested vs ITS OWN permuted twin
+    perm_by_kind = {}
+    for r in raw:
+        if r["is_perm"]:
+            perm_by_kind.setdefault(r["kind"], []).append(r["delta"])
     lmonly_by_fs = {(r["fold"], r["seed"]): r["delta"] for r in raw if r["arm"] == "lm_only"}
     for arm in arms_seen:
         rs = [r for r in raw if r["arm"] == arm]
+        is_perm_arm = rs[0]["is_perm"]; kind = rs[0]["kind"]
         deltas = [r["delta"] for r in rs]
         m, lo, hi = bootstrap_ci(deltas)
-        ent = {"n": len(rs), "delta_mean": m, "delta_ci": [lo, hi],
+        ent = {"n": len(rs), "kind": kind, "is_perm": is_perm_arm, "delta_mean": m, "delta_ci": [lo, hi],
                "unique_r2_mean": float(np.mean([r["unique_r2"] for r in rs])),
                "nc_norm_mean": float(np.mean([r["nc_norm"] for r in rs]))}
         ppls = [r["perplexity"] for r in rs if r["perplexity"] is not None]
         if ppls:
             ent["perplexity_mean"] = float(np.mean(ppls))
-        # paired vs lm_only (same fold,seed)
-        paired = [r["delta"] - lmonly_by_fs[(r["fold"], r["seed"])]
-                  for r in rs if (r["fold"], r["seed"]) in lmonly_by_fs and not arm.startswith("permuted") and arm != "lm_only"]
-        if paired:
-            pm, plo, phi = bootstrap_ci(paired)
-            ent["vs_lm_only_mean"] = pm; ent["vs_lm_only_ci"] = [plo, phi]
-        # permuted-null exceedance
-        if perm_deltas and not arm.startswith("permuted"):
-            ent["permuted_null_p95"] = float(np.percentile(perm_deltas, 95))
-            ent["beats_permuted_null"] = bool(m > np.percentile(perm_deltas, 95))
+        if not is_perm_arm and arm != "lm_only":
+            # paired vs lm_only (same fold,seed): the domain-adaptation control
+            paired = [r["delta"] - lmonly_by_fs[(r["fold"], r["seed"])]
+                      for r in rs if (r["fold"], r["seed"]) in lmonly_by_fs]
+            if paired:
+                pm, plo, phi = bootstrap_ci(paired)
+                ent["vs_lm_only_mean"] = pm; ent["vs_lm_only_ci"] = [plo, phi]
+            # permuted-null exceedance vs THIS kind's own permuted twin (brain-specificity)
+            if kind in perm_by_kind:
+                nd = perm_by_kind[kind]
+                ent["permuted_null_p95"] = float(np.percentile(nd, 95))
+                ent["beats_permuted_null"] = bool(m > np.percentile(nd, 95))
         summary[arm] = ent
     results["summary"] = summary
-    results["permuted_null"] = {"n": len(perm_deltas),
-                                "p95": float(np.percentile(perm_deltas, 95)) if perm_deltas else None,
-                                "mean": float(np.mean(perm_deltas)) if perm_deltas else None}
+    results["permuted_null_by_kind"] = {
+        k: {"n": len(v), "p95": float(np.percentile(v, 95)), "mean": float(np.mean(v))}
+        for k, v in perm_by_kind.items()}
 
     out = args.out or f"outputs/E004_brain_lever_{args.model.replace('/', '_')}.json"
     Path(out).parent.mkdir(parents=True, exist_ok=True)

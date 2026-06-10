@@ -58,6 +58,8 @@ Both at identical steps / lr / data / seeds / frozen-embeddings as the brain arm
 - **Statistic:** $\Delta_{\text{lever}} = A_{\text{tuned}} - A_{\text{base}}$, bootstrap 95% CI over (seed × outer-fold). Specificity: paired bootstrap of (arm − `lm_only`) and the permuted-null exceedance test. Held-out **perplexity** (wikitext-103 slice, `data/kd_corpus/`) per arm.
 - **Seeds:** 3 per trained arm (training is stochastic); base is deterministic (scored per fold).
 - **`$\lambda_{\text{brain}}$` calibration (review #7):** fixed grid (a 3-point curve), **not** tuned toward unique-R². The grid is set once on a smoke run to bracket "both losses train"; reported as a curve so the verdict isn't a single-λ artifact.
+- **Training regime — LoRA (revised at smoke, 2026-06-11):** a full fine-tune at λ=10 **collapsed perplexity** (gpt2 226, Qwen 865) — destroying the LM, which per L011 drags alignment down and confounds the contrast. So the lever uses **LoRA** (rank 16; gpt2 `c_attn/c_proj/c_fc`, Qwen attn+MLP projections; lr 2e-4), the bilgin/merlin/moussa regime: the base LM (incl. embeddings) is frozen by construction, so perplexity stays near base (~125) and any alignment change is attributable to the adapter, not LM damage. Adapters merged before scoring.
+- **Per-kind null (revised at smoke):** the smoke showed the **co-trained readout *absorbs* the MSE loss** (`mse ≈ mse_perm` — a free 768→5 map fits real or shuffled BOLD equally, so the gradient to the features is non-brain-specific). This is the pirlot-2022 shuffled-control worry, confirmed. So the lever now tests **both `mse` (co-trained) and `frozen` (fixed readout, forces feature movement) each against its OWN permuted twin** (`mse_perm`, `frozen_perm`); a real brain-specific lever must beat its own null. cos/pearson/cka stay exploratory. This is a principled pre-run refinement, not post-hoc fishing — each candidate is specificity-controlled.
 - **Stop rule / budget:** fixed model, fixed verdict layer, fixed K, fixed λ-grid, fixed step budget shared by all trained arms. No tuning toward the alignment outcome.
 
 ## Power analysis (review #3 — done before compute, 2026-06-11)
@@ -108,6 +110,8 @@ CUDA_VISIBLE_DEVICES=1 uv run python scripts/run_brain_lever.py --model Qwen/Qwe
 |---|---|---|---|---|---|
 | 2026-06-10 | design v1 | — | — | oracle-reviewer HOLD: covariate-shift split (fatal), winner's-curse, no power analysis | reshape |
 | 2026-06-11 | design v2 | — | A/B shift + NC mismatch + expanded-nuisance finding verified in data; power sim done | re-locked: rotating folds, mse-primary, permuted-null, frozen-wte, Qwen-primary | re-check → implement → run |
+| 2026-06-11 | smoke (full-FT) | gpt2, 250 tune, λ=10 | **perplexity COLLAPSE** (gpt2 226, Qwen 865) | full fine-tune destroys the LM → L011 confound | switch to LoRA |
+| 2026-06-11 | smoke (LoRA) | gpt2, 250 tune, λ=10 | ppl preserved (~125); **`mse ≈ mse_perm` and `frozen ≈ frozen_perm`** | co-trained readout *absorbs* the MSE loss (non-brain-specific); frozen forced-movement also ≈ its null at this scale | run full powered verdict |
 
 ## Results
 
