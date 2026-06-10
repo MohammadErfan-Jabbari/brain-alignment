@@ -118,10 +118,13 @@ port the Nexus v2 stage-machine — see `docs/decisions/decisions.md` D001.
 
 ## Session close ritual
 
-End **every** session — working or analysis — by running `session-logger` (or doing it by hand):
-immutable timeline log, refreshed `upspeed.md`, moved tasks, any hard-won lesson appended to
-`docs/learnings.md`, and — **the keystone of the state-tracking process (D015)** — an updated
-`docs/ladder.md`: flip the rung status, record the verdict, and rewrite the "Next session" block.
+End **every** session — working or analysis — by running **`/wrap`** (the close command: it runs the
+`session-logger` ritual *plus* a continuity audit — friction, broken tooling, doc consistency,
+new-artifact check; mirror of the `/orient` start command). The `session-logger` agent or doing it by
+hand are equivalent fallbacks. The ritual: immutable timeline log, refreshed `upspeed.md`, moved tasks,
+any hard-won lesson appended to `docs/learnings.md`, and — **the keystone of the state-tracking process
+(D015)** — an updated `docs/ladder.md`: flip the rung status, record the verdict, and rewrite the
+"Next session" block.
 **The ladder update must be confirmed with Erfan before it lands** (a rung flips to ✅ only on a
 verdict he has agreed); never update the board on a unilateral read. The logger asks which mode the
 session was and frames the close accordingly (a working session logs *what ran / what's next to run*;

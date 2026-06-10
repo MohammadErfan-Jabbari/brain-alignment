@@ -197,7 +197,11 @@ to ✅ only on an agreed, `experiments/`-recorded result; partials stay 🟡). W
 first" list (item 0) and close ritual, and into the `session-logger` agent (new step 5b). Add a project command
 `/orient` (`.claude/commands/orient.md`): with no specific task, it reads the ladder + upspeed + tasks + latest
 timeline, reports where we are and the single next step (implementation or analysis), and **waits for go-ahead** —
-read-only, no work until Erfan confirms.
+read-only, no work until Erfan confirms. Its bookend is **`/wrap`** (`.claude/commands/wrap.md`): the
+close command that runs the `session-logger` ritual *plus* a continuity audit (friction worth fixing,
+tooling that misbehaved, doc-consistency / source-of-truth check, new-artifact check, ladder integrity,
+brain mirror, git hygiene, open loops), with the same confirm-before-flipping-the-ladder gate. So a
+session is bracketed by two one-word commands: `/orient` to open, `/wrap` to close.
 **Rationale:** Erfan's friction: passing experiment outputs and "what's next" between sessions by hand is
 error-prone and confusing, and state was scattered across upspeed / tasks / R03 §5 / R04 §8. One maintained board +
 a start command makes the docs the source of truth and removes the need to write a long bespoke implementation
