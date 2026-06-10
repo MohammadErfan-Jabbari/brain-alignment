@@ -5,9 +5,11 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 
 ## Now (current focus — climbing the R03 ladder)
 
-- [ ] **Layer 1 — is the signal a *lever*?** Brain-tune Qwen2.5-0.5B (or GPT-2) on Tuckute; verify unique R² *rises* with the brain loss vs baseline. Cheapest next experiment — Tuckute wired, harness built. First working experiment of next session.
-- [ ] **LeBel time-series adapter** (FIR/lag, contiguous story splits) so the powered voxelwise benchmark (UTS03, on disk, response matrix verified) is runnable. **Not a config swap** — real loader work.
-- [ ] **Decide the form of $\mathcal{L}_{\text{brain}}$** on real Tuckute data. Trainable head (placeholder, overfits — D010) vs frozen encoding-map loss vs CKA/abstraction proxy. Now decidable on real data; write as a design note.
+- [ ] **E004 — alignment-guided KD vs perplexity-only KD at MATCHED PERPLEXITY** (the headline F1 test, and the experiment that resolves what E003 could not). E003 (L011) showed alignment co-varies with LM quality, so a matched-*budget* baseline is not enough — the baseline must be matched on *perplexity*, or an alignment gain cannot be attributed to the brain objective. `distill.py` supports λ_brain>0; open pieces = the $\mathcal{L}_{\text{brain}}$ form (D010) + a matched-ppl stop rule.
+- [ ] **Decide the form of $\mathcal{L}_{\text{brain}}$** (D010) — needed for E004. Trainable head (placeholder, overfits) vs frozen encoding-map loss vs CKA/abstraction proxy. Decidable on real Tuckute data now; write as a design note.
+- [ ] **Converged cold-KD arm** — re-run E003's from-scratch logit-KD student to *matched perplexity* (more compute / smaller target) to de-confound under-training from alignment shedding. Cheap; settles whether cold-KD's near-floor alignment is real.
+- [ ] **LeBel time-series adapter** (FIR/lag, contiguous story splits) so the powered voxelwise benchmark (UTS03, on disk, response matrix verified) is runnable — confirms E003/E004's ROI-level gaps at voxel resolution. **Not a config swap** — real loader work.
+- [ ] **Layer 1 — is the signal a *lever*?** Brain-tune a small model on Tuckute; verify unique R² *rises* with the brain loss. (Partly subsumed by E004's λ_brain>0 arm, which both tunes and tests utility.)
 
 ## Next (de-risk the thesis — ordered by leverage)
 
@@ -30,6 +32,8 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 
 ## Done
 
+- [x] 2026-06-10 — **E003: perplexity-only-KD alignment kill-test (R04 Layer 2a) → PARTIAL headroom.** Two pre-run Opus reviews reshaped the design (cold-init verdict arm escaping the warm-init trap; headroom not binary; ≥3 seeds; floor-anchored ρ′). Ran cold/warm logit-KD + LM-finetune control (gpt2-medium→gpt2, Tuckute, 3 seeds). Monotone alignment gradient (conventional ≈ teacher > warm-KD 0.84 > distilgpt2 0.60 > cold-KD 0.37 > floor) rules out preserve-for-free; from-scratch KD far below teacher (Δ=0.018, p<0.001). A post-run Opus skeptic refuted the "F1 confirmed" over-read — alignment tracks ppl (r=−0.88), KD-specific dissociation only p≈0.1, cold arm under-trained. F1 neither killed nor confirmed; resolving experiment = E004 (matched-perplexity). `experiments/E003_*.md`, L011, R03/R04 ladder. (`b2f23bb`→`b996a2c`)
+- [x] 2026-06-10 — **R04 §7 factual corrections to R03 verified already applied** (prior session `4b548d1`): Moussa, Bilgin cosine-not-L2, Merlin, Oota softening, Pirlot + Cheng/Yu sign conflict. R03 line-1 corruption confirmed absent. Nothing to do.
 - [x] 2026-06-10 — **Filled the deferred course-material note gaps.** 6 Sonnet subagents wrote 7 agent-digest notes (gitignored, co-located with PDFs): Block-4 VAEs `3_IWAE` / `4_GMVAE` / `7_VQ-VAE` / `8_NVAE` / `9_VampPrior`, and info-theory `16_Fisher/CR` / `17_CramerRaoII`. All adjacent (not load-bearing), each with a Thesis hook + Source audit. `06-theory-grounding.md` + INDEX updated; peripherals (2 multimodal VAEs, gamma-Poisson, Occam, ARDM) deliberately skipped.
 - [x] 2026-06-10 — **Course material adopted as theory-grounding source (D014).** Recon via 3 subagents → no re-OCR needed (existing `*_study.md`/`*_OCR.md` beat any extraction; L010). Wrote `docs/06-theory-grounding.md` (concept→thesis map), `data/course-material/INDEX.md`; folded the formal math into R03 §2 (new Step 7: MI generalization bound, DPI, conditional MI, rate-distortion) + landscape §E + CLAUDE.md + README. Fixed R03 line-1 transcript-paste corruption.
 - [x] 2026-06-10 — **Two real datasets staged (D013):** Tuckute 2024 (`data/tuckute2024/`, real ROI-level) + LeBel UTS03 (`data/lebel_ds003020/`, ~20 GB voxelwise, response matrix verified L005). Via osfclient + anonymous S3. Resolves the D008 "re-evaluate before pulling" task.

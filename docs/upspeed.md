@@ -1,36 +1,36 @@
 # Upspeed — read first, write last
 
-**Last updated:** 2026-06-10 (Session 5 — analysis — course material adopted as theory-grounding source)
+**Last updated:** 2026-06-10 (Session 6 — working — E003 KD-alignment kill-test, Layer 2a)
 
 ## Current state
 
-Phase = **Run → Judge**, climbing the R03 ladder. **The premise survived its first real-data test** (E002, A2 PASS on Tuckute), and as of this session the thesis now has an explicit **theory-grounding source**: Erfan's MSc coursework (Information Theory for ML + Probabilistic ML), curated in `docs/06-theory-grounding.md`. The math R03 was invoking informally now has its exact, proved, citable form — the weak-prior bound IS the MI generalization bound, "unique R²" IS conditional MI, the compression brake IS the data-processing inequality, the F1 trade-off IS rate-distortion. This is scaffolding for *writing* the thesis, not new evidence; the experimental ladder is unchanged. The open scientific risk is still **A3** (does the signal *buy* anything practical).
+Phase = **Run → Judge**, on the R03 ladder. Two rungs now hold on real data: **Layer 0/A2** (E002, the encoding signal is real) and now **Layer 2a** (E003, the perplexity-only-KD kill-test). E003's verdict is a **qualified PARTIAL**: ordinary perplexity/logit KD does **not** preserve a teacher's brain alignment for free — there is a clean monotone gradient (conventional gpt2 ≈ teacher > warm-KD ρ′=0.84 > distilgpt2 0.60 > from-scratch cold-KD 0.37 > floor), and from-scratch logit KD lands far below the teacher (Δ=0.018, p<0.001). So F1 is **not** in the `oota-2026` "preserve-by-default" trap. **But** the stronger claim — that KD sheds alignment *beyond* the perplexity it costs — is **unresolved**: alignment co-varies with LM quality (Pearson −0.88 on log-ppl), the KD-specific dissociation is only p≈0.1, and the cold arm is under-trained (ppl 4.5× teacher). F1 is therefore **neither killed nor confirmed** — it has plausible headroom worth one precise next experiment.
 
-## What was done (Session 5 — analysis)
+## What was done (Session 6 — working)
 
-1. **Adopted the coursework as a third source of truth (D014).** Recon via 3 subagents established it needs **no re-OCR** — the existing `*_study.md`/`*_OCR.md` notes beat any fresh extraction (L010). The job was curation, not extraction.
-2. **Wrote `docs/06-theory-grounding.md`** — the concept→thesis map (load-bearing: MI bound, DPI, conditional MI, rate-distortion; plus the ridge=Bayesian-MAP and TabPFN=F2 links), syllabus inventory, gap list. Plus a gitignored `data/course-material/INDEX.md` for navigation.
-3. **Folded the math into the live docs.** R03 §2 gained **Step 7** anchoring the bounds to the course theorems; `01-research-landscape.md` §E and `CLAUDE.md` now point at 06; `docs/README.md` map updated.
-4. **Fixed R03 line-1 corruption** (pasted IT-lecture transcript in front of the heading; HEAD was clean, working tree was not).
+1. **Locked E003 design after two pre-run Opus adversarial reviews** (`b2f23bb`). The reviews caught the **initialization trap** (warm-init KD only measures fine-tuning drift) → added the **cold-init from-scratch arm** as the verdict; reframed preserve/destroy → **headroom/gap**; mandated ≥3 seeds, floor-anchored ρ′ with bootstrap CIs, a perplexity guard, fixed-layer verdict.
+2. **Built `scripts/run_kd_alignment.py`** (`d11c89b`) — reuses `distill.py` (pure logit KD, λ_brain=0) + `pilot_lib` (the anti-confound partition). KD corpus = wikitext-103 sentences deduped against Tuckute.
+3. **Ran it** (cold arm GPU 0 + warm controls GPU 3, parallel, ~1 h). References reproduced E002 to ~0.0003 across GPUs.
+4. **Judged honestly** (`7483848`): a **post-run Opus skeptic refuted the preliminary "F1 confirmed" read** — the verdict is PARTIAL headroom, not a confirmed job. Recorded in `experiments/E003_*.md`, learnings **L011**, R03 ladder (Layer 2a) + R04 §8 (`b996a2c`).
+5. **R04 §7 corrections to R03 were already applied** (prior session, `4b548d1`) — verified, nothing to do.
 
-## What to do next (R03 ladder order — unchanged)
+## What to do next (ordered — what's next to *run*)
 
-1. **Layer 1 — is the signal a lever?** Brain-tune Qwen2.5-0.5B (or GPT-2) on Tuckute; verify unique R² *rises* with the brain loss. Cheapest next step — Tuckute wired, harness exists. The first **working** experiment of the next session.
-2. **LeBel time-series adapter** (FIR/lag, contiguous story splits) — makes the powered voxelwise benchmark runnable. Data on disk; loader is the work. **Not a config swap.**
-3. **Layer 2 (A3)** — does induced/preserved alignment buy OOD generalisation or low-data sample-efficiency? The untested assumption; the thesis's real risk now.
-4. **Decide $\mathcal{L}_{\text{brain}}$ form** on real Tuckute data (frozen encoding map vs CKA proxy vs trainable head — D010 still open).
-5. **Reconcile the concurrent literature pass.** A parallel session committed (while Session 5 ran) full-read digests of the 12 brain-as-training-signal papers (`9c6dcb7`), a landscape-map update (`93db8ae`), and a **new `reports/R04` gap analysis** (`d5314b2`). Next session: read R04, and make sure R03 §2 Step 7 (new theory grounding) + R04 + the updated landscape tell one consistent story. LeBel 2023 + arXiv 2602.07547 may still want dedicated digests — check against what the 12-paper pass already covered.
+1. **E004 — the resolving experiment (the real F1 test).** Alignment-guided KD (λ_brain>0) vs perplexity-only KD **at matched perplexity** (L011 — *not* just matched budget; that's the only design that attributes an alignment gain to the brain objective rather than to LM quality). The `distill.py` harness supports λ_brain>0 already; the open pieces are the $\mathcal{L}_{\text{brain}}$ form (**D010** — frozen encoding map vs CKA proxy vs trainable head) and a matched-perplexity stop rule. **This is the headline thesis experiment.**
+2. **Converged cold arm** — re-run from-scratch logit KD to *matched perplexity* (more KD compute / smaller target) to de-confound under-training from alignment shedding. Cheap, settles whether cold-KD's near-floor alignment is real or a budget artifact.
+3. **LeBel UTS03 voxelwise adapter** (FIR/lag, contiguous story splits) — the powered benchmark (thousands of voxels vs Tuckute's 5 ROIs) to confirm the ~0.005 gaps. Tuckute is a screen only. Data on disk; loader is the work, **not a config swap**.
+4. **Layer 2 (A3)** still open — does induced/preserved alignment buy OOD generalisation or low-data sample-efficiency?
 
 ## Blockers
 
-- **None rate-limiting.** Data is staged, signal is confirmed real, theory grounding is now mapped. Next steps are method/experiment work.
-- Framing watch: pitch as **alignment-guided distillation at matched budget (F1) / low-data regularizer (F2)**, NOT "use fMRI to train an LM" (scooped). Compete on the rate-distortion trade-off curve (now formally grounded — 06 §4), not a preserve-vs-destroy binary.
+- **None rate-limiting.** Data staged, harness built, GPUs free. Next steps are method/experiment work.
+- **Framing watch (sharpened by E003):** compete on the rate-distortion **trade-off curve** (R04 §4, 06 §4), and **always control perplexity** when comparing alignment across training objectives (L011). Do not quote E003's absolute shed fractions hard — they are PCA-rank-sensitive; only the gradient *ordering* is robust.
 
 ## Key facts
 
-- **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache`. GPUs: 4× L40S (free index via `CUDA_VISIBLE_DEVICES`). Long runs via the harness background runner (plain `nohup &` died silently once — prefer the harness mechanism).
-- **E002 rerun:** `CUDA_VISIBLE_DEVICES=0 HF_HUB_OFFLINE=1 uv run python scripts/run_encoding_feasibility.py --models gpt2 gpt2-medium Qwen/Qwen2.5-0.5B --untrained-seeds 0 1 2`
-- **Datasets on disk:** Tuckute (`data/tuckute2024/data/`), LeBel UTS03 (`data/lebel_ds003020/preprocessed_data/UTS03/`), Pereira stimuli, 21 paper repos. All gitignored.
-- **Course material:** `data/course-material/` (gitignored, ~292 MB). **Do not re-OCR** — use the `*_study.md`/`*_OCR.md` notes. Thesis map: `docs/06-theory-grounding.md`.
-- **Direction doc:** `reports/R03_brain-as-training-signal.md` is the live map of the idea + ladder; §2 Step 7 now carries the formal grounding.
+- **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache`. GPUs: 4× L40S (0 + 3 free this session; 1 + 2 had other jobs). Long runs via the harness background runner (`run_in_background`), not bare nohup.
+- **E003 rerun:** `CUDA_VISIBLE_DEVICES=0 HF_HOME=... HF_HUB_OFFLINE=1 uv run python scripts/run_kd_alignment.py --arms kd_cold kd_warm lmft_warm --seeds 0 1 2` (corpus prep: `--prepare-corpus`, needs network; uses `Salesforce/wikitext`).
+- **E003 outputs:** `outputs/E003_{cold,warm}.json` (gitignored). KD corpus: `data/kd_corpus/` (gitignored).
+- **Models cached:** gpt2, gpt2-medium, gpt2-large, distilgpt2, Qwen2.5 0.5/1.5/3/7B — all run offline.
+- **Datasets on disk:** Tuckute (`data/tuckute2024/`), LeBel UTS03 (`data/lebel_ds003020/`), Pereira stimuli. Course material `data/course-material/` (do not re-OCR; `06-theory-grounding.md`).
 - **Git:** `main`. Commit continuously/atomically (D007); push only when asked. GateGuard hooks disabled (D012).
