@@ -1,0 +1,362 @@
+#!/usr/bin/env python3
+"""E004 — is L_brain a usable LEVER? (R03 Layer 1) + the D010 loss-form resolution.
+
+Brain-tune a small LM with a differentiable brain-alignment loss on a held-IN
+block of Tuckute stimuli; measure whether HELD-OUT unique encoding R^2 (on a
+block it never optimized against) RISES vs the untuned model, under the E002
+anti-confound protocol, and whether the rise survives the controls that separate
+"the brain objective worked" from "any fine-tune would have done it".
+
+Design locked in docs/experiments/E004_brain-loss-lever-test.md (two oracle
+reviews; HOLD->PASS). Load-bearing choices baked in here:
+  * ROTATING K=5 contiguous outer folds: tune on 4, eval unique-R^2 only on the
+    held-out fold (its own internal 5-fold CV) -> every item is eval once, so the
+    tune<->eval covariate shift (imageability/surprisal, verified real) averages
+    out and the eval is always on never-tuned stimuli.
+  * `mse` is the SINGLE predeclared confirmatory arm (theory-preferred = the
+    Gaussian lower bound on conditional MI = the eval metric). cos/pearson/frozen/
+    cka are EXPLORATORY (never decide the verdict; cka is negative-control-ish).
+  * Controls (matched steps/lr/data/seeds/frozen-embeddings): `lm_only` (plain LM
+    finetune on the same block, no brain target) and `permuted` (block-permuted
+    BOLD -> a null distribution; real arm must exceed its 95th pct).
+  * Input embeddings (wte/embed_tokens) FROZEN during tuning -> a lever cannot
+    come from relabeling lexical vectors (the static-nuisance pathway).
+  * Static nuisance S is from the UNTUNED base model, byte-identical across arms.
+  * NC-normalised by the mean of the 5 functional target sub-ROI NCs (~0.491),
+    NOT the anatomical 0.353 E002/E003 mislabeled with. Verdict is on raw Delta.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+import time
+from pathlib import Path
+
+import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import pilot_lib as P  # noqa: E402
+import brain_loss as BL  # noqa: E402
+from data_adapters import load_tuckute, TUCKUTE_SUBROIS  # noqa: E402
+
+ROOT = Path(__file__).resolve().parents[1]
+CORPUS_HELDOUT = ROOT / "data/kd_corpus/wikitext103_sentences_heldout.txt"
+
+# Per-arm lambda_brain, set by LOSS-SCALE reasoning (blind to unique-R^2), so the
+# brain term is non-negligible vs CE for each form. mse runs a curve (see --lambda-grid).
+ARM_LAMBDA = {"mse": 10.0, "cos": 5.0, "pearson": 50.0, "cka": 5.0, "frozen": 10.0}  # verdict mse λ=10
+VERDICT_LAYER = {12: 7, 24: 12, 28: 14}  # gpt2->7 (E002 peak); Qwen2.5-0.5B(24L)->12; fallback below
+
+
+def verdict_layer(model) -> int:
+    n = model.config.num_hidden_layers
+    return VERDICT_LAYER.get(n, max(1, int(round(0.5 * n))))
+
+
+def matched_nc(data_dir: str) -> float:
+    """Mean noise ceiling over the 5 functional target sub-ROIs (lang_LH_*),
+    the ceiling matched to the actual targets (NOT anatglasser 0.353)."""
+    import pandas as pd
+    ncf = sorted(Path(data_dir).rglob("NC-allroi-data.csv"))[0]
+    nc = pd.read_csv(ncf)
+    vals = [float(nc.loc[nc["roi"] == r, "nc"].iloc[0]) for r in TUCKUTE_SUBROIS]
+    return float(np.mean(vals))
+
+
+def load_covariates(data_dir: str, n_items: int) -> np.ndarray:
+    """Per-item [imageability, gpt2xl-surprisal, pcfg-surprisal], item_id order —
+    for the imageability-subtracted robustness sensitivity only."""
+    import pandas as pd
+    csv = sorted(Path(data_dir).rglob("brain-lang-data_participant_*.csv"))[0]
+    df = pd.read_csv(csv)
+    items = sorted(df[df["cond"] == "B"]["item_id"].unique())
+    im = df.drop_duplicates("item_id").set_index("item_id")
+    cols = ["rating_imageability_mean", "log-prob-gpt2-xl_mean", "log-prob-pcfg_mean"]
+    C = np.stack([im.loc[items, c].to_numpy(dtype=float) for c in cols], axis=1)
+    assert C.shape[0] == n_items, (C.shape, n_items)
+    return C
+
+
+def load_model(name: str, device: str):
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+    tok = AutoTokenizer.from_pretrained(name)
+    if tok.pad_token is None:
+        tok.pad_token = tok.eos_token
+    model = AutoModelForCausalLM.from_pretrained(name).to(device)
+    return model, tok
+
+
+def freeze_input_embeddings(model):
+    """Freeze wte/embed_tokens (review #5). On tied models the lm_head is tied to
+    it and is frozen too — acceptable: only the contextual computation may move."""
+    model.get_input_embeddings().weight.requires_grad_(False)
+
+
+def outer_folds(n: int, k: int):
+    bounds = np.linspace(0, n, k + 1).astype(int)
+    allidx = np.arange(n)
+    for i in range(k):
+        eval_idx = allidx[bounds[i]:bounds[i + 1]]
+        tune_idx = np.concatenate([allidx[:bounds[i]], allidx[bounds[i + 1]:]])
+        yield i, tune_idx, eval_idx
+
+
+def masked_mean(hs, attn):
+    import torch
+    m = attn.unsqueeze(-1).float()
+    return (hs * m).sum(1) / m.sum(1).clamp(min=1.0)
+
+
+def brain_tune(model, tok, texts, Y, kind, lam_brain, lam_lm, layer, device,
+               epochs, lr, batch_size, seed, frozen_W=None):
+    """Fine-tune `model` with lam_brain*L_brain + lam_lm*CE on (texts, Y).
+    kind=None -> lm_only (CE only). frozen_W -> (W,xm,xs,ym) numpy for the frozen arm."""
+    import torch
+    from torch import nn
+
+    freeze_input_embeddings(model)
+    model.train()
+    n_roi = Y.shape[1]
+    d = model.config.hidden_size
+    params = [p for p in model.parameters() if p.requires_grad]
+
+    readout = None
+    fW = None
+    if kind in ("mse", "cos", "pearson"):
+        readout = nn.Linear(d, n_roi).to(device)
+        nn.init.normal_(readout.weight, std=0.02); nn.init.zeros_(readout.bias)
+        params = params + list(readout.parameters())
+    elif kind == "frozen":
+        W, xm, xs, ym = frozen_W
+        fW = {k_: torch.tensor(v, device=device) for k_, v in
+              dict(W=W, xm=xm, xs=xs, ym=ym).items()}
+
+    opt = torch.optim.AdamW(params, lr=lr)
+    Yt = torch.tensor(Y, dtype=torch.float32, device=device)
+    n = len(texts)
+    idx = np.arange(n)
+    for epoch in range(epochs):
+        rng = np.random.default_rng(seed * 1000 + epoch)
+        order = rng.permutation(idx)
+        for start in range(0, n, batch_size):
+            bidx = order[start:start + batch_size]
+            batch = [texts[i] for i in bidx]
+            enc = tok(batch, return_tensors="pt", padding=True, truncation=True,
+                      max_length=64).to(device)
+            labels = enc["input_ids"].clone()
+            labels[enc["attention_mask"] == 0] = -100
+            out = model(**enc, labels=labels, output_hidden_states=True)
+            loss = lam_lm * out.loss
+            if kind is not None:
+                h = masked_mean(out.hidden_states[layer], enc["attention_mask"])  # (B,d)
+                tgt = Yt[bidx]
+                if kind in ("mse", "cos", "pearson"):
+                    pred = readout(h)
+                    bl = BL.brain_loss(kind, pred, tgt)
+                elif kind == "frozen":
+                    pred = ((h - fW["xm"]) / fW["xs"]) @ fW["W"] + fW["ym"]
+                    bl = BL.brain_loss("frozen", pred, tgt)
+                elif kind == "cka":
+                    bl = BL.brain_loss("cka", h, tgt)
+                loss = loss + lam_brain * bl
+            opt.zero_grad()
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(params, 1.0)
+            opt.step()
+    model.eval()
+    return model
+
+
+def score_unique_r2(model, tok, texts_eval, Y_eval, Z_eval, S_eval, layer, device):
+    ecfg = P.ExtractConfig(pool="mean", max_length=64, batch_size=32)
+    X = P.extract_hidden_states(model, tok, texts_eval, ecfg, device, layer=layer)
+    part = P.variance_partition(X, Z_eval, S_eval, Y_eval, k_folds=5, n_pca=50)
+    return part["unique_r2"], part["unique_r2_per_fold"]
+
+
+def eval_perplexity(model, tok, texts, device, max_length=64, batch_size=32):
+    import torch
+    model.eval()
+    nll, ntok = 0.0, 0
+    with torch.no_grad():
+        for s in range(0, len(texts), batch_size):
+            enc = tok(texts[s:s + batch_size], return_tensors="pt", padding=True,
+                      truncation=True, max_length=max_length).to(device)
+            logits = model(**enc).logits[:, :-1, :]
+            tgt = enc["input_ids"][:, 1:]
+            mask = enc["attention_mask"][:, 1:].bool()
+            lp = torch.log_softmax(logits, -1).gather(-1, tgt.unsqueeze(-1)).squeeze(-1)
+            nll += float((-lp[mask]).sum()); ntok += int(mask.sum())
+    return float(np.exp(nll / max(ntok, 1)))
+
+
+def bootstrap_ci(samples, n_boot=10000, seed=0):
+    rng = np.random.default_rng(seed)
+    s = np.asarray(samples, float)
+    if len(s) == 0:
+        return float("nan"), float("nan"), float("nan")
+    bs = rng.choice(s, size=(n_boot, len(s)), replace=True).mean(1)
+    return float(s.mean()), float(np.percentile(bs, 2.5)), float(np.percentile(bs, 97.5))
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--model", default="gpt2")
+    ap.add_argument("--arms", nargs="+",
+                    default=["mse", "lm_only", "permuted", "cos", "pearson", "frozen", "cka"])
+    ap.add_argument("--seeds", nargs="+", type=int, default=[0, 1, 2])
+    ap.add_argument("--folds", type=int, default=5)
+    ap.add_argument("--epochs", type=int, default=3)
+    ap.add_argument("--lr", type=float, default=5e-5)
+    ap.add_argument("--batch-size", type=int, default=16)
+    ap.add_argument("--lambda-lm", type=float, default=1.0)
+    ap.add_argument("--lambda-grid", nargs="*", type=float, default=None,
+                    help="mse-only lambda_brain curve; default single ARM_LAMBDA[mse]")
+    ap.add_argument("--n-perm", type=int, default=1, help="permutation draws per (fold,seed)")
+    ap.add_argument("--limit-tune", type=int, default=None, help="cap tune sentences (smoke)")
+    ap.add_argument("--data-dir", default="data/tuckute2024")
+    ap.add_argument("--out", default=None)
+    args = ap.parse_args()
+
+    import torch
+    device = P.pick_device()
+    texts, Y, meta = load_tuckute(args.data_dir)
+    n = len(texts)
+    nc = matched_nc(args.data_dir)
+    cov = load_covariates(args.data_dir, n)
+    heldout = [l for l in CORPUS_HELDOUT.read_text().splitlines() if l.strip()][:1000] \
+        if CORPUS_HELDOUT.exists() else []
+    print(f"{args.model}: Tuckute {n} items x {Y.shape[1]} ROI; matched NC={nc:.3f}; "
+          f"device={device}; ppl-heldout={len(heldout)} sents")
+
+    base, tok = load_model(args.model, device)
+    layer = verdict_layer(base)
+    print(f"verdict layer L{layer} (of {base.config.num_hidden_layers}); arms={args.arms}; "
+          f"seeds={args.seeds}; folds={args.folds}")
+    base_ppl = eval_perplexity(base, tok, heldout, device) if heldout else None
+
+    # Fixed nuisance pieces (S from UNTUNED base, byte-identical across arms).
+    Z_all = P.scalar_nuisance(texts, tok)
+    S_all = P.static_embedding_features(base, tok, texts, device)
+
+    mse_lams = args.lambda_grid if args.lambda_grid else [ARM_LAMBDA["mse"]]
+    results = {"model": args.model, "layer": layer, "nc_matched": nc,
+               "anat_nc_legacy": meta["noise_ceiling_langnetw"], "config": vars(args),
+               "base_perplexity": base_ppl, "folds": {}, "raw": []}
+
+    def aB(idx): return {"texts": [texts[i] for i in idx], "Y": Y[idx],
+                         "Z": Z_all[idx], "S": S_all[idx]}
+
+    t0 = time.time()
+    base_by_fold = {}
+    for fi, tune_idx, eval_idx in outer_folds(n, args.folds):
+        ev = aB(eval_idx)
+        if args.limit_tune:
+            tune_idx = tune_idx[:args.limit_tune]
+        tn = aB(tune_idx)
+        # --- A/B balance for this fold (reported BEFORE unblinding Delta) ---
+        bal = {c: [float(cov[tune_idx, j].mean()), float(cov[eval_idx, j].mean())]
+               for j, c in enumerate(["imageability", "gpt2xl_surprisal", "pcfg_surprisal"])}
+        # --- base (untuned) score on eval fold ---
+        a0, a0_folds = score_unique_r2(base, tok, ev["texts"], ev["Y"], ev["Z"], ev["S"], layer, device)
+        base_by_fold[fi] = a0
+        results["folds"][fi] = {"n_tune": len(tune_idx), "n_eval": len(eval_idx),
+                                "base_unique_r2": a0, "ab_balance": bal}
+        print(f"\n== fold {fi}: tune={len(tune_idx)} eval={len(eval_idx)}  base unique_r2={a0:+.4f} "
+              f"(NC {a0/nc:+.3f})  imageability tune/eval={bal['imageability'][0]:.2f}/{bal['imageability'][1]:.2f} ==", flush=True)
+
+        for seed in args.seeds:
+            for arm in args.arms:
+                # build the (kind, lambda, permute) spec
+                if arm == "lm_only":
+                    specs = [("lm_only", None, 0.0, False)]
+                elif arm == "permuted":
+                    specs = [(f"permuted{d}", "mse", ARM_LAMBDA["mse"], d) for d in range(args.n_perm)]
+                elif arm == "mse":
+                    specs = [("mse" if len(mse_lams) == 1 else f"mse_l{lam:g}", "mse", lam, False)
+                             for lam in mse_lams]
+                else:
+                    specs = [(arm, arm, ARM_LAMBDA[arm], False)]
+
+                for tag, kind, lam, perm in specs:
+                    P.set_seed(seed)
+                    m, _ = load_model(args.model, device)
+                    Ytune = tn["Y"]
+                    if perm is not False:
+                        # distinct permutation per (fold,seed,draw) -> a real null distribution
+                        Ytune = BL.block_permute(tn["Y"], n_blocks=10, seed=1000 + fi * 100 + seed * 10 + perm)
+                    frozen_W = None
+                    if kind == "frozen":
+                        # fit W0 on the UNTUNED base features over the tune fold
+                        ecfg = P.ExtractConfig(pool="mean", max_length=64, batch_size=32)
+                        Xb = P.extract_hidden_states(base, tok, tn["texts"], ecfg, device, layer=layer)
+                        frozen_W = BL.fit_ridge_readout(Xb, Ytune, alpha=100.0)
+                    m = brain_tune(m, tok, tn["texts"], Ytune, kind, lam, args.lambda_lm,
+                                   layer, device, args.epochs, args.lr, args.batch_size, seed,
+                                   frozen_W=frozen_W)
+                    a_s, a_folds = score_unique_r2(m, tok, ev["texts"], ev["Y"], ev["Z"], ev["S"], layer, device)
+                    ppl = eval_perplexity(m, tok, heldout, device) if heldout else None
+                    delta = a_s - a0
+                    results["raw"].append({"fold": fi, "seed": seed, "arm": tag, "kind": kind,
+                                           "lambda_brain": lam, "unique_r2": a_s, "delta": delta,
+                                           "nc_norm": a_s / nc, "perplexity": ppl})
+                    print(f"  [{tag:12s} s{seed}] unique_r2={a_s:+.4f} (NC {a_s/nc:+.3f})  "
+                          f"Δ={delta:+.4f}{'' if ppl is None else f'  ppl={ppl:.1f}'}", flush=True)
+                    del m
+                    if torch.cuda.is_available():
+                        torch.cuda.empty_cache()
+
+    # ---------------- aggregate ----------------
+    raw = results["raw"]
+    arms_seen = sorted({r["arm"] for r in raw})
+    summary = {}
+    perm_deltas = [r["delta"] for r in raw if r["arm"].startswith("permuted")]
+    lmonly_by_fs = {(r["fold"], r["seed"]): r["delta"] for r in raw if r["arm"] == "lm_only"}
+    for arm in arms_seen:
+        rs = [r for r in raw if r["arm"] == arm]
+        deltas = [r["delta"] for r in rs]
+        m, lo, hi = bootstrap_ci(deltas)
+        ent = {"n": len(rs), "delta_mean": m, "delta_ci": [lo, hi],
+               "unique_r2_mean": float(np.mean([r["unique_r2"] for r in rs])),
+               "nc_norm_mean": float(np.mean([r["nc_norm"] for r in rs]))}
+        ppls = [r["perplexity"] for r in rs if r["perplexity"] is not None]
+        if ppls:
+            ent["perplexity_mean"] = float(np.mean(ppls))
+        # paired vs lm_only (same fold,seed)
+        paired = [r["delta"] - lmonly_by_fs[(r["fold"], r["seed"])]
+                  for r in rs if (r["fold"], r["seed"]) in lmonly_by_fs and not arm.startswith("permuted") and arm != "lm_only"]
+        if paired:
+            pm, plo, phi = bootstrap_ci(paired)
+            ent["vs_lm_only_mean"] = pm; ent["vs_lm_only_ci"] = [plo, phi]
+        # permuted-null exceedance
+        if perm_deltas and not arm.startswith("permuted"):
+            ent["permuted_null_p95"] = float(np.percentile(perm_deltas, 95))
+            ent["beats_permuted_null"] = bool(m > np.percentile(perm_deltas, 95))
+        summary[arm] = ent
+    results["summary"] = summary
+    results["permuted_null"] = {"n": len(perm_deltas),
+                                "p95": float(np.percentile(perm_deltas, 95)) if perm_deltas else None,
+                                "mean": float(np.mean(perm_deltas)) if perm_deltas else None}
+
+    out = args.out or f"outputs/E004_brain_lever_{args.model.replace('/', '_')}.json"
+    Path(out).parent.mkdir(parents=True, exist_ok=True)
+    Path(out).write_text(json.dumps(results, indent=2))
+    print(f"\n=== SUMMARY {args.model} (elapsed {time.time()-t0:.0f}s, NC={nc:.3f}) ===")
+    print(f"base mean unique_r2 = {np.mean(list(base_by_fold.values())):+.4f}")
+    for arm in arms_seen:
+        e = summary[arm]
+        extra = ""
+        if "vs_lm_only_mean" in e:
+            extra += f"  vs_lm_only={e['vs_lm_only_mean']:+.4f} CI[{e['vs_lm_only_ci'][0]:+.4f},{e['vs_lm_only_ci'][1]:+.4f}]"
+        if "beats_permuted_null" in e:
+            extra += f"  >perm95={e['beats_permuted_null']}"
+        if "perplexity_mean" in e:
+            extra += f"  ppl={e['perplexity_mean']:.1f}"
+        print(f"  {arm:12s} Δ={e['delta_mean']:+.4f} CI[{e['delta_ci'][0]:+.4f},{e['delta_ci'][1]:+.4f}] "
+              f"(NC-norm uR²={e['nc_norm_mean']:+.3f}){extra}")
+    print(f"wrote {out}")
+
+
+if __name__ == "__main__":
+    main()
