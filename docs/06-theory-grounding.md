@@ -103,13 +103,14 @@ The Prob-ML course grounds the *modelling* side rather than the *bounds* side. T
 
 **Probabilistic ML** (8 blocks): (1) Bayesian inference, conjugacy, exponential family, Fisher info, model selection; (2) deep autoregressive models (MADE, OA-ARDM, deep AR for time series); (3) latent-variable models & approximate inference (EM, VI, VAE, importance sampling, Metropolis-Hastings, HMM, Kalman); (4) advanced VAEs (IWAE, GMVAE, VQ-VAE, NVAE, VampPrior, multimodal); (5) survival analysis & temporal point processes (Cox, Hawkes, neural variants); (6) TabPFN & tabular foundation models; (7) implicit neural representations (SIREN, NeRF, GASP, VaMoH); (8) DDPMs & diffusion.
 
-## Gaps (no notes — fill via paper-digest only if they become load-bearing)
+## Gaps — filled 2026-06-10 (the course-central ones), rest deferred
 
-All of these are **adjacent, not load-bearing** for the current thesis framing, so gap-filling is deferred (see `tasks.md`):
+The deferred gap-fill ran on 2026-06-10 (6 Sonnet subagents). **Seven new notes were written, co-located with their PDFs under `data/course-material/`** (gitignored, like the other 44). These are **agent-generated digests** (frontmatter `generated_by: agent`), not products of Erfan's `course-lecture-study` workflow, and each carries a `## Source audit` flagging slide-vs-standard provenance — treat them as solid but secondary to Erfan's own `*_study.md`. All remain **adjacent, not load-bearing** for the current thesis framing; the digests just complete the archive and each ends with an honest `## Thesis hook`.
 
-- **Info-theory L16–L17 — Fisher information & Cramér-Rao** (`16_18032026_FisherInformation_CramerRao.pdf`, `17_CramerRaoII.pdf`): slide PDFs, no `*_study.md`/`*_OCR.md`. Relevant only if the thesis needs encoding-model identifiability / estimator-variance arguments.
-- **Prob-ML Block 4 — all VAE-extension papers un-noted** (`prob-ml-course/4_Advanced Topics with VAEs/`): IWAE, GMVAE, VQ-VAE, NVAE, VampPrior (course-central) + two multimodal-VAE papers and a Gamma-Poisson note (peripheral). Candidates for `paper-digest` if a latent-variable framing of $\mathcal{L}_{\text{brain}}$ is pursued.
-- Minor: the Block-1 Occam evidence note (`1_2_occam.pdf`) and Block-2 ARDM paper are course-central readings without standalone notes, but their content is covered inside the block study notes.
+- **Info-theory L16–L17 — Fisher information & Cramér-Rao** — now noted: `16_18032026_FisherInformation_CramerRao_study.md` (score function, $I(\theta)=\mathbb{E}[(\partial_\theta\log p_\theta)^2]$, CRB $\mathrm{Var}(\hat\theta)\ge 1/(nI(\theta))$) and `17_CramerRaoII_study.md` (Fisher matrix, matrix CRB $\mathrm{Cov}(\hat\theta)\succeq (nI(\theta))^{-1}$, biased-estimator + asymptotic-MLE efficiency). Reconstructed from sparse slides + standard results, cross-referenced to the Block-1 note. *Hook:* a tool for bounding the variance of the encoding-map ($W$) estimate under the noise ceiling — usable, not yet used.
+- **Prob-ML Block 4 — the five course-central VAE papers** — now noted: `3_IWAE_study.md`, `4_GMVAE_study.md`, `7_VQ-VAE_study.md`, `8_NVAE_study.md`, `9_VampPrior_study.md`. *Hooks (all adjacent):* IWAE = the variance-reduction analogue of multi-run/CV alignment estimation; VQ-VAE = a rate operating point (shared rate-distortion lens); VampPrior = a clean illustration of "optimal prior = where the data concentrates," echoing R03's prior-over-the-manifold framing.
+
+**Still un-noted (deliberately skipped — zero/low thesis relevance, never in the deferred task):** the two multimodal-VAE papers (`5_…MoE…`, `6_…multimodal…`) and the Gamma-Poisson note (`2_A_note_on_gamma_poisson.pdf`) in Block 4; the Block-1 Occam evidence note (`1_2_occam.pdf`) and Block-2 ARDM paper (content already covered inside the block study notes). Run `paper-digest` on these only if a use-case appears.
 
 ## Pointers into the rest of the brain
 

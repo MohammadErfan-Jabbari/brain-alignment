@@ -17,7 +17,6 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 
 ## Later (once the pilot says go)
 
-- [ ] **(DEFERRED, conditional)** Fill course-material note gaps *only if they become load-bearing*: info-theory L16–17 (Fisher information / Cramér-Rao) via the course-study workflow; prob-ml Block 4 VAE papers (IWAE, GMVAE, VQ-VAE, NVAE, VampPrior) via `paper-digest`. All currently "adjacent" per `06-theory-grounding.md` — don't spend a pass until a thesis claim needs them.
 - [ ] Lock the baseline matrix runs (perplexity-only KD, structure-aware KD, alignment-guided, hybrid).
 - [ ] Build the anti-confound evaluation harness (contiguous splits, nuisance baselines).
 - [ ] Promote H001 to a Design with a locked protocol; add competing hypotheses H002/H003.
@@ -31,6 +30,7 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 
 ## Done
 
+- [x] 2026-06-10 — **Filled the deferred course-material note gaps.** 6 Sonnet subagents wrote 7 agent-digest notes (gitignored, co-located with PDFs): Block-4 VAEs `3_IWAE` / `4_GMVAE` / `7_VQ-VAE` / `8_NVAE` / `9_VampPrior`, and info-theory `16_Fisher/CR` / `17_CramerRaoII`. All adjacent (not load-bearing), each with a Thesis hook + Source audit. `06-theory-grounding.md` + INDEX updated; peripherals (2 multimodal VAEs, gamma-Poisson, Occam, ARDM) deliberately skipped.
 - [x] 2026-06-10 — **Course material adopted as theory-grounding source (D014).** Recon via 3 subagents → no re-OCR needed (existing `*_study.md`/`*_OCR.md` beat any extraction; L010). Wrote `docs/06-theory-grounding.md` (concept→thesis map), `data/course-material/INDEX.md`; folded the formal math into R03 §2 (new Step 7: MI generalization bound, DPI, conditional MI, rate-distortion) + landscape §E + CLAUDE.md + README. Fixed R03 line-1 transcript-paste corruption.
 - [x] 2026-06-10 — **Two real datasets staged (D013):** Tuckute 2024 (`data/tuckute2024/`, real ROI-level) + LeBel UTS03 (`data/lebel_ds003020/`, ~20 GB voxelwise, response matrix verified L005). Via osfclient + anonymous S3. Resolves the D008 "re-evaluate before pulling" task.
 - [x] 2026-06-10 — **E002 real-data encoding feasibility → A2 PASS.** Trained LM mid-layer unique R² positive (gpt2 +0.020, gpt2-medium +0.019, Qwen2.5-0.5B +0.036), untrained controls negative (3 seeds). `experiments/E002_*.md`. The verdict synthetic E001 could not give. (L007)
