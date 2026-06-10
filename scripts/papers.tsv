@@ -1,0 +1,11 @@
+arxiv_id	expected_title_substring	group	why
+2410.09230	brain-tuning	anchor	Moussa/Klakow/Toneva ICLR2025 — brain-tuning speech LMs (closest prior)
+2510.21520	brain-tuning	anchor	Moussa/Toneva NeurIPS2025 — brain-tuning generalizability+efficiency
+2603.23091	brain	anchor	Merlin/Toneva ICLR2026 — When LMs Lose Their Mind (causal, matched perplexity)
+2602.07547	compress	counter	Linguistic properties + scale, small->compressed LMs (compression preserves alignment)
+2602.04081	abstraction	theory	Cheng/Vaidya/Antonello — abstraction induces brain alignment (LID)
+2601.22722	intrinsic dimension	theory	LID predicts alignment + generalization
+2602.14486	platonic	theory	Aristotelian view of the Platonic Representation Hypothesis
+2506.03832	brain	adjacent	Moussa Interspeech2025 — brain-tuned speech models reflect processing stages
+2511.16849	brain-like	adjacent	Better audio reps are more brain-like (downstream correlation)
+2209.02582	neural	precedent	Federer — DCCA neural-data regularizer for CNNs (vision precedent)
