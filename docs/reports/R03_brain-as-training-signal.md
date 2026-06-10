@@ -26,7 +26,9 @@ This is a clean, real idea. It is also — and we have to say this plainly becau
 
 *Step 1 — Training is inference, and a loss term is a prior.* Write training as choosing parameters $\theta$. Adding a brain term to the usual language-model loss gives the objective
 
-$$\hat{\theta} \;=\; \arg\min_{\theta}\; \underbrace{\Big[-\textstyle\sum_{t=1}^{N}\log p_\theta(x_t \mid x_{<t})\Big]}_{-\log p(\mathcal{D}_{\text{text}}\mid\theta)\;=\;\text{text loss}} \;+\; \lambda\,\underbrace{\mathcal{L}_{\text{brain}}(\theta)}_{-\log p(\theta)\;=\;\text{a prior}} .$$
+$$
+\hat{\theta} \;=\; \arg\min_{\theta}\; \underbrace{\Big[-\textstyle\sum_{t=1}^{N}\log p_\theta(x_t \mid x_{<t})\Big]}_{-\log p(\mathcal{D}_{\text{text}}\mid\theta)\;=\;\text{text loss}} \;+\; \lambda\,\underbrace{\mathcal{L}_{\text{brain}}(\theta)}_{-\log p(\theta)\;=\;\text{a prior}} .
+$$
 
 Up to additive constants this is *exactly* a maximum-a-posteriori (MAP) estimate, $\hat\theta_{\text{MAP}} = \arg\max_\theta \big[\log p(\mathcal{D}_{\text{text}}\mid\theta) + \log p(\theta)\big]$: the text enters as the **likelihood** (the evidence about the task), and any added regularizer — $\mathcal{L}_{\text{brain}}$ included — enters as the **log-prior**. So the real question is not the vague "can the brain train the model?" but the quantitative one: *given a likelihood this strong, how far can this prior move the posterior?*
 
@@ -34,27 +36,49 @@ Up to additive constants this is *exactly* a maximum-a-posteriori (MAP) estimate
 
 *Step 3 — The noise ceiling is a channel capacity.* For each effectively-independent voxel, the best achievable correlation between any model's prediction and the recorded response is bounded by the noise ceiling $r_{\max}\approx 0.3$–$0.56$. Model the stimulus-driven response as signal-plus-Gaussian-noise; then the information one voxel carries about its stimulus-driven component, per stimulus, is at most the Gaussian channel capacity
 
-$$I \;\le\; \tfrac{1}{2}\log_2\!\big(1+\mathrm{SNR}\big), \qquad \mathrm{SNR} \;=\; \frac{r_{\max}^2}{1-r_{\max}^2}.$$
+$$
+I \;\le\; \tfrac{1}{2}\log_2\!\big(1+\mathrm{SNR}\big), \qquad \mathrm{SNR} \;=\; \frac{r_{\max}^2}{1-r_{\max}^2}.
+$$
 
 At $r_{\max}=0.5$ this gives $\mathrm{SNR}\approx0.33$ and $I\lesssim 0.21$ bits; at the Tuckute LangNetw ceiling $r_{\max}\approx0.35$, $I\lesssim 0.09$ bits. Multiply by the *effective* (post-redundancy) voxel count — tens, not thousands; Tuckute is literally 5 ROIs — and by $n$ stimuli, and the total usable brain information lands around $10^{4}$–$10^{6}$ bits. That is **six to nine orders of magnitude** below the text budget. (This is an order-of-magnitude heuristic, not a theorem — but no honest tightening closes a gap that wide.)
 
 *Step 4 — Most of even that is already in the text (data-processing inequality).* The brain signal is itself a noisy function of the same stimulus. With $S$ the stimulus and $R$ the brain's internal representation, we have the Markov chain $S \to R(S) \to Y$, and the language model is *already* trained on text drawn from $S$. So the brain can only add its **unique** information about the optimal parameters beyond the text, $I\big(\theta^\star; Y \mid \mathcal{D}_{\text{text}}\big)$, and the data-processing inequality forbids $Y$ from carrying more about $\theta^\star$ than the stimulus it was derived from:
 
-$$I\big(\theta^\star; Y\big) \;\le\; I\big(\theta^\star; S\big).$$
+$$
+I\big(\theta^\star; Y\big) \;\le\; I\big(\theta^\star; S\big).
+$$
 
 Because much of the brain-predictive structure (length, position, word identity, even syntax) is recoverable from text alone — precisely the point R01 §2/§4 makes when it insists on *unique* variance after nuisance subtraction — this conditional term is smaller still. The honest brain budget is not even the $10^{4}$–$10^{6}$ bits of Step 3, but the thin slice of it not already implied by the text the model has seen.
 
 *Step 5 — A prior that weak cannot teach; it can only select.* With a likelihood worth $\sim10^{12}$ bits and a unique prior worth, generously, $\sim10^{5}$ bits, the posterior over $\theta$ is overwhelmingly shaped by the text — the brain term cannot install new task knowledge against that imbalance. What it *can* do is break ties. An overparameterized language model does not have one text-optimum; it has a high-dimensional **low-loss manifold** of near-equivalent solutions,
 
-$$\Theta_\epsilon \;=\; \big\{\,\theta : \mathcal{L}_{\text{text}}(\theta) \le \mathcal{L}^\star_{\text{text}} + \epsilon\,\big\},$$
+$$
+\Theta_\epsilon \;=\; \big\{\,\theta : \mathcal{L}_{\text{text}}(\theta) \le \mathcal{L}^\star_{\text{text}} + \epsilon\,\big\},
+$$
 
-all of which fit the text comparably well yet *generalize differently*. The brain term acts as a **selection rule over $\Theta_\epsilon$**, $\;\hat\theta \approx \arg\min_{\theta\in\Theta_\epsilon}\mathcal{L}_{\text{brain}}(\theta)$: it chooses *which* text-consistent solution we end up in. That is the exact technical meaning of "**inductive bias / regularizer / selection signal**" — not a teacher of new facts, but a chooser among the solutions the text already permits. This is also why "train the LM *on* the brain" collapses, under the budget above, into "*bias* an LM that is mostly trained on text."
+all of which fit the text comparably well yet *generalize differently*. The brain term acts as a **selection rule over **$\Theta_\epsilon$**, **$\;\hat\theta \approx \arg\min_{\theta\in\Theta_\epsilon}\mathcal{L}_{\text{brain}}(\theta)$**: it chooses** *which* text-consistent solution we end up in. That is the exact technical meaning of "**inductive bias / regularizer / selection signal**" — not a teacher of new facts, but a chooser among the solutions the text already permits. This is also why "train the LM *on* the brain" collapses, under the budget above, into "*bias* an LM that is mostly trained on text."
 
 *Step 6 — Why this predicts exactly where it can help (a generalization bound).* That a weak prior matters *most* when data is scarce is not a slogan; it falls out of any sample-complexity bound. The PAC-Bayes (McAllester) bound, for a prior $P$ and a learned posterior $Q$ over parameters, reads
 
-$$\mathbb{E}_{\theta\sim Q}\big[\mathrm{risk}(\theta)\big] \;\le\; \mathbb{E}_{\theta\sim Q}\big[\widehat{\mathrm{risk}}(\theta)\big] \;+\; \sqrt{\frac{\mathrm{KL}(Q\,\Vert\,P) + \ln(n/\delta)}{2\,n}} .$$
+$$
+\mathbb{E}_{\theta\sim Q}\big[\mathrm{risk}(\theta)\big] \;\le\; \mathbb{E}_{\theta\sim Q}\big[\widehat{\mathrm{risk}}(\theta)\big] \;+\; \sqrt{\frac{\mathrm{KL}(Q\,\Vert\,P) + \ln(n/\delta)}{2\,n}} .
+$$
 
-A prior $P$ that already concentrates its mass on brain-aligned (here: more abstract, more human-like) hypotheses *lowers* $\mathrm{KL}(Q\Vert P)$ for the good $Q$, and so tightens the bound — but the whole correction term scales as $1/\sqrt{n}$ and **vanishes as the effective task data $n$ grows**. This is the bias–variance tradeoff in another costume: a prior trades a little bias for a variance reduction that only pays off while variance still dominates. Hence the conclusion, now *derived* rather than asserted — a weak-but-well-aimed brain prior can help **most** in low-information regimes (small models, scarce data, aggressive compression) and is **washed out** where the text signal already dominates (large models, abundant data). This single consequence is the most important in the report: it determines everything downstream in §4 — it is *why* the surviving slice of the idea lives in distillation and low-data regularization, and *why* it cannot live in "make a frontier model better by pouring in fMRI."
+A prior $P$ that already concentrates its mass on brain-aligned (here: more abstract, more human-like) hypotheses *lowers* $\mathrm{KL}(Q\Vert P)$ for the good $Q$, and so tightens the bound — but the whole correction term scales as $1/\sqrt{n}$ and **vanishes as the effective task data **$n$** grows**. This is the bias–variance tradeoff in another costume: a prior trades a little bias for a variance reduction that only pays off while variance still dominates. Hence the conclusion, now *derived* rather than asserted — a weak-but-well-aimed brain prior can help **most** in low-information regimes (small models, scarce data, aggressive compression) and is **washed out** where the text signal already dominates (large models, abundant data). This single consequence is the most important in the report: it determines everything downstream in §4 — it is *why* the surviving slice of the idea lives in distillation and low-data regularization, and *why* it cannot live in "make a frontier model better by pouring in fMRI."
+
+*Step 7 — The same bounds, in the course's exact form (formal backing, not hand-waving).* Steps 1–6 were built from first principles; it is worth recording that each rests on a theorem the Information-Theory-for-ML course (Erfan's MSc coursework) states and proves, so the thesis can *cite* the result rather than re-derive it or guess a constant. The full concept→thesis map is `docs/06-theory-grounding.md`; the three load-bearing anchors are these.
+
+First, the generalization claim. Step 6 used the PAC-Bayes (McAllester) bound; the course derives its in-expectation twin (lecture 26, file `data/course-material/info-theory-course/26_generalization_error_bounds_OCR.md`) — for a learning algorithm modelled as a channel $P_{W\mid Z^n}$ from the training set to the learned parameters $W$, with $\sigma$-sub-Gaussian loss,
+
+$$
+\overline{\operatorname{gen}} \;=\; L - \widehat{L} \;\le\; \sqrt{\frac{2\sigma^2\,I(W;Z^n)}{n}}.
+$$
+
+Both faces — the high-probability PAC-Bayes form used above and this in-expectation form — descend from the *same* Donsker-Varadhan variational representation of KL (course lecture 5). That collapses Step 6's conclusion to a single quantity to watch: the brain prior changes generalization only through the algorithm's input-output mutual information $I(W;Z^n)$, and the benefit it can buy is $O(\sqrt{\Delta I / n})$, where $\Delta I$ is the extra mutual information the brain term injects. The entire "information budget" of Steps 2–4 is precisely the estimate of that $\Delta I$ — which is *why* a budget six-to-nine orders below the text's forces the prior to be weak, and *why* the $1/\sqrt{n}$ scaling washes it out as task data grows.
+
+Second, the "most of it is already in the text" claim of Step 4 is the data-processing inequality verbatim (course lecture 6, file `data/course-material/info-theory-course/6_10022026_DPI_SourceCodingI_study.md`): for the Markov chain $S \to R(S) \to Y$, $I(\theta^\star;Y) \le I(\theta^\star;S)$. Read forward through the distillation pipeline — stimulus $\to$ teacher LM features $\to$ compressed student representation — the very same theorem gives $I(Z_{\text{student}};B) \le I(Y_{\text{teacher}};B)$: **compression can only lose brain alignment, never create it.** That is the formal statement of §2's third brake (the arXiv 2602.07547 counter-evidence). If compression *empirically preserves* alignment, the DPI bound is near-tight in practice, which is exactly why F1 must compete on the rate-distortion **trade-off curve** — $R(D)=\min_{P_{\hat S\mid S}:\,\mathbb{E}[(S-\hat S)^2]\le D} I(S;\hat S)$, course lecture 1 — and not on a preserve-vs-destroy binary.
+
+Third, the "unique variance after nuisance subtraction" that every brain-alignment number in this thesis is required to report (L003) is conditional mutual information (course lecture 4, file `data/course-material/info-theory-course/4_03022026_RelativeEntropy_MI_Jensen_study.md`): $I(\text{LM};\,B \mid \text{nuisance})$. The contiguous-split, nuisance-baseline protocol is its ridge-regression operationalization. So the anti-confound discipline is not caution bolted on after the fact — it is the only quantity the generalization bound above is actually about, since nuisance-explained alignment carries no $\Delta I$ the text did not already supply.
 
 **Why a bias toward the brain might help (the mechanism, Feynman-style).** Two non-exclusive stories, both with 2026 evidence:
 
@@ -118,6 +142,6 @@ The literature's own substrate is Narratives/Pereira/Fedorenko/Harry-Potter/Tuck
 ## 7. What this changes about the thesis framing
 
 1. Stop pitching "use fMRI to train an LM" — it is scooped (text included). Pitch the unscooped slice: **alignment-guided *distillation* at matched budget (F1), and/or brain as a *low-data* regularizer (F2)**, with the honest trade-off-curve framing that survives the "compression already preserves alignment" complication.
-2. The first-principles bound (§2) is itself a *contribution* worth writing: a clear argument for *why* brain data can only be a weak regularizer, and therefore *where* (small/compressed/low-data) it can matter — which predicts the regimes the experiments should target.
+2. The first-principles bound (§2) is itself a *contribution* worth writing: a clear argument for *why* brain data can only be a weak regularizer, and therefore *where* (small/compressed/low-data) it can matter — which predicts the regimes the experiments should target. Step 7 now anchors it to the exact theorems of the Information-Theory course (MI generalization bound, DPI, conditional MI, rate-distortion), so the methods/related-work sections can cite established results rather than assert them — see `docs/06-theory-grounding.md`.
 3. The ladder (§5) is the de-risking plan: cheap kills first. Layer 0 (E002) is done tonight; it tells us whether to climb at all.
 
