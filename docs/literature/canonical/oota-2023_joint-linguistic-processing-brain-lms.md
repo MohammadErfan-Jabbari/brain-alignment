@@ -28,7 +28,7 @@ Comprehension self-check passed: Y
 
 ## Source Grounding
 
-The authors use pretrained BERT (and GPT-2 in supporting analyses) on the Harry Potter fMRI dataset and remove six probing properties from model representations: one surface, two syntactic, three semantic. They then re-run voxelwise encoding to measure alignment loss and correlate layerwise probing degradation with layerwise brain-alignment degradation at whole-brain, ROI, and sub-ROI levels.
+The authors use pretrained BERT (and GPT-2 in supporting analyses) on the Narratives **"21st year" listening** fMRI dataset (18 subjects, 8,267 words, 2,226 TRs at TR=1.5s — confirmed from the authors' repo `linguistic-properties-brain-alignment` and the arXiv abstract's "listened to a story"; this is a *listening* dataset, **not** Harry Potter, which is a *reading* dataset — corrected 2026-06-10, see L009) and remove six probing properties from model representations: one surface, two syntactic, three semantic. They then re-run voxelwise encoding to measure alignment loss and correlate layerwise probing degradation with layerwise brain-alignment degradation at whole-brain, ROI, and sub-ROI levels.
 
 ## Core Claims
 

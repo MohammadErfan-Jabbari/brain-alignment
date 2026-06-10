@@ -123,7 +123,7 @@ That conjunction is the thesis's reason to exist. If any link breaks — e.g. th
 - **G2 — No quantitative own-data anchor.** Every number here is from the literature. We have **no real-data brain-alignment number of our own** — E001 ran on synthetic fMRI (plumbing only). Until a working session runs `--backend pereira`/lebel, this report cannot state *our* effect size.
 - **G3 — The $\mathcal{L}_{\text{brain}}$ form is undecided.** Frozen encoding-map loss vs CKA proxy vs trainable head (D010, head overfits). §5 lists the tools; the literature does not pick for us.
 - **G4 — Decoding (brain→text) direction not covered.** This report is encoding-only (LLM→brain). Whether the inverse map adds anything for our purpose is unsurveyed.
-- **G5 — Dataset-specificity of every claim.** Drivers are largely from Harry Potter / Pereira / one naturalistic set each. Cross-dataset generalization of the *drivers* (not just the scores) is thinly evidenced. Narratives/LeBel generalization runs would address this.
+- **G5 — Dataset-specificity of every claim.** Drivers are largely from the Narratives "21st year" listening set (Oota 2023) / Pereira / one naturalistic set each. Cross-dataset generalization of the *drivers* (not just the scores) is thinly evidenced. Narratives/LeBel generalization runs would address this. (Note: Oota 2023's dataset is the *listening* "21st year" Narratives set, not Harry Potter — earlier drafts misattributed it; corrected 2026-06-10, L009.)
 - **G6 — Nonlinear maps.** The whole program is linear-readout. Whether a nonlinear map changes the attribution story is an explicit open question in multiple notes (Oota 2023/2024) and unaddressed here.
 
 ---
