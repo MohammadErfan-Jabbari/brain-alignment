@@ -161,3 +161,27 @@ gives a real one at comparable friction).
 **Reverses if:** Tuckute's ROI-level coarseness proves too low-dimensional to discriminate the distillation
 arms (then promote LeBel voxelwise sooner, or pull a denizenslab subject), or LeBel's adapter proves
 impractical.
+
+### D014 — 2026-06-10 — Adopt the MSc coursework as a third source of truth; index it, don't re-extract it
+
+**Decision:** Erfan's master's coursework (Information Theory for ML + Probabilistic ML, UC3M 2025–26),
+added to `data/course-material/` (125 files, ~292 MB, gitignored), is adopted as the thesis's **theory-grounding
+source**, alongside the papers and the datasets. Three sub-decisions: **(1) No re-OCR / no PDF-extraction pass.**
+The lecture decks already have Erfan's own `*_study.md` (teaching notes) and `*_OCR.md` (audited formula
+reconstructions) from a `course-lecture-study` workflow; these are *higher quality* than any fresh OCR of the
+sparse, image-heavy slides, so the markdown notes ARE the usable text and the PDFs are kept only as
+source-of-record. The reframing is the point: this was never an extraction problem, it is a curation+integration
+problem. **(2) Gitignored + indexed, not committed-as-text.** The notes stay under gitignored `data/` (canonical
+copies live in Erfan's `~/uni/`); the committed, portable record is the curated index `docs/06-theory-grounding.md`
+plus a navigation `data/course-material/INDEX.md`. **(3) Fold the load-bearing math into the live docs now.**
+R03 §2 gains a Step 7 that anchors its first-principles bounds to the course's exact theorems (MI generalization
+bound `gen ≤ √(2σ²I(W;Zⁿ)/n)`, data-processing inequality, conditional MI = "unique R²", rate-distortion = the F1
+trade-off curve); `01-research-landscape.md` §E and `CLAUDE.md` "Read this first" now point at the grounding doc.
+**Rationale:** The course supplies, in proved textbook form, the exact math R03 was invoking informally — the
+weak-prior bound IS the MI generalization bound, the unique-R² metric IS conditional MI, the compression brake IS
+the DPI, the F1 trade-off IS rate-distortion. Capturing that lets future methods/related-work sections cite rather
+than assert. Running a generic PDF/OCR skill would have *destroyed* value (worse than the existing notes) and burned
+compute — the subagent recon established this before any extraction was attempted.
+**Reverses if:** portability of the raw notes themselves becomes necessary (then un-ignore `*.md` under
+`data/course-material/`, < 1 MB of text), or a course concept currently marked "adjacent" (Fisher/Cramér-Rao,
+the Block-4 VAE papers) becomes load-bearing and needs a `paper-digest` pass.
