@@ -21,3 +21,6 @@ tmp/
 
 # OS / editor
 .DS_Store
+
+# graphify — regenerable knowledge-graph output (build with /graphify)
+graphify-out/
