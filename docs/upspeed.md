@@ -1,39 +1,41 @@
 # Upspeed — read first, write last
 
-**Last updated:** 2026-06-10 (Session 6 — working — E003 KD-alignment kill-test, Layer 2a)
+**Last updated:** 2026-06-11 (Session 7 — working — E004 lever + E006 powered A2 + E005 F1-confirmed)
 
 > **Canonical state lives in [`ladder.md`](ladder.md)** (the rung board + next step, D015). This file is
 > the last-session prose; if it disagrees with the ladder, the ladder wins. With no task, run `/orient`.
 
 ## Current state
 
-Phase = **Run → Judge**, on the R03 ladder. Two rungs now hold on real data: **Layer 0/A2** (E002, the encoding signal is real) and now **Layer 2a** (E003, the perplexity-only-KD kill-test). E003's verdict is a **qualified PARTIAL**: ordinary perplexity/logit KD does **not** preserve a teacher's brain alignment for free — there is a clean monotone gradient (conventional gpt2 ≈ teacher > warm-KD ρ′=0.84 > distilgpt2 0.60 > from-scratch cold-KD 0.37 > floor), and from-scratch logit KD lands far below the teacher (Δ=0.018, p<0.001). So F1 is **not** in the `oota-2026` "preserve-by-default" trap. **But** the stronger claim — that KD sheds alignment *beyond* the perplexity it costs — is **unresolved**: alignment co-varies with LM quality (Pearson −0.88 on log-ppl), the KD-specific dissociation is only p≈0.1, and the cold arm is under-trained (ppl 4.5× teacher). F1 is therefore **neither killed nor confirmed** — it has plausible headroom worth one precise next experiment.
+Phase = **Run → Judge**, three rungs climbed this session. The keystone `$\mathcal{L}_{\text{brain}}$` is **built** and the thesis now has its **positive headline result**:
 
-## What was done (Session 6 — working)
+- **L0/A2 — alignment is real — ✅ PASS, now POWERED.** E002 (Tuckute 5-ROI) + **E006** (LeBel UTS03 voxelwise): trained−untrained gap **+0.021 (gpt2) / +0.028 (Qwen)** on 11.4k NC-reliable voxels, 95–99% positive, after the full phone-tier+eng1000 anti-confound. Clears the Hadidi/Feghhi 2026 bar.
+- **L1 — is it an optimizable lever — 🟡 PARTIAL.** E004: brain loss built (D010 → co-trained MSE); a brain-SPECIFIC lever exists (+0.0032 vs permuted twin) but small/fragile, sub-threshold on 5 ROIs.
+- **L3/F1 — the headline — 🟡 PARTIAL-PASS (in-domain).** **E005**: alignment-guided KD beats perplexity-only KD **at matched perplexity**, brain-specifically — paired (kd_brain − kd_brain_permuted) = **+0.0081 [+0.0023, +0.0171]**, CI excludes 0, 4/5 folds + (robust to fold-4), gain holds despite slightly-worse ppl. **The dissociation E003/E004 couldn't establish.** Small (~1.6% NC) → an **A+B synthesis**: F1 confirmed + the honest rate–distortion characterization.
 
-1. **Locked E003 design after two pre-run Opus adversarial reviews** (`b2f23bb`). The reviews caught the **initialization trap** (warm-init KD only measures fine-tuning drift) → added the **cold-init from-scratch arm** as the verdict; reframed preserve/destroy → **headroom/gap**; mandated ≥3 seeds, floor-anchored ρ′ with bootstrap CIs, a perplexity guard, fixed-layer verdict.
-2. **Built `scripts/run_kd_alignment.py`** (`d11c89b`) — reuses `distill.py` (pure logit KD, λ_brain=0) + `pilot_lib` (the anti-confound partition). KD corpus = wikitext-103 sentences deduped against Tuckute.
-3. **Ran it** (cold arm GPU 0 + warm controls GPU 3, parallel, ~1 h). References reproduced E002 to ~0.0003 across GPUs.
-4. **Judged honestly** (`7483848`): a **post-run Opus skeptic refuted the preliminary "F1 confirmed" read** — the verdict is PARTIAL headroom, not a confirmed job. Recorded in `experiments/E003_*.md`, learnings **L011**, R03 ladder (Layer 2a) + R04 §8 (`b996a2c`).
-5. **R04 §7 corrections to R03 were already applied** (prior session, `4b548d1`) — verified, nothing to do.
+## What was done (Session 7 — working, autonomous)
+
+Three full Design→Run→Judge cycles, each oracle-gated before compute (one HOLD caught a fatal confound each time):
+1. **E004** (lever): built `brain_loss.py` (loss family) + `run_brain_lever.py` (LoRA, rotating folds, per-kind permuted twins). 2 reviews caught the covariate-shift confound (→ rotating folds), full-FT ppl-collapse (→ LoRA), readout absorption (→ permuted twins). Verdict PARTIAL.
+2. **E006** (powered A2): built `lebel_adapter.py` + `run_lebel_encoding.py` (reuse official LeBel pipeline; staged TextGrids+eng1000; CC_norm voxel selection from `wheretheressmoke` repeats; phone-tier+eng1000 nuisance). Verdict STRONG PASS; lever statistic underpowered (don't build E007).
+3. **E005** (F1 headline): extended the harness with a KD-teacher term (permuted twin = matched-ppl control by construction); reordered to Tuckute-in-domain (powered MDE +0.0035). Verdict F1 CONFIRMED in-domain.
+4. Literature: paper-digested **Hadidi/Feghhi 2026** (residual ≤10% — the anti-confound bar, matches our finding). lit-scout sweep.
 
 ## What to do next (ordered — what's next to *run*)
 
-1. **E004 — the resolving experiment (the real F1 test).** Alignment-guided KD (λ_brain>0) vs perplexity-only KD **at matched perplexity** (L011 — *not* just matched budget; that's the only design that attributes an alignment gain to the brain objective rather than to LM quality). The `distill.py` harness supports λ_brain>0 already; the open pieces are the $\mathcal{L}_{\text{brain}}$ form (**D010** — frozen encoding map vs CKA proxy vs trainable head) and a matched-perplexity stop rule. **This is the headline thesis experiment.**
-2. **Converged cold arm** — re-run from-scratch logit KD to *matched perplexity* (more KD compute / smaller target) to de-confound under-training from alignment shedding. Cheap, settles whether cold-KD's near-floor alignment is real or a budget artifact.
-3. **LeBel UTS03 voxelwise adapter** (FIR/lag, contiguous story splits) — the powered benchmark (thousands of voxels vs Tuckute's 5 ROIs) to confirm the ~0.005 gaps. Tuckute is a screen only. Data on disk; loader is the work, **not a config swap**.
-4. **Layer 2 (A3)** still open — does induced/preserved alignment buy OOD generalisation or low-data sample-efficiency?
+1. **LeBel voxelwise TRANSFER test** — does E005's in-domain F1 gain (+0.0081) generalize cross-dataset/granularity? **Needs a powered statistic** (per-voxel paired / LH-region-restricted; the mean-over-voxels MDE +0.013 ≫ the effect) — **design + oracle-gate FIRST**, then measure each E005 KD student on the E006 LeBel protocol. Positive = strong generalization; powered null after in-domain positive = "real but doesn't transfer."
+2. **λ-sweep / multi-rate trade-off curve** — trace kd_brain & kd_ppl (ppl, alignment) frontiers (λ_brain grid, ≥2 compression rates) for the rate–distortion / "how small" characterization. In-domain Tuckute (powered) first, then LeBel.
+3. **Doc-consistency (carry-over):** dedup `feghhi-2024`/`hadidi-2024` (same paper, arXiv-vs-NatComms first author); sweep R03/R04 for stale "E004 = headline" (now E005, E004 = lever).
 
 ## Blockers
 
-- **None rate-limiting.** Data staged, harness built, GPUs free. Next steps are method/experiment work.
-- **Framing watch (sharpened by E003):** compete on the rate-distortion **trade-off curve** (R04 §4, 06 §4), and **always control perplexity** when comparing alignment across training objectives (L011). Do not quote E003's absolute shed fractions hard — they are PCA-rank-sensitive; only the gradient *ordering* is robust.
+- **None rate-limiting.** Data staged, harness + powered LeBel substrate built, GPUs free.
+- **Watch:** the transfer/curve statistics must be powered (the LeBel mean-over-voxels is not — use per-voxel-paired/region-restricted; the in-domain paired contrast IS powered, MDE +0.0035). Keep the permuted-twin-at-matched-ppl as the confound-clean primary (L014). Effect is small — frame as A+B, never overclaim (Hadidi/Feghhi ≤10%).
 
 ## Key facts
 
-- **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache`. GPUs: 4× L40S (0 + 3 free this session; 1 + 2 had other jobs). Long runs via the harness background runner (`run_in_background`), not bare nohup.
-- **E003 rerun:** `CUDA_VISIBLE_DEVICES=0 HF_HOME=... HF_HUB_OFFLINE=1 uv run python scripts/run_kd_alignment.py --arms kd_cold kd_warm lmft_warm --seeds 0 1 2` (corpus prep: `--prepare-corpus`, needs network; uses `Salesforce/wikitext`).
-- **E003 outputs:** `outputs/E003_{cold,warm}.json` (gitignored). KD corpus: `data/kd_corpus/` (gitignored).
-- **Models cached:** gpt2, gpt2-medium, gpt2-large, distilgpt2, Qwen2.5 0.5/1.5/3/7B — all run offline.
-- **Datasets on disk:** Tuckute (`data/tuckute2024/`), LeBel UTS03 (`data/lebel_ds003020/`), Pereira stimuli. Course material `data/course-material/` (do not re-OCR; `06-theory-grounding.md`).
-- **Git:** `main`. Commit continuously/atomically (D007); push only when asked. GateGuard hooks disabled (D012).
+- **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache HF_HUB_OFFLINE=1`. GPUs: 4× L40S (0,3 free; 1,2 had other jobs). Background jobs: standalone `nohup ... >| log &` (zsh noclobber needs `>|`; don't chain `& ; grep`), or `run_in_background` waiter loops (nohup jobs aren't harness-tracked).
+- **E005 rerun:** `CUDA_VISIBLE_DEVICES=0 uv run python scripts/run_brain_lever.py --model Qwen/Qwen2.5-0.5B --kd-teacher Qwen/Qwen2.5-1.5B --arms mse lm_only --permute-kinds mse --seeds 0 1 2 --folds 5 --lambda-grid 10`. Primary stat = paired mse − mse_perm.
+- **E006 rerun:** `... run_lebel_encoding.py --model Qwen/Qwen2.5-0.5B --n-stories 20 --n-folds 5 --reliability-thresh 0.5`. Verdict = trained−untrained gap on NC voxels.
+- **Outputs** (gitignored): `outputs/E00{4,5,6}_*.json`, `E004_premises.json`. **Models cached:** gpt2 family, Qwen2.5 0.5/1.5/3/7B. **Data:** Tuckute `data/tuckute2024/`; LeBel UTS03 responses + TextGrids + eng1000 `data/lebel_ds003020/`.
+- **Git:** `main`. Commit continuously/atomically (D007); push only when asked. **Deps added:** peft, accelerate, wordfreq, tables.
