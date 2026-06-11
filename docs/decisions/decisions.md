@@ -210,3 +210,24 @@ process trusts) and matches the methodology's "raw evidence separate from interp
 assumed." Adaptive semistructure: this artifact is earned — the need recurred every session.
 **Reverses if:** the board and upspeed.md prove redundant (collapse one into the other), or `/orient` drifts from
 the docs and stops being trustworthy.
+
+### D016 — 2026-06-11 — `$\mathcal{L}_{\text{brain}}$` form RESOLVED (co-trained MSE encoding loss); E007 not built; thesis framing = A+B synthesis
+
+**Decision:** Three coupled resolutions from Session 7 (E004 + E006 + E005):
+**(1) D010 is resolved — the brain-alignment loss is a co-trained linear MSE encoding readout** from the student's
+verdict-layer pooled hidden state to fMRI, the theory-preferred form (Gaussian lower bound on conditional MI =
+the eval metric) and the empirical winner (E004: only co-trained MSE on the strong aligner was brain-specific;
+`frozen` = non-specific regularizer, `cka`/`cos` weakest). The E001 "trainable head is a placeholder" framing is
+superseded: it *is* the form (at scale, with a clean LM anchor, it transmits brain-specific structure — L012).
+**(2) E007 (a TR-level LeBel brain-tuning *lever* loop) is NOT built** — E006 showed the mean-over-voxels lever
+statistic is structurally underpowered (MDE +0.013 ≫ the +0.003–0.008 effect). The lever question is answered via
+the powered *paired permuted-twin* contrast in the KD setting (E005), not a bespoke TR-loop.
+**(3) Thesis framing = A+B synthesis.** F1 is confirmed in-domain (E005: alignment-guided KD recovers brain-specific
+alignment beyond perplexity, +0.0081, CI excludes 0) — Fork A — AND the effect is small (~1.6% NC), so the
+contribution explicitly includes the rigorous anti-confound characterization + the rate–distortion trade-off curve
+(Fork B). Not "alignment-guided distillation wins big"; "it works, here is exactly how much, with the strongest controls."
+**Rationale:** empirical (E004/E005/E006) + literature (Hadidi/Feghhi 2026, residual ≤10%). All three rung verdicts
+Erfan-confirmed (D015). The A+B framing is more defensible than either an overclaim or a pure null.
+**Reverses if:** the LeBel voxelwise **transfer** test (next gate, powered statistic) shows the in-domain gain does
+*not* generalize (→ scope F1 to in-domain / reconsider), or a much larger effect appears at another compression rate
+(→ lean harder into Fork A).
