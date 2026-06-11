@@ -50,3 +50,16 @@ After the initial wrap, the `/goal` Stop hook (correctly) flagged that I'd pause
 **The experimental ladder is now COMPLETE (Fork-B):** A2 real & powered + L016-method (positive) + F1 per-subject null (E008) + A3 bounded null (E009); L4/F3 moot. **Next session = MODE CHANGE to write-up.** Genuine forks for Erfan: (a) accept + write up [recommended]; (b) redesigned A3 [null-by-construction]; (c) new higher-SNR data (within-subject repeats) to rescue per-individual F1.
 
 Artifacts added: `scripts/run_a3_pilot.py`, `scripts/analyze_a3_pilot.py`; `outputs/E009_a3_{pilot,powered,smoke}.json`; learning L017; decisions D017/D018; brain pages `projects/brain-alignment-{panel-audit-s8, e008-design-gate, e008-verdict, e009-a3-null}`. ~22 commits, ~$280, fully autonomous.
+
+---
+
+## Post-wrap continuation 2 (same session) — manuscript v0.3 drafted + E010 dose-response earns the central claim
+
+Continued autonomously (Stop hook: don't pause at phase boundaries). Picked option (a) — accept Fork-B + write up — per the panel's recommendation.
+
+- **Drafted the paper** (`docs/manuscript/00_paper-draft-v0.md`), grounded (every number → recorded source). Panel-reviewed it (counter-argument + first-principles, fable):
+  - first-principles found 2 factual mismatches (n=9 split mis-stated 5/5 → train-4/held-5; "Spearman" → Pearson r=−0.88) + MDE range + explicit 1.7× arithmetic + absolute uR² — all fixed.
+  - counter-argument (MAJOR-REVISION): "manufactures" was asserted not shown; Negi-2025's per-participant TR-shuffle-controlled *positive encoding* result unaddressed; positive/null on different substrates. → added the Negi reconciliation, separated the two contributions, substrate-mismatch + strong-regime-open-test limitations, softened verb to "inflates."
+- **E010 — the averaging dose-response** — to EARN the central claim: gap(k) = −0.0002/−0.0001/+0.0023/+0.0194/+0.0071 for k=1/2/3/5/9. **k=1 null; the gap appears only on averaging** → averaging *produces* the apparent brain-specificity (rising limb tracks the noise-ceiling). Honest caveat: not perfectly monotone (k=9<k=5, wide 4-seed bars) → qualitative law, not a precise fit. L018; §4.2b added.
+
+**End state:** experimental ladder complete + manuscript v0.3 (panel-reviewed, central claim experimentally earned). Open future-work (flagged in §6): the strong-regime per-individual arm (the key test vs Negi), the LeBel-voxelwise per-subject null, figures. Session 8 total: ~28 commits, ~$366, fully autonomous; 4 experiments (E008/E009/E010 + re-analysis) + the paper.

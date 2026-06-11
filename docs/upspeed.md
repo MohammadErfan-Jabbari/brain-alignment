@@ -22,14 +22,16 @@ Phase = **Judge → (next) Design**. The session's result is an **evidence-drive
 4. Reframed the ladder to **Fork-B** (D018, Erfan-confirmed): A2-powered + the per-subject null + anti-confound methodology + A3.
 5. Designed + grounded + oracle-gated **A3/E009**; cleared doc-consistency (feghhi→hadidi redirect).
 
-## What to do next (MODE CHANGE → analysis / write-up)
+## What to do next (manuscript v0.3 exists; future-work experiments + figures)
 
-The experimental ladder is **complete** (A2 holds; F1 + A3 are characterized nulls; L4/F3 moot). Next session is **analysis (write-up)**, not more runs.
+The experimental ladder is **complete** and the **manuscript v0.3 draft is written + panel-reviewed** (`docs/manuscript/00_paper-draft-v0.md`): A2 (powered) + the positive L016 contribution (averaging produces apparent specificity, **earned by the E010 dose-response**) + F1 null (E008) + A3 null (E009). Remaining:
 
-1. **Write the manuscript** (`docs/manuscript/`) around the positive contribution (L016 method + protocol), with A2 + the F1 null (E008) + the A3 null (E009) as the arc. Position vs Negi/Schwartz (matched-ppl + permuted control = our novelty); cite Hadidi/Feghhi, Proietti, pirlot/Hoak/Guo.
-2. **Figures:** averaging-collapse (+0.0081→+0.0001), powered A2 voxel map, A3 nulls with measured MDEs.
+1. **(Future-work experiment, the key open test — §6 of the draft) Strong-regime per-individual arm:** full fine-tuning (not light LoRA) on naturalistic data, per individual, with the permuted twin — to directly engage Negi-2025's *positive* per-individual encoding result and determine whether the per-subject null is a property of brain-tuning or of the matched-ppl light regime. This is the one result that would most strengthen (or qualify) the paper.
+2. **Per-subject optimization null on the LeBel voxelwise substrate** (common substrate with A2 — closes the substrate-mismatch limitation).
+3. **Figures** (`scripts/figures/`): the E010 dose-response curve + the +0.0081→+0.0001 collapse, the E006 A2 voxel map, the A3/E009 nulls with measured MDEs.
+4. Manuscript polish: final title, venue/length, related-work prose.
 
-**Genuine forks for Erfan:** (a) accept Fork-B + write up [recommended]; (b) redesigned A3 [panel: null-by-construction]; (c) new higher-SNR data (within-subject repeats) to rescue per-individual F1.
+**Decision for Erfan:** the paper's honest story is solid as-is (Fork-B, positive contribution earned); the strong-regime arm (1) is the highest-value addition before submission but is a real new experiment — his call on whether to invest it now or submit the current scope.
 
 ## Blockers
 
