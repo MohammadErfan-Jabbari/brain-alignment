@@ -21,7 +21,7 @@ from statistics import mean, median, stdev
 
 T975 = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365,
         8: 2.306, 9: 2.262, 10: 2.228, 11: 2.201, 12: 2.179, 14: 2.145, 19: 2.093}
-TRAIN5 = {848, 853, 865, 875, 876}   # the UIDs E005 averaged (data reuse)
+TRAIN5 = {848, 865, 875, 876}        # E005-averaged UIDs (data reuse); 853 excluded (incomplete ROI, 60 NaNs)
 HELD5 = {797, 837, 841, 856, 880}    # genuine out-of-sample brains
 
 

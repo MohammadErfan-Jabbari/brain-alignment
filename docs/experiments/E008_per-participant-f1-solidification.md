@@ -108,6 +108,8 @@ CUDA_VISIBLE_DEVICES=0 uv run python scripts/run_brain_lever.py \
 |---|---|---|---|
 | 2026-06-11 | design v1 | per-participant, n=10, t-CI(df=9) | oracle review |
 | 2026-06-11 | **oracle HOLD** | shared-stimulus pseudo-replication NOT fixed by per-subject alone; need LOO-fold + fold-clustered CI + train/held-out split + 3 seeds + n_perm≥5 + SNR control | addressed above → harness extension → run |
+| 2026-06-11 | data note | **uid 853 EXCLUDED** — 60 NaNs (incomplete 5-ROI coverage); the other 9 UIDs are complete. **n=9** (train-4: 848,865,875,876; held-out-5: 797,837,841,856,880). | run on 9 UIDs, 4-GPU split |
+| 2026-06-11 | smoke PASS | 2-UID plumbing (limit-tune=64): per-UID loop + analyzer end-to-end OK (`outputs/E008_plumbing_smoke.json`) | full run launched (4 GPUs) |
 
 ## Status
 
