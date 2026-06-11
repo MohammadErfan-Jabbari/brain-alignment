@@ -67,7 +67,16 @@ The first pass tests the existing students; if null, escalate the tuning before 
   difference beyond the permuted twin). → "brain-alignment, at this scale, does not buy downstream value" —
   a clean, publishable negative that closes the assumption the field left open.
 - **Controls:** matched perplexity (report per student); permuted-brain twin (brain-specificity); base
-  reference; ≥3 seeds; predeclared MDE (small-effect expectation per Guo).
+  reference; ≥3 seeds.
+- **Predeclared MDE = 2–4pp** absolute robustness (grounded: Guo 2024 saw ~4pp mean / 8pp max in vision-EEG;
+  language/fMRI is noisier → expect the low end; predeclare so a small effect isn't over-read and a null
+  is honestly power-bounded).
+- **The contribution, made explicit (grounded by the S8 digests):** *every* A3 prior lacks the two controls
+  we add. Negi 2025 (closest positive) baselines against vanilla pretrained — no matched-ppl, no shuffled-brain
+  downstream null. Schwartz 2019 claims only "does not harm," no controls. Guo 2024 ran shuffled controls but
+  never quantified the brain-specific increment. → **our novelty is the matched-perplexity + permuted-brain
+  paired contrast** (is the downstream gain brain-specific and not just "a different/better LM?"), the same
+  confound-clean design that carried E005/E008.
 
 ## Open questions (resolve at oracle gate)
 
