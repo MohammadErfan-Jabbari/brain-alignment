@@ -129,10 +129,11 @@ def masked_mean(hs, attn):
 
 def brain_tune(model, tok, texts, Y, kind, lam_brain, lam_lm, layer, device,
                epochs, lr, batch_size, seed, frozen_W=None, use_lora=True,
-               model_name="gpt2", lora_r=16):
-    """Fine-tune `model` with lam_brain*L_brain + lam_lm*CE on (texts, Y).
-    kind=None -> lm_only (CE only). frozen_W -> (W,xm,xs,ym) numpy for the frozen arm.
-    use_lora -> wrap with LoRA (base frozen, perplexity preserved); merged before return."""
+               model_name="gpt2", lora_r=16, teacher=None, kd_temp=2.0):
+    """Fine-tune `model` with lam_brain*L_brain + lam_lm*RETENTION on (texts, Y).
+    RETENTION = KD KL(student‖teacher) if `teacher` given (E005 distillation setting),
+    else token CE (E004 lever setting). kind=None -> retention-only (lm_only / kd_ppl).
+    frozen_W -> (W,xm,xs,ym) for the frozen arm. use_lora -> LoRA (base frozen), merged before return."""
     import torch
     from torch import nn
 
@@ -171,7 +172,19 @@ def brain_tune(model, tok, texts, Y, kind, lam_brain, lam_lm, layer, device,
             labels = enc["input_ids"].clone()
             labels[enc["attention_mask"] == 0] = -100
             out = model(**enc, labels=labels, output_hidden_states=True)
-            loss = lam_lm * out.loss
+            if teacher is not None:
+                # KD: temperature-scaled KL(student‖teacher) on next-token logits, masked
+                with torch.no_grad():
+                    t_logits = teacher(**enc).logits
+                T = kd_temp
+                t_logp = torch.log_softmax(t_logits / T, dim=-1)
+                s_logp = torch.log_softmax(out.logits / T, dim=-1)
+                kl = (torch.exp(t_logp) * (t_logp - s_logp)).sum(-1, keepdim=True)
+                tok_mask = enc["attention_mask"].unsqueeze(-1).float()
+                retention = (kl * tok_mask).sum() / tok_mask.sum() * (T * T)
+            else:
+                retention = out.loss                          # token CE
+            loss = lam_lm * retention
             if kind is not None:
                 h = masked_mean(out.hidden_states[layer], enc["attention_mask"])  # (B,d)
                 tgt = Yt[bidx]
@@ -246,6 +259,8 @@ def main():
                     help="mse-only lambda_brain curve; default single ARM_LAMBDA[mse]")
     ap.add_argument("--n-perm", type=int, default=1, help="permutation draws per (fold,seed)")
     ap.add_argument("--limit-tune", type=int, default=None, help="cap tune sentences (smoke)")
+    ap.add_argument("--kd-teacher", default=None,
+                    help="E005: distill from this teacher (KD KL retention instead of CE). e.g. gpt2-medium")
     ap.add_argument("--data-dir", default="data/tuckute2024")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
@@ -254,6 +269,12 @@ def main():
 
     import torch
     device = P.pick_device()
+    kd_teacher = None
+    if args.kd_teacher:
+        kd_teacher = load_model(args.kd_teacher, device)[0].eval()
+        for p in kd_teacher.parameters():
+            p.requires_grad_(False)
+        print(f"KD teacher: {args.kd_teacher} (retention = KL(student‖teacher))")
     texts, Y, meta = load_tuckute(args.data_dir)
     n = len(texts)
     nc = matched_nc(args.data_dir)
@@ -331,7 +352,7 @@ def main():
                     m = brain_tune(m, tok, tn["texts"], Ytune, kind, lam, args.lambda_lm,
                                    layer, device, args.epochs, args.lr, args.batch_size, seed,
                                    frozen_W=frozen_W, use_lora=args.use_lora,
-                                   model_name=args.model, lora_r=args.lora_r)
+                                   model_name=args.model, lora_r=args.lora_r, teacher=kd_teacher)
                     a_s, a_folds = score_unique_r2(m, tok, ev["texts"], ev["Y"], ev["Z"], ev["S"], layer, device)
                     ppl = eval_perplexity(m, tok, heldout, device) if heldout else None
                     delta = a_s - a0
