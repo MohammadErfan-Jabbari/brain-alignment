@@ -11,8 +11,10 @@ dependencies = [
     "peft>=0.19.1",
     "scikit-learn>=1.9.0",
     "scipy>=1.17.1",
+    "tables>=3.11.1",
     "torch>=2.11.0",
     "transformers>=5.10.2",
+    "wordfreq>=3.1.1",
 ]
 
 # This is a research environment, not a distributable package.
