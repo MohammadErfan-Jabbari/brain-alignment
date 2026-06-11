@@ -181,6 +181,37 @@ def main():
         print(f"\n[null stability] mean per-cell perm SE = {mean(perm_se_list):.5f} "
               f"(want << |effect| {abs(m):.5f})")
 
+    # ---- ppl-confound read-out (E011 oracle fix): is the gap brain-specific at MATCHED ppl? ----
+    # per cell: ΔuR²(real−perm) vs Δlog-ppl(real−perm); regress, report intercept (effect at Δppl=0).
+    ppl_mse = {}
+    ppl_perm = defaultdict(list)
+    for r in raw:
+        u, f, s = r["uid"], r["fold"], r["seed"]
+        if r.get("perplexity") is None:
+            continue
+        if r["is_perm"]:
+            ppl_perm[(u, f, s)].append(r["perplexity"])
+        elif r["arm"] == "mse":
+            ppl_mse[(u, f, s)] = r["perplexity"]
+    pairs = []  # (d_logppl, d_uR2)
+    for key, d_uR2 in cells.items():
+        if key in ppl_mse and ppl_perm.get(key):
+            dlp = math.log(ppl_mse[key]) - mean(math.log(p) for p in ppl_perm[key])
+            pairs.append((dlp, d_uR2))
+    if pairs and len(pairs) > 2:
+        xs = [p[0] for p in pairs]; ys = [p[1] for p in pairs]
+        mx, my = mean(xs), mean(ys)
+        sxx = sum((x - mx) ** 2 for x in xs)
+        slope = sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / sxx if sxx > 1e-12 else float("nan")
+        intercept = my - slope * mx
+        dlp_mean = mx
+        print("\n[ppl-confound read-out — E011] per-cell Δlog-ppl(real−perm) vs ΔuR²(real−perm):")
+        print(f"  mean Δlog-ppl(real−perm) = {dlp_mean:+.4f}  (>0 ⇒ real arm has WORSE ppl; ~0 ⇒ matched)")
+        print(f"  regression: ΔuR² = {slope:+.5f}·Δlogppl + {intercept:+.5f}")
+        print(f"  INTERCEPT (brain-specific gap at MATCHED ppl) = {intercept:+.5f}  "
+              f"[raw mean gap = {my:+.5f}]")
+        print("  → if intercept ≈ 0 while raw mean > 0, the gap is L011 (ppl-driven), not brain-specific.")
+
     # ---- headline ----
     print("\n" + "=" * 78)
     conservative_excl0 = (flo > 0)
