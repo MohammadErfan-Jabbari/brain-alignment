@@ -1,0 +1,40 @@
+# .graphifyignore — graphify-only scope. OVERRIDES .gitignore for graphify;
+# does NOT touch git. Delete this file to fall back to .gitignore behavior.
+#
+# Goal: graph the whole repo's KNOWLEDGE (code + docs + papers), while keeping
+# out binary artifacts, raw datasets, results logs, and the graphify clone.
+
+# --- always-noise (also hard-skipped by graphify, listed for clarity) ---
+.venv/
+__pycache__/
+
+# --- experiment results: JSON/logs, not architecture ---
+outputs/
+
+# --- the graphify tool's own source clone — not our content ---
+data/graphify/
+
+# --- raw datasets: binary fMRI volumes / .npy / .npz, not graphable ---
+data/lebel_ds003020/
+data/pereira/
+data/tuckute2024/
+
+# --- KD training corpus: bulk training text, not knowledge ---
+data/kd_corpus/
+
+# --- video/audio: needs the heavy [video] extra (faster-whisper). Excluded by
+#     default; install graphifyy[video] and remove these lines to include them. ---
+*.mp4
+*.mov
+*.mp3
+*.wav
+*.mkv
+*.webm
+
+# --- course material: keep the distilled .md notes, do NOT re-OCR the lecture PDFs
+#     (CLAUDE.md rule: the *_study.md/*_OCR.md notes beat any fresh OCR pass) ---
+data/course-material/*.pdf
+
+# Everything else is graphable:
+#   scripts/ configs/ docs/ data/paper-repos/ data/papers/ (516 PDFs)
+#   data/course-material/*.md  README.md  CLAUDE.md

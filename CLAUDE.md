@@ -153,3 +153,22 @@ and `docs/03-methodology.md`.
 These instructions, the docs, and the agents are living. When a workflow keeps getting reconstructed,
 or a mistake repeats, update the relevant file. Per Erfan's global rule, propose changes to his
 private/global instructions before editing them — but this repo's own files are ours to keep current.
+
+## graphify (code/corpus navigator — subordinate to the docs brain)
+
+graphify builds a queryable knowledge graph of this repo at `graphify-out/` (god nodes,
+communities, cross-file edges). It is a **navigation aid, not a source of truth.** The order of
+authority is unchanged: `docs/ladder.md` and the `docs/` brain win (read them first, per "Read this
+first"); gbrain is the knowledge layer; graphify just helps you find code and trace relationships
+fast. **Never let graphify override the docs-first session ritual, and never report a number from the
+graph — numbers come only from the `docs/` brain.**
+
+Use it when it helps:
+- Tracing code you didn't write (esp. the cloned external repos under `data/paper-repos/`):
+  `graphify query "<question>"`, `graphify path "<A>" "<B>"`, `graphify explain "<concept>"` —
+  faster than grepping an unfamiliar repo. Scope is set by `.graphifyignore` (overrides `.gitignore`).
+- After changing our own code, `graphify update .` keeps it current (AST-only, free).
+
+Mechanics: code is parsed locally by tree-sitter (free); docs/PDFs/images go to the host model
+(token cost) — so the full graph is built in Antigravity/Gemini, then queried from here. No PreToolUse
+hooks are installed (deliberately — they nag against the docs ritual).
