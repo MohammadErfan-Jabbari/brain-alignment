@@ -155,4 +155,14 @@ E009 A3 pilot: KD Qwen1.5B→0.5B (LoRA) toward the group-averaged Tuckute targe
 
 (6) **Strategic (the dominant premortem risk): don't write the thesis as "a string of nulls."** The positive contribution is **L016 — cross-subject target-averaging manufactures apparent brain-specificity, and the matched-ppl + permuted-twin + per-subject protocol detects it** (the +0.0081→+0.00010 collapse). Frame A2 + L016-method + the two characterized nulls as a coherent Fork-B paper: *a confound that inflates a class of alignment-training overclaims, and the clean protocol that catches it.*
 
+### L018 — 2026-06-12 — The averaging dose-response: the apparent brain-specific gap is ~0 per individual and is PRODUCED by averaging subjects (earns the manuscript's positive claim)
+
+E010 ran the brain-specific contrast (kd_brain − kd_brain_permuted, held-out unique R²) against targets averaged over k ∈ {1,2,3,5,9} subjects (nested), 4 seeds. Gap by k: **−0.0002 (k=1), −0.0001 (k=2), +0.0023 (k=3), +0.0194 (k=5), +0.0071 (k=9)**; seeds-positive 2/4, 1/4, 3/4, 4/4, 4/4. Lessons:
+
+(1) **The demonstration the manuscript panel demanded.** A single subject (k=1) shows ~0; averaging produces the apparent gap (k≥3 positive). So the "brain-specificity" measured against an averaged fMRI target is an *artifact of averaging*, not a per-person property — this is the direct, causal evidence that upgrades "the per-subject effect is null" (E008) to "averaging inflates/produces apparent brain-specificity." The rising limb (k=1→5) tracks the noise-ceiling prediction NC_k = NC/(NC+(1−NC)/k) (0.49→0.83).
+
+(2) **Honest caveat — not perfectly monotone.** k=9 (+0.007) < k=5 (+0.019), within the wide 4-seed error bars (se≈0.004–0.006), plausibly because the nested k=9 set adds the noisier held-out subjects. Claim the **qualitative** law (gap≈0 at k=1; averaging is necessary for the gap), not a precise gap∝NC_k fit. A cleaner version: random size-k subsets + more seeds.
+
+(3) **Verb discipline.** "Manufactures/produces" is now defensible *in the specific sense that the gap is absent at k=1 and appears only on averaging* — but report the actual curve and the caveat; don't claim a clean monotone quantitative law the data don't show.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->

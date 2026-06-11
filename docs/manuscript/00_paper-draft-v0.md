@@ -62,6 +62,8 @@ It does not survive its controls. **(a) Inference unit.** The 15 cells are 3 see
 
 **Why averaging manufactures the effect.** Write subject BOLD as Y_i = g + ε_i, with g the shared stimulus-evoked response and ε_i idiosyncratic + measurement noise. Averaging k subjects preserves g and shrinks the noise ~k×, so tuning toward the average is tuning toward g at an inflated noise ceiling; the unique-R² gain read off the averaged target is a gain in predicting the *shared* response, and it reads as "brain-specific" against a permuted twin (which destroys g) even though no individual carries it. The steelman — that averaging is just a legitimate higher-SNR measurement — is quantitatively rejected: at NC≈0.49 the achievable averaging inflation for k=5 is Var(Y_i)/Var(Ȳ) = 1/(0.49 + 0.51/5) ≈ **1.7×**, so the de-outliered averaged median (+0.0034) implies a per-subject effect ~+0.0034/1.7 ≈ **+0.002** — which `E008` was powered to detect (3.3× above MDE) and did not (`L016`). Moreover the averaged-target "brain-specific" is only specific relative to an incomplete nuisance set: ⅓–⅔ of the apparent unique R² co-varies with imageability/surprisal that the static nuisance never subtracts (`L012`).
 
+**(b) The averaging dose-response (the direct test) — `E010`.** We confirm the mechanism causally by varying the number of subjects k averaged into the target (nested subsets, k∈{1,2,3,5,9}, 4 seeds) and measuring the held-out brain-specific gap (kd_brain − kd_brain_permuted) against the k-averaged target. The gap is **−0.0002 (k=1), −0.0001 (k=2), +0.0023 (k=3), +0.0194 (k=5), +0.0071 (k=9)** (seeds-positive 2/4, 1/4, 3/4, 4/4, 4/4). **At the individual (k=1) the gap is null; it appears only once subjects are averaged** — averaging *produces* the apparent brain-specificity. The rising limb k=1→5 tracks the predicted noise-ceiling NC_k = NC/(NC+(1−NC)/k) (0.49→0.83). We report the qualitative law (gap≈0 at k=1; averaging is necessary for it), not a precise gap∝NC_k fit: the curve is not perfectly monotone — k=9 (+0.007) sits below k=5 (+0.019), within the wide 4-seed error bars and plausibly because the nested k=9 set adds the noisier held-out subjects (a cleaner version would average random size-k subsets with more seeds; `E010`/`L018`).
+
 ### 4.3 No per-individual optimizable gain (F1) — `E008`
 
 Consequently, **optimizing brain-alignment yields no detectable per-individual brain-specific gain beyond perplexity.** The in-domain "headline" of alignment-guided distillation is an averaging artifact.
@@ -100,11 +102,12 @@ Brain-alignment is real and measurable, but optimizing it does not — under mat
 |---|---|---|
 | A2 powered gap | +0.0207 / +0.0277, 95–99% voxels+, 11,442 vox | `experiments/E006` |
 | averaged-target apparent gain | +0.0081 [+0.0023,+0.0171] (15-cell); fold-CI [−0.003,+0.019]; median +0.0034; fold-4=52% | `experiments/E005`, `L015` |
-| per-subject null | +0.00010, CI [−0.0004,+0.0006], n=9, sign 5/9, MDE≈+0.0006; train-4 −0.0001 | `experiments/E008`, `L016` |
+| per-subject null | +0.00010, CI [−0.0004,+0.0006], n=9, sign 5/9, MDE +0.0006–0.0013; train-4 −0.0001 | `experiments/E008`, `L016` |
+| averaging dose-response | gap(k)= −0.0002/−0.0001/+0.0023/+0.0194/+0.0071 for k=1/2/3/5/9; k=1 null, rises with averaging | `experiments/E010`, `L018` |
 | A3 fulcrum / OOD | repr gap median +0.004 (MDE 0.023, seed-0 +0.063); OOD contrasts within MDE 0.03–0.13; λ30→ppl92 | `experiments/E009`, `L017` |
 | alignment–ppl coupling | Pearson r≈−0.88 | `L011` |
 | nuisance eats unique R² | ⅓–⅔ | `L012` |
 | trained residual ≤10% | — | `hadidi-2024` |
 | NC matched | 0.491 | `E008` |
 
-**Status:** v0 draft (analysis session). Open: figures (averaging-collapse, A2 voxel map, A3 nulls — scripts in `scripts/figures/`, TBD); a final title; venue/length target. To be panel-reviewed (counter-argument + first-principles) for overclaim/grounding before v1.
+**Status:** v0.3 draft (analysis session). Panel-reviewed (counter-argument + first-principles): factual mismatches fixed (n=9 split, Pearson r, MDE range, explicit arithmetic, absolute uR²); Negi per-participant reconciliation + two-contributions split + substrate-mismatch + strong-regime open test added; the central "averaging produces apparent specificity" claim **earned by the E010 dose-response** (k=1 null → grows with averaging). **Open (future work, flagged in §6):** the strong-regime (full-FT, naturalistic) per-individual arm to directly engage Negi's encoding positive; the per-subject optimization null on the LeBel voxelwise substrate; figures (averaging dose-response curve + collapse, A2 voxel map, A3 nulls — `scripts/figures/`, TBD); final title; venue/length.
