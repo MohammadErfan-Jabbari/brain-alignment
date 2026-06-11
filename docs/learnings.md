@@ -127,4 +127,16 @@ A Session-8 thinking-panel audit (counter-argument + premortem + first-principle
 
 (4) **Process lesson: run the post-step adversarial panel BEFORE building on a verdict, not after.** The panel caught a pseudo-replicated CI, a missing decider number (paired MDE), and an ungrounded citation in one pass — for ~3 fable subagent calls, before any wasted compute. This is the D017 loop working as intended.
 
+### L016 — 2026-06-11 — The in-domain F1 effect is a GROUP-AVERAGED-TARGET phenomenon that VANISHES per individual — a well-powered null (E008 confirms L015 empirically)
+
+E008 re-ran the E005 brain-specific contrast (kd_brain mse − kd_brain_permuted at matched ppl) **per individual participant** (9 Tuckute UIDs as independent replication units; uid 853 excluded for incomplete ROI) instead of on the 5-UID average. The panel (counter-argument + first-principles-grounder, fable) adjudicated the verdict. Lessons:
+
+(1) **The effect collapses ~80×: from E005's averaged +0.0081 to a per-subject mean +0.00010** (t-CI95 [−0.0004,+0.0006], n=9, sign 5/9, fold-clustered CI includes 0 and fails LOO-fold). The 4 subjects E005 literally averaged (848,865,875,876) individually show **−0.00010**. The effect is a property of the average, not those brains.
+
+(2) **It is a WELL-POWERED null, not low power.** Subject-axis MDE(80%) ≈ +0.0006–0.0013, 6–12× below +0.0081. The averaging-SNR steelman (Fork B: averaging legitimately denoises the target → higher achievable R²) is theoretically real but *quantitatively rejected* — NC≈0.49 implies only ~1.7× inflation (noise-ceiling math), predicting ~+0.002 per subject, which E008 was powered to detect (3.3× above MDE) and did not. Estimand note: effect-on-averaged-target ≠ mean-of-per-subject-effects (unique-R² doesn't commute with averaging); the averaged-target effect is alignment to the *shared stimulus-evoked response*, not per-person brain alignment.
+
+(3) **Methodological lesson (the big one): averaging fMRI targets across subjects manufactures apparent brain-specificity.** A gain measured against a group-averaged target is a gain toward the shared, stimulus-driven component at an inflated noise ceiling — and reads as "brain-specific" against a permuted twin even when no individual shows it. Always test brain-alignment claims at the individual-subject inference unit, or explicitly scope the claim to the averaged target. This generalizes L003/L015: the inference unit must be the independent biological replicate (the person), and shared stimuli still correlate "independent" subjects (the E008 oracle HOLD).
+
+(4) **Thesis consequence:** the in-domain F1 "headline" (L3) does not hold per-individual. Honest contribution = A2 (real, powered) + this well-powered null + the anti-confound characterization + A3 (practical payoff, the central open question). A per-individual positive would need higher per-subject SNR (within-subject repeats) or surprisal/imageability conditioned into the nuisance — not more averaging. This is a clean, publishable Fork-B result; the rigor (panel before compute, then E008) is what caught an overclaim that would otherwise have been the thesis headline.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->

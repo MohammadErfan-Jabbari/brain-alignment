@@ -111,16 +111,30 @@ CUDA_VISIBLE_DEVICES=0 uv run python scripts/run_brain_lever.py \
 | 2026-06-11 | data note | **uid 853 EXCLUDED** — 60 NaNs (incomplete 5-ROI coverage); the other 9 UIDs are complete. **n=9** (train-4: 848,865,875,876; held-out-5: 797,837,841,856,880). | run on 9 UIDs, 4-GPU split |
 | 2026-06-11 | smoke PASS | 2-UID plumbing (limit-tune=64): per-UID loop + analyzer end-to-end OK (`outputs/E008_plumbing_smoke.json`) | full run launched (4 GPUs) |
 
+## Results (ran 2026-06-11; 9 UIDs × 5 folds × 3 seeds × 7 conditions = 945 runs; uid 853 excluded)
+
+| Axis | statistic | verdict |
+|---|---|---|
+| **Subject (n=9)** | mean e_u = **+0.00010**, t-CI95 **[−0.00037, +0.00058]** | **INCLUDES 0**; sign **5/9** (p=0.50) |
+| **Fold-clustered (n=5, conservative)** | mean +0.00026, t-CI95 [−0.0004, +0.0009]; bootstrap p(≤0)=0.111 | **INCLUDES 0**; **LOO-fold fails on every drop** |
+| Train-4 (848,865,875,876) | mean **−0.00010** (2/4 +) | the subjects E005 averaged → individually null/negative |
+| Held-out-5 (797,837,841,856,880) | mean +0.00026 (3/5 +) | INCLUDES 0 |
+| SNR control | Spearman(e_u, baseline uR²)=+0.28; drop top-2 SNR → mean +0.00001 | consistent with noise, not signal |
+| Null stability | per-cell perm SE 0.00144 ≫ effect 0.00010 | — |
+
+## Verdict: **WEAK / NULL — the in-domain F1 effect does NOT generalize across individual participants** (L016)
+
+The brain-specific gain collapses from E005's averaged **+0.0081** to a per-subject **+0.00010** (~80× smaller, centered at zero). Every predeclared CONFIRM condition fails. The thinking panel (counter-argument + first-principles-grounder, fable) adjudicated the one real interpretive fork and converged:
+
+- **It is a WELL-POWERED null, not a noise-floor null.** Subject-axis MDE(80%) ≈ **+0.0006–0.0013** — 6–12× below E005's +0.0081. A real per-subject effect of that size would have shown as ~9/9 strongly positive (t≈19); instead 5/9, centered at 0, max subject +0.002.
+- **E005's +0.0081 was a measurement against the group-AVERAGED target** = the *shared stimulus-evoked response*, inflated ~1.7× by averaging (NC≈0.49 → noise-ceiling math) and ~2.4× by one outlier fold (fold4/seed0 = 52% of E005's signal; L015). The estimand "effect on averaged target" ≠ "mean per-subject effect" (unique-R² doesn't commute with averaging) — both panelists confirmed, and the averaging-SNR steelman (Fork B) was *tested and rejected* by E008's power.
+- The 4 subjects E005 literally averaged show **−0.00010** individually — the effect is a property of the average, not those brains.
+- Even the averaged-target "brain-specific" is only specific relative to an **incomplete nuisance set** (surprisal/imageability unsubtracted — L011/L012).
+
+**Defensible claim after E008:** *"Alignment-guided KD shows no detectable per-individual brain-specific alignment gain beyond perplexity (n=9, mean +0.0001, 95% CI [−0.0004,+0.0006], well-powered, MDE≈+0.0006); the positive in-domain signal appears only against a multi-subject-averaged target as a higher-SNR measurement of the shared stimulus-evoked response, not per-person brain alignment."* This is a clean, literature-consistent (Hadidi/Feghhi ≤10%) **Fork-B** result.
+
+**Implication:** the thesis's in-domain F1 "headline" (L3) does not hold at the individual level. The honest contribution becomes (1) A2 (alignment is real & measurable, powered — E006), (2) this **well-powered per-subject null** + the rigorous anti-confound characterization, and (3) **A3** (does any of this buy something practical — E009), now the central open question. The only grounded path to a per-individual positive is higher per-subject SNR (within-subject repeats) or conditioning surprisal/imageability into the nuisance — not more averaging.
+
 ## Status
 
-RUNNING (2026-06-11, 4-GPU split over 9 UIDs; uid 853 excluded). Shards: `outputs/E008_g{0,1,2,3}.json`
-(g0=797,837,841 · g1=848,856 · g2=865,875 · g3=876,880). Harness extension + smoke + analyzer all PASS.
-
-**To finish (merge → verdict → panel):**
-```bash
-uv run python scripts/analyze_e008.py outputs/E008_g0.json outputs/E008_g1.json outputs/E008_g2.json outputs/E008_g3.json
-```
-Then run the thinking panel (counter-argument + premortem) on the printed verdict, address holes, record
-the verdict here + in gbrain, and bring it (with the E005 L3/F1 downgrade) to Erfan for the ladder flip (D015).
-**Predeclared rule (the lock):** CONFIRMED iff the conservative fold-clustered CI excludes 0 AND survives
-LOO-fold AND ≥8/9 sign AND held-out-5 mean>0 AND not an SNR artifact; else WEAK/average-only (Fork-B-honest).
+VERDICT RECORDED (NULL, well-powered, panel-adjudicated). **Ladder L3/F1 flip pending Erfan's confirmation (D015)** — the in-domain F1 downgrades from 🟡 PARTIAL-PASS to a per-subject NULL / averaged-target-only trend. Next: A3 (E009) as the central contribution, gated on Erfan's confirmation of the reframe.

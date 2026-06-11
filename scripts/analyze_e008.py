@@ -106,7 +106,7 @@ def main():
     uids = sorted({u for (u, f, s) in cells})
     folds = sorted({f for (u, f, s) in cells})
     print("=" * 78)
-    print(f"E008 crossed inference — {path}")
+    print(f"E008 crossed inference — {paths}")
     print(f"uids={uids}  folds={folds}  cells={len(cells)}  NC={nc:.3f}")
     print("=" * 78)
 
