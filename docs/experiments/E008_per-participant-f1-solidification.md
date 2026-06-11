@@ -113,4 +113,14 @@ CUDA_VISIBLE_DEVICES=0 uv run python scripts/run_brain_lever.py \
 
 ## Status
 
-DESIGN — oracle HOLD addressed (crossed inference + LOO-fold + train/held-out split + SNR control + n_perm=5 + 3 seeds + robust median). Next: extend `run_brain_lever.py` (`--uids` per-subject loop, per-cell perm-mean subtraction, crossed-inference summary), smoke, run, then the S8 thinking panel on the result.
+RUNNING (2026-06-11, 4-GPU split over 9 UIDs; uid 853 excluded). Shards: `outputs/E008_g{0,1,2,3}.json`
+(g0=797,837,841 · g1=848,856 · g2=865,875 · g3=876,880). Harness extension + smoke + analyzer all PASS.
+
+**To finish (merge → verdict → panel):**
+```bash
+uv run python scripts/analyze_e008.py outputs/E008_g0.json outputs/E008_g1.json outputs/E008_g2.json outputs/E008_g3.json
+```
+Then run the thinking panel (counter-argument + premortem) on the printed verdict, address holes, record
+the verdict here + in gbrain, and bring it (with the E005 L3/F1 downgrade) to Erfan for the ladder flip (D015).
+**Predeclared rule (the lock):** CONFIRMED iff the conservative fold-clustered CI excludes 0 AND survives
+LOO-fold AND ≥8/9 sign AND held-out-5 mean>0 AND not an SNR artifact; else WEAK/average-only (Fork-B-honest).

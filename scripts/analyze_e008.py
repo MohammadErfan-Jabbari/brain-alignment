@@ -69,10 +69,16 @@ def spearman(x, y):
 
 
 def main():
-    path = sys.argv[1] if len(sys.argv) > 1 else "outputs/E008_per_participant_Qwen.json"
-    d = json.load(open(path))
-    raw = d["raw"]
-    nc = d["nc_matched"]
+    paths = sys.argv[1:] if len(sys.argv) > 1 else ["outputs/E008_per_participant_Qwen.json"]
+    # merge raw rows + folds across shards (the 4-GPU split writes one json per shard)
+    raw, folds_merged, nc = [], {}, None
+    for p in paths:
+        dj = json.load(open(p))
+        raw.extend(dj["raw"])
+        folds_merged.update(dj.get("folds", {}))
+        nc = dj["nc_matched"]
+    d = {"raw": raw, "folds": folds_merged, "nc_matched": nc}
+    print(f"merged {len(paths)} shard(s): {paths}")
 
     # index unique_r2 by (uid,fold,seed,arm)
     by = {}
