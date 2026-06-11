@@ -96,6 +96,13 @@ Brain-alignment is real and measurable, but optimizing it does not — under mat
 
 ---
 
+## Figures (rendered from recorded data — `scripts/figures/make_figures.py`)
+
+- **Fig 1** (`figures/fig1_dose_response.png`) — E010 dose-response: brain-specific gap(k) vs subjects averaged, with the predicted noise-ceiling NC_k. Gap≈0 at k=1, rises with averaging (the positive contribution).
+- **Fig 2** (`figures/fig2_collapse.png`) — the +0.0081 (5-subject-avg) → +0.0001 (per-subject) collapse, with the E008 MDE band: the apparent in-domain effect is an averaging artifact.
+- **Fig 3** (`figures/fig3_a2.png`) — E006 powered A2: trained ≫ untrained voxelwise unique R² (gap +0.021/+0.028).
+- **Fig 4** (`figures/fig4_a3.png`) — E009 A3 nulls: OOD-perplexity ratio, kd_brain ≈ permuted ≈ textfeat ≈ kd_ppl.
+
 ## Evidence map (every results number → source)
 
 | Claim | Number | Source |
