@@ -47,6 +47,26 @@ Compare alignment **at equal held-out perplexity**, not equal budget. Trace each
 - Whether to also run a *region-restricted* (LH-language) LeBel axis where the brain effect may concentrate (vs whole-cortex NC voxels).
 - Compression aggressiveness: gpt2-medium→gpt2 (2.9×) is one rate; a second rate (→distilgpt2-size) would trace more of the curve (defer unless the first rate is informative).
 
-## Status
+## Results — in-domain (Tuckute), ran 2026-06-11
 
-Design drafted. Pending: oracle review (the E004/E006 Design→Run gate), a power note for the paired matched-ppl contrast, and Erfan's confirmation of the thesis-headline framing (A vs B — though E005 is framing-robust and decides it empirically). Harness pieces all exist (`distill.py` λ_brain, `brain_loss.py` co-trained MSE, `run_kd_alignment.py`, `run_lebel_encoding.py`); E005 is mostly orchestration + the matched-ppl protocol + the powered LeBel measurement on KD students.
+**Setup (oracle-vetted, reordered):** Qwen2.5-0.5B student ← **Qwen2.5-1.5B teacher** (real 3× distillation), LoRA, KD-KL retention; arms = `mse` (alignment-guided KD) / `lm_only` (=kd_ppl, perplexity-only KD) / `mse_perm` (the matched-ppl brain-specific null), 3 seeds × 5 rotating Tuckute folds, λ_brain=10. KD keeps the LM strong (ppl ~52–55, vs ~200 for brain-tune-without-KD). Base unique R²=+0.0102.
+
+| Arm | ppl | unique R² Δ vs base [CI] | NC-norm uR² |
+|---|---|---|---|
+| kd_ppl (lm_only) | 51.5 | −0.0021 [−0.0068, +0.0019] | 0.017 |
+| **kd_brain (mse)** | 55.4 | +0.0047 [−0.0034, +0.0148] | 0.030 |
+| kd_brain_permuted (mse_perm) | 55.3 | −0.0034 [−0.0089, +0.0012] | 0.014 |
+
+**PRIMARY statistic — paired (kd_brain − kd_brain_permuted) at MATCHED PERPLEXITY (55.4 vs 55.3): +0.0081 [CI +0.0023, +0.0171], CI excludes 0.** 73% of 15 pairs positive. Per-fold [+0.0033, +0.0067, +0.0020, +0.0047, +0.0239]; **leave-fold-4-out = +0.0042 (4/5 folds positive)** — robust, unlike E004's fold-4-dependent lever. Reference (ppl-confounded): kd_brain − kd_ppl = +0.0068, *despite kd_brain having worse ppl* (55 vs 51) — so the gain is NOT from being a better LM (rules out the L011 confound).
+
+## Interpretation
+
+**F1 CONFIRMED in-domain (Fork A supported).** Alignment-guided KD recovers **brain-specific** alignment **beyond** perplexity-only KD **at matched perplexity** — the dissociation E003 (L011) and E004 could not cleanly establish. The KD-KL anchor + the matched-ppl-by-construction permuted-twin design cleaned up E004's fragility (4/5 folds positive, robust to the fold-4 outlier, and the gain holds despite slightly-worse ppl). This flips the oracle's "Fork B more likely" prior: the in-domain matched-ppl test is positive.
+
+**But the effect is SMALL — an A+B synthesis, not a triumphal A.** The brain-specific gain is +0.0081 (NC-norm ~1.6% of ceiling; kd_brain 0.030 vs permuted 0.014 NC-norm). This is exactly the "real but small residual" regime the literature predicts (Hadidi/Feghhi 2026 ≤10%; L011/L012). The honest framing is: **F1 holds — the brain objective buys a real, brain-specific, perplexity-independent alignment gain in distillation — and the contribution includes the rigorous characterization of *how small* it is (the rate–distortion trade-off curve).** Both the positive (A) and the honest magnitude/curve (B) are the result.
+
+**Caveats:** (1) in-domain Tuckute (5-ROI, the training domain) — the powered **LeBel voxelwise TRANSFER** test is the next gate (does the in-domain gain generalize cross-dataset/granularity). NOTE: the LeBel mean-over-voxels statistic is underpowered (E006 MDE +0.013); the transfer test needs a **powered statistic** (per-voxel paired, or LH-language-region-restricted), to be designed + oracle-gated. (2) Single λ=10; the full trade-off curve (λ-sweep, multiple compression rates) is the Fork-B-framing follow-up. (3) Qwen-0.5B student / single subject (Tuckute 5-UID avg); scope claims accordingly. (4) Fold-4 still inflates — report the leave-one-out as the conservative estimate.
+
+## Status / next
+
+F1 in-domain = **POSITIVE** (recorded). Next gates (predeclared): **(a)** LeBel voxelwise **transfer** test with a *powered* statistic (per-voxel paired / region-restricted — design + oracle-gate first); **(b)** the λ-sweep / multi-rate **trade-off curve** for the Fork-B-rigor framing. Ladder: **L3/F1 → 🟡 PARTIAL-PASS (in-domain confirmed, transfer + magnitude pending)** — **pending Erfan's confirmation** (D015).
