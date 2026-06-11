@@ -30,49 +30,85 @@ is worth any compute.
 | Arm | Objective | Brain target |
 |---|---|---|
 | **kd_brain** (`mse`) | `λ_kd·KL(student‖teacher) + λ_brain·MSE(W·hₛ, fMRI)` | that participant's real BOLD (5 ROIs) |
-| **kd_brain_permuted** (`mse_perm`) | same objective, block-permuted BOLD | matched-ppl null; **n_perm ≥ 3** draws per (fold,seed) to de-noise the null (fixes E005's `n_perm=1`, L015) |
+| **kd_brain_permuted** (`mse_perm`) | same objective, block-permuted BOLD | matched-ppl null; **n_perm = 5** draws per (fold,seed); verdict subtracts the per-cell perm **mean** (fixes E005's `n_perm=1`, L015; oracle #4) |
 | **kd_ppl** (`lm_only`) | `λ_kd·KL` only | none (secondary "beyond-KD" reference; ppl-unmatched) |
 
 Teacher Qwen2.5-1.5B → student Qwen2.5-0.5B (LoRA, KD-KL retention) — the E005 lineage. λ_brain=10, KD corpus + ppl-heldout as E005. Verdict layer L12.
 
-## The inference design (the load-bearing change — L015)
+## The inference design (the load-bearing change — L015, hardened by oracle HOLD)
 
-- **Per participant** u: run 5 rotating contiguous folds × 2 seeds; within each (fold,seed) form the paired
-  contrast `Δ_brain − mean_over_perm(Δ_brain_permuted)` (base cancels; matched ppl by construction since the
-  twin shares the KD+MSE objective). Average over folds×seeds → **one effect estimate per participant** `e_u`.
-- **Across participants (the honest unit, n=10):** report `mean(e_u)` with a **t-CI95 (df=9)**, a **sign test**
-  (binomial on #{e_u>0}), and a **Wilcoxon signed-rank**. Also **leave-one-participant-out** and the
-  **median** (the f4-outlier lesson: never let one unit carry the verdict).
+**The oracle's correct objection:** per-participant alone does NOT remove pseudo-replication — all 10
+participants see the **same 1000 sentences** on the **same 5-fold partition**, so the per-subject effects
+are positively correlated (shared stimuli), not independent. A fold-4-type spike (E005 proved the
+real−permuted pairing does *not* fully cancel it: fold4/seed0 real=0.073, perm=0.010) would appear
+**correlated across many "independent" brains** → a naive n=10 t-CI is anti-conservative and would read
+"robust 9/10" for what is one lucky stimulus fold replicated 10×. So the inference is **crossed** over
+two axes (subjects AND stimulus-folds), and the verdict must survive BOTH.
+
+- **Per cell** (subject u, fold k, seed s): paired diff `d[u,k,s] = uR²_mse − mean_{p=1..5}(uR²_mse_perm)`
+  (base cancels; matched ppl by construction; per-cell perm **mean** subtracted — de-noised).
+- **Per participant:** `e_u = median_{k,s} d[u,k,s]` (robust within-subject aggregate — the f4-outlier
+  lesson; report the mean too). 3 seeds × 5 folds = 15 cells per subject.
+- **Subject-axis inference (n=10):** `mean(e_u)` with t-CI95 (df=9), sign test (binomial on #{e_u>0}),
+  Wilcoxon. **Leave-one-participant-out:** require the sign of `mean(e_u)` stays positive for all 10 drops.
+- **Fold-axis inference (n=5, the CONSERVATIVE headline — oracle #1,#2):** per-fold-across-subjects value
+  `f_k = mean_{u,s} d[u,k,s]` → 5 fold values → t-CI95 (df=4) + cluster-bootstrap over folds.
+  **Leave-one-fold-out:** drop each fold, recompute `mean(e_u)`; require the fold-clustered CI still
+  excludes 0. This is the gate that catches a shared-stimulus spike (LOO-subject cannot).
+- **Report the MORE CONSERVATIVE of the subject-CI and fold-CI as the headline** (never the df=9 t-CI alone).
+- **Train vs held-out split (oracle #3):** report `mean(e_u)` separately for the **train-5** UIDs
+  (848,853,865,875,876 — the subjects E005 averaged, i.e. data reuse) and the **held-out-5** UIDs
+  (797,837,841,856,880 — genuine out-of-sample brains). Generalization requires the held-out-5 to show it too.
+- **SNR control (oracle #5):** Spearman `e_u` vs per-subject baseline uR² (signal proxy). If positively
+  rank-correlated and `mean(e_u)` collapses when the top-SNR subjects are dropped → SNR artifact, not
+  brain-specificity.
+- **Null-stability check:** report the per-cell perm SE; if not ≪ the effect, treat the verdict as
+  null-noise-limited (don't over-read).
 
 ## Claim tuple / decision rule (PREDECLARED, before running)
 
 - **Metric:** across-participant mean of the per-participant paired effect `e_u = mean_{fold,seed}(Δ_mse − Δ_mse_perm)`, unique-R² units; n=10 participants the inference unit.
-- **F1 in-domain CONFIRMED (cross-subject):** `mean(e_u) > 0` with **t-CI95 (df=9) excluding 0**, AND **≥ 8/10 participants positive** (sign test one-sided p ≈ 0.055), AND the verdict survives leave-one-participant-out (no single subject flips it). → in-domain F1 generalizes across individuals; *then* transfer/curve work is licensed.
-- **F1 in-domain WEAK/AVERAGE-ONLY (the L015-honest null):** t-CI includes 0 OR < 7/10 positive OR one subject carries it. → the effect is an average-only/borderline trend, not a cross-subject result; do **not** claim in-domain generalization; pivot effort to A3 (does any of this buy something practical) and report this honestly (Fork-B-consistent).
+- **F1 in-domain CONFIRMED (cross-subject):** the **conservative (fold-clustered) CI excludes 0** AND it **survives leave-one-fold-out** (no single shared stimulus fold carries it) AND **≥ 8/10 participants positive** (sign test one-sided p≈0.055) survives leave-one-participant-out AND the **held-out-5 UIDs also show mean(e_u)>0** AND it is not an SNR artifact. → in-domain F1 generalizes across individuals and stimulus folds; *then* transfer/curve work is licensed.
+- **F1 in-domain WEAK/AVERAGE-ONLY (the L015-honest null):** the fold-clustered CI includes 0, OR LOO-fold flips it, OR **≤ 7/10** positive, OR held-out-5 null while train-5 positive (data reuse), OR e_u tracks SNR. → an average-only/fold-limited trend, not a cross-subject result; do **not** claim in-domain generalization; report honestly (Fork-B-consistent) and pivot effort to **A3** (does any of this buy something practical — the escape from the stimulus-fold power ceiling).
+- **KILL the in-domain F1 line** if ≥2 of: LOO-fold collapses the conservative CI to include 0 (one shared fold carries it, like E005); held-out-5 null while train-5 positive; e_u rank-correlates with SNR and collapses when top-SNR subjects removed.
 - **Anti-confound (mandatory, unchanged from E002/E004):** rotating contiguous folds (no tune↔eval leakage), input embeddings frozen (LoRA), static nuisance S + scalar nuisance Z from the UNTUNED base byte-identical across arms, the permuted twin as the matched-ppl brain-specificity null. Report per-arm perplexity (the matched axis) and the A/B imageability/surprisal balance per fold.
 - **Power note (required before lock):** with n=10 and E005's per-fold sd ≈ 0.009, the across-participant SE depends on between-subject variance (unknown until run). Predeclare: if the observed between-subject sd inflates the MDE above the effect, report the result as power-limited rather than over-reading a null. (The MDE will be computed from the run's own between-subject variance and reported, à la E006.)
 
-## Open design questions (resolve at oracle review)
+## Resolved at oracle review (HOLD → addressed)
 
-- **2 seeds vs 3:** with participants as the new replication axis, 2 seeds × 5 folds = 10 within-subject samples/condition is likely adequate; oracle to confirm vs the compute cost.
-- **n_perm:** 3 (compute) vs 5 (cleaner null). Default 3; bump if the null is still noisy.
-- **All 10 vs 5-train-UIDs first:** stage? Run all 10 in one job (GPUs free) is cleaner for the n=10 claim; a 5-train-UID first pass is the cheaper smoke. Lean: smoke on 2 UIDs, then all 10.
-- **Per-subject NC normalization:** the NC file has per-UID ceilings; verdict is on raw Δ (NC for display only), so use the matched-NC mean as in E005 unless oracle wants per-subject.
+- **Seeds = 3** (not 2): per-subject targets are noisier than the 5-UID average → keep the within-subject sample count up + use the robust median e_u (oracle #2/#4).
+- **n_perm = 5**, subtract per-cell perm mean, report null SE (oracle #4).
+- **Inference is crossed** (subject AND fold); the fold-clustered CI + LOO-fold is the conservative headline (oracle #1/#2). The df=9 subject t-CI is never reported alone.
+- **Train-5 vs held-out-5 reported separately** (oracle #3). NC normalization: raw Δ (NC display only) + the SNR rank-correlation control replaces per-subject NC-norm, which is blocked (the NC file covers only the 5 train UIDs; no within-subject repeats).
+- **Stage:** 2-UID smoke first (sanity + timing), then all 10 in one job (GPUs free).
 
 ## Compute
 
-10 participants × 5 folds × 2 seeds × (mse 1 + mse_perm 3 + lm_only 1 = 5 conditions) ≈ 500 LoRA tunes of a 0.5B student (~30–50 s each incl. teacher KD forward + scoring). ~1.5 h split across the 4 L40S by participant. Pure in-domain; no new data.
+10 participants × 5 folds × 3 seeds × (mse 1 + mse_perm 5 + lm_only 1 = 7 conditions) ≈ 1050 LoRA tunes of a 0.5B student (~30–50 s each incl. teacher KD forward + scoring). ~2.5–3 h split across the 4 L40S by participant. Pure in-domain; no new data.
 
-## How to run (after oracle PASS + harness extension)
+## How to run (oracle HOLD addressed; harness extension `--uids` + crossed inference)
 
 ```bash
 export HF_HOME=/home/centcom/data/hf-cache HF_HUB_OFFLINE=1
+# smoke (2 UIDs, fast):
+CUDA_VISIBLE_DEVICES=0 uv run python scripts/run_brain_lever.py \
+  --model Qwen/Qwen2.5-0.5B --kd-teacher Qwen/Qwen2.5-1.5B \
+  --arms mse lm_only --permute-kinds mse --uids 848 797 \
+  --seeds 0 1 2 --folds 5 --lambda-grid 10 --n-perm 5 --out outputs/E008_smoke.json
+# full (all 10 UIDs; split across GPUs by UID subset if desired):
 CUDA_VISIBLE_DEVICES=0 uv run python scripts/run_brain_lever.py \
   --model Qwen/Qwen2.5-0.5B --kd-teacher Qwen/Qwen2.5-1.5B \
   --arms mse lm_only --permute-kinds mse --uids 797 837 841 848 853 856 865 875 876 880 \
-  --seeds 0 1 --folds 5 --lambda-grid 10 --n-perm 3 --out outputs/E008_per_participant_Qwen.json
+  --seeds 0 1 2 --folds 5 --lambda-grid 10 --n-perm 5 --out outputs/E008_per_participant_Qwen.json
 ```
+
+## Iteration log
+
+| Date | Step | Result | Next |
+|---|---|---|---|
+| 2026-06-11 | design v1 | per-participant, n=10, t-CI(df=9) | oracle review |
+| 2026-06-11 | **oracle HOLD** | shared-stimulus pseudo-replication NOT fixed by per-subject alone; need LOO-fold + fold-clustered CI + train/held-out split + 3 seeds + n_perm≥5 + SNR control | addressed above → harness extension → run |
 
 ## Status
 
-DESIGN — pending oracle-reviewer PASS, then the `--uids` harness extension, then run, then the S8 thinking panel on the result. Predeclared kill/confirm rule above is the lock.
+DESIGN — oracle HOLD addressed (crossed inference + LOO-fold + train/held-out split + SNR control + n_perm=5 + 3 seeds + robust median). Next: extend `run_brain_lever.py` (`--uids` per-subject loop, per-cell perm-mean subtraction, crossed-inference summary), smoke, run, then the S8 thinking panel on the result.
