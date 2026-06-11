@@ -1,0 +1,108 @@
+# When brain-alignment gains don't survive their own controls: cross-subject averaging manufactures apparent brain-specificity in language-model training
+
+**Draft v0** — 2026-06-11 (Session 8, analysis). Every number traces to a recorded `docs/experiments/ENNN` entry or `docs/learnings.md` Lnnn (cited inline). This is the Fork-B write-up (D018): the positive contribution is a methodological confound + the protocol that detects it; the optimization claims are characterized nulls.
+
+---
+
+## Abstract
+
+The middle layers of large language models (LLMs) map linearly to human brain activation recorded during language comprehension, and this mapping is real and measurable. A growing literature proposes to *use* that mapping as a training signal — "brain-tuning" models to raise alignment and, allegedly, downstream utility. We ask whether optimizing brain-alignment buys anything beyond what perplexity already implies, under controls that the prior literature largely omits: a matched-perplexity baseline, a per-kind permuted-fMRI null, and inference at the level of the individual brain. On a powered voxelwise benchmark (LeBel UTS03, ~11.4k noise-ceiling-reliable voxels), we first confirm that a *trained* LM predicts brain activity far above an untrained control after a strong low-level-feature nuisance regression (trained−untrained unique-R² gap +0.021 to +0.028, 95–99% of reliable voxels positive; `E006`) — alignment is real. We then show that **optimizing** it does not transfer to a brain-specific gain: an alignment-guided knowledge-distillation objective that appears to recover brain-specific alignment at matched perplexity when measured against a *5-subject-averaged* target (+0.0081) **collapses ~80× to a well-powered null when the same contrast is run per individual** (mean +0.00010, 95% CI [−0.0004, +0.0006], n=9 subjects, MDE≈+0.0006; `E008`). The apparent effect is an artifact of cross-subject target averaging, which amplifies the shared stimulus-evoked component at an inflated noise ceiling so that tuning toward it reads as "brain-specific" against a permuted twin even though no individual exhibits it. A practical-payoff test (out-of-domain perplexity robustness at matched perplexity, with permuted-fMRI and text-feature pseudo-target controls) is correspondingly null and null-by-construction: the brain-specific representational change cannot be reliably induced at matched perplexity at this scale (`E009`). Our contributions are (i) a confound — cross-subject averaging manufactures apparent brain-specificity — and (ii) a confound-clean protocol (matched-perplexity + permuted-twin + per-subject inference) that detects it, which we argue explains a class of optimistic results in the brain-tuning literature whose baselines are not perplexity-matched.
+
+---
+
+## 1. Introduction
+
+Two facts are by now well established. First, representations in the middle layers of LLMs predict human brain activity during language tasks via a simple linear encoding model, and the predictivity rises with model quality (the "brain score" literature). Second, much of that predictivity is explained by low-level and static features, and naive evaluation (shuffled train/test splits, no nuisance regression) badly inflates it — the residual attributable to a *trained* contextual model is "real but small," on the order of ≤10% of explainable variance (Hadidi/Feghhi 2026; `docs/literature/canonical/hadidi-2024`).
+
+The natural next question — and the one a recent line of work answers optimistically — is whether the mapping can be *used*: can we optimize a model to be more brain-aligned and thereby get a better model (more robust, more sample-efficient, better-compressed at matched budget)? This is the thesis's framing (`docs/00-charter.md`): brain-alignment as a *usable training signal*, with knowledge distillation as the first concrete use case (does an alignment-guided student preserve brain-relevant structure, and its utility, better than a brain-blind student at the same budget?).
+
+We find that the answer, under proper controls, is **no — and the reason is instructive.** The optimistic results depend on a measurement choice the field treats as innocuous: fitting and evaluating against an fMRI target *averaged across subjects*. We show this averaging manufactures apparent brain-specificity. Our contribution is therefore not another brain-tuning method but a **negative result with a positive methodological core**: the confound, and the protocol that exposes it.
+
+**Claims, and how we control them.** Throughout, the unit of a brain-alignment claim is the individual subject; the null is a *per-kind permuted-fMRI twin* trained under the identical objective (so it is matched on perplexity by construction); and any "beyond perplexity" comparison is made at matched perplexity, because alignment co-varies strongly with LM quality (Spearman ρ≈−0.88 against log-perplexity; `L011`). These three controls — per-subject inference, the permuted twin, and matched perplexity — are the protocol.
+
+---
+
+## 2. Related work
+
+**Brain-alignment as a measurement.** Trained LMs predict language-network activity above untrained controls; alignment tracks scale and quality. Anti-confound work (Feghhi/Hadidi 2026, `hadidi-2024`; Oota 2024, `oota-2024`) shows positional/word-rate/static features explain most predictivity and that contiguous splits and nuisance regression are mandatory; the trained residual is ≤10%. Input-attribution work (Proietti 2025, `proietti-2025`) reports that brain-alignment and next-word prediction draw on *distinct* word subsets (IoU≈0.16), a mechanistic basis for a "beyond perplexity" component — though on frozen models, without the Hadidi nuisance bar. Merlin & Toneva 2024 (`merlin-2024`) find a residual alignment component surviving word-level and next-word-prediction controls.
+
+**Brain-alignment as a training signal (the claim we test).** Schwartz, Toneva & Wehbe 2019 (`schwartz-2019`) fine-tune BERT on fMRI/MEG and report GLUE is "not harmed" (the founding result; no matched-perplexity or shuffled-brain control). Negi et al. 2025 (`negi-2025`) brain-tune multilingual models and report downstream gains (+0.5–1.6pp), but baseline against a *vanilla pretrained* model — not perplexity-matched, no shuffled-brain downstream null, no compression. Moussa et al. 2025 (`moussa-2025`) report speech-LM gains. In vision, Li/Brendel 2019 regularize CNNs with neural RSA and improve robustness — but Pirlot 2022 (`pirlot-2022`) shows the *accuracy* gain is reproduced by a shuffled-label control and only the *robustness* gain needs real neural structure, and Hoak 2025 shows *aggregate* alignment does not predict robustness (only feature-specific does); Guo 2024 finds EEG co-training robustness gains are "limited but consistent" (~2–4pp). The common gap: **none of the text-LM positives control for perplexity or include a brain-specificity null.** That is exactly the control our protocol adds, and the axis on which we find the effect vanishes.
+
+**Compression context.** Oota 2026 (`oota-2026`) shows benchmark performance and alignment partially dissociate under post-hoc quantization/pruning, but never tests distillation — *shrink × measure*, not *shrink × optimize*. The alignment-guided-distillation-at-matched-budget question was open; we close it (negatively).
+
+---
+
+## 3. Methods
+
+**Datasets.** (i) *Tuckute 2024* sentence-level fMRI (5 LH language sub-ROIs), 1000 isolated sentences, per-participant responses for 10 participants; isolated sentences sidestep the temporal-autocorrelation leakage of naturalistic data. (ii) *LeBel UTS03* voxelwise naturalistic listening fMRI (deep within-subject sampling), used for the powered A2 measurement. Noise ceiling for the Tuckute targets, matched to the five functional sub-ROIs, is NC≈0.491 (`E004`/`E008`).
+
+**Encoding metric.** Per-voxel/ROI ridge encoding R², and **unique R²** = R²([nuisance, LM-features]) − R²([nuisance]) — the conditional-mutual-information estimand (`docs/06-theory-grounding.md` §3). The verdict statistic is the *trained−untrained gap* (an untrained same-architecture net can score positive via temporal/rate structure; the gap is the normaliser-invariant signal). Nuisance (subtracted identically from both arms) is the strong low-level set: word-rate, phoneme-rate, word-duration, word-length, log-frequency, and static embeddings — Feghhi's headline confounds. Splits are contiguous (sentence folds; story-level CV for LeBel).
+
+**Powered A2 (E006).** LeBel UTS03, ~20 stories, story-grouped CV, per-word contextual LM features → Lanczos→TR → FIR(1–4); NC-reliable voxels selected on a *held-out* repeated story (split-half reliability >0.5; no double-dipping). gpt2 (L7) and Qwen2.5-0.5B (L12) vs untrained same-architecture controls (≥3 seeds).
+
+**The alignment-guided distillation objective.** Student Qwen2.5-0.5B distilled from teacher Qwen2.5-1.5B by KD (temperature-scaled KL on next-token logits, the perplexity-retention term) plus λ·MSE from the student's verdict-layer pooled hidden state to the fMRI target (a co-trained linear readout — the theory-preferred Gaussian lower bound on conditional MI, `D016`). LoRA adapters (base frozen → perplexity stays near the teacher's; full fine-tuning collapses perplexity, `E004`). Input embeddings frozen; static nuisance from the untrained base, byte-identical across arms.
+
+**Arms and the controls.** `kd_ppl` = KD only (the matched-perplexity baseline). `kd_brain` = KD + brain MSE. `kd_brain_permuted` = KD + MSE toward a block-permuted fMRI target (the brain-specificity null; matched on perplexity by construction since it shares the objective). For the practical test we add `kd_textfeat` = KD + MSE toward a *text-feature-predicted* target (ridge[imageability, GPT2-XL surprisal, PCFG surprisal] → BOLD), separating "brain-derived" from "any smooth text-correlated regressor."
+
+**Inference (the load-bearing choice).** The independent replication unit is the **subject**. The per-subject effect e_u is the median over folds×seeds of (uR²(kd_brain) − uR²(kd_brain_permuted)) on held-out sentences. We report the across-subject mean with a t-CI and a sign test, *and* — because all subjects see the same sentences on the same folds (shared-stimulus correlation) — a conservative fold-clustered CI with leave-one-fold-out, taking the more conservative as the headline (`E008` design; oracle-gated). We split the 9 usable Tuckute participants (one excluded for incomplete ROI coverage) into the 5 averaged in prior work (train) vs the 5 held-out, and we report a per-subject-SNR control. Minimum detectable effects (MDEs) are *measured* from the run's own seed/fold variance, never borrowed.
+
+---
+
+## 4. Results
+
+### 4.1 Alignment is real and measurable (A2, powered) — `E006`
+
+On LeBel UTS03 voxelwise, after the full low-level nuisance regression and story-level CV, the trained−untrained unique-R² gap on 11,442 NC-reliable voxels is **+0.0207 [95% CI +0.0205, +0.0209] for gpt2 (L7)** and **+0.0277 [+0.0274, +0.0280] for Qwen2.5-0.5B (L12)**, with 95% and 99% of reliable voxels positive respectively. Qwen>gpt2 (the expected quality ordering). A trained LM robustly predicts brain activity beyond an untrained control after the strongest available anti-confound — clearing the Hadidi/Feghhi bar. **The signal exists.**
+
+### 4.2 The apparent optimization gain — and that it lives only in the averaged target — `E005`→`E008` (the central result)
+
+Against a **5-subject-averaged** Tuckute target, the alignment-guided student beats its matched-perplexity permuted twin: paired (kd_brain − kd_brain_permuted) = **+0.0081**, with a 15-fold×seed bootstrap CI [+0.0023, +0.0171] that excludes zero (`E005`). Taken at face value this is "alignment-guided KD recovers brain-specific alignment beyond perplexity."
+
+It does not survive its controls. **(a) Inference unit.** The 15 cells are 3 seeds × 5 folds over *one* averaged target on the same 1000 sentences — pseudo-replication. At the honest unit (5 folds), the t-CI is **[−0.0030, +0.0193] (includes 0)**; one fold (fold-4/seed-0, paired diff +0.0636) contributes 52% of the signal; the median is +0.0034 (`L015`). **(b) Per-subject.** Running the identical contrast per individual (n=9), the effect collapses to **mean +0.00010, t-CI [−0.00037, +0.00058], sign 5/9 (p=0.50); the conservative fold-clustered CI includes 0 and fails leave-one-fold-out** (`E008`). The four subjects that were averaged in the prior result are individually null (mean −0.00010). The per-subject MDE(80%) is **≈ +0.0006** — six to twelve times *below* the +0.0081 we are testing — so this is a **well-powered null**, not a noise-floor null: an effect a fifth the claimed size would have been detected.
+
+**Why averaging manufactures the effect.** Write subject BOLD as Y_i = g + ε_i, with g the shared stimulus-evoked response and ε_i idiosyncratic + measurement noise. Averaging k subjects preserves g and shrinks the noise ~k×, so tuning toward the average is tuning toward g at an inflated noise ceiling; the unique-R² gain read off the averaged target is a gain in predicting the *shared* response, and it reads as "brain-specific" against a permuted twin (which destroys g) even though no individual carries it. The steelman — that averaging is just a legitimate higher-SNR measurement — is quantitatively rejected: at NC≈0.49 the achievable inflation is ~1.7×, predicting a per-subject effect ~+0.002, which `E008` was powered to detect (3.3× above MDE) and did not (`L016`). Moreover the averaged-target "brain-specific" is only specific relative to an incomplete nuisance set: ⅓–⅔ of the apparent unique R² co-varies with imageability/surprisal that the static nuisance never subtracts (`L012`).
+
+### 4.3 No per-individual optimizable gain (F1) — `E008`
+
+Consequently, **optimizing brain-alignment yields no detectable per-individual brain-specific gain beyond perplexity.** The in-domain "headline" of alignment-guided distillation is an averaging artifact.
+
+### 4.4 No practical payoff, and the manipulation does not take hold (A3) — `E009`
+
+We test whether the alignment-guided student is practically better — out-of-domain perplexity robustness (WikiText→Pereira and →LeBel-spoken transcripts; ratio of OOD to in-domain perplexity), with `kd_ppl`, `kd_brain_permuted`, and `kd_textfeat` controls, at matched perplexity, n=8 seeds. Two findings. **(i) The fulcrum is ~0 at matched perplexity:** the brain-specific representational gap (kd_brain − kd_brain_permuted held-out unique R²) is median +0.004 (mean +0.011 but seed-0-outlier-driven, +0.063 vs ~+0.004 for the other seven; MDE 0.023 ≈ the mean) — no reliable brain-specific change is induced, and raising λ to grow it collapses perplexity (λ=30 → ppl 92 vs base 45, one seed 148). **(ii) No brain-specific downstream effect:** every OOD-ratio contrast (kd_brain vs kd_ppl, vs permuted, vs textfeat) lies within the measured MDE (0.03–0.13). A3 is a **bounded null, null-by-construction**: with no reliable manipulation at matched perplexity there is nothing whose downstream value to test.
+
+---
+
+## 5. Discussion
+
+**The positive contribution.** The headline is methodological: *cross-subject fMRI target averaging manufactures apparent brain-specificity in model optimization*, and a matched-perplexity + permuted-twin + per-subject protocol detects it. This reframes a class of optimistic brain-tuning results. The strongest text-LM positive (Negi 2025) baselines against a non-perplexity-matched vanilla model — exactly the LM-quality confound (`L011`) our matched-perplexity control removes; their gain is consistent with "a slightly different/longer-trained LM," not a brain-specific effect, and our null is the brain-*specific* increment at matched perplexity. We do not claim their downstream numbers are wrong; we claim the brain-specificity attribution is unestablished without these controls.
+
+**Why this is consistent, not contradictory.** Alignment is real (§4.1) and yet not a usable per-individual optimization lever (§4.3–4.4). There is no contradiction: a signal can be robustly *measurable* in aggregate and still be (i) dominated by a shared stimulus-evoked component that averaging amplifies, (ii) ≤10% trained residual (Hadidi/Feghhi), and (iii) too small and idiosyncratic per individual to optimize at matched perplexity. Measuring ≠ optimizing.
+
+**Relation to theory.** The unique-R² estimand is the conditional MI of layer features and brain given nuisance (`06-theory-grounding.md` §3); averaging changes the target's noise ceiling, so effect-on-averaged-target and mean-of-per-subject-effects are different estimands and need not agree — the per-subject one is what "generalizes across people" means. The data-processing inequality is not violated: at inference the student sees only text, so any brain-relevant structure is bounded by the stimulus, and the brain term at best *reformats* stimulus-derived information into linearly-decodable directions rather than creating brain information.
+
+---
+
+## 6. Limitations
+
+(1) **Operationalization of "practical."** A3's payoff axis is out-of-domain perplexity (offline constraint); the perturbation-robustness-slope and sample-efficiency axes that the vision literature finds brain-specific (Pirlot/Hoak) were not run — but with the fulcrum at ~0 (§4.4), any downstream test is uninformative, so this bounds rather than reopens the claim. (2) **Scale/scope:** one student/teacher (Qwen 0.5B←1.5B), Tuckute language ROIs + LeBel UTS03; the per-subject null is established for this regime. (3) **The only grounded path to a per-individual positive** is higher per-subject SNR (within-subject fMRI repeats to lift the single-subject ceiling) or conditioning surprisal/imageability into the nuisance — not more cross-subject averaging. (4) The averaged-target residual (+0.003–0.004, non-significant) is itself partly an unsubtracted-nuisance artifact (`L012`); we do not claim it is a clean brain effect.
+
+## 7. Conclusion
+
+Brain-alignment is real and measurable, but optimizing it does not — under matched-perplexity, permuted-twin, and per-subject controls — produce a brain-specific gain in either alignment or downstream robustness; the apparent in-domain gain is an artifact of cross-subject target averaging. The usable contribution is the confound and the protocol that detects it. For practitioners: a brain-tuning result is not evidence of a brain-specific effect unless it is matched on perplexity, tested against a permuted-fMRI twin, and shown at the level of the individual brain.
+
+---
+
+## Evidence map (every results number → source)
+
+| Claim | Number | Source |
+|---|---|---|
+| A2 powered gap | +0.0207 / +0.0277, 95–99% voxels+, 11,442 vox | `experiments/E006` |
+| averaged-target apparent gain | +0.0081 [+0.0023,+0.0171] (15-cell); fold-CI [−0.003,+0.019]; median +0.0034; fold-4=52% | `experiments/E005`, `L015` |
+| per-subject null | +0.00010, CI [−0.0004,+0.0006], n=9, sign 5/9, MDE≈+0.0006; train-4 −0.0001 | `experiments/E008`, `L016` |
+| A3 fulcrum / OOD | repr gap median +0.004 (MDE 0.023, seed-0 +0.063); OOD contrasts within MDE 0.03–0.13; λ30→ppl92 | `experiments/E009`, `L017` |
+| alignment–ppl coupling | ρ≈−0.88 | `L011` |
+| nuisance eats unique R² | ⅓–⅔ | `L012` |
+| trained residual ≤10% | — | `hadidi-2024` |
+| NC matched | 0.491 | `E008` |
+
+**Status:** v0 draft (analysis session). Open: figures (averaging-collapse, A2 voxel map, A3 nulls — scripts in `scripts/figures/`, TBD); a final title; venue/length target. To be panel-reviewed (counter-argument + first-principles) for overclaim/grounding before v1.
