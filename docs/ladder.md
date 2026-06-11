@@ -12,6 +12,15 @@ We have climbed **Layer 0 (A2, powered/voxelwise — E006)**, **Layer 2a (E003)*
 
 **→ Next step: (1) LeBel voxelwise TRANSFER test** (does E005's in-domain gain generalize? — needs a *powered* statistic, design+oracle-gate first) **and (2) the λ-sweep / multi-rate trade-off curve**. Details in "Next session", bottom.
 
+> **⚠ UNDER REVIEW (2026-06-11, S8 panel audit — pending Erfan):** an honest re-analysis
+> (`scripts/reanalyze_e005_e006.py`, L015) shows the E005 L3/F1 "CI excludes 0" is **pseudo-replicated**
+> (15 cells = 3 seeds × 5 folds over *one* subject-avg). At the honest unit (5 folds) the t-CI **includes
+> 0** (a small brain-specific *trend*, median +0.0034, one outlier fold carries 52%). And the planned
+> **transfer test is underpowered** (paired-LeBel MDE needs ρ≥0.9 to see even +0.0081). **Proposed pivot
+> (pending confirmation):** (1) solidify in-domain F1 **per-participant** (E008) — 5 Tuckute UIDs as
+> independent units, n_perm≥10; (2) then **A3/L2b — does alignment buy anything practical** (the real,
+> unexplored gap), not the transfer test. The L3/F1 glyph is left as-is until Erfan adjudicates (D015).
+
 ---
 
 ## The scientific ladder (kill-gated; climb only if the rung below holds)

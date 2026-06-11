@@ -70,3 +70,26 @@ Compare alignment **at equal held-out perplexity**, not equal budget. Trace each
 ## Status / next
 
 F1 in-domain = **POSITIVE** (recorded). Next gates (predeclared): **(a)** LeBel voxelwise **transfer** test with a *powered* statistic (per-voxel paired / region-restricted — design + oracle-gate first); **(b)** the λ-sweep / multi-rate **trade-off curve** for the Fork-B-rigor framing. Ladder: **L3/F1 → 🟡 PARTIAL-PASS (in-domain confirmed, transfer + magnitude pending)** — **pending Erfan's confirmation** (D015).
+
+---
+
+## ⚠ ADDENDUM — Session-8 honest re-analysis (2026-06-11, `scripts/reanalyze_e005_e006.py`)
+
+A thinking-panel audit (counter-argument + premortem + first-principles, fable) re-derived the result
+from the raw JSON *before* the next compute. **The "CI excludes 0" headline above does not survive
+honest inference and should be read as overstated.** See L015. Specifics (pure re-analysis, no new run):
+
+- **Inference unit.** The +0.0081 [+0.0023,+0.0171] CI is a **15-cell flat bootstrap** (3 seeds × 5
+  folds) over **one subject-average** (Tuckute 5-UID mean), same 1000 sentences → pseudo-replication.
+- **Honest fold-level (n=5):** mean +0.0081, sd 0.0090, **t-CI95 = [−0.0030, +0.0193] → INCLUDES 0.**
+  Cluster-bootstrap over folds = [+0.0031,+0.0162] (excludes 0) — they disagree because **one run
+  (fold4/seed0, uR²=0.073, ~7× outlier) = 52% of the signal**; mean is 2.4× the **median +0.0034**;
+  leave-fold-4-out = +0.0042.
+- **Harness's own flag:** `beats_permuted_null=False` (mse 0.00474 < perm p95 0.00737); `n_perm=1`.
+- **Transfer feasibility:** paired-LeBel MDE (from E006 fold_sd) needs arm-correlation ρ≥0.9 to resolve
+  even +0.0081; honest +0.0042 below noise for ~all ρ. → transfer underpowered on the valid statistic.
+
+**Honest verdict (supersedes the §Interpretation framing for inference):** a **small brain-specific
+trend** (4/5 folds positive, median ~+0.003–0.004), brain-specific-leaning, **not** a significant
+"CI excludes 0" result. **Next = solidify in-domain per-participant (E008) before any transfer.** The
+ladder L3/F1 verdict needs revisiting with Erfan (D015) — not flipped unilaterally.
