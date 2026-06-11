@@ -97,8 +97,43 @@ give the effect a chance. Predeclare the escalation; a null on a non-moving mode
   ("we induced a brain-specific signal; does it transfer to utility?" vs "the signal is tiny; does any
   downstream value survive?").
 
+## Oracle HOLD → resolution (2026-06-11, fable) — 4 gaps closed in the design; PASS-ready as a PILOT-FIRST plan
+
+The oracle HOLD was correct on all four points. The design now mandates:
+
+1. **No saved students exist** (`run_brain_lever.py` does `del m`; the per-fold students are unusable downstream).
+   → A3 needs a **new all-data, save-checkpoint training mode**: tune on all ~800 Tuckute sentences (no fold
+   split, averaged target), `merge_and_unload`, save the merged checkpoint per arm × seed.
+2. **MDE must be MEASURED, not borrowed.** Guo's 2–4pp is a *prior expectation*, not the predeclared MDE
+   (using it would be the borrowed-number move L012/L015 forbid). → a **variance pilot** measures the
+   seed-to-seed (and corpus-to-corpus) SD of the actual chosen benchmark → the real MDE → THEN lock the claim.
+3. **Quantify the achievable brain-specific Δ at matched ppl FIRST** (a λ-sweep + representational probe).
+   If the brain-specific increment is capped at ≈+0.008 and can't grow without breaking the ppl match, A3 may
+   be null-by-construction — check the fulcrum before pulling the lever.
+4. **Add a text-feature pseudo-target control arm** (regress toward a target predicted from
+   surprisal+imageability+length, or static-embedding features). Averaged-target + permuted-twin only tests
+   structure-vs-shuffle; this arm separates "brain-derived" from "any smooth text-correlated regressor"
+   (the pirlot-2022 redux risk + the L011/L012 unsubtracted-nuisance confound).
+
+**Offline benchmark (no network at run time):** PRIMARY = **OOD-perplexity ratio** (KD/train domain
+WikiText-103 → shifted domains we have offline: LeBel TextGrid transcripts (strongest shift), Pereira/Tuckute
+sentences); report OOD/in-domain ppl *ratio* so the arms' absolute-ppl differences don't confound.
+SECONDARY = perturbation-robustness slope (Δppl per unit char/word noise). **DROP sample-efficiency v1** (no
+GLUE/task cached). **Honest limitation (state up front):** offline forces perplexity-based outcomes — a weak
+operationalization of "practical payoff"; Hoak 2025 (aggregate alignment doesn't predict robustness) is a
+headwind. A clean null is the anticipated, publishable Fork-B result.
+
+**→KILL A3 if:** the matched-ppl λ-sweep shows the brain-specific Δ can't exceed ≈+0.008 AND the downstream
+primary is flat across that range within the *measured* MDE; OR any kd_brain−kd_ppl gain is fully reproduced
+by the permuted twin / text-feature control (generic multi-task regularization, not brain value). Either is
+the clean Fork-B negative — KILLing A3 does not KILL the thesis (A2-powered + two well-powered nulls + the
+anti-confound methodology stand).
+
 ## Status
 
-DESIGN DRAFT — written during the E008 run. **Gate with oracle-reviewer after E008's verdict**, then build
-the offline robustness harness, then run + thinking panel. This is the candidate next headline (the
-practical-payoff gap), pending E008.
+DESIGN — oracle HOLD resolved (PASS-ready as a **pilot-first** plan). **Next step (the "run A3" Erfan
+confirmed): the all-data-students + variance pilot** — build the save-checkpoint training mode + OOD-ppl
+harness + text-feature control arm, run the 3–5-seed pilot to (a) confirm the brain-specific gap is nonzero
+in all-data students, (b) measure the real MDE, (c) λ-sweep the max brain-specific Δ at matched ppl. That
+pilot green-lights or cheaply kills the full A3. (Deferred to next session per the S8 close — a fresh
+multi-hour harness build is its own unit, not a tail-of-session rush; fully specified above.)
