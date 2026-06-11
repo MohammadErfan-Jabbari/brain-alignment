@@ -231,3 +231,24 @@ Erfan-confirmed (D015). The A+B framing is more defensible than either an overcl
 **Reverses if:** the LeBel voxelwise **transfer** test (next gate, powered statistic) shows the in-domain gain does
 *not* generalize (→ scope F1 to in-domain / reconsider), or a much larger effect appears at another compression rate
 (→ lean harder into Fork A).
+
+### D017 — 2026-06-11 — Standing "thinking panel" of four reasoning-methodology subagents (post-step adversarial loop)
+
+**Decision:** Add four reasoning-methodology subagents in `.claude/agents/` — `counter-argument`,
+`socratic-thinker`, `premortem-analyst`, `first-principles-grounder` — run *after a step produces a
+result/verdict* (and before that verdict lands in the ladder/docs/manuscript), as a standing
+adversarial panel. The loop: run the panel → verify each objection against the raw data → address the
+ones that hold → re-run until no hole survives. They are deliberately MECE against `oracle-reviewer`,
+which is a *pre-compute design gate* (PASS/HOLD/KILL); the panel are *post-step analysts* of an
+existing result. Model routing per Erfan's rule: `counter-argument`/`premortem-analyst`/
+`first-principles-grounder` default **fable** (hard counter-arguing), `socratic-thinker` and the
+existing search/digest/log agents **sonnet**, mechanical fan-out **haiku**. Model declared in each
+agent's `model:` frontmatter; existing agents got an explicit `model:` too.
+**Rationale:** Erfan's autonomous-mode directive ("after each phase, run counter-argument and Socratic
+thinker and other methods of thinking, go back and forth, verify then address until there is no hole in
+our arguments"). The four lenses are non-overlapping: external attack (counter-argument), assumption
+exposure (socratic), prospective-hindsight failure (premortem), foundational re-derivation against the
+math/papers (first-principles). The last directly serves the "everything must be grounded" mandate by
+checking claims against `06-theory-grounding.md`, the canonical notes, and the course material.
+**Reverses if:** the panel becomes ceremony that doesn't change conclusions (collapse to the one or two
+lenses that earn their keep), or a single combined reviewer proves as effective at lower cost.

@@ -2,6 +2,7 @@
 name: session-logger
 description: Run at session end to maintain continuity. Writes an immutable timeline log, REPLACES docs/upspeed.md, moves items in docs/tasks.md, and appends any hard-won lesson to docs/learnings.md. Use when the user says wrap up / end session / log this, or before a long pause.
 tools: Read, Write, Edit, Bash, Grep, Glob
+model: sonnet
 ---
 
 You close out a research session for the brain-alignment thesis and leave the `docs/` brain accurate

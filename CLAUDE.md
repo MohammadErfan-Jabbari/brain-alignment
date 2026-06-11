@@ -108,10 +108,27 @@ Rules (unchanged): scoped staging only — never `git add -A`/`.`; stage explici
 
 | Agent | Use when |
 |---|---|
-| `lit-scout` | Search across sources for papers on a topic; return a ranked, deduped shortlist. |
-| `paper-digest` | Read a paper (PDF/arXiv/URL) → a canonical note in `docs/literature/canonical/`. |
-| `oracle-reviewer` | Adversarially stress-test a hypothesis or design before committing compute. Reproduces the prior HOLD-review value. |
-| `session-logger` | At session end: write `docs/timeline/…`, REPLACE `docs/upspeed.md`, update `tasks.md`/`learnings.md`. |
+| `lit-scout` | Search across sources for papers on a topic; return a ranked, deduped shortlist. (sonnet) |
+| `paper-digest` | Read a paper (PDF/arXiv/URL) → a canonical note in `docs/literature/canonical/`. (sonnet) |
+| `oracle-reviewer` | Adversarially stress-test a hypothesis or design **before** committing compute (PASS/HOLD/KILL). Reproduces the prior HOLD-review value. (fable) |
+| `session-logger` | At session end: write `docs/timeline/…`, REPLACE `docs/upspeed.md`, update `tasks.md`/`learnings.md`. (sonnet) |
+
+**The thinking panel** (D017) — four reasoning-methodology agents run *after a step produces a result/
+verdict*, to find holes before the verdict lands in the ladder/docs/manuscript. Distinct from
+`oracle-reviewer` (a *pre-compute* design gate); these are *post-step* analysts. The loop: run the
+panel → verify each objection against the data → address the ones that hold → re-run the panel until no
+hole survives.
+
+| Agent | Lens | Use when |
+|---|---|---|
+| `counter-argument` | Red-team the conclusion — build the strongest case it's an artifact/over-claim. (fable) | A run produced a verdict; before believing it. |
+| `socratic-thinker` | Expose hidden assumptions and undefined terms by asking, not asserting. (sonnet) | A direction feels settled too quickly; before locking a framing. |
+| `premortem-analyst` | Assume it already failed (didn't replicate / rejected / defense collapsed); trace backward. (fable) | Before building heavily on a result or spending the next compute. |
+| `first-principles-grounder` | Re-derive from mechanism + the math/papers (`06-theory-grounding.md`, canonical notes, course material). (fable) | A claim needs a mechanism, leans on a theorem, or might contradict a source. |
+
+Model routing (Erfan's rule): **fable** for the hard adversarial/counter-arguing work and `oracle-reviewer`;
+**sonnet** for search/digest/Socratic/logging; **haiku** for mechanical fan-out (extraction, file-mapping).
+Each agent declares its default in `model:` frontmatter; override per call when the task warrants.
 
 Add more agents/skills only when a need recurs (adaptive semistructure). We deliberately did **not**
 port the Nexus v2 stage-machine — see `docs/decisions/decisions.md` D001.
