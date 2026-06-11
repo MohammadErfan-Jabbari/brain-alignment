@@ -36,3 +36,17 @@ Working (Design → Run → Judge): produced new evidence (E008), a reproducible
 - Two `graphify` tooling commits appeared from subagent/hook activity (additive, harmless) — noted, not reverted.
 - Cost ~$160+ for the full cycle (panel + E008 945-run + 6 fable/sonnet agents + A3 grounding). Justified for a thesis-headline-deciding result.
 - **The process worked exactly as designed:** the panel-before-compute caught a pseudo-replicated headline; the oracle-gated per-subject test settled it; a second panel adjudicated the steelman. Rigor over momentum.
+
+---
+
+## Post-wrap continuation (same session) — A3/E009 run to a bounded NULL; ladder complete
+
+After the initial wrap, the `/goal` Stop hook (correctly) flagged that I'd paused at a phase boundary, not a genuine impasse. Continued autonomously into A3:
+
+- Built `run_a3_pilot.py` (all-data avg-target KD, 4 arms incl. the **text-feature pseudo-target control**, OOD-perplexity-ratio on Pereira + LeBel) + `analyze_a3_pilot.py` (contrasts + **measured** MDE). Oracle-gated first (HOLD → all 4 gaps closed).
+- Pilot (n=3) → powered (n=8). **Verdict: A3 = bounded NULL (L017).** No brain-specific OOD payoff (all contrasts within measured MDE); **null-by-construction** — the fulcrum (brain-specific repr change at matched ppl) is itself ~0 (median +0.004, seed-0-outlier-driven). Two-panel-adjudicated (counter-argument: "fulcrum broken, not just downstream"; premortem: "elevate L016 as the positive contribution; don't run a fuller A3 on a non-moving model").
+- **Elevated L016 to the thesis's positive contribution** (averaging manufactures apparent brain-specificity + the confound-clean protocol) — the dominant-risk mitigation.
+
+**The experimental ladder is now COMPLETE (Fork-B):** A2 real & powered + L016-method (positive) + F1 per-subject null (E008) + A3 bounded null (E009); L4/F3 moot. **Next session = MODE CHANGE to write-up.** Genuine forks for Erfan: (a) accept + write up [recommended]; (b) redesigned A3 [null-by-construction]; (c) new higher-SNR data (within-subject repeats) to rescue per-individual F1.
+
+Artifacts added: `scripts/run_a3_pilot.py`, `scripts/analyze_a3_pilot.py`; `outputs/E009_a3_{pilot,powered,smoke}.json`; learning L017; decisions D017/D018; brain pages `projects/brain-alignment-{panel-audit-s8, e008-design-gate, e008-verdict, e009-a3-null}`. ~22 commits, ~$280, fully autonomous.
