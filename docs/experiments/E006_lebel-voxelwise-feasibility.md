@@ -58,9 +58,31 @@ CUDA_VISIBLE_DEVICES=3 uv run python scripts/run_lebel_encoding.py --model Qwen/
 
 `lebel_adapter.py` built + validated (non-LM path CPU; LM-feature path GPU). `run_lebel_encoding.py` + the oracle review are the remaining work before a run. Scope deliberately A2-only (kill-gate); the lever re-test is E007, gated on this passing. The E004→E006 routing and the corrected paired-primary predeclaration are the load-bearing carry-forwards.
 
+## Results (ran 2026-06-11; UTS03, 20 stories, 5 story-folds, 11442 NC-reliable voxels rel>0.5)
+
+| Model · layer | trained unique R² | untrained unique R² | **trained−untrained GAP [95% CI]** | % voxels gap>0 | E007-lever MDE(80%) |
+|---|---|---|---|---|---|
+| gpt2 · L7 | +0.0038 | −0.0169 | **+0.0207 [+0.0205, +0.0209]** | 95% | +0.0129 |
+| Qwen2.5-0.5B · L12 | +0.0103 | −0.0173 | **+0.0277 [+0.0274, +0.0280]** | 99% | +0.0150 |
+
+Both ran ~9–10 min. Nuisance = low-level (word-rate, phoneme-rate, word-duration, word-length, log-freq) + eng1000 (985-d static), capacity-fair PCA(100) on LM & eng1000 blocks, low-level raw, FIR(1–4); BOLD aligned (assert passed). Voxels selected on the held-out `wheretheressmoke` 10 repeats (split-half reliability > 0.5) — no double-dipping.
+
+## Interpretation
+
+**A2 verdict: STRONG PASS at voxel scale.** A trained LM's mid-layer representation predicts UTS03 BOLD far above an untrained same-arch control after the full anti-confound (gap +0.021–0.028, CIs tight, 95–99% of reliable voxels positive). Qwen > gpt2 (the expected quality ordering). This is the powered confirmation E002's 5-ROI screen could only hint at, and it clears the Hadidi/Feghhi (2026) bar (untrained explains ~0 unique variance; the contextual residual is real). **The LeBel substrate is alive and carries the signal robustly — NOT the "substrate dead" kill.**
+
+**Lever line (E007): hits the predeclared "quiet kill" — structurally underpowered for the +0.003 effect.** The empirical E007-lever MDE(80%) is +0.013 (gpt2) / +0.015 (Qwen) for the mean-over-voxels unique-R² statistic — ~4–5× the +0.003 brain-specific lever E004 found. *Caveat (honest):* this MDE is for the *unpaired* fold statistic; E004's effect surfaced only in the *paired* arm-vs-permuted contrast (common-mode removed), which could be better-powered — but confirming that would BE E007, and it is a gamble against a fragile +0.003.
+
+**The decision (predeclared PARTIAL / lever-line-underpowered branch + the literature):** A2 holds powerfully, but the lever is too small/fragile for the crude statistic to resolve, and the literature (Hadidi/Feghhi 2026: residual ≤10% and "real but small"; our L011/L012: alignment co-varies with perplexity; lit-fork sweep leans B) all point the same way. **The honest, defensible, and arguably more novel contribution is to pivot the headline from "alignment-guided distillation wins" to a rigorous anti-confound characterization of the alignment signal and its rate–distortion trade-off against compression** — which E005 (alignment-guided vs perplexity-only KD at matched perplexity) tests directly and which is robust to the A/B framing (a big brain-term win = A; a small/null = the honest trade-off-curve result = B). **Recommendation: do not build the TR-level E007 lever loop; run E005 as the experiment that empirically settles the framing.** (Thesis-headline framing flagged for Erfan — his call as author.)
+
+## Status / next
+
+E006 = powered A2 PASS (recorded). Lever line (E007) not built (structurally underpowered + literature pressure). **Next = E005**, the matched-perplexity alignment-guided-vs-perplexity-only KD trade-off-curve experiment (the F1/L3 headline), which decides the A/B framing on evidence. Ladder: L0/A2 gains a powered voxelwise confirmation; L1 stays 🟡 PARTIAL — **pending Erfan's confirmation**.
+
 ## Iteration log
 
 | Date | Run / seed | Command / config | Result | Observation | Next |
 |---|---|---|---|---|---|
 | 2026-06-11 | design | — | adapter validated; design locked pending oracle | scoped A2-only (lever→E007) | oracle review → build runner → run |
-| 2026-06-11 | oracle HOLD→resolved | — | 2 fatal fixes (phone-tier nuisance; held-out CC_norm voxel selection) + E007-MDE deliverable + paired-primary E007 lock | flagged the "quiet kill": lever line may be structurally underpowered if MDE > +0.003 even on 84 stories | build runner → run (pending Erfan's go / read discussion) |
+| 2026-06-11 | oracle HOLD→resolved | — | 2 fatal fixes (phone-tier nuisance; held-out CC_norm voxel selection) + E007-MDE deliverable + paired-primary E007 lock | flagged the "quiet kill": lever line may be structurally underpowered if MDE > +0.003 | build runner → run |
+| 2026-06-11 | FULL run | gpt2 + Qwen, 20 stories, 5 folds, rel>0.5 | **A2 STRONG PASS** (gap +0.021/+0.028, 95–99% voxels+); **E007-lever MDE +0.013/+0.015 → can't resolve +0.003** | substrate alive; lever line underpowered → pivot to E005 trade-off curve | design E005 (matched-ppl KD) |
