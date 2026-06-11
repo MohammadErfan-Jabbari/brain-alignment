@@ -3,17 +3,21 @@
 Durable backlog. The session task tracker is ephemeral; this file is the source of truth across
 sessions. Move items between sections; don't delete (strike completed ones with a date).
 
-## Now (current focus — confirm + characterize the F1 result)
+## Now (current focus — A3, the central contribution after the F1 reframe)
 
-- [ ] **LeBel voxelwise TRANSFER test** — does E005's in-domain F1 gain (+0.0081 at matched ppl) generalize cross-dataset/granularity? Measure each E005 KD student (kd_brain vs kd_brain_permuted) on the E006 LeBel voxelwise protocol. **Needs a POWERED statistic** (per-voxel paired, or LH-language-region-restricted) — the mean-over-voxels statistic is underpowered (E006 MDE +0.013 ≫ the +0.008 effect). **Design + oracle-gate FIRST.** Positive = strong generalization; powered null after in-domain positive = "real but doesn't transfer."
-- [ ] **λ-sweep / multi-rate trade-off curve** — trace kd_brain & kd_ppl (perplexity, alignment) frontiers across λ_brain (a grid) and ≥2 compression rates → the rate–distortion curve (the Fork-B-rigor / "how small" characterization). In-domain Tuckute (powered) first, then LeBel. `run_brain_lever.py --kd-teacher --lambda-grid` already supports the sweep.
-- [ ] **Doc-consistency (wrap carry-over):** dedup `feghhi-2024` / `hadidi-2024` canonical notes (same paper — arXiv-first-author vs NatComms-first-author; keep hadidi-2024, redirect/delete the stub). Sweep R03/R04 for stale "**E004 = headline**" references (now E005; E004 = the lever test).
+- [ ] **A3 / E009 PILOT (the "run A3" Erfan confirmed; oracle-gated, pilot-first).** Build the **all-data save-checkpoint** training mode (the existing per-fold students aren't saved/usable downstream) + the **offline OOD-perplexity-ratio** harness (WikiText → LeBel TextGrid transcripts / Pereira) + a **text-feature pseudo-target control** arm. Run the 3–5-seed variance pilot to: (a) confirm the brain-specific gap is nonzero in all-data students, (b) **MEASURE the real MDE** (don't borrow Guo's 2–4pp), (c) **λ-sweep** the max brain-specific Δ at matched ppl. Pilot green-lights or cheaply kills full A3. Then thinking panel. Full recipe + KILL rule: `docs/experiments/E009_a3-practical-payoff.md`.
+
+### Done this session (S8, 2026-06-11)
+- [x] 2026-06-11 — ~~LeBel voxelwise TRANSFER test~~ **DROPPED** — S8 panel showed it underpowered (paired-LeBel MDE needs ρ≥0.9 to see even +0.0081; `reanalyze_e005_e006.py`).
+- [x] 2026-06-11 — **E008 per-participant solidification** ran → in-domain F1 is a **per-subject NULL** (well-powered); E005's +0.0081 = group-averaged-target artifact. Ladder L3/F1 ❌, Fork-B reframe (D018, Erfan-confirmed). L016.
+- [x] 2026-06-11 — **Doc-consistency:** feghhi-2024 → hadidi-2024 canonical redirect; verified R03/R04 have **no** stale "E004=headline" refs (0 mentions).
+- [x] 2026-06-11 — Built the **thinking panel** (D017) + digested A3 prior art (Negi 2025, Guo 2024, Schwartz 2019) + Proietti 2025.
+- [ ] **(Optional, Fork-B rigor) λ-sweep / multi-rate rate-distortion curve** on the averaged target — the "how small" characterization, if A3 needs magnitude context. `run_brain_lever.py --lambda-grid` supports it.
 
 ## Next (de-risk the thesis — ordered by leverage)
 
-- [ ] **Layer 2 (A3) — does alignment buy something practical?** OOD generalisation and/or low-data sample-efficiency of a brain-regularized small model vs matched baseline (R03 F2). The untested assumption and the thesis's real risk now that A2 holds.
-- [ ] **`paper-digest` the finalists** → `docs/literature/canonical/`: Merlin & Toneva 2026 "When LMs Lose Their Mind", Bilgin/Wehbe 2026 (text-LM brain-tuning), LeBel 2023, arXiv 2602.07547 (compression-already-preserves-alignment counter-evidence).
-- [ ] **Sharpen the contribution per R03:** pitch as alignment-guided **distillation at matched budget (F1)** / **low-data regularizer (F2)** — NOT "use fMRI to train an LM" (scooped, L008). Engage arXiv 2602.07547 (compete on the trade-off curve). Fold into `01-research-landscape.md` and H001. Consider F3 (fMRI-free abstraction/LID proxy) as stretch.
+- [ ] **`paper-digest` remaining finalists** if needed for A3 related-work: Merlin & Toneva 2026 "When LMs Lose Their Mind" (arXiv 2603.23091), Bilgin/Wehbe 2026. (Negi/Schwartz/Guo/Proietti digested S8.)
+- [ ] **Sharpen the contribution per the Fork-B reframe:** the thesis is now A2-powered-real + the well-powered per-subject null (in-domain F1 doesn't generalize to individuals) + the anti-confound methodology + A3 (practical payoff). Update R03/R04 §-framing to Fork-B + D018. Position vs Negi/Schwartz (the matched-ppl + permuted-brain control is our novelty).
 
 ## Later (once the pilot says go)
 
