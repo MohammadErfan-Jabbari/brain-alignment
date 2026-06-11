@@ -139,4 +139,20 @@ E008 re-ran the E005 brain-specific contrast (kd_brain mse − kd_brain_permuted
 
 (4) **Thesis consequence:** the in-domain F1 "headline" (L3) does not hold per-individual. Honest contribution = A2 (real, powered) + this well-powered null + the anti-confound characterization + A3 (practical payoff, the central open question). A per-individual positive would need higher per-subject SNR (within-subject repeats) or surprisal/imageability conditioned into the nuisance — not more averaging. This is a clean, publishable Fork-B result; the rigor (panel before compute, then E008) is what caught an overclaim that would otherwise have been the thesis headline.
 
+### L017 — 2026-06-11 — A3 (practical payoff) is a bounded NULL: brain-tuning at matched perplexity buys no brain-specific OOD value — because the fulcrum (a reliable brain-specific representational change at matched ppl) itself ~0 at this scale
+
+E009 A3 pilot: KD Qwen1.5B→0.5B (LoRA) toward the group-averaged Tuckute target, 4 arms (kd_ppl / kd_brain / kd_brain_permuted / **text-feature pseudo-target control**), outcome = OOD-perplexity ratio (Pereira + LeBel) + held-out representational gap; powered to n=8 seeds. Two-panel-adjudicated (counter-argument + premortem). Lessons:
+
+(1) **The fulcrum is ~0 at matched ppl.** The brain-specific representational gap (mse − mse_perm held-out uR²) is mean +0.011 but **median +0.004, 5/8 positive, MDE80 0.023 ≈ mean → within noise**, and **seed-0 (+0.063) is a lone outlier** carrying it (the other 7 avg +0.004 — the L015/L016 outlier pathology, third occurrence). You cannot reliably induce a brain-specific representational change at matched perplexity at this scale, and λ can't grow it without collapsing ppl (λ=30 → ppl 92, one seed 148). So A3 is **null-by-construction**: there is no reliable manipulation whose downstream value to test.
+
+(2) **No brain-specific downstream OOD effect.** At n=8 every contrast is within the measured MDE — kd_brain ≈ kd_brain_permuted ≈ textfeat ≈ kd_ppl on OOD-perplexity ratio. (The n=3 "kd_brain worse than kd_ppl" was noise; it vanished with seeds — and was non-brain-specific anyway, the permuted twin matched it.)
+
+(3) **Measure the MDE, don't borrow it.** The design initially carried Guo 2024's 2–4pp as the MDE; the oracle (correctly) demanded it be measured from the run's own seed variance. The measured OOD-ratio MDEs (0.029–0.13) are what bound the null — borrowing Guo's number would have mis-stated the power.
+
+(4) **The text-feature pseudo-target control matters.** Averaged-target + permuted-twin only tests structure-vs-shuffle; the text-feature arm (ridge[surprisal,imageability,length]→BOLD, held-out R²=0.086) separates "brain-derived" from "any smooth text-correlated regressor." kd_brain ≈ textfeat downstream → no evidence the brain-derived target beats a cheap text-feature target.
+
+(5) **The Negi-2025 reconciliation (positive prior vs our null):** Negi got positive downstream gains, but baselines against a *non-perplexity-matched* vanilla model — the L011 LM-quality confound. Our null is the brain-*specific* increment at matched ppl + permuted twin. The control is the contribution.
+
+(6) **Strategic (the dominant premortem risk): don't write the thesis as "a string of nulls."** The positive contribution is **L016 — cross-subject target-averaging manufactures apparent brain-specificity, and the matched-ppl + permuted-twin + per-subject protocol detects it** (the +0.0081→+0.00010 collapse). Frame A2 + L016-method + the two characterized nulls as a coherent Fork-B paper: *a confound that inflates a class of alignment-training overclaims, and the clean protocol that catches it.*
+
 <!-- Add new lessons below as we hit them. Negative results count. -->

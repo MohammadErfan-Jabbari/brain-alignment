@@ -129,10 +129,32 @@ by the permuted twin / text-feature control (generic multi-task regularization, 
 the clean Fork-B negative — KILLing A3 does not KILL the thesis (A2-powered + two well-powered nulls + the
 anti-confound methodology stand).
 
-## Status
+## Results — A3 pilot (ran 2026-06-11; all-data avg-target KD, 4 arms; pilot n=3 then powered n=8)
 
-DESIGN — oracle HOLD resolved (PASS-ready as a **pilot-first** plan). **Next step (the "run A3" Erfan
-confirmed): the all-data-students + variance pilot** — build the save-checkpoint training mode + OOD-ppl
+**Powered run (`outputs/E009_a3_powered.json`, 8 seeds, λ=10), panel-adjudicated:**
+
+| arm | ppl_id | held-out uR² | OODr Pereira | OODr LeBel |
+|---|---|---|---|---|
+| lm_only (kd_ppl) | 51.5 | +0.0030 | 0.567 | 1.835 |
+| **mse (kd_brain)** | 58.1 | +0.0173 | 0.576 | 1.887 |
+| mse_perm (null) | 56.4 | +0.0063 | 0.594 | 1.955 |
+| textfeat (control) | 54.3 | +0.0021 | 0.572 | 1.843 |
+
+- **(a) The fulcrum is ~0.** Brain-specific repr gap (mse − mse_perm) = mean +0.011 but **median +0.0042, 5/8 seeds positive, MDE80 0.023 ≈ the mean → within noise**. Per-seed gap [+0.063, +0.014, +0.004, +0.016, +0.005, −0.006, −0.002, −0.005] — **seed-0 (+0.063) is the lone outlier; the other 7 average +0.004** (the L015/L016 outlier pathology, third occurrence). **A reliable brain-specific representational change at matched perplexity does not take hold at this scale.** λ=30 (pilot) couldn't grow it without collapsing ppl (53→92, one seed 148).
+- **(d) No brain-specific downstream effect.** At n=8 every OOD contrast is within the measured MDE: mse − lm_only Pereira +0.009 / LeBel +0.053 (both ~equal); mse − mse_perm −0.019 / −0.068 (~equal); mse − textfeat +0.004 / +0.044 (~equal). The n=3 "mse worse than lm_only" was noise.
+
+## Verdict: **A3 = bounded NULL (robustly characterized)** — practical payoff undemonstrated; the prerequisite fulcrum is itself ~0 at matched ppl (L017)
+
+No brain-specific practical (OOD-perplexity) payoff, AND no reliable brain-specific representational change to test the payoff of — the manipulation doesn't take hold at matched perplexity at this scale (ties to E008/L016). Two-panel-adjudicated (counter-argument: "the fulcrum is broken, not just the downstream"; premortem: "null-by-construction — don't run a fuller A3 on a non-moving model; elevate L016 as the positive contribution instead"). **Stated limitations (honest, not hidden):** OOD-perplexity is a weak proxy (offline constraint); the perturbation-robustness slope + sample-efficiency axes were **not** run (with the fulcrum ~0, downstream tests are uninformative — a redesign that first induces a reliable brain-specific change would be needed, which the matched-ppl constraint + ~800 paired sentences + 0.5B scale structurally block); single student/teacher. **Negi 2025 reconciliation:** their positive downstream gains baseline against a *non-perplexity-matched* vanilla model — the L011 LM-quality confound our matched-ppl + permuted-twin control removes; our null is the brain-*specific* increment at matched ppl.
+
+## Status — A3 line complete (bounded null); experimental ladder essentially complete
+
+A3 recorded (bounded null). The thesis is **Fork B, complete**: A2 (real & powered) + **L016 the positive methodological contribution** (averaging manufactures apparent brain-specificity + the confound-clean protocol) + the well-powered per-subject F1 null (E008) + this A3 bounded null. **Next is a mode change → write-up** (or, if a per-individual positive is wanted, new higher-SNR data: within-subject fMRI repeats — not more averaging). Erfan's call.
+
+---
+
+### (superseded) original pilot-first plan
+**Next step (the "run A3" Erfan confirmed): the all-data-students + variance pilot** — build the save-checkpoint training mode + OOD-ppl
 harness + text-feature control arm, run the 3–5-seed pilot to (a) confirm the brain-specific gap is nonzero
 in all-data students, (b) measure the real MDE, (c) λ-sweep the max brain-specific Δ at matched ppl. That
 pilot green-lights or cheaply kills the full A3. (Deferred to next session per the S8 close — a fresh

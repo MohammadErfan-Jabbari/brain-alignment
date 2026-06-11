@@ -11,7 +11,8 @@ Phase = **Judge → (next) Design**. The session's result is an **evidence-drive
 
 - **L0/A2 — alignment is real & measurable — ✅ PASS (powered).** E006 (LeBel voxelwise) gap +0.021/+0.028, unchanged.
 - **L3/F1 — the former headline — ❌ NULL per-subject (E008, well-powered).** Running the E005 brain-specific contrast **per individual** (n=9 UIDs, not the 5-UID average) gives **+0.00010, t-CI [−0.0004,+0.0006]**, sign 5/9; MDE≈+0.0006 (well-powered). **E005's +0.0081 was a group-averaged-target / shared-stimulus-response measurement** (~1.7× averaging + 2.4× fold-4 inflation), NOT per-person brain alignment — the 4 subjects E005 averaged are individually null. Two-panel-adjudicated. (L015/L016, D018, Erfan-confirmed.)
-- **L2b/A3 — does it buy anything PRACTICAL — 🔵 NEXT.** Now the central contribution. Designed (E009), grounded (Negi/Schwartz/Guo digested), oracle-gated (HOLD resolved).
+- **L2b/A3 — does it buy anything PRACTICAL — ❌ bounded NULL (E009, n=8).** No brain-specific OOD-ppl payoff (kd_brain ≈ permuted ≈ textfeat ≈ kd_ppl, within measured MDE); **null-by-construction** — the fulcrum (brain-specific repr change at matched ppl) is itself ~0 (median +0.004, seed-0-outlier-driven). L017.
+- **POSITIVE contribution (the paper's spine): L016** — cross-subject target-averaging *manufactures* apparent brain-specificity; the matched-ppl + permuted-twin + per-subject protocol detects it (+0.0081→+0.0001 collapse). The experimental ladder is **complete**; next is write-up.
 
 ## What was done (Session 8 — working, autonomous)
 
@@ -21,10 +22,14 @@ Phase = **Judge → (next) Design**. The session's result is an **evidence-drive
 4. Reframed the ladder to **Fork-B** (D018, Erfan-confirmed): A2-powered + the per-subject null + anti-confound methodology + A3.
 5. Designed + grounded + oracle-gated **A3/E009**; cleared doc-consistency (feghhi→hadidi redirect).
 
-## What to do next (what's next to *run*)
+## What to do next (MODE CHANGE → analysis / write-up)
 
-1. **A3 / E009 pilot (the central question, Erfan-confirmed).** Build the **all-data save-checkpoint** training mode + **offline OOD-perplexity-ratio** harness + a **text-feature pseudo-target control** arm. Run the 3–5-seed variance pilot to (a) confirm the brain-specific gap is nonzero in all-data students, (b) **measure the real MDE** (don't borrow Guo's 2–4pp), (c) **λ-sweep** the max brain-specific Δ at matched ppl. Pilot green-lights or cheaply kills the full A3. Then thinking panel on the result. (Full recipe + KILL rule in `docs/experiments/E009_a3-practical-payoff.md`.)
-2. *(Optional, Fork-B rigor)* λ-sweep rate-distortion curve on the averaged target — the "how small" characterization.
+The experimental ladder is **complete** (A2 holds; F1 + A3 are characterized nulls; L4/F3 moot). Next session is **analysis (write-up)**, not more runs.
+
+1. **Write the manuscript** (`docs/manuscript/`) around the positive contribution (L016 method + protocol), with A2 + the F1 null (E008) + the A3 null (E009) as the arc. Position vs Negi/Schwartz (matched-ppl + permuted control = our novelty); cite Hadidi/Feghhi, Proietti, pirlot/Hoak/Guo.
+2. **Figures:** averaging-collapse (+0.0081→+0.0001), powered A2 voxel map, A3 nulls with measured MDEs.
+
+**Genuine forks for Erfan:** (a) accept Fork-B + write up [recommended]; (b) redesigned A3 [panel: null-by-construction]; (c) new higher-SNR data (within-subject repeats) to rescue per-individual F1.
 
 ## Blockers
 
