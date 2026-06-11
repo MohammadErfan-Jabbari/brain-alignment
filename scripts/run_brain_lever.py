@@ -239,6 +239,63 @@ def bootstrap_ci(samples, n_boot=10000, seed=0):
     return float(s.mean()), float(np.percentile(bs, 2.5)), float(np.percentile(bs, 97.5))
 
 
+def run_target(texts, Y, base, tok, layer, nc, cov, heldout, conditions,
+               Z_all, S_all, args, kd_teacher, device, uid=None):
+    """Run all folds × seeds × conditions for ONE brain target (one UID, or the
+    legacy multi-UID average when uid=None). Returns (raw_rows, folds_info,
+    base_by_fold). Reuses the module helpers; rows are tagged with `uid`."""
+    import torch
+    n = len(texts)
+    raw_rows, folds_info, base_by_fold = [], {}, {}
+
+    def aB(idx):
+        return {"texts": [texts[i] for i in idx], "Y": Y[idx],
+                "Z": Z_all[idx], "S": S_all[idx]}
+
+    for fi, tune_idx, eval_idx in outer_folds(n, args.folds):
+        ev = aB(eval_idx)
+        if args.limit_tune:
+            tune_idx = tune_idx[:args.limit_tune]
+        tn = aB(tune_idx)
+        bal = {c: [float(cov[tune_idx, j].mean()), float(cov[eval_idx, j].mean())]
+               for j, c in enumerate(["imageability", "gpt2xl_surprisal", "pcfg_surprisal"])}
+        a0, a0_folds = score_unique_r2(base, tok, ev["texts"], ev["Y"], ev["Z"], ev["S"], layer, device)
+        base_by_fold[fi] = a0
+        folds_info[fi] = {"n_tune": len(tune_idx), "n_eval": len(eval_idx),
+                          "base_unique_r2": a0, "ab_balance": bal}
+        tag_uid = "" if uid is None else f"uid{uid} "
+        print(f"\n== {tag_uid}fold {fi}: tune={len(tune_idx)} eval={len(eval_idx)}  base unique_r2={a0:+.4f} "
+              f"(NC {a0/nc:+.3f}) ==", flush=True)
+        for seed in args.seeds:
+            for tag, kind, lam, perm in conditions:
+                P.set_seed(seed)
+                m, _ = load_model(args.model, device)
+                Ytune = tn["Y"]
+                if perm is not False:
+                    Ytune = BL.block_permute(tn["Y"], n_blocks=10, seed=1000 + fi * 100 + seed * 10 + perm)
+                frozen_W = None
+                if kind == "frozen":
+                    ecfg = P.ExtractConfig(pool="mean", max_length=64, batch_size=32)
+                    Xb = P.extract_hidden_states(base, tok, tn["texts"], ecfg, device, layer=layer)
+                    frozen_W = BL.fit_ridge_readout(Xb, Ytune, alpha=100.0)
+                m = brain_tune(m, tok, tn["texts"], Ytune, kind, lam, args.lambda_lm,
+                               layer, device, args.epochs, args.lr, args.batch_size, seed,
+                               frozen_W=frozen_W, use_lora=args.use_lora,
+                               model_name=args.model, lora_r=args.lora_r, teacher=kd_teacher)
+                a_s, a_folds = score_unique_r2(m, tok, ev["texts"], ev["Y"], ev["Z"], ev["S"], layer, device)
+                ppl = eval_perplexity(m, tok, heldout, device) if heldout else None
+                raw_rows.append({"uid": uid, "fold": fi, "seed": seed, "arm": tag, "kind": kind,
+                                 "is_perm": bool(perm is not False), "lambda_brain": lam,
+                                 "unique_r2": a_s, "delta": a_s - a0,
+                                 "nc_norm": a_s / nc, "perplexity": ppl})
+                print(f"  [{tag_uid}{tag:12s} s{seed}] unique_r2={a_s:+.4f} (NC {a_s/nc:+.3f})  "
+                      f"Δ={a_s - a0:+.4f}{'' if ppl is None else f'  ppl={ppl:.1f}'}", flush=True)
+                del m
+                if torch.cuda.is_available():
+                    torch.cuda.empty_cache()
+    return raw_rows, folds_info, base_by_fold
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="gpt2")
@@ -258,6 +315,9 @@ def main():
     ap.add_argument("--lambda-grid", nargs="*", type=float, default=None,
                     help="mse-only lambda_brain curve; default single ARM_LAMBDA[mse]")
     ap.add_argument("--n-perm", type=int, default=1, help="permutation draws per (fold,seed)")
+    ap.add_argument("--uids", nargs="*", type=int, default=None,
+                    help="E008: run the contrast PER participant (each UID a separate target); "
+                         "raw rows tagged with uid. Default None = the legacy multi-UID-average target.")
     ap.add_argument("--limit-tune", type=int, default=None, help="cap tune sentences (smoke)")
     ap.add_argument("--kd-teacher", default=None,
                     help="E005: distill from this teacher (KD KL retention instead of CE). e.g. gpt2-medium")
@@ -275,28 +335,40 @@ def main():
         for p in kd_teacher.parameters():
             p.requires_grad_(False)
         print(f"KD teacher: {args.kd_teacher} (retention = KL(student‖teacher))")
-    texts, Y, meta = load_tuckute(args.data_dir)
-    n = len(texts)
     nc = matched_nc(args.data_dir)
-    cov = load_covariates(args.data_dir, n)
     heldout = [l for l in CORPUS_HELDOUT.read_text().splitlines() if l.strip()][:1000] \
         if CORPUS_HELDOUT.exists() else []
-    print(f"{args.model}: Tuckute {n} items x {Y.shape[1]} ROI; matched NC={nc:.3f}; "
-          f"device={device}; ppl-heldout={len(heldout)} sents")
+
+    # Build the list of brain targets: one per UID (E008), or the legacy multi-UID average.
+    targets = []  # (uid, texts, Y)
+    if args.uids:
+        for uid in args.uids:
+            t_u, Y_u, meta = load_tuckute(args.data_dir, uids=(uid,))
+            targets.append((uid, t_u, Y_u))
+        texts = targets[0][1]
+        for uid, t_u, _ in targets:
+            assert t_u == texts, f"texts differ for uid {uid} — per-UID item sets must match"
+    else:
+        texts, Y, meta = load_tuckute(args.data_dir)
+        targets = [(None, texts, Y)]
+    n = len(texts)
+    cov = load_covariates(args.data_dir, n)
+    print(f"{args.model}: Tuckute {n} items x {targets[0][2].shape[1]} ROI; matched NC={nc:.3f}; "
+          f"device={device}; ppl-heldout={len(heldout)} sents; targets={len(targets)} "
+          f"({'uids ' + ','.join(map(str, args.uids)) if args.uids else 'train-avg'})")
 
     base, tok = load_model(args.model, device)
     layer = verdict_layer(base)
-    print(f"verdict layer L{layer} (of {base.config.num_hidden_layers}); arms={args.arms}; "
-          f"seeds={args.seeds}; folds={args.folds}")
     base_ppl = eval_perplexity(base, tok, heldout, device) if heldout else None
+    print(f"verdict layer L{layer} (of {base.config.num_hidden_layers}); arms={args.arms}; "
+          f"seeds={args.seeds}; folds={args.folds}; n_perm={args.n_perm}")
 
-    # Fixed nuisance pieces (S from UNTUNED base, byte-identical across arms).
+    # Fixed nuisance pieces (S from UNTUNED base, byte-identical across arms AND targets).
     Z_all = P.scalar_nuisance(texts, tok)
     S_all = P.static_embedding_features(base, tok, texts, device)
 
     mse_lams = args.lambda_grid if args.lambda_grid else [ARM_LAMBDA["mse"]]
     # Precompute conditions: real arms + a matched permuted-fMRI twin per permute-kind.
-    # Each twin tests the brain-SPECIFICITY of its kind (a real lever beats its own null).
     conditions = []  # (tag, kind, lambda_brain, perm)  perm: False=real, int=draw index
     for arm in args.arms:
         if arm == "lm_only":
@@ -312,61 +384,20 @@ def main():
     print("conditions:", [c[0] for c in conditions])
     results = {"model": args.model, "layer": layer, "nc_matched": nc,
                "anat_nc_legacy": meta["noise_ceiling_langnetw"], "config": vars(args),
-               "base_perplexity": base_ppl, "folds": {}, "raw": []}
-
-    def aB(idx): return {"texts": [texts[i] for i in idx], "Y": Y[idx],
-                         "Z": Z_all[idx], "S": S_all[idx]}
+               "base_perplexity": base_ppl, "uids": args.uids, "folds": {}, "raw": []}
 
     t0 = time.time()
     base_by_fold = {}
-    for fi, tune_idx, eval_idx in outer_folds(n, args.folds):
-        ev = aB(eval_idx)
-        if args.limit_tune:
-            tune_idx = tune_idx[:args.limit_tune]
-        tn = aB(tune_idx)
-        # --- A/B balance for this fold (reported BEFORE unblinding Delta) ---
-        bal = {c: [float(cov[tune_idx, j].mean()), float(cov[eval_idx, j].mean())]
-               for j, c in enumerate(["imageability", "gpt2xl_surprisal", "pcfg_surprisal"])}
-        # --- base (untuned) score on eval fold ---
-        a0, a0_folds = score_unique_r2(base, tok, ev["texts"], ev["Y"], ev["Z"], ev["S"], layer, device)
-        base_by_fold[fi] = a0
-        results["folds"][fi] = {"n_tune": len(tune_idx), "n_eval": len(eval_idx),
-                                "base_unique_r2": a0, "ab_balance": bal}
-        print(f"\n== fold {fi}: tune={len(tune_idx)} eval={len(eval_idx)}  base unique_r2={a0:+.4f} "
-              f"(NC {a0/nc:+.3f})  imageability tune/eval={bal['imageability'][0]:.2f}/{bal['imageability'][1]:.2f} ==", flush=True)
+    for uid, t_texts, Y in targets:
+        rr, fi_info, bbf = run_target(t_texts, Y, base, tok, layer, nc, cov, heldout,
+                                      conditions, Z_all, S_all, args, kd_teacher, device, uid=uid)
+        results["raw"].extend(rr)
+        key = "" if uid is None else f"uid{uid}:"
+        for fk, fv in fi_info.items():
+            results["folds"][f"{key}{fk}"] = fv
+        base_by_fold.update({f"{key}{fk}": v for fk, v in bbf.items()})
 
-        for seed in args.seeds:
-                for tag, kind, lam, perm in conditions:
-                    P.set_seed(seed)
-                    m, _ = load_model(args.model, device)
-                    Ytune = tn["Y"]
-                    if perm is not False:
-                        # distinct permutation per (fold,seed,draw) -> a real null distribution
-                        Ytune = BL.block_permute(tn["Y"], n_blocks=10, seed=1000 + fi * 100 + seed * 10 + perm)
-                    frozen_W = None
-                    if kind == "frozen":
-                        # fit W0 on the UNTUNED base features over the tune fold
-                        ecfg = P.ExtractConfig(pool="mean", max_length=64, batch_size=32)
-                        Xb = P.extract_hidden_states(base, tok, tn["texts"], ecfg, device, layer=layer)
-                        frozen_W = BL.fit_ridge_readout(Xb, Ytune, alpha=100.0)
-                    m = brain_tune(m, tok, tn["texts"], Ytune, kind, lam, args.lambda_lm,
-                                   layer, device, args.epochs, args.lr, args.batch_size, seed,
-                                   frozen_W=frozen_W, use_lora=args.use_lora,
-                                   model_name=args.model, lora_r=args.lora_r, teacher=kd_teacher)
-                    a_s, a_folds = score_unique_r2(m, tok, ev["texts"], ev["Y"], ev["Z"], ev["S"], layer, device)
-                    ppl = eval_perplexity(m, tok, heldout, device) if heldout else None
-                    delta = a_s - a0
-                    results["raw"].append({"fold": fi, "seed": seed, "arm": tag, "kind": kind,
-                                           "is_perm": bool(perm is not False), "lambda_brain": lam,
-                                           "unique_r2": a_s, "delta": delta,
-                                           "nc_norm": a_s / nc, "perplexity": ppl})
-                    print(f"  [{tag:12s} s{seed}] unique_r2={a_s:+.4f} (NC {a_s/nc:+.3f})  "
-                          f"Δ={delta:+.4f}{'' if ppl is None else f'  ppl={ppl:.1f}'}", flush=True)
-                    del m
-                    if torch.cuda.is_available():
-                        torch.cuda.empty_cache()
-
-    # ---------------- aggregate ----------------
+    # ---------------- aggregate (pooled descriptive; E008 crossed inference is in analyze_e008.py) ----------------
     raw = results["raw"]
     arms_seen = sorted({r["arm"] for r in raw})
     summary = {}
@@ -375,7 +406,7 @@ def main():
     for r in raw:
         if r["is_perm"]:
             perm_by_kind.setdefault(r["kind"], []).append(r["delta"])
-    lmonly_by_fs = {(r["fold"], r["seed"]): r["delta"] for r in raw if r["arm"] == "lm_only"}
+    lmonly_by_fs = {(r.get("uid"), r["fold"], r["seed"]): r["delta"] for r in raw if r["arm"] == "lm_only"}
     for arm in arms_seen:
         rs = [r for r in raw if r["arm"] == arm]
         is_perm_arm = rs[0]["is_perm"]; kind = rs[0]["kind"]
@@ -389,8 +420,8 @@ def main():
             ent["perplexity_mean"] = float(np.mean(ppls))
         if not is_perm_arm and arm != "lm_only":
             # paired vs lm_only (same fold,seed): the domain-adaptation control
-            paired = [r["delta"] - lmonly_by_fs[(r["fold"], r["seed"])]
-                      for r in rs if (r["fold"], r["seed"]) in lmonly_by_fs]
+            paired = [r["delta"] - lmonly_by_fs[(r.get("uid"), r["fold"], r["seed"])]
+                      for r in rs if (r.get("uid"), r["fold"], r["seed"]) in lmonly_by_fs]
             if paired:
                 pm, plo, phi = bootstrap_ci(paired)
                 ent["vs_lm_only_mean"] = pm; ent["vs_lm_only_ci"] = [plo, phi]
