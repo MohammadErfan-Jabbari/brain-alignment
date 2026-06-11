@@ -252,3 +252,24 @@ math/papers (first-principles). The last directly serves the "everything must be
 checking claims against `06-theory-grounding.md`, the canonical notes, and the course material.
 **Reverses if:** the panel becomes ceremony that doesn't change conclusions (collapse to the one or two
 lenses that earn their keep), or a single combined reviewer proves as effective at lower cost.
+
+### D018 — 2026-06-11 — In-domain F1 reframed to Fork-B: the per-subject effect is NULL (E008); A3 is now the central contribution
+
+**Decision (Erfan-confirmed, D015 gate):** The L3/F1 "headline" is downgraded from 🟡 PARTIAL-PASS to a
+**per-subject NULL** (averaged-target-only trend). E008 (per-participant, n=9, well-powered MDE≈+0.0006,
+two-panel-adjudicated) returns mean +0.00010, t-CI [−0.0004,+0.0006], sign 5/9; the 4 subjects E005
+averaged are individually null. **E005's +0.0081 was a group-averaged-target measurement** — a higher-SNR
+read of the *shared stimulus-evoked response*, inflated ~1.7× by averaging (NC≈0.49 noise-ceiling math)
+and ~2.4× by one outlier fold (L015/L016) — **not per-person brain alignment.** The thesis adopts the
+honest **Fork B**: contribution = (1) A2 real & measurable, powered (E006); (2) a rigorous, well-powered
+per-subject null + the anti-confound characterization (literature-consistent, Hadidi/Feghhi ≤10%); (3)
+**A3 / E009 (does brain-tuning buy anything practical at matched perplexity)** — now the central open
+question and next experiment.
+**Rationale:** the S8 thinking-panel (D017) caught the pseudo-replication *before* compute; the
+oracle-gated per-subject test (E008) then settled it empirically; a second panel adjudicated the
+averaging-SNR steelman and rejected it on the power numbers. This supersedes D016's "F1 confirmed
+in-domain (A+B synthesis)" — the A-half does not survive per-individual inference. A well-powered null
+that overturns an overclaimed prior is a clean, publishable result, not a failure.
+**Reverses if:** a higher-per-subject-SNR design (within-subject repeats lifting the single-subject
+ceiling, or surprisal/imageability conditioned into the nuisance) reveals a per-individual brain-specific
+gain above MDE — the only grounded path to a per-person positive (more averaging is not).

@@ -2,24 +2,17 @@
 
 **This is the single source of truth for project state.** Read it first, every session. It is maintained at every session close, *after Erfan confirms the verdict*. The prose narrative of *why* the ladder is shaped this way lives in `reports/R03_brain-as-training-signal.md` §5 and `reports/R04_gap-analysis.md` §8; this file is the live status of it. `upspeed.md` is the last-session prose; `tasks.md` is the granular backlog. When they disagree, **this file wins** and the others get fixed.
 
-**Last updated:** 2026-06-11 (after Session 7 / E004 lever + E006 powered A2 + E005 F1-confirmed; Erfan-confirmed).
+**Last updated:** 2026-06-11 (after Session 8 / thinking-panel audit + E008 per-subject null → L3/F1 reframed to Fork-B; Erfan-confirmed).
 
 ---
 
 ## Current position
 
-We have climbed **Layer 0 (A2, powered/voxelwise — E006)**, **Layer 2a (E003)**, **Layer 1 (lever, E004, PARTIAL)**, and now **Layer 3 / F1 (E005, in-domain PARTIAL-PASS)**. The full story: brain alignment is **robustly real and measurable** (A2 powerful at voxel scale); **optimizing** it gives a **small but real, brain-specific, perplexity-independent gain** — confirmed in distillation at matched perplexity (E005: +0.0081, CI excludes 0, robust) — **the dissociation E003/E004 couldn't establish**. The effect is small (~1.6% NC), so the headline is an **A+B synthesis**: F1 confirmed (alignment-guided KD recovers alignment beyond perplexity) *and* the rigorous characterization of how small it is (the rate–distortion trade-off curve). `$\mathcal{L}_{\text{brain}}$` built; D010 → co-trained MSE.
+**The honest story (post-E008 reframe).** Brain alignment is **robustly real and measurable** (L0/A2, powered at voxel scale — E006). But **optimizing it does NOT produce a per-individual brain-specific alignment gain**: E008 (per-participant, n=9, well-powered, MDE≈+0.0006) returns a clean **NULL** (mean +0.00010, CI [−0.0004,+0.0006]). E005's headline +0.0081 was a **group-averaged-target** measurement — a higher-SNR read of the *shared stimulus-evoked response*, inflated ~1.7× by averaging and ~2.4× by one outlier fold — **not** per-person brain alignment (the 4 subjects E005 averaged are individually null). **Fork B confirmed:** the contribution is (1) A2 real & powered, (2) a **rigorous, well-powered per-subject null** + the anti-confound characterization (literature-consistent: Hadidi/Feghhi ≤10%), and (3) **A3 — does any of this buy something practical** — now the central open question.
 
-**→ Next step: (1) LeBel voxelwise TRANSFER test** (does E005's in-domain gain generalize? — needs a *powered* statistic, design+oracle-gate first) **and (2) the λ-sweep / multi-rate trade-off curve**. Details in "Next session", bottom.
+**→ Next step (Erfan-confirmed): A3 / E009 — does brain-tuning buy practical robustness/sample-efficiency at matched perplexity, brain-specifically?** Oracle-gate then run. Details in "Next session", bottom.
 
-> **⚠ UNDER REVIEW (2026-06-11, S8 panel audit — pending Erfan):** an honest re-analysis
-> (`scripts/reanalyze_e005_e006.py`, L015) shows the E005 L3/F1 "CI excludes 0" is **pseudo-replicated**
-> (15 cells = 3 seeds × 5 folds over *one* subject-avg). At the honest unit (5 folds) the t-CI **includes
-> 0** (a small brain-specific *trend*, median +0.0034, one outlier fold carries 52%). And the planned
-> **transfer test is underpowered** (paired-LeBel MDE needs ρ≥0.9 to see even +0.0081). **Proposed pivot
-> (pending confirmation):** (1) solidify in-domain F1 **per-participant** (E008) — 5 Tuckute UIDs as
-> independent units, n_perm≥10; (2) then **A3/L2b — does alignment buy anything practical** (the real,
-> unexplored gap), not the transfer test. The L3/F1 glyph is left as-is until Erfan adjudicates (D015).
+> **Audit trail (S8, 2026-06-11, Erfan-confirmed):** the thinking-panel (counter-argument + premortem + first-principles, fable) caught — *before* compute — that E005's "CI excludes 0" was pseudo-replicated (15 cells over one 5-UID-averaged target) and that the planned LeBel transfer test was underpowered (`scripts/reanalyze_e005_e006.py`, L015). The pivot to a per-subject solidification (E008) then returned a well-powered null (L016), confirmed by a second panel. Rigor before compute caught an overclaim that would have been the thesis headline.
 
 ---
 
@@ -30,8 +23,8 @@ We have climbed **Layer 0 (A2, powered/voxelwise — E006)**, **Layer 2a (E003)*
 | **L0 · A2** | Is the LM↔brain alignment signal real *beyond confounds*, on real data? | trained unique R² ≈ 0, or ≈ untrained | ✅ **PASS (powered)** | **E002** (Tuckute 5-ROI) + **E006** (LeBel UTS03 voxelwise): trained−untrained gap **+0.021 (gpt2) / +0.028 (Qwen)** on ~11.4k NC-reliable voxels, 95–99% positive, after the full phone-tier+eng1000 nuisance, story-CV. Clears the Hadidi/Feghhi 2026 bar. |
 | **L2a** | Does plain perplexity-only KD *preserve or destroy* a teacher's alignment? | student keeps ≈ teacher alignment → F1 is a non-problem | ✅ **PARTIAL** | **E003** — *not* preserve-by-default (monotone gradient teacher > warm-KD 0.84 > distilgpt2 0.60 > cold-KD 0.37; cold-KD Δ=0.018, p<0.001 below teacher). BUT KD-specific shedding unproven: alignment co-varies with LM quality (ρ=−0.88 on log-ppl), dissociation only p≈0.1, cold arm under-trained. Headroom, not confirmation (L011). |
 | **L1** | Is `$\mathcal{L}_{\text{brain}}$` a usable *lever* — does optimizing it *raise* held-out alignment? | optimizing the loss does not move held-out unique R² | 🟡 **PARTIAL** | **E004** — brain loss built (loss family; D010 → co-trained MSE leaning). Brain-SPECIFIC lever exists on the strong aligner (Qwen mse − its permuted twin = **+0.0032 [+0.0006,+0.0058]**), but small/fragile (fold-4 carries half) & sub-threshold on the 5-ROI screen (no arm raised Δ above base; MDE limits). `frozen`=non-specific regularizer; cka/cos worst. Co-varies w/ perplexity (L011/L012). |
-| **L3 · F1** | Alignment-guided KD vs perplexity-only KD **at matched perplexity** → rate-distortion trade-off curve | brain term buys ~0 alignment at matched perplexity (paired, powered) | 🟡 **PARTIAL-PASS** | **E005** (Qwen2.5-1.5B→0.5B KD, LoRA): alignment-guided KD beats perplexity-only **at matched perplexity**, brain-specifically — paired (kd_brain − kd_brain_permuted) = **+0.0081 [+0.0023, +0.0171]**, CI excludes 0, 4/5 folds + (leave-fold-4-out +0.0042), gain holds despite slightly-worse ppl (rules out L011). The dissociation E003/E004 couldn't show. **But small** (~1.6% NC) = A+B synthesis. **In-domain (Tuckute) confirmed; voxelwise TRANSFER + full trade-off curve pending.** |
-| **L2b · A3** | Does preserved/induced alignment *buy something practical* (OOD, low-data sample-efficiency)? | gains stay confined to the alignment metric | ⬜ **not started** | the untested assumption — **the real thesis risk**. Run the matched non-brain control the precedents skipped (R04). |
+| **L3 · F1** | Alignment-guided KD vs perplexity-only KD **at matched perplexity** → per-individual brain-specific gain? | brain term buys ~0 alignment at matched perplexity (paired, powered) | ❌ **NULL per-subject** (averaged-target-only trend) | **E008** (per-participant, n=9, well-powered MDE≈+0.0006, panel-adjudicated): mean +0.00010, t-CI **[−0.0004,+0.0006]**, sign 5/9, fold-clustered CI incl 0 + fails LOO-fold; the 4 E005-averaged subjects are individually null. **E005's +0.0081 was a group-averaged-target / shared-stimulus-response measurement** (~1.7× averaging + 2.4× fold-4 inflation; L015/L016), NOT per-person brain alignment. The kill criterion fired. → Fork B. (Averaged-target trend +0.003–0.004 survives only as a non-significant, confound-incomplete measurement.) |
+| **L2b · A3** | Does induced alignment *buy something practical* (OOD robustness, low-data sample-efficiency) at matched perplexity? | gains stay confined to the alignment metric | 🔵 **NEXT (E009, designed+grounded)** | **the now-central contribution** (the in-domain positive is gone). Robustness-primary (pirlot/Hoak), matched-ppl + permuted-brain controls (the novel controls every A3 prior — Negi/Schwartz — lacks), MDE 2–4pp (Guo). Oracle-gate → run. |
 | **L4 · F3** | An fMRI-free *proxy* (neighborhood-overlap / LID surrogate) that recovers most of the benefit | surrogate recovers little of the L3 benefit | ⬜ **not started** | stretch / PhD seed. LID sign is unsettled (cheng vs yu) — validate direction against real fMRI first. |
 
 ## Supporting tracks (not rungs, but gate the rungs)
@@ -44,24 +37,23 @@ We have climbed **Layer 0 (A2, powered/voxelwise — E006)**, **Layer 2a (E003)*
 | Theory grounding | ✅ done | `06-theory-grounding.md` (MI bound, DPI, conditional-MI, rate-distortion) |
 | Harness | ✅ **`$\mathcal{L}_{\text{brain}}$` built** | `brain_loss.py` (mse/cos/pearson/frozen/cka + block_permute); `run_brain_lever.py` (LoRA brain-tune); `run_lebel_encoding.py` (powered voxelwise); `distill.py` λ_brain |
 
-Legend: ✅ done · 🟡 partial / in progress · ⬜ not started.
+Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ tested-negative / kill fired · ⬜ not started.
 
 ---
 
 ## Next session (what `/orient` surfaces)
 
 **Mode:** implementation (working).
-**Goal:** confirm E005's in-domain F1 generalizes + trace the full trade-off curve.
+**Goal:** A3 / E009 — does brain-tuning buy anything PRACTICAL at matched perplexity (the now-central contribution; the in-domain positive is gone after E008)?
 
-1. **LeBel voxelwise TRANSFER test (the next gate).** Does E005's in-domain (Tuckute) F1 gain (+0.0081) generalize to the powered LeBel voxelwise benchmark? **Design + oracle-gate FIRST** — the mean-over-voxels statistic is underpowered (E006 MDE +0.013 ≫ the effect), so the transfer test needs a *powered* statistic (per-voxel paired, or LH-language-region-restricted). Measure each E005 KD student (kd_brain vs kd_brain_permuted) on the E006 LeBel protocol. A positive = cross-dataset/granularity generalization (strong); a powered null after an in-domain positive = "real but doesn't transfer" (still honest).
-2. **λ-sweep / multi-rate trade-off curve.** Trace kd_brain & kd_ppl frontiers across λ_brain and ≥2 compression rates → the rate–distortion curve (the Fork-B-rigor framing / the "how small" characterization). In-domain Tuckute first (powered), then LeBel.
-3. **Doc-consistency (wrap carry-over):** dedup feghhi-2024 / hadidi-2024 (same paper); sweep R03/R04/upspeed for stale "E004 = headline" (now E005) references.
+1. **A3 / E009 — practical payoff (the central question).** Does a brain-tuned student generalize / resist distribution shift / sample-efficiently better than a matched-perplexity `kd_ppl` student, **brain-specifically** (beats `kd_brain_permuted`)? Design drafted + grounded (`docs/experiments/E009_a3-practical-payoff.md`). **Oracle-gate FIRST**, then build the offline robustness harness, then run + thinking panel. Robustness-primary (pirlot/Hoak); MDE 2–4pp (Guo). **E008-informed refinement:** brain-tune toward the *averaged* target (the setting with a measurable representational change, +0.008) so the downstream test has a real change to evaluate — a null on the light-touch per-subject students would be uninformative.
+2. **(Optional, Fork-B rigor) λ-sweep / multi-rate trade-off curve** on the averaged target — the genuine R(D) "how small" characterization, if A3 needs the magnitude context.
 
-**Deferred:** L2b / A3 (does alignment buy OOD/sample-efficiency), L4 / F3 (fMRI-free proxy). **E007 (TR-level LeBel lever loop) NOT built** (structurally underpowered, E006).
+**Deferred:** L4 / F3 (fMRI-free proxy). **Not built:** LeBel transfer test (underpowered, S8); E007 TR-level lever loop (underpowered, E006).
 
-## Doc-consistency notes (for the wrap)
-- `feghhi-2024` and `hadidi-2024` canonical notes are the **same paper** (arXiv-first-author vs NatComms-first-author) — dedup/redirect at wrap.
-- The headline experiment was renamed **E004 → E005**; E004 is now the lever test. References in older docs (R03/R04/upspeed) may still say "E004 = headline" — fix at wrap.
+## Doc-consistency — CLEARED (S8)
+- `feghhi-2024` → `hadidi-2024` canonical redirect added (same paper). ✅
+- R03/R04 checked: **no stale "E004 = headline" references** exist (0 E004 mentions). ✅
 
 ---
 

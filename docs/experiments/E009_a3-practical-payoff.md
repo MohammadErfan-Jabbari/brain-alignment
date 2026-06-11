@@ -42,10 +42,18 @@ induces has downstream value.
 | `kd_brain_permuted` (mse_perm) | E005/E008 | brain-specificity null (matched-ppl by construction) |
 | base Qwen2.5-0.5B (untuned) | — | reference |
 
+**E008-informed refinement (load-bearing):** E008 showed the *per-subject* brain-specific representational
+change is ~0. Testing the downstream value of a ~0 change is uninformative. So A3 must brain-tune toward the
+**group-averaged target** — the setting where there IS a measurable representational change (+0.008, the
+shared stimulus-evoked component) — and ask whether *that* change buys downstream value, vs `kd_ppl`
+(matched-ppl) and `kd_brain_permuted` (brain-specificity). If even the averaged-target change buys nothing
+downstream → the clean Fork-B negative. Testing only the light-touch per-subject students would be a null
+by construction.
+
 **Caveat to resolve at gate:** the E005/E008 students are LoRA-tuned on ~800 Tuckute sentences (a *light*
-touch; ppl 55 vs base 45). A downstream signal from so light a touch may be nil — in which case A3 needs a
-*more substantial* brain-tuning regime (more data / higher λ / full schedule) to give the effect a chance.
-The first pass tests the existing students; if null, escalate the tuning before concluding (predeclare this).
+touch; ppl 55 vs base 45). A downstream signal from so light a touch may be nil even on the averaged target
+— in which case A3 needs a *more substantial* brain-tuning regime (more data / higher λ / full schedule) to
+give the effect a chance. Predeclare the escalation; a null on a non-moving model is uninformative.
 
 ## Outcomes (PRIMARY = robustness/OOD; predeclared)
 
