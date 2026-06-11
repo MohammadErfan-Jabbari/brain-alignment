@@ -25,6 +25,16 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 
 ## Infrastructure / housekeeping
 
+- [ ] **Get to the bottom of graphify** (deferred — tooling, not science). Integrated 2026-06-11 as a
+      code navigator (`.claude/skills/graphify/`, `.graphifyignore`, CLI via uv tool; see timeline
+      `2026-06-11-2257`). Code graph = useful/accurate/free; semantic doc-graph via Flash-Lite = thin
+      (file-level, redundant with gbrain). **If revisited:** try `--mode deep` + Gemini 3.1 Pro on
+      `docs/`, and name the use it serves that gbrain doesn't — else the code-graph-only conclusion
+      stands. Full 2500-file semantic build NOT run. For any Gemini run use the Antigravity subscription
+      quota or a billing-off key (never the training-on-inputs free tier).
+- [x] 2026-06-11 — **Integrated graphify** (CLI + `/graphify` skill + Antigravity config + scoped
+      `.graphifyignore`; stripped its nag PreToolUse hooks; `CLAUDE.md` section subordinate to ladder+gbrain).
+      `ea22aa4`, `077eef2`.
 - [x] 2026-06-09 — **Disabled the GateGuard fact-forcing + doc-file-warning ECC hooks** for this repo via
       `.claude/settings.json` `ECC_DISABLED_HOOKS` (D012). Settles the Session-2 friction.
 
