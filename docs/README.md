@@ -12,6 +12,7 @@ We do *not* run the heavy Nexus stage-machine here. See `03-methodology.md` for 
 
 | File / dir | What it holds | Write cadence |
 |---|---|---|
+| `ladder.md` | **THE canonical status board** — which rungs hold, with what verdict, and the single next step. Read first every session; wins any conflict. | Each session close (verdict-confirmed) |
 | `upspeed.md` | **Read first, write last.** Current state, next actions, blockers. | Every session (REPLACE) |
 | `tasks.md` | The path behind and ahead: backlog → now → done. | As tasks move |
 | `00-charter.md` | The idea, the real problem, scope, thesis context, success/kill criteria. | Rarely (on scope change) |

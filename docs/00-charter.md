@@ -4,8 +4,9 @@
 **Program:** MSc, Machine Learning for Health — Universidad Carlos III de Madrid (UC3M). Erfan is a
 pre-PhD student finishing this master; the thesis is the deliverable. (NeurIPS track is dropped.)
 **Repo:** `/home/centcom/data/brain-alignment` (single-node, centcom)
-**Status:** Activating — **fundamental feasibility first** (does the alignment signal actually help?),
-not yet a deployment story.
+**Status:** **Write-up phase** (as of 2026-06-12) — the experimental program is CLOSED; see `ladder.md`
+for the live verdict (A2 real & powered; per-individual F1 = null; thesis is Fork B = a measurement-validity
+result + well-powered nulls). This charter records the *original* framing/scope; the ladder is current state.
 **Deadline:** ~end of August 2026 (tentative — exact date TBD, confirm).
 **Created:** 2026-06-08 · **Scope locked:** 2026-06-08 (see `decisions/decisions.md` D006).
 
