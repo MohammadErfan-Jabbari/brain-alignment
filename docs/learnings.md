@@ -165,4 +165,16 @@ E010 ran the brain-specific contrast (kd_brain − kd_brain_permuted, held-out u
 
 (3) **Verb discipline.** "Manufactures/produces" is now defensible *in the specific sense that the gap is absent at k=1 and appears only on averaging* — but report the actual curve and the caveat; don't claim a clean monotone quantitative law the data don't show.
 
+### L019 — 2026-06-12 — The per-individual null is robust to LoRA CAPACITY (not to a stronger manipulation): heavy LoRA didn't move the representation; the knob that does (λ) wrecks perplexity
+
+E011 brain-tuned per-individual (9 UIDs) with heavy LoRA (r=64/6 epochs ≈ 4× E008's capacity) to test the "you under-tuned" objection (vs Negi 2025). Per-subject gap +0.00043 (CI incl 0, fold-clustered incl 0, sign 6/9, held-out-5 −0.0001). Lessons:
+
+(1) **"Stronger regime" must be verified by effect, not hyperparameters.** The counter-argument panel showed heavy LoRA produced the *same* representational movement as E008's light LoRA: mse absolute held-out uR² +0.00076→+0.00082, ppl 1.32×→1.35× base — indistinguishable on both the optimized quantity and the LM-damage proxy. At fixed λ_brain on isolated sentences the alignment gradient is exhausted; extra rank/epochs change nothing. Lesson: always confirm a manipulation actually got stronger (measure the absolute change) before claiming robustness to it.
+
+(2) **The matched-ppl regime structurally bounds the per-individual test.** Capacity (r, epochs) doesn't move the representation; λ_brain does but wrecks perplexity (E009/L017: λ=30→ppl 92) and *still* doesn't grow the gap. So within matched-ppl the per-individual brain-specific null cannot be escaped — this is the honest, complete boundary (no further matched-ppl experiment is informative). The only open direction is a different objective+data regime (Negi's contrastive loss + naturalistic data), which we don't have.
+
+(3) **Outlier pathology, 4th occurrence (L015/L016/L018).** The slightly-larger +0.00043 (vs +0.00010) is one subject (uid 875 = 79% of the sum); LOO-subject → +0.00010. Always report LOO-subject; one unit keeps carrying these tiny effects.
+
+(4) **A vacuous covariate read-out is not a passed control.** The ppl-intercept "matched-ppl" read-out only means something if the arms diverge in ppl; here they didn't (Δlog-ppl −0.013), so the intercept just reproduced the raw gap — report it as "no divergence to adjust," not as evidence of brain-specificity at matched ppl.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->

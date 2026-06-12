@@ -30,5 +30,15 @@ E011 varies only **tuning intensity** within our paradigm. Negi 2025 differs on 
 ## Compute / scope
 Heavy LoRA: 9 UIDs × 5 folds × 2 seeds × (mse + 5×perm + lm_only = 7) = 630 trains (heavier per-train than E008 via r=64/6ep). Stage across the 4 L40S by UID. Pure in-domain; no new data. Verdict via `analyze_e008.py` + the ppl-covariate read-out.
 
+## Results (ran 2026-06-12; heavy LoRA r=64/6ep, 9 UIDs, 2 seeds, n_perm=5, 4-GPU split)
+
+Per-subject brain-specific gap (mse − mse_perm, held-out unique R²): **mean +0.00043, t-CI [−0.0005,+0.0013] (incl 0), n=9, sign 6/9**; fold-clustered CI incl 0, fails LOO-fold; held-out-5 mean **−0.00012**; ppl matched (mse ≈ perm ≈ 60 ≈ 1.33× base, within guardrail); ppl-intercept +0.00048; SNR control collapses it (drop top-2 → +0.00008).
+
+## Verdict: the per-individual null HOLDS — but it is robustness to LoRA *capacity*, NOT to a stronger manipulation (counter-argument-corrected, L019)
+
+The counter-argument panel (fable) caught that **heavy LoRA did NOT actually move the representation more than E008's light LoRA**: mse absolute held-out uR² **+0.00076 (E008) → +0.00082 (E011)**, ppl rise **1.32× → 1.35×** base — statistically identical on both the optimized quantity and the LM-damage proxy. At fixed λ_brain=10 on isolated sentences the alignment gradient is exhausted early, so 4× rank/epochs buys ~zero extra effective movement. So this is **the same operating point run twice**, not a stronger regime. Also: the +0.00043 (vs E008's +0.00010) is **one subject — uid 875 = 79% of the across-subject sum; LOO-subject → +0.00010, identical to E008** (the L015/L016/L018 outlier pathology, 4th occurrence). It fails its own permuted null (gap ~18× below p95; `beats_permuted_null=False`). The ppl-intercept read-out is *vacuous here* — the arms barely diverge in ppl (Δlog-ppl −0.013), so there was no confound to adjust.
+
+**The honest, complete claim (no new run needed):** within the matched-perplexity regime the per-individual brain-specific null **cannot be escaped** — raising LoRA *capacity* (r, epochs) at fixed λ does not move the representation (E011); raising the knob that *does* (λ_brain) **wrecks perplexity** (E009/L017: λ=30 → ppl 92) *and still does not grow the gap*. So we claim "robust to LoRA capacity at fixed λ and matched ppl," NOT "robust to stronger tuning." The genuinely different regime (Negi's full-FT + NT-Xent contrastive loss + naturalistic narrative data) is on the **loss+data axes** E011 does not touch — the real, honestly-stated open boundary (needs data/objective we don't have).
+
 ## Status
-DESIGN — oracle HOLD addressed (Regime A only, ppl guardrail, ppl-covariate read-out, n_perm=5, honest Negi scoping; full-FT dropped). Next: add the ppl-intercept read-out to the analyzer, run heavy-LoRA on 9 UIDs (4-GPU split), crossed-inference + ppl-intercept verdict, thinking panel, update manuscript §6.
+COMPLETE — verdict recorded (capacity-robust null; honest framing). Manuscript §6 + L019 updated. No further per-individual-at-matched-ppl experiment is informative (capacity exhausted, λ breaks the control); the only open direction is a different objective+data regime (future work / new data).
