@@ -24,7 +24,15 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 - [x] 2026-06-12 — **Mock peer-review of complete v0.9** (oracle+premortem+counter-argument, fable): PASS thesis / borderline-PASS workshop; fixed 5 abstract overclaims (the "every individual brain" category error chief); L029.
 - [x] 2026-06-12 — **Power positive-control** (`sensitivity_e008.py`): real-residual bootstrap propagating within-subject noise → group test power 0.92@uniform-δ=+0.002, FPR 0.01; first-principles VALID; defends the load-bearing null. L029.
 - [x] 2026-06-12 — **E015: cross-family alignment∝−ppl LAW** (r=−0.93, n=8, gpt2/pythia/Qwen) — generalizes E003's within-gpt2 r=−0.88; matched-ppl control shown to bite cross-family; folded into §1+evidence-map. Broken-probe caught by counter-argument (L030).
-- [ ] **(Open, Erfan's call / fresh working build) The premortem's spine reframe:** move headline → matched-ppl-as-missing-control, demonstrated on ONE external (published) result. + optional E015 refinements (best-layer sweep; more families OPT/Llama/Mistral — needs online). L029.
+- [x] 2026-06-12 — **E015 novelty grounded (lit-scout):** alignment∝quality is ESTABLISHED (Schrimpf 2021/Hong 2024/Antonello 2023/Gao 2024) — NOT a discovery; novel step is the normative matched-ppl control. §1 fixed to cite prior art. E015 best-layer robustness check done (r=−0.917, layer-invariant).
+
+### Open questions / following tasks (for the analysis sessions — all need Erfan or online/build resources)
+- [ ] **(Erfan's strategic call) The premortem's spine reframe:** move the paper's headline from the averaging confound → **matched-perplexity as the missing control in the brain-tuning literature** (the contribution that survives our own scoping; E015 now gives it cross-family bite). Premortem says this is the highest-leverage move; the averaging-confound headline has a weak external target. L029.
+- [ ] **(Fresh working build / online) Demonstrate the matched-ppl control on ONE external published result** — show a Negi/Schwartz-style gain shrinks at matched ppl. The "main-track lift." Multi-day.
+- [ ] **(Online) Expand E015** to more families (OPT/Llama/Mistral) to beat the n=8/3-family-cluster caveat; the law is currently a capability-range law within modern decoder transformers (Pasquiou 2022: non-monotone across RNN/transformer classes).
+- [ ] **(Fresh working session) Full-FT multi-subject naturalistic voxelwise** (denizenslab n=6) — the one untested *induction method*; n-conditional on inducing an above-base improvement (E013/L027).
+- [ ] **(Erfan's OK — process, L031) Operating rule for Stop-hook re-fires:** treat a re-injected standing autonomous prompt as continuation only until a newer explicit user instruction supersedes; on an explicit "wrap/stop", wrap even if the hook re-fires. Propose for CLAUDE.md.
+- [ ] **(Analysis polish) Manuscript pre-submission:** trim "one untested door" repetition (premortem #5, reads as unfinished Fork-A); venue/length; optional §2 prose.
 
 ### Done earlier this session (S8, 2026-06-11)
 - [x] 2026-06-11 — ~~LeBel voxelwise TRANSFER test~~ **DROPPED** — S8 panel showed it underpowered (paired-LeBel MDE needs ρ≥0.9 to see even +0.0081; `reanalyze_e005_e006.py`).

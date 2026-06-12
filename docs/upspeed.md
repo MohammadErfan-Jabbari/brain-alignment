@@ -37,9 +37,11 @@ Phase = **Judge → Argue/Compound (write-up)**. The experimental program is **c
 
 **Recommendation:** submit v0.9 as a measurement-validity / protocol contribution (the well-powered nulls show the protocol bites), OR commit a fresh session to the full-FT multi-subject build if a Fork-A rescue is worth the investment (the mechanism evidence suggests it is likely also null, but it's the only untested door).
 
-## Blockers
+## Blockers / open loops
 
-- **None rate-limiting.** GPUs free; full harness + analyzers + panel built. The remaining items are decisions (ladder confirmation, build investment, submission), not blocked work.
+- **No running jobs; working tree clean.** The E015 best-layer background job completed.
+- **Open items all need Erfan or online/build resources (not offline-doable):** (1) premortem **spine reframe** → matched-ppl-as-missing-control headline + ONE external published-result demo (online / multi-day); (2) more model families for E015 (OPT/Llama/Mistral — online) to beat the n=8/3-cluster caveat; (3) the full-FT multi-subject naturalistic build (the one untested induction method).
+- **Pending Erfan's OK (process):** an operating-rule line for Stop-hook re-fires (L031) — treat a re-injected standing autonomous prompt as continuation only until a newer explicit user instruction supersedes.
 
 ## Key facts
 
@@ -47,5 +49,7 @@ Phase = **Judge → Argue/Compound (write-up)**. The experimental program is **c
 - **Determinism fix:** `pilot_lib.py` PCA now seeded (`random_state=0`). Headline results (E006/E008) are robust to it — they aggregate over many folds/voxels/seeds; E014's single-shot scores were the exposed ones.
 - **Manuscript:** `docs/manuscript/00_paper-draft-v0.md` (v0.9, artifact-complete). 5 `[VERIFY]` reference flags to clear pre-submission (Nili/Schrimpf/Caucheteux/Antonello/Tuckute) + Li-Brendel/Hoak.
 - **E014:** `scripts/run_averaging_encoding.py`; outputs `outputs/E014_averaging_encoding_seeded.json`.
+- **E015:** `scripts/run_ppl_alignment_law.py` (cross-family ppl↔alignment; `--out` to vary). Power positive-control: `scripts/sensitivity_e008.py` (real-residual bootstrap block).
+- **Tooling gotcha:** offline `load_dataset("wikitext",...)` FAILS (OfflineModeIsEnabled) — use `"Salesforce/wikitext"` (the cached canonical name). `outputs/` is gitignored (never `git add` it).
 - **Panel agents:** `.claude/agents/{counter-argument,socratic-thinker,premortem-analyst,first-principles-grounder}.md` (registered as agent types).
 - **Git:** `main`, ~53 atomic commits this session. Push only when asked. Cost ~$1217 (authorized, long autonomous run).
