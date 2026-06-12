@@ -177,4 +177,14 @@ E011 brain-tuned per-individual (9 UIDs) with heavy LoRA (r=64/6 epochs ≈ 4× 
 
 (4) **A vacuous covariate read-out is not a passed control.** The ppl-intercept "matched-ppl" read-out only means something if the arms diverge in ppl; here they didn't (Δlog-ppl −0.013), so the intercept just reproduced the raw gap — report it as "no divergence to adjust," not as evidence of brain-specificity at matched ppl.
 
+### L020 — 2026-06-12 — The clean (random-subset) dose-response is NOISY and non-monotone: the nested E010 curve was partly a design artifact; the headline rests on E005-vs-E008, not the dose-response
+
+The socratic capstone flagged that E010's clean monotone gap(k) curve used NESTED subsets (k=1=uid 848; the high-leverage uid 875 entered at k=3), confounding subject-count with subject-identity. E010b re-ran with RANDOM size-k subsets (flagging 875-in/out): gap(k) = +0.0015 (k=1), **−0.0013 (k=3)**, +0.0088 (k=5), +0.0094 (k=9); sd 0.005–0.015; 875-in vs 875-out inconsistent (875 alone gives +0.0038 at k=1, but at k=5 the 875-OUT subsets give the bigger gap, +0.0125). Lessons:
+
+(1) **The nested dose-response overstated the cleanliness of the mechanism.** With random subsets the curve is non-monotone and very noisy — the clean 0→+0.019 nested rise was partly an artifact of which subjects entered at each k. The *causal/monotone* "averaging produces the gap" claim is NOT cleanly established at this sampling (2 seeds × 3 subsets/k → huge variance). Don't claim a clean dose-response law.
+
+(2) **The headline does NOT need the dose-response.** "Averaging inflates apparent brain-specificity" is established directly by **E005 (averaged target → +0.008) vs E008 (per-individual, n=9, well-powered → ~0)**: the averaged measurement shows a gap the individual reality doesn't. That contrast is the solid evidence; the dose-response is at most suggestive corroboration (averaged targets at high k tend to show a gap, consistent with the noise-ceiling mechanism, but noisily).
+
+(3) **Process lesson:** a single clean-looking curve from a confounded design (nested subsets) is a trap; the random-subset control is what revealed the noise. This is the L015/L016/L018/L019 pattern again — clean-looking small effects keep dissolving under the proper control. The rigor (socratic capstone → clean re-run) caught it before it shipped as a headline figure.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->

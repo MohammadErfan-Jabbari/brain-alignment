@@ -23,36 +23,43 @@ T975 = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365, 8
 
 
 def fig1_dose_response():
-    """E010: brain-specific gap(k) vs subjects averaged + noise-ceiling NC_k overlay."""
-    d = json.load(open(ROOT / "outputs/E010_averaging_doseresponse.json"))
-    bykseed = defaultdict(dict)
-    for r in d["raw"]:
-        bykseed[(r["k"], r["seed"])][r["arm"]] = r["unique_r2"]
-    ks = sorted({r["k"] for r in d["raw"]})
-    seeds = sorted({r["seed"] for r in d["raw"]})
-    nc = d["nc"]
-    gap_m, gap_e, nck = [], [], []
-    for k in ks:
-        gaps = [bykseed[(k, s)]["mse"] - bykseed[(k, s)]["mse_perm"] for s in seeds]
-        gap_m.append(mean(gaps))
-        gap_e.append((stdev(gaps) / math.sqrt(len(gaps))) if len(gaps) > 1 else 0)
-        nck.append(nc / (nc + (1 - nc) / k))
-    fig, ax1 = plt.subplots(figsize=(6, 4))
-    ax1.axhline(0, color="grey", lw=0.8, ls=":")
-    ax1.errorbar(ks, gap_m, yerr=gap_e, marker="o", color="C3", capsize=3, lw=2, label="brain-specific gap (mse − perm)")
-    ax1.set_xlabel("k  (subjects averaged into the fMRI target)")
-    ax1.set_ylabel("held-out brain-specific gap  Δ unique R²", color="C3")
-    ax1.set_xticks(ks)
-    ax1.tick_params(axis="y", labelcolor="C3")
-    ax2 = ax1.twinx()
-    ax2.plot(ks, nck, marker="s", color="C0", ls="--", alpha=0.7, label="predicted ceiling NC_k")
-    ax2.set_ylabel("predicted noise ceiling  NC_k", color="C0")
-    ax2.tick_params(axis="y", labelcolor="C0")
-    ax1.set_title("E010: averaging produces the apparent brain-specificity\n(gap ≈ 0 at k=1, grows with averaging)")
+    """Dose-response gap(k): NESTED (E010, clean-looking but confounded) vs RANDOM subsets
+    (E010b, the honest, noisy reality). Shows why we don't claim a clean causal law."""
+    dn = json.load(open(ROOT / "outputs/E010_averaging_doseresponse.json"))
+    bks = defaultdict(dict)
+    for r in dn["raw"]:
+        bks[(r["k"], r["seed"])][r["arm"]] = r["unique_r2"]
+    ksn = sorted({r["k"] for r in dn["raw"]})
+    sn = sorted({r["seed"] for r in dn["raw"]})
+    nested = [mean([bks[(k, s)]["mse"] - bks[(k, s)]["mse_perm"] for s in sn]) for k in ksn]
+
+    db = json.load(open(ROOT / "outputs/E010b_random_subsets.json"))
+    cell = defaultdict(dict)
+    for r in db["raw"]:
+        cell[(r["k"], r["subset"], r["seed"])][r["arm"]] = r["unique_r2"]
+    ksr = sorted({r["k"] for r in db["raw"]})
+    rm, re_ = [], []
+    for k in ksr:
+        gs = [cell[(kk, ss, sd)]["mse"] - cell[(kk, ss, sd)]["mse_perm"]
+              for (kk, ss, sd) in cell if kk == k and "mse" in cell[(kk, ss, sd)] and "mse_perm" in cell[(kk, ss, sd)]]
+        rm.append(mean(gs)); re_.append(stdev(gs) if len(gs) > 1 else 0)
+
+    fig, ax = plt.subplots(figsize=(6.5, 4))
+    ax.axhline(0, color="grey", lw=0.8, ls=":")
+    ax.plot(ksn, nested, marker="o", color="C7", ls="--", lw=1.5, alpha=0.7,
+            label="nested subsets (E010) — clean-looking but confounded")
+    ax.errorbar(ksr, rm, yerr=re_, marker="s", color="C3", capsize=4, lw=2,
+                label="random subsets (E010b) ± SD — the honest, noisy reality")
+    ax.set_xlabel("k  (subjects averaged into the fMRI target)")
+    ax.set_ylabel("held-out brain-specific gap  Δ unique R²")
+    ax.set_xticks(sorted(set(ksn) | set(ksr)))
+    ax.set_title("Dose-response: the clean nested curve is a design artifact\n"
+                 "(random subsets are non-monotone & noisy → no clean causal law)")
+    ax.legend(fontsize=8)
     fig.tight_layout()
     fig.savefig(OUT / "fig1_dose_response.png", dpi=150)
     plt.close(fig)
-    print(f"fig1: gap(k)={[round(g,5) for g in gap_m]} at k={ks}")
+    print(f"fig1: nested={[round(g,4) for g in nested]} | random={[round(g,4) for g in rm]}")
 
 
 def fig2_collapse():
