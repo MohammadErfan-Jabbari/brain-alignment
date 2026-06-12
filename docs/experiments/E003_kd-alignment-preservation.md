@@ -1,6 +1,6 @@
 # Experiment — E003: does perplexity-only knowledge distillation preserve or destroy brain alignment? (R04 Layer 2a kill-test)
 
-**Created:** 2026-06-10 · **Status:** DESIGN LOCKED (pre-run) · **Mode:** working
+**Created:** 2026-06-10 · **Status:** COMPLETE (ran 2026-06-10) — L2a PARTIAL: monotone alignment gradient (not preserve-for-free), but alignment co-varies with perplexity (ρ=−0.88), KD-specific shedding only p≈0.1 (L011) · **Mode:** working
 **Direction:** `../reports/R04_gap-analysis.md` §6(a) / §8 (Layer 2a) · `../reports/R03_brain-as-training-signal.md` (ladder)
 **Theory:** `../06-theory-grounding.md` §2 (data-processing inequality) + §4 (rate–distortion = the F1 trade-off curve)
 **Predecessor:** `E002_tuckute-encoding-feasibility.md` (A2 PASS — the encoding signal is real on Tuckute)

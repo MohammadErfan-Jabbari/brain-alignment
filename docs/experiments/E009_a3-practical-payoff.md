@@ -1,6 +1,6 @@
 # Experiment — E009 (A3 / L2b): does brain-alignment buy anything PRACTICAL at matched perplexity?
 
-**Created:** 2026-06-11 · **Status:** DESIGN DRAFT (gate with oracle AFTER E008's verdict — the verdict shapes the framing) · **Mode:** working
+**Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11) — A3 bounded NULL, null-by-construction (n=8; no brain-specific OOD-ppl payoff; the matched-ppl fulcrum is itself ~0; L017) · **Mode:** working
 **Direction:** L2b / A3 — the ladder's "real thesis risk" (the untested assumption) and the genuine open gap. The escape from the Tuckute stimulus-fold power ceiling (A3 is measured on downstream NLP, not fMRI stimuli — so it is not capped at ~5 folds).
 **Predecessors:** `E005` (in-domain F1, small/borderline — L015) · `E008` (per-participant solidification — its verdict sets whether we say "a brain-specific signal we induced" or "a tiny signal") · lit-scout A3 sweep (S8)
 **Output:** `outputs/E009_a3_*.json`

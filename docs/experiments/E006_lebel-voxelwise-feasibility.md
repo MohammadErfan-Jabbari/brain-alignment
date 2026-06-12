@@ -1,6 +1,6 @@
 # Experiment — E006: LeBel UTS03 voxelwise A2-feasibility (powered substrate validation)
 
-**Created:** 2026-06-11 · **Status:** DESIGN LOCKED — oracle HOLD resolved (phone-tier nuisance + held-out CC_norm voxel selection + E007-MDE deliverable + paired-primary E007 lock all baked in); runner build pending · **Mode:** working
+**Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11) — A2 STRONG PASS at voxel scale (powered: trained−untrained gap +0.0207/+0.0277, 95–99% of 11,442 NC-reliable voxels positive); E007 lever-line structurally underpowered (MDE +0.013–0.015 ≫ the +0.003 effect) → E007 NOT built, rerouted to E005 · **Mode:** working
 **Direction:** R03 Layer 0/A2 at *powered* (voxelwise) resolution — the prerequisite substrate for the LeBel lever re-test (E007) that confirms E004's fragile PARTIAL.
 **Predecessors:** `E002` (A2 PASS on Tuckute, 5 ROIs) · `E004` (Tuckute lever = PARTIAL/fragile — routes here per its predeclared, power-limited rule)
 **Code:** `scripts/lebel_adapter.py` (built, CPU+GPU-validated), `scripts/run_lebel_encoding.py` (TBD after oracle PASS), reuses `data/paper-repos/deep-fMRI-dataset/encoding/ridge_utils`

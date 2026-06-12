@@ -1,6 +1,6 @@
 # Experiment — E013 (the open frontier): powered per-individual brain-tuning on multi-subject naturalistic fMRI
 
-**Created:** 2026-06-12 · **Status:** SCOPED (feasible; data path identified; heavy build — next-session unit) · **Mode:** working (design)
+**Created:** 2026-06-12 · **Status:** PARTIAL — voxelwise distillation-readout lever RAN (no λ improves held-out alignment over base, never beats permuted twin: a single-subject *mechanism* failure → n≥5 moot; L026/L027). The full-FT (not LoRA-readout) multi-subject naturalistic route remains SCOPED — the one untested door · **Mode:** working (design)
 **Direction:** the one genuinely-open scientific door after E008/E011/E012 — does a per-individual brain-specific gain appear under a STRONGER regime (closer to Negi: full-FT / contrastive + naturalistic data) on a POWERED multi-subject cohort? The honest open frontier the manuscript (§6) flags.
 **Why this is now feasible (not "blocked"):** the power sim (`scripts/sensitivity_e008.py`, L024) shows **~5 deep subjects** power a per-individual test for a δ=+0.003 effect (σ≈0.001). The **denizenslab paired read/listen dataset** (`data/paper-repos/speech-llm-brain`) has **6 subjects** with naturalistic narratives — enough. (LeBel maxes at 3 deep subjects: UTS01/02/03, acquired; denizenslab adds the count.)
 

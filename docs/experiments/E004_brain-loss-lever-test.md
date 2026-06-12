@@ -1,6 +1,6 @@
 # Experiment — E004: is `$\mathcal{L}_{\text{brain}}$` a usable *lever*? (R03 Layer 1) + the D010 loss-form resolution
 
-**Created:** 2026-06-10 · **Re-locked:** 2026-06-11 (after oracle-reviewer HOLD → design reshaped) · **Status:** DESIGN LOCKED (pre-run) · **Mode:** working
+**Created:** 2026-06-10 · **Re-locked:** 2026-06-11 (after oracle-reviewer HOLD → design reshaped) · **Status:** COMPLETE (ran 2026-06-11) — L1 PARTIAL: fragile brain-specific lever (Qwen mse − permuted twin +0.0032 [+0.0006,+0.0058], fold-4 carries half), perplexity-entangled, sub-threshold on the 5-ROI screen (L011/L012) · **Mode:** working
 **Direction:** `../reports/R03_brain-as-training-signal.md` §5 (Layer 1 of the ladder) · `../ladder.md` (L1 rung)
 **Theory:** `../06-theory-grounding.md` §1 (MI gen-bound), §2 (DPI ceiling), §3 (conditional MI = unique R²)
 **Predecessors:** `E002` (A2 PASS — encoding signal is real on Tuckute) · `E003` (Layer-2a PARTIAL — KD lands below teacher, alignment co-varies with ppl, L011)
