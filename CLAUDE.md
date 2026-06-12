@@ -181,8 +181,10 @@ explicitly** to override down — fast worker, slow critic; bump only for a genu
 
 **The hard line.** Codex **never** produces a science number or flips a rung — numbers come only from
 the `docs/` brain, verdicts only from Erfan. Codex reviews code correctness and proposes
-implementations; it does not adjudicate a hypothesis. **Read-only by default** for critique (`--write`
-only for Scenario 2). **Stop-review-gate stays OFF** (it fights the docs-first `/wrap` ritual).
+implementations; it does not adjudicate a hypothesis. **Stop-review-gate stays OFF** (it fights the
+docs-first `/wrap` ritual). **Sandbox note:** bwrap can't run in this container, so Codex's OS sandbox
+is **disabled** (`danger-full-access`; the Docker container is the boundary, git catches stray edits) —
+mechanics + the plugin-patch-reapply caveat in `docs/references/codex-usage.md`.
 
 ## graphify (code/corpus navigator — subordinate to the docs brain)
 

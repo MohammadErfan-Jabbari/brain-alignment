@@ -19,14 +19,39 @@ truth is the plugin itself (`~/.claude/plugins/cache/openai-codex/codex/.../scri
 | `/codex:setup [--enable/--disable-review-gate]` | Health check + toggle stop-time review gate | — | — | — |
 
 Extra `task` controls: `--background`/`--wait` (execution), `--resume`/`--fresh` (continue last thread
-or start clean), `--write` (workspace-write sandbox; omit for read-only).
+or start clean), `--write` (legacy; the OS sandbox is disabled here — see Sandbox below — so Codex can
+write regardless; `--write` only affects the metadata label).
+
+## Sandbox / environment — DISABLED here (verified 2026-06-12, this is load-bearing)
+
+This host is a **Docker container** where Codex's bubblewrap (`bwrap`) sandbox **cannot run**: bwrap
+can't initialise a user/network namespace (`bwrap: setting up uid map: Permission denied` and
+`loopback: Failed RTM_NEWADDR: Operation not permitted`), because the container lacks the capability
+and `/proc/sys` is read-only (can't flip `kernel.apparmor_restrict_unprivileged_userns`). Installing
+system `bubblewrap` did **not** fix it — it's a container limit, not a missing binary. Any sandboxed
+Codex run silently fails to execute commands (it can't even read a file → returns garbage like
+`COUNT=0`). This is exactly the case Codex's own docs call "externally sandboxed," so we disable the
+inner sandbox and let the **container be the boundary**:
+
+- **`~/.codex/config.toml`:** `approval_policy = "never"`, `sandbox_mode = "danger-full-access"`,
+  `model_reasoning_effort = "xhigh"`. Fixes the interactive `codex` TUI and most `codex exec` runs.
+- **Plugin patch:** `codex.mjs` `buildThreadParams`/`buildResumeParams` are patched to force
+  `sandbox: "danger-full-access"` (the plugin otherwise hardcodes `read-only` and breaks). **This lives
+  in the plugin cache (`~/.claude/plugins/cache/openai-codex/...`) and must be REAPPLIED after any
+  `codex` plugin update** — the in-file comment flags it.
+- **`codex exec` gotcha:** passing `-c <key>=<val>` can revert exec's sandbox to its `read-only`
+  default; for direct `codex exec` automation pass **`--sandbox danger-full-access` explicitly**.
+- **Net effect on safety:** Codex now has full filesystem access on every run. The protections are no
+  longer the inner sandbox but (1) the outer container, (2) git (atomic commits + diff review catch any
+  stray edit), and (3) the hard line below. For critique/review, still tell Codex "do not edit" in the
+  prompt — it's no longer enforced, so trust git, not the sandbox.
 
 ## Model / effort policy (the asymmetric "medium worker, xhigh critic" setup)
 
-- **Global default reasoning = `xhigh`** (set in `~/.codex/config.toml`, `model_reasoning_effort`).
+- **Global default reasoning = `xhigh`** (`~/.codex/config.toml`, `model_reasoning_effort`) — VERIFIED
+  applied (a live `codex exec` ran at `reasoning effort: xhigh`).
 - **Critic side (reviews) runs xhigh by inheritance.** `/codex:review` and `/codex:adversarial-review`
-  expose no per-call `--effort`; they inherit the config default. With the default at xhigh, every
-  review is xhigh automatically. (Confirm once with a live review — mechanism is config-inheritance.)
+  expose no per-call `--effort`; they inherit the config default → every review is xhigh automatically.
 - **Worker side (task) runs at the effort you pass.** A delegated build/fix should pass `--effort
   medium` explicitly to override the global default *down* — fast worker, slow critic. Bump to `high`/
   `xhigh` only for a genuinely hard implementation.
@@ -87,7 +112,9 @@ is real evidence, and one that disagrees is a bug lead.
 - **Codex never produces a science number or a verdict.** Numbers come only from the `docs/` brain;
   rungs flip only on an Erfan-confirmed verdict. Codex reviews **code correctness** and **proposes
   implementations** — it does not adjudicate a hypothesis or write a result into the docs.
-- **Read-only by default for critique.** Pass `--write` only when Scenario 2 is the explicit intent.
+- **Critique should not edit — but the sandbox no longer enforces it** (disabled, see Sandbox). Tell
+  Codex "do not edit" in the prompt for Scenario 1, and rely on git (atomic commits, diff review) to
+  catch any stray write. Full filesystem access is always on now.
 - **Stop-review-gate stays OFF.** It would force a Codex review before Claude can stop, which fights
   the docs-first `/wrap` ritual and adds latency to our mostly-docs commits. Enable only during a heavy
   code-writing stretch (`/codex:setup --enable-review-gate`), and disable it after.
