@@ -237,7 +237,17 @@ E013b added an InfoNCE/NT-Xent contrastive brain-loss (`brain_loss.contrastive`)
 
 (3) **For the manuscript:** this tightens the "regime-specific" concession — we now show the null holds across *two objectives* (MSE, contrastive) at matched ppl, not just MSE, leaving only the data/voxelwise axis untested. A stronger, more complete negative.
 
-### L026 — 2026-06-12 — The per-individual null holds on the POWERED voxelwise substrate too (E013 n=3): closes the substrate-mismatch limitation; the null is now convergent across every axis tested
+### L026 (CORRECTED) — 2026-06-12 — E013 v1 was a FAILED MANIPULATION (tuning DEGRADED held-out alignment), caught by the panel; NOT a same-substrate null. Always verify the manipulation moved the rep the RIGHT way before interpreting a null.
+
+**Correction:** my first E013 writeup claimed "the per-individual null holds on the powered voxelwise substrate → closes substrate-mismatch." The counter-argument panel showed this was WRONG: in all 6 subject×seed runs the real-target tuning **reduced** held-out alignment below the untuned base (`real_u < base_u`: UTS02 0.0085→0.0044, UTS01 0.0058→−0.0017, UTS03 0.0077→0.0033). The ~0 real-minus-permuted gap compares two *degraded* representations → uninformative. The ~10M-param 11k-voxel readout over ~1k segments at λ=10 (no KD anchor) damaged the general features the held-out ridge needs. **The substrate-mismatch limitation REMAINS OPEN.** Lessons:
+
+(1) **The L019 lesson, sharper: verify the manipulation moved the rep the RIGHT direction.** E011 was "hollow" (rep didn't move); E013 v1 was *anti*-verified (rep moved the WRONG way — alignment dropped). A null from a manipulation that degrades the target metric is meaningless. **Mandatory check: real-target tuning must beat the untuned base on the held-out metric before any real-minus-control gap is interpreted.** I should have built this check in (and the design predeclared a ppl-intercept + spatial-blocking it then skipped — protocol drift).
+
+(2) **The panel is the safeguard against my own overclaim.** I recorded "closes substrate-mismatch" + updated the manuscript before panel-verifying — and it was wrong. The fix was the counter-argument reading the raw base_u-vs-real_u from the JSON. Run the panel BEFORE the claim lands, every time (the whole point of D017).
+
+(3) → E013 v2: re-run with a manipulation that takes hold (KD anchor + lower λ + fewer high-NC voxels + the real_u>base_u check). The n≥5 decision is deferred until a valid n=3 manipulation exists. (Earlier "null is convergent across all axes" was overstated for the voxelwise axis — E013 v1 doesn't count; E008 ROI / E011 / E013b stand.)
+
+### L026-orig (SUPERSEDED by the correction above) — claimed E013 closed substrate-mismatch; retracted
 
 E013 built the voxelwise per-individual brain-tuning loop (the deferred "E007", `run_lebel_tune.py`: per-segment tune target + brain_tune MSE/LoRA + held-out-story unique-R² eval via the E006 protocol + permuted twin) and ran it on the 3 LeBel deep subjects (UTS01/02/03 — acquired UTS01/02 + their wheretheressmoke repeats from OpenNeuro). Per-subject brain-specific gap: −0.0010 / +0.0010 / +0.0004 (mean +0.0001), sign-flipping across seeds in 2/3 → **no robust per-subject voxelwise gain** (existence probe, n=3, not population). Lessons:
 
