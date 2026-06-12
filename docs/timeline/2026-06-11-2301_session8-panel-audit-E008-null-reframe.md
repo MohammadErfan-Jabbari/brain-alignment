@@ -63,3 +63,15 @@ Continued autonomously (Stop hook: don't pause at phase boundaries). Picked opti
 - **E010 — the averaging dose-response** — to EARN the central claim: gap(k) = −0.0002/−0.0001/+0.0023/+0.0194/+0.0071 for k=1/2/3/5/9. **k=1 null; the gap appears only on averaging** → averaging *produces* the apparent brain-specificity (rising limb tracks the noise-ceiling). Honest caveat: not perfectly monotone (k=9<k=5, wide 4-seed bars) → qualitative law, not a precise fit. L018; §4.2b added.
 
 **End state:** experimental ladder complete + manuscript v0.3 (panel-reviewed, central claim experimentally earned). Open future-work (flagged in §6): the strong-regime per-individual arm (the key test vs Negi), the LeBel-voxelwise per-subject null, figures. Session 8 total: ~28 commits, ~$366, fully autonomous; 4 experiments (E008/E009/E010 + re-analysis) + the paper.
+
+---
+
+## Post-wrap continuation 3 (same session) — E011 (regime-robust null) + manuscript figures + E010/E010b dose-response honesty
+
+Continued autonomously (Stop hook). Decided the strong-regime design myself (don't abandon matched-ppl — exploit the permuted twin; Tuckute 9 UIDs; heavy LoRA), oracle-gated it.
+
+- **E011** (heavy LoRA r=64/6ep, 9 UIDs, oracle-gated): per-individual gap +0.0004 (CI incl 0) → null holds. **Counter-argument panel caught it's HOLLOW as "stronger regime":** heavy LoRA didn't move the rep (mse abs uR² +0.0008 = light regime; ppl 1.33× both) — capacity at fixed λ is exhausted; the +0.0004 is one subject (875=79%, LOO→+0.0001). Honest claim: **robust to LoRA capacity at matched ppl** (λ that moves the rep wrecks ppl — E009/L017). L019.
+- **Manuscript figures** (4, from recorded data) + matplotlib dep.
+- **Socratic capstone** on the complete manuscript flagged the one threatening hole: E010's clean dose-response used NESTED subsets (875 enters at k=3) → confounds count with identity. **E010b** re-ran with RANDOM subsets: **non-monotone & noisy** (gap +0.0015/−0.0013/+0.0088/+0.0094; sd to 0.015; 875-in/out inconsistent) → the clean curve was a nested artifact. **Downgraded the causal claim** (L020); the headline "averaging inflates" rests on **E005 (+0.008 averaged) vs E008 (~0 per-individual)**, not the dose-response. Honest fig1 shows both curves.
+
+**End state:** manuscript v0.5 (`docs/manuscript/00_paper-draft-v0.md`), panel-verified FOUR ways (counter-argument ×2, first-principles, socratic), 4 figures, every claim either solid or honestly scoped. Experimental ladder complete: A2 (powered) + the per-individual null (E008, regime-robust E011) + the averaging-inflation contribution (E005-vs-E008) + A3 null (E009). The repeated lesson (L015/16/18/19/20): clean-looking small effects keep dissolving under the proper control — the rigor caught every one before it shipped. Session 8 total: ~37 commits, ~$535, fully autonomous; 6 experiments (E008/E009/E010/E010b/E011 + re-analysis) + the paper. Open door (needs data we lack): Negi's full-FT + contrastive + naturalistic multi-subject regime.

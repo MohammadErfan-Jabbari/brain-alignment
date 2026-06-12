@@ -22,16 +22,17 @@ Phase = **Judge → (next) Design**. The session's result is an **evidence-drive
 4. Reframed the ladder to **Fork-B** (D018, Erfan-confirmed): A2-powered + the per-subject null + anti-confound methodology + A3.
 5. Designed + grounded + oracle-gated **A3/E009**; cleared doc-consistency (feghhi→hadidi redirect).
 
-## What to do next (manuscript v0.3 exists; future-work experiments + figures)
+## What to do next (manuscript v0.5 — panel-verified 4×; experimental ladder complete)
 
-The experimental ladder is **complete** and the **manuscript v0.3 draft is written + panel-reviewed** (`docs/manuscript/00_paper-draft-v0.md`): A2 (powered) + the positive L016 contribution (averaging produces apparent specificity, **earned by the E010 dose-response**) + F1 null (E008) + A3 null (E009). Remaining:
+The experimental ladder is **complete** and the **manuscript (v0.5) is drafted, figured, and panel-verified four ways** (`docs/manuscript/00_paper-draft-v0.md`): counter-argument ×2, first-principles, socratic. Every claim is either solid or honestly scoped:
+- **A2** real & measurable, powered (E006). **Per-individual F1 null** (E008, well-powered; **regime-robust to LoRA capacity**, E011). **A3** practical null (E009). **Headline (positive contribution): averaging inflates apparent brain-specificity** — averaged target +0.008 (E005) vs per-individual ~0 (E008) — + the matched-ppl/permuted-twin/per-subject protocol. The subjects-averaged **dose-response (E010/E010b) is hedged** to "suggestive but noisy" (the clean nested curve was a design artifact; random subsets are non-monotone — L020).
 
-1. **(Future-work experiment, the key open test — §6 of the draft) Strong-regime per-individual arm:** full fine-tuning (not light LoRA) on naturalistic data, per individual, with the permuted twin — to directly engage Negi-2025's *positive* per-individual encoding result and determine whether the per-subject null is a property of brain-tuning or of the matched-ppl light regime. This is the one result that would most strengthen (or qualify) the paper.
-2. **Per-subject optimization null on the LeBel voxelwise substrate** (common substrate with A2 — closes the substrate-mismatch limitation).
-3. **Figures** (`scripts/figures/`): the E010 dose-response curve + the +0.0081→+0.0001 collapse, the E006 A2 voxel map, the A3/E009 nulls with measured MDEs.
-4. Manuscript polish: final title, venue/length, related-work prose.
+Remaining (genuine forks / polish — Erfan's call):
+1. **The one open scientific door:** Negi-2025's regime — full fine-tuning + contrastive NT-Xent loss + **multi-subject naturalistic narrative fMRI** (which we LACK; LeBel is single-subject). A different objective+data paradigm; needs data acquisition. The only grounded path to a per-individual positive.
+2. **Manuscript polish toward submission:** final title, abstract tightening, related-work prose, venue/length; the A2 voxel-map figure could be upgraded.
+3. (Optional) per-subject null on the LeBel voxelwise substrate (closes the substrate-mismatch limitation §6.5) — but it's single-subject, so limited.
 
-**Decision for Erfan:** the paper's honest story is solid as-is (Fork-B, positive contribution earned); the strong-regime arm (1) is the highest-value addition before submission but is a real new experiment — his call on whether to invest it now or submit the current scope.
+**Recommendation:** the paper is submission-shaped as an honest Fork-B negative-with-positive-method. The next move is either polish→submit or acquire the multi-subject naturalistic data for the Negi-regime test. Both are Erfan's call (authorship + data/resource).
 
 ## Blockers
 
