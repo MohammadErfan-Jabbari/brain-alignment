@@ -259,4 +259,16 @@ E013 built the voxelwise per-individual brain-tuning loop (the deferred "E007", 
 
 (4) **Process:** built the deferred heavy pipeline (E007) tractably by reusing brain_tune (per-segment target) + the E006 eval — the differentiable Lanczos/FIR loop wasn't needed for a valid test. When a "multi-day build" blocks, look for the reuse that makes it a one-script build.
 
+### L027 — 2026-06-12 — The voxelwise distillation lever doesn't take hold at any λ (λ-sweep): neutral at low λ, degrading above, never brain-specific → consistent with the per-individual null, but a lever-failure not a clean same-substrate null
+
+E013 v2 fixed v1's catastrophic degradation with a KD anchor (E008 recipe), then λ-swept on UTS03 (high-NC voxels, base unique R²≈0.0187): λ=1 → real 0.0183 (≈base, neutral); λ=3 → 0.0086; λ=6 → 0.0130 (both degrade); λ=10 (v1, no anchor) → collapse. **At no λ does brain-tuning toward voxelwise BOLD improve held-out-story alignment over base, and the real arm never beats its permuted twin** (gap ≤0 throughout). Lessons:
+
+(1) **The voxelwise distillation lever fails to take hold.** The brain-MSE gradient toward voxelwise BOLD either no-ops (low λ) or damages the general contextual features the held-out ridge needs (high λ) — there's no λ window where it *improves* held-out alignment. So we cannot induce the improving manipulation needed to then test per-individual brain-specificity on this substrate via distillation. This is a **lever-failure / negative-on-method**, consistent with the per-individual null (reinforces it) but distinct from a clean same-substrate null.
+
+(2) **The substrate-mismatch is addressed-as-lever-failure, not closed.** Honest framing: on the powered voxelwise substrate the distillation lever is neutral-to-harmful and never brain-specific; a clean same-substrate per-individual null would need a *different* induction method (not MSE-readout distillation) that first improves alignment. We don't have one.
+
+(3) **n≥5 is moot.** The lever fails on a *single* subject across λ — a mechanism failure, not a power limit — so more subjects (denizenslab n≥5) won't change it. The n≥5 build is not worth it; decision made (per Erfan's "build n=3 then decide").
+
+(4) **Process win:** the manipulation-check (real_u > base_u) + the panel catching v1's anti-verification turned a false "closes substrate-mismatch" claim into an honest, well-characterized lever-failure via a cheap λ-sweep. Verify the manipulation before interpreting the contrast — every time.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->
