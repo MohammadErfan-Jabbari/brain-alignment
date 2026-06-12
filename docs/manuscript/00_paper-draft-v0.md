@@ -1,6 +1,6 @@
 # A brain-tuning gain that vanishes per individual: cross-subject-averaged fMRI targets inflate apparent alignment-specificity at matched perplexity
 
-**Draft v0** — 2026-06-11 (Session 8, analysis). Every number traces to a recorded `docs/experiments/ENNN` entry or `docs/learnings.md` Lnnn (cited inline). This is the Fork-B write-up (D018): the positive contribution is a methodological confound + the protocol that detects it; the optimization claims are characterized nulls.
+*Working draft (v0.9), 2026-06-12.* Contribution: an empirical measurement-validity result — a brain-tuning gain measured against a cross-subject-averaged fMRI target need not reflect alignment to any individual brain — with a confound-clean validation protocol (matched-perplexity + permuted-fMRI twin + per-individual inference). All reported numbers trace to a recorded experiment (`docs/experiments/ENNN`) or learning (`docs/learnings.md` Lnnn), cited inline; this provenance note is for the internal repo and would be dropped at submission.
 
 ---
 
