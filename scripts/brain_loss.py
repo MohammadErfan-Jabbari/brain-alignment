@@ -27,9 +27,9 @@ from __future__ import annotations
 
 import numpy as np
 
-BRAIN_LOSS_KINDS = ("mse", "cos", "pearson", "frozen", "cka")
+BRAIN_LOSS_KINDS = ("mse", "cos", "pearson", "frozen", "cka", "contrastive")
 # kinds that use a linear readout W: pred = W h  (frozen uses a frozen W)
-READOUT_KINDS = ("mse", "cos", "pearson", "frozen")
+READOUT_KINDS = ("mse", "cos", "pearson", "frozen", "contrastive")
 
 
 def mse_loss(pred, target):
@@ -90,6 +90,25 @@ def linear_cka_loss(h, target, eps: float = 1e-8):
     return 1.0 - cka
 
 
+def infonce_loss(pred, target, temp: float = 0.07):
+    """Symmetric InfoNCE / NT-Xent (CLIP-style) contrastive loss — Negi-2025's objective
+    family. Co-trained readout pred = W h (B, n_roi) is pulled toward its OWN-item BOLD
+    target and away from the other items' BOLD in the batch (positives on the diagonal).
+    Cosine-similarity logits / temperature; averaged over the two directions.
+
+    Caveat (honest): on the 5-ROI Tuckute target the contrastive space is low-dimensional,
+    so this is a weaker test of the objective axis than a voxelwise contrastive (E013); it
+    nonetheless asks whether a ranking/contrastive objective (vs MSE regression) changes the
+    per-individual result on data we have."""
+    import torch
+    import torch.nn.functional as F
+    p = F.normalize(pred, dim=-1)
+    t = F.normalize(target, dim=-1)
+    logits = p @ t.t() / temp                       # (B, B)
+    labels = torch.arange(p.size(0), device=p.device)
+    return 0.5 * (F.cross_entropy(logits, labels) + F.cross_entropy(logits.t(), labels))
+
+
 def brain_loss(kind: str, pred_or_h, target):
     """Dispatch to the requested brain-loss form.
 
@@ -104,6 +123,8 @@ def brain_loss(kind: str, pred_or_h, target):
         return neg_pearson_sq_loss(pred_or_h, target)
     if kind == "cka":
         return linear_cka_loss(pred_or_h, target)
+    if kind == "contrastive":
+        return infonce_loss(pred_or_h, target)
     raise ValueError(f"unknown brain-loss kind: {kind!r} (want one of {BRAIN_LOSS_KINDS})")
 
 

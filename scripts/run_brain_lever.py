@@ -45,7 +45,7 @@ CORPUS_HELDOUT = ROOT / "data/kd_corpus/wikitext103_sentences_heldout.txt"
 
 # Per-arm lambda_brain, set by LOSS-SCALE reasoning (blind to unique-R^2), so the
 # brain term is non-negligible vs CE for each form. mse runs a curve (see --lambda-grid).
-ARM_LAMBDA = {"mse": 10.0, "cos": 5.0, "pearson": 50.0, "cka": 5.0, "frozen": 10.0}  # verdict mse λ=10
+ARM_LAMBDA = {"mse": 10.0, "cos": 5.0, "pearson": 50.0, "cka": 5.0, "frozen": 10.0, "contrastive": 1.0}  # verdict mse λ=10; contrastive is CE-scale → λ=1
 VERDICT_LAYER = {12: 7, 24: 12, 28: 14}  # gpt2->7 (E002 peak); Qwen2.5-0.5B(24L)->12; fallback below
 
 
@@ -148,7 +148,7 @@ def brain_tune(model, tok, texts, Y, kind, lam_brain, lam_lm, layer, device,
 
     readout = None
     fW = None
-    if kind in ("mse", "cos", "pearson"):
+    if kind in ("mse", "cos", "pearson", "contrastive"):
         readout = nn.Linear(d, n_roi).to(device)
         nn.init.normal_(readout.weight, std=0.02); nn.init.zeros_(readout.bias)
         params = params + list(readout.parameters())
@@ -188,7 +188,7 @@ def brain_tune(model, tok, texts, Y, kind, lam_brain, lam_lm, layer, device,
             if kind is not None:
                 h = masked_mean(out.hidden_states[layer], enc["attention_mask"])  # (B,d)
                 tgt = Yt[bidx]
-                if kind in ("mse", "cos", "pearson"):
+                if kind in ("mse", "cos", "pearson", "contrastive"):
                     pred = readout(h)
                     bl = BL.brain_loss(kind, pred, tgt)
                 elif kind == "frozen":
