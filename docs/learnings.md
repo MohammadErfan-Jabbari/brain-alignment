@@ -209,4 +209,18 @@ A final premortem on the complete manuscript returned NEEDS-REFRAME: the "averag
 
 (3) **Process lesson (the hook was right):** I'd declared the work "done" without grounding two load-bearing claims — whether the data was truly unavailable (it wasn't; downloaded UTS01/02) and whether the confound had a live target (lit-scout: yes-but-narrow). Grounding (data audit + 2 lit-scout passes + a methods digest) materially changed the data-availability story (E012), the novelty scope (Lage-Castellanos/Nili known mechanism), AND the paper's headline (protocol, not confound). Ground before declaring done.
 
+### L023 — 2026-06-12 — Second reframe (panel-converged): lead with the well-powered per-individual NULL, not the protocol; the null is sensitivity-confirmed (power 1.0 at δ=+0.003); only per-individual inference caught the averaging artifact
+
+A panel pass on the reframed v0.7 (first-principles + counter-argument, fable) found the *protocol-headline* was an over-correction. Two findings, both acted on:
+
+(1) **"No prior runs the 3-control protocol end-to-end" was OVERCLAIMED** and rested on a factual error: I wrote "per-subject works lack a permuted-brain downstream control" — but **Moussa 2025 (per-subject) runs exactly that on downstream** (its block-permuted-fMRI ablation). The real residual gap is *one* control — matched-perplexity. Fixed in abstract/§1/§5.
+
+(2) **The protocol-headline is circular** ("a protocol shown only to reject is not validated") AND — the sharp point — **two of the three controls were FOOLED by the averaging artifact**: the +0.008 averaged-target gain *beats* its permuted twin and *is* matched-ppl by construction; **only per-individual inference caught it.** So the operative corrective is subject-level inference, not a 3-part instrument. Stated honestly now.
+
+→ **Reframed (2nd time) to the empirical finding as headline:** "a brain-tuning gain against a cross-subject-averaged target vanishes per individual." This is a falsifiable result (not a methodological promise), has a live target (Tuckute/RSA), and is distinct from Moussa (we show *zero* per-individual, not merely *suboptimal* → artifactual not attenuated). The protocol is demoted to method (§3).
+
+(3) **Sensitivity demo closes the "just underpowered" attack** (`scripts/sensitivity_e008.py`): on E008's observed between-subject sd (0.00062), the t-CI test has **power 1.00 to detect a +0.003 per-individual effect, 0.99 at +0.001, 0.72 at +0.0006** → the observed +0.0001 is a TRUE null, not a power failure. Converts the analytic MDE into a demonstrated power curve.
+
+(4) **Process lesson:** reframes can over-correct. The protocol frame fixed "no live target" but introduced circularity; the panel caught it and converged on the empirical-null frame, which survives both. Run the panel on the REFRAMED artifact, not just the original. (Also: still no `tuckute-2024` canonical note — the live-target claim is grounded by the lit-scout's direct quote + our data (load_tuckute averages over UIDs), but a digest would fully ground it — flagged.)
+
 <!-- Add new lessons below as we hit them. Negative results count. -->
