@@ -21,10 +21,10 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 - [x] 2026-06-12 — **Doc-shortfall audit swarm** (5 haiku) → fixed README missing-ladder-row, charter stale "Activating" status; filed the rest below.
 - [x] 2026-06-12 — Quiz-style feedback saved to memory + gbrain (vary correct-answer position; prefer open-ended).
 
-### Doc-audit follow-ups (S9 swarm — real, low-severity, write-up phase)
-- [ ] **Experiment Status-line cleanup:** E003/E004/E006/E008/E009/E011/E012/E013 carry stale "DESIGN LOCKED / pre-run / oracle-gate pending" headers despite recorded results — update to COMPLETE/RAN/DEFERRED. Mechanical.
-- [ ] **E005 verdict lead:** the doc body still leads with the retracted "F1 CONFIRMED in-domain"; make the honest Session-8 addendum (overstated → per-individual null) the lead verdict + fix the Status line.
-- [ ] **R03/R01 literature freshness:** add inline "↳ see R04 correction" notes (or fix) for Moussa +30%, Bilgin loss "L2"→cosine, Cheng/Yu LID-sign agreement, Pirlot "monkey IT"→V1, Feghhi/Hadidi naming — R04 corrected these but R03/R01 still assert the originals.
+### Doc-audit follow-ups (S9 swarm) — DONE 2026-06-12
+- [x] 2026-06-12 — **Experiment Status-line cleanup:** E003/E004/E006/E008/E009/E011/E012/E013 headers updated to COMPLETE/DEFERRED/PARTIAL with the recorded verdict.
+- [x] 2026-06-12 — **E005 verdict lead:** added a top "read the ADDENDUM first" banner + a SUPERSEDED flag on §Interpretation + fixed the Status line; the honest per-individual-null verdict now leads.
+- [x] 2026-06-12 — **Literature freshness:** R03 already self-corrects via inline ↳ Correction notes (haiku audit double-counted the original-claim text); added an R04-wins freshness pointer to **R01** (Pirlot/V1 not Federer/IT; Merlin&Toneva 2026).
 
 ### Done this session (S8 continuation, 2026-06-12)
 - [x] 2026-06-12 — **E011** heavy LoRA: per-individual null robust to capacity (+0.0004, incl 0; L019).
@@ -43,7 +43,7 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 - [ ] **(Fresh working build / online) Demonstrate the matched-ppl control on ONE external published result** — show a Negi/Schwartz-style gain shrinks at matched ppl. The "main-track lift." Multi-day.
 - [ ] **(Online) Expand E015** to more families (OPT/Llama/Mistral) to beat the n=8/3-family-cluster caveat; the law is currently a capability-range law within modern decoder transformers (Pasquiou 2022: non-monotone across RNN/transformer classes).
 - [ ] **(Fresh working session) Full-FT multi-subject naturalistic voxelwise** (denizenslab n=6) — the one untested *induction method*; n-conditional on inducing an above-base improvement (E013/L027).
-- [ ] **(Erfan's OK — process, L031) Operating rule for Stop-hook re-fires:** treat a re-injected standing autonomous prompt as continuation only until a newer explicit user instruction supersedes; on an explicit "wrap/stop", wrap even if the hook re-fires. Propose for CLAUDE.md.
+- [x] 2026-06-12 — **(L031) Operating rule for Stop-hook re-fires** — Erfan-approved + ADDED to repo `CLAUDE.md` ("Working with Erfan": auto re-fires aren't fresh intent; most recent explicit message wins; on "wrap/stop", wrap).
 - [ ] **(Analysis polish) Manuscript pre-submission:** trim "one untested door" repetition (premortem #5, reads as unfinished Fork-A); venue/length; optional §2 prose.
 
 ### Done earlier this session (S8, 2026-06-11)

@@ -89,6 +89,11 @@ change that compounds.
   say so and why. Prompts may have typos; infer intent.
 - Simple/single-step → just do it. Complex/vague/risky → plan first, then go. If we discussed the
   plan this session, proceed freely.
+- **Stop-hook / autonomous re-fires are not fresh intent (L031).** When an automated hook re-injects a
+  standing "keep going" prompt, treat it as *continuation only until a newer explicit user instruction
+  supersedes it.* Erfan's most recent explicit message wins over the auto-re-fire — on an explicit
+  "wrap up / stop", wrap even if the hook keeps firing. The autonomous mandate is real but bounded by
+  the last direct human instruction.
 
 ## Git — commit continuously and atomically
 
