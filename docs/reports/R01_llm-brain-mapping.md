@@ -3,6 +3,7 @@
 **Last updated:** 2026-06-10
 **Status:** Synthesis from existing canonical notes, written to be read and understood end-to-end. Gaps flagged inline (§7). No new search this pass — every literature claim cites its canonical note, and the one own-data result (G2) cites the recorded E002 experiment, never an invented number.
 **Sources:** synthesized from `docs/literature/canonical/` + `docs/01-research-landscape.md`.
+**Literature freshness:** some per-paper specifics here predate the full-PDF re-reads in `R04_gap-analysis.md` — **R04 carries the authoritative corrections** (e.g. the neural-data-regularizer precedent is **Pirlot 2022 / monkey V1**, not Federer / IT, and a shuffled-label control there reproduced the accuracy gain; the causal-necessity result is **Merlin & Toneva 2026**). Where this report and R04 differ on a literature detail, R04 wins.
 **Scope:** what the mapping *is*, what *drives* it, how it *behaves* under scale/compression, and how to *measure* it honestly. This is the foundation the thesis stands on; the distillation use case itself is out of scope here (see `00-charter.md` and `R03`).
 **Who this is for:** you (now, or in three months), a committee member, or a collaborator who wants to understand *what we are standing on* before touching the experiments.
 

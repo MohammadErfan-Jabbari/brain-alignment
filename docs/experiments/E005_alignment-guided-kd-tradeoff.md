@@ -1,11 +1,13 @@
 # Experiment — E005: alignment-guided KD vs perplexity-only KD at MATCHED PERPLEXITY (the F1 headline / rate–distortion trade-off curve)
 
-**Created:** 2026-06-11 · **Status:** DESIGN (pre-lock; oracle review pending; framing confirmation pending Erfan) · **Mode:** working
+**Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11) — in-domain +0.0081 was OVERSTATED (pseudo-replicated, one outlier fold); honest verdict = a small brain-specific *trend*, NOT a "CI-excludes-0" result; per-individual = NULL, confirmed by E008. **The ADDENDUM below is the lead verdict; the §Interpretation is superseded.** (L014→L015→L016) · **Mode:** working
 **Direction:** R03/R04 F1 (L3) — the headline thesis experiment. Decides A (alignment-guided distillation wins) vs B (honest trade-off-curve / measurement-rigor framing) **on evidence**.
 **Predecessors:** `E003` (perplexity-only KD PARTIAL; L011 — alignment co-varies with perplexity) · `E004` (lever real-but-small-fragile, co-trained MSE front-runner) · `E006` (powered A2 PASS at voxel scale; lever statistically underpowered)
 **Theory:** `../06-theory-grounding.md` §4 (rate–distortion = the F1 trade-off curve), §2 (DPI ceiling)
 **Code:** reuses `scripts/distill.py` (λ_brain), `scripts/brain_loss.py` (co-trained MSE), `scripts/run_kd_alignment.py` (KD harness), `scripts/run_lebel_encoding.py` (powered alignment measurement)
 **Output:** `outputs/E005_tradeoff.json`
+
+> **⚠ READ THE ADDENDUM FIRST (bottom of file).** The §Interpretation below records the *original* "F1 CONFIRMED in-domain" read, which the Session-8 panel showed was **overstated** (pseudo-replication + one outlier fold). The honest verdict — a small brain-specific trend, and a **per-individual NULL** confirmed by E008 — is in the ADDENDUM and `ladder.md` (L3 = ❌). The §Interpretation is kept only as a record of what we first thought (L014→L015→L016).
 
 ---
 
@@ -60,6 +62,8 @@ Compare alignment **at equal held-out perplexity**, not equal budget. Trace each
 **PRIMARY statistic — paired (kd_brain − kd_brain_permuted) at MATCHED PERPLEXITY (55.4 vs 55.3): +0.0081 [CI +0.0023, +0.0171], CI excludes 0.** 73% of 15 pairs positive. Per-fold [+0.0033, +0.0067, +0.0020, +0.0047, +0.0239]; **leave-fold-4-out = +0.0042 (4/5 folds positive)** — robust, unlike E004's fold-4-dependent lever. Reference (ppl-confounded): kd_brain − kd_ppl = +0.0068, *despite kd_brain having worse ppl* (55 vs 51) — so the gain is NOT from being a better LM (rules out the L011 confound).
 
 ## Interpretation
+
+> **⚠ SUPERSEDED — historical record only.** Everything in this section was the *first* read; it is overstated. See the ADDENDUM and `ladder.md` for the honest verdict (small trend → per-individual NULL, E008/L016). Kept un-edited so the correction is traceable (per the repo's record-don't-rewrite convention).
 
 **F1 CONFIRMED in-domain (Fork A supported).** Alignment-guided KD recovers **brain-specific** alignment **beyond** perplexity-only KD **at matched perplexity** — the dissociation E003 (L011) and E004 could not cleanly establish. The KD-KL anchor + the matched-ppl-by-construction permuted-twin design cleaned up E004's fragility (4/5 folds positive, robust to the fold-4 outlier, and the gain holds despite slightly-worse ppl). This flips the oracle's "Fork B more likely" prior: the in-domain matched-ppl test is positive.
 
