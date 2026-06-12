@@ -84,19 +84,30 @@ def main():
     ap.add_argument("--reliability-thresh", type=float, default=0.5)
     ap.add_argument("--n-folds", type=int, default=3)
     ap.add_argument("--epochs", type=int, default=3)
-    ap.add_argument("--lr", type=float, default=2e-4)
+    ap.add_argument("--lr", type=float, default=None, help="default 2e-4 (LoRA) / 5e-5 (full-FT)")
     ap.add_argument("--lambda-brain", type=float, default=10.0)
     ap.add_argument("--lora-r", type=int, default=16)
+    ap.add_argument("--no-lora", dest="use_lora", action="store_false",
+                    help="E017/I2: FULL fine-tune instead of LoRA (the untested-door regime)")
+    ap.set_defaults(use_lora=True)
     ap.add_argument("--batch-size", type=int, default=16)
     ap.add_argument("--n-perm", type=int, default=1)
     ap.add_argument("--seeds", nargs="+", type=int, default=[0])
     ap.add_argument("--limit-tune", type=int, default=None, help="smoke: cap tune segments")
     ap.add_argument("--out", default="outputs/E013_lebel_tune.json")
     args = ap.parse_args()
+    if args.lr is None:
+        args.lr = 2e-4 if args.use_lora else 5e-5   # full-FT needs a gentler LR (mirror run_brain_lever)
+    print(f"MODE: {'LoRA r%d' % args.lora_r if args.use_lora else 'FULL fine-tune'}  lr={args.lr}  "
+          f"kd_anchor={args.kd_teacher}", flush=True)
 
     import torch
     from transformers import AutoConfig
     device = "cuda" if torch.cuda.is_available() else "cpu"
+    # held-out OOD perplexity probe (catastrophic-forgetting / ppl-collapse detector for full-FT; E017)
+    from run_ppl_alignment_law import load_wikitext_sentences
+    ppl_probe = load_wikitext_sentences(200)
+    Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     nlayers = AutoConfig.from_pretrained(args.model).num_hidden_layers
     layer = VERDICT_LAYER.get(nlayers, max(1, nlayers // 2))
     eng1000 = L._eng1000()
@@ -130,8 +141,9 @@ def main():
         # untuned baseline unique R^2 on eval stories
         base, _ = RBL.load_model(args.model, device)
         base_u, _ = eval_unique_r2(base, tok, eval_st, subj, vox, layer, device, eng1000, args.n_folds)
+        base_ppl = RBL.eval_perplexity(base, tok, ppl_probe, device)
         del base; torch.cuda.empty_cache()
-        print(f"  untuned eval unique R^2 = {base_u:+.4f}", flush=True)
+        print(f"  untuned eval unique R^2 = {base_u:+.4f}  base ppl = {base_ppl:.1f}", flush=True)
 
         rows = []
         for seed in args.seeds:
@@ -139,9 +151,10 @@ def main():
             RBL.P.set_seed(seed)
             m, _ = RBL.load_model(args.model, device)
             m = RBL.brain_tune(m, tok, texts_tune, Y_tune, "mse", args.lambda_brain, 1.0, layer, device,
-                               args.epochs, args.lr, args.batch_size, seed, use_lora=True,
+                               args.epochs, args.lr, args.batch_size, seed, use_lora=args.use_lora,
                                model_name=args.model, lora_r=args.lora_r, teacher=kd_teacher)
             real_u, _ = eval_unique_r2(m, tok, eval_st, subj, vox, layer, device, eng1000, args.n_folds)
+            real_ppl = RBL.eval_perplexity(m, tok, ppl_probe, device)
             del m; torch.cuda.empty_cache()
             # permuted twins
             perm_us = []
@@ -150,15 +163,19 @@ def main():
                 mp, _ = RBL.load_model(args.model, device)
                 Yperm = BL.block_permute(Y_tune, n_blocks=10, seed=1000 + seed * 10 + p)
                 mp = RBL.brain_tune(mp, tok, texts_tune, Yperm, "mse", args.lambda_brain, 1.0, layer, device,
-                                    args.epochs, args.lr, args.batch_size, seed, use_lora=True,
+                                    args.epochs, args.lr, args.batch_size, seed, use_lora=args.use_lora,
                                     model_name=args.model, lora_r=args.lora_r, teacher=kd_teacher)
                 pu, _ = eval_unique_r2(mp, tok, eval_st, subj, vox, layer, device, eng1000, args.n_folds)
                 perm_us.append(pu); del mp; torch.cuda.empty_cache()
             gap = real_u - float(np.mean(perm_us))
             rows.append({"seed": seed, "real_u": real_u, "perm_u_mean": float(np.mean(perm_us)),
                          "perm_us": perm_us, "gap": gap, "base_u": base_u,
+                         "base_ppl": base_ppl, "real_ppl": real_ppl,
+                         "ppl_ratio": real_ppl / base_ppl if base_ppl else None,
                          "manip_ok": bool(real_u > base_u)})
-            print(f"  [s{seed}] base={base_u:+.4f} real={real_u:+.4f} perm={np.mean(perm_us):+.4f} GAP={gap:+.4f}  MANIP_OK(real>base)={real_u>base_u}", flush=True)
+            print(f"  [s{seed}] base_u={base_u:+.4f} real_u={real_u:+.4f} perm={np.mean(perm_us):+.4f} "
+                  f"GAP={gap:+.4f}  MANIP_OK(real>base)={real_u>base_u}  ppl {base_ppl:.1f}->{real_ppl:.1f} "
+                  f"(x{real_ppl/base_ppl:.2f})", flush=True)
         results["subjects"][subj] = {"n_vox": int(len(vox)), "tune_stories": tune_st, "eval_stories": eval_st,
                                      "base_u": base_u, "rows": rows,
                                      "gap_mean": float(np.mean([r["gap"] for r in rows]))}

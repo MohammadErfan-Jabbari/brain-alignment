@@ -30,3 +30,16 @@ Contiguous story-level held-out split (E006); phone-tier + eng1000 + length/posi
 - Does reproducing on LeBel (English monolingual) fairly stand in for the Negi (bilingual) gain it's meant to control — or must the framing be "a representative brain-tuning gain," not "Negi's gain"?
 
 **Output:** `outputs/E017_matched_ppl_control/`. **No rung flips without Erfan; headline/spine decision = Erfan (STOP at verdict).**
+
+## ORACLE GATE → HOLD, REFRAMED (fable, 2026-06-13). All four fixes adopted; E017 re-scoped.
+The pre-compute gate returned **HOLD** with a deep, correct critique. Reframe:
+1. **E017 is NOT the I2 "supplied the field's missing control" claim — that already exists.** Negi's *stated* gap is the **downstream** matched-ppl control; on **encoding** Negi already ran the permuted/TR-shuffle null (his C2). E017 reproduces+controls an *encoding* gain → its permuted twin is largely redundant with Negi C2; only the generic-FT arm is new. **The downstream matched-ppl+permuted control already lives in E009 (bounded null); the cross-family quality law in E015/I1.** So the I2 contribution ("matched-ppl is the missing control") is **substantially already made by E009 + E015** — do not let the manuscript imply E017 closes Negi's downstream gap.
+2. **Null-by-construction risk:** E013 ran this exact MSE-pooled-feature readout on these exact 3 subjects → mechanism failure at every λ (L027); E011 showed the binding constraint is the *objective*, not the *parameterization*. Full-FT is a parameterization change with worse catastrophic-forgetting risk → no mechanistic reason it beats vanilla where LoRA didn't. If no gain, the generic-FT control has nothing to control (the E009/L017 trap).
+3. **E015-as-ppl-intercept is a category error** (it's a between-model correlation, operative-band CI includes 0 — not a within-model slope). Match ppl **by construction** (anchor/early-stop the generic-FT arm to the brain-FT arm's measured held-out ppl), not by covariate adjustment.
+4. **E017 ≠ I3's door** (which is *multi-subject* denizenslab n=6); it's the closed n=3 LeBel readout with full-FT swapped for LoRA.
+
+**→ RE-SCOPE: E017 = a cheap, single-subject FULL-FT FEASIBILITY GATE (a de-risking precursor to the I3 denizenslab build), NOT "the I2 control on a reproduced gain."** Predeclared (oracle PASS-path):
+- Run **UTS03 (best SNR) full-FT** with the KD anchor (the E013-v2 rescue) + held-out OOD perplexity tracking. **`manip_ok` gate = does full-FT beat vanilla on held-out-story unique R² WITHOUT ppl collapse?**
+- **PASS** (full-FT real_u > base_u, ppl not collapsed, and beats its permuted twin) → a **Fork-A-relevant surprise** (induction works via full-FT where LoRA failed) → **STOP for Erfan** before scaling to the full matrix.
+- **FAIL** (full-FT can't clear `manip_ok` where LoRA couldn't, or only via ppl collapse) → **documented KILL of the LeBel-encoding/readout route** (converges with E013/E011); the I2 matched-ppl contribution is **banked in E009 + E015**; redirect remaining induction hope to I4/TRIBE (I3/denizenslab is data-blocked). This negative is itself a useful feasibility datum for the manuscript.
+**Code:** `run_lebel_tune.py` extended with `--no-lora` (full-FT, lr 5e-5) + per-arm held-out ppl. **The matched-ppl `generic-FT` arm is built ONLY if `manip_ok` passes** (no gain ⇒ no control to run).
