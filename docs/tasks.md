@@ -23,9 +23,15 @@ experiment records). Rungs flip only on Erfan's confirmation.
 Work top-to-bottom. Each item: run → judge with the panel + Codex → record (experiment doc, learnings,
 decisions, ladder/tasks) → only then advance. Numbers come from runs; **no rung flips without Erfan.**
 
-- [ ] **I1 · Expand E015 — cross-family alignment∝−ppl law (OPT/Llama/Mistral).** Quick, low-risk, existing
-  harness (`scripts/run_ppl_alignment_law.py`); needs only model downloads. Beats the n=8/3-family-cluster
-  caveat and *feeds I2* (the matched-ppl control needs the cross-family law to bite). Record into E015.
+- [x] **I1 · Expand E015 — cross-family alignment∝−ppl law (OPT/Llama/Mistral). DONE 2026-06-13.**
+  22 models / 6 families, **bits-per-byte** x-axis (oracle F1 fix; per-token ppl is tokenizer-contaminated).
+  Verdict: cross-family law **r=−0.783** (family-cluster CI [−0.911,−0.500]), LOFO-robust, scale-controlled
+  partial −0.675 — but floor-steepened (operative capable-band r≈−0.48, CI incl. 0). v2's −0.92 was inflated
+  (per-token-ppl + best-layer + 3-family span). **Q2 (arch beyond quality): underpowered hypothesis** (Llama/
+  Mistral +0.006–0.009 residual, vocab-robust, DPI-permitted; n=1–2/family, p=0.20, no common support).
+  **L016 tie-in:** law rides the averaged/shared-stimulus component (per-individual SNR-limited). Full
+  oracle+panel(counter/premortem/first-principles)+Codex audit in E015 doc; learnings L034/L035. No rung flips.
+  **→ Analysis-lane FLAG (Erfan): manuscript's "r≈−0.92" needs correction to ≈−0.78. Antonello-2023 digested.**
 - [ ] **I2 · The matched-ppl control on an EXTERNAL published result — the "main-track lift" (premortem #1,
   highest leverage for the paper).** Reproduce a Negi/Schwartz-style brain-tuning *gain*, then show it
   **shrinks at matched perplexity** under our permuted-twin + ppl-intercept control. This is the contribution
