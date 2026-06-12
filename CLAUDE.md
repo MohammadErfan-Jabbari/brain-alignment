@@ -159,6 +159,31 @@ These instructions, the docs, and the agents are living. When a workflow keeps g
 or a mistake repeats, update the relevant file. Per Erfan's global rule, propose changes to his
 private/global instructions before editing them — but this repo's own files are ours to keep current.
 
+## Codex (second-model critic + rescue — subordinate to the docs brain)
+
+We drive **Codex** (OpenAI CLI, `gpt-5.5`) from Claude via the `codex` plugin as an *independent second
+model*. Full procedure + personas + command surface in **`docs/references/codex-usage.md`**. Two jobs only:
+
+1. **A critic that ADDS to the thinking panel.** The panel (`counter-argument`, … fable/sonnet) attacks
+   the *conclusion*; Codex attacks the *code* — the layer the panel doesn't reach. Use
+   `/codex:adversarial-review` for a single pass, or spin up a **Codex persona panel** — 1–4 background,
+   read-only `task` runs via `codex:codex-rescue`, each with a distinct reviewer personality
+   (statistical referee · reviewer-2 skeptic · first-principles re-deriver · reproducibility/leakage
+   auditor) — and collect with `/codex:result`. Code-level analogs of our panel lenses.
+2. **Rescue / second implementation** of a buggy or gnarly analysis script (`codex:codex-rescue`, the
+   one place `--write` is appropriate). A fresh impl that agrees with ours is evidence; one that
+   disagrees is a bug lead.
+
+**Model/effort policy (asymmetric: medium worker, xhigh critic).** Global default
+`model_reasoning_effort = "xhigh"` (`~/.codex/config.toml`) → **reviews run xhigh by inheritance** (the
+review commands expose no per-call `--effort`). **Delegated `task` work passes `--effort medium`
+explicitly** to override down — fast worker, slow critic; bump only for a genuinely hard build.
+
+**The hard line.** Codex **never** produces a science number or flips a rung — numbers come only from
+the `docs/` brain, verdicts only from Erfan. Codex reviews code correctness and proposes
+implementations; it does not adjudicate a hypothesis. **Read-only by default** for critique (`--write`
+only for Scenario 2). **Stop-review-gate stays OFF** (it fights the docs-first `/wrap` ritual).
+
 ## graphify (code/corpus navigator — subordinate to the docs brain)
 
 graphify builds a queryable knowledge graph of this repo at `graphify-out/` (god nodes,
