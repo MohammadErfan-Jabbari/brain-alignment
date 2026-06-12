@@ -7,12 +7,24 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 
 **Experimental program is CLOSED (Erfan-confirmed 2026-06-12).** The next 2–3 sessions are ANALYSIS — Erfan needs to be walked through everything after R03. No new evidence; consume + communicate it.
 
-- [ ] **Walk R03→now (the get-up-to-speed arc):** R03 hypothesis → E005 apparent +0.0081 → E008 per-individual null → the four robustness escapes (E011 capacity / E013b objective / E013 voxelwise substrate / E014 measurement-side) → Fork-B reframe. Source: `docs/experiments/ENNN`, `learnings.md` L011–L028, `upspeed.md`.
+- [~] **Walk R03→now (the get-up-to-speed arc)** — IN PROGRESS (S9). Layer 0 (frame/bet) + Layer 1 (measurement/lever/E007-reroute) taught + captured in `docs/reports/R05` (LIVING). **Resume at Layer 3 = E005** (apparent +0.0081 → E008 per-individual null) → robustness escapes (E011/E013b/E013/E014) → Fork-B reframe. Teaching each = writing the next R05 section (§9–§14). Source: `docs/experiments/ENNN`, `learnings.md` L011–L030.
 - [ ] **Figures:** confirm `scripts/figures/make_figures.py` renders the recorded numbers (averaging-collapse / powered A2 / A3 nulls / dose-response-with-caveat).
 - [ ] **Manuscript read-through → submit:** venue/length; optional §2 prose polish. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
 
 ### Queued — next MAJOR working build (a fresh session; Erfan-approved as possible next step)
 - [ ] **Full-FT multi-subject naturalistic voxelwise (the one untested door).** Full fine-tuning (NOT a LoRA distillation readout) on denizenslab n=6 (`data/paper-repos/speech-llm-brain`), under the protocol. Scoped in `docs/experiments/E013_*.md`. n-conditional on inducing an above-base improvement (the distillation lever's failure is a mechanism failure, E013/L027). Multi-day build — launch fresh.
+
+### Done this session (S9 — analysis, 2026-06-12)
+- [x] 2026-06-12 — **Taught Layer 0 + Layer 1** of the thesis arc (Socratic, native `socratic-tutor`); Erfan mastered the frame/bet + measurement/lever/MDE/reroute.
+- [x] 2026-06-12 — **`docs/07-concepts-primer.md`** created — DRY home for reusable primitives (voxel/ROI, encoding model, unique R², noise ceiling, perplexity, datasets, E/R/L/D-numbering); E002/R03/README point at it.
+- [x] 2026-06-12 — **`docs/reports/R05`** created (LIVING first-principles narrative, Layer 0→1); **panel-reviewed** (counter-argument/first-principles/socratic/premortem) + revised (ceiling 0.353→0.49/~7%, ρ′ relabel, A3 novelty scope, DPI chain, §3 per-rung verdicts, theory hedges, pedagogical glosses).
+- [x] 2026-06-12 — **Doc-shortfall audit swarm** (5 haiku) → fixed README missing-ladder-row, charter stale "Activating" status; filed the rest below.
+- [x] 2026-06-12 — Quiz-style feedback saved to memory + gbrain (vary correct-answer position; prefer open-ended).
+
+### Doc-audit follow-ups (S9 swarm — real, low-severity, write-up phase)
+- [ ] **Experiment Status-line cleanup:** E003/E004/E006/E008/E009/E011/E012/E013 carry stale "DESIGN LOCKED / pre-run / oracle-gate pending" headers despite recorded results — update to COMPLETE/RAN/DEFERRED. Mechanical.
+- [ ] **E005 verdict lead:** the doc body still leads with the retracted "F1 CONFIRMED in-domain"; make the honest Session-8 addendum (overstated → per-individual null) the lead verdict + fix the Status line.
+- [ ] **R03/R01 literature freshness:** add inline "↳ see R04 correction" notes (or fix) for Moussa +30%, Bilgin loss "L2"→cosine, Cheng/Yu LID-sign agreement, Pirlot "monkey IT"→V1, Feghhi/Hadidi naming — R04 corrected these but R03/R01 still assert the originals.
 
 ### Done this session (S8 continuation, 2026-06-12)
 - [x] 2026-06-12 — **E011** heavy LoRA: per-individual null robust to capacity (+0.0004, incl 0; L019).

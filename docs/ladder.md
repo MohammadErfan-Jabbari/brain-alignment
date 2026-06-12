@@ -51,7 +51,7 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 **The manuscript (v0.9) is content-complete + panel-converged + artifact-complete** (`docs/manuscript/00_paper-draft-v0.md`): references verified, cross-refs resolve, gate = READY (thesis/workshop). Headline = the well-powered per-individual NULL + the averaging-confound measurement-validity result; the dose-response (E010/E010b) is hedged, not load-bearing.
 
 **Analysis-session backlog (get-up-to-speed, in order):**
-1. **Walk R03→now:** the arc from "brain-as-training-signal hypothesis" (R03) through E005's apparent +0.0081 → E008's per-individual null → the four robustness escapes (E011/E013b/E013/E014) → the Fork-B reframe. Each `docs/experiments/ENNN_*.md` + `docs/learnings.md` L011–L028 carries it; `upspeed.md` is the prose summary.
+1. **Walk R03→now** — IN PROGRESS (S9): Layer 0 + Layer 1 done, captured in the new LIVING report `docs/reports/R05_thesis-narrative-from-first-principles.md` (pedagogical, course-grounded) + the new `docs/07-concepts-primer.md`. **Resume at Layer 3 = E005** (apparent +0.0081 → E008 per-individual null) → robustness escapes (E011/E013b/E013/E014) → Fork-B reframe; each becomes R05 §9–§14. Source: `docs/experiments/ENNN_*.md` + `learnings.md` L011–L030.
 2. **Figures:** confirm the 4 figures (`scripts/figures/make_figures.py`) render the recorded numbers — averaging-collapse (Fig 2), powered A2 (Fig 3), A3 nulls (Fig 4), dose-response-with-caveat (Fig 1).
 3. **Manuscript read-through** for thesis/workshop submission: resolve venue/length, optional §2 prose polish; the 5 reference [VERIFY] flags are now cleared (lit-scout, 2026-06-12).
 
