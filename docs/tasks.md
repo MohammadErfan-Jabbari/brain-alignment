@@ -3,11 +3,26 @@
 Durable backlog. The session task tracker is ephemeral; this file is the source of truth across
 sessions. Move items between sections; don't delete (strike completed ones with a date).
 
-## Now (current focus — A3, the central contribution after the F1 reframe)
+## Now (current focus — ANALYSIS: get Erfan up to speed R03→now, then submit-polish)
 
-- [ ] **A3 / E009 PILOT (the "run A3" Erfan confirmed; oracle-gated, pilot-first).** Build the **all-data save-checkpoint** training mode (the existing per-fold students aren't saved/usable downstream) + the **offline OOD-perplexity-ratio** harness (WikiText → LeBel TextGrid transcripts / Pereira) + a **text-feature pseudo-target control** arm. Run the 3–5-seed variance pilot to: (a) confirm the brain-specific gap is nonzero in all-data students, (b) **MEASURE the real MDE** (don't borrow Guo's 2–4pp), (c) **λ-sweep** the max brain-specific Δ at matched ppl. Pilot green-lights or cheaply kills full A3. Then thinking panel. Full recipe + KILL rule: `docs/experiments/E009_a3-practical-payoff.md`.
+**Experimental program is CLOSED (Erfan-confirmed 2026-06-12).** The next 2–3 sessions are ANALYSIS — Erfan needs to be walked through everything after R03. No new evidence; consume + communicate it.
 
-### Done this session (S8, 2026-06-11)
+- [ ] **Walk R03→now (the get-up-to-speed arc):** R03 hypothesis → E005 apparent +0.0081 → E008 per-individual null → the four robustness escapes (E011 capacity / E013b objective / E013 voxelwise substrate / E014 measurement-side) → Fork-B reframe. Source: `docs/experiments/ENNN`, `learnings.md` L011–L028, `upspeed.md`.
+- [ ] **Figures:** confirm `scripts/figures/make_figures.py` renders the recorded numbers (averaging-collapse / powered A2 / A3 nulls / dose-response-with-caveat).
+- [ ] **Manuscript read-through → submit:** venue/length; optional §2 prose polish. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
+
+### Queued — next MAJOR working build (a fresh session; Erfan-approved as possible next step)
+- [ ] **Full-FT multi-subject naturalistic voxelwise (the one untested door).** Full fine-tuning (NOT a LoRA distillation readout) on denizenslab n=6 (`data/paper-repos/speech-llm-brain`), under the protocol. Scoped in `docs/experiments/E013_*.md`. n-conditional on inducing an above-base improvement (the distillation lever's failure is a mechanism failure, E013/L027). Multi-day build — launch fresh.
+
+### Done this session (S8 continuation, 2026-06-12)
+- [x] 2026-06-12 — **E011** heavy LoRA: per-individual null robust to capacity (+0.0004, incl 0; L019).
+- [x] 2026-06-12 — **E013b** contrastive/InfoNCE objective (n=9): null holds across objectives at matched ppl (−0.0002; L025).
+- [x] 2026-06-12 — **E013** voxelwise same-substrate (UTS01/02/03 + λ-sweep): distillation lever doesn't take hold at any λ; v1 failed-manipulation retracted; mechanism failure (n≥5 moot); L026/L027.
+- [x] 2026-06-12 — **E014** averaging on the encoding brain-score: NOT a confound-lift (per-subject positive → legitimate-SNR/estimand); fixed unseeded-PCA bug; verified before folding → paper unchanged; L028.
+- [x] 2026-06-12 — **Manuscript v0.9 COMPLETE-AS-ARTIFACT:** References (verified vs primary sources, lit-scout); completeness-critic closed orphan citations + dangling §-pointers.
+- [x] 2026-06-12 — **Ladder FLIPPED (Erfan-confirmed):** experimental program closed → analysis/write-up phase.
+
+### Done earlier this session (S8, 2026-06-11)
 - [x] 2026-06-11 — ~~LeBel voxelwise TRANSFER test~~ **DROPPED** — S8 panel showed it underpowered (paired-LeBel MDE needs ρ≥0.9 to see even +0.0081; `reanalyze_e005_e006.py`).
 - [x] 2026-06-11 — **E008 per-participant solidification** ran → in-domain F1 is a **per-subject NULL** (well-powered); E005's +0.0081 = group-averaged-target artifact. Ladder L3/F1 ❌, Fork-B reframe (D018, Erfan-confirmed). L016.
 - [x] 2026-06-11 — **Doc-consistency:** feghhi-2024 → hadidi-2024 canonical redirect; verified R03/R04 have **no** stale "E004=headline" refs (0 mentions).
