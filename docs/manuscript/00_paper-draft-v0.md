@@ -125,3 +125,29 @@ We offer a validation protocol — matched-perplexity baseline, permuted-fMRI tw
 | NC matched | 0.491 | `E008` |
 
 **Status:** v0.9 draft (analysis session), panel-converged + closing-gate passed (READY-WITH-MINOR-EDITS for thesis/workshop; main-track needs the demonstrated-on-a-published-result lift below). Headline = the well-powered per-individual NULL (the E010/E010b dose-response is *not* load-bearing — hedged as noisy, L020; the claim rests on E005-vs-E008 + the sensitivity demo). Verified across counter-argument ×3 / first-principles ×3 / socratic / premortem ×2 / oracle ×6; per-individual null robust across ROI+voxelwise, MSE+contrastive, light+heavy tuning (E008/E011/E013b/E013). **Open (future work, §6.6):** the one untested *induction method* — full-FT (not a distillation readout) on multi-subject naturalistic voxelwise targets, where the ~5-deep-subject power applies *conditional on it inducing an above-base effect* (3 in hand); and the main-track lift — show a *published* averaged-target result falls per-individual (none we found averages targets). **Pre-submission TODO:** final venue/length; §2 related-work prose.
+
+---
+
+## References
+
+Entries 1–14 are read from our canonical notes (`docs/literature/canonical/`); entries 15–19 are standard citations supplied from background knowledge and carry a `[VERIFY]` flag — volume/page/DOI to be checked against the primary source before submission.
+
+1. Hadidi, N., Feghhi, E., Song, B., Blank, I. A., & Kao, J. C. (2026). What are large language models mapping to in the brain? A case against over-reliance on brain scores. *Nature Communications*. arXiv:2406.01538. https://doi.org/10.1038/s41467-026-72253-7
+2. Oota, S. R., Çelik, E., Deniz, F., & Toneva, M. (2024). Speech language models lack important brain-relevant semantics. In *Proc. 62nd Annual Meeting of the ACL (ACL 2024)*. https://doi.org/10.18653/v1/2024.acl-long.462
+3. Proietti, M., Capobianco, R., & Toneva, M. (2025). Fine-grained analysis of brain-LLM alignment through input attribution. arXiv:2510.12355.
+4. Merlin, G., & Toneva, M. (2024). Language models and brains align due to more than next-word prediction and word-level information. In *Proc. EMNLP 2024*. https://doi.org/10.18653/v1/2024.emnlp-main.1024
+5. Schwartz, D., Toneva, M., & Wehbe, L. (2019). Inducing brain-relevant bias in natural language processing models. In *Advances in Neural Information Processing Systems 32 (NeurIPS 2019)*. arXiv:1911.03268.
+6. Negi, A., Oota, S. R., Nunez-Elizalde, A. O., Gupta, M., & Deniz, F. (2025). Brain-informed fine-tuning for improved multilingual understanding in language models. In *Advances in Neural Information Processing Systems 38 (NeurIPS 2025)*. https://doi.org/10.1101/2025.07.07.662360
+7. Moussa, O., Klakow, D., & Toneva, M. (2025). Improving semantic understanding in speech language models via brain-tuning. In *Proc. ICLR 2025*. arXiv:2410.09230.
+8. Moussa, O., & Toneva, M. (2025). Brain-tuning improves generalizability and efficiency of brain alignment in speech models. In *Advances in Neural Information Processing Systems 38 (NeurIPS 2025)*. arXiv:2510.21520.
+9. Bilgin, I. P., St-Laurent, M., Bellec, P., & Wehbe, L. (2026). Brain-informed language model training enables scalable and generalizable alignment with human brain activity. In *Proc. ICLR 2026*. OpenReview:07S1CPoQYP.
+10. Pirlot, C., Gerum, R. C., Efird, C., Zylberberg, J., & Fyshe, A. (2022). Improving the accuracy and robustness of CNNs using a deep CCA neural data regularizer. arXiv:2209.02582.
+11. Guo, M., Choksi, B., Sadiya, S., Gifford, A. T., Vilas, M. G., Cichy, R. M., & Roig, G. (2024). Limited but consistent gains in adversarial robustness by co-training with human EEG. In *ECCV 2024 Workshop on Human-Centered Computer Vision (HCV, oral)*. arXiv:2409.03646.
+12. Lage-Castellanos, A., Valente, G., Formisano, E., & De Martino, F. (2019). Methods for computing the maximum performance of computational models of fMRI responses. *PLOS Computational Biology, 15*(3), e1006397. https://doi.org/10.1371/journal.pcbi.1006397
+13. Oota, S. R., Rowtula, V., Namburi, S. S. S., Pahwa, K., Khandelwal, A., Gupta, M., Chakraborty, T., & Raju, B. S. (2026). Linguistic properties and model scale in brain encoding: from small to compressed language models. arXiv:2602.07547.
+14. Aw, K. L., & Toneva, M. (2023). Training language models to summarize narratives improves brain alignment. In *Proc. ICLR 2023*. arXiv:2212.10898.
+15. Nili, H., Wingfield, C., Walther, A., Su, L., Marslen-Wilson, W., & Kriegeskorte, N. (2014). A toolbox for representational similarity analysis. *PLOS Computational Biology, 10*(4), e1003553. `[VERIFY]`
+16. Schrimpf, M., Blank, I. A., Tuckute, G., Kauf, C., Hosseini, E. A., Kanwisher, N., Tenenbaum, J. B., & Fedorenko, E. (2021). The neural architecture of language: Integrative modeling converges on predictive processing. *PNAS, 118*(45), e2105646118. `[VERIFY]`
+17. Caucheteux, C., & King, J.-R. (2022). Brains and algorithms partially converge in natural language processing. *Communications Biology, 5*, 134. `[VERIFY]`
+18. Antonello, R., & Huth, A. (2023). Scaling laws for language encoding models in fMRI. In *Advances in Neural Information Processing Systems 36 (NeurIPS 2023)*. arXiv:2305.11863. `[VERIFY]`
+19. Tuckute, G., Sathe, A., Srikant, S., Taliaferro, M., Wang, M., Schrimpf, M., Kay, K., & Fedorenko, E. (2024). Driving and suppressing the human language network using large language models. *Nature Human Behaviour, 8*, 544–561. `[VERIFY]`
