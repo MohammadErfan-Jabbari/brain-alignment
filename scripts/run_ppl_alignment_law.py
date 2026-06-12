@@ -105,15 +105,24 @@ def main():
 
         ppl = held_out_perplexity(model, tok, ppl_probe, device)  # FAIR: natural WikiText, not stimuli
         ecfg = P.ExtractConfig(pool="mean", max_length=64, batch_size=32)
-        X = P.extract_hidden_states(model, tok, texts, ecfg, device, layer=layer)
         Z = P.scalar_nuisance(texts, tok)
         S = P.static_embedding_features(model, tok, texts, device)
-        vp = P.variance_partition(X, Z, S, Y_avg, k_folds=5, n_pca=50)
-        u = float(vp["unique_r2"])
+        # counter-argument fix: sweep a depth grid + take the PEAK-alignment layer (fair per-model y-axis,
+        # not the geometric middle which may under-sample a model's best layer). Report both.
+        u_mid = float(P.variance_partition(P.extract_hidden_states(model, tok, texts, ecfg, device, layer=layer),
+                                           Z, S, Y_avg, k_folds=5, n_pca=50)["unique_r2"])
+        grid = sorted({max(1, min(nlayers, round(f * nlayers))) for f in (0.4, 0.5, 0.6, 0.7, 0.8)})
+        per_layer = {}
+        for L in grid:
+            XL = P.extract_hidden_states(model, tok, texts, ecfg, device, layer=L)
+            per_layer[L] = float(P.variance_partition(XL, Z, S, Y_avg, k_folds=5, n_pca=50)["unique_r2"])
+        best_layer = max(per_layer, key=per_layer.get)
+        u = per_layer[best_layer]  # PEAK alignment over the depth grid = the fair y-axis
+        layer = best_layer
         rows.append({"model": name, "family": name.split("/")[-1].split("-")[0],
-                     "nlayers": nlayers, "layer": layer, "ppl": ppl, "log_ppl": math.log(ppl),
-                     "unique_r2": u})
-        print(f"{name:>22s} {nlayers:>8d} {layer:>6d} {ppl:>9.2f} {u:>+10.4f}  ({time.time()-t0:.0f}s)")
+                     "nlayers": nlayers, "best_layer": best_layer, "u_mid": u_mid,
+                     "ppl": ppl, "log_ppl": math.log(ppl), "unique_r2": u, "per_layer": per_layer})
+        print(f"{name:>22s} {nlayers:>8d} {best_layer:>6d} {ppl:>9.2f} {u:>+10.4f}  (mid {u_mid:+.4f}; {time.time()-t0:.0f}s)")
         del model
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
