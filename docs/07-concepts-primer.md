@@ -1,7 +1,10 @@
 # Concepts Primer — the reusable vocabulary every experiment assumes
 
 **What this is.** A plain-language glossary of the primitives that recur across every experiment doc
-(E002, E006, E008, E013, …) and report (R03, R04). The experiment docs deliberately stay terse and
+and report. (Naming: **E-numbers** are experiment notebooks under `docs/experiments/` — E002 = the
+Tuckute feasibility test, E006 = the LeBel voxelwise test, etc.; their live status is in `docs/ladder.md`,
+the canonical board that wins any conflict. **R-numbers** are synthesis reports under `docs/reports/`.
+**L-numbers** are lessons in `docs/learnings.md`; **D-numbers** are decisions in `docs/decisions/`.) The experiment docs deliberately stay terse and
 assume these terms; this file is where they are defined *once*, clearly, so a reader new to a doc can
 ground the vocabulary here instead of re-deriving it. The math/theory version of several of these
 (MI bound, DPI, conditional-MI = unique R², rate-distortion) lives in `06-theory-grounding.md`; this
@@ -104,6 +107,17 @@ threshold), and we pick that reliable set on a *held-out* repeated story — nev
 fit the encoding model on — so the selection doesn't inflate the result (no Kriegeskorte double-dip).
 
 ---
+
+## Perplexity — the language-model-quality axis
+
+**Perplexity** measures how good a model is at predicting text: roughly, how "surprised" it is by
+held-out tokens. Formally it is the exponential of the average per-token cross-entropy loss,
+`PPL = exp(−(1/N) Σ log p(token | context))` — so it is the effective number of equally-likely choices
+the model is hesitating between at each step. **Lower perplexity = better language model.** This axis is
+load-bearing for the whole thesis because **alignment co-varies with perplexity** (better LM → more
+brain-aligned, ρ ≈ −0.88 within GPT-2, ≈ −0.92 across families; E003/E015, L011/L030). That is why the
+headline experiments must compare arms **at matched perplexity**: otherwise an "alignment went up" result
+could just mean "we built a better language model," not "the brain objective did something brain-specific."
 
 ## The two datasets in play
 
