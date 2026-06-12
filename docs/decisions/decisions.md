@@ -324,3 +324,30 @@ the **full-FT multi-subject voxelwise door** (E013 §"two routes"), whose kill c
 
 **Reverses / revisits if:** the implementation lane runs dry (only the full-FT door + E015-expansion are
 real impl work today — F3/L4 is moot pending a positive L3), or Erfan redirects on return.
+
+---
+
+## D021 — TRIBE-v2 synthetic brain targets as the primary implementation line (E016) — 2026-06-12
+
+**Decision.** Adopt Meta FAIR's **TRIBE v2** brain foundation model (`facebook/tribev2`; d'Ascoli et al.,
+ICLR 2026) as the primary implementation-lane build (E016), promoted above the denizenslab full-FT door.
+Rationale: TRIBE generates fMRI for *arbitrary* text, removing the data-scarcity limitation that bounded
+E001→E015. **The framing that makes it rigorous (not just "more data"):** TRIBE estimates E[Y|S], the
+stimulus-predictable brain response; by the Markov chain Y⊥θ*|S (R05), the non-stimulus-predictable residual
+is θ*-independent noise, so **E[Y|S] is the entire training-useful brain signal → TRIBE is an UPPER BOUND on
+the utility of brain-guided LM training.** A null at the ceiling = strongest Fork-B with a clean DPI mechanism;
+a positive = Fork-A reopens. Either outcome is publishable (the ceiling argument makes the null informative).
+
+**Program (kill-gated, E016 §5):** P0 run TRIBE text-only · P1 fidelity (TRIBE faithful in our pipeline?) ·
+P2 ceiling (stimulus-subtraction on real LeBel — cheapest decisive) · P3 scaled matched-ppl distillation.
+
+**Env isolation (verified, answers "why not just install it").** TRIBE hard-pins torch>=2.5.1,<2.7 and
+numpy==2.2.6; the thesis env runs torch **2.11.0+cu128** and numpy **2.4.6**. Installing TRIBE into the thesis
+venv would downgrade torch (losing the cu128 GPU build) and numpy, breaking the experiment scripts we still
+need (E006 harness, distill.py, …). So TRIBE lives in an **isolated venv** (`.venv-tribe`) and hands off via
+disk (writes synthetic-BOLD .npy; our pipeline reads them). Confirmed install + import PASS 2026-06-12.
+
+**Hard line (unchanged).** TRIBE is a *tool* (a denoised stimulus→brain oracle), not an adjudicator: it produces
+no science number that flips a rung; verdicts are Erfan's, numbers come from the docs brain.
+**Reverses / revisits if:** P0 walls (TRIBE unrunnable here) or P1 fails (TRIBE not a faithful fMRI stand-in)
+→ fall back to the full-FT door (E013) or E015-expansion.

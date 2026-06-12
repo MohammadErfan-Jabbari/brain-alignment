@@ -17,7 +17,24 @@ experiment records). Rungs flip only on Erfan's confirmation.
 
 ### 🔬 IMPLEMENTATION lane (working sessions — generates new evidence; ACTIVE)
 
-- [~] **Full-FT multi-subject naturalistic voxelwise — the ONE untested door (E013 §"two routes").**
+- [~] **E016 — TRIBE-v2 synthetic brain targets (PRIMARY, autonomous build).** Meta's brain foundation model
+  (`facebook/tribev2`) generates fMRI for *any* text → removes the data-scarcity wall that bounded E001→E015.
+  Full program + information-theoretic spine + kill criteria in `docs/experiments/E016_*.md`. The key insight:
+  TRIBE estimates E[Y|S] (the stimulus-predictable brain response), which by the Markov chain Y⊥θ*|S is the
+  **entire θ*-relevant brain signal** → TRIBE is an **upper bound on brain-guided LM training**. Phases:
+  - [x] **P0 GATE — run TRIBE text-only.** Isolated venv `data/paper-repos/tribev2/.venv-tribe` (MUST stay
+    isolated — TRIBE pins torch<2.7 + numpy==2.2.6; thesis env is torch 2.11.0+cu128 / numpy 2.4.6 → installing
+    into the thesis env would downgrade torch and break the experiment scripts). Install + `import` PASS
+    (2026-06-12). Next: `from_pretrained` + a `predict` on sample text (needs weight DL + Llama-3.2-3B access).
+  - [ ] **P1 FIDELITY** — re-run A2 (trained vs untrained unique-R²) against TRIBE targets on LeBel/Tuckute.
+    Gate: replicates → TRIBE faithful → proceed; doesn't → stop synthetic-target line.
+  - [ ] **P2 CEILING (cheapest decisive)** — stimulus-subtraction on real LeBel voxelwise: residual = real-fMRI
+    alignment − TRIBE-explained = the non-stimulus-predictable brain signal. ≈0 → strongest Fork-B w/ mechanism;
+    >0 → Fork-A reopens (escalate to Erfan). Pure analysis, no training. **Run before P3.**
+  - [ ] **P3 CLINCHER** — scaled matched-ppl distillation: KD vs KD+TRIBE-brain vs KD+TRIBE-permuted. Arm-equality
+    → publishable null at scale (scarcity removed); arm2>arm3 CI-excl-0 → Fork-A-qualifying. Multi-day GPU build.
+  - **WALL → fall back** to the full-FT door below or E015-expansion; document, don't spin.
+- [ ] **Full-FT multi-subject naturalistic voxelwise — the other untested door (E013 §"two routes").**
   Full fine-tuning (NOT a LoRA distillation readout) on denizenslab n=6 (`speech-llm-brain` / GIN
   `narratives_reading_listening_fmri`), under the predeclared E013 protocol (per-individual n≥5,
   permuted twin, matched-ppl intercept, spatially-blocked inference). Kill criterion locked (E013 §17):
