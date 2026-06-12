@@ -1,38 +1,56 @@
 # Upspeed — read first, write last
 
-**Last updated:** 2026-06-12 (Session 10 — TOOLING: Codex wired as second-model critic + rescue; bwrap sandbox disabled; reasoning=xhigh. No science touched.)
+**Last updated:** 2026-06-12 (Session 11 — PLANNING/handoff: two parallel lanes + dual meta-goal set;
+implementation reopened as an ordered roadmap; TRIBE-v2 read + scoped as the capstone. Autonomous run pending
+the goal command.)
 
-> **Canonical state lives in [`ladder.md`](ladder.md)** (the rung board + next step, D015). This file is
-> the last-session prose; if it disagrees with the ladder, the ladder wins. With no task, run `/orient`.
+> **Canonical state lives in [`ladder.md`](ladder.md)** (the rung board + roadmap, D015). This file is the
+> last-session prose; if it disagrees with the ladder, the ladder wins. With no task, run `/orient`.
 
 ## Current state
 
-Science is **UNCHANGED from S9** — experimental program CLOSED (Fork B), manuscript v0.9 artifact-complete, per-individual null robust. **No rung moved this session — it was tooling/infrastructure only.** What changed is that **Codex is now a usable second model** for this repo (a code-level critic that adds to the thinking panel, + a rescue/second-implementation tool), and the container's bwrap-sandbox blocker is fixed.
+**The dual meta-goal (D022):** finish the MSc thesis **AND** extract **≥1 top-venue AI paper** (ICML/ICLR/
+NeurIPS/AAAI-class). Work runs in **two parallel lanes (D020)** sharing the `docs/` evidence brain:
+- **🔬 IMPLEMENTATION lane (autonomous) — an ORDERED ROADMAP; start at the top, TRIBE is the capstone (LAST):**
+  **I1** expand E015 (cross-family alignment∝−ppl law) → **I2** matched-ppl control on an *external* published
+  result (the "main-track lift", premortem #1) → **I3** full-FT multi-subject voxelwise (E013 door, denizenslab
+  n=6) → **I4 CAPSTONE** E016 TRIBE synthetic brain targets. Full detail in `tasks.md`; per-item docs in
+  `experiments/`. After every step: thinking panel (D017) + Codex critic (D019) until no hole survives → record.
+- **📖 ANALYSIS lane (Erfan) — FROZEN** at resume point: R05 §9 (Layer 3 = E005 → §14), then figures + manuscript.
 
-- **L0/A2 ✅ PASS** (E006). **L3/F1 ❌ NULL per-subject (robust). L2b/A3 ❌ bounded NULL.** All unchanged.
+**Science verdicts UNCHANGED — no rung moved.** L0/A2 ✅ PASS; L3/F1 ❌ per-individual null (robust); L2b/A3 ❌
+bounded null. The roadmap pursues the remaining *untested doors* + the TRIBE capstone; it does not contradict
+the closed-rung verdicts.
 
-## What was set up this session (tooling)
+## What to do next (autonomous loop)
 
-1. **Codex integration** — `docs/references/codex-usage.md` (full procedure) + a Codex section in `CLAUDE.md`. Two jobs: (1) critic that *adds to* the thinking panel — `/codex:adversarial-review` or a **persona panel** (1–4 background read-only `task` runs with distinct personalities); (2) **rescue / second-implementation** of analysis scripts. **Hard line:** Codex never emits a science number or flips a rung (code correctness only); numbers come from the `docs/` brain, verdicts from Erfan.
-2. **Reasoning = xhigh** (global `model_reasoning_effort` in `~/.codex/config.toml`) → reviews run xhigh by inheritance; delegate a `task` with `--effort medium` to get the asymmetric "medium worker / xhigh critic".
-3. **Sandbox DISABLED** (see Key facts) — bwrap can't run in this container; config + a plugin patch make Codex run unsandboxed (the Docker container is the boundary).
-4. **Live validation:** Codex (xhigh) independently re-ran `reanalyze_e005_e006.py` and reproduced the S8 panel's core finding (t-CI includes 0, bootstrap-excludes-0 contradiction, the `(fold4,seed0)` +0.0636 outlier driving the +0.0081) — independent corroboration of L015.
-
-## What to do next (Erfan's call)
-
-**Mode = ANALYSIS, as before.** Resume the get-up-to-speed walk at **Layer 3 = E005** (apparent +0.0081 → E008 per-individual null) = writing **R05 §9**, then §10 (E008) → §11 (Fork-B) → §12 (robustness) → §13 (E009+E015) → §14. After R05 reaches the end: figures-check (`scripts/figures/make_figures.py`) + manuscript read-through. Codex is available as a code-level critic/rescue if a script needs it — but analysis sessions touch no science.
+**Start at I1** (the first incomplete roadmap item) — do NOT jump to TRIBE. Work each item Design→Run→Judge,
+ground every claim in the papers (`docs/literature/`, `data/papers`, `data/paper-repos`) and course material
+(`06-theory-grounding.md`, `data/course-material`), run the counter-critique loop after each verdict, commit
+atomically, and update the experiment doc + `learnings.md` + `decisions.md` + `ladder.md`/`tasks.md` as you go.
+Close each working session with `/wrap`. The idea is not holy text — refocus it toward the real literature gap
+as evidence accumulates. **Stop only** when you truly need an Erfan decision (a Fork-A surprise; the I2 headline/
+spine call) or hit a real wall. Numbers come from runs; **no rung flips without Erfan.**
 
 ## Blockers / open loops
 
-- **No running jobs; working tree clean** (3 atomic commits this session, all docs/tooling).
-- **Carry-forward:** the `codex.mjs` sandbox patch lives in the plugin cache → **reapply after a codex plugin update** (in-file comment + `codex-usage.md` flag it).
-- **Still open (from S8/S9):** doc-audit follow-ups in `tasks.md` (stale Status headers on ~8 experiment docs; E005 body still leads with retracted "F1 CONFIRMED"; R03/R01 pre-R04 phrasings). Untouched this session.
+- **I3 data acquisition:** denizenslab BOLD HDFs are on GIN **git-annex**; `git-annex`/`datalad` not installed
+  → use GIN HTTP `/raw/` or `apt-get install git-annex`. (I4/TRIBE *sidesteps* this — it generates its own fMRI.)
+- **I4/TRIBE P0 gate PASS:** isolated venv `data/paper-repos/tribev2/.venv-tribe`, `import` OK; weights non-gated;
+  Llama-3.2-3B access resolves (confirm on first real download). Background install log: `outputs/E016_tribe/`.
+- **Carry-forward:** reapply the `codex.mjs` sandbox patch after any codex plugin update.
+- **Untouched:** S8/S9 doc-audit follow-ups in `tasks.md` (stale Status headers; E005 body retracted-lead).
 
 ## Key facts
 
 - **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache HF_HUB_OFFLINE=1`. GPUs 4× L40S free.
-- **Codex (how to use):** full guide = `docs/references/codex-usage.md`. Default `gpt-5.5`, reasoning **xhigh**. **Sandbox is DISABLED** — bwrap can't init namespaces in this container (`RTM_NEWADDR`/uid-map *Operation not permitted*; `/proc/sys` read-only; system bubblewrap doesn't help). Config: `approval_policy=never`, `sandbox_mode=danger-full-access`; plugin `codex.mjs` patched to force `danger-full-access` (reapply after plugin update). **Test Codex with a prompt that forces a shell command** (read a file) — text-only replies don't exercise the sandbox and falsely pass (L033). For direct `codex exec` automation pass `--sandbox danger-full-access` explicitly.
-- **R05 vs manuscript:** R05 = teach-from-scratch narrative (math at length); manuscript = terse submission artifact. Keep role-distinct.
-- **Corrected number to carry:** Tuckute functional NC ceiling = 0.491 (mean) / 0.559 (network); 0.353 was the anatomical-mask mislabel (L012). E002's "~10%" → honest ~7%.
-- **Tooling gotcha (carried):** offline `load_dataset("wikitext",...)` FAILS — use `"Salesforce/wikitext"`. `outputs/` is gitignored.
+- **TRIBE env is ISOLATED** (`.venv-tribe`): it pins torch<2.7 + numpy==2.2.6; the thesis env is torch
+  2.11.0+cu128 / numpy 2.4.6 — never install TRIBE into the thesis venv (it would downgrade torch and break the
+  experiment scripts). Hand off via disk: TRIBE writes synthetic-BOLD `.npy`; our pipeline reads them.
+- **Subagent routing (D017/D019/Erfan's rule):** fable = hard adversarial/counter-arguing + oracle-reviewer;
+  sonnet = lit-scout/paper-digest/socratic/session-logger; haiku = mechanical fan-out. Codex = code-level critic
+  (`/codex:adversarial-review` or a persona panel) + rescue/second-implementation. Spin up subagents liberally.
+- **Codex:** full guide `docs/references/codex-usage.md`; sandbox DISABLED (container); reasoning xhigh.
+- **Corrected number to carry:** Tuckute functional NC ceiling 0.491/0.559 (not 0.353); E002 "~10%"→ honest ~7%.
+- **Tooling gotcha:** offline `load_dataset("wikitext",...)` FAILS → use `"Salesforce/wikitext"`. `outputs/` gitignored.
 - **Git:** `main`, push only when asked.

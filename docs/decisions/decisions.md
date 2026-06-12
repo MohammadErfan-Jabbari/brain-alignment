@@ -327,10 +327,14 @@ real impl work today — F3/L4 is moot pending a positive L3), or Erfan redirect
 
 ---
 
-## D021 — TRIBE-v2 synthetic brain targets as the primary implementation line (E016) — 2026-06-12
+## D021 — TRIBE-v2 synthetic brain targets as the CAPSTONE of the implementation roadmap (E016) — 2026-06-12
 
 **Decision.** Adopt Meta FAIR's **TRIBE v2** brain foundation model (`facebook/tribev2`; d'Ascoli et al.,
-ICLR 2026) as the primary implementation-lane build (E016), promoted above the denizenslab full-FT door.
+ICLR 2026) as a new implementation build (E016) — the **capstone (I4), run LAST**, after the existing
+experimental train (I1 E015-expand → I2 external matched-ppl control → I3 full-FT door). *(Corrected
+2026-06-12: TRIBE is the newest task at the END of the train, NOT the first; an earlier same-day draft
+mis-promoted it to "primary." It sidesteps I3's data-acquisition blocker by generating its own fMRI, so it is
+the natural continuation if I3 walls.)*
 Rationale: TRIBE generates fMRI for *arbitrary* text, removing the data-scarcity limitation that bounded
 E001→E015. **The framing that makes it rigorous (not just "more data"):** TRIBE estimates E[Y|S], the
 stimulus-predictable brain response; by the Markov chain Y⊥θ*|S (R05), the non-stimulus-predictable residual
@@ -351,3 +355,26 @@ disk (writes synthetic-BOLD .npy; our pipeline reads them). Confirmed install + 
 no science number that flips a rung; verdicts are Erfan's, numbers come from the docs brain.
 **Reverses / revisits if:** P0 walls (TRIBE unrunnable here) or P1 fails (TRIBE not a faithful fMRI stand-in)
 → fall back to the full-FT door (E013) or E015-expansion.
+
+---
+
+## D022 — The dual meta-goal: MSc thesis AND ≥1 top-venue AI paper — 2026-06-12
+
+**Decision.** The repo's objective is explicitly **two-fold**: (1) complete Erfan's MSc thesis (UC3M, ML for
+Health), and (2) extract **at least one top-venue AI publication** (ICML / ICLR / NeurIPS / AAAI-class) from
+the work. (2) raises the bar on every implementation step: senior-researcher rigor, everything grounded in the
+papers (`docs/literature/`, `data/papers`, `data/paper-repos`) and the course material (`06-theory-grounding.md`
++ `data/course-material`), and the *idea is not holy text* — it stays dynamic, refocused toward the genuine
+under-researched literature gap as evidence accumulates.
+
+**How it changes operating posture (not the science bar — that was always rigorous).** The implementation lane
+runs as an **ordered roadmap** (I1→I4, TRIBE capstone last; `tasks.md`), and after **every** step/verdict the
+**thinking panel** (D017: counter-argument · socratic-thinker · premortem-analyst · first-principles-grounder,
+fable/sonnet) **+ the Codex code-critic** (D019) run as a continuous counter-critique loop — *verify each
+objection against the data, address the ones that hold, re-run until no hole survives* — before any verdict
+lands in the ladder/docs/manuscript. Subagents are used liberally (fable for hard adversarial work; sonnet for
+search/digest/Socratic; haiku for mechanical fan-out). gbrain is read/written continuously.
+
+**The hard line stays:** no rung flips without Erfan; numbers come only from runs recorded in the docs brain;
+strategic framing calls (e.g. whether I2's external matched-ppl result becomes the paper's headline/spine) wait
+for Erfan. Autonomy is bounded by the last explicit human instruction (L031).

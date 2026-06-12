@@ -1,6 +1,9 @@
 # Experiment — E016: TRIBE-v2 synthetic brain targets — can a brain foundation model break the data-scarcity wall, and what is the ceiling on brain-guided LM training?
 
-**Created:** 2026-06-12 · **Status:** ACTIVE (autonomous build) · **Mode:** working (design→run→judge)
+**Created:** 2026-06-12 · **Status:** QUEUED — the **CAPSTONE (I4, LAST)** of the implementation roadmap; the
+new task added at the end of the train, *after* I1 (E015-expand), I2 (external matched-ppl control), I3 (full-FT
+door). P0 gate PASS; P1–P3 run once the train reaches it (or earlier if I3 walls on data — I4 sidesteps that
+blocker by generating its own fMRI). · **Mode:** working (design→run→judge)
 **Trigger:** Meta FAIR's **TRIBE v2** (d'Ascoli et al., ICLR 2026; arXiv 2605.04326; weights `facebook/tribev2`)
 — a trimodal (video/audio/text) foundation model that predicts fMRI BOLD for *arbitrary* naturalistic
 stimuli, SOTA on Algonauts 2025. Erfan flagged it (2026-06-12) as a possible answer to the data-scarcity

@@ -11,50 +11,49 @@ report numbers a working session recorded — so working sessions *add* evidence
 **not edit the docs the analysis lane is reading** (`reports/R05`, the manuscript, the E005–E014
 experiment records). Rungs flip only on Erfan's confirmation.
 
-> **Context:** Erfan is away ~2 days from 2026-06-12. Implementation runs autonomously in that window
-> (the full-FT door below is the approved, predeclared, kill-gated build — E013). The analysis lane is
-> frozen at its resume point, ready for him to pick up.
+> **Context:** Erfan is away ~1–2 days from 2026-06-12; implementation runs autonomously in that window.
+> **The meta-goal (D022):** finish the MSc thesis AND extract **≥1 top-venue AI paper** (ICML/ICLR/NeurIPS/
+> AAAI-class) from this work. The implementation lane below is an **ordered roadmap** that clears the
+> remaining experimental train *first, in sequence*, then ends with the TRIBE capstone — each step's
+> results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
+> of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
-### 🔬 IMPLEMENTATION lane (working sessions — generates new evidence; ACTIVE)
+### 🔬 IMPLEMENTATION lane — the ORDERED ROADMAP (do in sequence; TRIBE is the capstone, LAST)
 
-- [~] **E016 — TRIBE-v2 synthetic brain targets (PRIMARY, autonomous build).** Meta's brain foundation model
-  (`facebook/tribev2`) generates fMRI for *any* text → removes the data-scarcity wall that bounded E001→E015.
-  Full program + information-theoretic spine + kill criteria in `docs/experiments/E016_*.md`. The key insight:
-  TRIBE estimates E[Y|S] (the stimulus-predictable brain response), which by the Markov chain Y⊥θ*|S is the
-  **entire θ*-relevant brain signal** → TRIBE is an **upper bound on brain-guided LM training**. Phases:
-  - [x] **P0 GATE — run TRIBE text-only.** Isolated venv `data/paper-repos/tribev2/.venv-tribe` (MUST stay
-    isolated — TRIBE pins torch<2.7 + numpy==2.2.6; thesis env is torch 2.11.0+cu128 / numpy 2.4.6 → installing
-    into the thesis env would downgrade torch and break the experiment scripts). Install + `import` PASS
-    (2026-06-12). Next: `from_pretrained` + a `predict` on sample text (needs weight DL + Llama-3.2-3B access).
-  - [ ] **P1 FIDELITY** — re-run A2 (trained vs untrained unique-R²) against TRIBE targets on LeBel/Tuckute.
-    Gate: replicates → TRIBE faithful → proceed; doesn't → stop synthetic-target line.
-  - [ ] **P2 CEILING (cheapest decisive)** — stimulus-subtraction on real LeBel voxelwise: residual = real-fMRI
-    alignment − TRIBE-explained = the non-stimulus-predictable brain signal. ≈0 → strongest Fork-B w/ mechanism;
-    >0 → Fork-A reopens (escalate to Erfan). Pure analysis, no training. **Run before P3.**
-  - [ ] **P3 CLINCHER** — scaled matched-ppl distillation: KD vs KD+TRIBE-brain vs KD+TRIBE-permuted. Arm-equality
-    → publishable null at scale (scarcity removed); arm2>arm3 CI-excl-0 → Fork-A-qualifying. Multi-day GPU build.
-  - **WALL → fall back** to the full-FT door below or E015-expansion; document, don't spin.
-- [ ] **Full-FT multi-subject naturalistic voxelwise — the other untested door (E013 §"two routes").**
-  Full fine-tuning (NOT a LoRA distillation readout) on denizenslab n=6 (`speech-llm-brain` / GIN
-  `narratives_reading_listening_fmri`), under the predeclared E013 protocol (per-individual n≥5,
-  permuted twin, matched-ppl intercept, spatially-blocked inference). Kill criterion locked (E013 §17):
-  powered per-individual null → per-individual line closed decisively (strongest Fork-B); CI-excludes-0
-  positive at matched ppl → Fork-A-qualifying. *Mechanism evidence (E013 distillation-lever failure,
-  E008/E011/E013b nulls) says **likely-null** — but it is the only door that can move the verdict.*
-  **Build steps (in order):**
-  1. **[ ] Data acquisition** — denizenslab fMRI BOLD responses (6 subj × 11 stories, reading+listening).
-     Only noise-ceiling derivatives + stimuli text/wav are on disk; the HDF response files live on GIN
-     git-annex. **Blocker: `git-annex`/`datalad` not installed** → acquire via GIN HTTP `/raw/` paths or
-     install git-annex (`apt-get`, network-permitting). First concrete step of the build.
-  2. **[ ] Full-FT brain-tuning loop** — adapt the voxelwise tune loop (`scripts/run_lebel_tune.py` is the
-     LoRA-readout version) into a **full fine-tune** variant + matched-ppl readout + per-kind permuted
-     twin + spatially-blocked permutation inference. The deferred "E007" pipeline, done properly.
-  3. **[ ] Run n=6 + judge** against the locked kill criterion; record verdict in E013 (do NOT flip the
-     ladder rung without Erfan).
-- [ ] **(Lower-risk fallback if data/pipeline blocks) Expand E015** to more model families
-  (OPT/Llama/Mistral) — strengthens the cross-family alignment∝−ppl law beyond the n=8/3-family cluster.
-  Existing harness (`run_ppl_alignment_law.py`); needs only model downloads. Additive evidence, no new
-  pipeline. Use the Antigravity/billing-off path for any gated weights.
+Work top-to-bottom. Each item: run → judge with the panel + Codex → record (experiment doc, learnings,
+decisions, ladder/tasks) → only then advance. Numbers come from runs; **no rung flips without Erfan.**
+
+- [ ] **I1 · Expand E015 — cross-family alignment∝−ppl law (OPT/Llama/Mistral).** Quick, low-risk, existing
+  harness (`scripts/run_ppl_alignment_law.py`); needs only model downloads. Beats the n=8/3-family-cluster
+  caveat and *feeds I2* (the matched-ppl control needs the cross-family law to bite). Record into E015.
+- [ ] **I2 · The matched-ppl control on an EXTERNAL published result — the "main-track lift" (premortem #1,
+  highest leverage for the paper).** Reproduce a Negi/Schwartz-style brain-tuning *gain*, then show it
+  **shrinks at matched perplexity** under our permuted-twin + ppl-intercept control. This is the contribution
+  that survives our own scoping (the missing control in the brain-tuning literature). *Autonomous part:* build
+  it + get the number. *Erfan's call (do NOT decide alone):* whether it becomes the paper's **headline/spine**
+  (the premortem's reframe). New experiment doc Exxx + canonical-note cross-refs.
+- [ ] **I3 · Full-FT multi-subject naturalistic voxelwise — the one untested induction door (E013 §"two
+  routes").** Full fine-tuning (NOT a LoRA distillation readout) on denizenslab n=6 (`speech-llm-brain` / GIN
+  `narratives_reading_listening_fmri`), predeclared E013 protocol (per-individual n≥5, permuted twin,
+  matched-ppl intercept, spatially-blocked inference); kill criterion locked (E013 §17). *Likely-null* per
+  mechanism evidence (E013 lever-failure; E008/E011/E013b), but the only door that can move the per-individual
+  verdict. **Steps:** (a) data acquisition — denizenslab BOLD HDFs (only NC-derivatives + stimuli on disk; GIN
+  git-annex, **git-annex/datalad not installed** → GIN HTTP `/raw/` or `apt-get install git-annex`);
+  (b) full-FT loop from `scripts/run_lebel_tune.py` (LoRA→full-FT + matched-ppl readout + permuted twin +
+  spatial blocking); (c) run n=6 + judge → record in E013.
+- [ ] **I4 · CAPSTONE — E016 TRIBE-v2 synthetic brain targets (the NEW task at the end of the train).**
+  Meta's brain foundation model (`facebook/tribev2`) generates fMRI for *any* text. Key insight: TRIBE
+  estimates E[Y|S], which by Y⊥θ*|S is the **entire θ*-relevant brain signal → an upper bound on
+  brain-guided LM training** (a null here is the strongest, *publishable* Fork-B; a positive reopens Fork-A).
+  **Note: I4 sidesteps I3's data-acquisition blocker** (TRIBE *generates* the fMRI), so if I3 walls on
+  denizenslab, proceed to I4. Full kill-gated program in `docs/experiments/E016_*.md`. Phases:
+  - [x] **P0 GATE** — TRIBE in isolated venv `.venv-tribe` (pins torch<2.7/numpy==2.2.6 vs thesis torch
+    2.11+cu128/numpy 2.4.6 — must stay isolated; hand off via disk arrays). Install + `import` PASS (2026-06-12).
+    Next: `from_pretrained` + a `predict` on sample text (weights non-gated; Llama-3.2-3B access resolves).
+  - [ ] **P1 FIDELITY** → [ ] **P2 CEILING (cheapest decisive; run before P3)** → [ ] **P3 CLINCHER**
+    (scaled matched-ppl distillation). Predeclared gates/kills in E016 §5.
+- [ ] **(Opportunistic Fork-B rigor, slot anywhere)** λ-sweep / rate-distortion curve on the averaged target
+  (`run_brain_lever.py --lambda-grid`) — the "how small" magnitude characterization, if A3 needs context.
 
 ### 📖 ANALYSIS lane (Erfan's study queue — FROZEN at resume point; working sessions DO NOT edit these docs)
 

@@ -2,7 +2,7 @@
 
 **This is the single source of truth for project state.** Read it first, every session. It is maintained at every session close, *after Erfan confirms the verdict*. The prose narrative of *why* the ladder is shaped this way lives in `reports/R03_brain-as-training-signal.md` §5 and `reports/R04_gap-analysis.md` §8; this file is the live status of it. `upspeed.md` is the last-session prose; `tasks.md` is the granular backlog. When they disagree, **this file wins** and the others get fixed.
 
-**Last updated:** 2026-06-12 (after Session 8 continuation / per-individual null **robustified across every axis** — E011 capacity, E013b objective, E013 voxelwise substrate, E014 measurement-side; manuscript v0.9 **COMPLETE-AS-ARTIFACT**; **experimental program closed → write-up phase**; Erfan-confirmed).
+**Last updated:** 2026-06-12 (S11 planning — **two parallel lanes (D020)** + **dual meta-goal: MSc thesis AND ≥1 top-venue paper (D022)**; implementation reopened as an **ordered roadmap** I1 E015-expand → I2 external matched-ppl control → I3 full-FT door → **I4 capstone E016 TRIBE** (D021, P0 gate PASS); analysis lane frozen at R05 §9. The closed-rung verdicts are UNCHANGED — no rung flipped. Prior: S8 per-individual null robustified across every axis; manuscript v0.9 artifact-complete.)
 
 ---
 
@@ -46,7 +46,21 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 
 ## Next session (what `/orient` surfaces)
 
-**Mode: ANALYSIS (the next 2–3 sessions).** Erfan has not yet been walked through what was done after `reports/R03` (E005→E014, the panel, the reframe, the manuscript). **The immediate job is to get him up to speed** — digest the evidence, build/check figures, and read the manuscript critically — *not* to generate more evidence. The experimental program is closed (this is an Erfan-confirmed verdict, 2026-06-12).
+**TWO PARALLEL LANES (D020) toward the dual meta-goal (D022): finish the MSc thesis AND extract ≥1 top-venue
+AI paper.** The closed-rung *verdicts* (the per-individual null etc.) stand — what reopened (Erfan, 2026-06-12)
+is an **implementation roadmap** that pursues the remaining *untested doors* and a new capstone, run autonomously
+while Erfan studies in the analysis lane.
+
+- **🔬 IMPLEMENTATION lane (autonomous working sessions) — an ORDERED ROADMAP, do in sequence (`tasks.md`):**
+  **I1** expand E015 (cross-family alignment∝−ppl law, OPT/Llama/Mistral) → **I2** the matched-ppl control on an
+  *external* published result (premortem #1, the "main-track lift"; headline-call = Erfan) → **I3** full-FT
+  multi-subject naturalistic voxelwise (E013 door, denizenslab n=6) → **I4 CAPSTONE** E016 TRIBE-v2 synthetic
+  brain targets (P0 gate PASS; the upper-bound-on-brain-guided-training program — D021). After every step: run
+  the thinking panel (D017) + Codex critic (D019) until no hole survives; record results/learnings/decisions/
+  ladder; **no rung flips without Erfan.**
+- **📖 ANALYSIS lane (Erfan) — FROZEN at its resume point:** the get-up-to-speed walk resumes at **Layer 3 = E005**
+  (apparent +0.0081 → E008 per-individual null) = R05 §9 → §14; then figures-check + manuscript read-through.
+  Working sessions must NOT edit the analysis-lane docs (R05, manuscript, E005–E014 records).
 
 **The manuscript (v0.9) is content-complete + panel-converged + artifact-complete** (`docs/manuscript/00_paper-draft-v0.md`): references verified, cross-refs resolve, gate = READY (thesis/workshop). Headline = the well-powered per-individual NULL + the averaging-confound measurement-validity result; the dose-response (E010/E010b) is hedged, not load-bearing.
 
