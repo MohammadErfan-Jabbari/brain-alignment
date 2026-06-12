@@ -237,4 +237,16 @@ E013b added an InfoNCE/NT-Xent contrastive brain-loss (`brain_loss.contrastive`)
 
 (3) **For the manuscript:** this tightens the "regime-specific" concession — we now show the null holds across *two objectives* (MSE, contrastive) at matched ppl, not just MSE, leaving only the data/voxelwise axis untested. A stronger, more complete negative.
 
+### L026 — 2026-06-12 — The per-individual null holds on the POWERED voxelwise substrate too (E013 n=3): closes the substrate-mismatch limitation; the null is now convergent across every axis tested
+
+E013 built the voxelwise per-individual brain-tuning loop (the deferred "E007", `run_lebel_tune.py`: per-segment tune target + brain_tune MSE/LoRA + held-out-story unique-R² eval via the E006 protocol + permuted twin) and ran it on the 3 LeBel deep subjects (UTS01/02/03 — acquired UTS01/02 + their wheretheressmoke repeats from OpenNeuro). Per-subject brain-specific gap: −0.0010 / +0.0010 / +0.0004 (mean +0.0001), sign-flipping across seeds in 2/3 → **no robust per-subject voxelwise gain** (existence probe, n=3, not population). Lessons:
+
+(1) **Closes the substrate-mismatch limitation (the oracle's secondary weakness).** The per-individual null now holds on the *same* powered naturalistic voxelwise substrate where A2 is real (E006/LeBel) — not just on Tuckute ROI. So "real in aggregate, not optimizable per-individual" is now shown *on one substrate*, removing the cross-substrate caveat.
+
+(2) **The null is convergent across every axis tested:** ROI (E008) + voxelwise (E013); MSE (E008) + contrastive (E013b); light (E008) + heavy (E011) tuning; isolated-sentence + naturalistic. Five experiments, all per-individual ~0.
+
+(3) **n≥5 is recommended-against (the data-acquisition decision, informed by n=3):** the n=3 gaps are centered at exactly 0 and seed-unstable — not a small-positive trend that more subjects would resolve. The power sim's "n=5 detects δ=+0.003" is moot because the effect is ~0, not +0.003. A multi-day denizenslab n≥5 build would be an expensive confirmation of an already-robust, multi-substrate null. The convergent evidence closes the per-individual line.
+
+(4) **Process:** built the deferred heavy pipeline (E007) tractably by reusing brain_tune (per-segment target) + the E006 eval — the differentiable Lanczos/FIR loop wasn't needed for a valid test. When a "multi-day build" blocks, look for the reuse that makes it a one-script build.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->
