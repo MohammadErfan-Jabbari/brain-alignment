@@ -21,6 +21,10 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 - [x] 2026-06-12 — **E014** averaging on the encoding brain-score: NOT a confound-lift (per-subject positive → legitimate-SNR/estimand); fixed unseeded-PCA bug; verified before folding → paper unchanged; L028.
 - [x] 2026-06-12 — **Manuscript v0.9 COMPLETE-AS-ARTIFACT:** References (verified vs primary sources, lit-scout); completeness-critic closed orphan citations + dangling §-pointers.
 - [x] 2026-06-12 — **Ladder FLIPPED (Erfan-confirmed):** experimental program closed → analysis/write-up phase.
+- [x] 2026-06-12 — **Mock peer-review of complete v0.9** (oracle+premortem+counter-argument, fable): PASS thesis / borderline-PASS workshop; fixed 5 abstract overclaims (the "every individual brain" category error chief); L029.
+- [x] 2026-06-12 — **Power positive-control** (`sensitivity_e008.py`): real-residual bootstrap propagating within-subject noise → group test power 0.92@uniform-δ=+0.002, FPR 0.01; first-principles VALID; defends the load-bearing null. L029.
+- [x] 2026-06-12 — **E015: cross-family alignment∝−ppl LAW** (r=−0.93, n=8, gpt2/pythia/Qwen) — generalizes E003's within-gpt2 r=−0.88; matched-ppl control shown to bite cross-family; folded into §1+evidence-map. Broken-probe caught by counter-argument (L030).
+- [ ] **(Open, Erfan's call / fresh working build) The premortem's spine reframe:** move headline → matched-ppl-as-missing-control, demonstrated on ONE external (published) result. + optional E015 refinements (best-layer sweep; more families OPT/Llama/Mistral — needs online). L029.
 
 ### Done earlier this session (S8, 2026-06-11)
 - [x] 2026-06-11 — ~~LeBel voxelwise TRANSFER test~~ **DROPPED** — S8 panel showed it underpowered (paired-LeBel MDE needs ρ≥0.9 to see even +0.0081; `reanalyze_e005_e006.py`).
