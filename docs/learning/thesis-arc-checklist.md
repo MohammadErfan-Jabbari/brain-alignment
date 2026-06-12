@@ -62,3 +62,7 @@ Status: ⬜ not started · 🟡 in progress · ✅ mastered (demonstrated, not j
 
 ## Session log
 - 2026-06-12 — path designed, checklist created. Assessing Erfan's starting point before Layer 0.
+- 2026-06-12 — Layer 0 ✅ (frame, MI-vs-encoding-R², why-linear, A1/A2/A3 ordering, distillation-as-use-case).
+- 2026-06-12 — Created `docs/07-concepts-primer.md` (plain primitives) after Erfan found E002 jargon opaque; pointers from E002/R03/README.
+- 2026-06-12 — Taught E002 + E006 plainly (Tuckute/ROI/voxel/noise-ceiling/% of ceiling); taught statistical power + MDE (bathroom-scale analogy). Layer 1 content delivered; closing understanding-check still pending.
+- 2026-06-12 — Created `docs/reports/R05_thesis-narrative-from-first-principles.md` (LIVING) covering the arc through Layer 1 / E007 reroute. Erfan wants it extended each session until it covers everything.

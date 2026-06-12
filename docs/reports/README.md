@@ -19,5 +19,10 @@ Rules:
   yourself.
 - `R02_datasets-and-code.md` — datasets & code provenance across the reading list: which fMRI/ECoG
   sets are open and where to pull them, and which encoding/distillation repos we can reuse.
-</content>
-</invoke>
+- `R03_brain-as-training-signal.md` — the early direction doc: first-principles case that the brain is
+  a weak prior, the literature scoop, the surviving slice (F1), and the kill-gated ladder. Stops at E003.
+- `R04_gap-analysis.md` — full-PDF re-read of the literature: what is genuinely scooped vs open, and
+  the corrected per-paper claims that re-weight the framing toward F1.
+- `R05_thesis-narrative-from-first-principles.md` — **LIVING.** The pedagogical, course-grounded
+  narrative of the whole experimental arc, told step-by-step for understanding (distinct from the
+  terse manuscript). Built incrementally across sessions; current frontier = end of Layer 1.
