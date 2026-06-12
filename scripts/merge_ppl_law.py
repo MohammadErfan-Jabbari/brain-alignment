@@ -34,9 +34,23 @@ def pearson(x, y):
     return float(np.corrcoef(x, y)[0, 1])
 
 
+def _avg_rank(a):
+    a = np.asarray(a, dtype=float); order = np.argsort(a); ranks = np.empty(len(a))
+    i = 0
+    while i < len(a):
+        j = i
+        while j + 1 < len(a) and a[order[j + 1]] == a[order[i]]:
+            j += 1
+        ranks[order[i:j + 1]] = (i + j) / 2.0 + 1  # average rank for ties
+        i = j + 1
+    return ranks
+
+
 def spearman(x, y):
-    rx = np.argsort(np.argsort(x)); ry = np.argsort(np.argsort(y))
-    return pearson(rx.astype(float), ry.astype(float))
+    """Tie-aware Spearman (Codex SHOULD-FIX): average ranks, not arbitrary argsort positions."""
+    rx = _st.rankdata(x) if _st is not None else _avg_rank(x)
+    ry = _st.rankdata(y) if _st is not None else _avg_rank(y)
+    return pearson(np.asarray(rx, dtype=float), np.asarray(ry, dtype=float))
 
 
 def ols(X, y):
@@ -50,24 +64,31 @@ def ancova(lx, y, fams, min_n=3):
     models (singletons would fit their own residual). Returns F, p, partial R², common-support flag."""
     fams = np.array(fams)
     counts = {f: int((fams == f).sum()) for f in set(fams)}
-    big = [f for f, c in counts.items() if c >= min_n]
+    big = sorted([f for f, c in counts.items() if c >= min_n])
+    if len(big) < 2:  # Codex SHOULD-FIX: need >=2 families to test a family factor at all
+        return {"families_used": big, "n": 0, "F": float("nan"), "p": float("nan"),
+                "df": [0, 0], "partial_r2_family": float("nan"), "common_support": False,
+                "note": "fewer than 2 families with n>=%d — family factor not identifiable" % min_n}
     keep = np.array([f in big for f in fams])
     lxk, yk, fk = lx[keep], y[keep], fams[keep]
     n = len(yk)
-    # common support: do the big families overlap in x?
     ranges = {f: (lxk[fk == f].min(), lxk[fk == f].max()) for f in big}
     lo, hi = max(r[0] for r in ranges.values()), min(r[1] for r in ranges.values())
     common_support = hi > lo
     Xr = np.column_stack([np.ones(n), lxk])
-    cats = sorted(set(fk))[1:]  # drop reference level
+    cats = big[1:]  # drop reference level
     D = np.column_stack([(fk == c).astype(float) for c in cats]) if cats else np.zeros((n, 0))
     Xf = np.column_stack([Xr, D])
-    _, rss_r = ols(Xr, yk); _, rss_f = ols(Xf, yk)
     df1, df2 = Xf.shape[1] - Xr.shape[1], n - Xf.shape[1]
-    F = ((rss_r - rss_f) / df1) / (rss_f / df2) if df1 > 0 and df2 > 0 else float("nan")
-    p = float(_st.f.sf(F, df1, df2)) if (_st and df1 > 0 and df2 > 0 and F == F) else float("nan")
-    partial_r2 = (rss_r - rss_f) / rss_r if rss_r > 0 else float("nan")
-    return {"families_used": big, "n": n, "F": F, "p": p, "df": [df1, df2],
+    rank_ok = np.linalg.matrix_rank(Xf) == Xf.shape[1]   # Codex SHOULD-FIX: collinearity guard
+    _, rss_r = ols(Xr, yk); _, rss_f = ols(Xf, yk)
+    if not rank_ok or df1 <= 0 or df2 <= 0 or rss_f <= 1e-12:  # Codex: zero-RSS / rank-deficient guard
+        F = p = float("nan")
+    else:
+        F = ((rss_r - rss_f) / df1) / (rss_f / df2)
+        p = float(_st.f.sf(F, df1, df2)) if (_st and F == F) else float("nan")
+    partial_r2 = (rss_r - rss_f) / rss_r if rss_r > 1e-12 else float("nan")
+    return {"families_used": big, "n": n, "F": F, "p": p, "df": [df1, df2], "rank_ok": bool(rank_ok),
             "partial_r2_family": partial_r2, "common_support": common_support,
             "support_overlap": [float(lo), float(hi)], "family_ranges": {f: [float(a), float(b)] for f, (a, b) in ranges.items()}}
 
@@ -82,7 +103,9 @@ def family_cluster_bootstrap(lx, y, fams, B=5000, seed=0):
         if len(set(y[ii])) < 2 or np.std(lx[ii]) == 0:
             continue
         rs.append(pearson(lx[ii], y[ii]))
-    rs = np.array(rs)
+    rs = np.array([r for r in rs if np.isfinite(r)])
+    if len(rs) == 0:  # Codex SHOULD-FIX: all samples degenerate
+        return [float("nan"), float("nan")], float("nan")
     return [float(np.percentile(rs, 2.5)), float(np.percentile(rs, 97.5))], float(np.median(rs))
 
 
@@ -135,8 +158,17 @@ def main():
         for r in json.loads(Path(f).read_text())["models"]:
             if "error" in r:
                 errs.append(r); continue
+            if r["model"] in rows and abs(rows[r["model"]]["unique_r2_mid"] - r["unique_r2_mid"]) > 1e-9:
+                print(f"  WARNING: {r['model']} appears in >1 shard with DIFFERING uR²_mid "
+                      f"({rows[r['model']]['unique_r2_mid']:.5f} vs {r['unique_r2_mid']:.5f}) — keeping latest")
             rows[r["model"]] = r
     rows = list(rows.values())
+    # Codex SHOULD-FIX: drop any row with non-finite x/y before headline statistics
+    bad = [r["model"] for r in rows if not (np.isfinite(r["bpb"]) and np.isfinite(r["ppl_token"])
+                                            and np.isfinite(r["unique_r2_mid"]) and np.isfinite(r["unique_r2_best"]))]
+    if bad:
+        print(f"  WARNING: dropping {len(bad)} rows with non-finite values: {bad}")
+        rows = [r for r in rows if r["model"] not in bad]
     rows.sort(key=lambda r: r["bpb"])
     print(f"pooled {len(rows)} models / {len(set(r['family'] for r in rows))} families "
           f"({sorted(set(r['family'] for r in rows))}); {len(errs)} load errors\n")

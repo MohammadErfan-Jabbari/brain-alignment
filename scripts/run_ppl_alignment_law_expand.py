@@ -68,11 +68,15 @@ def bits_per_byte(model, tok, texts, device, max_length=160, batch_size=16):
     lead_id = tok.bos_token_id if tok.bos_token_id is not None else tok.eos_token_id
     pad_id = tok.pad_token_id if tok.pad_token_id is not None else lead_id
     total_nll_nats, total_tok, total_bytes = 0.0, 0, 0
+    n_trunc, max_content_len = 0, 0  # Codex MUST-FIX guard: detect if any sentence hit the cap
     with torch.no_grad():
         for start in range(0, len(texts), batch_size):
             batch = texts[start:start + batch_size]
             enc = tok(batch, add_special_tokens=False, truncation=True, max_length=max_length - 1)
-            seqs = [[lead_id] + ids for ids in enc["input_ids"]]
+            content = enc["input_ids"]                       # already truncated to max_length-1
+            n_trunc += sum(1 for ids in content if len(ids) >= max_length - 1)
+            max_content_len = max(max_content_len, max(len(ids) for ids in content))
+            seqs = [[lead_id] + ids for ids in content]
             mx = max(len(s) for s in seqs)
             input_ids = torch.full((len(seqs), mx), pad_id, dtype=torch.long)
             attn = torch.zeros((len(seqs), mx), dtype=torch.long)
@@ -88,10 +92,13 @@ def bits_per_byte(model, tok, texts, device, max_length=160, batch_size=16):
             nll = -logp.gather(-1, tgt.unsqueeze(-1)).squeeze(-1)  # (B,T-1)
             total_nll_nats += float((nll * m).sum())
             total_tok += int(m.sum())
-            total_bytes += sum(len(s.encode("utf-8")) for s in batch)
+            # Codex MUST-FIX: bytes must correspond to the SCORED tokens, not the raw sentence
+            # (decode the actually-modeled content ids), so truncation can never inflate the denominator.
+            total_bytes += sum(len(tok.decode(ids).encode("utf-8")) for ids in content)
     return {"bpb": (total_nll_nats / math.log(2)) / max(total_bytes, 1),
             "ppl_token": math.exp(total_nll_nats / max(total_tok, 1)),
-            "n_tokens": total_tok, "n_bytes": total_bytes,
+            "n_tokens": total_tok, "n_bytes": total_bytes, "n_truncated": n_trunc,
+            "max_content_len": max_content_len,
             "vocab": int(getattr(model.config, "vocab_size", len(tok))), "lead_id": int(lead_id)}
 
 
@@ -182,6 +189,7 @@ def main():
             "u_subj_mid": u_subj,                     # Q2 individual-subject control
             "bpb": q["bpb"], "ppl_token": q["ppl_token"], "log_bpb": math.log(q["bpb"]),
             "vocab": q["vocab"], "adds_bos": adds_bos, "n_ppl_tokens": q["n_tokens"], "n_ppl_bytes": q["n_bytes"],
+            "n_truncated": q["n_truncated"], "max_content_len": q["max_content_len"],
             "per_layer": per_layer, "scale_T": SCALE_T.get(short)})
         print(f"{name:>22s} {family_of(name):>8s} {nparams/1e6:>7.0f}M {q['vocab']:>7d} {adds_bos:>4d} "
               f"{q['bpb']:>6.3f} {q['ppl_token']:>8.1f} {best_layer:>4d} {per_layer[mid]:>+9.4f} "
