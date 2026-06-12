@@ -213,6 +213,8 @@ the docs and stops being trustworthy.
 
 ### D016 — 2026-06-11 — `$\mathcal{L}_{\text{brain}}$` form RESOLVED (co-trained MSE encoding loss); E007 not built; thesis framing = A+B synthesis
 
+> **⚠️ PART (3) SUPERSEDED by [[D018]] (2026-06-12).** The "A+B synthesis / F1 confirmed in-domain" framing in (3) below did **not** survive per-individual inference: E008 (n=9, well-powered) returned a per-subject NULL, and E005's +0.0081 was a group-averaged-target artifact. The thesis is now **Fork B** (per-individual null + measurement-validity result). The "Reverses if" condition effectively fired. **Parts (1) [L_brain = co-trained MSE] and (2) [E007 not built] still STAND.** Read (3) only as historical context.
+
 **Decision:** Three coupled resolutions from Session 7 (E004 + E006 + E005):
 **(1) D010 is resolved — the brain-alignment loss is a co-trained linear MSE encoding readout** from the student's
 verdict-layer pooled hidden state to fMRI, the theory-preferred form (Gaussian lower bound on conditional MI =
@@ -263,8 +265,8 @@ read of the *shared stimulus-evoked response*, inflated ~1.7× by averaging (NC�
 and ~2.4× by one outlier fold (L015/L016) — **not per-person brain alignment.** The thesis adopts the
 honest **Fork B**: contribution = (1) A2 real & measurable, powered (E006); (2) a rigorous, well-powered
 per-subject null + the anti-confound characterization (literature-consistent, Hadidi/Feghhi ≤10%); (3)
-**A3 / E009 (does brain-tuning buy anything practical at matched perplexity)** — now the central open
-question and next experiment.
+**A3 / E009 (does brain-tuning buy anything practical at matched perplexity)** — at the time, the central open
+question and next experiment. **[UPDATE 2026-06-12: A3/E009 has since RUN → bounded NULL, null-by-construction (L017); and the per-individual null was further hardened across capacity (E011), objective (E013b), and voxelwise substrate (E013). The experimental program is now CLOSED (ladder). So (3) is no longer "open" — it is a completed null. The live contribution is the measurement-validity result + the matched-ppl/permuted-twin/per-subject protocol, with E015 giving the matched-ppl control cross-family bite.]**
 **Rationale:** the S8 thinking-panel (D017) caught the pseudo-replication *before* compute; the
 oracle-gated per-subject test (E008) then settled it empirically; a second panel adjudicated the
 averaging-SNR steelman and rejected it on the power numbers. This supersedes D016's "F1 confirmed

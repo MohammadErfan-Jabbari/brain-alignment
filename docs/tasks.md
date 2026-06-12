@@ -23,7 +23,7 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 - [x] 2026-06-12 — **Ladder FLIPPED (Erfan-confirmed):** experimental program closed → analysis/write-up phase.
 - [x] 2026-06-12 — **Mock peer-review of complete v0.9** (oracle+premortem+counter-argument, fable): PASS thesis / borderline-PASS workshop; fixed 5 abstract overclaims (the "every individual brain" category error chief); L029.
 - [x] 2026-06-12 — **Power positive-control** (`sensitivity_e008.py`): real-residual bootstrap propagating within-subject noise → group test power 0.92@uniform-δ=+0.002, FPR 0.01; first-principles VALID; defends the load-bearing null. L029.
-- [x] 2026-06-12 — **E015: cross-family alignment∝−ppl LAW** (r=−0.93, n=8, gpt2/pythia/Qwen) — generalizes E003's within-gpt2 r=−0.88; matched-ppl control shown to bite cross-family; folded into §1+evidence-map. Broken-probe caught by counter-argument (L030).
+- [x] 2026-06-12 — **E015: cross-family alignment∝−ppl LAW** (r≈−0.92, n=8, gpt2/pythia/Qwen) — generalizes E003's within-gpt2 r=−0.88; matched-ppl control shown to bite cross-family; folded into §1+evidence-map. Broken-probe caught by counter-argument (L030).
 - [x] 2026-06-12 — **E015 novelty grounded (lit-scout):** alignment∝quality is ESTABLISHED (Schrimpf 2021/Hong 2024/Antonello 2023/Gao 2024) — NOT a discovery; novel step is the normative matched-ppl control. §1 fixed to cite prior art. E015 best-layer robustness check done (r=−0.917, layer-invariant).
 
 ### Open questions / following tasks (for the analysis sessions — all need Erfan or online/build resources)
