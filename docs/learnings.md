@@ -271,4 +271,16 @@ E013 v2 fixed v1's catastrophic degradation with a KD anchor (E008 recipe), then
 
 (4) **Process win:** the manipulation-check (real_u > base_u) + the panel catching v1's anti-verification turned a false "closes substrate-mismatch" claim into an honest, well-characterized lever-failure via a cheap λ-sweep. Verify the manipulation before interpreting the contrast — every time.
 
+### L028 — 2026-06-12 — E014 (averaging on the ENCODING brain-score) is NOT a main-track lift: it's legitimate higher-SNR + estimand-shift, not a confound (per-subject scores are POSITIVE, unlike E008). Verified BEFORE folding into the paper — the loop working.
+
+Pursuing the "main-track lift" (show the averaging confound on the field's standard *measurement*, not just our distillation), E014 (`scripts/run_averaging_encoding.py`) computed the encoding brain-score (ridge unique-R², LM→fMRI) per-subject vs cross-subject-averaged on Tuckute (9 subjects): per-subject mean +0.0069 (7/9 positive, range −0.003 to +0.023), 5-UID-averaged +0.0357 → ~5× higher, monotone dose-response. **But the panel (counter-argument + first-principles) deflated the "main-track confound lift" claim:**
+
+(1) **Per-subject scores are POSITIVE (7/9), not a well-powered zero.** So the E008 logic ("averaging manufactures a gap that's absent per-person") does NOT transfer — on the encoding side the per-individual signal is *present*; averaging just measures it with less noise. The strong "manufactures/inflates 5× as a confound" framing fails here.
+
+(2) **The ~5× is mostly legitimate.** Of it, ~1.7× is the noise-ceiling rise (NC: 0.49→0.83 at k=5; known, Lage-Castellanos/Nili); the residual is the ridge estimator approaching the now-higher ceiling as target SNR rises (regularization-gap, Lage-Castellanos Fig.8) + a near-zero per-subject denominator (the L016/L019 divide-by-noise-floor pathology). The averaged score measures a *different estimand* (alignment to the shared stimulus-evoked g), not a 5×-biased per-individual estimate. score(k)/NC_k is not constant → excess beyond NC, but explained by ridge+denominator, not manufacturing.
+
+(3) **Found+fixed a real bug:** `pilot_lib` PCA was unseeded (randomized SVD) → nondeterministic unique-R² (jitter ±0.005–0.01, larger than the small per-subject scores). Seeded it (`random_state=0`). Headline results (E006 A2, E008 null) are robust — they aggregate over many folds/voxels/seeds so PCA jitter averages out; E014's single-shot scores were the exposed ones (seeded re-run: 5.15× vs unseeded 4.8× — ratio stable, so the qualitative finding survives).
+
+(4) **Process WIN:** I verified E014 with the panel BEFORE folding it into the manuscript — so the paper is correctly UNCHANGED (E014 is not a lift). This is the loop working as intended (contrast E013 v1, where I claimed first then corrected). The headline stays on E005-vs-E008 (well-powered per-individual ZERO) + A2. **Net: the measurement-side averaging is a legitimate-SNR/estimand effect, not a second confound — E014 does not strengthen the paper and is not added to it.**
+
 <!-- Add new lessons below as we hit them. Negative results count. -->

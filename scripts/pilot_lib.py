@@ -179,7 +179,7 @@ def _maybe_pca(X_tr, X_te, n_pca):
         return X_tr, X_te
     from sklearn.decomposition import PCA
 
-    pca = PCA(n_components=min(n_pca, X_tr.shape[0] - 1, X_tr.shape[1]))
+    pca = PCA(n_components=min(n_pca, X_tr.shape[0] - 1, X_tr.shape[1]), random_state=0)
     pca.fit(X_tr)
     return pca.transform(X_tr), pca.transform(X_te)
 
