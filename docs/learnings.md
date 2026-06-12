@@ -223,4 +223,8 @@ A panel pass on the reframed v0.7 (first-principles + counter-argument, fable) f
 
 (4) **Process lesson:** reframes can over-correct. The protocol frame fixed "no live target" but introduced circularity; the panel caught it and converged on the empirical-null frame, which survives both. Run the panel on the REFRAMED artifact, not just the original. (Also: still no `tuckute-2024` canonical note — the live-target claim is grounded by the lit-scout's direct quote + our data (load_tuckute averages over UIDs), but a digest would fully ground it — flagged.)
 
+### L024 — 2026-06-12 — The open-frontier data requirement is precise and modest: ~5 deep subjects power a +0.003 per-individual test (not the oracle's conservative n≳8–10)
+
+A power-vs-n simulation (`scripts/sensitivity_e008.py`, extending the E008 sensitivity sim) quantifies how many deep subjects a powered per-individual test needs, instead of hand-waving "more": at the voxelwise between-subject variance the E012 oracle estimated (σ≈0.001), detecting a +0.003 per-individual effect (the averaged-target magnitude) reaches **power 1.00 at n=5** (0.76 at n=3); n=8 if σ is 2× larger (0.002); n≈10 for a smaller δ=+0.001. So the open-frontier / substrate-matched per-individual test (E012, and the full-FT+naturalistic regime) needs only **~2–5 additional deep subjects** beyond the 3 we have (UTS01/02/03) — a modest, identifiable acquisition (OpenNeuro/LeBel has more deep subjects), not an impossibility. This refines L021's "n≥8–10" to an evidence-based ~5–8 depending on variance, and makes the data-acquisition decision concrete. Folded into manuscript §6.5.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->

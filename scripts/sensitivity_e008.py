@@ -62,6 +62,38 @@ def main():
     print("\nREAD: high power at delta≈+0.003 ⇒ the protocol WOULD detect a per-individual effect of the")
     print("averaged-target magnitude; the observed ~0 is a true null, not a power failure.")
 
+    # ---- POWER vs N (the open-frontier data requirement): how many subjects to detect delta? ----
+    # Vary n and between-subject sd; t-CI95 excludes 0. Answers "how many deep subjects to acquire".
+    def t975_df(df):
+        T = {2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365, 8: 2.306, 9: 2.262,
+             10: 2.228, 11: 2.201, 12: 2.179, 13: 2.160, 14: 2.145, 15: 2.131, 19: 2.093, 24: 2.064, 29: 2.045}
+        return T.get(df, 1.96)
+
+    def power_at(nn, delta, sigma, state, N=3000):
+        hits = 0
+        for _ in range(N):
+            samp = []
+            for _ in range(nn):
+                z, state = randn(state); samp.append(delta + sigma * z)
+            m = mean(samp); s2 = stdev(samp) / math.sqrt(nn)
+            if m - t975_df(nn - 1) * s2 > 0:
+                hits += 1
+        return hits / N, state
+
+    print("\nPOWER vs N (subjects) — the open-frontier acquisition requirement.")
+    print("Between-subject sd from E008-ROI=0.00062; the E012 oracle estimated ~0.001 for voxelwise naturalistic.")
+    for sigma in [0.00062, 0.001, 0.002]:
+        print(f"\n  sigma_between={sigma:.5f}:")
+        print(f"    {'n':>4s}  " + "  ".join(f"δ={d:+.4f}" for d in [0.001, 0.003, 0.005]))
+        for nn in [3, 5, 8, 10, 15, 20, 30]:
+            row = []
+            for d in [0.001, 0.003, 0.005]:
+                p, state = power_at(nn, d, sigma, state)
+                row.append(f"{p:>8.2f}")
+            print(f"    {nn:>4d}  " + "  ".join(row))
+    print("\nREAD: locate the smallest n giving >=0.80 power for the target (delta, sigma) → the # deep")
+    print("subjects to acquire for a powered per-individual test of an open-frontier effect.")
+
 
 if __name__ == "__main__":
     main()
