@@ -22,17 +22,19 @@ Phase = **Judge → (next) Design**. The session's result is an **evidence-drive
 4. Reframed the ladder to **Fork-B** (D018, Erfan-confirmed): A2-powered + the per-subject null + anti-confound methodology + A3.
 5. Designed + grounded + oracle-gated **A3/E009**; cleared doc-consistency (feghhi→hadidi redirect).
 
-## What to do next (manuscript v0.5 — panel-verified 4×; experimental ladder complete)
+## What to do next (manuscript v0.7 — REFRAMED to protocol-headline; panel-verified; experimental ladder complete)
 
-The experimental ladder is **complete** and the **manuscript (v0.5) is drafted, figured, and panel-verified four ways** (`docs/manuscript/00_paper-draft-v0.md`): counter-argument ×2, first-principles, socratic. Every claim is either solid or honestly scoped:
+**Headline reframe (S8, grounded):** a final premortem + a decisive lit-scout pass moved the paper's headline from "averaging manufactures specificity" to **the matched-ppl + permuted-twin + per-individual PROTOCOL** (no prior brain-tuning paper runs it end-to-end; it *bites* → well-powered nulls). The averaging confound is now the concrete motivating instance — and it has **real live targets**: Tuckute 2024 (our benchmark — participant-averaged BOLD) + group-average RSA; the per-subject tuning works (Schrimpf/Negi/Bilgin/Moussa) are untouched, so the scope is honest (L022). **E012** (per-individual voxelwise on the powered substrate) is **deferred-power-limited at n=3** (oracle-gated; data UTS01/02/03 acquired + retained for a future n≳8–10 cohort; L021).
+
+The **manuscript (v0.7) is drafted, figured, and panel-verified** (`docs/manuscript/00_paper-draft-v0.md`): counter-argument ×2, first-principles ×2, socratic, premortem ×2. Every claim is either solid or honestly scoped:
 - **A2** real & measurable, powered (E006). **Per-individual F1 null** (E008, well-powered; **regime-robust to LoRA capacity**, E011). **A3** practical null (E009). **Headline (positive contribution): averaging inflates apparent brain-specificity** — averaged target +0.008 (E005) vs per-individual ~0 (E008) — + the matched-ppl/permuted-twin/per-subject protocol. The subjects-averaged **dose-response (E010/E010b) is hedged** to "suggestive but noisy" (the clean nested curve was a design artifact; random subsets are non-monotone — L020).
 
 Remaining (genuine forks / polish — Erfan's call):
-1. **The one open scientific door:** Negi-2025's regime — full fine-tuning + contrastive NT-Xent loss + **multi-subject naturalistic narrative fMRI** (which we LACK; LeBel is single-subject). A different objective+data paradigm; needs data acquisition. The only grounded path to a per-individual positive.
-2. **Manuscript polish toward submission:** final title, abstract tightening, related-work prose, venue/length; the A2 voxel-map figure could be upgraded.
-3. (Optional) per-subject null on the LeBel voxelwise substrate (closes the substrate-mismatch limitation §6.5) — but it's single-subject, so limited.
+1. **The one open scientific door:** the full-fine-tuning + contrastive-NT-Xent + **multi-subject naturalistic** regime under our protocol — the only grounded path to a per-individual positive. Needs (a) a contrastive-loss arm (codeable) AND (b) a powered multi-subject naturalistic cohort (n≳8–10 deep subjects — we have 3; E012/L021). The data is the binding constraint.
+2. **Manuscript polish toward submission:** §1 intro + §2 related-work prose to match the protocol-headline; the A2 voxel-map figure; venue/length. The load-bearing frame (title/abstract/§4.2/§5/§7) is reframed and consistent.
+3. **Write-up against the live target:** make the Tuckute-averaged-target critique concrete (it's the standard sentence benchmark) — strengthens the protocol motivation.
 
-**Recommendation:** the paper is submission-shaped as an honest Fork-B negative-with-positive-method. The next move is either polish→submit or acquire the multi-subject naturalistic data for the Negi-regime test. Both are Erfan's call (authorship + data/resource).
+**Recommendation:** the paper is submission-shaped as a **protocol/measurement-standard contribution** (broad, survives the adversarial reviewers) with the averaging confound as a grounded cautionary instance + the well-powered nulls as evidence the protocol bites. Next move is polish→submit, or acquire the multi-subject naturalistic cohort for the open-frontier test. Both are Erfan's call (authorship + data/resource).
 
 ## Blockers
 
