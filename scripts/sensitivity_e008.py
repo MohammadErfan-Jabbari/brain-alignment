@@ -80,6 +80,47 @@ def main():
                 hits += 1
         return hits / N, state
 
+    # ---- REAL-RESIDUAL POSITIVE CONTROL (counter-argument fix: power on the ACTUAL two-level noise,
+    #      not a flat Normal(delta, between-sd) draw). For each subject we have its real fold×seed cells;
+    #      we BOOTSTRAP-resample those cells (propagating the real WITHIN-subject noise the parametric sim
+    #      ignored), inject a synthetic true per-individual effect delta, recompute each subject's median,
+    #      then run the SAME n=9 group t-CI. Power = fraction of bootstraps whose CI excludes 0.
+    #      delta=0 recovers the one-sided false-positive rate (~0.025); a high power at delta=+0.002
+    #      shows the instrument detects the size we deny, on the real noise structure. ----
+    cells_by_u = {u: [cells[(uu, f, s)] for (uu, f, s) in cells if uu == u] for u in uids}
+    wsd = {u: (stdev(v) if len(v) > 1 else 0.0) for u, v in cells_by_u.items()}
+    print("\nReal within-subject cell sd (the noise the parametric sim omitted):")
+    print("  " + ", ".join(f"uid{u}:{wsd[u]:.4f}" for u in uids))
+    print(f"  mean within-subject sd = {mean(wsd.values()):.5f}  vs  between-subject sd = {sd:.5f}")
+
+    def lcg_int(state, hi):
+        state = (1103515245 * state + 12345) & 0x7FFFFFFF
+        return state % hi, state
+
+    print("\nREAL-RESIDUAL POSITIVE CONTROL (bootstrap real cells + inject delta; n=9 group t-CI excludes 0):")
+    print(f"{'delta':>8s} {'power':>8s} {'mean_est':>10s} {'CI_lo':>9s} {'CI_hi':>9s}")
+    state = 777
+    for delta in [0.0, 0.001, 0.002, 0.003, 0.005]:
+        hits, N = 0, 4000
+        est_acc, lo_acc, hi_acc = [], [], []
+        for _ in range(N):
+            meds = []
+            for u in uids:
+                cu = cells_by_u[u]; nb = len(cu)
+                bs = []
+                for _ in range(nb):
+                    j, state = lcg_int(state, nb); bs.append(cu[j])
+                meds.append(median(bs) + delta)
+            m = mean(meds); s2 = stdev(meds) / math.sqrt(n)
+            lo, hi = m - T975[8] * s2, m + T975[8] * s2
+            if lo > 0:
+                hits += 1
+            est_acc.append(m); lo_acc.append(lo); hi_acc.append(hi)
+        print(f"{delta:>+8.4f} {hits/N:>8.2f} {mean(est_acc):>+10.5f} {mean(lo_acc):>+9.5f} {mean(hi_acc):>+9.5f}")
+    print("READ: delta=0 ≈ false-positive rate; high power at delta=+0.002 ⇒ the group test detects the")
+    print("per-individual effect that would GENERATE the averaged gain, ON THE REAL within+between noise —")
+    print("so the observed group ~0 is a true null. (This does NOT claim per-BRAIN power; see manuscript §4.2.)")
+
     print("\nPOWER vs N (subjects) — the open-frontier acquisition requirement.")
     print("Between-subject sd from E008-ROI=0.00062; the E012 oracle estimated ~0.001 for voxelwise naturalistic.")
     for sigma in [0.00062, 0.001, 0.002]:
