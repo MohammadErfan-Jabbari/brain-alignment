@@ -90,11 +90,14 @@ def main():
         else:
             by[(u, f, s, r["arm"])] = r["unique_r2"]
 
-    # per-cell paired diff d = mse - mean(perm)
+    # per-cell paired diff d = real_arm - mean(perm). real_arm = the non-perm, non-lm_only
+    # brain arm (mse for E008/E011, contrastive for E013b, ...).
+    real_arm = sorted({a for (_u, _f, _s, a) in by if a != "lm_only"})
+    real_arm = real_arm[0] if real_arm else "mse"
     cells = {}            # (uid,fold,seed) -> d
     perm_se_list = []
     for (u, f, s, arm), v in by.items():
-        if arm != "mse":
+        if arm != real_arm:
             continue
         perms = perm_by_cell.get((u, f, s), [])
         if not perms:
@@ -191,7 +194,7 @@ def main():
             continue
         if r["is_perm"]:
             ppl_perm[(u, f, s)].append(r["perplexity"])
-        elif r["arm"] == "mse":
+        elif r["arm"] == real_arm:
             ppl_mse[(u, f, s)] = r["perplexity"]
     pairs = []  # (d_logppl, d_uR2)
     for key, d_uR2 in cells.items():

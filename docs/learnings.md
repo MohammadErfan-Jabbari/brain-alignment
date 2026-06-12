@@ -227,4 +227,14 @@ A panel pass on the reframed v0.7 (first-principles + counter-argument, fable) f
 
 A power-vs-n simulation (`scripts/sensitivity_e008.py`, extending the E008 sensitivity sim) quantifies how many deep subjects a powered per-individual test needs, instead of hand-waving "more": at the voxelwise between-subject variance the E012 oracle estimated (σ≈0.001), detecting a +0.003 per-individual effect (the averaged-target magnitude) reaches **power 1.00 at n=5** (0.76 at n=3); n=8 if σ is 2× larger (0.002); n≈10 for a smaller δ=+0.001. So the open-frontier / substrate-matched per-individual test (E012, and the full-FT+naturalistic regime) needs only **~2–5 additional deep subjects** beyond the 3 we have (UTS01/02/03) — a modest, identifiable acquisition (OpenNeuro/LeBel has more deep subjects), not an impossibility. This refines L021's "n≥8–10" to an evidence-based ~5–8 depending on variance, and makes the data-acquisition decision concrete. Folded into manuscript §6.5.
 
+### L025 — 2026-06-12 — The contrastive objective (Negi's NT-Xent family) also gives a per-individual null at matched ppl → "wrong loss" ruled out (at ROI granularity); the open frontier is the DATA/voxelwise axis, not the objective axis
+
+E013b added an InfoNCE/NT-Xent contrastive brain-loss (`brain_loss.contrastive`) and ran it per-individual on Tuckute (n=9, the E008 crossed-inference design) — the tractable slice of the open frontier (Negi's objective axis on data we have). Result: contrastive brain-specific gap = mean −0.00019, t-CI [−0.0008,+0.0005] (incl 0), sign 4/9, ppl-intercept −0.0003 — a well-powered ~0 (slightly negative), same as the MSE result (E008). Lessons:
+
+(1) **The per-individual null is not an artifact of the MSE objective.** A contrastive/ranking objective (Negi's loss family) doesn't rescue it — switching the loss at ROI granularity changes nothing. This closes one of Negi's two axes (objective) as the explanation for our null. Caveat: the 5-ROI Tuckute target is low-dim for contrastive, so this is a weaker test of the objective axis than a voxelwise contrastive would be.
+
+(2) **The open frontier narrows to the DATA/voxelwise axis.** With both MSE and contrastive giving per-individual nulls at ROI granularity, the only remaining route to a per-individual positive is high-dim naturalistic voxelwise targets (the full E013: denizenslab n=6 + the voxelwise tuning loop) — a heavy build. The cheap objective-axis substitution did NOT rescue it, so it doesn't shortcut the heavy build.
+
+(3) **For the manuscript:** this tightens the "regime-specific" concession — we now show the null holds across *two objectives* (MSE, contrastive) at matched ppl, not just MSE, leaving only the data/voxelwise axis untested. A stronger, more complete negative.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->
