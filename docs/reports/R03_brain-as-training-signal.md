@@ -2,6 +2,8 @@
 
 **Created:** 2026-06-10 (Session 4 — working/analysis). **Status:** living direction doc. **Full width, no hard wrap.**
 
+**New to the vocabulary** (voxel/ROI, encoding model, unique R², noise ceiling and "% of ceiling", the trained−untrained gap)? The plain-language definitions live in `../07-concepts-primer.md`; §2 below is the formal information-theory treatment.
+
 **What this is.** Erfan's overnight brain dump proposed *inverting* the usual brain-alignment direction: instead of only *measuring* that LLM middle layers map linearly to fMRI, *use* the fMRI (plus that mapping) as a *training signal* to shape or train the LM. He asked to reason this from first principles — learning theory, the mechanics of training deep nets and LLMs, probabilistic generative models — and to build the idea layer by layer, evolving or deleting parts. This report does that, confronts the idea with the 2025–26 literature (which partly scoops it), and lays out a falsifiable experimental ladder. It is a recommendation and a map, not a decision; the kill criteria are real.
 
 **Verification status (Session 5, 2026-06-10).** Every literature claim in §2–§3 below was re-checked against the *full PDFs* in a dedicated read-and-judge pass (`docs/reports/R04_gap-analysis.md`, backed by 12 canonical notes). The thesis-level conclusions held — the bare inversion is scooped (text included) and F1 is the surviving slice — but several specific numbers did not. Where a claim needed correcting I have *added* an inline **↳ Correction** note recording the *original claim*, *what the full read showed*, and the *corrected statement*, rather than silently editing the prose, so this doc stays a record of what we learned.

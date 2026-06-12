@@ -4,6 +4,7 @@
 **Direction:** `../reports/R03_brain-as-training-signal.md` (Layer 0 of the ladder) · **Mode:** working
 **Code:** `scripts/run_encoding_feasibility.py`, `scripts/data_adapters.py:load_tuckute`, `scripts/pilot_lib.py`
 **Output:** `outputs/E002_tuckute_feasibility.json`
+**New to the vocabulary?** Voxel/ROI, encoding model, unique R², noise ceiling, "% of ceiling", what Tuckute is → `../07-concepts-primer.md`.
 
 ---
 
