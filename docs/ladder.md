@@ -2,7 +2,7 @@
 
 **This is the single source of truth for project state.** Read it first, every session. It is maintained at every session close, *after Erfan confirms the verdict*. The prose narrative of *why* the ladder is shaped this way lives in `reports/R03_brain-as-training-signal.md` §5 and `reports/R04_gap-analysis.md` §8; this file is the live status of it. `upspeed.md` is the last-session prose; `tasks.md` is the granular backlog. When they disagree, **this file wins** and the others get fixed.
 
-**Last updated:** 2026-06-12 (S11 planning — **two parallel lanes (D020)** + **dual meta-goal: MSc thesis AND ≥1 top-venue paper (D022)**; implementation reopened as an **ordered roadmap** I1 E015-expand → I2 external matched-ppl control → I3 full-FT door → **I4 capstone E016 TRIBE** (D021, P0 gate PASS); analysis lane frozen at R05 §9. The closed-rung verdicts are UNCHANGED — no rung flipped. Prior: S8 per-individual null robustified across every axis; manuscript v0.9 artifact-complete.)
+**Last updated:** 2026-06-13 (S12 autonomous working — **I1 DONE** (E015 expanded to 22 models/6 families; cross-family law corrected to **r≈−0.78** on bits-per-byte, was an inflated −0.92; Q2 architecture-residual = underpowered hypothesis; L016 tie-in). **No rung flipped** (E015 = analysis-support). Now on **I2** (matched-ppl control; reframed to LeBel full-FT since Negi bilingual data is unavailable). Roadmap I1✅→I2(now)→I3→I4. Analysis lane frozen at R05 §9. Prior: S8 per-individual null robustified; manuscript v0.9 artifact-complete. **Analysis-lane FLAG: manuscript "r≈−0.92" → correct to ≈−0.78.**)
 
 ---
 
@@ -52,12 +52,17 @@ is an **implementation roadmap** that pursues the remaining *untested doors* and
 while Erfan studies in the analysis lane.
 
 - **🔬 IMPLEMENTATION lane (autonomous working sessions) — an ORDERED ROADMAP, do in sequence (`tasks.md`):**
-  **I1** expand E015 (cross-family alignment∝−ppl law, OPT/Llama/Mistral) → **I2** the matched-ppl control on an
-  *external* published result (premortem #1, the "main-track lift"; headline-call = Erfan) → **I3** full-FT
-  multi-subject naturalistic voxelwise (E013 door, denizenslab n=6) → **I4 CAPSTONE** E016 TRIBE-v2 synthetic
-  brain targets (P0 gate PASS; the upper-bound-on-brain-guided-training program — D021). After every step: run
-  the thinking panel (D017) + Codex critic (D019) until no hole survives; record results/learnings/decisions/
-  ladder; **no rung flips without Erfan.**
+  **I1 ✅ DONE (2026-06-13)** — E015 expanded to 22 models/6 families; cross-family law corrected to **r≈−0.78**
+  (bits-per-byte; v2's −0.92 was inflated by per-token-ppl + best-layer + 3-family span); operative-band ≈−0.48;
+  Q2 architecture-residual = underpowered hypothesis (Llama/Mistral +0.006–0.009, n=1–2/family); L016 tie-in.
+  Full oracle+panel+Codex audit; L034/L035; no rung flip (analysis-support). →
+  **I2 (NOW)** the matched-ppl control on a brain-tuning gain. Negi-2025's literal multilingual pipeline is
+  INFEASIBLE (no Chen-2024b bilingual fMRI) → **reframed: reproduce a brain-tuning encoding gain on LeBel
+  (full-FT, vanilla baseline) + the matched-ppl/generic-finetune arm + permuted-brain twin Negi omits**
+  (uses `run_lebel_tune.py`; also advances I3's full-FT door). headline/spine-call = **Erfan (STOP)** → **I3**
+  full-FT multi-subject voxelwise (denizenslab n=6, blocked on git-annex) → **I4 CAPSTONE** E016 TRIBE-v2
+  (P0 gate PASS; D021). After every step: thinking panel (D017) + Codex (D019) until no hole survives; record;
+  **no rung flips without Erfan.**
 - **📖 ANALYSIS lane (Erfan) — FROZEN at its resume point:** the get-up-to-speed walk resumes at **Layer 3 = E005**
   (apparent +0.0081 → E008 per-individual null) = R05 §9 → §14; then figures-check + manuscript read-through.
   Working sessions must NOT edit the analysis-lane docs (R05, manuscript, E005–E014 records).
