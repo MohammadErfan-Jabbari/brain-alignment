@@ -23,5 +23,15 @@ On the powered naturalistic voxelwise substrate, does per-individual brain-tunin
 3. **The permuted-twin validity under voxelwise tuning** (real BOLD more learnable → ppl divergence, the E011 lesson — does it recur at voxel scale?).
 4. n=3 subjects: enough for a per-individual claim, or only a per-subject existence demonstration?
 
+## Verdict: DEFER — POWER-LIMITED AT n=3 (oracle-adjudicated, 2026-06-12; L021)
+
+The oracle gate returned **DEFER-POWER-LIMITED**, quantitatively:
+- **The per-voxel "huge N" is illusory.** ~11k voxels are read from a *single* (mse, perm) model-pair per fold and are **spatially autocorrelated** (effective independent units ≈ resel count, O(10²) not 10⁴) → a per-voxel-paired CI is pseudo-replicated and anti-conservative (the spatial twin of the L003/L015 trap). Not a valid powered statistic.
+- **The valid replication unit is the subject: n=3, df=2 → across-subject MDE ≈ +0.003** (between-subject biological variance doesn't shrink with more TRs) — ~10× the +0.0001–0.0004 per-individual effect E008 (n=9) measures. n=3 supports at most a *per-subject existence demo*, never a generalization claim; sign test 3/3 → p=0.125 (no power).
+- **The L011 ppl-confound recurs HARDER** at TR-voxel scale (richer regime, real BOLD more learnable than permuted → arms diverge in ppl), and the ppl-covariate-intercept control needs an n that n=3 can't support — double bind.
+- **Build cost** (the deliberately-unbuilt E007 TR-level voxelwise tuning loop, multi-day) **vs near-zero expected information**: a null is redundant with the cross-substrate Fork-B claim; a "positive" is uninterpretable (outlier risk, spatially anti-conservative, possible L011 artifact). No achievable n=3 result changes the thesis.
+
+**→ BUILD only with a higher-N deep cohort (n≳8–10 within-subject-repeat subjects)** — data we don't have. Until then the substrate-mismatch limitation is honestly stated (manuscript §6.5): feasible, data-ready, power-limited at n=3. This is an **evidence-based defer (the gate decided on power), not a false stop.** Correcting the earlier session error: the data was never the blocker (it's public/acquired) — the blocker is subject-count for a powered per-individual claim.
+
 ## Status
-DESIGN — **oracle-gate first** (the build is large + E006 cast power doubt; let the gate decide build-or-defer on power evidence, not a unilateral call). Data acquired (UTS01/02/03). If PASS → build the TR-level voxelwise tuning loop + run. If HOLD/KILL on power → the substrate-mismatch limitation is honestly characterized as "feasible but power-limited at n=3" (evidence-based, not a false stop).
+DEFER (oracle-adjudicated, power-limited at n=3). Data (UTS01/02/03) acquired + retained for a future n≳8–10 cohort. Manuscript §6.5 updated. The per-individual-at-matched-ppl line is now closed on every substrate we can power (Tuckute ROI n=9 + this); the remaining open door is Negi's distinct objective+data regime.

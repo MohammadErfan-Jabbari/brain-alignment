@@ -187,4 +187,16 @@ The socratic capstone flagged that E010's clean monotone gap(k) curve used NESTE
 
 (3) **Process lesson:** a single clean-looking curve from a confounded design (nested subsets) is a trap; the random-subset control is what revealed the noise. This is the L015/L016/L018/L019 pattern again — clean-looking small effects keep dissolving under the proper control. The rigor (socratic capstone → clean re-run) caught it before it shipped as a headline figure.
 
+### L021 — 2026-06-12 — The LeBel substrate-mismatch gap is feasible+data-ready but POWER-LIMITED at n=3; the per-voxel "huge N" is a pseudo-replication illusion (E012 deferred by the gate)
+
+Corrected an earlier-session error: I declared the multi-subject naturalistic test "blocked by data we lack." A data audit (Explore) found the deep subjects UTS01/UTS02 are on **public OpenNeuro S3** (reachable; boto3 available); I downloaded them (20 stories each) → n=3 deep subjects (E006 had 1). So the data was never the blocker. But the oracle gate on E012 returned **DEFER-POWER-LIMITED**:
+
+(1) **Per-voxel-paired across ~11k voxels is NOT a powered statistic.** The voxels are read from a single (mse, perm) model-pair per fold and are spatially autocorrelated → effective independent units ≈ resel count O(10²), and a per-voxel CI is pseudo-replicated/anti-conservative (the spatial twin of the L003 temporal-autocorr and L015 single-target traps). The valid replication unit is the **subject**.
+
+(2) **At n=3 (df=2) the across-subject MDE ≈ +0.003** — ~10× the +0.0001–0.0004 per-individual effect — and between-subject biological variance does NOT shrink with more TRs/subject. So more data *per subject* (LeBel's deep sampling) does not help; only more *subjects* do. n=3 → at most a per-subject existence demo, never a generalization claim.
+
+(3) **The L011 ppl-confound recurs harder at TR-voxel scale** (richer regime → real BOLD more learnable than permuted → ppl divergence), and its control (ppl-covariate intercept) needs an n that n=3 can't support.
+
+(4) **Lesson — distinguish "blocked by data" from "blocked by N."** The honest constraint isn't missing data (acquired) — it's that a powered per-individual claim needs n≳8–10 within-subject-repeat subjects, which the available deep-sampling datasets (LeBel: 3 deep subjects) don't provide. Building the heavy E007 voxelwise-tuning loop for an n=3 underpowered test is not justified; the gate (quantitative MDE), not a unilateral read, made the call. Manuscript §6.5 states it as feasible/data-ready/power-limited.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->
