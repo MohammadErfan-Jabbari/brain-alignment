@@ -3,16 +3,53 @@
 Durable backlog. The session task tracker is ephemeral; this file is the source of truth across
 sessions. Move items between sections; don't delete (strike completed ones with a date).
 
-## Now (current focus — ANALYSIS: get Erfan up to speed R03→now, then submit-polish)
+## Now — TWO PARALLEL LANES (D020, Erfan-agreed 2026-06-12)
 
-**Experimental program is CLOSED (Erfan-confirmed 2026-06-12).** The next 2–3 sessions are ANALYSIS — Erfan needs to be walked through everything after R03. No new evidence; consume + communicate it.
+Work runs in two independent queues that share the `docs/` evidence brain but do **not** block each
+other. Each session picks ONE lane and pulls from it. **The binding rule (D011):** analysis may only
+report numbers a working session recorded — so working sessions *add* evidence/rungs; they must
+**not edit the docs the analysis lane is reading** (`reports/R05`, the manuscript, the E005–E014
+experiment records). Rungs flip only on Erfan's confirmation.
 
-- [~] **Walk R03→now (the get-up-to-speed arc)** — IN PROGRESS (S9). Layer 0 (frame/bet) + Layer 1 (measurement/lever/E007-reroute) taught + captured in `docs/reports/R05` (LIVING). **Resume at Layer 3 = E005** (apparent +0.0081 → E008 per-individual null) → robustness escapes (E011/E013b/E013/E014) → Fork-B reframe. Teaching each = writing the next R05 section (§9–§14). Source: `docs/experiments/ENNN`, `learnings.md` L011–L030.
-- [ ] **Figures:** confirm `scripts/figures/make_figures.py` renders the recorded numbers (averaging-collapse / powered A2 / A3 nulls / dose-response-with-caveat).
-- [ ] **Manuscript read-through → submit:** venue/length; optional §2 prose polish. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
+> **Context:** Erfan is away ~2 days from 2026-06-12. Implementation runs autonomously in that window
+> (the full-FT door below is the approved, predeclared, kill-gated build — E013). The analysis lane is
+> frozen at its resume point, ready for him to pick up.
 
-### Queued — next MAJOR working build (a fresh session; Erfan-approved as possible next step)
-- [ ] **Full-FT multi-subject naturalistic voxelwise (the one untested door).** Full fine-tuning (NOT a LoRA distillation readout) on denizenslab n=6 (`data/paper-repos/speech-llm-brain`), under the protocol. Scoped in `docs/experiments/E013_*.md`. n-conditional on inducing an above-base improvement (the distillation lever's failure is a mechanism failure, E013/L027). Multi-day build — launch fresh.
+### 🔬 IMPLEMENTATION lane (working sessions — generates new evidence; ACTIVE)
+
+- [~] **Full-FT multi-subject naturalistic voxelwise — the ONE untested door (E013 §"two routes").**
+  Full fine-tuning (NOT a LoRA distillation readout) on denizenslab n=6 (`speech-llm-brain` / GIN
+  `narratives_reading_listening_fmri`), under the predeclared E013 protocol (per-individual n≥5,
+  permuted twin, matched-ppl intercept, spatially-blocked inference). Kill criterion locked (E013 §17):
+  powered per-individual null → per-individual line closed decisively (strongest Fork-B); CI-excludes-0
+  positive at matched ppl → Fork-A-qualifying. *Mechanism evidence (E013 distillation-lever failure,
+  E008/E011/E013b nulls) says **likely-null** — but it is the only door that can move the verdict.*
+  **Build steps (in order):**
+  1. **[ ] Data acquisition** — denizenslab fMRI BOLD responses (6 subj × 11 stories, reading+listening).
+     Only noise-ceiling derivatives + stimuli text/wav are on disk; the HDF response files live on GIN
+     git-annex. **Blocker: `git-annex`/`datalad` not installed** → acquire via GIN HTTP `/raw/` paths or
+     install git-annex (`apt-get`, network-permitting). First concrete step of the build.
+  2. **[ ] Full-FT brain-tuning loop** — adapt the voxelwise tune loop (`scripts/run_lebel_tune.py` is the
+     LoRA-readout version) into a **full fine-tune** variant + matched-ppl readout + per-kind permuted
+     twin + spatially-blocked permutation inference. The deferred "E007" pipeline, done properly.
+  3. **[ ] Run n=6 + judge** against the locked kill criterion; record verdict in E013 (do NOT flip the
+     ladder rung without Erfan).
+- [ ] **(Lower-risk fallback if data/pipeline blocks) Expand E015** to more model families
+  (OPT/Llama/Mistral) — strengthens the cross-family alignment∝−ppl law beyond the n=8/3-family cluster.
+  Existing harness (`run_ppl_alignment_law.py`); needs only model downloads. Additive evidence, no new
+  pipeline. Use the Antigravity/billing-off path for any gated weights.
+
+### 📖 ANALYSIS lane (Erfan's study queue — FROZEN at resume point; working sessions DO NOT edit these docs)
+
+- [~] **Walk R03→now (the get-up-to-speed arc)** — IN PROGRESS (S9). Layer 0 (frame/bet) + Layer 1
+  (measurement/lever/E007-reroute) taught + captured in `docs/reports/R05` (LIVING).
+  **▶ RESUME HERE: Layer 3 = E005** (apparent +0.0081 → E008 per-individual null) → robustness escapes
+  (E011/E013b/E013/E014) → Fork-B reframe. Teaching each = writing the next R05 section (§9–§14).
+  Source: `docs/experiments/ENNN`, `learnings.md` L011–L030.
+- [ ] **Figures:** confirm `scripts/figures/make_figures.py` renders the recorded numbers
+  (averaging-collapse / powered A2 / A3 nulls / dose-response-with-caveat).
+- [ ] **Manuscript read-through → submit:** venue/length; optional §2 prose polish. (References verified
+  + [VERIFY] flags cleared, lit-scout 2026-06-12.)
 
 ### Done this session (S9 — analysis, 2026-06-12)
 - [x] 2026-06-12 — **Taught Layer 0 + Layer 1** of the thesis arc (Socratic, native `socratic-tutor`); Erfan mastered the frame/bet + measurement/lever/MDE/reroute.

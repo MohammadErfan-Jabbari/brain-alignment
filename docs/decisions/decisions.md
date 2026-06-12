@@ -300,3 +300,27 @@ the S8 panel's diagnosis — independent corroboration, not redundancy.
 **Reverses / revisits if:** the host stops being a container (then re-enable the real sandbox), or a codex
 plugin update overwrites the `codex.mjs` patch (reapply it — `tasks.md` carry-forward). Full mechanics:
 `docs/references/codex-usage.md`.
+
+---
+
+## D020 — Two parallel work lanes: implementation + analysis, sharing the docs brain — 2026-06-12
+
+**Decision.** Run the repo as **two independent queues** (D011's two session modes, now run in parallel):
+an **implementation lane** (working sessions — generate new evidence) and an **analysis lane** (Erfan
+studies + communicates the recorded evidence). They share the `docs/` evidence brain but do not block
+each other; each session picks ONE lane. Trigger: Erfan is away ~2 days from 2026-06-12 and does not want
+that compute window idle — implementation proceeds autonomously while he resumes the analysis walk on return.
+
+**The coordination rule (makes parallel safe).** The D011 non-negotiable already separates them: analysis
+may only report numbers a working session *recorded*. So working sessions **add** evidence/experiment
+docs/rungs; they must **not edit the docs the analysis lane is reading** — `reports/R05`, the manuscript,
+and the E005–E014 experiment records stay frozen so Erfan's study ground doesn't shift under him. Rungs
+flip only on Erfan's confirmation (unchanged, D015).
+
+**Scope guard (science honesty).** "Keep experimenting" after an Erfan-confirmed null is only legitimate as
+**predeclared, kill-gated hypotheses** — not fishing to rescue a positive. The active implementation item is
+the **full-FT multi-subject voxelwise door** (E013 §"two routes"), whose kill criterion is already locked
+(E013 §17). Anything beyond it needs a written Claim + kill criterion before compute.
+
+**Reverses / revisits if:** the implementation lane runs dry (only the full-FT door + E015-expansion are
+real impl work today — F3/L4 is moot pending a positive L3), or Erfan redirects on return.
