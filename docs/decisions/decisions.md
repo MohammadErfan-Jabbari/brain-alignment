@@ -275,3 +275,28 @@ that overturns an overclaimed prior is a clean, publishable result, not a failur
 **Reverses if:** a higher-per-subject-SNR design (within-subject repeats lifting the single-subject
 ceiling, or surprisal/imageability conditioned into the nuisance) reveals a per-individual brain-specific
 gain above MDE — the only grounded path to a per-person positive (more averaging is not).
+
+---
+
+## D019 — Codex as a second-model critic + rescue; its OS sandbox disabled (container) — 2026-06-12
+
+**Decision.** Adopt Codex (OpenAI CLI, `gpt-5.5`) as an *independent second model* for this repo, with two
+jobs only: **(1)** a **code-level critic that ADDS to the thinking panel** — `/codex:adversarial-review`
+or a 1–4-persona background read-only `task` panel (statistical referee · reviewer-2 skeptic ·
+first-principles re-deriver · reproducibility/leakage auditor); **(2)** **rescue / second-implementation**
+of analysis scripts. Default reasoning **xhigh** (reviews inherit it; delegate a `task` with
+`--effort medium` for the asymmetric "medium worker / xhigh critic"). **Hard line:** Codex never produces a
+science number or flips a rung — numbers come only from the `docs/` brain, verdicts only from Erfan; it
+reviews code correctness and proposes implementations.
+**Sandbox posture.** Codex's bubblewrap sandbox **cannot run in this Docker container** (uid-map + loopback
+`Operation not permitted`; `/proc/sys` read-only; system `bubblewrap` doesn't help — L033). So the inner
+sandbox is **disabled** (config `approval_policy=never`, `sandbox_mode=danger-full-access`; plugin
+`codex.mjs` patched to force `danger-full-access`). The Docker container is the external boundary — the
+configuration Codex's own docs sanction for externally-sandboxed envs. Safety = container + git diff review
++ the hard line, not the inner sandbox.
+**Rationale.** The thinking panel attacks the *conclusion*; Codex adds the *code* layer it can't reach (it
+runs the script). Verified live: Codex (xhigh) independently re-ran `reanalyze_e005_e006.py` and reproduced
+the S8 panel's diagnosis — independent corroboration, not redundancy.
+**Reverses / revisits if:** the host stops being a container (then re-enable the real sandbox), or a codex
+plugin update overwrites the `codex.mjs` patch (reapply it — `tasks.md` carry-forward). Full mechanics:
+`docs/references/codex-usage.md`.
