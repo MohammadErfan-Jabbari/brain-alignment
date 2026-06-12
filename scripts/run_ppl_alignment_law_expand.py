@@ -59,47 +59,50 @@ def family_of(name: str) -> str:
 
 
 def bits_per_byte(model, tok, texts, device, max_length=160, batch_size=16):
-    """Tokenizer-INDEPENDENT LM quality: total NLL in bits / total UTF-8 bytes of the probe text [F1].
-    A single leading token (bos else eos) is prepended uniformly so every content token is scored,
-    making BOS handling consistent across families [F2]. Truncation at 160 never fires for <=60-word
-    sentences, so probe bytes = full sentence bytes. Also returns per-token ppl (continuity only)."""
+    """Tokenizer-INDEPENDENT LM quality: total NLL in bits / total UTF-8 bytes of the SCORED text [F1].
+
+    NO leading token is prepended and the (unconditioned) first content token is NOT scored — the
+    standard bits-per-byte / per-token-ppl convention (Pile/GPT-3; matches the v2 held_out_perplexity).
+    The earlier eos-prepend [F2] was REVERTED: prepending <|endoftext|> poisoned the whole-sequence
+    scoring of Qwen2.5-3B specifically (ppl 32.6 -> 105, an off-trend high-leverage outlier), while
+    v2-style no-prepend recovers its healthy 32.6 (verified 2026-06-13; see E015 doc + L0xx). bytes are
+    counted on the DECODED scored span (tokens[1:]) so numerator and denominator correspond exactly
+    [Codex MUST-FIX]. Returns per-token ppl too (continuity with v2)."""
     import torch
     model.eval()
-    lead_id = tok.bos_token_id if tok.bos_token_id is not None else tok.eos_token_id
-    pad_id = tok.pad_token_id if tok.pad_token_id is not None else lead_id
+    pad_id = tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id
     total_nll_nats, total_tok, total_bytes = 0.0, 0, 0
-    n_trunc, max_content_len = 0, 0  # Codex MUST-FIX guard: detect if any sentence hit the cap
+    n_trunc, max_content_len = 0, 0
     with torch.no_grad():
         for start in range(0, len(texts), batch_size):
             batch = texts[start:start + batch_size]
-            enc = tok(batch, add_special_tokens=False, truncation=True, max_length=max_length - 1)
-            content = enc["input_ids"]                       # already truncated to max_length-1
-            n_trunc += sum(1 for ids in content if len(ids) >= max_length - 1)
-            max_content_len = max(max_content_len, max(len(ids) for ids in content))
-            seqs = [[lead_id] + ids for ids in content]
-            mx = max(len(s) for s in seqs)
-            input_ids = torch.full((len(seqs), mx), pad_id, dtype=torch.long)
-            attn = torch.zeros((len(seqs), mx), dtype=torch.long)
-            for i, s in enumerate(seqs):
+            enc = tok(batch, add_special_tokens=False, truncation=True, max_length=max_length)
+            content = [ids for ids in enc["input_ids"] if len(ids) >= 2]  # need >=1 scored token
+            n_trunc += sum(1 for ids in content if len(ids) >= max_length)
+            max_content_len = max(max_content_len, max((len(ids) for ids in content), default=0))
+            mx = max((len(s) for s in content), default=0)
+            if mx == 0:
+                continue
+            input_ids = torch.full((len(content), mx), pad_id, dtype=torch.long)
+            attn = torch.zeros((len(content), mx), dtype=torch.long)
+            for i, s in enumerate(content):
                 input_ids[i, :len(s)] = torch.tensor(s)
                 attn[i, :len(s)] = 1
             input_ids, attn = input_ids.to(device), attn.to(device)
             out = model(input_ids=input_ids, attention_mask=attn)
             logits = out.logits[:, :-1, :]
             tgt = input_ids[:, 1:]
-            m = attn[:, 1:].float()
+            m = attn[:, 1:].float()                                  # scores tokens[1:], first unscored
             logp = torch.log_softmax(logits.float(), dim=-1)
-            nll = -logp.gather(-1, tgt.unsqueeze(-1)).squeeze(-1)  # (B,T-1)
+            nll = -logp.gather(-1, tgt.unsqueeze(-1)).squeeze(-1)
             total_nll_nats += float((nll * m).sum())
             total_tok += int(m.sum())
-            # Codex MUST-FIX: bytes must correspond to the SCORED tokens, not the raw sentence
-            # (decode the actually-modeled content ids), so truncation can never inflate the denominator.
-            total_bytes += sum(len(tok.decode(ids).encode("utf-8")) for ids in content)
+            total_bytes += sum(len(tok.decode(ids[1:]).encode("utf-8")) for ids in content)  # scored span
     return {"bpb": (total_nll_nats / math.log(2)) / max(total_bytes, 1),
             "ppl_token": math.exp(total_nll_nats / max(total_tok, 1)),
             "n_tokens": total_tok, "n_bytes": total_bytes, "n_truncated": n_trunc,
             "max_content_len": max_content_len,
-            "vocab": int(getattr(model.config, "vocab_size", len(tok))), "lead_id": int(lead_id)}
+            "vocab": int(getattr(model.config, "vocab_size", len(tok)))}
 
 
 def extract_multilayer(model, tok, texts, device, layers, max_length=64, batch_size=32):

@@ -88,9 +88,10 @@ def ancova(lx, y, fams, min_n=3):
         F = ((rss_r - rss_f) / df1) / (rss_f / df2)
         p = float(_st.f.sf(F, df1, df2)) if (_st and F == F) else float("nan")
     partial_r2 = (rss_r - rss_f) / rss_r if rss_r > 1e-12 else float("nan")
-    return {"families_used": big, "n": n, "F": F, "p": p, "df": [df1, df2], "rank_ok": bool(rank_ok),
-            "partial_r2_family": partial_r2, "common_support": common_support,
-            "support_overlap": [float(lo), float(hi)], "family_ranges": {f: [float(a), float(b)] for f, (a, b) in ranges.items()}}
+    return {"families_used": [str(f) for f in big], "n": int(n), "F": float(F), "p": float(p),
+            "df": [int(df1), int(df2)], "rank_ok": bool(rank_ok), "partial_r2_family": float(partial_r2),
+            "common_support": bool(common_support), "support_overlap": [float(lo), float(hi)],
+            "family_ranges": {str(f): [float(a), float(b)] for f, (a, b) in ranges.items()}}
 
 
 def family_cluster_bootstrap(lx, y, fams, B=5000, seed=0):
