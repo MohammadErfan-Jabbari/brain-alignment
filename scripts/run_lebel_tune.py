@@ -75,6 +75,7 @@ def eval_unique_r2(model, tok, eval_stories, subject, vox, layer, device, eng100
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="Qwen/Qwen2.5-0.5B")
+    ap.add_argument("--kd-teacher", default=None, help="v2: KD-KL anchor (e.g. Qwen/Qwen2.5-1.5B) to preserve the LM (E008 recipe) so brain-tuning doesn't degrade held-out alignment")
     ap.add_argument("--subjects", nargs="+", default=["UTS01", "UTS02", "UTS03"])
     ap.add_argument("--n-tune-stories", type=int, default=14)
     ap.add_argument("--n-eval-stories", type=int, default=6)
@@ -101,6 +102,12 @@ def main():
     eng1000 = L._eng1000()
     base0, tok = RBL.load_model(args.model, device)
     del base0
+    kd_teacher = None
+    if args.kd_teacher:
+        kd_teacher = RBL.load_model(args.kd_teacher, device)[0].eval()
+        for p in kd_teacher.parameters():
+            p.requires_grad_(False)
+        print(f"KD anchor: {args.kd_teacher}")
     results = {"model": args.model, "layer": layer, "config": vars(args), "subjects": {}}
     t0 = time.time()
 
@@ -133,7 +140,7 @@ def main():
             m, _ = RBL.load_model(args.model, device)
             m = RBL.brain_tune(m, tok, texts_tune, Y_tune, "mse", args.lambda_brain, 1.0, layer, device,
                                args.epochs, args.lr, args.batch_size, seed, use_lora=True,
-                               model_name=args.model, lora_r=args.lora_r, teacher=None)
+                               model_name=args.model, lora_r=args.lora_r, teacher=kd_teacher)
             real_u, _ = eval_unique_r2(m, tok, eval_st, subj, vox, layer, device, eng1000, args.n_folds)
             del m; torch.cuda.empty_cache()
             # permuted twins
@@ -144,13 +151,14 @@ def main():
                 Yperm = BL.block_permute(Y_tune, n_blocks=10, seed=1000 + seed * 10 + p)
                 mp = RBL.brain_tune(mp, tok, texts_tune, Yperm, "mse", args.lambda_brain, 1.0, layer, device,
                                     args.epochs, args.lr, args.batch_size, seed, use_lora=True,
-                                    model_name=args.model, lora_r=args.lora_r, teacher=None)
+                                    model_name=args.model, lora_r=args.lora_r, teacher=kd_teacher)
                 pu, _ = eval_unique_r2(mp, tok, eval_st, subj, vox, layer, device, eng1000, args.n_folds)
                 perm_us.append(pu); del mp; torch.cuda.empty_cache()
             gap = real_u - float(np.mean(perm_us))
             rows.append({"seed": seed, "real_u": real_u, "perm_u_mean": float(np.mean(perm_us)),
-                         "perm_us": perm_us, "gap": gap, "base_u": base_u})
-            print(f"  [s{seed}] real={real_u:+.4f} perm={np.mean(perm_us):+.4f} GAP={gap:+.4f}", flush=True)
+                         "perm_us": perm_us, "gap": gap, "base_u": base_u,
+                         "manip_ok": bool(real_u > base_u)})
+            print(f"  [s{seed}] base={base_u:+.4f} real={real_u:+.4f} perm={np.mean(perm_us):+.4f} GAP={gap:+.4f}  MANIP_OK(real>base)={real_u>base_u}", flush=True)
         results["subjects"][subj] = {"n_vox": int(len(vox)), "tune_stories": tune_st, "eval_stories": eval_st,
                                      "base_u": base_u, "rows": rows,
                                      "gap_mean": float(np.mean([r["gap"] for r in rows]))}
