@@ -26,8 +26,8 @@ E013/E011/E013b/E008). LeBel-encoding induction route KILLED. **Not a Fork-A sur
 
 ## What to do next (autonomous loop) → **I4 / TRIBE capstone (E016)**
 
-I3 (full-FT multi-subject denizenslab n=6) stays **data-blocked** (git-annex), and E017's full-FT null lowers
-its prior. Per the roadmap, **I4 sidesteps I3's data blocker** (TRIBE generates its own fMRI). **I4/P0 GATE
+I3 (full-FT multi-subject denizenslab n=6) data is now **DOWNLOADED + verified** (de-prioritized to **F3** in the
+forward program; E017's full-FT null lowers its prior). Per the roadmap, **I4 sidesteps I3** (TRIBE generates its own fMRI). **I4/P0 GATE
 PASSED (S12, verified):** TRIBE runs text→synthetic-BOLD end-to-end → `preds (11, 20484)` fsaverage5 cortical,
 sane BOLD (`scripts/tribe_p0_verify.py`, `outputs/E016_tribe/p0_verify2.log`). **Operative fixes:** (1) Llama
 override via **`config_update={"data.text_feature.model_name": "unsloth/Llama-3.2-3B"}`** to `from_pretrained`

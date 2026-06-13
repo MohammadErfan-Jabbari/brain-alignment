@@ -1,9 +1,9 @@
 # Experiment — E016: TRIBE-v2 synthetic brain targets — can a brain foundation model break the data-scarcity wall, and what is the ceiling on brain-guided LM training?
 
-**Created:** 2026-06-12 · **Status:** QUEUED — the **CAPSTONE (I4, LAST)** of the implementation roadmap; the
-new task added at the end of the train, *after* I1 (E015-expand), I2 (external matched-ppl control), I3 (full-FT
-door). P0 gate PASS; P1–P3 run once the train reaches it (or earlier if I3 walls on data — I4 sidesteps that
-blocker by generating its own fMRI). · **Mode:** working (design→run→judge)
+**Created:** 2026-06-12 · **Status:** **P0 PASSED (2026-06-13); now the FORWARD-PROGRAM F1 = NEXT TO RUN** (it was
+the I4 capstone/last of the original implementation roadmap, but the S12 planning swarm re-sequenced it to the
+front — the ceiling is the cheapest decisive next experiment). After I1 (E015-expand ✅), I2 (E017 ✅). P1→P3 design
+refined below (see "PHASE 1/2 DESIGN — REFINED"). · **Mode:** working (design→run→judge)
 **Trigger:** Meta FAIR's **TRIBE v2** (d'Ascoli et al., ICLR 2026; arXiv 2605.04326; weights `facebook/tribev2`)
 — a trimodal (video/audio/text) foundation model that predicts fMRI BOLD for *arbitrary* naturalistic
 stimuli, SOTA on Algonauts 2025. Erfan flagged it (2026-06-12) as a possible answer to the data-scarcity
@@ -185,8 +185,9 @@ Reached I4 after completing I1 (E015 law r≈−0.78) + I2 (E017 full-FT inducti
   approval") and the cache is **incomplete** (76K — config/README only, no weights → can't load offline). This is
   the same gate hit in I1. **Workaround applied:** patched `grids/defaults.py:28` → **`unsloth/Llama-3.2-3B`**
   (the identical *base* weights, non-gated, already cached from I1; vocab 128256, 28 layers — a faithful
-  substitution since it is the same model re-uploaded). `.bak` saved. **Carry-forward: this patch (like the
-  codex.mjs one) is in the repo working tree — re-apply if the tribev2 repo is re-cloned/reset.**
+  substitution since it is the same model re-uploaded). `.bak` saved. **[SUPERSEDED — see P0 reproducibility
+  below: the defaults.py patch is NOT the operative fix; the working override is the `config_update` runtime
+  argument, which needs no re-apply after a re-clone. The defaults.py patch is harmless but redundant.]**
 - **Remaining P0 (the next session's first step):** build a text-events DataFrame (`tribe_demo.ipynb` /
   `get_events_dataframe` is the template), then `TribeModel.from_pretrained("facebook/tribev2")` + `.predict(...)`
   on a sample → expect (T, ~29k) BOLD. This pulls **facebook/tribev2 weights + Wav2Vec-Bert-2.0 (audio) + possibly
@@ -225,7 +226,10 @@ Phase 1/2 design. **Three changes are now part of the locked program:**
 1. **[PREREQUISITE — the real blocker, do FIRST] Voxel-space mapping.** TRIBE outputs **fsaverage5 cortical
    surface** (20,484 vtx); LeBel real BOLD is **volumetric subject-space** (~80–93k voxels per subject, verified).
    There is NO existing bridge in our pipeline. Phase 1/2 cannot produce a number until this is solved — either
-   (a) map LeBel voxels → fsaverage5 (the LeBel/deep-fMRI-dataset preprocessing likely already has a pycortex/
+   [NOTE: the earlier `grids/defaults.py:28` patch is SUPERSEDED — the operative Llama override is the
+  **`config_update={"data.text_feature.model_name": "unsloth/Llama-3.2-3B"}`** *runtime argument* to
+  `from_pretrained` (see "P0 reproducibility" below); it needs no re-apply after a re-clone, just use the argument.]
+  (a) map LeBel voxels → fsaverage5 (the LeBel/deep-fMRI-dataset preprocessing likely already has a pycortex/
    FreeSurfer surface transform — look there first), or (b) project TRIBE vertices → volume. Resolve before any
    fidelity/residual computation. (Codex: this is the #1 MUST-DO.)
 2. **[Phase 1 fidelity — use SPATIAL-SPECIFICITY, the naive check is circular] (counter-argument).** Do NOT use

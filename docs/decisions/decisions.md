@@ -242,9 +242,9 @@ result/verdict* (and before that verdict lands in the ladder/docs/manuscript), a
 adversarial panel. The loop: run the panel → verify each objection against the raw data → address the
 ones that hold → re-run until no hole survives. They are deliberately MECE against `oracle-reviewer`,
 which is a *pre-compute design gate* (PASS/HOLD/KILL); the panel are *post-step analysts* of an
-existing result. Model routing per Erfan's rule: `counter-argument`/`premortem-analyst`/
-`first-principles-grounder` default **fable** (hard counter-arguing), `socratic-thinker` and the
-existing search/digest/log agents **sonnet**, mechanical fan-out **haiku**. Model declared in each
+existing result. Model routing per Erfan's rule [**routing SUPERSEDED by D026 (2026-06-13): fable banned → these panel agents +
+socratic now run on opus**]: ~~`counter-argument`/`premortem-analyst`/`first-principles-grounder` default fable~~,
+`socratic-thinker` and the existing search/digest/log agents **sonnet**, mechanical fan-out **haiku**. Model declared in each
 agent's `model:` frontmatter; existing agents got an explicit `model:` too.
 **Rationale:** Erfan's autonomous-mode directive ("after each phase, run counter-argument and Socratic
 thinker and other methods of thinking, go back and forth, verify then address until there is no hole in
@@ -369,11 +369,12 @@ under-researched literature gap as evidence accumulates.
 
 **How it changes operating posture (not the science bar — that was always rigorous).** The implementation lane
 runs as an **ordered roadmap** (I1→I4, TRIBE capstone last; `tasks.md`), and after **every** step/verdict the
-**thinking panel** (D017: counter-argument · socratic-thinker · premortem-analyst · first-principles-grounder,
-fable/sonnet) **+ the Codex code-critic** (D019) run as a continuous counter-critique loop — *verify each
-objection against the data, address the ones that hold, re-run until no hole survives* — before any verdict
-lands in the ladder/docs/manuscript. Subagents are used liberally (fable for hard adversarial work; sonnet for
-search/digest/Socratic; haiku for mechanical fan-out). gbrain is read/written continuously.
+**thinking panel** (D017: counter-argument · socratic-thinker · premortem-analyst · first-principles-grounder)
+**+ the Codex code-critic** (D019) run as a continuous counter-critique loop — *verify each objection against the
+data, address the ones that hold, re-run until no hole survives* — before any verdict lands in the ladder/docs/
+manuscript. Subagents are used liberally [**model routing SUPERSEDED by D026: the panel + lit-scout/paper-digest
+run on opus (thinking/analysis), doc-navigation/record on sonnet, mechanical fan-out on haiku — fable is banned**].
+gbrain is read/written continuously.
 
 **The hard line stays:** no rung flips without Erfan; numbers come only from runs recorded in the docs brain;
 strategic framing calls (e.g. whether I2's external matched-ppl result becomes the paper's headline/spine) wait
