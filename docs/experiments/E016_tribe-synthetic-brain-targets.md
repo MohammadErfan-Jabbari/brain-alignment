@@ -414,3 +414,25 @@ align to the θ\*-independent residual ε = Y − E[Y|S]). Operationalized as th
 - **DECISION:** residual CI includes 0 vs BOTH ⇒ the ceiling is the stimulus-predictable part ⇒ **strongest Fork-B
   with mechanism.** residual CI excludes 0 surviving no-text ⇒ **Fork-A → STOP for Erfan.** Full panel + Codex on
   the verdict; no rung flip without Erfan.
+
+### Step 8 — Oracle gate on Phase 2 = HOLD → revised (the ΔR² partition was primed for a FALSE Fork-A) (S13)
+Oracle (opus) HOLD: the bare ΔR²_LM|TRIBE partition has THREE independent upward biases all pushing toward a
+false Fork-A — (a) capacity: the 400-d LM block beats 1-d-per-vertex TRIBE by dimensionality alone; (b) TRIBE is a
+weak encoder (Phase-1 margin modest) so partialling it leaves un-removed stimulus variance the LM mops up =
+*stimulus-predictable*, mis-scored as residual; (c) group-TRIBE vs per-subject-real leaks subject-specific
+*stimulus* deviation into the residual. A single biased CI would fire Fork-A (the expensive thesis-reopening
+branch). **All must-fixes ADOPTED:**
+1. **Untrained-LM floor is the VERDICT, not optional** (≥3 seeds): estimand = **(trained residual − untrained
+   residual)**, on BOTH TRIBE variants. Absorbs capacity bias + no-text-is-weak + most of the group leak.
+2. **Capacity-fair estimand (B) as headline:** score the SAME LM block (same dim) → two targets, real-BOLD vs
+   TRIBE-BOLD, NC-normalized; capacity bias cancels by construction. residual = NC-norm A_real − A_tribe.
+3. **Pre-register the MDE** (E006 fold-variance machinery). A CI⊇0 = "residual < MDE, with DPI as the mechanism",
+   NOT a clean null (E006 MDE was +0.013/+0.015 on the POWERED substrate; 1 story will be weaker).
+4. **Primary target = group-avg real BOLD** (estimand-matched to group-TRIBE); per-subject n=6 = consistency.
+5. **Asymmetric decision rule:** Fork-A requires the trained−untrained residual gap to exclude 0 vs **BOTH** full
+   AND no-text TRIBE (and ideally replicate on a 2nd story); anything less = Fork-B/HOLD, not a STOP. Currently
+   primed to fire false Fork-A → flipped.
+6. **Vacuity check:** confirm TRIBE-real R² in higher-language ≫ nuisance floor *in the Phase-2 fits* (else the
+   subtraction is near-vacuous). Single-story = a residual *bound*, not a null; n=1 stimulus (pseudo-replication
+   across 6 subjects) — frame honestly; ≥2-3 stories is the nice-to-have that breaks it.
+**Verdict: design revised → build `scripts/run_tribe_ceiling.py` with estimand (B) + untrained floor + MDE.**
