@@ -193,7 +193,28 @@ Reached I4 after completing I1 (E015 law r≈−0.78) + I2 (E017 full-FT inducti
   V-JEPA-2-Giant (video) + gTTS (NETWORK)** — multi-GB downloads + a network round-trip (text→gTTS audio→ASR
   word-timings→text+audio embeddings, per §1). Predeclared P0 WALL (§Phase 0) still applies if these are
   unresolvable. **Then Phase 1 (fidelity) → Phase 2 (the ceiling — cheapest decisive, run first).**
-- **Why paused here (deliberate, not a wall):** the capstone is a multi-day build ("launch fresh, not at a
-  session tail"); S12 already delivered I1+I2+I3-status at ~$250; continuing into the multi-GB/network P0 + the
-  P1–P3 program now risks the L031 overshoot the project explicitly guards against. Blocker pre-solved → the next
-  session starts clean on the predict-verification.
+- **→ P0 GATE PASSED (2026-06-13 02:16).** `TribeModel.from_pretrained("facebook/tribev2", config_update=...)`
+  + `get_events_dataframe(text_path=...)` + `predict()` ran end-to-end on a sample sentence →
+  **`preds shape (11, 20484)`** (11 event-bearing segments × 20,484 fsaverage5 cortical vertices; BOLD mean
+  0.011, std 0.103, range [−0.36, 0.76] — sane). Verified in `outputs/E016_tribe/p0_verify2.log` (+ `/tmp/tribe_p0_verify.py`).
+
+### P0 reproducibility — the ACTUAL fixes (supersedes the defaults.py note above)
+1. **The operative Llama override is `config_update`, NOT the grids/defaults.py patch.** The pretrained extractor
+   spec comes from facebook/tribev2's **downloaded `config.yaml`** (`data.text_feature.model_name = meta-llama/
+   Llama-3.2-3B`), which overrides grids/defaults.py. The working fix:
+   `TribeModel.from_pretrained("facebook/tribev2", config_update={"data.text_feature.model_name": "unsloth/Llama-3.2-3B"})`
+   (identical base weights, non-gated, cached). The other 3 extractors are non-gated: `facebook/dinov2-large`
+   (image), `facebook/w2v-bert-2.0` (audio), `facebook/vjepa2-vitg-fpc64-256` (video; auto-skipped for text-only
+   input — "Removing extractor video as there are no corresponding events").
+2. **System dep: `ffmpeg` required** (whisperx/torchcodec decode the gTTS mp3 for ASR word-timings). Installed via
+   `sudo apt-get install -y ffmpeg` (passwordless sudo works in this container; ffmpeg 6.1.1 at /usr/bin/ffmpeg).
+3. **Auto-downloads on first predict:** spaCy `en_core_web_lg` (400MB), the 4 extractor weights, tribev2 `best.ckpt`.
+   gTTS needs general network (works). cache_folder = `/home/centcom/data/tribe_cache`.
+4. Text path = text→gTTS audio→whisperx ASR→word events→text+audio embeddings (deterministic fn of input text).
+
+**→ Phase 1 (FIDELITY) is the next step** (a fresh focused run): generate TRIBE targets for the LeBel/Tuckute
+stimuli we have real fMRI for, re-run the A2 trained-vs-untrained unique-R² contrast against TRIBE targets
+(same nuisance set), decide if TRIBE is a faithful in-pipeline stand-in → then Phase 2 (the ceiling, cheapest
+decisive). **Why checkpoint here:** P0 is a clean gate boundary; Phases 1–3 are substantial experiments
+deserving a fresh focused session (the capstone is a multi-day build). Session S12 cost ~$310; blocker fully
+solved + verified.
