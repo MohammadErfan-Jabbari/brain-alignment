@@ -132,17 +132,23 @@ def _percol_corr(P, Y):
     return (np.nan_to_num(zscore(P, 0)) * np.nan_to_num(zscore(Y, 0))).mean(0)
 
 
-def ridge_cv_pred(X, Y, alphas=(1e1, 1e2, 1e3, 1e4, 1e5)):
-    """Contiguous 5-fold ridge; return held-out predictions (T,·), alpha by mean test corr."""
+def ridge_cv_pred(X, Y, alphas=(1.0, 1e1, 1e2, 1e3, 1e4)):
+    """Contiguous 5-fold ridge; return held-out predictions (T,·), alpha by mean test corr.
+    Centers X and Y on the TRAINING fold (intercept handled, not regularized) — without
+    this, the BOLD mean leaks into the fit since features are z-scored over the full series
+    (not per fold), which spuriously favors huge alpha. Y may be 1-D or 2-D."""
+    Y2 = Y if Y.ndim == 2 else Y[:, None]
     T = X.shape[0]; folds = np.array_split(np.arange(T), NFOLDS)
     best = (-2.0, None, None)
     for a in alphas:
-        pred = np.zeros_like(Y)
+        pred = np.zeros_like(Y2)
         for te in folds:
             trn = np.setdiff1d(np.arange(T), te)
-            B = np.linalg.solve(X[trn].T @ X[trn] + a * np.eye(X.shape[1]), X[trn].T @ Y[trn])
-            pred[te] = X[te] @ B
-        m = float(np.nanmean(_percol_corr(pred, Y)))
+            mx, my = X[trn].mean(0), Y2[trn].mean(0)
+            Xtr, Ytr = X[trn] - mx, Y2[trn] - my
+            B = np.linalg.solve(Xtr.T @ Xtr + a * np.eye(X.shape[1]), Xtr.T @ Ytr)
+            pred[te] = (X[te] - mx) @ B + my
+        m = float(np.nanmean(_percol_corr(pred, Y2)))
         if m > best[0]: best = (m, a, pred)
     return best[2], best[1]
 
