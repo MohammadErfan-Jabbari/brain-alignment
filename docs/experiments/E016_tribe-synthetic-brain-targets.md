@@ -352,3 +352,27 @@ Fork-B); a residual >0 surviving the no-text ablation = Fork-A surprise → STOP
 - **Decision:** residual CI includes 0 (within the E006-scale MDE) vs both TRIBE variants ⇒ the ceiling is the
   stimulus-predictable part ⇒ strongest Fork-B with mechanism. residual CI excludes 0 surviving no-text ⇒ Fork-A
   → STOP for Erfan. Panel (D017) + Codex after the verdict.
+
+### Step 5 — Phase 1 FIDELITY VERDICT: PASS (2026-06-14). TRIBE is a faithful in-pipeline stand-in.
+After the TRIBE long-audio timestamp bug (L037; events now span 0–591.3 s, preds (700,20484)) and the
+ridge-centering fix, the locked gate ran on denizenslab story_11, n=6 listening.
+- **Timing fix validated:** the TRIBE↔BOLD lag-search on AC is sharply unimodal, peak at **lag=7 TR**
+  (AC corr 0.251, sharpness 0.193; profile rises 0.03→0.08→0.11→0.18→0.25 then falls) — a true interior
+  peak (≈5 TR lead silence + HRF), exactly the oracle's pre-registered sanity check.
+- **GATE (per-subject ROI-mean, n=6 paired):** TRIBE beats the low-level floor in **higher-order language**
+  (Broca/pSTS/ATFP/sPMv): **Δ = +0.142, 95% CI [+0.053, +0.232], 6/6 subjects positive.** PASS.
+- **Gradient:** higher-order-language − somatomotor = **+0.290 [+0.181, +0.398], 6/6.** PASS.
+- **Group per-vertex (high-SNR, estimand-matched to E[Y|S]):** higher_lang TRIBE 0.222 vs floor 0.057
+  (Δ+0.165, ~4×); auditory 0.251 vs 0.167; early_vis 0.003 vs −0.118; somatomotor 0.007 vs −0.067 — TRIBE
+  predicts language/auditory HIGH and visual/motor ≈0, the correct listening profile, and beats the
+  envelope/word-rate floor *specifically* in higher-order language (not just envelope-trackable AC).
+- **Mapper-smoothing robustness (oracle control, by design):** TRIBE (native fsa5) and the floor are both
+  scored against the SAME mapper-smoothed real BOLD per vertex, so smoothing cancels in the TRIBE−floor
+  contrast; and smoothing can only BLUR the lang-vs-visual distinction (TRIBE 0.222 vs 0.003), so the strong
+  specificity is conservative, not an artifact.
+**Verdict: PASS — TRIBE is a faithful in-pipeline fMRI stand-in for the stimulus-evoked response.** This is a
+TOOL-VALIDATION gate, NOT a science rung — **no ladder flip.** Licenses Phase 2 (the ceiling). Results:
+`outputs/E016_tribe/fidelity/fidelity_results.json`. Panel note: per the repo cost-discipline norm (reserve
+the full panel for surprising/load-bearing *science* verdicts), Phase 1 (expected PASS, a gate) gets a focused
+counter-argument adversarial pass + the empirical controls above; the FULL thinking panel + Codex is reserved
+for the Phase-2 ceiling verdict (the load-bearing claim that could read as Fork-A).
