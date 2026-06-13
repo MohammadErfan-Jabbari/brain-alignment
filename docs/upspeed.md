@@ -50,10 +50,14 @@ Design→oracle-gate→run→panel+Codex→record. **A TRIBE null = strongest pu
 ## Key facts
 - **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache HF_HUB_OFFLINE=1`. GPUs 4× L40S free.
 - **Cost discipline:** this session ran long (~$245). Lean on the empirical verify-loop (e.g. the gentle-config
-  check that caught a forgetting artifact) over redundant fable panels on converging nulls; spin up panels for
+  check that caught a forgetting artifact) over redundant panels on converging nulls; spin up panels for
   positive/surprising claims. Spin up subagents liberally for genuinely parallel/independent work.
-- **Subagent routing:** fable = adversarial/counter + oracle; sonnet = lit-scout/digest/socratic/logger;
-  haiku = mechanical fan-out. Codex = code-critic + rescue.
+- **Subagent routing (fable BANNED/removed; Erfan's rule 2026-06-13 — anything that needs THINKING/ANALYSIS/
+  DESIGN → opus):** **opus** = the thinking panel (`counter-argument`, `premortem-analyst`,
+  `first-principles-grounder`, `socratic-thinker`), `oracle-reviewer`, AND `lit-scout` + `paper-digest`
+  (relevance-judging / paper-synthesis is analysis), + any design subagent. **sonnet** = navigating OUR docs
+  (status review, fact-finding across traces, record-writing `session-logger`). **haiku** = simpler mechanical
+  fan-out. Codex = code-critic + rescue. NEVER select `fable`. (all agent frontmatter updated 2026-06-13.)
 - **Llama-3.2 HF-gated** (token lacks approval) → `unsloth/Llama-3.2-*` mirror (identical weights). bits-per-byte
   (no-prepend, skip-first-token) > per-token ppl for cross-family quality. Antonello OPT scaling r=0.91 (not 0.991).
 - **Git:** `main`, push only when asked. Commit atomically (this session: 12 commits I1+I2).

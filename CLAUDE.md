@@ -113,9 +113,9 @@ Rules (unchanged): scoped staging only — never `git add -A`/`.`; stage explici
 
 | Agent | Use when |
 |---|---|
-| `lit-scout` | Search across sources for papers on a topic; return a ranked, deduped shortlist. (sonnet) |
-| `paper-digest` | Read a paper (PDF/arXiv/URL) → a canonical note in `docs/literature/canonical/`. (sonnet) |
-| `oracle-reviewer` | Adversarially stress-test a hypothesis or design **before** committing compute (PASS/HOLD/KILL). Reproduces the prior HOLD-review value. (fable) |
+| `lit-scout` | Search across sources for papers on a topic; return a ranked, deduped shortlist. (opus) |
+| `paper-digest` | Read a paper (PDF/arXiv/URL) → a canonical note in `docs/literature/canonical/`. (opus) |
+| `oracle-reviewer` | Adversarially stress-test a hypothesis or design **before** committing compute (PASS/HOLD/KILL). Reproduces the prior HOLD-review value. (opus) |
 | `session-logger` | At session end: write `docs/timeline/…`, REPLACE `docs/upspeed.md`, update `tasks.md`/`learnings.md`. (sonnet) |
 
 **The thinking panel** (D017) — four reasoning-methodology agents run *after a step produces a result/
@@ -126,13 +126,18 @@ hole survives.
 
 | Agent | Lens | Use when |
 |---|---|---|
-| `counter-argument` | Red-team the conclusion — build the strongest case it's an artifact/over-claim. (fable) | A run produced a verdict; before believing it. |
-| `socratic-thinker` | Expose hidden assumptions and undefined terms by asking, not asserting. (sonnet) | A direction feels settled too quickly; before locking a framing. |
-| `premortem-analyst` | Assume it already failed (didn't replicate / rejected / defense collapsed); trace backward. (fable) | Before building heavily on a result or spending the next compute. |
-| `first-principles-grounder` | Re-derive from mechanism + the math/papers (`06-theory-grounding.md`, canonical notes, course material). (fable) | A claim needs a mechanism, leans on a theorem, or might contradict a source. |
+| `counter-argument` | Red-team the conclusion — build the strongest case it's an artifact/over-claim. (opus) | A run produced a verdict; before believing it. |
+| `socratic-thinker` | Expose hidden assumptions and undefined terms by asking, not asserting. (opus) | A direction feels settled too quickly; before locking a framing. |
+| `premortem-analyst` | Assume it already failed (didn't replicate / rejected / defense collapsed); trace backward. (opus) | Before building heavily on a result or spending the next compute. |
+| `first-principles-grounder` | Re-derive from mechanism + the math/papers (`06-theory-grounding.md`, canonical notes, course material). (opus) | A claim needs a mechanism, leans on a theorem, or might contradict a source. |
 
-Model routing (Erfan's rule): **fable** for the hard adversarial/counter-arguing work and `oracle-reviewer`;
-**sonnet** for search/digest/Socratic/logging; **haiku** for mechanical fan-out (extraction, file-mapping).
+Model routing (Erfan's rule, set 2026-06-13; **fable is banned/removed — never select it**):
+**opus** for anything that needs THINKING, ANALYSIS, or DESIGN — the thinking panel (`counter-argument`,
+`socratic-thinker`, `premortem-analyst`, `first-principles-grounder`), `oracle-reviewer`, AND `lit-scout` +
+`paper-digest` (judging relevance / comprehending + synthesizing papers is analysis, not retrieval), and any
+experiment-design subagent. **sonnet** for navigating OUR docs — reviewing the up-to-date status of the docs,
+finding a fact and all its traces, and record-writing (`session-logger`). **haiku** for simpler mechanical
+fan-out (extraction, file-mapping, formatting). When in doubt whether a task "needs thinking" → opus.
 Each agent declares its default in `model:` frontmatter; override per call when the task warrants.
 
 Add more agents/skills only when a need recurs (adaptive semistructure). We deliberately did **not**
@@ -164,7 +169,7 @@ private/global instructions before editing them — but this repo's own files ar
 We drive **Codex** (OpenAI CLI, `gpt-5.5`) from Claude via the `codex` plugin as an *independent second
 model*. Full procedure + personas + command surface in **`docs/references/codex-usage.md`**. Two jobs only:
 
-1. **A critic that ADDS to the thinking panel.** The panel (`counter-argument`, … fable/sonnet) attacks
+1. **A critic that ADDS to the thinking panel.** The panel (`counter-argument`, … sonnet) attacks
    the *conclusion*; Codex attacks the *code* — the layer the panel doesn't reach. Use
    `/codex:adversarial-review` for a single pass, or spin up a **Codex persona panel** — 1–4 background,
    read-only `task` runs via `codex:codex-rescue`, each with a distinct reviewer personality
