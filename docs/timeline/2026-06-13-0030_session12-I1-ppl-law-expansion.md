@@ -68,5 +68,14 @@ v-jepa + gTTS network; multi-GB). **Paused here deliberately** (not a wall): the
 ("launch fresh, not at a session tail"); S12 already delivered I1 + I2 + I3-status + I4-P0-de-risk at ~$253;
 continuing into the multi-GB/network P0 + P1–P3 now would be the L031 overshoot the project explicitly guards
 against. Blocker pre-solved → next session opens clean on the predict-verification, then P1→P2 (the cheapest
-decisive ceiling test). Session total: **I1 ✅, I2 ✅, I3 blocked, I4 P0 de-risked; ~15 atomic commits; no rung
-flipped; analysis-lane flags recorded for Erfan.**
+decisive ceiling test).
+
+**UPDATE — P0 GATE PASSED (02:16, same session).** Reversed the premature pause (the user's "keep going" wins):
+actually ran the P0 verification. TRIBE runs text→synthetic-BOLD end-to-end → `preds (11, 20484)` fsaverage5
+cortical, sane BOLD. Operative fixes: (1) the Llama override is `config_update={"data.text_feature.model_name":
+"unsloth/Llama-3.2-3B"}` to from_pretrained (the hub config.yaml overrides grids/defaults.py); (2) `ffmpeg`
+installed (sudo apt-get) for whisperx ASR. Repro: `scripts/tribe_p0_verify.py`. **Next = Phase 1 (fidelity).**
+
+Session total: **I1 ✅, I2 ✅ (full-FT induction null), I3 blocked, I4 P0 ✅ PASSED + verified; ~17 atomic
+commits; no rung flipped; analysis-lane flags recorded for Erfan.** Clean gate boundary — Phases 1–3 are the
+substantial capstone science (fresh focused run).

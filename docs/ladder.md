@@ -61,9 +61,10 @@ while Erfan studies in the analysis lane.
   **NULL** (real−perm +0.0003, CI [−0.0002,+0.0008], p=0.27, n=9): full-FT fails like LoRA → **method-general
   induction-lever failure** (LeBel-encoding route KILLED; converges E013/E011/E013b/E008). L036. Not Fork-A. →
   **I3 (BLOCKED)** full-FT multi-subject voxelwise (denizenslab n=6, git-annex not installed; E017's full-FT
-  null lowers its prior) → **I4 CAPSTONE (NOW)** E016 TRIBE-v2 synthetic brain targets (P0 gate PASS; D021;
-  sidesteps I3's data blocker — TRIBE generates its own fMRI). **A TRIBE null = strongest publishable Fork-B;
-  a TRIBE positive reopens Fork-A → STOP for Erfan.** After every step: panel (D017) + Codex (D019); record;
+  null lowers its prior) → **I4 CAPSTONE (NOW)** E016 TRIBE-v2 synthetic brain targets (D021; sidesteps I3's data
+  blocker). **P0 GATE PASSED + VERIFIED end-to-end (S12):** TRIBE runs text→synthetic-BOLD (`preds (11,20484)`)
+  via `config_update` unsloth-Llama override + ffmpeg. **Next: Phase 1 fidelity → Phase 2 ceiling (cheapest
+  decisive).** **A TRIBE null = strongest publishable Fork-B; a TRIBE positive reopens Fork-A → STOP for Erfan.** After every step: panel (D017) + Codex (D019); record;
   **no rung flips without Erfan.**
 - **📖 ANALYSIS lane (Erfan) — FROZEN at its resume point:** the get-up-to-speed walk resumes at **Layer 3 = E005**
   (apparent +0.0081 → E008 per-individual null) = R05 §9 → §14; then figures-check + manuscript read-through.

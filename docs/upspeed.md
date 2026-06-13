@@ -24,16 +24,19 @@ E013/E011/E013b/E008). LeBel-encoding induction route KILLED. **Not a Fork-A sur
 ## What to do next (autonomous loop) → **I4 / TRIBE capstone (E016)**
 
 I3 (full-FT multi-subject denizenslab n=6) stays **data-blocked** (git-annex), and E017's full-FT null lowers
-its prior. Per the roadmap, **I4 sidesteps I3's data blocker** (TRIBE generates its own fMRI). **I4/P0 progress
-(S12):** TRIBE imports OK; its text extractor `meta-llama/Llama-3.2-3B` is **HF-gated for us + cache incomplete**
-→ **PATCHED `tribev2/grids/defaults.py:28` → `unsloth/Llama-3.2-3B`** (identical base weights, cached; `.bak`
-saved — RE-APPLY if the gitignored tribev2 clone is reset). **Precise next step (fresh session):** build a text
-events-DataFrame (`tribe_demo.ipynb` template), `TribeModel.from_pretrained("facebook/tribev2")` + `.predict()`
-on a sample → (T,~29k) BOLD. This pulls facebook/tribev2 + Wav2Vec-Bert + maybe V-JEPA + **gTTS (network)** —
-multi-GB; predeclared P0 WALL applies if unresolvable. **TRIBE env ISOLATED** (`.venv-tribe`, torch<2.7 — NEVER
-into the thesis venv; hand off via disk). Then **P1 fidelity → P2 ceiling (cheapest decisive, run first) → P3
-clincher** (E016 §5). Design→oracle-gate→run→panel+Codex→record. **A TRIBE null = strongest publishable Fork-B;
-a TRIBE positive (Phase-2 residual>0 or Phase-3 arm2>arm3) reopens Fork-A → STOP for Erfan.**
+its prior. Per the roadmap, **I4 sidesteps I3's data blocker** (TRIBE generates its own fMRI). **I4/P0 GATE
+PASSED (S12, verified):** TRIBE runs text→synthetic-BOLD end-to-end → `preds (11, 20484)` fsaverage5 cortical,
+sane BOLD (`scripts/tribe_p0_verify.py`, `outputs/E016_tribe/p0_verify2.log`). **Operative fixes:** (1) Llama
+override via **`config_update={"data.text_feature.model_name": "unsloth/Llama-3.2-3B"}`** to `from_pretrained`
+(the hub `config.yaml` overrides grids/defaults.py — meta-llama is gated; other 3 extractors non-gated); (2)
+**`ffmpeg` required** for whisperx ASR (`sudo apt-get install -y ffmpeg` — sudo works); (3) auto-downloads spaCy
+en_core_web_lg + 4 extractors + tribev2 ckpt; gTTS needs network; cache `/home/centcom/data/tribe_cache`. **TRIBE
+env ISOLATED** (`.venv-tribe`, torch<2.7 — NEVER into the thesis venv; hand off via disk `.npy`). **Next step:
+Phase 1 (FIDELITY)** — generate TRIBE targets for LeBel/Tuckute stimuli we have real fMRI for, re-run the A2
+trained-vs-untrained unique-R² contrast against TRIBE targets (same nuisance), decide faithful stand-in → then
+**Phase 2 (THE CEILING — cheapest decisive, stimulus-subtraction, run first)** → P3 clincher (E016 §5).
+Design→oracle-gate→run→panel+Codex→record. **A TRIBE null = strongest publishable Fork-B; a TRIBE positive
+(Phase-2 residual>0 or Phase-3 arm2>arm3) reopens Fork-A → STOP for Erfan.**
 
 ## Blockers / open loops
 - **I3:** denizenslab n=6 BOLD on GIN git-annex (not installed) → GIN HTTP `/raw/` or `apt-get install git-annex`.
