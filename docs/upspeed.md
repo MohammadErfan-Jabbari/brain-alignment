@@ -1,7 +1,10 @@
 # Upspeed — read first, write last
 
-**Last updated:** 2026-06-13 (Session 12 — autonomous working run, /goal set. **I1 ✅ + I2 ✅ both DONE.**
-I3 data-blocked → **next = I4 / TRIBE capstone.** Erfan away ~24h. No rung flipped this session.)
+**Last updated:** 2026-06-13 (Session 12 — autonomous working + a planning/strategy close. **I1 ✅ + I2 ✅ done;
+I4-P0 ✅ passed; I3 data ✅ downloaded+verified.** **FORWARD PROGRAM set (Erfan-approved, 100% rule):
+F1 TRIBE-ceiling → F2 external reproduce-and-control (E019) → F3 I3 powered n=6 → F4 Q2 ext** (full table in
+`ladder.md`). **fable banned → routing opus/sonnet/haiku (D026).** No rung flipped. Next = a fresh implementation
+session on F1 — Erfan to issue the `/goal`.)
 
 > **Canonical state lives in [`ladder.md`](ladder.md)** (rung board + roadmap, D015). This is last-session prose.
 > With no task, run `/orient`.
@@ -39,7 +42,9 @@ Design→oracle-gate→run→panel+Codex→record. **A TRIBE null = strongest pu
 (Phase-2 residual>0 or Phase-3 arm2>arm3) reopens Fork-A → STOP for Erfan.**
 
 ## Blockers / open loops
-- **I3:** denizenslab n=6 BOLD on GIN git-annex (not installed) → GIN HTTP `/raw/` or `apt-get install git-annex`.
+- **I3/F3: data DOWNLOADED + verified** — `data/denizenslab/` (35G; 6 subjects 01/02/03/05/07/08 × reading/listening
+  × trn/val; valid HDF5, 10 train + 1 val story each, ~80–93k voxels). No longer blocked (GIN `/raw/` + apt git-annex).
+  Remaining: adapt the full-FT loop to denizenslab HDFs. **De-prioritized to F3** (run after F1/F2 per the forward program).
 - **I4/TRIBE:** keep `.venv-tribe` isolated; confirm Llama-3.2-3B access on first real download (meta-llama gated → may need unsloth mirror or HF approval).
 - **ANALYSIS-lane flags for Erfan (do NOT edit unilaterally):** (1) manuscript "r≈−0.92" → correct to ≈−0.78
   (operative-band ≈−0.48); (2) new canonical `antonello-2023_*.md` + suggested `01-research-landscape.md` §A row;

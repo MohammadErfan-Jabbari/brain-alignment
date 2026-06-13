@@ -411,3 +411,39 @@ a tuning detail. **Fork-B is robust.** The only induction variants still unteste
 (I3, denizenslab — data-blocked) and TRIBE-synthetic targets (I4). Not a Fork-A surprise → no Erfan stop fired.
 **Erfan's open call (unchanged):** whether E009+E015+E017 (matched-ppl as the field's missing control) becomes a
 manuscript headline/emphasis. See L036.
+
+## D025 — The forward research program (the corpus continuing the path) — 2026-06-13
+
+**Decision (Erfan-approved, "100% / finish-the-job, not 99%" rule).** With I1✅+I2✅ done, I4-P0✅ passed, and the
+I3 dataset✅ downloaded, the path forward is a sequenced, kill-gated **research corpus** (built by the S12 planning
+swarm — 4 lenses + Codex + lit-landscape). Full table in `ladder.md` → "THE FORWARD PROGRAM". Sequence by value/cost:
+- **F1 (next): E016 TRIBE Phase 1→2 — the information-theoretic CEILING.** Prereq: the **voxel-space mapping**
+  (LeBel-volumetric ↔ TRIBE fsaverage5 — the real blocker per Codex). Phase 1 fidelity = **spatial-specificity**
+  (the naive trained>untrained check is circular). Phase 2 = real−TRIBE residual **with a REQUIRED no-text-extractor
+  ablation** (TRIBE's text extractor is Llama-3.2-3B → residual≈0 only counts if it holds vs no-text TRIBE; else
+  it's Llama-shared-variance, not the DPI ceiling). residual>0 surviving no-text ⇒ Fork-A → STOP for Erfan.
+- **F2: E019 external reproduce-and-control** — reproduce a published brain-tuning POSITIVE (Bilgin/Negi/Moussa
+  recipe on LeBel/denizenslab) then collapse it with matched-ppl + permuted-twin. **The 100% version of I2; the
+  premortem calls it non-negotiable for the paper** (E009/E017 are our own nulls, not a demonstration that a
+  *published* positive vanishes). Headline/spine framing remains Erfan's call when the number lands.
+- **F3: E013/I3 denizenslab n=6 full-FT** — the POWERED multi-subject induction test (data downloaded; 100% rule:
+  close the induction question at adequate power, not the n=3 existence probe). Likely-null per 5 converging nulls.
+- **F4: E015 Q2 architecture-residual extension** — ≥3 modern-family sizes + base-vs-instruct ablation; claim or bury.
+- **A (analysis lane, Erfan):** the manuscript corrections (r≈−0.92→−0.78 via the 3-part argument; Y⊥θ*|S as an
+  assumption; narrow the matched-ppl framing pending F2).
+**The unifying spine (the paper):** *the brain's training-useful signal is its stimulus-predictable part E[Y|S];
+beyond it, by Y⊥θ\*|S, the response is task-independent noise* — unifying the averaging confound + the matched-ppl
+quality law + the method-general induction null + the TRIBE ceiling. The 3 framings (missing-control / TRIBE-ceiling
+/ bpb-axis) are a HIERARCHY, not alternatives: missing-control = deliverable, bpb-law = mechanism, ceiling = closure.
+**Hard line unchanged:** no rung flips without Erfan; numbers only from recorded runs; Fork-A surprise → STOP.
+
+## D026 — fable model banned/removed; subagent routing = opus(think)/sonnet(doc-nav)/haiku(mechanical) — 2026-06-13
+
+**Decision (Erfan, 2026-06-13).** The `fable` model no longer exists (banned) — it errored mid-session
+("claude-fable-5 may not exist"). **New routing rule: anything that needs THINKING / ANALYSIS / DESIGN → opus;**
+navigating OUR docs (status review, fact-finding across traces, record-writing) → sonnet; simpler mechanical
+fan-out → haiku. Applied: the thinking panel (`counter-argument`, `socratic-thinker`, `premortem-analyst`,
+`first-principles-grounder`), `oracle-reviewer`, AND `lit-scout` + `paper-digest` (relevance-judging / paper-
+synthesis is analysis, not retrieval — Erfan's correction) → **opus**; `session-logger` → sonnet. All 8 agent
+frontmatter + CLAUDE.md tables/routing + upspeed updated; historical "(fable)" annotations in timeline/learnings/
+ladder left as accurate records of past runs. Supersedes the prior "fable for hard adversarial work" rule.

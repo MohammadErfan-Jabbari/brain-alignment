@@ -43,26 +43,37 @@ decisions, ladder/tasks) → only then advance. Numbers come from runs; **no run
   n≥5 multi-subject (I3, data-blocked) + TRIBE-synthetic (I4). **No headline/spine decision forced** (E017 is a
   negative feasibility datum, not a new headline) — but the manuscript framing "matched-ppl is the missing
   control" is now empirically backed by E009+E015+E017 (Erfan to weigh for emphasis).
-- [ ] **I3 · Full-FT multi-subject naturalistic voxelwise — the one untested induction door (E013 §"two
-  routes").** Full fine-tuning (NOT a LoRA distillation readout) on denizenslab n=6 (`speech-llm-brain` / GIN
-  `narratives_reading_listening_fmri`), predeclared E013 protocol (per-individual n≥5, permuted twin,
-  matched-ppl intercept, spatially-blocked inference); kill criterion locked (E013 §17). *Likely-null* per
-  mechanism evidence (E013 lever-failure; E008/E011/E013b), but the only door that can move the per-individual
-  verdict. **Steps:** (a) data acquisition — denizenslab BOLD HDFs (only NC-derivatives + stimuli on disk; GIN
-  git-annex, **git-annex/datalad not installed** → GIN HTTP `/raw/` or `apt-get install git-annex`);
-  (b) full-FT loop from `scripts/run_lebel_tune.py` (LoRA→full-FT + matched-ppl readout + permuted twin +
-  spatial blocking); (c) run n=6 + judge → record in E013.
+### 🔭 FORWARD PROGRAM (S13+, Erfan-approved 2026-06-13, "100% / finish-the-job" rule) — sequence F1→F4
+The research corpus continuing the path (full table + decision rules in `ladder.md` → "THE FORWARD PROGRAM"):
+- **F1 (NEXT) · E016 TRIBE Phase 1→2 — the ceiling.** Prereq: **voxel-space mapping** (LeBel-volumetric ↔ TRIBE
+  fsaverage5 — the real blocker, Codex). P1 fidelity = **spatial-specificity** (TRIBE-vs-real BOLD; NOT the
+  circular trained>untrained check). P2 = real−TRIBE residual + the **REQUIRED no-text-extractor ablation**
+  (TRIBE's text extractor IS Llama-3.2-3B → residual≈0 only counts if it holds vs the no-text TRIBE too).
+  residual>0 surviving no-text ⇒ Fork-A → STOP. Design in E016 "PHASE 1/2 DESIGN — REFINED".
+- **F2 · E019 external reproduce-and-control (the 100% version of I2).** Reproduce a published brain-tuning
+  POSITIVE then collapse it with matched-ppl + permuted-twin. NON-NEGOTIABLE for the paper (premortem). E019 doc.
+- **F3 · E013/I3 denizenslab n=6 — POWERED induction test** (below; data now downloaded).
+- **F4 · E015 Q2 architecture-residual extension** — ≥3 modern-family sizes + base-vs-instruct ablation; claim or bury.
+- **A (analysis lane, Erfan):** manuscript r≈−0.92→−0.78 (3-part argument), Y⊥θ*|S as assumption, narrow matched-ppl framing pending F2.
+
+- [ ] **I3/F3 · Full-FT multi-subject naturalistic voxelwise — the POWERED induction test (E013 §"two routes").**
+  Full fine-tuning on denizenslab n=6, predeclared E013 protocol (per-individual n≥5, permuted twin, matched-ppl
+  intercept, spatially-blocked inference). *Likely-null* per 5 converging nulls, run per the 100% rule (closes
+  the door at adequate power, not the n=3 probe). **Steps:** (a) ✅ DONE — data acquired: `data/denizenslab/`
+  (35G, 6 subjects [01,02,03,05,07,08] × reading/listening × trn/val, GIN `/raw/` + apt git-annex; verified valid
+  HDF5, 10 train + 1 val stories each, ~80–93k voxels); (b) adapt `run_lebel_tune.py` full-FT loop to denizenslab
+  HDFs (+ matched-ppl readout + permuted twin + spatial blocking); (c) run n=6 + judge → record in E013.
 - [ ] **I4 · CAPSTONE — E016 TRIBE-v2 synthetic brain targets (the NEW task at the end of the train).**
   Meta's brain foundation model (`facebook/tribev2`) generates fMRI for *any* text. Key insight: TRIBE
   estimates E[Y|S], which by Y⊥θ*|S is the **entire θ*-relevant brain signal → an upper bound on
   brain-guided LM training** (a null here is the strongest, *publishable* Fork-B; a positive reopens Fork-A).
   **Note: I4 sidesteps I3's data-acquisition blocker** (TRIBE *generates* the fMRI), so if I3 walls on
   denizenslab, proceed to I4. Full kill-gated program in `docs/experiments/E016_*.md`. Phases:
-  - [x] **P0 GATE** — TRIBE in isolated venv `.venv-tribe` (pins torch<2.7/numpy==2.2.6 vs thesis torch
-    2.11+cu128/numpy 2.4.6 — must stay isolated; hand off via disk arrays). Install + `import` PASS (2026-06-12).
-    Next: `from_pretrained` + a `predict` on sample text (weights non-gated; Llama-3.2-3B access resolves).
-  - [ ] **P1 FIDELITY** → [ ] **P2 CEILING (cheapest decisive; run before P3)** → [ ] **P3 CLINCHER**
-    (scaled matched-ppl distillation). Predeclared gates/kills in E016 §5.
+  - [x] **P0 GATE PASSED (2026-06-13)** — TRIBE runs text→synthetic-BOLD end-to-end (`preds (11,20484)`).
+    Fixes: Llama override via `config_update={"data.text_feature.model_name":"unsloth/Llama-3.2-3B"}` (meta-llama
+    gated); `ffmpeg` installed for whisperx ASR. Repro `scripts/tribe_p0_verify.py`. Isolated `.venv-tribe`.
+  - [ ] **F1 = P1 FIDELITY (spatial-specificity) → P2 CEILING (cheapest decisive; + no-text ablation) → P3 CLINCHER**
+    — prereq: voxel-space mapping (LeBel-vol↔fsaverage5). Refined design in E016 "PHASE 1/2 DESIGN — REFINED".
 - [ ] **(Opportunistic Fork-B rigor, slot anywhere)** λ-sweep / rate-distortion curve on the averaged target
   (`run_brain_lever.py --lambda-grid`) — the "how small" magnitude characterization, if A3 needs context.
 
