@@ -314,3 +314,21 @@ I1's individual-subject control (Q2 averaging guard) showed the cross-family law
 E017 (I2, reframed by the oracle to a feasibility gate) tested the last untested *induction method* on LeBel — FULL fine-tuning (not the LoRA readout E013 used) — to predict voxelwise BOLD, with a KD anchor, asking: does full-FT beat vanilla on held-out alignment where LoRA couldn't? **Verdict: NULL.** Across UTS01/02/03 × 3 seeds (ppl-preserving lr 1e-5), the brain-specific gap (real − permuted twin) = **mean +0.0003, 95% CI [−0.0002, +0.0008], p=0.27**; manip_ok mostly False (full-FT mostly *degrades* alignment vs vanilla). This converges with E013 (LoRA λ-sweep), E011 (capacity), E013b (objective), E008 (per-individual) — **the induction lever fails across parameterization (LoRA/full-FT), objective (MSE/contrastive), and capacity; it is a method-general mechanism failure on this substrate, not a tuning detail.** **Process lesson (the real carry-forward):** an aggressive full-FT config (lr 5e-5) gave manip_ok 0/3 with ppl ×1.63 — a clean-looking FAIL, but **partly a catastrophic-forgetting artifact**. Red-teaming that (the "under-tuned" objection) with a gentle config (lr 1e-5) **flipped UTS03 n=1 to manip_ok=True** — which, taken alone, could have been mis-read as a Fork-A induction signal. Powering it (3 subjects × 3 seeds) washed it out to the null above, and showed the n=1 nudge wasn't even brain-specific (the permuted twin matched it). **Carry-forward: a single-subject/single-seed manip_ok flip on a coarse noisy target is favorable noise until powered; catastrophic forgetting can both mask a real signal (aggressive LR) and mimic one (a lucky gentle run) — always match perplexity AND check the permuted twin AND add seeds/subjects before believing a borderline induction "gain".** The I2 matched-ppl contribution lives in E009 (downstream) + E015 (the law); E017 adds the confirmed full-FT negative. Only the n≥5 multi-subject (denizenslab/I3, data-blocked) and TRIBE-synthetic (I4) induction variants remain untested.
 
 <!-- Add new lessons below as we hit them. Negative results count. -->
+
+### L037 — TRIBE long-audio events bug: ASR is correct, the event assembler stretches/duplicates (verify the time axis, not just the transcript)
+**Context (E016 F1, S13).** Feeding the real denizenslab story_11.wav (602 s) to TRIBE produced predictions of
+shape **(1700, 20484)** — 1700 one-second TRs for a 602 s stimulus, a ~2.8× over-count. The transcription was
+perfectly correct ("I reached over and secretly undid my seatbelt…"); soundfile read the duration correctly
+(602 s); whisperx's own `.tsv` was correct (words 0→591 s, 1789 of them). **The bug is downstream in TRIBE's
+`get_audio_and_text_events`:** it chunks audio at `max_duration=60 s`, then `ExtractWordsFromAudio` cross-joins
+the FULL transcript onto EVERY chunk and adds `audio_event.start + audio_event.offset` — the chunk position
+**double-counted** (both fields ≈ chunk start). For the last of ~10 chunks: 540 + 540 + 591 = **1671 s**, with
+~11× word duplication (1789 → 19976 rows). The TRIBE demo was only validated on clips < 60 s (one chunk,
+offset 0 → correct), so the bug is invisible there. **Fix:** rebuild the events with the same transform pipeline
+but `ChunkEvents(max_duration=10000)` so the whole file is ONE chunk (`start += 0`); whisperx/feature caches make
+it cheap. Also resample to 16 kHz mono first (clean input for whisperx/w2v-bert). **Carry-forward (general):** when
+adopting a third-party model's "demo" inference path on inputs larger than its demo scale, **verify the output
+time axis against the known stimulus duration before trusting any prediction** — a correct transcript / correct
+file metadata does NOT imply correct temporal placement, and a stretched/duplicated time axis silently corrupts
+every downstream correlation. The tribev2 clone is gitignored → re-apply this via the runner's
+`_build_events_singlechunk`, not a site-packages patch (same caveat as the Llama `config_update` override).
