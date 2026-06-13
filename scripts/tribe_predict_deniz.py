@@ -30,14 +30,19 @@ OUT = THESIS / "outputs/E016_tribe/deniz"
 CACHE = "/home/centcom/data/tribe_cache"
 
 
-def _build_events_singlechunk(audio_path: str):
+def _build_events_correct(audio_path: str):
     """Faithful replacement for TribeModel.get_events_dataframe(audio_path=...) that fixes
-    TRIBE's long-audio bug: get_audio_and_text_events chunks audio at max_duration=60, but
-    ExtractWordsFromAudio then cross-joins the FULL transcript onto EVERY chunk and adds
-    `start + offset` (double-counted chunk position) → ~N× duplication + a ~2.8x time stretch
-    (e.g. 591s → 1671s for a 602s file). The demo was only tested on clips < 60s (one chunk,
-    offset 0). Keeping the whole file as a SINGLE chunk (max_duration huge) makes start += 0,
-    so word timestamps stay correct. whisperx is unaffected (its .tsv is correct, 0–591s)."""
+    TRIBE's long-audio bug WITHOUT triggering w2v-bert OOM.
+
+    TRIBE's get_audio_and_text_events does [ChunkEvents(60s) → ExtractWordsFromAudio → …].
+    The bug: ExtractWordsFromAudio cross-joins the FULL whisperx transcript onto EVERY 60s
+    chunk and adds `start+offset` (chunk position double-counted) → ~N× word duplication and
+    a ~2.8x time stretch (591s of speech → 1671s of events for the 602s denizenslab story).
+    Making it a single huge chunk fixes timing but OOMs w2v-bert (O(T²) self-attention over
+    ~591s). So we REORDER: run ExtractWordsFromAudio on the UN-chunked audio first (one event,
+    offset 0 → correct absolute word timestamps 0–591s, no duplication), THEN ChunkEvents(60s)
+    to split only the Audio rows for the w2v-bert extractor (memory-safe). whisperx is reused
+    from its cached .tsv. The text-context transforms then run on the correct words."""
     import pandas as pd
     from tribev2.demo_utils import (
         ExtractAudioFromVideo, ChunkEvents, ExtractWordsFromAudio, AddText,
@@ -45,17 +50,14 @@ def _build_events_singlechunk(audio_path: str):
     )
     ev = pd.DataFrame([{"type": "Audio", "filepath": audio_path, "start": 0,
                         "timeline": "default", "subject": "default"}])
-    transforms = [
-        ExtractAudioFromVideo(),
-        ChunkEvents(event_type_to_chunk="Audio", max_duration=10_000, min_duration=30),
-        ExtractWordsFromAudio(), AddText(),
-        AddSentenceToWords(max_unmatched_ratio=0.05),
-        AddContextToWords(sentence_only=False, max_context_len=1024, split_field=""),
-        RemoveMissing(),
-    ]
     ev = standardize_events(ev)
-    for t in transforms:
-        ev = t(ev)
+    ev = ExtractAudioFromVideo()(ev)
+    ev = ExtractWordsFromAudio()(ev)            # words on UN-chunked audio → correct 0–591s
+    ev = ChunkEvents(event_type_to_chunk="Audio", max_duration=60, min_duration=30)(ev)  # chunk Audio for w2v-bert
+    ev = AddText()(ev)
+    ev = AddSentenceToWords(max_unmatched_ratio=0.05)(ev)
+    ev = AddContextToWords(sentence_only=False, max_context_len=1024, split_field="")(ev)
+    ev = RemoveMissing()(ev)
     return standardize_events(ev)
 
 
@@ -104,7 +106,7 @@ def main():
             subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", str(wav),
                             "-ar", "16000", "-ac", "1", str(wav16)], check=True)
         print(f"=== story_{st}: events (audio path, 16kHz, single-chunk) ===", flush=True)
-        events = _build_events_singlechunk(str(wav16))
+        events = _build_events_correct(str(wav16))
         try:
             print(f"  [events] start span [{events['start'].astype(float).min():.1f},"
                   f"{events['start'].astype(float).max():.1f}]s (expect ~602)", flush=True)
