@@ -378,3 +378,36 @@ search/digest/Socratic; haiku for mechanical fan-out). gbrain is read/written co
 **The hard line stays:** no rung flips without Erfan; numbers come only from runs recorded in the docs brain;
 strategic framing calls (e.g. whether I2's external matched-ppl result becomes the paper's headline/spine) wait
 for Erfan. Autonomy is bounded by the last explicit human instruction (L031).
+
+## D023 — Cross-family LM-quality is measured in BITS-PER-BYTE, not per-token perplexity — 2026-06-13
+
+**Decision.** For any *cross-family / cross-tokenizer* comparison of LM quality (the x-axis of the alignment∝−quality
+law, the matched-ppl control), use **bits-per-byte** (total NLL in bits ÷ UTF-8 bytes of a fixed natural-text
+probe; no-prepend, first-token unscored — the Pile/GPT-3 convention), **never per-token perplexity.**
+
+**Why (oracle gate, fable, I1).** Per-token NLL is not comparable across tokenizers: vocab sizes span ~32k
+(Mistral) → 50k (gpt2/OPT/pythia) → 128k (Llama) → 151k (Qwen), and **vocab correlates with family**, so per-token
+ppl injects a family-correlated nuisance straight into the x-axis — fatal for the architecture-residual question
+(Q2). For a fixed probe, cross-model Δbpb = ΔKL = a pure quality difference. bpb is also **absent from the
+brain-alignment scaling literature** (lit-scout) → a small methodological contribution, not just hygiene. Episode:
+an eos-prepend (an over-eager BOS-consistency fix) poisoned Qwen2.5-3B's scoring (ppl 105 vs healthy 32.6),
+dragging the pooled r from −0.78 to −0.63 — caught by sibling-monotonicity. **Consequence:** E015's rigorous
+cross-family law is **r≈−0.78** (bpb, 6 families), not the inflated −0.92 (per-token + best-layer + 3-family).
+The manuscript's cited −0.92 needs an analysis-lane correction (Erfan's edit). See L034.
+
+## D024 — The brain-guided induction lever fails METHOD-GENERALLY; I2's matched-ppl contribution is banked in E009+E015 (not a new external reproduction) — 2026-06-13
+
+**Decision.** Stop treating "reproduce an external brain-tuning gain and control it" as an open build. The
+matched-perplexity control that the brain-tuning literature lacks (Negi/Schwartz/Moussa compare only to a vanilla
+baseline) is **already supplied** by the repo: **E009** (downstream matched-ppl + permuted-twin, bounded null) +
+**E015/I1** (the cross-family quality→alignment law). Negi's *literal* pipeline is infeasible here (no Chen-2024b
+bilingual fMRI). I2/E017 was therefore reframed (oracle HOLD) into a **full-FT feasibility gate** on LeBel.
+
+**The finding that closes the door.** Full fine-tuning — the last untested *induction method* — fails to induce a
+brain-specific alignment gain at matched perplexity: **real−permuted gap +0.0003, 95% CI [−0.0002,+0.0008], p=0.27**
+(UTS01/02/03 × 3 seeds, ppl-preserving). The lever now fails across **parameterization (LoRA/full-FT), objective
+(MSE/contrastive), and capacity** (E017 + E013 + E011 + E013b + E008) → a **method-general mechanism failure**, not
+a tuning detail. **Fork-B is robust.** The only induction variants still untested: n≥5 multi-subject naturalistic
+(I3, denizenslab — data-blocked) and TRIBE-synthetic targets (I4). Not a Fork-A surprise → no Erfan stop fired.
+**Erfan's open call (unchanged):** whether E009+E015+E017 (matched-ppl as the field's missing control) becomes a
+manuscript headline/emphasis. See L036.
