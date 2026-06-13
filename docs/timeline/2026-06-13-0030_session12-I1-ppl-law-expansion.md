@@ -46,3 +46,15 @@ Full Design→Run→Judge with the complete rigor stack:
 Long autonomous turn (~$120). Held the line on rigor (gate+panel+Codex) and on "no rung flips / no analysis-lane
 edits." Heeded the premortem's L031 overshoot warning: finished I1, did NOT chase the unpowered Q2 lead with more
 model downloads. Continuing to I2 per the goal (build the number; stop at the headline decision).
+
+## I2 RESOLVED (same session, E017) — full-FT induction NULL
+Oracle gate (HOLD) reframed I2: Negi's literal pipeline infeasible (no bilingual fMRI), and the matched-ppl
+contribution **already exists** (E009 downstream + E015 law). Reframed E017 → a single-subject full-FT
+feasibility gate (de-risk I3). Ran it, red-teamed it (an aggressive config FAILed via catastrophic forgetting
+ppl×1.63; a gentle config flipped UTS03 n=1 to manip_ok=True = favorable noise), then **powered it** (UTS01/02/03
+× 3 seeds, ppl-preserving): **brain-specific gap (real−perm) mean +0.0003, 95% CI [−0.0002,+0.0008], p=0.27 —
+NULL.** Full-FT fails like LoRA → **method-general induction-lever failure** (converges E013/E011/E013b/E008).
+LeBel-encoding route KILLED; matched-ppl contribution banked in E009+E015. Not a Fork-A surprise. L036.
+**Next to run: I4 / TRIBE capstone** (I3 data-blocked; TRIBE sidesteps it). Session cost ~$245; 12 atomic commits.
+Process win: the gentle-config→powered sequence was the adversarial verify-loop done empirically — caught a
+forgetting artifact that a single-seed read would have mis-called a Fork-A signal.

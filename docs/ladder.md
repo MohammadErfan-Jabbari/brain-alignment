@@ -2,7 +2,7 @@
 
 **This is the single source of truth for project state.** Read it first, every session. It is maintained at every session close, *after Erfan confirms the verdict*. The prose narrative of *why* the ladder is shaped this way lives in `reports/R03_brain-as-training-signal.md` §5 and `reports/R04_gap-analysis.md` §8; this file is the live status of it. `upspeed.md` is the last-session prose; `tasks.md` is the granular backlog. When they disagree, **this file wins** and the others get fixed.
 
-**Last updated:** 2026-06-13 (S12 autonomous working — **I1 DONE** (E015 expanded to 22 models/6 families; cross-family law corrected to **r≈−0.78** on bits-per-byte, was an inflated −0.92; Q2 architecture-residual = underpowered hypothesis; L016 tie-in). **No rung flipped** (E015 = analysis-support). Now on **I2** (matched-ppl control; reframed to LeBel full-FT since Negi bilingual data is unavailable). Roadmap I1✅→I2(now)→I3→I4. Analysis lane frozen at R05 §9. Prior: S8 per-individual null robustified; manuscript v0.9 artifact-complete. **Analysis-lane FLAG: manuscript "r≈−0.92" → correct to ≈−0.78.**)
+**Last updated:** 2026-06-13 (S12 autonomous working — **I1 ✅ + I2 ✅ DONE.** I1: E015 → 22 models/6 families, cross-family law corrected to **r≈−0.78** bits-per-byte (was inflated −0.92); Q2 architecture-residual = underpowered hypothesis; L016 tie-in. I2 (E017): full-FT induction **NULL** (real−perm +0.0003, CI [−0.0002,+0.0008], p=0.27) — full-FT fails like LoRA → **method-general lever failure** (converges E013/E011/E013b/E008); matched-ppl contribution banked in E009+E015. **No rung flipped** (reinforces L3/F1 ❌). I3 data-blocked → **next = I4/TRIBE.** Roadmap I1✅→I2✅→I3(blocked)→I4(now). Analysis lane frozen at R05 §9. **Analysis-lane FLAG: manuscript "r≈−0.92" → ≈−0.78; induction now NULL across LoRA+full-FT+objective+capacity.**)
 
 ---
 
@@ -56,12 +56,14 @@ while Erfan studies in the analysis lane.
   (bits-per-byte; v2's −0.92 was inflated by per-token-ppl + best-layer + 3-family span); operative-band ≈−0.48;
   Q2 architecture-residual = underpowered hypothesis (Llama/Mistral +0.006–0.009, n=1–2/family); L016 tie-in.
   Full oracle+panel+Codex audit; L034/L035; no rung flip (analysis-support). →
-  **I2 (NOW)** the matched-ppl control on a brain-tuning gain. Negi-2025's literal multilingual pipeline is
-  INFEASIBLE (no Chen-2024b bilingual fMRI) → **reframed: reproduce a brain-tuning encoding gain on LeBel
-  (full-FT, vanilla baseline) + the matched-ppl/generic-finetune arm + permuted-brain twin Negi omits**
-  (uses `run_lebel_tune.py`; also advances I3's full-FT door). headline/spine-call = **Erfan (STOP)** → **I3**
-  full-FT multi-subject voxelwise (denizenslab n=6, blocked on git-annex) → **I4 CAPSTONE** E016 TRIBE-v2
-  (P0 gate PASS; D021). After every step: thinking panel (D017) + Codex (D019) until no hole survives; record;
+  **I2 ✅ DONE (2026-06-13, E017)** — oracle reframed it: Negi's literal pipeline infeasible + the matched-ppl
+  contribution already lives in **E009 (downstream null) + E015 (the law)**. Ran a full-FT feasibility gate →
+  **NULL** (real−perm +0.0003, CI [−0.0002,+0.0008], p=0.27, n=9): full-FT fails like LoRA → **method-general
+  induction-lever failure** (LeBel-encoding route KILLED; converges E013/E011/E013b/E008). L036. Not Fork-A. →
+  **I3 (BLOCKED)** full-FT multi-subject voxelwise (denizenslab n=6, git-annex not installed; E017's full-FT
+  null lowers its prior) → **I4 CAPSTONE (NOW)** E016 TRIBE-v2 synthetic brain targets (P0 gate PASS; D021;
+  sidesteps I3's data blocker — TRIBE generates its own fMRI). **A TRIBE null = strongest publishable Fork-B;
+  a TRIBE positive reopens Fork-A → STOP for Erfan.** After every step: panel (D017) + Codex (D019); record;
   **no rung flips without Erfan.**
 - **📖 ANALYSIS lane (Erfan) — FROZEN at its resume point:** the get-up-to-speed walk resumes at **Layer 3 = E005**
   (apparent +0.0081 → E008 per-individual null) = R05 §9 → §14; then figures-check + manuscript read-through.
