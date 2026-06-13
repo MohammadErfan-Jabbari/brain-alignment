@@ -287,3 +287,42 @@ TRIBE-predicted vs REAL BOLD, summarized by **spatial specificity** — language
 - **Controls/caveats:** raw corr is bounded by sqrt(noise-ceiling) — fine for the *contrast* (visual is noisy too);
   report noise-ceiling-normalized specificity as a secondary. Listening is primary (audio drives TRIBE's strongest
   modality); reading (text-only path) is a secondary fidelity check.
+
+### Step 3 — Oracle gate on Phase 1 = HOLD → revised to PASS (2026-06-14)
+The pre-compute oracle (opus) returned **HOLD**: the bare spatial-specificity gate (lang/aud > early-visual on
+listening) is **vacuous** — auditory cortex tracks any audio envelope and early-visual is near-zero reliability
+(0.026), so the contrast is guaranteed regardless of TRIBE fidelity (the same envelope-confound the refined design
+rejected for trained>untrained, reintroduced in spatial clothing). Four must-fixes, **all adopted**:
+
+1. **[F1, the killer] Low-level-encoder positive control + higher-order gradient + NC-normalization as PRIMARY.**
+   The gate must be able to FAIL. New decision rule: TRIBE's per-vertex fidelity must beat **(a)** a low-level
+   ridge encoder floor — (audio envelope + word-rate + phoneme-rate + word-length + log-frequency) → real BOLD,
+   contiguous-block CV — **(b)** in *higher-order* language ROIs (Broca/pSTS/ATFP/sPMv, NOT just AC which is
+   envelope-trackable), with **(c)** a within-cortex gradient (higher-order language HIGH vs somatomotor M1/S1 LOW,
+   both non-visual), on **NC-normalized** per-vertex r (r_v/√NC_v) as the primary metric. lang/aud-vs-early-visual
+   is demoted to a sanity check. **KILL** if TRIBE ≈ the low-level encoder in higher-order language (then TRIBE is
+   just a fancy stimulus regressor and the synthetic-target line is dead).
+2. **[F2] Noise ceiling exists ONLY for story_11** (the 2-repeat val; trn stories are single-repeat). Protocol
+   locked: **fidelity computed on story_11** ("wheretheressmoke", 311 TRs, 2 reps → NC + mean-of-reps target),
+   **n=6 subjects** paired (TRIBE pred is per-stimulus → ONE prediction shared across subjects). trn stories =
+   optional secondary *unnormalized* replication.
+3. **[F3] E[Y|S] verified:** `from_pretrained` hardcodes `average_subjects=True` (demo_utils.py:218); output is
+   (T,20484) with no subject axis = the group-averaged estimand. Asserted in the runner so a config change can't
+   silently swap it. (Oracle examined only the runner, which inherits this from from_pretrained.)
+4. **[F4] Temporal alignment locked.** TRIBE 1.0 Hz contiguous-from-t=0 (remove_empty_segments=False) → resample
+   onto the real 2.0045 s TR grid. **Pre-registered lag-search:** global integer-TR lag chosen by max mean-corr on
+   high-NC auditory (AC) vertices, **constrained to [−2,+2] TR**; argmax outside the window ⇒ ABORT (pipeline bug),
+   do NOT accept silently. Both signals are already hemodynamic (TRIBE bakes in a 5 s offset) → a small residual
+   lag is expected; we accept a vertex-constant lag and report it. Silence-TR mismatch (story_11 audio 627.7 s vs
+   311 TR×2.0045=623 s ⇒ ~3 TR) handled by trimming to the overlap after lag alignment.
+
+**Plus two confound controls carried in:** (i) **mapper-smoothing** — the voxel→fsaverage projection low-passes
+spatially, which can inflate ROI correlations; re-check the higher-order-language-vs-floor contrast restricted to
+fsa5 vertices with single-voxel support. (ii) **group-avg-TRIBE vs per-subject-real** does NOT bias Phase 1 (it
+attenuates all r uniformly by √NC → safe direction) but **pre-biases the Phase-2 residual toward an OVER-estimate
+of unique signal** (conservative for declaring Fork-B, but could manufacture a false Fork-A) — so in Phase 2 the
+residual is explicitly framed as *against E[Y|S] = an upper bound on non-stimulus brain signal*; a Fork-A surprise
+must survive that framing + the no-text ablation. Recorded now, actioned at Phase 2.
+
+**Verdict: design revised → PASS.** Implemented in `scripts/run_tribe_fidelity.py`. TRIBE story_11 prediction
+generating (`outputs/E016_tribe/deniz/full/`).
