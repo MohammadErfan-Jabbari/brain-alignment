@@ -218,3 +218,31 @@ stimuli we have real fMRI for, re-run the A2 trained-vs-untrained unique-R² con
 decisive). **Why checkpoint here:** P0 is a clean gate boundary; Phases 1–3 are substantial experiments
 deserving a fresh focused session (the capstone is a multi-day build). Session S12 cost ~$310; blocker fully
 solved + verified.
+
+## PHASE 1/2 DESIGN — REFINED by the planning swarm + Codex (2026-06-13, S12). Adopted into the program.
+A 4-lens panel (counter-argument/premortem/first-principles/lit-scout) + a Codex feasibility pass hardened the
+Phase 1/2 design. **Three changes are now part of the locked program:**
+1. **[PREREQUISITE — the real blocker, do FIRST] Voxel-space mapping.** TRIBE outputs **fsaverage5 cortical
+   surface** (20,484 vtx); LeBel real BOLD is **volumetric subject-space** (~80–93k voxels per subject, verified).
+   There is NO existing bridge in our pipeline. Phase 1/2 cannot produce a number until this is solved — either
+   (a) map LeBel voxels → fsaverage5 (the LeBel/deep-fMRI-dataset preprocessing likely already has a pycortex/
+   FreeSurfer surface transform — look there first), or (b) project TRIBE vertices → volume. Resolve before any
+   fidelity/residual computation. (Codex: this is the #1 MUST-DO.)
+2. **[Phase 1 fidelity — use SPATIAL-SPECIFICITY, the naive check is circular] (counter-argument).** Do NOT use
+   "trained-LM > untrained-LM unique-R² against TRIBE targets" as the fidelity gate — a trained LM and TRIBE
+   *both* encode the stimulus, so that comparison passes even if TRIBE predicts text-structure, not brain. **Use
+   instead: per-voxel/region spatial correlation of TRIBE-predicted vs REAL BOLD — expect language regions HIGH,
+   early-visual LOW** (spatial specificity). Temporal alignment reuses `lebel_adapter.py`'s TR-trim logic; region
+   labels from an fsaverage5 parcellation once in common space.
+3. **[Phase 2 — the NO-TEXT-EXTRACTOR ablation is a REQUIRED control] (counter-argument, the sharpest hole).**
+   TRIBE's text extractor IS **Llama-3.2-3B**. So "alignment to TRIBE-predicted BOLD" is partly "alignment to
+   Llama features" — a residual ≈ 0 in Phase 2 could be a **Llama-shared-variance artifact**, NOT the DPI
+   ceiling. **Required control:** run a **no-text TRIBE variant** (audio+video only) — Codex confirms feasible via
+   `config_update={"data.features_to_use": ["audio","video"]}` (verify the zero-fill path in `model.py` is hit,
+   not assumed; a graded random-text-extractor ablation is the cleaner-but-optional upgrade). **The ceiling claim
+   (residual ≈ 0 ⇒ Fork-B) is only valid if the residual collapses against BOTH the text-augmented AND the no-text
+   TRIBE.** If only the text-augmented collapses → it's the Llama confound, not the DPI mechanism.
+**Theory caveats to carry (first-principles):** (a) state **Y ⊥ θ\* | S as an assumption**, not a derivation;
+(b) the DPI ceiling I(Ŷ;Z) ≤ I(S;Z) is sound (Ŷ=f(S) deterministic); (c) "residual ≈ 0" decisiveness depends on
+the fidelity gate (#2) + the no-text control (#3) both passing. **A clean Fork-B needs all three; a residual > 0
+that survives the no-text control = a genuine Fork-A surprise → STOP for Erfan.**

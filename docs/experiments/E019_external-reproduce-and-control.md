@@ -1,0 +1,23 @@
+# Experiment — E019: reproduce a PUBLISHED brain-tuning positive, then collapse it with the matched-ppl + permuted-twin control
+
+**Created:** 2026-06-13 · **Status:** PLANNED (forward program; design to be oracle-gated before compute) · **Mode:** working
+**Roadmap:** the **external-validity demonstration** — the "100% version" of I2 (Erfan's complete-work rule). The premortem (S12 swarm) flagged this as **NON-NEGOTIABLE for the paper to survive review**: our matched-ppl contribution is currently demonstrated only on our OWN nulls (E009/E017); a top-venue reviewer will demand we apply the control to a *published positive* and show what it costs.
+
+## The question
+> Take a published brain-tuning result that reports a downstream/encoding GAIN vs a vanilla baseline (Bilgin-2026 ICLR; Negi-2025 NeurIPS; Moussa-2025; or Schwartz-2019). **Reproduce their gain under their original (uncontrolled) conditions**, then **add the controls they omit** — a perplexity-matched fine-tune arm + a permuted-brain twin — and measure how much of the gain survives. Predicted (from E015's r≈−0.78 law + our nulls): the gain **shrinks toward / into the matched-ppl + permuted band** → the published positive is largely an LM-quality / fine-tuning-step effect, not brain-specific.
+
+## Why this is the load-bearing external demonstration (not redundant with E009/E017)
+- E009/E017 are OUR nulls on OUR pipeline — they show the control *produces* a null, but not that an *existing published positive* would *vanish* under it. The counterfactual "Bilgin/Negi would be null at matched ppl" is currently an **inference**, not a measurement (counter-argument + premortem, S12). E019 converts "we have a better protocol" → "here is what the protocol costs the prior literature."
+- It directly engages the field's live positives: **Bilgin-2026 (ICLR)** brain-informed training beats text-only baselines (no permuted/matched-ppl control); **Negi-2025 (NeurIPS)** bilingual brain-tuning downstream gains (vanilla baseline only). Both confirmed (canonical notes) to lack the matched-ppl + downstream-permuted control.
+
+## Design sketch (to be locked + oracle-gated)
+1. **Pick the target** by feasibility: literal pipeline (Negi bilingual fMRI = infeasible, no data) vs. a recipe reproducible on data we HAVE (LeBel + **denizenslab n=6, now downloaded** — 6 subjects, reading+listening naturalistic). Leading candidate: a **Bilgin/Moussa-style full-FT brain-tuning recipe on denizenslab/LeBel**, evaluated their way (vanilla baseline, their split convention) to **reproduce the qualitative positive**, then re-evaluated under our controls.
+2. **Arms (≥3 seeds, per-subject inference):** (a) vanilla baseline; (b) brain-tuned (their recipe) — the reproduced gain; (c) **perplexity-matched generic-text fine-tune** (matched by construction — anchor/early-stop to the brain arm's held-out ppl); (d) **permuted-brain twin**.
+3. **Outcome:** the gain (b−a) and how much survives the controls — (b−c) at matched ppl, and (b−d) brain-specificity. Anti-confound: contiguous/story splits, nuisance subtraction, the bpb quality axis (L034/D023). 
+4. **Predeclared readings:** gain collapses to within the matched-ppl + permuted band → **the field's positive is a quality/fine-tuning artifact** (the paper's external-validity clincher). Gain SURVIVES matched-ppl + permuted (CI excludes the control band) → a **genuine brain-specific training effect at scale** → Fork-A-qualifying → STOP for Erfan.
+
+## Open risks (pre-flag for the oracle gate)
+- **Reproducing their positive may itself fail** (our E017 full-FT gave null even before controls). If we can't reproduce the gain even under their loose conditions, the honest finding is "the published positive is method-fragile / doesn't replicate under careful eval" — weaker but still publishable; the cleaner demonstration needs us to first *match their result* under *their* conditions, then break it with the controls. The design must replicate their exact (uncontrolled) protocol to get the positive, not our rigorous one.
+- **Whose result + which data** is a feasibility-driven choice (Negi data unavailable). Headline framing (does E019 become the paper's spine) = **Erfan's call when the number lands.**
+
+**Status: PLANNED.** Sequence (forward program): after the TRIBE Phase 1/2 ceiling (E016) — or in parallel if compute allows. No rung flips without Erfan; numbers come only from recorded runs.

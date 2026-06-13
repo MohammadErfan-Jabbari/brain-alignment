@@ -2,7 +2,7 @@
 
 **This is the single source of truth for project state.** Read it first, every session. It is maintained at every session close, *after Erfan confirms the verdict*. The prose narrative of *why* the ladder is shaped this way lives in `reports/R03_brain-as-training-signal.md` §5 and `reports/R04_gap-analysis.md` §8; this file is the live status of it. `upspeed.md` is the last-session prose; `tasks.md` is the granular backlog. When they disagree, **this file wins** and the others get fixed.
 
-**Last updated:** 2026-06-13 (S12 autonomous working — **I1 ✅ + I2 ✅ DONE.** I1: E015 → 22 models/6 families, cross-family law corrected to **r≈−0.78** bits-per-byte (was inflated −0.92); Q2 architecture-residual = underpowered hypothesis; L016 tie-in. I2 (E017): full-FT induction **NULL** (real−perm +0.0003, CI [−0.0002,+0.0008], p=0.27) — full-FT fails like LoRA → **method-general lever failure** (converges E013/E011/E013b/E008); matched-ppl contribution banked in E009+E015. **No rung flipped** (reinforces L3/F1 ❌). I3 data-blocked → **next = I4/TRIBE.** Roadmap I1✅→I2✅→I3(blocked)→I4(now). Analysis lane frozen at R05 §9. **Analysis-lane FLAG: manuscript "r≈−0.92" → ≈−0.78; induction now NULL across LoRA+full-FT+objective+capacity.**)
+**Last updated:** 2026-06-13 (S12 autonomous working — **I1 ✅ + I2 ✅ DONE.** I1: E015 → 22 models/6 families, cross-family law corrected to **r≈−0.78** bits-per-byte (was inflated −0.92); Q2 architecture-residual = underpowered hypothesis; L016 tie-in. I2 (E017): full-FT induction **NULL** (real−perm +0.0003, CI [−0.0002,+0.0008], p=0.27) — full-FT fails like LoRA → **method-general lever failure** (converges E013/E011/E013b/E008); matched-ppl contribution banked in E009+E015. **No rung flipped** (reinforces L3/F1 ❌). I3 data✅ DOWNLOADED (35G, 6 subj). **Forward program landed (Erfan-approved, 100% rule): F1 TRIBE-ceiling (next) → F2 external reproduce-and-control (E019) → F3 I3 powered n=6 → F4 Q2 ext.** Roadmap I1✅→I2✅→I4-P0✅→forward-program. Analysis lane frozen at R05 §9. **Analysis-lane FLAG: manuscript "r≈−0.92" → ≈−0.78; induction now NULL across LoRA+full-FT+objective+capacity.**)
 
 ---
 
@@ -45,6 +45,20 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 ---
 
 ## Next session (what `/orient` surfaces)
+
+### ▶ THE FORWARD PROGRAM (S13+, the research corpus — Erfan-approved 2026-06-13, "100% / finish-the-job" rule)
+I1✅+I2✅ done, I4-P0✅ passed, I3 data✅ downloaded. The forward path (planning swarm + Codex, S12), sequenced by
+(value/cost); each kill-gated; **no rung flips without Erfan.** The spine: *the brain's training-useful signal is
+its stimulus-predictable part (Y⊥θ\*|S); beyond that it's task-independent noise* — which unifies the averaging
+confound + the matched-ppl quality law + the induction null + the TRIBE ceiling into one paper.
+
+| Seq | Experiment | Question / decision rule | Status |
+|---|---|---|---|
+| **F1 (NEXT)** | **E016 TRIBE Phase 1→2 — the ceiling** | (prereq: **voxel-space mapping** LeBel-vol↔fsaverage5). P1 fidelity = **spatial-specificity** (TRIBE-vs-real BOLD, lang-high/visual-low). P2 = real−TRIBE residual; **residual≈0 vs BOTH text & no-text TRIBE ⇒ ceiling/Fork-B; residual>0 surviving no-text ⇒ Fork-A → STOP for Erfan.** | designed (E016) |
+| **F2** | **E019 external reproduce-and-control** (100% of I2) | reproduce a published brain-tuning POSITIVE (Bilgin/Negi/Moussa recipe on LeBel/denizenslab), then show it shrinks into the matched-ppl + permuted band. **NON-NEGOTIABLE for the paper** (premortem). Survives controls ⇒ Fork-A → STOP. | designed (E019) |
+| **F3** | **E013/I3 denizenslab n=6 full-FT** (data downloaded) | the POWERED multi-subject induction test (closes the door at adequate power, not n=3 probe). Predeclared E013 protocol. Likely-null per 5 converging nulls; run per the 100% rule. | data ready |
+| **F4** | **E015 Q2 architecture-residual extension** | add ≥3 modern-family sizes (Llama/Mistral) + base-vs-instruct ablation at matched bpb → claim or bury the architecture-beyond-quality residual (now p=0.20, underpowered). | designed (E015) |
+| **A** | **Manuscript corrections (analysis lane, Erfan)** | r≈−0.92→−0.78 (3-part argument, drop standalone in-band −0.48); state Y⊥θ\*|S as assumption; narrow matched-ppl framing pending F2. | flagged |
 
 **TWO PARALLEL LANES (D020) toward the dual meta-goal (D022): finish the MSc thesis AND extract ≥1 top-venue
 AI paper.** The closed-rung *verdicts* (the per-individual null etc.) stand — what reopened (Erfan, 2026-06-12)
