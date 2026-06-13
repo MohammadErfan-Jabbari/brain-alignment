@@ -376,3 +376,19 @@ TOOL-VALIDATION gate, NOT a science rung — **no ladder flip.** Licenses Phase 
 the full panel for surprising/load-bearing *science* verdicts), Phase 1 (expected PASS, a gate) gets a focused
 counter-argument adversarial pass + the empirical controls above; the FULL thinking panel + Codex is reserved
 for the Phase-2 ceiling verdict (the load-bearing claim that could read as Fork-A).
+
+### Step 6 — counter-argument panel on Phase-1 PASS → objection HELD, number corrected (still PASS) (2026-06-14)
+The counter-argument agent (opus) re-ran the pipeline and landed one **MATERIAL** objection (the rest MINOR):
+**the floor was a strawman** — it used only rate/acoustic features and omitted the lab's own lexical-semantic
+`english1000` (985-d) + articulatory `phonemes`/`letters`, which ship in the SAME `features_val_NEW.hdf`. Adopted:
+rebuilt the floor as the **strong nuisance stack** (rate + envelope + phonemes + letters + english1000 PCA-100).
+**Re-run result — PASS holds, magnitude honestly halved:** TRIBE higher-order-language r=0.273 vs **strong
+floor 0.160** → **Δ = +0.113, 95% CI [+0.045, +0.181], 6/6 subjects, Wilcoxon p≈0.03** (was +0.165/~4× vs the
+rate-only floor — that framing is dropped). Group per-vertex higher_lang: TRIBE 0.222, strong-floor 0.137,
+weak-floor 0.057. So TRIBE carries real spatial-specificity fidelity *beyond lexical-semantics*, but the margin
+is modest. MINOR objections verified and dismissed: the AC-chosen lag=7 is NOT language-ROI-overfit (higher_lang
+also peaks at lag=7); the 700-vs-602-TR tail lands in silence (conservative); estimand asymmetry is logged for
+Phase 2. **The agent's key carry-forward: because the margin over lexical-semantics is modest, the Phase-2
+no-text-extractor ablation (Llama-shared-variance control) is now the BINDING concern** — a residual≈0 that only
+holds vs full-TRIBE would be the Llama confound, not the ceiling. **Corrected verdict: PASS (faithful stand-in,
+Δ≈+0.11 over a strong nuisance floor); no ladder flip; Phase 2 gated hard on the no-text ablation.**

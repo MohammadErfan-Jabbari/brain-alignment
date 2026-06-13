@@ -54,7 +54,12 @@ ROI_GROUPS = {
     "early_vis":   ["V1", "V2", "V3", "V3A", "V3B", "V4", "V7"],
     "somatomotor": ["M1F", "M1H", "M1M", "S1F", "S1H", "S1M", "SMFA", "SMHA"],
 }
-LOWLEVEL_KEYS = ["numwords", "numphonemes", "numletters", "pauses"]
+# STRONG nuisance floor (counter-argument fix): not just rate/acoustic — also the lab's own
+# lexical-semantic (english1000, PCA'd) + articulatory (phonemes/letters). TRIBE must beat THIS.
+RATE_KEYS = ["numwords", "numphonemes", "numletters", "pauses", "word_length_std"]
+SEMANTIC_KEY = "english1000"   # 985-d; PCA'd to ENG_PCS
+ARTIC_KEYS = ["phonemes", "letters"]
+ENG_PCS = 100
 NC_MIN = 0.10
 LAG_WINDOW = range(0, 13)
 
@@ -85,14 +90,30 @@ def _envelope(n_tr):
     return g.reshape(-1, 1), bestL, float(bestc)
 
 
-def lowlevel_design(n_tr=N_TR):
+def lowlevel_design(n_tr=N_TR, strong=True):
+    """Nuisance floor TRIBE must beat. strong=True (primary, per counter-argument): rate +
+    envelope + articulatory (phonemes/letters) + lexical-semantic (english1000, PCA'd to
+    ENG_PCS). strong=False: rate+envelope only (the weaker floor, reported as secondary)."""
     with h5py.File(LAB_FEATS, "r") as h:
-        feats = [np.asarray(h[f"story_11/{k}"][:], np.float32).reshape(-1, 1) for k in LOWLEVEL_KEYS]
-    X = np.concatenate(feats, 1)[:n_tr]
+        rate = np.concatenate([np.asarray(h[f"story_11/{k}"][:], np.float32).reshape(n_tr, -1)
+                               for k in RATE_KEYS], 1)
+        blocks = [rate]
+        if strong:
+            for k in ARTIC_KEYS:
+                blocks.append(np.asarray(h[f"story_11/{k}"][:], np.float32).reshape(n_tr, -1))
+            eng = np.asarray(h[f"story_11/{SEMANTIC_KEY}"][:], np.float32)[:n_tr]
     env, L, c = _envelope(n_tr)
     print(f"  [envelope] lead L={L} TR (corr numwords={c:.3f})")
-    X = np.concatenate([X, env], 1)
-    return _fir(np.nan_to_num(zscore(X, 0)))
+    blocks.append(env)
+    X = np.concatenate(blocks, 1)
+    Xz = np.nan_to_num(zscore(X, 0))
+    if strong:
+        from sklearn.decomposition import PCA
+        engz = np.nan_to_num(zscore(eng, 0))
+        eng_pc = PCA(n_components=ENG_PCS, random_state=0).fit_transform(engz).astype(np.float32)
+        Xz = np.concatenate([Xz, eng_pc], 1)
+        print(f"  [floor] STRONG: rate+artic+envelope({Xz.shape[1]-ENG_PCS}d) + eng1000-PCA({ENG_PCS}) = {Xz.shape[1]}d")
+    return _fir(Xz)
 
 
 def load_real(subj):
@@ -181,14 +202,17 @@ def run():
                for g, names in ROI_GROUPS.items()}
     ac_sel = grp_roi["auditory"] & (ncgroup > NC_MIN)
 
-    Xlow = lowlevel_design()
+    Xlow = lowlevel_design(strong=True)          # PRIMARY floor (rate+artic+envelope+eng1000-PCA)
+    Xlow_weak = lowlevel_design(strong=False)     # secondary (rate+envelope only), for transparency
     Ttribe, lag, ac_c, sharp, prof = load_tribe_aligned(Ygroup, ac_sel)
     if not (LAG_WINDOW.start <= lag < LAG_WINDOW.stop) or sharp < 0.02:
         print(f"  WARNING: lag {lag}/sharpness {sharp:.3f} suspect — alignment may be unreliable.")
 
-    # ---- PRIMARY: group-avg per-vertex r maps ----
+    # ---- PRIMARY: group-avg per-vertex r maps (strong floor) ----
     floor_pred_g, alpha = ridge_cv_pred(Xlow, Ygroup)
     r_floor_g = _percol_corr(floor_pred_g, Ygroup)
+    floor_w_g, _ = ridge_cv_pred(Xlow_weak, Ygroup)
+    r_floor_w = _percol_corr(floor_w_g, Ygroup)
     r_tribe_g = _percol_corr(Ttribe, Ygroup)
     group_summary = {"alpha": alpha, "lag_tr": lag, "ac_corr": ac_c, "lag_sharpness": sharp,
                      "lag_profile": prof}
@@ -197,6 +221,7 @@ def run():
         group_summary[g] = {"n": int(sel.sum()),
                             "tribe_r": round(float(np.nanmean(r_tribe_g[sel])), 4),
                             "floor_r": round(float(np.nanmean(r_floor_g[sel])), 4),
+                            "floor_weak_r": round(float(np.nanmean(r_floor_w[sel])), 4),
                             "tribe_minus_floor": round(float(np.nanmean(r_tribe_g[sel] - r_floor_g[sel])), 4)}
 
     # ---- INFERENCE: per-subject ROI-mean timecourse correlations, paired n=6 ----
