@@ -176,3 +176,24 @@ Repo cloned → `data/paper-repos/tribev2`. Clean inference API confirmed. Deps:
 Llama-3.2-3B not cached + likely gated. GPUs 4×L40S free. Isolated install launched (Phase 0 in flight).
 **Hard line unchanged:** TRIBE produces no science number that flips a rung; verdicts are Erfan's, numbers come
 from this brain. TRIBE is a *tool* (a denoised stimulus→brain oracle), not an adjudicator.
+
+## P0 STATUS UPDATE (2026-06-13, S12 autonomous — main blocker SOLVED, predict-verify is the next step)
+Reached I4 after completing I1 (E015 law r≈−0.78) + I2 (E017 full-FT induction null). P0 diagnosis + de-risk:
+- **`import` OK** (S11 install + this session re-confirmed: `IMPORT OK` in `.venv-tribe`).
+- **The gated-Llama blocker is REAL and now PATCHED.** TRIBE's text extractor is `meta-llama/Llama-3.2-3B`
+  (`tribev2/grids/defaults.py:28`), which is **HF-gated for our token** (download "Access denied. requires
+  approval") and the cache is **incomplete** (76K — config/README only, no weights → can't load offline). This is
+  the same gate hit in I1. **Workaround applied:** patched `grids/defaults.py:28` → **`unsloth/Llama-3.2-3B`**
+  (the identical *base* weights, non-gated, already cached from I1; vocab 128256, 28 layers — a faithful
+  substitution since it is the same model re-uploaded). `.bak` saved. **Carry-forward: this patch (like the
+  codex.mjs one) is in the repo working tree — re-apply if the tribev2 repo is re-cloned/reset.**
+- **Remaining P0 (the next session's first step):** build a text-events DataFrame (`tribe_demo.ipynb` /
+  `get_events_dataframe` is the template), then `TribeModel.from_pretrained("facebook/tribev2")` + `.predict(...)`
+  on a sample → expect (T, ~29k) BOLD. This pulls **facebook/tribev2 weights + Wav2Vec-Bert-2.0 (audio) + possibly
+  V-JEPA-2-Giant (video) + gTTS (NETWORK)** — multi-GB downloads + a network round-trip (text→gTTS audio→ASR
+  word-timings→text+audio embeddings, per §1). Predeclared P0 WALL (§Phase 0) still applies if these are
+  unresolvable. **Then Phase 1 (fidelity) → Phase 2 (the ceiling — cheapest decisive, run first).**
+- **Why paused here (deliberate, not a wall):** the capstone is a multi-day build ("launch fresh, not at a
+  session tail"); S12 already delivered I1+I2+I3-status at ~$250; continuing into the multi-GB/network P0 + the
+  P1–P3 program now risks the L031 overshoot the project explicitly guards against. Blocker pre-solved → the next
+  session starts clean on the predict-verification.
