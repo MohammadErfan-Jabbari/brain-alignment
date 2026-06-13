@@ -326,3 +326,29 @@ must survive that framing + the no-text ablation. Recorded now, actioned at Phas
 
 **Verdict: design revised → PASS.** Implemented in `scripts/run_tribe_fidelity.py`. TRIBE story_11 prediction
 generating (`outputs/E016_tribe/deniz/full/`).
+
+### Step 4 — Phase 2 (THE CEILING) design skeleton (drafted while Phase 1 runs; oracle-gate after Phase-1 PASS)
+**Only run if Phase 1 PASSES.** Quantity: the **non-stimulus-predictable** component of brain alignment =
+real-fMRI LM-alignment − TRIBE-fMRI LM-alignment. By the spine (Y⊥θ\*|S), the prediction is **≈0** (strongest
+Fork-B); a residual >0 surviving the no-text ablation = Fork-A surprise → STOP for Erfan.
+
+- **Substrate/space:** denizenslab story_11 (+ optionally more stories), fsaverage5, group-avg real BOLD (the
+  estimand-matched, high-SNR target; Phase-1 machinery reused: `fsaverage_mapping`, lab-aligned grid, the locked
+  lag for TRIBE). LM = the GPT-2/Qwen rep used through E006/E013 (verdict-layer hidden states via the
+  `lebel_adapter.lm_word_features` logic, ported to denizenslab textgrids/words).
+- **Three encoding fits (per vertex, contiguous-CV, ridge), unique-R² style:**
+  (i) real-BOLD unique-R² of the LM rep over the low-level nuisance (the E006 protocol) = "real alignment";
+  (ii) TRIBE-BOLD unique-R² of the same LM rep over the same nuisance = "TRIBE-explained alignment";
+  (iii) **residual** = variance in real-BOLD–LM-alignment NOT captured by the TRIBE target. Operationalize as:
+  align the LM rep to real BOLD after partialling out the TRIBE-predicted BOLD (TRIBE preds as additional
+  regressors), vs the LM-alignment to TRIBE itself. Report the residual unique-R² with CI, in language ROIs.
+- **REQUIRED no-text ablation (oracle F3 of the refined design):** TRIBE's text extractor IS Llama-3.2-3B, so
+  "LM-alignment to TRIBE" is partly Llama-shared-variance. Re-run with a **no-text TRIBE** (audio-only:
+  `config_update={"data.features_to_use":["audio"]}` for the audio input; verify the zero-fill path is hit). The
+  ceiling/Fork-B claim (residual≈0) is valid ONLY if it holds vs BOTH full and no-text TRIBE; a residual that
+  collapses only against full-TRIBE = the Llama confound, not the DPI ceiling.
+- **Estimand caveat (carry from Step 3):** the residual is computed against group-avg E[Y|S] → it is an UPPER
+  BOUND on unique non-stimulus signal (conservative for Fork-B; a Fork-A must survive this + the no-text ablation).
+- **Decision:** residual CI includes 0 (within the E006-scale MDE) vs both TRIBE variants ⇒ the ceiling is the
+  stimulus-predictable part ⇒ strongest Fork-B with mechanism. residual CI excludes 0 surviving no-text ⇒ Fork-A
+  → STOP for Erfan. Panel (D017) + Codex after the verdict.
