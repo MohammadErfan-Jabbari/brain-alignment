@@ -250,3 +250,40 @@ Phase 1/2 design. **Three changes are now part of the locked program:**
 (b) the DPI ceiling I(Ŷ;Z) ≤ I(S;Z) is sound (Ŷ=f(S) deterministic); (c) "residual ≈ 0" decisiveness depends on
 the fidelity gate (#2) + the no-text control (#3) both passing. **A clean Fork-B needs all three; a residual > 0
 that survives the no-text control = a genuine Fork-A surprise → STOP for Erfan.**
+
+---
+
+## F1 EXECUTION LOG (S13, 2026-06-14, autonomous working)
+
+### Step 1 — voxel-space blocker RESOLVED (substrate = denizenslab; D027)
+The #1 prerequisite is solved. **LeBel ships no precomputed mapper** (only `pycortex-db/` + `freesurfer_subjdir/`
+on OpenNeuro → a pycortex+FreeSurfer build). **denizenslab ships the existing transform**: per-subject sparse
+`voxel_to_fsaverage` CSR (327684×n_vox), local + verified, **plus per-subject functional ROI localizers**
+(V1–V4/AC/Broca/pSTS/FFA/EBA/…) in the same voxel space. fsaverage5 = the verified sphere-prefix of fsaverage
+(nilearn sphere coords, max diff **0**) → a direct 20,484-col subset matching TRIBE's output layout
+(LH 0:10242, RH 10242:20484). `scripts/fsaverage_mapping.py` builds + verifies it: 93% fsa5 coverage, and the
+validating check — **listening split-half reliability lang/aud=0.108 ≫ early-vis=0.026** (correct spatial pattern).
+Substrate decision (D027): F1/F2 on denizenslab, n=6 (subjects 01/02/03/05/07/08), reusing the F3 dataset.
+
+### Step 2 — Phase 1 FIDELITY: locked design (spatial specificity, non-circular)
+**Question:** Is TRIBE a faithful in-pipeline fMRI stand-in? (gate on the synthetic-target line.)
+**Test (NOT trained>untrained — that is circular per the refined design):** per-vertex temporal correlation of
+TRIBE-predicted vs REAL BOLD, summarized by **spatial specificity** — language/auditory ROIs HIGH, early-visual LOW.
+
+- **Stimuli → TRIBE:** feed each denizenslab story's REAL `story_NN.wav` (audio path → w2v-bert audio + Llama-from-ASR
+  text extractors; the faithful multimodal prediction, no gTTS). `average_subjects=True` → TRIBE predicts the
+  group-averaged E[Y|S] (the §2 quantity). Output (T_tribe, 20484) fsaverage5, in `.venv-tribe`, handed off as `.npy`.
+- **Real BOLD → fsa5:** denizenslab listening responses (T, n_vox) → (T, 20484) via `voxels_to_fsa5`.
+- **Temporal alignment (the main engineering risk):** TRIBE TR vs denizenslab TR (2.0045 s) differ; `predict` drops
+  empty segments. Use the returned segment timings to build TRIBE's time grid, resample onto the real `tr_times`
+  (Lanczos window=3, the lebel_adapter convention), trim edges. **Verify alignment empirically** by a lag-search
+  (max cross-correlation on high-reliability auditory vertices should peak at ~0 lag); record the chosen lag.
+- **Metric:** per-vertex r_v = corr(Ŷ_v, Y_v) over TRs; spatial-specificity = mean r_v in {AC,Broca,pSTS,sPMv,ATFP}
+  vs {V1,V2,V3,V3A,V3B,V4,V7}, per subject; paired contrast across n=6 (mean, 95% CI, sign test). Cross-check ROI
+  labels against a standard fsaverage5 atlas (nilearn Destrieux) as an independent specificity readout.
+- **Decision rule (predeclared):** TRIBE faithful ⇒ lang/aud correlation clearly >0 AND clearly > early-visual,
+  consistent across subjects (paired CI excludes 0). Faithful → proceed to Phase 2. Weak/no specificity → record
+  bounded result; do NOT build Phase 3. **No rung flips; this is a tool-validation gate, not a science verdict.**
+- **Controls/caveats:** raw corr is bounded by sqrt(noise-ceiling) — fine for the *contrast* (visual is noisy too);
+  report noise-ceiling-normalized specificity as a secondary. Listening is primary (audio drives TRIBE's strongest
+  modality); reading (text-only path) is a secondary fidelity check.

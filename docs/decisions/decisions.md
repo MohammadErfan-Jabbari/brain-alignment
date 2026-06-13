@@ -448,3 +448,21 @@ fan-out → haiku. Applied: the thinking panel (`counter-argument`, `socratic-th
 synthesis is analysis, not retrieval — Erfan's correction) → **opus**; `session-logger` → sonnet. All 8 agent
 frontmatter + CLAUDE.md tables/routing + upspeed updated; historical "(fable)" annotations in timeline/learnings/
 ladder left as accurate records of past runs. Supersedes the prior "fable for hard adversarial work" rule.
+
+## D027 — F1/F2 substrate = denizenslab (turnkey voxel→fsaverage5 mapper); LeBel deferred — 2026-06-14
+
+**Decision (autonomous, S13; oracle-gated; flagged for Erfan).** The F1 voxel-space blocker (TRIBE fsaverage5
+surface ↔ real BOLD voxels) is resolved by using **denizenslab** (Deniz 2019) as the F1/F2 substrate instead of
+LeBel. Reason — "look for an existing transform before building one" (the goal's own instruction): LeBel ds003020
+ships only a `pycortex-db/` + `freesurfer_subjdir/` (no precomputed mapper → would need a full pycortex+FreeSurfer
+build to reach fsaverage). **denizenslab ships the existing transform**: per-subject sparse `voxel_to_fsaverage`
+CSR mappers (327684×n_vox), local and verified, **plus per-subject functional ROI localizers** (V1–V4/AC/Broca/
+pSTS/FFA/EBA/…) in the *same* voxel space → the language-high/visual-low labels Phase-1 needs, for free, at **n=6**
+(vs LeBel n=3). fsaverage5 is the verified sphere-prefix of fsaverage (nilearn sphere coords, max diff 0), so
+fsa5 = a direct 20,484-column subset. It is also the F3 dataset → the loader/adapter built here compounds into F3.
+
+`scripts/fsaverage_mapping.py` implements + verifies the bridge: fsa5⊂fsa prefix (diff 0), 93% fsa5 coverage, and
+the validating sanity check that **listening split-half reliability lands in lang/aud ROIs (0.108) ≫ early-visual
+(0.026)** — correct spatial pattern. This is a methods choice within F1 (not a rung flip / Fork-A / E019 framing),
+so taken autonomously per the 100% rule; **deviates from the literal "LeBel" instruction** — Erfan may redirect to
+also run LeBel via its pycortex-db on return (kept as an optional robustness substrate). No science number changes.
