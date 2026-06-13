@@ -30,6 +30,35 @@ OUT = THESIS / "outputs/E016_tribe/deniz"
 CACHE = "/home/centcom/data/tribe_cache"
 
 
+def _build_events_singlechunk(audio_path: str):
+    """Faithful replacement for TribeModel.get_events_dataframe(audio_path=...) that fixes
+    TRIBE's long-audio bug: get_audio_and_text_events chunks audio at max_duration=60, but
+    ExtractWordsFromAudio then cross-joins the FULL transcript onto EVERY chunk and adds
+    `start + offset` (double-counted chunk position) → ~N× duplication + a ~2.8x time stretch
+    (e.g. 591s → 1671s for a 602s file). The demo was only tested on clips < 60s (one chunk,
+    offset 0). Keeping the whole file as a SINGLE chunk (max_duration huge) makes start += 0,
+    so word timestamps stay correct. whisperx is unaffected (its .tsv is correct, 0–591s)."""
+    import pandas as pd
+    from tribev2.demo_utils import (
+        ExtractAudioFromVideo, ChunkEvents, ExtractWordsFromAudio, AddText,
+        AddSentenceToWords, AddContextToWords, RemoveMissing, standardize_events,
+    )
+    ev = pd.DataFrame([{"type": "Audio", "filepath": audio_path, "start": 0,
+                        "timeline": "default", "subject": "default"}])
+    transforms = [
+        ExtractAudioFromVideo(),
+        ChunkEvents(event_type_to_chunk="Audio", max_duration=10_000, min_duration=30),
+        ExtractWordsFromAudio(), AddText(),
+        AddSentenceToWords(max_unmatched_ratio=0.05),
+        AddContextToWords(sentence_only=False, max_context_len=1024, split_field=""),
+        RemoveMissing(),
+    ]
+    ev = standardize_events(ev)
+    for t in transforms:
+        ev = t(ev)
+    return standardize_events(ev)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--stories", nargs="+", required=True, help="story numbers, e.g. 11 01 02")
@@ -67,9 +96,29 @@ def main():
         dst = outdir / f"story_{st}_pred.npz"
         if dst.exists():
             print(f"  [story_{st}] exists, skip", flush=True); continue
-        print(f"=== story_{st}: events (audio path) ===", flush=True)
-        events = model.get_events_dataframe(audio_path=str(wav))
+        # TRIBE's audio loader mis-times 44.1 kHz stereo (computes timestamps as if 16 kHz
+        # → ~2.76x stretch). Pre-resample to 16 kHz mono PCM (what whisperx/w2v-bert expect).
+        wav16 = Path(CACHE) / f"story_{st}_16k.wav"
+        if not wav16.exists():
+            import subprocess
+            subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", str(wav),
+                            "-ar", "16000", "-ac", "1", str(wav16)], check=True)
+        print(f"=== story_{st}: events (audio path, 16kHz, single-chunk) ===", flush=True)
+        events = _build_events_singlechunk(str(wav16))
+        try:
+            print(f"  [events] start span [{events['start'].astype(float).min():.1f},"
+                  f"{events['start'].astype(float).max():.1f}]s (expect ~602)", flush=True)
+        except Exception:  # noqa
+            pass
         print(f"  events {events.shape}; predict...", flush=True)
+        # Save word-level events (wav clock) for the low-level-encoder floor (same clock
+        # as preds → a single lag aligns both to real BOLD). Best-effort column subset.
+        try:
+            cols = [c for c in ["text", "word", "start", "duration", "type", "onset", "offset"]
+                    if c in events.columns]
+            events[cols].to_csv(outdir / f"story_{st}_events.csv", index=False)
+        except Exception as ex:  # noqa
+            print(f"  (events save skipped: {ex})", flush=True)
         preds, segs = model.predict(events)   # (n_seg, 20484) contiguous
         assert preds.ndim == 2 and preds.shape[1] == 20484, (
             f"expected E[Y|S] group prediction (T,20484); got {preds.shape} — "
