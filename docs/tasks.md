@@ -32,12 +32,17 @@ decisions, ladder/tasks) → only then advance. Numbers come from runs; **no run
   **L016 tie-in:** law rides the averaged/shared-stimulus component (per-individual SNR-limited). Full
   oracle+panel(counter/premortem/first-principles)+Codex audit in E015 doc; learnings L034/L035. No rung flips.
   **→ Analysis-lane FLAG (Erfan): manuscript's "r≈−0.92" needs correction to ≈−0.78. Antonello-2023 digested.**
-- [ ] **I2 · The matched-ppl control on an EXTERNAL published result — the "main-track lift" (premortem #1,
-  highest leverage for the paper).** Reproduce a Negi/Schwartz-style brain-tuning *gain*, then show it
-  **shrinks at matched perplexity** under our permuted-twin + ppl-intercept control. This is the contribution
-  that survives our own scoping (the missing control in the brain-tuning literature). *Autonomous part:* build
-  it + get the number. *Erfan's call (do NOT decide alone):* whether it becomes the paper's **headline/spine**
-  (the premortem's reframe). New experiment doc Exxx + canonical-note cross-refs.
+- [x] **I2 · matched-ppl control — RESOLVED 2026-06-13 (E017).** Oracle gate (HOLD) established that Negi's
+  literal pipeline is infeasible (no bilingual fMRI) AND that the I2 contribution **already exists**: Negi's
+  *stated* gap is the **downstream** matched-ppl control = **E009** (bounded null), and the cross-family quality
+  law = **E015/I1**. Reframed E017 → a single-subject full-FT feasibility gate (de-risk I3). **Result: NULL** —
+  full-FT (the last untested induction *method*) fails to induce a brain-specific gain at matched ppl
+  (real−perm mean +0.0003, 95% CI [−0.0002,+0.0008], p=0.27, n=9; manip_ok mostly False), converging with
+  E013/E011/E013b/E008 → **method-general lever failure; LeBel-encoding induction route KILLED.** Matched-ppl
+  contribution banked in E009+E015. Learning L036. Not a Fork-A surprise. Sole untested induction variants left:
+  n≥5 multi-subject (I3, data-blocked) + TRIBE-synthetic (I4). **No headline/spine decision forced** (E017 is a
+  negative feasibility datum, not a new headline) — but the manuscript framing "matched-ppl is the missing
+  control" is now empirically backed by E009+E015+E017 (Erfan to weigh for emphasis).
 - [ ] **I3 · Full-FT multi-subject naturalistic voxelwise — the one untested induction door (E013 §"two
   routes").** Full fine-tuning (NOT a LoRA distillation readout) on denizenslab n=6 (`speech-llm-brain` / GIN
   `narratives_reading_listening_fmri`), predeclared E013 protocol (per-individual n≥5, permuted twin,
