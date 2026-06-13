@@ -392,3 +392,25 @@ Phase 2. **The agent's key carry-forward: because the margin over lexical-semant
 no-text-extractor ablation (Llama-shared-variance control) is now the BINDING concern** — a residual≈0 that only
 holds vs full-TRIBE would be the Llama confound, not the ceiling. **Corrected verdict: PASS (faithful stand-in,
 Δ≈+0.11 over a strong nuisance floor); no ladder flip; Phase 2 gated hard on the no-text ablation.**
+
+### Step 7 — Phase 2 (THE CEILING) LOCKED DESIGN (S13, for oracle gate)
+**Estimand:** the LM representation's alignment to real BOLD that is NOT explained by TRIBE (= E[Y|S], the
+stimulus-predictable part). By the spine (Y⊥θ\*|S) this residual should be ≈0 (the LM, a θ\*-derived rep, can't
+align to the θ\*-independent residual ε = Y − E[Y|S]). Operationalized as the **unique variance**
+ΔR²_LM|TRIBE = R²(real | nuisance + TRIBE + LM) − R²(real | nuisance + TRIBE), in higher-order language ROIs.
+- **LM:** Qwen2.5-0.5B (trained), verdict layer (the E006 powered aligner). Words from the whisperx TSV (the same
+  words TRIBE saw), +5 TR lead (lab-grid alignment), lanczos→306-TR grid, PCA-100, FIR(1..4). [untrained-LM control optional.]
+- **Targets:** real fsa5 BOLD (group-avg + per-subject, story_11); TRIBE regressor = the lag-aligned TRIBE
+  prediction (full AND no-text), per vertex / per ROI-mean.
+- **Levels:** PRIMARY = per-subject ROI-mean-timecourse partition, n=6 paired, higher-order language; descriptive =
+  group per-vertex. CV = contiguous TR-block 5-fold (single story — autocorrelation-leakage limitation noted).
+- **Sanity gate:** confirm A_real = ΔR²_LM|nuisance > 0 (the LM DOES align to real BOLD over nuisance) — else the
+  residual test is vacuous.
+- **REQUIRED no-text control:** repeat with no-text TRIBE (features_to_use=['audio'], cached). The Fork-B ceiling
+  claim (residual≈0) is valid ONLY if it holds vs BOTH full and no-text TRIBE; collapse only vs full = Llama-shared
+  variance, not the DPI ceiling. (Counter-argument: this is now the BINDING control given Phase 1's modest margin.)
+- **Estimand caveat (Phase-1 carry):** residual is computed against group-avg E[Y|S] → an UPPER BOUND on unique
+  non-stimulus signal (conservative for Fork-B; a Fork-A must survive this).
+- **DECISION:** residual CI includes 0 vs BOTH ⇒ the ceiling is the stimulus-predictable part ⇒ **strongest Fork-B
+  with mechanism.** residual CI excludes 0 surviving no-text ⇒ **Fork-A → STOP for Erfan.** Full panel + Codex on
+  the verdict; no rung flip without Erfan.
