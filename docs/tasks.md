@@ -45,11 +45,18 @@ decisions, ladder/tasks) → only then advance. Numbers come from runs; **no run
   control" is now empirically backed by E009+E015+E017 (Erfan to weigh for emphasis).
 ### 🔭 FORWARD PROGRAM (S13+, Erfan-approved 2026-06-13, "100% / finish-the-job" rule) — sequence F1→F4
 The research corpus continuing the path (full table + decision rules in `ladder.md` → "THE FORWARD PROGRAM"):
-- **F1 (NEXT) · E016 TRIBE Phase 1→2 — the ceiling.** Prereq: **voxel-space mapping** (LeBel-volumetric ↔ TRIBE
-  fsaverage5 — the real blocker, Codex). P1 fidelity = **spatial-specificity** (TRIBE-vs-real BOLD; NOT the
-  circular trained>untrained check). P2 = real−TRIBE residual + the **REQUIRED no-text-extractor ablation**
-  (TRIBE's text extractor IS Llama-3.2-3B → residual≈0 only counts if it holds vs the no-text TRIBE too).
-  residual>0 surviving no-text ⇒ Fork-A → STOP. Design in E016 "PHASE 1/2 DESIGN — REFINED".
+- **F1 · E016 TRIBE Phase 1→2 — the ceiling.** Prereq **voxel-space mapping SOLVED** (substrate → denizenslab,
+  D027; TRIBE long-audio timestamp bug fixed, L037).
+  - [x] **P1 FIDELITY = PASS (S13, 2026-06-14).** TRIBE beats a strong nuisance floor (rate+articulatory+eng1000
+    -PCA) in higher-order language **Δ=+0.113 [+0.045,+0.181], 6/6, p≈0.03** (denizenslab story_11, n=6 listening);
+    correct spatial profile. Oracle-gated + counter-argument-hardened (rate-only floor was a strawman). **Tool-gate,
+    NO rung flip.** `scripts/{fsaverage_mapping,tribe_predict_deniz,run_tribe_fidelity}.py`; both TRIBE preds cached.
+  - [ ] **P2 (NEXT) = the CEILING — real−TRIBE residual** of LM alignment, with the **no-text TRIBE as the BINDING
+    control** (margin over lexical-semantics is modest → residual≈0 must hold vs BOTH full & no-text TRIBE, else
+    Llama-shared-variance). Build: LM word features on denizenslab story words (reuse `lebel_adapter.lm_word_features`)
+    → fsa5 encoding to real + TRIBE targets → partial-R² residual in language ROIs. residual≈0 vs both ⇒ strongest
+    Fork-B; residual>0 surviving no-text ⇒ **Fork-A → STOP for Erfan.** FULL panel + Codex on this verdict. A fresh
+    focused run (load-bearing). Design in E016 "Step 4".
 - **F2 · E019 external reproduce-and-control (the 100% version of I2).** Reproduce a published brain-tuning
   POSITIVE then collapse it with matched-ppl + permuted-twin. NON-NEGOTIABLE for the paper (premortem). E019 doc.
 - **F3 · E013/I3 denizenslab n=6 — POWERED induction test** (below; data now downloaded).

@@ -1,68 +1,65 @@
 # Upspeed — read first, write last
 
-**Last updated:** 2026-06-13 (Session 12 — autonomous working + a planning/strategy close. **I1 ✅ + I2 ✅ done;
-I4-P0 ✅ passed; I3 data ✅ downloaded+verified.** **FORWARD PROGRAM set (Erfan-approved, 100% rule):
-F1 TRIBE-ceiling → F2 external reproduce-and-control (E019) → F3 I3 powered n=6 → F4 Q2 ext** (full table in
-`ladder.md`). **fable banned → routing opus/sonnet/haiku (D026).** No rung flipped. Next = a fresh implementation
-session on F1 — Erfan to issue the `/goal`.)
+**Last updated:** 2026-06-14 (Session 13 — autonomous working, forward-program **F1**. **TRIBE Phase-1 FIDELITY =
+PASS** (hardened): TRIBE is a faithful in-pipeline fMRI stand-in — beats a strong nuisance floor in higher-order
+language Δ=+0.113 [+0.045,+0.181], 6/6. Two blockers solved: voxel-space mapping (D027) + a TRIBE long-audio
+timestamp bug (L037). **NO rung flip** (Phase 1 is a tool-gate). Next = **F1 Phase 2, the CEILING** — a fresh
+focused run; both TRIBE predictions cached. Erfan to issue the `/goal` or let the autonomous loop continue.)
 
-> **Canonical state lives in [`ladder.md`](ladder.md)** (rung board + roadmap, D015). This is last-session prose.
+> **Canonical state lives in [`ladder.md`](ladder.md)** (rung board + forward program). This is last-session prose.
 > With no task, run `/orient`.
 
-## Current state — implementation roadmap (D020/D021/D022). Science verdicts UNCHANGED; no rung flipped.
+## Current state — forward program F1 in progress. Science verdicts UNCHANGED; no rung flipped.
 
-**I1 ✅ (E015 expanded, 22 models/6 families).** Cross-family alignment∝−quality law corrected to **r≈−0.78**
-on **bits-per-byte** (per-token ppl is tokenizer-contaminated; v2's −0.92 was inflated). Floor-steepened →
-operative-band ≈−0.48; scale-controlled partial −0.675. Q2 (architecture beyond quality): underpowered
-hypothesis (Llama/Mistral +0.006–0.009 residual). L016 tie-in: the law rides the averaged/shared component.
-Full oracle+Codex+panel audit. L034/L035.
+**F1 Phase 1 (E016 TRIBE fidelity) ✅ PASS.** TRIBE-v2 (Meta FAIR; predicts group-averaged E[Y|S] on the
+fsaverage5 surface) is validated as a faithful in-pipeline fMRI stand-in for the stimulus-evoked response. On
+denizenslab story_11 (n=6 listening), TRIBE-predicted BOLD beats a **strong nuisance floor** (rate + envelope +
+phonemes/letters + english1000 PCA-100, FIR, contiguous-CV) in **higher-order language** ROIs (Broca/pSTS/ATFP):
+TRIBE r=0.273 vs floor 0.160, **Δ=+0.113, 95% CI [+0.045,+0.181], 6/6 subjects, Wilcoxon p≈0.03**; gradient
+lang−motor +0.290 6/6; correct spatial profile (language/auditory high, visual/motor ≈0). Oracle-gated (HOLD→PASS)
++ counter-argument-hardened (the original rate-only floor was a strawman → Δ corrected from inflated +0.165). **This
+is a tool-validation gate, NOT a science rung → no ladder flip.**
 
-**I2 ✅ RESOLVED (E017) — full-FT induction NULL.** Oracle reframed I2: Negi's literal pipeline infeasible
-(no bilingual fMRI), and the matched-ppl contribution **already lives in E009 (downstream bounded null) +
-E015 (the law)**. Reframed E017 → a full-FT feasibility gate: does FULL fine-tuning beat vanilla where E013's
-LoRA failed? **NULL** — brain-specific gap (real−perm) mean +0.0003, 95% CI [−0.0002,+0.0008], p=0.27 (n=9,
-UTS01-03 ×3 seeds, ppl-preserving). Full-FT fails like LoRA → **method-general lever failure** (converges
-E013/E011/E013b/E008). LeBel-encoding induction route KILLED. **Not a Fork-A surprise.** L036.
+## Two blockers solved this session (the real work)
+1. **Voxel-space mapping (D027).** TRIBE outputs fsaverage5; LeBel ships no precomputed mapper (pycortex-db only).
+   Switched F1/F2 substrate to **denizenslab** — turnkey verified `voxel_to_fsaverage` mapper + per-subject
+   functional ROI localizers, n=6. fsaverage5 = verified sphere-prefix of fsaverage. `scripts/fsaverage_mapping.py`.
+2. **TRIBE long-audio timestamp bug (L037).** `get_audio_and_text_events` cross-joins the full transcript onto each
+   60s chunk + double-counts chunk position → 591s speech → 1671s events, preds (1700,20484). Fix: extract words on
+   un-chunked audio (correct), then chunk only audio for w2v-bert (single chunk OOMs its O(T²) attention). Now
+   preds (700,20484), correct timing. `scripts/tribe_predict_deniz.py` (`_build_events_correct`).
 
-## What to do next (autonomous loop) → **I4 / TRIBE capstone (E016)**
-
-I3 (full-FT multi-subject denizenslab n=6) data is now **DOWNLOADED + verified** (de-prioritized to **F3** in the
-forward program; E017's full-FT null lowers its prior). Per the roadmap, **I4 sidesteps I3** (TRIBE generates its own fMRI). **I4/P0 GATE
-PASSED (S12, verified):** TRIBE runs text→synthetic-BOLD end-to-end → `preds (11, 20484)` fsaverage5 cortical,
-sane BOLD (`scripts/tribe_p0_verify.py`, `outputs/E016_tribe/p0_verify2.log`). **Operative fixes:** (1) Llama
-override via **`config_update={"data.text_feature.model_name": "unsloth/Llama-3.2-3B"}`** to `from_pretrained`
-(the hub `config.yaml` overrides grids/defaults.py — meta-llama is gated; other 3 extractors non-gated); (2)
-**`ffmpeg` required** for whisperx ASR (`sudo apt-get install -y ffmpeg` — sudo works); (3) auto-downloads spaCy
-en_core_web_lg + 4 extractors + tribev2 ckpt; gTTS needs network; cache `/home/centcom/data/tribe_cache`. **TRIBE
-env ISOLATED** (`.venv-tribe`, torch<2.7 — NEVER into the thesis venv; hand off via disk `.npy`). **Next step:
-Phase 1 (FIDELITY)** — generate TRIBE targets for LeBel/Tuckute stimuli we have real fMRI for, re-run the A2
-trained-vs-untrained unique-R² contrast against TRIBE targets (same nuisance), decide faithful stand-in → then
-**Phase 2 (THE CEILING — cheapest decisive, stimulus-subtraction, run first)** → P3 clincher (E016 §5).
-Design→oracle-gate→run→panel+Codex→record. **A TRIBE null = strongest publishable Fork-B; a TRIBE positive
-(Phase-2 residual>0 or Phase-3 arm2>arm3) reopens Fork-A → STOP for Erfan.**
+## What to do next — F1 Phase 2 (THE CEILING), a fresh focused run (load-bearing, Fork-A-capable)
+real-LM-alignment − TRIBE-explained-alignment residual on denizenslab, with the **no-text TRIBE ablation as the
+BINDING control** (the margin over lexical-semantics is modest → a residual≈0 only counts if it holds vs BOTH full
+and no-text TRIBE, else it's Llama-shared-variance, not the DPI ceiling). Build: LM word features on the denizenslab
+story words (reuse `lebel_adapter.lm_word_features`) → fsa5 encoding to real + TRIBE targets → partial-R² residual in
+language ROIs. **residual≈0 vs both ⇒ strongest Fork-B with mechanism; residual>0 surviving no-text ⇒ Fork-A →
+STOP for Erfan.** Run the FULL thinking panel + Codex on the Phase-2 verdict (deferred from Phase 1, a gate).
+Then **F2 (E019 external reproduce-and-control), F3 (I3 denizenslab n=6 full-FT), F4 (E015 Q2)** per the program.
 
 ## Blockers / open loops
-- **I3/F3: data DOWNLOADED + verified** — `data/denizenslab/` (35G; 6 subjects 01/02/03/05/07/08 × reading/listening
-  × trn/val; valid HDF5, 10 train + 1 val story each, ~80–93k voxels). No longer blocked (GIN `/raw/` + apt git-annex).
-  Remaining: adapt the full-FT loop to denizenslab HDFs. **De-prioritized to F3** (run after F1/F2 per the forward program).
-- **I4/TRIBE:** keep `.venv-tribe` isolated; confirm Llama-3.2-3B access on first real download (meta-llama gated → may need unsloth mirror or HF approval).
-- **ANALYSIS-lane flags for Erfan (do NOT edit unilaterally):** (1) manuscript "r≈−0.92" → correct to ≈−0.78
-  (operative-band ≈−0.48); (2) new canonical `antonello-2023_*.md` + suggested `01-research-landscape.md` §A row;
-  (3) the induction lever is now NULL across LoRA+full-FT+objective+capacity (E017+E013+E011+E013b) — Fork-B is
-  very robust; Erfan to weigh whether I2's matched-ppl framing (E009+E015+E017) becomes manuscript emphasis.
-- **Carry-forward:** reapply the `codex.mjs` sandbox patch after any codex plugin update.
+- **Both TRIBE predictions cached + ready:** `outputs/E016_tribe/deniz/full/story_11_pred.npz` (text+audio) and
+  `.../notext/story_11_pred.npz` (audio-only, features_to_use=['audio'] verified). Per-stimulus → shared across the
+  6 subjects. TRIBE env stays isolated in `.venv-tribe`; the operative fixes are in `scripts/tribe_predict_deniz.py`
+  (16kHz resample + `_build_events_correct` single-chunk-word + Llama `config_update`); re-apply via the runner,
+  not a site-packages patch (tribev2 clone is gitignored).
+- **Phase-2 build not started:** needs LM word features on denizenslab + the partial-R² residual + verifying the
+  no-text zero-fill path actually drops the text channel inside the model (config says ['audio']; confirm at predict).
+- **ANALYSIS-lane flags for Erfan (unchanged, do NOT edit unilaterally):** manuscript r≈−0.92→−0.78; the induction
+  null is robust across LoRA+full-FT+objective+capacity; F1 adds TRIBE as a validated stand-in (enables the ceiling).
+- **Substrate-switch flag:** F1/F2 now on denizenslab (not LeBel) — D027; Erfan may add LeBel via pycortex-db as a
+  robustness substrate on return.
 
 ## Key facts
-- **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache HF_HUB_OFFLINE=1`. GPUs 4× L40S free.
-- **Cost discipline:** this session ran long (~$245). Lean on the empirical verify-loop (e.g. the gentle-config
-  check that caught a forgetting artifact) over redundant panels on converging nulls; spin up panels for
-  positive/surprising claims. Spin up subagents liberally for genuinely parallel/independent work.
-- **Subagent routing (fable BANNED/removed; Erfan's rule 2026-06-13 — anything that needs THINKING/ANALYSIS/
-  DESIGN → opus):** **opus** = the thinking panel (`counter-argument`, `premortem-analyst`,
-  `first-principles-grounder`, `socratic-thinker`), `oracle-reviewer`, AND `lit-scout` + `paper-digest`
-  (relevance-judging / paper-synthesis is analysis), + any design subagent. **sonnet** = navigating OUR docs
-  (status review, fact-finding across traces, record-writing `session-logger`). **haiku** = simpler mechanical
-  fan-out. Codex = code-critic + rescue. NEVER select `fable`. (all agent frontmatter updated 2026-06-13.)
-- **Llama-3.2 HF-gated** (token lacks approval) → `unsloth/Llama-3.2-*` mirror (identical weights). bits-per-byte
-  (no-prepend, skip-first-token) > per-token ppl for cross-family quality. Antonello OPT scaling r=0.91 (not 0.991).
-- **Git:** `main`, push only when asked. Commit atomically (this session: 12 commits I1+I2).
+- **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache`. TRIBE: `.venv-tribe` (NEVER the thesis
+  venv); `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`; ffmpeg installed. GPUs 4× L40S.
+- **TRIBE gotchas:** Llama override `config_update={"data.text_feature.model_name":"unsloth/Llama-3.2-3B"}`;
+  `average_subjects=True` hardcoded in from_pretrained → output is group-avg E[Y|S], (T,20484); TR=1.0s (real
+  2.0045s → resample + lag-align, lag≈7 TR for denizenslab listening). **Always verify the output time-axis length
+  against stimulus duration** (L037).
+- **Cost:** this session ~$165 at checkpoint. Two engineering walls cleared. Cost discipline: full panel reserved
+  for the load-bearing Phase-2 ceiling verdict; Phase-1 (a gate) got counter-argument + empirical controls.
+- **Subagent routing (D026):** opus = think/analysis/design (panel, oracle); sonnet = doc-nav/record; haiku =
+  mechanical. Codex = code-critic/rescue. fable BANNED.
+- **Git:** `main`, push only when asked. ~10+ atomic commits this session.
