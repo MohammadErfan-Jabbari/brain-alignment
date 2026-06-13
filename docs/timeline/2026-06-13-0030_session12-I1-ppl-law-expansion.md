@@ -58,3 +58,15 @@ LeBel-encoding route KILLED; matched-ppl contribution banked in E009+E015. Not a
 **Next to run: I4 / TRIBE capstone** (I3 data-blocked; TRIBE sidesteps it). Session cost ~$245; 12 atomic commits.
 Process win: the gentle-config→powered sequence was the adversarial verify-loop done empirically — caught a
 forgetting artifact that a single-seed read would have mis-called a Fork-A signal.
+
+## I4 / TRIBE P0 de-risked (same session) — then deliberate pause for a fresh capstone session
+Reached I4 (E016). TRIBE imports OK; diagnosed its text extractor `meta-llama/Llama-3.2-3B` as HF-gated for us
+(cache incomplete, 76K). **Patched `tribev2/grids/defaults.py:28` → `unsloth/Llama-3.2-3B`** (identical base
+weights, cached from I1; `.bak` saved — note: the tribev2 clone is gitignored, so re-apply on reset). Remaining
+P0 = build a text events-DF + `from_pretrained(facebook/tribev2)` + `predict` (pulls tribev2 + wav2vec-bert +
+v-jepa + gTTS network; multi-GB). **Paused here deliberately** (not a wall): the capstone is a multi-day build
+("launch fresh, not at a session tail"); S12 already delivered I1 + I2 + I3-status + I4-P0-de-risk at ~$253;
+continuing into the multi-GB/network P0 + P1–P3 now would be the L031 overshoot the project explicitly guards
+against. Blocker pre-solved → next session opens clean on the predict-verification, then P1→P2 (the cheapest
+decisive ceiling test). Session total: **I1 ✅, I2 ✅, I3 blocked, I4 P0 de-risked; ~15 atomic commits; no rung
+flipped; analysis-lane flags recorded for Erfan.**
