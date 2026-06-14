@@ -623,3 +623,28 @@ powered per-individual null where averaging manufactures specificity + the stimu
 **The remaining high-value work is ANALYSIS-LANE (Erfan):** the scope correction (operational claim; Y⊥θ\*|S as
 assumption; the unmeasured DPI selection side-channel — L041), the manuscript reframe, the lit positioning (Jia-L-PACT,
 Raugel, Hadidi→Nature-Comms), and figures. No rung flips without Erfan.
+
+## D034 — E020-on-LeBel ceiling-closure KILLED (oracle + mapper blocker); the E[Y|S] ceiling is instrument-limited on ALL substrates → rests as bounded corroboration — 2026-06-14 (S14, autonomous, oracle-gated)
+
+**Decision (S14, autonomous; oracle KILL + a data-fact check).** Considered re-running the E020 empirical-E[Y|S]
+ceiling on LeBel UTS01/02/03 (10-repeat NC story → far more reliable per-subject responses) to convert the denizenslab
+"bounded-not-closed" into a clean closure. **KILLED before compute, on two independent grounds:**
+1. **Reference-reliability arithmetic (oracle, quantitative):** LeBel n=3 → the leave-one-subject-out reference has only
+   **n_ref=2 subjects**, so its cross-subject reliability is capped by the between-subject shared fraction and is
+   *lower* than denizenslab's n=5 (predicted 0.28–0.42 vs denizenslab's measured 0.33). The 10-repeat advantage buys
+   per-subject self-reliability, but the binding constraint is the 2-subject mean — LeBel would be the THIRD walled
+   instrument, worse not better. (The real lever would be acquiring ≥3 MORE deep LeBel subjects with the 10-rep story —
+   a data-acquisition decision, not a re-run.)
+2. **No cross-subject mapper (data fact):** LeBel is native-voxel (E006 was within-subject); it ships NO fsaverage/
+   cross-subject surface mapper (grep empty; `load_response` returns native voxels). Cross-subject E[Y|S] isn't buildable
+   without the pycortex/FreeSurfer surface build that D027 explicitly avoided by choosing denizenslab for F1.
+Also: even a clean A_resid≈0 would be a tighter bound on a near-tautology (A_resid≈0 by construction, L039), not new
+evidence. **Conclusion: the E[Y|S] ceiling is FUNDAMENTALLY instrument-limited on all available substrates** (TRIBE:
+weak E[Y|S] ~7% var, L038; denizenslab n=6: ref-rel 0.33, L040; LeBel n=3: worse + no mapper, this entry). **It rests as
+a BOUNDED corroboration; the spine rests on the powered per-individual nulls (E008/E011/E017) + E015 + L016.** No rung flip.
+
+**Implementation-lane status (final, verified):** every remaining forward-program door is closed or moot, each verified
+— F1-close ceiling (instrument-limited, bounded; this entry + D030), F2 reproduction (corroboration, D032), F3
+(superseded, D033), F4 (analysis-lane), the DPI selection-channel (null-by-construction: matched-ppl brain-tuning doesn't
+move the representation, so no manifold-point selection is possible — E009/E019-gentle). **The decisive implementation
+science is COMPLETE; the spine is fully supported by powered evidence; remaining work is the ANALYSIS lane (Erfan).**
