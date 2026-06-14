@@ -466,3 +466,31 @@ the validating sanity check that **listening split-half reliability lands in lan
 (0.026)** — correct spatial pattern. This is a methods choice within F1 (not a rung flip / Fork-A / E019 framing),
 so taken autonomously per the 100% rule; **deviates from the literal "LeBel" instruction** — Erfan may redirect to
 also run LeBel via its pycortex-db on return (kept as an optional robustness substrate). No science number changes.
+
+## D028 — TRIBE-ceiling reframe: empirical E[Y|S] is the right instrument; TRIBE reserved for Phase 3; F2 prioritized — 2026-06-14 (Erfan-agreed)
+
+**Decision (S13, Erfan-agreed).** The F1 Phase-2 TRIBE *stimulus-subtraction* ceiling hit a methodological wall:
+TRIBE explains only ~7% of per-vertex real-BOLD variance on story-listening (LM→TRIBE≈0.03 vs LM→real≈0.18), so it
+is too weak to subtract; the runner's "Fork-A" flag was a CONFIRMED ARTIFACT of that weakness (caught by the
+predeclared vacuity gate, NOT escalated — E016 Step 9, L038). The reframe separates the two questions TRIBE was
+conflating and routes each to the right instrument:
+
+1. **The ceiling question** ("is there LM-alignable brain signal beyond the stimulus-predictable E[Y|S]?") is
+   answered with the **GROUND-TRUTH empirical E[Y|S]** = the cross-subject (+cross-repeat) average of real fMRI,
+   which *is* the stimulus-evoked expectation by definition and is strictly stronger than TRIBE's model estimate on
+   data where many subjects heard the same stimulus (denizenslab: 6 subjects, story_11 has 2 repeats). → **new
+   experiment E020** (TRIBE-free). This is the rigorous closure; it is close to E008 (per-individual null) + L016
+   (averaging confound) — its value is stating the ceiling cleanly as a spine result, not a brand-new finding.
+2. **TRIBE's irreplaceable role is NOT the ceiling — it is Phase 3** (dense synthetic brain targets for the *real
+   KD training corpus*, where no real fMRI exists and empirical averaging is impossible). Phase 1 already validated
+   TRIBE is faithful enough to BE such a target (Δ+0.113 over a strong floor). Phase 3 = a strong OPTIONAL Fork-B
+   booster (a null at scale removes the scarcity/SNR excuse), not a blocker.
+
+**Reorder (new forward-program sequence):** **F1-close = E020 empirical-E[Y|S] ceiling (NEXT, cheap, TRIBE-free)**
+→ **F2 = E019 external reproduce-and-control (paper-critical; the premortem's NON-NEGOTIABLE)** → **F3 = I3
+denizenslab n=6 full-FT** → **F4 = E015 Q2**. **TRIBE Phase 3** = optional booster, slot after F2 if pursued.
+Rationale: the TRIBE stimulus-subtraction was the weak, partly-redundant rung; the paper's actual unfilled gap is
+F2 (showing a *published* positive collapses under matched-ppl+permuted), which needs no TRIBE fidelity. Do NOT
+sink effort into per-subject-fine-tuned TRIBE or switch to video (abandons the language-LM↔language-fMRI substrate).
+**Hard lines unchanged:** no rung flips without Erfan; numbers only from recorded runs; a Fork-A SURVIVING the
+controls → STOP; E019 headline/spine framing is Erfan's call.
