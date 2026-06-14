@@ -61,5 +61,9 @@ corroboration of the E008/E011/E017 lever-failure spine** (L036). "NON-NEGOTIABL
 - **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache HF_HUB_OFFLINE=1`. 4× L40S (this session ran
   3 GPUs in parallel: gentle run GPU0, strong probe GPU1, lr-sweep GPU2). `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`.
 - **Subagent routing (D026):** opus = think/analysis/design; sonnet = doc-nav; haiku = mechanical. fable BANNED.
-- **Git:** `main`, push only when asked. ~22 atomic commits this session.
+- **Git:** `main`, push only when asked. 24 atomic commits this session.
+- **Tooling friction (S14):** long runs launched with bare `nohup … &` do NOT auto-notify on completion → had to poll
+  the log. Prefer the Bash `run_in_background` tool flag for long runs (it fires a completion notification), or keep
+  nohup + an explicit `until grep -q DONE …` poll. Outputs are gitignored (`outputs/`), so result JSONs live locally only
+  (saved `eval_posctrl.json` there for D011 traceability). Scratch file `untitled.md` = a copy of the /goal prompt (harmless).
 - New canonical note: `docs/literature/canonical/jia-2026_lpact-prediction-scores-not-enough.md`.
