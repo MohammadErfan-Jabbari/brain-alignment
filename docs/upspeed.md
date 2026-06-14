@@ -32,22 +32,19 @@ is a tool-validation gate, NOT a science rung → no ladder flip.**
    un-chunked audio (correct), then chunk only audio for w2v-bert (single chunk OOMs its O(T²) attention). Now
    preds (700,20484), correct timing. `scripts/tribe_predict_deniz.py` (`_build_events_correct`).
 
-## What to do next — F1 Phase 2 REDESIGN (the ceiling, the real wall hit in S13)
-The S13 single-story group-avg-TRIBE ceiling is a methodological dead-end: TRIBE explains only ~7% of per-vertex
-real-BOLD variance in higher-language (LM→TRIBE≈0.03 while LM→real≈0.18), so neither the ΔR²-partition NOR the
-matched-encoding(B) estimand can isolate "real beyond TRIBE" — the apparent Fork-A is purely TRIBE's weakness (a
-confirmed artifact, caught by the vacuity gate; `scripts/run_tribe_ceiling.py`, `outputs/E016_tribe/ceiling/`).
-**Redesign (E016 Step 9), a fresh focused run:** (i) a STRONGER TRIBE target — TRIBE's per-subject fine-tuned
-readout (≤1h data, §1) or more stimulus data so TRIBE actually captures E[Y|S] well enough to subtract (require
-LM→TRIBE ≫ 0 as a pre-gate); (ii) **≥3 denizenslab stories** for story-grouped CV (breaks the n=1-stimulus
-pseudo-replication; generate TRIBE preds per story via the runner, ~15min each); (iii) a frame-consistent estimand.
-Then the FULL thinking panel + Codex on the Phase-2 verdict; **residual>0 surviving controls ⇒ Fork-A → STOP for
-Erfan.** Only after F1 closes: **F2 (E019 reproduce-and-control), F3 (I3 n=6 full-FT), F4 (E015 Q2).**
-
-**Open question for Erfan (strategy):** the TRIBE-ceiling may be intrinsically hard on story-listening data (TRIBE
-was trained on movie-watching; its per-vertex story-BOLD fidelity is modest). Worth weighing whether the ceiling is
-better pursued on movie/naturalistic-video stimuli (TRIBE's home turf) or whether F2/F3 (which don't depend on
-TRIBE fidelity) should take priority. The matched-ppl spine stands without the TRIBE-ceiling closure.
+## What to do next — F1-close = E020 (empirical-E[Y|S] ceiling), then F2. REFRAMED S13 (D028, Erfan-agreed).
+The S13 TRIBE *stimulus-subtraction* ceiling walled out: TRIBE explains only ~7% of per-vertex real-BOLD variance
+on story-listening (LM→TRIBE≈0.03 vs LM→real≈0.18), too weak to subtract — the "Fork-A" flag was a confirmed
+artifact caught by the vacuity gate (NOT escalated; L038). **The fix is not to grind a weak TRIBE harder — it is to
+use the GROUND-TRUTH empirical E[Y|S]** (cross-subject + cross-repeat average of real fMRI; *is* the stimulus-evoked
+expectation by definition; strictly stronger than TRIBE where many subjects heard the same stimulus, which is our
+case). → **E020 (NEXT, design LOCKED in `docs/experiments/E020_*.md`):** does the trained LM align to brain signal
+beyond E[Y|S]? A_shared=LM→E[Y|S] vs A_resid=LM→ε_s (LOO residual), NC-norm, higher-language, n=6, +untrained floor.
+A_resid≈0 within MDE ⇒ Fork-B ceiling; >0 surviving controls ⇒ Fork-A → STOP. **MUST oracle-gate first + handle the
+subject-specific-stimulus-deviation leak** (E020 §3) — do NOT rush (two S13 artifacts came from rushing subtle
+estimands). Cheap; reuses the S13 machinery. **Then F2 (E019 reproduce-and-control — paper-critical, no TRIBE needed)
+→ F3 (I3 n=6 full-FT) → F4 (E015 Q2).** TRIBE kept ONLY for Phase 3 (synthetic-target KD on the no-fMRI corpus) =
+optional Fork-B booster, slot after F2 (D028). The matched-ppl spine stands without the ceiling closure.
 
 ## Blockers / open loops
 - **Both TRIBE predictions cached + ready:** `outputs/E016_tribe/deniz/full/story_11_pred.npz` (text+audio) and

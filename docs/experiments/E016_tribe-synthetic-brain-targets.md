@@ -465,3 +465,15 @@ on a single story with a group-averaged TRIBE that explains only ~7% of per-vert
 stimulus data, so TRIBE actually captures E[Y|S] well enough to subtract; (ii) ≥3 stories for story-grouped CV
 (breaks the n=1-stimulus pseudo-replication); (iii) a frame-consistent estimand where the "ceiling" reference is a
 VALID measure of the stimulus-predictable part (LM→TRIBE must be ≫0 first). **No rung flip; no Fork-A escalation.**
+
+### Step 10 — REFRAME (D028, Erfan-agreed): the ceiling moves to empirical E[Y|S] (E020); TRIBE → Phase 3 only
+The Phase-2 wall (Step 9) is not a tuning problem to grind away — TRIBE is the *wrong instrument* for the ceiling on
+data where many subjects heard the same stimulus, because the **cross-subject/repeat average of real fMRI IS the
+ground-truth E[Y|S]** and is strictly stronger than TRIBE's ~7% estimate. So:
+- **The ceiling question → `docs/experiments/E020_*.md`** (empirical-E[Y|S], TRIBE-free, NEXT). This is the rigorous
+  F1-close; it states the spine as a ground-truth result (close to E008 + L016).
+- **TRIBE's irreplaceable role is Phase 3 only** (§5): dense synthetic brain targets for the REAL KD corpus where no
+  fMRI exists and empirical averaging is impossible. Phase 1 (PASS) already validated TRIBE is faithful enough to BE
+  such a target. Phase 3 = optional Fork-B booster (null at scale removes the scarcity excuse), NOT a blocker.
+- **Do NOT** pursue per-subject-fine-tuned TRIBE or a video-stimulus ceiling (abandons the language substrate).
+Forward order (D028): **F1-close (E020) → F2 (E019, paper-critical) → F3 (I3) → F4 (E015 Q2)**; TRIBE Phase 3 after F2 if pursued.

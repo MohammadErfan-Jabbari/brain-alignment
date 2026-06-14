@@ -43,7 +43,27 @@ decisions, ladder/tasks) → only then advance. Numbers come from runs; **no run
   n≥5 multi-subject (I3, data-blocked) + TRIBE-synthetic (I4). **No headline/spine decision forced** (E017 is a
   negative feasibility datum, not a new headline) — but the manuscript framing "matched-ppl is the missing
   control" is now empirically backed by E009+E015+E017 (Erfan to weigh for emphasis).
-### 🔭 FORWARD PROGRAM (S13+, Erfan-approved 2026-06-13, "100% / finish-the-job" rule) — sequence F1→F4
+### 🔭 FORWARD PROGRAM — REORDERED S13 (D028). New sequence: **F1-close (E020) → F2 (E019) → F3 (I3) → F4 (E015 Q2)**; TRIBE Phase 3 = optional booster.
+The research corpus continuing the path (full table + decision rules in `ladder.md` → "THE FORWARD PROGRAM").
+
+> **⏭️ NEXT SESSION (implementation `/orient`) STARTS HERE — E020, the F1-close.** The TRIBE *stimulus-subtraction*
+> ceiling (F1 Phase 2) walled out (TRIBE too weak a per-vertex predictor — L038/D028). It is REPLACED by the
+> empirical-E[Y|S] ceiling **E020** (TRIBE-free, ground-truth E[Y|S] = cross-subject/repeat average; design LOCKED
+> in `docs/experiments/E020_*.md`). Then F2. TRIBE is reserved for its only irreplaceable use (Phase 3, optional).
+
+- [ ] **F1-close · E020 — empirical-E[Y|S] ceiling (NEXT, the immediate next step).** Does the LM align to brain
+  signal beyond the stimulus-predictable part? Reference = ground-truth E[Y|S] (leave-one-subject-out cross-subject
+  + cross-repeat average of real fMRI), NOT TRIBE. A_shared=LM→E[Y|S] vs A_resid=LM→ε_s (residual), NC-normalized,
+  higher-language, n=6, +untrained-LM floor. **A_resid≈0 (within MDE) ⇒ Fork-B ceiling; A_resid>0 surviving
+  controls ⇒ Fork-A → STOP for Erfan.** MUST handle the subject-specific-stimulus-deviation leak (E020 §3:
+  untrained floor + NC bound + ≥2-3 stories + asymmetric bar). **Oracle-gate the design first** (do not rush — two
+  estimand artifacts in S13 came from rushing). Reuse `fsaverage_mapping`/`run_tribe_fidelity`/`run_tribe_ceiling`.
+  Cheap (data + machinery already built S13). Closes F1's ceiling rigorously. (E020; D028.)
+- [ ] **TRIBE Phase 3 (OPTIONAL Fork-B booster, slot after F2 if pursued)** — distill toward TRIBE-generated dense
+  brain targets on the REAL KD corpus (where no fMRI exists; empirical averaging impossible — TRIBE's only
+  irreplaceable use), matched-ppl vs permuted twin. Phase 1 validated TRIBE is faithful enough to be a target. A
+  null at scale removes the scarcity/SNR excuse = strongest Fork-B. NOT a blocker. (E016 §5 Phase 3.)
+
 The research corpus continuing the path (full table + decision rules in `ladder.md` → "THE FORWARD PROGRAM"):
 - **F1 · E016 TRIBE Phase 1→2 — the ceiling.** Prereq **voxel-space mapping SOLVED** (substrate → denizenslab,
   D027; TRIBE long-audio timestamp bug fixed, L037).
@@ -56,10 +76,9 @@ The research corpus continuing the path (full table + decision rules in `ladder.
     vacuity gate** (trained LM→TRIBE≈0.03 vs LM→real≈0.18) ⇒ **confirmed ARTIFACT** — TRIBE explains only ~7% of
     per-vertex real-BOLD variance, too weak to subtract; the gap is the A2 trained>untrained real-alignment, NOT
     non-stimulus signal. **NOT escalated as Fork-A** (controls worked). A2 reconfirmed on denizenslab. (E016 Step 9.)
-  - [ ] **P2 REDESIGN (NEXT, fresh run):** (i) stronger TRIBE target (per-subject FT / more data; pre-gate LM→TRIBE≫0);
-    (ii) ≥3 stories for story-grouped CV; (iii) frame-valid estimand. FULL panel + Codex on the verdict; Fork-A
-    surviving controls ⇒ STOP for Erfan. **Open strategy Q for Erfan:** TRIBE's story-BOLD fidelity is modest (trained
-    on movies) — weigh ceiling-on-video vs prioritizing F2/F3 (which don't need TRIBE fidelity). E016 Step 9.
+  - [x] **P2 ceiling REFRAMED (S13, D028) — TRIBE stimulus-subtraction RETIRED for the ceiling.** The fix is not to
+    grind a weak TRIBE harder; it is to use the ground-truth empirical E[Y|S] instead → **the ceiling moves to E020**
+    (above, the F1-close NEXT step). TRIBE kept only for Phase 3 (optional booster). F1 closes via E020, then F2.
 - **F2 · E019 external reproduce-and-control (the 100% version of I2).** Reproduce a published brain-tuning
   POSITIVE then collapse it with matched-ppl + permuted-twin. NON-NEGOTIABLE for the paper (premortem). E019 doc.
 - **F3 · E013/I3 denizenslab n=6 — POWERED induction test** (below; data now downloaded).

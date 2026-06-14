@@ -56,16 +56,20 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 
 ## Next session (what `/orient` surfaces)
 
-### ▶ THE FORWARD PROGRAM (S13+, the research corpus — Erfan-approved 2026-06-13, "100% / finish-the-job" rule)
-I1✅+I2✅ done, I4-P0✅ passed, I3 data✅ downloaded. The forward path (planning swarm + Codex, S12), sequenced by
-(value/cost); each kill-gated; **no rung flips without Erfan.** The spine: *the brain's training-useful signal is
-its stimulus-predictable part (Y⊥θ\*|S); beyond that it's task-independent noise* — which unifies the averaging
-confound + the matched-ppl quality law + the induction null + the TRIBE ceiling into one paper.
+### ▶ THE FORWARD PROGRAM — REORDERED S13 (D028). Sequence: **F1-close (E020) → F2 (E019) → F3 (I3) → F4 (E015 Q2)**; TRIBE Phase 3 = optional.
+The forward path, kill-gated; **no rung flips without Erfan.** The spine: *the brain's training-useful signal is its
+stimulus-predictable part E[Y|S] (Y⊥θ\*|S); beyond that it's task-independent noise* — unifying the averaging
+confound + the matched-ppl quality law + the induction null + the ceiling.
+
+**⏭️ NEXT (implementation `/orient` starts here): F1-close = E020** (the TRIBE stimulus-subtraction ceiling walled
+out; replaced by the ground-truth empirical-E[Y|S] ceiling — D028, design locked in `experiments/E020_*.md`).
 
 | Seq | Experiment | Question / decision rule | Status |
 |---|---|---|---|
-| **F1 — P1 ✅, P2 needs redesign** | **E016 TRIBE Phase 1→2 — the ceiling** | Prereq **voxel-space mapping SOLVED** (substrate→denizenslab, D027; TRIBE bug L037). **P1 fidelity = PASS** (TRIBE beats a strong nuisance floor in higher-order language Δ=+0.113 [+0.045,+0.181], 6/6; tool-gate, no rung flip). **P2 (ceiling) = INCONCLUSIVE / methodological wall:** single-story group-avg TRIBE explains only ~7% of per-vertex real-BOLD variance (LM→TRIBE≈0.03 while LM→real≈0.18) → the estimand can't subtract; the runner's "Fork-A" flag FAILS the predeclared vacuity gate ⇒ **confirmed ARTIFACT, NOT escalated.** A2 reconfirmed on denizenslab (trained Qwen NC-align 0.355 vs untrained ~0). **Redesign: stronger TRIBE target (per-subject FT) + ≥3 stories + frame-valid estimand.** | **P1 PASS; P2 inconclusive (S13)** |
-| **F2** | **E019 external reproduce-and-control** (100% of I2) | reproduce a published brain-tuning POSITIVE (Bilgin/Negi/Moussa recipe on LeBel/denizenslab), then show it shrinks into the matched-ppl + permuted band. **NON-NEGOTIABLE for the paper** (premortem). Survives controls ⇒ Fork-A → STOP. | designed (E019) |
+| **F1 P1 ✅ (done)** | **E016 TRIBE Phase 1 — fidelity** | TRIBE validated as a faithful in-pipeline fMRI stand-in: beats a strong nuisance floor in higher-order language Δ=+0.113 [+0.045,+0.181], 6/6 (tool-gate, no rung flip). Prereqs solved: voxel mapping → denizenslab (D027), TRIBE long-audio bug (L037). | **PASS (S13)** |
+| **F1-close (NEXT) — E020** | **empirical-E[Y|S] ceiling (TRIBE-free)** | Does the LM align beyond the stimulus-predictable part? Reference = ground-truth E[Y|S] (LOO cross-subject/repeat avg of real fMRI), NOT TRIBE (which walled out at ~7% variance — D028/L038). A_resid=LM→ε_s ≈0 within MDE ⇒ Fork-B ceiling; >0 surviving the untrained-floor + NC-bound + ≥2-3-story controls ⇒ Fork-A → STOP. Oracle-gate first. Cheap (machinery built S13). | **designed (E020), NEXT** |
+| **TRIBE Phase 3 (optional)** | **E016 §5 Phase 3 — synthetic-target KD** | TRIBE's only irreplaceable use: dense brain targets for the real KD corpus (no fMRI; averaging impossible), matched-ppl vs permuted. Null at scale = strongest Fork-B (removes scarcity excuse). Optional booster, slot after F2. | designed (E016 §5) |
+| **F2** | **E019 external reproduce-and-control** (100% of I2) | reproduce a published brain-tuning POSITIVE (Bilgin/Negi/Moussa recipe on LeBel/denizenslab), then show it shrinks into the matched-ppl + permuted band. **NON-NEGOTIABLE for the paper** (premortem) — and needs NO TRIBE fidelity. Survives controls ⇒ Fork-A → STOP. | designed (E019) |
 | **F3** | **E013/I3 denizenslab n=6 full-FT** (data downloaded) | the POWERED multi-subject induction test (closes the door at adequate power, not n=3 probe). Predeclared E013 protocol. Likely-null per 5 converging nulls; run per the 100% rule. | data ready |
 | **F4** | **E015 Q2 architecture-residual extension** | add ≥3 modern-family sizes (Llama/Mistral) + base-vs-instruct ablation at matched bpb → claim or bury the architecture-beyond-quality residual (now p=0.20, underpowered). | designed (E015) |
 | **A** | **Manuscript corrections (analysis lane, Erfan)** | r≈−0.92→−0.78 (3-part argument, drop standalone in-band −0.48); state Y⊥θ\*|S as assumption; narrow matched-ppl framing pending F2. | flagged |
