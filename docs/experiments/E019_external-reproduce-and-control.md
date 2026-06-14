@@ -122,5 +122,14 @@ passed AND contiguous splits AND power-gate cleared ⇒ STOP for Erfan.
 "Negi's encoding gain is method/scale-fragile" (weaker, not a clincher, but honest); (3) symmetric eng1000 partial
 collapses vanilla arm (a) as much as (b−a) ⇒ nuisance control vacuous on this substrate, can't adjudicate here.
 
-**Status: RUN-READY pending (i) the power gate [step 0, cheap] and (ii) the faithful-Negi-head build [fresh session].**
-Headline/spine framing remains Erfan's call when the number lands.
+**POWER GATE — already satisfied by recorded evidence (E006).** E006 powered voxelwise A2 on LeBel UTS03 with this
+exact encoding machinery (`run_lebel_encoding.py`: NC-reliable voxel selection on the **10-repeat** held-out story
+"wheretheressmoke", story-grouped CV, unique-R²), resolving the trained−untrained gap **+0.021/+0.028 at 95–99%
+positive** with tight CIs. An instrument that resolves a ~0.02 unique-R² effect easily resolves a Negi-scale encoding
+gain (~0.13 Pearson r). ⇒ **F3/KILL-1 cleared on LeBel without a new run** (this is why the substrate move matters — the
+denizenslab n=6 instrument could NOT have cleared it). The Δr-specific MDE is finalized once arms (a)/(b) exist, but the
+instrument is demonstrably powered.
+
+**Status: RUN-READY. The ONLY remaining piece is the faithful-Negi-head build** (differentiable Lanczos+FIR+NT-Xent
+training head + LeBel arms a/b/c/d) — a multi-hour, timing-sensitive (L037) **fresh-launch** task per L031, NOT to be
+rushed at a session tail. Headline/spine framing remains Erfan's call when the number lands.
