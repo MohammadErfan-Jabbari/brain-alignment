@@ -111,3 +111,34 @@ Compute the across-story MDE empirically (point A_resid on story_11 + ≥3 train
 exceeds the strong-nuisance floor, (c) survives the repeat-2 reliability check, (d) clears the reference-reliability
 gate ⇒ **Fork-A → STOP for Erfan.** Anything less ⇒ Fork-B (ceiling holds, bounded by ρ) or HOLD (underpowered →
 concede + F2). All four gates **coded in the runner**, matching the discipline that caught the TRIBE false Fork-A.
+
+### v2.1 — panel corrections (socratic + first-principles, opus, S14). Sharpen the claim; do not change the run.
+The pre-lock thinking panel exposed three things the v2 text over-claimed. Corrected here (the experiment is sound
+with these; see L039):
+
+**(i) What E020 establishes — scoped honestly (NOT the universal spine).** A_resid uses a SHARED group LM R(S),
+identical across subjects. By construction ε_s = Y_s − E[Y|S]_{-s} removes everything shared across subjects, and a
+shared R(S) cannot track genuinely *idiosyncratic* deviation — so **A_resid ≈ 0 is the EXPECTED, theory-consistent
+result** (it is also what the DPI predicts for any deterministic function of S: note 2, `06-theory-grounding.md`).
+E020 therefore **confirms + bounds + guards**, it does not independently *prove* a universal ceiling. Its real
+contribution: it is the **mechanistic ceiling that explains E008's per-individual null** — E008 showed you cannot
+*train* to induce per-subject alignment; E020 shows there is little per-subject-residual signal a *shared stimulus
+representation* can linearly grab in the first place (the "why" behind the null). Scope the manuscript claim to:
+"*the group-LM's linear-ridge-detectable alignment to per-subject fMRI is carried almost entirely by the
+stimulus-predictable component E[Y|S]; the per-subject residual carries little linearly-alignable signal.*" The
+universal Fork-B is supported by the **convergence** of E020 + E008 + E011 + E017, not E020 alone.
+
+**(ii) §1's null is over-attributed.** Cov(R(S), ε) = 0 follows from the **conditional-mean projection** (ε ⟂ any
+function of S), not specifically from Y⊥θ\*|S — and only for the *true* mean. Against the *empirical* LOO mean,
+ε̂_s = ε_s − η carries estimation noise η that is itself stimulus-structured, so the measurable A_resid is a
+**positively-biased bound**, and the bias IS the L016 averaging-confound displaced into the residual. ⇒ **G2 guards
+BOTH directions:** a noisy reference can spuriously *zero* A_resid (false Fork-B) AND spuriously *inflate* it (false
+Fork-A via leaked stimulus signal). A surviving positive must beat the reference-reliability gate AND the eng1000
+floor precisely to rule out η-leak.
+
+**(iii) The ratio must be commensurable.** Do NOT divide an ε-NC-normalized numerator by a group-NC-normalized
+denominator (bakes in an arbitrary NC ratio). **Report all three alignments on ONE scale** (raw per-vertex Pearson
+r, NC-context reported separately): A_total = LM→Y_s (raw per-subject), A_shared = LM→E[Y|S]_{-s}, A_resid = LM→ε_s.
+Primary ratio ρ = raw A_resid / raw A_shared (same normalization on both). Also report whether A_total ≈ A_shared
+(the decomposition sanity check — if the LM's alignment to raw Y is carried by the shared part, that IS the ceiling
+statement, arithmetically not just rhetorically).

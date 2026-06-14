@@ -313,6 +313,29 @@ I1's individual-subject control (Q2 averaging guard) showed the cross-family law
 
 E017 (I2, reframed by the oracle to a feasibility gate) tested the last untested *induction method* on LeBel — FULL fine-tuning (not the LoRA readout E013 used) — to predict voxelwise BOLD, with a KD anchor, asking: does full-FT beat vanilla on held-out alignment where LoRA couldn't? **Verdict: NULL.** Across UTS01/02/03 × 3 seeds (ppl-preserving lr 1e-5), the brain-specific gap (real − permuted twin) = **mean +0.0003, 95% CI [−0.0002, +0.0008], p=0.27**; manip_ok mostly False (full-FT mostly *degrades* alignment vs vanilla). This converges with E013 (LoRA λ-sweep), E011 (capacity), E013b (objective), E008 (per-individual) — **the induction lever fails across parameterization (LoRA/full-FT), objective (MSE/contrastive), and capacity; it is a method-general mechanism failure on this substrate, not a tuning detail.** **Process lesson (the real carry-forward):** an aggressive full-FT config (lr 5e-5) gave manip_ok 0/3 with ppl ×1.63 — a clean-looking FAIL, but **partly a catastrophic-forgetting artifact**. Red-teaming that (the "under-tuned" objection) with a gentle config (lr 1e-5) **flipped UTS03 n=1 to manip_ok=True** — which, taken alone, could have been mis-read as a Fork-A induction signal. Powering it (3 subjects × 3 seeds) washed it out to the null above, and showed the n=1 nudge wasn't even brain-specific (the permuted twin matched it). **Carry-forward: a single-subject/single-seed manip_ok flip on a coarse noisy target is favorable noise until powered; catastrophic forgetting can both mask a real signal (aggressive LR) and mimic one (a lucky gentle run) — always match perplexity AND check the permuted twin AND add seeds/subjects before believing a borderline induction "gain".** The I2 matched-ppl contribution lives in E009 (downstream) + E015 (the law); E017 adds the confirmed full-FT negative. Only the n≥5 multi-subject (denizenslab/I3, data-blocked) and TRIBE-synthetic (I4) induction variants remain untested.
 
+### L039 — a SHARED-LM probe of leave-one-subject-out residuals measures near-zero BY CONSTRUCTION; its value is the bound + the η-leak guard, not the bare null (E020 pre-lock panel, S14)
+**Context (E020 design, pre-compute).** E020 asks "does the LM align to brain signal beyond the stimulus-predictable
+E[Y|S]?" by measuring A_resid = LM→ε_s, ε_s = Y_s − E[Y|S]_{-s} (leave-one-subject-out mean). The thinking panel
+(socratic + first-principles, opus) caught, **before compute**, that the estimand is subtler than it looks:
+1. **Near-zero is largely guaranteed.** R(S) is the SAME shared LM for every subject. The LOO subtraction removes
+   everything *shared across subjects*; what's left (ε_s) is either genuinely idiosyncratic (a shared R(S) cannot
+   track it) or the part of E[Y|S] the imperfect 5-subject mean missed. So A_resid ≈ 0 is the EXPECTED result — and
+   the data-processing inequality predicts it for *any* deterministic function of S (note 2). A small A_resid is a
+   **confirmation + a bound**, not a discovery.
+2. **The clean null comes from the conditional-mean projection, not the Markov assumption.** Cov(R(S), ε)=0 holds
+   because ε⟂(any function of S) for the *true* mean. Against the *empirical* LOO mean, ε̂_s = ε_s − η, and the
+   estimation noise η is stimulus-structured → **A_resid is a positively-biased bound, and the bias is the L016
+   averaging-confound displaced into the residual.** So the reference-reliability gate must guard BOTH a false
+   Fork-B (noisy mean zeros A_resid) AND a false Fork-A (leaked stimulus inflates it) — same disease as L038, both signs.
+3. **Ratios must be commensurable.** Normalizing the numerator by ε's noise ceiling and the denominator by the group
+   ceiling bakes an arbitrary NC ratio into ρ; report all alignments on one scale and measure A_total=LM→Y_s so the
+   "X% of alignment is to E[Y|S]" statement is arithmetic, not rhetorical.
+**Carry-forward:** when a probe is a *shared* function of the stimulus and the target is a *per-subject residual*,
+the near-null is partly structural — state what the experiment confirms/bounds/guards, scope the claim to the
+detectable channel (here: linear-ridge, group-LM), and lean the universal claim on CONVERGENCE with the direct
+per-individual nulls (E008/E011/E017), not on the residual probe alone. The residual probe's job is to explain the
+*mechanism* of those nulls (no signal to grab) and to catch a surprise (a real Fork-A), not to re-prove them.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->
 
 ### L037 — TRIBE long-audio events bug: ASR is correct, the event assembler stretches/duplicates (verify the time axis, not just the transcript)
