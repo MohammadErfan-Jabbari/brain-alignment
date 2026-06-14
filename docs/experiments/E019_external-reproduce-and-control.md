@@ -133,3 +133,28 @@ instrument is demonstrably powered.
 **Status: RUN-READY. The ONLY remaining piece is the faithful-Negi-head build** (differentiable Lanczos+FIR+NT-Xent
 training head + LeBel arms a/b/c/d) — a multi-hour, timing-sensitive (L037) **fresh-launch** task per L031, NOT to be
 rushed at a session tail. Headline/spine framing remains Erfan's call when the number lands.
+
+---
+
+## v4 — BUILT + RUNNING (S14, 2026-06-14). Faithful head validated; gentle-regime run in flight; reproduction-strength is the live question.
+**Built `scripts/run_e019_negi.py`** — the faithful Negi head (Erfan: "build it now"). Per-word LM feats (grad,
+chunked) → **fixed Lanczos matrix** (verified vs `lanczosinterp2D`, max|Δ|=2.4e-6) → trim → z-score → 4-delay FIR →
+linear voxel projection → **NT-Xent** at TR resolution; full-FT, per contiguous word-window (TR resolution, fixes the
+oracle's F1 — NOT the per-segment-mean readout L026/L027 showed degrades). Arms a/b/c/d; metrics = held-out encoding
+Pearson r (Negi) + unique-R² (E006). Arm (c) FT on a **disjoint** WikiText slice, early-stopped to arm (b)'s held-out
+ppl (no leak). Smoke-validated end-to-end; full-scale run clears cleanly (UTS01: 2228 NC voxels, vanilla enc_r=+0.146
+= Negi scale ✓).
+
+**Full run IN FLIGHT** (UTS01/02/03 × 3 seeds × arms a/b/c/d, lr=1e-5, 2 epochs — the gentle ppl-preserving regime;
+`outputs/E019_negi/results.json` + `full_run.log`). **Early read (UTS01 s0/s1):** gain (b−a) in enc_r ≈ +0.002/−0.001,
+brain-specificity (b−d) ≈ +0.0005/−0.004 — **tiny and non-specific**, the predicted Fork-B pattern.
+
+**THE LIVE QUESTION (oracle KILL-2, now empirical): at the gentle regime arm (b) barely moves (gain ≈0 ≪ Negi's
+~0.13) — so this regime may show "no gain to break" (method-fragile), the WEAKER finding, rather than
+"reproduce-then-break."** A faithful reproduction of Negi's *large* gain (they let ppl drift, no anchor) likely needs a
+**stronger tune** (higher lr / more epochs). **Next (fresh, oracle-gated): a tuning-strength sweep** on 1 subject —
+does any regime reproduce a Negi-scale (b−a) gain, and does it then survive (b−c) matched-ppl + (b−d) permuted? If even
+a strong tune can't reproduce a gain → honest "Negi's encoding gain is method/scale-fragile under faithful
+reproduction" (KILL-2, publishable-but-weaker). If a strong tune reproduces a gain that collapses into the control
+band → the external-validity clincher. **The judge + counter-argument/premortem panel runs on the COMPLETE results.**
+No rung flips; framing = Erfan's call.
