@@ -526,3 +526,31 @@ to v2 (`docs/experiments/E020_*.md` §v2) before any compute:
 **Hard lines unchanged:** all four Fork-A gates coded in the runner (matching the TRIBE-false-Fork-A discipline);
 no rung flip without Erfan; a Fork-A surviving all controls → STOP. This is an implementation hardening of D028, not
 a change of direction.
+
+## D030 — E020 verdict: NO Fork-A; ceiling bounded-not-closed; invoke KILL → F2 (E019); spine re-anchored on E008-convergence — 2026-06-14 (S14, autonomous, panel-survived)
+
+**Decision (S14, autonomous; oracle + socratic + first-principles + counter-argument + premortem all run).** E020
+stage-1 (story_11, n=6, Qwen2.5-0.5B L12) ran. The naive flag fired (A_resid LM→ε = +0.090, ρ vs A_shared 0.51) but
+the diagnostics prove it a **confirmed ARTIFACT, NOT Fork-A** (leaked stimulus through a too-noisy n=5 reference +
+HRF autocorrelation, both controlled away → gapped+partialled trained−untrained gap = −0.018 ≈ 0). The panel caught
+that the eng1000 nuisance-partial is **partly vacuous** (symmetric partial collapses A_shared +0.176→+0.033 too), and
+that the instrument is in the predeclared **KILL regime** (LOO reference reliability 0.33, ε split-half NC 0.17).
+**Verdict:**
+1. **No Fork-A → nothing escalates to Erfan** (the Fork-A guard worked, as designed; same discipline that caught the
+   TRIBE false Fork-A — L038/L040).
+2. **Ceiling BOUNDED-NOT-CLOSED, not closed.** E020 is the SECOND ceiling instrument to wall at n=6 denizenslab
+   (after TRIBE) — the empirical E[Y|S] reference is too noisy to interpret a residual; more stories can't fix it
+   (subject-count limit). Per the oracle KILL branch: concede bounded-not-closed, **do not spend a fourth compute
+   cycle below the instrument floor.**
+3. **Spine re-anchored.** The universal Fork-B ("the brain's training-useful signal IS its stimulus-predictable part")
+   rests on the POWERED per-individual nulls **E008/E011/E017** — NOT on the ceiling experiments. E020 is demoted to
+   **convergent corroboration + a successful Fork-A guard + the mechanism** (no non-stimulus residual signal for a
+   shared stimulus rep to grab). L039/L040.
+4. **Next compute = F2 (E019 external reproduce-and-control)** — paper-critical (premortem NON-NEGOTIABLE),
+   ceiling-independent, needs no TRIBE/E[Y|S]. Forward order now: ~~F1-close(E020)~~ **F1-close DONE (bounded) → F2
+   (NEXT) → F3 (I3 n=6 full-FT) → F4 (E015 Q2).**
+5. **No rung flip.** L3/F1 stays ❌ (robust per-individual null). The manuscript framing of E020 (how/whether to
+   present the bounded ceiling) is an **analysis-lane / Erfan call** — flagged, not edited.
+
+**Hard lines unchanged:** numbers only from recorded runs (above, in `outputs/E020_eys/`); no rung flips without
+Erfan; ladder "next session" block updated to F2 but rung statuses untouched pending Erfan.

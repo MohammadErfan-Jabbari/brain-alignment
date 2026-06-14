@@ -112,6 +112,48 @@ exceeds the strong-nuisance floor, (c) survives the repeat-2 reliability check, 
 gate ⇒ **Fork-A → STOP for Erfan.** Anything less ⇒ Fork-B (ceiling holds, bounded by ρ) or HOLD (underpowered →
 concede + F2). All four gates **coded in the runner**, matching the discipline that caught the TRIBE false Fork-A.
 
+## VERDICT (S14, 2026-06-14) — NO FORK-A; ceiling BOUNDED-NOT-CLOSED → invoke KILL → F2. (panel-survived)
+
+**Run:** story_11, denizenslab n=6 (01/02/03/05/07/08), Qwen2.5-0.5B layer-12, higher-language ROIs, NC-masked,
+linear ridge encoding. `outputs/E020_eys/eys_story11_results.json`, `eys_diagnose.json`, `eys_diagnose2.json`.
+
+**Headline numbers (raw per-vertex Pearson r, HL, one scale):**
+A_shared (LM→E[Y|S]) = **+0.176**, A_total (LM→Y_s) = **+0.108**, A_resid (LM→ε_s) = **+0.090**;
+ρ vs A_shared = 0.51, ρ vs A_total = 0.84; untrained A_resid +0.033 (untrained A_shared ≈0);
+ε split-half NC = **0.174**, LOO reference reliability = **0.33**.
+
+The naive flag fired (A_resid positive). **It is a confirmed ARTIFACT, NOT escalated** — proven by the diagnostics:
+- **(A) reference-scaling:** A_resid flat/rising k=1→5 (+0.071→+0.090); the n≤5 reference never gets reliable
+  (0.16→0.33) — the η-leak never clears (matches the predeclared "too-noisy reference" regime).
+- **(D) symmetric partial (decisive):** the eng1000 partial collapses A_resid +0.090→−0.008 BUT ALSO A_shared
+  +0.176→+0.033 ⇒ the nuisance-partial control (B/C1) is **partly vacuous** (eng1000 spans the LM's own semantic
+  subspace) — so it CANNOT by itself prove "leaked stimulus." A_shared keeps an 18% non-eng1000 component; A_resid keeps none.
+- **(E) low-level-only partial:** A_resid +0.090→+0.034 (the residual alignment lives in the *semantic* subspace).
+- **(F) permuted-eng1000 partial:** A_resid +0.038 (NOT killed) ⇒ the collapse is **not** a DOF/overfit artifact;
+  temporally-*aligned* stimulus content does the work — what is removed is genuine leaked stimulus.
+- **(G) gapped + eng1000-partial (cleanest):** after controlling BOTH HRF-autocorrelation (fold-gaps) AND stimulus
+  structure, trained−untrained residual gap = **−0.018 ≈ 0** ⇒ **no brain-specific non-stimulus residual alignment.**
+
+**Conclusion (panel-survived: oracle + socratic + first-principles + counter-argument + premortem):**
+1. **NO FORK-A.** The +0.090 A_resid = leaked stimulus (imperfect n=5 reference) + autocorrelation, both controlled
+   away. No non-stimulus brain signal the shared LM aligns to. The Fork-A guard worked; nothing escalates to Erfan.
+2. **Ceiling BOUNDED-NOT-CLOSED, not closed.** The empirical n=6 LOO E[Y|S] is too noisy (ref-rel 0.33, ε-NC 0.17 —
+   the oracle's predeclared KILL regime) and the nuisance-partial is partly vacuous (D), so E020 cannot bound ρ
+   cleanly. This is the SECOND ceiling instrument to wall at n=6 denizenslab (after TRIBE — same disease: the
+   instrument can't estimate E[Y|S] reliably enough to interpret a residual).
+3. **E020 is CONVERGENT CORROBORATION, not proof.** The universal Fork-B (the brain's training-useful signal is its
+   stimulus-predictable part) rests on the POWERED per-individual nulls **E008/E011/E017**, per L039/L040. E020 adds:
+   (a) the mechanism — no non-stimulus residual signal for a shared stimulus rep to grab; (b) a successful Fork-A guard.
+4. **Action: invoke the oracle KILL branch → F2 (E019).** Do not spend a fourth compute cycle below the instrument
+   floor (more stories can't fix ref-rel 0.33 — it's a subject-count limit, not a per-story-noise limit; an across-story
+   run would re-confirm "no Fork-A" at real cost/timing-bug risk). F2 is paper-critical and ceiling-independent.
+
+**Honest one-sentence claim for the manuscript (analysis lane — Erfan's framing call):** *On denizenslab story_11, the
+group-LM's linear-ridge alignment to per-subject fMRI is dominated by the stimulus-predictable component; after
+controlling autocorrelation and stimulus structure, no per-subject-residual alignment survives — consistent with the
+ceiling, though the empirical reference is too noisy to bound ρ tightly, so the universal claim rests on convergence
+with E008/E011/E017.*  **No rung flip.** L3/F1 stays ❌ (robust per-individual null).
+
 ### v2.1 — panel corrections (socratic + first-principles, opus, S14). Sharpen the claim; do not change the run.
 The pre-lock thinking panel exposed three things the v2 text over-claimed. Corrected here (the experiment is sound
 with these; see L039):

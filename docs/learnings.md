@@ -336,6 +336,29 @@ detectable channel (here: linear-ridge, group-LM), and lean the universal claim 
 per-individual nulls (E008/E011/E017), not on the residual probe alone. The residual probe's job is to explain the
 *mechanism* of those nulls (no signal to grab) and to catch a surprise (a real Fork-A), not to re-prove them.
 
+### L040 — a content-laden nuisance partial (eng1000) can VACUOUSLY collapse any LM alignment; test it with the SYMMETRIC partial, and a 2nd ceiling instrument walled at n=6 (E020, S14)
+**Context (E020 verdict).** E020's apparent residual alignment A_resid=+0.090 (LM→per-subject ε) collapsed to −0.008
+when ε was residualized on a strong nuisance that includes eng1000 (lexical-semantic). I almost read that as "the
+residual was leaked stimulus ⇒ Fork-B." The counter-argument + premortem panels caught the hole: **eng1000 spans the
+LM's OWN semantic subspace, so partialling it out can collapse ANY LM alignment regardless of source** (the L035/L038
+vacuity disease, now on the partial side). The decisive test is the **SYMMETRIC partial**: apply the same eng1000
+partial to A_shared (LM→E[Y|S]). Result: A_shared +0.176→+0.033 collapsed TOO (only 18% survives) ⇒ the partial is
+**partly vacuous**; it cannot by itself prove "leaked stimulus." Two further controls salvaged a real read:
+(F) **permuted-eng1000** partial (same dim/DOF, scrambled time) did NOT collapse A_resid (+0.038) ⇒ the collapse is
+real temporally-aligned stimulus content, not a degrees-of-freedom/overfit artifact; (G) composing **fold-gaps
+(autocorrelation) + the partial** drove the trained−untrained residual gap to −0.018 ≈ 0 ⇒ no brain-specific
+non-stimulus residual. Net: **NO Fork-A, but ceiling BOUNDED-NOT-CLOSED** (ref-rel 0.33, ε-NC 0.17 = the oracle's
+KILL regime; the partial partly vacuous). **Carry-forwards:**
+1. **Before reading a nuisance-partial collapse as "it was the confound," run the SYMMETRIC partial on the quantity
+   you BELIEVE is real** (here A_shared). If the partial kills that too, it's vacuous, not discriminating.
+2. **A content-feature nuisance (eng1000/semantic) and an LM are the same subspace** — partialling one out of a
+   target removes the other's reach by construction (the deeper form of L035). Use a permuted-feature control to tell
+   genuine temporally-aligned content from DOF/overfit.
+3. **E020 is the SECOND ceiling instrument to wall at n=6 denizenslab** (after TRIBE, L038) — same disease: the
+   instrument can't estimate E[Y|S] reliably enough to interpret a residual. More stories don't fix it (it's a
+   subject-count/ref-reliability limit). The ceiling claim must rest on the POWERED per-individual nulls
+   (E008/E011/E017), not on residual-probe ceiling experiments the data can't support. Invoke the KILL → F2.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->
 
 ### L037 — TRIBE long-audio events bug: ASR is correct, the event assembler stretches/duplicates (verify the time axis, not just the transcript)
