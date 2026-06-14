@@ -39,6 +39,10 @@ corroboration of the E008/E011/E017 lever-failure spine** (L036). "NON-NEGOTIABL
   the missing controls + the powered per-individual null where averaging manufactures specificity + the E[Y|S] ceiling."
 
 ## What's next — the ANALYSIS lane (Erfan); implementation lane decisive work is DONE
+> **📍 START HERE for the analysis week: [`docs/analysis-roadmap.md`](analysis-roadmap.md)** — a sequenced, pedagogical,
+> math-grounded plan (Sessions A–G) to resume R05 at §9, get current on E015/E017/E020/E019 + the scope correction,
+> learn the five info-theory bounds alongside, and produce manuscript v1.0. The keystone is Session D (the ceiling +
+> scope correction); the capstone is Session F (the manuscript reframe).
 1. **Scope correction in the manuscript** (the keystone analysis-lane fix, L041): restate the spine as the operational/
    inducibility claim; name Y⊥θ\*|S as an assumption; carve out the unmeasured DPI selection side-channel.
 2. **Manuscript reframe to the refocused headline** + lit positioning (Jia-L-PACT, Raugel, Hadidi→Nature-Comms cite).
