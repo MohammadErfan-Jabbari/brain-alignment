@@ -6,8 +6,9 @@ language Δ=+0.113 [+0.045,+0.181], 6/6). **Phase-2 CEILING = INCONCLUSIVE (real
 TRIBE explains too little per-vertex real-BOLD variance (LM→TRIBE≈0.03 vs LM→real≈0.18) → the stimulus-subtraction
 estimand can't isolate anything; the runner's "Fork-A" flag **FAILED the predeclared vacuity gate ⇒ confirmed
 ARTIFACT, NOT escalated** (the oracle warning + vacuity control did their job). A2 reconfirmed on denizenslab.
-Two blockers solved (D027 voxel mapping, L037 TRIBE bug). **NO rung flip; NO Fork-A.** Next = **Phase-2 redesign**
-(stronger TRIBE target + ≥3 stories + frame-valid estimand), a fresh focused run — then F2/F3/F4.)
+Two blockers solved (D027 voxel mapping, L037 TRIBE bug). **NO rung flip; NO Fork-A.** **REFRAMED (D028):** the
+TRIBE stimulus-subtraction ceiling is retired; the ceiling moves to the ground-truth **empirical-E[Y|S] test
+(E020)**. Next = **E020** (TRIBE-free, design locked), then F2 (E019) → F3 → F4; TRIBE → Phase 3 optional.)
 
 > **Canonical state lives in [`ladder.md`](ladder.md)** (rung board + forward program). This is last-session prose.
 > With no task, run `/orient`.

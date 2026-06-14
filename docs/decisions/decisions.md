@@ -418,6 +418,11 @@ manuscript headline/emphasis. See L036.
 **Decision (Erfan-approved, "100% / finish-the-job, not 99%" rule).** With I1✅+I2✅ done, I4-P0✅ passed, and the
 I3 dataset✅ downloaded, the path forward is a sequenced, kill-gated **research corpus** (built by the S12 planning
 swarm — 4 lenses + Codex + lit-landscape). Full table in `ladder.md` → "THE FORWARD PROGRAM". Sequence by value/cost:
+
+> ⚠️ **SUPERSEDED IN PART by D028 (2026-06-14):** F1 Phase 1 = PASS; the TRIBE Phase-2 *stimulus-subtraction*
+> ceiling walled out (artifact, not Fork-A) and is RETIRED. The F1-next step is now **E020** (empirical-E[Y|S]
+> ceiling, TRIBE-free); TRIBE → Phase 3 only. New order: F1-close(E020) → F2 → F3 → F4. See D028.
+
 - **F1 (next): E016 TRIBE Phase 1→2 — the information-theoretic CEILING.** Prereq: the **voxel-space mapping**
   (LeBel-volumetric ↔ TRIBE fsaverage5 — the real blocker per Codex). Phase 1 fidelity = **spatial-specificity**
   (the naive trained>untrained check is circular). Phase 2 = real−TRIBE residual **with a REQUIRED no-text-extractor
