@@ -332,3 +332,21 @@ time axis against the known stimulus duration before trusting any prediction** �
 file metadata does NOT imply correct temporal placement, and a stretched/duplicated time axis silently corrupts
 every downstream correlation. The tribev2 clone is gitignored → re-apply this via the runner's
 `_build_events_singlechunk`, not a site-packages patch (same caveat as the Llama `config_update` override).
+
+### L038 — a stimulus-subtraction reference must itself be a strong predictor, or the "residual" is an artifact of its weakness (the vacuity gate caught a false Fork-A)
+**Context (E016 Phase 2, S13).** The TRIBE ceiling test subtracts the stimulus-predictable part (TRIBE = E[Y|S])
+from real brain-alignment to isolate any non-stimulus signal. On denizenslab story_11 the capacity-fair estimand
+(same LM block → real vs TRIBE targets, untrained-LM floor) flagged a "Fork-A candidate" (trained residual ≫
+untrained). **It was a confirmed artifact:** the trained LM predicted REAL BOLD (r≈0.18) but barely predicted
+TRIBE-BOLD (r≈0.03) in higher-language — so "real-alignment beyond TRIBE" was large only because TRIBE is a WEAK
+per-vertex predictor (Phase-1 showed TRIBE explains ~7% of real-BOLD variance there), not because of non-stimulus
+signal. The gap was dominated by the A2 effect (trained≫untrained real-alignment), with TRIBE-as-noise subtracted.
+**What saved it:** the *predeclared vacuity gate* (require the reference's own alignment ≫ chance before trusting a
+subtraction) + the untrained-LM floor + the oracle's pre-compute warning — all caught the false Fork-A so it never
+reached Erfan. **Carry-forward (general):** before interpreting "signal beyond a reference model," GATE on the
+reference actually capturing the thing it's supposed to subtract (here: require LM→reference ≫ 0). A weak/biased
+reference makes *any* high-capacity probe look like it adds unique signal — the classic false-discovery in
+variance-partitioning / stimulus-subtraction. Also: TRIBE was trained on movie-watching; its per-vertex fidelity
+to story-LISTENING BOLD is modest, so the ceiling may need TRIBE's home-turf (video) stimuli or a per-subject
+fine-tuned TRIBE readout to have anything strong enough to subtract. Single-story CV compounds the noise (n=1
+stimulus → pseudo-replication across subjects); ≥3 stories needed for a real null/bound.
