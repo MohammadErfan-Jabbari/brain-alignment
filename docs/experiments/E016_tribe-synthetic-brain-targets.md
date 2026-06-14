@@ -436,3 +436,32 @@ branch). **All must-fixes ADOPTED:**
    subtraction is near-vacuous). Single-story = a residual *bound*, not a null; n=1 stimulus (pseudo-replication
    across 6 subjects) — frame honestly; ≥2-3 stories is the nice-to-have that breaks it.
 **Verdict: design revised → build `scripts/run_tribe_ceiling.py` with estimand (B) + untrained floor + MDE.**
+
+### Step 9 — Phase 2 (ceiling) ATTEMPT = INCONCLUSIVE / methodological wall; apparent "Fork-A" is a CONFIRMED ARTIFACT (NOT escalated) (S13, 2026-06-14)
+Built `scripts/run_tribe_ceiling.py` (capacity-fair estimand B + untrained-LM floor, oracle Step 8). Ran trained
+Qwen2.5-0.5B + 3 untrained seeds × {real, TRIBE-full, TRIBE-notext}, group-avg, higher-language. The runner flagged
+"FORK-A CANDIDATE" — **but it FAILS the predeclared vacuity gate, so per the Step-8 decision rule it is NOT a
+Fork-A and is NOT escalated.** Why it is an artifact (diagnosed, not assumed):
+- **The vacuity check fired both times:** trained LM→TRIBE-full alignment in higher-language = **+0.030** (and −0.16
+  in the v1 nuisance-residualized variant). Diagnostic confirmed it is not a frame issue: LM→TRIBE = +0.030 (real
+  frame, lag 7) / −0.011 (stimulus frame), while **LM→real = +0.177** (same LM, same pipeline). The trained LM
+  predicts REAL BOLD but barely predicts TRIBE's predicted BOLD.
+- **Mechanism (oracle Q1, now empirically confirmed):** TRIBE explains only ~5–7% of per-vertex real-BOLD variance
+  in higher-language (Phase-1 r≈0.22). TRIBE and the LM both predict real BOLD, but via representations that don't
+  align with *each other* → "real-alignment beyond TRIBE" is large simply because TRIBE is a WEAK per-vertex
+  predictor, not because of non-stimulus signal. The "residual" gap (trained 0.33 vs untrained −0.21) is dominated
+  by the **A2 effect** (trained Qwen aligns to real BOLD, A_real_NC=0.355; untrained ~0) minus TRIBE-as-noise — NOT
+  by non-stimulus brain structure. Both ΔR²-partition and matched-encoding(B) estimands are compromised by TRIBE's
+  weakness as a regression target here.
+- **The controls WORKED:** the predeclared vacuity gate + untrained floor + the oracle's pre-compute warning
+  correctly caught a design primed for false Fork-A. No false alarm reaches Erfan.
+
+**Solid sub-finding (defensible):** A2 reconfirmed on denizenslab — trained Qwen2.5-0.5B aligns to real story_11
+BOLD in higher-language (NC-norm 0.355; raw 0.177), untrained same-arch ~0. (Consistent with E006 on LeBel.)
+
+**This is a real WALL for the session.** The TRIBE-ceiling stimulus-subtraction, as operationalized, does not work
+on a single story with a group-averaged TRIBE that explains only ~7% of per-vertex variance. **Phase-2 redesign
+(next focused session):** (i) a STRONGER TRIBE target — TRIBE's per-subject fine-tuned readout (≤1h, §1) or more
+stimulus data, so TRIBE actually captures E[Y|S] well enough to subtract; (ii) ≥3 stories for story-grouped CV
+(breaks the n=1-stimulus pseudo-replication); (iii) a frame-consistent estimand where the "ceiling" reference is a
+VALID measure of the stimulus-predictable part (LM→TRIBE must be ≫0 first). **No rung flip; no Fork-A escalation.**
