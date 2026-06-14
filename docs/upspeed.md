@@ -1,63 +1,61 @@
 # Upspeed — read first, write last
 
-**Last updated:** 2026-06-14 (Session 14 — autonomous working, forward program. **F1-close (E020 empirical-E[Y|S]
-ceiling) DONE → bounded-not-closed, NO Fork-A.** Then built + launched **F2 (E019 faithful Negi reproduce-and-control)**
-on LeBel; gentle-regime run in flight, strong-tune probe shows reproduction is fragile. Five thinking panels run
-across the session; no rung flips; L3/F1 stays ❌.)
+**Last updated:** 2026-06-14 (Session 14 — autonomous working, forward program. **The IMPLEMENTATION lane's decisive
+work is COMPLETE.** F1-close (E020 ceiling) DONE → bounded-not-closed, NO Fork-A. F2 (E019 reproduce-and-control) DONE
+→ corroboration. Idea refined + literature-grounded + scope-corrected. Forward program: F3 superseded, F4 = analysis-lane.
+~12 subagent runs (oracle×2, socratic, first-principles×3, counter-argument×2, premortem×2, lit-scout, paper-digest,
+Explore). No rung flips; L3/F1 stays ❌; the spine is fully supported by POWERED evidence.)
 
 > **Canonical state lives in [`ladder.md`](ladder.md)** (rung board + forward program). This is last-session prose.
-> With no task, run `/orient`.
+> With no task, run `/orient`. **The next high-value work is the ANALYSIS lane (Erfan).**
 
 ## What ran this session (working) — and the verdicts
 
 ### 1. F1-close = E020 (empirical-E[Y|S] ceiling) — DONE, panel-survived: NO Fork-A; ceiling bounded-not-closed.
-Question: does the trained LM align to brain signal BEYOND the stimulus-predictable E[Y|S]? Decompose per-subject
-BOLD Y_s = E[Y|S] + ε_s (LOO cross-subject mean); measure A_resid = LM→ε_s. denizenslab story_11, n=6, Qwen2.5-0.5B
-L12, higher-language, ridge encoding (`scripts/run_eys_ceiling.py` + `run_eys_diagnose{,2}.py`).
-- Oracle HOLD → hardened (ratio claim, repeat-split, reference-reliability gate, story=replication-unit). Pre-lock
-  socratic + first-principles caught the claim was over-scoped → corrected to linear-channel + convergence (L039).
-- Ran: naive flag fired (A_resid=+0.090, ρ=0.51 — apparent Fork-A). **NOT escalated — diagnosed.** Two diagnostic
-  rounds + counter-argument + premortem: the +0.090 is **confirmed ARTIFACT** (leaked stimulus through a too-noisy
-  n=5 reference + HRF autocorrelation). After fold-gaps + eng1000-partial the trained−untrained residual gap =
-  **−0.018 ≈ 0**. The eng1000 nuisance-partial is partly **vacuous** (symmetric partial collapses A_shared too — L040).
-- **Verdict:** NO Fork-A; ceiling **bounded-not-closed** (2nd instrument to wall at n=6, after TRIBE — ref-rel 0.33,
-  ε-NC 0.17 = the KILL regime). E020 demoted to convergent corroboration; the spine rests on the POWERED
-  per-individual nulls E008/E011/E017. **No rung flip.** D029/D030, L039/L040.
+`scripts/run_eys_ceiling.py` + `run_eys_diagnose{,2}.py`. Naive flag fired (A_resid=+0.090, apparent Fork-A) — NOT
+escalated; diagnosed. After fold-gaps + eng1000-partial the trained−untrained residual gap = **−0.018 ≈ 0** ⇒
+confirmed artifact (leaked stimulus via a too-noisy n=5 reference + autocorrelation). The eng1000 nuisance-partial is
+partly vacuous (symmetric partial collapses A_shared too — L040). **2nd instrument to wall at n=6 (after TRIBE).** E020
+= convergent corroboration; spine rests on E008/E011/E017. D029/D030, L039/L040.
 
-### 2. F2 = E019 (external reproduce-and-control) — BUILT + validated + launched (LeBel).
-Reproduce **Negi-2025's ENCODING gain (tuned−vanilla)** — a different/easier contrast than E017's (real−permuted)
-null — then break it with bpb-matched (arm c) + permuted (arm d). Oracle HOLD → **substrate moved denizenslab→LeBel**
-(D031: deep subjects, 10-repeat NC, E006-powered; denizenslab walled twice). Power gate satisfied by E006.
-- Built `scripts/run_e019_negi.py`: the **faithful Negi head** — per-word LM feats (grad) → **fixed Lanczos matrix
-  (verified vs lanczosinterp2D, max|Δ|=2e-6)** → trim → zscore → 4-delay FIR → linear voxel proj → **NT-Xent** at TR
-  resolution, full-FT (NOT the per-segment-mean readout L026/L027 showed degrades — the oracle's F1). Arms a/b/c/d;
-  metrics enc-r (Negi) + uR² (E006). Smoke-validated; full-scale clears (vanilla enc_r=+0.146 = Negi scale).
-- **Early read:** gentle regime (lr=1e-5) → gain (b−a)≈0, non-specific (b−d)≈0 — the predicted Fork-B. Strong probe
-  (lr=1e-4) → **catastrophic forgetting** (ppl 50→11.5k), enc_r degrades. **Neither regime reproduces Negi's +0.13**
-  → oracle's KILL-2 ("method/scale-fragile reproduction") emerging.
+### 2. F2 = E019 (external reproduce-and-control) — DONE, panel+positive-control-survived: corroboration, not clincher.
+Built the **faithful Negi head** (`scripts/run_e019_negi.py`: per-word LM feats → differentiable Lanczos (verified vs
+source, max|Δ|=2e-6) → FIR → linear voxel proj → NT-Xent, full-FT) on LeBel UTS01/02/03. **No positive encoding gain at
+any lr** (gentle gain_r −0.0006±0.0027 n=9; sweep 2e-5/3e-5/5e-5 monotone-negative; 1e-4 catastrophic ppl→11.5k).
+**NOT a clean "Negi doesn't reproduce"** — the raw-mean-r ruler is quality-insensitive (eval positive-control:
+enc_r 0.5B +0.150 ≈ 3B +0.143), the gentle regime didn't move the LM (Δppl≈0), and decoder≠Negi's BERT. **E019 =
+corroboration of the E008/E011/E017 lever-failure spine** (L036). "NON-NEGOTIABLE" framing RETIRED. D031/D032, L041/L042.
 
-## What's next to run (fresh session)
-1. **E019 gentle 3×3 run completes** in background (`outputs/E019_negi/results.json`; PID was 2257971 on GPU0) — the
-   ppl-preserving baseline arm. Check it landed.
-2. **E019 intermediate-lr sweep (oracle-gate first):** lr ∈ {2e-5,3e-5,5e-5}, track b_ppl + b_enc_r — find any
-   regime that reproduces a Negi-scale gain without catastrophic forgetting. If none → honest verdict "Negi's encoding
-   gain does not reproduce under faithful full-FT on LeBel+Qwen-0.5B" (publishable external-validity result, weaker
-   than reproduce-then-break). If a regime reproduces a gain → test survival (b−c)/(b−d) → Fork-A check.
-3. **Judge + counter-argument/premortem panel** on the COMPLETE E019 results. **Framing/headline = Erfan's call.**
-4. Then F3 (I3 denizenslab n=6 full-FT) → F4 (E015 Q2).
+### 3. Idea refinement + literature grounding (lit-scout + first-principles + paper-digest).
+- **SCOPE correction (L041, keystone):** the evidence supports the OPERATIONAL claim ("no brain-specific gain is
+  INDUCIBLE beyond perplexity via the readouts tried"), NOT the information-theoretic "ε is task-independent noise."
+  **Y⊥θ\*|S is an ASSUMPTION**, not a result. Applied to the ladder spine wording.
+- **DPI side-channel (the remaining hole):** a brain-as-selection/regularization prior could improve OOD without
+  injecting θ\*-info or moving the alignment metric (lecture-26 I(W;Z^n)); argued-shut by E009 (~0 fulcrum), NOT measured-shut.
+- **Negi passes the permuted twin (Δr=0.133)** — so for ENCODING the only missing control is matched-ppl (E019 clincher = b−c, not b−d).
+- **Lit positioning:** NOT scooped. New must-cites: **Jia-2026 L-PACT** (frozen-only, no ppl-match — scope-fence, canonical
+  note written), **Raugel/King NeurIPS-spotlight** (size+context, not bpb-quality), **Hadidi/Feghhi → Nature Comms 2026**.
+  **Refocused headline:** "brain-tuning gains are an LM-quality/FT-regime artifact, not per-individual brain signal —
+  the missing controls + the powered per-individual null where averaging manufactures specificity + the E[Y|S] ceiling."
+
+## What's next — the ANALYSIS lane (Erfan); implementation lane decisive work is DONE
+1. **Scope correction in the manuscript** (the keystone analysis-lane fix, L041): restate the spine as the operational/
+   inducibility claim; name Y⊥θ\*|S as an assumption; carve out the unmeasured DPI selection side-channel.
+2. **Manuscript reframe to the refocused headline** + lit positioning (Jia-L-PACT, Raugel, Hadidi→Nature-Comms cite).
+3. **Figures** confirm the recorded numbers; the E020 bounded ceiling + E019 corroboration as supporting boxes.
+4. **Forward-program rungs (low priority):** F3 (denizenslab n=6 full-FT) = superseded/moot (run only for 100%-rule
+   coverage, D033); F4 (E015 Q2) = analysis-lane extension.
+**The spine rests on POWERED evidence already in hand — no new compute is needed to write the paper.**
 
 ## Blockers / open loops
-- **E019 gentle run in flight** (GPU0); judge waits on completion + the intermediate sweep.
-- **Reproduction faithfulness caveats** (note for the verdict): Qwen-0.5B vs Negi's BERT; our window-TR NT-Xent vs
-  their batch; LeBel vs their data. Flag in any "non-reproduction" claim.
-- **ANALYSIS-lane flags for Erfan (unchanged):** manuscript r≈−0.92→−0.78; induction null robust across
-  LoRA+full-FT+objective+capacity; E020 adds the bounded ceiling (convergent corroboration); manuscript framing of
-  the bounded ceiling + the E019 reproduction result are Erfan's analysis-lane calls.
+- **ANALYSIS-lane flags (Erfan, unchanged + new):** manuscript r≈−0.92→−0.78; induction null robust across
+  LoRA+full-FT+objective+capacity (now + Negi head); E020 bounded ceiling (convergent corroboration); **the scope
+  correction (L041) + the refocused headline + the new-paper positioning are the keystone analysis-lane work.**
+- E019/E020 substrates: E020 = denizenslab (TRIBE mapper); E019 = LeBel (D031, off the walled denizenslab).
 
 ## Key facts
-- **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache HF_HUB_OFFLINE=1`. 4× L40S (used GPU0 gentle
-  run, GPU1 probe in parallel). `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`.
-- **E020 substrate** = denizenslab (TRIBE mapper). **E019 substrate = LeBel UTS01/02/03** (D031 — off denizenslab).
-- **Subagent routing (D026):** opus = think/analysis/design (panels, oracle, design-grounding); sonnet = doc-nav;
-  haiku = mechanical. fable BANNED. This session: oracle×2, socratic, first-principles×2, counter-argument, premortem.
-- **Git:** `main`, push only when asked. ~16 atomic commits this session.
+- **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache HF_HUB_OFFLINE=1`. 4× L40S (this session ran
+  3 GPUs in parallel: gentle run GPU0, strong probe GPU1, lr-sweep GPU2). `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`.
+- **Subagent routing (D026):** opus = think/analysis/design; sonnet = doc-nav; haiku = mechanical. fable BANNED.
+- **Git:** `main`, push only when asked. ~22 atomic commits this session.
+- New canonical note: `docs/literature/canonical/jia-2026_lpact-prediction-scores-not-enough.md`.

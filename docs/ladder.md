@@ -73,8 +73,13 @@ rests on **Y⊥θ\*|S as an ASSUMPTION** (the DPI ceiling premise), not a result
 (L041):** a brain-as-selection/regularization prior could improve OOD without injecting θ\*-information or moving the
 alignment metric (a different MI object, lecture-26 I(W;Z^n)); argued-shut by E009's ~0 fulcrum, NOT measured-shut.
 
-**⏭️ NEXT (implementation `/orient` starts here): F3 = I3 (denizenslab n=6 full-FT) → F4 (E015 Q2). F2 (E019) DONE
-→ corroboration (S14, panel+positive-control-survived, D032):** built a faithful Negi head (differentiable
+**⏭️ NEXT: the IMPLEMENTATION lane's decisive work is COMPLETE (D033) — the next high-value work is the ANALYSIS lane
+(Erfan): scope correction (operational claim; Y⊥θ\*|S as assumption; the DPI selection side-channel — L041), manuscript
+reframe to the refocused headline, lit positioning (Jia-L-PACT/Raugel/Hadidi→Nature-Comms), figures.** Remaining
+forward-program rungs: **F3 (I3 denizenslab n=6 full-FT) = SUPERSEDED/moot** (the powered full-FT induction null is
+already in hand via E017 + corroborated by E019; denizenslab n=6 is reliability-walled + blind-ruler — run only for
+literal 100%-rule coverage); **F4 (E015 Q2) = analysis-lane extension.** F2 (E019) DONE → corroboration (S14,
+panel+positive-control-survived, D032):** built a faithful Negi head (differentiable
 Lanczos+FIR+NT-Xent full-FT, Lanczos verified) on LeBel UTS01/02/03; NO positive encoding gain at any lr (gentle
 gain_r −0.0006±0.0027 n=9; sweep monotone-negative; 1e-4 catastrophic). NOT a clean external clincher (the raw-mean-r
 ruler is quality-insensitive — enc_r 0.5B≈3B; gentle regime didn't move the LM; decoder≠Negi's BERT). **E019 =
