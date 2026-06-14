@@ -554,3 +554,28 @@ that the instrument is in the predeclared **KILL regime** (LOO reference reliabi
 
 **Hard lines unchanged:** numbers only from recorded runs (above, in `outputs/E020_eys/`); no rung flips without
 Erfan; ladder "next session" block updated to F2 but rung statuses untouched pending Erfan.
+
+## D031 — E019 substrate moved denizenslab → LeBel; design hardened to run-ready after oracle HOLD; faithful-Negi-head = fresh-launch build — 2026-06-14 (S14, autonomous, oracle-gated)
+
+**Decision (S14, autonomous; first-principles design-grounding + oracle gate).** E019 (the paper-critical external
+reproduce-and-control) was grounded, locked (v2), and oracle-gated. The oracle returned **HOLD** with three fatal gaps;
+all addressed in E019 v3. The load-bearing changes:
+1. **Substrate: denizenslab → LeBel UTS01/02/03.** denizenslab was chosen (D027) ONLY for TRIBE's voxel→fsaverage5
+   mapper, which E019 doesn't need; it has walled TWICE at n=6 (TRIBE L038, E020 L040) and only story_11 carries a noise
+   ceiling. **LeBel is the proven-reliable substrate**: deep single-subjects, a multi-repeat held-out story for NC,
+   powered voxelwise A2 (E006), full-FT infra already run there (E017), and Negi's own monolingual control uses LeBel.
+   This resolves the oracle's F2 (replication/NC) + F3 (power). **This narrows D027 to "denizenslab for TRIBE-dependent
+   F1 work only"; E019/F2 runs on LeBel.**
+2. **Target = reproduce Negi-2025's ENCODING gain (tuned−vanilla, ppl-unanchored)** — a different, easier contrast than
+   E017's (real−permuted) null, so it should reproduce; then dissect with arm (c) bpb-matched generic-text FT + arm (d)
+   permuted twin. Primary outcome = held-out encoding Δr.
+3. **F1 (the real build): a FAITHFUL Negi head** — differentiable Lanczos+FIR+NT-Xent, NOT the `run_lebel_tune.py`
+   per-segment-mean readout (which L026/L027 proved degrades alignment — using it would strawman Negi). This is a
+   fresh-session build (L031; the L037 timing-bug surface — do not rush at a session tail).
+4. **Power gate FIRST (step 0, cheap):** encoding-Δr MDE on LeBel's held-out story; KILL if MDE > the reproduced gain.
+5. **Confounds coded:** bpb-match validity check on arm (c); the L040 **symmetric-partial + permuted-eng1000** controls
+   on the nuisance partial; identical optimization + manip-check on the permuted twin.
+
+**Status:** E019 RUN-READY pending the power gate + the faithful-head build. **Headline/spine framing remains Erfan's
+call when the number lands** (per the E019 doc). No rung flips. Forward order: F1-close DONE (bounded) → **F2/E019
+(NEXT, on LeBel)** → F3 (I3) → F4 (E015 Q2).

@@ -75,3 +75,52 @@ unanchored), do NOT silently re-run E017's real−permuted gap and rediscover th
 predeclare a noise-ceiling/MDE gate on the listening BOLD + the **eng1000-symmetric-partial** and **permuted-feature**
 controls (L040) so a nuisance-partial collapse isn't misread. (3) **matched-ppl validity** — arm (c) matched on the
 same OOD **bpb** probe, early-stopped to arm (b)'s held-out bpb, same compute/steps.
+
+---
+
+## v3 — oracle HOLD addressed; SUBSTRATE moved to LeBel; RUN-READY spec (S14, 2026-06-14). Faithful-Negi-head = fresh-launch build.
+The oracle gate returned **HOLD** with three fatal gaps. All addressed; E019 is now run-ready *except* the one real
+material build (the faithful Negi head), which is a fresh-session task (L031: don't start a multi-hour timing-sensitive
+loop at a session tail — that is the L037 artifact surface).
+
+**SUBSTRATE DECISION (D031): move E019 from denizenslab → LeBel UTS01/02/03.** denizenslab n=6 was chosen (D027)
+ONLY for TRIBE's voxel→fsaverage5 mapper, which E019 does not need. It has walled TWICE at n=6 (TRIBE L038, E020 L040;
+ref-rel 0.33, ε-NC 0.17) and only story_11 carries a noise ceiling (F2). **LeBel UTS01/02/03 is the proven-reliable
+substrate** for exactly this experiment: deep single-subjects (~5h each), the multi-repeat held-out story
+("wheretheressmoke") for NC, **powered voxelwise A2 (E006)**, and the **full-FT infra already run there (E017)**. This
+resolves F2 (LeBel has the deep per-subject + repeated-story NC structure) and F3 (LeBel encoding targets are reliable
+— E006 powered A2 on ~11.4k NC voxels). Negi's own monolingual control uses LeBel UTS07/08 + Deniz, so LeBel is faithful.
+
+**F1 (FATAL) — build a FAITHFUL Negi head; the reuse engine is NOT Negi.** `run_lebel_tune.py build_tune_pairs` uses
+per-segment-mean BOLD + a fixed 4s HRF delay (it explicitly "avoids a differentiable Lanczos/FIR loop") — and that
+per-segment-mean readout-MSE path is exactly what L026/L027 proved DEGRADES held-out alignment on this substrate. Using
+it for arm (b) would fail to reproduce Negi's gain for a PIPELINE reason (a strawman of Negi), not brain-specificity.
+**Fix: port the actual Negi head** — differentiable 3-lobe Lanczos downsample → learned 4-delay FIR (2/4/6/8s) → linear
+voxel projection → **NT-Xent** over the batch (Negi note ll.94-106). This is the real material build (a fresh session),
+NOT a `lebel_adapter` clone. Reuse E017's full-FT loop scaffolding + `brain_loss.py` NT-Xent; the head/readout is new.
+
+**F2 (FATAL) — replication unit.** On LeBel the held-out test story has multiple repeats → a real NC; use it for the
+ceilable encoding-Δr + survival bound. Predeclare: the Δr verdict is computed on the NC-ceilable held-out story; other
+stories train the arms. (If staying on denizenslab were ever forced, story_11-only = a single-story bound, NOT Fork-A-able.)
+
+**F3 (FATAL) — POWER GATE FIRST (cheapest decisive).** Before any FT: compute the held-out-story **encoding-Δr MDE**
+from fold variance (E006 machinery, `run_lebel_encoding.py`) on LeBel. **KILL if MDE > the reproduced (b−a) gain
+magnitude** (≈ the band width we must resolve) — then the substrate can't separate "collapsed into band" from
+"underpowered," and E019 must move to deeper data or concede external validity as bounded (lean on E015 + the nulls).
+Run this gate as step 0; do not build the FT arms until it passes.
+
+**Confound neutralizers (coded, not post-hoc):** (c) matched-ppl is only meaningful if (b) moves **bpb** beyond a
+predeclared threshold — report Δbpb; if ~0, flag "no divergence to match," not a passed control (L011/L019). The
+nuisance partial MUST use the **symmetric partial** (apply the same nuisance to vanilla arm (a)/A_shared) + the
+**permuted-eng1000** control (L040) — eng1000 spans the LM subspace and will vacuously collapse the gain otherwise.
+Permuted twin (d): identical seed/steps/lr to (b); report the `real_u > base_u` manip-check per arm (L026) before
+interpreting (b−d). **Fork-A bar (asymmetric, correct as written):** (b−d) excludes the control band AND symmetric-partial
+passed AND contiguous splits AND power-gate cleared ⇒ STOP for Erfan.
+
+**KILL conditions (any one):** (1) story-Δr MDE > reproduced (b−a) gain (3rd walled instrument → move/concede);
+(2) arm (b) reproduces NO gain even uncontrolled while the manip took hold (bpb moved, alignment didn't degrade) ⇒
+"Negi's encoding gain is method/scale-fragile" (weaker, not a clincher, but honest); (3) symmetric eng1000 partial
+collapses vanilla arm (a) as much as (b−a) ⇒ nuisance control vacuous on this substrate, can't adjudicate here.
+
+**Status: RUN-READY pending (i) the power gate [step 0, cheap] and (ii) the faithful-Negi-head build [fresh session].**
+Headline/spine framing remains Erfan's call when the number lands.
