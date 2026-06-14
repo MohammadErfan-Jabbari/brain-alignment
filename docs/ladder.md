@@ -64,9 +64,14 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 ## Next session (what `/orient` surfaces)
 
 ### ▶ THE FORWARD PROGRAM — REORDERED S13 (D028). Sequence: **F1-close (E020) → F2 (E019) → F3 (I3) → F4 (E015 Q2)**; TRIBE Phase 3 = optional.
-The forward path, kill-gated; **no rung flips without Erfan.** The spine: *the brain's training-useful signal is its
-stimulus-predictable part E[Y|S] (Y⊥θ\*|S); beyond that it's task-independent noise* — unifying the averaging
-confound + the matched-ppl quality law + the induction null + the ceiling.
+The forward path, kill-gated; **no rung flips without Erfan.** The spine (SCOPED — L041, S14): the OPERATIONAL claim
+the evidence supports is *no brain-specific alignment gain is **inducible** beyond perplexity via the readouts tested
+(linear-ridge/MSE/contrastive), across LoRA/full-FT/objective/capacity* (powered: E008 + E011/E013/E017) — unifying
+the averaging confound + the matched-ppl quality law + the induction null + the (bounded) ceiling. The stronger
+information-theoretic reading (*the brain's training-useful signal IS E[Y|S]; the residual is task-independent noise*)
+rests on **Y⊥θ\*|S as an ASSUMPTION** (the DPI ceiling premise), not a result — state it as such. **Unmeasured side-channel
+(L041):** a brain-as-selection/regularization prior could improve OOD without injecting θ\*-information or moving the
+alignment metric (a different MI object, lecture-26 I(W;Z^n)); argued-shut by E009's ~0 fulcrum, NOT measured-shut.
 
 **⏭️ NEXT (implementation `/orient` starts here): F2 = E019 external reproduce-and-control** (paper-critical,
 ceiling-independent). **F1-close (E020) = DONE → bounded-not-closed (S14, panel-survived; D030):** NO Fork-A (the

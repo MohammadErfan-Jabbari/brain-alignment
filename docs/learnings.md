@@ -359,6 +359,38 @@ KILL regime; the partial partly vacuous). **Carry-forwards:**
    subject-count/ref-reliability limit). The ceiling claim must rest on the POWERED per-individual nulls
    (E008/E011/E017), not on residual-probe ceiling experiments the data can't support. Invoke the KILL → F2.
 
+### L041 — the spine over-claims (operational ≠ information-theoretic); Negi's encoding gain ALREADY survives the permuted twin, so matched-ppl must do the work alone; and the idea refocuses to a control-protocol+ceiling paper (S14, lit-scout + first-principles panel)
+**Context (S14, post-F1-close idea-refinement).** Two opus panels (lit-scout for the literature gap, first-principles
+for spine integrity) run while E019 was in flight. Three findings reshape the thesis framing:
+1. **SCOPE over-claim (do the correction now, zero compute).** The spine says "the brain's training-useful signal IS
+   its stimulus-predictable part E[Y|S]; beyond that it's task-independent NOISE (Y⊥θ\*|S)." The *evidence* supports the
+   weaker OPERATIONAL claim: "no brain-specific gain is **inducible** beyond perplexity via the readouts we tried
+   (linear-ridge/MSE/contrastive), across LoRA/full-FT/objective/capacity (E008 powered + E011/E013/E017)." Y⊥θ\*|S is
+   an **assumption** the DPI ceiling rests on, NOT a result. The nulls bound the *usable-via-our-levers* signal, not the
+   *information content* of ε. **Carry-forward:** restate the spine as inducibility + name Y⊥θ\*|S as the assumption.
+2. **The DPI SIDE-CHANNEL gap (the genuine remaining hole).** The DPI bound (I(θ\*;Y)≤I(θ\*;S)) governs the *information*
+   channel — brain-as-data can't beat stimulus-as-data. It does NOT govern the *selection/regularization* channel: a weak
+   brain prior that picks among text-optimal solutions could improve OOD generalization (the lecture-26 I(W;Z^n) bound,
+   a DIFFERENT MI object) without injecting θ\*-information or moving the alignment metric. The course DPI note's own
+   caveat: a "side channel that bypasses the Markov chain" breaks DPI. Our experiments are all linear-ridge/encoding —
+   they don't measure this channel. E009 (OOD) aimed at it but was null-by-construction (fulcrum ~0, L017). So the
+   selection channel is **argued-shut by mechanism, not measured-shut.** This is the hole a first-principles reviewer hits.
+3. **NEGI ALREADY PASSES THE PERMUTED TWIN (the E019-design correction).** The negi-2025 note records Negi's encoding
+   gain survives a TR-shuffled (permuted) control at Δr=0.133. So for Negi's *encoding* metric, the permuted twin is
+   NOT the missing control — **matched-perplexity (bpb) ALONE must collapse the gain.** Our "matched-ppl + permuted is
+   the missing control" framing is correct for *downstream* but partly wrong for *encoding*. E019 must lean on the
+   matched-ppl arm (c), not the permuted arm (d), for the encoding clincher. (d) still guards brain-specificity, but it
+   can't be the collapse mechanism Negi already cleared.
+**Lit positioning (lit-scout):** NOT scooped — the matched-ppl+permuted critique of brain-TUNING (vs frozen encoding),
+the averaging confound, and the E[Y|S] training-ceiling are unoccupied. Must position against NEW 2026 work: **Jia
+L-PACT (arXiv 2605.14025)** (closest control philosophy, frozen-only, no ppl-match) and **Raugel/King NeurIPS-spotlight
+(2512.01591)** (scaling+context "computational path" — distinguish from our bpb quality-law). Hadidi/Feghhi is now
+**Nature Comms 2026** (10.1038/s41467-026-72253-7) — update the canonical cite. **Refocused headline (idea-refinement,
+the dead "brain-guided distillation works" is replaced):** *"Brain-tuning gains in LMs are an LM-quality/fine-tuning-regime
+artifact, not per-individual brain signal — we supply the two missing controls, show a powered per-individual null where
+cross-subject averaging manufactures apparent specificity, and explain it via the stimulus-predictability (E[Y|S]) ceiling."*
+Defensible on EXISTING powered evidence (E008/E011/E017 + E015); E019 is corroboration, not load-bearing.
+
 <!-- Add new lessons below as we hit them. Negative results count. -->
 
 ### L037 — TRIBE long-audio events bug: ASR is correct, the event assembler stretches/duplicates (verify the time axis, not just the transcript)

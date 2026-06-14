@@ -177,3 +177,14 @@ the honest verdict is "Negi's encoding gain does not reproduce under faithful fu
 movement, strong=catastrophic forgetting)" — a publishable external-validity result (weaker than reproduce-then-break,
 but a real finding that the field's positive is fragile). Possible faithfulness gaps to note: Qwen-0.5B vs Negi's BERT;
 our window-TR NT-Xent vs their batch; LeBel vs their data. The gentle 3×3 run completes the ppl-preserving baseline arm.
+
+### CRITICAL design correction (L041, first-principles panel S14): for ENCODING, the matched-ppl arm (c) must carry the collapse — Negi ALREADY passes the permuted twin.
+The negi-2025 canonical note records Negi's *encoding* gain **survives a TR-shuffled (permuted) control at Δr=0.133**.
+So on the encoding metric the permuted twin (arm d) is **NOT the missing control** — the only control Negi lacks on
+encoding is **matched-perplexity (bpb)**. ⇒ **The encoding clincher is (b−c), not (b−d).** Arm (d) still guards
+brain-specificity (needed for any Fork-A), but it cannot be the *collapse mechanism* since Negi already cleared it.
+"matched-ppl + permuted is the missing control" holds for *downstream*; for *encoding* the weight is on matched-ppl —
+so arm (c) construction validity (disjoint corpus, early-stop to arm-b held-out ppl) is load-bearing. Sharpened rule:
+(b−a) collapses into (b−c) [matched-ppl] ⇒ quality artifact (clincher); (b−a) SURVIVES (b−c), CI excludes the matched-ppl
+band ⇒ Fork-A → STOP. DPI caveat (L041): even a surviving gain is stimulus-derivable ("brain = better teacher for
+stimulus-relevant structure"), not non-stimulus brain signal.
