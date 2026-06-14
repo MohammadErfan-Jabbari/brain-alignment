@@ -313,6 +313,42 @@ I1's individual-subject control (Q2 averaging guard) showed the cross-family law
 
 E017 (I2, reframed by the oracle to a feasibility gate) tested the last untested *induction method* on LeBel — FULL fine-tuning (not the LoRA readout E013 used) — to predict voxelwise BOLD, with a KD anchor, asking: does full-FT beat vanilla on held-out alignment where LoRA couldn't? **Verdict: NULL.** Across UTS01/02/03 × 3 seeds (ppl-preserving lr 1e-5), the brain-specific gap (real − permuted twin) = **mean +0.0003, 95% CI [−0.0002, +0.0008], p=0.27**; manip_ok mostly False (full-FT mostly *degrades* alignment vs vanilla). This converges with E013 (LoRA λ-sweep), E011 (capacity), E013b (objective), E008 (per-individual) — **the induction lever fails across parameterization (LoRA/full-FT), objective (MSE/contrastive), and capacity; it is a method-general mechanism failure on this substrate, not a tuning detail.** **Process lesson (the real carry-forward):** an aggressive full-FT config (lr 5e-5) gave manip_ok 0/3 with ppl ×1.63 — a clean-looking FAIL, but **partly a catastrophic-forgetting artifact**. Red-teaming that (the "under-tuned" objection) with a gentle config (lr 1e-5) **flipped UTS03 n=1 to manip_ok=True** — which, taken alone, could have been mis-read as a Fork-A induction signal. Powering it (3 subjects × 3 seeds) washed it out to the null above, and showed the n=1 nudge wasn't even brain-specific (the permuted twin matched it). **Carry-forward: a single-subject/single-seed manip_ok flip on a coarse noisy target is favorable noise until powered; catastrophic forgetting can both mask a real signal (aggressive LR) and mimic one (a lucky gentle run) — always match perplexity AND check the permuted twin AND add seeds/subjects before believing a borderline induction "gain".** The I2 matched-ppl contribution lives in E009 (downstream) + E015 (the law); E017 adds the confirmed full-FT negative. Only the n≥5 multi-subject (denizenslab/I3, data-blocked) and TRIBE-synthetic (I4) induction variants remain untested.
 
+### L037 — TRIBE long-audio events bug: ASR is correct, the event assembler stretches/duplicates (verify the time axis, not just the transcript)
+**Context (E016 F1, S13).** Feeding the real denizenslab story_11.wav (602 s) to TRIBE produced predictions of
+shape **(1700, 20484)** — 1700 one-second TRs for a 602 s stimulus, a ~2.8× over-count. The transcription was
+perfectly correct ("I reached over and secretly undid my seatbelt…"); soundfile read the duration correctly
+(602 s); whisperx's own `.tsv` was correct (words 0→591 s, 1789 of them). **The bug is downstream in TRIBE's
+`get_audio_and_text_events`:** it chunks audio at `max_duration=60 s`, then `ExtractWordsFromAudio` cross-joins
+the FULL transcript onto EVERY chunk and adds `audio_event.start + audio_event.offset` — the chunk position
+**double-counted** (both fields ≈ chunk start). For the last of ~10 chunks: 540 + 540 + 591 = **1671 s**, with
+~11× word duplication (1789 → 19976 rows). The TRIBE demo was only validated on clips < 60 s (one chunk,
+offset 0 → correct), so the bug is invisible there. **Fix:** rebuild the events with the same transform pipeline
+but `ChunkEvents(max_duration=10000)` so the whole file is ONE chunk (`start += 0`); whisperx/feature caches make
+it cheap. Also resample to 16 kHz mono first (clean input for whisperx/w2v-bert). **Carry-forward (general):** when
+adopting a third-party model's "demo" inference path on inputs larger than its demo scale, **verify the output
+time axis against the known stimulus duration before trusting any prediction** — a correct transcript / correct
+file metadata does NOT imply correct temporal placement, and a stretched/duplicated time axis silently corrupts
+every downstream correlation. The tribev2 clone is gitignored → re-apply this via the runner's
+`_build_events_singlechunk`, not a site-packages patch (same caveat as the Llama `config_update` override).
+
+### L038 — a stimulus-subtraction reference must itself be a strong predictor, or the "residual" is an artifact of its weakness (the vacuity gate caught a false Fork-A)
+**Context (E016 Phase 2, S13).** The TRIBE ceiling test subtracts the stimulus-predictable part (TRIBE = E[Y|S])
+from real brain-alignment to isolate any non-stimulus signal. On denizenslab story_11 the capacity-fair estimand
+(same LM block → real vs TRIBE targets, untrained-LM floor) flagged a "Fork-A candidate" (trained residual ≫
+untrained). **It was a confirmed artifact:** the trained LM predicted REAL BOLD (r≈0.18) but barely predicted
+TRIBE-BOLD (r≈0.03) in higher-language — so "real-alignment beyond TRIBE" was large only because TRIBE is a WEAK
+per-vertex predictor (Phase-1 showed TRIBE explains ~7% of real-BOLD variance there), not because of non-stimulus
+signal. The gap was dominated by the A2 effect (trained≫untrained real-alignment), with TRIBE-as-noise subtracted.
+**What saved it:** the *predeclared vacuity gate* (require the reference's own alignment ≫ chance before trusting a
+subtraction) + the untrained-LM floor + the oracle's pre-compute warning — all caught the false Fork-A so it never
+reached Erfan. **Carry-forward (general):** before interpreting "signal beyond a reference model," GATE on the
+reference actually capturing the thing it's supposed to subtract (here: require LM→reference ≫ 0). A weak/biased
+reference makes *any* high-capacity probe look like it adds unique signal — the classic false-discovery in
+variance-partitioning / stimulus-subtraction. Also: TRIBE was trained on movie-watching; its per-vertex fidelity
+to story-LISTENING BOLD is modest, so the ceiling may need TRIBE's home-turf (video) stimuli or a per-subject
+fine-tuned TRIBE readout to have anything strong enough to subtract. Single-story CV compounds the noise (n=1
+stimulus → pseudo-replication across subjects); ≥3 stories needed for a real null/bound.
+
 ### L039 — a SHARED-LM probe of leave-one-subject-out residuals measures near-zero BY CONSTRUCTION; its value is the bound + the η-leak guard, not the bare null (E020 pre-lock panel, S14)
 **Context (E020 design, pre-compute).** E020 asks "does the LM align to brain signal beyond the stimulus-predictable
 E[Y|S]?" by measuring A_resid = LM→ε_s, ε_s = Y_s − E[Y|S]_{-s} (leave-one-subject-out mean). The thinking panel
@@ -419,39 +455,3 @@ evidence; (c) the raw-mean-r-over-reliable-voxels metric is quality-insensitive 
 project's unique-R² (anti-confound) instrument is the right one (ties L035/Hadidi).
 
 <!-- Add new lessons below as we hit them. Negative results count. -->
-
-### L037 — TRIBE long-audio events bug: ASR is correct, the event assembler stretches/duplicates (verify the time axis, not just the transcript)
-**Context (E016 F1, S13).** Feeding the real denizenslab story_11.wav (602 s) to TRIBE produced predictions of
-shape **(1700, 20484)** — 1700 one-second TRs for a 602 s stimulus, a ~2.8× over-count. The transcription was
-perfectly correct ("I reached over and secretly undid my seatbelt…"); soundfile read the duration correctly
-(602 s); whisperx's own `.tsv` was correct (words 0→591 s, 1789 of them). **The bug is downstream in TRIBE's
-`get_audio_and_text_events`:** it chunks audio at `max_duration=60 s`, then `ExtractWordsFromAudio` cross-joins
-the FULL transcript onto EVERY chunk and adds `audio_event.start + audio_event.offset` — the chunk position
-**double-counted** (both fields ≈ chunk start). For the last of ~10 chunks: 540 + 540 + 591 = **1671 s**, with
-~11× word duplication (1789 → 19976 rows). The TRIBE demo was only validated on clips < 60 s (one chunk,
-offset 0 → correct), so the bug is invisible there. **Fix:** rebuild the events with the same transform pipeline
-but `ChunkEvents(max_duration=10000)` so the whole file is ONE chunk (`start += 0`); whisperx/feature caches make
-it cheap. Also resample to 16 kHz mono first (clean input for whisperx/w2v-bert). **Carry-forward (general):** when
-adopting a third-party model's "demo" inference path on inputs larger than its demo scale, **verify the output
-time axis against the known stimulus duration before trusting any prediction** — a correct transcript / correct
-file metadata does NOT imply correct temporal placement, and a stretched/duplicated time axis silently corrupts
-every downstream correlation. The tribev2 clone is gitignored → re-apply this via the runner's
-`_build_events_singlechunk`, not a site-packages patch (same caveat as the Llama `config_update` override).
-
-### L038 — a stimulus-subtraction reference must itself be a strong predictor, or the "residual" is an artifact of its weakness (the vacuity gate caught a false Fork-A)
-**Context (E016 Phase 2, S13).** The TRIBE ceiling test subtracts the stimulus-predictable part (TRIBE = E[Y|S])
-from real brain-alignment to isolate any non-stimulus signal. On denizenslab story_11 the capacity-fair estimand
-(same LM block → real vs TRIBE targets, untrained-LM floor) flagged a "Fork-A candidate" (trained residual ≫
-untrained). **It was a confirmed artifact:** the trained LM predicted REAL BOLD (r≈0.18) but barely predicted
-TRIBE-BOLD (r≈0.03) in higher-language — so "real-alignment beyond TRIBE" was large only because TRIBE is a WEAK
-per-vertex predictor (Phase-1 showed TRIBE explains ~7% of real-BOLD variance there), not because of non-stimulus
-signal. The gap was dominated by the A2 effect (trained≫untrained real-alignment), with TRIBE-as-noise subtracted.
-**What saved it:** the *predeclared vacuity gate* (require the reference's own alignment ≫ chance before trusting a
-subtraction) + the untrained-LM floor + the oracle's pre-compute warning — all caught the false Fork-A so it never
-reached Erfan. **Carry-forward (general):** before interpreting "signal beyond a reference model," GATE on the
-reference actually capturing the thing it's supposed to subtract (here: require LM→reference ≫ 0). A weak/biased
-reference makes *any* high-capacity probe look like it adds unique signal — the classic false-discovery in
-variance-partitioning / stimulus-subtraction. Also: TRIBE was trained on movie-watching; its per-vertex fidelity
-to story-LISTENING BOLD is modest, so the ceiling may need TRIBE's home-turf (video) stimuli or a per-subject
-fine-tuned TRIBE readout to have anything strong enough to subtract. Single-story CV compounds the noise (n=1
-stimulus → pseudo-replication across subjects); ≥3 stories needed for a real null/bound.

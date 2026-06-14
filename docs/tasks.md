@@ -46,19 +46,19 @@ decisions, ladder/tasks) → only then advance. Numbers come from runs; **no run
 ### 🔭 FORWARD PROGRAM — REORDERED S13 (D028). New sequence: **F1-close (E020) → F2 (E019) → F3 (I3) → F4 (E015 Q2)**; TRIBE Phase 3 = optional booster.
 The research corpus continuing the path (full table + decision rules in `ladder.md` → "THE FORWARD PROGRAM").
 
-> **⏭️ NEXT SESSION (implementation `/orient`) STARTS HERE — E020, the F1-close.** The TRIBE *stimulus-subtraction*
-> ceiling (F1 Phase 2) walled out (TRIBE too weak a per-vertex predictor — L038/D028). It is REPLACED by the
-> empirical-E[Y|S] ceiling **E020** (TRIBE-free, ground-truth E[Y|S] = cross-subject/repeat average; design LOCKED
-> in `docs/experiments/E020_*.md`). Then F2. TRIBE is reserved for its only irreplaceable use (Phase 3, optional).
+> **⏭️ NEXT SESSION = ANALYSIS lane (Erfan).** The IMPLEMENTATION lane's decisive forward-program work is COMPLETE
+> (S14): F1-close (E020) DONE → bounded-not-closed; F2 (E019) DONE → corroboration. F3 superseded (D033), F4 =
+> analysis-lane, ceiling-closure KILLED on all substrates (D034). **No new compute is needed to write the paper** —
+> the spine rests on the powered nulls (E008/E011/E017) + E015 + L016 + the bounded E020 ceiling + E019 corroboration.
+> The next high-value work is the analysis-lane roadmap (`docs/analysis-roadmap.md`).
 
-- [ ] **F1-close · E020 — empirical-E[Y|S] ceiling (NEXT, the immediate next step).** Does the LM align to brain
-  signal beyond the stimulus-predictable part? Reference = ground-truth E[Y|S] (leave-one-subject-out cross-subject
-  + cross-repeat average of real fMRI), NOT TRIBE. A_shared=LM→E[Y|S] vs A_resid=LM→ε_s (residual), NC-normalized,
-  higher-language, n=6, +untrained-LM floor. **A_resid≈0 (within MDE) ⇒ Fork-B ceiling; A_resid>0 surviving
-  controls ⇒ Fork-A → STOP for Erfan.** MUST handle the subject-specific-stimulus-deviation leak (E020 §3:
-  untrained floor + NC bound + ≥2-3 stories + asymmetric bar). **Oracle-gate the design first** (do not rush — two
-  estimand artifacts in S13 came from rushing). Reuse `fsaverage_mapping`/`run_tribe_fidelity`/`run_tribe_ceiling`.
-  Cheap (data + machinery already built S13). Closes F1's ceiling rigorously. (E020; D028.)
+- [x] **F1-close · E020 — empirical-E[Y|S] ceiling. DONE 2026-06-14 (S14), panel-survived.** Ran story_11 (n=6,
+  Qwen2.5-0.5B L12). Naive flag fired (A_resid=+0.090, ρ=0.51, apparent Fork-A) — **NOT escalated, diagnosed.** After
+  fold-gaps + eng1000-partial the trained−untrained residual gap = **−0.018≈0** ⇒ confirmed ARTIFACT (leaked stimulus
+  via too-noisy n=5 reference, ref-rel 0.33 + autocorrelation). The eng1000 nuisance-partial is partly vacuous
+  (symmetric partial collapses A_shared too — L040). **Verdict: NO Fork-A; ceiling bounded-not-closed** (2nd
+  instrument to wall at n=6 after TRIBE). Convergent corroboration; spine rests on E008/E011/E017. Oracle + socratic +
+  first-principles + counter-argument + premortem all run. `outputs/E020_eys/`. D029/D030, L039/L040. No rung flip.
 - [ ] **TRIBE Phase 3 (OPTIONAL Fork-B booster, slot after F2 if pursued)** — distill toward TRIBE-generated dense
   brain targets on the REAL KD corpus (where no fMRI exists; empirical averaging impossible — TRIBE's only
   irreplaceable use), matched-ppl vs permuted twin. Phase 1 validated TRIBE is faithful enough to be a target. A
@@ -79,23 +79,39 @@ The research corpus continuing the path (full table + decision rules in `ladder.
   - [x] **P2 ceiling REFRAMED (S13, D028) — TRIBE stimulus-subtraction RETIRED for the ceiling.** The fix is not to
     grind a weak TRIBE harder; it is to use the ground-truth empirical E[Y|S] instead → **the ceiling moves to E020**
     (above, the F1-close NEXT step). TRIBE kept only for Phase 3 (optional booster). F1 closes via E020, then F2.
-- **F2 · E019 external reproduce-and-control (the 100% version of I2).** Reproduce a published brain-tuning
-  POSITIVE then collapse it with matched-ppl + permuted-twin. NON-NEGOTIABLE for the paper (premortem). E019 doc.
-- **F3 · E013/I3 denizenslab n=6 — POWERED induction test** (below; data now downloaded).
-- **F4 · E015 Q2 architecture-residual extension** — ≥3 modern-family sizes + base-vs-instruct ablation; claim or bury.
-- **A (analysis lane, Erfan):** manuscript r≈−0.92→−0.78 (3-part argument), Y⊥θ*|S as assumption, narrow matched-ppl framing pending F2.
+- [x] **F2 · E019 external reproduce-and-control. DONE 2026-06-14 (S14), panel+positive-control-survived.** Built a
+  faithful Negi head (differentiable Lanczos+FIR+NT-Xent full-FT, Lanczos verified vs source) on **LeBel** (substrate
+  moved off denizenslab, D031). **No positive encoding gain at any lr** (gentle gain_r −0.0006±0.0027 n=9; sweep
+  2e-5/3e-5/5e-5 monotone-negative; 1e-4 catastrophic ppl→11.5k). **NOT a clean clincher** — the raw-mean-r ruler is
+  quality-insensitive (eval positive-control: enc_r 0.5B+0.150≈3B+0.143), gentle regime didn't move the LM, decoder≠Negi's
+  BERT. **= corroboration of the E008/E011/E017 lever-failure spine; "NON-NEGOTIABLE" framing RETIRED.** `outputs/E019_negi/`.
+  D031/D032, L041/L042. No rung flip.
+- **F3 · E013/I3 denizenslab n=6 — SUPERSEDED/moot (D033).** The powered full-FT induction null is already in hand
+  (E017, n=9) + corroborated (E019); denizenslab n=6 is reliability-walled + blind-ruler. Run ONLY for literal
+  100%-rule coverage; otherwise skip. (Not a science change — the induction null is powered + corroborated.)
+- **F4 · E015 Q2 architecture-residual extension** — analysis-lane extension (≥3 modern-family sizes + base-vs-instruct
+  at matched bpb); underpowered hypothesis (p=0.20). Not a decisive rung.
+- **ceiling-closure — KILLED on ALL substrates (D034).** TRIBE weak (L038), denizenslab n=6 walled (L040), LeBel n=3
+  worse + no cross-subject mapper. The E[Y|S] ceiling rests as bounded corroboration; closing it would need acquiring
+  ≥3 more deep LeBel subjects with the 10-rep story (a data-acquisition decision, not a re-run).
+- **A (analysis lane, Erfan):** the keystone scope correction (L041 — operational claim; Y⊥θ*|S as ASSUMPTION; the
+  unmeasured DPI selection side-channel); manuscript reframe to the refocused headline; lit positioning (Jia-L-PACT,
+  Raugel, Hadidi→Nature-Comms cite); manuscript r≈−0.92→−0.78; figures. See `docs/analysis-roadmap.md`.
 
-- [ ] **I3/F3 · Full-FT multi-subject naturalistic voxelwise — the POWERED induction test (E013 §"two routes").**
-  Full fine-tuning on denizenslab n=6, predeclared E013 protocol (per-individual n≥5, permuted twin, matched-ppl
-  intercept, spatially-blocked inference). *Likely-null* per 5 converging nulls, run per the 100% rule (closes
-  the door at adequate power, not the n=3 probe). **Steps:** (a) ✅ DONE — data acquired: `data/denizenslab/`
+- [~] **I3/F3 · Full-FT multi-subject naturalistic voxelwise — SUPERSEDED/moot (D033, S14).** The powered full-FT
+  induction null is already in hand (E017, n=9 LeBel) + corroborated by E019 (faithful Negi head); denizenslab n=6 is
+  reliability-walled (E020/TRIBE, ref-rel 0.33) + its raw-r ruler is quality-insensitive. Run ONLY for literal 100%-rule
+  coverage. Original spec (predeclared E013 protocol: per-individual n≥5, permuted twin, matched-ppl intercept,
+  spatially-blocked inference) retained below for reference if Erfan wants the coverage run. **Steps:** (a) ✅ DONE — data acquired: `data/denizenslab/`
   (35G, 6 subjects [01,02,03,05,07,08] × reading/listening × trn/val, GIN `/raw/` + apt git-annex; verified valid
   HDF5, 10 train + 1 val stories each, ~80–93k voxels); (b) adapt `run_lebel_tune.py` full-FT loop to denizenslab
   HDFs (+ matched-ppl readout + permuted twin + spatial blocking); (c) run n=6 + judge → record in E013.
 - [ ] **I4 · CAPSTONE — E016 TRIBE-v2 synthetic brain targets (the NEW task at the end of the train).**
   Meta's brain foundation model (`facebook/tribev2`) generates fMRI for *any* text. Key insight: TRIBE
-  estimates E[Y|S], which by Y⊥θ*|S is the **entire θ*-relevant brain signal → an upper bound on
-  brain-guided LM training** (a null here is the strongest, *publishable* Fork-B; a positive reopens Fork-A).
+  estimates E[Y|S], which **UNDER THE ASSUMPTION Y⊥θ*|S** (NOT an established result — scope correction L041) would be
+  the θ*-relevant brain signal → an upper bound on brain-guided LM training (a null = the strongest, *publishable*
+  Fork-B; a positive reopens Fork-A). NB: the E[Y|S] ceiling is now instrument-limited on all substrates (D034) and
+  TRIBE Phase 1 already validated the synthetic-target path; this capstone is optional, not on the critical path.
   **Note: I4 sidesteps I3's data-acquisition blocker** (TRIBE *generates* the fMRI), so if I3 walls on
   denizenslab, proceed to I4. Full kill-gated program in `docs/experiments/E016_*.md`. Phases:
   - [x] **P0 GATE PASSED (2026-06-13)** — TRIBE runs text→synthetic-BOLD end-to-end (`preds (11,20484)`).
