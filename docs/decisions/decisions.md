@@ -579,3 +579,24 @@ all addressed in E019 v3. The load-bearing changes:
 **Status:** E019 RUN-READY pending the power gate + the faithful-head build. **Headline/spine framing remains Erfan's
 call when the number lands** (per the E019 doc). No rung flips. Forward order: F1-close DONE (bounded) → **F2/E019
 (NEXT, on LeBel)** → F3 (I3) → F4 (E015 Q2).
+
+## D032 — E019 verdict: corroboration not clincher; "NON-NEGOTIABLE" framing retired; spine rests on the powered nulls; do NOT build the BERT port — 2026-06-14 (S14, autonomous, panel+positive-control-survived)
+
+**Decision (S14, autonomous; counter-argument + premortem + an eval positive-control all run).** The faithful Negi
+head (differentiable Lanczos+FIR+NT-Xent full-FT, Lanczos verified) on LeBel UTS01/02/03 produced **no positive
+encoding gain at any lr** (gentle gain_r −0.0006±0.0027 n=9; sweep 2e-5/3e-5/5e-5 monotone-negative; 1e-4 catastrophic).
+The first read ("Negi's gain doesn't reproduce") was **over-claimed** and the panel demolished it:
+1. **The raw-mean-r encoding ruler is quality-INSENSITIVE** — eval positive-control: enc_r for Qwen2.5-0.5B/1.5B/3B =
+   +0.150/+0.147/+0.143 (flat-decreasing), so the metric can't register the quality-driven alignment differences E015
+   found. A "no enc_r gain" claim is confounded by a partly-blind ruler. (The unique-R² metric IS E006-validated; its
+   null gain_u −0.0001 is real, but the gentle regime barely moved the LM (Δppl≈0) ⇒ "no manipulation," not "no gain.")
+2. **Faithfulness gaps** (Qwen decoder vs Negi's BERT encoder; window-TR vs batch NT-Xent; 2 vs 30 epochs; monolingual
+   vs bilingual) make any claim about *Negi* a category error.
+3. **Do NOT build the faithful BERT port** — multi-day, off-thesis-target, and a surviving reproduction = Fork-A that
+   could CONTRADICT the spine. Highest-risk/lowest-leverage to rescue an already-demoted leg.
+**Verdict:** E019 establishes the SCOPED claim — *"on a faithful-as-feasible Negi-head + 0.5B decoder, no full-FT
+regime induces a brain-specific alignment gain (gentle = no movement, stronger = catastrophic forgetting), converging
+with the E008/E011/E017 method-general lever failure (L036), now on the Negi head."* **E019 = CORROBORATION, not the
+external clincher. The stale v1 "NON-NEGOTIABLE" framing is RETIRED (L041/L042): the paper's spine rests on the POWERED
+per-individual nulls (E008/E011/E017) + E015 + the (bounded) E020 ceiling.** No rung flip; no Fork-A. Forward order:
+F1-close DONE → F2 DONE (corroboration) → **F3 (I3 denizenslab n=6 full-FT, NEXT) → F4 (E015 Q2).** Framing = Erfan's call.

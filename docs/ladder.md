@@ -73,7 +73,15 @@ rests on **Y⊥θ\*|S as an ASSUMPTION** (the DPI ceiling premise), not a result
 (L041):** a brain-as-selection/regularization prior could improve OOD without injecting θ\*-information or moving the
 alignment metric (a different MI object, lecture-26 I(W;Z^n)); argued-shut by E009's ~0 fulcrum, NOT measured-shut.
 
-**⏭️ NEXT (implementation `/orient` starts here): F2 = E019 external reproduce-and-control** (paper-critical,
+**⏭️ NEXT (implementation `/orient` starts here): F3 = I3 (denizenslab n=6 full-FT) → F4 (E015 Q2). F2 (E019) DONE
+→ corroboration (S14, panel+positive-control-survived, D032):** built a faithful Negi head (differentiable
+Lanczos+FIR+NT-Xent full-FT, Lanczos verified) on LeBel UTS01/02/03; NO positive encoding gain at any lr (gentle
+gain_r −0.0006±0.0027 n=9; sweep monotone-negative; 1e-4 catastrophic). NOT a clean external clincher (the raw-mean-r
+ruler is quality-insensitive — enc_r 0.5B≈3B; gentle regime didn't move the LM; decoder≠Negi's BERT). **E019 =
+corroboration of the E008/E011/E017 lever-failure spine, not the clincher; the stale "NON-NEGOTIABLE" framing is
+RETIRED — the spine rests on the POWERED nulls.** No rung flip; no Fork-A. (Below, the old F2 pointer kept for the table.)
+
+**(superseded) F2 = E019 external reproduce-and-control** (paper-critical,
 ceiling-independent). **F1-close (E020) = DONE → bounded-not-closed (S14, panel-survived; D030):** NO Fork-A (the
 apparent A_resid=+0.090 was confirmed leaked-stimulus+autocorrelation, controlled away → gapped+partialled gap
 −0.018≈0); the empirical n=6 E[Y|S] reference is too noisy (ref-rel 0.33, ε-NC 0.17 = the KILL regime) — the SECOND
@@ -86,7 +94,7 @@ ceiling = analysis-lane / Erfan call (flagged).
 | **F1 P1 ✅ (done)** | **E016 TRIBE Phase 1 — fidelity** | TRIBE validated as a faithful in-pipeline fMRI stand-in: beats a strong nuisance floor in higher-order language Δ=+0.113 [+0.045,+0.181], 6/6 (tool-gate, no rung flip). Prereqs solved: voxel mapping → denizenslab (D027), TRIBE long-audio bug (L037). | **PASS (S13)** |
 | **F1-close — E020 ✅ (bounded)** | **empirical-E[Y|S] ceiling (TRIBE-free)** | Ran story_11 n=6. **NO Fork-A** (A_resid=+0.090 = confirmed leaked-stimulus+autocorr; gapped+eng1000-partialled trained−untrained gap −0.018≈0). **Ceiling bounded-not-closed** — n=6 E[Y|S] reference too noisy (ref-rel 0.33, ε-NC 0.17 = KILL regime); 2nd instrument walled at n=6 (after TRIBE). Demoted to convergent corroboration of E008/E011/E017. Oracle+socratic+first-principles+counter-argument+premortem all run; D030/L040. No rung flip. | **DONE — bounded (S14)** |
 | **TRIBE Phase 3 (optional)** | **E016 §5 Phase 3 — synthetic-target KD** | TRIBE's only irreplaceable use: dense brain targets for the real KD corpus (no fMRI; averaging impossible), matched-ppl vs permuted. Null at scale = strongest Fork-B (removes scarcity excuse). Optional booster, slot after F2. | designed (E016 §5) |
-| **F2 (NEXT) — E019** | **E019 external reproduce-and-control** (100% of I2) | reproduce Negi-2025's ENCODING gain (tuned−vanilla, ppl-unanchored) on **LeBel UTS01/02/03** (substrate moved off denizenslab — D031), then show it shrinks into the bpb-matched + permuted band. **NON-NEGOTIABLE for the paper** (premortem). Oracle-gated → v3 RUN-READY pending (i) power-gate [step 0, cheap] + (ii) the **faithful-Negi-head build** (Lanczos+FIR+NT-Xent — fresh-launch, L031/L037). Survives controls ⇒ Fork-A → STOP. | **oracle-gated v3, RUN-READY (build fresh)** |
+| **F2 — E019 ✅ (corroboration)** | **E019 external reproduce-and-control** | Built a faithful Negi head (differentiable Lanczos+FIR+NT-Xent full-FT, Lanczos verified vs source) on LeBel UTS01/02/03. **No positive encoding gain at any lr** (gentle gain_r −0.0006±0.0027 n=9, uR² −0.0001±0.001; sweep 2e-5/3e-5/5e-5 monotone-negative; 1e-4 catastrophic ppl→11.5k). **NOT a clean external clincher** (counter-argument + premortem + eval-positive-control): the raw-mean-r ruler is quality-insensitive (enc_r 0.5B+0.150≈3B+0.143), the gentle regime didn't move the LM (Δppl≈0), decoder≠Negi's BERT. **= corroboration of the E008/E011/E017 lever-failure spine** (L036), not the clincher; "NON-NEGOTIABLE" framing RETIRED. D031/D032, L041/L042. No rung flip; no Fork-A. | **DONE — corroboration (S14)** |
 | **F3** | **E013/I3 denizenslab n=6 full-FT** (data downloaded) | the POWERED multi-subject induction test (closes the door at adequate power, not n=3 probe). Predeclared E013 protocol. Likely-null per 5 converging nulls; run per the 100% rule. | data ready |
 | **F4** | **E015 Q2 architecture-residual extension** | add ≥3 modern-family sizes (Llama/Mistral) + base-vs-instruct ablation at matched bpb → claim or bury the architecture-beyond-quality residual (now p=0.20, underpowered). | designed (E015) |
 | **A** | **Manuscript corrections (analysis lane, Erfan)** | r≈−0.92→−0.78 (3-part argument, drop standalone in-band −0.48); state Y⊥θ\*|S as assumption; narrow matched-ppl framing pending F2. | flagged |

@@ -188,3 +188,28 @@ so arm (c) construction validity (disjoint corpus, early-stop to arm-b held-out 
 (b−a) collapses into (b−c) [matched-ppl] ⇒ quality artifact (clincher); (b−a) SURVIVES (b−c), CI excludes the matched-ppl
 band ⇒ Fork-A → STOP. DPI caveat (L041): even a surviving gain is stimulus-derivable ("brain = better teacher for
 stimulus-relevant structure"), not non-stimulus brain signal.
+---
+
+## VERDICT (S14, 2026-06-14) — CORROBORATION, not the external clincher (panel + eval-positive-control survived)
+**Ran** the faithful Negi head on LeBel UTS01/02/03 (`outputs/E019_negi/`): gentle 3×3 (lr 1e-5, n=9), intermediate-lr
+sweep (2e-5/3e-5/5e-5), strong probe (1e-4), + an eval positive-control (enc_r vs model size).
+**Numbers:** gentle gain (b−a) enc_r = **−0.0006±0.0027** (uR² −0.0001±0.001), spec (b−d)=−0.0004±0.0018, survive
+(b−c)=−0.001±0.0018, b_ppl≈51 vs vanilla 50.4; sweep gain monotone-negative (−0.007/−0.011/−0.009); 1e-4 catastrophic
+(ppl 50→11514, enc_r 0.148→0.092). **No regime produces a positive gain.**
+
+**Why this is NOT a clean "Negi doesn't reproduce" (counter-argument + premortem + positive-control):**
+1. **The raw-mean-r encoding ruler is quality-INSENSITIVE.** Positive-control: enc_r for Qwen2.5-0.5B/1.5B/3B =
+   +0.150/+0.147/+0.143 (flat-decreasing) — the metric doesn't register the quality-driven alignment differences E015
+   found. A "no enc_r gain" claim is confounded by a partly-blind ruler. (The **unique-R²** metric IS E006-validated;
+   gain_u −0.0001 is a real null — but the gentle regime barely moved the LM, Δppl≈0 ⇒ "no manipulation," not "no gain.")
+2. **Faithfulness gaps** make a claim about *Negi* indefensible: Qwen decoder vs Negi's BERT encoder; window-TR vs
+   batch-32 NT-Xent; 2 epochs vs 30+scheduler; monolingual vs bilingual. Non-reproduction of a recipe we didn't run = category error.
+3. **Do NOT build the faithful BERT port:** multi-day, off-target, and a surviving reproduction = Fork-A that could
+   CONTRADICT the spine. Highest-risk/lowest-leverage.
+
+**What E019 robustly establishes (the defensible, scoped claim):** *on a faithful-as-feasible Negi-head + 0.5B decoder,
+no full-FT regime induces a brain-specific alignment gain — gentle = no representational movement, stronger =
+catastrophic forgetting that degrades alignment — CONVERGING with the E008/E011/E017 method-general lever failure
+(L036), now demonstrated on the Negi head too.* **E019 = corroboration of the lever-failure spine, NOT the external
+clincher.** The **stale v1 "NON-NEGOTIABLE" framing is RETIRED** (L041/L042): the spine rests on the POWERED
+per-individual nulls (E008/E011/E017) + E015, not on E019. **No rung flip. No Fork-A.** Framing = Erfan's call.

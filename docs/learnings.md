@@ -391,6 +391,33 @@ artifact, not per-individual brain signal — we supply the two missing controls
 cross-subject averaging manufactures apparent specificity, and explain it via the stimulus-predictability (E[Y|S]) ceiling."*
 Defensible on EXISTING powered evidence (E008/E011/E017 + E015); E019 is corroboration, not load-bearing.
 
+### L042 — E019 is corroboration, NOT a clean external clincher: the raw-mean-r encoding metric is insensitive to quality-scale alignment differences (0.5B≈1.5B≈3B), and the gentle regime didn't move the LM (S14, counter-argument + premortem + eval positive-control)
+**Context (E019 verdict, S14).** We built a faithful-as-feasible Negi-2025 brain-tuning head (differentiable
+Lanczos+FIR+NT-Xent full-FT, Lanczos verified) on LeBel+Qwen2.5-0.5B and found NO positive encoding gain at any lr
+(gentle gain_r −0.0006±0.0027 n=9; intermediate lr 2e-5/3e-5/5e-5 monotone-negative; 1e-4 catastrophic ppl 50→11.5k).
+First read = "Negi's gain doesn't reproduce." The panel + a positive-control **demolished that as over-claimed:**
+1. **The raw-mean-r encoding ruler is partly BLIND.** Eval positive-control: enc_r for Qwen2.5-0.5B/1.5B/3B =
+   +0.150/+0.147/+0.143 — FLAT-to-decreasing with model quality, i.e. the metric (PCA-100, fixed λ=1e3, mean over
+   reliable voxels, single verdict layer) does NOT register the quality-driven alignment differences E015 found via
+   unique-R²/bpb. So a "no enc_r gain" claim is confounded by an instrument that can't see quality-scale gains. (The
+   **unique-R² metric IS validated** — E006 registers the trained−untrained +0.021 gap — and gain_u = −0.0001±0.001 is
+   a trustworthy null, but the gentle regime barely moved the LM, Δppl≈0, so it's "no manipulation," not "no gain.")
+2. **Faithfulness gaps make a claim about NEGI indefensible:** Qwen decoder (causal, L12/24) vs Negi's BERT (encoder,
+   bidirectional, L7/12); window-TR NT-Xent vs their batch-32; 2 epochs vs their 30+scheduler; monolingual vs bilingual.
+   A non-reproduction of a recipe you didn't run is a category error.
+3. **Don't build the faithful BERT port** (premortem): multi-day, off-thesis-target, and a SURVIVING reproduction would
+   be Fork-A that could CONTRADICT the spine — highest-risk/lowest-leverage to rescue an already-demoted leg.
+**Verdict (panel+positive-control-survived):** E019 establishes only — *"on a faithful-as-feasible Negi-head + 0.5B
+decoder, no full-FT regime induces a brain-specific alignment gain (gentle = no representational movement; stronger =
+catastrophic forgetting that degrades alignment) — converging with the E008/E011/E017 method-general lever failure
+(L036), now on the Negi head."* It is **corroboration, NOT the external clincher.** The kill the stale v1
+"NON-NEGOTIABLE" framing — L041/L042: the spine rests on the POWERED per-individual nulls (E008/E011/E017 + E015), not
+E019. **Carry-forwards:** (a) before claiming a null on an encoding metric, positive-control that the metric registers
+a known real alignment difference (here it did NOT for raw mean-r — use unique-R²); (b) "no gain" requires the
+manipulation to have MOVED the representation (Δbpb > threshold) — a ppl-preserving no-op is "no manipulation," not
+evidence; (c) the raw-mean-r-over-reliable-voxels metric is quality-insensitive at 0.5-3B — another reason the
+project's unique-R² (anti-confound) instrument is the right one (ties L035/Hadidi).
+
 <!-- Add new lessons below as we hit them. Negative results count. -->
 
 ### L037 — TRIBE long-audio events bug: ASR is correct, the event assembler stretches/duplicates (verify the time axis, not just the transcript)
