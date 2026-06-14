@@ -499,3 +499,30 @@ F2 (showing a *published* positive collapses under matched-ppl+permuted), which 
 sink effort into per-subject-fine-tuned TRIBE or switch to video (abandons the language-LM↔language-fMRI substrate).
 **Hard lines unchanged:** no rung flips without Erfan; numbers only from recorded runs; a Fork-A SURVIVING the
 controls → STOP; E019 headline/spine framing is Erfan's call.
+
+## D029 — E020 hardened after oracle HOLD: ratio claim (A_resid≪A_shared), repeat-split, story-as-replication-unit, power-gate-first — 2026-06-14 (S14, autonomous)
+
+**Decision (S14, autonomous, oracle-gated).** The locked E020 skeleton (D028) passed the *idea* but the oracle gate
+returned **HOLD** on the *implementation* — three fatal gaps that would have manufactured a false verdict. Hardened
+to v2 (`docs/experiments/E020_*.md` §v2) before any compute:
+1. **Claim reframed to a RATIO, not a femto-null.** A_resid is expected at +0.0001–+0.001; a femto-precise null is
+   unachievable at n=6/~3 stories and unnecessary. The defensible claim is **A_resid ≪ A_shared** (A_shared =
+   LM→E[Y|S] ≈ 0.355 NC-norm in higher-language, S13). Primary statistic ρ = A_resid/A_shared with a bound; ρ≲6%
+   ⇒ >94% of LM brain-alignment is to the stimulus-predictable part ⇒ Fork-B, informatively.
+2. **G1 repeat-split (story_11's 2 repeats):** stop collapsing both into one mean (the old `load_real` does), which
+   left ε's noise ceiling uncomputable. Use repeat-1 for E[Y|S]/ε; validate against repeat-2 (leave-repeat-out + ε NC).
+3. **G2 reference-reliability gate:** the 5-subject LOO mean E[Y|S]_{-s} carries ~17% noise that can spuriously
+   zero-out A_resid; jackknife its reliability and gate on it (L038 applied to the reference's stability).
+4. **G3 story = replication unit, coded:** run ≥3 stories (story_11 + train 01–10), across-story test hard-coded in
+   the runner; the printed MDE is the across-story MDE, not untrained-seed spread.
+5. **Confounds:** C1 add the strong eng1000 nuisance floor as a *second* floor (L035 — trained−untrained alone
+   under-controls the lexical-semantic stimulus-locked path); C2 fold-boundary gaps; C3 lag fit on the LOO mean only;
+   C4 off-story = point-estimate only (no NC bound).
+6. **Power-gate FIRST (cheapest decisive):** measure the across-story MDE empirically before committing to the full
+   verdict. **KILL branch:** if the across-story MDE exceeds the largest plausible non-stimulus signal, concede the
+   ceiling as **bounded-not-closed** (honest L021 move) and go straight to F2 (E019), which does not depend on this
+   residual. Do not spend a fourth compute cycle below the instrument floor.
+
+**Hard lines unchanged:** all four Fork-A gates coded in the runner (matching the TRIBE-false-Fork-A discipline);
+no rung flip without Erfan; a Fork-A surviving all controls → STOP. This is an implementation hardening of D028, not
+a change of direction.
