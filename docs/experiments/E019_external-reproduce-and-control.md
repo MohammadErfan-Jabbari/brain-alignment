@@ -21,3 +21,57 @@
 - **Whose result + which data** is a feasibility-driven choice (Negi data unavailable). Headline framing (does E019 become the paper's spine) = **Erfan's call when the number lands.**
 
 **Status: PLANNED.** Sequence (forward program): after the TRIBE Phase 1/2 ceiling (E016) — or in parallel if compute allows. No rung flips without Erfan; numbers come only from recorded runs.
+
+---
+
+## v2 — LOCKED design (S14, 2026-06-14, grounded in the canonical notes + our data/infra). Oracle-gate before compute.
+
+**Target chosen by feasibility (first-principles design-grounding, S14):** a **Negi-2025-style text-LM brain-tuning
+recipe, run on denizenslab listening fMRI** (6 real subjects 01/02/03/05/07/08; 04/06/09 are 64-byte annex stubs).
+Negi is the only candidate that is simultaneously (a) a **text LM** (our thesis target + our infra), (b) on **data we
+physically have** (denizenslab = the Deniz-2019 monolingual set Negi themselves use as a control arm), and (c)
+**already coded** (`brain_loss.py` has NT-Xent = Negi's `contrastive`; `run_lebel_tune.py` has the real-vs-permuted
+twin + KD-ppl-anchor + per-subject + seeds; `run_eys_ceiling.py` has the denizenslab loader). Bilgin (CNeuroMod
+Friends), Schwartz (Harry Potter), Freteault (Friends audio CNN) need datasets **not on disk**; Negi's bilingual
+headline needs bilingual fMRI **we lack**. **Honest framing:** we reproduce Negi's *monolingual* brain-tuning
+**encoding** gain (the loss/architecture they validate, on the monolingual fMRI they use as a control), NOT their
+cross-lingual headline. Fair published-positive recipe, not a strawman.
+
+**THE LOAD-BEARING ESTIMAND INSIGHT.** Negi's positive is an **encoding Δr gain vs VANILLA** (tuned−vanilla, ppl
+left to drift; their Δr up to ≈0.15) — a *different, easier* contrast than the **brain-specific (real−permuted) gap**
+that our E017 full-FT NULLED (L036). The (tuned−vanilla) gain SHOULD reproduce because *any* fine-tune moves the
+features and changes ridge-encoding r — that is exactly the confound. So **arm (b) must reproduce the gain WITHOUT a
+KD anchor** (let ppl drift, as Negi did); if the gate forces matched-ppl into arm (b) there is nothing to break.
+Primary outcome = **held-out encoding Δr** (the metric where Negi's positive lives), NOT downstream (which E017-class
+nulls say won't reproduce — do not lead with it).
+
+**Negi's exact uncontrolled protocol (to replicate to GET the positive):** full fine-tune (all layers + projection),
+objective **NT-Xent contrastive** between predicted & recorded BOLD; last-hidden-layer → dropout 0.2 → 3-lobe Lanczos
+to TR → 4-delay FIR (2/4/6/8s) → linear voxel projection; baseline = **vanilla pretrained only**; eval = voxelwise
+Pearson r on a held-out story, ridge 5-fold CV for λ, story-level holdout. **Controls they OMIT:** matched-ppl (fully
+absent); permuted-brain on **downstream** (absent) — note: on *encoding* they DO run a TR-shuffle and survive it
+(Δr≈0.133), so for the encoding metric the control they lack is **matched-ppl**, which is exactly our contribution.
+
+**Arms** (Qwen2.5-0.5B, layer 12, denizenslab listening, 6 subjects, per-subject FT, ≥3 seeds, bpb-matched):
+- **(a) vanilla** — untuned Qwen, encoding ridge only (`run_lebel_tune.py` `base_u`).
+- **(b) brain-tuned [reproduce]** — full-FT, `kind="contrastive"`, NO KD anchor, gentle lr 1e-5 (`run_lebel_tune.py --no-lora`).
+- **(c) ppl-matched generic-text FT** — full-FT on WikiText, early-stopped to arm (b)'s held-out **bpb** (L034: bpb,
+  not per-token ppl). Match by construction.
+- **(d) permuted-brain twin** — arm (b) recipe on block-permuted BOLD (`BL.block_permute`, n_blocks=10 = Negi's 10-TR shuffle).
+**Outcome:** (b−a) the reproduced gain; (b−c) survival at matched ppl; (b−d) brain-specificity. **Predicted (E015 law +
+DPI + E008/E011/E013/E017 nulls):** (b−a) collapses into the (c)+(d) band ⇒ the field's positive is a quality/FT-step
+effect (the external-validity clincher). **SURVIVES** (b−d excludes the control band, symmetric-partial passed,
+contiguous splits) ⇒ brain supervision is a better *teacher* for stimulus-relevant structure (DPI: still
+stimulus-derivable, not non-stimulus brain signal) ⇒ Fork-A-qualifying → **STOP for Erfan.**
+
+**New code (the one material build):** `deniz_adapter.py` (denizenslab story text/transcript → LM word features +
+listening BOLD targets + reliability mask), cloned from `lebel_adapter.py` using the loaders already in
+`run_eys_ceiling.py`. **Timing risk:** denizenslab story↔BOLD alignment is the exact L037 surface (the S13 TRIBE
+audio bug) — verify the time axis against stimulus duration before trusting any number.
+
+**Oracle gate must scrutinize (3):** (1) **estimand honesty** — reproduce Negi's *encoding tuned−vanilla* (ppl
+unanchored), do NOT silently re-run E017's real−permuted gap and rediscover the null; arm (b) carries no KD anchor.
+(2) **target reliability at n=6 denizenslab** — the recurring wall (TRIBE L038, E020 L040 both walled at n=6);
+predeclare a noise-ceiling/MDE gate on the listening BOLD + the **eng1000-symmetric-partial** and **permuted-feature**
+controls (L040) so a nuisance-partial collapse isn't misread. (3) **matched-ppl validity** — arm (c) matched on the
+same OOD **bpb** probe, early-stopped to arm (b)'s held-out bpb, same compute/steps.
