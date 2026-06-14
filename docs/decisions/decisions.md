@@ -600,3 +600,26 @@ with the E008/E011/E017 method-general lever failure (L036), now on the Negi hea
 external clincher. The stale v1 "NON-NEGOTIABLE" framing is RETIRED (L041/L042): the paper's spine rests on the POWERED
 per-individual nulls (E008/E011/E017) + E015 + the (bounded) E020 ceiling.** No rung flip; no Fork-A. Forward order:
 F1-close DONE → F2 DONE (corroboration) → **F3 (I3 denizenslab n=6 full-FT, NEXT) → F4 (E015 Q2).** Framing = Erfan's call.
+
+## D033 — Forward-program decisive work COMPLETE; F3 (denizenslab n=6 full-FT) superseded/moot; F4 = analysis-lane — 2026-06-14 (S14, autonomous)
+
+**Decision (S14, autonomous; grounded in this session's results + the panels).** With F1-close (E020, bounded
+ceiling) and F2 (E019, corroboration) DONE, the implementation lane's **decisive** forward-program work is complete.
+Assessment of the remaining items:
+- **F3 (I3 = denizenslab n=6 full-FT induction) is SUPERSEDED / moot, not worth the compute.** The powered full-FT
+  induction null is ALREADY in hand: **E017** ran full fine-tuning on LeBel (UTS01/02/03 × 3 seeds, ppl-preserving) →
+  null (gap +0.0003, CI [−0.0002,+0.0008], p=0.27, L036), and **E019** just corroborated it on the faithful Negi head.
+  denizenslab n=6 is reliability-walled (E020/TRIBE: ref-rel 0.33) AND its raw-mean-r ruler is quality-insensitive
+  (S14 eval positive-control: enc_r 0.5B+0.150≈3B+0.143) — so F3 would be a LESS-powered, blind-ruler, walled-substrate
+  repeat of an already-decided verdict. Marginal decision value ≈ 0 at multi-hour cost. **Run ONLY if Erfan wants
+  literal 100%-rule coverage; otherwise skip.** (Not a science change — the induction null is powered + corroborated.)
+- **F4 (E015 Q2 architecture-residual extension) = analysis-lane** (add Llama/Mistral sizes to the bpb law; underpowered
+  hypothesis, p=0.20). An extension of the recorded law, best done in the analysis lane, not a decisive rung.
+**The spine, fully supported by POWERED evidence (no new compute needed):** A2 real (E006) · per-individual induction
+NULL robust across LoRA/full-FT/objective/capacity (E008 powered + E011/E013/E013b/E017) · averaging confound (L016) ·
+bounded E[Y|S] ceiling (E020) · cross-family bpb law (E015, r≈−0.78) · E019 corroboration. **Refocused headline (L041):**
+"brain-tuning gains are an LM-quality/FT-regime artifact, not per-individual brain signal — the missing controls + the
+powered per-individual null where averaging manufactures specificity + the stimulus-predictability (E[Y|S]) ceiling."
+**The remaining high-value work is ANALYSIS-LANE (Erfan):** the scope correction (operational claim; Y⊥θ\*|S as
+assumption; the unmeasured DPI selection side-channel — L041), the manuscript reframe, the lit positioning (Jia-L-PACT,
+Raugel, Hadidi→Nature-Comms), and figures. No rung flips without Erfan.
