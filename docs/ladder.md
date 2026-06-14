@@ -78,7 +78,12 @@ alignment metric (a different MI object, lecture-26 I(W;Z^n)); argued-shut by E0
 reframe to the refocused headline, lit positioning (Jia-L-PACT/Raugel/Hadidi→Nature-Comms), figures.** Remaining
 forward-program rungs: **F3 (I3 denizenslab n=6 full-FT) = SUPERSEDED/moot** (the powered full-FT induction null is
 already in hand via E017 + corroborated by E019; denizenslab n=6 is reliability-walled + blind-ruler — run only for
-literal 100%-rule coverage); **F4 (E015 Q2) = analysis-lane extension.** F2 (E019) DONE → corroboration (S14,
+literal 100%-rule coverage); **F4 (E015 Q2) = analysis-lane extension.** **DO NOT retry ceiling-closure (D034):** the
+E[Y|S] ceiling is instrument-limited on ALL substrates (TRIBE weak, denizenslab n=6 walled, LeBel n=3 worse + no
+cross-subject mapper) — it rests as a bounded corroboration; closing it would need acquiring ≥3 more deep LeBel subjects
+with the 10-rep story (a data-acquisition decision, not a re-run). **The DPI selection-channel is null-by-construction
+(matched-ppl brain-tuning doesn't move the representation → no manifold selection — E009/E019-gentle).** Every
+implementation door is verified-closed; the decisive science is COMPLETE. F2 (E019) DONE → corroboration (S14,
 panel+positive-control-survived, D032):** built a faithful Negi head (differentiable
 Lanczos+FIR+NT-Xent full-FT, Lanczos verified) on LeBel UTS01/02/03; NO positive encoding gain at any lr (gentle
 gain_r −0.0006±0.0027 n=9; sweep monotone-negative; 1e-4 catastrophic). NOT a clean external clincher (the raw-mean-r
