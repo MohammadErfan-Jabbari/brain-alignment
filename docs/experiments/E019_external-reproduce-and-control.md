@@ -158,3 +158,22 @@ a strong tune can't reproduce a gain → honest "Negi's encoding gain is method/
 reproduction" (KILL-2, publishable-but-weaker). If a strong tune reproduces a gain that collapses into the control
 band → the external-validity clincher. **The judge + counter-argument/premortem panel runs on the COMPLETE results.**
 No rung flips; framing = Erfan's call.
+
+### Strong-tune probe (S14) — neither regime reproduces Negi's gain; an intermediate-lr sweep is the airtight next step.
+To test whether the gentle regime was just under-tuned, ran a strong-tune probe (UTS01 s0, lr=1e-4, epochs=4,
+`outputs/E019_negi/probe_strong.json`):
+| regime | a_ppl→b_ppl | a_enc_r→b_enc_r | gain (b−a) |
+|---|---|---|---|
+| gentle (1e-5/2ep) | 50.4→~50 | 0.146→~0.148 | ≈0 (barely moves) |
+| strong (1e-4/4ep) | 50.4→**11514** | 0.148→**0.092** | **−0.055** (catastrophic forgetting *degrades* encoding) |
+
+**Neither reproduces Negi's reported +0.13.** Gentle doesn't move the representation; strong catastrophically forgets
+(ppl 50→11.5k) and degrades encoding — exactly L036's aggressive-FT artifact (and arm c can't match a 11.5k ppl:
+match ratio 0.007). This is the oracle's **KILL-2 ("method/scale-fragile reproduction")** emerging empirically.
+**Caveat before the verdict:** a 2-point probe can't exclude an *intermediate* sweet-spot lr (≈3e-5/5e-5) that moves
+the rep without forgetting and might yield a gain. **Airtight next step (fresh, oracle-gated): an intermediate-lr
+sweep** (lr ∈ {2e-5,3e-5,5e-5}, ± epochs, track b_ppl + b_enc_r) on 1 subject — find any reproduction regime; if none,
+the honest verdict is "Negi's encoding gain does not reproduce under faithful full-FT on LeBel+Qwen-0.5B (gentle=no
+movement, strong=catastrophic forgetting)" — a publishable external-validity result (weaker than reproduce-then-break,
+but a real finding that the field's positive is fragile). Possible faithfulness gaps to note: Qwen-0.5B vs Negi's BERT;
+our window-TR NT-Xent vs their batch; LeBel vs their data. The gentle 3×3 run completes the ppl-preserving baseline arm.
