@@ -1,10 +1,13 @@
 # Upspeed — read first, write last
 
 **Last updated:** 2026-06-14 (Session 13 — autonomous working, forward-program **F1**. **TRIBE Phase-1 FIDELITY =
-PASS** (hardened): TRIBE is a faithful in-pipeline fMRI stand-in — beats a strong nuisance floor in higher-order
-language Δ=+0.113 [+0.045,+0.181], 6/6. Two blockers solved: voxel-space mapping (D027) + a TRIBE long-audio
-timestamp bug (L037). **NO rung flip** (Phase 1 is a tool-gate). Next = **F1 Phase 2, the CEILING** — a fresh
-focused run; both TRIBE predictions cached. Erfan to issue the `/goal` or let the autonomous loop continue.)
+PASS** (hardened): TRIBE is a faithful in-pipeline fMRI stand-in (beats a strong nuisance floor in higher-order
+language Δ=+0.113 [+0.045,+0.181], 6/6). **Phase-2 CEILING = INCONCLUSIVE (real wall):** single-story group-avg
+TRIBE explains too little per-vertex real-BOLD variance (LM→TRIBE≈0.03 vs LM→real≈0.18) → the stimulus-subtraction
+estimand can't isolate anything; the runner's "Fork-A" flag **FAILED the predeclared vacuity gate ⇒ confirmed
+ARTIFACT, NOT escalated** (the oracle warning + vacuity control did their job). A2 reconfirmed on denizenslab.
+Two blockers solved (D027 voxel mapping, L037 TRIBE bug). **NO rung flip; NO Fork-A.** Next = **Phase-2 redesign**
+(stronger TRIBE target + ≥3 stories + frame-valid estimand), a fresh focused run — then F2/F3/F4.)
 
 > **Canonical state lives in [`ladder.md`](ladder.md)** (rung board + forward program). This is last-session prose.
 > With no task, run `/orient`.
@@ -29,14 +32,22 @@ is a tool-validation gate, NOT a science rung → no ladder flip.**
    un-chunked audio (correct), then chunk only audio for w2v-bert (single chunk OOMs its O(T²) attention). Now
    preds (700,20484), correct timing. `scripts/tribe_predict_deniz.py` (`_build_events_correct`).
 
-## What to do next — F1 Phase 2 (THE CEILING), a fresh focused run (load-bearing, Fork-A-capable)
-real-LM-alignment − TRIBE-explained-alignment residual on denizenslab, with the **no-text TRIBE ablation as the
-BINDING control** (the margin over lexical-semantics is modest → a residual≈0 only counts if it holds vs BOTH full
-and no-text TRIBE, else it's Llama-shared-variance, not the DPI ceiling). Build: LM word features on the denizenslab
-story words (reuse `lebel_adapter.lm_word_features`) → fsa5 encoding to real + TRIBE targets → partial-R² residual in
-language ROIs. **residual≈0 vs both ⇒ strongest Fork-B with mechanism; residual>0 surviving no-text ⇒ Fork-A →
-STOP for Erfan.** Run the FULL thinking panel + Codex on the Phase-2 verdict (deferred from Phase 1, a gate).
-Then **F2 (E019 external reproduce-and-control), F3 (I3 denizenslab n=6 full-FT), F4 (E015 Q2)** per the program.
+## What to do next — F1 Phase 2 REDESIGN (the ceiling, the real wall hit in S13)
+The S13 single-story group-avg-TRIBE ceiling is a methodological dead-end: TRIBE explains only ~7% of per-vertex
+real-BOLD variance in higher-language (LM→TRIBE≈0.03 while LM→real≈0.18), so neither the ΔR²-partition NOR the
+matched-encoding(B) estimand can isolate "real beyond TRIBE" — the apparent Fork-A is purely TRIBE's weakness (a
+confirmed artifact, caught by the vacuity gate; `scripts/run_tribe_ceiling.py`, `outputs/E016_tribe/ceiling/`).
+**Redesign (E016 Step 9), a fresh focused run:** (i) a STRONGER TRIBE target — TRIBE's per-subject fine-tuned
+readout (≤1h data, §1) or more stimulus data so TRIBE actually captures E[Y|S] well enough to subtract (require
+LM→TRIBE ≫ 0 as a pre-gate); (ii) **≥3 denizenslab stories** for story-grouped CV (breaks the n=1-stimulus
+pseudo-replication; generate TRIBE preds per story via the runner, ~15min each); (iii) a frame-consistent estimand.
+Then the FULL thinking panel + Codex on the Phase-2 verdict; **residual>0 surviving controls ⇒ Fork-A → STOP for
+Erfan.** Only after F1 closes: **F2 (E019 reproduce-and-control), F3 (I3 n=6 full-FT), F4 (E015 Q2).**
+
+**Open question for Erfan (strategy):** the TRIBE-ceiling may be intrinsically hard on story-listening data (TRIBE
+was trained on movie-watching; its per-vertex story-BOLD fidelity is modest). Worth weighing whether the ceiling is
+better pursued on movie/naturalistic-video stimuli (TRIBE's home turf) or whether F2/F3 (which don't depend on
+TRIBE fidelity) should take priority. The matched-ppl spine stands without the TRIBE-ceiling closure.
 
 ## Blockers / open loops
 - **Both TRIBE predictions cached + ready:** `outputs/E016_tribe/deniz/full/story_11_pred.npz` (text+audio) and

@@ -52,3 +52,18 @@ audio bug) — both necessary, both recorded (D027, L037). Checkpointed at the P
 own "phases deserve a fresh focused session" philosophy + L031 overshoot guard: Phase 2 is the load-bearing
 Fork-A-capable verdict and is best run fresh with a full panel, with both TRIBE predictions already cached.
 ~10+ atomic commits. No rung flips; no analysis-lane edits.
+
+## ADDENDUM — Phase 2 (ceiling) attempted same session = INCONCLUSIVE (real wall); NOT a Fork-A
+After Phase 1 PASS, continued (per the autonomous mandate) into Phase 2. Locked the design, oracle-gated it
+(HOLD → the ΔR² partition was primed for a FALSE Fork-A; adopted capacity-fair estimand B + untrained-LM floor +
+MDE + asymmetric Fork-A rule + vacuity check). Built `run_tribe_ceiling.py`, ran trained Qwen2.5-0.5B + 3 untrained
+seeds × {real, TRIBE-full, TRIBE-notext}. **Runner flagged "FORK-A CANDIDATE" — but it FAILS the predeclared
+vacuity gate** (trained LM→TRIBE=+0.03 while LM→real=+0.18; diagnostic confirmed not a frame issue). **Confirmed
+ARTIFACT:** TRIBE explains only ~7% of per-vertex real-BOLD variance in higher-language (Phase-1 r≈0.22), too weak
+to be a stimulus-subtraction reference; the residual gap is dominated by the A2 trained>untrained real-alignment,
+NOT non-stimulus signal. Per my own Step-8 decision rule, this does NOT trigger the Fork-A STOP escalation — and
+that is the point: the oracle's pre-compute warning + the vacuity control + the untrained floor all WORKED, so no
+false alarm reaches Erfan. **A2 reconfirmed on denizenslab** (trained Qwen NC-align 0.355, untrained ~0). Real wall:
+the single-story group-avg-TRIBE ceiling is a dead-end; redesign queued (stronger TRIBE target + ≥3 stories +
+frame-valid estimand; or pursue the ceiling on TRIBE's home-turf video stimuli — open strategy Q for Erfan).
+Session cost ~$240. F2/F3/F4 not started (deferred to fresh sessions). No rung flips; no analysis-lane edits.

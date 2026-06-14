@@ -51,12 +51,15 @@ The research corpus continuing the path (full table + decision rules in `ladder.
     -PCA) in higher-order language **Δ=+0.113 [+0.045,+0.181], 6/6, p≈0.03** (denizenslab story_11, n=6 listening);
     correct spatial profile. Oracle-gated + counter-argument-hardened (rate-only floor was a strawman). **Tool-gate,
     NO rung flip.** `scripts/{fsaverage_mapping,tribe_predict_deniz,run_tribe_fidelity}.py`; both TRIBE preds cached.
-  - [ ] **P2 (NEXT) = the CEILING — real−TRIBE residual** of LM alignment, with the **no-text TRIBE as the BINDING
-    control** (margin over lexical-semantics is modest → residual≈0 must hold vs BOTH full & no-text TRIBE, else
-    Llama-shared-variance). Build: LM word features on denizenslab story words (reuse `lebel_adapter.lm_word_features`)
-    → fsa5 encoding to real + TRIBE targets → partial-R² residual in language ROIs. residual≈0 vs both ⇒ strongest
-    Fork-B; residual>0 surviving no-text ⇒ **Fork-A → STOP for Erfan.** FULL panel + Codex on this verdict. A fresh
-    focused run (load-bearing). Design in E016 "Step 4".
+  - [~] **P2 (ceiling) ATTEMPTED S13 = INCONCLUSIVE (methodological wall).** `run_tribe_ceiling.py` (capacity-fair
+    estimand B + untrained floor, oracle-gated Step 8) ran; runner flagged "Fork-A" but it **FAILS the predeclared
+    vacuity gate** (trained LM→TRIBE≈0.03 vs LM→real≈0.18) ⇒ **confirmed ARTIFACT** — TRIBE explains only ~7% of
+    per-vertex real-BOLD variance, too weak to subtract; the gap is the A2 trained>untrained real-alignment, NOT
+    non-stimulus signal. **NOT escalated as Fork-A** (controls worked). A2 reconfirmed on denizenslab. (E016 Step 9.)
+  - [ ] **P2 REDESIGN (NEXT, fresh run):** (i) stronger TRIBE target (per-subject FT / more data; pre-gate LM→TRIBE≫0);
+    (ii) ≥3 stories for story-grouped CV; (iii) frame-valid estimand. FULL panel + Codex on the verdict; Fork-A
+    surviving controls ⇒ STOP for Erfan. **Open strategy Q for Erfan:** TRIBE's story-BOLD fidelity is modest (trained
+    on movies) — weigh ceiling-on-video vs prioritizing F2/F3 (which don't need TRIBE fidelity). E016 Step 9.
 - **F2 · E019 external reproduce-and-control (the 100% version of I2).** Reproduce a published brain-tuning
   POSITIVE then collapse it with matched-ppl + permuted-twin. NON-NEGOTIABLE for the paper (premortem). E019 doc.
 - **F3 · E013/I3 denizenslab n=6 — POWERED induction test** (below; data now downloaded).
