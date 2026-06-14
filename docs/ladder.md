@@ -2,7 +2,14 @@
 
 **This is the single source of truth for project state.** Read it first, every session. It is maintained at every session close, *after Erfan confirms the verdict*. The prose narrative of *why* the ladder is shaped this way lives in `reports/R03_brain-as-training-signal.md` §5 and `reports/R04_gap-analysis.md` §8; this file is the live status of it. `upspeed.md` is the last-session prose; `tasks.md` is the granular backlog. When they disagree, **this file wins** and the others get fixed.
 
-**Last updated:** 2026-06-14 (S13 autonomous working — **F1 Phase-1 (TRIBE fidelity) ✅ PASS.** TRIBE-v2 validated
+**Last updated:** 2026-06-14 (S14 autonomous working — **F1-close (E020 empirical-E[Y|S] ceiling) DONE → bounded-not-closed.**
+Ran story_11 n=6: **NO Fork-A** (apparent A_resid=+0.090 = confirmed leaked-stimulus+autocorrelation; after fold-gaps +
+eng1000-partial the trained−untrained residual gap = −0.018≈0). Ceiling **bounded-not-closed** — the empirical n=6 E[Y|S]
+reference is too noisy (LOO ref-rel 0.33, ε split-half NC 0.17 = the oracle's KILL regime), the 2nd ceiling instrument to
+wall at n=6 (after TRIBE). The nuisance-partial control is partly vacuous (symmetric partial collapses A_shared too — L040).
+**E020 demoted to convergent corroboration; the spine rests on the POWERED per-individual nulls E008/E011/E017.** Five panels
+run (oracle+socratic+first-principles+counter-argument+premortem); D029/D030, L039/L040. **NO rung flip; L3/F1 stays ❌.**
+**NEXT = F2 (E019), paper-critical.** — prior: S13 autonomous working — **F1 Phase-1 (TRIBE fidelity) ✅ PASS.** TRIBE-v2 validated
 as a faithful in-pipeline fMRI stand-in: beats a strong nuisance floor (rate+articulatory+eng1000-PCA) in
 higher-order language **Δ=+0.113 [+0.045,+0.181], 6/6, p≈0.03**; correct spatial profile. Two blockers solved:
 voxel-space mapping → denizenslab mapper (D027); a TRIBE long-audio timestamp bug (L037). Oracle-gated +
@@ -61,15 +68,20 @@ The forward path, kill-gated; **no rung flips without Erfan.** The spine: *the b
 stimulus-predictable part E[Y|S] (Y⊥θ\*|S); beyond that it's task-independent noise* — unifying the averaging
 confound + the matched-ppl quality law + the induction null + the ceiling.
 
-**⏭️ NEXT (implementation `/orient` starts here): F1-close = E020** (the TRIBE stimulus-subtraction ceiling walled
-out; replaced by the ground-truth empirical-E[Y|S] ceiling — D028, design locked in `experiments/E020_*.md`).
+**⏭️ NEXT (implementation `/orient` starts here): F2 = E019 external reproduce-and-control** (paper-critical,
+ceiling-independent). **F1-close (E020) = DONE → bounded-not-closed (S14, panel-survived; D030):** NO Fork-A (the
+apparent A_resid=+0.090 was confirmed leaked-stimulus+autocorrelation, controlled away → gapped+partialled gap
+−0.018≈0); the empirical n=6 E[Y|S] reference is too noisy (ref-rel 0.33, ε-NC 0.17 = the KILL regime) — the SECOND
+ceiling instrument to wall at n=6 (after TRIBE). E020 demoted to convergent corroboration; the spine rests on the
+POWERED per-individual nulls E008/E011/E017. **No rung flip; L3/F1 stays ❌.** Manuscript framing of the bounded
+ceiling = analysis-lane / Erfan call (flagged).
 
 | Seq | Experiment | Question / decision rule | Status |
 |---|---|---|---|
 | **F1 P1 ✅ (done)** | **E016 TRIBE Phase 1 — fidelity** | TRIBE validated as a faithful in-pipeline fMRI stand-in: beats a strong nuisance floor in higher-order language Δ=+0.113 [+0.045,+0.181], 6/6 (tool-gate, no rung flip). Prereqs solved: voxel mapping → denizenslab (D027), TRIBE long-audio bug (L037). | **PASS (S13)** |
-| **F1-close (NEXT) — E020** | **empirical-E[Y|S] ceiling (TRIBE-free)** | Does the LM align beyond the stimulus-predictable part? Reference = ground-truth E[Y|S] (LOO cross-subject/repeat avg of real fMRI), NOT TRIBE (which walled out at ~7% variance — D028/L038). A_resid=LM→ε_s ≈0 within MDE ⇒ Fork-B ceiling; >0 surviving the untrained-floor + NC-bound + ≥2-3-story controls ⇒ Fork-A → STOP. Oracle-gate first. Cheap (machinery built S13). | **designed (E020), NEXT** |
+| **F1-close — E020 ✅ (bounded)** | **empirical-E[Y|S] ceiling (TRIBE-free)** | Ran story_11 n=6. **NO Fork-A** (A_resid=+0.090 = confirmed leaked-stimulus+autocorr; gapped+eng1000-partialled trained−untrained gap −0.018≈0). **Ceiling bounded-not-closed** — n=6 E[Y|S] reference too noisy (ref-rel 0.33, ε-NC 0.17 = KILL regime); 2nd instrument walled at n=6 (after TRIBE). Demoted to convergent corroboration of E008/E011/E017. Oracle+socratic+first-principles+counter-argument+premortem all run; D030/L040. No rung flip. | **DONE — bounded (S14)** |
 | **TRIBE Phase 3 (optional)** | **E016 §5 Phase 3 — synthetic-target KD** | TRIBE's only irreplaceable use: dense brain targets for the real KD corpus (no fMRI; averaging impossible), matched-ppl vs permuted. Null at scale = strongest Fork-B (removes scarcity excuse). Optional booster, slot after F2. | designed (E016 §5) |
-| **F2** | **E019 external reproduce-and-control** (100% of I2) | reproduce a published brain-tuning POSITIVE (Bilgin/Negi/Moussa recipe on LeBel/denizenslab), then show it shrinks into the matched-ppl + permuted band. **NON-NEGOTIABLE for the paper** (premortem) — and needs NO TRIBE fidelity. Survives controls ⇒ Fork-A → STOP. | designed (E019) |
+| **F2 (NEXT) — E019** | **E019 external reproduce-and-control** (100% of I2) | reproduce a published brain-tuning POSITIVE (Bilgin/Negi/Moussa recipe on LeBel/denizenslab), then show it shrinks into the matched-ppl + permuted band. **NON-NEGOTIABLE for the paper** (premortem) — and needs NO TRIBE fidelity. Survives controls ⇒ Fork-A → STOP. | **designed (E019), NEXT** |
 | **F3** | **E013/I3 denizenslab n=6 full-FT** (data downloaded) | the POWERED multi-subject induction test (closes the door at adequate power, not n=3 probe). Predeclared E013 protocol. Likely-null per 5 converging nulls; run per the 100% rule. | data ready |
 | **F4** | **E015 Q2 architecture-residual extension** | add ≥3 modern-family sizes (Llama/Mistral) + base-vs-instruct ablation at matched bpb → claim or bury the architecture-beyond-quality residual (now p=0.20, underpowered). | designed (E015) |
 | **A** | **Manuscript corrections (analysis lane, Erfan)** | r≈−0.92→−0.78 (3-part argument, drop standalone in-band −0.48); state Y⊥θ\*|S as assumption; narrow matched-ppl framing pending F2. | flagged |
