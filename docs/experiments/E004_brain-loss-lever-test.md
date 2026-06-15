@@ -1,9 +1,9 @@
-# Experiment — E004: is `$\mathcal{L}_{\text{brain}}$` a usable *lever*? (R03 Layer 1) + the D010 loss-form resolution
+# Experiment — E004: is `$\mathcal{L}_{\text{brain}}$` a usable *lever*? (R03 Q2) + the D010 loss-form resolution
 
-**Created:** 2026-06-10 · **Re-locked:** 2026-06-11 (after oracle-reviewer HOLD → design reshaped) · **Status:** COMPLETE (ran 2026-06-11) — L1 PARTIAL: fragile brain-specific lever (Qwen mse − permuted twin +0.0032 [+0.0006,+0.0058], fold-4 carries half), perplexity-entangled, sub-threshold on the 5-ROI screen (L011/L012) · **Mode:** working
-**Direction:** `../reports/R03_brain-as-training-signal.md` §5 (Layer 1 of the ladder) · `../ladder.md` (L1 rung)
+**Created:** 2026-06-10 · **Re-locked:** 2026-06-11 (after oracle-reviewer HOLD → design reshaped) · **Status:** COMPLETE (ran 2026-06-11) — Q2 PARTIAL: fragile brain-specific lever (Qwen mse − permuted twin +0.0032 [+0.0006,+0.0058], fold-4 carries half), perplexity-entangled, sub-threshold on the 5-ROI screen (L011/L012) · **Mode:** working
+**Direction:** `../reports/R03_brain-as-training-signal.md` §5 (Q2 of the ladder) · `../ladder.md` (Q2 rung)
 **Theory:** `../06-theory-grounding.md` §1 (MI gen-bound), §2 (DPI ceiling), §3 (conditional MI = unique R²)
-**Predecessors:** `E002` (A2 PASS — encoding signal is real on Tuckute) · `E003` (Layer-2a PARTIAL — KD lands below teacher, alignment co-varies with ppl, L011)
+**Predecessors:** `E002` (A2 PASS — encoding signal is real on Tuckute) · `E003` (Q1 PARTIAL — KD lands below teacher, alignment co-varies with ppl, L011)
 **Resolves:** decision **D010** (the form of `$\mathcal{L}_{\text{brain}}$`) — empirically, on real neural data.
 **Code:** `scripts/run_brain_lever.py` (runner), `scripts/brain_loss.py` (loss family), `scripts/pilot_lib.py`, `scripts/data_adapters.py:load_tuckute`
 **Output:** `outputs/E004_brain_lever.json`
@@ -12,11 +12,11 @@
 
 ## Objective — the kill-gate for the whole thesis below it
 
-The ladder's Layer 1: **is the brain-alignment signal a *lever* we can move by optimizing it, or only a property we can *measure*?**
+The ladder's Q2: **is the brain-alignment signal a *lever* we can move by optimizing it, or only a property we can *measure*?**
 
 > When we fine-tune a small LM with a differentiable brain-alignment loss `$\mathcal{L}_{\text{brain}}$` on held-in stimuli, does its **held-out** unique encoding R² (on stimuli it was never tuned on) *rise* above the untuned model — under the E002 anti-confound protocol — and does that rise survive the controls that separate "the brain objective worked" from "any fine-tune / domain-adaptation would have done it"?
 
-If yes → L1 PASS, and we have the loss form for E005 (the headline alignment-guided-KD experiment). If a confident no on the powered benchmark → the signal is measurement-only and F1 dies (reframe to measurement rigor, charter). This experiment also **resolves D010**: D010's three candidate forms are run head-to-head on real Tuckute data; the lever effect + the controls pick the winner.
+If yes → Q2 PASS, and we have the loss form for E005 (the headline alignment-guided-KD experiment). If a confident no on the powered benchmark → the signal is measurement-only and F1 dies (reframe to measurement rigor, charter). This experiment also **resolves D010**: D010's three candidate forms are run head-to-head on real Tuckute data; the lever effect + the controls pick the winner.
 
 ## Grounding (what the literature + theory dictate)
 
@@ -71,7 +71,7 @@ Simulated the locked statistic (Δ CI excludes 0 over 3 seeds × 5 folds) agains
 | gpt2 L7 | +0.013 | 0.013 | 19% | 48% | **86%** | 100% |
 | Qwen L12 | +0.009 | 0.009 | 31% | **79%** | 100% | 100% |
 
-**MDE (80% power):** gpt2 ≈ +0.010, Qwen ≈ +0.006. The design detects a moderate-to-large lever but would miss a small one (Δ≈+0.003). **Consequence for the verdict (locked):** a positive result at adequate effect size confirms L1; **a Tuckute null does NOT license a KILL** (underpowered for small effects) — it routes to the LeBel UTS03 voxelwise benchmark (thousands of voxels → far higher power), exactly the E003-PARTIAL routing.
+**MDE (80% power):** gpt2 ≈ +0.010, Qwen ≈ +0.006. The design detects a moderate-to-large lever but would miss a small one (Δ≈+0.003). **Consequence for the verdict (locked):** a positive result at adequate effect size confirms Q2; **a Tuckute null does NOT license a KILL** (underpowered for small effects) — it routes to the LeBel UTS03 voxelwise benchmark (thousands of voxels → far higher power), exactly the E003-PARTIAL routing.
 
 ## Oracle re-review refinements (PASS verdict — accepted, baked in)
 
@@ -84,15 +84,15 @@ The second oracle pass returned PASS (HOLD resolved; rotating-fold + shared-cont
 
 Verdict on the **`mse` arm on Qwen** (primary substrate, primary confirmatory loss); gpt2 + exploratory arms corroborate.
 
-- **LEVER CONFIRMED (L1 PASS).** `mse` Δ_lever > 0 with 95% CI excluding 0, **AND** beats `lm_only` (paired CI excludes 0), **AND** exceeds the 95th-pct permuted-null, **AND** held-out perplexity not significantly worse than `lm_only`. → The signal is optimizable; **`mse` is the locked D010 form** for E005. An exploratory arm only displaces `mse` if it beats `mse` reproducibly across folds *and* substrates (guards winner's-curse, review #2). Climb L1 ✅.
-- **LEVER KILLED (L1 FAIL → F1 dead as a training story).** On **Qwen at adequate power** (MDE shown ≤ base +0.036), `mse` Δ_lever CI includes 0 **and** does not exceed the permuted-null. → Optimizing the loss does not move held-out alignment where the signal is largest and confounds are controlled. F1/E005 does not run; reframe per charter. (Negative result counts — D007.) *A null on gpt2 alone, or any null at inadequate power, is NOT a KILL — it routes to LeBel.*
+- **LEVER CONFIRMED (Q2 PASS).** `mse` Δ_lever > 0 with 95% CI excluding 0, **AND** beats `lm_only` (paired CI excludes 0), **AND** exceeds the 95th-pct permuted-null, **AND** held-out perplexity not significantly worse than `lm_only`. → The signal is optimizable; **`mse` is the locked D010 form** for E005. An exploratory arm only displaces `mse` if it beats `mse` reproducibly across folds *and* substrates (guards winner's-curse, review #2). Climb Q2 ✅.
+- **LEVER KILLED (Q2 FAIL → F1 dead as a training story).** On **Qwen at adequate power** (MDE shown ≤ base +0.036), `mse` Δ_lever CI includes 0 **and** does not exceed the permuted-null. → Optimizing the loss does not move held-out alignment where the signal is largest and confounds are controlled. F1/E005 does not run; reframe per charter. (Negative result counts — D007.) *A null on gpt2 alone, or any null at inadequate power, is NOT a KILL — it routes to LeBel.*
 - **AMBIGUOUS / NOT-BRAIN-SPECIFIC (PARTIAL).** `mse` raises held-out alignment but does **not** beat `lm_only` and/or the permuted-null → generic fine-tuning / domain adaptation, not brain-specific. Route to LeBel voxelwise before confirming or killing; do not carry an unconfirmed form into E005.
 
 Degenerate arms (perplexity significantly worse than `lm_only`) are reported but disqualified from "winner" — a lever that breaks the LM is not the lever F1 needs. **A `cka` pass with `mse`/`pearson` null lowers confidence** (geometric stats, not brain correspondence).
 
-## The L1 → F1 inferential gap (review #6 — stated up front)
+## The Q2 → F1 inferential gap (review #6 — stated up front)
 
-A PASS here resolves **L1** (the signal is optimizable) and **selects the loss form**. It does **NOT** establish A3/F1. E005 (the headline) must still: (a) test the brain term inside **KD** (teacher→student, where it competes with KL, not just CE); (b) compare alignment-guided vs perplexity-only KD **at matched perplexity** (L011 — the only design that converts "headroom" to "confirmed job"); (c) confirm on **LeBel voxelwise**, not ROI-coarse Tuckute. E005 is designed against these from the start.
+A PASS here resolves **Q2** (the signal is optimizable) and **selects the loss form**. It does **NOT** establish A3/F1. E005 (the headline) must still: (a) test the brain term inside **KD** (teacher→student, where it competes with KL, not just CE); (b) compare alignment-guided vs perplexity-only KD **at matched perplexity** (L011 — the only design that converts "headroom" to "confirmed job"); (c) confirm on **LeBel voxelwise**, not ROI-coarse Tuckute. E005 is designed against these from the start.
 
 ## How to run
 
@@ -150,4 +150,4 @@ Ran 2026-06-11 (LoRA, 3 seeds × 5 rotating folds; gpt2 GPU0 ~27 min, Qwen GPU3 
 
 **Caveats (carried forward):** (1) ROI-coarse 5-dim screen, underpowered for the absolute lever — the verdict rests on the paired specificity contrast, which is the appropriate matched test but should be confirmed at voxel scale. (2) LoRA finetune still degrades ppl ~2× and alignment slightly — a gentler regime (lower lr / fewer steps / a perplexity-matched stop) is worth testing on LeBel. (3) The brain-specific effect is on Qwen-`mse` only; gpt2 shows no specificity — model-dependence to watch. (4) `frozen`'s "beats lm_only" is regularization, not a lever — do not over-read it.
 
-**Next (predeclared routing):** lock + oracle-review **E006** (LeBel voxelwise A2-feasibility — does the powered substrate carry the signal), then re-run the lever (Qwen `mse`, the brain-specific form) at voxel scale where it is adequately powered. Updates `../ladder.md` (L1 → 🟡 PARTIAL, routes to LeBel — **pending Erfan's confirmation**), `../learnings.md` (L012), D010 status (mse-leaning, unconfirmed).
+**Next (predeclared routing):** lock + oracle-review **E006** (LeBel voxelwise A2-feasibility — does the powered substrate carry the signal), then re-run the lever (Qwen `mse`, the brain-specific form) at voxel scale where it is adequately powered. Updates `../ladder.md` (Q2 → 🟡 PARTIAL, routes to LeBel — **pending Erfan's confirmation**), `../learnings.md` (L012), D010 status (mse-leaning, unconfirmed).

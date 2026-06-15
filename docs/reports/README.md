@@ -29,4 +29,4 @@ Rules:
   the corrected per-paper claims that re-weight the framing toward F1.
 - `R05_thesis-narrative-from-first-principles.md` — **LIVING.** The pedagogical, course-grounded
   narrative of the whole experimental arc, told step-by-step for understanding (distinct from the
-  terse manuscript). Built incrementally across sessions; current frontier = end of Layer 1.
+  terse manuscript). Built incrementally across sessions; current frontier = end of Q2.

@@ -1,7 +1,7 @@
-# Experiment — E003: does perplexity-only knowledge distillation preserve or destroy brain alignment? (R04 Layer 2a kill-test)
+# Experiment — E003: does perplexity-only knowledge distillation preserve or destroy brain alignment? (R04 Q1 kill-test)
 
-**Created:** 2026-06-10 · **Status:** COMPLETE (ran 2026-06-10) — L2a PARTIAL: monotone alignment gradient (not preserve-for-free), but alignment co-varies with perplexity (ρ=−0.88), KD-specific shedding only p≈0.1 (L011) · **Mode:** working
-**Direction:** `../reports/R04_gap-analysis.md` §6(a) / §8 (Layer 2a) · `../reports/R03_brain-as-training-signal.md` (ladder)
+**Created:** 2026-06-10 · **Status:** COMPLETE (ran 2026-06-10) — Q1 PARTIAL: monotone alignment gradient (not preserve-for-free), but alignment co-varies with perplexity (ρ=−0.88), KD-specific shedding only p≈0.1 (L011) · **Mode:** working
+**Direction:** `../reports/R04_gap-analysis.md` §6(a) / §8 (Q1) · `../reports/R03_brain-as-training-signal.md` (ladder)
 **Theory:** `../06-theory-grounding.md` §2 (data-processing inequality) + §4 (rate–distortion = the F1 trade-off curve)
 **Predecessor:** `E002_tuckute-encoding-feasibility.md` (A2 PASS — the encoding signal is real on Tuckute)
 **Code:** `scripts/run_kd_alignment.py` (E003 runner), reuses `scripts/distill.py`, `scripts/pilot_lib.py`, `scripts/data_adapters.py:load_tuckute`
@@ -63,7 +63,7 @@ Primary read on **`kd_cold`** (the only arm that answers 6(a)); corroborated by 
 
 - **LARGE HEADROOM — KD sheds alignment, F1 has a confirmed job.** `kd_cold` unique-R² CI includes 0 / sits at the floor ($\rho' \le 0.33$) **and** $\Delta=A_T-A_S$ is significant (>2σ). An alignment-guided objective has clear room to recover.
 - **SMALL HEADROOM — KD preserves alignment, F1 motivation is weak.** `kd_cold` CI overlaps the teacher ($\rho' \ge 0.80$), $\Delta$ not significant. Perplexity-only KD is already near the DPI-tight bound; F1 survives only as a trade-off-curve / rigor note, not a headline (the `oota-2026`-complicates-quantization outcome).
-- **MODERATE HEADROOM (PARTIAL):** $0.33 < \rho' < 0.80$, $\Delta$ real but modest ⇒ headroom exists but is partial; **triggers confirmation on LeBel UTS03 voxelwise** (Layer 3, the powered benchmark — Tuckute is ROI-coarse, 5 dims, NC≈0.35, adequate only for a cheap screen).
+- **MODERATE HEADROOM (PARTIAL):** $0.33 < \rho' < 0.80$, $\Delta$ real but modest ⇒ headroom exists but is partial; **triggers confirmation on LeBel UTS03 voxelwise** (Q3, the powered benchmark — Tuckute is ROI-coarse, 5 dims, NC≈0.35, adequate only for a cheap screen).
 
 Negative results count (D007 / charter). A SMALL-HEADROOM verdict is a real, publishable finding that re-weights the thesis, and it ends F1 *as a headline* cheaply — exactly what a kill-test is for.
 

@@ -2,7 +2,7 @@
 
 **Created:** 2026-06-14 (S14 close, by the agent, for Erfan's heavy analysis week starting 2026-06-15).
 **Purpose:** a sequenced, pedagogical plan to (1) **resume** the frozen analysis lane (R05 was paused at end of
-Layer 1; §9 = E005 is next), (2) **get current** on everything the implementation lane produced since (E015, E017,
+Q2; §9 = E005 is next), (2) **get current** on everything the implementation lane produced since (E015, E017,
 E020, E019, and the S14 idea-refinement), (3) **learn alongside** — deepen the information-theory math while you narrate
 it, and (4) **produce** the manuscript v1.0 with the S14 scope correction and refocused headline baked in.
 
@@ -25,7 +25,7 @@ it, and (4) **produce** the manuscript v1.0 with the S14 scope correction and re
 - **A2 (is the signal real?) — ✅ PASS, powered.** A trained LM's middle layer predicts real fMRI beyond the full
   nuisance floor: trained−untrained unique-R² gap **+0.021 (gpt2) / +0.028 (Qwen)** on ~11.4k NC-reliable voxels,
   95–99% positive, contiguous splits (E006). The signal is real.
-- **F1/L3 (does optimizing brain-alignment buy a per-individual gain at matched perplexity?) — ❌ NULL, robust.**
+- **F1/Q3 (does optimizing brain-alignment buy a per-individual gain at matched perplexity?) — ❌ NULL, robust.**
   E005's apparent **+0.0081** headline collapsed to a per-individual **null** (E008: mean **+0.00010**, 95% CI
   **[−0.0004,+0.0006]**, n=9, MDE≈+0.0006) once measured per-subject instead of against a group-averaged target. The
   null survived every escape: capacity (E011), objective (E013b), substrate (E013), full-FT (E017, n=9, p=0.27), and
@@ -42,7 +42,7 @@ it, and (4) **produce** the manuscript v1.0 with the S14 scope correction and re
   (brain-as-prior improving generalization without moving the alignment metric) — argued-shut by E009's ~0 fulcrum,
   not measured-shut.
 
-**The analysis lane was frozen at R05 §7 (end of Layer 1).** Everything from E005 onward — the would-be headline, its
+**The analysis lane was frozen at R05 §7 (end of Q2).** Everything from E005 onward — the would-be headline, its
 collapse, the robustness escapes, the quality law, the ceiling, the reproduction, and the scope correction — is
 **not yet narrated** in R05 and **not yet reframed** in the manuscript. That is this week's work.
 

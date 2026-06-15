@@ -1,5 +1,7 @@
 # Thesis-arc comprehension checklist (analysis-session teaching aid)
 
+*'Layer N' below = teaching chapter (coarse lesson unit); the kill-gated rungs are Q0–Q5 — see `../map.md`.*
+
 Running checklist for the Socratic walk-through of the brain-alignment thesis, R03 → now.
 **Purpose:** verify Erfan deeply understands every layer before advancing. Updated live as we go.
 Status: ⬜ not started · 🟡 in progress · ✅ mastered (demonstrated, not just read).
@@ -19,18 +21,18 @@ Status: ⬜ not started · 🟡 in progress · ✅ mastered (demonstrated, not j
 - [x] Distillation = the first easy-to-measure **use case**, not the whole thesis (verified).
 - [x] A1/A2/A3 and why A2 gates A1/A3 (dependent, not parallel — verified).
 
-### Layer 1 — Measurement: is alignment even real? (L0/A2) ⬜
+### Layer 1 — Measurement: is alignment even real? (Q0/A2) ⬜
 - [ ] Encoding model + unique R² — what we actually compute.
 - [ ] The confound problem (Feghhi/Oota): length, position, low-level features, split leakage.
 - [ ] The anti-confound kit: contiguous splits, nuisance baselines, permuted twin, noise ceiling.
 - [ ] E002 (Tuckute ROI) + E006 (LeBel voxelwise) → why A2 PASSES, powered.
 
-### Layer 2 — The lever: can you optimize it? (L1/E004) ⬜
+### Layer 2 — The lever: can you optimize it? (Q2/E004) ⬜
 - [ ] What `L_brain` is and the loss family (mse/cos/pearson/frozen/cka).
 - [ ] "Lever" = does *optimizing* the loss *raise held-out* alignment (not just fit training)?
 - [ ] Why E004 is only PARTIAL: brain-specific lever exists but fragile + perplexity-coupled.
 
-### Layer 3 — The would-be headline and its collapse (L3/F1) ⬜
+### Layer 3 — The would-be headline and its collapse (Q3/F1) ⬜
 - [ ] E005's apparent +0.0081 — what target it was measured against (group-averaged).
 - [ ] The panel catch: pseudo-replication (15 cells over ONE 5-UID-averaged target).
 - [ ] E008: per-individual, n=9, well-powered → NULL (+0.00010, CI crosses 0).
@@ -56,7 +58,7 @@ Status: ⬜ not started · 🟡 in progress · ✅ mastered (demonstrated, not j
 ### Layer 7 — Where we stand & the open doors ⬜
 - [ ] Manuscript v0.9 = the Fork-B story; what the headline is now.
 - [ ] The one untested door: full-FT (not LoRA readout) on multi-subject naturalistic voxelwise.
-- [ ] Why L4/F3 (fMRI-free proxy) is deferred/moot.
+- [ ] Why Q5/F3 (fMRI-free proxy) is deferred/moot.
 
 ---
 

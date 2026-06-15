@@ -2,7 +2,7 @@
 
 **Created:** 2026-06-12 (Session 9 — analysis). **Status:** LIVING — built incrementally across sessions as we walk the arc together; rewritten/extended in place. **Full width, one line per paragraph, no hard wrap.**
 
-**Coverage frontier (read this first).** This report is being written as a guided walk-through, one layer at a time. **The result is already in** — the experimental program is closed and the headline came back a *well-powered null* (`ladder.md`: program CLOSED → write-up; L3/F1 = ❌ NULL per-subject; L2b/A3 = ❌ bounded NULL). This narrative simply has not yet *reached* the reversal: as of this revision it is **complete through Layer 1 — the lever verdict and the E007 reroute** (i.e. "the signal is real, but is it movable?"). The dramatic part — E005's apparent headline, its collapse to a per-individual null (E008), the robustness escapes (E011/E013b/E013/E014, and the powered full-FT escape E017), the cross-family quality law (E015), the bounded stimulus-predictability ceiling (E020), the external reproduction (E019), and the Fork-B reframe with its S14 scope correction (L041) — is Layer 3 onward and is **not yet written here**; structured placeholders mark where each piece will land. So read "LIVING" as *known ending, not-yet-narrated*, not *story going well*. The canonical status of *all* rungs is always `ladder.md`; when this report lags, the ladder wins.
+**Coverage frontier (read this first).** This report is being written as a guided walk-through, one layer at a time. **The result is already in** — the experimental program is closed and the headline came back a *well-powered null* (`ladder.md`: program CLOSED → write-up; Q3/F1 = ❌ NULL per-subject; Q4/A3 = ❌ bounded NULL). This narrative simply has not yet *reached* the reversal: as of this revision it is **complete through Q2 — the lever verdict and the E007 reroute** (i.e. "the signal is real, but is it movable?"). The dramatic part — E005's apparent headline, its collapse to a per-individual null (E008), the robustness escapes (E011/E013b/E013/E014, and the powered full-FT escape E017), the cross-family quality law (E015), the bounded stimulus-predictability ceiling (E020), the external reproduction (E019), and the Fork-B reframe with its S14 scope correction (L041) — is Q3 onward and is **not yet written here**; structured placeholders mark where each piece will land. So read "LIVING" as *known ending, not-yet-narrated*, not *story going well*. The canonical status of *all* rungs is always `ladder.md`; when this report lags, the ladder wins.
 
 **Review status:** this report was stress-tested by the thinking panel (counter-argument, first-principles-grounder, socratic-thinker, premortem-analyst) on 2026-06-12; their accuracy/grounding/pedagogy/framing findings have been folded in (corrected noise-ceiling, ρ′ labelling, A3 novelty scope, DPI chain, per-rung verdicts in §3, theory hedges).
 
@@ -92,14 +92,14 @@ The decisive structural point: these are **dependent, not parallel.** A1 and A3 
 
 | Rung | Question | Maps to | **Final verdict (per ladder.md)** |
 |---|---|---|---|
-| **L0 · A2** | Is the alignment signal real beyond confounds? | the gating question | ✅ **PASS (powered)** |
-| **L2a** | Does plain perplexity-only KD preserve or destroy alignment? | the cheap F1 gate | 🟡 PARTIAL (headroom; not preserve-for-free) |
-| **L1** | Is $L_{\text{brain}}$ a *lever* — does optimising it raise held-out alignment? | movability | 🟡 PARTIAL (fragile, sub-threshold) |
-| **L3 · F1** | Alignment-guided KD vs perplexity-only KD at matched perplexity → per-person gain? | the headline | ❌ **NULL per-subject** (well-powered) |
-| **L2b · A3** | Does induced alignment buy something practical (OOD)? | the payoff | ❌ **bounded NULL** |
-| **L4 · F3** | An fMRI-free proxy that recovers most of the benefit? | the stretch | ⬜ deferred (moot) |
+| **Q0 · A2** | Is the alignment signal real beyond confounds? | the gating question | ✅ **PASS (powered)** |
+| **Q1** | Does plain perplexity-only KD preserve or destroy alignment? | the cheap F1 gate | 🟡 PARTIAL (headroom; not preserve-for-free) |
+| **Q2** | Is $L_{\text{brain}}$ a *lever* — does optimising it raise held-out alignment? | movability | 🟡 PARTIAL (fragile, sub-threshold) |
+| **Q3 · F1** | Alignment-guided KD vs perplexity-only KD at matched perplexity → per-person gain? | the headline | ❌ **NULL per-subject** (well-powered) |
+| **Q4 · A3** | Does induced alignment buy something practical (OOD)? | the payoff | ❌ **bounded NULL** |
+| **Q5 · F3** | An fMRI-free proxy that recovers most of the benefit? | the stretch | ⬜ deferred (moot) |
 
-This report walks rungs **L0, L2a, and L1** — i.e. up to "the signal is real, and the lever is fragile." The two ❌ rungs (L3/L2b — where the headline collapsed) are the coverage frontier and are narrated in §9 onward (not yet written); the spoiler is here so no reader mistakes the early rungs for a finished, winning thesis.
+This report walks rungs **Q0, Q1, and Q2** — i.e. up to "the signal is real, and the lever is fragile." The two ❌ rungs (Q3/Q4 — where the headline collapsed) are the coverage frontier and are narrated in §9 onward (not yet written); the spoiler is here so no reader mistakes the early rungs for a finished, winning thesis.
 
 ---
 
@@ -117,7 +117,7 @@ This report walks rungs **L0, L2a, and L1** — i.e. up to "the signal is real, 
 
 ---
 
-## §5. Layer 0 — is the signal real? (A2)
+## §5. Q0 — is the signal real? (A2)
 
 **E001 — the synthetic pilot that could not answer the question (lesson L004).** The first pilot used *synthetic* fMRI. By construction, synthetic data cannot tell you whether *real* brain structure is present beyond nuisance — it can only test plumbing. The lesson recorded (L004): a feasibility test has to be on real neural data or it answers nothing. This is why E002 exists.
 
@@ -134,13 +134,13 @@ The confidence intervals are *extremely* tight (11k voxels × folds = a mountain
 
 ---
 
-## §6. The L2a gate — does perplexity-only distillation keep alignment? (E003, lesson L011)
+## §6. The Q1 gate — does perplexity-only distillation keep alignment? (E003, lesson L011)
 
 Before building any brain loss, a cheap kill-test: where does ordinary perplexity/logit distillation land a student on the alignment axis, relative to its teacher? If KD preserves alignment *for free*, then F1 ("protect alignment during compression") is solving a non-problem. First, the labels: a **warm-KD** student is initialised from the teacher's weights and then distilled; a **cold-KD** student is distilled from scratch (random init); distilgpt2 is the off-the-shelf distilled GPT-2. **E003 found a clean monotone gradient** in *floor-anchored retention* $\rho' = (A_{\text{student}} - A_{\text{floor}})/(A_{\text{teacher}} - A_{\text{floor}})$ — conventional GPT-2 $\approx$ teacher > warm-KD ($\rho'=0.84$) > distilgpt2 (0.60) > from-scratch cold-KD (0.37); cold-KD sits $\Delta=0.018$ ($p<0.001$) below the teacher. (Read $\rho'$ carefully: it is retention *relative to an untrained floor*, not a fraction of the teacher's alignment — cold-KD's $\rho'=0.37$ looks middling but its raw unique $R^2$ is +0.0005 against the teacher's +0.0188, i.e. it kept ~nothing; $\rho'$ is inflated only because the floor is negative.) So alignment is **not** preserved by default — there is headroom for a brain objective to matter. **But the deeper lesson (L011) is the one that reshapes everything after it:** alignment **co-varies with general LM quality**. Quality is measured by **perplexity** — roughly, how "surprised" the model is by held-out text (the exponential of its average next-token loss); *lower perplexity = better language model*. Across these students, alignment tracks perplexity at $\rho = -0.88$ on log-perplexity (better model → more aligned), and the *KD-specific* shedding-beyond-what-perplexity-costs is only $p \approx 0.1$ at this ROI-coarse benchmark. **Consequence:** any future "alignment went up" result is confounded unless the baseline is matched on **perplexity**, not just compute budget — otherwise you cannot tell a brain-objective win from "I just made a better language model." This single requirement — *matched perplexity* — becomes the load-bearing control of the entire headline experiment. (`experiments/E003_*.md`.)
 
 ---
 
-## §7. Layer 1 — can we *move* it? The lever, and why E007 was cancelled (the coverage frontier)
+## §7. Q2 — can we *move* it? The lever, and why E007 was cancelled (the coverage frontier)
 
 **E004 — building $L_{\text{brain}}$ and testing it as a lever.** A "lever" means: if we *optimise* the brain loss (brain-tune a small model), does *held-out* unique $R^2$ actually *rise*? E004 built the loss family (MSE / cosine / Pearson / frozen-encoder / CKA variants, plus a block-permuted twin) and brain-tuned via **LoRA** (Low-Rank Adaptation — a cheap fine-tuning method that freezes the model and learns small low-rank weight-update matrices, chosen here because full fine-tuning at any useful $\lambda$ wrecked perplexity, L012(5)). The finding was a **fragile, brain-specific lever on the strongest aligner**: Qwen co-trained-MSE minus its own permuted twin = **+0.0032 [+0.0006, +0.0058]** — positive and specific (it beats the permuted control), but small, and one fold (fold 4) carries about half of it. On the coarse 5-ROI screen no arm raised alignment above base by a resolvable margin (the screen's MDE is too large), the `frozen` variant behaved as a *non-specific* regulariser, and — consistent with L011 — the lever co-varies with perplexity. **Verdict: PARTIAL.** A brain-specific lever exists but is fragile and perplexity-entangled (lessons L011/L012). Its predeclared rule routes the question to a powered substrate. (`experiments/E004_*.md`.)
 
@@ -152,20 +152,20 @@ E006 computed, from the fold-to-fold variance of unique $R^2$ on those 11k relia
 
 **The decision: cancel E007, reroute to E005.** One honest nuance kept the lever from being declared dead: the +0.013 MDE is for the *crude unpaired* statistic, whereas E004's +0.003 surfaced only in the *paired* arm-vs-permuted-twin contrast (which removes common-mode noise and could be better powered). So the verdict was not "the lever is zero" but "**building the heavy E007 training loop is a gamble against a fragile +0.003 on a substrate that can't cleanly resolve it.**" There is also a logical thread worth making explicit: if the lever is this fragile and sub-threshold, then the *same* loss used inside distillation should be expected to buy $\approx 0$ per person — so E005 was run not because we expected a Fork-A win, but because it is the cleanest way to *measure* the per-individual gain, win or null. The honest move was to **not build E007** and instead run **E005** — alignment-guided vs perplexity-only distillation at *matched perplexity* — which is decision-useful either way: a big brain-term win would be the optimistic thesis (Fork A), a small/null result is the honest measurement/trade-off contribution (Fork B). (`experiments/E006_*.md`, decision recorded there.)
 
-**The seam this opens.** Layer 0 said the signal is *real*, overwhelmingly. The first powered look at "is it *movable*?" said: the movable effect, if any, is *tiny* and hard to pin down. That is the distinction that organises the entire rest of the thesis:
+**The seam this opens.** Q0 said the signal is *real*, overwhelmingly. The first powered look at "is it *movable*?" said: the movable effect, if any, is *tiny* and hard to pin down. That is the distinction that organises the entire rest of the thesis:
 
 ```
    REAL  ≠  MOVABLE   ≠  USEFUL
-   (A2)      (L1)         (A3)
+   (A2)      (Q2)         (A3)
    E002,     E004         E009
    E006      fragile,     bounded
    STRONG    sub-thresh.  NULL
-   PASS      → reroute    → (and L3/F1 = per-person NULL)
+   PASS      → reroute    → (and Q3/F1 = per-person NULL)
    ✅         🟡 → ❌       ❌
 ```
 (The diagram is drawn *at this coverage frontier*; the two right-hand questions do not stay open — both later resolve **negative** per `ladder.md`. They are shown fragile/to-come only because §9+ has not yet narrated their collapse.)
 
-A strong PASS on "real" tells you *nothing* about "movable" or "useful." Keeping these three apart is the spine of everything that follows. And the ending is already known: **the matched-perplexity headline (E005) looked like a +0.0081 brain-specific win, but it does not survive — it collapses to a per-individual null (E008), and the ladder already records L3/F1 as ❌.** The next sections explain *how* that collapse happened and why the null is, in the end, the contribution.
+A strong PASS on "real" tells you *nothing* about "movable" or "useful." Keeping these three apart is the spine of everything that follows. And the ending is already known: **the matched-perplexity headline (E005) looked like a +0.0081 brain-specific win, but it does not survive — it collapses to a per-individual null (E008), and the ladder already records Q3/F1 as ❌.** The next sections explain *how* that collapse happened and why the null is, in the end, the contribution.
 
 ---
 
@@ -173,14 +173,14 @@ A strong PASS on "real" tells you *nothing* about "movable" or "useful." Keeping
 
 The narrative above is complete through the lever verdict. The following are recorded in the ladder and experiment docs and will be written into R05, in this style, as we walk them in subsequent sessions:
 
-- [ ] **§9 — Layer 3 / F1, the would-be headline (E005).** The matched-perplexity alignment-guided vs perplexity-only KD experiment; the apparent **+0.0081** brain-specific gain; what target it was measured against.
+- [ ] **§9 — Q3 / F1, the would-be headline (E005).** The matched-perplexity alignment-guided vs perplexity-only KD experiment; the apparent **+0.0081** brain-specific gain; what target it was measured against.
 - [ ] **§10 — The panel catch and the collapse (E008).** Pseudo-replication exposed before compute (L015); the well-powered per-individual experiment ($n=9$, MDE $\approx +0.0006$, power 1.0 at $\delta=+0.003$) returning a **null** (+0.00010, CI crossing 0); why a *powered* null is a real result, not a shrug.
 - [ ] **§11 — The reframe (Fork B) and the averaging confound.** Why cross-subject target-averaging manufactures apparent brain-specificity; why the null is the positive contribution.
 - [ ] **§12 — Closing every escape (robustness), now method-general.** E011 (capacity), E013b (objective), E013 (substrate / mechanism failure), E014 (the encoding-side averaging that is *not* a confound), and **E017** (the powered full-FT escape, $n=9$, $p=0.27$) — the null survives every axis: capacity / objective / substrate / *parameterisation* (LoRA + full fine-tuning), a method-general lever failure (L036).
 - [ ] **§13 — The supporting law: why "brain-specific" gains track quality.** E009 (A3, bounded null, null-by-construction) and **E015** (the cross-family alignment $\propto$ −bits-per-byte law, **$r \approx -0.78$** — corrected from the v2 $-0.92$, which was inflated by per-token-perplexity + best-layer + a 3-family span; operative capable-band $\approx -0.48$ with CI crossing 0; L034) — and why this is the *mechanism* that makes matched-perplexity the load-bearing control.
 - [ ] **§14 — The stimulus-predictability ceiling, scoped honestly (the conceptual core).** **E020** (the empirical $E[Y\mid S]$ ceiling, **bounded-not-closed** — instrument-limited at $n=6$, demoted to convergent corroboration; D030/L039/L040) and the **S14 scope correction (L041, keystone):** the evidence supports the *operational* claim ("no brain-specific gain is **inducible** beyond perplexity via the readouts tried"), not the information-theoretic "the residual is task-independent noise"; **$Y \perp \theta^\star \mid S$ is an assumption**, not a result; and the one **unmeasured** door — a DPI selection/regularisation side-channel (a brain prior that helps OOD without moving the alignment metric, lecture-26 $I(W;Z^n)$) — is *argued*-shut by E009's ~0 fulcrum, not *measured*-shut.
 - [ ] **§15 — The external reproduction (corroboration, not clincher).** **E019** (a faithful Negi head — differentiable Lanczos+FIR+NT-Xent full-FT on LeBel — with no positive encoding gain at any lr; L042) and why it is *corroboration* of the lever-failure spine, not a clean "Negi doesn't reproduce" (the raw-mean-$r$ ruler is quality-blind; decoder $\neq$ Negi's BERT); the literature positioning (Jia L-PACT, Raugel, Hadidi→Nature-Comms).
-- [ ] **§16 — Where we stand.** Manuscript reframe to the refocused headline (control-protocol + per-individual null + $E[Y\mid S]$ ceiling); the one untested door (full fine-tuning on multi-subject naturalistic voxelwise) now superseded/moot (E017's powered null; D033); why L4/F3 is deferred.
+- [ ] **§16 — Where we stand.** Manuscript reframe to the refocused headline (control-protocol + per-individual null + $E[Y\mid S]$ ceiling); the one untested door (full fine-tuning on multi-subject naturalistic voxelwise) now superseded/moot (E017's powered null; D033); why Q5/F3 is deferred.
 
 ---
 
@@ -190,4 +190,4 @@ The narrative above is complete through the lever verdict. The following are rec
 
 ---
 
-**Last updated:** 2026-06-12 (Session 9; panel-reviewed + revised). Narrative frontier: end of Layer 1 (lever verdict / E007 reroute). Next: §9 (E005).
+**Last updated:** 2026-06-12 (Session 9; panel-reviewed + revised). Narrative frontier: end of Q2 (lever verdict / E007 reroute). Next: §9 (E005).

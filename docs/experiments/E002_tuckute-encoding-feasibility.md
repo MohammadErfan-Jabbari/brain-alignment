@@ -1,7 +1,7 @@
 # Experiment — E002 real-data encoding feasibility on Tuckute 2024 (the A2 question)
 
 **Created:** 2026-06-10 · **Status:** done — A2 PASS across 3 models (gpt2, gpt2-medium, Qwen2.5-0.5B)
-**Direction:** `../reports/R03_brain-as-training-signal.md` (Layer 0 of the ladder) · **Mode:** working
+**Direction:** `../reports/R03_brain-as-training-signal.md` (Q0 of the ladder) · **Mode:** working
 **Code:** `scripts/run_encoding_feasibility.py`, `scripts/data_adapters.py:load_tuckute`, `scripts/pilot_lib.py`
 **Output:** `outputs/E002_tuckute_feasibility.json`
 **New to the vocabulary?** Voxel/ROI, encoding model, unique R², noise ceiling, "% of ceiling", what Tuckute is → `../07-concepts-primer.md`.
@@ -68,4 +68,4 @@ The headline E001 could never produce: on **real** language-network BOLD, a trai
 
 **A2 verdict: PASS on Tuckute.** The alignment signal is real, not nuisance, on real neural data. The charter's gating kill condition is **not** triggered.
 
-**What this licenses:** climbing to **Layer 1** of the R03 ladder (is the signal a *lever* we can move by training — i.e. can we brain-tune a small model and watch unique R² rise?). **What it does NOT license:** any A3 / distillation claim — that preserving the signal *buys* something practical is still untested. **Caveats:** (1) Tuckute is ROI-level (5 dims, coarse); the powered *voxelwise* verdict belongs to LeBel UTS03 (Layer 3, data now staged, adapter pending). (2) Isolated sentences make this a *lower-bound-friendly* test (no temporal-autocorrelation inflation) — a genuine plus for trusting the positive result.
+**What this licenses:** climbing to **Q2** of the R03 ladder (is the signal a *lever* we can move by training — i.e. can we brain-tune a small model and watch unique R² rise?). **What it does NOT license:** any A3 / distillation claim — that preserving the signal *buys* something practical is still untested. **Caveats:** (1) Tuckute is ROI-level (5 dims, coarse); the powered *voxelwise* verdict belongs to LeBel UTS03 (Q3, data now staged, adapter pending). (2) Isolated sentences make this a *lower-bound-friendly* test (no temporal-autocorrelation inflation) — a genuine plus for trusting the positive result.

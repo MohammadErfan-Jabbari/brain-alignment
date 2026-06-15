@@ -200,7 +200,7 @@ gains, making the DTL gains look even smaller in relative terms.
 
 **Which assumption this touches:** A3 (preserved brain-alignment buys practical downstream benefit).
 
-**Role in our framework:** Primary floor-setter for E009 (A3 / L2b). This paper is the only
+**Role in our framework:** Primary floor-setter for E009 (A3 / Q4). This paper is the only
 published study that directly optimizes for brain-alignment *and* measures adversarial robustness
 with shuffled-brain controls. Its findings establish the magnitude of the practical benefit we
 should expect and the design requirements for a credible test.

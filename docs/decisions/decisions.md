@@ -257,7 +257,7 @@ lenses that earn their keep), or a single combined reviewer proves as effective 
 
 ### D018 — 2026-06-11 — In-domain F1 reframed to Fork-B: the per-subject effect is NULL (E008); A3 is now the central contribution
 
-**Decision (Erfan-confirmed, D015 gate):** The L3/F1 "headline" is downgraded from 🟡 PARTIAL-PASS to a
+**Decision (Erfan-confirmed, D015 gate):** The Q3/F1 "headline" is downgraded from 🟡 PARTIAL-PASS to a
 **per-subject NULL** (averaged-target-only trend). E008 (per-participant, n=9, well-powered MDE≈+0.0006,
 two-panel-adjudicated) returns mean +0.00010, t-CI [−0.0004,+0.0006], sign 5/9; the 4 subjects E005
 averaged are individually null. **E005's +0.0081 was a group-averaged-target measurement** — a higher-SNR
@@ -323,7 +323,7 @@ the **full-FT multi-subject voxelwise door** (E013 §"two routes"), whose kill c
 (E013 §17). Anything beyond it needs a written Claim + kill criterion before compute.
 
 **Reverses / revisits if:** the implementation lane runs dry (only the full-FT door + E015-expansion are
-real impl work today — F3/L4 is moot pending a positive L3), or Erfan redirects on return.
+real impl work today — F3/Q5 is moot pending a positive Q3), or Erfan redirects on return.
 
 ---
 
@@ -549,7 +549,7 @@ that the instrument is in the predeclared **KILL regime** (LOO reference reliabi
 4. **Next compute = F2 (E019 external reproduce-and-control)** — paper-critical (premortem NON-NEGOTIABLE),
    ceiling-independent, needs no TRIBE/E[Y|S]. Forward order now: ~~F1-close(E020)~~ **F1-close DONE (bounded) → F2
    (NEXT) → F3 (I3 n=6 full-FT) → F4 (E015 Q2).**
-5. **No rung flip.** L3/F1 stays ❌ (robust per-individual null). The manuscript framing of E020 (how/whether to
+5. **No rung flip.** Q3/F1 stays ❌ (robust per-individual null). The manuscript framing of E020 (how/whether to
    present the bounded ceiling) is an **analysis-lane / Erfan call** — flagged, not edited.
 
 **Hard lines unchanged:** numbers only from recorded runs (above, in `outputs/E020_eys/`); no rung flips without

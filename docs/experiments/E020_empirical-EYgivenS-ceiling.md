@@ -152,7 +152,7 @@ The naive flag fired (A_resid positive). **It is a confirmed ARTIFACT, NOT escal
 group-LM's linear-ridge alignment to per-subject fMRI is dominated by the stimulus-predictable component; after
 controlling autocorrelation and stimulus structure, no per-subject-residual alignment survives — consistent with the
 ceiling, though the empirical reference is too noisy to bound ρ tightly, so the universal claim rests on convergence
-with E008/E011/E017.*  **No rung flip.** L3/F1 stays ❌ (robust per-individual null).
+with E008/E011/E017.*  **No rung flip.** Q3/F1 stays ❌ (robust per-individual null).
 
 ### v2.1 — panel corrections (socratic + first-principles, opus, S14). Sharpen the claim; do not change the run.
 The pre-lock thinking panel exposed three things the v2 text over-claimed. Corrected here (the experiment is sound

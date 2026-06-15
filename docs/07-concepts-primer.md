@@ -137,9 +137,9 @@ within-subject sampling, ~95k **voxels** with a CC_norm noise ceiling. Fine-grai
 
 **"Real" is not the same as "movable" is not the same as "useful."** These are three separate
 questions, established by three separate rungs:
-- **Real** (A2 / L0): does the alignment signal exist beyond confounds? (E002, E006 — yes, powered.)
-- **Movable / a lever** (L1): can you *raise* held-out alignment by optimizing for it? (E004 — fragile.)
-- **Useful** (A3 / L2b): does induced alignment buy something practical? (E009 — bounded null.)
+- **Real** (A2 / Q0): does the alignment signal exist beyond confounds? (E002, E006 — yes, powered.)
+- **Movable / a lever** (Q2): can you *raise* held-out alignment by optimizing for it? (E004 — fragile.)
+- **Useful** (A3 / Q4): does induced alignment buy something practical? (E009 — bounded null.)
 
 A strong PASS on "real" says nothing about "movable" or "useful." Keeping these separate is the spine
 of the whole ladder — see `ladder.md`.

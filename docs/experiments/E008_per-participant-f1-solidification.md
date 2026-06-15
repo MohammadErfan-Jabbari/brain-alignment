@@ -1,7 +1,7 @@
 # Experiment — E008: in-domain F1 solidification — is the brain-specific gain real ACROSS individual participants?
 
 **Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11) — per-individual F1 NULL, well-powered (n=9, mean +0.00010, t-CI [−0.0004,+0.0006], power 1.0 at δ=+0.003); E005's +0.0081 = group-averaged-target artifact (L016) · **Mode:** working
-**Direction:** L3/F1 (the in-domain headline). Closes the n=1 pseudo-replication hole the S8 panel found in E005 (L015) **before** any transfer/curve work.
+**Direction:** Q3/F1 (the in-domain headline). Closes the n=1 pseudo-replication hole the S8 panel found in E005 (L015) **before** any transfer/curve work.
 **Predecessors:** `E005` (in-domain F1, but "CI excludes 0" was a 15-cell bootstrap over ONE subject-average — L015 honest re-analysis: fold-level t-CI includes 0, median +0.0034, one outlier fold carries 52%) · `E004` (lever, fragile)
 **Theory:** `../06-theory-grounding.md` §3 (conditional-MI = unique R²)
 **Code:** extends `scripts/run_brain_lever.py` (add `--uids` per-subject loop + n_perm null + across-subject inference)
@@ -133,8 +133,8 @@ The brain-specific gain collapses from E005's averaged **+0.0081** to a per-subj
 
 **Defensible claim after E008:** *"Alignment-guided KD shows no detectable per-individual brain-specific alignment gain beyond perplexity (n=9, mean +0.0001, 95% CI [−0.0004,+0.0006], well-powered, MDE≈+0.0006); the positive in-domain signal appears only against a multi-subject-averaged target as a higher-SNR measurement of the shared stimulus-evoked response, not per-person brain alignment."* This is a clean, literature-consistent (Hadidi/Feghhi ≤10%) **Fork-B** result.
 
-**Implication:** the thesis's in-domain F1 "headline" (L3) does not hold at the individual level. The honest contribution becomes (1) A2 (alignment is real & measurable, powered — E006), (2) this **well-powered per-subject null** + the rigorous anti-confound characterization, and (3) **A3** (does any of this buy something practical — E009), now the central open question. The only grounded path to a per-individual positive is higher per-subject SNR (within-subject repeats) or conditioning surprisal/imageability into the nuisance — not more averaging.
+**Implication:** the thesis's in-domain F1 "headline" (Q3) does not hold at the individual level. The honest contribution becomes (1) A2 (alignment is real & measurable, powered — E006), (2) this **well-powered per-subject null** + the rigorous anti-confound characterization, and (3) **A3** (does any of this buy something practical — E009), now the central open question. The only grounded path to a per-individual positive is higher per-subject SNR (within-subject repeats) or conditioning surprisal/imageability into the nuisance — not more averaging.
 
 ## Status
 
-VERDICT RECORDED (NULL, well-powered, panel-adjudicated). **Ladder L3/F1 flip pending Erfan's confirmation (D015)** — the in-domain F1 downgrades from 🟡 PARTIAL-PASS to a per-subject NULL / averaged-target-only trend. Next: A3 (E009) as the central contribution, gated on Erfan's confirmation of the reframe.
+VERDICT RECORDED (NULL, well-powered, panel-adjudicated). **Ladder Q3/F1 flip pending Erfan's confirmation (D015)** — the in-domain F1 downgrades from 🟡 PARTIAL-PASS to a per-subject NULL / averaged-target-only trend. Next: A3 (E009) as the central contribution, gated on Erfan's confirmation of the reframe.
