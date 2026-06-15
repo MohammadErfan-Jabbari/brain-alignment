@@ -24,6 +24,9 @@ Rules:
 - State sources and **flag gaps**; **only numbers a working session actually recorded** (D011). Literature
   numbers cite their canonical note. Route all report writing through the `scientific-writing` skill (voice,
   the `[E0nn]` cite rule, the verifiers).
+- **Math-grounded, in LaTeX.** Formalize the report's core quantity and any foundational concept in real LaTeX
+  (`$…$` / `$$…$$`, which Markdown renders); cite the course note (`docs/06-theory-grounding.md`) for any
+  definition or bound rather than re-deriving. Prose explains; the formula pins it down.
 
 ## Index
 

@@ -59,6 +59,11 @@ A number never enters at a lower layer than where it was recorded.
 - **Shape:** a one-line header (the claim + its current verdict + the `Q` it answers), then **question → design**
   (baselines, controls, stop rule) **→ evidence** (each number with its uncertainty and the named test) **→ verdict
   → caveats**. Caveats live *in* the claim sentence, not a footnote.
+- **Formalize the core quantity, in LaTeX, course-grounded.** A report's central construct, and any foundational
+  concept it rests on, get a precise definition in real LaTeX (`$…$` / `$$…$$`, which Markdown renders), not plain-text
+  symbols. Where the concept has a course note (`docs/06-theory-grounding.md` → `data/course-material/`), cite it
+  rather than re-deriving: prose explains the mechanism, the formula pins it down. Reports are rigorous and
+  math-grounded by standard, not by exception.
 - **No chronological-narrative exception.** Every active report is current-truth-only. The former teaching
   companion (`R05`), which narrated the arc in order, is **retired and frozen** (2026-06-16): it is kept as
   history, not an active report, and nothing new is written in that mode.
