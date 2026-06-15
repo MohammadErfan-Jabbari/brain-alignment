@@ -46,6 +46,23 @@ layers"), which is the source of truth. Routing only:
 Knowledge flows down only: evidence into a report, report into the extended, extended into a public cut.
 A number never enters at a lower layer than where it was recorded.
 
+## Report scope and shape (the report layer — D036)
+
+- **Scope = one durable claim, tagged with the question it answers — not a topic, a phase, or the whole arc.**
+  A report owns exactly one finding (e.g. "the per-individual null + the averaging confound"), tagged with the
+  ladder question(s) `Q0`–`Q5` it resolves. **Single-owner:** a claim lives in one report, so a new experiment
+  updates one file, and the `Q → owning report` index (in `docs/map.md`) answers "which report for what" in one hop.
+- **Current truth only — no chronological spoilers.** A report states what we believe *now*, rewritten in place.
+  It does NOT narrate discovery order, mark a section "obsolete", or carry a "coverage frontier / not yet narrated".
+  An overturned result is replaced by the current one; the *history* (the wrong turns, the order they happened)
+  lives in `map.md` (the journey tree), `timeline/`, and `decisions/` — never as back-and-forth inside the synthesis.
+- **Shape:** a one-line header (the claim + its current verdict + the `Q` it answers), then **question → design**
+  (baselines, controls, stop rule) **→ evidence** (each number with its uncertainty and the named test) **→ verdict
+  → caveats**. Caveats live *in* the claim sentence, not a footnote.
+- **One exception — the teaching companion (`R05`).** R05 is deliberately a chronological narrative (the lesson is
+  often in the wrong turn), so it may walk the arc in order. It is a learning aid, explicitly NOT the synthesis
+  layer, and it still avoids the self-referential "frontier/obsolete" scaffolding.
+
 ## The full loop
 
 1. **Check the results-prose standard.** Empirical prose has to report the effect with its uncertainty
