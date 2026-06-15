@@ -1,0 +1,42 @@
+% main-public.tex - skeleton for a FROZEN public cut (vN), derived by compression.
+%
+% A public cut is a frozen snapshot for a specific destination (thesis chapter,
+% workshop, conference). It VENDORS its own copy of preamble.sty, numbers.tex,
+% and references.bib into docs/manuscript/public/vN/, so a later edit to the
+% shared assets never changes how this cut compiles. Deriving it from the
+% extended manuscript drops depth (derivations, mechanics, the checkpoint log),
+% never claims or numbers. run_checks --layer public gates it.
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{preamble}
+\addbibresource{references.bib}
+\input{numbers}
+
+% Public layer: suppress the inline provenance tag, but KEEP the \evd{} markers
+% in the source (check_evd_resolution reads the source) and surface them in the
+% evidence-map appendix below. This is a local redefinition, not a global toggle.
+\renewcommand{\evd}[1]{}
+
+\title{A brain-tuning gain that vanishes per individual}
+\author{MohammadErfan Jabbari}
+\date{\today}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+% Compressed abstract: claims + headline evidence only, hedged as in the extended.
+\end{abstract}
+
+% === COMPRESSED BODY (one file or a few; same section order as the extended) ===
+% \input{sections/...}
+
+% === EVIDENCE MAP (provenance the reviewer needs once severed from the source) ==
+% A frozen cut drops the derivations, so carry the number->evidence trail here:
+% one row per headline result, key -> recorded experiment id.
+\appendix
+\section{Evidence map}
+% Example row format:
+% \result{e006_gpt2_gap} -- E006 (LeBel UTS03 voxelwise, trained-untrained gap).
+
+\printbibliography
+\end{document}
