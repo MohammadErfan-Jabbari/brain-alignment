@@ -661,4 +661,19 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **The skill enforces (capabilities C1–C6, panel-hardened over two adversarial critique rounds informed by the skill-creator standard):** anti-AI-tell scientific voice (deterministic `ai_tell_lint` + a judgment review pass), graded hedging tied to measured-vs-correlational, the `\evd`/`\gap` D011 provenance discipline, deterministic verifiers (`run_checks.py` dispatches evd-resolution / gap-survival / number-consistency / claim-survival per layer), silent-fix drafting, and a Devil's-Advocate review pass. Patterns were adapted (not imported wholesale) from the `academic-research-skills` framework, cloned read-only to `data/reference-repos/academic-research-skills/`.
 
+## D036 — Rung labels renamed L→Q in execution order; the naming convention + `map.md`; codes never enter the public manuscript — 2026-06-15 (Erfan-approved)
+
+**Decision.** The scientific-ladder rungs are renamed from `L` to `Q` and renumbered into execution (climb) order. The old `L` collided with learning IDs (`L001–L043`) and ran out of execution order (L2a before L1). Mapping: `L0→Q0` (signal real, A2) · `L2a→Q1` (KD-preservation gate) · `L1→Q2` (the lever) · `L3→Q3` (headline, F1) · `L2b→Q4` (practical payoff, A3) · `L4→Q5` (fMRI-free proxy). Climb order is now `Q0→Q5`.
+
+**The naming convention (canonical, in `docs/map.md` + `CLAUDE.md`):**
+- **Stable artifacts keep flat, immutable, chronological IDs** — `E`nnn (experiment), `D`nnn (decision), `L`nnn (learning), `A`1–A3 (assumption). They are like issue numbers: never renumbered when interpretation shifts, and one experiment may serve several rungs (the structure is a DAG, not a tree — which is *why* fusing identity with ladder-position via hierarchical IDs like `E0.1` was rejected).
+- **The ladder is a separate hierarchical view**: rungs are `Q`n, the only rung vocabulary. "Layer N" is retired as a rung synonym (kept historically in R03/R04 with a mapping note; in the tutoring checklist it means a *teaching chapter*, not a rung).
+- Not rungs, left untouched: transformer layers (`L7`/`L12`), `L2`/`L∞` norms, lecture numbers, `λ`/`L_brain`/`L²`.
+
+**Manuscript rule (enforced by the `scientific-writing` skill).** Codes are internal scaffolding. Reports use them freely; the extended manuscript uses a code only as a parenthetical pointer; the **public manuscript carries zero codes** — pure prose, so a reviewer never needs the repo to parse the paper.
+
+**Why no new skill.** A naming convention is an always-in-effect rule, not a triggered procedure, so it lives in `CLAUDE.md` (always read) + `docs/map.md` (the canonical reference); the manuscript code-usage rule lives in the existing `scientific-writing` skill. A separate skill would lazy-load a rule that must always hold. (Ties D035.)
+
+**Execution.** Repo-wide relabel via a folder-by-folder subagent swarm with an exact mapping contract + guardrails; verified clean (learnings count unchanged at 579; norms / λ / layers / lecture numbers untouched). Timeline logs stay immutable (old `L`; `map.md` carries the L↔Q table). No science, number, or verdict changed — a labeling decision only.
+
 **Why three.** Each layer has a different cadence and reader, and collapsing them is what rots a write-up: a paper edited continuously drifts from the evidence; a narrative touched only at submission goes stale. Reports stay cheap and searchable; the extended stays deep and current; public cuts stay frozen and venue-grade. **The behavioral rule for the agent: reports are the continuous write-layer; the extended and public manuscripts are checkpoint-derived only on Erfan's explicit call, never auto-updated.** (Supersedes the old "paper and report are the same document" framing in the manuscript README.)

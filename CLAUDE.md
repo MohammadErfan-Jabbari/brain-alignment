@@ -43,7 +43,11 @@ explicitly calls.** Full spec: `docs/03-methodology.md` ("Deliverable layers"); 
 0. `docs/ladder.md` — **the canonical status board: which rungs are done, with what verdict, and the
    single next step (impl or analysis). This is the source of truth for project state — when any doc
    disagrees with it, it wins and the others get fixed.** With no specific task, run `/orient` (it reads
-   the board and briefs you).
+   the board and briefs you). **The code system and the whole journey-as-a-tree live in `docs/map.md`** —
+   read it if the rung codes or the path lose you: **Q**n = ladder rung / research question (Q0–Q5, in climb
+   order), **E**nnn = experiment (the evidence), **A**1–A3 = the three assumptions, **D**nnn = decision,
+   **L**nnn = learning. Rungs were renamed **L→Q** in execution order on 2026-06-15 (D036); learnings stay
+   **L**, and pre-2026-06-15 timeline logs keep the old L labels (`map.md` has the L↔Q table).
 1. `docs/upspeed.md` — last-session prose: what ran, blockers, key facts.
 2. `docs/tasks.md` — the granular backlog behind and ahead.
 3. Then the relevant deep doc: `docs/00-charter.md` (idea/scope), `docs/01-research-landscape.md`

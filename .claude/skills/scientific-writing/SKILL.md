@@ -67,7 +67,7 @@ A number never enters at a lower layer than where it was recorded.
 6. **Review (anything a supervisor or committee sees).** Run the Devil's-Advocate pass in
    `references/review-pass.md` before it lands.
 
-## Four things that hold, and why
+## Five things that hold, and why
 
 - **Every number traces to recorded evidence (D011).** The thesis rests on not inventing results, so an
   unsourced number is the one error that breaks credibility. That is why a number with no source becomes a
@@ -82,6 +82,12 @@ A number never enters at a lower layer than where it was recorded.
 - **Compression preserves truth.** A public cut can keep every number and still drop a caveat or upgrade a
   "suggests" to a "demonstrates". Truth is the claims and their hedges, not only the digits, so the
   compression gate checks claims, not just numbers.
+- **Internal codes are scaffolding, not prose, and they descend by layer.** The rung/experiment codes
+  (`Q0–Q5`, `E0nn`, `A1–A3`, `D0nn`, `L0nn`; legend in `docs/map.md`) are the repo's working shorthand, not
+  reader-facing language. **Reports** may use them freely. The **extended manuscript** is prose-first: a code
+  appears only as a parenthetical pointer ("a well-powered per-individual null (E008)"), never as the subject
+  of a sentence. The **public manuscript** carries **zero** codes — every result is named in prose ("a
+  well-powered per-individual null"), because a reviewer must never need the repo to parse the paper.
 
 ## References (read the one that fits the moment)
 
