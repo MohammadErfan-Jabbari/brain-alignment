@@ -134,6 +134,14 @@ The research corpus continuing the path (full table + decision rules in `ladder.
 - [ ] **Manuscript read-through → submit:** venue/length; optional §2 prose polish. (References verified
   + [VERIFY] flags cleared, lit-scout 2026-06-12.)
 
+### Done this session (S15 — analysis/infrastructure, 2026-06-15; no science, no rung moved)
+- [x] 2026-06-15 — **R05 §8 scaffolding refreshed** (stale `r≈−0.92`→`−0.78`; §11–§16 placeholders now name E017/E019/E020 + L041). Narrative frontier unchanged: next is §9.
+- [x] 2026-06-15 — **Designed + documented the three-layer deliverable model (D035)**: reports (md, continuous) → extended manuscript (LaTeX) → public manuscript (LaTeX, frozen `vN`). `03-methodology.md` "Deliverable layers".
+- [x] 2026-06-15 — **Built the `scientific-writing` skill** (17 files: SKILL.md + 4 references + 6 verifier scripts + 6 LaTeX assets + pointer doc). Panel-hardened ×2; verifiers tested; full `latexmk`+`biber` build passes.
+- [x] 2026-06-15 — **Cloned `academic-research-skills`** (read-only, gitignored, `data/reference-repos/`); swarm-mapped it; adopted patterns C1–C6, declined the heavy plugin machinery.
+- [x] 2026-06-15 — **Fused D035** into `CLAUDE.md`, the doc map, and the manuscript/reports READMEs (removed the false "paper = report" / "no latest copy" lines).
+- [ ] **Carry-forward:** resume **R05 §9 (Session A)** through the skill; **mirror D035 to gbrain `projects/brain-alignment`** at next session start.
+
 ### Done this session (S9 — analysis, 2026-06-12)
 - [x] 2026-06-12 — **Taught Layer 0 + Layer 1** of the thesis arc (Socratic, native `socratic-tutor`); Erfan mastered the frame/bet + measurement/lever/MDE/reroute.
 - [x] 2026-06-12 — **`docs/07-concepts-primer.md`** created — DRY home for reusable primitives (voxel/ROI, encoding model, unique R², noise ceiling, perplexity, datasets, E/R/L/D-numbering); E002/R03/README point at it.

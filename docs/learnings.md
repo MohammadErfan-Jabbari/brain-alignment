@@ -455,3 +455,6 @@ evidence; (c) the raw-mean-r-over-reliable-voxels metric is quality-insensitive 
 project's unique-R² (anti-confound) instrument is the right one (ties L035/Hadidi).
 
 <!-- Add new lessons below as we hit them. Negative results count. -->
+
+### L043 — `ecc:skill-create` is a git-pattern extractor, not a skill author; build designed skills to spec (2026-06-15, S15)
+The `/skill-create` command (`ecc:skill-create`) analyzes git history to emit a "{repo}-patterns" skill; it cannot author a deliberate, designed skill from a spec. Caught before it produced anything (the launched skill printed its own README, which described git mining). To author a designed skill: write `SKILL.md` + `references/` + `scripts/` + `assets/` to the Claude Code skill spec directly, or drive the official `skill-creator:skill-creator` plugin (its draft → test → eval → iterate loop). General lesson: a tool named for an intent is not always the tool for it; read what a skill/command actually does before delegating the task to it.

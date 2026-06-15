@@ -2,7 +2,10 @@
 
 **This is the single source of truth for project state.** Read it first, every session. It is maintained at every session close, *after Erfan confirms the verdict*. The prose narrative of *why* the ladder is shaped this way lives in `reports/R03_brain-as-training-signal.md` §5 and `reports/R04_gap-analysis.md` §8; this file is the live status of it. `upspeed.md` is the last-session prose; `tasks.md` is the granular backlog. When they disagree, **this file wins** and the others get fixed.
 
-**Last updated:** 2026-06-14 (S14 autonomous working — **F1-close (E020 empirical-E[Y|S] ceiling) DONE → bounded-not-closed.**
+**Last updated:** 2026-06-15 (S15 — analysis/infrastructure. Built the three-layer deliverable model (D035) + the
+`scientific-writing` skill (`.claude/skills/scientific-writing/`); **NO science rung changed**, the ladder is unchanged
+from S14. Resume point for the analysis week = Session A / R05 §9 (E005→E008), now written through the skill.
+— prior: S14 autonomous working — **F1-close (E020 empirical-E[Y|S] ceiling) DONE → bounded-not-closed.**
 Ran story_11 n=6: **NO Fork-A** (apparent A_resid=+0.090 = confirmed leaked-stimulus+autocorrelation; after fold-gaps +
 eng1000-partial the trained−untrained residual gap = −0.018≈0). Ceiling **bounded-not-closed** — the empirical n=6 E[Y|S]
 reference is too noisy (LOO ref-rel 0.33, ε split-half NC 0.17 = the oracle's KILL regime), the 2nd ceiling instrument to
