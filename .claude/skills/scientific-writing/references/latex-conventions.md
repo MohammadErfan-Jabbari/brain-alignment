@@ -21,8 +21,8 @@ three environments down.
 Both manuscripts build on `assets/preamble.sty`. It defines the recurring objects as macros so they read
 identically everywhere and stay greppable:
 
-- Concepts: `\Lbrain` (the brain loss), `\uniqueR` (unique R²), `\Eys` (E[Y|S]), and the small set of
-  others the work actually repeats. Keep the set small; a sprawling macro library hurts both grep and a
+- Concepts: `\Lbrain` (the brain loss), `\uniqueR` (unique R²), `\Eys` (E[Y|S]), `\permtwin` (the
+  permuted twin), and the small set of others the work actually repeats. Keep the set small; a sprawling macro library hurts both grep and a
   new reader.
 - Provenance: `\evd{Ennn}` (renders a light inline tag in the extended draft), `\gap{...}` (renders a
   visible flag), `\result{key}` (pulls a keyed number from `assets/numbers.tex`).

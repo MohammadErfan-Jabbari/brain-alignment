@@ -47,5 +47,5 @@ ladder is unchanged from S14. The original analysis task, R05 §9, is still pend
 - **Reference framework:** `academic-research-skills` cloned read-only to `data/reference-repos/` (gitignored); we
   adopted patterns (C1–C6), not the plugin.
 - **Subagent routing (D026):** opus = think/analysis/design; sonnet = doc-nav; haiku = mechanical. fable BANNED.
-- **Git:** `main`, push only when asked. 8 atomic commits this session. Untracked-and-harmless: `docs/manuscript/latex/`
-  (Erfan's coursework templates), `untitled.md` (scratch).
+- **Git:** `main`, push only when asked. ~10 atomic commits this session. Untracked-and-harmless: `untitled.md`
+  (scratch copy of an old `/goal` prompt). The coursework LaTeX templates were removed (S15) — the skill ships its own.

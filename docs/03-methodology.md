@@ -198,7 +198,7 @@ LaTeX public cut is a later `vN` derived from the extended master.)
 The format per layer was decided on measurable criteria, weighted by **how often I touch the file**:
 (1) my search/edit ergonomics, (2) edit-safety, (3) typeset/output quality, (4) format-match across the
 derivation seam, (5) git-diffability, (6) math fidelity, (7) audience. A test on this repo's real files
-(`project.tex` vs `R05.md`) settled it: grepping the LaTeX file returns mostly **scaffolding**
+(a real LaTeX file vs the `R05.md` report) settled it: grepping the LaTeX file returns mostly **scaffolding**
 (`\subsection{}`, `\caption{}`, `\label{}`, comments) with prose fragmented by commands (≈ half the file
 is pure-markup lines), while grepping the Markdown report returns **whole paragraphs** — one match line =
 one complete idea, which is exactly what a consolidation pass needs. And a Markdown edit cannot break a
@@ -250,7 +250,7 @@ so the gap is visible rather than silently rotting.
 - Report CIs / std dev; name the statistical test. "X achieves Y under condition Z."
 - Root cause, not symptom — never silently work around a blocker.
 - Git: scoped staging only (never `git add -A`/`.`), no `--amend`, no destructive ops without
-  explicit approval, push only when asked. (This repo is not yet a git repo — see `tasks.md`.)
+  explicit approval, push only when asked. (Git norm: decision D007; the repo is on `main`.)
 - Prompts may have typos; infer intent.
 
 ## Reasoning frame

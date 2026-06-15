@@ -73,9 +73,15 @@ def main(argv=None):
 
     if args.layer == "public":
         print("\n=== public compression gate ===")
+        needs_extended = {"check_number_consistency.py", "check_claim_survival.py"}
         for script in PUBLIC_ONLY:
-            rc = run(script, *( [args.path, "--extended-root", args.extended_root]
-                                if args.extended_root else [args.path] ))
+            if script in needs_extended and not args.extended_root:
+                print(f"BLOCKED: {script} needs --extended-root (the extended source) to diff against.",
+                      file=sys.stderr)
+                failed = True
+                continue
+            extra = ["--extended-root", str(args.extended_root)] if script in needs_extended else []
+            rc = run(script, args.path, *extra)
             if rc == 127:
                 print(f"BLOCKED: {script} is not yet implemented. A public cut may not ship through "
                       f"an incomplete compression gate (D011 / compression-preserves-truth).",

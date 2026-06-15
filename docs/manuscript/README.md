@@ -11,7 +11,8 @@ decision D035 (D011 still binds every number).
 
 | Path | Holds | Cadence |
 |---|---|---|
-| `*.md` | Manuscript sections — drafted prose (intro, related work, methods, results, discussion). | Analysis sessions |
+| `extended/` | The internal LaTeX master: always-current paper body + append-only checkpoint log. Created at the first checkpoint. | At a checkpoint Erfan calls |
+| `public/vN/` | Frozen submission cuts (LaTeX), compressed from the extended; each `vN` vendors its own preamble + bib. | At a submission/share milestone |
 | `figures/` | **Final, selected** figures committed for the thesis (PNG/PDF/SVG). | When a figure is chosen |
 
 The figure pipeline (keeps "the script is the source of truth, the render is a disposable artifact"):
