@@ -101,7 +101,7 @@ public cut — never the reverse.
 ```
 CONTINUOUS — every session, working OR analysis
   experiments/ · ladder.md · learnings.md · decisions/    the evidence + the state of truth (numbers are BORN here)
-  reports/  (incl. R05)                                   living single-topic syntheses — iterated AS we work
+  reports/  (R06+ finding-reports)                        living single-topic syntheses — iterated AS we work
         │
         │   ── CHECKPOINT (Erfan calls it): "update the extended manuscript" ──
         ▼
@@ -133,16 +133,15 @@ CONTINUOUS — every session, working OR analysis
 ### What each layer is, concretely
 
 **Reports (`docs/reports/*.md`) — the continuous synthesis layer.** A report is a single focused topic
-kept current: a literature area (R01), a dataset/tooling survey (R02), a gap analysis (R04), a
-first-principles narrative of the arc (R05). It is the layer we actually *work in* — written and
+kept current: a literature area (R01), a dataset/tooling survey (R02), a gap analysis (R04), or
+one finding with its current verdict (R06+). It is the layer we actually *work in* — written and
 rewritten across both session modes as the work moves. Reports are Markdown because they are my **source
 of search**: the consolidation passes that build the extended manuscript grep across them constantly, and
 Markdown is where my search/edit tools are strongest (see "Why these formats"). A report states the one
 question it answers at the top, is honest about its gaps, obeys the numbers rule (below), and cites
-literature to canonical notes and results to `experiments/`. R05 is a report (the living narrative); it
-is *parallel to*, not part of, the extended manuscript — same science, a different telling for a
-different reader (R05 = Erfan's learning voice with course math and self-checks; the extended manuscript
-= the supervisor-facing telling).
+literature to canonical notes and results to `experiments/`. Each report owns one finding and feeds up
+into the extended manuscript at a checkpoint: the reports are the working syntheses, the extended
+manuscript the consolidated supervisor-facing telling.
 
 **Extended manuscript (`docs/manuscript/extended/`) — the internal master.** Two parts living in one
 LaTeX project, a **synchronic** body and a **diachronic** log:
@@ -234,14 +233,13 @@ if it is not in the evidence/reports, it cannot appear downstream.
   frozen `vN` from the extended manuscript + reports for the named destination. The agent **suggests** a
   cut when Erfan signals he is sending/submitting to someone.
 
-### Drift discipline (reports ‖ extended manuscript, and R05 ‖ extended)
+### Drift discipline (reports ‖ extended manuscript)
 
 Because the extended manuscript is rebuilt *from* the reports at checkpoints (not maintained live), the
-reports are always the freshest narrative and the extended manuscript is expected to lag between
-checkpoints — that lag is normal, not drift. Two narratives do run in parallel and are synced by hand
-(R05 the learning telling, the extended manuscript the supervisor telling); when one gains a result the
-other lacks, record the debt explicitly at session close (a one-line "sync: extended behind R05 at §X")
-so the gap is visible rather than silently rotting.
+reports are always the freshest synthesis and the extended manuscript is expected to lag between
+checkpoints — that lag is normal, not drift. When a report gains a result the extended manuscript lacks,
+record the debt explicitly at session close (a one-line "sync: extended behind R<NN> at §X") so the gap
+is visible rather than silently rotting.
 
 ## Working preferences (Erfan's, stable across the history)
 

@@ -2,7 +2,7 @@
 
 **Answers Q3 (F1, the headline). Verdict: ❌ NULL per-individual, well-powered, and stable across capacity, objective, substrate, and parameterisation. The positive contribution is methodological: a measurement-validity finding (cross-subject target-averaging manufactures apparent brain-specificity) plus the control protocol that detects it (matched-perplexity, a per-kind permuted-brain twin, and per-subject inference).** This report states current truth only. The discovery order (E005 looked like a win, then collapsed) lives in `map.md`, `timeline/`, and `decisions/`, not here. Sources: `experiments/E005`, `E008`, `E011`, `E013`, `E013b`, `E017`, `E006`; lessons L011 / L015 / L016 / L041.
 
-This is a finding-report under the report convention (D036): one claim, Q-tagged, current-truth-only, fixed skeleton. It is the synthesis of Q3. The slow pedagogical walk of how the field (and we) got here lives in the teaching companion `R05`.
+This is a finding-report under the report convention (D036): one claim, Q-tagged, current-truth-only, fixed skeleton. It is the synthesis of Q3. The history of how the field (and we) got here lives in `map.md` (the journey tree), `timeline/`, and `decisions/`.
 
 ## The question
 

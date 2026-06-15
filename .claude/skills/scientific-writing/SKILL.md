@@ -3,7 +3,7 @@ name: scientific-writing
 description: >-
   Write, draft, edit, or review scientific prose for this thesis: a results paragraph, an abstract, a
   related-work or discussion section, or any edit to a docs/reports/R*.md report. Use it on the everyday
-  cases ("write up X", "update R05", "add a paragraph on the gap", "draft the intro", "tighten this
+  cases ("write up X", "update a finding-report", "add a paragraph on the gap", "draft the intro", "tighten this
   section") as much as the heavy ones ("consolidate the extended manuscript", "cut a public version",
   "review this section"). It keeps prose in a real scientific voice with no AI tells, makes every number
   trace to recorded evidence (the D011 rule), hedges by what was actually measured, and runs deterministic
@@ -59,9 +59,9 @@ A number never enters at a lower layer than where it was recorded.
 - **Shape:** a one-line header (the claim + its current verdict + the `Q` it answers), then **question → design**
   (baselines, controls, stop rule) **→ evidence** (each number with its uncertainty and the named test) **→ verdict
   → caveats**. Caveats live *in* the claim sentence, not a footnote.
-- **One exception — the teaching companion (`R05`).** R05 is deliberately a chronological narrative (the lesson is
-  often in the wrong turn), so it may walk the arc in order. It is a learning aid, explicitly NOT the synthesis
-  layer, and it still avoids the self-referential "frontier/obsolete" scaffolding.
+- **No chronological-narrative exception.** Every active report is current-truth-only. The former teaching
+  companion (`R05`), which narrated the arc in order, is **retired and frozen** (2026-06-16): it is kept as
+  history, not an active report, and nothing new is written in that mode.
 
 ## The full loop
 
@@ -126,7 +126,7 @@ Each script is a pure function over files: it prints findings and exits `0` (cle
 so they compose into one gate. Invoke them through the orchestrator; you rarely call one directly.
 
 ```
-uv run python .claude/skills/scientific-writing/scripts/run_checks.py --layer report   docs/reports/R05_*.md
+uv run python .claude/skills/scientific-writing/scripts/run_checks.py --layer report   docs/reports/R06_*.md
 uv run python .claude/skills/scientific-writing/scripts/run_checks.py --layer extended docs/manuscript/extended/
 uv run python .claude/skills/scientific-writing/scripts/run_checks.py --layer public   docs/manuscript/public/v1/
 ```

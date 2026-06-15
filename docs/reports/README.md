@@ -19,7 +19,8 @@ Rules:
   own several reports (Q3 is fanned across many, because that is where the paper lives).
 - **Current truth only** (D036): rewrite in place, no chronological spoilers, no "obsolete/frontier"
   scaffolding. The history (wrong turns, the order they happened) lives in `map.md`, `timeline/`, and
-  `decisions/`. The one exception is `R05`, the teaching companion, allowed to narrate the arc in order.
+  `decisions/`. There is no chronological-narrative exception: `R05`, the old teaching companion, is
+  retired (frozen for history; see the index).
 - State sources and **flag gaps**; **only numbers a working session actually recorded** (D011). Literature
   numbers cite their canonical note. Route all report writing through the `scientific-writing` skill (voice,
   the `[E0nn]` cite rule, the verifiers).
@@ -34,8 +35,9 @@ Rules:
 - `R03_brain-as-training-signal.md` — the early direction doc: the first-principles case, the literature
   scoop, the surviving slice, and the kill-gated ladder. Stops at E003.
 - `R04_gap-analysis.md` — full-PDF re-read of the literature: what is genuinely scooped vs open.
-- `R05_thesis-narrative-from-first-principles.md` — the pedagogical, course-grounded narrative of the
-  whole arc. **Status under review** (retire vs keep as teaching companion — open decision, 2026-06-16).
+- `R05_thesis-narrative-from-first-principles.md` — **RETIRED (2026-06-16).** The old pedagogical
+  narrative of the arc, frozen for history and no longer maintained. Superseded by the finding-reports
+  (R06+) and `map.md`.
 
 **Findings** (read in this order; each maps 1:1 to a manuscript Results section):
 
