@@ -28,6 +28,16 @@ session actually produced and recorded.** If a figure or a paragraph needs a num
 `docs/` brain, that is a gap to flag — not a number to invent or estimate. Raw evidence stays separate
 from interpretation in both modes.
 
+**The three written deliverable layers (D035).** Written prose lands in one of three layers, not one
+document: **reports** (`docs/reports/*.md`, Markdown) are the *continuous* single-topic synthesis layer
+you write as work happens; the **extended manuscript** (`docs/manuscript/extended/`, LaTeX) is the
+internal master (always-current paper body + append-only checkpoint log); the **public manuscript**
+(`docs/manuscript/public/vN/`, LaTeX) is a frozen submission cut compressed from the extended. Knowledge
+flows down only. **Route all report and manuscript writing through the `scientific-writing` skill, and
+never auto-update the extended or public manuscript — they are rebuilt only at a checkpoint Erfan
+explicitly calls.** Full spec: `docs/03-methodology.md` ("Deliverable layers"); skill:
+`.claude/skills/scientific-writing/`.
+
 ## Read this first, every session
 
 0. `docs/ladder.md` — **the canonical status board: which rungs are done, with what verdict, and the

@@ -648,3 +648,17 @@ a BOUNDED corroboration; the spine rests on the powered per-individual nulls (E0
 (superseded, D033), F4 (analysis-lane), the DPI selection-channel (null-by-construction: matched-ppl brain-tuning doesn't
 move the representation, so no manifold-point selection is possible — E009/E019-gentle). **The decisive implementation
 science is COMPLETE; the spine is fully supported by powered evidence; remaining work is the ANALYSIS lane (Erfan).**
+
+## D035 — Three-layer written-deliverable model (reports → extended → public) + the scientific-writing skill — 2026-06-15 (Erfan-approved)
+
+**Decision.** All written output flows through three layers, governed by one fat `scientific-writing` skill (`.claude/skills/scientific-writing/`). Full spec in `docs/03-methodology.md` "Deliverable layers"; short pointer in `docs/references/scientific-writing.md`.
+
+- **Reports** (`docs/reports/*.md`, Markdown): the **continuous** single-topic synthesis layer, written and iterated as work happens in both session modes. Markdown because it is the agent's search surface — a grep test on real repo files settled it (md returns whole-paragraph matches; an edit cannot break a build).
+- **Extended manuscript** (`docs/manuscript/extended/`, LaTeX): the internal, supervisor-facing master. Hybrid structure = an always-current paper body (compresses cleanly into a public cut) plus an append-only dated checkpoint log. Updated **only at a checkpoint Erfan calls**.
+- **Public manuscript** (`docs/manuscript/public/vN/`, LaTeX): frozen versioned cuts, derived by **compression** from the extended manuscript + reports, only at a submission/share milestone. A `vN` vendors its own preamble and bib so it stays frozen.
+
+Knowledge flows **down only** (evidence → report → extended → public); a number never enters at a lower layer than where it was recorded. D011 holds in all three.
+
+**The skill enforces (capabilities C1–C6, panel-hardened over two adversarial critique rounds informed by the skill-creator standard):** anti-AI-tell scientific voice (deterministic `ai_tell_lint` + a judgment review pass), graded hedging tied to measured-vs-correlational, the `\evd`/`\gap` D011 provenance discipline, deterministic verifiers (`run_checks.py` dispatches evd-resolution / gap-survival / number-consistency / claim-survival per layer), silent-fix drafting, and a Devil's-Advocate review pass. Patterns were adapted (not imported wholesale) from the `academic-research-skills` framework, cloned read-only to `data/reference-repos/academic-research-skills/`.
+
+**Why three.** Each layer has a different cadence and reader, and collapsing them is what rots a write-up: a paper edited continuously drifts from the evidence; a narrative touched only at submission goes stale. Reports stay cheap and searchable; the extended stays deep and current; public cuts stay frozen and venue-grade. **The behavioral rule for the agent: reports are the continuous write-layer; the extended and public manuscripts are checkpoint-derived only on Erfan's explicit call, never auto-updated.** (Supersedes the old "paper and report are the same document" framing in the manuscript README.)

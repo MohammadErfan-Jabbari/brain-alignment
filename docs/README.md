@@ -27,8 +27,8 @@ We do *not* run the heavy Nexus stage-machine here. See `03-methodology.md` for 
 | `timeline/` | Immutable session logs `YYYY-MM-DD-HHMM.md`. The path we actually walked. | End of each session |
 | `hypotheses/` | One file per hypothesis (`HNNN_…`). Falsifiable claim + kill criteria. | Stage: Claim onward |
 | `experiments/` | One file per experiment: design + iteration log + results. | Stage: Design onward |
-| `reports/` | Living per-topic syntheses (`R01…`). Rewritten in place as new info lands. Distinct from canonical notes (per-paper) and the landscape map (frontier). **Analysis-session output.** | When a topic gains info |
-| `manuscript/` | The thesis: drafted prose sections + final selected figures. **Analysis-session output.** | Analysis sessions |
+| `reports/` | **Continuous** per-topic syntheses (`R01…`, Markdown) — the write-layer of every session, and the source the extended manuscript consolidates from. Rewritten in place as info lands. Governed by the `scientific-writing` skill (D035). | As work touches a topic |
+| `manuscript/` | The thesis in two LaTeX sublayers (D035): `extended/` (internal master — always-current paper body + append-only checkpoint log) and `public/vN/` (frozen submission cuts, compressed from the extended). **Checkpoint-derived, not continuous.** | At a checkpoint Erfan calls |
 | `literature/canonical/` | One note per paper actually read (self-contained copies). | When a paper is read |
 | `literature/_prior-work/` | Provenance: the prior dossier, oracle review, origin idea (frozen, read-only history). | Never edited |
 | `references/` | Reusable reasoning frames and conventions. | Rarely |

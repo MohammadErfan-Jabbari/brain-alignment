@@ -5,6 +5,10 @@ A **report** is a single-topic synthesis that we keep current. It is *not* a per
 thesis prose (`docs/manuscript/`). When new information lands on a topic, we **rewrite/update the
 report in place** and bump its `Last updated` line.
 
+Reports are the **continuous** write-layer (D035): the syntheses we iterate as work happens, and the
+source the extended manuscript is consolidated from at checkpoints. The `scientific-writing` skill governs
+how they are written (voice, the `[E0nn]` cite rule, the verifiers).
+
 Rules:
 
 - One topic per file. Name `R<NN>_<slug>.md`.

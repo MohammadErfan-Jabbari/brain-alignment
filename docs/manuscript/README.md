@@ -1,9 +1,11 @@
 # manuscript/ — the thesis, built from recorded evidence
 
-This is the home for **analysis-session output**: the written thesis (one deliverable — "paper" and
-"report" are the same document) and its figures. It is filled during analysis sessions (Argue →
-Compound); working sessions feed it by producing the evidence it cites. See `../03-methodology.md`
-("Two session modes") and decision D011.
+This is the home for the LaTeX manuscripts in two sublayers (D035): `extended/` (the internal,
+supervisor-facing master, an always-current paper body plus an append-only checkpoint log) and
+`public/vN/` (frozen submission cuts, derived by compression from the extended). A manuscript is **not**
+the same document as a report (`../reports/`, Markdown, the continuous layer that feeds these). Write here
+through the `scientific-writing` skill; full spec in `../03-methodology.md` ("Deliverable layers") and
+decision D035 (D011 still binds every number).
 
 ## What goes here
 
@@ -30,4 +32,4 @@ stand-in (e.g. E001's synthetic-fMRI numbers, L004) into the manuscript as if it
 
 - Specific numbers with uncertainty and the named test — "Δ = +0.06 ± 0.01, n=3, contiguous split".
 - One source of truth: cite `experiments/`, don't restate derivations.
-- Dates absolute. Drafts are versioned by git; there is no separate "latest" copy.
+- Dates absolute. The extended manuscript is one living doc (git is its history; tag it when shared); each public `vN` is a frozen snapshot, never rewritten.
