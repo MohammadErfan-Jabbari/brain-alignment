@@ -11,22 +11,47 @@ how they are written (voice, the `[E0nn]` cite rule, the verifiers).
 
 Rules:
 
-- One topic per file. Name `R<NN>_<slug>.md`.
-- State sources and **flag gaps** explicitly — a report is honest about where it is thin.
-- Analysis-session discipline applies: **only numbers a working session actually produced/recorded.**
-  Literature numbers are cited to their canonical note; we do not invent or estimate.
+- **Flat, append-only IDs.** A report is `R<NN>_<slug>.md`; numbers are assigned in creation order and
+  never renumbered (the same "issue-number" rule the `E`/`D`/`L` artifacts use, D036). **One finding (one
+  durable claim) per file**, tagged with the ladder question `Q0`–`Q5` it answers.
+- **Reading order and the Q→report map live in the index below, not in the filename** (the flat-IDs-plus-
+  separate-view pattern D036 uses for the ladder). A finding may carry more than one `Q` tag; one `Q` may
+  own several reports (Q3 is fanned across many, because that is where the paper lives).
+- **Current truth only** (D036): rewrite in place, no chronological spoilers, no "obsolete/frontier"
+  scaffolding. The history (wrong turns, the order they happened) lives in `map.md`, `timeline/`, and
+  `decisions/`. The one exception is `R05`, the teaching companion, allowed to narrate the arc in order.
+- State sources and **flag gaps**; **only numbers a working session actually recorded** (D011). Literature
+  numbers cite their canonical note. Route all report writing through the `scientific-writing` skill (voice,
+  the `[E0nn]` cite rule, the verifiers).
 
 ## Index
 
+**Background / framing** (topic syntheses, not findings):
+
 - `R01_llm-brain-mapping.md` — the linear map between LLM internals and brain activation: what it is,
-  what drives it, how it behaves under scale/compression, and how to measure it without fooling
-  yourself.
-- `R02_datasets-and-code.md` — datasets & code provenance across the reading list: which fMRI/ECoG
-  sets are open and where to pull them, and which encoding/distillation repos we can reuse.
-- `R03_brain-as-training-signal.md` — the early direction doc: first-principles case that the brain is
-  a weak prior, the literature scoop, the surviving slice (F1), and the kill-gated ladder. Stops at E003.
-- `R04_gap-analysis.md` — full-PDF re-read of the literature: what is genuinely scooped vs open, and
-  the corrected per-paper claims that re-weight the framing toward F1.
-- `R05_thesis-narrative-from-first-principles.md` — **LIVING.** The pedagogical, course-grounded
-  narrative of the whole experimental arc, told step-by-step for understanding (distinct from the
-  terse manuscript). Built incrementally across sessions; current frontier = end of Q2.
+  what drives it, how it behaves under scale/compression, and how to measure it without fooling yourself.
+- `R02_datasets-and-code.md` — datasets & code provenance across the reading list.
+- `R03_brain-as-training-signal.md` — the early direction doc: the first-principles case, the literature
+  scoop, the surviving slice, and the kill-gated ladder. Stops at E003.
+- `R04_gap-analysis.md` — full-PDF re-read of the literature: what is genuinely scooped vs open.
+- `R05_thesis-narrative-from-first-principles.md` — the pedagogical, course-grounded narrative of the
+  whole arc. **Status under review** (retire vs keep as teaching companion — open decision, 2026-06-16).
+
+**Findings** (read in this order; each maps 1:1 to a manuscript Results section):
+
+| Read # | Report | Q | Claim | Status |
+|---|---|---|---|---|
+| 1 | `R06_alignment-signal-is-real-beyond-confounds.md` | Q0 / A2 | the alignment signal is real beyond confounds (defines the measurement apparatus) | ✅ written |
+| 2 | R07 (to write) | Q1 | plain KD does not preserve alignment by default | ⬜ |
+| 3 | R08 (to write) | Q2 | the lever is real but weak and perplexity-confounded | ⬜ |
+| 4 | R09 (to write) | Q3 | no per-individual gain; the averaging confound | parked draft `_pending-Q3_*.md` |
+| 5 | R10 (to write) | Q3 | the null is method-general (every door closed) | ⬜ |
+| 6 | R11 (to write) | Q3 | the quality law — matched-perplexity is the missing control | ⬜ |
+| 7 | R12 (to write) | Q3 | the stimulus-predictability ceiling, scoped honestly (keystone) | ⬜ |
+| 8 | R13 (to write) | Q3 | an external reproduction corroborates the failure | ⬜ |
+| 9 | R14 (to write) | Q4 / A3 | no practical payoff | ⬜ |
+
+We are writing in reading order, so the filename number tracks it for now (R06 = read-position 1). The
+parked `_pending-Q3_no-per-individual-gain-and-averaging-confound.md` is the existing finished Q3 draft;
+it reclaims a number (R09) when we reach read-position 4. The flat-ID rule still protects any *future*
+out-of-order finding: it takes the next free number and the index shows where it reads.
