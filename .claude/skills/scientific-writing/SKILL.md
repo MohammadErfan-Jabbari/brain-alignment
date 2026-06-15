@@ -85,16 +85,16 @@ A number never enters at a lower layer than where it was recorded.
 
 ## References (read the one that fits the moment)
 
-- `references/writing-style.md` — read before any style sweep and before handoff. The anti-AI-tell rules
+- `references/writing-style.md`: read before any style sweep and before handoff. The anti-AI-tell rules
   (which are deterministic, which are judgment), the scientific-voice machinery (TEEL paragraphs, the
   graded-hedging ladder, tense by section, vague→precise), and the Clarity Test. Has a table of contents.
-- `references/provenance-d011.md` — read the first time you tag a number or hit one you cannot source. The
+- `references/provenance-d011.md`: read the first time you tag a number or hit one you cannot source. The
   `\evd`/`\gap` conventions, the claim↔evidence orphan discipline, the keyed-numbers policy (which numbers
   go in `assets/numbers.tex` via `\result{}`), and the results-prose standard.
-- `references/latex-conventions.md` — read when writing or consolidating an extended or public manuscript.
+- `references/latex-conventions.md`: read when writing or consolidating an extended or public manuscript.
   The search-friendly source style (one sentence per line), the shared preamble and its semantic macros,
   the vendored-frozen-cut rule, and the build. Points to `docs/03-methodology.md` for the layer model.
-- `references/review-pass.md` — read only for a section a supervisor or committee will see. The
+- `references/review-pass.md`: read only for a section a supervisor or committee will see. The
   Devil's-Advocate three-lens review (internal validity, external validity, so-what) and the Clarity Test.
 
 ## Verifiers
