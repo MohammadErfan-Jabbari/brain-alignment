@@ -53,6 +53,15 @@ does **not** confirm the number in the prose still matches the *current* value i
 number that once was right keeps its cite and passes the check — this is exactly how R06 carried a
 `CC_norm > 0.05` threshold after the as-run value had changed to split-half reliability `> 0.5` (caught
 late, in the R06 precision sweep, S17).
+
+There is no honest *deterministic* freshness check: a record is prose holding many numbers, so matching a
+cited value to the current one is a comprehension task, not a regex — a script would give false confidence
+(a green check on a stale number). Instead, at a full-loop handoff for manuscript-bound work, spawn a cheap
+subagent (sonnet; haiku only when the numbers are cleanly keyed) whose sole task is to verify each
+load-bearing/keyed number against the current value in its cited record, and to **flag — never silently
+pass —** any mismatch or ambiguous case for you to adjudicate. At session close, the `number-provenance`
+`wrap-auditor` already performs this freshness judgment over the changeset, so the writing-handoff
+spot-check is the manuscript-bound complement, not a duplicate.
 So when you state a keyed or threshold number, verify the prose value against the cited record as it reads
 *now*, not as you remember it. A mechanical freshness check (compare each cited value against its record)
 is a worthwhile verifier to build; until it exists, this is a manual obligation at every full-loop handoff.

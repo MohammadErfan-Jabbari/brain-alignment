@@ -231,7 +231,7 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 
 ## Infrastructure / housekeeping
 
-- [ ] **(Tooling) Build a number-freshness verifier** (`check_number_freshness.py` in the `scientific-writing` skill scripts). Given a doc, find every cited number and check it still matches the *current* value in its `docs/experiments/`/`learnings.md` record — not just that the cite resolves. Closes the seam `check_evd_resolution.py` structurally can't (the stale `CC_norm` class, L046). Until built, it's a manual full-loop obligation (provenance-d011.md).
+- ~~(Tooling) Build a number-freshness verifier (`check_number_freshness.py`)~~ — **dropped 2026-06-16 (S18).** No honest deterministic check exists: records are prose with many numbers, so matching a cited value to the current one is comprehension, not regex — a script would give false confidence. **Reframed as a subagent spot-check** (provenance-d011.md): at a full-loop handoff for manuscript-bound work, a cheap subagent (sonnet; haiku if numbers are cleanly keyed) verifies each load-bearing number against its current record and flags mismatches. The `number-provenance` `wrap-auditor` already covers this at session close. No script to build.
 
 - [ ] **Get to the bottom of graphify** (deferred — tooling, not science). Integrated 2026-06-11 as a
       code navigator (`.claude/skills/graphify/`, `.graphifyignore`, CLI via uv tool; see timeline
