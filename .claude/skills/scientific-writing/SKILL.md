@@ -66,7 +66,8 @@ A number never enters at a lower layer than where it was recorded.
   math-grounded by standard, not by exception. **State the math in the paper's own voice** ("for a triple
   $(X,Y,Z)$, the conditional mutual information is …"), never as reportage about the source ("the course
   defines …", "the lecture says …", "the paper shows …"): the citation carries the provenance, the prose
-  states the result.
+  states the result. For a *measured* quantity, open with the estimand → estimator → identifying-assumption
+  spine (writing-style.md §2, "Presenting a measured quantity").
 - **No chronological-narrative exception.** Every active report is current-truth-only. The former teaching
   companion (`R05`), which narrated the arc in order, is **retired and frozen** (2026-06-16): it is kept as
   history, not an active report, and nothing new is written in that mode.

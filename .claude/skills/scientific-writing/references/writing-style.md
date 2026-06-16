@@ -12,7 +12,7 @@ checks them. Each rule below is tagged `[linter]` or `[judgment]`.
 ## Contents
 
 1. Anti-AI-tell rules (the tells, and why each is a tell)
-2. Scientific voice (paragraph shape, tense, precision, register)
+2. Scientific voice (paragraph shape, tense, precision, register, presenting a measured quantity)
 3. Graded hedging tied to the evidence (C2)
 4. The Clarity Test and non-uniform investment
 5. Running the sweep
@@ -76,6 +76,52 @@ checks them. Each rule below is tagged `[linter]` or `[judgment]`.
   topic sentence does the work, and a transition word on top is scaffolding.
 - **Register.** This is a sciences/ML thesis, so impersonal phrasing and the passive are acceptable where
   they read naturally. Do not force "We argue" into a methods description that wants "The encoder was fit".
+
+### Presenting a measured quantity: estimand → estimator → identifying assumption `[judgment]`
+
+When a section is built on a metric, do not let the metric stand in for the thing you actually care about.
+Open with the target quantity, then the measurement, then the condition that ties them. This three-move
+spine is the **estimand-first** discipline from statistics and causal inference (the ICH E9(R1) estimand
+framework; Hernán and Pearl's "define the target quantity before you estimate it"). The three moves:
+
+- **Estimand first.** Name the population quantity you want, before any procedure: *what we are after*.
+  (R06: the conditional mutual information $I(\text{LM};B\mid Z)$.)
+- **Estimator second.** Give the concrete procedure that measures it: *how we measure it*. (R06: unique R²
+  from cross-validated ridge.)
+- **Identifying assumption third.** State the condition under which the estimator recovers the estimand:
+  *when the two coincide*. (R06: joint Gaussianity / linearity, which makes unique R² a monotone function
+  of the conditional mutual information.) The resulting number is the *estimate*.
+- **Plain-language version.** The non-fancy name for getting this right is **operationalization** and
+  **construct validity**: does the measure actually map to the construct it claims? The expository
+  direction is **concrete-to-abstract grounding**: start from the thing you can compute, then lift it to
+  the principle.
+
+Two lenses that sharpen the same move:
+
+- **Marr's three levels of analysis `[judgment]`.** Marr separates the **computational level** (what is
+  being computed, and why: the estimand) from the **algorithmic level** (the representation and procedure:
+  the estimator); the third, the **implementational level** (the physical substrate), is rarely relevant
+  here. Reach for this vocabulary when separating "what we measure" from "what it means" earns its keep;
+  skip it when it is overhead.
+- **The characterization move `[judgment]`.** When a metric is *equal* to a principled quantity, state the
+  equality as a small result, a **characterization** (equivalently an **equivalence** or **representation
+  result**), not as an analogy. "Unique R² is exactly the squared partial correlation $\rho^2_{XY\cdot Z}$,
+  and $I(X;Y\mid Z) = -\tfrac{1}{2}\ln(1-\rho^2_{XY\cdot Z})$" earns the reduction; "unique R² is like an
+  information measure" does not. It is the "it is secretly X" unification move: lead with the familiar
+  object, then reveal the deeper one it instantiates.
+
+- **Vocabulary, use the exact term (ties "one term per concept").** Reach for the precise name so the
+  reader tracks a single object across the section:
+  - **partial correlation** for variance added beyond a baseline (squared: the **incremental R²**; the
+    one-sided variant is the **semipartial** or **part correlation**);
+  - **Gaussian mutual information** for the closed form $-\tfrac{1}{2}\ln(1-\rho^2)$;
+  - **Reichenbach's common-cause principle** for "two variables are dependent because they share a parent",
+    and its conditional-independence form **d-separation** (the applied phrasing is **controlling for a
+    confounder**).
+
+The worked exemplar is R06's "The design (and the apparatus the whole program reuses)": estimand
+$I(\text{LM};B\mid Z_{\text{nuis}})$, estimator unique R² via ridge, identifying assumption Gaussianity,
+with the common-cause logic naming why conditioning on $Z$ is the whole point.
 
 ---
 
