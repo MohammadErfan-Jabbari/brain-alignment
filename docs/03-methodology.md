@@ -52,6 +52,10 @@ The non-negotiables (these are where solo research most easily self-deceives):
   promotable vs exploratory.
 - **Raw evidence kept separate from interpretation.**
 - **Specific numbers with uncertainty** — "Δ = +0.06 ± 0.01, n=3, contiguous split" not "better."
+- **Record the *why* of each non-obvious design choice** — a pooling rule, a resampling kernel, a
+  threshold, a delay count — in the experiment doc when you make it. The writing layer can only cite a
+  rationale a working session recorded; it must never invent one (D011). An unrecorded why becomes a
+  `\gap` downstream, so recording it at choice-time is what keeps the eventual write-up honest.
 
 ## Two session modes (which half of the pipeline you're in)
 
