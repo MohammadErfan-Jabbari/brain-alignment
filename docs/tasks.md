@@ -8,8 +8,8 @@ sessions. Move items between sections; don't delete (strike completed ones with 
 Work runs in two independent queues that share the `docs/` evidence brain but do **not** block each
 other. Each session picks ONE lane and pulls from it. **The binding rule (D011):** analysis may only
 report numbers a working session recorded — so working sessions *add* evidence/rungs; they must
-**not edit the docs the analysis lane is reading** (`reports/R05`, the manuscript, the E005–E014
-experiment records). Rungs flip only on Erfan's confirmation.
+**not edit the docs the analysis lane is reading** (the finding-reports `reports/R06`–`R14`, the manuscript, the
+E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 
 > **Context:** Erfan is away ~1–2 days from 2026-06-12; implementation runs autonomously in that window.
 > **The meta-goal (D022):** finish the MSc thesis AND extract **≥1 top-venue AI paper** (ICML/ICLR/NeurIPS/
@@ -122,17 +122,28 @@ The research corpus continuing the path (full table + decision rules in `ladder.
 - [ ] **(Opportunistic Fork-B rigor, slot anywhere)** λ-sweep / rate-distortion curve on the averaged target
   (`run_brain_lever.py --lambda-grid`) — the "how small" magnitude characterization, if A3 needs context.
 
-### 📖 ANALYSIS lane (Erfan's study queue — FROZEN at resume point; working sessions DO NOT edit these docs)
+### 📖 ANALYSIS lane (Erfan's queue — ACTIVE: write the finding-report set; working sessions DO NOT edit these docs)
 
-- [~] **Walk R03→now (the get-up-to-speed arc)** — IN PROGRESS (S9). Q0 (frame/bet) + the lever rung Q2
-  (measurement/lever/E007-reroute) taught + captured in `docs/reports/R05` (LIVING).
-  **▶ RESUME HERE: Q3 = E005** (apparent +0.0081 → E008 per-individual null) → robustness escapes
-  (E011/E013b/E013/E014) → Fork-B reframe. Teaching each = writing the next R05 section (§9–§14).
-  Source: `docs/experiments/ENNN`, `learnings.md` L011–L030.
+R05 retired (D036); the analysis lane now writes the **finding-reports** (`reports/R06`–`R14`), one Q-tagged claim
+per file, each 1:1 with a manuscript Results section, in the reading order of `reports/README.md`. Deep reading
+order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each written through the `scientific-writing` skill.
+- [x] 2026-06-16 — **R06** (Q0/A2 — the alignment signal is real beyond confounds) ✅ written.
+- [ ] **R07** (Q1 — plain KD does not preserve alignment, from E003) — **NEXT**.
+- [ ] **R08** (Q2 — the lever is real but weak and ppl-confounded).
+- [ ] **R09** (Q3 — no per-individual gain; the averaging confound) — the parked `reports/_pending-Q3_*.md` draft reclaims this number.
+- [ ] **R10** (Q3 — null is method-general) · **R11** (Q3 — the quality law) · **R12** (Q3 — the ceiling, scoped; keystone) · **R13** (Q3 — external reproduction) · **R14** (Q4/A3 — no practical payoff).
 - [ ] **Figures:** confirm `scripts/figures/make_figures.py` renders the recorded numbers
   (averaging-collapse / powered A2 / A3 nulls / dose-response-with-caveat).
-- [ ] **Manuscript read-through → submit:** venue/length; optional §2 prose polish. (References verified
-  + [VERIFY] flags cleared, lit-scout 2026-06-12.)
+- [ ] **Extended manuscript:** consolidate the finding-reports into the extended manuscript at a checkpoint Erfan
+  calls (never auto-updated, D035); seed from v0.9. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
+
+### Done this session (S16 — analysis, 2026-06-16; no science, no rung moved)
+- [x] 2026-06-16 — **Renamed ladder rungs L→Q in execution order + added `map.md`** (legend + journey tree; L↔Q table). D036.
+- [x] 2026-06-16 — **Adopted the finding-report convention (D036):** one durable claim per file, flat append-only `R<NN>` IDs, current-truth-only, Q-tagged, 1:1 with a manuscript Results section; index + reading order in `reports/README.md`. **Retired R05** (frozen for history).
+- [x] 2026-06-16 — **Wrote R06** (Q0/A2 — the alignment signal is real beyond confounds), formalized as conditional-MI with a math-grounded report convention.
+- [x] 2026-06-16 — **scientific-writing skill:** added a math-voice rule + a "presenting a measured quantity" rule.
+- [x] 2026-06-16 — **reasoning toolkit:** added the **estimand-first lens** + a rule to grow the toolkit (`docs/references/reasoning-frame.md`).
+- [x] 2026-06-16 — **Reconciled the stale state boards** (ladder/upspeed/tasks/analysis-roadmap) to the committed S16 work; wrote a reconstructed S16 timeline log. (S16 itself was not formally `/wrap`ped.)
 
 ### Done this session (S15 — analysis/infrastructure, 2026-06-15; no science, no rung moved)
 - [x] 2026-06-15 — **R05 §8 scaffolding refreshed** (stale `r≈−0.92`→`−0.78`; §11–§16 placeholders now name E017/E019/E020 + L041). Narrative frontier unchanged: next is §9.
@@ -140,7 +151,7 @@ The research corpus continuing the path (full table + decision rules in `ladder.
 - [x] 2026-06-15 — **Built the `scientific-writing` skill** (17 files: SKILL.md + 4 references + 6 verifier scripts + 6 LaTeX assets + pointer doc). Panel-hardened ×2; verifiers tested; full `latexmk`+`biber` build passes.
 - [x] 2026-06-15 — **Cloned `academic-research-skills`** (read-only, gitignored, `data/reference-repos/`); swarm-mapped it; adopted patterns C1–C6, declined the heavy plugin machinery.
 - [x] 2026-06-15 — **Fused D035** into `CLAUDE.md`, the doc map, and the manuscript/reports READMEs (removed the false "paper = report" / "no latest copy" lines).
-- [ ] **Carry-forward:** resume **R05 §9 (Session A)** through the skill; **mirror D035 to gbrain `projects/brain-alignment`** at next session start.
+- [x] 2026-06-16 — **Carry-forward (S15→S16): resumed the analysis lane** via the finding-report convention (R05 retired, R06 written). **Still pending: mirror D035/D036 to gbrain `projects/brain-alignment`** at next session start.
 
 ### Done this session (S9 — analysis, 2026-06-12)
 - [x] 2026-06-12 — **Taught Q0 + Q2** of the thesis arc (Socratic, native `socratic-tutor`); Erfan mastered the frame/bet + measurement/lever/MDE/reroute.

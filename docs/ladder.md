@@ -4,9 +4,16 @@
 
 > **New to the codes?** → **[`map.md`](map.md)** is the visual map (legend + the whole journey as a tree). Quick legend: **Q**n = ladder rung / research question (Q0→Q5, in climb order); **E**nnn = experiment (the evidence); **A**1–A3 = the three assumptions; **D**nnn = decision; **L**nnn = learning. Rungs were renamed **L→Q** on 2026-06-15 (D036, execution-order numbering); pre-2026-06-15 timeline logs still use the old L labels — see `map.md` for the L↔Q table.
 
-**Last updated:** 2026-06-15 (S15 — analysis/infrastructure. Built the three-layer deliverable model (D035) + the
-`scientific-writing` skill (`.claude/skills/scientific-writing/`); **NO science rung changed**, the ladder is unchanged
-from S14. Resume point for the analysis week = Session A / R05 §9 (E005→E008), now written through the skill.
+**Last updated:** 2026-06-16 (S16 — analysis. **Restructured the write-up layer; NO science rung changed**, the ladder
+is unchanged from S14. Renamed the ladder rungs **L→Q** in execution order and added `map.md` (legend + journey tree);
+adopted the **finding-report convention** (D036 — one durable claim per file, flat append-only `R<NN>` IDs,
+current-truth-only, Q-tagged, each mapping 1:1 to a manuscript Results section). **Retired R05** (frozen for history).
+Wrote **R06** (Q0/A2 — the alignment signal is real beyond confounds), formalized as conditional-MI with a math-grounded
+report convention; added a "presenting a measured quantity" + math-voice rule to the `scientific-writing` skill and the
+**estimand-first lens** to the reasoning toolkit. **Resume point for the analysis lane = the finding-report set in
+reading order (`reports/README.md`): R06 ✅ done → next R07 (Q1, plain KD does not preserve alignment).**
+— prior: S15 — analysis/infrastructure. Built the three-layer deliverable model (D035) + the `scientific-writing`
+skill; **NO science rung changed**, ladder unchanged from S14.
 — prior: S14 autonomous working — **F1-close (E020 empirical-E[Y|S] ceiling) DONE → bounded-not-closed.**
 Ran story_11 n=6: **NO Fork-A** (apparent A_resid=+0.090 = confirmed leaked-stimulus+autocorrelation; after fold-gaps +
 eng1000-partial the trained−untrained residual gap = −0.018≈0). Ceiling **bounded-not-closed** — the empirical n=6 E[Y|S]
@@ -134,16 +141,23 @@ while Erfan studies in the analysis lane.
   via `config_update` unsloth-Llama override + ffmpeg. **Next: Phase 1 fidelity → Phase 2 ceiling (cheapest
   decisive).** **A TRIBE null = strongest publishable Fork-B; a TRIBE positive reopens Fork-A → STOP for Erfan.** After every step: panel (D017) + Codex (D019); record;
   **no rung flips without Erfan.**
-- **📖 ANALYSIS lane (Erfan) — FROZEN at its resume point:** the get-up-to-speed walk resumes at **Q3 = E005**
-  (apparent +0.0081 → E008 per-individual null) = R05 §9 → §14; then figures-check + manuscript read-through.
-  Working sessions must NOT edit the analysis-lane docs (R05, manuscript, E005–E014 records).
+- **📖 ANALYSIS lane (Erfan) — ACTIVE, now the finding-report set (D036):** R05 is retired; the analysis lane writes
+  the **finding-reports** (`reports/R06`–`R14`), each a single Q-tagged claim mapping 1:1 to a manuscript Results
+  section, in the reading order of `reports/README.md`. **R06 ✅ (Q0/A2) done; next = R07 (Q1).** The parked Q3 draft
+  (`reports/_pending-Q3_*.md`) reclaims **R09** at read-position 4. Working sessions must NOT edit the analysis-lane
+  docs (the finding-reports, manuscript, E005–E014 records).
 
 **The manuscript (v0.9) is content-complete + panel-converged + artifact-complete** (`docs/manuscript/00_paper-draft-v0.md`): references verified, cross-refs resolve, gate = READY (thesis/workshop). Headline = the well-powered per-individual NULL + the averaging-confound measurement-validity result; the dose-response (E010/E010b) is hedged, not load-bearing.
 
-**Analysis-session backlog (get-up-to-speed, in order):**
-1. **Walk R03→now** — IN PROGRESS (S9): Q0–Q2 done, captured in the new LIVING report `docs/reports/R05_thesis-narrative-from-first-principles.md` (pedagogical, course-grounded) + the new `docs/07-concepts-primer.md`. **Resume at Q3 = E005** (apparent +0.0081 → E008 per-individual null) → robustness escapes (E011/E013b/E013/E014) → Fork-B reframe; each becomes R05 §9–§14. Source: `docs/experiments/ENNN_*.md` + `learnings.md` L011–L030.
+**Analysis-session backlog (write the finding-report set, in reading order — `reports/README.md`):**
+1. **The finding-reports (D036)** — each Q-tagged, current-truth-only, 1:1 with a manuscript Results section, written through the `scientific-writing` skill. Deep reading order, concepts, and self-checks per report live in `docs/analysis-roadmap.md`; source evidence in `docs/experiments/ENNN_*.md` + `learnings.md`.
+   - **R06** (Q0/A2 — signal real beyond confounds) ✅ **written**.
+   - **R07** (Q1 — plain KD does not preserve alignment) ⬜ **NEXT**.
+   - **R08** (Q2 — the lever is real but weak and ppl-confounded) ⬜.
+   - **R09** (Q3 — no per-individual gain; the averaging confound) — the parked draft `reports/_pending-Q3_*.md` reclaims this number.
+   - **R10** (Q3 — null is method-general) · **R11** (Q3 — the quality law) · **R12** (Q3 — the ceiling, scoped; keystone) · **R13** (Q3 — external reproduction corroborates) · **R14** (Q4/A3 — no practical payoff) ⬜.
 2. **Figures:** confirm the 4 figures (`scripts/figures/make_figures.py`) render the recorded numbers — averaging-collapse (Fig 2), powered A2 (Fig 3), A3 nulls (Fig 4), dose-response-with-caveat (Fig 1).
-3. **Manuscript read-through** for thesis/workshop submission: resolve venue/length, optional §2 prose polish; the 5 reference [VERIFY] flags are now cleared (lit-scout, 2026-06-12).
+3. **Extended manuscript:** consolidate the finding-reports into the extended manuscript at a checkpoint Erfan calls (never auto-updated, D035); seed from v0.9 (`manuscript/00_paper-draft-v0.md`). The 5 reference [VERIFY] flags are cleared (lit-scout, 2026-06-12).
 
 **Queued next MAJOR build (item 2, a fresh WORKING session — Erfan-approved as a possible next step):** the one untested door — **full fine-tuning (not a LoRA distillation readout) on multi-subject naturalistic voxelwise targets** (denizenslab n=6; `data/paper-repos/speech-llm-brain`). Scoped in `docs/experiments/E013_*.md`. The distillation-readout lever's failure (E013) is n-independent, so the ~5-deep-subject power (L024) applies only to this full-FT route, *conditional on it first inducing an above-base improvement*. Mechanism evidence suggests likely-null, but it is the only path that could move the per-individual verdict toward Fork-A. **A multi-day build — launch fresh, not at a session tail.**
 

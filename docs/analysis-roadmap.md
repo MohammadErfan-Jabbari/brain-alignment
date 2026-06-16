@@ -6,6 +6,30 @@ Q2; §9 = E005 is next), (2) **get current** on everything the implementation la
 E020, E019, and the S14 idea-refinement), (3) **learn alongside** — deepen the information-theory math while you narrate
 it, and (4) **produce** the manuscript v1.0 with the S14 scope correction and refocused headline baked in.
 
+> **⚠️ UPDATE (S16, 2026-06-16) — the OUTPUT layer changed; the reading/concepts/self-checks below are still valid.**
+> **R05 is retired** (D036). The per-session deliverable is no longer "an R05 section" but a **finding-report**
+> (`reports/R<NN>_*.md`): one Q-tagged claim per file, current-truth-only, each 1:1 with a manuscript Results section.
+> Write them in the reading order of `reports/README.md`, through the `scientific-writing` skill. Where a session below
+> says "Produce: R05 §N", read it as "write/extend the corresponding finding-report":
+>
+> | This roadmap's session | Finding-report (output) | Status |
+> |---|---|---|
+> | (Q0/A2, was R05 §0–§8) | **R06** — signal real beyond confounds | ✅ written (S16) |
+> | (Q1, was R05 §0–§8) | **R07** — plain KD does not preserve alignment | ⬜ **NEXT** |
+> | (Q2, was R05 §0–§8) | **R08** — the lever is real but weak / ppl-confounded | ⬜ |
+> | **Session A** (E005→E008) | **R09** — no per-individual gain; the averaging confound (parked `_pending-Q3_*.md`) | ⬜ |
+> | **Session C** (E017 + convergence) | **R10** — the null is method-general | ⬜ |
+> | **Session B** (E015 quality law) | **R11** — the quality law; matched-ppl is the missing control | ⬜ |
+> | **Session D** (E020 ceiling — keystone) | **R12** — the ceiling, scoped honestly | ⬜ |
+> | **Session E** (E019 reproduction) | **R13** — external reproduction corroborates | ⬜ |
+> | (Q4/A3, E009) | **R14** — no practical payoff | ⬜ |
+> | **Session F** (synthesis) | extended manuscript checkpoint (D035; on Erfan's call) | ⬜ |
+> | **Session G** (adversarial review + figures) | review pass + figures | ⬜ |
+>
+> Reading order across the *finding-reports* is by Q-rung climb order (Q0→Q4); the session ordering below is the
+> *pedagogical* order (the conceptual core, Session D, deliberately late). Both are fine — pick reports in the README's
+> reading order, use the matching session below for the deep read + self-checks.
+
 > **How to use this.** Each "Analysis Session" below is a self-contained chunk: a **goal**, what to **read** (in order),
 > the **concepts to master** (with the course-note tie-in), what to **produce** (a concrete R05 section or manuscript
 > edit), and a **self-check** (quiz / derivation) to confirm you actually understand it before moving on. Do them in
