@@ -137,6 +137,13 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 - [ ] **Extended manuscript:** consolidate the finding-reports into the extended manuscript at a checkpoint Erfan
   calls (never auto-updated, D035); seed from v0.9. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
 
+### Done this session (S17 — analysis, 2026-06-16; no science, no rung moved)
+- [x] 2026-06-16 — **R06 precision sweep (thinking panel ×3 opus in parallel).** Three parallel opus agents (counter-argument, socratic-thinker, first-principles-grounder) found 8 real issues; all fixed: tables for E002/E006 numbers; semipartial vs partial R² corrected; untrained sign mechanism rewritten (−0.017, strong nuisance absorbs shared-cause floor); "gpt2-medium in between" → "comparable"; "mid-layer-peaked" → "broad plateau"; temporal-leakage and voxel-selection-bias paragraphs rewritten with explicit mechanisms; language-network caveat added; "Two controls" → "Three controls"; quality ordering grounded in our data; duplicate gap formula removed.
+- [x] 2026-06-16 — **CC_norm > 0.05 stale threshold in E006 design section** corrected to split-half reliability > 0.5, as-run. Section header updated.
+- [x] 2026-06-16 — **Architecture sections added to E002 and E006** — Mermaid flowcharts + stage-by-stage walkthroughs; last-sub-token rationale, Lanczos, FIR delays, capacity-fair PCA, two-arm gap structure documented.
+- [x] 2026-06-16 — **`docs/explainer_pipeline.html` created** — dark-mode HTML pipeline explainer with color-coded diagrams and E006 numbers.
+- [x] 2026-06-16 — **L043** appended to `learnings.md` (semipartial vs partial R² distinction).
+
 ### Done this session (S16 — analysis, 2026-06-16; no science, no rung moved)
 - [x] 2026-06-16 — **Renamed ladder rungs L→Q in execution order + added `map.md`** (legend + journey tree; L↔Q table). D036.
 - [x] 2026-06-16 — **Adopted the finding-report convention (D036):** one durable claim per file, flat append-only `R<NN>` IDs, current-truth-only, Q-tagged, 1:1 with a manuscript Results section; index + reading order in `reports/README.md`. **Retired R05** (frozen for history).

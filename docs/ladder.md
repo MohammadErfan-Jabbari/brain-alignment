@@ -4,7 +4,7 @@
 
 > **New to the codes?** → **[`map.md`](map.md)** is the visual map (legend + the whole journey as a tree). Quick legend: **Q**n = ladder rung / research question (Q0→Q5, in climb order); **E**nnn = experiment (the evidence); **A**1–A3 = the three assumptions; **D**nnn = decision; **L**nnn = learning. Rungs were renamed **L→Q** on 2026-06-15 (D036, execution-order numbering); pre-2026-06-15 timeline logs still use the old L labels — see `map.md` for the L↔Q table.
 
-**Last updated:** 2026-06-16 (S16 — analysis. **Restructured the write-up layer; NO science rung changed**, the ladder
+**Last updated:** 2026-06-16 (S17 — analysis. **R06 precision sweep complete (thinking panel ×3, 8 fixes — semipartial/partial, untrained sign, tables, controls label, quality ordering, E006 CC_norm threshold); NO science rung changed.** — prior: S16 — analysis. **Restructured the write-up layer; NO science rung changed**, the ladder
 is unchanged from S14. Renamed the ladder rungs **L→Q** in execution order and added `map.md` (legend + journey tree);
 adopted the **finding-report convention** (D036 — one durable claim per file, flat append-only `R<NN>` IDs,
 current-truth-only, Q-tagged, each mapping 1:1 to a manuscript Results section). **Retired R05** (frozen for history).
