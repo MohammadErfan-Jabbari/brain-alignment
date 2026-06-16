@@ -63,7 +63,10 @@ A number never enters at a lower layer than where it was recorded.
   concept it rests on, get a precise definition in real LaTeX (`$…$` / `$$…$$`, which Markdown renders), not plain-text
   symbols. Where the concept has a course note (`docs/06-theory-grounding.md` → `data/course-material/`), cite it
   rather than re-deriving: prose explains the mechanism, the formula pins it down. Reports are rigorous and
-  math-grounded by standard, not by exception.
+  math-grounded by standard, not by exception. **State the math in the paper's own voice** ("for a triple
+  $(X,Y,Z)$, the conditional mutual information is …"), never as reportage about the source ("the course
+  defines …", "the lecture says …", "the paper shows …"): the citation carries the provenance, the prose
+  states the result.
 - **No chronological-narrative exception.** Every active report is current-truth-only. The former teaching
   companion (`R05`), which narrated the arc in order, is **retired and frozen** (2026-06-16): it is kept as
   history, not an active report, and nothing new is written in that mode.
