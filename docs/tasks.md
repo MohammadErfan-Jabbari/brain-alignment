@@ -151,7 +151,8 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 - [x] 2026-06-15 — **Built the `scientific-writing` skill** (17 files: SKILL.md + 4 references + 6 verifier scripts + 6 LaTeX assets + pointer doc). Panel-hardened ×2; verifiers tested; full `latexmk`+`biber` build passes.
 - [x] 2026-06-15 — **Cloned `academic-research-skills`** (read-only, gitignored, `data/reference-repos/`); swarm-mapped it; adopted patterns C1–C6, declined the heavy plugin machinery.
 - [x] 2026-06-15 — **Fused D035** into `CLAUDE.md`, the doc map, and the manuscript/reports READMEs (removed the false "paper = report" / "no latest copy" lines).
-- [x] 2026-06-16 — **Carry-forward (S15→S16): resumed the analysis lane** via the finding-report convention (R05 retired, R06 written). **Still pending: mirror D035/D036 to gbrain `projects/brain-alignment`** at next session start.
+- [x] 2026-06-16 — **Carry-forward (S15→S16): resumed the analysis lane** via the finding-report convention (R05 retired, R06 written).
+- [x] 2026-06-16 — **Mirrored D035/D036 to gbrain** — D035 page (`brain-alignment-deliverable-system`) already current; D036 page (`brain-alignment-naming-convention`) updated with the finding-report convention + R06 + the estimand-first lens (`write_through: written`). The bare `projects/brain-alignment` hub stub still wants enrichment (future).
 
 ### Done this session (S9 — analysis, 2026-06-12)
 - [x] 2026-06-12 — **Taught Q0 + Q2** of the thesis arc (Socratic, native `socratic-tutor`); Erfan mastered the frame/bet + measurement/lever/MDE/reroute.

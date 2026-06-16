@@ -44,12 +44,17 @@ step is the next finding-report, R07.)
 
 ## Blockers / open loops
 
-- **S16 was not formally `/wrap`ped** — its work was committed to git but the state boards (ladder/upspeed/tasks)
-  were stale until this reconciliation. A reconstructed S16 timeline log is now in `docs/timeline/`.
-- **Brain mirror still pending:** D035 (and now D036 + the finding-report convention) should be mirrored to gbrain
-  `projects/brain-alignment`; carried since S15, do at the next session start.
+- **Boards reconciled + brain mirror done (this close, 2026-06-16):** ladder/upspeed/tasks/analysis-roadmap now agree
+  (R05 retired, next = R07); the D036 gbrain page (`brain-alignment-naming-convention`) was updated with the
+  finding-report convention + R06 (the D035 page was already current). A reconstructed S16 timeline log + this
+  session's log are in `docs/timeline/`.
+- **⚠️ Concurrent in-flight work, uncommitted (NOT this session's):** `reports/R06`, `experiments/E002`,
+  `experiments/E006` are modified and `docs/explainer_pipeline.html` is new in the working tree — active R06 work
+  (math rendering, the trained−untrained-gap reasoning, pipeline diagrams) by Erfan or another agent. Left untouched;
+  its author should commit it.
 - The parked Q3 draft's title line reads "# R06 —"; it becomes R09 when promoted at read-position 4 (fix the title then).
-- No background jobs running. Nothing half-finished.
+- `projects/brain-alignment` gbrain hub is still a bare stub (enrich when convenient).
+- No background jobs running.
 
 ## Key facts
 
