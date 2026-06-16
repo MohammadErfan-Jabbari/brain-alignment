@@ -32,6 +32,24 @@ identically everywhere and stay greppable:
 A small, semantic macro set is also what makes the extended-to-public compression lexical rather than a
 re-port: a section copied down compiles unchanged.
 
+## Consolidation guards (report → extended fold)
+
+The extended manuscript is consolidated from several reports written independently, so the fold introduces
+failure modes a single report never had. Before folding a report into the body, run three guards:
+
+- **Notation-collision check.** Each report chose its symbols alone, so two can collide once merged
+  (R06 alone uses $Z$ for both the nuisance $Z_{\text{nuis}}$ and $\mathbb{E}[Y\mid S]$). Diff the incoming
+  report's symbols against the manuscript's macro set (`\Lbrain`, `\uniqueR`, `\Eys`, `\permtwin`, …) and a
+  maintained notation table; any symbol carrying two meanings is disambiguated or routed through a macro
+  before the fold.
+- **Document-wide glossary.** Maintain a glossary/notation table (e.g. `assets/glossary.tex`) so
+  "define on first use" (writing-style.md §2) holds across sections, not just within one. A term defined in
+  Methods and reused in Discussion is still defined for a reader who jumps straight there.
+- **Rationale-survival check.** The compression gate protects claims and numbers (`check_claim_survival`),
+  but nothing protects the *why* of a method choice across the fold. Before a report is folded in, confirm
+  each method-rationale it carries has a home in the body or becomes a `\gap` — do not let consolidation
+  silently drop a justification that the report had recorded.
+
 ## The vendored-frozen-cut rule
 
 A public `vN` is a frozen snapshot. It must carry its own copy of the preamble and the `.bib`, not

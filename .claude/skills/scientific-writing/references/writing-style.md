@@ -12,7 +12,7 @@ checks them. Each rule below is tagged `[linter]` or `[judgment]`.
 ## Contents
 
 1. Anti-AI-tell rules (the tells, and why each is a tell)
-2. Scientific voice (paragraph shape, tense, precision, register, presenting a measured quantity)
+2. Scientific voice (paragraph shape, tense, precision, register, presenting a measured quantity, the reader-comprehension floor)
 3. Graded hedging tied to the evidence (C2)
 4. The Clarity Test and non-uniform investment
 5. Running the sweep
@@ -103,12 +103,16 @@ Two lenses that sharpen the same move:
   the estimator); the third, the **implementational level** (the physical substrate), is rarely relevant
   here. Reach for this vocabulary when separating "what we measure" from "what it means" earns its keep;
   skip it when it is overhead.
-- **The characterization move `[judgment]`.** When a metric is *equal* to a principled quantity, state the
-  equality as a small result, a **characterization** (equivalently an **equivalence** or **representation
-  result**), not as an analogy. "Unique R² is exactly the squared partial correlation $\rho^2_{XY\cdot Z}$,
-  and $I(X;Y\mid Z) = -\tfrac{1}{2}\ln(1-\rho^2_{XY\cdot Z})$" earns the reduction; "unique R² is like an
-  information measure" does not. It is the "it is secretly X" unification move: lead with the familiar
-  object, then reveal the deeper one it instantiates.
+- **The characterization move `[judgment]`.** When a metric is provably *equal* to a principled quantity,
+  state the equality as a small result, a **characterization** (equivalently an **equivalence** or
+  **representation result**), not as an analogy. The schema is "metric $M$ equals principled quantity $Q$
+  under stated conditions, so a positive $M$ is exactly a positive $Q$"; the weak version, "$M$ is like
+  $Q$", earns nothing. It is the "it is secretly $X$" unification move: lead with the familiar object, then
+  reveal the deeper one it instantiates. **Assert the equality only at the strength the math actually
+  licenses** — an exact identity, a monotone relation, and a shared sign are three different claims, and
+  using the wrong one (writing "exactly equals" where only a shared sign holds) is a correctness error, not
+  a style choice. The examples in this skill illustrate the *move*, not vetted domain facts: never lift a
+  specific equation from an example into your prose without re-deriving it for your own case.
 
 - **Vocabulary, use the exact term (ties "one term per concept").** Reach for the precise name so the
   reader tracks a single object across the section:
@@ -122,6 +126,36 @@ Two lenses that sharpen the same move:
 The worked exemplar is R06's "The design (and the apparatus the whole program reuses)": estimand
 $I(\text{LM};B\mid Z_{\text{nuis}})$, estimator unique R² via ridge, identifying assumption Gaussianity,
 with the common-cause logic naming why conditioning on $Z$ is the whole point.
+
+### Reader-comprehension floor `[judgment]`
+
+The rules above make prose precise and unflashy; these four make it *resolvable on a first read*. They are
+the floor a reader needs to follow the argument without stopping to ask, and each was a real miss caught
+late on R06 (L046). They are graded by the layer's named audience (`03-methodology.md`, "Deliverable
+layers"): define for the reader you actually have, do not over-define for one you don't.
+
+- **Define on first use.** Every acronym and domain term is expanded or glossed at its first occurrence
+  ("BOLD = blood-oxygen-level-dependent signal"; "TR = repetition time"), at the level the audience needs:
+  a report or extended manuscript for a supervisor defines fMRI terms an outside reader would miss; a cut
+  for an fMRI committee does not gloss BOLD. In a multi-section manuscript, "first use" is **document-wide**,
+  not per-section, and a recurring term also gets a glossary/notation entry (latex-conventions.md). The rule
+  that the central construct is formalized (SKILL.md) covers *your* objects; this rule covers the *borrowed*
+  terms that rule does not reach.
+- **Motivate every non-obvious method choice.** A feature-construction or preprocessing choice a reader
+  could reasonably question (a pooling rule, a resampling kernel, a threshold, a delay count) carries a
+  one-clause "why this, and not the obvious alternative", with a prior-art cite where one exists. If the
+  working session never recorded the rationale, that is a `\gap{rationale for X not recorded}`, not a
+  sentence written from guesswork — the writing layer never invents a justification (D011). Recording the
+  why at choice-time is a working-session obligation (`03-methodology.md`).
+- **Table a genuine comparison.** When three or more comparable numbers vary across conditions (models ×
+  metric, arms × effect), present them as a table, not an inline list the reader has to assemble mentally.
+  The exception is a single headline effect with its CI and test, which stays inline ("the gap was +0.021
+  [CI …], 95% of voxels positive") — do not tabularize one result for its own sake.
+- **Show the formula only when it pins something down.** The core construct gets prose *and* display math.
+  A secondary relation gets a formula when the reader must verify the algebra (an identity, a cancellation),
+  and gets prose when a term merely supports or cancels ("the nuisance term is identical in both arms, so it
+  drops out of the difference") — do not render a wall of symbols the prose already states, and do not
+  gesture at math you never write.
 
 ---
 
@@ -150,12 +184,21 @@ When the evidence and the verb disagree, the evidence wins: change the verb, not
 
 ## 4. The Clarity Test and non-uniform investment
 
-Ask of every paragraph: if I delete this, does the section still make sense? Three outcomes.
+The test has two halves, and a paragraph must pass both. **Necessity:** if I delete this, does the section
+still make sense? **Sufficiency:** if I keep it, can a first-time reader parse it in a single pass?
+Necessity decides what stays; sufficiency decides whether what stays is legible. The two are independent —
+a paragraph can be load-bearing (necessity says keep) and still unreadable (sufficiency says fix), which is
+exactly the dense sentence that makes a reader stop and reconstruct your logic for themselves. Run both.
+
+The necessity half has three outcomes:
 
 - **Delete.** Nothing is lost. Cut it.
 - **Compress.** It supports but does not carry. Two sentences, not ten.
 - **Invest.** It is load-bearing (the averaging-confound mechanism, the per-individual null). Draft it
-  several times until it is exact.
+  several times until it is exact *and* one-pass-readable. Investing means **unpacking** the logic into
+  ordered steps, one inferential hop per sentence — not packing more clauses into a single sentence. A
+  sentence that chains "A, so B by construction, and C throughout" is three sentences trying to be one;
+  split it. (Density on a load-bearing sentence is the failure the sufficiency half exists to catch.)
 
 Most AI prose fails this test because every paragraph gets equal weight, which produces the uniform-length
 tell from section 1. Varying your investment by what the paragraph carries fixes the rhythm as a side

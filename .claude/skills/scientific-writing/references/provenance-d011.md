@@ -46,6 +46,16 @@ provenance handle. One-off contextual numbers (a sample count in passing) can be
 still need an `\evd` cite. Rule of thumb: if a number would be wrong to get wrong in a public cut, it is
 load-bearing, so key it.
 
+## Number freshness: the cite must resolve *and* still match
+
+`check_evd_resolution.py` confirms a cite resolves to a record and that no result-like number is bare. It
+does **not** confirm the number in the prose still matches the *current* value in that record. A stale
+number that once was right keeps its cite and passes the check — this is exactly how R06 carried a
+`CC_norm > 0.05` threshold after the as-run value had changed to split-half reliability `> 0.5` (L046).
+So when you state a keyed or threshold number, verify the prose value against the cited record as it reads
+*now*, not as you remember it. A mechanical freshness check (compare each cited value against its record)
+is a worthwhile verifier to build; until it exists, this is a manual obligation at every full-loop handoff.
+
 ## The orphan discipline
 
 Two directions, both checked. A claim with no cite is an orphan claim (the bare-number flag). A

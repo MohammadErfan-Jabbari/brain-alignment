@@ -21,16 +21,28 @@ Two jobs run through everything here: make the prose read like a careful scienti
 every number defensible. The first job is mostly judgment with a deterministic floor (the linter); the
 second is mostly mechanical (a number resolves to a record, or it does not).
 
-## Pick the path first
+## Pick the path first — decide it *with* the user, do not choose silently
 
-Most writing in this repo is a small edit to a report. That case should stay cheap, or it gets skipped.
+Which path a task takes changes the effort by a lot, so make it a deliberate, shared choice. When the user
+initiates a writing task, **surface both paths with their roadmap and rough cost, say which one the task
+looks like and why, and let the user decide before you start.** Skip the interview only when the user has
+already named the path or the scope is unambiguous (a typo fix is obviously fast; "consolidate the extended
+manuscript" is obviously the full loop).
 
-- **Fast path** (a one-paragraph add or a sentence fix in a `docs/reports/R*.md`): apply the style floor
-  and the cite rule, nothing else. Run `scripts/ai_tell_lint.py` on the file, and make sure every number
-  you wrote carries a cite (`[E0nn]`). Skip precommitment, the review pass, and the LaTeX checks. Two
-  obligations, no ceremony.
-- **Full loop** (writing or rewriting a whole section; consolidating the extended manuscript; cutting a
-  public version): the loop below.
+- **Fast path** — a genuinely small edit: a one-paragraph add or a sentence fix in a `docs/reports/R*.md`.
+  Roadmap: draft → silent style sweep (`writing-style.md`) → confirm every number carries a cite (`[E0nn]`)
+  → `scripts/ai_tell_lint.py`. Skips precommitment, the review pass, and the LaTeX checks. Cost: minutes,
+  two obligations, no ceremony.
+- **Full loop** — writing or rewriting a whole section, consolidating the extended manuscript, cutting a
+  public version, or any prose a supervisor or committee will read. Roadmap: the six steps in "The full
+  loop" below (results-prose standard → draft-from-evidence with `\evd`/`\gap` tags → style sweep →
+  `run_checks.py` → compression if public → the Devil's-Advocate review pass, which for a manuscript draft
+  spawns the adversarial agents). Cost: substantially more, and it includes adversarial review.
+
+The boundary is hard in one direction: **a whole report section, the extended manuscript, and anything
+manuscript-bound or supervisor-facing always take the full loop, including the review pass — never the fast
+path.** The fast path's review-skip is what let R06's over-claims reach a reader (L046). Below that line,
+present the choice and let the user pick.
 
 ## The three layers (route, then read the spec)
 
@@ -91,7 +103,9 @@ A number never enters at a lower layer than where it was recorded.
    numbers. Cut derivations, mechanics, and the checkpoint log; keep every claim, its hedge level, and its
    number. `check_number_consistency.py` and `check_claim_survival.py` confirm nothing changed under you.
 6. **Review (anything a supervisor or committee sees).** Run the Devil's-Advocate pass in
-   `references/review-pass.md` before it lands.
+   `references/review-pass.md` before it lands. For the extended manuscript and any manuscript-bound report
+   this is **non-skippable**, not a judgment call — it is the gate that catches the over-claims and
+   unreadable passages a silent style sweep misses.
 
 ## Five things that hold, and why
 
