@@ -31,6 +31,39 @@ This is **A2** (measured alignment is not primarily nuisance). If it fails, the 
 - **Anti-confound:** contiguous-block CV only (no shuffling); unique variance after nuisance subtraction is the only number claimed (L003).
 - **Stop rule:** fixed model/layer grid; no training, no tuning. Pure measurement.
 
+## System architecture (the measurement apparatus, visual + intuitive)
+
+This is the first, simplest form of the apparatus the whole program reuses. It turns an *isolated sentence* and a *language model* into one number: how much the model's middle layer explains about the language network's response that length, position, and static word identity cannot. Because the stimuli are isolated sentences rather than a continuous story, there is no time series to model here — the temporal machinery (Lanczos resampling, FIR delays, held-out reliability) that the voxelwise run (E006) adds is *absent by design*, which is exactly what makes this the lower-bound-friendly screen. The diagram is the data flow; the walkthrough is why each stage exists.
+
+```mermaid
+flowchart TD
+  SENT["1000 isolated sentences<br/>(Tuckute 2024, item-ordered)"] --> LM["LM forward pass;<br/>mean-pool middle-layer hidden state<br/>over tokens → 1 vector / sentence"]
+  SENT --> LEN["scalar nuisance (raw, 2-d):<br/>token length · item position"]
+  SENT --> STAT["static embedding (~768-d):<br/>mean input-embedding / sentence"]
+
+  LM --> PCA["capacity-fair PCA, rank 50<br/>on LM and static blocks<br/>(length+position kept raw; fit on train)"]
+  STAT --> PCA
+
+  ROI["5 LH language ROIs<br/>averaged over 5 train participants"] --> CV
+  PCA --> CV["5 contiguous folds (item blocks)<br/>RidgeCV, two designs:<br/>nuisance = [len, pos, PCA-static]<br/>full = [len, pos, PCA-static, PCA-LM]"]
+  LEN --> CV
+  CV --> UNIQ["unique R² = R²(full) − R²(nuisance)"]
+  UNIQ --> ARMS{"trained LM · untrained same-arch (3 seeds)"}
+  ARMS --> GAP["trained − untrained gap<br/>(NC-normalised vs ceiling ≈ 0.353)"]
+```
+
+**1. One stimulus, two feature streams.** Each sentence becomes two descriptions. The **LM stream** is the thing under test: the middle-layer hidden state, mean-pooled over the sentence's tokens into one vector. The **nuisance stream** is what we refuse to credit the model for — a 2-dimensional scalar block (token length, item position) kept raw, and the static embedding (the mean *input* embedding per sentence, ≈768-d): a "bag of word vectors with no context." If the contextual representation cannot beat that static bag, the alignment is about lexical identity, not language processing.
+
+**2. No temporal pipeline — and that is the point.** Isolated sentences are scored as independent items, not as a BOLD time course, so there is nothing to resample to a TR grid and no hemodynamic lag to model with FIR delays. Removing the time series removes the temporal-autocorrelation inflation that contaminates naturalistic data, which makes a positive here *harder* to obtain, not easier — the honest direction for a screen. E006 reintroduces naturalistic stimuli and pays for it with the full temporal machinery.
+
+**3. Capacity-fair PCA stops a dimension-count win.** The static-embedding block and the LM block are each reduced to the **same rank (50)**, fit on the training fold only; length and position are small and stay raw. This is the L004 fix: if the contextual features win, they win on content, not by carrying more columns into the regression than the static confound.
+
+**4. The fit happens twice per fold, and the difference is the honest number.** Cross-validation uses **5 contiguous item blocks** — never shuffled, because shuffling would put near-duplicate items on both sides and leak the answer (L003). On each fold a RidgeCV is fit twice: on the **nuisance design** `[length, position, PCA(static)]`, and on the **full design** with `PCA(LM)` added. The **unique R²** is the difference — the variance context adds on top of everything length, position, and static identity already explain.
+
+**5. Two arms, and the gap is the verdict.** The whole pipeline runs with the trained LM and again with a randomly-initialised same-architecture network (three seeds), through byte-identical nuisance and splits. The reported statistic is the **trained − untrained gap**, NC-normalised against the paper's noise ceiling (≈0.353). The untrained arm isolates what *language training* adds over architecture and nuisance alone.
+
+The voxelwise run (E006) is this same machine scaled up: per-word instead of per-sentence features, a continuous-story temporal pipeline, an expanded phone-tier nuisance, a held-out-story noise ceiling, and ~11k voxels instead of 5 ROIs. Its architecture section draws the full version.
+
 ## How to run
 
 ```bash

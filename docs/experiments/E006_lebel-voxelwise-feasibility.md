@@ -27,11 +27,60 @@ E004 found a *fragile* brain-specific lever on Tuckute (Qwen co-trained-MSE − 
 - **Stories used:** a fixed set of **~20 stories** (the LeBel "train" pool minus a held-out test set), leave-**N-stories**-out CV (e.g. 5 folds of 4 held-out stories) — keeps compute tractable while powered (each story ~150–300 TRs → thousands of TRs total, ≫ Tuckute's 1000 items × 5 ROIs). Story list pinned for reproducibility.
 - **Models:** gpt2 (L7) + Qwen2.5-0.5B (L12), matching E002/E004; untrained same-arch control (≥3 seeds, the Feghhi control).
 - **Encoding:** ridge per voxel (RidgeCV with a fixed alpha grid at first pass; banded/bootstrap-alpha is a refinement). Voxel chunks to bound memory over 95k voxels. Report mean-voxel R², **top-NC-voxel** R² (CC_norm>0.05, à la merlin-2026), and unique-over-nuisance.
-- **NC / CC_norm + voxel selection (oracle fix — no double-dipping):** `wheretheressmoke.hf5` carries `individual_repeats` shape **(10, 291, 95556)** — 10 repeats of the canonical LeBel test story, the standard CC_norm source (verified on disk). **Hold `wheretheressmoke` OUT of the CV pool entirely**; compute per-voxel split-half CC_norm from its 10 repeats; **select NC-reliable voxels (CC_norm > 0.05, predeclared) on THIS held-out story** (independent of the encoding fit → no Kriegeskorte double-dip); report unique R² as a fraction of that ceiling. `load_response` must gain explicit repeated-story handling before the runner.
+- **NC / reliability + voxel selection (oracle fix — no double-dipping):** `wheretheressmoke.hf5` carries `individual_repeats` shape **(10, 291, 95556)** — 10 repeats of the canonical LeBel test story (verified on disk). **Hold `wheretheressmoke` OUT of the CV pool entirely**; compute per-voxel split-half reliability (Spearman–Brown corrected) from its 10 repeats; **select NC-reliable voxels (split-half reliability > 0.5, as-run) on THIS held-out story** (independent of the encoding fit → no Kriegeskorte double-dip); report unique R² as a fraction of that ceiling. `load_response` must gain explicit repeated-story handling before the runner.
 - **Stories:** use a larger pinned set (toward all 84, compute-permitting) — not just 20 — to maximise power for the E007-MDE deliverable (oracle #6: don't leave power on the table for the question that actually matters).
 - **Alignment guard (oracle fix):** assert `abs(len(feat) − len(BOLD)) ≤ 1` per story and log it (don't let `build_xy`'s `min()` silently mask a 1-TR slip). Do **not** reintroduce a global `position` regressor (it would encode story identity across concatenated stories) — rely on FIR + drift handling.
 - **Compute:** LM feature extraction over the story set × {gpt2,Qwen} × {trained, 3×untrained} (~minutes/config, GPU); ridge over 95k voxels × CV (the heavy part, chunked). Est. ~1–3 h. GPUs 0/3 free.
 - **Stop rule:** fixed story set, fixed layers (E002 peaks), fixed CV, fixed nuisance, fixed seed count. Pure measurement — no training, no tuning toward the outcome.
+
+## System architecture (the measurement apparatus, visual + intuitive)
+
+The whole experiment is one machine: it turns a *story the subject heard* and a *language model* into a single number — how much the model's middle layer explains about the subject's brain response that low-level structure cannot. Everything below is in service of making that one number honest. The diagram is the data flow; the walkthrough is why each stage exists.
+
+```mermaid
+flowchart TD
+  STORY["~20 naturalistic stories<br/>TextGrid: word tier + phone tier"] --> WORDS["per-word sequence<br/>+ word/phone onset times"]
+
+  %% --- two feature streams from the same words ---
+  WORDS --> LM["LM forward pass, overlapping<br/>256-tok chunks (stride 128);<br/>read verdict layer at each word's<br/>last sub-token, max left-context"]
+  LM --> LMW["per-word LM features<br/>(n_words × d_model)"]
+  WORDS --> LOW["low-level nuisance (5-d, raw):<br/>word-rate · phone-rate · duration<br/>· word-length · log word-freq"]
+  WORDS --> ENG["eng1000 static (985-d):<br/>mean lexical-semantic vector / word"]
+
+  %% --- shared temporal pipeline: word-rate → BOLD-rate ---
+  LMW --> TR["Lanczos resample → TR grid<br/>· trim edges · z-score<br/>· FIR delays 1–4 TR (hemodynamics)"]
+  LOW --> TR
+  ENG --> TR
+  TR --> PCA["capacity-fair PCA, rank 100<br/>on LM and eng1000 blocks<br/>(low-level kept raw; fit on train only)"]
+
+  %% --- target + honest voxel selection ---
+  REP["held-out repeated story<br/>wheretheressmoke × 10 repeats"] --> REL["split-half reliability<br/>(Spearman–Brown), keep rel &gt; 0.5"]
+  BOLD["UTS03 BOLD .hf5<br/>(TRs × 95,556 voxels)"] --> REL
+  REL --> VOX["11,442 NC-reliable voxels"]
+
+  %% --- the fit, twice, on whole-story-out folds ---
+  PCA --> CV["story-grouped CV (whole stories held out)<br/>RidgeCV per voxel, two designs:<br/>nuisance = [low, PCA-eng]<br/>full = [low, PCA-eng, PCA-LM]"]
+  VOX --> CV
+  CV --> UNIQ["unique R² per voxel<br/>= R²(full) − R²(nuisance)"]
+
+  %% --- two arms → the verdict ---
+  UNIQ --> ARMS{"run the whole pipeline twice:<br/>trained LM · untrained same-arch (3 seeds)"}
+  ARMS --> GAP["trained − untrained gap<br/>per voxel; bootstrap CI over voxels;<br/>% voxels with gap &gt; 0"]
+```
+
+**1. One stimulus, two feature streams.** Every story becomes two parallel descriptions of the same word sequence. The **LM stream** is the thing under test: each word's contextual representation, read from the model's middle layer. The **nuisance stream** is everything we want to *not* credit the model for — a 5-dimensional low-level block (how fast words and phonemes arrive, how long and frequent each word is) and the 985-dimensional eng1000 static block (a word's meaning *without context*, a fixed lookup). The intuition: if the LM only "aligns" because longer or rarer words happen to drive both the model and the brain, the nuisance stream already captures that, and the LM gets no credit for it.
+
+**2. The temporal pipeline turns word-rate into brain-rate.** Words arrive several per second; the scanner samples the brain once every TR (≈2 s), and the blood-flow response (BOLD) is a slow, smeared echo of neural activity peaking ~5 s late. Three steps bridge that gap, and they are applied *identically* to every stream so nothing is advantaged: **Lanczos resampling** lands word-level features on the TR grid; **z-scoring** puts every feature on the same scale; and the **FIR delays (1–4 TRs)** hand the ridge model copies of each feature shifted forward in time, so it can line a word up with the lagged BOLD response it caused. FIR is applied within each story, never across the seam between two stories.
+
+**3. Capacity-fair PCA stops a dimension-count win.** The LM block is ~768–896 dimensions; the eng1000 block is 985; the low-level block is 5. A wider block can absorb more variance just by having more knobs, regardless of content. So before the fit, the LM and eng1000 blocks are each reduced to the **same rank (100)**, fit on the training fold only. The low-level block is small and stays raw. This is the L004 fix: it guarantees that if the LM wins, it wins on *content*, not on carrying more columns into the regression.
+
+**4. The noise ceiling is chosen on data the fit never sees.** A voxel that is pure noise can still be "explained" a little by chance, so we only score voxels that reliably repeat. Reliability is measured on a *separate* story (`wheretheressmoke`) the subject heard ten times: split-half agreement across those repeats, Spearman–Brown corrected, keep the 11,442 voxels above 0.5. Because that story is held entirely out of the encoding fit, selecting on it cannot inflate the score — the alternative (picking voxels on the same data you then score) is double-dipping and biases everything upward.
+
+**5. The fit happens twice per fold, and the difference is the honest number.** Cross-validation holds out *whole stories* (no within-story timepoints leak across the train/test seam). On each fold a per-voxel ridge is fit twice: once on the **nuisance design** `[low, PCA(eng1000)]`, once on the **full design** `[low, PCA(eng1000), PCA(LM)]`. The **unique R²** is the difference — the variance the contextual LM adds *on top of* everything the nuisance already explains. A raw R² would conflate the two; the subtraction is what isolates context.
+
+**6. Two arms, and the gap is the verdict.** The entire pipeline above runs twice: once with the trained LM, once with a randomly-initialised network of the *same architecture* (three seeds). Both arms see byte-identical nuisance, identical splits, identical PCA. The reported statistic is the **trained − untrained gap**, per voxel, with a bootstrap CI over voxels — because on naturalistic time series even an untrained net scores slightly positive (its random features inherit the stimulus's temporal structure), so the untrained arm defines the true zero. The gap is what *language training* buys, and nothing else.
+
+The same six ideas define the apparatus the whole report set reuses; E002 is the simpler, isolated-sentence ancestor of this machine (no temporal pipeline, a coarser nuisance, ROI targets instead of voxels), and its own architecture section draws the reduced version.
 
 ## Decision rule (predeclared)
 
