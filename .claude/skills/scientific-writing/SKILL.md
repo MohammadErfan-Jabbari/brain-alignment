@@ -41,7 +41,7 @@ manuscript" is obviously the full loop).
 
 The boundary is hard in one direction: **a whole report section, the extended manuscript, and anything
 manuscript-bound or supervisor-facing always take the full loop, including the review pass — never the fast
-path.** The fast path's review-skip is what let R06's over-claims reach a reader (L046). Below that line,
+path.** The fast path's review-skip is what let R06's over-claims reach a reader (L046, D037). Below that line,
 present the choice and let the user pick.
 
 ## The three layers (route, then read the spec)

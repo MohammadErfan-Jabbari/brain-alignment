@@ -35,7 +35,9 @@ doc files; do not rely on the changeset alone for the current state of a doc.
 
 ## The scopes (you run ONE)
 
-1. **ladder-integrity** *(run on opus)* — Does `docs/ladder.md` match the `docs/experiments/` records and
+1. **ladder-integrity** *(sonnet by default; escalate to opus only when an experiment ran this session and
+   a rung flip is genuinely in question — there an independent opus skeptic on the verdict earns its cost)* —
+   Does `docs/ladder.md` match the `docs/experiments/` records and
    this session's changes? Every rung status backed by a recorded result; partials carry their caveat;
    kill criteria still predeclared for open rungs; the "Next session" block concrete and mode-tagged. Flag
    any status that the evidence no longer supports. Propose flips as `REQUIRES-ERFAN`.

@@ -136,6 +136,7 @@ Rules (unchanged): scoped staging only — never `git add -A`/`.`; stage explici
 | `paper-digest` | Read a paper (PDF/arXiv/URL) → a canonical note in `docs/literature/canonical/`. (opus) |
 | `oracle-reviewer` | Adversarially stress-test a hypothesis or design **before** committing compute (PASS/HOLD/KILL). Reproduces the prior HOLD-review value. (opus) |
 | `session-logger` | At session end: write `docs/timeline/…`, REPLACE `docs/upspeed.md`, update `tasks.md`/`learnings.md`. (sonnet) |
+| `wrap-auditor` | One read-only audit scope at session close, fanned out in parallel by `/wrap` on a heavy session; returns structured findings for the orchestrator to verify and apply. Never writes, never flips a rung. (sonnet; `ladder-integrity` scope → opus only when an experiment ran). D038. |
 
 **The thinking panel** (D017) — four reasoning-methodology agents run *after a step produces a result/
 verdict*, to find holes before the verdict lands in the ladder/docs/manuscript. Distinct from

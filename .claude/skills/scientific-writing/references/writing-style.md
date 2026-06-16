@@ -116,8 +116,10 @@ Two lenses that sharpen the same move:
 
 - **Vocabulary, use the exact term (ties "one term per concept").** Reach for the precise name so the
   reader tracks a single object across the section:
-  - **partial correlation** for variance added beyond a baseline (squared: the **incremental R²**; the
-    one-sided variant is the **semipartial** or **part correlation**);
+  - **semipartial (part) correlation** for the variance an added regressor contributes beyond a baseline;
+    its square is the raw increment $R^2([Z,X]) - R^2([Z])$, the **incremental R²** (what this repo calls
+    *unique R²*). The **partial correlation** $\rho_{XY\cdot Z}$ is the normalized version, differing by the
+    factor $1/(1-R^2([Z]))$; the two share a sign and vanish together but are not equal (L045);
   - **Gaussian mutual information** for the closed form $-\tfrac{1}{2}\ln(1-\rho^2)$;
   - **Reichenbach's common-cause principle** for "two variables are dependent because they share a parent",
     and its conditional-independence form **d-separation** (the applied phrasing is **controlling for a
