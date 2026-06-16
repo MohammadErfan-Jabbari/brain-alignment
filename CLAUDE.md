@@ -93,9 +93,14 @@ Follow the epistemic path in `docs/03-methodology.md`: Notice → Commit → Map
   nuisance baselines, gains shown after confound subtraction. See `docs/learnings.md` L003.
 - Root cause, not symptom. Strongest baseline, never a strawman.
 
-Use the **Elon/Feynman/Naval** frame (`docs/references/reasoning-frame.md`) when designing or
-deciding: real goal + delete false constraints; plain mechanism + where it breaks; smallest durable
-change that compounds.
+Use the repo's **reasoning toolkit** (`docs/references/reasoning-frame.md`) when designing or deciding:
+the **Elon/Feynman/Naval** frame (real goal + delete false constraints; plain mechanism + where it breaks;
+smallest durable change that compounds), and the **estimand-first** lens for any question resting on a
+measurement (name the estimand, the estimator, and the identifying assumption that ties them; ask whether a
+dependence is real or common-cause). **The toolkit is living: when a new way of approaching a problem proves
+itself on real work, record it there as a named lens (name + alternative names, when to reach for it, a
+worked instance from our own work, and where its detailed form lives) — adding one only when it recurs or
+clearly generalizes, and pruning what stops earning its keep.**
 
 ## Working with Erfan
 
