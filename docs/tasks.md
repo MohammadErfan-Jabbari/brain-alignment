@@ -137,6 +137,13 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 - [ ] **Extended manuscript:** consolidate the finding-reports into the extended manuscript at a checkpoint Erfan
   calls (never auto-updated, D035); seed from v0.9. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
 
+### Done this session (S18 — tooling/process, 2026-06-16; no science, no rung moved)
+- [x] 2026-06-16 — **Audited R06's clarity misses with a 4-lens thinking panel** (counter-argument + first-principles-grounder + socratic-thinker + premortem-analyst, opus). Diagnosis: mostly skill DESIGN, not execution. L046, D037.
+- [x] 2026-06-16 — **Hardened the `scientific-writing` skill** (commit `0647188`): amended the Clarity Test (necessity + sufficiency; invest = unpack not pack); added the reader-comprehension floor (define-on-first-use audience-graded, rationale-or-`\gap`, table-trigger, formula-vs-prose); made path selection a deliberate user interview with a hard "manuscript/supervisor-facing = full loop" boundary; review pass non-skippable for manuscript-bound work; report→extended consolidation guards; number-freshness obligation; neutralized the biasing worked example.
+- [x] 2026-06-16 — **Methodology non-negotiable** added (`docs/03-methodology.md`, commit `3e15ecd`): record the why of a non-obvious design choice at choice-time (D037).
+- [x] 2026-06-16 — **Built the swarm-wrap system** (commit `e19cc69`, D038): SessionStart hook (`wrap_session_snapshot.py`) records `{start_sha, transcript_path}` per worktree; `wrap-auditor` read-only agent (5 scopes); tier-scaled `/wrap` (trivial = inline, heavy = parallel auditors → single writer). First-run-tested on this session.
+- [x] 2026-06-16 — **L046** appended to `learnings.md`; **D037/D038/D039** recorded.
+
 ### Done this session (S17 — analysis, 2026-06-16; no science, no rung moved)
 - [x] 2026-06-16 — **R06 precision sweep (thinking panel ×3 opus in parallel).** Three parallel opus agents (counter-argument, socratic-thinker, first-principles-grounder) found 8 real issues; all fixed: tables for E002/E006 numbers; semipartial vs partial R² corrected; untrained sign mechanism rewritten (−0.017, strong nuisance absorbs shared-cause floor); "gpt2-medium in between" → "comparable"; "mid-layer-peaked" → "broad plateau"; temporal-leakage and voxel-selection-bias paragraphs rewritten with explicit mechanisms; language-network caveat added; "Two controls" → "Three controls"; quality ordering grounded in our data; duplicate gap formula removed.
 - [x] 2026-06-16 — **CC_norm > 0.05 stale threshold in E006 design section** corrected to split-half reliability > 0.5, as-run. Section header updated.
@@ -223,6 +230,8 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
       (FLOPs/latency/params target). Not in scope until the fundamental question is answered.
 
 ## Infrastructure / housekeeping
+
+- [ ] **(Tooling) Build a number-freshness verifier** (`check_number_freshness.py` in the `scientific-writing` skill scripts). Given a doc, find every cited number and check it still matches the *current* value in its `docs/experiments/`/`learnings.md` record — not just that the cite resolves. Closes the seam `check_evd_resolution.py` structurally can't (the stale `CC_norm` class, L046). Until built, it's a manual full-loop obligation (provenance-d011.md).
 
 - [ ] **Get to the bottom of graphify** (deferred — tooling, not science). Integrated 2026-06-11 as a
       code navigator (`.claude/skills/graphify/`, `.graphifyignore`, CLI via uv tool; see timeline
