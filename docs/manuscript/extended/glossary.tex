@@ -1,0 +1,23 @@
+% glossary.tex - document-wide notation and terms (consolidation guard).
+%
+% Maintained so "define on first use" holds ACROSS sections, not just within one:
+% a term defined in Methods and reused in Discussion is still defined for a reader
+% who jumps straight there. When a report is folded into the body, diff its symbols
+% against this table first (notation-collision check, latex-conventions.md).
+%
+% This renders as a reference table; it is \input near the front matter.
+
+\section*{Notation and terms}
+\addcontentsline{toc}{section}{Notation and terms}
+
+\begin{description}[leftmargin=2em,style=nextline]
+  \item[Encoding model] A ridge regression from a model's per-stimulus features to measured brain activity, scored out-of-sample. The standard brain-alignment instrument.
+  \item[Voxel / ROI] A voxel is one 3D measurement location in an fMRI scan; an ROI is a predefined region (here, the five left-hemisphere language regions of the ROI screen).
+  \item[\uniqueR{} (unique $R^2$)] The variance the language-model features add \emph{on top of} the nuisance set: $R^2([Z_{\mathrm{nuis}},\mathrm{LM}]) - R^2([Z_{\mathrm{nuis}}])$. The semipartial $R^2$, not the partial. The only predictive score this work reports.
+  \item[Trained$-$untrained gap] The verdict statistic: the unique $R^2$ of a language-trained model minus that of a same-architecture untrained network, under identical nuisance and splits. Isolates what \emph{language training} adds over random initialisation.
+  \item[$Z_{\mathrm{nuis}}$ (nuisance set)] The low-level confounds subtracted in both arms of the gap: utterance length, position, word and phoneme rate, word duration, log word-frequency, and a static word-embedding block (eng1000). Surprisal is deliberately excluded (it is itself LM-derived).
+  \item[Noise ceiling] The maximum variance any model could explain, set by the reliability of the neural measurement itself; reported here as split-half reliability of a held-out repeated story.
+  \item[Permuted twin] The per-kind shuffled-target null that tests brain-\emph{specificity}. It belongs to the lever question (whether the signal can be \emph{moved}), not to the reality question, and so does not appear in the Results section written here.
+  \item[\Eys{}] The stimulus-predictable mean response: the strong conditioning variable behind the ceiling question, as opposed to the weak low-level proxy $Z_{\mathrm{nuis}}$.
+  \item[\Lbrain{}] The brain-alignment training loss: the term added to a language objective that rewards representations predictive of recorded brain activity.
+\end{description}

@@ -1,0 +1,73 @@
+\section{Results}
+
+\subsection{The alignment signal is real, beyond confounds}
+
+A trained model's middle layer carries unique, out-of-sample variance about real language-network activity that a same-architecture untrained network does not, and the effect survives the full low-level nuisance regression under contiguous splits.
+The ROI screen passes on every model tested, and the powered voxelwise run confirms it where the screen could only hint.
+
+The ROI screen, on the five left-hemisphere language regions of \textcite{tuckute2024} with 1000 isolated sentences over five contiguous folds, shows a positive trained-minus-untrained gap for all three models, with the untrained control negative at every layer and seed (Table~\ref{tab:roi}).
+The signal is positive across a broad plateau of middle layers rather than at a single peak, and is absent from random features \evd{E002}.
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \caption{ROI screen on Tuckute 2024 (five LH language ROIs, five contiguous folds). Unique $R^2$ is the semipartial increment over the nuisance set; the gap is trained minus untrained. NC-norm is the gap as a fraction of the $r\approx0.353$ noise ceiling.}
+  \label{tab:roi}
+  \begin{tabular}{lcccccc}
+    \toprule
+    Model & Best layer & Trained \uniqueR{} (mean\,$\pm$\,SD) & Untrained \uniqueR{} & Gap & NC-norm & Source \\
+    \midrule
+    GPT-2 (12L)        & L7  & $+0.020 \pm 0.008$ & $-0.011$ & $+0.030$ & $0.056$ & \evd{E002} \\
+    GPT-2-medium (24L) & L14 & $+0.019 \pm 0.005$ & $-0.014$ & $+0.033$ & $0.053$ & \evd{E002} \\
+    Qwen2.5-0.5B (24L) & L12 & $+0.036 \pm 0.010$ & $-0.014$ & $+0.050$ & $0.102$ & \evd{E002} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The powered voxelwise run, on subject UTS03 of \textcite{lebel2023} over 20 naturalistic stories and \result{e006_reliable_voxels} voxels selected at split-half reliability above $0.5$ on a held-out repeated story, gives a trained-minus-untrained gap of \result{e006_gpt2_gap} for GPT-2 and \result{e006_qwen_gap} for Qwen2.5-0.5B, with 95\% and 99\% of reliable voxels positive respectively and the untrained unique $R^2$ at $-0.017$ in both (Table~\ref{tab:vox}) \evd{E006}.
+The confidence intervals exclude zero, and the gap is carried by language training rather than by architecture or the temporal structure the nuisance floor absorbs \evd{E006}.
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \caption{Powered voxelwise run on LeBel UTS03 (20 stories, story-level folds). The gap is the trained-minus-untrained unique $R^2$; CIs are bootstrap.}
+  \label{tab:vox}
+  \begin{tabular}{lcccc}
+    \toprule
+    Model & Layer & Trained\,$-$\,untrained gap [95\% CI] & \% reliable voxels gap\,$>$\,0 & Source \\
+    \midrule
+    GPT-2        & L7  & \result{e006_gpt2_gap} & 95\% & \evd{E006} \\
+    Qwen2.5-0.5B & L12 & \result{e006_qwen_gap} & 99\% & \evd{E006} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Three controls keep the positive honest, and the screen and the powered run are complementary on them.
+The ROI screen uses isolated sentences, which removes the temporal-autocorrelation inflation that contaminates naturalistic time series, so its positive is harder to obtain rather than easier \evd{E002}.
+The voxelwise run reintroduces naturalistic stimuli but adds whole-story-held-out cross-validation, so test timepoints are never adjacent to training timepoints, and voxel selection on a separate held-out repeated story, so the score cannot be inflated by voxels that correlate with the model by chance \evd{E006}.
+The nuisance set subtracted in both arms is the low-level set most likely to manufacture a false positive: word and phoneme rate, word duration and length, log word-frequency, and a static word-embedding block \evd{E006}.
+Surprisal and imageability are deliberately left unsubtracted, so a residual contextual nuisance is not ruled out by the floor alone; what rules it out is the same-architecture untrained network, which sees the identical set and scores negative at $-0.017$, so architecture, rate, and residual temporal structure cannot manufacture the gap \evd{E006}.
+
+\begin{figure}[H]
+  \centering
+  \safeimage[width=10cm]{../figures/fig3_a2.png}
+  \caption{The powered reality result: the trained-minus-untrained unique-$R^2$ gap is positive across the overwhelming majority of reliable voxels on LeBel UTS03 \evd{E006}.}
+  \label{fig:a2}
+\end{figure}
+
+The signal is real beyond confounds on real neural data, with the breadth carried by the three-model ROI screen and the power carried by the deeply-sampled single subject UTS03 at voxel scale; the cross-subject generality of the powered effect is a question the single-subject design leaves open, not one it settles.
+Qwen aligns more strongly than either GPT-2 variant, while the two GPT-2 variants are nearly tied despite a threefold parameter difference, so this single cross-family contrast does not by itself establish a quality ordering; that question is taken up later \evd{E002}.
+This is the one load-bearing positive of the thesis, and it licenses the questions the rest of the program asks without pre-judging them: whether the signal can be moved, and whether moving it buys anything.
+The discipline the whole arc turns on, stated once: real does not imply movable, and movable does not imply useful, and this result establishes only that the signal is real.
+
+\subsection{Plain distillation does not preserve alignment for free}
+\gap{Results Q1 awaits finding-report R07 (source E003): the monotone alignment gradient, the quality co-variation, and the unresolved KD-specific shedding. Do not consolidate from the experiment record before R07 is written.}
+
+\subsection{The brain loss is a lever, but a weak and quality-confounded one}
+\gap{Results Q2 awaits finding-report R08 (source E004): the brain-specific lever on the strong aligner and its fragility.}
+
+\subsection{No per-individual gain at matched perplexity, and the averaging confound}
+\gap{Results Q3 awaits finding-reports R09--R13 (sources E005, E008, E011, E013, E017, E019, E020): the per-individual null, the cross-subject-averaging confound, the method-general failure, the quality law, the stimulus-predictability ceiling, and the external reproduction. The parked draft reports/\_pending-Q3 reclaims R09.}
+
+\subsection{No practical payoff}
+\gap{Results Q4/A3 awaits finding-report R14 (source E009): the bounded OOD-perplexity null and its null-by-construction reading.}

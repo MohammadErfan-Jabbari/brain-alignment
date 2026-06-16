@@ -1,0 +1,28 @@
+\section{Introduction}
+
+A decade of work has established a simple, reliable instrument: for a person and a language model reading the same text, a linear map predicts the person's recorded brain activity from the model's middle-layer activations, and how well it predicts on held-out data is the model's brain-alignment score \autocite{oota2023}.
+The instrument is almost always run in one direction: alignment is \emph{measured}, treated as a property to observe after a model is trained.
+This thesis asks the inverted question: can that alignment be \emph{used} as a training signal, a term added to a model's objective that rewards representations the brain would predict, and does a model trained that way gain anything a model trained on text alone does not.
+
+The inverted question only earns a thesis if it survives a hard prior: a language model already learns from on the order of $10^{12}$ tokens of dense, self-supervised supervision, while a language-fMRI dataset offers a few thousand noisy stimuli whose explainable variance is capped by a low noise ceiling.
+Training with an added loss term is, up to constants, a maximum-a-posteriori estimate in which the text enters as the likelihood and the brain term as a prior, not a second teacher.
+A prior worth, generously, $10^5$ bits cannot install task knowledge against a likelihood worth $10^{12}$; what it can do is \emph{select} among the many text-consistent solutions a large model admits, the way any weak-but-aimed regularizer does.
+Standard sample-complexity bounds then make a falsifiable prediction about where to look: if a brain prior helps at all, it helps most where the text signal is weakest (small models, scarce data, aggressive compression), and washes out where data is abundant, the benefit shrinking as the task data grows.
+This argument is developed formally, against the information-theoretic results it rests on, in the methods.
+
+The bare inverted idea, using fMRI to shape a language model, is by 2026 already done, and saying so plainly is what locates the real contribution.
+It has been demonstrated for speech models \autocite{moussa2025}, for text models \autocite{bilgin2026}, and causally: text models driven to be brain-\emph{misaligned} at matched perplexity do substantially worse across a broad downstream suite, so alignment is load-bearing rather than incidental \autocite{merlin2026}.
+Every one of these interventions \emph{grows} the model: it fine-tunes, adds adapters, or bolts on a brain-prediction head; none compresses one.
+The one study that compresses language models measures how quantization and pruning move an \emph{observed} alignment score, and never puts alignment in the training objective, and never tests knowledge distillation at all \autocite{oota2026}.
+Laid on two axes, what happens to the parameter budget (grow or shrink) and how alignment is treated (measured or optimized), the field fills three cells and leaves one empty: \emph{shrink the model while alignment is in the objective}.
+That empty cell, alignment-guided distillation at a matched student budget, is where this thesis lives: the regime the weak-prior argument singles out as the place to test whether a brain prior is recoverable at all, not a place it is assumed to pay off.
+
+The contribution depends entirely on the alignment score being a real signal rather than an artifact, because the field has repeatedly shown how easily it is not.
+Shuffled train-test splits leak through the temporal autocorrelation of fMRI, to the point that an \emph{untrained} network can appear to ``explain'' brain data through sentence length and position alone \autocite{hadidi2026}.
+So this work fixes its measurement standard before it measures anything: the reported quantity is never a raw score but the unique variance the model adds on top of a low-level nuisance set, on contiguous splits, with a same-architecture untrained network as the control \autocite{oota2023,merlin2024}.
+The program is then a kill-gated ladder, climbed only while each rung holds: first that the signal is real beyond confounds, then whether plain distillation preserves it, whether the loss is a usable lever, whether optimizing it yields a per-individual gain at matched perplexity, and whether any such gain buys a practical payoff.
+
+This manuscript reports that ladder.
+Its one established positive, and the foundation everything else qualifies, is the first rung: a trained model's middle layer carries unique, out-of-sample variance about real language-network activity that a same-architecture untrained network does not, and at voxel scale the effect is powered and unambiguous \evd{E006}.
+The discipline that the rest of the argument turns on is stated once and kept: \emph{real} does not imply \emph{movable}, and \emph{movable} does not imply \emph{useful}; this first result establishes only the first of the three.
+\gap{Introduction summary of the downstream findings (no preservation-by-default, the per-individual null, the averaging confound, the quality law, the predictability ceiling, no practical payoff) awaits the finding-reports R07--R14; do not state these verdicts here until their report layer exists.}

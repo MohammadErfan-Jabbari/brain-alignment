@@ -1,0 +1,54 @@
+% main-extended.tex - skeleton for the INTERNAL extended manuscript (living master).
+%
+% Two parts in one project: an always-current paper body (compresses cleanly to a
+% public cut) and an append-only checkpoint log. Copy this file + preamble.sty +
+% numbers.tex + references.bib into docs/manuscript/extended/, then \input the
+% section files as you write them. Write one sentence per source line.
+% Build: latexmk -pdf main-extended.tex  (config in latexmkrc).
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{preamble}
+\addbibresource{references.bib}
+\input{numbers}   % the keyed-number registry
+
+\title{Brain alignment as a usable training signal: the internal extended manuscript}
+\author{MohammadErfan Jabbari}
+\date{\today}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+% PROVISIONAL (checkpoint 1). The abstract can state the question and the one
+% established result; it cannot yet summarise the downstream arc, whose
+% finding-reports (R07--R14) are unwritten. Rewrite at the checkpoint that
+% consolidates them, to the control-protocol + per-individual-null + ceiling
+% headline. Every number stays via \result{} or an \evd cite.
+A reliable linear map predicts human language-network activity from a language model's middle-layer activations, and this is almost always used to \emph{measure} alignment after training.
+This thesis asks whether that alignment can instead be \emph{used} as a training signal inside model compression, in the one cell the 2026 literature leaves empty: distilling a smaller student while brain alignment is in the objective, at a matched budget.
+An information budget argument predicts that a brain signal can act only as a weak prior, with whatever value it has concentrated in low-data and aggressively compressed regimes rather than acting as a second teacher.
+The program is a kill-gated ladder, and its first and foundational rung is established here: a trained model's middle layer carries unique, out-of-sample variance about real language-network activity that a same-architecture untrained network does not, with a trained-minus-untrained gap of \result{e006_gpt2_gap} for GPT-2 and \result{e006_qwen_gap} for Qwen2.5-0.5B at voxel scale, positive on 95 to 99\% of reliable voxels after a capacity-fair low-level nuisance regression under contiguous splits \evd{E006}.
+\gap{Abstract summary of the downstream findings (no preservation-by-default, the per-individual null at matched perplexity, the cross-subject-averaging confound and its confound-clean protocol, the quality law, the predictability ceiling, and the absence of a practical payoff) awaits the consolidation of R07--R14.}
+\end{abstract}
+\tableofcontents
+
+\input{glossary}
+
+% === PAPER BODY (always-current; this is what compresses into a public cut) ===
+% Each section in its own file under sections/ for clean diffs and clean
+% section-to-section compression.
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_methods}
+\input{sections/04_results}
+\input{sections/05_discussion}
+\input{sections/06_limitations}
+\input{sections/07_conclusion}
+
+% === CHECKPOINT LOG (append-only; the deep interval-by-interval history) ======
+% A new dated segment per checkpoint. Never rewritten; the body holds current
+% truth, the log holds how we got there. The one permitted edit is a
+% \superseded note when a later checkpoint overturns an earlier claim.
+\input{checkpoint-log}
+
+\printbibliography
+\end{document}
