@@ -76,7 +76,7 @@ T0  ROOT: the LM↔brain linear map is a usable TRAINING SIGNAL, not just a meas
 | TA.1 | PathA | T0 | averaging manufactures brain-specificity | ✅ | E008,L016 | — | — |
 | TA.2 | PathA | T0 | matched-ppl + permuted-twin control | ✅ | protocol | — | — |
 | TA.3 | PathA | T0 | quality law alignment∝−ppl | ✅ | E015 | — | — |
-| TA.4 | PathA | T0 | external published positive shrinks at matched-ppl | 🔵 GO-w/caveats | O5; Moussa'25 repo cloned (`data/paper-repos/{multi-brain-tuning,brain-tuning}`); fMRI present (UTS01-03); ~35-45 GPU-hr; **caveat: permuted arm is DEAD CODE — must reimplement; need story audio+grids from Antonello Box (risk)**; Negi'25 = on-paper companion | high value | — |
+| TA.4 | PathA | T0 | external published positive shrinks at matched-ppl | ❌ not viable on our data | E022 pilot (2026-06-18): Moussa brain-tuning gain does NOT reproduce in our reduced setup (+0.52 phoneme-F1, CI incl 0) → the matched-twin shrink-test is vacuous, NOT built. Honest scope: non-reproduction in a single-subject/24-story/our-pipeline setup, not a refutation of Moussa. External "main-track lift" off the table; Path-A rests on our own evidence. | was high value | — |
 
 ---
 
