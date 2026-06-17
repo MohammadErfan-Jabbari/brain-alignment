@@ -4,14 +4,14 @@
 
 > **New to the codes?** → **[`map.md`](map.md)** is the visual map (legend + the whole journey as a tree). Quick legend: **Q**n = ladder rung / research question (Q0→Q5, in climb order); **E**nnn = experiment (the evidence); **A**1–A3 = the three assumptions; **D**nnn = decision; **L**nnn = learning. Rungs were renamed **L→Q** on 2026-06-15 (D036, execution-order numbering); pre-2026-06-15 timeline logs still use the old L labels — see `map.md` for the L↔Q table.
 
-**Last updated:** 2026-06-16 (S18 — tooling/process. Hardened the `scientific-writing` skill from the R06 clarity audit (L046, D037); added a methodology non-negotiable (record-the-why of a design choice); built the swarm-wrap system (SessionStart hook + `wrap-auditor` + tier-scaled `/wrap`, D038). **NO experiment ran, NO science rung changed — ladder unchanged from S17.** — prior: S17 — analysis. **R06 precision sweep complete (thinking panel ×3, 8 fixes — semipartial/partial, untrained sign, tables, controls label, quality ordering, E006 CC_norm threshold); NO science rung changed.** — prior: S16 — analysis. **Restructured the write-up layer; NO science rung changed**, the ladder
+**Last updated:** 2026-06-17 (S20 — working, provenance-only. **Repaired E003's four record-provenance gaps + a 5th (cold 2 epochs vs warm 1) via recompute on the cached slice — references confirmed (74.0/104.9/169.0), dissociation re-derived to `outputs/E003_{perplexity,dissociation}.json`; NO alignment number, NO verdict, NO rung changed.** New scripts `recompute_e003_reference_ppl.py` + `reanalyze_e003_dissociation.py`; L047. R07 left byte-identical (its "matched budget" wording handed to the analysis lane). — prior: S19 — analysis (not formally wrapped). **Wrote R07 (Q1, from E003); NO science rung changed.** — prior: S18 — tooling/process. Hardened the `scientific-writing` skill from the R06 clarity audit (L046, D037); added a methodology non-negotiable (record-the-why of a design choice); built the swarm-wrap system (SessionStart hook + `wrap-auditor` + tier-scaled `/wrap`, D038). **NO experiment ran, NO science rung changed — ladder unchanged from S17.** — prior: S17 — analysis. **R06 precision sweep complete (thinking panel ×3, 8 fixes — semipartial/partial, untrained sign, tables, controls label, quality ordering, E006 CC_norm threshold); NO science rung changed.** — prior: S16 — analysis. **Restructured the write-up layer; NO science rung changed**, the ladder
 is unchanged from S14. Renamed the ladder rungs **L→Q** in execution order and added `map.md` (legend + journey tree);
 adopted the **finding-report convention** (D036 — one durable claim per file, flat append-only `R<NN>` IDs,
 current-truth-only, Q-tagged, each mapping 1:1 to a manuscript Results section). **Retired R05** (frozen for history).
 Wrote **R06** (Q0/A2 — the alignment signal is real beyond confounds), formalized as conditional-MI with a math-grounded
 report convention; added a "presenting a measured quantity" + math-voice rule to the `scientific-writing` skill and the
 **estimand-first lens** to the reasoning toolkit. **Resume point for the analysis lane = the finding-report set in
-reading order (`reports/README.md`): R06 ✅ done → next R07 (Q1, plain KD does not preserve alignment).**
+reading order (`reports/README.md`): R06 ✅ done → R07 ✅ done (S19; source E003 provenance-repaired S20) → next R08 (Q2, the lever is real but weak and ppl-confounded).**
 — prior: S15 — analysis/infrastructure. Built the three-layer deliverable model (D035) + the `scientific-writing`
 skill; **NO science rung changed**, ladder unchanged from S14.
 — prior: S14 autonomous working — **F1-close (E020 empirical-E[Y|S] ceiling) DONE → bounded-not-closed.**
@@ -143,7 +143,7 @@ while Erfan studies in the analysis lane.
   **no rung flips without Erfan.**
 - **📖 ANALYSIS lane (Erfan) — ACTIVE, now the finding-report set (D036):** R05 is retired; the analysis lane writes
   the **finding-reports** (`reports/R06`–`R14`), each a single Q-tagged claim mapping 1:1 to a manuscript Results
-  section, in the reading order of `reports/README.md`. **R06 ✅ (Q0/A2) done; next = R07 (Q1).** The parked Q3 draft
+  section, in the reading order of `reports/README.md`. **R06 ✅ (Q0/A2) + R07 ✅ (Q1) done; next = R08 (Q2).** The parked Q3 draft
   (`reports/_pending-Q3_*.md`) reclaims **R09** at read-position 4. Working sessions must NOT edit the analysis-lane
   docs (the finding-reports, manuscript, E005–E014 records).
 
@@ -152,8 +152,8 @@ while Erfan studies in the analysis lane.
 **Analysis-session backlog (write the finding-report set, in reading order — `reports/README.md`):**
 1. **The finding-reports (D036)** — each Q-tagged, current-truth-only, 1:1 with a manuscript Results section, written through the `scientific-writing` skill. Deep reading order, concepts, and self-checks per report live in `docs/analysis-roadmap.md`; source evidence in `docs/experiments/ENNN_*.md` + `learnings.md`.
    - **R06** (Q0/A2 — signal real beyond confounds) ✅ **written**.
-   - **R07** (Q1 — plain KD does not preserve alignment) ⬜ **NEXT**.
-   - **R08** (Q2 — the lever is real but weak and ppl-confounded) ⬜.
+   - **R07** (Q1 — plain KD does not preserve alignment) ✅ **written (S19)**. Its source E003's record was provenance-repaired (S20); R07's "matched budget" wording has a pending one-line analysis-lane edit (handoff text in S20 timeline).
+   - **R08** (Q2 — the lever is real but weak and ppl-confounded) ⬜ **NEXT**.
    - **R09** (Q3 — no per-individual gain; the averaging confound) — the parked draft `reports/_pending-Q3_*.md` reclaims this number.
    - **R10** (Q3 — null is method-general) · **R11** (Q3 — the quality law) · **R12** (Q3 — the ceiling, scoped; keystone) · **R13** (Q3 — external reproduction corroborates) · **R14** (Q4/A3 — no practical payoff) ⬜.
 2. **Figures:** confirm the 4 figures (`scripts/figures/make_figures.py`) render the recorded numbers — averaging-collapse (Fig 2), powered A2 (Fig 3), A3 nulls (Fig 4), dose-response-with-caveat (Fig 1).
