@@ -223,6 +223,7 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 
 ## Later (once the pilot says go)
 
+- [ ] **(FAR-FUTURE BUILD, Erfan-owned) The "fetch-once, query-forever" conference corpus.** Run the literature sweep ONCE, exhaustively: all top-10 AI/ML venues × 2020→now → normalized metadata + abstracts → dedup → a permanent queryable store (SQLite/parquet + a local embedding index) → wrap as a `conference-corpus` skill. Tooling already built + tested this session (`scripts/litsweep/`); full spec, venue list, coverage gaps, and the store/skill design are in **`docs/references/literature-sweep-system.md`**; relevance taxonomy in `docs/litsweep-relevance.md`. Deliberately deferred S22 (the targeted searches sufficed for the current analysis; this is a day+ engineering project, not on the thesis critical path).
 - [ ] Lock the baseline matrix runs (perplexity-only KD, structure-aware KD, alignment-guided, hybrid).
 - [ ] Build the anti-confound evaluation harness (contiguous splits, nuisance baselines).
 - [ ] Promote H001 to a Design with a locked protocol; add competing hypotheses H002/H003.
