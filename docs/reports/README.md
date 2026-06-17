@@ -47,7 +47,7 @@ Rules:
 | Read # | Report | Q | Claim | Status |
 |---|---|---|---|---|
 | 1 | `R06_alignment-signal-is-real-beyond-confounds.md` | Q0 / A2 | the alignment signal is real beyond confounds (defines the measurement apparatus) | ✅ written |
-| 2 | R07 (to write) | Q1 | plain KD does not preserve alignment by default | ⬜ |
+| 2 | `R07_plain-kd-does-not-preserve-alignment.md` | Q1 | plain KD does not preserve alignment by default | ✅ written |
 | 3 | R08 (to write) | Q2 | the lever is real but weak and perplexity-confounded | ⬜ |
 | 4 | R09 (to write) | Q3 | no per-individual gain; the averaging confound | parked draft `_pending-Q3_*.md` |
 | 5 | R10 (to write) | Q3 | the null is method-general (every door closed) | ⬜ |
