@@ -1,0 +1,100 @@
+# Literature sweep venue registry
+# authoritative_source: openreview | dblp | acl_anthology
+# dblp_key: the venue key as used in DBLP TOC URLs
+# openreview_venue_id_template: format string for OpenReview API venue-id
+
+venues:
+  neurips:
+    full_name: "Neural Information Processing Systems"
+    authoritative_source: openreview  # 2021+; DBLP fallback for earlier
+    dblp_key: "conf/nips"
+    dblp_toc_prefix: "https://dblp.org/db/conf/nips/neurips"
+    openreview_venue_id_template: "NeurIPS.cc/{year}/Conference"
+    openreview_api_version: 2  # api2 for 2022+; api1 for 2021
+    openreview_available_from: 2021
+    notes: "DBLP volume suffix: neurips2023.html (2019+), nips<year>.html (earlier)."
+
+  iclr:
+    full_name: "International Conference on Learning Representations"
+    authoritative_source: openreview
+    dblp_key: "conf/iclr"
+    dblp_toc_prefix: "https://dblp.org/db/conf/iclr/iclr"
+    openreview_venue_id_template: "ICLR.cc/{year}/Conference"
+    openreview_api_version: 2  # api2 for 2023+; api1 for 2013-2022
+    openreview_available_from: 2013
+    notes: "ICLR is exclusively on OpenReview. Use decision filter for accepted only."
+
+  icml:
+    full_name: "International Conference on Machine Learning"
+    authoritative_source: dblp
+    dblp_key: "conf/icml"
+    dblp_toc_prefix: "https://dblp.org/db/conf/icml/icml"
+    openreview_venue_id_template: null
+    openreview_available_from: null
+    notes: "DBLP authoritative. Proceedings on PMLR. Abstracts via OpenAlex/Semantic Scholar."
+
+  cvpr:
+    full_name: "IEEE/CVF Conference on Computer Vision and Pattern Recognition"
+    authoritative_source: dblp
+    dblp_key: "conf/cvpr"
+    dblp_toc_prefix: "https://dblp.org/db/conf/cvpr/cvpr"
+    openreview_venue_id_template: null
+    openreview_available_from: null
+    notes: "DBLP authoritative. CVF open access at openaccess.thecvf.com. Abstracts via OpenAlex."
+
+  acl:
+    full_name: "Annual Meeting of the Association for Computational Linguistics"
+    authoritative_source: acl_anthology
+    dblp_key: "conf/acl"
+    dblp_toc_prefix: "https://dblp.org/db/conf/acl/acl"
+    acl_anthology_url: "https://aclanthology.org/events/acl-{year}/"
+    openreview_venue_id_template: null
+    openreview_available_from: null
+    notes: "ACL Anthology is authoritative (complete, includes abstracts). BibTeX dump at https://aclanthology.org/anthology.bib.gz"
+
+  emnlp:
+    full_name: "Conference on Empirical Methods in Natural Language Processing"
+    authoritative_source: acl_anthology
+    dblp_key: "conf/emnlp"
+    dblp_toc_prefix: "https://dblp.org/db/conf/emnlp/emnlp"
+    acl_anthology_url: "https://aclanthology.org/events/emnlp-{year}/"
+    openreview_venue_id_template: null
+    openreview_available_from: null
+    notes: "ACL Anthology authoritative. DBLP complete but no abstracts."
+
+  naacl:
+    full_name: "Annual Conference of the North American Chapter of the ACL"
+    authoritative_source: acl_anthology
+    dblp_key: "conf/naacl"
+    dblp_toc_prefix: "https://dblp.org/db/conf/naacl/naacl"
+    acl_anthology_url: "https://aclanthology.org/events/naacl-{year}/"
+    openreview_venue_id_template: null
+    openreview_available_from: null
+    notes: "ACL Anthology authoritative. Not held every year."
+
+  aaai:
+    full_name: "AAAI Conference on Artificial Intelligence"
+    authoritative_source: dblp
+    dblp_key: "conf/aaai"
+    dblp_toc_prefix: "https://dblp.org/db/conf/aaai/aaai"
+    openreview_venue_id_template: null
+    openreview_available_from: null
+    notes: "DBLP authoritative. Proceedings on aaai.org/ojs. Abstracts via OpenAlex/Semantic Scholar."
+
+  ijcai:
+    full_name: "International Joint Conference on Artificial Intelligence"
+    authoritative_source: dblp
+    dblp_key: "conf/ijcai"
+    dblp_toc_prefix: "https://dblp.org/db/conf/ijcai/ijcai"
+    openreview_venue_id_template: null
+    openreview_available_from: null
+    notes: "DBLP authoritative. Open access at ijcai.org. Abstracts via OpenAlex/Semantic Scholar."
+
+  kdd:
+    full_name: "ACM SIGKDD Conference on Knowledge Discovery and Data Mining"
+    authoritative_source: dblp
+    dblp_key: "conf/kdd"
+    dblp_toc_prefix: "https://dblp.org/db/conf/kdd/kdd"
+    openreview_venue_id_template: null
+    openreview_available_from: null
+    notes: "DBLP authoritative. ACM DL for papers. Abstracts via OpenAlex/Crossref/Semantic Scholar."
