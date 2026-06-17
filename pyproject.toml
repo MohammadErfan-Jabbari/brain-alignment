@@ -5,13 +5,17 @@ description = "Brain-alignment-guided methods for LLMs (master's thesis, UC3M). 
 requires-python = ">=3.11"
 dependencies = [
     "datasets>=5.0.0",
+    "h5py>=3.16.0",
     "huggingface-hub>=1.18.0",
+    "joblib>=1.5.3",
+    "librosa>=0.11.0",
     "matplotlib>=3.10.9",
     "nibabel>=5.4.2",
     "nilearn>=0.13.1",
     "peft>=0.19.1",
     "scikit-learn>=1.9.0",
     "scipy>=1.17.1",
+    "soundfile>=0.14.0",
     "tables>=3.11.1",
     "torch>=2.11.0",
     "transformers>=5.10.2",
