@@ -128,7 +128,7 @@ R05 retired (D036); the analysis lane now writes the **finding-reports** (`repor
 per file, each 1:1 with a manuscript Results section, in the reading order of `reports/README.md`. Deep reading
 order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each written through the `scientific-writing` skill.
 - [x] 2026-06-16 — **R06** (Q0/A2 — the alignment signal is real beyond confounds) ✅ written.
-- [ ] **R07** (Q1 — plain KD does not preserve alignment, from E003) — **NEXT**.
+- [x] 2026-06-17 — **R07** (Q1 — plain KD does not preserve alignment, from E003) ✅ written (full loop + panel review pass: counter-argument/premortem/first-principles, opus; DPI reframed to fixed-function-compression ceiling, rate-distortion demoted to analogy, objective-attribution over-reach removed).
 - [ ] **R08** (Q2 — the lever is real but weak and ppl-confounded).
 - [ ] **R09** (Q3 — no per-individual gain; the averaging confound) — the parked `reports/_pending-Q3_*.md` draft reclaims this number.
 - [ ] **R10** (Q3 — null is method-general) · **R11** (Q3 — the quality law) · **R12** (Q3 — the ceiling, scoped; keystone) · **R13** (Q3 — external reproduction) · **R14** (Q4/A3 — no practical payoff).
@@ -230,6 +230,8 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
       (FLOPs/latency/params target). Not in scope until the fundamental question is answered.
 
 ## Infrastructure / housekeeping
+
+- [ ] **E003 record-provenance gaps (flagged by the R07 review panel, S19 — working-lane fix, not analysis-lane).** The R07 write-up surfaced that E003's recorded numbers do not all trace to its output artifacts: (1) the **reference-arm perplexities** (teacher 74, gpt2 105, distilgpt2 169, untrained ~50000) are `null` in `outputs/E003_cold.json`/`E003_warm.json` — only the three trained arms have a measured ppl (cold 477, warm-KD 95, finetune 44); (2) the **dissociation analysis** (the $r=-0.88$ log-ppl fit and coefficients, $P(\text{gpt2}\le\text{kd\_warm})=0.092$, $P(\text{lmft}\le\text{kd\_warm})=0.085$, "one fold ≈44% of signal") lives only as prose in E003.md/L011, not as a stored artifact; (3) E003.md's header points to `outputs/E003_kd_alignment.json`, which does not exist (real files: `E003_cold.json`/`E003_warm.json`); (4) the "ppl 477 = 4.5× the teacher" phrasing in E003/L011 is arithmetically inconsistent (477/74 ≈ 6.4). **R07 was written to not depend on the unsourced numbers** (the under-training caveat now leans on the measured 477-vs-44–95 comparison; $r=-0.88$ is cited as the recorded L011 caveat). A working session should either recompute + archive the reference perplexities and the dissociation stats, or annotate E003 to mark which numbers were measured-this-run vs imported, and fix the dead output pointer.
 
 - ~~(Tooling) Build a number-freshness verifier (`check_number_freshness.py`)~~ — **dropped 2026-06-16 (S18).** No honest deterministic check exists: records are prose with many numbers, so matching a cited value to the current one is comprehension, not regex — a script would give false confidence. **Reframed as a subagent spot-check** (provenance-d011.md): at a full-loop handoff for manuscript-bound work, a cheap subagent (sonnet; haiku if numbers are cleanly keyed) verifies each load-bearing number against its current record and flags mismatches. The `number-provenance` `wrap-auditor` already covers this at session close. No script to build.
 
