@@ -1,0 +1,126 @@
+# Expansion Program — the idea-tree, the literature sweep, and the climb to a top-venue result
+
+**What this is.** The master tracker for the autonomous research-expansion goal Erfan set on 2026-06-17: do a complete analysis of every open/untested idea, build a system to sweep the top AI/ML conferences (2020→now) for related work, build a hierarchical **idea tree** for the whole project, and then *climb the tree* — implementing and experimenting the untested nodes, four-at-a-time on the 4× L40S, questioning the assumptions under every "closed" node, adding nodes as the literature is read — until the project holds a result with a realistic shot at a top-10 AI/ML venue. This file is the persistent state of that program across the autonomous loop. **It does not override `ladder.md`** (canonical science status) — it sits beside it and feeds it: any new evidence still flows through the normal ritual (experiment doc → panel → Erfan-confirmed rung flip). This is a *working*-mode program; it must not edit the analysis-lane docs the D011 rule protects (`reports/R06`–`R14`, the manuscript, the E005–E014 records) except to *add* new experiment records.
+
+**Terminal condition (Erfan's words):** expand/refocus the repo's idea set until we have something with **>75% chance at a top-10 conference**. Until then, do not stop.
+
+**This is the standing dual meta-goal made operational.** D020/D022 already commit the project to "finish the MSc *and* extract ≥1 top-venue AI paper." This program is the execution of the second half.
+
+---
+
+## 0. Honest strategic assessment (read before believing the plan)
+
+Two things must be said plainly, because the whole program depends on not lying to ourselves about them.
+
+**(a) The >75% bar is very high, and "75%" is not a number I can calibrate.** Top-10 venues run ~20–28% acceptance; the *marginal* accepted paper is strong. A clean probability of acceptance is not estimable in advance. I will treat the bar as a *direction* — "get the work to a credible, novel, well-grounded top-venue submission, and say honestly how close it is" — and track a rubric (novelty / rigor / a real baseline beaten or a real confound exposed / writing) rather than pretend a calibrated percentage. When I claim we are "near the bar," it will be against that rubric with the reasoning shown, and Erfan adjudicates.
+
+**(b) We are starting from a robust null, and the path to a venue is NOT re-running dead experiments.** The original program is closed: the brain-alignment *training* signal is real (Q0) but not inducible beyond perplexity via any readout we tried (Q2/Q3, powered) and buys nothing practical at matched perplexity (Q4). Six robustness axes already failed. A top-venue paper comes from one of two paths, and the tree holds both:
+
+- **Path A — the methodology/negative-result paper (we are ~80% there already).** "Cross-subject target-averaging manufactures apparent brain-specificity in alignment-*training* studies; here is the confound, the matched-perplexity + permuted-twin protocol that detects it, and a demonstration that it shrinks an *external published positive*." The premortem (L029) already flagged this as the highest-leverage move. The one missing load-bearing piece is the external demonstration (item O5 below). Venues that take this: NeurIPS D&B, ACL/EMNLP Findings or main, a rigor/repro track, or a strong workshop → main.
+- **Path B — a genuinely new positive result.** Question an *assumption* under the null and find a formulation where brain-guidance helps. The nulls are all inside one paradigm (linear-readout alignment of LM internals to *fMRI*, optimized by distillation/FT, scored by *encoding R²*). The assumptions worth attacking are in §3. The literature sweep tells us which are real gaps vs already-scooped.
+
+I am committing to pursue **both in parallel**: harden Path A (it is the floor — a real, defensible paper), and hunt Path B with the tree + compute (it is the ceiling — a stronger paper if a door opens). This is my call as the agent; Erfan can redirect.
+
+---
+
+## 1. Phase plan & status
+
+| Phase | What | Status |
+|---|---|---|
+| **P1** | Complete analysis of open/untested ideas + assumptions to re-question | ✅ done (§3) |
+| **P2** | Conference-scout system: top-10 venues locked + DBLP/OpenReview/OpenAlex/arXiv fetch pipeline → skill | 🔵 in progress (§4, §5) |
+| **P3** | Literature sweep 2020→now: metadata pull → abstract-level relevance filter → digest survivors (dedupe vs our 40 canonical notes) | ⬜ blocked on P2 |
+| **P4** | Build the idea tree (source = thesis; layers by solution altitude; seeded from our nodes + new lit nodes) | 🔵 scaffolding (§6) |
+| **P5** | Climb: implement untested nodes ≤4-parallel on L40S; each closed by the thinking panel → verify → address; record back | ⬜ |
+| **P6** | Loop to the terminal condition; each result spawns/prunes nodes; reassess against the venue rubric | ⬜ |
+
+Thinking subagents: the repo already defines the four (`counter-argument`, `socratic-thinker`, `premortem-analyst`, `first-principles-grounder`, all opus) — reused and sharpened, not duplicated. New *operational* agents added only where a gap exists (e.g. an idea-tree maintainer, a conference-sweep worker).
+
+---
+
+## 2. What we already have (so the sweep dedupes and the tree seeds correctly)
+
+- **40 canonical literature notes** (`docs/literature/canonical/`) — strong existing coverage of brain-LM alignment, brain-tuning, KD, scaling/quality laws, anti-confound critiques. The sweep must dedupe against these.
+- **22 cloned paper-repos** (`data/paper-repos/`), **19 experiment docs** (E001–E020), **8 reports** (R01–R07 + retired R05), **36 scripts**.
+- **Course material** (`data/course-material/`): Information Theory for ML + Probabilistic ML — the math grounding (MI bound, DPI, conditional-MI = unique R², rate-distortion). Ground theory claims here, do not re-derive.
+- The science state and journey: `ladder.md` (status), `map.md` (the tree-so-far + codes), `tasks.md` (backlog).
+
+---
+
+## 3. Phase-1 result — the open doors and the assumptions to re-question
+
+### Untested / open doors already in the program
+| # | Door | Grounding | Prior |
+|---|---|---|---|
+| **O1** | Full-FT multi-subject naturalistic voxelwise (denizenslab n=6) — the one untested induction *method* at multi-subject power | I3/F3; data acquired (35G); marked superseded D033 because E017 full-FT null (n=9 LeBel) + E019 corroborate | likely null |
+| **O2** | TRIBE-v2 synthetic dense brain targets at KD scale (no fMRI; averaging impossible) | I4 capstone; E016; Phase-1 fidelity already PASS | null = strongest publishable Fork-B |
+| **O3** | Architecture-residual beyond quality (≥3 modern families + base-vs-instruct at matched bpb) | F4 / E015; currently p=0.20, underpowered | unknown |
+| **O4** | fMRI-free brain-likeness *proxy* (LID / neighborhood-overlap surrogate) | Q5; moot conditioned on a Q3 win — but reframable as a standalone cheap-proxy contribution | sign unsettled (cheng vs yu) |
+| **O5** | **Demonstrate matched-ppl control shrinks an EXTERNAL published positive** — the "main-track lift" | premortem L029; the missing piece of Path A | high value, untested |
+| **O6** | The DPI **selection/regularization side-channel** (brain-as-prior improves OOD without injecting θ\*-info or moving the alignment metric — a *different* MI object, I(W;Zⁿ)) | L041; argued-shut by E009's ~0 fulcrum, **not measured-shut** | genuinely open |
+
+### Assumptions under the nulls worth attacking (Path-B seeds — the tree's upper layers)
+- **A-metric:** we only ever scored *encoding R²*. Alignment might help **robustness / calibration / sample-efficiency / compositional or OOD generalization** in ways encoding-R² cannot see. (Ties O6.)
+- **A-signal:** we only ever used **fMRI**. MEG/EEG (faster dynamics; Guo used EEG), ECoG/intracranial, or **behavioral** targets (reading times, eye-tracking, N400) are different couplings with different SNR and confound structure.
+- **A-direction:** we only ever asked the LM to **match** the brain. Brain-as-**regularizer / selection prior / auxiliary task** is a different objective (O6).
+- **A-ceiling:** the "brain's training-useful signal *is* E[Y|S]" rests on **Y⊥θ\*|S as an assumption** (L041), not a result. If false, residual brain signal exists beyond E[Y|S].
+- **A-readout:** only linear-ridge / MSE / InfoNCE. Other couplings (CKA-as-objective at scale, optimal transport, RSA-based losses).
+- **A-regime:** only small LMs (0.5–7B) distilled. Scale, multimodal, or instruct-vs-base regimes may behave differently (O3).
+
+The literature sweep (P3) is what decides which of these are *real gaps* versus already-answered, and seeds new tree nodes accordingly.
+
+---
+
+## 4. Conference-scout — architecture (the P2 system)
+
+**Decision (grounded in a live probe 2026-06-17):** OpenAlex conference coverage is partial (its NeurIPS source = 4,138 works total, far below reality — proceedings split across source records), so **no single source is authoritative**. The pipeline is layered:
+
+1. **DBLP = the authoritative paper-list backbone.** Every paper of every venue/year, with title + authors + DOI/ee links. No abstracts. (`dblp.org/search/publ/api` + per-venue TOC streams.)
+2. **OpenReview = first-class for ICLR (2013+) & NeurIPS (2021+) + many workshops** — abstracts + PDFs + decisions directly (`api.openreview.net` / `api2`). Use it where it covers a venue; it is the richest source.
+3. **Abstract enrichment** for DBLP rows lacking abstracts: **OpenAlex** (by DOI/title) → **Crossref** → **Semantic Scholar** (rate-limited without key; back off). 
+4. **PDF fetch:** OpenReview PDF → arXiv (by id/title) → Unpaywall/OA url → DOI landing. Cache under `data/papers/conference-sweep/<venue>/<year>/`.
+5. **Relevance filter:** (a) high-recall keyword/regex prefilter on title+abstract (distillation, knowledge distillation, brain alignment, neural encoding, fMRI/MEG/EEG language, representation alignment/similarity, scaling laws of representation, information bottleneck, mutual information training signal, model compression, …); (b) embedding rerank with a local model (add `sentence-transformers`, SPECTER2/bge) on the 4 GPUs; (c) dedupe vs the 40 canonical notes by title/DOI. Output a ranked candidate set → `paper-digest` the survivors.
+
+Scripts land in `scripts/litsweep/` and are wrapped as the **`conference-scout`** skill once proven. Built + tested by a delegated worker against live APIs (acceptance: reproduce DBLP's NeurIPS-2023 count within tolerance; pull ≥1 real abstract via each enrichment path; download ≥1 real PDF).
+
+---
+
+## 5. The top-10 AI/ML venues (locked 2026-06-17)
+
+By h5-index / field consensus (Google Scholar Metrics, research.com, CSRankings). Topical relevance to *this* thesis (LLM distillation, brain–LM alignment, representation learning, information theory) annotated — the sweep weights the relevant ones but covers all ten.
+
+| # | Venue | h5 (≈) | Field | Relevance here | Primary list source |
+|---|---|---|---|---|---|
+| 1 | **CVPR** | 450 | Vision | low–med (representation alignment, distillation) | DBLP |
+| 2 | **NeurIPS** | 371 | ML (general) | **high** | OpenReview (2021+) + DBLP |
+| 3 | **ICLR** | 362 | ML (general/rep-learning) | **high** | OpenReview (all) |
+| 4 | **ICML** | 272 | ML (general) | **high** | DBLP + PMLR |
+| 5 | **ACL** | 236 | NLP | **high** (LM, distillation, probing) | DBLP/ACL Anthology |
+| 6 | **EMNLP** | ~200 | NLP | **high** | ACL Anthology |
+| 7 | **AAAI** | ~190 | AI (general) | med–high | DBLP |
+| 8 | **IJCAI** | ~140 | AI (general) | med | DBLP |
+| 9 | **NAACL** | ~130 | NLP | high | ACL Anthology |
+| 10 | **KDD** | ~140 | Data mining | low–med | DBLP |
+
+Notes: **SIGMETRICS** (Erfan named it) is systems/performance-measurement — not topically aligned with this thesis, so it is *not* in the relevance-weighted core; can be swept for completeness if asked. Neuro-AI-native venues (CCN, CogSci, *Nature Neuroscience/Communications*) are where much brain-LM work actually lands but are **not "top-10 AI"** — tracked as a secondary relevance pool because they hold the closest prior art, not as acceptance targets.
+
+---
+
+## 6. The idea tree — hierarchy by *solution altitude* (P4)
+
+The tree's root is the thesis bet; layers descend by **how fundamental the choice is** (a "solution altitude" — the higher the layer, the more it re-frames the problem rather than tweaks a method). This beats a flat "topic" grouping because the climb instruction ("start from the highest untested layer") then means "attack the most fundamental untested reframing first," which is where venue-worthy novelty lives.
+
+Proposed layers (refined by critique in P4):
+- **L0 root:** the LM↔brain linear map as a *usable training signal*, not just a measurement.
+- **L1 — what is the signal?** (real? E[Y|S] vs residual? which modality — fMRI/MEG/EEG/behavior?)
+- **L2 — what do we *do* with it?** (match it / use as regularizer-prior / use as selection / use as proxy)
+- **L3 — how do we induce it?** (distillation / full-FT / contrastive / CKA-obj / OT; LoRA vs full; readout family)
+- **L4 — how do we *measure success*?** (encoding R² / OOD-ppl / robustness / calibration / sample-eff / compositional)
+- **L5 — leaves:** concrete experiments (the E-nodes), each tagged tested ✅ / null ❌ / untested ⬜, mapped to the ladder.
+
+The tree file: `docs/idea-tree.md` (built in P4, machine-readable node table + a rendered view). Every node carries: id, layer, claim, status, evidence (E/L refs), prior, and "assumption it rests on." Climbing = pick the highest-altitude ⬜ node whose parent holds, design it, run it, panel it, record it, then re-examine whether the result spawns/prunes nodes.
+
+---
+
+## 7. Log (append-only; one line per program step)
+- **2026-06-17 (S22 start):** Goal set. P1 done (analysis from docs). Inventory grounded (40 notes, 22 repos, E001–E020). Venue list locked. Conference-scout architecture decided (DBLP backbone). Network/APIs probed live. This tracker created.
