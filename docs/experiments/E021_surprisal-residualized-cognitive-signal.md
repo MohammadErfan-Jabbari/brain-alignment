@@ -1,6 +1,6 @@
 # Experiment E021 — surprisal-residualized cognitive-signal auxiliary training (the keystone, T1.3)
 
-**Created:** 2026-06-17 · **Status:** running — **G0/G1 PASS; G2 v1 (fine-tune-AULC metric) FAILED → metric revised to frozen-rep linear-probe AULC; re-running G2 before the 5 arms (S22)**
+**Created:** 2026-06-17 · **Status:** running — **G0/G1 PASS; G2v1 FAILED→metric revised; G2v2 PASS; 5 arms RUN → triple dissociation fired BUT raw>residual ⇒ likely generic regularization, NOT cognition. Fork-A STOP: panel + Codex + Erfan pending; NO rung flip (S22).**
 **Tree node:** T1.3 (lead Path-B bet) · **Program:** `../expansion-program.md` §6b synthesis · **Mode:** promotable
 
 ---
@@ -74,6 +74,8 @@ Only if **G0, G1, G2 all pass** do the 6 science arms run.
 | 2026-06-17 | — | design | — | drafted; oracle HOLD addressed | run gating sequence |
 | 2026-06-17 | G0/G1 | `scripts/run_e021_g0g1.py` → `outputs/e021_g0g1/` | residual split-half reliability **0.72** (SB) vs noise ceiling **0.77**; unique-R²(surprisal in RT)=**0.048±0.020**; residual = 77% of RT var | **PASS** — surprisal-orthogonal RT residual is reliable, not noise (Natural Stories, 180 subj, 10k words; GPT-2≈Qwen) | build harness + G2 power control |
 | 2026-06-17 | G2 v1 | `scripts/run_e021_arms.py` (fine-tune-AULC) → `outputs/e021/` | planted effect WRONG-SIGN both constructions (+6.3 / +4.8, wrong sign every seed); MDE 9–12 AULC | **FAILED** — metric unpowered + biased: aux head perturbs trunk ∝ learnability, hurts next-token, Stage-B overwrites the prior → rewards least-learnable target (false-negative). Arms NOT run (hard gate held). | revise metric → frozen-probe AULC; re-run G2 |
+| 2026-06-17 | G2 v2 | `scripts/run_e021_v2.py` → `g2v2_frozen_probe.json` | planted prior −705.6 AULC [−776,−635], MDE 70.7 | **PASS** — frozen-probe metric detects a representational prior | run 5 arms |
+| 2026-06-17 | 5 arms ×3 seeds | `scripts/run_e021_v2.py` → `arms_v2_results.json` | base 742 · raw 221 · resid 228 · perm 266 · rand 249; resid−perm −37.9 [−53,−22], resid−rand −21.2 [−35,−8] | **triple dissociation fired, NOT believed** — raw>residual ⇒ likely GENERIC regularization not cognition; Fork-A STOP | panel + Codex + log-cap robustness → Erfan |
 
 ## Results (running)
 
@@ -85,7 +87,19 @@ Only if **G0, G1, G2 all pass** do the 6 science arms run.
 
 **G2 v1 (fine-tune-then-perplexity AULC metric) — FAILED → metric retired.** The planted-prior positive-control came out **wrong-sign on two independent target constructions** (synthetic−permuted = +6.3 [0.2,12.4] and +4.8 [0.2,9.3], wrong sign every seed), MDE 9–12 AULC. Mechanism (from Stage-A logs): the more-learnable target is fit better yet yields *worse* held-out ppl at every cap, largest at cap-100, shrinking by cap-3000 where Stage-B overwrites Stage-A — a scalar aux head perturbs the shared trunk ∝ target learnability, degrading next-token quality, and the fine-tune overwrites the installed prior before measurement. So the metric structurally rewards the *least*-learnable (noise) target = a built-in false negative. **Recorded instrument finding (→ learnings):** representational-prior experiments cannot be scored by fine-tune-then-perplexity — the prior is washed out at measurement (the E009 lesson, new form); use a frozen-representation probe. Arms NOT run (G2 hard-gate held). Artifacts: `outputs/e021/G2_VERDICT.md`, `g2_power_control.json`, `g2v1_proj-probe_FAILED.json`.
 
-**G2 v2 (frozen-probe metric) + the 5 arms — pending** (re-running with the revised instrument).
+**G2 v2 (frozen-probe metric) — PASSED.** Planted head-start representational prior detected: head-start − control = **−705.6 AULC, CI [−776,−635]**, correct sign every seed, MDE=70.7 (effect ≈10× MDE). The frozen-probe metric can see a representational prior. (`outputs/e021/g2v2_frozen_probe.json`.)
+
+**The 5 arms (frozen-probe AULC, mean over 3 seeds, lower=better) — RUN; NOT BELIEVED (Fork-A STOP, panel + Codex + Erfan pending):**
+
+| arm | mean | seed0/1/2 |
+|---|---|---|
+| (i) baseline λ=0 | 742.2 | 795/705/726 |
+| (ii) raw RT | **220.8** | 252/189/221 |
+| (iii) residual | 228.0 | 269/174/241 |
+| (iv) permuted | 265.9 | 322/207/268 |
+| (v) random-struct | 249.2 | 298/201/248 |
+
+Triple dissociation fired: residual−permuted=−37.9 [−53.3,−22.5] ✓, residual−random=−21.2 [−34.8,−7.6] ✓ (both exclude 0, no seed flip). **BUT the cognition-specific reading is contradicted by the data:** raw (ii, 220.8) is the *best* arm, beating the residual — so the useful ingredient is "real word-aligned signal" broadly (raw carries the most), NOT the surprisal-orthogonal residual the experiment was built to isolate. The dominant effect is the ~500-AULC baseline→any-structured-arm gap = generic aux-regularization of a tiny-corpus fine-tune (the E004 `frozen` effect at scale). **Honest interim read: most likely GENERIC regularization, not cognition-specific.** Caveats: post-lock metric switch (principled, G2-validated); cap-3000 dominates the AULC mean (noisiest term) → log-cap robustness pending. Artifacts: `outputs/e021/{ARMS_VERDICT.md,arms_v2_results.json}`; harness `scripts/run_e021_v2.py`.
 
 ## Interpretation (interim)
 
