@@ -76,7 +76,7 @@ T0  ROOT: the LM↔brain linear map is a usable TRAINING SIGNAL, not just a meas
 | TA.1 | PathA | T0 | averaging manufactures brain-specificity | ✅ | E008,L016 | — | — |
 | TA.2 | PathA | T0 | matched-ppl + permuted-twin control | ✅ | protocol | — | — |
 | TA.3 | PathA | T0 | quality law alignment∝−ppl | ✅ | E015 | — | — |
-| TA.4 | PathA | T0 | external published positive shrinks at matched-ppl | ⬜ | O5 | high value | — |
+| TA.4 | PathA | T0 | external published positive shrinks at matched-ppl | 🔵 target locked | O5; lead=Moussa'25 multi-participant (NeurIPS, repo `bridge-ai-neuro/multi-brain-tuning`, clone-and-run); companion=Negi'25 (NeurIPS, text-LM, on-paper) | high value | — |
 
 ---
 
@@ -84,7 +84,7 @@ T0  ROOT: the LM↔brain linear map is a usable TRAINING SIGNAL, not just a meas
 
 Ordered by *(venue leverage × tractability ÷ prior-of-null)*. This is the provisional order; it will be re-ranked after the literature sweep (P3) adds nodes and the thinking panel critiques it. Compute budget = 4× L40S → up to 4 nodes in flight.
 
-1. **TA.4 (O5) — external matched-ppl demonstration.** Highest leverage: it is the one missing load-bearing piece of the already-near-complete Path-A paper, and a confirmed shrink is a *positive* result (a confound exposed in a published claim), not another null. Tractable (re-analysis, not new science). *Lit-scout running now to pick the target.*
+1. **TA.4 (O5) — external matched-ppl demonstration.** Highest leverage: it is the one missing load-bearing piece of the already-near-complete Path-A paper, and a confirmed shrink is a *positive* result (a confound exposed in a published claim), not another null. **Target locked (lit-scout, S22):** lead = **Moussa & Toneva 2025 multi-participant brain-tuning** (NeurIPS; repo `bridge-ai-neuro/multi-brain-tuning` + open LeBel/Narratives fMRI = clone-and-run; already has a permuted-brain arm — bolt on a quality/perplexity-matched fine-tuned twin and show the brain-specific downstream increment shrinks). Companion = **Negi 2025** (NeurIPS, text-LM, attack on-paper — repo not confirmed public). *Substrate note:* Moussa is speech-LM, Negi is text-LM; the matched-ppl contribution is substrate-agnostic, so the two together = a cross-substrate demonstration. **Feasibility gate running** (is the Moussa repo runnable on 4× L40S, is a matched-quality arm tractable). No new positive brain-tuning result exists to discover (lit-scout) — attack the best of what we have.
 2. **T2.2 (O6) — brain as regularizer / selection prior.** Genuinely different objective (a different MI object); the one node that is *argued*-shut but not *measured*-shut. If it improves OOD/robustness without moving encoding-R², that is a new positive and a different paper. Needs a clean design (the L041 side-channel made testable).
 3. **T4.3 / T4.4 — non-encoding success metrics (robustness, sample-efficiency).** Attacks the A-metric monoculture. Brain-guidance may help something encoding-R² can't see; Guo'24 (EEG→robustness) is prior art to position against. Re-uses our trained checkpoints → cheap.
 4. **T1.3 — non-fMRI signal (MEG/EEG/behavior).** Higher-altitude reframing; more setup cost (new data). Gated on the sweep showing it is a real gap.

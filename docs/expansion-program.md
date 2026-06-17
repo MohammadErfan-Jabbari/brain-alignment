@@ -124,3 +124,4 @@ The tree file: `docs/idea-tree.md` (built in P4, machine-readable node table + a
 
 ## 7. Log (append-only; one line per program step)
 - **2026-06-17 (S22 start):** Goal set. P1 done (analysis from docs). Inventory grounded (40 notes, 22 repos, E001–E020). Venue list locked. Conference-scout architecture decided (DBLP backbone). Network/APIs probed live. This tracker created.
+- **2026-06-17 (S22):** Built `idea-tree.md` (solution-altitude hierarchy) + `litsweep-relevance.md` (sweep taxonomy + digest rubric). Launched conference-scout builder (sonnet, bg) + lit-scout for O5 (opus). **Lit-scout result:** Path-A external target locked — lead = Moussa'25 multi-participant brain-tuning (NeurIPS, clone-and-run repo), companion = Negi'25 (text-LM, on-paper); **no new undiscovered positive exists** (the value is ranking-for-attack). Feasibility gate (Moussa clone-and-run on 4× L40S) launched. gbrain page `projects/brain-alignment-expansion-program` written.
