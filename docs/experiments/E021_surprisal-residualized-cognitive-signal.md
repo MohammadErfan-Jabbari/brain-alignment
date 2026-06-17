@@ -1,6 +1,6 @@
 # Experiment E021 — surprisal-residualized cognitive-signal auxiliary training (the keystone, T1.3)
 
-**Created:** 2026-06-17 · **Status:** design — **oracle HOLD addressed (S22); gating sequence pending before science arms**
+**Created:** 2026-06-17 · **Status:** running — **G0/G1 PASS (S22); building harness + G2 power gate before the 6 science arms**
 **Tree node:** T1.3 (lead Path-B bet) · **Program:** `../expansion-program.md` §6b synthesis · **Mode:** promotable
 
 ---
@@ -71,12 +71,19 @@ Only if **G0, G1, G2 all pass** do the 6 science arms run.
 
 | Date | Run / seed | Command / config | Result (numbers) | Observation / anomaly | Next |
 |---|---|---|---|---|---|
-| 2026-06-17 | — | design | — | drafted; oracle-gate pending | acquire ZuCo; oracle review |
+| 2026-06-17 | — | design | — | drafted; oracle HOLD addressed | run gating sequence |
+| 2026-06-17 | G0/G1 | `scripts/run_e021_g0g1.py` → `outputs/e021_g0g1/` | residual split-half reliability **0.72** (SB) vs noise ceiling **0.77**; unique-R²(surprisal in RT)=**0.048±0.020**; residual = 77% of RT var | **PASS** — surprisal-orthogonal RT residual is reliable, not noise (Natural Stories, 180 subj, 10k words; GPT-2≈Qwen) | build harness + G2 power control |
 
-## Results
+## Results (running)
 
-_pending_
+**G0/G1 (residual existence + reliability) — PASS.** On Natural Stories self-paced RT (180 subjects, 10,256 words; GPT-2-small surprisal, by-item 10-fold CV ridge, 25 subject half-splits SB-corrected):
+- unique R² of surprisal (+spillover) in RT = **0.048 ± 0.020** — the LM explains *little* of RT (full model incl. nuisances R²=0.226).
+- residual fraction of RT variance = **0.765**.
+- **residual split-half reliability = 0.720 (SB)** vs by-word RT noise ceiling **0.767** → the surprisal-orthogonal residual is ~94% as reliable as the raw signal: **reliable structure, not noise.** Qwen2.5-0.5B materially identical (0.722 vs 0.767).
+- Cross-checks pass: GPT-2/Qwen surprisal agree r=0.91; surprisal↔RT r=+0.20 (canonical positive effect).
 
-## Interpretation
+**G2 (downstream power positive-control) + the 6 arms — pending** (harness building).
 
-_pending — a null generalizes the fMRI negative across modalities (the surprisal-redundancy claim); a surviving residualized arm reopens a cognition-specific positive (escalate to Erfan)._
+## Interpretation (interim)
+
+The keystone is **viable on behavioral data**: a reliable surprisal-orthogonal training target exists. **Two honest caveats carried forward** (recorded, not buried): (1) surprisal explains only ~5% of RT, so most of the reliable residual is higher-order psycholinguistic structure (integration cost, working memory), not narrowly "the cognition the LM lacks" — the *circularity* worry was overstated for RT; (2) **reliable ≠ downstream-useful** — G0 clears only the noise floor; whether predicting this residual buys anything downstream is what G2 + the triple-dissociation arms decide. A null there still generalizes the fMRI negative; a surviving residualized arm (> permuted AND > random-structured) reopens a cognition-specific positive → escalate to Erfan.
