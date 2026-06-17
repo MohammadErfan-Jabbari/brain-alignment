@@ -1,6 +1,6 @@
 # Experiment E021 — surprisal-residualized cognitive-signal auxiliary training (the keystone, T1.3)
 
-**Created:** 2026-06-17 · **Status:** running — **panels + Codex DONE → v2 numbers NOT trustworthy (Codex found a pad-label bug + control flaws); cognition reading REFUTED on theory (raw≈residual is DPI-mandated). Fixing harness + adding the log-freq control arm + clean rerun, then Erfan. NO rung flip (S22).**
+**Created:** 2026-06-17 · **Status:** DONE (exploratory, INCONCLUSIVE at n=3) — **clean v3 rerun: surprisal-orthogonality is cleanly NULL (raw≈residual, DPI-confirmed); generic regularization dominates (~450 AULC gap); a WEAK non-significant residual-over-surrogate hint (CIs touch 0); the log-freq control is confounded by learnability so does NOT adjudicate. Not a clean positive, not a clean negative — needs more seeds + a learnability-matched control to resolve. v2 "positive" was a bug artifact. NO rung flip (S22).**
 **Tree node:** T1.3 (lead Path-B bet) · **Program:** `../expansion-program.md` §6b synthesis · **Mode:** promotable
 
 ---
@@ -76,7 +76,8 @@ Only if **G0, G1, G2 all pass** do the 6 science arms run.
 | 2026-06-17 | G2 v1 | `scripts/run_e021_arms.py` (fine-tune-AULC) → `outputs/e021/` | planted effect WRONG-SIGN both constructions (+6.3 / +4.8, wrong sign every seed); MDE 9–12 AULC | **FAILED** — metric unpowered + biased: aux head perturbs trunk ∝ learnability, hurts next-token, Stage-B overwrites the prior → rewards least-learnable target (false-negative). Arms NOT run (hard gate held). | revise metric → frozen-probe AULC; re-run G2 |
 | 2026-06-17 | G2 v2 | `scripts/run_e021_v2.py` → `g2v2_frozen_probe.json` | planted prior −705.6 AULC [−776,−635], MDE 70.7 | **PASS** — frozen-probe metric detects a representational prior | run 5 arms |
 | 2026-06-17 | 5 arms ×3 seeds | `scripts/run_e021_v2.py` → `arms_v2_results.json` | base 742 · raw 221 · resid 228 · perm 266 · rand 249; resid−perm −37.9 [−53,−22], resid−rand −21.2 [−35,−8] | **triple dissociation fired, NOT believed** — raw>residual ⇒ likely GENERIC regularization not cognition; Fork-A STOP | panel + Codex + log-cap robustness → Erfan |
-| 2026-06-17 | panels + Codex | counter-argument + first-principles (opus) + Codex review | **cognition reading REFUTED**: raw≈residual (per-seed −17/+15/−19, paired ≈0) so surprisal-orthogonality null; ranking tracks word-alignment fidelity (random>permuted); ~91% of effect = generic regularization (E004 frozen at scale, MI-bound consistent); **by DPI residual CANNOT exceed raw** → orthogonality dead. **Codex: real bug** (Stage-A pads contribute to LM loss, can inflate baseline gap) + flaws (seed-invariant targets, residualization maybe not out-of-fold, probe init not identical). | clean rerun + log-freq control (cheap finishing step; verdict won't change) |
+| 2026-06-17 | panels + Codex | counter-argument + first-principles (opus) + Codex review | on the BUGGY v2: argued generic-regularization; Codex found a real pad-label bug + control flaws (seed-invariant targets, in-sample residual, non-identical probe init) → v2 numbers untrustworthy | clean rerun + log-freq control |
+| 2026-06-17 | clean v3 | `scripts/run_e021_v3.py` → `arms_v3_results.json` (G2v3 PASS, MDE 42.7) | base 628·raw 181·**resid 177**·perm 197·rand 203·logfreq 250; resid−perm −20.0 [−41.6,**+1.6**], resid−rand −26.2 [−52.7,**+0.3**], raw−resid +4.3 [−3.9,+12.6], logfreq WORST | **INCONCLUSIVE (n=3)** — surprisal-orthogonality NULL (raw≈resid); generic regularization dominant; weak non-sig residual hint; logfreq control confounded by learnability. Not clean +/−. | Erfan: more seeds + learnability-matched control, or fold the narrow negative |
 
 ## Results (running)
 
@@ -101,6 +102,28 @@ Only if **G0, G1, G2 all pass** do the 6 science arms run.
 | (v) random-struct | 249.2 | 298/201/248 |
 
 Triple dissociation fired: residual−permuted=−37.9 [−53.3,−22.5] ✓, residual−random=−21.2 [−34.8,−7.6] ✓ (both exclude 0, no seed flip). **BUT the cognition-specific reading is contradicted by the data:** raw (ii, 220.8) is the *best* arm, beating the residual — so the useful ingredient is "real word-aligned signal" broadly (raw carries the most), NOT the surprisal-orthogonal residual the experiment was built to isolate. The dominant effect is the ~500-AULC baseline→any-structured-arm gap = generic aux-regularization of a tiny-corpus fine-tune (the E004 `frozen` effect at scale). **Honest interim read: most likely GENERIC regularization, not cognition-specific.** Caveats: post-lock metric switch (principled, G2-validated); cap-3000 dominates the AULC mean (noisiest term) → log-cap robustness pending. Artifacts: `outputs/e021/{ARMS_VERDICT.md,arms_v2_results.json}`; harness `scripts/run_e021_v2.py`.
+
+**CLEAN v3 (Codex fixes 1–5 + log-freq control arm; the TRUSTWORTHY numbers — supersedes v2).** G2v3 PASS (planted prior −548 AULC [−591,−505], MDE 42.7, ≈13× MDE). 6 arms × 3 seeds, frozen-probe AULC (lower=better):
+
+| arm | mean±sem | | contrast | mean [95% CI] |
+|---|---|---|---|---|
+| baseline λ=0 | 628.4±22.1 | | residual−permuted | −20.0 [−41.6, **+1.6**] ✗ |
+| raw RT | 181.3±16.0 | | residual−random | −26.2 [−52.7, **+0.3**] ✗ |
+| residual | **176.9±11.8** | | raw−residual | +4.3 [−3.9,+12.6] ≈0 |
+| permuted | 196.9±22.8 | | raw−permuted | −15.6 [−29.1,−2.2] ✓ |
+| random_struct | 203.1±24.9 | | logfreq−permuted | +52.9 [+29.8,+76.1] (logfreq WORSE) |
+| logfreq | 249.8±34.5 | | logfreq−random | +46.7 [+26.8,+66.5] (logfreq WORSE) |
+
+The pad-fix dropped baseline 742→628 (gap ~450, so NOT mainly a pad artifact — generic regularization is real). `triple_dissociation=False` (the residual−surrogate CIs now touch 0). Artifacts: `outputs/e021/{arms_v3_results.json,g2v3_frozen_probe.json}`; harness `scripts/{run_e021_v3.py,e021_targets_v3.py}`.
+
+## FINAL verdict (clean v3 — supersedes the interim "NEGATIVE" section below)
+
+**INCONCLUSIVE at n=3, with one clean sub-result. Exploratory; no rung flip.** Three honest claims the trustworthy data support:
+1. **Surprisal-orthogonality is NULL (clean).** raw ≈ residual (+4.3 [−3.9,+12.6]) — removing the surprisal-predictable component changes nothing. The experiment's *specific novelty* (surprisal-residualization) buys nothing. (This is the DPI prediction borne out — though DPI bounds *information*, not training utility, so it was the wrong reason to assert it pre-hoc.)
+2. **Generic word-aligned aux-regularization dominates** (~450 AULC baseline→structured gap; the E004 `frozen` effect at scale). Robust.
+3. **The cognition question is UNRESOLVED, not closed.** The residual is the best arm and beats both surrogates *on the mean*, but the CIs touch 0 at n=3 (underpowered) — not a clean positive. AND the intended cognition-exclusion control (log-freq) is **confounded**: it is the *most learnable* target yet probes *worst*, i.e. the learnability-disruption mechanism (from G2v1) contaminates it — so it does NOT cleanly show "any real non-cognitive feature regularizes." Resolving this needs (a) more seeds to tighten the residual−surrogate CIs, and (b) a *learnability-matched* non-cognitive control (log-freq is too trivially predictable).
+
+**Bottom line for the program:** the keystone did NOT deliver a clean main-track positive, and it did NOT deliver a clean negative either. The defensible, paper-ready claim is the *narrow* one — surprisal-residualization specifically buys nothing (raw≈residual), consistent with the thesis arc — plus "generic regularization dominates." The broader "does real cognitive signal help beyond surprisal" is left honestly **underpowered/inconclusive**. **Erfan's call** whether the resolve-it experiment (more seeds + learnability-matched control) is worth the compute, or whether to fold the narrow negative into the Path-A paper and move on. Methodological lesson logged: I flip-flopped (v2 bug-positive → an over-strong DPI "refutation" → this) — don't over-read bug-tainted data, and don't assert an empirical ordering from a theorem about information when the quantity at stake is training utility.
 
 ## Interpretation (verdict — NEGATIVE; exploratory pending a clean rerun)
 
