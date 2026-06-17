@@ -1,10 +1,10 @@
 # Upspeed — read first, write last
 
-**Last updated:** 2026-06-17 (Session 20 — working, provenance-only. **Repaired E003's four record-provenance gaps + a 5th (epoch asymmetry); NO science, NO rung changed.** Prior: S19 (analysis, not formally wrapped) wrote R07. Next: analysis lane — R08 / extended manuscript.)
+**Last updated:** 2026-06-17 (Session 21 — analysis. **Reviewed S20's E003 repair (it resolves everything R07 needed) and made R07's one pending edit: "matched budget" → step count not matched, cold 2 epochs vs warm 1; NO number/verdict/rung changed, `2b0477b`.** R07 (Q1) is now fully reconciled with the repaired E003. Next: analysis lane — R08 / extended manuscript.)
 
 > **Canonical state lives in [`ladder.md`](ladder.md).** This is last-session prose. With no task, run `/orient`.
 
-## What ran this session
+## What ran last session (S20 — the material change; S21 was a 2-line R07 reconciliation on top)
 
 **E003 record-provenance repair (working; provenance-only).** Run as a gather → counter-critique panel → plan → critique-plan → execute orchestration Erfan asked for. The decisive step: a gpt2 perplexity dry-run showed the "unsourced" reference ppls (74/105/169) recompute on the cached slice to 74.0/104.9/169.0 — they *were* on-slice measurements, just never written to the JSON. So recompute **confirms** rather than replaces, and nothing moved the fit/verdict.
 
