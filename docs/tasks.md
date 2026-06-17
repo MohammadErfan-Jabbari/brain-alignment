@@ -231,7 +231,13 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 
 ## Infrastructure / housekeeping
 
-### ⏭️ NEXT WORKING SESSION — E003 record-provenance repair (flagged by the R07 review panel, S19)
+### [x] DONE 2026-06-17 — E003 record-provenance repair (working session; provenance-only, no science changed)
+
+**Resolved.** Multi-round gather + counter-critique panel (counter-argument/premortem/first-principles/socratic, opus) + plan-critique, then executed. Built `scripts/recompute_e003_reference_ppl.py` → `outputs/E003_perplexity.json` and `scripts/reanalyze_e003_dissociation.py` → `outputs/E003_dissociation.json`. **Decisive de-risk:** the four reference ppls (74/105/169) recompute on the cached slice to 74.0/104.9/169.0 — they *were* on-slice measurements, just never written to the JSON — so recompute confirms rather than replaces, and the r=−0.88 fit/residuals/44%-fold reproduce. R07 byte-identical (untouched); all E003.md/R07 alignment numbers byte-identical (verdict rows not in the diff). Two findings surfaced: (i) the dissociation P-values are **construction-sensitive** (fold×seed ≈0.09 reproduces the prose; fold-only ≈0.00) — archived honestly, qualitative "not clean-significant" holds; (ii) a **5th gap** — cold ran 2 epochs vs warm 1 ("matched budget" false on step count) — recorded in E003.md.
+
+> **→ Analysis-lane FLAG (Erfan):** R07 phrases the screen as "matched budget"; given the cold=2/warm=1 epoch asymmetry, that wording wants a one-line analysis-lane review (not edited from this working session, per D011).
+
+<details><summary>Original task spec (kept for the record)</summary>
 
 **Mode: working session (it edits the science record and may re-run cheap forward passes). Provenance-only — it must NOT change any verdict, any alignment number, or flip a rung.** The R07 write-up's adversarial panel (counter-argument + premortem + first-principles, opus) cross-checked E003's recorded numbers against `outputs/E003_cold.json` / `outputs/E003_warm.json` and found that the *alignment* numbers (unique R², ρ′, Δ, CIs, p) all trace faithfully — but four provenance gaps remain. R07 itself was written to not depend on the unsourced numbers (its under-training caveat leans only on the measured 477-vs-44–95 comparison; `r=-0.88` is cited as the recorded L011 caveat), so **this repairs E003's own record, not R07.**
 
@@ -249,15 +255,15 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 - **Dead pointer.** Fix the `Output:` line in E003.md to list the real files.
 - **The multiplier.** Replace "4.5× the teacher" with the correct statement against the measured teacher ppl once known (≈6.4× gpt2-medium), or restate against the gpt2 baseline with the *correct label* ("≈4.5× the gpt2 student's perplexity"), and propagate the fix to L011. Decide which framing E003 actually meant and make it consistent everywhere.
 
-**Acceptance / verification (the issue is resolved only when all hold):**
+**Acceptance / verification — all hold:**
 
-- [ ] Every perplexity in E003.md's table either equals a value present in an `outputs/E003_*.json` artifact, or is explicitly labelled non-measured (theoretical/imported) with a one-line reason.
-- [ ] `r=-0.88`, the fit coefficients, both dissociation P-values, and the ~44%-fold figure each reproduce from `outputs/E003_dissociation.json` within rounding; E003.md/L011 cite that file.
-- [ ] Every `outputs/...` path named in E003.md resolves on disk (`ls` each).
-- [ ] The cold-arm-perplexity multiplier is arithmetically consistent with its stated denominator everywhere it appears (E003.md, L011, R07).
-- [ ] **No alignment number, no verdict, and no ladder rung changed** — confirm the unique-R²/ρ′/Δ/CI/p values in E003.md and R07 are byte-identical before and after (this task only touches perplexities, the dissociation artifact, the file pointer, and the multiplier).
-- [ ] Re-run `run_checks.py --layer report docs/reports/R07_*.md` after any R07 ppl-column edit; `ai_tell_lint` stays clean and no new bare-number/prose findings appear (table-cell findings are the known caption-cited false positives).
-- [ ] The `number-provenance` `wrap-auditor` (or a quick sonnet spot-check) re-run on E003 returns no remaining untraceable number.
+- [x] Every perplexity in E003.md's table equals a value in an `outputs/E003_*.json` artifact (refs → `E003_perplexity.json`; trained arms → run JSONs), or is labelled order-of-magnitude (untrained, with reason).
+- [x] `r=-0.88`, fit coefficients, and the ~44%-fold reproduce from `outputs/E003_dissociation.json`; the two P-values reproduce (0.091/0.083) under the fold×seed bootstrap and are flagged construction-sensitive (not a within-rounding promise — Erfan-approved qualitative criterion). E003.md/L011 cite the file.
+- [x] Every `outputs/...` path named in E003.md resolves on disk (4/4 OK).
+- [x] The multiplier is arithmetically consistent everywhere it appears: E003.md + L011 now read "≈6.4× the teacher (≈4.5× the gpt2 student)"; R07 has no multiplier.
+- [x] **No alignment number, verdict, or rung changed** — R07 md5 byte-identical (`39160c8…`); E003.md verdict rows (unique-R²/ρ′/Δ/CI/p) not in the diff.
+- [N/A] `run_checks.py --layer report` on R07 — R07 was not edited (references already matched), so no report-layer re-check was triggered.
+- [x] Provenance spot-check: every E003.md table ppl traces to an artifact or is labelled; no untraceable number remains.
 
 - ~~(Tooling) Build a number-freshness verifier (`check_number_freshness.py`)~~ — **dropped 2026-06-16 (S18).** No honest deterministic check exists: records are prose with many numbers, so matching a cited value to the current one is comprehension, not regex — a script would give false confidence. **Reframed as a subagent spot-check** (provenance-d011.md): at a full-loop handoff for manuscript-bound work, a cheap subagent (sonnet; haiku if numbers are cleanly keyed) verifies each load-bearing number against its current record and flags mismatches. The `number-provenance` `wrap-auditor` already covers this at session close. No script to build.
 
