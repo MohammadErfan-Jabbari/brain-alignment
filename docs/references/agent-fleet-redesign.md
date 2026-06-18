@@ -132,3 +132,20 @@ WHAT-WOULD-UPGRADE: ... | WHAT-WOULD-KILL: ...
 
 ## Empirical grounding (transcript-mining, 266 runs)
 `general-purpose` 77 (overloaded), `Explore` 38, `counter-argument` 29, `paper-digest` 25, `first-principles-grounder` 23, `oracle-reviewer` 22, `premortem-analyst` 17, `lit-scout` 14, `socratic-thinker` 7, `wrap-auditor` 5, `codex` 5. Routing: **fable 41×** (banned — real violations), **paper-digest on sonnet 24×** (violation — always opus), **lit-scout on sonnet 9×** = mostly *correct* (gathering mode is sonnet per the S24 task-dependence refinement; only analysis-mode is opus). Thinking panel = 37% of all subagent runs (justifies the §4 investment).
+
+---
+
+## Implementation status (S24 — implemented top-to-bottom on Erfan's go)
+
+**DONE (committed):**
+- **§4 thinker/oracle prompt blocks + `/goalsmith` panel-clean clause** — `02be369`. Each thinker now labels objections VERIFIED-AGAINST-DATA vs SPECULATIVE, forks nulls to IMPL/THEORY-NULL/SCOPE-MISMATCH, and emits a `PANEL-VERDICT:` block; oracle gained DESIGN-vs-RESULT mode.
+- **The 5 new agents** (`stat-aggregation-auditor`, `anti-confound-designer`, `dataset-verifier`, `dataset-scout`, `paper-repo-extractor`) — `498f658`.
+- **`confound-catalog.md` (single source of truth) + `/precheck`** — `e9b3067`.
+- **`wrap-auditor` scope upgrades** (number-provenance→provenance-completeness; continuity-docs→doc-status-sync) **+ mid-session invocability**; **`/orient`** working-tree + missing-wrap checks; **`counter-argument`/`oracle-reviewer`** catalog pointers; **`lit-scout`** task-dependent tier + no-judge; **`agent_routing_lint.py`** PreToolUse hook + settings wiring; **CLAUDE.md** routing refinement + new-agent registration — `dad2324`.
+
+**No edit needed:**
+- **`/wrap`** already spawns the auditors in one parallel fan-out with sonnet-default + opus-escalation-for-ladder-integrity, and dispatches the five scopes — so the extended scope behaviour (now in `wrap-auditor.md`) flows through automatically. §2's `/wrap` items were already satisfied.
+- **§3-A BEFORE/AFTER timing** — already encoded in each agent's description (oracle = DESIGN/RESULT mode, counter-argument = AFTER, anti-confound-designer = BEFORE, stat-aggregation-auditor = AFTER); the cosmetic CLAUDE.md table split was not done (low value).
+
+**DEFERRED (with reason):**
+- **`.mcp.json` (§3-D)** — no Exa transport config is findable under `~/.claude` (it comes from the global harness); writing a guessed one risks shadowing the working global Exa. Needs the actual Exa connection details — Erfan to provide/confirm, then it is a 1-file add.
