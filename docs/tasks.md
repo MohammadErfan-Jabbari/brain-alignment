@@ -137,6 +137,14 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 - [ ] **Extended manuscript:** consolidate the finding-reports into the extended manuscript at a checkpoint Erfan
   calls (never auto-updated, D035); seed from v0.9. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
 
+### Done this session (S24 — analysis→tooling/design; PI/sample-efficiency pivot + agent-fleet redesign; NO experiment ran, NO rung moved)
+- [x] 2026-06-18 — **Forward direction reopened (Erfan):** brain-as-privileged-information → sample-efficiency (the charter's F2, returned-to with theory + higher-SNR regimes + the 5-control battery). Trajectory in `expansion-program.md` §8 (TRUE-100% Tier 1; the 5 method ideas; P1 ZuCo). Critique-loop-hardened (counter-argument + lit-scout + Codex). D040.
+- [x] 2026-06-18 — **E023 designed** (`experiments/E023`): KD objective-vs-quality identification (δ_obj manifold-residual). Not run.
+- [x] 2026-06-18 — **/goalsmith** (`.claude/commands/goalsmith.md`): /orient item → ≤4000-char single-line `/goal` condition (PRD-pointer + resolve-or-root-cause completion). Cold-tested.
+- [x] 2026-06-18 — **Agent-fleet redesign** (`docs/references/agent-fleet-redesign.md`, D041): +5 agents (stat-aggregation-auditor, anti-confound-designer, dataset-verifier, dataset-scout, paper-repo-extractor); /precheck; confound-catalog; wrap-auditor scopes + mid-session; routing-lint hook; §4 thinker/oracle panel aligned to goalsmith; CLAUDE.md self-activation map.
+- [x] 2026-06-18 — **06 row 6** (perplexity/KD = KL minimization; output-vs-representation gap) + R07 §design pointer.
+- **NEXT working step:** expansion-program §8 Tier-1 → **E023a** (manifold, forward-passes only) → `/precheck`-gate E023b. **Deferred:** `.mcp.json` (no Exa transport config). **Untested:** the new fleet (first real exercise next run).
+
 ### Done this session (S22–S23 — autonomous expansion program, working; 2 exploratory negatives, no rung moved)
 - [x] 2026-06-18 — **E021 (cognitive-signal / reading-time training) → CLEAN NULL on cognition.** n=10 + learnability-matched controls + a phase-randomized shape-matched twin: the RT edge over all controls is signal *shape* (autocorr+kurtosis), not content; surprisal-orthogonality null. Arc v2→v3→v4→v5. L048/L049. `experiments/E021`, `scripts/run_e021_v{3,4,5}.py`.
 - [x] 2026-06-18 — **E022 (Moussa Path-A external demonstration) → NON-REPRODUCTION (STOP).** Oracle-gated reproduction pilot: brain−pretrained phoneme-F1 +0.52 [−0.36,+1.40], below the +2 gate → shrink-test vacuous, not built. External "main-track lift" off the table. `experiments/E022`, `scripts/e022_pilot.py`.
