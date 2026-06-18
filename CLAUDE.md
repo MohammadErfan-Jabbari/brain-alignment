@@ -168,6 +168,29 @@ finding a fact and all its traces, and record-writing (`session-logger`). **haik
 fan-out (extraction, file-mapping, formatting). When in doubt whether a task "needs thinking" → opus.
 Each agent declares its default in `model:` frontmatter; override per call when the task warrants.
 
+## The fleet — what's available, and when it fires by default (self-activation)
+
+Full rationale: `docs/references/agent-fleet-redesign.md`. **Fire these by default at the matching phase — don't wait to be asked; commoditizing the workflow so Erfan never re-explains it is the whole point.**
+
+**Commands** (`.claude/commands/`): **`/orient`** (session start — where we are + next step; now also flags uncommitted work + a missed `/wrap`) · **`/precheck`** (pre-compute gate — `anti-confound-designer` assembles the control battery → `oracle-reviewer` gates it → `READY-TO-RUN`) · **`/goalsmith <item>`** (build the ≤4000-char single-line `/goal` condition for a working item, pointing at its PRD) · **`/wrap`** (session close — ritual + parallel `wrap-auditor` swarm). **Skills:** **`scientific-writing`** (all report/manuscript prose; the D011 number rule) and **`/graphify`** (code/corpus navigation); global gbrain/estack skills route via their resolvers.
+
+**Agents** (`.claude/agents/`, 14) — grouped by *when* in the loop they run:
+- **Pre-compute (BEFORE a run):** `anti-confound-designer` (assemble the battery) → `oracle-reviewer` (gate it, DESIGN mode).
+- **Post-result (AFTER a run, before the verdict lands):** `stat-aggregation-auditor` (re-compute the contrast) + the thinking panel `counter-argument` · `socratic-thinker` · `premortem-analyst` · `first-principles-grounder` (+ `oracle-reviewer` RESULT mode). Each emits a machine-readable `PANEL-VERDICT:` block; reconcile to `PANEL-CLEAN:YES`.
+- **Data / literature:** `dataset-verifier` (is the data usable) · `dataset-scout` (find/characterize new data) · `lit-scout` (find papers) · `paper-digest` (canonical note) · `paper-repo-extractor` (mechanical repo extraction, fan-out).
+- **Records:** `session-logger` · `wrap-auditor` (now also invocable standalone mid-session, one scope).
+
+**Self-activation map (the standing default):**
+- **Session start** → `/orient`.
+- **Claim→Design** → `anti-confound-designer` → **`/precheck`**; no compute before PASS.
+- **Goal for the session** → `/goalsmith <item>` → paste into `/goal`.
+- **First use of a dataset** → `dataset-verifier`; **scouting new data/papers** → `dataset-scout` / `lit-scout` (sonnet to gather), `paper-repo-extractor` (haiku) for repo artifacts, `paper-digest` (opus) for a note.
+- **After a multi-seed/arm run, before recording a verdict** → `stat-aggregation-auditor` **then** the panel + Codex; reconcile the `PANEL-VERDICT` blocks to `PANEL-CLEAN:YES` before it lands.
+- **The moment a verdict flips or a number lands** → `wrap-auditor` on the single relevant scope (mid-session), not only at close.
+- **Session close** → `/wrap`.
+
+**Auto-firing guardrails (hooks — no model decision needed):** `agent_routing_lint` (PreToolUse on agent spawns: nudges fable-banned + judgment-heavy→opus; `lit-scout`/`dataset-scout` exempt as task-dependent) and the SessionStart snapshot that arms `/wrap`. True OS-level auto-invocation exists only for these hooks; everything else above is the standing default the agent follows by itself.
+
 Add more agents/skills only when a need recurs (adaptive semistructure). We deliberately did **not**
 port the Nexus v2 stage-machine — see `docs/decisions/decisions.md` D001.
 
