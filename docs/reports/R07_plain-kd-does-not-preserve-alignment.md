@@ -28,15 +28,17 @@ Knowledge distillation is not that regime, and this is what makes the gap an emp
 
 The arms, all scored on the R06 apparatus (Tuckute 2024, five left-hemisphere language ROIs, NC-normalised unique R², contiguous five-fold CV, capacity-fair PCA), with the verdict comparison held entirely within 12-layer GPT-2-architecture models at a fixed layer (L7) so there is no cross-architecture layer confound and no winner's-curse layer selection [E003]:
 
-| Tag | Model | Role | Init / objective |
-|---|---|---|---|
-| teacher | gpt2-medium (24L, 355M) | the DPI ceiling $A_T$ | pretrained |
-| gpt2 | gpt2 (12L, 124M) | conventional same-architecture reference | pretrained |
-| **kd_cold** | gpt2 ← KD(gpt2-medium) | **the verdict arm** | **random + pure logit KD** |
-| kd_warm | gpt2 ← KD(gpt2-medium) | fine-tuning-drift control | pretrained + pure logit KD |
-| lmft_warm | gpt2 ← plain-LM finetune | corpus-drift control (no teacher) | pretrained + plain LM |
-| distilgpt2 | distilgpt2 (6L, 82M) | a real distillation, for context | distilled-from-gpt2 |
-| untrained | gpt2 (random) | the floor $A_0$ | random |
+
+| Tag         | Model                    | Role                                     | Init / objective           |
+| ----------- | ------------------------ | ---------------------------------------- | -------------------------- |
+| teacher     | gpt2-medium (24L, 355M)  | the DPI ceiling $A_T$                    | pretrained                 |
+| gpt2        | gpt2 (12L, 124M)         | conventional same-architecture reference | pretrained                 |
+| **kd_cold** | gpt2 ← KD(gpt2-medium)   | **the verdict arm**                      | **random + pure logit KD** |
+| kd_warm     | gpt2 ← KD(gpt2-medium)   | fine-tuning-drift control                | pretrained + pure logit KD |
+| lmft_warm   | gpt2 ← plain-LM finetune | corpus-drift control (no teacher)        | pretrained + plain LM      |
+| distilgpt2  | distilgpt2 (6L, 82M)     | a real distillation, for context         | distilled-from-gpt2        |
+| untrained   | gpt2 (random)            | the floor $A_0$                          | random                     |
+
 
 The statistic decided on is **floor-anchored retention** $\rho' = (A_S - A_0)/(A_T - A_0)$, with $A_0$ the untrained floor and $A_T$ the teacher: $\rho'=0$ means "fell back to the floor" (destroyed), $\rho'=1$ means "kept the teacher's alignment" (preserved). It is far better conditioned than a raw ratio near the cutoffs, and the verdict is read on $\rho'$ with its bootstrap CI together with $\Delta$ and a paired test, never on a point ratio [E003]. The KD objective is the purest perplexity-only form (temperature-scaled KL on next-token logits over the shared BPE vocabulary, $\lambda_{\text{brain}}=0$, $\lambda_{\text{hidden}}=0$), purer than distilgpt2, which adds a hidden-state cosine term that would protect mid-layer structure; distilgpt2 is therefore scored against its own teacher (gpt2, not gpt2-medium) and read as context, not verdict [E003]. Stop rule, locked: fixed model set, fixed verdict layer, three seeds on the trained arms, a matched corpus, batch size, learning-rate schedule and max-length, and no tuning toward an outcome [E003]. As-run the optimizer-step count was *not* matched: the from-scratch cold arm trained two epochs to the warm arms' one, so it received about twice the steps, which only deepens the under-training caveat below rather than flattering it [E003].
 
@@ -44,17 +46,19 @@ The statistic decided on is **floor-anchored retention** $\rho' = (A_S - A_0)/(A
 
 The verdict-layer table, NC-normalised unique R² (NC $=0.353$), floor-anchored retention $\rho'$ with bootstrap 95% CI, $\Delta = A_T - A_S$ versus the teacher, the bootstrap probability of no drop from the teacher, and held-out perplexity [E003]:
 
-| Arm | init / objective | unique R² | $\rho'$ [bootstrap CI] | $\Delta$ vs teacher | $p$(no-drop) | ppl |
-|---|---|---|---|---|---|---|
-| teacher gpt2-medium | pretrained | +0.0188 | n/a | n/a | n/a | 74 [E003] |
-| gpt2 | pretrained (conventional) | +0.0195 | 1.02 [0.77, 1.27] | $\approx 0$ | 0.57 | 105 [E003] |
-| lmft_warm | warm + plain LM finetune | +0.0174 | 0.95 [0.81, 1.13] | +0.0016 | 0.265 | 44 [E003] |
-| kd_warm | warm + pure logit KD | +0.0144 | 0.84 [0.67, 1.04] | +0.0046 | 0.061 | 95 [E003] |
-| distilgpt2 | real distillation (6L/82M, +hidden-cosine) | +0.0076 | 0.60 [0.42, 0.84] | +0.0119 | 0.001 | 169 [E003] |
-| **kd_cold** | **random + pure logit KD** | +0.0005 | 0.37 [0.14, 0.58] | +0.0181 | 0.000 | 477 [E003] |
-| untrained | random (floor) | −0.0102 | 0 | n/a | n/a | ~50000 [E003] |
 
-The durable finding is a **monotone alignment gradient**. Ordered by how much the representation was rebuilt through the distillation channel rather than inherited from conventional pretraining, retention falls cleanly: conventional gpt2 ($\rho'\approx1.0$) > warm-init KD (0.84) > full distillation distilgpt2 (0.60, an own-teacher anchor) > from-scratch cold-init KD (0.37) > floor (0). The from-scratch logit-KD student lands far below the teacher ($\Delta=+0.018$, $p<0.001$); it sits significantly above the untrained floor ($\rho'=0.37$, CI excluding 0) yet its absolute unique R² is statistically indistinguishable from zero, even though KD taught it language (held-out perplexity 477, against the converged arms' 44–95). distilgpt2, a real published distillation, retains only about 60% of its teacher's alignment above the floor ($\Delta=+0.012$, $p=0.001$), but that 0.60 is an upper bound measured against its own teacher (gpt2), not gpt2-medium [E003]. The rank order is stable across PCA rank (it holds at $n_{\text{pca}}\in\{25,50,100\}$), and the references behave: off-the-shelf gpt2 sits at the teacher's level ($\rho'\approx1.0$), the untrained control at the floor, and two parallel runs scoring the same references on different GPUs reproduced them to ~0.0003 [E003]. So the kill-test did not return preserve-by-default.
+| Arm                 | init / objective                           | unique R² | $\rho'$ [bootstrap CI] | $\Delta$ vs teacher | $p$(no-drop) | ppl           |
+| ------------------- | ------------------------------------------ | --------- | ---------------------- | ------------------- | ------------ | ------------- |
+| teacher gpt2-medium | pretrained                                 | +0.0188   | n/a                    | n/a                 | n/a          | 74 [E003]     |
+| gpt2                | pretrained (conventional)                  | +0.0195   | 1.02 [0.77, 1.27]      | $\approx 0$         | 0.57         | 105 [E003]    |
+| lmft_warm           | warm + plain LM finetune                   | +0.0174   | 0.95 [0.81, 1.13]      | +0.0016             | 0.265        | 44 [E003]     |
+| kd_warm             | warm + pure logit KD                       | +0.0144   | 0.84 [0.67, 1.04]      | +0.0046             | 0.061        | 95 [E003]     |
+| distilgpt2          | real distillation (6L/82M, +hidden-cosine) | +0.0076   | 0.60 [0.42, 0.84]      | +0.0119             | 0.001        | 169 [E003]    |
+| **kd_cold**         | **random + pure logit KD**                 | +0.0005   | 0.37 [0.14, 0.58]      | +0.0181             | 0.000        | 477 [E003]    |
+| untrained           | random (floor)                             | −0.0102   | 0                      | n/a                 | n/a          | ~50000 [E003] |
+
+
+The durable finding is a **monotone alignment gradient**. Ordered by how much the representation was rebuilt through the distillation channel rather than inherited from conventional pretraining, retention falls cleanly: conventional gpt2 ($\rho'\approx1.0$) &gt; warm-init KD (0.84) &gt; full distillation distilgpt2 (0.60, an own-teacher anchor) &gt; from-scratch cold-init KD (0.37) &gt; floor (0). The from-scratch logit-KD student lands far below the teacher ($\Delta=+0.018$, $p<0.001$); it sits significantly above the untrained floor ($\rho'=0.37$, CI excluding 0) yet its absolute unique R² is statistically indistinguishable from zero, even though KD taught it language (held-out perplexity 477, against the converged arms' 44–95). distilgpt2, a real published distillation, retains only about 60% of its teacher's alignment above the floor ($\Delta=+0.012$, $p=0.001$), but that 0.60 is an upper bound measured against its own teacher (gpt2), not gpt2-medium [E003]. The rank order is stable across PCA rank (it holds at $n_{\text{pca}}\in\{25,50,100\}$), and the references behave: off-the-shelf gpt2 sits at the teacher's level ($\rho'\approx1.0$), the untrained control at the floor, and two parallel runs scoring the same references on different GPUs reproduced them to ~0.0003 [E003]. So the kill-test did not return preserve-by-default.
 
 The over-reach the post-run adversarial refutation caught: **alignment co-varies with language-model quality**, so the gradient cannot be attributed to the distillation objective on this evidence (L011). Across the five trained and distilled points, alignment is tightly predicted by log-perplexity at Pearson $r=-0.88$; the fit $\text{align} = 0.050 - 0.0079\,\ln(\text{ppl})$ places warm-init KD essentially *on* the line (residual +0.0001) and leaves conventional gpt2 as the lone outlier above it (+0.006) [E003]. The two dissociations that would separate objective-specific shedding from "alignment tracks quality" are both only marginal: warm-init KD has lower alignment than gpt2 despite better perplexity, but the bootstrap $P(\text{gpt2}\le\text{kd\_warm})=0.092$; and at matched budget the no-teacher finetune beats warm-init KD on both perplexity and alignment, but $P(\text{lmft}\le\text{kd\_warm})=0.085$. Both lean on a single unreplicated gpt2 point and, under a paired-fold test, on one fold carrying about 44% of the signal [E003]. The from-scratch arm compounds this with under-training: its held-out perplexity (477) sits far above the converged arms' (warm-init KD 95, plain finetune 44), so its near-floor alignment partly just reflects a worse language model, the convergence-guard caveat the design predeclared [E003].
 
@@ -73,3 +77,4 @@ What it does not license is "the distillation objective sheds alignment beyond t
 - distilgpt2 is context, not verdict: it carries a capacity confound (82M / 6L versus 124M / 12L) and its training included a hidden-state cosine term, so it is not pure perplexity-only KD and its retention is an upper bound, friendlier to preservation than a pure-logit student would be [E003].
 - The shed *fractions* are PCA-rank-sensitive (the two confounded arms flip sign across $n_{\text{pca}}=25/50/100$); only the gradient's *ordering* is stable across rank. Read the ordering as the finding and the magnitudes as rank-dependent [E003].
 - "Preserve" and "shed" are claims about this ROI screen at a matched corpus and compute budget (and, as noted above, the cold arm in fact ran twice the epochs, so even the step count was not matched). The thesis-deciding form of the question is at matched *perplexity* on the powered substrate, and that is where Q2 and Q3 take it.
+
