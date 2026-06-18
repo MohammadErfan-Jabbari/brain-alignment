@@ -1,27 +1,28 @@
 # Upspeed — read first, write last
 
-**Last updated:** 2026-06-17 (Session 22 — autonomous working. Ran the expansion program + the **E021 keystone** end-to-end. **Verdict: INCONCLUSIVE at n=3 — surprisal-orthogonality is cleanly NULL (raw≈residual), generic regularization dominates, the broader cognition question is underpowered, and the v2 "positive" was a harness-bug artifact.** The main-track positive did NOT materialize. No rung flipped. Handed the next decision to Erfan.)
+**Last updated:** 2026-06-18 (S23 — working. Did **A + B to completion** under Erfan's direction. **A: E021 keystone → CLEAN NULL on cognition** (the RT edge over controls is signal SHAPE, not content — a phase-randomized twin ties it; surprisal-orthogonality null). **B: Moussa Path-A demonstration → NON-REPRODUCTION** (brain-tuning's downstream gain doesn't reproduce on our data → external demo off the table). Both negative. No rung flipped. Lit-sweep path recorded for a future build. Handed back for Erfan's report-reading.)
 
-> **Canonical state lives in [`ladder.md`](ladder.md)** (unchanged this session — Q0–Q5 stand). New program state: [`expansion-program.md`](expansion-program.md) + [`idea-tree.md`](idea-tree.md). With no task, run `/orient`.
+> **Canonical Q-rung state lives in [`ladder.md`](ladder.md)** (unchanged — Q0–Q5 stand). Expansion-program state: [`expansion-program.md`](expansion-program.md) + [`idea-tree.md`](idea-tree.md). With no task, run `/orient`.
 
-## What ran (S22)
-Erfan set an autonomous `/goal`: expand the idea set toward a top-venue result. The session built the program scaffolding, a working **conference-scout** lit-sweep tool (`scripts/litsweep/`), ran a **strategy premortem** that honestly re-sequenced the plan (kill the structural-null nodes, promote **T1.3 = non-fMRI cognitive signal** as the only mechanically-viable main-track bet), and ran the keystone experiment **E021** end-to-end through a full gating chain (G0/G1 → G2 → 5 arms → panels + Codex → clean v3 rerun). It also made the **Path-A Moussa/TA.4** external demonstration launch-ready (`scripts/run_moussa_arms.py`, dry-run only).
+## What ran (S23)
+- **A — resolve E021 (keystone):** n=10 + learnability-matched controls (+ a phase-randomized shape control). **CLEAN NULL on cognition.** Human reading-time signal helps a frozen-probe more than its learnability predicts, but that edge is the target's *temporal/distributional shape* (autocorr 0.62 + kurtosis 13), reproduced entirely by a content-free phase-randomized twin (172.1 vs residual 177.4, tied). Surprisal-orthogonality null (raw≈residual). Mechanism pinned → a *stronger* negative. Arc: v2 bug-positive → v3 inconclusive → v4 likely-positive → v5 clean-null (each step corrected the last; L048/L049).
+- **B — Moussa external demonstration (E022):** oracle-gated → reproduction pilot. brain−pretrained phoneme-F1 = +0.52 [−0.36,+1.40] (below the +2 gate). **NON-REPRODUCTION** → the matched-twin shrink-test is vacuous, not built. Honest scope: reduced single-subject setup, not a refutation. Path-A's external "main-track lift" is off the table on our data.
+- **Recording:** `docs/references/literature-sweep-system.md` + far-future task + gbrain (the fetch-once conference corpus, Erfan-owned).
 
-## The keystone result (E021, clean v3 — the trustworthy numbers)
-- **Surprisal-orthogonality = NULL (clean):** raw ≈ residual (+4.3 [−3.9,+12.6]). The specific novelty buys nothing.
-- **Generic regularization dominates:** baseline 628 → structured ~177–250 AULC (~450 gap; E004 `frozen` at scale).
-- **Cognition question = underpowered/inconclusive:** residual best on the mean but CIs touch 0 (n=3); the log-freq exclusion control is confounded by learnability.
-- The v2 "triple-dissociation positive" was a **bug artifact** (Codex caught a pad-label bug; the clean rerun flipped the verdict twice). Lessons → **L048**.
+## What's next (Erfan's call — handed back)
+- **The expansion program's experimental phase is closed with negatives.** No top-10 main-track positive materialized; the honest deliverable is the Path-A negative-results/methodology paper (now extendable to behavioral RT via E021, mechanism pinned) + the thesis.
+- **Analysis-lane floor (R08–R14 + extended manuscript) is the thesis priority** — untouched, Erfan's lane (D011).
+- If Erfan wants: a learnability+shape-matched replication of E021 on a different LM/probe to make the negative airtight (cheap), or fold the narrow negative into Path A.
 
-## What's next (Erfan's call — autonomous mode paused, cost ~$212)
-1. **Resolve E021 cleanly** (more seeds + a *learnability-matched* non-cognitive control) — OR **fold the narrow negative into Path A** and stop chasing the main-track positive. The honest read: the >75%-top-10-main-track goal was not reached and is unlikely on this evidence without new data/regime.
-2. **Path-A floor is ready to run** (`run_moussa_arms.py`) — the external matched-perplexity demonstration for the negative-results paper, if wanted.
-3. **Analysis lane (R08–R14 + extended manuscript) remains the thesis floor** — untouched (Erfan's lane, D011).
+## Blockers / open loops
+- **Two external thinking-panel agents** (counter-argument + first-principles on E021 v4) were still running at close — CONFIRMATORY of the clean-null (the A agent's internal panel + v5 already settled it). If they dissent on the shape-vs-cognition call, next session addresses it.
+- A stray small GPT-2 process (A agent's redundant extra run) was finishing on GPU 2 — harmless; couldn't kill (different PID namespace).
+- Tree clean except the pre-existing untracked `untitled.md` + `docs/manuscript/supervisor-email_2026-06.md` + `.claude/worktrees/`.
 
 ## Key facts
-- **E021 trustworthy harness:** `scripts/run_e021_v3.py` + `e021_targets_v3.py`; results `outputs/e021/arms_v3_results.json` (gitignored). v2 is bug-tainted — use v3.
-- **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache`. 4× L40S.
-- **Conference-scout:** `scripts/litsweep/` (DBLP/OpenReview/OpenAlex/arXiv); full-sweep commands in its README. Not run at scale (the lit-scouts grounded each node directly).
-- **Subagent routing (D026):** opus = think/analysis/design; sonnet = doc-nav/engineering; haiku = mechanical. fable BANNED.
-- **Git:** `main`, push only when asked. ~13 commits this session.
-- **No ladder rung changed.** E021 is a new exploratory experiment, not a rung flip.
+- **E021 trustworthy harnesses:** `scripts/run_e021_v{3,4,5}.py` + `e021_targets_v{3,4,5}.py`; results `outputs/e021/arms_v{4,5}_results.json`, `v4_within_seed_learnability.json` (gitignored). v2 is bug-tainted — use v4/v5. **Reusable rigor pattern:** for aux-target experiments, control with a **phase-randomized shape-matched twin** (matches autocorr + marginal, zero content) — distributional/temporal shape regularizes independent of content.
+- **E022/Moussa:** `scripts/e022_pilot.py` (self-contained; TIMIT acquired from `kylelovesllms/timit_asr` HF mirror); `scripts/run_moussa_arms.py` (3-arm harness, NOT run — oracle HOLD). Both arms must start from the SAME init.
+- **Stat lesson:** an experiment agent's auto-verdict can be statistically wrong — a *pooled* regression over seeds washes out a real effect that a *within-seed paired* test finds. Re-derive load-bearing contrasts yourself.
+- **Conference-scout:** `scripts/litsweep/` (built, tested, not run at scale); spec in `docs/references/literature-sweep-system.md`.
+- **Run Python:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache`. 4× L40S. **Subagent routing (D026):** opus=think/design; sonnet=doc-nav/engineering; haiku=mechanical. fable BANNED.
+- **Git:** `main`, push only when asked. **No ladder rung changed this session.**

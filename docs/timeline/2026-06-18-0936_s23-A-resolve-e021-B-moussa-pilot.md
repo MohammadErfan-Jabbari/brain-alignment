@@ -1,0 +1,23 @@
+# S23 — 2026-06-18 — A (resolve E021) + B (Moussa Path-A pilot) (working session)
+
+**Mode:** working (produced evidence: E021 v4/v5, E022 pilot). Continuation of the S22 expansion program, under Erfan's explicit direction: "do A and B to completion, then hand back; record the lit-fetch path." Heavy session; closed inline (full first-hand context; cost ~$374). The S22 timeline (`2026-06-17-2315`) covers the program setup + the E021 inconclusive-era; this log covers the A+B resolution.
+
+## What ran
+**A — resolve E021 (the keystone), to completion → CLEAN NULL on cognition.** Scaled the clean v3 harness to n=10 + added learnability-matched controls (log-freq, word-length, another-LM surprisal = Qwen2.5-0.5B), recording per-arm aux-MSE.
+- v4 (n=10): human-RT targets (raw≈residual) beat EVERY control — permuted −40.8, random −39.3, other-LM-surp −46.5, wlen −66, logfreq −81 (all CIs exclude 0); raw−residual +6.1 (≈0, surprisal-orthogonality NULL). The auto-combine called it "null" off a *pooled* regression; I re-derived the correct **within-seed** test (`scripts/analyze_e021_v4_learnability.py`) → residual −48.3 [−62,−34] below the learnability trend, all 10 seeds → looked like a POSITIVE.
+- v5 (panel-driven): the A agent's own panel + my external panels flagged that aux-MSE is not the only covariate — RT is uniquely heavy-tailed (kurtosis ~13) AND autocorrelated (lag-1 0.62). The decisive **phase-randomized shape-matched twin** (RT's shape, zero content) **TIES the residual** (172.1 vs 177.4, +5.3 [−7.9,+18.5]). ⇒ the RT edge is signal SHAPE, not cognition. **Final: CLEAN NULL on cognition** (surprisal-orthogonality null; generic regularization dominant; RT edge = shape). Mechanism pinned. Matches H1 + Deng'24 + BabyLM.
+
+**B — Moussa Path-A external demonstration (E022), oracle-gated → NON-REPRODUCTION → STOP.** Oracle HOLD on the full design (circular matched-quality, learnability confound, no pretrained arm, checkpoint mismatch, TIMIT missing) → ran the cheap reproduction pilot first. Acquired TIMIT, fixed the checkpoint confound (both arms from `wav2vec2-base` pretrain), added a pretrained baseline, 3 seeds, single-subject UTS03 ×24 stories. Result: brain−pretrained phoneme-F1 = **+0.52 [−0.36,+1.40]**, below the +2 gate. Moussa's downstream gain does NOT reproduce on our data → the matched-twin shrink-test is vacuous, NOT built. Honest scope: non-reproduction in a reduced setup, NOT a refutation of Moussa. **Path-A's external "main-track lift" is off the table on our data.**
+
+**Recording task:** documented the literature-sweep system (`docs/references/literature-sweep-system.md`) + the future "fetch-once, query-forever" conference corpus → far-future task in `tasks.md` + gbrain. The exhaustive sweep was deliberately deferred (Erfan agreed it's a separate future build).
+
+## Verdict bottom line
+Both A and B came back negative for the main-track goal: A = clean null (no cognition positive), B = external demo not viable. The expansion program's experimental phase is **closed with negatives**. The honest deliverable is unchanged from S22's assessment: a strong Path-A negative-results/methodology paper (now extendable to behavioral RT via E021, mechanism pinned) + the thesis. No top-10 main-track positive materialized.
+
+## Honest process arc (the rigor chain, recorded because it matters — L048/L049)
+E021 flipped FOUR times before resolving: v2 bug-positive (Codex caught the pad-label bug) → v3 inconclusive → v4 likely-positive (I corrected the agent's pooled-stats null to a within-seed positive) → v5 clean-null (panel + the shape-matched control caught that the gap was signal shape, not content). Each step corrected the last; the gates + panels + independent stat re-derivation did their job. No verdict was ever recorded prematurely or flipped a rung.
+
+## State / next (Erfan)
+- **No ladder rung changed** (Q0–Q5 unchanged; E021/E022 are exploratory negatives off the Q-ladder, recorded in `experiments/` + `expansion-program.md`).
+- **Open loops:** two external thinking-panel agents (counter-argument + first-principles on E021 v4) were still running at close — CONFIRMATORY of the clean-null (the A agent's internal panel + v5 already established it); if they dissent, next session addresses it. A stray small GPT-2 process (the A agent's redundant extra run) was finishing on GPU 2 (couldn't kill — different PID namespace); harmless.
+- **Next:** Erfan reads the reports (his analysis lane) and decides direction. The analysis-lane floor (R08–R14 + extended manuscript) is untouched and remains the thesis priority (D011 — his lane).
