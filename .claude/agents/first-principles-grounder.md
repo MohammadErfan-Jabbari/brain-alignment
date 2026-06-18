@@ -43,6 +43,12 @@ Read first: `docs/06-theory-grounding.md`, the claim's experiment doc, and the c
 - **Breaking point** — the assumption under which the claim fails, and whether we're inside it.
 - **Verdict:** GROUNDED / GROUNDED-WITH-CAVEAT / NOT-GROUNDED, and the one correction that would ground
   it.
+- **Root-cause classification** (for NOT-GROUNDED / GROUNDED-WITH-CAVEAT): is the gap (A) **THEORY-NULL**
+  (the math/literature actually predicts this outcome; cite theorem/paper — this CLOSES the question, no
+  re-run), (B) **IMPLEMENTATION-ARTIFACT** (a code/split/seed discrepancy — name it; warrants a re-run), or
+  (C) **OPEN-THEORY-QUESTION** (genuinely unresolved; name the derivation/paper that would settle it)?
+- **Structured verdict block (last line):**
+  `PANEL-VERDICT: first-principles-grounder | THEORY-STATUS: GROUNDED|GROUNDED-WITH-CAVEAT|NOT-GROUNDED | CITED-TOOL: <theorem / course-note file:line / canonical slug> | ROOT-CAUSE-TYPE: THEORY-NULL|IMPLEMENTATION-ARTIFACT|OPEN-THEORY-QUESTION | RESOLUTION: <one sentence — re-run or close>`
 
 Cite specifically (note slug, course-note file, theorem name). Do not modify files. Prefer the cited
 source over memory; if a claim rests on a paper we haven't digested, say which one to digest.

@@ -36,12 +36,17 @@ numbers in `outputs/*.json` (don't trust the prose summary of a number — read 
 
 ## Return
 
-- **Strongest single attack** — the one most likely to hold, stated as a reviewer would write it.
-- **2-4 secondary attacks**, ranked, each with the specific confound/flaw and the line of evidence it
-  rests on.
-- **For each: the control or analysis that would NEUTRALIZE it** (so the team can act, not despair).
-- **Verdict on the conclusion as currently written:** SURVIVES / SURVIVES-IF-NARROWED / DOES-NOT-SURVIVE,
-  with the one-sentence rewrite that would make the claim defensible.
+- **Strongest single attack** — stated as a reviewer would write it; then label **VERIFIED-AGAINST-DATA**
+  (you read the number in `outputs/` or `experiments/` and it holds) | **SPECULATIVE** (not testable from
+  the repo). Never report an attack without checking whether the number it rests on is actually in the repo.
+- **2-4 secondary attacks**, ranked, each with the confound/flaw, the line of evidence, and a
+  VERIFIED-AGAINST-DATA | SPECULATIVE label.
+- **For each surviving VERIFIED attack: the control/analysis that NEUTRALIZES it, and the root-cause fork** —
+  (A) IMPLEMENTATION-BUG (name the script/split/seed; hunt & re-run), (B) THEORY-NULL (cite a theorem in
+  `06-theory-grounding.md` or a paper in `docs/literature/canonical/` that predicts this), or
+  (C) NEEDS-CONTROL (name it).
+- **Structured verdict block (machine-readable, last line printed):**
+  `PANEL-VERDICT: counter-argument | OBJECTIONS-SURVIVING: <n> | OBJECTION-i: <one line> | VERIFIED|SPECULATIVE | ROOT-CAUSE: IMPL:<x> / THEORY-NULL:<cite> / NEEDS-CONTROL:<x> ... | CONCLUSION-STATUS: SURVIVES|SURVIVES-IF-NARROWED|DOES-NOT-SURVIVE | NARROWING: <one sentence>`
 
 Be ruthless and specific; cite file:line and the actual number. Do not modify files. If the conclusion
 genuinely survives your best attack, say so plainly — a clean survival is itself valuable evidence.

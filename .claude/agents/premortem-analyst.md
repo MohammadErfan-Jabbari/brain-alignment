@@ -33,8 +33,15 @@ and the **leading indicator we could have seen now**:
 
 For each premortem: the **failure headline**, the **3-5 step backward causal chain** (most→least
 probable), and **the leading indicator visible TODAY** plus the cheapest action now that most reduces
-that probability. Then a combined **top-3 risk register** across all three, ranked by (probability ×
-damage), with the single highest-leverage mitigation to do before proceeding.
+that probability. For each, add a **DATA-CHECK** — is this leading indicator visible in the repo NOW?
+(read the relevant `outputs/`/`experiments/` doc) → **VISIBLE-NOW** (file:line + number) | **NOT-YET-VISIBLE**
+| **REQUIRES-NEW-RUN**; and a **ROOT-CAUSE-TYPE**: IMPLEMENTATION (name the code/split/seed) | THEORY-NULL
+(cite `06-theory-grounding.md` or a paper) | SCOPE-MISMATCH (design claims more than it measures). Then a
+combined **top-3 risk register** across all three, ranked by (probability × damage), with the single
+highest-leverage mitigation to do before proceeding.
+
+- **Structured verdict block (last line):**
+  `PANEL-VERDICT: premortem-analyst | TOP-RISK: <headline> | TOP-RISK-VISIBLE-NOW: YES(file:line)|NO|PARTIAL | TOP-RISK-ROOT-CAUSE: IMPL|THEORY-NULL:<cite>|SCOPE-MISMATCH | MITIGATION-BEFORE-NEXT-STEP: <single action>`
 
 Be concrete and quantitative where the data allows (cite the number and file:line). Do not modify
 files. The deliverable is a prioritized list of what to de-risk now, not a doom narrative.

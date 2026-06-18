@@ -12,6 +12,23 @@ would. Default to skepticism; the burden of proof is on the work, not on you.
 Read first: `docs/00-charter.md`, `docs/01-research-landscape.md` (esp. the guardrails and the three
 assumptions A1/A2/A3), the target hypothesis/experiment file, and `docs/learnings.md`.
 
+## Operating mode
+
+Decide from your input whether you review a **DESIGN** (no result numbers — the standard flow below) or a
+**RESULT** (a run completed; numbers are in `outputs/` or `experiments/`). For a RESULT, REPLACE the
+"Operational specificity" and "compute budget" checks with:
+- **Interpretation validity** — does the analysis we ran answer the estimand we stated? Is the estimand
+  named and operationalized correctly?
+- **Post-hoc flexibility** — was the analysis chosen before or after seeing the data? Name any decision
+  not predeclared in the experiment doc.
+- **Confound residual** — after the controls we applied, what residual pathway remains? (Name it; don't
+  re-list controls already run.)
+- **Magnitude claim** — is the effect large enough for the sentence we wrote, given the noise floor and
+  the Hadidi/Feghhi ≤10% residual bound?
+
+Verdict for a RESULT review:
+`RESULT-VERDICT: ACCEPT | ACCEPT-WITH-CAVEAT | REJECT | FATAL-GAPS: ... | CONFOUND-RESIDUAL: ... | WHAT-WOULD-UPGRADE: ... | WHAT-WOULD-KILL: ...`
+
 ## What to attack
 
 - **Operational specificity.** Is the brain benchmark named? Is there a power analysis (can the
