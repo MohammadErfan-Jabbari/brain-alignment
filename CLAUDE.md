@@ -132,11 +132,18 @@ Rules (unchanged): scoped staging only — never `git add -A`/`.`; stage explici
 
 | Agent | Use when |
 |---|---|
-| `lit-scout` | Search across sources for papers on a topic; return a ranked, deduped shortlist. (opus) |
+| `lit-scout` | Search across sources for papers on a topic; return a ranked, deduped shortlist. (sonnet to gather / opus to analyze a specific paper) |
 | `paper-digest` | Read a paper (PDF/arXiv/URL) → a canonical note in `docs/literature/canonical/`. (opus) |
 | `oracle-reviewer` | Adversarially stress-test a hypothesis or design **before** committing compute (PASS/HOLD/KILL). Reproduces the prior HOLD-review value. (opus) |
 | `session-logger` | At session end: write `docs/timeline/…`, REPLACE `docs/upspeed.md`, update `tasks.md`/`learnings.md`. (sonnet) |
-| `wrap-auditor` | One read-only audit scope at session close, fanned out in parallel by `/wrap` on a heavy session; returns structured findings for the orchestrator to verify and apply. Never writes, never flips a rung. (sonnet; `ladder-integrity` scope → opus only when an experiment ran). D038. |
+| `wrap-auditor` | One read-only audit scope at session close, fanned out in parallel by `/wrap` on a heavy session; returns structured findings for the orchestrator to verify and apply. Never writes, never flips a rung. (sonnet; `ladder-integrity` scope → opus only when an experiment ran). D038. Now also invocable standalone mid-session with a single scope. |
+| `stat-aggregation-auditor` | AFTER a multi-seed/arm run, re-compute the load-bearing contrast (within-seed vs pooled, bootstrap-unit, P-construction) — the run-then-judge stats check `counter-argument` only names. (opus) |
+| `anti-confound-designer` | BEFORE oracle: assemble the locked control battery (nuisance / splits / matched-ppl / the 5-control battery) from `docs/references/confound-catalog.md`. (opus) |
+| `dataset-verifier` | Mechanical data-readiness — response matrix present? shape? voxel mapper? timestamps? annex pulled? — to prevent mid-run walls. (sonnet) |
+| `dataset-scout` | Find/characterize a new dataset (access / format / pipeline / prior-use); the dataset mirror of `lit-scout`. (sonnet to gather / opus to analyze) |
+| `paper-repo-extractor` | One paper's repo → mechanical data/code/checkpoint/license extraction; built for fan-out. (haiku) |
+
+The **`/precheck`** command (anti-confound-designer → oracle-reviewer → READY-TO-RUN) is the pre-compute gate; the full fleet rationale + the §4 thinker-prompt alignment live in `docs/references/agent-fleet-redesign.md`.
 
 **The thinking panel** (D017) — four reasoning-methodology agents run *after a step produces a result/
 verdict*, to find holes before the verdict lands in the ladder/docs/manuscript. Distinct from
@@ -153,9 +160,10 @@ hole survives.
 
 Model routing (Erfan's rule, set 2026-06-13; **fable is banned/removed — never select it**):
 **opus** for anything that needs THINKING, ANALYSIS, or DESIGN — the thinking panel (`counter-argument`,
-`socratic-thinker`, `premortem-analyst`, `first-principles-grounder`), `oracle-reviewer`, AND `lit-scout` +
-`paper-digest` (judging relevance / comprehending + synthesizing papers is analysis, not retrieval), and any
-experiment-design subagent. **sonnet** for navigating OUR docs — reviewing the up-to-date status of the docs,
+`socratic-thinker`, `premortem-analyst`, `first-principles-grounder`), `oracle-reviewer`, `stat-aggregation-auditor`, `anti-confound-designer`, and `paper-digest`
+(comprehending + synthesizing a paper is analysis), and any experiment-design subagent. **`lit-scout` and
+`dataset-scout` are TASK-dependent (Erfan, S24): sonnet for gathering / breadth, opus only when judging
+relevance or analyzing a specific paper.** **sonnet** for navigating OUR docs — reviewing the up-to-date status of the docs,
 finding a fact and all its traces, and record-writing (`session-logger`). **haiku** for simpler mechanical
 fan-out (extraction, file-mapping, formatting). When in doubt whether a task "needs thinking" → opus.
 Each agent declares its default in `model:` frontmatter; override per call when the task warrants.

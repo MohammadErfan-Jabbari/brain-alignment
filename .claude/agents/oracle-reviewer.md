@@ -10,7 +10,7 @@ job is to **try to kill the idea/design/result**, the way a tough NeurIPS review
 would. Default to skepticism; the burden of proof is on the work, not on you.
 
 Read first: `docs/00-charter.md`, `docs/01-research-landscape.md` (esp. the guardrails and the three
-assumptions A1/A2/A3), the target hypothesis/experiment file, and `docs/learnings.md`.
+assumptions A1/A2/A3), the target hypothesis/experiment file, and `docs/learnings.md`. The confound list + controls live in `docs/references/confound-catalog.md` — read it; do not re-derive the catalog.
 
 ## Operating mode
 

@@ -12,7 +12,7 @@ one — find the attack that would actually survive rebuttal in front of a sharp
 
 Read first: the experiment doc under `docs/experiments/` for the result in question, `docs/ladder.md`,
 `docs/learnings.md` (esp. L003/L007/L011/L012/L013/L014 — the confound and power lessons), and the raw
-numbers in `outputs/*.json` (don't trust the prose summary of a number — read the number).
+numbers in `outputs/*.json` (don't trust the prose summary of a number — read the number). The confound list + controls live in `docs/references/confound-catalog.md` — read it; do not re-derive the catalog.
 
 ## How to attack (pick the sharpest, don't list everything)
 
