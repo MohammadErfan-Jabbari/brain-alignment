@@ -100,3 +100,18 @@ Compute budget = 4× L40S → up to 4 nodes in flight. Revised order:
 **Discipline (non-negotiable):** every node climbed gets the full ritual — write the contribution/mechanism claim first → design lock (oracle-gate) → run → thinking panel (counter-argument + socratic + premortem + first-principles) → verify each objection against data → address survivors → record in `experiments/E*.md` + `learnings.md` + this tree + `ladder.md` (rung flips only on Erfan's confirmation). A node's result then spawns/prunes nodes here before the next climb.
 
 **Thesis-floor guard (premortem #5):** the bounded, high-certainty deliverable (analysis-lane reports R08–R14 + extended manuscript) is Erfan's lane (D011 — working sessions don't write them). This program must not starve it; if the climb consumes the runway, flag it. The floor ships regardless of the top-venue outcome.
+
+---
+
+## The S24 evolution — PI/sample-efficiency tier (Erfan-directed; from the S24 critique loop)
+
+**Reframe:** brain/biosignal as train-only **PRIVILEGED INFORMATION (LUPI)** for the **LEARNING CURVE** (sample-efficiency), not the static encoding-R² metric. **Reopens T4.4** — the climb-queue kill assumed a *static checkpoint*; LUPI changes the *training trajectory*, a different object. This is the charter's original **F2**, returned to with theory + higher-SNR regimes + a control battery it never had. Full spec: `expansion-program.md` §8.
+
+**Node status changes:**
+- **T4.4 sample-efficiency** ⬜ → **ACTIVE LEAD** (reopened; the decisive node).
+- **T2.2 / O6 brain-as-regularizer / selection** ◻️ → **TIER-1 MEASURE** (no longer argued-shut — measure the L041 side-channel directly).
+- **T1.3 modality** ⬜ → **ACTIVE** (ZuCo EEG+eye-tracking = the higher-SNR regime where the signal can clear LUPI's precondition; the fMRI null does not bind here).
+- **A-ceiling ($Y\perp\theta^\*\mid S$)** → **TIER-1 TEST/BOUND** (it is an assumption, not a result — close it).
+- **NEW methodological node — the 5-control battery** (phase-randomized shape-twin + zeroed/shuffled-PI + rep-move gate + matched-ppl + **matched-information non-brain privileged teacher**): the contribution even under a full null.
+
+**S24 climb queue:** Tier 1 (close every open *experimental + theoretical* door except fMRI-free) → Tier 2 (the 5 method ideas + whatever surfaces while working, complete) → Tier 3: **P1** = ZuCo-first supervised low-data learning curve, real PI must beat all 5 controls + the rep-move gate → **P2** biosignal→control/robotics (future-work, quarantined) → **P3** modality expansion (Broderick / Brennan-Hale / MEG-MASC). Calibration: methodology paper most likely; top-venue positive = the tail.
