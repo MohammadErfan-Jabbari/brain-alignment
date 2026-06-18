@@ -30,7 +30,7 @@ The raw material is 125 files, ≈ 292 MB, in two folders plus a reference book:
 
 ## The load-bearing map (the math the thesis rests on)
 
-These five connections are the ones R03's argument actually depends on. Each row gives the course result, its exact statement, the note it lives in, and the precise thesis claim it grounds.
+These six connections are the ones the thesis argument actually depends on — the first five ground R03's first-principles case; the sixth grounds R07's distillation result (Q1). Each row gives the course result, its exact statement, the note it lives in, and the precise thesis claim it grounds.
 
 ### 1. The mutual-information generalization bound — the formal twin of R03's "weak prior" bound
 
@@ -81,6 +81,28 @@ $$
 $$
 
 the variational lower bound on KL that powers both generalization bounds above (file: `info-theory-course/5_04022026_Inequalities_study.md`, `26_generalization_error_bounds_OCR.md`). Beyond being the proof engine, **DV is the basis of neural mutual-information estimation (MINE):** if the thesis ever needs to *estimate* $I(\text{LM representations};\text{brain})$ in high dimensions rather than bound it, this is the tool. It connects the bound to a potential measurement.
+
+### 6. Cross-entropy = KL minimization — why "perplexity-only" and "distillation" are the same KL objective, and why neither pins down alignment
+
+The course proves the ML bridge in two steps. Lecture 18 establishes that cross-entropy is *exactly* code length — $H(P_{\text{data}}, P_{\text{model}}) = \mathbb{E}_{x\sim P_{\text{data}}}[\text{code length under model}]$, an identity, not an analogy (file: `info-theory-course/18_motivation_ML_part_study.md`). Lecture 19 closes it: maximum-likelihood training *is* KL minimization between the empirical and model distributions (file: `info-theory-course/19_fully_observed_models_study.md`),
+
+$$
+\arg\max_\theta \tfrac{1}{n}\sum_i \log P_{X\mid\theta}(x_i) \;=\; \arg\min_\theta D\big(\widehat{P}_X \,\big\|\, P_{X\mid\theta}\big),
+$$
+
+because $\tfrac1n\sum_i -\log P_{X\mid\theta}(x_i) = H(\widehat{P}_X, P_{X\mid\theta}) = H(\widehat{P}_X) + D(\widehat{P}_X\,\|\,P_{X\mid\theta})$ and the empirical entropy $H(\widehat{P}_X)$ is fixed. Perplexity is the exponential of that per-token cross-entropy in nats, $\text{ppl} = \exp\!\big(H(\widehat{P}_X, P_{X\mid\theta})\big)$ (the standard definition, not from L18/L19, which measure code length in bits), so **lower perplexity is exactly smaller $D(\widehat{P}_X\,\|\,P_{X\mid\theta})$**: the language-model objective is, precisely, "make the model's next-token distribution close in KL to the data's."
+
+**(a) Perplexity-only training and knowledge distillation are the same KL objective against different references.** Both are KL projections of the student's next-token distribution onto a reference; they differ in what the reference is. Plain LM training projects onto the empirical data, $\min_\theta D(\widehat{P}_X\,\|\,q_\theta)$; KD projects onto the teacher's temperature-softened distribution, $\mathcal{L}_{\text{KD}} = D\big(p_T^{\tau} \,\big\|\, q_S^{\tau}\big)$ (up to the standard $\tau^2$ scaling, an irrelevant constant here). The references carry different information — a one-hot empirical target versus the teacher's full soft distribution over non-realized tokens, the "dark knowledge" — but that difference is orthogonal to the control in the next paragraph: matching *held-out perplexity* across arms (on a shared corpus, so the data-entropy term $H(\widehat{P}_X)$ cancels) matches $D(\widehat{P}_X\,\|\,q)$, the quality of the next-token model, whichever reference produced it. This is why matched perplexity is the interpretable way to hold output quality fixed and vary only the objective (L011; R07/Q1), where matched-compute is not.
+
+**(b) The objective constrains the output distribution; alignment is a property of the representation; the map between them is many-to-one.** KD and perplexity optimize KL on the **output** distribution, the next-token distribution, whereas alignment is the conditional MI $I(Z_S; B \mid \text{nuisance})$ of row 3, a property of the **internal** representation $Z_S$. The two connect only through the architecture's readout $Z_S \to \text{logits}$, which is many-to-one: many internal geometries realize the same output distribution. So matching the output does not *guarantee* matching the representation, and preservation of alignment is not forced a priori,
+
+$$
+D\big(p_T \,\big\|\, q_S\big) \to 0 \;\;\not\Rightarrow\;\; Z_S \approx Y_{\text{teacher}} \;\;\not\Rightarrow\;\; I(Z_S;B\mid\text{nuisance}) = I(Y_{\text{teacher}};B\mid\text{nuisance}).
+$$
+
+That many-to-one readout is shared with the teacher and with any LM, so it is a *necessary condition* for the student's geometry to diverge, not the cause; the cause is row 2's broken Markov chain — the from-scratch student's corpus side-channel lets its geometry be rebuilt away from the teacher's. Row 6 adds the objective-side statement about that same freed degree of freedom: the loss does not penalize the divergence. So row 2 says the teacher's alignment stops *upper-bounding* the student's; row 6 says the objective does not *pull* the student back to it. Neither forces an answer, which is why "does KD preserve alignment?" is empirical. The evidence does not license the *strong* reading that output match is uninformative about alignment: R07 finds alignment co-varies tightly with held-out perplexity across arms ($r=-0.88$), so output quality predicts most of the alignment *variation*, and any objective-specific effect must live in the *residual* after perplexity — which is exactly the quantity the matched-perplexity experiments isolate, and find only marginal ($p\approx0.09$; R07/Q1).
+
+File anchors: `18_motivation_ML_part_study.md`, `19_fully_observed_models_study.md` (CE = code length = KL identities; perplexity is the standard $\exp$ of the per-token CE); the KL object itself is lecture 4 (`4_03022026_RelativeEntropy_MI_Jensen_study.md`, also row 3); the representation-side metric is row 3's conditional MI; the ceiling it complements is row 2's DPI. Thesis targets: R07 §"The design" and §"The evidence" ($r=-0.88$), learnings L011 (the matched-perplexity control), `experiments/E003`.
 
 ---
 
