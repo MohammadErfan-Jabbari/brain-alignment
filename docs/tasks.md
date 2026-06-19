@@ -18,6 +18,12 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 > results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
 > of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
+### 🛠 S27 META follow-ups (tooling, not science — do opportunistically; D044)
+
+- [ ] **Test `/teach` live** on a real report (Erfan) — the proof of the guided loop.
+- [ ] **Sweep remaining "working/analysis" mentions → stances:** `CLAUDE.md` fleet/self-activation section, `goalsmith` ("working sessions only"), agent descriptions. D044 documents the mapping; this removes the residual drift.
+- [ ] **Resolve `R06:96`** — a bare `+0.0280` with no cite (add `[E0nn]` or `\gap`); the new write-time hook will flag it on the next R06 edit.
+
 ### 🔬 IMPLEMENTATION lane — the ORDERED ROADMAP (do in sequence; TRIBE is the capstone, LAST)
 
 Work top-to-bottom. Each item: run → judge with the panel + Codex → record (experiment doc, learnings,
