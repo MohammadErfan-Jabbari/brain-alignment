@@ -57,35 +57,36 @@ The non-negotiables (these are where solo research most easily self-deceives):
   rationale a working session recorded; it must never invent one (D011). An unrecorded why becomes a
   `\gap` downstream, so recording it at choice-time is what keeps the eventual write-up honest. (D037.)
 
-## Two session modes (which half of the pipeline you're in)
+## Session stances (the unit of work)
 
-The epistemic path has a natural seam. The left half **produces** evidence; the right half **consumes
-and communicates** it. We run sessions in one of two modes accordingly, and each session declares its
-mode at the start (the user usually signals it; if not, infer and state the assumption).
+Work runs by **interaction stance**, invoked at any moment and switched freely, not by a session-level
+mode (the working/analysis split is retired, D044). The epistemic path still has its natural seam, and
+the stances sit along it. There are eight (full map and mechanics: `docs/operating-map.md` and the
+`stances` skill); the methodologically load-bearing distinction is whether a stance **touches a science
+number**:
 
-- **Working session — produce evidence (Design → Run → Judge).** A goal or task comes in; we lock a
-  design, run it, judge the result, and store the evidence. Outputs are mechanical and durable: code,
-  experiment runs, numbers-with-uncertainty in `experiments/*.md`, new decisions, new learnings. This
-  is where the science actually moves. Session 2 (the toy pilot harness + E001) was a working session.
-- **Analysis session — consume and communicate evidence (Argue → Compound).** No new experiment is
-  run. Instead we *read the brain*: answer "what did we do / why", explain a concept, digest results,
-  produce figures, and write **reports** (the continuous synthesis layer). Outputs land in `reports/`
-  (prose + understanding) and, at the checkpoints Erfan calls, in the **manuscripts** (see "Deliverable
-  layers" for the three-layer model and its triggers). This is where evidence becomes argument.
+- **Truth-producing stances** carry the strict anti-self-deception standard:
+  - **`/work` — produce evidence (Design → Run → Judge).** Lock a design, run it, judge the result,
+    store it: code, runs, numbers-with-uncertainty in `experiments/*.md`, decisions, learnings. The
+    failure mode is *fitting the hoped-for result*, so predeclared kill criteria, locked design,
+    contiguous splits, and nuisance baselines live here.
+  - **`/interpret` — adjudicate a recorded result into a verdict.** Re-judging a number is
+    `/work`-grade, not loose reading: a claim-manifest pinned first, the load-bearing contrast
+    re-computed, the thinking panel run to clean.
+- **Reporting / consuming stances** (`/write`, `/teach`, `/scout`) turn recorded or external evidence
+  into prose, understanding, or canonical notes. Their failure mode is *narrating past the evidence*:
+  a confident sentence around a number never measured, or a null rounded into a trend.
+- **Apparatus stances** (`/plan`, `/meta`) touch no number.
 
-Why the seam matters — it is a guardrail, not just bookkeeping. The two modes have **opposite failure
-risks**, so separating them keeps each honest:
+The binding rule across all of them is unchanged and now mechanically enforced: **a stance may only
+state a number a `/work` session actually recorded in `docs/`.** A needed-but-missing number is a `\gap`
+to flag (and a candidate `/work` task), never a value to invent, estimate, or infer from a stand-in.
+This is armed at write-time by a hook (`.claude/hooks/honesty_writecheck.py`), independent of which
+stance is active, so it cannot be skipped by mislabeling the work.
 
-- A working session self-deceives by *fitting the hoped-for result* — hence the predeclared kill
-  criteria, locked design, contiguous splits, and nuisance baselines live here.
-- An analysis session self-deceives by *narrating past the evidence* — writing a confident sentence or
-  a clean figure around a number that was never measured, or rounding a null up into a trend. Hence
-  the binding rule: **an analysis session may only use numbers a working session actually recorded in
-  `docs/`.** A needed-but-missing number is a gap to flag (and a candidate working-session task), never
-  a value to invent, estimate, or infer from a synthetic stand-in.
-
-A real piece of work often crosses the seam (you finish a run, then start writing it up). That's fine
-— just be explicit about which mode you're acting in at each moment, because the standards differ.
+A real piece of work crosses stances (you finish a run, then write it up, then get taught it). That is
+the normal case: state the stance you are in at each step, because the standard differs, and the
+write-time guard holds regardless.
 
 ## Deliverable layers: reports → extended manuscript → public manuscript
 
@@ -263,17 +264,20 @@ where it breaks (Feynman); prefer the smallest durable change that compounds (Na
 
 ## Session ritual (the anti-amnesia loop)
 
-- **Start:** read `upspeed.md` and `tasks.md` first, and **declare the session mode** (working vs
-  analysis — see above). Re-verify GPU/data only if a run is imminent (working sessions).
-- **During (working):** capture decisions in `decisions/decisions.md` as they happen; capture
-  surprises immediately; keep raw evidence in `experiments/` separate from interpretation.
-- **During (analysis):** cite the `docs/` source for every number you state or plot; flag any needed
-  number that isn't recorded rather than inventing it; write prose into `reports/` (continuous), and into
-  the `manuscript/` layers only at a checkpoint Erfan calls (see "Deliverable layers").
-- **End (both):** the `session-logger` agent (or you) writes an immutable `timeline/YYYY-MM-DD-HHMM.md`,
-  REPLACES `upspeed.md`, moves items in `tasks.md`, and appends any hard-won lesson to `learnings.md`.
-  The log records which mode the session was; the `upspeed.md` framing follows the mode (working: *what
-  ran / next to run*; analysis: *what's understood / written / figured*).
+- **Start:** `/orient` reads `upspeed.md`, `tasks.md`, and the ladder, and proposes the stance to open
+  in. Re-verify GPU/data only if a `/work` run is imminent.
+- **During a truth-producing stance** (`/work`, `/interpret`): capture decisions in
+  `decisions/decisions.md` as they happen; capture surprises immediately; keep raw evidence in
+  `experiments/` separate from interpretation.
+- **During a reporting stance** (`/write`, `/teach`, `/scout`): cite the `docs/` source for every number
+  you state or plot; flag any needed number that isn't recorded rather than inventing it; write prose
+  into `reports/` (continuous), and into the `manuscript/` layers only at a checkpoint Erfan calls (see
+  "Deliverable layers").
+- **End (always):** `/wrap` runs the `session-logger`, which writes an immutable
+  `timeline/YYYY-MM-DD-HHMM.md`, REPLACES `upspeed.md`, moves items in `tasks.md`, appends any hard-won
+  lesson to `learnings.md`, and updates the ladder. The log records which stances ran; the `upspeed.md`
+  framing follows the dominant one (`/work`: *what ran / next to run*; reporting stances: *what's now
+  understood / written / figured*).
 
 ## Self-maintenance clause
 

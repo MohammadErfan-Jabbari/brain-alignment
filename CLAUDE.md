@@ -9,24 +9,36 @@ linear mapping between LLM middle layers and brain activation as a usable signal
 **brain-alignment-guided distillation** as the first concrete use case. It is a single-paper research
 workspace, not a software product.
 
-## Two kinds of session — know which you're in
+## Interaction stances — invoke one, switch freely
 
-Work in this repo runs in one of two modes. **Decide which at the start of every session** (the user
-usually signals it; if not, infer from the ask and say which you assumed). They have different jobs,
-different outputs, and a different close ritual. (Decision D011; mechanics in `docs/03-methodology.md`.)
+Work in this repo runs by **interaction stance**, not by session type. The old working/analysis split is
+retired (D044, supersedes D011). At any moment you are in one stance; **state the stance you are in** and
+switch as the work turns. Eight stances, each setting a tone, an autonomy level, and the procedures it
+arms, over one shared honesty spine. Mechanics: the `stances` skill (`.claude/skills/stances/`).
+Day-to-day picture: `docs/operating-map.md`.
 
-| | **Working session** | **Analysis session** |
+| Stance | Does | Touches a number? |
 |---|---|---|
-| Trigger | "do X / run X / implement X / get the verdict on X" | "explain X / why did we X / make a figure of X / write the X section / digest the results" |
-| Epistemic phases | **Design → Run → Judge** (produce evidence) | **Argue → Compound** (consume + communicate evidence) |
-| Primary output | code, runs, results in `docs/experiments/`, decisions, learnings | understanding (chat), figures, manuscript/report prose in `docs/manuscript/` |
-| Touches the science? | **Yes** — generates new evidence | **No** — reads existing evidence; never invents a number |
-| Close ritual | timeline log + REPLACE `upspeed.md` framed on *what ran / what's next to run* | timeline log + REPLACE `upspeed.md` framed on *what's now understood / written / figured* |
+| `/work` | produce evidence (Design → Run → Judge); high-autonomy `/goal` runs; **explicit-only** | yes, produces |
+| `/interpret` | turn a recorded result into an adjudicated verdict (claim-manifest + panel) | yes, adjudicates |
+| `/write` | turn a finding into report/manuscript prose (the `scientific-writing` skill) | reports them |
+| `/teach` | transfer understanding of a finding into Erfan's head (guided-learning over a report) | reads them |
+| `/scout` | bring external papers/data in (`lit-scout`/`dataset-scout`/`paper-digest` → canonical notes) | external |
+| `/plan` | set direction: roadmap, kill-gate triage, what to run next | no |
+| `/review` | stress-test a result/claim/design (the thinking panel + Codex on demand) | no |
+| `/meta` | build or maintain the apparatus (tooling, methodology, records) | no |
 
-The non-negotiable that binds both: **an analysis session may only report numbers that a working
-session actually produced and recorded.** If a figure or a paragraph needs a number that isn't in the
-`docs/` brain, that is a gap to flag — not a number to invent or estimate. Raw evidence stays separate
-from interpretation in both modes.
+`/work` and `/interpret` are truth-producing and carry the strict standard (kill criteria, contiguous
+splits, ≥3 seeds; strict adjudication). `/write`, `/teach`, `/scout` report or consume numbers under
+cite-or-flag. `/plan`, `/meta` touch none. Auto-activation states the stance so you can redirect; only
+`/work` is explicit-only.
+
+The non-negotiable that binds all of them: **a number is born in a `/work` session and recorded in
+`docs/`; no stance may state a result a working session did not record; a needed-but-missing number is a
+`\gap` to flag, never invented or estimated.** This is armed by a **write-time hook** (D044), not by
+memory: writes to `docs/reports|experiments|manuscript`, `docs/ladder.md`, `docs/learnings.md` are
+checked regardless of stance, and the `/wrap` provenance audit is the backstop. Raw evidence stays
+separate from interpretation.
 
 **The three written deliverable layers (D035).** Written prose lands in one of three layers, not one
 document: **reports** (`docs/reports/*.md`, Markdown) are the *continuous* single-topic synthesis layer
@@ -196,7 +208,7 @@ port the Nexus v2 stage-machine — see `docs/decisions/decisions.md` D001.
 
 ## Session close ritual
 
-End **every** session — working or analysis — by running **`/wrap`** (the close command: it runs the
+End **every** session — whatever stances ran — by running **`/wrap`** (the close command: it runs the
 `session-logger` ritual *plus* a continuity audit — friction, broken tooling, doc consistency,
 new-artifact check; mirror of the `/orient` start command). The `session-logger` agent or doing it by
 hand are equivalent fallbacks. The ritual: immutable timeline log, refreshed `upspeed.md`, moved tasks,
@@ -204,9 +216,10 @@ any hard-won lesson appended to `docs/learnings.md`, and — **the keystone of t
 (D015)** — an updated `docs/ladder.md`: flip the rung status, record the verdict, and rewrite the
 "Next session" block.
 **The ladder update must be confirmed with Erfan before it lands** (a rung flips to ✅ only on a
-verdict he has agreed); never update the board on a unilateral read. The logger asks which mode the
-session was and frames the close accordingly (a working session logs *what ran / what's next to run*;
-an analysis session logs *what's understood / written / figured*). See "Two kinds of session" above
+verdict he has agreed); never update the board on a unilateral read. The logger records which
+**stances** ran and frames the close by the dominant one (a `/work` session logs *what ran / what's next
+to run*; an `/interpret` / `/write` / `/teach` session logs *what's now understood / written /
+figured*), and sets the ladder "Next session" tag to the next stance. See "Interaction stances" above
 and `docs/03-methodology.md`.
 
 ## Maintenance
