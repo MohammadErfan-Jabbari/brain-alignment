@@ -23,16 +23,16 @@ A stance fixes three things, plus one it does not touch:
 
 ## The stances (the operating map)
 
-| Stance | What it does | Autonomy | Touches a number? | Where it lives |
+| Stance | What it does | Autonomy | Touches a number? | Mode file (wraps) |
 |---|---|---|---|---|
-| `/work` | produce evidence: lock a design, run it, judge it, record it | high (long `/goal` runs) | yes, produces | `/precheck` + `/goalsmith` + the working ritual (mode file: Pass 2) |
+| `/work` | produce evidence: lock a design, run it, judge it, record it | high (long `/goal` runs) | yes, produces | `modes/work.md` (precheck + goalsmith + ritual) |
 | `/interpret` | turn recorded evidence into an adjudicated verdict | medium | yes, adjudicates | `modes/interpret.md` |
-| `/write` | turn settled findings into report or manuscript prose | low-medium | reports them | `scientific-writing` skill (mode file: Pass 2) |
+| `/write` | turn settled findings into report or manuscript prose | low-medium | reports them | `modes/write.md` (scientific-writing) |
 | `/teach` | transfer understanding of a finding into the user's head | low, conversational | reads them | `modes/teach.md` |
-| `/scout` | bring external literature and data into the brain | medium | external evidence | `lit-scout` / `dataset-scout` / `paper-digest` (mode file: Pass 2) |
-| `/meta` | build or maintain the apparatus (tooling, methodology, records) | variable | no | (mode file: Pass 2) |
-| `/plan` | set direction: roadmap, kill-gate triage, what to run next | medium | no | (mode file: Pass 2) |
-| `/review` | critique a result, claim, or design on demand | medium | no | the thinking panel + Codex (mode file: Pass 2) |
+| `/scout` | bring external literature and data into the brain | medium | external evidence | `modes/scout.md` (lit-scout / dataset-scout / paper-digest) |
+| `/meta` | build or maintain the apparatus (tooling, methodology, records) | variable | no | `modes/meta.md` |
+| `/plan` | set direction: roadmap, kill-gate triage, what to run next | medium | no | `modes/plan.md` |
+| `/review` | critique a result, claim, or design on demand | medium | no | `modes/review.md` (panel + Codex) |
 
 The vertical seam is whether the stance **touches a science number**. `/work` and `/interpret` are
 truth-producing (the strict standard below applies). `/write`, `/teach`, `/scout` report or consume
@@ -73,12 +73,15 @@ judgment obligation, not the fabrication guard:
 
 ## Routing
 
-- **Teaching / understanding** ("teach me", "walk me through Rxx", "explain", "I don't get X") →
-  `modes/teach.md`.
-- **Adjudicating a result** ("is this verdict real", "digest this", "what does E0xx mean") →
-  `modes/interpret.md`.
-- The other six stances are listed above with where they currently live; their deep mode files arrive
-  in Pass 2. Until then, enter the stance, state it, and run the named procedure or skill directly.
+Each stance has a deep mode file in `modes/`. Enter the stance (explicitly, or by stated inference),
+then follow its file:
+
+- `/teach` → `modes/teach.md` · `/interpret` → `modes/interpret.md` · `/write` → `modes/write.md`
+- `/work` → `modes/work.md` · `/scout` → `modes/scout.md` · `/review` → `modes/review.md`
+- `/plan` → `modes/plan.md` · `/meta` → `modes/meta.md`
+
+The six files other than teach and interpret are thin: each states the stance's standard and routes to
+the existing agents, commands, or skill that do the work.
 
 ## References
 
