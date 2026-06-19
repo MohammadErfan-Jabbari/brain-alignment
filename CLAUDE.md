@@ -22,7 +22,7 @@ Day-to-day picture: `docs/operating-map.md`.
 | `/work` | produce evidence (Design → Run → Judge); high-autonomy `/goal` runs; **explicit-only** | yes, produces |
 | `/interpret` | turn a recorded result into an adjudicated verdict (claim-manifest + panel) | yes, adjudicates |
 | `/write` | turn a finding into report/manuscript prose (the `scientific-writing` skill) | reports them |
-| `/teach` | transfer understanding of a finding into Erfan's head (guided-learning over a report) | reads them |
+| `/teach` | transfer understanding of any subject (concept, report, file, experiment, paper, question) into Erfan's head (guided-learning, rendered) | reads them |
 | `/scout` | bring external papers/data in (`lit-scout`/`dataset-scout`/`paper-digest` → canonical notes) | external |
 | `/plan` | set direction: roadmap, kill-gate triage, what to run next | no |
 | `/review` | stress-test a result/claim/design (the thinking panel + Codex on demand) | no |
@@ -125,6 +125,18 @@ clearly generalizes, and pruning what stops earning its keep.**
   supersedes it.* Erfan's most recent explicit message wins over the auto-re-fire — on an explicit
   "wrap up / stop", wrap even if the hook keeps firing. The autonomous mandate is real but bounded by
   the last direct human instruction.
+
+## Presentation — make answers easy to read
+
+Format for the eye, functionally, scaled to the turn (a one-line answer needs none of this):
+
+- **Whitespace and short paragraphs** over walls of text; break a long uniform run with a short line.
+- **Tone:** plain and direct (the global voice); no decoration, no filler enthusiasm.
+- **Tables** when three or more things are compared across the same dimensions, instead of a list the
+  reader has to assemble mentally.
+
+This is presentation, not voice (the voice rules are global). Formatting earns its place by aiding the
+read, never as ornament.
 
 ## Git — commit continuously and atomically
 
