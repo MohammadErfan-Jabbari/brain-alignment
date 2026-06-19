@@ -158,6 +158,10 @@ layers"): define for the reader you actually have, do not over-define for one yo
   and gets prose when a term merely supports or cancels ("the nuisance term is identical in both arms, so it
   drops out of the difference") — do not render a wall of symbols the prose already states, and do not
   gesture at math you never write.
+- **Lead a finding-report with a plain-language summary.** Open with a 2-3 sentence plain-language version
+  (the verdict in plain words, caveat included) before the question→design→evidence body, so a reader gets the
+  result and its meaning on a first pass. The report stays stored verdict-first; the full simple-to-complex
+  walk is the `/teach` stance's job at read-time, not a second shape of the file. (Report shape: SKILL.md.)
 
 ---
 

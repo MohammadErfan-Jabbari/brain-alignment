@@ -68,9 +68,12 @@ A number never enters at a lower layer than where it was recorded.
   It does NOT narrate discovery order, mark a section "obsolete", or carry a "coverage frontier / not yet narrated".
   An overturned result is replaced by the current one; the *history* (the wrong turns, the order they happened)
   lives in `map.md` (the journey tree), `timeline/`, and `decisions/` — never as back-and-forth inside the synthesis.
-- **Shape:** a one-line header (the claim + its current verdict + the `Q` it answers), then **question → design**
-  (baselines, controls, stop rule) **→ evidence** (each number with its uncertainty and the named test) **→ verdict
-  → caveats**. Caveats live *in* the claim sentence, not a footnote.
+- **Shape:** a one-line header (the claim + its current verdict + the `Q` it answers), then a **2-3 sentence
+  plain-language summary** (what we found and what it means, caveat in the sentence, for a reader who stops there),
+  then **question → design** (baselines, controls, stop rule) **→ evidence** (each number with its uncertainty and
+  the named test) **→ verdict → caveats**. Caveats live *in* the claim sentence, not a footnote. The report is
+  stored **verdict-first**; the simple-first teaching order (plain → mechanism → controls → math → verdict) is a
+  `/teach`-time *rendering* of this same content, never a second stored copy.
 - **Formalize the core quantity, in LaTeX, course-grounded.** A report's central construct, and any foundational
   concept it rests on, get a precise definition in real LaTeX (`$…$` / `$$…$$`, which Markdown renders), not plain-text
   symbols. Where the concept has a course note (`docs/06-theory-grounding.md` → `data/course-material/`), cite it
