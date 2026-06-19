@@ -1,6 +1,6 @@
 # Experiment — E013 (the open frontier): powered per-individual brain-tuning on multi-subject naturalistic fMRI
 
-**Created:** 2026-06-12 · **Status:** PARTIAL — voxelwise distillation-readout lever RAN (no λ improves held-out alignment over base, never beats permuted twin: a single-subject *mechanism* failure → n≥5 moot; L026/L027). The full-FT (not LoRA-readout) multi-subject naturalistic route remains SCOPED — the one untested door · **Mode:** working (design)
+**Created:** 2026-06-12 · **Status:** CLOSED (S25, 2026-06-19, Erfan-directed). Voxelwise distillation-readout lever RAN (no λ improves held-out alignment over base, never beats permuted twin: a single-subject *mechanism* failure → n≥5 moot; L026/L027). The full-FT (not LoRA-readout) multi-subject naturalistic route — "the one untested door" — is **NOT BUILT and assessed CLOSED, the decisive reason being DATASET SIZE: denizenslab is only n=6 subjects, too few to power the per-individual population claim** (see the S25 verdict at the bottom). · **Mode:** working (design)
 **Direction:** the one genuinely-open scientific door after E008/E011/E012 — does a per-individual brain-specific gain appear under a STRONGER regime (closer to Negi: full-FT / contrastive + naturalistic data) on a POWERED multi-subject cohort? The honest open frontier the manuscript (§6) flags.
 **Why this is now feasible (not "blocked"):** the power sim (`scripts/sensitivity_e008.py`, L024) shows **~5 deep subjects** power a per-individual test for a δ=+0.003 effect (σ≈0.001). The **denizenslab paired read/listen dataset** (`data/paper-repos/speech-llm-brain`) has **6 subjects** with naturalistic narratives — enough. (LeBel maxes at 3 deep subjects: UTS01/02/03, acquired; denizenslab adds the count.)
 
@@ -47,4 +47,38 @@ COMPLETE. v1 = failed manipulation (retracted). v2 λ-sweep = the voxelwise **di
 
 **Two distinct routes — do not conflate (this is the S1 consistency fix):**
 - **The voxelwise DISTILLATION-readout lever (what E013 tested): CLOSED.** n≥5 is **moot** for *this* route — it is a single-subject *mechanism* failure (the manipulation can't be induced on one subject across λ), not a power limit, so more subjects cannot rescue it. Do NOT build a powered n≥5 of the distillation lever.
-- **A DIFFERENT induction method — full fine-tuning (not a LoRA distillation readout) on multi-subject naturalistic voxelwise targets: still genuinely OPEN, and the only untested door that could move the per-individual verdict.** This is the deferred fresh-session major build (denizenslab n=6; the ~5-deep-subject power applies *only conditional on full-FT first inducing an above-base improvement* — which the distillation route never did). It warrants a fresh session + Erfan's go-ahead on the multi-day build investment. **This is consistent with the closed ladder:** the *experimental program as scoped is closed*; this full-FT route is a new, optional direction, not a continuation of the closed rungs.
+- **A DIFFERENT induction method — full fine-tuning (not a LoRA distillation readout) on multi-subject naturalistic voxelwise targets: ~~still genuinely OPEN~~ → CLOSED (S25, 2026-06-19) — NOT BUILT, primarily because the dataset is too small (denizenslab n=6).** ~~This is the deferred fresh-session major build.~~ The full-FT *parameterization* was in fact already tested (E017, LeBel → null); denizenslab would only have added naturalistic data + subject count, and **n=6 cannot power the per-individual population claim** (σ unmeasured, possibly n≈8 needed). See the S25 verdict below.
+
+---
+
+## S25 VERDICT (2026-06-19, Erfan-directed): the full-FT n=6 route is CLOSED — NOT BUILT — primarily because the DATASET IS TOO SMALL
+
+The "one untested door" (full fine-tuning on multi-subject naturalistic voxelwise targets, denizenslab) was driven through
+the full pre-compute gate this session — the thinking panel on the Q3 verdict + `anti-confound-designer` (battery-complete
+design assembled) + `oracle-reviewer` (DESIGN mode). **Verdict: KILL the build.** It was never run. Three reasons, with
+dataset size the decisive one Erfan called:
+
+1. **DATASET SIZE / POWER — the binding constraint (decisive).** denizenslab has **only n=6 subjects** (and only 6 are real
+   on disk; 04/06/09 are git-annex stubs). The per-individual test is a *population* claim, so the inference unit is the
+   subject (n=6, df=5). The L024 power sim's "power 1.0 at n=5 for δ=+0.003" holds **only if** between-subject σ ≈ 0.001 —
+   but denizenslab's between-subject σ on the held-out-story unique-R² gap is **unmeasured**, on a different acquisition /
+   stimulus / voxel space, and the oracle estimated σ could be ~2× (→ n≈8 needed). **At n=6 with unknown σ, the MDE may
+   exceed the δ we seek — so even a clean run could be underpowered, and the cheap 1-subject gate could not yield a
+   population verdict regardless of outcome.** The deep subjects we would need (LeBel maxes at 3; denizenslab adds 6) do
+   not exist on disk; acquiring ≥more deep naturalistic-fMRI subjects is a data-acquisition decision, not a re-run.
+   **The hypothesis is not what fails here — the data scale is.**
+
+2. **The mechanism was already tested (so "untested door" was overstated).** **E017 already ran full fine-tuning** (not a
+   LoRA readout) on voxelwise LeBel → NULL, manipulation mostly failing its own gate (L036). The full-FT *parameterization*
+   is therefore not untested; denizenslab would have added naturalistic data + subject count, not a new mechanism.
+
+3. **The manipulation-check gate is 0-for-5.** Across E013 v1, E013 v2 (λ-sweep), E017 gentle, E017 aggressive, and E019,
+   no run ever induced an above-base, brain-specific, ppl-preserving improvement — the precondition the whole test rests
+   on. A gate-fail is recorded as a lever-failure, not a per-individual null → low expected information per multi-day compute.
+
+**Consequence:** the ladder's "one untested door" hedge is **retired** — the door is assessed closed (size/power-limited +
+mechanism-already-tested + 0-for-5 gate). **Q3 stays ❌ (unchanged verdict); this only closes the open hedge.** The Fork-1
+cheap single-subject gate (scoped in the S25 timeline + feasibility-confirmed: TextGrids/mapper/NC all on disk) is
+**abandoned** for the same size reason — a 1-subject gate cannot move a population claim that n=6 cannot power. Forward
+compute goes to the sample-efficiency line (Q4), which hits the *same* root cause from the other side (Q4 = 400 sentences).
+See **L051** (data-scale is the binding constraint on the remaining brain-alignment doors).
