@@ -28,7 +28,7 @@ A stance fixes three things, plus one it does not touch:
 | `/work` | produce evidence: lock a design, run it, judge it, record it | high (long `/goal` runs) | yes, produces | `modes/work.md` (precheck + goalsmith + ritual) |
 | `/interpret` | turn recorded evidence into an adjudicated verdict | medium | yes, adjudicates | `modes/interpret.md` |
 | `/write` | turn settled findings into report or manuscript prose | low-medium | reports them | `modes/write.md` (scientific-writing) |
-| `/teach` | transfer understanding of a finding into the user's head | low, conversational | reads them | `modes/teach.md` |
+| `/teach` | transfer understanding of any subject (concept, report, file, experiment, paper, question) into the user's head | low, conversational | reads them | `modes/teach.md` |
 | `/scout` | bring external literature and data into the brain | medium | external evidence | `modes/scout.md` (lit-scout / dataset-scout / paper-digest) |
 | `/meta` | build or maintain the apparatus (tooling, methodology, records) | variable | no | `modes/meta.md` |
 | `/plan` | set direction: roadmap, kill-gate triage, what to run next | medium | no | `modes/plan.md` |
@@ -86,6 +86,7 @@ the existing agents, commands, or skill that do the work.
 
 ## References
 
-- `formats/learning-record.md`: the learning-ledger record template (read before writing a record).
+- `formats/learning-record.md`: the curated mastery-record template (read before writing a record).
+- `formats/lesson-format.md`: the lesson (rendered whiteboard) template + the `render_lesson.py` render command.
 - `docs/operating-map.md`: the human-facing operating picture.
 - `docs/03-methodology.md`: the canonical definition of the stance model and the deliverable layers.

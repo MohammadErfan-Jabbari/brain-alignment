@@ -1,13 +1,19 @@
-# The learning ledger
+# The learning workspace
 
-This directory is the memory of the `/teach` stance. Each `NNNN-<slug>.md` file is one durable mastery
-event: a finding the user demonstrably understands now, anchored to the report and the recorded number
-it concerns. The filesystem is the state. On resuming a teaching session, `/teach` re-reads the records
-for the report in play to know what is already mastered and what to teach next.
+This directory is the memory and working surface of the `/teach` stance, in two layers:
 
-- **Format and the when-to-write gate**: `.claude/skills/stances/formats/learning-record.md`.
-- **Records are evidence-gated**: written only on demonstrated mastery (or a corrected misconception),
-  never on mere coverage.
-- **Supersede, never delete**: a corrected understanding marks the old record `superseded by NNNN`.
+- **`lessons/`** — the rendered learning artifacts (the "whiteboard"). One markdown file per teaching
+  session, `YYYY-MM-DD-<subject>.md`, carrying the explanation, math, diagrams, the questions, and the
+  mistakes. This is the raw learning *process*, kept here so it never leaks into a report. Render to HTML
+  for math/diagrams with `uv run .claude/skills/stances/scripts/render_lesson.py <file>`. Format and the
+  non-canonical banner: `.claude/skills/stances/formats/lesson-format.md`.
+- **`records/`** — the curated mastery ledger. Each `NNNN-<slug>.md` is one durable mastery event,
+  anchored to the subject and the recorded number/claim it concerns. This is the **single source of
+  resume truth**: on resuming, `/teach` re-reads the records to know what is mastered and what to teach
+  next. Written only on demonstrated mastery (or a corrected misconception), never on coverage.
+  Supersede, never delete. Format and the when-to-write gate:
+  `.claude/skills/stances/formats/learning-record.md`.
 
-Records accumulate as `0001-*.md`, `0002-*.md`, and so on. This README is not a record.
+Raw process (`lessons/`) stays separate from curated mastery (`records/`) — the repo's raw-vs-interpreted
+discipline. `thesis-arc-checklist.md` is the prior whole-thesis comprehension tracker, kept for history.
+This README is not a record.

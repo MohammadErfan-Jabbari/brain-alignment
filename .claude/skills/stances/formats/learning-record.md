@@ -1,15 +1,17 @@
 # Learning-record format
 
-A learning record is the unit of memory for `/teach`. It is the teaching equivalent of a decision
-record: it captures a durable mastery event and why it changes what to teach next, so a later session
-(post context reset) reconstructs where the user is by re-reading the ledger. It is NOT a session
-journal.
+A learning record is the **curated mastery layer** of `/teach` memory — the teaching equivalent of a
+decision record: it captures a durable mastery event and why it changes what to teach next, so a later
+session (post context reset) reconstructs where the user is by re-reading the records. It is NOT a session
+journal. The raw per-session transcript — the learning process, every round and mistake — is the separate
+**lesson** layer in `docs/learning/lessons/` (`lesson-format.md`). Records are distilled from lessons, and
+records (not lessons) are the resume source of truth.
 
 ## Location and numbering
 
-- Path: `docs/learning/NNNN-<dash-case-slug>.md`.
-- Scan `docs/learning/` for the highest existing number and increment by one. Create the directory
-  lazily if absent.
+- Path: `docs/learning/records/NNNN-<dash-case-slug>.md`.
+- Scan `docs/learning/records/` for the highest existing number and increment by one. Create the
+  directory lazily if absent.
 
 ## When to write one (and when not)
 
@@ -28,7 +30,7 @@ evidence.** A `walkthrough` with no check passed writes nothing.
 
 ```markdown
 ---
-report: R0n            # the finding-report this concerns
+subject: <concept | report Rxx | file path | experiment Exxx | paper slug | question>
 number: <the specific recorded value, e.g. trained-minus-untrained gap = +0.021>
 mode: guided|walkthrough|feynman|drill
 status: active         # or: superseded by NNNN
@@ -43,7 +45,7 @@ that demonstrated it, and why it changes what to teach next.}
 
 The `number` anchor is what makes the ledger auditable against ground truth: a record claims the user
 mastered a real recorded result, not a vibe. If the lesson concerned a mechanism with no single number,
-put the report's claim handle (e.g. "per-individual null") in `number`.
+put the source's claim handle (e.g. "per-individual null") in `number`.
 
 ## Supersession, not deletion
 

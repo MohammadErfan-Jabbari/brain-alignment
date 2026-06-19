@@ -56,8 +56,10 @@ reference results by bare code, so they are not checked this way — L052.)
 
 ## How `/teach` remembers
 
-`/teach` keeps a learning ledger at `docs/learning/NNNN-*.md`: one record per thing you demonstrably
-master, anchored to the report and the number it concerns. It writes a record only on demonstrated
-mastery, never on coverage. On a later session it re-reads the ledger to know what to skip and what to
-teach next. Four sub-modes: `guided` (Socratic crawl, default), `walkthrough` (faster), `feynman` (you
-teach it back), `drill` (it quizzes you).
+`/teach` teaches anything in the repo's world — a concept, a report, a file, an experiment, a paper, or a
+question — and keeps memory in two layers under `docs/learning/`. **`lessons/`** holds the rendered
+whiteboard for each session (markdown with math/diagrams, rendered to HTML to view), the raw learning
+process kept out of the reports. **`records/`** is the curated mastery ledger: one record per thing you
+demonstrably master, written only on demonstrated mastery, never on coverage — and it, not the lessons,
+is re-read on a later session to know what to skip and what to teach next. Four sub-modes: `guided`
+(Socratic crawl, default), `walkthrough` (faster), `feynman` (you teach it back), `drill` (it quizzes you).
