@@ -291,7 +291,8 @@ anti-bot page `WebFetch` chokes on, a **whole-site crawl/map** (docs sites, a da
 repo), **schema'd extraction** across many pages, or the **research index** as a second lane alongside
 `lit-scout`. Cheap path first, Firecrawl when it earns the credit.
 
-**Add-ons, one command away (not auto-installed):** the Python SDK for scripted/batch scraping inside an
-experiment (`uv add firecrawl-py`); the dedicated research skill
-(`npx skills add firecrawl/skills@firecrawl-research-index`, route through `skill-manager`). Full capability
-index: `https://docs.firecrawl.dev/llms.txt`.
+**Installed here:** the `firecrawl-research-index` skill (repo-local, `.claude/skills/firecrawl-research-index/`)
+— the paper-retrieval workflow (semantic search → citation-graph expansion via citers/references → in-body
+verify with `read_paper`) that complements `lit-scout`; it drives the `firecrawl_research_*` MCP tools.
+**One command away (not installed):** the Python SDK for scripted/batch scraping inside an experiment
+(`uv add firecrawl-py`). Full capability index: `https://docs.firecrawl.dev/llms.txt`.
