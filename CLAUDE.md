@@ -36,9 +36,9 @@ cite-or-flag. `/plan`, `/meta` touch none. Auto-activation states the stance so 
 The non-negotiable that binds all of them: **a number is born in a `/work` session and recorded in
 `docs/`; no stance may state a result a working session did not record; a needed-but-missing number is a
 `\gap` to flag, never invented or estimated.** This is armed by a **write-time hook** (D044), not by
-memory: writes to `docs/reports|experiments|manuscript`, `docs/ladder.md`, `docs/learnings.md` are
-checked regardless of stance, and the `/wrap` provenance audit is the backstop. Raw evidence stays
-separate from interpretation.
+memory: writes to `docs/reports/` and `docs/manuscript/` (the prose deliverables that use the
+inline-cite convention) are checked regardless of stance, and the `/wrap` provenance audit is the
+backstop. Raw evidence stays separate from interpretation.
 
 **The three written deliverable layers (D035).** Written prose lands in one of three layers, not one
 document: **reports** (`docs/reports/*.md`, Markdown) are the *continuous* single-topic synthesis layer

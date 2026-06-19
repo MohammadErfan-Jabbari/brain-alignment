@@ -57,11 +57,12 @@ The thesis rests on never inventing a result. That guard does not depend on whic
   `ladder.md`, `decisions/`). No stance may state a result a working session did not record.
 - **A needed-but-missing number is a `\gap`, never a guess.** Flag it; do not estimate, round, or
   infer it from a stand-in.
-- **The actuator is a write-time hook**, not stance prose. Any write to `docs/reports/`,
-  `docs/experiments/`, `docs/manuscript/`, `docs/ladder.md`, `docs/learnings.md` runs the D011 check
-  (`scientific-writing/scripts/run_checks.py`); a result-like number with no cite is flagged. The flag
-  fires no matter the stance, so it cannot be skipped by mislabeling the work. The `/wrap`
-  number-provenance audit is the backstop.
+- **The actuator is a write-time hook**, not stance prose. Any write to `docs/reports/` or
+  `docs/manuscript/` (the prose deliverables that use the inline-cite convention) runs the D011 check
+  (`scientific-writing/scripts/check_evd_resolution.py`); a result-like number with no cite is flagged.
+  The flag fires no matter the stance, so it cannot be skipped by mislabeling the work. The `/wrap`
+  number-provenance audit is the backstop. (The ladder/learnings/experiments docs reference results by
+  bare code and are not checked this way — L052.)
 
 Each truth-producing stance also carries its own **standard** (the threshold it must clear), which is a
 judgment obligation, not the fabrication guard:

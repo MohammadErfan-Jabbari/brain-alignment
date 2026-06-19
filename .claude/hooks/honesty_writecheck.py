@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """PostToolUse honesty flag (D011), stance-independent and NON-BLOCKING.
 
-Fires after an Edit / Write / MultiEdit to the evidence doc set:
-    docs/reports/  docs/experiments/  docs/manuscript/  docs/ladder.md  docs/learnings.md
+Fires after an Edit / Write / MultiEdit to a prose deliverable:
+    docs/reports/  docs/manuscript/
 Runs the existing D011 number-checker (scientific-writing/scripts/check_evd_resolution.py) on the
 written file. If a result-like number has no evidence cite, it surfaces the findings to the model as
 feedback. The write already succeeded, so this never blocks; it flags. The /wrap number-provenance
@@ -10,8 +10,14 @@ audit is the backstop.
 
 Why a hook and not stance prose: the fabrication guard must fire no matter which stance is active, so
 a number cannot land unsourced just because the work was mislabeled. (Plan: "honesty armed at
-write-time, not in the stance.") docs/learning/ is deliberately NOT guarded (its records cite a report
-by field, not an inline [E0nn], so they would false-positive).
+write-time, not in the stance.")
+
+Scope correction (S27 trial): the inline-cite check is a REPORTS + MANUSCRIPT convention (it is what
+`run_checks --layer {report,extended,public}` covers). docs/ladder.md, docs/learnings.md, and
+docs/experiments/ state primary/recorded numbers and reference experiments by BARE code (E006, not the
+[E006] the checker recognizes), so the check false-positives on them (the first /wrap edit flagged 41
+pre-existing ladder numbers). They need a different check (number-recorded-with-its-test), not this one,
+and are deliberately NOT guarded here. docs/learning/ (the teach ledger) is excluded for the same reason.
 """
 from __future__ import annotations
 
@@ -21,8 +27,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-GUARDED_PREFIXES = ("docs/reports/", "docs/experiments/", "docs/manuscript/")
-GUARDED_FILES = ("docs/ladder.md", "docs/learnings.md")
+GUARDED_PREFIXES = ("docs/reports/", "docs/manuscript/")
+GUARDED_FILES = ()
 CHECKABLE_SUFFIXES = (".md", ".markdown", ".tex")
 
 

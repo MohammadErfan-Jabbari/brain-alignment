@@ -42,8 +42,9 @@ touch none.
 The thesis rests on never inventing a result. A number is born in a `/work` session and recorded in
 `docs/`; no stance may state a result that was not recorded; a needed-but-missing number is a `\gap`,
 never a guess. This is enforced by a **write-time hook** (not by remembering a rule): any write to
-`docs/reports/`, `docs/experiments/`, `docs/manuscript/`, `docs/ladder.md`, or `docs/learnings.md` is
-checked, and an unsourced result-like number is flagged. The `/wrap` provenance audit is the backstop.
+`docs/reports/` or `docs/manuscript/` (the prose deliverables) is checked, and an unsourced result-like
+number is flagged. The `/wrap` provenance audit is the backstop. (The ladder/learnings/experiments docs
+reference results by bare code, so they are not checked this way — L052.)
 
 ## The report → teach loop (the common path)
 
