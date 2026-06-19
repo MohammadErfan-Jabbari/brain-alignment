@@ -137,6 +137,10 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 - [ ] **Extended manuscript:** consolidate the finding-reports into the extended manuscript at a checkpoint Erfan
   calls (never auto-updated, D035); seed from v0.9. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
 
+### Done this session (S26 — tooling; NO science, NO number, NO rung moved)
+- [x] 2026-06-19 — **Firecrawl set up for the repo** (`71c0894`, `c868446`; D043). Cloud MCP only (Docker unusable → self-host impossible); project-scoped `.mcp.json` (remote transport, `${FIRECRAWL_API_KEY}` interpolated, no secret committed); `firecrawl-research-index` skill installed repo-local (`.claude/skills/`, drives `firecrawl_research_*`, complements lit-scout); `## Firecrawl` section in `CLAUDE.md`. The 5 build-* skills skipped; estack untouched (Erfan-directed). Partially resolves D041's deferred `.mcp.json` (does not shadow Exa).
+- **OPEN LOOP:** Firecrawl MCP server is `⏸ Pending approval` — approve on next `claude` start before `firecrawl_*` tools fire. **NEXT science step is unchanged from S25: Q4 re-substrate** (see `upspeed.md`).
+
 ### Done this session (S24 — analysis→tooling/design; PI/sample-efficiency pivot + agent-fleet redesign; NO experiment ran, NO rung moved)
 - [x] 2026-06-18 — **Forward direction reopened (Erfan):** brain-as-privileged-information → sample-efficiency (the charter's F2, returned-to with theory + higher-SNR regimes + the 5-control battery). Trajectory in `expansion-program.md` §8 (TRUE-100% Tier 1; the 5 method ideas; P1 ZuCo). Critique-loop-hardened (counter-argument + lit-scout + Codex). D040.
 - [x] 2026-06-18 — **E023 designed** (`experiments/E023`): KD objective-vs-quality identification (δ_obj manifold-residual). Not run.
