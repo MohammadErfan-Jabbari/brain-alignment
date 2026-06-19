@@ -260,3 +260,38 @@ Use it when it helps:
 Mechanics: code is parsed locally by tree-sitter (free); docs/PDFs/images go to the host model
 (token cost) — so the full graph is built in Antigravity/Gemini, then queried from here. No PreToolUse
 hooks are installed (deliberately — they nag against the docs ritual).
+
+## Firecrawl (web-data provider — subordinate to the docs brain)
+
+Firecrawl turns live web pages into clean, LLM-ready markdown and runs a research index over papers
+and code. It is wired in as a **project-scoped MCP server** (`.mcp.json` at repo root, remote transport
+`https://mcp.firecrawl.dev/${FIRECRAWL_API_KEY}/v2/mcp`; key from `~/.config/secrets/env`, never
+hardcoded). **Cloud API only** — the self-hosted stack needs Docker, which this container can't run.
+First use in a session prompts for MCP approval; that's expected. Same authority order as graphify/Codex:
+**`docs/ladder.md` and the `docs/` brain win; gbrain is the knowledge layer; Firecrawl just fetches
+external web content.** It never produces a science number and never flips a rung.
+
+The tool surface (`firecrawl_*`), grouped:
+- **Fetch / crawl:** `scrape` (one URL → markdown), `map` (discover a site's URLs), `crawl` +
+  `check_crawl_status` (whole-site → markdown), `batch` (many URLs), `extract` (schema'd structured
+  extraction across pages via LLM), `parse` (a local/non-public doc → clean data).
+- **Search:** `search` (web/news/images with full-page extraction — richer than `WebSearch`).
+- **Research index (thesis-relevant — complements `lit-scout`):** `research_search_papers` (find arXiv
+  papers by topic/method/benchmark), `research_inspect_paper`, `research_related_papers` (citation-graph
+  expansion), `research_read_paper` (the in-body passages that answer one question), `research_search_github`
+  (issue/PR history + READMEs for implementation notes).
+- **Agentic:** `agent` + `agent_status` (FIRE-1 autonomous navigation), `interact` (drive a live browser
+  session after a scrape), `monitor_*` (recurring scrape/crawl with content diffs).
+
+**When to reach for it (and when not).** This repo already has a deep web stack — `WebFetch`/`WebSearch`,
+exa MCP, the `perplexity-research` / `deep-research` skills, `lit-scout`/`dataset-scout`, and academic
+APIs (S2, OpenAlex, CrossRef, Unpaywall, IEEE). **Don't default to Firecrawl for cheap one-off fetches —
+credits are billed (`creditsUsed` per call).** Reach for it when those fail or fall short: a JS-heavy or
+anti-bot page `WebFetch` chokes on, a **whole-site crawl/map** (docs sites, a dataset's pages, a paper's
+repo), **schema'd extraction** across many pages, or the **research index** as a second lane alongside
+`lit-scout`. Cheap path first, Firecrawl when it earns the credit.
+
+**Add-ons, one command away (not auto-installed):** the Python SDK for scripted/batch scraping inside an
+experiment (`uv add firecrawl-py`); the dedicated research skill
+(`npx skills add firecrawl/skills@firecrawl-research-index`, route through `skill-manager`). Full capability
+index: `https://docs.firecrawl.dev/llms.txt`.
