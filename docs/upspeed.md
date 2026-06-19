@@ -1,6 +1,6 @@
 # Upspeed — read first, write last
 
-**Last updated:** 2026-06-19 (S25 — working/critique+gates. **NO experiment ran, NO rung flipped (Q0–Q5 stand).** Ran the four-lens panel + the full pre-compute gate on Q2/Q3/Q4. **Q2 recomputed** (cached E004) → the "lever exists" CI is the L015-condemned 15-cell bootstrap; at the honest fold unit it includes 0 → *proposed* demote 🟡→null (**awaits Erfan**). **Q3's "one untested door" CLOSED — dataset too small** (denizenslab n=6 can't power the per-individual population claim) → hedge retired, verdict unchanged ❌ (D042, L051). **Q4 sample-efficiency/LUPI** designed (E024) → oracle **HOLD** (400-sentence substrate underpowered → re-substrate; parked for next session).)
+**Last updated:** 2026-06-19 (S25 — working/critique+gates. **NO experiment ran, NO rung flipped (Q0–Q5 stand).** Ran the four-lens panel + the full pre-compute gate on Q2/Q3/Q4. **Q2 recomputed** (cached E004) → the "lever exists" CI is the L015-condemned 15-cell bootstrap; at the honest fold unit it includes 0 → **demoted 🟡→❌ "no demonstrated lever"** (Erfan-confirmed; undemonstrated, not proven-zero). **Q3's "one untested door" CLOSED — dataset too small** (denizenslab n=6 can't power the per-individual population claim) → hedge retired, verdict unchanged ❌ (D042, L051). **Q4 sample-efficiency/LUPI** designed (E024) → oracle **HOLD** (400-sentence substrate underpowered → re-substrate; parked for next session).)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md)** (Q0–Q5 unchanged). **Forward direction = [`expansion-program.md`](expansion-program.md) §8** (PI/sample-efficiency) + [`idea-tree.md`](idea-tree.md). With no task, run `/orient`.
 
@@ -12,12 +12,12 @@
 - **Forks (Erfan):** Fork 1=(a) then killed-for-size; Fork 2 = **on-roadmap** (eye-tracking-first + GECO/Provo are already in §8/idea-tree T1.3; synthetic-PI MDE positive-control is the L048 rigor step).
 
 ## What's next (Erfan's call)
-- **Confirm the Q2 demotion** (🟡→null) so the rung can flip — currently still 🟡 pending your OK.
+- **Q2 demoted 🟡→❌ "no demonstrated lever"** (Erfan-confirmed S25; undemonstrated, not proven-zero — n=5 underpowered to rule out a small lever). Done; the next-session focus is Q4.
 - **Q4 (next session):** pick the re-substrate (oracle default = eye-tracking-first on a higher-N gaze corpus: pooled ZuCo NR or GECO/Provo/Dundee) → **synthetic-PI MDE positive-control FIRST** (confirm detectability) → fix control-5 (measure biosignal reliability; add valence-lexicon teacher) → decide per-word loader → re-gate E024 → build. Each gated build = its own fresh session.
 
 ## Blockers / open loops
 - **ZuCo 1.0 clone STILL RUNNING in background** (`data/zuco1`, ~61G, OSF q3zws, launched via bare `nohup` — **will NOT notify on completion**; check with `pgrep -f 'osf -p q3zws'` / `du -sh data/zuco1`). Pulled task3-TSR first (alphabetical); NR/SR arrive later. Useful for any Q4 substrate.
-- **Q2 rung still 🟡** — demotion proposed, not flipped (needs Erfan).
+- (resolved) Q2 demoted to ❌ "no demonstrated lever" (Erfan-confirmed S25).
 - Pre-existing untracked (not ours): `untitled.md`, `docs/manuscript/supervisor-email_2026-06.md`, `.claude/worktrees/`.
 
 ## Key facts

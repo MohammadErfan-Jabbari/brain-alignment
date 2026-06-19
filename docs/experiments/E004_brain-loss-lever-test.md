@@ -1,6 +1,6 @@
 # Experiment — E004: is `$\mathcal{L}_{\text{brain}}$` a usable *lever*? (R03 Q2) + the D010 loss-form resolution
 
-**Created:** 2026-06-10 · **Re-locked:** 2026-06-11 (after oracle-reviewer HOLD → design reshaped) · **Status:** COMPLETE (ran 2026-06-11) — Q2 PARTIAL: fragile brain-specific lever (Qwen mse − permuted twin +0.0032 [+0.0006,+0.0058], fold-4 carries half), perplexity-entangled, sub-threshold on the 5-ROI screen (L011/L012) · **Mode:** working
+**Created:** 2026-06-10 · **Re-locked:** 2026-06-11 (after oracle-reviewer HOLD → design reshaped) · **Status:** COMPLETE (ran 2026-06-11) — Q2 verdict **REVISED S25 (2026-06-19, Erfan-confirmed): NO DEMONSTRATED LEVER** (was "🟡 PARTIAL — fragile lever"). The headline +0.0032 [+0.0006,+0.0058] ("excludes 0") was a **15-cell pseudo-replicated bootstrap** (3 seeds × 5 folds as 15 independent — the L015 error the project fixed for E005 but never applied here); at the honest n=5-fold unit t-CI = **[−0.0023,+0.0086] includes 0**, fold-4 carries **64%** (LOFO-f4 → +0.0014), `beats_permuted_null=False`. → no valid-unit evidence the loss moves held-out alignment. **Caveat: n=5 underpowered to exclude a small (~+0.003) lever → "undemonstrated," NOT "proven zero."** Still perplexity-entangled (L011/L012). See the S25 recompute note at the bottom. · **Mode:** working
 **Direction:** `../reports/R03_brain-as-training-signal.md` §5 (Q2 of the ladder) · `../ladder.md` (Q2 rung)
 **Theory:** `../06-theory-grounding.md` §1 (MI gen-bound), §2 (DPI ceiling), §3 (conditional MI = unique R²)
 **Predecessors:** `E002` (A2 PASS — encoding signal is real on Tuckute) · `E003` (Q1 PARTIAL — KD lands below teacher, alignment co-varies with ppl, L011)
@@ -151,3 +151,33 @@ Ran 2026-06-11 (LoRA, 3 seeds × 5 rotating folds; gpt2 GPU0 ~27 min, Qwen GPU3 
 **Caveats (carried forward):** (1) ROI-coarse 5-dim screen, underpowered for the absolute lever — the verdict rests on the paired specificity contrast, which is the appropriate matched test but should be confirmed at voxel scale. (2) LoRA finetune still degrades ppl ~2× and alignment slightly — a gentler regime (lower lr / fewer steps / a perplexity-matched stop) is worth testing on LeBel. (3) The brain-specific effect is on Qwen-`mse` only; gpt2 shows no specificity — model-dependence to watch. (4) `frozen`'s "beats lm_only" is regularization, not a lever — do not over-read it.
 
 **Next (predeclared routing):** lock + oracle-review **E006** (LeBel voxelwise A2-feasibility — does the powered substrate carry the signal), then re-run the lever (Qwen `mse`, the brain-specific form) at voxel scale where it is adequately powered. Updates `../ladder.md` (Q2 → 🟡 PARTIAL, routes to LeBel — **pending Erfan's confirmation**), `../learnings.md` (L012), D010 status (mse-leaning, unconfirmed).
+
+---
+
+## S25 RECOMPUTE (2026-06-19, Erfan-confirmed): Q2 → NO DEMONSTRATED LEVER
+
+The original Q2 verdict rested on one statistic — the Qwen `mse` − permuted-twin paired contrast,
+reported as **+0.0032 [+0.0006, +0.0058]** ("excludes 0"). S25 re-derived this directly from
+`outputs/E004_brain_lever_Qwen.json` (the `mse` and `mse_perm` `delta` cells) at two inference units:
+
+| Inference unit | mean | 95% CI | excludes 0? |
+|---|---|---|---|
+| **Flat 15-cell bootstrap** (3 seeds × 5 folds as 15 independent — the recorded construction) | +0.00316 | [+0.00062, +0.00584] | yes ← the reported number |
+| **Honest fold unit (n=5 folds, seeds averaged within fold)** | +0.00316 | **[−0.00227, +0.00858]** | **NO** |
+
+Per-fold paired contrast: `{0: −0.0007, 1: +0.0003, 2: +0.0045, 3: +0.0016, 4: +0.0101}` →
+**fold-4 carries 64%** of the summed signal; leave-fold-4-out mean = **+0.0014**. The recorded
+`summary.mse.beats_permuted_null = False` (the unpaired exceedance test already failed).
+
+**Why this matters:** the 15-cell flat bootstrap treats non-independent draws (the 5 folds are one
+partition of one subject-averaged target; the 3 seeds reuse identical data) as independent, which
+under-states the error bars — **the exact pseudo-replication the project diagnosed and corrected for
+E005 (L015) but never applied to E004.** At the honest unit the CI includes 0, so there is **no
+inference-unit-valid evidence that optimizing the brain loss moves held-out alignment.**
+
+**Verdict (Erfan-confirmed): NO DEMONSTRATED LEVER** — *undemonstrated*, deliberately **NOT** "proven
+zero": n=5 folds is underpowered to exclude a small (~+0.003) effect, and a powered voxel-scale test
+(the predeclared LeBel re-run) was never run. The honest statement is "no valid-unit evidence of a
+lever," and that is consistent with the robust Q3 per-individual null. Ladder Q2 flipped 🟡 → ❌
+(with the caveat in-cell). Reproducible: `outputs/E004_brain_lever_Qwen.json` + the L015 fold-level
+machinery in `scripts/reanalyze_e005_e006.py`.
