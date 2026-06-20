@@ -21,7 +21,7 @@
 - Pre-existing untracked (not ours): `docs/manuscript/supervisor-email_2026-06.md`, `.claude/worktrees/`.
 
 ## Key facts
-- **Always pass an explicit `model:` on subagent spawns** (S28 lapse): the wrap auditors omitted it and inherited the session model (opus) instead of the routed **sonnet**. For `wrap-auditor` / scoped doc-nav fan-out → sonnet (haiku for purely mechanical). Don't rely on inheritance.
+- **Subagent model routing (S28, corrected from the subagent logs):** an agent's `model:` frontmatter default applies when a spawn omits `model` — so fleet agents self-route correctly. Verified this session: both `wrap-auditor`s ran **sonnet** (their default), the `paper-digest`s ran **opus** — all correct (an earlier in-session claim that the auditors "inherited opus" was wrong). The genuine inherit-the-session-model (opus) hazard is only agents with **no** frontmatter default — generic `claude`/`general-purpose`/`Explore`/`Plan`/custom. Set `model:` explicitly for *those*; the named fleet agents are already safe.
 - **Format scannable, never walls of text** (Erfan, S28): lead with the point, whitespace + short lines, or just do the work silently. Global Presentation rule.
 - **`/wrap` gotcha (recurred S28):** `start.json` can hold a mid-session re-fire SHA (`source: "resume"`); sanity-check `start_sha` against the session's commits, fall back to the parent of the session's first commit.
 - **Operating model (S27):** invoke a stance, switch freely; honesty hook-armed at write-time on `reports/`+`manuscript/` only. Map: `operating-map.md`; mechanics: `.claude/skills/stances/`.

@@ -65,12 +65,13 @@ printed in the paper and is correctly left `\gap`, not invented). The live scien
 - **Wall-of-text answer (Erfan flagged, live).** A pre-swarm status message was a dense paragraph block.
   Standing rule reaffirmed: format scannable (whitespace, short lines, lead with the point) or just do
   the work silently — never a wall of prose. This is the global Presentation rule; the lapse was mine.
-- **Auditor agents not given an explicit `model`.** The two `wrap-auditor` calls omitted `model:`, so they
-  inherited the session model (opus) instead of the routed **sonnet** (the wrap-Part-C default + CLAUDE.md
-  wrap-auditor default). These were scoped doc-nav checks — sonnet was correct and cheaper. Discipline
-  fix: always pass `model: sonnet` (or haiku for purely mechanical scopes) on `wrap-auditor`/fan-out
-  spawns; do not rely on inheritance. (Covered by the existing "set an explicit model" rule — this was a
-  lapse, not a new rule.)
+- **Subagent model — checked the logs, corrected a wrong in-session claim.** I first asserted the wrap-auditors
+  "inherited opus"; the subagent logs (`…/subagents/agent-*.meta.json` + the `model` field) show both auditors ran
+  **`claude-sonnet-4-6`** and the three paper-digests ran **`claude-opus-4-8`** — all correctly routed. Reason: an
+  agent's `model:` frontmatter default applies when the spawn omits `model`, so it does NOT fall through to the
+  session model. The genuine inherit-session-opus hazard is only agents with **no** frontmatter default (generic
+  `claude`/`general-purpose`/`Explore`/`Plan`/custom). Discipline: set `model:` explicitly for default-less agents;
+  the named fleet agents self-route. (Lesson here is as much "verify before confessing a fault" as the routing rule.)
 - **`start.json` re-fire SHA (carried S27 gotcha, recurred).** `start_sha` held `383fd1e`, a mid-session
   commit (`source: "resume"`), not the true start. Used the fallback: parent of the session's first commit
   (`a40aa24`). The S27-documented sanity-check worked.
