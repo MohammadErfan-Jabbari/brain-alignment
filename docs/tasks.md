@@ -24,6 +24,7 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 - [ ] **Sweep remaining "working/analysis" mentions → stances:** `CLAUDE.md` fleet/self-activation section, `goalsmith` ("working sessions only"), agent descriptions. D044 documents the mapping; this removes the residual drift.
 - [ ] **Resolve `R06:96`** — a bare `+0.0280` with no cite (add `[E0nn]` or `\gap`); the new write-time hook will flag it on the next R06 edit.
 - [x] **Ingest the `/teach` pedagogy `\gap` papers** (S28, 2026-06-20) — Erfan supplied the 4 unreachable PDFs; all read first-hand. Filled Moser 2011 + B&M 2001 `\gap`s; new notes for B&M 2006, Bodily 2018, Long & Aleven 2017. Corrected Long & Aleven N=302→**301** and "OLM-only-with-control"→Exp-2 interaction. No `\gap` left in the pedagogy set.
+- [ ] **(low priority, parked S28) Global "subagent must set `model`" hook** — strict version: a global `PreToolUse` hook on `Task|Agent` that blocks any spawn with no explicit `model` (enforces the global "always set model, never inherit" rule; robust to a fleet agent whose definition forgot its `model:` default). Verify it doesn't break harness-internal spawns before enabling. Lives in `~/.claude/`, not this repo. Not urgent — the fleet agents self-route via frontmatter defaults today.
 
 ### 🔬 IMPLEMENTATION lane — the ORDERED ROADMAP (do in sequence; TRIBE is the capstone, LAST)
 
