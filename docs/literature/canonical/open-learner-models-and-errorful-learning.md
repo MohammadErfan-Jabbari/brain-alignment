@@ -39,7 +39,7 @@ expert-adult learner is the favorable case — productive failure needs prior kn
 
 ## Provenance
 
-A synthesis over the per-paper canonical notes above; each carries its own verification and any `\gap`s
-where a source body was paywalled (Butterfield & Metcalfe 2001 and Moser 2011 exact statistics are open
-`\gap`s). The bottom line is a well-sourced **design rationale** for the teach apparatus, not a measured
-thesis result.
+A synthesis over the per-paper canonical notes above; each carries its own verification. Butterfield &
+Metcalfe 2001 and Moser 2011 were abstract-only in earlier versions but are now read first-hand
+(publisher PDFs, 2026-06-20) — their `\gap`s are closed. The bottom line is a well-sourced **design
+rationale** for the teach apparatus, not a measured thesis result.
