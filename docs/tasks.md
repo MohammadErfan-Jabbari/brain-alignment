@@ -23,6 +23,7 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 - [ ] **Test `/teach` live** on a real report (Erfan) — the proof of the guided loop.
 - [ ] **Sweep remaining "working/analysis" mentions → stances:** `CLAUDE.md` fleet/self-activation section, `goalsmith` ("working sessions only"), agent descriptions. D044 documents the mapping; this removes the residual drift.
 - [ ] **Resolve `R06:96`** — a bare `+0.0280` with no cite (add `[E0nn]` or `\gap`); the new write-time hook will flag it on the next R06 edit.
+- [x] **Ingest the `/teach` pedagogy `\gap` papers** (S28, 2026-06-20) — Erfan supplied the 4 unreachable PDFs; all read first-hand. Filled Moser 2011 + B&M 2001 `\gap`s; new notes for B&M 2006, Bodily 2018, Long & Aleven 2017. Corrected Long & Aleven N=302→**301** and "OLM-only-with-control"→Exp-2 interaction. No `\gap` left in the pedagogy set.
 
 ### 🔬 IMPLEMENTATION lane — the ORDERED ROADMAP (do in sequence; TRIBE is the capstone, LAST)
 

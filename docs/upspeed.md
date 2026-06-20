@@ -1,30 +1,28 @@
 # Upspeed — read first, write last
 
-**Last updated:** 2026-06-19 (S27 — **/meta session: the operating model was rebuilt. NO science ran, NO number produced, NO rung flipped (Q0–Q5 stand exactly as S25/S26).** Replaced the working/analysis session split with **eight invokable interaction stances** (D044, supersedes D011) plus a LearnLM/Gemini-style `/teach` stance. **The science thread from S25 below is unchanged and still the live next step.**)
+**Last updated:** 2026-06-20 (S28 — **/meta: the 4 supplied `/teach`-pedagogy `\gap` papers were ingested into canonical notes. NO science ran, NO number produced, NO rung flipped (Q0–Q5 stand exactly as S25/S27).** The live science thread is unchanged and still the next step.)
 
-> **Canonical Q-rung state lives in [`ladder.md`](ladder.md)** (Q0–Q5 unchanged). **How to operate now = [`operating-map.md`](operating-map.md)** (the 8 stances). **Forward science direction = [`expansion-program.md`](expansion-program.md) §8** (PI/sample-efficiency) + [`idea-tree.md`](idea-tree.md). With no task, run `/orient`.
+> **Canonical Q-rung state lives in [`ladder.md`](ladder.md)** (Q0–Q5 unchanged). **How to operate = [`operating-map.md`](operating-map.md)** (the 8 stances). **Forward science = [`expansion-program.md`](expansion-program.md) §8** (Q4 PI/sample-efficiency). With no task, run `/orient`.
 
-## What this session did (S27 — /meta: rebuilt the operating model)
-- **Stances replace working/analysis (D044).** Eight invokable stances — `/work` `/interpret` `/write` `/teach` `/scout` `/meta` `/plan` `/review` — one fat skill (`.claude/skills/stances/`, `SKILL.md` spine → 8 mode files + the learning-record format). You invoke a stance (explicit, or auto with the agent stating it) and switch freely; `/work` is explicit-only. Day-to-day picture: `operating-map.md`.
-- **`/teach`** (headline): LearnLM five principles + the Gemini guided-learning loop, four sub-modes (guided/walkthrough/feynman/drill), a learning-record ledger at `docs/learning/` (evidence-gated, anchored to report+number, re-read on resume). Grounded in new canonical notes `learnlm-2024_*` + `bloom-1984_*`. **`/interpret`** = claim-manifest + panel + stat-auditor + SCR.
-- **Honesty armed at write-time, not in-stance:** `.claude/hooks/honesty_writecheck.py` flags an unsourced result-like number on writes to **reports + manuscript** (the prose deliverables), regardless of stance (non-blocking). **Fired live this session** — first scoped to 5 paths, narrowed to 2 after the ladder false-positived 41× (L052).
-- **Reports** keep verdict-first + caveats-in-claim, gain a plain-language lead; `/teach` renders simple-first. Canonical docs (`CLAUDE.md`, `03-methodology.md`, `orient`/`wrap`/`session-logger`) rewritten to stances. 6 atomic commits (`6760f46` → `b0a5da3`).
+## What this session did (S28 — /meta: pedagogy literature grounding completed)
+- **Ingested the 4 PDFs Erfan supplied** (the ones S27 could not download), in two batches. All read first-hand; the 6 source PDFs are in `data/papers/` (gitignored). 5 atomic `docs(scout):` commits (`64cbfe6` → `126301d`).
+- **Two `\gap`s closed** (Moser 2011, B&M 2001) + **3 new canonical notes** (B&M 2006 mechanism, Bodily 2018 OLM/LAD review, Long & Aleven 2017 OLM RCT). All are external pedagogy literature grounding the `/teach` apparatus — **cite-or-flag, NOT thesis science** (no A1/A2/A3, no rung).
+- **Two corrections to repo's carried-over numbers:** Long & Aleven is **N=301, not 302** (abstract off-by-one); the OLM benefit is the larger **Exp 2's OLM×PS interaction** (F(1,236)=7.535, p=.007), not an unconditional main effect (Exp 1, N=56, found a plain main effect d=.56). B&M 2001's own gamma (+.36, N=19) differs from the 2006 paper's .06/.39/.89 gradient (that's a 2001 *poster*'s) — separation was right.
 
-## What's next (Erfan's call — the live science thread, UNCHANGED from S25)
-- **Test `/teach` live** on a real report (planned) — the only real proof of the guided loop.
-- **Q4 (next science `/work` session):** pick the re-substrate (oracle default = eye-tracking-first on a higher-N gaze corpus: pooled ZuCo NR or GECO/Provo/Dundee) → **synthetic-PI MDE positive-control FIRST** → fix control-5 + per-word loader → re-gate E024 → build. Q2 stays ❌; Q3's full-FT door stays CLOSED (n=6 too small, D042/L051).
+## What's next (Erfan's call — the live science thread, UNCHANGED from S25/S27)
+- **Q4 (next science `/work` session):** pick the re-substrate (oracle default = eye-tracking-first on a higher-N gaze corpus) → **synthetic-PI MDE positive-control FIRST** → fix control-5 + per-word loader → re-gate E024 → build. Q2 stays ❌; Q3's full-FT door stays CLOSED (n=6 too small, D042/L051).
+- **Or `/teach` live** on a real report — the S27 follow-up, now with the pedagogy notes fully grounded.
 
 ## Blockers / open loops
-- **Honesty hook is live** (fired this session) and scoped to `docs/reports/` + `docs/manuscript/` (L052).
-- **Pre-existing finding the new hook surfaces:** `R06:96` has a bare `+0.0280` with no cite — needs an `[E0nn]` or `\gap` (analysis-lane, Erfan's call).
-- **Cleanup follow-up:** sweep the remaining "working/analysis" mentions in `CLAUDE.md`'s fleet/self-activation section, `goalsmith` ("working sessions only"), and agent descriptions (D044 maps them, but it is drift).
-- **Firecrawl MCP `⏸ Pending approval`** (S26, carried) — approve on next `claude` start before `firecrawl_*` fires.
-- **ZuCo 1.0 clone (carried from S25/S26)** — `data/zuco1` ~61G; bare `nohup`, no completion notify; verify with `du -sh data/zuco1` / `pgrep -f 'osf.*q3zws'`.
-- Pre-existing untracked (not ours): `untitled.md`, `docs/manuscript/supervisor-email_2026-06.md`, `.claude/worktrees/`.
+- **No `\gap` remains in the pedagogy set.** The one genuinely-unavailable number — Long & Aleven exact per-condition Ns — is not printed in the paper; correctly left `\gap`, not invented.
+- **Pre-existing finding (unchanged):** `R06:96` has a bare `+0.0280` with no cite — needs `[E0nn]` or `\gap` (analysis-lane, Erfan's call).
+- **Firecrawl MCP `⏸ Pending approval`** (carried S26/S27) — approve on next `claude` start before `firecrawl_*`.
+- **ZuCo 1.0 clone (carried S25–S27)** — `data/zuco1` ~61G; bare `nohup`, no completion notify; verify with `du -sh data/zuco1` / `pgrep -f 'osf.*q3zws'`.
+- Pre-existing untracked (not ours): `docs/manuscript/supervisor-email_2026-06.md`, `.claude/worktrees/`.
 
 ## Key facts
-- **Operating model (new, S27):** invoke a stance, switch freely; honesty is hook-armed at write-time, independent of stance. Map: `operating-map.md`; mechanics: `.claude/skills/stances/`; decision D044.
-- **`/wrap` gotcha (S27):** `.claude/state/wrap/start.json` can hold a mid-session re-fire SHA (it did this session: `07e344e`, one of the session's own commits) — sanity-check `start_sha` against the session's commits; fall back to the prior session's last commit if it is wrong.
-- **Firecrawl (S26):** reach for the cheap path first (WebFetch/exa) — credits are billed per call.
-- **Data on disk:** denizenslab n=6 (~35G), ZuCo 2.0 features (`data/zuco-benchmark/`), ZuCo 1.0 partial (61G).
+- **Always pass an explicit `model:` on subagent spawns** (S28 lapse): the wrap auditors omitted it and inherited the session model (opus) instead of the routed **sonnet**. For `wrap-auditor` / scoped doc-nav fan-out → sonnet (haiku for purely mechanical). Don't rely on inheritance.
+- **Format scannable, never walls of text** (Erfan, S28): lead with the point, whitespace + short lines, or just do the work silently. Global Presentation rule.
+- **`/wrap` gotcha (recurred S28):** `start.json` can hold a mid-session re-fire SHA (`source: "resume"`); sanity-check `start_sha` against the session's commits, fall back to the parent of the session's first commit.
+- **Operating model (S27):** invoke a stance, switch freely; honesty hook-armed at write-time on `reports/`+`manuscript/` only. Map: `operating-map.md`; mechanics: `.claude/skills/stances/`.
 - **Run code:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache`; 4× L40S. Git: `main`, push only when asked.
