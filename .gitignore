@@ -27,3 +27,6 @@ graphify-out/
 
 # Claude Code per-worktree session state (wrap snapshot, etc.) — not shared
 .claude/state/
+
+# Teach lesson HTML renders — disposable views (rebuild with render_lesson.py)
+docs/learning/lessons/*.html
