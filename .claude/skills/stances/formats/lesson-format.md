@@ -9,6 +9,17 @@ retirement taught us to build (a learning narrative must never leak into a repor
 It is the RAW layer. The curated mastery state lives separately in `docs/learning/records/`
 (`learning-record.md`); the lesson is never the resume source of truth.
 
+## The surface contract (where each thing goes)
+
+Teach in **parts** (one concept/chunk each). The lesson file is the **read** surface; the terminal is the
+**dialogue**. Per part: **(1)** write the part's explanation + math + diagrams into this file and re-render
+— the user reads it rendered; **(2)** ask the question in the *terminal* (math is fine in the question when
+it echoes what the file just rendered); **(3)** the whole back-and-forth happens in the *terminal*, plain
+language; **(4)** at the part boundary, write the user's answer + what did not land + a `---` divider + the
+next part's explanation into this file, in one pass, and re-render. The file is touched **at part boundaries
+only** — never between posing a question and getting the answer. Math never appears unrendered in the
+terminal: that is the whole reason the file exists.
+
 ## Render to view
 
 The terminal does not render LaTeX. To see the math and diagrams:
@@ -43,27 +54,29 @@ sources: [<the repo files this grounds in, by path/code>]
 
 ---
 
-## Round 1 — {the concept this round}
+## Part 1 — {the concept this part}
 
-{Explanation: prose + display math $$…$$ + a ```mermaid diagram + quoted, cited cross-refs.}
+{Explanation: prose + display math $$…$$ + a ```mermaid diagram + quoted, cited cross-refs. Written first,
+before the question is asked in the terminal.}
 
-**Question.** {the question; math allowed here}
+**Question.** {the question; recorded here — it is *asked* in the terminal, written here at the boundary}
 
-**Your answer.** {recorded after he responds}
+**Your answer.** {recorded at the part boundary, after the terminal back-and-forth}
 
 **Where it landed.** {what was right · what was missed · the mistake · the correction — diagnostic, not a grade}
 
 ---
 
-## Round 2 — …
+## Part 2 — …
 ```
 
 ## Rules
 
 - **Cite, do not cache.** Every recorded number points to its source by code (R07 / E0nn), never a
   frozen literal — `docs/learning/` is not checked by the write-time honesty hook and source numbers move.
-- **Write at boundaries.** Update the lesson at the end of a round/concept or at session end, never
-  between posing a question and getting the answer (it breaks the Socratic rhythm).
+- **Write at part boundaries.** Author the next part's explanation into the file *before* asking its
+  question, and record the finished part's answer/diagnosis when you open the next one — never between
+  posing a question and getting the answer (it breaks the Socratic rhythm). See the surface contract above.
 - **Mistakes are diagnostic.** Record what was missed and the correction as "what to re-check", never as
   an accumulating scorecard. The durable, forward-looking version goes in a mastery record only when it
   clears the gate (`learning-record.md`).

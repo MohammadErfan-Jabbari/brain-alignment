@@ -44,8 +44,24 @@ letting a learning narrative leak into a report; the lesson is the firewall that
 - **Render to view:** `uv run .claude/skills/stances/scripts/render_lesson.py <lesson.md>` writes a
   self-contained HTML beside it (KaTeX renders inline + display math, Mermaid renders diagrams); open it
   in a browser. Write load-bearing math as display `$$…$$` so it also reads in a markdown previewer.
-- **Write at boundaries, not mid-question.** The live Q&A is in the terminal; update the lesson at the end
-  of a round/concept or the session, never between posing a question and the answer (it breaks the loop).
+- **The whiteboard is the read surface; the terminal is the dialogue.** Teach in *parts* (a part is one
+  concept/chunk, sized by learning logic, not fixed length). For each part: **(1)** write the part into the
+  lesson file *first* — the explanation with math (`$$…$$`), diagrams, and cited cross-refs — then
+  re-render it; the user reads it rendered. **(2)** Ask the question in the *terminal*; math may appear in
+  the question when it echoes what the file already rendered (the user has the context) — do not bounce back
+  to the file to render a question. **(3)** Run the whole back-and-forth in the *terminal*, plain language —
+  hints, corrections, the user's answer. **(4)** At the part boundary, when the part is finalized and you
+  are about to open the next one, write everything into the file in one pass: the user's answer, what did
+  not land / the mistake, a `---` divider, then the next part's explanation; re-render. **Math never appears
+  unrendered in the terminal** — that is the whole reason this mode exists. Don't overkill it: the file is
+  touched at part boundaries only (open a part, close a part), never between posing a question and the answer
+  (that breaks the Socratic rhythm).
+- **Why two surfaces and not the terminal alone.** Unrendered LaTeX in a terminal is pure extraneous
+  cognitive load (LearnLM "manage cognitive load"); the rendered file removes it. The split-attention cost
+  of two surfaces does not bite here because they are *sequential, not simultaneous* — read the part, then
+  talk — and the file is a persistent external representation that *lowers* working-memory load. (In the
+  desktop app math also renders inline in chat; the file stays the durable artifact and the default, so the
+  loop works identically in the CLI.)
 - **Not canonical.** Every lesson opens with the banner in `formats/lesson-format.md`: a learning
   artifact, not a report; numbers cited to source; when it disagrees with `ladder.md`/a report, they win.
 
