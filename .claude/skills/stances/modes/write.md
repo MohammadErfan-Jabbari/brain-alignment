@@ -11,6 +11,15 @@ the simple-first walk is `/teach`'s job, not a second shape of the file. Knowled
 evidence into a report, report into the extended manuscript, extended into a public cut, and the
 manuscripts are rebuilt only at a checkpoint Erfan calls.
 
+## The ship gate (D046)
+
+A manuscript build or revision is its own logged `/write` session, never an add-on at the tail of a
+`/meta` or analysis session — that bypass is exactly how v0.1 storytelling prose reached a supervisor
+un-reviewed (L054). No prose in `docs/manuscript/` reaches a human until the full loop has run on it, the
+non-skippable review pass (which spawns `prose-register-auditor`) included. The `prose_writecheck.py` hook
+is the always-on tripwire; a clean deterministic run is not a clearance, because the linter cannot catch
+the register class.
+
 ## Boundary
 
 Writes, checks, and routes prose that already traces to recorded evidence. It never invents a result,

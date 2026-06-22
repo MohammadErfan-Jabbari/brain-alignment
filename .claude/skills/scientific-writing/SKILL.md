@@ -108,7 +108,23 @@ A number never enters at a lower layer than where it was recorded.
 6. **Review (anything a supervisor or committee sees).** Run the Devil's-Advocate pass in
    `references/review-pass.md` before it lands. For the extended manuscript and any manuscript-bound report
    this is **non-skippable**, not a judgment call — it is the gate that catches the over-claims and
-   unreadable passages a silent style sweep misses.
+   unreadable passages a silent style sweep misses. It now spawns the **`prose-register-auditor`** for the
+   register + readability lenses (the dedicated voice reader) alongside the claim panel.
+
+## The ship gate (D046 — nothing reaches a human un-full-looped)
+
+The v0.1 extended manuscript was written in one unlogged burst that bypassed this whole loop — no `/write`
+session, no review pass — and storytelling prose reached a supervisor (L054). The fix is a hard rule, not
+a reminder:
+
+- **A manuscript build or revision is its own logged `/write` session, never an add-on tacked onto another
+  session.** Writing `docs/manuscript/` is full-loop work; if you find yourself drafting it at the tail of a
+  `/meta` or analysis session, stop and start a real `/write` session.
+- **No prose in `docs/manuscript/` reaches a human (supervisor, committee, venue) until the full loop has
+  run on it, review pass included.** The review pass is the gate; the `prose_writecheck.py` hook is the
+  always-on tripwire that fires even when the loop is skipped (it cannot be bypassed by mislabeling the
+  work); the `/wrap` audit is the backstop. A clean deterministic run is **not** a clearance — the linter
+  cannot catch the register class, so supervisor-facing prose always owes the auditor.
 
 ## Five things that hold, and why
 
