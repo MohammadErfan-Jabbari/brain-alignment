@@ -1,0 +1,41 @@
+{
+  "meta": {"stage": 4, "schema_version": "1"},
+  "message": "Brain alignment is robustly measurable but not an inducible per-individual training lever beyond perplexity.",
+  "reader_model": {"venue": "ML", "old": ["linear probe", "distillation"], "new": ["voxelwise noise ceiling"]},
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "The LM-to-brain alignment signal is real beyond confounds on real fMRI.",
+      "bound_experiment": "E006",
+      "evidence_status": "live",
+      "strength": "strong",
+      "scope": "single-subject UTS03, 11442 reliable voxels, contiguous story-CV",
+      "is_central": true,
+      "acknowledgments": ["Evidence is single-subject; cross-subject generalization untested."],
+      "section": "results",
+      "tags": [{"strength": "strong", "sentence_ref": "trained-untrained gap +0.028 on reliable voxels"}]
+    },
+    {
+      "claim_id": "C2",
+      "text": "Optimizing the brain loss does not raise held-out alignment at the honest inference unit.",
+      "bound_experiment": "E004",
+      "evidence_status": "live",
+      "strength": "observed",
+      "scope": "n=5 folds, Qwen0.5B; underpowered to rule out a small lever",
+      "is_central": false,
+      "acknowledgments": ["Undemonstrated, not proven zero (n=5 underpowered)."],
+      "section": "results",
+      "tags": [{"strength": "observed", "sentence_ref": "fold-unit CI includes 0"}]
+    }
+  ],
+  "warrants": [
+    {"from": "C1", "to": "C2", "warrant": "A measurable signal need not be a gradient-accessible lever."}
+  ],
+  "figures": [
+    {"figure_id": "fig:vox", "claim_id": "C1"}
+  ],
+  "sections": [
+    {"section_id": "results", "title": "Results", "claim_ids": ["C1", "C2"]}
+  ],
+  "deviation_log": []
+}
