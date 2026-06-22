@@ -1,0 +1,279 @@
+<title>The Ideal Writing System — design canvas</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --ink:#e6e9ef; --dim:#9aa3b2;
+    --line:#2a2f3a; --accent:#6ea8fe; --trust:#5fd0a8; --arg:#f0899e; --struct:#e0b15a; --voice:#c79bf0;
+    --evid:#7f8794;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1140px;margin:0 auto;padding:40px 24px 80px}
+  h1{font-size:30px;font-weight:700;letter-spacing:-.01em;margin:0 0 6px}
+  .sub{color:var(--dim);font-size:15px;margin:0 0 6px}
+  .tag{display:inline-block;font-size:12px;color:var(--dim);border:1px solid var(--line);border-radius:20px;padding:2px 12px;margin-top:10px}
+  h2{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin:48px 0 14px}
+  h3{font-size:18px;margin:0 0 6px}
+  p{margin:0 0 12px}
+  .lead{font-size:18px;line-height:1.55;color:var(--ink);border-left:3px solid var(--accent);padding-left:18px;margin:18px 0 8px}
+  .dim{color:var(--dim)}
+  code{background:#000;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px;font-family:"SF Mono",ui-monospace,Menlo,monospace;color:#cdd6e6}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:14px 0}
+  .delta{background:rgba(110,168,254,.07);border:1px solid #2f4673;border-radius:10px;padding:12px 16px;margin:14px 0;font-size:13.5px;color:var(--dim)}
+  .delta b{color:var(--ink)}
+  /* concern cols */
+  .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .col{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;border-top:3px solid var(--line)}
+  .col.trust{border-top-color:var(--trust)} .col.arg{border-top-color:var(--arg)} .col.struct{border-top-color:var(--struct)} .col.voice{border-top-color:var(--voice)}
+  .col h3{font-size:15px;margin:2px 0 0} .col .who{font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:700}
+  .trust .who{color:var(--trust)} .arg .who{color:var(--arg)} .struct .who{color:var(--struct)} .voice .who{color:var(--voice)}
+  .col p{font-size:13.5px;color:var(--dim);margin:8px 0 0}
+  .col .new{display:inline-block;font-size:9.5px;background:var(--arg);color:#2a0810;border-radius:8px;padding:0 6px;font-weight:700;margin-left:6px;vertical-align:middle}
+  /* pipeline */
+  .pipescroll{overflow-x:auto;padding-bottom:10px;margin:0 -4px}
+  .pipe{display:flex;align-items:stretch;gap:0;min-width:980px}
+  .stage{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:13px 12px;position:relative}
+  .stage .n{font-size:10.5px;color:var(--evid);font-weight:700}
+  .stage h4{font-size:13.5px;margin:3px 0 6px;line-height:1.25}
+  .stage .io{font-size:11px;color:var(--dim);line-height:1.42}
+  .stage .src{font-size:10px;color:var(--evid);margin-top:7px;font-style:italic}
+  .arrow{align-self:center;color:var(--line);font-size:22px;padding:0 3px;flex:0 0 auto}
+  .s0{border-style:dashed;background:var(--panel)}
+  /* gated package group */
+  .group{flex:3.1;border:1.5px solid #2f4673;border-radius:12px;padding:22px 10px 10px;position:relative;background:rgba(110,168,254,.04);display:flex;gap:0;align-items:stretch}
+  .group .glabel{position:absolute;top:-10px;left:14px;background:var(--accent);color:#04122e;font-size:10px;font-weight:700;padding:1px 9px;border-radius:10px;letter-spacing:.03em}
+  .group .loop{position:absolute;top:-10px;right:14px;font-size:10px;color:var(--accent);background:var(--bg);padding:0 6px}
+  .group .stage{flex:1}
+  .miniarrow{align-self:center;color:#39507e;font-size:16px;padding:0 2px}
+  /* bands */
+  .band{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:10px;padding:11px 16px;margin:8px 0}
+  .chip{flex:0 0 100px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-align:center;padding:6px 0;border-radius:7px}
+  .chip.trust{background:rgba(95,208,168,.13);color:var(--trust)} .chip.arg{background:rgba(240,137,158,.14);color:var(--arg)} .chip.struct{background:rgba(224,177,90,.13);color:var(--struct)} .chip.voice{background:rgba(199,155,240,.13);color:var(--voice)}
+  .band p{margin:0;font-size:13.5px;color:var(--dim)}
+  .band b{color:var(--ink);font-weight:600}
+  .callout{background:linear-gradient(180deg,rgba(110,168,254,.08),rgba(110,168,254,.02));border:1px solid #2f4673;border-radius:12px;padding:20px 22px;margin:18px 0}
+  .callout h3{color:var(--accent)}
+  .callout.honesty{border-color:#5a2f3c;background:linear-gradient(180deg,rgba(240,137,158,.08),rgba(240,137,158,.02))}
+  .callout.honesty h3{color:var(--arg)}
+  ul{margin:6px 0 0;padding-left:20px} li{margin:5px 0;color:var(--dim)} li b{color:var(--ink)}
+  .todo{border:1px dashed var(--line);border-radius:12px;padding:18px 22px;color:var(--dim)}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px}
+  th{text-align:left;color:var(--accent);font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:600;padding:8px 8px;border-bottom:1px solid var(--line);vertical-align:bottom}
+  td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--dim)}
+  td.id{font-family:"SF Mono",ui-monospace,Menlo,monospace;color:var(--ink);font-weight:700;white-space:nowrap}
+  td .nm{color:var(--ink);font-weight:600;display:block;margin-bottom:2px}
+  .pill{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:8px;white-space:nowrap}
+  .pill.trust{background:rgba(95,208,168,.14);color:var(--trust)} .pill.arg{background:rgba(240,137,158,.14);color:var(--arg)} .pill.struct{background:rgba(224,177,90,.14);color:var(--struct)} .pill.voice{background:rgba(199,155,240,.14);color:var(--voice)} .pill.x{background:rgba(122,135,148,.14);color:var(--evid)}
+  .det{color:var(--trust);font-weight:700} .rub{color:var(--struct);font-weight:700}
+  td.cc{color:var(--evid);font-style:italic;white-space:nowrap}
+  .tablescroll{overflow-x:auto;margin:0 -4px}
+  .tablescroll table{min-width:1100px}
+  td.pw{color:#cdb8e8;font-style:italic;font-size:12px;line-height:1.4}
+  .foot{margin-top:40px;color:var(--evid);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px}
+  @media(max-width:820px){.cols{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.cols{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+
+  <h1>The Ideal Writing System</h1>
+  <p class="sub">A design canvas for <code>/write</code> — how a system would turn recorded findings into proper, tasteful academic prose.</p>
+  <p class="sub dim">Step 1: design it hypothetically, free of any tool constraint. Step 2 (later): project onto Claude Code's real capabilities.</p>
+  <span class="tag">living document · v1.1 · step 2 build-ready · effort tiers set</span>
+
+  <div class="delta"><b>v1.0</b> (opus review — verdict BUILD-READY): folded the CC-power upgrades (see the "CC-power upgrades" box below) — <b>parallel stage-5 audits</b>, <b>Stop-hook convergence</b>, <b>structured-output verdicts</b>, <b>gate via AskUserQuestion/ExitPlanMode</b>; effort stays high-for-all (xhigh-for-3 is an open option). <span class="dim">v0.8: agent cohesion merges (F10 dissolved, lattice_integrity hook, F13 panel). v0.6: F19 + evidence.status. v0.4: 2a hardened. v0.2–0.3: 4 concerns, gated loop, 2a matrix.</span></div>
+
+  <h2>The one idea</h2>
+  <p class="lead">Good academic writing is not one skill. It is the <b>separation of four normally-tangled concerns</b>: <span style="color:var(--trust)">what</span> you claim and whether it is evidence-bound · <span style="color:var(--arg)">why</span> it follows and whether it is honestly sized · <span style="color:var(--struct)">how</span> it is ordered for a reader · the <span style="color:var(--voice)">voice</span> it is said in. Tangle them and you get our failure: a draft that is true, but reads like a story, over-reaches its scope, and no one can tell which sentences to trust without re-reading every line.</p>
+  <p class="dim"><b style="color:var(--trust)">Trust</b> + <b style="color:var(--arg)">Argument</b> = the case is true, <i>sound</i>, and <i>honestly sized</i>. <b style="color:var(--struct)">Structure</b> + <b style="color:var(--voice)">Voice</b> = it is delivered well. The human gates the <i>case</i> and the <i>plan</i> — never the lines. Trust is then earned by a <b>gate plus a high-recall audit</b>, not asserted "by construction."</p>
+
+  <div class="cols">
+    <div class="col trust"><span class="who">What · Trust</span><h3>Claims ↔ evidence</h3><p>Every claim enumerated and bound to a recorded result, tagged by evidence strength, before prose. Wording bounded by strength. Drift detected, not trusted.</p></div>
+    <div class="col arg"><span class="who">Why · Argument</span><h3>Soundness &amp; honesty<span class="new">NEW</span></h3><p>Claims connect by stated <b>warrants</b> into the central inference. Novelty and significance are themselves evidence-bound claims. <b>Scope ≠ strength</b>: an anti-over-claim gate (Opening-width = Resolution-width).</p></div>
+    <div class="col struct"><span class="who">How · Structure</span><h3>Reader-expectation</h3><p>Skeleton fixed first, fractally (context→content→conclusion at every scale). Old-to-new at the sentence — relative to an explicit <b>reader-model</b>. Importance, not chronology.</p></div>
+    <div class="col voice"><span class="who">Voice · Register</span><h3>Scientific document</h3><p>A document, not a story. No agency to abstractions, no narration of the argument, no AI tells, no unmotivated passive. The residual that is genuinely taste.</p></div>
+  </div>
+  <p class="dim" style="font-size:13px;margin-top:12px">↳ <b>narrative arc</b> (logical problem→resolution) is <span style="color:var(--struct)">Structure</span> and is <i>required</i>; <b>storytelling register</b> (drama, agency to abstractions) is <span style="color:var(--voice)">Voice</span> and is <i>banned</i>. Different things — the design names the line so two auditors can't clash.</p>
+
+  <h2>The pipeline — a gated loop, then a draft funnel</h2>
+  <p class="dim">The front three stages co-determine each other and are gated by the human as <b>one coupled package</b>. Only then does prose get generated, audited, and revised.</p>
+  <div class="pipescroll"><div class="pipe">
+
+    <div class="stage s0">
+      <div class="n">INPUT</div><h4>0 · Evidence</h4>
+      <div class="io">Recorded findings, numbers with uncertainty, verdicts. Already exists for us: the ladder + reports.</div>
+      <div class="src">our docs/ brain</div>
+    </div>
+    <div class="arrow">→</div>
+
+    <div class="group">
+      <span class="glabel">HUMAN GATES THIS PACKAGE</span>
+      <span class="loop">↻ iterate freely inside</span>
+      <div class="stage">
+        <div class="n">FRAME</div><h4>1 · Message &amp; Reader</h4>
+        <div class="io">One sentence: what does this say? Build the <b>reader-model</b> — who they are, what they already believe, what they doubt. Declare the evaluation frame.</div>
+        <div class="src">Mensh-Kording · McEnerney</div>
+      </div>
+      <div class="miniarrow">⇄</div>
+      <div class="stage">
+        <div class="n">TRUST + ARGUMENT</div><h4>2 · Claim &amp; Argument Lattice</h4>
+        <div class="io">Claims ↔ evidence (+strength). Claims ↔ <b>claims (warrants)</b> = the inference. Novelty/scope are bound claims. Honesty check: is scope ≤ evidence?</div>
+        <div class="src">D011 · Booth warrant · ScholarEval</div>
+      </div>
+      <div class="miniarrow">⇄</div>
+      <div class="stage">
+        <div class="n">STRUCTURE</div><h4>3 · Architecture + Figures</h4>
+        <div class="io">Skeleton first, fractal (CCC/OCAR/CARS). <b>Key figures are the spine</b>, drawn here not later. Claims map to sections. Reverse-then-forward.</div>
+        <div class="src">Whitesides · Schimel · Swales</div>
+      </div>
+    </div>
+    <div class="arrow">→</div>
+
+    <div class="stage">
+      <div class="n">DRAFT</div><h4>4 · Draft</h4>
+      <div class="io">Prose against the locked package. Sentence-level reader-expectation, to the reader-model. Methods/Results first, abstract last. Mechanism before metrics.</div>
+      <div class="src">Gopen-Swan · Williams</div>
+    </div>
+    <div class="arrow">→</div>
+
+    <div class="stage">
+      <div class="n">VERIFY</div><h4>5 · Audit ×4</h4>
+      <div class="io">Four independent readers, one per concern: claim-fidelity · <b>argument-soundness &amp; scope-honesty</b> · structure · voice. Plus reviewer-premortem.</div>
+      <div class="src">register-auditor · detox · reviewer-psych</div>
+    </div>
+    <div class="arrow">→</div>
+
+    <div class="stage">
+      <div class="n">LOOP</div><h4>6 · Revise</h4>
+      <div class="io">Coarse-to-fine, never reversed: logic → sentence → lexical. A <b>logic</b> revision re-enters the gate (↺), it changes the approved case.</div>
+      <div class="src">academic-writing-skills</div>
+    </div>
+
+  </div></div>
+  <p class="dim" style="font-size:13px">↺ Stage-6 <b>logic</b> revisions and supervisor/reviewer feedback re-enter at the gated package, not the draft — they change the case, and the human must re-approve. Claudio's note is a stage-5 <span style="color:var(--voice)">voice</span> miss; a "your conclusion doesn't follow" note is a stage-2 <span style="color:var(--arg)">argument</span> miss.</p>
+
+  <h2>The four dimensions run through every stage</h2>
+  <p class="dim">The spine is the sequence; these are the quality axes checked continuously along it. A stage is not done until all four hold for its output.</p>
+  <div class="band"><span class="chip trust">Trust</span><p><b>Does every claim trace to recorded evidence, at the strength its wording implies?</b> Born at stage 2, enforced through draft and audit.</p></div>
+  <div class="band"><span class="chip arg">Argument</span><p><b>Do the claims connect by valid warrants into the central inference — and is no claim scoped beyond its evidence?</b> The half that makes a thesis a thesis, and keeps us honest. Born at stage 2, the hardest thing to audit (stage 5).</p></div>
+  <div class="band"><span class="chip struct">Structure</span><p><b>Does the reader meet old before new, context before content, at every scale — for <i>this</i> reader?</b> Born at stage 1 (reader-model) + 3, realized in the draft.</p></div>
+  <div class="band"><span class="chip voice">Voice</span><p><b>Does it read as a scientific document — no story, no agency to abstractions, no tells?</b> The residual taste; the floor (linter) plus a real reader.</p></div>
+
+  <div class="callout honesty">
+    <h3>The honesty gate (why this design is ours, not a paper mill)</h3>
+    <p style="margin:0">The imported canon is a <i>persuasion</i> toolkit — it optimizes for landing a contribution and assumes you co-design the result with the writing. Our evidence is <b>frozen and recorded</b>. So the story-design machinery is subordinated to an explicit anti-over-claim rule: <b>scope ≤ evidence, strength = evidence, Opening-width = Resolution-width.</b> The system must be as good at writing "undemonstrated, not proven-zero" as at writing a win. That is the <span style="color:var(--arg)">Argument/Honesty</span> concern's job, and it has no analog in any repo we audited.</p>
+  </div>
+
+  <div class="callout">
+    <h3>Why this earns trust (corrected: by gate + audit, not "by construction")</h3>
+    <ul>
+      <li><b>The case is locked and the human approves it</b> — message, claims, warrants, scope, and skeleton, as one coupled package. Expensive judgment spent where it is cheap and decisive.</li>
+      <li><b>Voice and scope are first-class, continuously enforced</b> — not a "small residual" cleaned up at the end. The ground-truth failure (Claudio) was born in generation; it gets a dedicated, high-recall reader, not an afterthought.</li>
+      <li><b>Prose is a projection of an approved case onto reader-expectation rules, then audited for drift</b> — trustworthy to the degree the audit's recall is high. The honest claim, not the slogan.</li>
+    </ul>
+  </div>
+
+  <h2>The fluidity principle — methods are defaults, not laws</h2>
+  <div class="callout">
+    <p style="margin:0 0 10px">The methods named in each functionality (CCC / OCAR / CARS, the strength ladder, the detox list) are a <b>starting toolkit, not a closed rulebook</b>. At any functionality, if the listed methods don't fit the case in front of it, the agent should <b>stop, diagnose <i>why</i> they don't fit</b>, and then — adapt or combine them, find a better one, invent one, or <b>flag you to co-think</b> when the choice is load-bearing or it is unsure. A method that proves itself gets written back as a new option (the same way our reasoning toolkit grows).</p>
+    <p style="margin:0;padding-top:10px;border-top:1px solid var(--line)"><b>The one boundary, so fluid never means fragile:</b> this freedom lives in the <span style="color:var(--struct)">how</span> — the craft and method choices, the <span class="rub">RUB</span> layer. The <span style="color:var(--trust)">trust</span> &amp; <span style="color:var(--arg)">honesty</span> floor stays <b>rigid</b>: a claim always needs bound evidence, scope never exceeds evidence, no prose ships before the gate, provenance tags are always emitted. And <b>every deviation is logged with its reasoning</b> — fluid, never silent. (The <span class="det">DET</span> checks are exactly the rigid floor; the <span class="rub">RUB</span> ones are exactly where the agent may think for itself.)</p>
+  </div>
+
+  <h2>Step 2a · The functionality matrix</h2>
+  <p class="dim">The design broken into discrete functionalities, each sized to map to <b>one</b> CC primitive (step 2c). Seed scenario tagged <span class="det">DET</span> (assertable pass/fail) or <span class="rub">RUB</span> (rubric-graded by a judge). The <code>CC primitive</code> column is filled in 2c.</p>
+  <div class="tablescroll"><table>
+    <thead><tr><th>ID</th><th>Functionality</th><th>In plain words</th><th>Stage · concern</th><th>Input → Output</th><th>Seed scenario</th><th>CC primitive</th></tr></thead>
+    <tbody>
+      <tr><td class="id">F1</td><td><span class="nm">Reader-model</span>who the reader is, what they know vs doubt</td><td class="pw">Know who's across the table before you speak.</td><td>1 · <span class="pill struct">struct</span></td><td>venue/reader + topic → reader-model {old vs new terms, prior beliefs, doubts}; <b>enters the gate (F16)</b></td><td><span class="rub">RUB</span> ML reader: "linear probe" is old, "voxelwise noise ceiling" must be marked new-to-them</td><td class="cc">—</td></tr>
+      <tr><td class="id">F17</td><td><span class="nm">Register &amp; exemplar pin</span><span class="pill x" style="background:rgba(110,168,254,.16);color:var(--accent)">NEW</span> the standard F8b/F12 measure against</td><td class="pw">Pick the accent — Nature or NeurIPS — and grab 3 papers to copy the sound.</td><td>1 · <span class="pill voice">voice</span></td><td>venue → register spec + chosen real-paper style anchors (data/papers/)</td><td><span class="det">DET</span> no exemplar set pinned before draft → block · <span class="rub">RUB</span> register matches venue</td><td class="cc">—</td></tr>
+      <tr><td class="id">F2</td><td><span class="nm">Message &amp; frame</span>one sentence + evaluation frame</td><td class="pw">Say the whole paper in one breath; name which game you're playing.</td><td>1 · <span class="pill arg">arg</span></td><td>findings + reader-model → 1-sentence message + frame (basic-science / technology) + contribution type</td><td><span class="det">DET</span> message blends two frames unflagged → flag; not one sentence → flag</td><td class="cc">—</td></tr>
+      <tr><td class="id">F3</td><td><span class="nm">Claim binding</span>each claim ↔ recorded evidence + strength</td><td class="pw">Every claim shows its receipt. No receipt → it's an IOU (a gap).</td><td>2 · <span class="pill trust">trust</span></td><td>message + evidence (ladder/reports) → claim list, each bound to the <b>current</b> record + strength tag; binding reads <code>evidence.status</code>; unbound → \gap</td><td><span class="det">DET</span> a claim with no recorded number → \gap; a claim citing a <code>demoted/superseded</code> number as live → MUST flag (= D011)</td><td class="cc">—</td></tr>
+      <tr><td class="id">F4</td><td><span class="nm">Warrant elicitation</span>the inference between claims</td><td class="pw">Spell out the "therefore" — why this fact actually leads to that one.</td><td>2 · <span class="pill arg">arg</span></td><td>claim list → claim→claim edges, each with a stated warrant in the lattice</td><td><span class="det">DET</span> edge with empty warrant field → flag · <span class="rub">RUB</span> the warrant is actually valid</td><td class="cc">—</td></tr>
+      <tr><td class="id">F5</td><td><span class="nm">Scope &amp; novelty gate</span>scope ≤ evidence; novelty is a bound claim</td><td class="pw">Don't sell a bicycle as a spaceship — claim only as big as the evidence.</td><td>2 · <span class="pill arg">arg</span></td><td>bound claims → scope check per claim + novelty bound to a survey claim</td><td><span class="det">DET</span> banned scope-word ("generalizes", "in general") on an in-domain claim → flag · <span class="rub">RUB</span> scope&gt;evidence in general</td><td class="cc">—</td></tr>
+      <tr><td class="id">F18</td><td><span class="nm">Acknowledgment</span><span class="pill x" style="background:rgba(110,168,254,.16);color:var(--accent)">NEW</span> the rebuttal half of Toulmin/Booth</td><td class="pw">Name the punches before the reviewer throws them.</td><td>2 · <span class="pill arg">arg</span></td><td>defended claims + premortem (F13) → required acknowledgment/limitation per claim, bound into the skeleton (F6)</td><td><span class="rub">RUB</span> a defended claim with no acknowledgment carried into prose → flag</td><td class="cc">—</td></tr>
+      <tr><td class="id">F6</td><td><span class="nm">Skeleton</span>fractal section structure, claims→sections</td><td class="pw">Build the skeleton before the skin — what sits where, at every zoom.</td><td>3 · <span class="pill struct">struct</span></td><td>lattice + reader-model → CCC/OCAR/CARS skeleton, claim→section map, opening=resolution width</td><td><span class="det">DET</span> orphan claim or empty section → MUST flag (coverage)</td><td class="cc">—</td></tr>
+      <tr><td class="id">F7</td><td><span class="nm">Figure plan</span>key figures as the spine</td><td class="pw">Choose the picture that carries the story, then write around it.</td><td>3 · <span class="pill struct">struct</span></td><td>lattice → figure list, each tied to the claim it carries</td><td><span class="det">DET</span> central contribution with no figure → flag</td><td class="cc">—</td></tr>
+      <tr><td class="id">F8a</td><td><span class="nm">Structure-realize</span><span class="pill x" style="background:rgba(110,168,254,.16);color:var(--accent)">SPLIT</span> place content per skeleton</td><td class="pw">Lay the bricks in order, each line handing the baton on — and stamp each claim with its source as you go.</td><td>4 · <span class="pill struct">struct</span></td><td>locked package → realize each skeleton node as prose (old-to-new to reader-model, mechanism before metrics, methods/results first), <b>emitting one <code>\evd</code>(claim-ID, strength) tag per claim sentence as it is placed</b> — tagging is part of drafting, not a downstream pass</td><td><span class="det">DET</span> (via lattice_integrity hook) a skeleton node with no section, or a claim sentence with no <code>\evd</code> tag → flag</td><td class="cc">—</td></tr>
+      <tr><td class="id">F8b</td><td><span class="nm">Voice-realize</span><span class="pill x" style="background:rgba(110,168,254,.16);color:var(--accent)">SPLIT</span> register pass over placed prose</td><td class="pw">Now make it sound like a scientist wrote it, not a storyteller.</td><td>4 · <span class="pill voice">voice</span></td><td>structurally-placed prose + register/exemplars (F17) → register-correct prose, tags preserved</td><td><span class="rub">RUB</span> reads in the pinned venue register, no story/agency-to-abstraction</td><td class="cc">—</td></tr>
+      <tr><td class="id">F9a</td><td><span class="nm">Claim-fidelity (tag)</span>strength tag ≤ bound claim</td><td class="pw">No sentence wears a bigger badge than its evidence earned.</td><td>5 · <span class="pill trust">trust</span></td><td>tagged draft + lattice → assert each sentence's emitted strength tag ≤ its bound claim's strength</td><td><span class="det">DET</span> sentence tagged "strong" bound to an "observed" claim → MUST flag (real DET, tag emitted upstream by F8a)</td><td class="cc">—</td></tr>
+      <tr><td class="id">F9b</td><td><span class="nm">Claim-fidelity (assertion)</span>prose ≤ the tag it carries</td><td class="pw">And it doesn't secretly brag past the badge it's wearing.</td><td>5 · <span class="pill trust">trust</span></td><td>tagged draft → judge: does the sentence's actual assertion exceed the strength tag it carries?</td><td><span class="rub">RUB</span> a sentence tagged "observed" that reads as a proven causal claim → flag</td><td class="cc">—</td></tr>
+      <tr><td class="id">F10</td><td><span class="nm">Argument audit</span>warrants present in prose; scope honest</td><td class="pw">Each "therefore" on the page actually holds — not just sounds smooth.</td><td>5 · <span class="pill arg">arg</span></td><td>per paragraph + its lattice edges → audited by the <b>F4 argument-validity judge + F5 scope judge invoked on the prose</b> (no separate agent — same referees, post-draft rendering)</td><td><span class="rub">RUB</span> para B concludes from A with no warrant in the prose → flag</td><td class="cc">—</td></tr>
+      <tr><td class="id">F11</td><td><span class="nm">Structure audit</span>point-sentence, old→new, CCC</td><td class="pw">Every paragraph has a point, and flows known → new.</td><td>5 · <span class="pill struct">struct</span></td><td>draft + reader-model → per-paragraph: point sentence? old→new? CCC?</td><td><span class="rub">RUB</span> paragraph with no point sentence → flag</td><td class="cc">—</td></tr>
+      <tr><td class="id">F12</td><td><span class="nm">Voice audit</span>register / detox</td><td class="pw">Hunt the tells: storytelling, robot phrases, "it was measured by nobody".</td><td>5 · <span class="pill voice">voice</span></td><td>draft + exemplars (F17) → register defects: story, agency-to-abstraction, AI-tells, unmotivated passive</td><td><span class="det">DET</span>(lexical tells)+<span class="rub">RUB</span>(register) Claudio's 4 sentences → MUST all flag (permanent regression seed)</td><td class="cc">—</td></tr>
+      <tr><td class="id">F13</td><td><span class="nm">Reviewer premortem</span>strongest objection → feeds F18</td><td class="pw">Play the meanest reviewer; find the sentence they'll pounce on.</td><td>5 · <span class="pill x">cross</span></td><td>draft + lattice → objections, each mapped to a claim (the input to F18 acknowledgment)</td><td><span class="rub">RUB</span> each objection names a specific claim it threatens (not generic)</td><td class="cc">—</td></tr>
+      <tr><td class="id">F19</td><td><span class="nm">Consistency audit</span><span class="pill x" style="background:rgba(110,168,254,.16);color:var(--accent)">NEW</span> cross-section &amp; cross-artifact</td><td class="pw">The abstract and the body must tell the same numbers; a figure can't say more than it shows.</td><td>5 · <span class="pill trust">trust</span></td><td>full draft + lattice + figures → abstract#=body# match; abstract drops full point-estimates+CIs; caption ≤ figure</td><td><span class="det">DET</span>(number mismatch / CI-in-abstract) + <span class="rub">RUB</span>(caption ≤ figure)</td><td class="cc">—</td></tr>
+      <tr><td class="id">F14</td><td><span class="nm">Revise loop</span>coarse-to-fine; logic re-enters gate</td><td class="pw">Fix bones before nails — and if a fix moves a bone, come back to you.</td><td>6 · <span class="pill x">cross</span></td><td>audit findings → fixes in order logic→sentence→lexical; reviser declares each fix's level</td><td><span class="det">DET</span> a fix the reviser declares "logic" → MUST route to the gate, not ship silently</td><td class="cc">—</td></tr>
+      <tr><td class="id">F15</td><td><span class="nm">Lattice artifact</span>the state carried between stages</td><td class="pw">The shared notebook everyone passes along so nothing drops between hands.</td><td>· <span class="pill x">cross</span></td><td>— → shared object: claims, evidence, <code>status</code> (live/demoted/superseded), strength, warrants, scope, acknowledgments, section-map, tags</td><td><span class="det">DET</span> every field present after each stage write; no claim loses its binding (schema check)</td><td class="cc">—</td></tr>
+      <tr><td class="id">F16</td><td><span class="nm">Gate presentation</span>approve the coupled package as one</td><td class="pw">Show you the blueprint and get a yes before pouring concrete.</td><td>· <span class="pill x">cross</span></td><td>message + reader-model + lattice + skeleton → human approval; no prose before approval</td><td><span class="det">DET</span> prose generated before gate approval → MUST block (ordering)</td><td class="cc">—</td></tr>
+    </tbody>
+  </table></div>
+  <p class="dim" style="font-size:13px">21 functionalities. Every generation row (F8a) now <b>emits inline provenance</b>, so each audit has a real DET half instead of reverse-engineering trust. ~10 carry a DET sub-check (the hard regression suite); the rest are judge-graded (taste / structure / argument-validity). The orchestrator that runs 1-3-coupled → gate → 4-6-funnel is the skill body itself (not a row). <span class="dim">2b ✓ — 119 scenarios in <code>write-redesign-scenarios.md</code>. 2c ✓ — the CC mapping is its own section below. Next: 2d reverse coverage check.</span></p>
+
+  <h2>Step 2c · Projection onto Claude Code</h2>
+  <p class="dim">Each functionality mapped to one (sometimes two) CC primitive. <b>The architecture in CC terms:</b> the <code>scientific-writing</code> SKILL.md is the <b>orchestrator</b> (runs stages 1–3 as a coupled loop → gate → 4–6 funnel); <code>claim-lattice.json</code> is the <b>spine artifact</b> every stage reads/writes; <b>hooks</b> are the rigid DET floor (fire on writes, can't be argued with — this is exactly the fluidity boundary); <b>subagents</b> are the RUB judges + generators (where fluidity lives); the <b>human-gate</b> is F16. Primitive key: <b>HOOK</b> deterministic script · <b>SUBAGENT</b> (model) · <b>SKILL</b> skill-body section · <b>GATE</b> human approval · <b>ARTIFACT</b> file on disk.</p>
+
+  <div class="callout">
+    <h3>~⅕ is extend-not-build — we already own it</h3>
+    <p style="margin:0">Reuse from the current apparatus: <b>F12</b> = <code>prose_writecheck.py</code> (lexical DET) + <code>prose-register-auditor</code> (RUB) — both exist (D046). <b>F13</b> = the thinking panel (<code>premortem-analyst</code>/<code>counter-argument</code>) — exists (D017). <b>F3 / F9a</b> extend <code>honesty_writecheck.py</code> (D044). <b>F16 ordering</b> reuses the <b>D047 Stop-hook</b> pattern. The build is mostly the lattice artifact, the drafter (F8a), and the argument/scope judges (F4/F5/F10/F18).</p>
+  </div>
+
+  <div class="tablescroll"><table>
+    <thead><tr><th>ID</th><th>Functionality</th><th>CC primitive</th><th>Model</th><th>Reuse</th></tr></thead>
+    <tbody>
+      <tr><td class="id">F1</td><td>Reader-model</td><td>SUBAGENT → <code>reader-model.md</code> ARTIFACT</td><td>sonnet</td><td class="cc">build</td></tr>
+      <tr><td class="id">F17</td><td>Register &amp; exemplar pin</td><td>ARTIFACT (exemplar set, data/papers/) + HOOK (no-pin → block)</td><td>—</td><td class="cc">build (anchors mined)</td></tr>
+      <tr><td class="id">F2</td><td>Message &amp; frame</td><td>SKILL (stage-1) + GATE (Erfan confirms)</td><td>—</td><td class="cc">build</td></tr>
+      <tr><td class="id">F3</td><td>Claim binding</td><td>HOOK (extend <code>honesty_writecheck</code>: \gap + evidence.status) + ARTIFACT (lattice)</td><td>—</td><td class="cc">extend ✦</td></tr>
+      <tr><td class="id">F4</td><td>Argument-validity judge <span class="dim">(was F4+F10-warrant)</span></td><td>SUBAGENT — invoked <b>stage-2 (lattice edges)</b> + <b>stage-5 (prose)</b> + HOOK (empty-warrant schema)</td><td>opus · <b>xhigh</b></td><td class="cc">build (1 agent, 2 sites)</td></tr>
+      <tr><td class="id">F5</td><td>Scope judge <span class="dim">(was F5+F10-scope)</span></td><td>SUBAGENT — <b>stage-2 + stage-5</b> + HOOK (lexical scope-word list)</td><td>opus · <b>xhigh</b></td><td class="cc">build (1 agent, 2 sites)</td></tr>
+      <tr><td class="id">F18</td><td>Acknowledgment</td><td>SUBAGENT (limitation per defended claim; input = claims + F13 objections, NOT the whole draft)</td><td>opus</td><td class="cc">build</td></tr>
+      <tr><td class="id">F6</td><td>Skeleton</td><td>SKILL (stage-3) + ARTIFACT (skeleton) + → <code>lattice_integrity</code> HOOK</td><td>—</td><td class="cc">build</td></tr>
+      <tr><td class="id">F7</td><td>Figure plan</td><td>SKILL (stage-3) + ARTIFACT (figure list) + → <code>lattice_integrity</code> HOOK</td><td>—</td><td class="cc">build</td></tr>
+      <tr><td class="id">F8a</td><td>Structure-realize (drafter)</td><td>SUBAGENT (drafts prose, emits \evd tags — one job) + → <code>lattice_integrity</code> HOOK</td><td>opus</td><td class="cc">build (core)</td></tr>
+      <tr><td class="id">F8b</td><td>Voice-realize</td><td>SUBAGENT (register pass vs exemplars)</td><td>sonnet</td><td class="cc">build</td></tr>
+      <tr><td class="id">F9a</td><td>Claim-fidelity (tag)</td><td>HOOK (tag ≤ bound strength — mechanical given tags)</td><td>—</td><td class="cc">extend ✦</td></tr>
+      <tr><td class="id">F9b</td><td>Claim-fidelity (assertion)</td><td>SUBAGENT (assertion ≤ its own tag — kept separate from F5: fidelity-to-tag ≠ scope-vs-evidence)</td><td>opus</td><td class="cc">build</td></tr>
+      <tr><td class="id">F10</td><td>Argument audit (prose) <span class="dim">— dissolved</span></td><td><b>= the F4 judge + F5 judge invoked on the prose. No separate agent.</b></td><td>—</td><td class="cc">merged ✦</td></tr>
+      <tr><td class="id">F11</td><td>Structure judge <span class="dim">(2 sites)</span></td><td>SUBAGENT — <b>stage-3 (skeleton: width, CARS-niche)</b> + <b>stage-5 (prose: point-sentence, old→new, CCC)</b>; same referee, like F4/F5 (2d fix)</td><td>sonnet · <b>xhigh</b></td><td class="cc">build (1 agent, 2 sites)</td></tr>
+      <tr><td class="id">F12</td><td>Voice audit</td><td>HOOK (<code>prose_writecheck.py</code>) + SUBAGENT (<code>prose-register-auditor</code>)</td><td>sonnet</td><td class="cc">have ✦✦</td></tr>
+      <tr><td class="id">F13</td><td>Reviewer premortem</td><td>SUBAGENT × <b>panel</b> (premortem-analyst + counter-argument, D017) → objections, each mapped to a claim</td><td>opus</td><td class="cc">have ✦✦</td></tr>
+      <tr><td class="id">F19</td><td>Consistency audit</td><td>HOOK (abstract#≠body#, CI-in-abstract) + SUBAGENT (caption ≤ figure)</td><td>sonnet</td><td class="cc">build</td></tr>
+      <tr><td class="id">F14</td><td>Revise loop</td><td>SKILL (coarse-to-fine) + <b>STOP-HOOK</b> (block finish until every verdict <code>ready_to_ship</code>, D047 pattern) + GATE (logic fix re-enters)</td><td>—</td><td class="cc">build</td></tr>
+      <tr><td class="id">F15</td><td>Lattice artifact</td><td>ARTIFACT (<code>claim-lattice.json</code>, the spine) + → <code>lattice_integrity</code> HOOK</td><td>—</td><td class="cc">build (backbone)</td></tr>
+      <tr><td class="id">F16</td><td>Gate presentation</td><td>GATE (<b>AskUserQuestion / ExitPlanMode</b>, not ad-hoc text) + HOOK (no-prose-before-approval, D047 pattern)</td><td>—</td><td class="cc">extend ✦</td></tr>
+    </tbody>
+  </table></div>
+  <p class="dim" style="font-size:13px">Tally (post-cohesion-review): <b>~6 hook scripts</b> — one <code>lattice_integrity</code> hook (rules: schema, round-trip, orphan-claim, empty-section, central-claim-figure, node→section, every-claim-tagged) + <code>honesty_writecheck</code> (F3/F9a) + <code>prose_writecheck</code> (F12) + scope-lexical (F5) + warrant-schema (F4) + abstract-numbers (F19) + ordering (F16). <b>~10 subagent definitions</b> — F4/F5 each invoked at 2 stages; F13 = the D017 panel (2+ agents). <b>4 SKILL</b> sections · <b>2 GATE</b> points · <b>4 ARTIFACT</b> (lattice, exemplar set, reader-model, deviation log). The DET-hook / RUB-subagent line is drawn correctly everywhere (the cohesion review's one clean verdict); the work was merging duplicated judges, not splitting. <b>Reasoning effort: HIGH for all subagents, XHIGH for the 3 hardest judges</b> (F4 argument, F5 scope, F11 structure — Erfan-approved); model tier per the table (opus for argument/scope/draft, sonnet for structure/voice).</p>
+
+  <h2>Step 2d · Reverse coverage check</h2>
+  <p class="dim">Does every scenario's EXPECT actually get satisfied by its functionality's mapped primitive? Walked all 119. <b>113 satisfiable as-mapped; 6 mismatches found and re-mapped — none needed a new agent.</b> This is what 2d is for: catching a DET scenario that secretly needs a judge, or a scenario sitting under a primitive that can't produce its EXPECT.</p>
+
+  <div class="tablescroll"><table>
+    <thead><tr><th>Scenario(s)</th><th>The mismatch</th><th>The fix (re-map)</th></tr></thead>
+    <tbody>
+      <tr><td class="id">SC-CITE-1</td><td>wrong-citation ("cites E008 for an E003 finding") is RUB, but F3 is a hook — a hook checks a citation exists + is live, not whether it <i>grounds</i> this claim</td><td>route to the <b>F4 argument-validity judge</b> (the cited evidence must validly ground the claim — Toulmin grounds). F3 hook stays DET (existence + status).</td></tr>
+      <tr><td class="id">SC-HON-06</td><td>frame-blend in a <i>draft sentence</i> tagged F2, but F2 is stage-1 setup+gate, not an auditor</td><td>F2 sets &amp; gates the frame; the <b>F5 scope judge</b> enforces frame-consistency at stage-5 (frame is a scope dimension).</td></tr>
+      <tr><td class="id">SC-STR-06, SC-STR-07</td><td>skeleton opening=resolution width &amp; CARS-niche are RUB, but F6 has no judge (skill+artifact+hook only)</td><td>generalize <b>F11 structure judge to two sites</b> — stage-3 (skeleton: width, CARS) + stage-5 (prose). Same pattern as F4/F5.</td></tr>
+      <tr><td class="id">SC-VOICE-11, SC-F8b-OK</td><td>tagged F8b, but F8b is a <i>generator</i> — it can't "flag"; these are audit cases</td><td>re-tag to <b>F12</b> (voice audit). F8b the generator is validated <i>through</i> F12, not by self-flagging.</td></tr>
+      <tr><td class="id">SC-PROC-8/9/10</td><td>fluidity ("stop &amp; flag on a method misfit") is RUB but had no mapped agent</td><td>a <b>deviation-log ARTIFACT</b> + a "log any method substitution with its reasoning" clause in <i>every</i> RUB subagent's contract; the human reviews it at the gate. No new agent.</td></tr>
+      <tr><td class="id">SC-PROC-5</td><td>"a logic fix mis-declared as lexical" — DET routing only covers the <i>honest</i> declaration</td><td>the <b>F4 judge re-runs post-revise</b>; a warrant changed vs the lattice → flags the mis-declaration.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="dim" style="font-size:13px"><b>Confirmed clean:</b> every pure-DET scenario maps to a real hook (<code>lattice_integrity</code> / <code>honesty_writecheck</code> / <code>prose_writecheck</code> / abstract-numbers / ordering); and SC-PROC-11 ("don't invoke fluidity to skip a \gap") is satisfied <i>structurally</i> — the floor is a hook, and an agent cannot disable a hook. <b>Meta-finding:</b> the "one judge, two sites" shape (lattice/skeleton pre-draft, prose post-draft) now recurs three times — F4 (argument), F5 (scope), F11 (structure). That is the pipeline's natural symmetry: the same referee reads the plan, then reads the prose.</p>
+
+  <div class="callout"><h3>Step 2 complete</h3><p style="margin:0">The ideal system (4 concerns, gated-loop spine) is projected to Claude Code: <b>2a</b> 21 functionalities → <b>2b</b> 119 scenarios → <b>2c</b> CC-primitive mapping (~10 subagents, ~6 hooks, 4 skill-sections, 2 gates, 4 artifacts) → <b>2d</b> coverage verified both directions. Each step was independently opus-reviewed and hardened. Final review verdict: <b>BUILD-READY</b>. What remains is the build decision — not more design.</p></div>
+
+  <h2>Step 2 review · CC-power upgrades</h2>
+  <p class="dim">A final clean-context opus review (CC-expertise lens) returned <b>BUILD-READY</b> and flagged where the mapping under-used Claude Code. Applied:</p>
+  <div class="callout">
+    <ul style="margin:0">
+      <li><b>Parallel stage-5 audits</b> — F4/F5(prose) · F9b · F11 · F12 · F13 · F19 are independent; fan out in one message, not sequentially (~4× wall-time, one context build).</li>
+      <li><b>Stop-hook convergence</b> (F14) — the loop's "don't finish until clean" is a Stop-hook that re-blocks until every verdict is <code>ready_to_ship</code> (the D047 pattern, pipeline-scoped). The revise <i>procedure</i> stays a skill-section.</li>
+      <li><b>Structured-output verdicts</b> — every auditor returns schema-forced JSON with a <code>ready_to_ship: bool</code>, so the Stop-hook reads a boolean, not prose. (Formalizes the panel's existing <code>PANEL-VERDICT</code> blocks.)</li>
+      <li><b>Gate via AskUserQuestion / ExitPlanMode</b> (F16) — a real approval primitive, not ad-hoc text.</li>
+    </ul>
+    <p style="margin:10px 0 0;padding-top:10px;border-top:1px solid var(--line)"><b>Effort (Erfan-approved):</b> HIGH for all subagents; <b>XHIGH</b> for the 3 hardest judges — F4 argument, F5 scope, F11 structure. <b>Optional / lower-leverage (not yet applied):</b> lattice GET/PUT tools with pre-write schema validation; context-mode-index the exemplar papers to save tokens over revision cycles.</p>
+  </div>
+
+  <p class="foot">Sources: <code>docs/references/write-redesign-sources.md</code> · canon: <code>scientific-writing-methodology.md</code> · juice: <code>writing-skills-ecosystem-audit.md</code> · ground-truth failure: <code>supervisor-feedback.md</code>. v0.2 hardened against a clean-context opus counter-critique + Codex adversarial review.</p>
+
+</div>
