@@ -136,9 +136,12 @@ def iter_prose_lines(path: Path):
 def lint_file(path: Path, max_emdash: int):
     findings = []  # (lineno, category, message)
     emdash_lines = []
+    is_tex = path.suffix.lower() == ".tex"
     for lineno, text in iter_prose_lines(path):
         low = text.lower()
-        if "—" in text:
+        # Unicode em-dash anywhere; in LaTeX an em-dash is written `---`, which the
+        # unicode-only check missed entirely (the v0.2 abstract slipped two through).
+        if "—" in text or (is_tex and "---" in text):
             emdash_lines.append(lineno)
         for w in JARGON:
             if re.search(rf"\b{re.escape(w)}\b", text, re.I):
@@ -208,7 +211,8 @@ def collect_warnings(path: Path):
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Anti-AI-tell linter for scientific prose.")
     ap.add_argument("files", nargs="+", type=Path)
-    ap.add_argument("--max-emdash", type=int, default=3, help="em-dash budget per file (default 3)")
+    ap.add_argument("--max-emdash", type=int, default=0,
+                    help="em-dash budget per file (default 0: em-dashes are banned in this repo's prose)")
     ap.add_argument("--quiet", action="store_true", help="only print on findings")
     ap.add_argument("--no-warn", action="store_true",
                     help="suppress the soft register/passive warnings (heuristic, exit-neutral)")

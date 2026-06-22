@@ -23,8 +23,9 @@ checks them. Each rule below is tagged `[linter]` or `[judgment]`.
 
 ### Deterministic (the linter catches these; learn them so you stop emitting them)
 
-- **Em-dash budget `[linter]`.** Keep it near zero, three at most per document. LLM prose reaches for the
-  em-dash on every parenthetical aside. A comma, a parenthesis, or a full stop almost always reads better.
+- **Em-dashes are banned `[linter]` (budget 0).** Erfan's standing rule: no em-dashes in this repo's prose.
+  The linter now also catches the LaTeX form `---` (the unicode-only check used to miss it). Use a comma, a
+  parenthesis, or a full stop. LLM prose reaches for the em-dash on every parenthetical aside; do not.
   Quoted text keeps its original punctuation.
 - **Filler and impressive-by-default words `[linter]`.** `delve, leverage, pivotal, crucial, foster,
   showcase, testament, realm, embark, underscore, multifaceted, nuanced, intricate, cornerstone, paradigm,
