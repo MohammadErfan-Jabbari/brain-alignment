@@ -1,0 +1,25 @@
+{
+  "meta": {"stage": 4, "schema_version": "1"},
+  "message": "Brain alignment, long used only to measure a model after training, is tested as a signal during training; an information-budget argument says it can be at most a weak prior.",
+  "reader_model": {"venue": "ML", "old": ["language model", "distillation", "linear probe"], "new": ["brain alignment", "encoding model"]},
+  "claims": [
+    {
+      "claim_id": "C1",
+      "text": "A simple linear map predicts a person's brain activity from a language model's middle-layer activations on the same text.",
+      "bound_experiment": "E006",
+      "evidence_status": "live",
+      "strength": "strong",
+      "scope": "LeBel UTS03 voxelwise, reliable voxels, contiguous story-CV; corroborated on Tuckute (E002)",
+      "is_central": false,
+      "acknowledgments": [],
+      "section": "abstract",
+      "tags": [{"strength": "supported", "sentence_ref": "a simple linear map predicts the person's brain activity from the model's middle-layer activations"}]
+    }
+  ],
+  "warrants": [],
+  "figures": [],
+  "sections": [
+    {"section_id": "abstract", "title": "Abstract", "claim_ids": ["C1"]}
+  ],
+  "deviation_log": []
+}

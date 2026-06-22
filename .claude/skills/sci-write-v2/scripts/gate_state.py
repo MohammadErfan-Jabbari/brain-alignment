@@ -122,15 +122,19 @@ def approve(lattice: dict, root: Path) -> tuple[str, list[str]]:
     return h, notes
 
 
-def check(lattice: dict, root: Path) -> list[str]:
-    """The ordering floor. Findings (non-empty => block)."""
+def check(lattice: dict, root: Path, drafting: bool = False) -> list[str]:
+    """The ordering floor. Findings (non-empty => block).
+
+    `drafting` is the GROUND TRUTH that prose exists (run_checks passes it when given --prose). The floor
+    binds to prose-existence, NOT to the agent-self-reported meta.stage: an agent that writes prose but
+    leaves stage=3 must not slip past the gate. So we enforce when drafting=True OR the stage reads >= 4 OR
+    the stage is unparseable (fail safe). Only a genuine pre-draft lattice (real int stage < 4, no prose)
+    is exempt.
+    """
     f = []
     stage = _coerce_stage((lattice.get("meta") or {}).get("stage"))
-    # FAIL SAFE: an unparseable stage is treated as drafting (>= DRAFT_STAGE) so a malformed/stringified
-    # stage cannot slip prose past the floor by reading as "not drafting" (mirrors lattice_integrity's
-    # never-silently-disable posture). A genuine pre-draft lattice has a real int stage < 4.
-    if stage is not None and stage < DRAFT_STAGE:
-        return f  # no prose yet; ordering not in play
+    if not drafting and stage is not None and stage < DRAFT_STAGE:
+        return f  # no prose signal and stage is pre-draft; ordering not in play
     h = package_hash(lattice)
     if not _load(root).get(h, {}).get("approved"):
         f.append(f"[no-prose-before-approval] stage {stage}: the coupled package (hash {h}) was not "
@@ -180,6 +184,10 @@ def _selftest() -> int:
         root = Path(td)
         # SC-PROC-1: stage-4 prose, never approved -> block.
         expect("SC-PROC-1 prose-before-gate", check(lat(4, secs, claim("C1")), root), True, "no-prose-before-approval")
+        # the stage=3-with-prose bypass: drafting=True must enforce even though stage reads pre-draft.
+        expect("prose-exists overrides stage=3", check(lat(3, secs, claim("C1")), root, drafting=True), True, "no-prose-before-approval")
+        # but a genuine pre-draft (no prose signal, stage 3) is NOT blocked.
+        expect("genuine pre-draft not blocked", check(lat(3, secs, claim("C1")), root, drafting=False), False)
 
         # happy: approve the stage-3 package, then draft (stage 4, tags added) -> PASS.
         pkg3 = lat(3, secs, claim("C1"))
@@ -271,6 +279,8 @@ def main(argv=None):
     pa.add_argument("lattice", type=Path)
     pc = sub.add_parser("check")
     pc.add_argument("lattice", type=Path)
+    pc.add_argument("--drafting", action="store_true",
+                    help="prose exists (the ground-truth drafting signal): enforce regardless of meta.stage")
     args = ap.parse_args(argv)
 
     if args.selftest:
@@ -289,7 +299,7 @@ def main(argv=None):
                 print(n)
             print(f"gate_state: approved package hash {h}")
             return 0
-        return report(check(lattice, root))
+        return report(check(lattice, root, drafting=args.drafting))
     ap.print_help()
     return 1
 
