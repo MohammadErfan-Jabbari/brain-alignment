@@ -214,7 +214,7 @@ Full rationale: `docs/references/agent-fleet-redesign.md`. **Fire these by defau
 - **The moment a verdict flips or a number lands** → `wrap-auditor` on the single relevant scope (mid-session), not only at close.
 - **Session close** → `/wrap`.
 
-**Auto-firing guardrails (hooks — no model decision needed):** `agent_routing_lint` (PreToolUse on agent spawns: nudges fable-banned + judgment-heavy→opus; `lit-scout`/`dataset-scout` exempt as task-dependent) and the SessionStart snapshot that arms `/wrap`. True OS-level auto-invocation exists only for these hooks; everything else above is the standing default the agent follows by itself.
+**Auto-firing guardrails (hooks — no model decision needed):** `agent_routing_lint` (PreToolUse on agent spawns: nudges fable-banned + judgment-heavy→opus; `lit-scout`/`dataset-scout` exempt as task-dependent); the SessionStart snapshot that arms `/wrap`; and two PostToolUse write-time guards on `docs/{reports,manuscript}` edits — `honesty_writecheck.py` (D044, unsourced-number flag) and `prose_writecheck.py` (D046, anti-AI-tell linter: hard lexical tells + soft register/passive warnings; a clean run is not a clearance — supervisor-facing prose still owes the `prose-register-auditor`). True OS-level auto-invocation exists only for these hooks; everything else above is the standing default the agent follows by itself.
 
 Add more agents/skills only when a need recurs (adaptive semistructure). We deliberately did **not**
 port the Nexus v2 stage-machine — see `docs/decisions/decisions.md` D001.
