@@ -131,6 +131,10 @@ def validate(lattice: dict) -> list[str]:
     # duplicate claim_id (uniqueness is the identity the whole diff relies on)
     for cid in {x for x in claim_ids if claim_ids.count(x) > 1 and x is not None}:
         f.append(f"[schema] duplicate claim_id '{cid}'")
+    # duplicate section_id (F6 owns the sections[] namespace; a collision silently misattributes coverage)
+    sec_id_list = [s.get("section_id") for s in sections if isinstance(s, dict)]
+    for sid in {x for x in sec_id_list if sec_id_list.count(x) > 1 and x is not None}:
+        f.append(f"[schema] duplicate section_id '{sid}'")
 
     # --- schema: per claim ---
     for i, c in enumerate(claims):
@@ -165,6 +169,13 @@ def validate(lattice: dict) -> list[str]:
 
     # --- coverage rules (stage-gated) ---
     if cov_stage >= 3:
+        # a stage-3+ lattice with nothing to structure is malformed, not merely low-quality
+        if _empty(lattice.get("message")):
+            f.append("[schema] message is empty at stage >= 3 (nothing to structure around)")
+        if not claims:
+            f.append("[empty-skeleton] stage >= 3 with no claims")
+        if not sections:
+            f.append("[empty-skeleton] stage >= 3 with no sections")
         for c in claims:
             if not isinstance(c, dict):
                 continue
@@ -176,7 +187,8 @@ def validate(lattice: dict) -> list[str]:
                 f.append(f"[node->section] claim {cid}: section '{sec}' not in `sections`")
             elif cid not in sec_members.get(sec, []):
                 f.append(f"[node->section] claim {cid}: names section '{sec}' but that section omits it")
-            if c.get("is_central"):
+            # by drafting (stage >= 4) a central claim must carry a figure; dormant at stage 3 (pre-F7).
+            if c.get("is_central") and cov_stage >= 4:
                 if not any(isinstance(fig, dict) and fig.get("claim_id") == cid for fig in figures):
                     f.append(f"[central-figure] central claim {cid}: no figure references it")
         for s in sections:
@@ -276,7 +288,28 @@ def _selftest() -> int:
     d = clone(); d["claims"][0]["tags"] = []
     expect("every-claim-tagged", validate(d), True, "every-claim-tagged")
     d = clone(); d["figures"] = []
-    expect("central-figure", validate(d), True, "central-figure")
+    expect("central-figure (stage4, no fig)", validate(d), True, "central-figure")
+    # SC-STR-05: a section with no bound claim -> empty-section.
+    d = clone(); d["sections"].append({"section_id": "related", "title": "Related Work", "claim_ids": ["C1"]})
+    # 'related' lists C1 but C1.section='results' -> node->section reverse mismatch is expected here too;
+    # use a truly empty section instead to isolate empty-section:
+    d = clone(); d["sections"].append({"section_id": "related", "title": "Related Work", "claim_ids": []})
+    expect("SC-STR-05 empty-section", validate(d), True, "empty-section")
+    # SC-STR-13: stage 3, is_central claim, no figures -> central-figure DORMANT (pre-drafting). No-flag.
+    d = clone(); d["meta"]["stage"] = 3; d["figures"] = []
+    expect("SC-STR-13 central-figure dormant at stage3", validate(d), False)
+    # SC-STR-14: stage 4 (drafting), is_central claim, no figures -> MUST flag central-figure (can't die silently).
+    d = clone(); d["meta"]["stage"] = 4; d["figures"] = []
+    expect("SC-STR-14 central-figure live at stage4", validate(d), True, "central-figure")
+    # SC-STR-15: duplicate section_id -> schema (the F6 namespace guard).
+    d = clone(); d["sections"].append({"section_id": "results", "title": "dup", "claim_ids": ["C1"]})
+    expect("SC-STR-15 duplicate section_id", validate(d), True, "schema")
+    # SC-STR-16: message null at stage >= 3 -> schema (F6 step-1 backstop).
+    d = clone(); d["message"] = None
+    expect("SC-STR-16 null message at stage>=3", validate(d), True, "schema")
+    # SC-STR-17: empty skeleton at stage 3 -> empty-skeleton (malformed, not merely low-quality).
+    d = clone(); d["meta"]["stage"] = 3; d["claims"] = []; d["sections"] = []; d["figures"] = []; d["warrants"] = []
+    expect("SC-STR-17 empty skeleton", validate(d), True, "empty-skeleton")
 
     # oracle's new boundary scenarios
     d = clone(); d["sections"][0]["claim_ids"] = ["C1"]  # omits C2 which still says section=results

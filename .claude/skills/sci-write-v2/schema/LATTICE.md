@@ -48,14 +48,18 @@ Stage-aware via `meta.stage`. Two modes:
 
 `validate <lattice>` — single snapshot:
 1. **schema** — top-level keys present (incl. `deviation_log`); every claim has all required keys; enums
-   valid; `claim_id` unique; `meta.schema_version == "1"`; `meta.stage` is an int in 1–6 (a digit-string is
-   coerced **and** flagged; an unparseable stage flags **and** fails safe to running all coverage, never
-   silently disabling it); `is_central` is a bool; each `\evd` tag is `{strength: <enum>, sentence_ref: <text>}`. (always)
+   valid; `claim_id` **and** `section_id` unique; `meta.schema_version == "1"`; `meta.stage` is an int in 1–6
+   (a digit-string is coerced **and** flagged; an unparseable stage flags **and** fails safe to running all
+   coverage, never silently disabling it); `is_central` is a bool; each `\evd` tag is
+   `{strength: <enum>, sentence_ref: <text>}`; `message` is non-null at stage ≥ 3 (nothing to structure around). (always / as noted)
 2. **orphan-claim** — every claim's `section` is non-null and names an existing section. (stage ≥ 3)
-3. **empty-section** — every section has ≥1 *existing* claim. (stage ≥ 3)
+3. **empty-section / empty-skeleton** — every section has ≥1 *existing* claim; and a stage ≥ 3 lattice has ≥1
+   claim and ≥1 section (an empty skeleton is malformed, not merely low-quality). (stage ≥ 3)
 4. **node→section** — the claim↔section map agrees **both** directions: a claim's `section` exists *and* that
    section lists the claim; a section's `claim_ids` all resolve. (stage ≥ 3)
-5. **central-claim-figure** — every `is_central` claim has ≥1 figure referencing it. (stage ≥ 3)
+5. **central-claim-figure** — every `is_central` claim has ≥1 figure referencing it. **Dormant at stage 3**
+   (skeleton, pre-figure); **mandatory at stage ≥ 4** (drafting). Gated on stage, not a self-reported flag, so
+   it cannot die silently if F7 is skipped.
 6. **warrant-ref / figure-ref** — every warrant `from`/`to` and every figure `claim_id` resolves to an
    existing claim (no dangling edges in the spine). (always)
 7. **every-claim-tagged** — every claim has ≥1 well-formed `\evd` tag. (stage ≥ 4)
