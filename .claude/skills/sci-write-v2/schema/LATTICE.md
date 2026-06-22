@@ -74,3 +74,12 @@ Stage-aware via `meta.stage`. Two modes:
    `diff` also composes in `validate(after)`, so a single `diff` call is self-sufficient.
 
 Empty-warrant (F4) and lexical scope-words (F5) are separate hooks, **not** part of `lattice_integrity`.
+
+## Draft output conventions (F8a → checked by `draft_check.py`)
+The drafter writes a prose file alongside the lattice. Two literal conventions make the prose machine-checkable
+without parsing natural language:
+- **Section boundary:** a line by itself, `%%SECTION <section_id>`, before each section's prose. Every lattice
+  section must have one (SC-PROC-3); the markers are stripped before final render.
+- **Claim provenance:** `\evd{<claim-id>}{<strength>}` at the end of each claim sentence (SC-PROC-4). The same
+  event is mirrored into that claim's `tags[]` (`{strength, sentence_ref}`); the two must agree (`tag-desync`).
+`sentence_ref` is the claim sentence verbatim, so F9b can judge the prose against the tag.

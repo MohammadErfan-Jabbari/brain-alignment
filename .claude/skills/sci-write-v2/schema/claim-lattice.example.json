@@ -17,15 +17,15 @@
     },
     {
       "claim_id": "C2",
-      "text": "Optimizing the brain loss does not raise held-out alignment at the honest inference unit.",
-      "bound_experiment": "E004",
+      "text": "Optimizing the brain loss yields no per-individual brain-specific alignment gain over perplexity-only KD.",
+      "bound_experiment": "E008",
       "evidence_status": "live",
       "strength": "observed",
-      "scope": "n=5 folds, Qwen0.5B; underpowered to rule out a small lever",
+      "scope": "per-individual, n=9, LeBel, Qwen0.5B; MDE ~+0.0006",
       "is_central": false,
-      "acknowledgments": ["Undemonstrated, not proven zero (n=5 underpowered)."],
+      "acknowledgments": ["Undemonstrated, not proven zero (powered null at the tested MDE)."],
       "section": "results",
-      "tags": [{"strength": "observed", "sentence_ref": "fold-unit CI includes 0"}]
+      "tags": [{"strength": "observed", "sentence_ref": "per-individual delta +0.00010, CI includes 0"}]
     }
   ],
   "warrants": [
