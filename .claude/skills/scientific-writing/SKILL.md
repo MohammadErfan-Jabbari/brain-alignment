@@ -122,9 +122,14 @@ a reminder:
   `/meta` or analysis session, stop and start a real `/write` session.
 - **No prose in `docs/manuscript/` reaches a human (supervisor, committee, venue) until the full loop has
   run on it, review pass included.** The review pass is the gate; the `prose_writecheck.py` hook is the
-  always-on tripwire that fires even when the loop is skipped (it cannot be bypassed by mislabeling the
-  work); the `/wrap` audit is the backstop. A clean deterministic run is **not** a clearance — the linter
-  cannot catch the register class, so supervisor-facing prose always owes the auditor.
+  always-on per-edit tripwire (it cannot be bypassed by mislabeling the work). A clean deterministic run is
+  **not** a clearance — the linter cannot catch the register class, so supervisor-facing prose always owes
+  the auditor.
+- **The convergence gate is enforced, not trusted (D047).** A `Stop` hook blocks the agent from ending its
+  turn while an edited manuscript/report has no clean register verdict keyed to its current bytes. "Done"
+  means a fresh ≥2-auditor quorum returned **zero** findings on the final draft and the verdict was recorded
+  (`scripts/record_register_verdict.py`); see `references/review-pass.md` ("The convergence gate"). This is
+  decoupled from `/wrap` — write quality is enforced at the write actuator, not at session close.
 
 ## Five things that hold, and why
 

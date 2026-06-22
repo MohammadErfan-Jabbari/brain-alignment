@@ -53,6 +53,28 @@ the ones that hold. Re-run until no hole survives. A finding the draft cannot an
 (flag it with `\gap`) or an over-claim (fix the verb or the scope). Do not wave it away. The register
 findings are prose fixes, not evidence questions: drop the framing and assert the content.
 
+## The convergence gate (D047) — you cannot finish dirty
+
+The review pass is not done when you have *run* the auditor; it is done when a **fresh, independent**
+audit of the **final bytes** comes back with **zero findings** (not zero load-bearing — zero). This is
+enforced, not trusted: a `Stop` hook (`.claude/hooks/stop_register_gate.py`) blocks the agent from ending
+its turn while an edited `docs/manuscript/` or `docs/reports/` deliverable has no clean verdict keyed to
+its current content hash. The v0.2 session failed precisely here — it stopped at `REGISTER-CLEAN: NO`,
+fixed three things, and never re-audited; an in-session self-review found 3 residuals where a fresh strict
+pass found ~13 (L055). So the terminating procedure is fixed:
+
+1. Make your fixes.
+2. Spawn a **quorum of ≥2 FRESH `prose-register-auditor` agents** on the final draft — fresh meaning new
+   `Agent` spawns with no writing context (the writer grading its own edits is the failure mode). Save each
+   agent's raw output to a file.
+3. Every auditor must return `REGISTER-CLEAN: YES` with zero findings. Any finding → fix and re-spawn fresh.
+   Do not triage "minor" findings away; the pass bar is zero, and deferral is only via an explicit
+   Erfan-approved accepted-residual.
+4. Record the verdict: `uv run python scripts/record_register_verdict.py --group <group> --audits a1.txt a2.txt`.
+   It refuses unless ≥2 fresh outputs all say YES, and stamps the verdict to the current content hash. This
+   is the only thing that releases the `Stop` gate. (Accepted-residual escape: `--accept-residual --note`,
+   used only with Erfan's explicit sign-off.)
+
 For a LaTeX manuscript, run the first-pass-readability lens on the **rendered PDF**, not only the source.
 A dense equation-laden passage or an inline number-dump can pass the source-level linter and still stop a
 reader cold on the page; the source style (one sentence per line) is for grep and diff, not for reading.

@@ -17,8 +17,15 @@ A manuscript build or revision is its own logged `/write` session, never an add-
 `/meta` or analysis session — that bypass is exactly how v0.1 storytelling prose reached a supervisor
 un-reviewed (L054). No prose in `docs/manuscript/` reaches a human until the full loop has run on it, the
 non-skippable review pass (which spawns `prose-register-auditor`) included. The `prose_writecheck.py` hook
-is the always-on tripwire; a clean deterministic run is not a clearance, because the linter cannot catch
-the register class.
+is the always-on per-edit tripwire; a clean deterministic run is not a clearance, because the linter cannot
+catch the register class.
+
+**Convergence is enforced (D047).** A `Stop` hook will not let you end the turn while an edited
+`docs/manuscript/` or `docs/reports/` deliverable lacks a clean register verdict keyed to its current
+bytes. "Done" = a fresh quorum (≥2 new `prose-register-auditor` spawns, no writing context) returns **zero**
+findings on the final draft, recorded via `scripts/record_register_verdict.py`. Stopping at
+`REGISTER-CLEAN: NO`, or self-reviewing your own edits, is the v0.2 failure (L055) — the gate now refuses it.
+This lives in the write pipeline, not `/wrap`.
 
 ## Boundary
 
