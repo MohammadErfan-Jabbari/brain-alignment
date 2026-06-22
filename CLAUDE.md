@@ -166,6 +166,7 @@ Rules (unchanged): scoped staging only — never `git add -A`/`.`; stage explici
 | `dataset-verifier` | Mechanical data-readiness — response matrix present? shape? voxel mapper? timestamps? annex pulled? — to prevent mid-run walls. (sonnet) |
 | `dataset-scout` | Find/characterize a new dataset (access / format / pipeline / prior-use); the dataset mirror of `lit-scout`. (sonnet to gather / opus to analyze) |
 | `paper-repo-extractor` | One paper's repo → mechanical data/code/checkpoint/license extraction; built for fan-out. (haiku) |
+| `prose-register-auditor` | Read a draft (report/manuscript) for the scientific-register tells the linter can't catch — anthropomorphized abstractions, self-narrated moves, internal-metaphor leakage, dramatized framing, reflex passive density. Spawned by the `scientific-writing` review pass for anything supervisor-facing; the dedicated voice reader (vs the panel, which attacks the claim). Read-only; never edits. (sonnet; D046/L054) |
 
 The **`/precheck`** command (anti-confound-designer → oracle-reviewer → READY-TO-RUN) is the pre-compute gate; the full fleet rationale + the §4 thinker-prompt alignment live in `docs/references/agent-fleet-redesign.md`.
 
