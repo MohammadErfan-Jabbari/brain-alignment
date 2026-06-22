@@ -24,6 +24,8 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 - [ ] **Sweep remaining "working/analysis" mentions → stances:** `CLAUDE.md` fleet/self-activation section, `goalsmith` ("working sessions only"), agent descriptions. D044 documents the mapping; this removes the residual drift.
 - [ ] **Resolve `R06:96`** — a bare `+0.0280` with no cite (add `[E0nn]` or `\gap`); the new write-time hook will flag it on the next R06 edit.
 - [x] **Ingest the `/teach` pedagogy `\gap` papers** (S28, 2026-06-20) — Erfan supplied the 4 unreachable PDFs; all read first-hand. Filled Moser 2011 + B&M 2001 `\gap`s; new notes for B&M 2006, Bodily 2018, Long & Aleven 2017. Corrected Long & Aleven N=302→**301** and "OLM-only-with-control"→Exp-2 interaction. No `\gap` left in the pedagogy set.
+- [x] **Prose ship-gate (D046)** (S30, 2026-06-22) — register rules in `scientific-writing`, linter tripwire/meter, the `prose-register-auditor` agent, the always-on `prose_writecheck.py` hook; L054. (Session was unwrapped; logged retroactively at the S31 wrap.)
+- [x] **Extended manuscript v0.2 / checkpoint 2** (S31, 2026-06-22) — folded **R07 (Q1)** + repaired the v0.1 register (L054/D046); installed a working LaTeX toolchain (tectonic 0.16.9 + biber 2.17, L055) and fixed a latent `references.bib` build bug; PDF built (15 pp). Verified: `run_checks` PASS, claim panel clean, `prose-register-auditor` ×2. No science number, no rung change.
 - [ ] **(low priority, parked S28) Global "subagent must set `model`" hook** — strict version: a global `PreToolUse` hook on `Task|Agent` that blocks any spawn with no explicit `model` (enforces the global "always set model, never inherit" rule; robust to a fleet agent whose definition forgot its `model:` default). Verify it doesn't break harness-internal spawns before enabling. Lives in `~/.claude/`, not this repo. Not urgent — the fleet agents self-route via frontmatter defaults today.
 
 ### 🔬 IMPLEMENTATION lane — the ORDERED ROADMAP (do in sequence; TRIBE is the capstone, LAST)
@@ -142,8 +144,10 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 - [ ] **R10** (Q3 — null is method-general) · **R11** (Q3 — the quality law) · **R12** (Q3 — the ceiling, scoped; keystone) · **R13** (Q3 — external reproduction) · **R14** (Q4/A3 — no practical payoff).
 - [ ] **Figures:** confirm `scripts/figures/make_figures.py` renders the recorded numbers
   (averaging-collapse / powered A2 / A3 nulls / dose-response-with-caveat).
-- [ ] **Extended manuscript:** consolidate the finding-reports into the extended manuscript at a checkpoint Erfan
-  calls (never auto-updated, D035); seed from v0.9. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
+- [~] **Extended manuscript (running log; checkpoints called by Erfan, never auto-updated, D035):**
+  - [x] **Checkpoint 1** (2026-06-16) — opened; R06 (Q0/A2) + front matter (R01/R03/R04) folded in.
+  - [x] **Checkpoint 2 / v0.2** (S31, 2026-06-22) — R07 (Q1) folded in + v0.1 register repair (L054/D046); PDF built (tectonic+biber, L055).
+  - [ ] **Checkpoint 3** — fold R08 (Q2) once its finding-report is written; then R09–R14 as they land. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
 
 ### Done this session (S26 — tooling; NO science, NO number, NO rung moved)
 - [x] 2026-06-19 — **Firecrawl set up for the repo** (`71c0894`, `c868446`; D043). Cloud MCP only (Docker unusable → self-host impossible); project-scoped `.mcp.json` (remote transport, `${FIRECRAWL_API_KEY}` interpolated, no secret committed); `firecrawl-research-index` skill installed repo-local (`.claude/skills/`, drives `firecrawl_research_*`, complements lit-scout); `## Firecrawl` section in `CLAUDE.md`. The 5 build-* skills skipped; estack untouched (Erfan-directed). Partially resolves D041's deferred `.mcp.json` (does not shadow Exa).
