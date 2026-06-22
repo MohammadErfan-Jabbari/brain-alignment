@@ -197,7 +197,7 @@ Each agent declares its default in `model:` frontmatter; override per call when 
 
 Full rationale: `docs/references/agent-fleet-redesign.md`. **Fire these by default at the matching phase — don't wait to be asked; commoditizing the workflow so Erfan never re-explains it is the whole point.**
 
-**Commands** (`.claude/commands/`): **`/orient`** (session start — where we are + next step; now also flags uncommitted work + a missed `/wrap`) · **`/precheck`** (pre-compute gate — `anti-confound-designer` assembles the control battery → `oracle-reviewer` gates it → `READY-TO-RUN`) · **`/goalsmith <item>`** (build the ≤4000-char single-line `/goal` condition for a working item, pointing at its PRD) · **`/wrap`** (session close — ritual + parallel `wrap-auditor` swarm). **Skills:** **`scientific-writing`** (all report/manuscript prose; the D011 number rule) and **`/graphify`** (code/corpus navigation); global gbrain/estack skills route via their resolvers.
+**Commands** (`.claude/commands/`): **`/orient`** (session start — where we are + next step; now also flags uncommitted work + a missed `/wrap`) · **`/precheck`** (pre-compute gate — `anti-confound-designer` assembles the control battery → `oracle-reviewer` gates it → `READY-TO-RUN`) · **`/goalsmith <item>`** (build the ≤4000-char single-line `/goal` condition for a working item, pointing at its PRD) · **`/wrap`** (session close — ritual + parallel `wrap-auditor` swarm). **Skills:** **`scientific-writing`** (all report/manuscript prose; the D011 number rule); global gbrain/estack skills route via their resolvers.
 
 **Agents** (`.claude/agents/`, 14) — grouped by *when* in the loop they run:
 - **Pre-compute (BEFORE a run):** `anti-confound-designer` (assemble the battery) → `oracle-reviewer` (gate it, DESIGN mode).
@@ -268,24 +268,84 @@ docs-first `/wrap` ritual). **Sandbox note:** bwrap can't run in this container,
 is **disabled** (`danger-full-access`; the Docker container is the boundary, git catches stray edits) —
 mechanics + the plugin-patch-reapply caveat in `docs/references/codex-usage.md`.
 
-## graphify (code/corpus navigator — subordinate to the docs brain)
+## context-mode — MANDATORY routing rules
 
-graphify builds a queryable knowledge graph of this repo at `graphify-out/` (god nodes,
-communities, cross-file edges). It is a **navigation aid, not a source of truth.** The order of
-authority is unchanged: `docs/ladder.md` and the `docs/` brain win (read them first, per "Read this
-first"); gbrain is the knowledge layer; graphify just helps you find code and trace relationships
-fast. **Never let graphify override the docs-first session ritual, and never report a number from the
-graph — numbers come only from the `docs/` brain.**
+context-mode MCP tools available. Rules protect context window from flooding. One unrouted command dumps 56 KB into context.
 
-Use it when it helps:
-- Tracing code you didn't write (esp. the cloned external repos under `data/paper-repos/`):
-  `graphify query "<question>"`, `graphify path "<A>" "<B>"`, `graphify explain "<concept>"` —
-  faster than grepping an unfamiliar repo. Scope is set by `.graphifyignore` (overrides `.gitignore`).
-- After changing our own code, `graphify update .` keeps it current (AST-only, free).
+### Think in Code — MANDATORY
 
-Mechanics: code is parsed locally by tree-sitter (free); docs/PDFs/images go to the host model
-(token cost) — so the full graph is built in Antigravity/Gemini, then queried from here. No PreToolUse
-hooks are installed (deliberately — they nag against the docs ritual).
+Analyze/count/filter/compare/search/parse/transform data: **write code** via `ctx_execute(language, code)`, `console.log()` only the answer. Do NOT read raw data into context. PROGRAM the analysis, not COMPUTE it. Pure JavaScript — Node.js built-ins only (`fs`, `path`, `child_process`). `try/catch`, handle `null`/`undefined`. One script replaces ten tool calls.
+
+### BLOCKED — do NOT attempt
+
+**curl / wget — BLOCKED.** Intercepted and replaced with error. Do NOT retry. Use: `ctx_fetch_and_index(url, source)` or `ctx_execute(language: "javascript", code: "const r = await fetch(...)")`.
+
+**Inline HTTP — BLOCKED.** `fetch('http`, `requests.get(`, `requests.post(`, `http.get(`, `http.request(` — intercepted. Do NOT retry. Use: `ctx_execute(language, code)` — only stdout enters context.
+
+**WebFetch — BLOCKED.** Use: `ctx_fetch_and_index(url, source)` then `ctx_search(queries)`.
+
+### REDIRECTED — use sandbox
+
+**Bash (>20 lines output).** Bash ONLY for: `git`, `mkdir`, `rm`, `mv`, `cd`, `ls`, `npm install`, `pip install`. Otherwise: `ctx_batch_execute(commands, queries)` or `ctx_execute(language: "javascript", code: "...")`. Use `language: "shell"` only when code matches the host shell.
+
+**Read (for analysis).** Reading to **Edit** → Read correct. Reading to **analyze/explore/summarize** → `ctx_execute_file(path, language, code)`.
+
+**Grep — may flood context.** Use `ctx_execute(language: "javascript", code: "...")` in sandbox for portable filtering/counting.
+
+### Tool selection
+
+0. **MEMORY**: `ctx_search(sort: "timeline")` — after resume, check prior context before asking user.
+1. **GATHER**: `ctx_batch_execute(commands, queries)` — runs all commands, auto-indexes, returns search. ONE call replaces 30+. Each command: `{label: "header", command: "..."}`.
+2. **FOLLOW-UP**: `ctx_search(queries: ["q1", "q2", ...])` — all questions as array, ONE call (default relevance mode).
+3. **PROCESSING**: `ctx_execute(language, code)` | `ctx_execute_file(path, language, code)` — sandbox, only stdout enters context.
+4. **WEB**: `ctx_fetch_and_index(url, source)` then `ctx_search(queries)` — raw HTML never enters context.
+5. **INDEX**: `ctx_index(content, source)` — store in FTS5 for later search.
+
+### Parallel I/O batches
+
+For multi-URL fetches or multi-API calls, **always** include `concurrency: N` (1-8):
+
+- `ctx_batch_execute(commands: [3+ network commands], concurrency: 5)` — gh, curl, dig, docker inspect, multi-region cloud queries
+- `ctx_fetch_and_index(requests: [{url, source}, ...], concurrency: 5)` — multi-URL batch fetch
+
+**Use concurrency 4-8** for I/O-bound work (network calls, API queries). **Keep concurrency 1** for CPU-bound (npm test, build, lint) or commands sharing state (ports, lock files, same-repo writes). GitHub API rate-limit: cap at 4 for `gh` calls.
+
+### Subagent routing
+
+Routing block auto-injected into subagent prompts. Bash-type subagents upgraded to general-purpose. No manual instruction needed.
+
+### Output
+
+Write artifacts to FILES — never inline. Return: file path + 1-line description. Descriptive source labels for `ctx_search(source: "label")`.
+
+### Session Continuity
+
+Skills, roles, and decisions persist for the entire session. Do not abandon them as the conversation grows.
+
+### Memory
+
+Session history is persistent and searchable. On resume, search BEFORE asking the user:
+
+| Need | Command |
+|------|---------|
+| What were we working on? | `ctx_search(queries: ["summary"], source: "compaction", sort: "timeline")` |
+| What was the first request? | `ctx_search(queries: ["prompt"], source: "user-prompt", sort: "timeline")` |
+| What did we decide? | `ctx_search(queries: ["decision"], source: "decision", sort: "timeline")` |
+| What NOT to repeat? | `ctx_search(queries: ["rejected"], source: "rejected-approach")` |
+| What constraints exist? | `ctx_search(queries: ["constraint"], source: "constraint")` |
+
+DO NOT ask "what were we working on?" — SEARCH FIRST. If search returns 0 results, proceed as a fresh session.
+
+### ctx commands
+
+| Command | Action |
+|---------|--------|
+| `ctx stats` | Call `ctx_stats` MCP tool, display full output verbatim |
+| `ctx doctor` | Call `ctx_doctor` MCP tool, run returned shell command, display as checklist |
+| `ctx upgrade` | Call `ctx_upgrade` MCP tool, run returned shell command, display as checklist |
+| `ctx purge` | Call `ctx_purge` MCP tool with confirm: true. Warns before wiping knowledge base. |
+
+After /clear or /compact: knowledge base and session stats preserved. Use `ctx purge` to start fresh.
 
 ## Firecrawl (web-data provider — subordinate to the docs brain)
 
@@ -293,7 +353,7 @@ Firecrawl turns live web pages into clean, LLM-ready markdown and runs a researc
 and code. It is wired in as a **project-scoped MCP server** (`.mcp.json` at repo root, remote transport
 `https://mcp.firecrawl.dev/${FIRECRAWL_API_KEY}/v2/mcp`; key from `~/.config/secrets/env`, never
 hardcoded). **Cloud API only** — the self-hosted stack needs Docker, which this container can't run.
-First use in a session prompts for MCP approval; that's expected. Same authority order as graphify/Codex:
+First use in a session prompts for MCP approval; that's expected. Same authority order as Codex:
 **`docs/ladder.md` and the `docs/` brain win; gbrain is the knowledge layer; Firecrawl just fetches
 external web content.** It never produces a science number and never flips a rung.
 
