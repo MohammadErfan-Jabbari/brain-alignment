@@ -1,6 +1,6 @@
 \section{Methods}
 
-\subsection{The encoding model and the only score we trust}
+\subsection{The encoding model and the alignment score}
 
 Alignment is measured with an encoding model: a ridge regression from a frozen model's per-stimulus middle-layer activations $X$ to recorded brain activity $Y$, fit on training stimuli and scored on held-out ones.
 For activations $X \in \mathbb{R}^{n\times d}$ over $n$ stimuli and a $v$-voxel response $Y$, the fitted map is
@@ -33,13 +33,13 @@ The same chain rule with a stronger $Z$ is what the downstream ceiling analysis 
 
 \subsection{Why brain data can only be a weak prior}
 
-The regime where a brain signal could matter follows from a budget argument, and it is worth stating because it predicts where the experiments should and should not expect an effect.
+The regime where a brain signal could matter follows from an information budget, and that budget predicts where the experiments should and should not find an effect.
 Adding a brain term to a language objective is, up to constants, a maximum-a-posteriori estimate in which the text enters as the likelihood and the brain term as the log-prior.
 The likelihood's pull scales with the supervision it carries, on the order of $10^{12}$ to $10^{13}$ bits across a training corpus, while the brain side offers $10^3$ to $10^4$ noisy stimuli whose per-voxel information is capped by a noise-ceiling channel capacity $I \le \tfrac12\log_2(1+\mathrm{SNR})$ with $\mathrm{SNR}=r_{\max}^2/(1-r_{\max}^2)$, putting the usable brain budget, as an order-of-magnitude estimate, around $10^4$ to $10^6$ bits \autocite{cover2006}.
 The data-processing inequality shrinks even that: the brain response is a noisy function of the same stimulus the model already trains on, so for the chain $S\to R(S)\to Y$ it carries no more about the optimal parameters than the stimulus does, $I(\theta^\star;Y)\le I(\theta^\star;S)$ \autocite{cover2006}.
 A prior this weak cannot teach new task structure against a likelihood this strong; what it can do is \emph{select} among the high-dimensional manifold of near-equivalent text-optima that a large model admits, which is the precise sense in which a brain term is a regularizer rather than a teacher.
 A generalization bound makes the consequence quantitative: a prior concentrated on the right hypotheses tightens a sample-complexity bound by an amount that scales as the square root of the extra information it injects over the task data, and so vanishes as that data grows \autocite{xu2017}.
-A weak-but-aimed brain prior is therefore predicted to help most in low-information regimes (small, under-trained, or aggressively compressed models) and to wash out where the text signal already dominates, which is the regime logic behind targeting distillation.
+A weak-but-aimed brain prior should therefore help most in low-information regimes (small, under-trained, or aggressively compressed models) and wash out where the text signal already dominates, which is the regime logic behind targeting distillation.
 
 \subsection{The verdict statistic: the trained\textendash untrained gap}
 
@@ -55,7 +55,7 @@ Three controls make that gap trustworthy, and they are applied uniformly.
 \emph{A capacity-fair nuisance floor}: the wide contextual block and the wide static-embedding block are each reduced by PCA to the same rank, fit on the training fold only, so that when the model wins it wins on content rather than on carrying more dimensions; the few low-level scalars stay raw \evd{E006}.
 \emph{A held-out noise ceiling}: on the voxelwise run only reliable voxels are kept, and they are selected on a separate story repeated ten times and held entirely out of the cross-validation pool, scored by split-half reliability, so the estimate is not inflated by voxels that happen to correlate with the model by chance \evd{E006}.
 Surprisal is deliberately left out of the nuisance set, since it is itself an LM-derived quantity and subtracting it would over-subtract the construct under test; log word-frequency, a static lexical scalar, is distinct and is subtracted \evd{E006}.
-The permuted-target null, which tests brain-\emph{specificity}, is not part of the reality question and enters only where the question is whether the signal can be moved.
+The permuted-target null (brain responses shuffled across stimuli, which breaks the stimulus-response pairing while preserving temporal structure) tests brain-\emph{specificity}, not reality, and enters only where the question is whether the signal can be moved.
 
 \subsection{Data and models}
 

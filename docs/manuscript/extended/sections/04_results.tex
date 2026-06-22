@@ -55,15 +55,67 @@ Surprisal and imageability are deliberately left unsubtracted, so a residual con
   \label{fig:a2}
 \end{figure}
 
-The signal is real beyond confounds on real neural data, with the breadth carried by the three-model ROI screen and the power carried by the deeply-sampled single subject UTS03 at voxel scale; the cross-subject generality of the powered effect is a question the single-subject design leaves open, not one it settles.
+The signal is real beyond confounds on real neural data.
+The three-model ROI screen carries the breadth, and the deeply-sampled single subject UTS03 carries the statistical power at voxel scale.
+Cross-subject generality of the powered effect is a question this single-subject design leaves open, not one it settles.
 Qwen aligns more strongly than either GPT-2 variant, while the two GPT-2 variants are nearly tied despite a threefold parameter difference, so this single cross-family contrast does not by itself establish a quality ordering; that question is taken up later \evd{E002}.
-This is the one load-bearing positive of the thesis, and it licenses the questions the rest of the program asks without pre-judging them: whether the signal can be moved, and whether moving it buys anything.
-The discipline the whole arc turns on, stated once: real does not imply movable, and movable does not imply useful, and this result establishes only that the signal is real.
+This is the one load-bearing positive in the program, necessary but not sufficient for everything after it.
+\emph{Real} does not imply \emph{movable}, and \emph{movable} does not imply \emph{useful}: this result establishes only that the signal is real.
 
-\subsection{Plain distillation does not preserve alignment for free}
-\gap{Results Q1 awaits finding-report R07 (source E003): the monotone alignment gradient, the quality co-variation, and the unresolved KD-specific shedding. Do not consolidate from the experiment record before R07 is written.}
+\subsection{Plain distillation does not preserve alignment by default}
 
-\subsection{The brain loss is a lever, but a weak and quality-confounded one}
+Knowledge distillation (KD) trains a smaller student to match a larger teacher's output distribution rather than to learn directly from text.
+A student trained that way does not keep the teacher's brain alignment for free: ordered by how much of each representation was rebuilt through the distillation channel rather than inherited from ordinary pretraining, unique $R^2$ falls monotonically, and a from-scratch logit-KD student lands far below its teacher, a gap of \result{e003_kd_cold_delta} ($p<0.001$) at which it retains only \result{e003_kd_cold_retention} of the teacher's alignment above an untrained floor \evd{E003}.
+This rules out the outcome that would have made the compression question a non-problem, preservation by default, and sizes the alignment a perplexity-only objective leaves below the teacher.
+What it does not establish is the stronger claim that the distillation objective sheds alignment beyond the language-model quality it costs: across the trained and distilled models alignment tracks log-perplexity at Pearson \result{e003_quality_corr}, so quality alone could account for the whole gradient \evd{E003}\evd{L011}.
+
+The quantity is the headroom $\Delta = A_T - A_S$ between the teacher's alignment $A_T$ and the student's $A_S$, both measured on the apparatus of the reality result: unique $R^2$ on the Tuckute ROI screen, contiguous folds, the capacity-fair nuisance floor.
+The gap is an empirical question rather than a corollary, and the reason fixes the design.
+For a deterministic post-processing of a fixed teacher, the quantization and pruning of \textcite{oota2026}, the student's features depend on the stimulus only through the teacher's, so the data-processing inequality bounds $I(Z_{\mathrm{student}};B)\le I(Y_{\mathrm{teacher}};B)$ and a fixed-function compression can only lose alignment, never create it; there the scientific content is how much is lost, not whether.
+Distillation is not that regime: a from-scratch student fit by gradient descent on the teacher's logits has a side-channel to the stimulus through the raw next-token targets that bypasses the teacher's features, the data-processing premise fails, and nothing forces the student back to the teacher's alignment \evd{E003}.
+
+The verdict therefore rests on a cold-init student.
+A warm-started student inherits full teacher-grade alignment from its own pretraining, which the reality result already measures, so a high retention for it would show only that a few KD epochs did not erase what the student was born with, not that the KD channel carried alignment \evd{E003}.
+The verdict-bearing arm is a randomly initialised GPT-2 trained on the teacher's logits alone, the one arm whose surviving alignment was transmitted through distillation; a warm-init KD arm and a no-teacher plain-LM-finetune arm are kept as labelled fine-tuning-drift and corpus-drift controls, and every arm is scored at a fixed layer within the 12-layer GPT-2 architecture so no cross-architecture layer choice confounds the comparison \evd{E003}.
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \caption{Knowledge-distillation arms on the Tuckute ROI screen at the fixed verdict layer (NC-normalised unique $R^2$, noise ceiling $0.353$) \evd{E003}. Floor-anchored retention $\rho' = (A_S-A_0)/(A_T-A_0)$ is $0$ at the untrained floor and $1$ at the teacher; $\Delta$ is the gap versus the teacher; $p$(no-drop) is the bootstrap probability of no drop from the teacher.}
+  \label{tab:kd}
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{llcccccc}
+    \toprule
+    Arm & Init / objective & \uniqueR{} & $\rho'$ [boot.\ CI] & $\Delta$ vs teacher & $p$(no-drop) & ppl & Source \\
+    \midrule
+    teacher gpt2-medium & pretrained                & $+0.0188$ & n/a & n/a & n/a & $74$ & \evd{E003} \\
+    gpt2                & pretrained (conventional) & $+0.0195$ & $1.02$ [$0.77$, $1.27$] & $\approx 0$ & $0.57$ & $105$ & \evd{E003} \\
+    lmft\_warm          & warm $+$ plain-LM finetune & $+0.0174$ & $0.95$ [$0.81$, $1.13$] & $+0.0016$ & $0.265$ & $44$ & \evd{E003} \\
+    kd\_warm            & warm $+$ pure logit KD     & $+0.0144$ & $0.84$ [$0.67$, $1.04$] & $+0.0046$ & $0.061$ & $95$ & \evd{E003} \\
+    distilgpt2          & real distillation ($+$hidden-cosine) & $+0.0076$ & $0.60$ [$0.42$, $0.84$] & $+0.0119$ & $0.001$ & $169$ & \evd{E003} \\
+    \textbf{kd\_cold}   & \textbf{random $+$ pure logit KD} & $+0.0005$ & \result{e003_kd_cold_retention} & \result{e003_kd_cold_delta} & $0.000$ & $477$ & \evd{E003} \\
+    untrained           & random (floor)            & $-0.0102$ & $0$ & n/a & n/a & $\sim$$50000$ & \evd{E003} \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+The durable finding is the monotone gradient (Table~\ref{tab:kd}).
+Retention falls cleanly along the rebuild ordering: conventional GPT-2 at the teacher's level ($\rho'\approx1.0$), warm-init KD at $0.84$, the published distilgpt2 at $0.60$, the from-scratch cold-init student at $0.37$, and the untrained floor at $0$ \evd{E003}.
+The references behave as they should: off-the-shelf GPT-2 sits at the teacher's level, the untrained control at the floor, and two runs scoring the same references on different GPUs reproduced them to about $0.0003$ \evd{E003}.
+The ordering holds at every PCA rank tested ($n_{\mathrm{pca}}\in\{25,50,100\}$), but the absolute shed fractions are rank-sensitive and the two confounded arms flip sign across ranks, so the ordering is the finding and the magnitudes are rank-dependent \evd{E003}.
+
+The gradient does not isolate the distillation objective from the language-model quality the student loses, because alignment co-varies with quality across the same arms.
+Alignment is tightly predicted by log-perplexity across these arms (Pearson \result{e003_quality_corr}).
+On that fit, warm-init KD lies essentially on the regression line, and conventional GPT-2 is the lone point above it, the only arm more aligned than its perplexity predicts.
+The two contrasts that would separate an objective-specific loss from "alignment tracks quality" are both only marginal: warm-init KD is less aligned than GPT-2 despite lower perplexity, but the bootstrap $P(\text{gpt2}\le\text{kd\_warm})=0.092$, and at matched budget the no-teacher finetune beats warm-init KD on both perplexity and alignment, but $P(\text{lmft}\le\text{kd\_warm})=0.085$; each leans on a single unreplicated point and, under a paired-fold test, on one fold carrying about $44\%$ of the signal \evd{E003}\evd{L011}.
+The cold-init arm compounds the difficulty with under-training, its held-out perplexity ($477$) sitting far above the converged arms' ($44$ to $95$), so part of its near-floor alignment is simply a worse language model rather than distillation shedding alignment, the convergence caveat the design predeclared \evd{E003}.
+The match across arms was the compute budget, not the optimizer-step count: the from-scratch arm ran about twice the steps of the warm arms, which deepens this caveat rather than flattering it \evd{E003}.
+
+Plain perplexity-only distillation does not preserve brain alignment by default, and the headroom below the teacher is genuine but quality-confounded.
+Whether an alignment-guided objective can recover that headroom beyond what perplexity already implies is the matched-perplexity question the rest of the program takes up, not one this screen settles.
+The benchmark here is a cheap ROI screen ($\mathrm{NC}\approx0.35$) at matched compute budget, under-powered to resolve a $\sim0.005$ objective-specific gap and not run at matched perplexity, which is why that question moves to the powered voxelwise substrate \evd{E003}\evd{L011}.
+
+\subsection{An alignment-guided objective moves alignment, weakly and confounded by quality}
 \gap{Results Q2 awaits finding-report R08 (source E004): the brain-specific lever on the strong aligner and its fragility.}
 
 \subsection{No per-individual gain at matched perplexity, and the averaging confound}

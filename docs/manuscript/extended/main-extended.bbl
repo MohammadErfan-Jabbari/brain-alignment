@@ -507,7 +507,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{NeurIPS}
-      \field{note}{arXiv:1705.07809, Thm 1: gen <= sqrt(2 sigma^2 I(W;S_n)/n); the lecture-26 MI bound}
+      \field{note}{arXiv:1705.07809, Thm 1: gen bound scales as sqrt(2 sigma2 I(W;Sn)/n); the lecture-26 MI bound}
       \field{title}{Information-theoretic analysis of generalization capability of learning algorithms}
       \field{year}{2017}
     \endentry
@@ -552,8 +552,8 @@
       \strng{authorbibnamehash}{0a792207c50070e8660e4f7416bf3a82}
       \strng{authornamehash}{0a792207c50070e8660e4f7416bf3a82}
       \strng{authorfullhash}{0a792207c50070e8660e4f7416bf3a82}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Scientific Data}

@@ -26,3 +26,26 @@ The abstract is provisional for the same reason: it can state the question and t
 
 How this checkpoint was built.
 The draft was written through the scientific-writing skill on the full loop, with the review pass run continuously: adversarial critique agents argued against the reasoning and the prose quality section by section, and the objections that held were addressed before the section was kept.
+
+\subsection*{2026-06-22: Checkpoint 2, the distillation-preservation result and a register repair}
+
+This checkpoint does two things, neither of which changes a recorded number: it folds in the next finding-report, and it repairs the prose register the first checkpoint shipped.
+
+What is folded in.
+The Q1 result, that plain perplexity-only knowledge distillation does not preserve a teacher's brain alignment by default, is consolidated from its finding-report (R07, source \evd{E003}) into the second Results subsection.
+A from-scratch logit-KD student lands a gap of \result{e003_kd_cold_delta} below its teacher ($p<0.001$, retaining \result{e003_kd_cold_retention} of the teacher's alignment above the untrained floor), and unique $R^2$ falls along a monotone gradient ordered by how far each representation was rebuilt away from conventional pretraining \evd{E003}.
+The stronger claim, that the distillation objective sheds alignment beyond the language-model quality it costs, is left unsupported in the prose, because alignment co-varies with log-perplexity at Pearson \result{e003_quality_corr} and the two objective-specific dissociations are only marginal \evd{E003}\evd{L011}.
+The abstract and Introduction are updated to state this second result with that hedge, and their downstream-summary \verb|\gap| markers are narrowed from R07--R14 to R08--R14.
+The glossary gains the terms the new section needs (knowledge distillation, cold-init/warm-init, headroom $\Delta$, floor-anchored retention $\rho'$, the data-processing inequality); the retention symbol $\rho'$ is disambiguated from the partial correlation $\rho_{XY\cdot Z}$ of the methods, a notation collision the consolidation guard flagged.
+
+The register repair.
+A supervisor reading the v0.1 body flagged a storytelling register that the writing-style rules forbid (L054, D046): abstractions handed verbs of agency, the rhetorical move narrated instead of made, the repo's internal scaffolding metaphors leaking into reader-facing prose, and a reflex passive density above the threshold in the Introduction and Related work.
+This checkpoint rewrites those passages in the Introduction, abstract, Related work, and Results to assert the content directly, with a subject that acts and a verb that states, and varies the passive where the agent is the real topic.
+No claim, number, or hedge changed under the rewrite; only the voice did.
+
+What is still open.
+The Discussion, Limitations, and Conclusion remain \verb|\gap| because the results they interpret (the per-individual null, the averaging confound, the quality law, the ceiling, the practical-payoff question) await their finding-reports R08--R14.
+R07's own caveats are carried inside the Results prose, as the report convention requires, rather than opened as a partial Limitations section ahead of the consolidated arc.
+
+How this checkpoint was built.
+Written as its own logged \texttt{/write} session on the full loop (the ship gate D046 forbids folding a manuscript revision into another session), with the deterministic checks run on each edit and the non-skippable review pass, the \texttt{prose-register-auditor} included, run before handoff.
