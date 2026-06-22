@@ -27,6 +27,14 @@ fix. A vague note ("tighten this") is not a finding.
   load-bearing sentence carrying more than one inferential hop (the "so… and… by construction" tell)? Is any
   comparison of three or more numbers dumped inline where a table belongs? Each is a specific, locatable
   finding, not a "tighten this".
+- **Scientific register: does the prose state the claim, or narrate it?** The storytelling tells from
+  writing-style.md §1 ("Register: state the claim, do not narrate it") as a review lens — the class a
+  supervisor caught on v0.1 (L054, D046) and the deterministic linter cannot reach. Flag every:
+  anthropomorphized abstraction (a question/result/manuscript that "earns/survives/reports/locates"),
+  self-narration of a rhetorical move ("saying so plainly is what locates…"), internal-metaphor leakage
+  (the ladder/rung/door/lever as reader-facing prose), dramatized framing, and reflex passive *density*
+  (not any single justified passive). This lens is owned by the **`prose-register-auditor`** agent, which
+  reads against these exact rules and returns located findings; see "How to run it".
 
 ## The Clarity Test (paired with section 4 of writing-style.md)
 
@@ -38,10 +46,12 @@ focuses the writing on the load-bearing argument.
 
 For a short section, run the lenses inline yourself. For a full manuscript draft, or anything going
 to a committee, spawn the repo's adversarial agents (`counter-argument`, `premortem-analyst`,
-`first-principles-grounder`) on the draft with these lenses as their brief, then verify each
-objection against the evidence and address the ones that hold. Re-run until no hole survives. A finding the
-draft cannot answer is either a real gap (flag it with `\gap`) or an over-claim (fix the verb or the
-scope). Do not wave it away.
+`first-principles-grounder`) on the draft for the first three lenses, **and `prose-register-auditor` for
+the register + first-pass-readability lenses** (it is the dedicated voice reader — the claim-panel attacks
+the argument, the auditor attacks the prose). Then verify each objection against the evidence and address
+the ones that hold. Re-run until no hole survives. A finding the draft cannot answer is either a real gap
+(flag it with `\gap`) or an over-claim (fix the verb or the scope). Do not wave it away. The register
+findings are prose fixes, not evidence questions: drop the framing and assert the content.
 
 For a LaTeX manuscript, run the first-pass-readability lens on the **rendered PDF**, not only the source.
 A dense equation-laden passage or an inline number-dump can pass the source-level linter and still stop a

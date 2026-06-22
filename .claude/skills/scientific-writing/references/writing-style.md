@@ -56,6 +56,42 @@ checks them. Each rule below is tagged `[linter]` or `[judgment]`.
 - **Binary-contrast tic `[judgment]`.** "Not X. Y." and "It is not about X, it is about Y." are fine once or
   twice; a paper full of them is a tell.
 
+### Register: state the claim, do not narrate it (the storytelling tells) `[judgment]` `[auditor]`
+
+A thesis states what was done and found. It does not dramatize the act of arguing, hand an abstraction
+agency, or narrate its own moves. The four tells below share one root — the prose *performs* the argument
+instead of asserting it — and a reader spots them on the first page. They carry **no banned token**, so the
+linter cannot catch them (a heuristic tripwire flags the obvious cases only); they are the
+`prose-register-auditor`'s brief and yours. Each "Before" is a real sentence a supervisor flagged on the
+v0.1 extended manuscript (2026-06, L054 / D046).
+
+- **Anthropomorphized abstraction.** A question, idea, result, manuscript, or finding given a verb of
+  agency or stakes (earns, survives, wants, knows, reports, locates, seeks, deserves, climbs). The
+  abstraction does not act; you do, or the evidence does.
+  - Before: "The inverted question only *earns* a thesis if it *survives* a hard prior."
+  - After:  "Inverting the question is only worth a thesis if it clears a hard prior: a language model
+    already learns from $\sim 10^{12}$ tokens, while a language-fMRI dataset offers a few thousand noisy
+    stimuli at a low noise ceiling."
+- **Self-narration of the rhetorical move.** Telling the reader what your sentence is doing instead of
+  doing it. The reader does not need to be told that admitting X is what reveals Y; admit X and state Y.
+  - Before: "The bare inverted idea ... is by 2026 already done, and *saying so plainly is what locates the
+    real contribution*."
+  - After:  "Using fMRI to shape a language model is, by 2026, already done; the contribution here is to
+    ask whether that signal survives compression."
+- **Internal-metaphor leakage.** The repo's scaffolding metaphors — the ladder, a rung, the climb, a door,
+  the lever — are working shorthand, not reader-facing prose; a reader has no referent for them (this ties
+  the SKILL.md rule that internal codes descend by layer: in the manuscript, name the thing in prose).
+  - Before: "This manuscript *reports that ladder*."
+  - After:  "This manuscript reports those results in the order their questions depend on one another."
+- **Dramatized framing of the inquiry.** Suspense, hooks, and stakes-language wrapped around a claim
+  ("only earns a thesis if it survives", "the question that has haunted the field"). State the claim and
+  its support; let the science carry the interest.
+
+The fix is never a synonym swap. Drop the framing and assert the content: a subject that can actually act,
+a verb that states, a claim that carries its own evidence. This is the same move the global clear-prose
+rule names ("cut throat-clearing and meta-commentary; just state the thing") — here applied to free-form
+narration the fixed-phrase linter misses.
+
 ---
 
 ## 2. Scientific voice
@@ -74,8 +110,14 @@ checks them. Each rule below is tagged `[linter]` or `[judgment]`.
 - **Let topic sentences carry the flow `[judgment]`.** Reach for an explicit transition word ("however",
   "moreover") only when the relationship between paragraphs is genuinely non-obvious. Most of the time the
   topic sentence does the work, and a transition word on top is scaffolding.
-- **Register.** This is a sciences/ML thesis, so impersonal phrasing and the passive are acceptable where
-  they read naturally. Do not force "We argue" into a methods description that wants "The encoder was fit".
+- **Register and the passive `[judgment]` `[auditor]`.** Impersonal phrasing and the passive are fine *as
+  a deliberate choice*: use the passive when the object is the real topic and the agent is obvious or
+  irrelevant ("the encoder was fit on the training stimuli" is correct in Methods — the encoder is the
+  topic, not you). What reads as AI prose is the passive *as a reflex*: when most sentences in a stretch are
+  agentless, the prose flattens and it becomes unclear who did what. The test is per sentence — is the
+  object genuinely the topic? — and the auditor flags passive *density*, not any single passive. Vary it;
+  do not blanket-convert to active, which is the equal-and-opposite over-correction. (A supervisor's v0.1
+  note named both halves: the flagged sentence was defensible, the pervasive default was not — L054.)
 
 ### Presenting a measured quantity: estimand → estimator → identifying assumption `[judgment]`
 
