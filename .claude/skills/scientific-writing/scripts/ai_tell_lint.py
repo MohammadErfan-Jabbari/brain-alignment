@@ -99,7 +99,8 @@ SELF_NARRATION = [
     r"only\s+earns\s+a\s+(thesis|paper|place|spot|seat)",
 ]
 # Class A3: internal-scaffolding metaphors leaking into reader-facing prose.
-METAPHOR_RE = re.compile(r"\b(ladder|rungs?)\b", re.I)
+# Includes the repo's own methodology jargon, which leaked into the v0.1/v0.2 manuscript.
+METAPHOR_RE = re.compile(r"\b(ladder|rungs?|kill-gated|load-bearing|lever)\b", re.I)
 # Class B: reflex passive. A meter, not a per-sentence judgment.
 PASSIVE_RE = re.compile(
     r"\b(is|are|was|were|be|been|being)\s+(\w+ed|done|made|shown|found|measured|given|taken|"
