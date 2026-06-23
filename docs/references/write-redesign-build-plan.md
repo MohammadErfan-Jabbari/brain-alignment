@@ -89,13 +89,14 @@ table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d 
   lexical "deployment" trigger is the DET sliver).
 
 ## Status (live)
-**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D-1 ✅** (green; P1+P2-A recorded S35→S36, P2-B +
-P2-C S37, P2-D started this session — see the session logs above + the build log below). **P2-D in progress** —
-the CC-power upgrades, chunked: **P2-D-1 ✅** structured verdict schema + convergence state machine
-(`verdicts.py`); **P2-D-2 next** parallel stage-5 fan-out + verdict recording; then **P2-D-3** the Stop-hook
-convergence (D047, pipeline-scoped — carries the FRESHNESS requirement), **P2-D-4** AskUserQuestion gate,
-**P2-D-5** SC-XS-3 caption wiring, **P2-D-6** deviation-log/SC-PROC-8-10. Then P3 (cutover, irreversible —
-explicit go required). Per-chunk decisions recorded in the build log below.
+**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D-1 ✅ + P2-D-2 ✅** (green; P1+P2-A recorded
+S35→S36, P2-B + P2-C S37, P2-D started this session — see the session logs above + the build log below).
+**P2-D in progress** — the CC-power upgrades, chunked: **P2-D-1 ✅** structured verdict schema + convergence
+state machine (`verdicts.py`); **P2-D-2 ✅** parallel stage-5 fan-out + verdict-recording orchestration (SKILL
+stage 5); **P2-D-3 next** the Stop-hook convergence (D047, pipeline-scoped — carries the FRESHNESS +
+anti-fabrication requirement + pins the canonical draft path via `meta.draft_path`), then **P2-D-4**
+AskUserQuestion gate, **P2-D-5** SC-XS-3 caption wiring, **P2-D-6** deviation-log/SC-PROC-8-10. Then P3 (cutover,
+irreversible — explicit go required). Per-chunk decisions recorded in the build log below.
 
 ## Build log (append-only; durable decisions mined/made during the build)
 *Phase 1 + P2-A decisions live in the two session logs (provenance table above) + `docs/learnings.md` L059–L061.
@@ -237,3 +238,28 @@ decisions:
   `$CLAUDE_PROJECT_DIR`. A top-level-only flag was rejected by argparse after the subcommand — a footgun for the
   machine callers (hook/orchestrator). Tag-remapping in `lattice.tags[]` without a prose-byte change is out of
   scope here (owned by the stage-write round-trip diff `run_checks --prev`; oracle MF-4, documented).
+
+**P2-D-2 — parallel stage-5 fan-out + verdict-recording orchestration.** Rewrote SKILL.md stage 5 (no new
+script — drives `verdicts.py` from P2-D-1). Three nets green (run_checks + verdicts selftests · opus oracle
+ACCEPT-WITH-CAVEAT, M1–M4 fixed · fresh `claude -p` **5/5 PASS** incl. the three load-bearing boundaries). Durable
+decisions:
+- **The fan-out:** the orchestrator spawns **seven subagents in ONE message** — F4 `sw-argument-judge`, F5
+  `sw-scope-judge`, F9b `sw-claim-fidelity-judge`, F11 `sw-structure-judge`, F12 `sw-voice-auditor`, and the F13
+  panel (`premortem-analyst` + `counter-argument`). **F18 `sw-acknowledgment` runs AFTER the batch** (it consumes
+  F13's mapped objections, so it cannot be in the parallel message — else its ACK verdict is vacuous).
+- **The premortem synthesis rule is now ternary-correct (oracle M1, the load-bearing fix)** and **duplicated
+  verbatim in SKILL.md and `verdicts.py`'s docstring** (kept in lockstep; the fresh session confirmed MATCH).
+  `counter-argument` emits `SURVIVES | SURVIVES-IF-NARROWED | DOES-NOT-SURVIVE`; **only bare `SURVIVES` is
+  ready** — `SURVIVES-IF-NARROWED` is NOT ready (it was unstated before, computable two ways). `objections` =
+  counter-argument's + **premortem-analyst's TOP-RISK folded in** (M3 — else a standalone risk is invisible to
+  convergence). `findings = (# unmapped) + (1 if status != SURVIVES)` so it is **never 0 when not-ready** (M2).
+- **The `acknowledgment` convergence verdict MUST be F18's stage-5 re-run** (consuming the mapped objections),
+  never the vacuous stage-2 plan (oracle M4 — both write `acknowledgment.json` under the same hash; a future
+  freshness stamp in P2-D-3 will enforce it mechanically).
+- **One canonical draft path** (oracle Q3 residual): all record + status calls use the **F8b voice-realize
+  output** (not the F8a pre-voice draft, which also exists on disk). The hash-keying surfaces a wrong-path record
+  as `[missing]`, but the real fix — the **Stop-hook reading `meta.draft_path` from the lattice** so no
+  orchestrator-supplied path is trusted — is **P2-D-3**.
+- **Honest scoping (explicit in SKILL):** P2-D-2 is the verdict-recording **bookkeeping**; the *trust* in it (no
+  fabricated booleans, no stale/wrong-draft verdicts, freshness) is **P2-D-3**. "transcribe the judge's own
+  boolean, never substitute your read" is a polite ask until the Stop-hook enforces it — the SKILL says so.

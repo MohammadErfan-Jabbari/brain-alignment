@@ -25,13 +25,21 @@ silently absorbed by this set. (SKILL.md stage-5 ends the fan-out at F18, not F1
 with `ready_to_ship: true AND findings > 0` is self-contradictory and is treated NOT ready (fail-safe).
 
 The `premortem` (F13) verdict has no agent line of its own — the shared panel (`premortem-analyst` +
-`counter-argument`) emits `PANEL-VERDICT: …` with no `ready_to_ship` slot. The orchestrator SYNTHESIZES it:
-  premortem ready := counter-argument CONCLUSION-STATUS == SURVIVES
-                     AND every premortem objection was MAPPED to a claim (an unmapped objection is the
-                         SC-ARG-5 defect -> not ready), findings := count of unmapped/surviving objections.
+`counter-argument`) emits `PANEL-VERDICT: …` with no `ready_to_ship` slot. The orchestrator SYNTHESIZES it
+(this rule is duplicated verbatim in SKILL.md stage 5 — keep them identical):
+  objections := counter-argument's objections + premortem-analyst's TOP-RISK (advisory risks are folded in
+                as objections, else they are invisible to convergence).
+  premortem ready := counter-argument CONCLUSION-STATUS == SURVIVES (bare; SURVIVES-IF-NARROWED and
+                     DOES-NOT-SURVIVE are both NOT ready) AND every objection MAPPED to a claim (an unmapped
+                     objection is the SC-ARG-5 defect).
+  findings := (# unmapped objections) + (1 if CONCLUSION-STATUS != SURVIVES else 0)  -- never 0 when not ready.
 This chunk records that synthesized boolean; verifying it was synthesized from a FRESH panel run (not
 hand-typed) is the freshness control that P2-D-3's Stop-hook MUST add — without it the store is fabricable
-in one turn (same TRUSTED-not-verified model as gate_state.py). Tag-remapping in lattice.tags[] without a
+in one turn (same TRUSTED-not-verified model as gate_state.py).
+
+The draft `--prose` path MUST be the ONE canonical current draft (the F8b voice-realize output, not the F8a
+pre-voice draft both of which exist on disk at stage 4). P2-D-3 pins this by reading `meta.draft_path` from
+the lattice so the hook needs no orchestrator-supplied path. Tag-remapping in lattice.tags[] without a
 prose-byte change is out of scope here (owned by the stage-write round-trip diff `run_checks --prev`).
 
   record --prose P --reader R --ready true|false [--findings N]   file one reader's verdict
