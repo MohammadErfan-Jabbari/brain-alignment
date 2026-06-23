@@ -87,9 +87,9 @@ table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d 
   lexical "deployment" trigger is the DET sliver).
 
 ## Status (live)
-**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅** (green; P1+P2-A recorded S35→S36, P2-B this session — see the
-two session logs above + the build log below). **P2-C next** (F18 acknowledgment · F13 premortem panel · F7
-figures · F17 exemplar pin · F8b voice-realize · F19 consistency). Then P2-D (CC-power upgrades), P3 (cutover,
+**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅** (green; P1+P2-A recorded S35→S36, P2-B + P2-C this
+session — see the two session logs above + the build log below). **P2-D next** — the CC-power upgrades: parallel
+stage-5 fan-out · structured `ready_to_ship` Stop-hook convergence · AskUserQuestion gate. Then P3 (cutover,
 irreversible — explicit go required). Per-chunk decisions recorded in the build log below.
 
 ## Build log (append-only; durable decisions mined/made during the build)
@@ -176,3 +176,27 @@ generator). Three nets green (selftest · opus oracle FIX-THEN-PASS · fresh `cl
   to the projection — now consistent with `message`/`reader_model` (a stage-1 case/plan change re-enters the gate).
 - F17 anchors carry the "from a good paper ≠ passes our rules" caution + the danger-zone (abstract/discussion)
   weighting; the full graded corpus stays the `SC-EX-*`/`SC-VIO-*` set in scenarios.md.
+
+**P2-C-2b — F19 consistency.** Built `scripts/consistency_check.py` (DET): abstract↔body result-number match +
+no full CI in the abstract (SC-XS-1/2), wired into `run_checks --prose`. caption ≤ figure (SC-XS-3) is **deferred**
+— it is RUB and the lattice carries no caption text (figures are `{figure_id, claim_id}`). Three nets green
+(selftest · opus oracle FIX-THEN-PASS · fresh `claude -p` 6/6). Durable decisions:
+- **Oracle D1 (FATAL as first built — the L060 failure):** a verbatim *all-numbers* abstract↔body match
+  over-blocks on the first abstract that names a model (`Qwen2.5-0.5B` → `2.5`/`0.5`) or cites a year (`2024`) —
+  the first real use would disable the check. The estimand is "did the abstract invent a *result*," so the fix
+  (the oracle's option b) restricts the comparison to **RESULT numbers**: a decimal, not part of an identifier
+  (lookbehind/lookahead exclude `Qwen2.5`/`0.5B`/version `2.5.3`), not a bare integer (year/count), with a
+  leading `+` normalized. A sentence-final number (`+0.028.`) still matches (the version-guard allows a trailing
+  period). **Residual (documented):** a rounded abstract decimal differing from the body still flags; a bare
+  bracket interval with no "CI" label is a known recall miss (the labeled `95% CI` form is caught).
+- **Oracle D2:** `NUM_RE` captured a trailing comma (`2024,` ≠ `2024`) — also a **latent bug in the committed
+  `draft_check.check_numbers`** (a number moved to a clause boundary would false-flag drift). Fixed the thousands
+  group in both (`(?:,\d{3})*`).
+- **Oracle C2:** the abstract section is matched **exactly** (`== "abstract"`), not by substring, so
+  `abstract-of-results` is not mistaken for the abstract.
+- **C3 (noted, not done):** `consistency_check` and `draft_check` duplicate the LaTeX/number primitives
+  (`strip_tex_comments`, `SEC_RE`, `EVD_RE`); behaviorally consistent now, a shared module would prevent future
+  drift — a bounded future cleanup.
+
+**P2-C complete** (C-1 + C-2a + C-2b). Phase 2 remaining: **P2-D** (parallel stage-5 fan-out, structured
+`ready_to_ship` Stop-hook convergence, AskUserQuestion gate). Then P3 cutover (irreversible — explicit go).

@@ -7,10 +7,10 @@ description: >-
   plus a high-recall audit, not asserted by construction. Walking-skeleton phase: the Trust + Structure +
   Voice spine is live (claim-lattice, claim-binding, skeleton, drafter-with-\evd, voice audit, claim-fidelity,
   the ordering gate); the Argument concern (warrants, scope), the message/frame + reader-model front-end, the
-  structure judge, figures, acknowledgment, the premortem panel, the exemplar pin, and voice-realize are built
-  too. Consistency (F19) and the parallel-audit / Stop-hook convergence are still being added (Phase 2). Until
-  this passes the 119-scenario suite, the live `scientific-writing` skill stays the default; this is built and
-  tested alongside it.
+  structure judge, figures, acknowledgment, the premortem panel, the exemplar pin, voice-realize, and the
+  consistency check are built too. Only the parallel-audit / Stop-hook convergence (P2-D) remains for Phase 2.
+  Until this passes the 119-scenario suite, the live `scientific-writing` skill stays the default; this is built
+  and tested alongside it.
 ---
 
 # /write — the gated-loop pipeline
@@ -99,7 +99,8 @@ marker, and every number** (it is voice-only; it changes no claim and no structu
 `no-exemplar-pin` DET blocks stage ≥ 4 without a `register`. Then **`run_checks --lattice L --prose P --prev-prose
 <F8a-output>`** → `draft_check` (incl. **number-conservation**: F8b changed/added/dropped no number) +
 `lattice_integrity` (every-claim-tagged + the F17 pin) + `claim_fidelity` (F9a, tag ≤ strength) + `ai_tell_lint`
-(F12 lexical) must pass.
+(F12 lexical) + `scope_lint` (F5 lexical) + `consistency_check` (F19: abstract↔body numbers, no full CI in the
+abstract) must pass.
 
 **Stage 5 · Audit.** The DET floor already ran in `run_checks`. Now the **RUB readers** (spawn them in parallel —
 one message, multiple subagents):
@@ -122,10 +123,11 @@ one message, multiple subagents):
   surviving objection must be acknowledged on the claim it threatens (named limitation + mechanism, not a
   future-work pointer); a newly-required acknowledgment changes a gated field, so it is a **logic revision that
   re-enters the gate**.
-Each emits a machine-readable `*-VERDICT: {ready_to_ship, findings}` line. *Still **Phase 2**: F19 consistency +
-the exemplar pin (F17) and voice-realize (F8b) — P2-C-2; and the **structured `ready_to_ship` Stop-hook
-convergence + true parallel fan-out** — P2-D. Until then, run them, reconcile by hand, and Erfan signs the
-final converge.*
+Each emits a machine-readable `*-VERDICT: {ready_to_ship, findings}` line. The **F19 consistency** DET
+(`consistency_check`: abstract↔body numbers + no full CI in the abstract) already ran in `run_checks`; its RUB
+half — **caption ≤ figure** (SC-XS-3) — is **deferred** until figures carry caption text (the lattice holds only
+`{figure_id, claim_id}`). *Still **Phase 2**: the **structured `ready_to_ship` Stop-hook convergence + true
+parallel fan-out** — P2-D. Until then, run the readers, reconcile by hand, and Erfan signs the final converge.*
 
 **Stage 6 · Revise.** Fix coarse-to-fine, **never reversed**: logic → sentence → lexical. A **logic** fix
 (it changes a gated field: a claim, a warrant, the skeleton, the message) **re-enters the gate** — re-run the
@@ -180,8 +182,9 @@ sites) — *P2-B-ii*. **F7** figures (stage-3 SKILL step; the `central-claim-fig
 `lattice_integrity`), **F13** premortem panel (reuses the D017 `premortem-analyst` + `counter-argument`), **F18**
 acknowledgment (`agents/sw-acknowledgment.md`, opus) — *P2-C-1*. **F17** exemplar pin
 (`references/F17-exemplars.md` + the `register` field/DET in `lattice_integrity`) + **F8b** voice-realize
-(`agents/sw-voice-realize.md`, sonnet) — *P2-C-2a*. Still to come: F19 consistency (P2-C-2b), and the P2-D
-CC-power upgrades.
+(`agents/sw-voice-realize.md`, sonnet) — *P2-C-2a*. **F19** consistency (`scripts/consistency_check.py`:
+abstract↔body + CI-in-abstract; the caption≤figure RUB is deferred) — *P2-C-2b*. Still to come: the **P2-D**
+CC-power upgrades (parallel stage-5 fan-out, structured `ready_to_ship` Stop-hook convergence, AskUserQuestion gate).
 
 **Effort:** all subagents HIGH; the three hardest judges (F4 argument, F5 scope, F11 structure — all built,
 P2-A/P2-B) run XHIGH. The orchestrator runs at the session model.

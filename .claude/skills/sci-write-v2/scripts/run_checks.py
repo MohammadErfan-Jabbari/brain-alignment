@@ -12,8 +12,11 @@ Checks, in order:
   claim_fidelity    validate <lattice>   every \evd tag <= its bound claim's strength (F9a)
   gate_state        check    <lattice>   no prose (stage>=4) without a matching package approval (F16)
   [if --prose]
-  draft_check       validate <prose> <lattice>   sections realized, claims tagged, prose<->lattice agree (F8a)
+  draft_check       validate <prose> <lattice> [--prev-prose P]   sections realized, claims tagged,
+                    prose<->lattice agree (F8a); with --prev-prose, NO number changed across the edit (F8b)
   ai_tell_lint      <prose>               lexical voice tells: em-dash, jargon, authority-grab (F12 DET)
+  scope_lint        validate <prose>      scope-words + uncited novelty (F5 DET)
+  consistency_check validate <prose>      abstract<->body number match; no full CI in the abstract (F19 DET)
 
 Usage:
     python run_checks.py --lattice LATTICE.json [--prose PROSE] [--repo-root DIR]
@@ -64,6 +67,7 @@ def run_stack(lattice: Path, prose: Path | None, state_root: Path | None, prev: 
             ("draft_check.py", ["validate", str(prose), str(lattice)] + prev_prose_args),
             ("ai_tell_lint.py", [str(prose)]),
             ("scope_lint.py", ["validate", str(prose)]),  # F5 DET: scope-words + uncited novelty
+            ("consistency_check.py", ["validate", str(prose)]),  # F19 DET: abstract<->body numbers, CI-in-abstract
         ]
     failed = False
     for script, args in steps:
@@ -82,7 +86,7 @@ def _selftest() -> int:
     ok = True
     for script in ("lattice_integrity.py", "claim_binding.py", "claim_fidelity.py",
                    "draft_check.py", "gate_state.py", "ai_tell_lint.py",
-                   "warrant_schema.py", "scope_lint.py"):
+                   "warrant_schema.py", "scope_lint.py", "consistency_check.py"):
         rc, _out = _run(script, "--selftest")
         good = rc == 0
         print(("  ok: " if good else "  SELFTEST FAIL: ") + f"{script} --selftest (rc={rc})")

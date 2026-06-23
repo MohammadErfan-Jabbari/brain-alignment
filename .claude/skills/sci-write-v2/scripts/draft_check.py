@@ -43,8 +43,10 @@ SEC_LINE = re.compile(r"%%SECTION[ \t]+\S")
 EVD_RE = re.compile(r"\\evd\{([^}]*)\}\{([^}]*)\}")
 PCT = re.compile(r"(?<!\\)%")  # an unescaped LaTeX comment start
 # A numeric literal in prose (result, n=, percentage, CI bound, sci-notation). Used to assert a voice pass
-# (F8b) changed NO number: the multiset of these tokens must be identical before and after the edit.
-NUM_RE = re.compile(r"[-+]?\d[\d,]*(?:\.\d+)?(?:[eE][-+]?\d+)?%?")
+# (F8b) changed NO number: the multiset of these tokens must be identical before and after the edit. The
+# thousands group requires a digit-triple after each comma so a TRAILING comma ("2024," at a clause end) is
+# NOT captured into the token (else moving a number to a clause boundary would false-flag drift).
+NUM_RE = re.compile(r"[-+]?\d+(?:,\d{3})*(?:\.\d+)?(?:[eE][-+]?\d+)?%?")
 
 
 def normalize(text: str) -> str:
@@ -240,6 +242,10 @@ def _selftest() -> int:
     ntagonly = ("%%SECTION results\nThe gap was +0.028 over reliable voxels (n=9). \\evd{C1}{observed}\n"
                 "Plain KD does not preserve alignment. \\evd{C2}{observed}\n")
     expect("F8b tag strength change is not number-drift (no-flag)", check_numbers(nbefore, ntagonly), False)
+    # D2: a trailing comma at a clause boundary must not be captured (no false drift when a number moves).
+    ncomma_a = "%%SECTION results\nIn 2024, the gap was +0.028 (n=9). \\evd{C1}{strong}\nKD. \\evd{C2}{observed}\n"
+    ncomma_b = "%%SECTION results\nThe gap was +0.028 during 2024 (n=9). \\evd{C1}{strong}\nKD. \\evd{C2}{observed}\n"
+    expect("F8b trailing-comma not captured (no false drift)", check_numbers(ncomma_a, ncomma_b), False)
 
     print("draft_check selftest: " + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1
