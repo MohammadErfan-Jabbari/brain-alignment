@@ -9,7 +9,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/wrap_session_snapshot.py\""
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/wrap_session_snapshot.py\""
           }
         ]
       }
@@ -20,7 +20,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/agent_routing_lint.py\""
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/agent_routing_lint.py\""
           }
         ]
       }
@@ -31,11 +31,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/honesty_writecheck.py\""
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/honesty_writecheck.py\""
           },
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/prose_writecheck.py\""
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/prose_writecheck.py\""
           }
         ]
       }
@@ -45,11 +45,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/stop_register_gate.py\""
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/stop_register_gate.py\""
           },
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/stop_sw_converge.py\""
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/stop_sw_converge.py\""
           }
         ]
       }
