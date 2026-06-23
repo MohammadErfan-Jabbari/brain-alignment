@@ -89,14 +89,14 @@ table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d 
   lexical "deployment" trigger is the DET sliver).
 
 ## Status (live)
-**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D-1..4 ✅** (green; P1+P2-A
+**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D-1..5 ✅** (green; P1+P2-A
 recorded S35→S36, P2-B + P2-C S37, P2-D this session — see the session logs above + the build log below).
 **P2-D in progress** — the CC-power upgrades, chunked: **P2-D-1 ✅** structured verdict schema + convergence
 state machine (`verdicts.py`); **P2-D-2 ✅** parallel stage-5 fan-out + verdict-recording orchestration (SKILL
 stage 5); **P2-D-3 ✅** the convergence Stop-hook (`stop_sw_converge.py`, wired live, pipeline+session-scoped,
-loop-guarded); **P2-D-4 ✅** the F16 gate via `AskUserQuestion` (GATE section); **P2-D-5 next** SC-XS-3 caption
-wiring, then **P2-D-6** deviation-log/SC-PROC-8-10. Then P3 (cutover, irreversible — explicit go required).
-Per-chunk decisions recorded in the build log below.
+loop-guarded); **P2-D-4 ✅** the F16 gate via `AskUserQuestion` (GATE section); **P2-D-5 ✅** SC-XS-3 caption ≤
+figure (folded into F5 + the `caption`/`shows` figure fields); **P2-D-6 next** deviation-log/SC-PROC-8-10. Then
+P3 (cutover, irreversible — explicit go required). Per-chunk decisions recorded in the build log below.
 
 ## Build log (append-only; durable decisions mined/made during the build)
 *Phase 1 + P2-A decisions live in the two session logs (provenance table above) + `docs/learnings.md` L059–L061.
@@ -312,3 +312,23 @@ green (gate_state selftest intact · opus oracle ACCEPT-WITH-CAVEAT, MF-1..3 + b
   belongs to the `gate_state check` floor (the gate primitive doesn't enforce ordering — the hook does).
 - **Stage-6 re-gate enumeration generalized** to "any gated field" (was a 4-field list, which an agent could read
   as exempting frame/register/reader-model) — consistent with `_projection`.
+
+**P2-D-5 — SC-XS-3 caption ≤ figure, folded into F5.** Added a `caption` + **`shows`** field to the lattice
+figure object and extended the **F5 scope judge** to size each caption against `shows` (re-tag F19→F5). No 8th
+subagent, no required-set growth — SC-XS-3 rides F5's `SCOPE-VERDICT` (already a convergence reader). Three nets
+green (DET floor selftest · example validates · opus oracle ACCEPT-WITH-CAVEAT, MF-1 fixed · fresh `claude -p`
+3/3). Durable decisions:
+- **The fold is sound because caption-over-claim IS a scope question** — same axis F5 already judges, so a
+  dedicated judge would be redundant. SC-XS-3 rides `scope`'s verdict; the convergence set stays 7.
+- **The load-bearing oracle fix (MF-1):** SC-XS-3 is caption ≤ **what the figure PLOTS**, not caption ≤ the
+  **bound claim's scope** — they diverge exactly in the SC-XS-3 case (a broad *true* claim, a figure showing a
+  subset, a caption that generalizes). My first cut operationalized it as ≤ bound-claim and would have **missed
+  the scenario**. Fixed by the **`shows`** field (what the figure actually displays) as the reference: F5 judges
+  `caption ≤ shows`, flagging a generalization past a partial-view figure **even when the bound claim is true and
+  broader**. (No new scenario needed — SC-XS-3 *is* the partial-view case once `shows` exists.)
+- **Verdict rule extended** (oracle MF-2): F5's `ready_to_ship` is false iff any claim's **or figure-caption's**
+  scope exceeds evidence — so a caption-only over-claim provably flips the verdict.
+- **Missing-caption is out of SC-XS-3 scope** (oracle MF-3, decided): a figure with no `caption`/`shows` has
+  nothing to judge on this axis (not a flag); `lattice_integrity` stays permissive (no caption-presence DET) —
+  the prose `\caption` is what F5 ultimately reads, sized against `shows`.
+- Killed the now-stale "caption is a coverage hole owned by P2-D-5" comments in `verdicts.py` + `consistency_check.py`.

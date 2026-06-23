@@ -17,7 +17,7 @@ argument) from frame → gate → draft → audit so nothing drops between hands
   "register":    {"venue": "<reader>", "exemplars": ["<section:paper>", ...]} | null,
   "claims":      [ <claim object>, ... ],
   "warrants":    [ {"from": "<claim_id>", "to": "<claim_id>", "warrant": "<text>"}, ... ],
-  "figures":     [ {"figure_id": "<id>", "claim_id": "<claim_id>"}, ... ],
+  "figures":     [ {"figure_id": "<id>", "claim_id": "<claim_id>", "caption": "<one-line caption>", "shows": "<what the figure ACTUALLY plots — the reference F5 sizes the caption against, SC-XS-3>"}, ... ],
   "sections":    [ {"section_id": "<id>", "title": "<text>", "claim_ids": ["<claim_id>", ...]}, ... ],
   "deviation_log": [ {"functionality": "<F##>", "method": "<...>", "why": "<...>", "did": "<...>"}, ... ]
 }

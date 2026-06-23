@@ -35,7 +35,7 @@
     {"from": "C1", "to": "C2", "warrant": "A measurable signal need not be a gradient-accessible lever."}
   ],
   "figures": [
-    {"figure_id": "fig:vox", "claim_id": "C1"}
+    {"figure_id": "fig:vox", "claim_id": "C1", "caption": "Trained-minus-untrained unique R2 across the 11,442 reliable voxels (UTS03, contiguous story-CV).", "shows": "per-voxel trained-minus-untrained unique R2 for the 11,442 reliable voxels of subject UTS03"}
   ],
   "sections": [
     {"section_id": "results", "title": "Results", "claim_ids": ["C1", "C2"]}

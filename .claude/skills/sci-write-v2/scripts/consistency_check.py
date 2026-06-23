@@ -17,8 +17,8 @@ Two deterministic checks — the #1 reviewer-catch and our abstract-taste rule:
 The abstract section is the %%SECTION whose id is (or contains) "abstract"; everything else is body. If there is
 no abstract section, there is nothing cross-section to check (return clean).
 
-NOT here: caption <= figure (SC-XS-3) is RUB and needs caption text the lattice does not carry (figures are
-{figure_id, claim_id} only). It is deferred to a figure-consistency subagent once figures gain captions.
+NOT here: caption <= figure (SC-XS-3) is RUB — judged by the F5 scope reader (P2-D-5, re-mapped F19->F5),
+sizing each figure's `caption` against its `shows` (what the figure plots). Not a DET / not this script.
 
 Usage:
     python consistency_check.py validate PROSE_FILE

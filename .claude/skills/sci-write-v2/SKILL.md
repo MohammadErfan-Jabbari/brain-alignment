@@ -9,8 +9,8 @@ description: >-
   the ordering gate); the Argument concern (warrants, scope), the message/frame + reader-model front-end, the
   structure judge, figures, acknowledgment, the premortem panel, the exemplar pin, voice-realize, and the
   consistency check are built too. P2-D is landing the CC-power layer: the structured-verdict convergence machine,
-  the parallel stage-5 fan-out, the convergence Stop-hook, and the AskUserQuestion gate are in; the SC-XS-3 caption
-  judge and the deviation-log are the last of it. Until this passes the 119-scenario suite, the live
+  the parallel stage-5 fan-out, the convergence Stop-hook, the AskUserQuestion gate, and the SC-XS-3 caption
+  judge (folded into F5) are in; the deviation-log is the last of it. Until this passes the 119-scenario suite, the live
   `scientific-writing` skill stays the default; this is built and tested alongside it.
 ---
 
@@ -71,7 +71,10 @@ F13 premortem.*
 intro moves, CCC fractal, organize-by-importance; assign every claim a `section`, populate `sections[].claim_ids`
 both directions; set `meta.stage=3`. **`run_checks`** → `lattice_integrity` must pass (orphan-claim,
 empty-section, node↔section). Plan the **key figures (F7)**: choose the figure that carries each *central* claim
-and bind it in `figures[]` (`{figure_id, claim_id}`) — figures are the spine, chosen before prose. Then spawn
+and bind it in `figures[]` (`{figure_id, claim_id, caption, shows}`) — figures are the spine, chosen before prose;
+write each figure's **`shows`** (what it actually plots) and a **`caption` sized to `shows`**, not to the broader
+claim (the caption must not claim more than the figure displays — F5 judges caption ≤ `shows` at stage 5, SC-XS-3).
+Then spawn
 **`sw-structure-judge`** (sonnet, xhigh) at its **stage-3 site** to judge the skeleton: **opening-width =
 resolution-width** (contributions promised in the opening ≤ those resolved in the discussion) and the **CARS
 niche** (Move-2, the gap, is present — not territory→this-work). *The `central-claim-figure` DET (in
@@ -128,7 +131,8 @@ the F13 panel (`premortem-analyst` + `counter-argument`) — **seven subagents, 
 - **`sw-argument-judge`** (F4, opus xhigh, stage-5 site) — does each "therefore" in the prose actually hold, and
   is the cited evidence the right receipt (grounding).
 - **`sw-scope-judge`** (F5, opus xhigh, stage-5 site) — is each claim sized to its evidence, plus
-  **frame-consistency** (a basic-science finding sold as a deployment/technology claim → flag, SC-HON-06).
+  **frame-consistency** (a basic-science finding sold as a deployment/technology claim → flag, SC-HON-06) **and
+  figure captions** (each `caption` must not claim more than its figure shows → flag, SC-XS-3).
 - **`sw-structure-judge`** (F11, sonnet xhigh, stage-5 site; **input: the prose + the lattice's `reader_model`**)
   — per paragraph: point sentence? old→new to the reader-model? CCC?
 - **F13 premortem panel** — spawn the D017 thinking panel (`premortem-analyst` + `counter-argument`) on the draft
@@ -162,8 +166,10 @@ record it as `--reader premortem`. Then `verdicts.py status --prose <F8b-draft>`
 required reader ready for *this* draft), exit 1 = not (the output names each missing / not-ready / contradicting
 reader). A `ready_to_ship: true` line with `findings > 0` is rejected as not-ready, so emit the honest pair.
 The **F19 consistency** DET (`consistency_check`: abstract↔body numbers + no full CI in the abstract) already ran
-in `run_checks`; its RUB half — **caption ≤ figure** (SC-XS-3) — is owned by **P2-D-5** (figures gain caption
-text + an F19 caption judge in this fan-out), not silently skipped. *The **`stop_sw_converge` Stop-hook
+in `run_checks`; its RUB half — **caption ≤ figure** (SC-XS-3) — is now judged by **F5** at its stage-5 prose site
+(caption ≤ what the figure plots is a scope question; re-mapped F19→F5, P2-D-5), sizing `figures[].caption` against
+`figures[].shows` (NOT the broader bound claim). *The
+**`stop_sw_converge` Stop-hook
 (P2-D-3, landed)** now blocks turn-end while `status` is unconverged (loop-guarded; staleness + convergence
 only — provenance is an accepted non-goal); see stage 6. Phase-2 remaining: **P2-D-4** AskUserQuestion gate,
 **P2-D-5** caption, **P2-D-6** deviation-log.*
@@ -235,7 +241,8 @@ the structured verdict schema + convergence state machine (`scripts/verdicts.py`
 orchestration (this stage-5 section) — *P2-D-2*; the convergence Stop-hook (`.claude/hooks/stop_sw_converge.py`,
 wired in `settings.json`, pipeline-scoped via `active.json` + session-scoped, D047 loop-guard) + the gate-state
 ops in `verdicts.py` (`activate`/`ship`/`accept-residual`) — *P2-D-3*; the F16 gate via `AskUserQuestion` (the
-GATE section) — *P2-D-4*. Still to come: **P2-D-5** SC-XS-3 caption, **P2-D-6** deviation-log.
+GATE section) — *P2-D-4*; SC-XS-3 caption ≤ figure judged by F5 + the `caption` figure field — *P2-D-5*. Still
+to come: **P2-D-6** deviation-log.
 
 **Effort:** all subagents HIGH; the three hardest judges (F4 argument, F5 scope, F11 structure — all built,
 P2-A/P2-B) run XHIGH. The orchestrator runs at the session model.

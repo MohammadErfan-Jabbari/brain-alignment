@@ -18,8 +18,8 @@ The seven required readers (SKILL.md stage-5 RUB set that gates ready_to_ship):
   argument (F4) · scope (F5) · fidelity (F9b) · structure (F11) · voice (F12)
   · premortem (F13, synthesized by the orchestrator — see below) · acknowledgment (F18)
 F19 (consistency) is a DET check inside run_checks, not a RUB subagent verdict, so it is NOT a reader
-here; its only RUB half (caption <= figure, SC-XS-3) is a KNOWN coverage hole owned by P2-D-5, not
-silently absorbed by this set. (SKILL.md stage-5 ends the fan-out at F18, not F19 — this set matches it.)
+here; its only RUB half (caption <= figure, SC-XS-3) is now judged by the F5 scope reader (P2-D-5,
+re-mapped F19->F5), so it rides `scope`'s verdict — no extra reader. (SKILL.md stage-5 ends the fan-out at F18.)
 
 `findings` means UNRESOLVED BLOCKING findings, so `ready_to_ship: true` requires `findings: 0`. A verdict
 with `ready_to_ship: true AND findings > 0` is self-contradictory and is treated NOT ready (fail-safe).
