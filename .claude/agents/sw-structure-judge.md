@@ -61,6 +61,18 @@ finding that resists OCAR), **do not silently force-fit it** — diagnose the mi
 the human when the choice is load-bearing, and **log the deviation** for `deviation_log` (`{functionality: "F11",
 method, why, did}`). Fluid, never silent.
 
+**Enforce the same on the work you judge (SC-PROC-8/9/10).** A section that **silently** force-fits a template
+that does not fit is a structure defect → **FLAG**: CARS (an intro model) applied to a Methods section (SC-PROC-9);
+OCAR force-fit onto a methodological-negative finding (SC-PROC-8); a silently-invented hybrid structure
+(SC-PROC-10). The flag is for the **silence**, not the deviation — a deliberate adaptation that is **logged** in
+`deviation_log` (a well-formed `{functionality, method, why, did}` entry naming the misfit and what was done
+instead) is **CLEAN**. **A logged entry excuses ONLY the specific misfit/section it names** (in `why`/`did`, or an
+explicit `section_id` on the entry) — one generic deviation does **not** wave through every structural misfit; a
+force-fit not covered by a matching entry is **still a FLAG**. (You cannot disable the honesty floor by
+"fluidity" — SC-PROC-11, a `\gap`-skip, is a DET refusal, not yours.) *Scope: you enforce no-silent-force-fit for
+**structure** templates (CCC/OCAR/CARS); a silently force-fit Voice or Argument default is not in your lane —
+that rests on the SKILL fluidity discipline + the human gate, not on you.*
+
 ## Output (return this, nothing else)
 For each finding: `site` (stage-3 skeleton / stage-5 paragraph) · the location (section or quoted paragraph
 opener) · the **defect** (width-overpromise / missing-niche / no-point-sentence / old-new-inverted / CCC-break) ·

@@ -250,6 +250,14 @@ def validate(lattice: dict) -> list[str]:
                 if not isinstance(t, dict) or t.get("strength") not in STRENGTH or _empty(t.get("sentence_ref")):
                     f.append(f"[every-claim-tagged] claim {cid}: malformed \\evd tag {t!r} (need strength enum + sentence_ref)")
 
+    # deviation-log well-formedness (P2-D-6 / SC-PROC-8/9/10): a LOGGED deviation must actually name what was
+    # deviated and why — a vacuous/partial entry cannot count as "logged" for the fluidity escape (fluid, never
+    # silent). Checked at every stage (a deviation may be logged whenever a default method is adapted).
+    for i, d in enumerate(lattice.get("deviation_log") or []):
+        if not isinstance(d, dict) or any(not _has_content(d.get(k)) for k in ("functionality", "method", "why", "did")):
+            f.append(f"[deviation-log] entry {i} is malformed: a logged deviation needs non-blank "
+                     f"functionality/method/why/did (name the misfit and what was done instead) — got {d!r}")
+
     return f
 
 
@@ -386,6 +394,20 @@ def _selftest() -> int:
     expect("SC-F15-TAG-MALFORMED", validate(d), True, "every-claim-tagged")
     bad_after = clone(); bad_after["claims"].append({"claim_id": "C9", "text": "x"})  # after-only, missing keys
     expect("SC-F15-AFTERONLY-BAD", diff(good, bad_after), True, "schema")
+
+    # --- deviation-log well-formedness (P2-D-6 / SC-PROC-8/9/10): a logged deviation must name misfit + fix ---
+    d = clone(); d["deviation_log"] = [{"functionality": "F11", "method": "OCAR",
+                                        "why": "method-negative finding resists OCAR",
+                                        "did": "adapted to a problem->resolution arc"}]
+    expect("SC-PROC dev-log well-formed -> clean", validate(d), False)
+    d = clone(); d["deviation_log"] = [{"functionality": "F11", "method": "OCAR"}]  # missing why/did
+    expect("SC-PROC dev-log missing keys -> flag", validate(d), True, "deviation-log")
+    d = clone(); d["deviation_log"] = [{}]
+    expect("SC-PROC dev-log vacuous -> flag", validate(d), True, "deviation-log")
+    d = clone(); d["deviation_log"] = [{"functionality": "F11", "method": "", "why": "x", "did": "y"}]
+    expect("SC-PROC dev-log empty field -> flag", validate(d), True, "deviation-log")
+    d = clone(); d["deviation_log"] = [{"functionality": "F11", "method": "   ", "why": "x", "did": "y"}]
+    expect("SC-PROC dev-log whitespace field -> flag", validate(d), True, "deviation-log")
 
     # --- F1/F2 stage-1 front-end (P2-B-i) ---
     d = clone(); del d["frame"]

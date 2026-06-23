@@ -89,14 +89,15 @@ table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d 
   lexical "deployment" trigger is the DET sliver).
 
 ## Status (live)
-**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D-1..5 ✅** (green; P1+P2-A
-recorded S35→S36, P2-B + P2-C S37, P2-D this session — see the session logs above + the build log below).
-**P2-D in progress** — the CC-power upgrades, chunked: **P2-D-1 ✅** structured verdict schema + convergence
-state machine (`verdicts.py`); **P2-D-2 ✅** parallel stage-5 fan-out + verdict-recording orchestration (SKILL
-stage 5); **P2-D-3 ✅** the convergence Stop-hook (`stop_sw_converge.py`, wired live, pipeline+session-scoped,
-loop-guarded); **P2-D-4 ✅** the F16 gate via `AskUserQuestion` (GATE section); **P2-D-5 ✅** SC-XS-3 caption ≤
-figure (folded into F5 + the `caption`/`shows` figure fields); **P2-D-6 next** deviation-log/SC-PROC-8-10. Then
-P3 (cutover, irreversible — explicit go required). Per-chunk decisions recorded in the build log below.
+**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D ✅ (1..6 all green)** — **PHASE 2 COMPLETE**
+(P1+P2-A S35→S36, P2-B + P2-C S37, P2-D this session — see the session logs above + the build log below).
+The CC-power upgrades, chunked: **P2-D-1 ✅** structured verdict schema + convergence state machine
+(`verdicts.py`); **P2-D-2 ✅** parallel stage-5 fan-out + verdict-recording orchestration (SKILL stage 5);
+**P2-D-3 ✅** the convergence Stop-hook (`stop_sw_converge.py`, wired live, pipeline+session-scoped, loop-guarded);
+**P2-D-4 ✅** the F16 gate via `AskUserQuestion`; **P2-D-5 ✅** SC-XS-3 caption ≤ figure (folded into F5 +
+`caption`/`shows`); **P2-D-6 ✅** fluidity/deviation-log enforcement (SC-PROC-8/9/10/11). **NEXT = P3 cutover**
+(run the full 119-scenario suite → retire the old flow → repoint CLAUDE.md + 03-methodology → record
+D048-complete) — **IRREVERSIBLE, explicit go from Erfan required.** Per-chunk decisions in the build log below.
 
 ## Build log (append-only; durable decisions mined/made during the build)
 *Phase 1 + P2-A decisions live in the two session logs (provenance table above) + `docs/learnings.md` L059–L061.
@@ -332,3 +333,25 @@ green (DET floor selftest · example validates · opus oracle ACCEPT-WITH-CAVEAT
   nothing to judge on this axis (not a flag); `lattice_integrity` stays permissive (no caption-presence DET) —
   the prose `\caption` is what F5 ultimately reads, sized against `shows`.
 - Killed the now-stale "caption is a coverage hole owned by P2-D-5" comments in `verdicts.py` + `consistency_check.py`.
+
+**P2-D-6 — fluidity / deviation-log enforcement (SC-PROC-8/9/10/11).** The "fluid, never silent" layer. Built
+the **F11 enforce clause** (a *silent* template force-fit in the work it judges → FLAG; a *logged* deviation is
+the clean escape) + a **`deviation_log` well-formedness DET** in `lattice_integrity`. Three nets green (selftest
+incl. 5 dev-log cases · opus oracle ACCEPT-WITH-CAVEAT, 3 fixes · fresh `claude -p` 5/5). Durable decisions:
+- **SC-PROC-11 (a `\gap`-skip via "fluidity") is ALREADY the rigid DET floor** — `claim_binding` flags `[unbound]`
+  for a claim with no bound evidence and no `\gap`; an agent cannot argue past a hook. No new code. (Caveat,
+  honestly scoped: this is closed only for sentences *entered as claims* — the known framing-sentence prose→lattice
+  escape, SKILL honest-limits, is the separate Phase-2 residual, NOT closed here.)
+- **SC-PROC-8/9/10 (silent force-fit) ride F11's STRUCTURE-VERDICT** (already a convergence reader): F11 flags a
+  section that silently force-fits a non-fitting template (CARS-on-Methods, OCAR-on-a-null, a silent invented
+  hybrid). The flag is for the **silence**, not the deviation.
+- **"Logged" is now mechanically real** (oracle MF-1): the DET requires non-**blank** `{functionality, method,
+  why, did}` (uses `_has_content`, which strips — a whitespace-only field no longer counts as logged).
+- **A logged deviation excuses ONLY the misfit it names** (oracle MF-2, the over-broad-escape hole): added an
+  optional `section_id` to the entry + an F11 clause that a force-fit not covered by a matching entry still FLAGs
+  — one generic entry can't wave through every misfit.
+- **Scope stated (oracle MF-3):** F11 enforces no-silent-force-fit for **structure** templates only; a Voice or
+  Argument default force-fit is out of its lane (rests on the SKILL fluidity discipline + the human gate).
+
+**P2-D COMPLETE (1..6).** Phase 2 is done. Next is **P3 cutover** (full 119-suite → retire old flow → repoint
+docs → record D048-complete) — IRREVERSIBLE, explicit Erfan go required.

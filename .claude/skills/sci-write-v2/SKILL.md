@@ -9,9 +9,10 @@ description: >-
   the ordering gate); the Argument concern (warrants, scope), the message/frame + reader-model front-end, the
   structure judge, figures, acknowledgment, the premortem panel, the exemplar pin, voice-realize, and the
   consistency check are built too. P2-D is landing the CC-power layer: the structured-verdict convergence machine,
-  the parallel stage-5 fan-out, the convergence Stop-hook, the AskUserQuestion gate, and the SC-XS-3 caption
-  judge (folded into F5) are in; the deviation-log is the last of it. Until this passes the 119-scenario suite, the live
-  `scientific-writing` skill stays the default; this is built and tested alongside it.
+  the parallel stage-5 fan-out, the convergence Stop-hook, the AskUserQuestion gate, the SC-XS-3 caption
+  judge (folded into F5), and the fluidity/deviation-log enforcement are all in — **Phase 2 is complete**. The
+  only remaining step is P3 cutover. Until this passes the 119-scenario suite, the live `scientific-writing` skill
+  stays the default; this is built and tested alongside it.
 ---
 
 # /write — the gated-loop pipeline
@@ -241,8 +242,10 @@ the structured verdict schema + convergence state machine (`scripts/verdicts.py`
 orchestration (this stage-5 section) — *P2-D-2*; the convergence Stop-hook (`.claude/hooks/stop_sw_converge.py`,
 wired in `settings.json`, pipeline-scoped via `active.json` + session-scoped, D047 loop-guard) + the gate-state
 ops in `verdicts.py` (`activate`/`ship`/`accept-residual`) — *P2-D-3*; the F16 gate via `AskUserQuestion` (the
-GATE section) — *P2-D-4*; SC-XS-3 caption ≤ figure judged by F5 + the `caption` figure field — *P2-D-5*. Still
-to come: **P2-D-6** deviation-log.
+GATE section) — *P2-D-4*; SC-XS-3 caption ≤ figure judged by F5 + the `caption`/`shows` figure fields — *P2-D-5*;
+the fluidity/deviation-log enforcement (F11 flags a silent force-fit, the `deviation_log` well-formedness DET,
+SC-PROC-8/9/10/11) — *P2-D-6*. **P2-D complete; Phase 2 done. Only P3 cutover remains (after the 119-suite,
+Erfan's explicit go).**
 
 **Effort:** all subagents HIGH; the three hardest judges (F4 argument, F5 scope, F11 structure — all built,
 P2-A/P2-B) run XHIGH. The orchestrator runs at the session model.
