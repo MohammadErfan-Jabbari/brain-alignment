@@ -1,30 +1,45 @@
 # Upspeed — read first, write last
 
-**Last updated:** 2026-06-22 (S35 — **/meta: redesigned the `/write` pipeline end-to-end and took it to BUILD-READY.** From the S33 diagnosis ("an immune system, not a notion of health") to a complete design: methodology canon + 11-repo ecosystem audit + Claudio's supervisor feedback → an ideal 4-concern system (Trust/Argument/Structure/Voice, gated-loop spine) → 21-functionality matrix → 119-scenario TDD suite → Claude-Code-primitive mapping → coverage check, **each step independently opus-reviewed**. **NO experiment, NO science number, NO rung change — Q0–Q5 stand exactly as S33/S34.** Prior: S34 — /meta hook-stack audit + graphify→context-mode swap in CLAUDE.md.)
+**Last updated:** 2026-06-23 (S36 — **/meta: BUILT the `/write` redesign — Phase-1 walking skeleton (C1–C8) + Phase-2 Argument concern (P2-A), all verified.** Implemented the S35 BUILD-READY design (D048) as a new self-contained skill `.claude/skills/sci-write-v2/` (the live `scientific-writing` skill is untouched; cutover is Phase 3). Method: phase-by-phase atomic chunks, each = log-mine (S35 log + reference docs) → build → **opus oracle review (every chunk FIX-THEN-PASS, all fixed)** → **fresh `claude -p` clean-room verification** → atomic commit (9 commits). The walking skeleton runs green end-to-end on the abstract; the Claudio regression anchor is caught. **NO experiment, NO science number, NO rung change — Q0–Q5 stand exactly as S35.** Prior: S35 — designed the `/write` pipeline to BUILD-READY.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md)** (Q0–Q5 unchanged). **How to operate = [`operating-map.md`](operating-map.md)** (8 stances). With no task, run `/orient`.
 
-## What this session did (all /meta — design, no code yet)
-- **Designed the new `/write` pipeline.** The artifacts (all in `docs/references/`, committed):
-  - `write-redesign-design.html` — the **living design canvas** (v1.1, BUILD-READY): the 4 concerns, the gated-loop spine, the 21-functionality matrix (2a), the fluidity principle, the CC-primitive mapping (2c), the coverage check (2d), the CC-power upgrades. **This is the master design doc — open it first.**
-  - `write-redesign-build-plan.md` — the migration map (existing item → F-number → keep/lift/rewrite/retire), the Phase-1 walking skeleton, build order.
-  - `write-redesign-scenarios.md` — the 119-scenario TDD suite (full F1–F19 coverage, near-misses, Claudio anchor, F17 exemplar set).
-  - `write-redesign-sources.md` (8 asset groups) · `scientific-writing-methodology.md` (the canon) · `writing-skills-ecosystem-audit.md` (11 repos) · `write-redesign-citations.md` (design→source) · `supervisor-feedback.md` (Claudio).
-- **The core reframe:** separate the four concerns we currently tangle. **Trust** + **Argument** = the case is true, sound, honestly-scoped. **Structure** + **Voice** = delivered well. The human gates the *case + plan*, not the prose lines; trust comes from a claim-lattice locked at the gate + audited for drift. The claim-grounding loop (a Claim-Intent-Manifest extending our D011) is what lets Erfan stop reading every line.
+## What this session did (/meta — the BUILD)
+Built the redesigned `/write` pipeline at **`.claude/skills/sci-write-v2/`** (new, self-contained; the live
+`scientific-writing` skill is untouched). 9 atomic chunks, 9 commits, each opus-oracle-reviewed +
+fresh-`claude -p`-session verified:
+- **Phase 1 (C1–C8), green e2e on the abstract:** lattice + `lattice_integrity` (C1); claim-binding F3 +
+  `evidence-register.json` (C2); F6 skeleton (C3); F8a drafter `sw-drafter` + `draft_check` (C4); F12 voice
+  `ai_tell_lint` + `sw-voice-auditor` — **catches the Claudio anchor** (C5); F9a/F9b claim-fidelity +
+  `sw-claim-fidelity-judge` (C6); F16 gate `gate_state` (C7); orchestrator `SKILL.md` + `run_checks.py`
+  dispatcher (C8). **Phase-1 acceptance met.**
+- **Phase 2 P2-A (Argument concern):** F4 `warrant_schema` + `sw-argument-judge`, F5 `scope_lint` +
+  `sw-scope-judge` (opus xhigh, 2 sites each).
+- **Apparatus:** every script has a `--selftest`; `run_checks --selftest` is the integration smoke (green).
+  The per-chunk verifier loop Erfan designed (fresh session loads the new artifact + opus reviewer adds
+  scenarios) is proven to work — a fresh `claude -p` does load skills/commands/scripts added mid-session.
 
-## What's next (Erfan's call — design is done, build is next)
-- **Phase 1 — the walking skeleton.** Build the minimum vertical slice through the whole spine, reusing the lifted DET scripts: `claim-lattice.json` (F15) → claim-binding (F3) → minimal skeleton (F6) → drafter-with-\evd (F8a) → two audits (F12 voice + F9a/b) → gate (F16). **Run it on the abstract** (a case we hand-cleaned in S33). Acceptance: catches Claudio's class (SC-VOICE-01–04), passes the near-misses, every claim \evd-bound. Then expand (Phase 2) and cut over (Phase 3, after the 119-suite passes).
-- **Live science thread (UNCHANGED since S25):** Q4 sample-efficiency E024 — re-substrate to higher-N gaze → synthetic-PI MDE positive-control → re-gate → build. Q2 ❌, Q3 ❌ stand.
+## What's next (resume the build here)
+- **P2-B** — F11 structure judge (2 sites) + F1 reader-model + F2 message&frame.
+- **P2-C** — F18 ack + F13 premortem-panel + F7 figures + F17 exemplar pin + F8b voice-realize + F19 consistency.
+- **P2-D** — CC-power upgrades: parallel stage-5 fan-out + structured `ready_to_ship` verdicts + D047 Stop-hook
+  convergence + AskUserQuestion gate.
+- **P3 (IRREVERSIBLE — confirm with Erfan):** full 119-scenario suite e2e → retire old flow → wire DET hooks →
+  point `CLAUDE.md`/`03-methodology.md` at the new pipeline → record D048-complete.
+- **Live science thread (UNCHANGED since S25):** Q4 sample-efficiency E024. Q2 ❌, Q3 ❌ stand.
 
 ## Blockers / open loops
-- **The `/write` build has not started** — the design is BUILD-READY but no code written. Resume at Phase 1.
-- The redesign **does not change the existing skill yet**; the old `scientific-writing` flow stays live until the new pipeline passes the 119-scenario suite (then retire it — Phase 3).
-- `taste-reader` opus agent still unbuilt — but it's now subsumed by the new design (F12 voice + the panel), so build it as part of the pipeline, not separately.
+- The build is **not cut over** — the old `scientific-writing` flow is still the default until the new pipeline
+  passes the full 119-suite (Phase 3). Both coexist; `sci-write-v2` is invokable for testing.
+- Per-chunk discipline must continue for P2-B onward: log-mine → build → opus oracle → fresh-session → commit.
 
 ## Key facts
-- **Design master doc:** `docs/references/write-redesign-design.html` (render it as an Artifact to read; it's the canvas). The 7 sibling `write-redesign-*` / methodology / audit / feedback docs are the source set — `write-redesign-sources.md` indexes all.
-- **Effort tiers (set, Erfan-approved):** all `/write` subagents HIGH; F4 (argument), F5 (scope), F11 (structure) at XHIGH.
-- **~⅕ of the build is reuse-not-build:** the 9 DET scripts (`ai_tell_lint`, the evd/gap/number checks, register_state), `prose-register-auditor`, the thinking panel, honesty_writecheck — lift them, don't rewrite.
-- **Tooling note:** parallel `git clone` of many repos hits anonymous throttling → clone sequentially.
+- **New skill:** `.claude/skills/sci-write-v2/` (SKILL.md = orchestrator; `scripts/` = DET floor;
+  `schema/LATTICE.md` = the spine; `examples/` = the abstract worked-example + acceptance evidence). New
+  agents: `sw-drafter`, `sw-voice-auditor`, `sw-claim-fidelity-judge`, `sw-argument-judge`, `sw-scope-judge`.
+- **One DET call:** `python3 .claude/skills/sci-write-v2/scripts/run_checks.py --lattice L [--prose P] [--prev PREV]`.
+- **The gate binds to prose-existence**, not the self-reported stage (the key C8 fix). `.claude/state/sw-gate/` is gitignored.
+- **Design master doc:** `docs/references/write-redesign-design.html`; the 119-scenario suite is
+  `docs/references/write-redesign-scenarios.md`. Build map: `write-redesign-build-plan.md`.
+- **Effort tiers (Erfan-approved):** all subagents HIGH; F4/F5/F11 XHIGH.
 - **Run code:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache`; 4× L40S. Git: `main`, push only when asked.
-- Cloned reference repos live in gitignored `data/reference-repos/` (11 repos).
