@@ -39,6 +39,7 @@ fresh-`claude -p`-session verified:
   agents: `sw-drafter`, `sw-voice-auditor`, `sw-claim-fidelity-judge`, `sw-argument-judge`, `sw-scope-judge`.
 - **One DET call:** `python3 .claude/skills/sci-write-v2/scripts/run_checks.py --lattice L [--prose P] [--prev PREV]`.
 - **The gate binds to prose-existence**, not the self-reported stage (the key C8 fix). `.claude/state/sw-gate/` is gitignored.
+- **Fresh-session verifier mechanics (use for P2-B onward):** `timeout 540 claude -p "<task>" --model <m> --permission-mode bypassPermissions --add-dir <scratch>`; **raise the Bash tool's `timeout` to ≥540000ms** or the default 120s kills the run (this bit once). A fresh `claude -p` DOES load skills/commands/scripts added this session; an in-process Agent subagent does NOT (L061). Run the opus oracle review FIRST, fix, THEN the fresh-session verify.
 - **Design master doc:** `docs/references/write-redesign-design.html`; the 119-scenario suite is
   `docs/references/write-redesign-scenarios.md`. Build map: `write-redesign-build-plan.md`.
 - **Effort tiers (Erfan-approved):** all subagents HIGH; F4/F5/F11 XHIGH.
