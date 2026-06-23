@@ -6,6 +6,16 @@ build the new orchestration + new components *from scratch* in a clean location;
 (the DET floor — tested, the reviews' strongest part) rather than rewrite them; **retire the old `/write` flow only
 once the new pipeline passes the 119-scenario suite.**
 
+## Session provenance — the build's source-of-truth logs
+
+Two sessions carry the full reasoning behind this build. When a decision or a design choice is unclear, the answer
+is in these logs (mine them with a subagent; never re-derive). Project slug: `-home-centcom-data-brain-alignment`.
+
+| Session | Role | Log file |
+|---|---|---|
+| `3ce96589-47c5-4d6b-ab6b-d2e7b7a85134` | **The redesign** — designed the whole pipeline to BUILD-READY (the *why*: 4 concerns, gated loop, 119 scenarios, CC mapping, D047/D048) | `~/.claude/projects/-home-centcom-data-brain-alignment/3ce96589-47c5-4d6b-ab6b-d2e7b7a85134.jsonl` |
+| `1709254b-72c6-40a0-bacd-0d88e900691f` | **First build** — implemented Phase 1 (C1–C8) + P2-A under the per-chunk build→opus-oracle→fresh-`claude -p`-verify→commit loop (the *how*) | `~/.claude/projects/-home-centcom-data-brain-alignment/1709254b-72c6-40a0-bacd-0d88e900691f.jsonl` |
+
 ## Migration map — existing apparatus → new design (the tags)
 
 | Existing item | New role | Action |
