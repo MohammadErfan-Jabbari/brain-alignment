@@ -87,9 +87,10 @@ table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d 
   lexical "deployment" trigger is the DET sliver).
 
 ## Status (live)
-**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅** (green; recorded S35→S36, see the two session logs above). **P2-B in
-progress** (F1 reader-model · F2 message&frame · F11 structure judge). Then P2-C, P2-D, P3 (cutover, irreversible —
-explicit go required). Per-chunk decisions recorded in the build log below.
+**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅** (green; P1+P2-A recorded S35→S36, P2-B this session — see the
+two session logs above + the build log below). **P2-C next** (F18 acknowledgment · F13 premortem panel · F7
+figures · F17 exemplar pin · F8b voice-realize · F19 consistency). Then P2-D (CC-power upgrades), P3 (cutover,
+irreversible — explicit go required). Per-chunk decisions recorded in the build log below.
 
 ## Build log (append-only; durable decisions mined/made during the build)
 *Phase 1 + P2-A decisions live in the two session logs (provenance table above) + `docs/learnings.md` L059–L061.
@@ -114,3 +115,24 @@ fresh `claude -p` ALL-PASS, SC-RM-1/2 correct). Durable decisions:
   `reader_model`'s sub-fields at sub-key granularity.
 - Empty *lists* inside `reader_model` (a reader with no NEW terms / no doubts) are legitimately allowed by
   `validate`; only emptying a field that *had* content is an append-safe flag.
+
+**P2-B-ii — F11 structure judge (2 sites).** Built `agents/sw-structure-judge.md` (sonnet, xhigh), one judge at
+two sites; wired into SKILL stage-3 + stage-5. No new DET script (the structure coverage floor — orphan-claim,
+empty-section — already lives in `lattice_integrity`; width/CARS/point-sentence are all RUB). Three nets green
+(selftest floor intact · opus oracle FIX-THEN-PASS · fresh `claude -p` **8/8**, incl. all precision near-misses
+NOT flagged). Durable decisions:
+- **Stage-3 site:** width = Schimel opening=resolution, **counted by claim-ID** (a contribution = a distinct
+  claim-ID in the opening; "resolved" = that claim-ID discussed *with its result* in the discussion, not merely
+  re-named) + CARS niche (Move-2 present). **Stage-5 site:** point-sentence, old→new *relative to the
+  reader-model*, CCC.
+- **Oracle D1 (the load-bearing fix):** the stage-5 judge needs `reader_model` to judge old→new, but the contract
+  said "the lattice is NOT your input" — telling a literal judge to ignore the one field it needs (SC-STR-12 would
+  silently pass). Fixed: it reads `reader_model` from the lattice; **if absent/empty it flags old→new as
+  *unjudgeable*, never silent-pass** (mirrors F4's grounding-unverifiable rule). SKILL stage-5 spawn now names the
+  `reader_model` input explicitly.
+- **Oracle D3 (arc vs register):** added the operational test — *judge the order of ideas, never the diction*; a
+  sound problem→resolution arc is CLEAN even if the wording is dramatized (dramatization is F12's flag). Stops F11
+  double-flagging an arc that co-occurs with a register tell.
+- **Stale-doc fix:** re-tagged the scenario suite — SC-STR-06/07 `F6 → F11`, SC-HON-06 `F2 → F5` (table + inline) —
+  so a P3 suite-runner routes them to the judge that enforces them, not the hook.
+- Wired F4/F5 (P2-A) into the SKILL stage-5 reader list too — the orchestrator narrative had lagged P2-A.

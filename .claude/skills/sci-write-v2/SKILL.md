@@ -6,10 +6,10 @@ description: >-
   and the plan, get them approved as one package, THEN draft, audit, and revise. Trust is earned by a gate
   plus a high-recall audit, not asserted by construction. Walking-skeleton phase: the Trust + Structure +
   Voice spine is live (claim-lattice, claim-binding, skeleton, drafter-with-\evd, voice audit, claim-fidelity,
-  the ordering gate); the Argument concern (warrants, scope) and the message/frame + reader-model front-end are
-  built too. The structure judge, figures, acknowledgment, consistency, exemplar pin, and the parallel-audit /
-  Stop-hook convergence are still being added (Phase 2). Until this passes the 119-scenario suite, the live
-  `scientific-writing` skill stays the default; this is built and tested alongside it.
+  the ordering gate); the Argument concern (warrants, scope), the message/frame + reader-model front-end, and the
+  structure judge are built too. Figures, acknowledgment, consistency, the exemplar pin, voice-realize, and the
+  parallel-audit / Stop-hook convergence are still being added (Phase 2). Until this passes the 119-scenario
+  suite, the live `scientific-writing` skill stays the default; this is built and tested alongside it.
 ---
 
 # /write — the gated-loop pipeline
@@ -61,8 +61,10 @@ The Argument half — F4 warrants, F5 scope (opus, xhigh) — is **Phase 2**.*
 **Stage 3 · Architecture (Structure).** Build the skeleton per `references/F6-skeleton.md`: OCAR macro, CARS
 intro moves, CCC fractal, organize-by-importance; assign every claim a `section`, populate `sections[].claim_ids`
 both directions; set `meta.stage=3`. **`run_checks`** → `lattice_integrity` must pass (orphan-claim,
-empty-section, node↔section). *Phase 1: the skeleton + coverage. F7 figures, F11 structure judge, F18
-acknowledgments are **Phase 2** (central-figure is dormant until stage 4 / F7).*
+empty-section, node↔section). Then spawn **`sw-structure-judge`** (sonnet, xhigh) at its **stage-3 site** to judge
+the skeleton: **opening-width = resolution-width** (contributions promised in the opening ≤ those resolved in the
+discussion) and the **CARS niche** (Move-2, the gap, is present — not territory→this-work). *F7 figures + F18
+acknowledgments are still **Phase 2** (central-figure is dormant until stage 4 / F7).*
 
 **↻ Stages 1–3 iterate freely** — binding may revise the message; the skeleton may reveal a missing claim.
 Nothing is locked until the gate. No prose is generated in stages 1–3.
@@ -84,13 +86,20 @@ coupling is what makes the gate's ordering floor real. *Phase 1: F8a. The F8b vo
 (F12 audits voice instead).* Then **`run_checks --lattice L --prose P`** → `draft_check` + `lattice_integrity`
 (every-claim-tagged) + `claim_fidelity` (F9a, tag ≤ strength) + `ai_tell_lint` (F12 lexical) must pass.
 
-**Stage 5 · Audit.** The DET floor already ran in `run_checks`. Now the **RUB readers**, in parallel (one
-message, multiple subagents):
-- **`sw-voice-auditor`** (F12 RUB, sonnet) — the register/voice gate; the real catch for the storytelling
-  class (the Claudio anchor) the linter cannot reach.
+**Stage 5 · Audit.** The DET floor already ran in `run_checks`. Now the **RUB readers** (spawn them in parallel —
+one message, multiple subagents):
+- **`sw-voice-auditor`** (F12, sonnet) — the register/voice gate; the real catch for the storytelling class (the
+  Claudio anchor) the linter cannot reach.
 - **`sw-claim-fidelity-judge`** (F9b, opus) — does any sentence's assertion exceed its own `\evd` tag.
-*Phase 1: these two. F4/F5-on-prose, F11 structure, F13 premortem panel, F19 consistency, and the
-structured-output `ready_to_ship` verdicts + parallel fan-out of all seven are **Phase 2**.*
+- **`sw-argument-judge`** (F4, opus xhigh, stage-5 site) — does each "therefore" in the prose actually hold, and
+  is the cited evidence the right receipt (grounding).
+- **`sw-scope-judge`** (F5, opus xhigh, stage-5 site) — is each claim sized to its evidence, plus
+  **frame-consistency** (a basic-science finding sold as a deployment/technology claim → flag, SC-HON-06).
+- **`sw-structure-judge`** (F11, sonnet xhigh, stage-5 site; **input: the prose + the lattice's `reader_model`**)
+  — per paragraph: point sentence? old→new to the reader-model? CCC?
+Each emits a machine-readable `*-VERDICT: {ready_to_ship, findings}` line. *Still **Phase 2**: F13 premortem panel
++ F19 consistency (the remaining readers), and the **structured `ready_to_ship` Stop-hook convergence + true
+parallel fan-out** (P2-D) — until then, run them, reconcile by hand, and Erfan signs the final converge.*
 
 **Stage 6 · Revise.** Fix coarse-to-fine, **never reversed**: logic → sentence → lexical. A **logic** fix
 (it changes a gated field: a claim, a warrant, the skeleton, the message) **re-enters the gate** — re-run the
@@ -140,11 +149,12 @@ D047 Stop-hook + structured `ready_to_ship` verdicts, "clean" on the two RUB rea
 `agents/sw-argument-judge.md`) · **F5** scope (`scripts/scope_lint.py` DET + `agents/sw-scope-judge.md`) — *P2-A,
 opus xhigh, 2 sites each*. **F1** reader-model (`agents/sw-reader-model.md`, sonnet) + **F2** message&frame (this
 skill's stage-1 section + the `frame`/`contribution_type`/`reader_model`/message-one-sentence checks in
-`lattice_integrity.py`) — *P2-B-i*. Still to come: **F11** structure judge (P2-B-ii), then F7 figures, F18
-acknowledgment, F13 panel, F19 consistency, F17 exemplar pin, F8b voice-realize, and the P2-D CC-power upgrades.
+`lattice_integrity.py`) — *P2-B-i*. **F11** structure judge (`agents/sw-structure-judge.md`, sonnet xhigh, 2
+sites) — *P2-B-ii*. Still to come: F7 figures, F18 acknowledgment, F13 panel, F19 consistency, F17 exemplar pin,
+F8b voice-realize, and the P2-D CC-power upgrades.
 
-**Effort:** all subagents HIGH; the three hardest judges (F4 argument, F5 scope — built P2-A; F11 structure —
-P2-B-ii) run XHIGH. The orchestrator runs at the session model.
+**Effort:** all subagents HIGH; the three hardest judges (F4 argument, F5 scope, F11 structure — all built,
+P2-A/P2-B) run XHIGH. The orchestrator runs at the session model.
 
 ## Phase-1 acceptance (the bar this walking skeleton must clear)
 Run the spine on the manuscript **abstract**: every claim is `\evd`-bound (or an explicit `\gap`); the voice

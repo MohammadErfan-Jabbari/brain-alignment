@@ -14,18 +14,18 @@ curated. **Format:** `ID | tests: F## | DET|RUB | INPUT | EXPECT | GROUNDED`.
 | F | Functionality | Scenarios |
 |---|---|---|
 | F1 | Reader-model | STR-03, STR-12 |
-| F2 | Message & frame | HON-06 |
+| F2 | Message & frame | (sets/gates the frame; frame-blend HON-06 is audited by F5) |
 | F3 | Claim binding | TRUST-1, 2, 3, 11 |
 | F4 | Warrant elicitation | ARG-1, 6, 8, (2,11) |
 | F5 | Scope & novelty gate | HON-01–08 |
-| F6 | Skeleton | STR-04, 05, 06, 07, 10 |
+| F6 | Skeleton | STR-04, 05, 10 |
 | F7 | Figure plan | STR-08 |
 | F8a | Structure-realize | PROC-3, 4 |
 | F8b | Voice-realize | VOICE-10, 11 |
 | F9a | Claim-fidelity (tag) | TRUST-4, 5 |
 | F9b | Claim-fidelity (assertion) | TRUST-6, 7, 8; HON-02, 04, 05, 08 |
 | F10 | Argument audit | ARG-2, 3, 9, 11 |
-| F11 | Structure audit | STR-01, 02, 09, 11, 12 |
+| F11 | Structure audit | STR-01, 02, 06, 07, 09, 11, 12 |
 | F12 | Voice audit | VOICE-01–09, 12, 13 |
 | F13 | Reviewer premortem | ARG-5, 10 |
 | F14 | Revise loop | PROC-5 |
@@ -35,9 +35,9 @@ curated. **Format:** `ID | tests: F## | DET|RUB | INPUT | EXPECT | GROUNDED`.
 | F18 | Acknowledgment | ARG-4, 7, 12 |
 | — | Fluidity principle + boundary | PROC-8, 9, 10, 11 |
 
-> **Enforcement ≠ this table for the 2d-remapped scenarios** (the design's step-2d is authoritative; this table
-> keeps the pre-2d owner): **SC-STR-06/07** are graded by the **F11 structure judge (stage-3 site)**, not F6;
-> **SC-HON-06** is graded by the **F5 scope judge (stage-5 site)**, not F2 — and is RUB, not DET. See
+> **2d remaps applied to this table + the inline tags** (design step-2d moved enforcement): **SC-STR-06/07** are
+> graded by the **F11 structure judge (stage-3 site)**, not F6 (a hook with no judge); **SC-HON-06** by the **F5
+> scope judge (stage-5 site)**, not F2 (which only sets/gates the frame) — and is RUB, not DET. See
 > `write-redesign-build-plan.md` "Authority note".
 
 Adversarial near-misses (MUST NOT flag — the precision boundary): TRUST-5, 7, 11 · HON-09, 10 · STR-09, 10 ·
@@ -86,7 +86,7 @@ SC-HON-02 | F5,F9b | RUB | "brain-alignment-guided distillation improves OOD gen
 SC-HON-03 | F5     | DET | "In general, higher brain alignment correlates with better downstream performance." | MUST flag "in general" on a single-dataset claim | scope is within-distribution (L041)
 SC-HON-04 | F5,F9b | RUB | "The alignment lever yields a meaningful performance gain, consistent with the distillation hypothesis." | MUST flag — lever is weak, ppl-confounded, demoted; "meaningful" unadjudicated | R08 pending
 SC-HON-05 | F5,F9b | RUB | "We prove that brain alignment signals are absent at the individual level." | MUST flag "prove…absent" — the null is bounded/underpowered, not proven zero | repo identity: "undemonstrated, not proven-zero"
-SC-HON-06 | F2     | DET | "Brain alignment is a new training objective that improves model quality for deployment." | MUST flag frame-blend — basic-science finding sold as a technology/deployment claim | F2; Q3 null closes the tech frame
+SC-HON-06 | F5     | RUB | "Brain alignment is a new training objective that improves model quality for deployment." | MUST flag frame-blend — basic-science finding sold as a technology/deployment claim | F2; Q3 null closes the tech frame
 SC-HON-07 | F5     | DET | "To our knowledge, no prior work has used brain alignment as a distillation objective." | MUST flag novelty claim with no bound survey citation | F5 novelty-is-a-bound-claim
 SC-HON-08 | F5,F9b | RUB | "Varying λ from 0.1 to 10 traces the full alignment-quality trade-off curve." | MUST flag — single λ tested; "full curve" implies an unrun sweep | experiment log
 SC-HON-09 | F5,F2  | RUB | "Within the TRIBE dataset, group-averaged alignment is higher for better-fit layers (R²=0.34, CI[0.28,0.40], n=8 folds, contiguous split)." | MUST NOT flag — scoped, CI+split reported, no inflation | adversarial near-miss; honest in-domain form
@@ -101,8 +101,8 @@ SC-STR-02 | F11   | RUB | "We trained a probe...r²=0.31. This is surprising. Br
 SC-STR-03 | F1    | RUB | ML-venue reader-model; "voxelwise noise ceiling" used in Results with no gloss | MUST flag — neuroscience jargon must be marked new-to-this-reader, glossed on first use | F1 seed; McEnerney
 SC-STR-04 | F6    | DET | 4 claims, sections cover only C1+C2; C3, C4 map to no section | MUST flag C3,C4 as orphan claims (coverage) | F6 DET
 SC-STR-05 | F6    | DET | Related Work section present, no claim bound to it | MUST flag empty section | F6 DET; Whitesides organize-by-importance
-SC-STR-06 | F6    | RUB | Intro paragraph promises 4 distinct contributions; Discussion resolves only 1 | MUST flag opening>resolution width (over-promise) | Schimel OCAR width-match
-SC-STR-07 | F6    | RUB | Intro jumps Move1 (territory) → Move3 (this work), no Move2 (gap) | MUST flag missing CARS niche/gap | Swales CARS
+SC-STR-06 | F11   | RUB | Intro paragraph promises 4 distinct contributions; Discussion resolves only 1 | MUST flag opening>resolution width (over-promise) | Schimel OCAR width-match
+SC-STR-07 | F11   | RUB | Intro jumps Move1 (territory) → Move3 (this work), no Move2 (gap) | MUST flag missing CARS niche/gap | Swales CARS
 SC-STR-08 | F7    | DET | central claim = "alignment-distillation beats KL-only"; figures = architecture, r² heatmap, loss curve | MUST flag — central contribution has no figure | F7 DET
 SC-STR-09 | F11   | RUB | "Noise ceilings set the upper bound... We computed it following Nili (2014)... our model explains 71% at layer 12." | MUST NOT flag — context→content→point(71%); old-to-new respected | adversarial near-miss
 SC-STR-10 | F6    | RUB | short Results subsection: topic sentence + numbers + figure ref + forward link (4 sentences) | MUST NOT flag — short but complete; length ≠ defect | adversarial near-miss
