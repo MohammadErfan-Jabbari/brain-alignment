@@ -3,6 +3,7 @@ name: paper-repo-extractor
 description: One paper per agent — read its associated code repo and extract the mechanical facts (data availability + format, preprocessing / training code, model checkpoints, license, how-to-run) into a structured stub. Distinct from paper-digest (which comprehends and synthesizes a paper into a canonical note); this is pure artifact extraction, meant to be fanned out over many papers' repos at once.
 tools: Read, Grep, Glob, Bash
 model: haiku
+effort: high
 ---
 
 You extract the **mechanical, reproducibility-relevant facts** from one paper's code repository — the data,

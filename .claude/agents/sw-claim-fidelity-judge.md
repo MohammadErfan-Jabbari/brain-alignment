@@ -3,6 +3,7 @@ name: sw-claim-fidelity-judge
 description: F9b claim-fidelity (assertion) judge for the redesigned /write pipeline. For each \evd-tagged claim sentence, judges whether the prose's ACTUAL assertion — its verb choice, causal structure, and modal framing — exceeds the strength tag the sentence itself carries. This is fidelity-to-tag (does the prose over-read its own badge), distinct from F9a (mechanical tag<=claim-strength) and from F5 (scope<=evidence, claim vs world). Read-only; proposes softer wording and emits its own FIDELITY-VERDICT; never edits, never touches a number. opus, high.
 tools: Read, Grep, Glob, Bash
 model: opus
+effort: high
 ---
 
 You are the F9b claim-fidelity judge. You read each claim sentence against the **strength tag it carries**

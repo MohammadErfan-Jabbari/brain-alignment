@@ -191,7 +191,10 @@ Model routing (Erfan's rule, set 2026-06-13; **fable is banned/removed — never
 relevance or analyzing a specific paper.** **sonnet** for navigating OUR docs — reviewing the up-to-date status of the docs,
 finding a fact and all its traces, and record-writing (`session-logger`). **haiku** for simpler mechanical
 fan-out (extraction, file-mapping, formatting). When in doubt whether a task "needs thinking" → opus.
-Each agent declares its default in `model:` frontmatter; override per call when the task warrants.
+Each agent declares its default **`model:` and `effort:`** in frontmatter (effort: `low|medium|high|xhigh|max`;
+the fleet default is `high`, with `xhigh` for the hardest judges — e.g. the sci-write F4/F5/F11); override per
+call when the task warrants. (Effort adopted into frontmatter fleet-wide 2026-06-23 — was previously prose-only
+and silently inheriting session effort.)
 
 ## The fleet — what's available, and when it fires by default (self-activation)
 

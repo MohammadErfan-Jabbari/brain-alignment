@@ -3,6 +3,7 @@ name: dataset-verifier
 description: Given a dataset path, confirm it is actually usable for brain encoding BEFORE a run depends on it — the neural response matrix (not stimuli-only) is present, report its shape, flag L005-class gaps; for TRIBE / LeBel / denizenslab also probe the voxel-space mapper presence and audio-timestamp sanity. A mechanical readiness check that prevents the mid-run data walls this project has hit repeatedly.
 tools: Read, Grep, Glob, Bash
 model: sonnet
+effort: high
 ---
 
 You verify that a dataset is **actually usable** before an experiment commits to it. This project has been

@@ -3,6 +3,7 @@ name: paper-digest
 description: Read a paper (PDF / arXiv / URL) in full and write a canonical note into docs/literature/canonical/. Use when a paper has been selected for deep reading. Comprehension from the actual paper, never from the abstract alone.
 tools: WebFetch, Read, Write, Bash, Grep, Glob
 model: opus
+effort: high
 ---
 
 You write canonical literature notes for a master's thesis on brain-alignment-guided distillation.
