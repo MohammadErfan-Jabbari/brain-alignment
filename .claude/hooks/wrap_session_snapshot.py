@@ -11,8 +11,15 @@ It only RECORDS state. It never blocks, edits, or nags — it is not a gate.
 Input (stdin, JSON from Claude Code): {session_id, transcript_path, cwd, source, ...}.
 Output: writes <cwd>/.claude/state/wrap/start.json. Exits 0 always (a hook failure must
 never break session start). State is gitignored and per-worktree, so parallel work in
-separate worktrees stays isolated; two sessions in ONE worktree is unsupported (the second
-overwrites) — by design, parallel work uses separate worktrees.
+separate worktrees stays isolated.
+
+Two-sessions-in-one-worktree caveat: the snapshot is a single shared file, so a second
+session start in the same worktree overwrites it. That is normally fine (parallel work uses
+separate worktrees) EXCEPT for one pattern that fires SessionStart in the SAME worktree: a
+`claude -p` verification subprocess (the /write build's per-chunk fresh-session loop). Those
+children would clobber the parent interactive session's snapshot and force /wrap onto its
+fallback. So a child opts out by exporting CLAUDE_WRAP_SNAPSHOT_SKIP=1 before it spawns; the
+hook then no-ops and the parent's snapshot survives. (Verified bug, 2026-06-23 / S36.)
 """
 import json
 import os
@@ -21,6 +28,11 @@ import sys
 
 
 def main() -> None:
+    # A verification subprocess (claude -p in the same worktree) sets this so it does not
+    # clobber the parent interactive session's wrap snapshot. No-op, never records.
+    if os.environ.get("CLAUDE_WRAP_SNAPSHOT_SKIP") == "1":
+        sys.exit(0)
+
     try:
         payload = json.load(sys.stdin)
     except Exception:
