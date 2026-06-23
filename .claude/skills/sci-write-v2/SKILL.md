@@ -1,18 +1,12 @@
 ---
 name: sci-write-v2
 description: >-
-  The redesigned /write pipeline (D048) — turn recorded findings into proper, tasteful academic prose by
-  separating four concerns (Trust / Argument / Structure / Voice) over a staged gated loop: build the case
-  and the plan, get them approved as one package, THEN draft, audit, and revise. Trust is earned by a gate
-  plus a high-recall audit, not asserted by construction. Walking-skeleton phase: the Trust + Structure +
-  Voice spine is live (claim-lattice, claim-binding, skeleton, drafter-with-\evd, voice audit, claim-fidelity,
-  the ordering gate); the Argument concern (warrants, scope), the message/frame + reader-model front-end, the
-  structure judge, figures, acknowledgment, the premortem panel, the exemplar pin, voice-realize, and the
-  consistency check are built too. P2-D is landing the CC-power layer: the structured-verdict convergence machine,
-  the parallel stage-5 fan-out, the convergence Stop-hook, the AskUserQuestion gate, the SC-XS-3 caption
-  judge (folded into F5), and the fluidity/deviation-log enforcement are all in — **Phase 2 is complete**. The
-  only remaining step is P3 cutover. Until this passes the 119-scenario suite, the live `scientific-writing` skill
-  stays the default; this is built and tested alongside it.
+  The redesigned /write pipeline (D048) — turn recorded findings into tasteful academic prose by separating
+  four concerns (Trust / Argument / Structure / Voice) over a staged gated loop: build the claim-lattice and
+  skeleton, gate them as one package, then draft, audit, and revise to convergence. Use when writing or
+  revising a report or manuscript section, an abstract, or any prose that must bind every claim to recorded
+  evidence. NOT yet the default — until it clears its acceptance suite, route everyday writing through
+  `scientific-writing`.
 ---
 
 # /write — the gated-loop pipeline
@@ -53,9 +47,8 @@ the venue's style anchors from `references/F17-exemplars.md` and write `register
 [<section:paper>, …]}` — the voice pass cannot run without it. Set `meta.stage=1`. **`run_checks`** then enforces
 the stage-1 floor at the gate (message *present*, `frame` in enum, `contribution_type` present, `reader_model`
 shaped — the append-safe diff also blocks a later stage from emptying any of these; the `register` pin is
-enforced at stage ≥ 4, before the voice pass). *F2 only **sets and gates**
-the frame here; frame-consistency in the drafted prose is audited by the **F5 scope judge at stage 5** (not F2).
-F17 exemplar pin is still **Phase 2**.*
+enforced at stage ≥ 4, before the voice pass). *F2 only **sets and gates** the frame here; frame-consistency in
+the drafted prose is audited by the **F5 scope judge at stage 5** (not F2).*
 
 **Stage 2 · Claim & Argument Lattice (Trust + Argument).** Extract every claim from the message; bind each to a
 recorded experiment + a strength (`unsupported|observed|supported|strong`), reading `evidence_status`; an unbound
@@ -122,7 +115,7 @@ a strong nudge backed by Erfan's final sign-off, not an inescapable wall); `acti
 `record`/`status` use it. Disarm with `verdicts.py ship` only after convergence **and** Erfan's final approval.
 
 **Stage 5 · Audit.** The DET floor already ran in `run_checks`. Now the **RUB readers**. **Fan the independent
-readers out in ONE message** (P2-D true parallel — they share no state): spawn `sw-argument-judge` (F4),
+readers out in ONE message** (true parallel — they share no state): spawn `sw-argument-judge` (F4),
 `sw-scope-judge` (F5), `sw-claim-fidelity-judge` (F9b), `sw-structure-judge` (F11), `sw-voice-auditor` (F12), and
 the F13 panel (`premortem-analyst` + `counter-argument`) — **seven subagents, one turn**. `sw-acknowledgment`
 (F18) runs **after** the batch returns, because it consumes F13's mapped objections. The readers:
@@ -146,11 +139,9 @@ the F13 panel (`premortem-analyst` + `counter-argument`) — **seven subagents, 
   surviving objection must be acknowledged on the claim it threatens (named limitation + mechanism, not a
   future-work pointer); a newly-required acknowledgment changes a gated field, so it is a **logic revision that
   re-enters the gate**.
-**Record the verdicts, then check convergence — P2-D-2 is the *bookkeeping*; the convergence + staleness
-*enforcement* is P2-D-3's Stop-hook.** (Provenance — proving a verdict came from a real reader run, not a
-hand-typed boolean — is a **named accepted non-goal**: the store is trusted, exactly like `gate_state.py` and
-`stop_register_gate.py`.) Use ONE canonical draft path for every record + status call: the **F8b voice-realize
-output** (the final draft — not the F8a pre-voice draft, which also sits on disk at stage 4). Each judge emits its
+**Record the verdicts, then check convergence.** Use ONE canonical draft path for every record + status call:
+the **F8b voice-realize output** (the final draft — not the F8a pre-voice draft, which also sits on disk at
+stage 4). Each judge emits its
 `<TAG>-VERDICT: {"ready_to_ship": <bool>, "findings": <int>}` line; transcribe the judge's **own** boolean —
 never substitute your read (honesty is on you; the hook enforces convergence, not provenance) — one call per reader:
 `python3 .claude/skills/sci-write-v2/scripts/verdicts.py record --prose <F8b-draft> --reader <argument|scope|fidelity|structure|voice|acknowledgment> --ready <true|false> --findings <n>`.
@@ -167,13 +158,9 @@ record it as `--reader premortem`. Then `verdicts.py status --prose <F8b-draft>`
 required reader ready for *this* draft), exit 1 = not (the output names each missing / not-ready / contradicting
 reader). A `ready_to_ship: true` line with `findings > 0` is rejected as not-ready, so emit the honest pair.
 The **F19 consistency** DET (`consistency_check`: abstract↔body numbers + no full CI in the abstract) already ran
-in `run_checks`; its RUB half — **caption ≤ figure** (SC-XS-3) — is now judged by **F5** at its stage-5 prose site
-(caption ≤ what the figure plots is a scope question; re-mapped F19→F5, P2-D-5), sizing `figures[].caption` against
-`figures[].shows` (NOT the broader bound claim). *The
-**`stop_sw_converge` Stop-hook
-(P2-D-3, landed)** now blocks turn-end while `status` is unconverged (loop-guarded; staleness + convergence
-only — provenance is an accepted non-goal); see stage 6. Phase-2 remaining: **P2-D-4** AskUserQuestion gate,
-**P2-D-5** caption, **P2-D-6** deviation-log.*
+in `run_checks`; its RUB half — **caption ≤ figure** (SC-XS-3) — is judged by **F5** at its stage-5 prose site
+(a caption is the same scope axis as a claim), sizing `figures[].caption` against `figures[].shows` (NOT the
+broader bound claim). The convergence Stop-hook that gates this whole audit is described at stage 6.
 
 **Stage 6 · Revise.** Fix coarse-to-fine, **never reversed**: logic → sentence → lexical. A **logic** fix
 (it changes **any gated field** — message, frame, contribution_type, reader-model, register, a claim, a warrant,
@@ -184,7 +171,7 @@ Pass `run_checks --prev <prior-lattice>` on a stage write to run the append-safe
 claim or content-bearing field dropped between stages).
 Re-record each reader's verdict after a revision (`verdicts.py record …`) and re-run `status` — a prose edit
 changes the draft hash, so every prior verdict goes stale and the readers must re-run on the new draft.
-The **`stop_sw_converge` Stop-hook (P2-D-3)** now automates this: while the draft is armed it **blocks your
+The **`stop_sw_converge` Stop-hook** automates this: while the draft is armed it **blocks your
 turn-end** when `status` is not converged (loop-guarded — `MAX_BLOCKS=3` per draft hash, then it escalates to
 Erfan instead of trapping you; and CC's `stop_hook_active` re-entrancy means the practical effect is a strong
 nudge per work-stretch, **with Erfan's sign-off the final gate**, not the hook alone). Erfan's escape for an
@@ -202,62 +189,18 @@ After converge + Erfan's approval, `verdicts.py ship` (disarms + clears the gate
   deviation** in `lattice.deviation_log` (`{functionality, method, why, did}`). Fluid, never silent: you may
   not invoke "fluidity" to skip the rigid floor (a `\gap` is not optional).
 
-## What the Phase-1 floor does NOT yet catch (honest limits)
-- **A `\gap` lives in the prose, not the lattice.** A claim with no recorded evidence is not entered as a
-  lattice claim with `bound_experiment: null` — that is an *error* the floor flags (`[unbound]`). It is written
-  as a `\gap{reason}` macro in the prose instead, allowed at the report/extended layer; the public-cut gate
-  that blocks a surviving `\gap` (a lifted `check_gap_survival`) is wired at cutover.
+## Honest limits (what the floor does NOT catch)
+- **A `\gap` lives in the prose, not the lattice.** A claim with no recorded evidence is an *error* the floor
+  flags (`[unbound]`) — not a lattice claim with `bound_experiment: null`. An honest gap is written as a
+  `\gap{reason}` macro in the prose (allowed at the report/extended layer).
 - **An assertive sentence modeled as *framing* escapes the Trust floor.** The floor checks "every *claim*
-  binds"; it cannot see a load-bearing sentence the agent simply chose not to enter as a claim (e.g. a stated
-  hypothesis like "at most a weak prior"). **In Phase 1 the human gate is the only catch for this.** The
-  Argument concern (F4 warrants / F5 scope) plus a prose→lattice claim-coverage check close it in **Phase 2**.
+  binds"; it cannot see a load-bearing sentence the agent chose not to enter as a claim (a stated hypothesis
+  like "at most a weak prior"). The human gate is the catch until a prose→lattice claim-coverage check exists.
 
-## Components (built in Phase 1)
-
-| Stage | Component | Kind | Where |
-|---|---|---|---|
-| 2 | claim-binding (F3) | DET | `scripts/claim_binding.py` + `evidence-register.json` |
-| 3 | skeleton (F6) | SKILL + DET | `references/F6-skeleton.md` + `scripts/lattice_integrity.py` |
-| gate | ordering (F16) | DET | `scripts/gate_state.py` |
-| 4 | drafter (F8a) | subagent (opus) | `agents/sw-drafter.md` + `scripts/draft_check.py` |
-| 5 | claim-fidelity tag (F9a) | DET | `scripts/claim_fidelity.py` |
-| 5 | claim-fidelity assertion (F9b) | subagent (opus) | `agents/sw-claim-fidelity-judge.md` |
-| 5 | voice (F12) | DET + subagent (sonnet) | `scripts/ai_tell_lint.py` + `agents/sw-voice-auditor.md` |
-| — | the spine artifact (F15) | ARTIFACT | `schema/claim-lattice.json` |
-| — | DET dispatcher | — | `scripts/run_checks.py` |
-
-**Added in Phase 2** (alongside the Phase-1 spine): **F4** argument-validity (`scripts/warrant_schema.py` DET +
-`agents/sw-argument-judge.md`) · **F5** scope (`scripts/scope_lint.py` DET + `agents/sw-scope-judge.md`) — *P2-A,
-opus xhigh, 2 sites each*. **F1** reader-model (`agents/sw-reader-model.md`, sonnet) + **F2** message&frame (this
-skill's stage-1 section + the `frame`/`contribution_type`/`reader_model`/message-one-sentence checks in
-`lattice_integrity.py`) — *P2-B-i*. **F11** structure judge (`agents/sw-structure-judge.md`, sonnet xhigh, 2
-sites) — *P2-B-ii*. **F7** figures (stage-3 SKILL step; the `central-claim-figure` DET already lives in
-`lattice_integrity`), **F13** premortem panel (reuses the D017 `premortem-analyst` + `counter-argument`), **F18**
-acknowledgment (`agents/sw-acknowledgment.md`, opus) — *P2-C-1*. **F17** exemplar pin
-(`references/F17-exemplars.md` + the `register` field/DET in `lattice_integrity`) + **F8b** voice-realize
-(`agents/sw-voice-realize.md`, sonnet) — *P2-C-2a*. **F19** consistency (`scripts/consistency_check.py`:
-abstract↔body + CI-in-abstract; the caption≤figure RUB is deferred) — *P2-C-2b*. **P2-D** CC-power upgrades:
-the structured verdict schema + convergence state machine (`scripts/verdicts.py`, all 7 readers unified on
-`*-VERDICT: {ready_to_ship, findings}`) — *P2-D-1*; the stage-5 parallel fan-out + verdict-recording
-orchestration (this stage-5 section) — *P2-D-2*; the convergence Stop-hook (`.claude/hooks/stop_sw_converge.py`,
-wired in `settings.json`, pipeline-scoped via `active.json` + session-scoped, D047 loop-guard) + the gate-state
-ops in `verdicts.py` (`activate`/`ship`/`accept-residual`) — *P2-D-3*; the F16 gate via `AskUserQuestion` (the
-GATE section) — *P2-D-4*; SC-XS-3 caption ≤ figure judged by F5 + the `caption`/`shows` figure fields — *P2-D-5*;
-the fluidity/deviation-log enforcement (F11 flags a silent force-fit, the `deviation_log` well-formedness DET,
-SC-PROC-8/9/10/11) — *P2-D-6*. **P2-D complete; Phase 2 done. Only P3 cutover remains (after the 119-suite,
-Erfan's explicit go).**
-
-**Effort:** all subagents HIGH; the three hardest judges (F4 argument, F5 scope, F11 structure — all built,
-P2-A/P2-B) run XHIGH. The orchestrator runs at the session model.
-
-## Phase-1 acceptance (the bar this walking skeleton must clear)
-Run the spine on the manuscript **abstract**: every claim is `\evd`-bound (or an explicit `\gap`); the voice
-audit **catches the Claudio storytelling class** (SC-VOICE-01–04) and **does not flag** the legitimate
-near-misses (SC-VOICE-12/13); the DET floor (`run_checks`) is clean. If the skeleton makes trustworthy prose on
-one case, expand to Phase 2; if not, the cost was one case.
+**Effort:** spawn all subagents at **HIGH**; the three hardest judges — F4 argument, F5 scope, F11 structure —
+at **XHIGH**. The orchestrator runs at the session model.
 
 ## Relationship to the live skill
-The live `scientific-writing` skill (path-select → full-loop → ship-gate) stays the default and is **untouched**
-until cutover. This pipeline is built and tested in `.claude/skills/sci-write-v2/`. Phase 3 cutover (after the
-119-scenario suite is green): retire the old flow, wire the DET checks as always-on hooks, point `CLAUDE.md`
-and `docs/03-methodology.md` here, record the decision. Full design: `docs/references/write-redesign-design.html`.
+This pipeline is **not the default**: the live `scientific-writing` skill stays in force until cutover — route
+everyday writing through it. Design, build state, and the cutover plan live in
+`docs/references/write-redesign-design.html` and `docs/references/write-redesign-build-plan.md`.
