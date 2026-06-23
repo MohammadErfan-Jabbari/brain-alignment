@@ -89,10 +89,13 @@ table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d 
   lexical "deployment" trigger is the DET sliver).
 
 ## Status (live)
-**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅** (green; P1+P2-A recorded S35→S36, P2-B + P2-C this
-session — see the two session logs above + the build log below). **P2-D next** — the CC-power upgrades: parallel
-stage-5 fan-out · structured `ready_to_ship` Stop-hook convergence · AskUserQuestion gate. Then P3 (cutover,
-irreversible — explicit go required). Per-chunk decisions recorded in the build log below.
+**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D-1 ✅** (green; P1+P2-A recorded S35→S36, P2-B +
+P2-C S37, P2-D started this session — see the session logs above + the build log below). **P2-D in progress** —
+the CC-power upgrades, chunked: **P2-D-1 ✅** structured verdict schema + convergence state machine
+(`verdicts.py`); **P2-D-2 next** parallel stage-5 fan-out + verdict recording; then **P2-D-3** the Stop-hook
+convergence (D047, pipeline-scoped — carries the FRESHNESS requirement), **P2-D-4** AskUserQuestion gate,
+**P2-D-5** SC-XS-3 caption wiring, **P2-D-6** deviation-log/SC-PROC-8-10. Then P3 (cutover, irreversible —
+explicit go required). Per-chunk decisions recorded in the build log below.
 
 ## Build log (append-only; durable decisions mined/made during the build)
 *Phase 1 + P2-A decisions live in the two session logs (provenance table above) + `docs/learnings.md` L059–L061.
@@ -202,3 +205,35 @@ no full CI in the abstract (SC-XS-1/2), wired into `run_checks --prose`. caption
 
 **P2-C complete** (C-1 + C-2a + C-2b). Phase 2 remaining: **P2-D** (parallel stage-5 fan-out, structured
 `ready_to_ship` Stop-hook convergence, AskUserQuestion gate). Then P3 cutover (irreversible — explicit go).
+
+**P2-D-1 — structured verdict schema + the convergence state machine.** Built `scripts/verdicts.py` (the
+stage-5 convergence aggregator) and unified all seven stage-5 readers on one machine line:
+`<TAG>-VERDICT: {"ready_to_ship": <bool>, "findings": <int>}` (F12 voice was `REGISTER-CLEAN:`, F9b fidelity was
+`FIDELITY-CLEAN:` — both converted; F4/F5/F11/F18 already emitted it). Three nets green (selftest 30 checks ·
+opus oracle ACCEPT-WITH-CAVEAT, MF-2 fixed + B1–B8 folded · black-box CLI verify, independent fixtures). Durable
+decisions:
+- **`verdicts.py` is the DRAFT-side twin of `gate_state.py`** (the lattice-side F16 gate): same D047
+  content-hash pattern, same `.claude/state/sw-gate/` store, same TRUSTED-not-verified model. Convergence is
+  keyed to the **prose content hash** — verdicts live under `.../verdicts/<prose-hash>/<reader>.json`, so a
+  one-byte draft edit makes every prior verdict stale (its hash no longer matches) → re-block. `record` files
+  one reader's verdict; `status` is converged iff every required reader is present for the current hash AND all
+  `ready_to_ship`. The Stop-hook (P2-D-3) calls `status`.
+- **Required reader set = 7** (`argument F4 · scope F5 · fidelity F9b · structure F11 · voice F12 · premortem F13
+  · acknowledgment F18`) — matches SKILL.md's stage-5 fan-out (which ends at F18). **F19 is NOT a reader** (its
+  DET half runs in `run_checks`; its only RUB half, caption ≤ figure, is SC-XS-3, a KNOWN coverage hole owned by
+  **P2-D-5**, not silently absorbed). (Oracle MF-3: my first docstring misremembered the spec as ending at F19 —
+  corrected.)
+- **`findings` = unresolved BLOCKING findings, so `ready_to_ship: true` requires `findings: 0`.** A
+  `{ready_to_ship: true, findings: >0}` verdict is self-contradictory → treated **not ready** (oracle MF-2, the
+  one place a *false* converged could pass). Fail-safe everywhere (L059): missing / unparseable / non-dict /
+  contradiction all → not converged, never a silent pass.
+- **`premortem` (F13) has no agent verdict line** — the shared D017 panel emits `PANEL-VERDICT:` with no
+  `ready_to_ship` slot. The **orchestrator synthesizes** the premortem verdict (rule written into `verdicts.py`:
+  ready := counter-argument SURVIVES ∧ every objection mapped to a claim — an unmapped objection is SC-ARG-5).
+  **Verifying that synthesis came from a FRESH panel run (not a hand-typed boolean) is P2-D-3's hard
+  requirement** — the freshness control D047 names; without it the store is fabricable in one turn (oracle's
+  load-bearing residual, carried forward).
+- **`--repo-root` moved onto the subcommands** (pass it after `record`/`status`); production falls back to
+  `$CLAUDE_PROJECT_DIR`. A top-level-only flag was rejected by argparse after the subcommand — a footgun for the
+  machine callers (hook/orchestrator). Tag-remapping in `lattice.tags[]` without a prose-byte change is out of
+  scope here (owned by the stage-write round-trip diff `run_checks --prev`; oracle MF-4, documented).

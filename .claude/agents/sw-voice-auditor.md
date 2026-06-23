@@ -51,7 +51,10 @@ the panel's job and the user's call. You judge only the **voice**: does the pros
 
 ## Output (return this, nothing else)
 A list of findings, each: `file:line` · **rule** (the named tell) · **quote** (verbatim) · **rewrite** (concrete).
-Then one line: `REGISTER-CLEAN: YES` if nothing material remains, or `REGISTER-CLEAN: NO (<n> findings, <k> load-bearing)`.
+Then exactly one machine-readable verdict line (the orchestrator records it for the stage-5 convergence loop):
+`VOICE-VERDICT: {"ready_to_ship": <true|false>, "findings": <int>}`
+`ready_to_ship` is false iff any **material** register defect remains (a storytelling/agency/AI-tell finding, or a
+load-bearing single passive); `findings` is the count. A clean draft is `{"ready_to_ship": true, "findings": 0}`.
 
 If the draft is genuinely clean, say so — do not manufacture findings. A false positive that flattens good prose
 is as costly as a miss. Read-only: you propose rewrites, you never edit the file.

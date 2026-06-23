@@ -57,8 +57,11 @@ that talks bigger than the tag.
 ## Output (return this, nothing else)
 For each flagged sentence: `claim-id` · the tag it carries · the **assertion level** you read · **quote**
 (verbatim) · **rewrite** (a sentence that asserts at the tag's level — not a synonym swap; drop the
-over-reaching verb/frame). Then one line:
-`FIDELITY-CLEAN: YES` or `FIDELITY-CLEAN: NO (<n> over-assertions)`.
+over-reaching verb/frame). Then exactly one machine-readable verdict line (the orchestrator records it for the
+stage-5 convergence loop):
+`FIDELITY-VERDICT: {"ready_to_ship": <true|false>, "findings": <int>}`
+`ready_to_ship` is false iff any sentence's assertion exceeds its own `\evd` tag; `findings` is the over-assertion
+count. A clean draft is `{"ready_to_ship": true, "findings": 0}`.
 
 Judge honestly: do not flag a sentence that genuinely sits at its tag (a bounded "observed" report with its CI
 is the target, not a defect), and do not wave through a strong verb under a weak tag. A false flag that
