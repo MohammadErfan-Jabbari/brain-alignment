@@ -46,7 +46,7 @@ audited by the F5 scope judge at stage 5.
 | `strength` | enum | stage 2 (F3) | `unsupported` \| `observed` \| `supported` \| `strong` — bounds the wording; F9a asserts tag ≤ this |
 | `scope` | string \| null | stage 2 (F3/F5) | e.g. `per-individual, n=9, LeBel, Qwen0.5B` |
 | `is_central` | bool | stage 2 (F3) | a central contribution → needs a figure (F7) |
-| `acknowledgments` | array | stage 2 (F18) | one limitation/rebuttal per defended claim |
+| `acknowledgments` | array | stage 2 (F18) | one limitation/rebuttal per **defended claim** (= bound + `strength ∈ {observed,supported,strong}`); F18 plans at stage 2, re-checks vs the F13 premortem at stage 5 |
 | `section` | string \| null | stage 3 (F6) | section_id this claim is assigned to; `null` before F6 |
 | `tags` | array | stage 4 (F8a) | `{"strength": <enum>, "sentence_ref": "<text>"}` — one per claim sentence as it is drafted |
 

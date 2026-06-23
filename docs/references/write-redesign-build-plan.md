@@ -136,3 +136,24 @@ NOT flagged). Durable decisions:
 - **Stale-doc fix:** re-tagged the scenario suite — SC-STR-06/07 `F6 → F11`, SC-HON-06 `F2 → F5` (table + inline) —
   so a P3 suite-runner routes them to the judge that enforces them, not the hook.
 - Wired F4/F5 (P2-A) into the SKILL stage-5 reader list too — the orchestrator narrative had lagged P2-A.
+
+**P2-C-1 — case-completeness layer (F7 figures + F13 premortem panel + F18 acknowledgment).** Built
+`agents/sw-acknowledgment.md` (F18, opus); wired F7 (stage-3 figure planning — the `central-claim-figure` DET
+already exists), F13 (stage-5 — reuses the D017 `premortem-analyst` + `counter-argument`), F18 (stage-2 plan +
+stage-5 re-check) into SKILL. No new DET/schema (`acknowledgments`/`figures` are existing lattice fields). Three
+nets green (floor selftest · opus oracle FIX-THEN-PASS · fresh `claude -p` **9/9**). Durable decisions:
+- **"Defended claim" pinned to a predicate:** *bound* (`bound_experiment != null`) AND `strength ∈
+  {observed,supported,strong}` (an `unsupported`/`\gap` claim gets a gap, not a limitation). Was undefined →
+  F18 would over-pad (every claim) or miss (defended non-central). **F18 covers defended NON-central claims too**
+  — coverage is not limited to `is_central`.
+- **The SC-ARG-12 line (load-bearing):** a future-work pointer is an acknowledgment only **as a tail on** a named
+  present limitation, never **as a substitute** for naming it ("unproven but TRIBE fixes it" → flag; "limited
+  because <mechanism>; future work may improve it" → clean).
+- **F18 is a two-pass agent (made explicit in the agent, oracle D2):** stage-2 plans limitations from
+  claims+scope (no premortem objections exist yet); stage-5 re-checks against the F13 objections.
+- **Oracle D3 (the real enforcement gap):** the shared panel agents (`premortem-analyst`/`counter-argument`)
+  emit a fixed `PANEL-VERDICT` format with **no `claim_id` slot**, so "each objection names its claim" can't be a
+  prose ask layered on them. The **orchestrator** maps each returned objection to the `claim_id` it threatens and
+  **flags an unmapped objection (SC-ARG-5) rather than passing it to F18** — added as a SKILL stage-5 adapter
+  step; the shared agents are left untouched.
+- F7 reuses the existing `central-claim-figure` DET (dormant at stage 3, mandatory at stage ≥ 4); no new script.

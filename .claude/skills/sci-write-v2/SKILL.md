@@ -6,10 +6,10 @@ description: >-
   and the plan, get them approved as one package, THEN draft, audit, and revise. Trust is earned by a gate
   plus a high-recall audit, not asserted by construction. Walking-skeleton phase: the Trust + Structure +
   Voice spine is live (claim-lattice, claim-binding, skeleton, drafter-with-\evd, voice audit, claim-fidelity,
-  the ordering gate); the Argument concern (warrants, scope), the message/frame + reader-model front-end, and the
-  structure judge are built too. Figures, acknowledgment, consistency, the exemplar pin, voice-realize, and the
-  parallel-audit / Stop-hook convergence are still being added (Phase 2). Until this passes the 119-scenario
-  suite, the live `scientific-writing` skill stays the default; this is built and tested alongside it.
+  the ordering gate); the Argument concern (warrants, scope), the message/frame + reader-model front-end, the
+  structure judge, figures, acknowledgment, and the premortem panel are built too. The exemplar pin, voice-realize,
+  consistency, and the parallel-audit / Stop-hook convergence are still being added (Phase 2). Until this passes
+  the 119-scenario suite, the live `scientific-writing` skill stays the default; this is built and tested alongside it.
 ---
 
 # /write — the gated-loop pipeline
@@ -53,18 +53,26 @@ the frame here; frame-consistency in the drafted prose is audited by the **F5 sc
 F17 exemplar pin is still **Phase 2**.*
 
 **Stage 2 · Claim & Argument Lattice (Trust + Argument).** Extract every claim from the message; bind each to a
-recorded experiment + a strength (`unsupported|observed|supported|strong`), reading `evidence_status`; an
-unbound claim becomes a `\gap`. Write the claims; set `meta.stage=2`. Then **`run_checks`** →
-`claim_binding` must pass (no stale/dangling/unbound-without-gap). *Phase 1: binding + strength + gap.
-The Argument half — F4 warrants, F5 scope (opus, xhigh) — is **Phase 2**.*
+recorded experiment + a strength (`unsupported|observed|supported|strong`), reading `evidence_status`; an unbound
+claim becomes a `\gap`. State the claim→claim **warrants** (the inference edges) in `warrants[]` and each claim's
+`scope`. For each **defended claim** (bound + `strength ≥ observed`), spawn **`sw-acknowledgment`** (F18, opus) to draft a
+limitation that **names the limitation and its mechanism** (a future-work pointer is *not* an acknowledgment) →
+write `acknowledgments[]`. (At this stage there are no premortem objections yet — F18 plans from claims+scope.) Set
+`meta.stage=2`. Then **`run_checks`** → `claim_binding` (no stale/dangling/unbound-without-gap) + `warrant_schema`
+(no empty-warrant edge) must pass; spawn **`sw-argument-judge`** (F4) on the warrant edges and **`sw-scope-judge`**
+(F5) on the claims' scope (both opus, xhigh, stage-2 site). *Acknowledgments are re-checked at stage 5 against the
+F13 premortem.*
 
 **Stage 3 · Architecture (Structure).** Build the skeleton per `references/F6-skeleton.md`: OCAR macro, CARS
 intro moves, CCC fractal, organize-by-importance; assign every claim a `section`, populate `sections[].claim_ids`
 both directions; set `meta.stage=3`. **`run_checks`** → `lattice_integrity` must pass (orphan-claim,
-empty-section, node↔section). Then spawn **`sw-structure-judge`** (sonnet, xhigh) at its **stage-3 site** to judge
-the skeleton: **opening-width = resolution-width** (contributions promised in the opening ≤ those resolved in the
-discussion) and the **CARS niche** (Move-2, the gap, is present — not territory→this-work). *F7 figures + F18
-acknowledgments are still **Phase 2** (central-figure is dormant until stage 4 / F7).*
+empty-section, node↔section). Plan the **key figures (F7)**: choose the figure that carries each *central* claim
+and bind it in `figures[]` (`{figure_id, claim_id}`) — figures are the spine, chosen before prose. Then spawn
+**`sw-structure-judge`** (sonnet, xhigh) at its **stage-3 site** to judge the skeleton: **opening-width =
+resolution-width** (contributions promised in the opening ≤ those resolved in the discussion) and the **CARS
+niche** (Move-2, the gap, is present — not territory→this-work). *The `central-claim-figure` DET (in
+`lattice_integrity`) is dormant at stage 3 and **mandatory at stage ≥ 4** — by drafting, every `is_central` claim
+must carry a figure.*
 
 **↻ Stages 1–3 iterate freely** — binding may revise the message; the skeleton may reveal a missing claim.
 Nothing is locked until the gate. No prose is generated in stages 1–3.
@@ -97,9 +105,20 @@ one message, multiple subagents):
   **frame-consistency** (a basic-science finding sold as a deployment/technology claim → flag, SC-HON-06).
 - **`sw-structure-judge`** (F11, sonnet xhigh, stage-5 site; **input: the prose + the lattice's `reader_model`**)
   — per paragraph: point sentence? old→new to the reader-model? CCC?
-Each emits a machine-readable `*-VERDICT: {ready_to_ship, findings}` line. *Still **Phase 2**: F13 premortem panel
-+ F19 consistency (the remaining readers), and the **structured `ready_to_ship` Stop-hook convergence + true
-parallel fan-out** (P2-D) — until then, run them, reconcile by hand, and Erfan signs the final converge.*
+- **F13 premortem panel** — spawn the D017 thinking panel (`premortem-analyst` + `counter-argument`) on the draft
+  + lattice. These are the **shared repo panel agents**; they emit their native `PANEL-VERDICT` format, which has
+  **no `claim_id` slot**. So the orchestrator then **maps each returned objection to the `claim_id` it threatens**
+  (re-express it as `{threatens: <claim_id>, mechanism: …}` against the lattice). **An objection that cannot be
+  mapped to a claim is itself the SC-ARG-5 defect — flag it; do not pass an unmapped objection to F18.** The mapped
+  list is F18's stage-5 input.
+- **`sw-acknowledgment`** (F18, opus) re-run — input = the defended claims + that **mapped** objection list; every
+  surviving objection must be acknowledged on the claim it threatens (named limitation + mechanism, not a
+  future-work pointer); a newly-required acknowledgment changes a gated field, so it is a **logic revision that
+  re-enters the gate**.
+Each emits a machine-readable `*-VERDICT: {ready_to_ship, findings}` line. *Still **Phase 2**: F19 consistency +
+the exemplar pin (F17) and voice-realize (F8b) — P2-C-2; and the **structured `ready_to_ship` Stop-hook
+convergence + true parallel fan-out** — P2-D. Until then, run them, reconcile by hand, and Erfan signs the
+final converge.*
 
 **Stage 6 · Revise.** Fix coarse-to-fine, **never reversed**: logic → sentence → lexical. A **logic** fix
 (it changes a gated field: a claim, a warrant, the skeleton, the message) **re-enters the gate** — re-run the
@@ -150,8 +169,10 @@ D047 Stop-hook + structured `ready_to_ship` verdicts, "clean" on the two RUB rea
 opus xhigh, 2 sites each*. **F1** reader-model (`agents/sw-reader-model.md`, sonnet) + **F2** message&frame (this
 skill's stage-1 section + the `frame`/`contribution_type`/`reader_model`/message-one-sentence checks in
 `lattice_integrity.py`) — *P2-B-i*. **F11** structure judge (`agents/sw-structure-judge.md`, sonnet xhigh, 2
-sites) — *P2-B-ii*. Still to come: F7 figures, F18 acknowledgment, F13 panel, F19 consistency, F17 exemplar pin,
-F8b voice-realize, and the P2-D CC-power upgrades.
+sites) — *P2-B-ii*. **F7** figures (stage-3 SKILL step; the `central-claim-figure` DET already lives in
+`lattice_integrity`), **F13** premortem panel (reuses the D017 `premortem-analyst` + `counter-argument`), **F18**
+acknowledgment (`agents/sw-acknowledgment.md`, opus) — *P2-C-1*. Still to come: F17 exemplar pin, F8b
+voice-realize, F19 consistency (P2-C-2), and the P2-D CC-power upgrades.
 
 **Effort:** all subagents HIGH; the three hardest judges (F4 argument, F5 scope, F11 structure — all built,
 P2-A/P2-B) run XHIGH. The orchestrator runs at the session model.

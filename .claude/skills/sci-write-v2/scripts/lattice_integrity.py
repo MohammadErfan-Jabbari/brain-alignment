@@ -17,7 +17,7 @@ Two modes:
         orphan-claim      every claim.section is set and names a real section                  (stage >= 3)
         empty-section     every section has >=1 existing claim                                 (stage >= 3)
         node->section     claim<->section map agrees BOTH directions; no dangling member       (stage >= 3)
-        central-figure    every is_central claim has >=1 figure referencing it                  (stage >= 3)
+        central-figure    every is_central claim has >=1 figure referencing it                  (stage >= 4)
         warrant-ref       every warrant from/to resolves to an existing claim                   (always)
         figure-ref        every figure.claim_id resolves to an existing claim                   (always)
         every-claim-tagged every claim has >=1 well-formed \\evd tag                            (stage >= 4)
