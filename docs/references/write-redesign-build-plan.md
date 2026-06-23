@@ -89,14 +89,14 @@ table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d 
   lexical "deployment" trigger is the DET sliver).
 
 ## Status (live)
-**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D-1 ✅ + P2-D-2 ✅** (green; P1+P2-A recorded
-S35→S36, P2-B + P2-C S37, P2-D started this session — see the session logs above + the build log below).
+**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D-1 ✅ + P2-D-2 ✅ + P2-D-3 ✅** (green; P1+P2-A
+recorded S35→S36, P2-B + P2-C S37, P2-D this session — see the session logs above + the build log below).
 **P2-D in progress** — the CC-power upgrades, chunked: **P2-D-1 ✅** structured verdict schema + convergence
 state machine (`verdicts.py`); **P2-D-2 ✅** parallel stage-5 fan-out + verdict-recording orchestration (SKILL
-stage 5); **P2-D-3 next** the Stop-hook convergence (D047, pipeline-scoped — carries the FRESHNESS +
-anti-fabrication requirement + pins the canonical draft path via `meta.draft_path`), then **P2-D-4**
-AskUserQuestion gate, **P2-D-5** SC-XS-3 caption wiring, **P2-D-6** deviation-log/SC-PROC-8-10. Then P3 (cutover,
-irreversible — explicit go required). Per-chunk decisions recorded in the build log below.
+stage 5); **P2-D-3 ✅** the convergence Stop-hook (`stop_sw_converge.py`, wired live, pipeline+session-scoped,
+loop-guarded); **P2-D-4 next** AskUserQuestion gate, then **P2-D-5** SC-XS-3 caption wiring, **P2-D-6**
+deviation-log/SC-PROC-8-10. Then P3 (cutover, irreversible — explicit go required). Per-chunk decisions recorded
+in the build log below.
 
 ## Build log (append-only; durable decisions mined/made during the build)
 *Phase 1 + P2-A decisions live in the two session logs (provenance table above) + `docs/learnings.md` L059–L061.
@@ -260,6 +260,35 @@ decisions:
   output** (not the F8a pre-voice draft, which also exists on disk). The hash-keying surfaces a wrong-path record
   as `[missing]`, but the real fix — the **Stop-hook reading `meta.draft_path` from the lattice** so no
   orchestrator-supplied path is trusted — is **P2-D-3**.
-- **Honest scoping (explicit in SKILL):** P2-D-2 is the verdict-recording **bookkeeping**; the *trust* in it (no
-  fabricated booleans, no stale/wrong-draft verdicts, freshness) is **P2-D-3**. "transcribe the judge's own
-  boolean, never substitute your read" is a polite ask until the Stop-hook enforces it — the SKILL says so.
+- **Honest scoping (explicit in SKILL):** P2-D-2 is the verdict-recording **bookkeeping**; the *enforcement* (no
+  stale/wrong-draft verdicts; convergence is mandatory) is **P2-D-3**. Provenance (no *fabricated* booleans) is a
+  named accepted non-goal — the store is trusted, like `gate_state`/`stop_register_gate`.
+
+**P2-D-3 — the convergence Stop-hook.** Built `.claude/hooks/stop_sw_converge.py` + the gate-state ops in
+`verdicts.py` (`activate`/`ship`/`accept-residual`/`session_matches`/`clear_gate_state`) + wired the hook live in
+`settings.json` (alongside `stop_register_gate.py`). Three nets green (verdicts selftest incl. 6 `session_matches`
++ 5 `clear_gate_state` cases · opus oracle: **first pass REJECT → fixed → re-review ACCEPT-WITH-CAVEAT, FATAL
+cleared** · hook event-pipe black-box, all catastrophe + policy cases). Durable decisions:
+- **Pipeline-scoped + session-scoped, fail-INERT:** the hook does nothing unless `.claude/state/sw-gate/active.json`
+  exists (orchestrator writes it at stage 4 via `verdicts.py activate`, clears it at `ship`). So it never blocks
+  an unrelated session. `active.json` also pins the **one canonical draft** (the F8b output) — the hook trusts
+  that, not a per-call arg (closes the F8a-vs-F8b wrong-draft seam, oracle P2-D-2 Q3).
+- **THE catastrophe the first oracle pass caught (REJECT → fixed):** the session guard must **fail toward
+  release/disarm on ANY session-identity uncertainty** — a wrongly-blocked unrelated session is a repo-wide
+  outage. `session_matches(armed, event)` is True only when both ids are present and equal; the hook disarms only
+  on a **confirmed truthy mismatch** (abandoned session) and on a **transient missing event id releases WITHOUT
+  disarming** (one dropped id must not permanently kill a legit run). Six unit-tested cases pin it.
+- **Session-id value space VERIFIED** (the oracle's KILL risk): `CLAUDE_CODE_SESSION_ID` (stamped at `activate`)
+  == the transcript filename == the Stop event's `session_id` — so the owner's happy path does not spuriously
+  disarm. If a future CC build diverges them, the hook degrades to a **no-op** (fail-safe, never blocks a
+  stranger) — documented in `verdicts.py`; re-verify on a CC bump.
+- **Loop guard:** `MAX_BLOCKS=3` per draft hash via `bump_block`, then escalate to Erfan (stderr) + release —
+  never trap. An edit changes the hash → fresh count. Escapes: Erfan-logged `accept-residual` (hash-keyed),
+  `stop_hook_active` re-entrancy, import failure → `sys.exit(0)`.
+- **Honest scope (matches the code, not over-claimed):** the hook enforces **staleness + convergence**, NOT
+  provenance — a hand-typed verdict is indistinguishable from a real one (accepted non-goal, same trust model as
+  the two sibling hooks). And per CC's `stop_hook_active` re-entrancy the practical effect is a **strong nudge per
+  work-stretch + the MAX_BLOCKS backstop, with Erfan's sign-off the final gate** — not an inescapable wall. SKILL
+  prose reconciled to say exactly this (the "terminator"/"anti-fabrication" overclaims were removed).
+- **`ship` clears the gate state** (active/blocks/residual/verdicts) but preserves `approvals.json` (gate_state's
+  F16 store in the same dir) — bounds state growth + kills the stale-residual-on-collision surface (oracle MF-4).

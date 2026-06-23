@@ -100,7 +100,11 @@ marker, and every number** (it is voice-only; it changes no claim and no structu
 <F8a-output>`** → `draft_check` (incl. **number-conservation**: F8b changed/added/dropped no number) +
 `lattice_integrity` (every-claim-tagged + the F17 pin) + `claim_fidelity` (F9a, tag ≤ strength) + `ai_tell_lint`
 (F12 lexical) + `scope_lint` (F5 lexical) + `consistency_check` (F19: abstract↔body numbers, no full CI in the
-abstract) must pass.
+abstract) must pass. **The F8b output is the ONE canonical draft** — **arm the convergence Stop-hook on it now:**
+`python3 .claude/skills/sci-write-v2/scripts/verdicts.py activate --prose <F8b-draft>`. From here the
+`stop_sw_converge` hook **blocks your turn-end while the draft is unconverged** (loop-guarded — see stage 6; it is
+a strong nudge backed by Erfan's final sign-off, not an inescapable wall); `activate` also pins this path so all
+`record`/`status` use it. Disarm with `verdicts.py ship` only after convergence **and** Erfan's final approval.
 
 **Stage 5 · Audit.** The DET floor already ran in `run_checks`. Now the **RUB readers**. **Fan the independent
 readers out in ONE message** (P2-D true parallel — they share no state): spawn `sw-argument-judge` (F4),
@@ -126,11 +130,13 @@ the F13 panel (`premortem-analyst` + `counter-argument`) — **seven subagents, 
   surviving objection must be acknowledged on the claim it threatens (named limitation + mechanism, not a
   future-work pointer); a newly-required acknowledgment changes a gated field, so it is a **logic revision that
   re-enters the gate**.
-**Record the verdicts, then check convergence — P2-D-2 is the *bookkeeping*; the trust in it (no fabricated /
-stale verdicts) is P2-D-3.** Use ONE canonical draft path for every record + status call: the **F8b
-voice-realize output** (the final draft — not the F8a pre-voice draft, which also sits on disk at stage 4).
-Each judge emits its `<TAG>-VERDICT: {"ready_to_ship": <bool>, "findings": <int>}` line; transcribe the judge's
-**own** boolean — never substitute your read (anti-fabrication is the Stop-hook's job, P2-D-3) — one call per reader:
+**Record the verdicts, then check convergence — P2-D-2 is the *bookkeeping*; the convergence + staleness
+*enforcement* is P2-D-3's Stop-hook.** (Provenance — proving a verdict came from a real reader run, not a
+hand-typed boolean — is a **named accepted non-goal**: the store is trusted, exactly like `gate_state.py` and
+`stop_register_gate.py`.) Use ONE canonical draft path for every record + status call: the **F8b voice-realize
+output** (the final draft — not the F8a pre-voice draft, which also sits on disk at stage 4). Each judge emits its
+`<TAG>-VERDICT: {"ready_to_ship": <bool>, "findings": <int>}` line; transcribe the judge's **own** boolean —
+never substitute your read (honesty is on you; the hook enforces convergence, not provenance) — one call per reader:
 `python3 .claude/skills/sci-write-v2/scripts/verdicts.py record --prose <F8b-draft> --reader <argument|scope|fidelity|structure|voice|acknowledgment> --ready <true|false> --findings <n>`.
 The **`acknowledgment`** verdict recorded here MUST be F18's **stage-5 re-run** (the one that consumed the mapped
 objections), never the vacuous stage-2 plan (which had no objections yet). The **`premortem`** verdict has no
@@ -146,9 +152,10 @@ required reader ready for *this* draft), exit 1 = not (the output names each mis
 reader). A `ready_to_ship: true` line with `findings > 0` is rejected as not-ready, so emit the honest pair.
 The **F19 consistency** DET (`consistency_check`: abstract↔body numbers + no full CI in the abstract) already ran
 in `run_checks`; its RUB half — **caption ≤ figure** (SC-XS-3) — is owned by **P2-D-5** (figures gain caption
-text + an F19 caption judge in this fan-out), not silently skipped. *Phase-2 remaining: **P2-D-3** wires the
-Stop-hook that makes `status` convergence the turn-end terminator and adds the freshness/anti-fabrication check;
-until it lands, run `status`, revise to green, and Erfan signs the final converge.*
+text + an F19 caption judge in this fan-out), not silently skipped. *The **`stop_sw_converge` Stop-hook
+(P2-D-3, landed)** now blocks turn-end while `status` is unconverged (loop-guarded; staleness + convergence
+only — provenance is an accepted non-goal); see stage 6. Phase-2 remaining: **P2-D-4** AskUserQuestion gate,
+**P2-D-5** caption, **P2-D-6** deviation-log.*
 
 **Stage 6 · Revise.** Fix coarse-to-fine, **never reversed**: logic → sentence → lexical. A **logic** fix
 (it changes a gated field: a claim, a warrant, the skeleton, the message) **re-enters the gate** — re-run the
@@ -158,8 +165,12 @@ Pass `run_checks --prev <prior-lattice>` on a stage write to run the append-safe
 claim or content-bearing field dropped between stages).
 Re-record each reader's verdict after a revision (`verdicts.py record …`) and re-run `status` — a prose edit
 changes the draft hash, so every prior verdict goes stale and the readers must re-run on the new draft.
-*Until **P2-D-3** wires the Stop-hook, "converged" is `verdicts.py status` exit 0 plus **Erfan signs** the final
-converge; the hook will then make that terminator automatic and add the freshness check.*
+The **`stop_sw_converge` Stop-hook (P2-D-3)** now automates this: while the draft is armed it **blocks your
+turn-end** when `status` is not converged (loop-guarded — `MAX_BLOCKS=3` per draft hash, then it escalates to
+Erfan instead of trapping you; and CC's `stop_hook_active` re-entrancy means the practical effect is a strong
+nudge per work-stretch, **with Erfan's sign-off the final gate**, not the hook alone). Erfan's escape for an
+accepted residual: `verdicts.py accept-residual --prose <draft>` (keyed to the current bytes; an edit voids it).
+After converge + Erfan's approval, `verdicts.py ship` (disarms + clears the gate state).
 
 ## The DET floor vs the RUB judges (the fluidity boundary)
 
@@ -209,8 +220,10 @@ acknowledgment (`agents/sw-acknowledgment.md`, opus) — *P2-C-1*. **F17** exemp
 abstract↔body + CI-in-abstract; the caption≤figure RUB is deferred) — *P2-C-2b*. **P2-D** CC-power upgrades:
 the structured verdict schema + convergence state machine (`scripts/verdicts.py`, all 7 readers unified on
 `*-VERDICT: {ready_to_ship, findings}`) — *P2-D-1*; the stage-5 parallel fan-out + verdict-recording
-orchestration (this stage-5 section) — *P2-D-2*. Still to come: **P2-D-3** Stop-hook convergence (D047,
-pipeline-scoped + freshness), **P2-D-4** AskUserQuestion gate, **P2-D-5** SC-XS-3 caption, **P2-D-6** deviation-log.
+orchestration (this stage-5 section) — *P2-D-2*; the convergence Stop-hook (`.claude/hooks/stop_sw_converge.py`,
+wired in `settings.json`, pipeline-scoped via `active.json` + session-scoped, D047 loop-guard) + the gate-state
+ops in `verdicts.py` (`activate`/`ship`/`accept-residual`) — *P2-D-3*. Still to come: **P2-D-4** AskUserQuestion
+gate, **P2-D-5** SC-XS-3 caption, **P2-D-6** deviation-log.
 
 **Effort:** all subagents HIGH; the three hardest judges (F4 argument, F5 scope, F11 structure — all built,
 P2-A/P2-B) run XHIGH. The orchestrator runs at the session model.

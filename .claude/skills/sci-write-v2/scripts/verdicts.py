@@ -139,6 +139,116 @@ def status(root: Path, prose_path: Path) -> tuple[bool, list[str]]:
     return converged, lines
 
 
+# --------------------------------------------------------------------------- gate state (the Stop-hook reads these)
+# The convergence Stop-hook (P2-D-3) is pipeline-scoped via `active.json`: the orchestrator writes it at stage 4
+# with the ONE canonical draft (the F8b output), and the hook NO-OPS when it is absent — so it never blocks an
+# unrelated session. active.json is also the canonical-path pin (the hook trusts it, not a per-call arg).
+def _state(root: Path, name: str) -> Path:
+    d = root / ".claude/state/sw-gate"
+    d.mkdir(parents=True, exist_ok=True)
+    return d / name
+
+
+def activate(root: Path, draft: Path) -> Path:
+    # Stamp the arming session so the Stop-hook enforces only for THIS session (a stale active.json from an
+    # abandoned earlier session is disarmed, not nagged at unrelated future sessions). Same value space as the
+    # Stop event's session_id — verified empirically 2026-06-23: CLAUDE_CODE_SESSION_ID == the transcript
+    # filename == the event session_id. If a future CC build diverges these, the hook degrades to a no-op
+    # (it disarms on the apparent mismatch) — fail-safe (never blocks a stranger), but silently off; re-verify.
+    sess = os.environ.get("CLAUDE_CODE_SESSION_ID", "")
+    if not sess:
+        sys.stderr.write("verdicts: WARNING — CLAUDE_CODE_SESSION_ID unset; the convergence gate will self-disarm "
+                         "(it cannot tie the draft to a session) and will NOT enforce. Arm from a real session.\n")
+    p = _state(root, "active.json")
+    p.write_text(json.dumps({"draft": str(draft.resolve()), "session": sess}))
+    return p
+
+
+def active_session(root: Path) -> str | None:
+    p = root / ".claude/state/sw-gate/active.json"
+    if not p.exists():
+        return None
+    try:
+        return json.loads(p.read_text()).get("session")
+    except Exception:
+        return None
+
+
+def deactivate(root: Path) -> None:
+    p = root / ".claude/state/sw-gate/active.json"
+    if p.exists():
+        p.unlink()
+
+
+def active_draft(root: Path) -> Path | None:
+    p = root / ".claude/state/sw-gate/active.json"
+    if not p.exists():
+        return None
+    try:
+        d = json.loads(p.read_text()).get("draft")
+        return Path(d) if d else None
+    except Exception:
+        return None
+
+
+def bump_block(root: Path, h: str) -> int:
+    """Count consecutive blocks for one draft hash (the Stop-hook's MAX_BLOCKS loop guard). An edit changes the
+    hash and starts a fresh count, so real progress is never penalised."""
+    p = _state(root, "blocks.json")
+    try:
+        d = json.loads(p.read_text()) if p.exists() else {}
+    except Exception:
+        d = {}
+    d[h] = int(d.get(h, 0)) + 1
+    p.write_text(json.dumps(d))
+    return d[h]
+
+
+def accept_residual(root: Path, draft: Path) -> str:
+    """Erfan's escape hatch: sign off the CURRENT draft bytes so the hook stops blocking (keyed to the hash, so a
+    later edit voids the sign-off)."""
+    h = prose_hash(draft)
+    p = _state(root, "residual.json")
+    try:
+        d = json.loads(p.read_text()) if p.exists() else {}
+    except Exception:
+        d = {}
+    d[h] = True
+    p.write_text(json.dumps(d))
+    return h
+
+
+def is_residual(root: Path, draft: Path) -> bool:
+    p = root / ".claude/state/sw-gate/residual.json"
+    if not p.exists():
+        return False
+    try:
+        return bool(json.loads(p.read_text()).get(prose_hash(draft)))
+    except Exception:
+        return False
+
+
+def session_matches(armed: str | None, event: str | None) -> bool:
+    """True ONLY when both session ids are present and equal. The Stop-hook enforces iff this is True, so it
+    must fail toward False (disarm/release) on ANY uncertainty: a wrongly-blocked unrelated session is a
+    session-wide outage, so a missing/empty/mismatched id can never authorize a block."""
+    return bool(armed) and bool(event) and armed == event
+
+
+def clear_gate_state(root: Path) -> None:
+    """End-of-run cleanup (called by `ship`): drop the convergence state for the finished run so it cannot
+    grow unbounded or leave a stale residual. Leaves approvals.json (gate_state.py / F16 owns it)."""
+    import shutil
+    base = root / ".claude/state/sw-gate"
+    for name in ("active.json", "blocks.json", "residual.json"):
+        p = base / name
+        if p.exists():
+            p.unlink()
+    vdir = base / "verdicts"
+    if vdir.exists():
+        shutil.rmtree(vdir, ignore_errors=True)
+
+
 def report_status(converged: bool, lines: list[str], h: str) -> int:
     print(f"verdicts — draft {h}: {'CONVERGED' if converged else 'NOT CONVERGED'}")
     for ln in lines:
@@ -275,6 +385,51 @@ def _selftest() -> int:
         expect("B8 verdicts under old hash don't count", conv, False)
         expect("B8 all missing under new hash", sum("[missing]" in l for l in lines), 7)
 
+    # --- gate-state ops (the Stop-hook reads these) ---
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        d1 = root / "f8b.tex"; d1.write_text("draft one\n")
+        d2 = root / "other.tex"; d2.write_text("draft two\n")
+        expect("active_draft none before activate", active_draft(root), None)
+        os.environ["CLAUDE_CODE_SESSION_ID"] = "sess-A"
+        activate(root, d1)
+        expect("active_draft after activate", active_draft(root) and active_draft(root).read_bytes(), b"draft one\n")
+        expect("active_session stamped from env", active_session(root), "sess-A")
+        deactivate(root)
+        expect("active_draft none after ship", active_draft(root), None)
+        deactivate(root)  # idempotent (no active.json) — must not raise
+        expect("ship idempotent", active_draft(root), None)
+        h = prose_hash(d1)
+        expect("bump_block 1", bump_block(root, h), 1)
+        expect("bump_block 2", bump_block(root, h), 2)
+        expect("bump_block resets per hash", bump_block(root, prose_hash(d2)), 1)
+        expect("residual false before sign-off", is_residual(root, d1), False)
+        accept_residual(root, d1)
+        expect("residual true after sign-off", is_residual(root, d1), True)
+        expect("residual is per-draft (other draft not signed)", is_residual(root, d2), False)
+        d1.write_text("draft one edited\n")  # editing the draft voids the sign-off (hash changed)
+        expect("residual void after edit", is_residual(root, d1), False)
+
+        # session_matches: enforce ONLY when both ids present and equal; fail toward disarm on ANY uncertainty
+        # (these six are the catastrophe cases — a falsy fallthrough here would block unrelated sessions).
+        expect("session_matches A==A", session_matches("A", "A"), True)
+        expect("session_matches empty-armed -> False", session_matches("", "B"), False)
+        expect("session_matches None-armed -> False", session_matches(None, "B"), False)
+        expect("session_matches missing-event -> False", session_matches("A", None), False)
+        expect("session_matches empty-event -> False", session_matches("A", ""), False)
+        expect("session_matches mismatch -> False", session_matches("A", "B"), False)
+
+        # clear_gate_state wipes the convergence state (active/blocks/residual/verdicts) but NOT approvals.json (F16).
+        activate(root, d1); bump_block(root, prose_hash(d1)); accept_residual(root, d1)
+        (root / ".claude/state/sw-gate/approvals.json").write_text("{}")
+        record(root, d1, "voice", True, 0)
+        clear_gate_state(root)
+        expect("clear: active gone", active_draft(root), None)
+        expect("clear: blocks gone", (root / ".claude/state/sw-gate/blocks.json").exists(), False)
+        expect("clear: residual gone", (root / ".claude/state/sw-gate/residual.json").exists(), False)
+        expect("clear: verdicts gone", (root / ".claude/state/sw-gate/verdicts").exists(), False)
+        expect("clear: approvals preserved (F16)", (root / ".claude/state/sw-gate/approvals.json").exists(), True)
+
     print("verdicts selftest: " + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1
 
@@ -294,6 +449,11 @@ def main(argv=None):
     pr.add_argument("--findings", type=int, default=0)
     ps = sub.add_parser("status", parents=[common])
     ps.add_argument("--prose", type=Path, required=True)
+    pa = sub.add_parser("activate", parents=[common])   # orchestrator, stage 4: arm the Stop-hook on this draft
+    pa.add_argument("--prose", type=Path, required=True)
+    sub.add_parser("ship", parents=[common])            # orchestrator, after converge+approve: disarm the hook
+    pres = sub.add_parser("accept-residual", parents=[common])  # Erfan: sign off the current draft bytes
+    pres.add_argument("--prose", type=Path, required=True)
     args = ap.parse_args(argv)
 
     if args.selftest:
@@ -310,6 +470,22 @@ def main(argv=None):
             raise SystemExit(f"verdicts: prose {args.prose}: not a file")
         conv, lines = status(root, args.prose)
         return report_status(conv, lines, prose_hash(args.prose))
+    if args.cmd == "activate":
+        if not args.prose.is_file():
+            raise SystemExit(f"verdicts: prose {args.prose}: not a file")
+        activate(root, args.prose)
+        print(f"verdicts: armed convergence Stop-hook on {args.prose}")
+        return 0
+    if args.cmd == "ship":
+        clear_gate_state(root)
+        print("verdicts: shipped — convergence Stop-hook disarmed + gate state cleared")
+        return 0
+    if args.cmd == "accept-residual":
+        if not args.prose.is_file():
+            raise SystemExit(f"verdicts: prose {args.prose}: not a file")
+        h = accept_residual(root, args.prose)
+        print(f"verdicts: accepted-residual sign-off recorded for draft {h}")
+        return 0
     ap.print_help()
     return 1
 
