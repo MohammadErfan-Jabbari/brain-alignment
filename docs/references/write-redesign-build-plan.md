@@ -59,6 +59,38 @@ the Stop-hook convergence · the gate via AskUserQuestion.
 HIGH for all subagents; **XHIGH for F4 (argument), F5 (scope), F11 (structure)**. opus for argument/scope/draft,
 sonnet for structure/voice. (Erfan-approved.)
 
-## Status
-Plan recorded. Not yet started. Resume: Phase 1 walking skeleton. Full design + scenarios + mapping in the
-sibling `write-redesign-*` docs.
+## Build method — the per-chunk verification loop (proven across C1–C8 + P2-A; learnings L059–L061)
+
+Each atomic chunk passes **three nets** before its commit, in this order:
+1. **Embedded `--selftest`** (the regression net) — every script carries its chunk's scenarios; run green.
+2. **Opus oracle review** (the discovery net) — `oracle-reviewer`, run on *every* chunk regardless of selftest
+   greenness (every chunk so far had a silent-pass/bypass the selftest missed). Fix every must-fix; **fold the
+   oracle's new boundary scenarios into the selftest;** re-run green.
+3. **Fresh `claude -p` clean-room verify** — a real subprocess that loads the just-added on-disk artifact, builds
+   its OWN fixtures (not `--selftest`), runs the scenarios against EXPECT. **Oracle-first, then this** (L061).
+
+Then an **atomic commit** with a build-log entry below. Mechanics that bit us once each (don't re-hit):
+- Set the **Bash tool `timeout` ≥ 540000 ms** for any `claude -p` verify (the 120 s default silently kills it).
+- **Export `CLAUDE_WRAP_SNAPSHOT_SKIP=1`** on every verifier child or it clobbers the parent `/wrap` snapshot.
+- A fresh `claude -p` **loads** mid-session artifacts; an in-process Agent subagent does **not** — verify with a subprocess.
+- **Never HARD-block a dual-use lexical pattern** (L060) — flag it SOFT and let the RUB judge adjudicate.
+- **A DET floor binds to ground truth, and fails toward *more* checking on ambiguity** (L059).
+
+## Authority note — the 2d remaps win over the scenario-suite coverage table
+
+`write-redesign-design.html` step **2d** re-mapped which functionality *enforces* several scenarios; the coverage
+table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d mapping is authoritative:
+- **SC-STR-06 (width) + SC-STR-07 (CARS-niche)** — table files them under **F6**; enforced by the **F11 structure
+  judge, stage-3 site** (F6 is hook-only, can't grade a rubric).
+- **SC-HON-06 (frame-blend in prose)** — table files it under **F2**; enforced by the **F5 scope judge, stage-5
+  site** (F2 only *sets and gates* the frame; it is not a prose auditor). SC-HON-06 is also RUB, not DET (only a
+  lexical "deployment" trigger is the DET sliver).
+
+## Status (live)
+**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅** (green; recorded S35→S36, see the two session logs above). **P2-B in
+progress** (F1 reader-model · F2 message&frame · F11 structure judge). Then P2-C, P2-D, P3 (cutover, irreversible —
+explicit go required). Per-chunk decisions recorded in the build log below.
+
+## Build log (append-only; durable decisions mined/made during the build)
+*Phase 1 + P2-A decisions live in the two session logs (provenance table above) + `docs/learnings.md` L059–L061.
+This log starts at P2-B.*

@@ -35,6 +35,11 @@ curated. **Format:** `ID | tests: F## | DET|RUB | INPUT | EXPECT | GROUNDED`.
 | F18 | Acknowledgment | ARG-4, 7, 12 |
 | — | Fluidity principle + boundary | PROC-8, 9, 10, 11 |
 
+> **Enforcement ≠ this table for the 2d-remapped scenarios** (the design's step-2d is authoritative; this table
+> keeps the pre-2d owner): **SC-STR-06/07** are graded by the **F11 structure judge (stage-3 site)**, not F6;
+> **SC-HON-06** is graded by the **F5 scope judge (stage-5 site)**, not F2 — and is RUB, not DET. See
+> `write-redesign-build-plan.md` "Authority note".
+
 Adversarial near-misses (MUST NOT flag — the precision boundary): TRUST-5, 7, 11 · HON-09, 10 · STR-09, 10 ·
 VOICE-12, 13 · ARG-9, 10 · PROC-12.
 
