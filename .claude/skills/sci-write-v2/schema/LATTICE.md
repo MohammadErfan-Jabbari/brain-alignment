@@ -14,6 +14,7 @@ argument) from frame → gate → draft → audit so nothing drops between hands
   "contribution_type": "<e.g. empirical-finding | methodological | conceptual>" | null,
   "reader_model": {"venue": "<named reader>", "old": [...], "new": [...],
                    "prior_beliefs": [...], "doubts": [...]} | null,
+  "register":    {"venue": "<reader>", "exemplars": ["<section:paper>", ...]} | null,
   "claims":      [ <claim object>, ... ],
   "warrants":    [ {"from": "<claim_id>", "to": "<claim_id>", "warrant": "<text>"}, ... ],
   "figures":     [ {"figure_id": "<id>", "claim_id": "<claim_id>"}, ... ],
@@ -34,6 +35,11 @@ prior_beliefs, doubts` (`venue` non-empty; the four term/belief fields are lists
 content-bearing fields are also **append-safe under `diff`** (a later stage cannot silently empty them, even
 across a stage regression). F2 only *sets and gates* the frame here; frame-consistency in the drafted prose is
 audited by the F5 scope judge at stage 5.
+
+`register` (F17, voice concern, also a stage-1 output) pins the venue's exemplar anchors `{venue, exemplars}`
+from `references/F17-exemplars.md`. It is optional before the gate and **required non-empty at stage ≥ 4** — the
+voice pass (F8b voice-realize, F12 audit) cannot run without a pinned exemplar set (`no-exemplar-pin`, SC-VOICE-10).
+It is append-safe at both the top level and per sub-field (gutting `exemplars` while keeping `venue` is still caught).
 
 ## Claim object — required keys (always present after any stage write)
 

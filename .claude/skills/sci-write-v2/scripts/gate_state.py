@@ -74,6 +74,11 @@ def _projection(lattice: dict) -> dict:
     return {
         "message": lattice.get("message"),
         "reader_model": lattice.get("reader_model"),
+        # stage-1 case/plan outputs (F2 frame + contribution_type, F17 register) are part of the package the
+        # human approves; a post-approval change to any is a logic revision that must re-enter the gate.
+        "frame": lattice.get("frame"),
+        "contribution_type": lattice.get("contribution_type"),
+        "register": lattice.get("register"),
         "claims": _canon(proj_claims),
         "warrants": _canon([w for w in lattice.get("warrants", []) if isinstance(w, dict)]),
         "figures": _canon([f for f in lattice.get("figures", []) if isinstance(f, dict)]),
@@ -265,6 +270,11 @@ def _selftest() -> int:
         ff = clone(draft)
         ff["claims"].append(claim("C3")); ff["sections"][0]["claim_ids"].append("C3")
         expect("SC-C7-F new claim re-gates", check(ff, root), True, "no-prose-before-approval")
+        # S1 (oracle): a stage-1 gated field changed post-approval -> hash change -> re-gate.
+        fr = clone(draft); fr["frame"] = "technology"
+        expect("S1 frame change re-gates", check(fr, root), True, "no-prose-before-approval")
+        rg = clone(draft); rg["register"] = {"venue": "ML", "exemplars": ["abstract:newpaper"]}
+        expect("S1 register change re-gates", check(rg, root), True, "no-prose-before-approval")
 
     print("gate_state selftest: " + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1

@@ -157,3 +157,22 @@ nets green (floor selftest · opus oracle FIX-THEN-PASS · fresh `claude -p` **9
   **flags an unmapped objection (SC-ARG-5) rather than passing it to F18** — added as a SKILL stage-5 adapter
   step; the shared agents are left untouched.
 - F7 reuses the existing `central-claim-figure` DET (dormant at stage 3, mandatory at stage ≥ 4); no new script.
+
+**P2-C-2a — voice-delivery pair (F17 exemplar pin + F8b voice-realize).** Built `references/F17-exemplars.md`
+(per-section anchors lifted from the scenarios `SC-EX-*` set — no re-mine), the lattice `register` field + a
+stage-≥4 `no-exemplar-pin` DET (SC-VOICE-10), and `agents/sw-voice-realize.md` (F8b, sonnet, an edits-in-place
+generator). Three nets green (selftest · opus oracle FIX-THEN-PASS · fresh `claude -p` ALL-PASS). Durable decisions:
+- **F8b is voice-only and its invariants are now MECHANICALLY floored** (oracle D1, the load-bearing fix): it
+  must change no number / drop no `\evd` tag / drop no `%%SECTION` marker. Tags+markers were already caught by the
+  post-F8b `draft_check`/`lattice_integrity` re-run; **numbers were honor-system only** — a silently-altered result
+  number passed every check. Added a **number-conservation DET**: `draft_check --prev-prose` asserts the
+  numeric-literal multiset is identical before/after (wired through `run_checks --prev-prose`). This is the prose
+  analog of the lattice append-safe diff.
+- **`register` is a stage-1 voice output** (`{venue, exemplars}`), required a *non-empty list* at stage ≥ 4 — the
+  voice pass cannot run without a pinned exemplar set. Tightened from a shallow `_empty` check (oracle D2: `[""]`
+  and a string-not-list slipped through at the gate) to `isinstance(list) and _has_content`.
+- **Oracle S1 (a gap P2-B-i opened):** the gate-package hash (`gate_state._projection`) omitted `frame`,
+  `contribution_type`, and `register`, so a post-approval change to any wouldn't re-fire the gate. Added all three
+  to the projection — now consistent with `message`/`reader_model` (a stage-1 case/plan change re-enters the gate).
+- F17 anchors carry the "from a good paper ≠ passes our rules" caution + the danger-zone (abstract/discussion)
+  weighting; the full graded corpus stays the `SC-EX-*`/`SC-VIO-*` set in scenarios.md.

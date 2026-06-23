@@ -4,6 +4,7 @@
   "frame": "basic-science",
   "contribution_type": "empirical-finding",
   "reader_model": {"venue": "ML", "old": ["linear probe", "distillation"], "new": ["voxelwise noise ceiling"], "prior_beliefs": ["brain alignment is a post-hoc evaluation metric, not a training signal"], "doubts": ["whether optimizing alignment helps per individual beyond perplexity"]},
+  "register": {"venue": "ML", "exemplars": ["abstract:2602.14486", "results:tribev2", "limitations:tribev2"]},
   "claims": [
     {
       "claim_id": "C1",

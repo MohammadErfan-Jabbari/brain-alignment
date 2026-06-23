@@ -4,6 +4,7 @@
   "frame": "basic-science",
   "contribution_type": "empirical-finding",
   "reader_model": {"venue": "ML", "old": ["language model", "distillation", "linear probe"], "new": ["brain alignment", "encoding model"], "prior_beliefs": ["brain alignment is a post-hoc evaluation metric"], "doubts": ["whether alignment can be used as a per-individual training signal"]},
+  "register": {"venue": "ML", "exemplars": ["abstract:2602.14486", "results:tribev2", "limitations:tribev2"]},
   "claims": [
     {
       "claim_id": "C1",

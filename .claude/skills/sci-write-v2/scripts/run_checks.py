@@ -39,7 +39,8 @@ def _run(script: str, *args) -> tuple[int, str]:
     return p.returncode, (p.stdout or "") + (p.stderr or "")
 
 
-def run_stack(lattice: Path, prose: Path | None, state_root: Path | None, prev: Path | None) -> int:
+def run_stack(lattice: Path, prose: Path | None, state_root: Path | None, prev: Path | None,
+              prev_prose: Path | None = None) -> int:
     # Two roots are DISTINCT: evidence (docs/experiments) is auto-resolved by claim_binding from the lattice's
     # own location; the gate-approval STATE root is the only thing --repo-root controls. Conflating them
     # (one flag for both) false-dangled evidence under a scratch root — fixed by not passing a root to
@@ -57,8 +58,10 @@ def run_stack(lattice: Path, prose: Path | None, state_root: Path | None, prev: 
     if prev:  # append-safe / round-trip guard: no claim/field dropped or content-emptied between writes
         steps.append(("lattice_integrity.py", ["diff", str(prev), str(lattice)]))
     if prose:
+        # F8b number-conservation: pass the pre-voice-pass prose so draft_check asserts no number changed.
+        prev_prose_args = ["--prev-prose", str(prev_prose)] if prev_prose else []
         steps += [
-            ("draft_check.py", ["validate", str(prose), str(lattice)]),
+            ("draft_check.py", ["validate", str(prose), str(lattice)] + prev_prose_args),
             ("ai_tell_lint.py", [str(prose)]),
             ("scope_lint.py", ["validate", str(prose)]),  # F5 DET: scope-words + uncited novelty
         ]
@@ -94,6 +97,8 @@ def main(argv=None):
     ap.add_argument("--prose", type=Path, default=None)
     ap.add_argument("--prev", type=Path, default=None,
                     help="the prior lattice snapshot; runs the append-safe/round-trip diff guard")
+    ap.add_argument("--prev-prose", type=Path, default=None,
+                    help="the pre-edit prose (e.g. before the F8b voice pass); asserts no number changed (F8b)")
     ap.add_argument("--repo-root", type=Path, default=None,
                     help="gate-approval STATE root (gate_state only); evidence resolves automatically")
     ap.add_argument("--selftest", action="store_true")
@@ -102,7 +107,7 @@ def main(argv=None):
         return _selftest()
     if not args.lattice:
         ap.error("--lattice is required (or use --selftest)")
-    return run_stack(args.lattice, args.prose, args.repo_root, args.prev)
+    return run_stack(args.lattice, args.prose, args.repo_root, args.prev, args.prev_prose)
 
 
 if __name__ == "__main__":

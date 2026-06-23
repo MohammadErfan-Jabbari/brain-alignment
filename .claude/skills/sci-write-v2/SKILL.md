@@ -7,9 +7,10 @@ description: >-
   plus a high-recall audit, not asserted by construction. Walking-skeleton phase: the Trust + Structure +
   Voice spine is live (claim-lattice, claim-binding, skeleton, drafter-with-\evd, voice audit, claim-fidelity,
   the ordering gate); the Argument concern (warrants, scope), the message/frame + reader-model front-end, the
-  structure judge, figures, acknowledgment, and the premortem panel are built too. The exemplar pin, voice-realize,
-  consistency, and the parallel-audit / Stop-hook convergence are still being added (Phase 2). Until this passes
-  the 119-scenario suite, the live `scientific-writing` skill stays the default; this is built and tested alongside it.
+  structure judge, figures, acknowledgment, the premortem panel, the exemplar pin, and voice-realize are built
+  too. Consistency (F19) and the parallel-audit / Stop-hook convergence are still being added (Phase 2). Until
+  this passes the 119-scenario suite, the live `scientific-writing` skill stays the default; this is built and
+  tested alongside it.
 ---
 
 # /write — the gated-loop pipeline
@@ -45,10 +46,12 @@ message — a norm the human gates at F16, *not* a DET check: a sentence-counter
 are playing; for this thesis the technology frame is closed by the Q3 null), and the **`contribution_type`**;
 write `message`, `frame`, `contribution_type` to the lattice. Then spawn **`sw-reader-model`** (sonnet) to build
 the **reader-model** — `{venue, old, new, prior_beliefs, doubts}`, with old-vs-new judged *relative to that
-venue's reader* (Pinker's curse-of-knowledge) — and write it to `reader_model`. Set `meta.stage=1`.
-**`run_checks`** then enforces the stage-1 floor at the gate (message *present*, `frame` in enum,
-`contribution_type` present, `reader_model` shaped — the append-safe diff also blocks a later stage from
-emptying any of these). *F2 only **sets and gates**
+venue's reader* (Pinker's curse-of-knowledge) — and write it to `reader_model`. Pin the **register (F17)**: pick
+the venue's style anchors from `references/F17-exemplars.md` and write `register` = `{venue, exemplars:
+[<section:paper>, …]}` — the voice pass cannot run without it. Set `meta.stage=1`. **`run_checks`** then enforces
+the stage-1 floor at the gate (message *present*, `frame` in enum, `contribution_type` present, `reader_model`
+shaped — the append-safe diff also blocks a later stage from emptying any of these; the `register` pin is
+enforced at stage ≥ 4, before the voice pass). *F2 only **sets and gates**
 the frame here; frame-consistency in the drafted prose is audited by the **F5 scope judge at stage 5** (not F2).
 F17 exemplar pin is still **Phase 2**.*
 
@@ -90,9 +93,13 @@ self-reported stage: `run_checks --prose …` passes `--drafting` so an agent th
 node as prose (old-to-new to the reader, mechanism before metrics, methods/results first), emitting one
 `\evd{claim-id}{strength}` per claim sentence as it places it and mirroring each into `lattice.tags[]`, then
 sets `meta.stage=4`. **The orchestrator MUST ensure the stage advances to 4 the moment prose exists** — that
-coupling is what makes the gate's ordering floor real. *Phase 1: F8a. The F8b voice-realize pass is **Phase 2**
-(F12 audits voice instead).* Then **`run_checks --lattice L --prose P`** → `draft_check` + `lattice_integrity`
-(every-claim-tagged) + `claim_fidelity` (F9a, tag ≤ strength) + `ai_tell_lint` (F12 lexical) must pass.
+coupling is what makes the gate's ordering floor real. Then spawn **`sw-voice-realize`** (F8b, sonnet) to rewrite
+the placed prose for register against the pinned F17 exemplars — **preserving every `\evd` tag, every `%%SECTION`
+marker, and every number** (it is voice-only; it changes no claim and no structure). F8b is gated by F17: the
+`no-exemplar-pin` DET blocks stage ≥ 4 without a `register`. Then **`run_checks --lattice L --prose P --prev-prose
+<F8a-output>`** → `draft_check` (incl. **number-conservation**: F8b changed/added/dropped no number) +
+`lattice_integrity` (every-claim-tagged + the F17 pin) + `claim_fidelity` (F9a, tag ≤ strength) + `ai_tell_lint`
+(F12 lexical) must pass.
 
 **Stage 5 · Audit.** The DET floor already ran in `run_checks`. Now the **RUB readers** (spawn them in parallel —
 one message, multiple subagents):
@@ -171,8 +178,10 @@ skill's stage-1 section + the `frame`/`contribution_type`/`reader_model`/message
 `lattice_integrity.py`) — *P2-B-i*. **F11** structure judge (`agents/sw-structure-judge.md`, sonnet xhigh, 2
 sites) — *P2-B-ii*. **F7** figures (stage-3 SKILL step; the `central-claim-figure` DET already lives in
 `lattice_integrity`), **F13** premortem panel (reuses the D017 `premortem-analyst` + `counter-argument`), **F18**
-acknowledgment (`agents/sw-acknowledgment.md`, opus) — *P2-C-1*. Still to come: F17 exemplar pin, F8b
-voice-realize, F19 consistency (P2-C-2), and the P2-D CC-power upgrades.
+acknowledgment (`agents/sw-acknowledgment.md`, opus) — *P2-C-1*. **F17** exemplar pin
+(`references/F17-exemplars.md` + the `register` field/DET in `lattice_integrity`) + **F8b** voice-realize
+(`agents/sw-voice-realize.md`, sonnet) — *P2-C-2a*. Still to come: F19 consistency (P2-C-2b), and the P2-D
+CC-power upgrades.
 
 **Effort:** all subagents HIGH; the three hardest judges (F4 argument, F5 scope, F11 structure — all built,
 P2-A/P2-B) run XHIGH. The orchestrator runs at the session model.

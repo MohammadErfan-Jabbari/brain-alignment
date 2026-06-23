@@ -34,6 +34,7 @@ import argparse
 import json
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 
 STRENGTH = {"unsupported", "observed", "supported", "strong"}
@@ -41,6 +42,9 @@ SEC_RE = re.compile(r"^%%SECTION[ \t]+(\S+)[ \t]*$", re.M)
 SEC_LINE = re.compile(r"%%SECTION[ \t]+\S")
 EVD_RE = re.compile(r"\\evd\{([^}]*)\}\{([^}]*)\}")
 PCT = re.compile(r"(?<!\\)%")  # an unescaped LaTeX comment start
+# A numeric literal in prose (result, n=, percentage, CI bound, sci-notation). Used to assert a voice pass
+# (F8b) changed NO number: the multiset of these tokens must be identical before and after the edit.
+NUM_RE = re.compile(r"[-+]?\d[\d,]*(?:\.\d+)?(?:[eE][-+]?\d+)?%?")
 
 
 def normalize(text: str) -> str:
@@ -113,6 +117,30 @@ def check(prose: str, lattice: dict) -> list[str]:
         lat_tags = claim_by_id[cid].get("tags") or []
         if not any(isinstance(t, dict) and t.get("strength") == strength for t in lat_tags):
             f.append(f"[tag-desync] inline \\evd{{{cid}}}{{{strength}}} has no matching entry in the lattice tags[]")
+    return f
+
+
+def _nums(text: str) -> Counter:
+    """Multiset of numeric literals in real prose (comments, \\evd tags, and %%SECTION markers stripped, so
+    claim-id/strength digits and section ids are not counted — only numbers the reader sees)."""
+    code = strip_tex_comments(normalize(text))
+    code = EVD_RE.sub("", code)
+    code = SEC_RE.sub("", code)
+    return Counter(m.group(0) for m in NUM_RE.finditer(code))
+
+
+def check_numbers(prev_prose: str, prose: str) -> list[str]:
+    """F8b (voice-realize) and any prose edit must change NO number. Assert the numeric-literal multiset is
+    identical before and after — a dropped/changed number and an introduced number are both flagged. This is
+    the prose analog of the lattice append-safe diff; without it 'change no number' is honor-system only."""
+    f = []
+    pb, cb = _nums(prev_prose), _nums(prose)
+    for n, c in (pb - cb).items():
+        f.append(f"[number-drift] '{n}' was in the pre-edit prose ({c}x) and is now missing or changed — "
+                 f"a voice/edit pass must preserve every number")
+    for n, c in (cb - pb).items():
+        f.append(f"[number-drift] '{n}' appears in the post-edit prose ({c}x) but not before — "
+                 f"a voice/edit pass must not introduce a number")
     return f
 
 
@@ -197,6 +225,22 @@ def _selftest() -> int:
     # escaped percent must survive (a real "50\% gain" line is not a comment).
     expect("escaped-percent survives", check("%%SECTION results\n50\\% gain seen. \\evd{C1}{strong}\nKD. \\evd{C2}{observed}\n", lat()), False)
 
+    # --- F8b number-conservation (P2-C-2a, oracle D1): a voice pass must change NO number ---
+    nbefore = ("%%SECTION results\nThe gap was +0.028 over reliable voxels (n=9). \\evd{C1}{strong}\n"
+               "Plain KD does not preserve alignment. \\evd{C2}{observed}\n")
+    nclean = ("%%SECTION results\nWe measured a +0.028 gap over the reliable voxels (n=9). \\evd{C1}{strong}\n"
+              "Plain KD fails to preserve alignment. \\evd{C2}{observed}\n")
+    ndrift = ("%%SECTION results\nWe measured a +0.28 gap over the reliable voxels (n=9). \\evd{C1}{strong}\n"
+              "Plain KD fails to preserve alignment. \\evd{C2}{observed}\n")
+    expect("F8b numbers preserved across a register rewrite (no-flag)", check_numbers(nbefore, nclean), False)
+    expect("F8b number drifted +0.028 -> +0.28 (oracle D1)", check_numbers(nbefore, ndrift), True, "number-drift")
+    nadd = nbefore + "We also reach 99% accuracy. \\evd{C1}{strong}\n"
+    expect("F8b introduced a number", check_numbers(nbefore, nadd), True, "number-drift")
+    # tag-only changes must NOT count as number drift (claim-id/strength digits are stripped).
+    ntagonly = ("%%SECTION results\nThe gap was +0.028 over reliable voxels (n=9). \\evd{C1}{observed}\n"
+                "Plain KD does not preserve alignment. \\evd{C2}{observed}\n")
+    expect("F8b tag strength change is not number-drift (no-flag)", check_numbers(nbefore, ntagonly), False)
+
     print("draft_check selftest: " + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1
 
@@ -208,6 +252,8 @@ def main(argv=None):
     pv = sub.add_parser("validate")
     pv.add_argument("prose", type=Path)
     pv.add_argument("lattice", type=Path)
+    pv.add_argument("--prev-prose", type=Path, default=None,
+                    help="the pre-edit prose (e.g. F8a output before the F8b voice pass); asserts no number changed")
     args = ap.parse_args(argv)
 
     if args.selftest:
@@ -220,7 +266,14 @@ def main(argv=None):
             raise SystemExit(f"draft_check: {e}")
         except json.JSONDecodeError as e:
             raise SystemExit(f"draft_check: {args.lattice}: invalid JSON ({e})")
-        return report(check(prose, lattice))
+        findings = check(prose, lattice)
+        if args.prev_prose:
+            try:
+                prev = args.prev_prose.read_text(encoding="utf-8")
+            except FileNotFoundError as e:
+                raise SystemExit(f"draft_check: {e}")
+            findings += check_numbers(prev, prose)
+        return report(findings)
     ap.print_help()
     return 1
 

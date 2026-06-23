@@ -232,6 +232,12 @@ def validate(lattice: dict) -> list[str]:
                 f.append(f"[empty-section] section '{sid}': no existing claim bound to it")
 
     if cov_stage >= 4:
+        # F17: the voice pass (F8b/F12) must not run without a pinned exemplar set (SC-VOICE-10).
+        reg = lattice.get("register")
+        exes = reg.get("exemplars") if isinstance(reg, dict) else None
+        if not isinstance(exes, list) or not _has_content(exes):
+            f.append("[no-exemplar-pin] register.exemplars must be a non-empty list at stage >= 4 (F17: pin the "
+                     "venue exemplars before the voice pass — F8b/F12 cannot run without them)")
         for c in claims:
             if not isinstance(c, dict):
                 continue
@@ -252,16 +258,18 @@ def diff(before: dict, after: dict) -> list[str]:
     # Top-level content-bearing provenance fields. message/frame/contribution_type/reader_model are part of the
     # gated package; a later stage write (incl. a stage REGRESSION that skips the stage>=3 validate block) must
     # not silently empty them. validate(after) alone misses this when after is staged < 3, so guard it here.
-    for k in ("message", "frame", "contribution_type", "reader_model"):
+    for k in ("message", "frame", "contribution_type", "reader_model", "register"):
         if _has_content(before.get(k)) and not _has_content(after.get(k)):
             f.append(f"[append-safe] top-level '{k}' had content and is now empty (destructive overwrite)")
-    # reader_model is a dict of provenance sub-fields (old/new term classifications, beliefs, doubts) the
-    # drafter F8a and the structure judge F11 depend on; guard each sub-field, like the per-claim key check.
-    b_rm, a_rm = before.get("reader_model"), after.get("reader_model")
-    if isinstance(b_rm, dict) and isinstance(a_rm, dict):
-        for k, bv in b_rm.items():
-            if _has_content(bv) and not _has_content(a_rm.get(k)):
-                f.append(f"[append-safe] reader_model.{k} had content and is now empty (destructive overwrite)")
+    # reader_model and register are dicts of provenance sub-fields (old/new term classifications, beliefs,
+    # doubts; venue + pinned exemplars) the drafter F8a, the structure judge F11, and the voice pass depend on;
+    # guard each sub-field, like the per-claim key check, so a partial gut (one sub-list emptied) is caught.
+    for top in ("reader_model", "register"):
+        b_d, a_d = before.get(top), after.get(top)
+        if isinstance(b_d, dict) and isinstance(a_d, dict):
+            for k, bv in b_d.items():
+                if _has_content(bv) and not _has_content(a_d.get(k)):
+                    f.append(f"[append-safe] {top}.{k} had content and is now empty (destructive overwrite)")
 
     b_claims = {c.get("claim_id"): c for c in before.get("claims", []) if isinstance(c, dict)}
     a_claims = {c.get("claim_id"): c for c in after.get("claims", []) if isinstance(c, dict)}
@@ -416,6 +424,20 @@ def _selftest() -> int:
     expect("D2 stage-regression nulls frame -> append-safe", diff(good, a), True, "append-safe")
     a = clone(); a["message"] = "A different but still legitimate single-sentence message."
     expect("D2 message legitimately changed (no-flag)", diff(good, a), False)
+
+    # --- F17 exemplar pin (P2-C-2a): no voice pass without a pinned exemplar set, enforced at stage >= 4 ---
+    d = clone(); d.pop("register", None)
+    expect("F17 register missing at stage>=4", validate(d), True, "no-exemplar-pin")
+    d = clone(); d["register"] = {"venue": "ML", "exemplars": []}
+    expect("F17 register.exemplars empty at stage>=4", validate(d), True, "no-exemplar-pin")
+    d = clone(); d["meta"]["stage"] = 3; d.pop("register", None)
+    expect("F17 register not required before stage 4 (no-flag)", validate(d), False)
+    a = clone(); a["register"] = {"venue": "ML", "exemplars": []}  # gut exemplars, keep venue
+    expect("F17 register.exemplars gutted -> append-safe", diff(good, a), True, "append-safe")
+    d = clone(); d["register"] = {"venue": "ML", "exemplars": [""]}  # gutted members (oracle D2)
+    expect("F17 register.exemplars=[''] at stage>=4", validate(d), True, "no-exemplar-pin")
+    d = clone(); d["register"] = {"venue": "ML", "exemplars": "abstract:2602.14486"}  # string not list (oracle D2)
+    expect("F17 register.exemplars a string not a list", validate(d), True, "no-exemplar-pin")
 
     # precision guards (MUST NOT flag)
     s2 = clone()
