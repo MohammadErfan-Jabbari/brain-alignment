@@ -75,6 +75,18 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 
 ## Next session (what `/orient` surfaces)
 
+> **S37 NEXT (2026-06-23, stance: `/meta`).** **Continue the `/write` build at P2-D.** S37 BUILT **Phase-2 P2-B +
+> P2-C** of the redesigned `/write` pipeline (D048, skill `.claude/skills/sci-write-v2/`; live `scientific-writing`
+> untouched): F1 reader-model + F2 message&frame + F11 structure judge (P2-B); F7 figures + F13 premortem panel +
+> F18 acknowledgment + F17 exemplar pin + F8b voice-realize + F19 consistency (P2-C). Each chunk: `--selftest` →
+> opus oracle (all FIX-THEN-PASS) → fresh-`claude -p` verify → atomic commit + build-log entry (7 commits).
+> **Build state + per-chunk decisions = `docs/references/write-redesign-build-plan.md` (Status + the append-only
+> build log).** **NEXT = P2-D** (parallel stage-5 fan-out + structured `ready_to_ship` Stop-hook convergence +
+> AskUserQuestion gate), then **P3 cutover** (full 119-suite green → retire old flow → repoint
+> CLAUDE.md/03-methodology → record D048-complete — **IRREVERSIBLE, confirm with Erfan**). Resume from
+> `upspeed.md` + `docs/timeline/2026-06-23-1129_*`. **NO experiment, NO rung change; Q0–Q5 stand.** Live science
+> thread unchanged: Q4 sample-efficiency E024; analysis lane next = R08 (Q2).
+>
 > **S36 NEXT (2026-06-23, stance: `/meta`).** **Continue the `/write` build at P2-B.** S36 BUILT the redesigned
 > `/write` pipeline (D048) as a new self-contained skill `.claude/skills/sci-write-v2/` (the live
 > `scientific-writing` skill is untouched): **Phase-1 walking skeleton (C1–C8) green end-to-end on the abstract**
