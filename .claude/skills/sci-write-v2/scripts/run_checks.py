@@ -50,6 +50,7 @@ def run_stack(lattice: Path, prose: Path | None, state_root: Path | None, prev: 
         ("lattice_integrity.py", ["validate", str(lattice)]),
         ("claim_binding.py", ["validate", str(lattice)]),  # self-resolves the evidence repo root
         ("claim_fidelity.py", ["validate", str(lattice)]),
+        ("warrant_schema.py", ["validate", str(lattice)]),  # F4 DET: no empty-warrant edges
         # gate ordering binds to prose-existence (--drafting), not the self-reported stage.
         ("gate_state.py", state_args + ["check", str(lattice)] + drafting),
     ]
@@ -59,6 +60,7 @@ def run_stack(lattice: Path, prose: Path | None, state_root: Path | None, prev: 
         steps += [
             ("draft_check.py", ["validate", str(prose), str(lattice)]),
             ("ai_tell_lint.py", [str(prose)]),
+            ("scope_lint.py", ["validate", str(prose)]),  # F5 DET: scope-words + uncited novelty
         ]
     failed = False
     for script, args in steps:
@@ -76,7 +78,8 @@ def run_stack(lattice: Path, prose: Path | None, state_root: Path | None, prev: 
 def _selftest() -> int:
     ok = True
     for script in ("lattice_integrity.py", "claim_binding.py", "claim_fidelity.py",
-                   "draft_check.py", "gate_state.py", "ai_tell_lint.py"):
+                   "draft_check.py", "gate_state.py", "ai_tell_lint.py",
+                   "warrant_schema.py", "scope_lint.py"):
         rc, _out = _run(script, "--selftest")
         good = rc == 0
         print(("  ok: " if good else "  SELFTEST FAIL: ") + f"{script} --selftest (rc={rc})")
