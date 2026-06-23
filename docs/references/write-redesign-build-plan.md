@@ -89,14 +89,14 @@ table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d 
   lexical "deployment" trigger is the DET sliver).
 
 ## Status (live)
-**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D-1 ✅ + P2-D-2 ✅ + P2-D-3 ✅** (green; P1+P2-A
+**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D-1..4 ✅** (green; P1+P2-A
 recorded S35→S36, P2-B + P2-C S37, P2-D this session — see the session logs above + the build log below).
 **P2-D in progress** — the CC-power upgrades, chunked: **P2-D-1 ✅** structured verdict schema + convergence
 state machine (`verdicts.py`); **P2-D-2 ✅** parallel stage-5 fan-out + verdict-recording orchestration (SKILL
 stage 5); **P2-D-3 ✅** the convergence Stop-hook (`stop_sw_converge.py`, wired live, pipeline+session-scoped,
-loop-guarded); **P2-D-4 next** AskUserQuestion gate, then **P2-D-5** SC-XS-3 caption wiring, **P2-D-6**
-deviation-log/SC-PROC-8-10. Then P3 (cutover, irreversible — explicit go required). Per-chunk decisions recorded
-in the build log below.
+loop-guarded); **P2-D-4 ✅** the F16 gate via `AskUserQuestion` (GATE section); **P2-D-5 next** SC-XS-3 caption
+wiring, then **P2-D-6** deviation-log/SC-PROC-8-10. Then P3 (cutover, irreversible — explicit go required).
+Per-chunk decisions recorded in the build log below.
 
 ## Build log (append-only; durable decisions mined/made during the build)
 *Phase 1 + P2-A decisions live in the two session logs (provenance table above) + `docs/learnings.md` L059–L061.
@@ -292,3 +292,23 @@ cleared** · hook event-pipe black-box, all catastrophe + policy cases). Durable
   prose reconciled to say exactly this (the "terminator"/"anti-fabrication" overclaims were removed).
 - **`ship` clears the gate state** (active/blocks/residual/verdicts) but preserves `approvals.json` (gate_state's
   F16 store in the same dir) — bounds state growth + kills the stale-residual-on-collision surface (oracle MF-4).
+
+**P2-D-4 — the F16 gate via `AskUserQuestion`.** SKILL-only (the `gate_state.py` floor is built + tested,
+unchanged). Rewrote the **GATE · F16** section to use the real `AskUserQuestion` approval primitive. Three nets
+green (gate_state selftest intact · opus oracle ACCEPT-WITH-CAVEAT, MF-1..3 + boundary fixed · fresh `claude -p`
+**5/5 PASS**). Durable decisions:
+- **The presented package == the hashed projection, exactly** (oracle MF-1, load-bearing): the human must approve
+  every field `gate_state._projection` hashes — so the GATE summary now lists **register (F17 exemplars)**
+  alongside message/frame/contribution_type/reader-model/claims(+scope+is_central+acks)/warrants/skeleton/figures.
+  A field that is gated but not shown = a silent term in a contract the human signs. Fixed.
+- **The `Approve` trigger is a literal exact-match** (oracle MF-3): only an exact selection of the option labelled
+  `Approve` authorizes `gate_state approve`; the agent's own read, a paraphrase, any other selection, or a
+  **cancelled/unanswered dialog** is NOT approval → loop back to stages 1–3 and re-present (closes the
+  self-approval seam + the dismissed-dialog boundary).
+- **Revise options must cover the full gated set** (oracle MF-2): derive them from the package fields so no field
+  is un-revisable (a human can't be forced to Approve to change a field the options omit).
+- **`AskUserQuestion` over `ExitPlanMode`:** it returns a discrete decision token; ExitPlanMode conflates
+  "plan is fine" with "approve this exact package." `AskUserQuestion` makes the yes unambiguous; enforcement still
+  belongs to the `gate_state check` floor (the gate primitive doesn't enforce ordering — the hook does).
+- **Stage-6 re-gate enumeration generalized** to "any gated field" (was a 4-field list, which an agent could read
+  as exempting frame/register/reader-model) — consistent with `_projection`.

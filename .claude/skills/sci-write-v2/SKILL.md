@@ -8,9 +8,10 @@ description: >-
   Voice spine is live (claim-lattice, claim-binding, skeleton, drafter-with-\evd, voice audit, claim-fidelity,
   the ordering gate); the Argument concern (warrants, scope), the message/frame + reader-model front-end, the
   structure judge, figures, acknowledgment, the premortem panel, the exemplar pin, voice-realize, and the
-  consistency check are built too. Only the parallel-audit / Stop-hook convergence (P2-D) remains for Phase 2.
-  Until this passes the 119-scenario suite, the live `scientific-writing` skill stays the default; this is built
-  and tested alongside it.
+  consistency check are built too. P2-D is landing the CC-power layer: the structured-verdict convergence machine,
+  the parallel stage-5 fan-out, the convergence Stop-hook, and the AskUserQuestion gate are in; the SC-XS-3 caption
+  judge and the deviation-log are the last of it. Until this passes the 119-scenario suite, the live
+  `scientific-writing` skill stays the default; this is built and tested alongside it.
 ---
 
 # /write — the gated-loop pipeline
@@ -80,14 +81,24 @@ must carry a figure.*
 **↻ Stages 1–3 iterate freely** — binding may revise the message; the skeleton may reveal a missing claim.
 Nothing is locked until the gate. No prose is generated in stages 1–3.
 
-**GATE · F16.** Present the **coupled package** (message + reader-model + lattice + skeleton) to Erfan and get
-one approval over the whole thing — *Phase 1: present it as a clear summary and confirm; the real
-AskUserQuestion/ExitPlanMode primitive is **Phase 2**.* **Do not call `scripts/gate_state.py approve <lattice>`
-until Erfan has actually said yes** — calling approve is recording his approval, not granting your own. **No
-prose before this** — `gate_state check` blocks drafting without a matching approval, and re-blocks if a gated
-field changed (a logic revision re-enters the gate). The floor binds to **prose existence**, not the
-self-reported stage: `run_checks --prose …` passes `--drafting` so an agent that writes prose while leaving
-`meta.stage=3` is still blocked.
+**GATE · F16.** Present the **whole coupled package as one** and get a single explicit approval over it — via the
+**`AskUserQuestion` tool**, not free chat (a real approval primitive, so the yes is an unambiguous decision, not
+inferred from conversation). The package is **every field the gate hashes** (so the human approves exactly what
+gets locked — `gate_state._projection`): the one-sentence message, the frame + contribution_type, the
+reader-model, the **pinned register (F17 exemplars)**, the full claim/argument lattice (each claim's
+evidence+strength + scope + is_central + acknowledgments, and the warrants), and the skeleton + figure plan.
+Summarize **each** of these, then ask **one** `AskUserQuestion`. The approve option's label must be exactly
+**`Approve`**; the Revise options must between them cover the full package (derive them from the fields above —
+e.g. `Revise claims/scope`, `Revise structure/skeleton`, `Revise message/reader/frame`, `Revise register/
+acknowledgments`), so no part is un-revisable. Approving only part of it is **not** approval (SC-PROC-2) — present
+and gate the whole package. **Only an exact selection of the `Approve` option authorizes
+`scripts/gate_state.py approve <lattice>`** — that call *records his decision*, it does not grant your own; never
+call it on your own read, and **a cancelled / unanswered dialog or any other selection is NOT approval** → loop
+back into stages 1–3 and re-present. **No prose before this** — `gate_state check` blocks drafting without a
+matching approval, and re-blocks if **any gated field** changed since approval (a logic revision re-enters the
+gate). The floor binds to **prose existence**, not the self-reported stage: `run_checks --prose …` passes
+`--drafting`, so an agent that writes prose while leaving `meta.stage=3` is still blocked.
+*(Supervisor/reviewer feedback later also re-enters here, not the draft — it changes the approved case.)*
 
 **Stage 4 · Draft (Structure + Trust).** Spawn the **`sw-drafter`** subagent (opus): it realizes each skeleton
 node as prose (old-to-new to the reader, mechanism before metrics, methods/results first), emitting one
@@ -158,8 +169,9 @@ only — provenance is an accepted non-goal); see stage 6. Phase-2 remaining: **
 **P2-D-5** caption, **P2-D-6** deviation-log.*
 
 **Stage 6 · Revise.** Fix coarse-to-fine, **never reversed**: logic → sentence → lexical. A **logic** fix
-(it changes a gated field: a claim, a warrant, the skeleton, the message) **re-enters the gate** — re-run the
-relevant stages, re-approve, `gate_state` will block until you do. A sentence/lexical fix loops back to the
+(it changes **any gated field** — message, frame, contribution_type, reader-model, register, a claim, a warrant,
+the skeleton, a figure: the full `gate_state._projection` set) **re-enters the gate** — re-run the relevant
+stages, re-approve, `gate_state` will block until you do. A sentence/lexical fix loops back to the
 stage-5 audit. Re-run `run_checks` + the RUB readers until **both the DET floor and the RUB readers are clean**.
 Pass `run_checks --prev <prior-lattice>` on a stage write to run the append-safe / round-trip diff guard (no
 claim or content-bearing field dropped between stages).
@@ -222,8 +234,8 @@ the structured verdict schema + convergence state machine (`scripts/verdicts.py`
 `*-VERDICT: {ready_to_ship, findings}`) — *P2-D-1*; the stage-5 parallel fan-out + verdict-recording
 orchestration (this stage-5 section) — *P2-D-2*; the convergence Stop-hook (`.claude/hooks/stop_sw_converge.py`,
 wired in `settings.json`, pipeline-scoped via `active.json` + session-scoped, D047 loop-guard) + the gate-state
-ops in `verdicts.py` (`activate`/`ship`/`accept-residual`) — *P2-D-3*. Still to come: **P2-D-4** AskUserQuestion
-gate, **P2-D-5** SC-XS-3 caption, **P2-D-6** deviation-log.
+ops in `verdicts.py` (`activate`/`ship`/`accept-residual`) — *P2-D-3*; the F16 gate via `AskUserQuestion` (the
+GATE section) — *P2-D-4*. Still to come: **P2-D-5** SC-XS-3 caption, **P2-D-6** deviation-log.
 
 **Effort:** all subagents HIGH; the three hardest judges (F4 argument, F5 scope, F11 structure — all built,
 P2-A/P2-B) run XHIGH. The orchestrator runs at the session model.
