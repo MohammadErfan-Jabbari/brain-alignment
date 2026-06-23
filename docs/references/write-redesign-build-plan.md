@@ -8,13 +8,15 @@ once the new pipeline passes the 119-scenario suite.**
 
 ## Session provenance — the build's source-of-truth logs
 
-Two sessions carry the full reasoning behind this build. When a decision or a design choice is unclear, the answer
+Three sessions carry the full reasoning behind this build. When a decision or a design choice is unclear, the answer
 is in these logs (mine them with a subagent; never re-derive). Project slug: `-home-centcom-data-brain-alignment`.
+These three logs are the **related documents** of the redesign + rebuild — read them before continuing the build.
 
 | Session | Role | Log file |
 |---|---|---|
-| `3ce96589-47c5-4d6b-ab6b-d2e7b7a85134` | **The redesign** — designed the whole pipeline to BUILD-READY (the *why*: 4 concerns, gated loop, 119 scenarios, CC mapping, D047/D048) | `~/.claude/projects/-home-centcom-data-brain-alignment/3ce96589-47c5-4d6b-ab6b-d2e7b7a85134.jsonl` |
-| `1709254b-72c6-40a0-bacd-0d88e900691f` | **First build** — implemented Phase 1 (C1–C8) + P2-A under the per-chunk build→opus-oracle→fresh-`claude -p`-verify→commit loop (the *how*) | `~/.claude/projects/-home-centcom-data-brain-alignment/1709254b-72c6-40a0-bacd-0d88e900691f.jsonl` |
+| `3ce96589-47c5-4d6b-ab6b-d2e7b7a85134` | **The redesign** — designed the whole pipeline to BUILD-READY (the *why*: 4 concerns, gated loop, 119 scenarios, CC mapping, D047/D048) | `~/.claude/projects/-home-centcom-data-brain-alignment/3ce96589-47c5-4d6b-ab6b-d2e7b7a85134.jsonl` (4.0M) |
+| `1709254b-72c6-40a0-bacd-0d88e900691f` | **First build** (S35→S36) — implemented Phase 1 (C1–C8) + P2-A under the per-chunk build→opus-oracle→fresh-`claude -p`-verify→commit loop (the *how*) | `~/.claude/projects/-home-centcom-data-brain-alignment/1709254b-72c6-40a0-bacd-0d88e900691f.jsonl` (4.7M) |
+| `daa4f842-64ac-43c3-b9e4-653f4acf7317` | **Second build** (S37) — implemented P2-B (F1/F2/F11) + P2-C (F7/F13/F18/F17/F8b/F19) under the same three-net loop; 7 atomic commits + the build log below | `~/.claude/projects/-home-centcom-data-brain-alignment/daa4f842-64ac-43c3-b9e4-653f4acf7317.jsonl` (3.4M) |
 
 ## Migration map — existing apparatus → new design (the tags)
 
