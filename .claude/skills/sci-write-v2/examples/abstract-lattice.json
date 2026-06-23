@@ -1,7 +1,9 @@
 {
   "meta": {"stage": 4, "schema_version": "1"},
   "message": "Brain alignment, long used only to measure a model after training, is tested as a signal during training; an information-budget argument says it can be at most a weak prior.",
-  "reader_model": {"venue": "ML", "old": ["language model", "distillation", "linear probe"], "new": ["brain alignment", "encoding model"]},
+  "frame": "basic-science",
+  "contribution_type": "empirical-finding",
+  "reader_model": {"venue": "ML", "old": ["language model", "distillation", "linear probe"], "new": ["brain alignment", "encoding model"], "prior_beliefs": ["brain alignment is a post-hoc evaluation metric"], "doubts": ["whether alignment can be used as a per-individual training signal"]},
   "claims": [
     {
       "claim_id": "C1",

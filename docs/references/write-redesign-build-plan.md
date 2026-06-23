@@ -94,3 +94,23 @@ explicit go required). Per-chunk decisions recorded in the build log below.
 ## Build log (append-only; durable decisions mined/made during the build)
 *Phase 1 + P2-A decisions live in the two session logs (provenance table above) + `docs/learnings.md` L059–L061.
 This log starts at P2-B.*
+
+**P2-B-i — stage-1 front-end (F1 reader-model + F2 message&frame).** Built `agents/sw-reader-model.md` (sonnet),
+the `frame`/`contribution_type`/`reader_model`-shape schema checks in `lattice_integrity.py`, the SKILL stage-1
+section, LATTICE.md schema, both fixture lattices. Three nets green (selftest · opus oracle FIX-THEN-PASS ·
+fresh `claude -p` ALL-PASS, SC-RM-1/2 correct). Durable decisions:
+- **F1 writes the lattice `reader_model` field, not a separate `reader-model.md` file.** The lattice is the single
+  spine artifact (F15); the design's "→ reader-model.md ARTIFACT" is realized as that field. Shape extended from
+  `{venue, old, new}` to `{venue, old, new, prior_beliefs, doubts}` (the design's three fields + the seed venue).
+- **New top-level lattice fields `frame` (enum `basic-science|technology`) + `contribution_type` (free text).**
+  Required & well-formed at stage ≥ 3 (the gate package), optional before — mirroring how `message`/`reader_model`
+  are handled (NOT added to the always-required `TOP_KEYS`).
+- **F2's "message is one sentence" is NOT a DET check (L060).** A sentence-counter false-positives on
+  "Sec."/"U.S."/ellipses; "one sentence" is a stylistic norm, not a ground-truth invariant. The floor only
+  asserts the message *exists*; the human gates one-sentence-ness at F16. (Same call as SC-HON-06 → RUB.)
+- **Oracle D2 (real append-safe breach, fixed):** the `diff` guard walked only `claims`, so the new content-bearing
+  top-level fields could be silently emptied by a stage write (esp. a stage *regression* below 3, which skips the
+  validate block). `diff` now guards `message`/`frame`/`contribution_type`/`reader_model` at top level **and**
+  `reader_model`'s sub-fields at sub-key granularity.
+- Empty *lists* inside `reader_model` (a reader with no NEW terms / no doubts) are legitimately allowed by
+  `validate`; only emptying a field that *had* content is an append-safe flag.

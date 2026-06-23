@@ -10,7 +10,10 @@ argument) from frame → gate → draft → audit so nothing drops between hands
 {
   "meta":        {"stage": <int 1-6>, "schema_version": "1"},
   "message":     "<one-sentence message of the paper>" | null,
-  "reader_model": { ... } | null,
+  "frame":       "basic-science" | "technology" | null,
+  "contribution_type": "<e.g. empirical-finding | methodological | conceptual>" | null,
+  "reader_model": {"venue": "<named reader>", "old": [...], "new": [...],
+                   "prior_beliefs": [...], "doubts": [...]} | null,
   "claims":      [ <claim object>, ... ],
   "warrants":    [ {"from": "<claim_id>", "to": "<claim_id>", "warrant": "<text>"}, ... ],
   "figures":     [ {"figure_id": "<id>", "claim_id": "<claim_id>"}, ... ],
@@ -18,6 +21,19 @@ argument) from frame → gate → draft → audit so nothing drops between hands
   "deviation_log": [ {"functionality": "<F##>", "method": "<...>", "why": "<...>", "did": "<...>"}, ... ]
 }
 ```
+
+## Stage-1 fields (F2 + F1, written at stage 1; required by the gate — stage ≥ 3)
+
+`message`, `frame`, `contribution_type` are the **F2** outputs; `reader_model` is the **F1** output. They are
+optional before the gate and **required, well-formed, at stage ≥ 3** (the coupled package the human approves):
+`message` is present (the *one-sentence* norm is gated by the human at F16, not a DET check — a sentence-counter
+false-positives on "Sec."/"U.S."/ellipses, so it stays a judgment, per L060); `frame` ∈ {`basic-science`,
+`technology`}; `contribution_type` is present; `reader_model` is an object carrying all of `venue, old, new,
+prior_beliefs, doubts` (`venue` non-empty; the four term/belief fields are lists). Old-vs-new is
+**reader-relative** — judged against `venue`, never absolute (Pinker's curse-of-knowledge). These four
+content-bearing fields are also **append-safe under `diff`** (a later stage cannot silently empty them, even
+across a stage regression). F2 only *sets and gates* the frame here; frame-consistency in the drafted prose is
+audited by the F5 scope judge at stage 5.
 
 ## Claim object — required keys (always present after any stage write)
 

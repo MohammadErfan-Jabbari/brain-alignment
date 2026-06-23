@@ -51,6 +51,8 @@ from pathlib import Path
 
 EVIDENCE_STATUS = {"live", "demoted", "superseded"}
 STRENGTH = {"unsupported", "observed", "supported", "strong"}
+FRAME = {"basic-science", "technology"}        # F2: the evaluation frame (name which game you are playing)
+READER_MODEL_KEYS = {"venue", "old", "new", "prior_beliefs", "doubts"}  # F1: who the reader is
 SCHEMA_VERSION = "1"
 TOP_KEYS = {"meta", "claims", "warrants", "figures", "sections", "deviation_log"}
 CLAIM_KEYS = {
@@ -169,9 +171,35 @@ def validate(lattice: dict) -> list[str]:
 
     # --- coverage rules (stage-gated) ---
     if cov_stage >= 3:
-        # a stage-3+ lattice with nothing to structure is malformed, not merely low-quality
+        # a stage-3+ lattice with nothing to structure is malformed, not merely low-quality.
+        # NOTE (L060): "message is ONE sentence" (Mensh-Kording) is a stylistic norm, not a ground-truth
+        # invariant, and a sentence-counter false-positives on "Sec.", "U.S.", ellipses. It is NOT a DET check
+        # — the human gates the one-sentence message at F16. The floor only asserts the message EXISTS.
         if _empty(lattice.get("message")):
             f.append("[schema] message is empty at stage >= 3 (nothing to structure around)")
+        # F2 stage-1 outputs, required by the gate (the stage-3 coupled package):
+        frame = lattice.get("frame")
+        if _empty(frame):
+            f.append("[schema] frame is empty at stage >= 3 (F2: declare basic-science | technology)")
+        elif frame not in FRAME:
+            f.append(f"[schema] frame '{frame}' not in {sorted(FRAME)}")
+        if _empty(lattice.get("contribution_type")):
+            f.append("[schema] contribution_type is empty at stage >= 3 (F2: name the contribution)")
+        # F1 reader-model, required by the gate (old-vs-new is meaningless without a named reader):
+        rm = lattice.get("reader_model")
+        if _empty(rm):
+            f.append("[schema] reader_model is empty at stage >= 3 (F1: who is the reader)")
+        elif not isinstance(rm, dict):
+            f.append("[schema] reader_model is not an object")
+        else:
+            rm_missing = READER_MODEL_KEYS - set(rm)
+            if rm_missing:
+                f.append(f"[schema] reader_model: missing keys {sorted(rm_missing)} (F1 needs {sorted(READER_MODEL_KEYS)})")
+            if "venue" in rm and _empty(rm.get("venue")):
+                f.append("[schema] reader_model.venue is empty (old/new is reader-relative — name the reader)")
+            for k in ("old", "new", "prior_beliefs", "doubts"):
+                if k in rm and not isinstance(rm.get(k), list):
+                    f.append(f"[schema] reader_model.{k} must be a list")
         if not claims:
             f.append("[empty-skeleton] stage >= 3 with no claims")
         if not sections:
@@ -221,6 +249,20 @@ def validate(lattice: dict) -> list[str]:
 
 def diff(before: dict, after: dict) -> list[str]:
     f = []
+    # Top-level content-bearing provenance fields. message/frame/contribution_type/reader_model are part of the
+    # gated package; a later stage write (incl. a stage REGRESSION that skips the stage>=3 validate block) must
+    # not silently empty them. validate(after) alone misses this when after is staged < 3, so guard it here.
+    for k in ("message", "frame", "contribution_type", "reader_model"):
+        if _has_content(before.get(k)) and not _has_content(after.get(k)):
+            f.append(f"[append-safe] top-level '{k}' had content and is now empty (destructive overwrite)")
+    # reader_model is a dict of provenance sub-fields (old/new term classifications, beliefs, doubts) the
+    # drafter F8a and the structure judge F11 depend on; guard each sub-field, like the per-claim key check.
+    b_rm, a_rm = before.get("reader_model"), after.get("reader_model")
+    if isinstance(b_rm, dict) and isinstance(a_rm, dict):
+        for k, bv in b_rm.items():
+            if _has_content(bv) and not _has_content(a_rm.get(k)):
+                f.append(f"[append-safe] reader_model.{k} had content and is now empty (destructive overwrite)")
+
     b_claims = {c.get("claim_id"): c for c in before.get("claims", []) if isinstance(c, dict)}
     a_claims = {c.get("claim_id"): c for c in after.get("claims", []) if isinstance(c, dict)}
 
@@ -336,6 +378,44 @@ def _selftest() -> int:
     expect("SC-F15-TAG-MALFORMED", validate(d), True, "every-claim-tagged")
     bad_after = clone(); bad_after["claims"].append({"claim_id": "C9", "text": "x"})  # after-only, missing keys
     expect("SC-F15-AFTERONLY-BAD", diff(good, bad_after), True, "schema")
+
+    # --- F1/F2 stage-1 front-end (P2-B-i) ---
+    d = clone(); del d["frame"]
+    expect("F2 frame missing at stage>=3", validate(d), True, "schema")
+    d = clone(); d["frame"] = "deployment"
+    expect("F2 frame bad enum", validate(d), True, "schema")
+    d = clone(); del d["contribution_type"]
+    expect("F2 contribution_type missing", validate(d), True, "schema")
+    d = clone(); del d["reader_model"]["doubts"]
+    expect("F1 reader_model missing a key", validate(d), True, "schema")
+    d = clone(); d["reader_model"] = "ML reader"
+    expect("F1 reader_model not an object", validate(d), True, "schema")
+    d = clone(); d["reader_model"]["old"] = "linear probe"
+    expect("F1 reader_model.old not a list", validate(d), True, "schema")
+    d = clone(); d["reader_model"]["venue"] = ""
+    expect("F1 reader_model.venue empty", validate(d), True, "schema")
+    # F1/F2 outputs are NOT required before the gate (stage 2): absence is fine, not a flag.
+    d = clone(); d["meta"]["stage"] = 2; del d["frame"]; del d["contribution_type"]; del d["reader_model"]
+    expect("F1/F2 absent at stage 2 is fine (no-flag)", validate(d), False)
+    # message-one-sentence (F2) is NOT a DET check (L060: stylistic norm, FP-prone; gated by the human at F16).
+    # A multi-sentence message must NOT be flagged by the floor:
+    d = clone(); d["message"] = "We show the signal is real. We then show it is not a lever."
+    expect("F2 multi-sentence message is NOT a floor flag (gate-owned)", validate(d), False)
+    # SC-RM-1/2 (ICLR reader: "linear probe"=OLD, "voxelwise noise ceiling"=NEW) are RUB — verified against the
+    # sw-reader-model agent, not in this DET selftest (old-vs-new is a judgment, not a schema check).
+
+    # D2 (oracle): the new content-bearing top-level fields are diff-protected, incl. across a stage regression
+    # (the path that skips the stage>=3 validate block) — F15's append-safe guarantee must cover them too.
+    a = clone()
+    for k in ("old", "new", "prior_beliefs", "doubts"):
+        a["reader_model"][k] = []
+    expect("D2 reader_model fully gutted -> append-safe", diff(good, a), True, "append-safe")
+    a = clone(); a["meta"]["stage"] = 2; a["message"] = ""
+    expect("D2 stage-regression empties message -> append-safe", diff(good, a), True, "append-safe")
+    a = clone(); a["meta"]["stage"] = 2; a["frame"] = None
+    expect("D2 stage-regression nulls frame -> append-safe", diff(good, a), True, "append-safe")
+    a = clone(); a["message"] = "A different but still legitimate single-sentence message."
+    expect("D2 message legitimately changed (no-flag)", diff(good, a), False)
 
     # precision guards (MUST NOT flag)
     s2 = clone()

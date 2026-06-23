@@ -6,9 +6,10 @@ description: >-
   and the plan, get them approved as one package, THEN draft, audit, and revise. Trust is earned by a gate
   plus a high-recall audit, not asserted by construction. Walking-skeleton phase: the Trust + Structure +
   Voice spine is live (claim-lattice, claim-binding, skeleton, drafter-with-\evd, voice audit, claim-fidelity,
-  the ordering gate); the Argument concern (warrants, scope), figures, reader-model, and the parallel-audit /
-  Stop-hook convergence are Phase 2. Until this passes the 119-scenario suite, the live `scientific-writing`
-  skill stays the default; this is built and tested alongside it.
+  the ordering gate); the Argument concern (warrants, scope) and the message/frame + reader-model front-end are
+  built too. The structure judge, figures, acknowledgment, consistency, exemplar pin, and the parallel-audit /
+  Stop-hook convergence are still being added (Phase 2). Until this passes the 119-scenario suite, the live
+  `scientific-writing` skill stays the default; this is built and tested alongside it.
 ---
 
 # /write — the gated-loop pipeline
@@ -38,10 +39,18 @@ whole DET floor in one call** — run it after every stage write and treat any f
 number; the evidence is frozen. Seed `.../evidence-register.json` status from the ladder if a cited experiment
 is missing (it is keyed live/demoted/superseded).
 
-**Stage 1 · Message & Reader.** State the one-sentence message and the evaluation frame; build the reader-model
-(who they are, what they know vs doubt). Write `message`, `reader_model` to the lattice; set `meta.stage=1`.
-*Phase 1: do this inline (a one-sentence message + a generic expert-reader note). Full F1 reader-model + F2
-frame + F17 exemplar pin are **Phase 2**.*
+**Stage 1 · Message & Reader (F2 + F1).** State the **one-sentence message** (Mensh-Kording: one paper, one
+message — a norm the human gates at F16, *not* a DET check: a sentence-counter false-positives on "Sec.",
+"U.S.", ellipses, so it stays a judgment), the **`frame`** (`basic-science | technology` — name which game you
+are playing; for this thesis the technology frame is closed by the Q3 null), and the **`contribution_type`**;
+write `message`, `frame`, `contribution_type` to the lattice. Then spawn **`sw-reader-model`** (sonnet) to build
+the **reader-model** — `{venue, old, new, prior_beliefs, doubts}`, with old-vs-new judged *relative to that
+venue's reader* (Pinker's curse-of-knowledge) — and write it to `reader_model`. Set `meta.stage=1`.
+**`run_checks`** then enforces the stage-1 floor at the gate (message *present*, `frame` in enum,
+`contribution_type` present, `reader_model` shaped — the append-safe diff also blocks a later stage from
+emptying any of these). *F2 only **sets and gates**
+the frame here; frame-consistency in the drafted prose is audited by the **F5 scope judge at stage 5** (not F2).
+F17 exemplar pin is still **Phase 2**.*
 
 **Stage 2 · Claim & Argument Lattice (Trust + Argument).** Extract every claim from the message; bind each to a
 recorded experiment + a strength (`unsupported|observed|supported|strong`), reading `evidence_status`; an
@@ -127,8 +136,15 @@ D047 Stop-hook + structured `ready_to_ship` verdicts, "clean" on the two RUB rea
 | — | the spine artifact (F15) | ARTIFACT | `schema/claim-lattice.json` |
 | — | DET dispatcher | — | `scripts/run_checks.py` |
 
-**Effort:** all subagents HIGH; the three hardest judges (F4 argument, F5 scope, F11 structure — all Phase 2)
-run XHIGH. The orchestrator runs at the session model.
+**Added in Phase 2** (alongside the Phase-1 spine): **F4** argument-validity (`scripts/warrant_schema.py` DET +
+`agents/sw-argument-judge.md`) · **F5** scope (`scripts/scope_lint.py` DET + `agents/sw-scope-judge.md`) — *P2-A,
+opus xhigh, 2 sites each*. **F1** reader-model (`agents/sw-reader-model.md`, sonnet) + **F2** message&frame (this
+skill's stage-1 section + the `frame`/`contribution_type`/`reader_model`/message-one-sentence checks in
+`lattice_integrity.py`) — *P2-B-i*. Still to come: **F11** structure judge (P2-B-ii), then F7 figures, F18
+acknowledgment, F13 panel, F19 consistency, F17 exemplar pin, F8b voice-realize, and the P2-D CC-power upgrades.
+
+**Effort:** all subagents HIGH; the three hardest judges (F4 argument, F5 scope — built P2-A; F11 structure —
+P2-B-ii) run XHIGH. The orchestrator runs at the session model.
 
 ## Phase-1 acceptance (the bar this walking skeleton must clear)
 Run the spine on the manuscript **abstract**: every claim is `\evd`-bound (or an explicit `\gap`); the voice

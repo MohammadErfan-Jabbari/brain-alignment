@@ -1,7 +1,9 @@
 {
   "meta": {"stage": 4, "schema_version": "1"},
   "message": "Brain alignment is robustly measurable but not an inducible per-individual training lever beyond perplexity.",
-  "reader_model": {"venue": "ML", "old": ["linear probe", "distillation"], "new": ["voxelwise noise ceiling"]},
+  "frame": "basic-science",
+  "contribution_type": "empirical-finding",
+  "reader_model": {"venue": "ML", "old": ["linear probe", "distillation"], "new": ["voxelwise noise ceiling"], "prior_beliefs": ["brain alignment is a post-hoc evaluation metric, not a training signal"], "doubts": ["whether optimizing alignment helps per individual beyond perplexity"]},
   "claims": [
     {
       "claim_id": "C1",
