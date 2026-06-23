@@ -8,15 +8,16 @@ once the new pipeline passes the 119-scenario suite.**
 
 ## Session provenance — the build's source-of-truth logs
 
-Three sessions carry the full reasoning behind this build. When a decision or a design choice is unclear, the answer
+Four sessions carry the full reasoning behind this build. When a decision or a design choice is unclear, the answer
 is in these logs (mine them with a subagent; never re-derive). Project slug: `-home-centcom-data-brain-alignment`.
-These three logs are the **related documents** of the redesign + rebuild — read them before continuing the build.
+These logs are the **related documents** of the redesign + rebuild — read them before continuing the build.
 
 | Session | Role | Log file |
 |---|---|---|
 | `3ce96589-47c5-4d6b-ab6b-d2e7b7a85134` | **The redesign** — designed the whole pipeline to BUILD-READY (the *why*: 4 concerns, gated loop, 119 scenarios, CC mapping, D047/D048) | `~/.claude/projects/-home-centcom-data-brain-alignment/3ce96589-47c5-4d6b-ab6b-d2e7b7a85134.jsonl` (4.0M) |
 | `1709254b-72c6-40a0-bacd-0d88e900691f` | **First build** (S35→S36) — implemented Phase 1 (C1–C8) + P2-A under the per-chunk build→opus-oracle→fresh-`claude -p`-verify→commit loop (the *how*) | `~/.claude/projects/-home-centcom-data-brain-alignment/1709254b-72c6-40a0-bacd-0d88e900691f.jsonl` (4.7M) |
 | `daa4f842-64ac-43c3-b9e4-653f4acf7317` | **Second build** (S37) — implemented P2-B (F1/F2/F11) + P2-C (F7/F13/F18/F17/F8b/F19) under the same three-net loop; 7 atomic commits + the build log below | `~/.claude/projects/-home-centcom-data-brain-alignment/daa4f842-64ac-43c3-b9e4-653f4acf7317.jsonl` (3.4M) |
+| `1b3b0846-9914-45ab-9ccf-b9d70bdecd10` | **Third build (S38)** — completed **P2-D** (D-1..D-6: convergence machine, parallel fan-out, the live Stop-hook, AskUserQuestion gate, SC-XS-3, fluidity/deviation-log) **+ P2-E** (authoring/quality review vs `writing-great-skills` + official CC docs: SKILL de-sediment, agent fixes, effort frontmatter fleet-wide). 11 commits. **Phase 2 complete; next = P3.** | `~/.claude/projects/-home-centcom-data-brain-alignment/1b3b0846-9914-45ab-9ccf-b9d70bdecd10.jsonl` |
 
 ## Migration map — existing apparatus → new design (the tags)
 
@@ -89,8 +90,9 @@ table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d 
   lexical "deployment" trigger is the DET sliver).
 
 ## Status (live)
-**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D ✅ (1..6 all green)** — **PHASE 2 COMPLETE**
-(P1+P2-A S35→S36, P2-B + P2-C S37, P2-D this session — see the session logs above + the build log below).
+**Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D ✅ (1..6) + P2-E ✅ (authoring review)** —
+**PHASE 2 COMPLETE.** **NEXT = P3 cutover (next session, Erfan drives — IRREVERSIBLE).**
+(P1+P2-A S35→S36, P2-B + P2-C S37, P2-D + P2-E S38 — see the session logs above + the build log below.)
 The CC-power upgrades, chunked: **P2-D-1 ✅** structured verdict schema + convergence state machine
 (`verdicts.py`); **P2-D-2 ✅** parallel stage-5 fan-out + verdict-recording orchestration (SKILL stage 5);
 **P2-D-3 ✅** the convergence Stop-hook (`stop_sw_converge.py`, wired live, pipeline+session-scoped, loop-guarded);
@@ -355,3 +357,27 @@ incl. 5 dev-log cases · opus oracle ACCEPT-WITH-CAVEAT, 3 fixes · fresh `claud
 
 **P2-D COMPLETE (1..6).** Phase 2 is done. Next is **P3 cutover** (full 119-suite → retire old flow → repoint
 docs → record D048-complete) — IRREVERSIBLE, explicit Erfan go required.
+
+**P2-E — authoring/quality review (S38, gated BEFORE P3 so the components are clean before they become the
+default).** Three reviewers fanned out, each against its proper authority; fixes applied as the single writer.
+- **SKILL + 3 references vs `writing-great-skills`** (`75d37ac`): the skill had accumulated **build-process
+  sediment** over four append-edit sessions that duplicated this build-plan (single-source-of-truth violation)
+  and went stale each chunk. Cut the build-chronology back-third + every inline `P2-x`/Phase tag; rewrote the
+  frontmatter description (11→6 lines, triggers + reach clause). **263 → 206 lines.** 3 references clean.
+- **9 `sw-*` agents vs official CC sub-agent docs** (`8235a1a`): `sw-voice-realize` dropped `Write` (contradicted
+  its in-place preservation contract → Read, Edit, Bash); `sw-acknowledgment` + `sw-claim-fidelity-judge`
+  descriptions reconciled (claimed "never touches a verdict" but emit ACK-/FIDELITY-VERDICT); verdict-key
+  placeholder unified `<n>`→`<int>`. Kept `Bash` on read-only judges (read-only by contract; several shell out).
+- **`stop_sw_converge.py` + settings vs official CC hook docs:** **fully compliant, fit to ship** — no changes
+  (JSON `{decision:block}` + `stop_hook_active` handling match the current spec; fail-safe; cheap no-op path).
+- **Effort frontmatter adopted FLEET-WIDE** (`7d60063`, Erfan-approved, D049): all 24 agents declare `effort:` —
+  **xhigh** for F4/F5/F11 (the real fix: they were silently inheriting session `high` despite their descriptions
+  promising xhigh), **high** for the rest (= current session effort, now explicit/self-contained). CLAUDE.md
+  routing note updated to document the convention.
+- **`${CLAUDE_PROJECT_DIR}` brace form** (`4114c8f`, Erfan-approved): uniform across all 6 hook commands
+  (doc-canonical; functionally identical here).
+- **Open for P3 (flagged, not built):** the 119-suite has no **RUB-grading harness / pass-threshold** for the
+  ~41 RUB scenarios and no named sign-off mechanic beyond "Erfan signs" — define this at P3 start. The
+  framing-sentence prose→lattice escape stays the known Phase-2 residual.
+
+**P2-D + P2-E COMPLETE — Phase 2 done. P3 is the next session (Erfan drives; IRREVERSIBLE).**
