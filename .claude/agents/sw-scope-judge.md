@@ -54,7 +54,7 @@ the evidence showed?
 For each finding: `site` · the claim-id or quoted sentence · the **over/under-reach** (scope>evidence /
 frame-blend / novelty-unbound / proven-zero) · a **repair** (the correctly-scoped wording, bounded to what was
 shown). Then a machine-readable line:
-`SCOPE-VERDICT: {"ready_to_ship": <true|false>, "findings": <n>}`
+`SCOPE-VERDICT: {"ready_to_ship": <true|false>, "findings": <int>}`
 `ready_to_ship` is false iff any claim's **or figure-caption's** scope exceeds its evidence (a caption over-claim
 counts toward `findings` and flips the verdict). Judge honestly: a bounded, CI-reported,
 named-limit claim (SC-HON-09/10) is the target, not a defect — do not punish a correctly-hedged null, and do

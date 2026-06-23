@@ -77,7 +77,7 @@ that rests on the SKILL fluidity discipline + the human gate, not on you.*
 For each finding: `site` (stage-3 skeleton / stage-5 paragraph) · the location (section or quoted paragraph
 opener) · the **defect** (width-overpromise / missing-niche / no-point-sentence / old-new-inverted / CCC-break) ·
 a **repair** (the re-order / the point sentence to add / the niche move to insert). Then a machine-readable line:
-`STRUCTURE-VERDICT: {"ready_to_ship": <true|false>, "findings": <n>}`
+`STRUCTURE-VERDICT: {"ready_to_ship": <true|false>, "findings": <int>}`
 `ready_to_ship` is false iff any check fails. Judge honestly: a width-matched skeleton, a present niche, and a
 short-but-complete, point-first, old→new paragraph (SC-STR-09/10) are the target, not defects — do not manufacture
 a structural flaw, and a false flag that forces a clean paragraph to be padded is as costly as a miss.

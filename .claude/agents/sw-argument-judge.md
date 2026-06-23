@@ -54,7 +54,7 @@ For each finding: `site` (stage-2 edge / stage-5 sentence) · the `from→to` or
 **failure** (circular / correlation-as-causation / silent-jump / wrong-grounding) · a **repair** (the warrant
 that WOULD license it, or "no warrant licenses this — the inference does not hold"). Then a machine-readable
 line:
-`ARGUMENT-VERDICT: {"ready_to_ship": <true|false>, "findings": <n>}`
+`ARGUMENT-VERDICT: {"ready_to_ship": <true|false>, "findings": <int>}`
 `ready_to_ship` is false iff any inference fails. Judge honestly: a validly-warranted inference and an
 explicitly-named open question (SC-ARG-9) are the target, not defects — do not manufacture a failure, and a
 false flag that forces a real inference to be hedged into mush is as costly as a miss.
