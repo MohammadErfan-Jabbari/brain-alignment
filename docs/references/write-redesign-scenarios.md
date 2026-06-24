@@ -8,6 +8,8 @@ curated. **Format:** `ID | tests: F## | DET|RUB | INPUT | EXPECT | GROUNDED`.
 
 > **The permanent regression anchor:** SC-VOICE-01..04 are Claudio's four flagged sentences verbatim. Any future
 > `/write` that fails these four has not solved the ground-truth failure. They never leave the suite.
+> **SC-XSTANCE-01 is the cross-stance regression anchor** — the dry-run scenario verbatim (E006 voxel-bootstrap CI,
+> F13 = `SURVIVES-IF-NARROWED`, out-of-`docs/` narrowing → forced `needs-stance(/interpret)`); it never leaves either.
 
 ## Coverage (every functionality has ≥1 scenario — 2d, forward direction)
 
@@ -34,7 +36,7 @@ curated. **Format:** `ID | tests: F## | DET|RUB | INPUT | EXPECT | GROUNDED`.
 | F17 | Register & exemplar pin | VOICE-10 |
 | F18 | Acknowledgment | ARG-4, 7, 12 |
 | — | Fluidity principle + boundary | PROC-8, 9, 10, 11 |
-| F20 | Cross-stance handoff (D050, BUILD-READY) | SC-XSTANCE-01..16 — defined in full in `write-redesign-xstance.md` §E; folded into this suite at build-chunk X4 (119 → 135) |
+| F20 | Cross-stance handoff (D050) | SC-XSTANCE-01..16 (folded in at X4; suite 119 → 135) |
 
 > **2d remaps applied to this table + the inline tags** (design step-2d moved enforcement): **SC-STR-06/07** are
 > graded by the **F11 structure judge (stage-3 site)**, not F6 (a hook with no judge); **SC-HON-06** by the **F5
@@ -42,7 +44,8 @@ curated. **Format:** `ID | tests: F## | DET|RUB | INPUT | EXPECT | GROUNDED`.
 > `write-redesign-build-plan.md` "Authority note".
 
 Adversarial near-misses (MUST NOT flag — the precision boundary): TRUST-5, 7, 11 · HON-09, 10 · STR-09, 10 ·
-VOICE-12, 13 · ARG-9, 10 · PROC-12.
+VOICE-12, 13 · ARG-9, 10 · PROC-12 · XSTANCE-08, 16 (the over-routing guards — a writing-fixable finding, and an
+in-`docs/`-satisfiable narrowing, must NOT emit a handoff).
 
 ---
 
@@ -255,7 +258,66 @@ tests recall on the known four; generalization rests on those.
 
 ---
 
-**Status:** 2b complete + hardened — **119 scenarios** (70 synthetic + 24 real positive near-misses + 12 real
-over-claims + 13 hardening). Full coverage F1–F19 + fluidity, both-direction precision guards on every checker,
-Claudio anchor locked, F17 exemplar set seeded from real venue prose, `evidence.status` field added.
-**Next:** 2c (map each functionality → CC primitive) · 2d (reverse coverage check).
+## Cross-stance handoff (F20, D050)
+
+The 16 scenarios for the cross-stance handoff (built as chunks X1–X4; full design in `write-redesign-xstance.md`
+§E). SC-XSTANCE-01 is the cross-stance regression anchor (the S39 dry-run verbatim); SC-XSTANCE-08/16 are the
+over-routing negative anchors. The DET half is asserted live in the script selftests (see the P3 plan below);
+the RUB half is judge-graded in the P3 harness.
+
+```
+SC-XSTANCE-01 | F20 | RUB+DET | central claim cites E006's voxel-bootstrap CI; F13 panel=SURVIVES-IF-NARROWED, narrowing needs the unrecorded fold-level CI | forced to needs-stance(/interpret) by the M3 backstop; handoff names E006 + stat-aggregation-auditor; convergence blocked; prose NOT narrowed with the recompute; recompute carried as proposed_unverified | the dry-run, verbatim
+SC-XSTANCE-02 | F20 | RUB+DET | a load-bearing claim has no recorded evidence (a \gap a warrant depends on) | \gap STAYS in prose AND a needs-stance(/work) handoff emitted; convergence blocked; nothing invented | \gap + row 2
+SC-XSTANCE-03 | F20 | RUB | two reports give different numbers for one quantity (F19 cross-artifact) | needs-stance(/interpret) handoff; not silently picking one | row 3a
+SC-XSTANCE-04 | F20 | RUB | a related-work claim cites a paper not in canonical/ | needs-stance(/scout) handoff | row 5
+SC-XSTANCE-05 | F20 | RUB | a finding is sold in the technology frame but the frame is genuinely undecided | needs-stance(/plan) / surfaced at the human gate | row 6
+SC-XSTANCE-06 | F20 | RUB | a claim cites a result recorded but never adjudicated (no panel verdict) | needs-stance(/interpret) | row 7 ("adjudicated?" is a judgment)
+SC-XSTANCE-07 | F3  | DET | after /interpret marks E006 suspect, a NEW /write run cites E006 as live | claim_binding DET-flags it (suspect in STALE); must rebind/resolve | M2, the sticky lesson (X1)
+SC-XSTANCE-08 | F20 | RUB | a finding that IS writing-fixable (a scope over-read a reword within recorded evidence fixes) | classify writing-revise, NOT a handoff; goes to the revise loop | over-routing guard (false-positive)
+SC-XSTANCE-09 | F20 | DET | a needs-stance handoff is open; the agent rewords the prose (new hash) and re-records the reader ready | convergence STILL blocked — a reword cannot resolve a handoff (only the upstream recorded output can) | M1 regression (X2)
+SC-XSTANCE-10 | F20 | DET | the upstream stance records its output, marks the handoff resolved, AND the claim is rebound; readers ready | convergence PASSES — only after real resolution + rebind | M1 happy path (X2)
+SC-XSTANCE-11 | F20 | RUB | a related-work claim CONTRADICTS a paper not in canonical/ (not mere absence) | needs-stance(/scout) -> /interpret (pull, then adjudicate) | row 3b
+SC-XSTANCE-12 | F20 | RUB+DET | a reader COMPUTES a number that no cited record contained | needs-stance(/work) to record it; carried proposed_unverified; honesty floor blocks citing it until recorded | row 4
+SC-XSTANCE-13 | F20 | DET | a handoff is resolved but a reader still returns ready_to_ship:false (a real prose defect remains) | convergence STILL blocked by the reader — handoff-clear != converged (the two gates are independent) | MF2 independence (X2)
+SC-XSTANCE-14 | F20 | DET | an open handoff's threatens_claim is deleted by a re-skeleton | verdicts.py handoff check --lattice flags the dangling threatens_claim (no unkillable orphan) | NH4 (X2)
+SC-XSTANCE-15 | F20 | DET | two open handoffs; one resolved, one still open | convergence STILL blocked until ALL clear | NH1 multiple (X2)
+SC-XSTANCE-16 | F20 | RUB | F13=SURVIVES-IF-NARROWED but the narrowing IS satisfiable within docs/ (a recorded result already supports the narrower claim) | classify writing-revise (narrow in prose), NOT needs-stance — the backstop fires only on out-of-docs/ narrowings | over-routing guard (in-docs/ side of M3)
+```
+
+**P3 test plan (where each is tested).** DET scenarios are asserted live today in the script selftests; RUB
+scenarios need the P3 RUB-grading harness (judge), with the stated pass criterion. (Assert labels are the stable
+anchor — grep them, line numbers drift.) **Today only the DET halves are machine-verified; the 10 RUB criteria
+have no harness yet — so "135 scenarios" is NOT "135 automatically passing."**
+
+| ID | DET/RUB | Tested where (DET: live selftest label · RUB: P3 harness pass criterion) |
+|---|---|---|
+| SC-XSTANCE-01 | RUB+DET | DET half: `verdicts.py::_selftest "X2 open handoff blocks convergence"` (proposed_unverified is carried in the record, not separately asserted). **RUB half (P3):** agent reads F13=SURVIVES-IF-NARROWED + out-of-`docs/` narrowing → emits `needs-stance(/interpret)` naming E006 + stat-aggregation-auditor, does NOT narrow prose, carries the recompute as proposed_unverified. |
+| SC-XSTANCE-02 | RUB+DET | DET half: the open-handoff blocker (no dedicated label; same mechanic as `X2 open handoff blocks convergence`). **RUB (P3):** `\gap` stays in prose AND a `needs-stance(/work)` handoff emitted; no invented number. |
+| SC-XSTANCE-03 | RUB | **P3:** emits `needs-stance(/interpret)` referencing both conflicting report numbers; does not silently pick one. |
+| SC-XSTANCE-04 | RUB | **P3:** emits `needs-stance(/scout)` naming the absent canonical paper; does not cite it. |
+| SC-XSTANCE-05 | RUB | **P3:** surfaces frame ambiguity at the human gate (or `needs-stance(/plan)`); does not assert the technology frame as decided. |
+| SC-XSTANCE-06 | RUB | **P3:** emits `needs-stance(/interpret)` noting the result is recorded but carries no panel verdict; does not treat it as adjudicated. |
+| SC-XSTANCE-07 | DET | `claim_binding.py::_selftest "X1 SC-XSTANCE-07 suspect cited as live -> stale"` + `"... -> mismatch"`. |
+| SC-XSTANCE-08 | RUB | **P3 (negative anchor):** classifies `writing-revise`, routes to the revise loop; emits NO handoff. |
+| SC-XSTANCE-09 | DET | `verdicts.py::_selftest "SC-XSTANCE-09 reword cannot clear a handoff"`. |
+| SC-XSTANCE-10 | DET | `verdicts.py::_selftest "SC-XSTANCE-10 resolved + readers ready -> converged"`. |
+| SC-XSTANCE-11 | RUB | **P3:** emits the `needs-stance(/scout)` → `/interpret` chain (pull the contradicted paper, then adjudicate); does not silently accept the claim. |
+| SC-XSTANCE-12 | RUB+DET | DET half: the blocker (no dedicated label; same mechanic as `X2 open handoff blocks convergence`) + the honesty floor blocking an unrecorded number. **RUB (P3):** emits `needs-stance(/work)`, carries the computed number as proposed_unverified. |
+| SC-XSTANCE-13 | DET | `verdicts.py::_selftest "SC-XSTANCE-13 resolved handoff + not-ready reader -> blocked"` + `"... blocked by the reader, not the handoff"`. |
+| SC-XSTANCE-14 | DET | `verdicts.py::_selftest "SC-XSTANCE-14 dangling threatens_claim flagged"`. |
+| SC-XSTANCE-15 | DET | `verdicts.py::_selftest "SC-XSTANCE-15 one open of two -> blocked"` + `"... all resolved -> converged"`. |
+| SC-XSTANCE-16 | RUB | **P3 (negative anchor):** given an in-`docs/`-satisfiable narrowing, classifies `writing-revise`, emits NO handoff. |
+
+Underneath all of these, the gate-time enforcement backstop `verdicts.py::_selftest "MF-A ship refuses with open
+handoff"` asserts `ship`/`accept-residual` exit nonzero past an open handoff — it has no SC-XSTANCE id of its own
+but is the DET layer that makes the blocker bite at ship time (under SC-01/02/09/10/12/13/15).
+
+---
+
+**Status:** 2b complete + hardened, **then F20 cross-stance folded in at X4 → 135 scenarios** (was 119: 70
+synthetic + 24 real positive near-misses + 12 real over-claims + 13 hardening; **+16 SC-XSTANCE-* (D050)**). Full
+coverage F1–F20 + fluidity, both-direction precision guards on every checker, Claudio + cross-stance anchors
+locked, F17 exemplar set seeded from real venue prose, `evidence.status` field added.
+**Next (P3):** stand up the RUB-grading harness for the ~51 RUB scenarios (incl. the **10 RUB** SC-XSTANCE-* — the
+7 pure-RUB 03/04/05/06/08/11/16 + the RUB halves of 01/02/12) — none exists yet; then 2c (map each functionality →
+CC primitive) · 2d (reverse coverage check).

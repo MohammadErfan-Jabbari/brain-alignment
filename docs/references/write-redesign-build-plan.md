@@ -91,8 +91,8 @@ table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d 
 
 ## Status (live)
 **Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D ✅ (1..6) + P2-E ✅ (authoring review)** —
-**PHASE 2 COMPLETE.** **NEXT = the cross-stance handoff build (X1–X4, D050, BUILD-READY — see the
-section below + `write-redesign-xstance.md`) then P3 cutover (next session, Erfan drives — IRREVERSIBLE).**
+**PHASE 2 COMPLETE.** **Cross-stance handoff X1–X4 ✅ COMPLETE (S40, D050; suite 119 → 135 — see the build log).**
+**NEXT = P3 cutover (next session, Erfan drives — IRREVERSIBLE; first stand up the RUB-grading harness).**
 (P1+P2-A S35→S36, P2-B + P2-C S37, P2-D + P2-E S38 — see the session logs above + the build log below.)
 The CC-power upgrades, chunked: **P2-D-1 ✅** structured verdict schema + convergence state machine
 (`verdicts.py`); **P2-D-2 ✅** parallel stage-5 fan-out + verdict-recording orchestration (SKILL stage 5);
@@ -471,3 +471,30 @@ sediment. Three nets green (CLI-flag consistency + run_checks regression · opus
   but a specific sub-statistic was never computed" (E006's fold-level CI). Tightened: a recorded result with a
   contested aggregation is **row 1 → /interpret** (chains to /work); row 2 (/work + \gap) is only for NO recorded
   result at all. The third net caught what the oracle didn't — the point of running it.
+
+**X4 — fold the 16 `SC-XSTANCE-*` into the suite + wire the anchor.** Added the `## Cross-stance handoff (F20,
+D050)` section to `write-redesign-scenarios.md` (16 scenarios in suite format, faithful to `xstance.md` §E) + a
+**P3 test-plan table** (per scenario: DET-or-RUB and the live selftest label, or the RUB pass criterion for the
+P3 harness); updated the coverage F20 row, the near-misses line (+08/16), the regression-anchor note (SC-XSTANCE-01),
+and the count **119 → 135**. Three nets green (consistency: 16/16 present, DET selftests green · opus oracle
+**FIX-THEN-PASS** · fresh `claude -p` ALL-PASS fidelity/count/pointers). Durable decisions:
+- **The fold is a documentation + test-INDEX, not an automated 135-runner.** The 6 pure-DET + 3 DET-half scenarios
+  are machine-verified TODAY in the script selftests (the P3 table cites the exact assert label, the stable anchor —
+  not line numbers, which rot). The **10 RUB criteria have NO harness yet** — stated explicitly so "135 scenarios"
+  is never read as "135 auto-passing." Standing up that harness is the first P3 task (mirrors P2-E's open flag).
+- **SC-XSTANCE-07 tests F3, not F20** (it is the X1 suspect-cited-as-live DET flag, asserted in `claim_binding`);
+  the other 15 test F20. SC-XSTANCE-01 is the permanent cross-stance regression anchor (the S39 dry-run verbatim),
+  alongside the Claudio SC-VOICE-01..04 anchor.
+- **Oracle count fix (applied):** the RUB-needing-harness count was understated as "9" — it is **10** (7 pure-RUB +
+  the RUB halves of 01/02/12). An understated count would under-build the P3 harness by one scenario — exactly the
+  defect-slip this index exists to prevent.
+
+---
+
+### Cross-stance handoff (D050) — **X1–X4 COMPLETE (S40).** Suite 119 → 135.
+All four chunks landed under the three-net loop (selftest → opus oracle → fresh `claude -p` → atomic commit), each
+oracle a real FIX-THEN-PASS or PASS with findings folded in. The cutover-blocking gap from S39 is closed: a `/write`
+reader that finds a substrate defect now routes it upstream (handoff), blocks convergence stickily (hash-independent),
+and never papers it over or adopts a number. **NEXT = P3 cutover (Erfan drives, IRREVERSIBLE)** — first stand up the
+RUB-grading harness (the 10 RUB SC-XSTANCE-* + the ~41 prior RUB), then run the full 135-suite, retire the old flow,
+repoint CLAUDE.md + 03-methodology, record D048-complete.
