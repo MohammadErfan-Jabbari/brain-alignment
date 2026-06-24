@@ -78,7 +78,9 @@
   <h1>The Ideal Writing System</h1>
   <p class="sub">A design canvas for <code>/write</code> — how a system would turn recorded findings into proper, tasteful academic prose.</p>
   <p class="sub dim">Step 1: design it hypothetically, free of any tool constraint. Step 2 (later): project onto Claude Code's real capabilities.</p>
-  <span class="tag">living document · v2.0 · Phase 2 built · P3 cutover next</span>
+  <span class="tag">living document · v2.1 · Phase 2 built · cross-stance handoff designed · P3 + X1–X4 next</span>
+
+  <div class="delta"><b>v2.1</b> (the dry-run + a new requirement): the pipeline was exercised end-to-end on real prose (R06/§4.1) and the audit caught both writing defects and a broken statistic in accepted evidence that writing cannot fix. That surfaced a structural gap, now designed to BUILD-READY as <b>Step 4 · the cross-stance handoff (D050)</b> — when an auditor finds an evidence/argument-substrate defect, <code>/write</code> routes it to the owning stance and blocks, rather than papering over. Builds X1–X4 next session, alongside P3.</div>
 
   <div class="delta"><b>v2.0</b> (the build, S35→S38): the design below is frozen as the spec; <b>Step 3</b> (added below) tracks what got built against it. <b>Phase 1 (walking skeleton C1–C8) ✅ · Phase 2 (full coverage P2-A→P2-E + the CC-power upgrades + an authoring review) ✅</b>. Built in a clean skill <code>.claude/skills/sci-write-v2/</code>; the live <code>scientific-writing</code> stays the default until cutover. Next = <b>P3 cutover (irreversible)</b>. Granular per-chunk log: <code>write-redesign-build-plan.md</code>.</div>
 
@@ -315,10 +317,24 @@
       <li><b>The RUB-grading harness is undefined</b> — "pass the 119-suite" has no scorer or pass-threshold for the ~41 RUB scenarios, and no named sign-off mechanic beyond "Erfan signs." P3 is blocked on designing this <i>before</i> running anything.</li>
       <li><b>The framing-sentence escape</b> — an assertive sentence modeled as "framing" rather than a claim slips the Trust floor; the human gate is the only catch. The one leak in the every-claim-binds-to-evidence promise (a prose→lattice claim-coverage check would close it; not built).</li>
       <li><b>Provenance is an accepted non-goal</b> — a hand-typed <code>ready_to_ship:true</code> is indistinguishable from a real verdict (same trust model as the sibling hooks). The convergence machine is a discipline aid, not a proof.</li>
-      <li><b>Not yet exercised end-to-end on real prose</b> — validation to date is selftest + opus-oracle + clean-room <i>fixtures</i>, not an actual thesis section. Recommend a one-section dry-run as P3's first step, before retiring the old flow.</li>
+      <li><b>Exercised on real prose (the dry-run) ✓ — and it found something.</b> The full pipeline ran end-to-end on R06/§4.1: the audit caught real writing defects <i>and</i> the F13 panel surfaced a broken statistic in already-accepted evidence (the E006 voxel-bootstrap CI) that writing cannot fix. That gap is now addressed by the cross-stance handoff (Step 4).</li>
     </ul>
   </div>
 
-  <p class="foot">Sources: <code>docs/references/write-redesign-sources.md</code> · canon: <code>scientific-writing-methodology.md</code> · juice: <code>writing-skills-ecosystem-audit.md</code> · ground-truth failure: <code>supervisor-feedback.md</code>. v0.2 hardened against a clean-context opus counter-critique + Codex adversarial review. <b>Build</b> (Step 3): granular per-chunk log + decisions in <code>docs/references/write-redesign-build-plan.md</code>; status board in <code>docs/ladder.md</code>.</p>
+  <h2>Step 4 · Cross-stance handoff (D050) — BUILD-READY</h2>
+  <p class="dim">The dry-run proved a structural gap: the four concerns all judge the <i>prose</i>; none answers what happens when an auditor finds a defect the prose <b>cannot</b> fix because it lives in the evidence/argument substrate. Full design (4 opus reviews, BUILD-READY): <code>docs/references/write-redesign-xstance.md</code>.</p>
+  <div class="callout">
+    <h3>A third audit outcome, and a router</h3>
+    <p style="margin:0 0 10px">A cross-cutting <b>orchestration</b> function (not a 5th concern) at a new stage 5.5: each stage-5 finding is classed <code>PASS</code> · <code>WRITING-REVISE</code> (existing revise loop) · <b><code>NEEDS-STANCE(S)</code></b> (new). On <code>NEEDS-STANCE</code>, <code>/write</code> <b>detects, emits a handoff, blocks convergence stickily, and recommends the stance</b> (<code>/work</code> · <code>/interpret</code> · <code>/review</code> · <code>/scout</code> · <code>/plan</code>) — it never auto-spawns, never papers over, never adopts an unrecorded number. The hard line, turned into a pipeline behavior.</p>
+    <ul style="margin:0">
+      <li><b>Sticky block (the keystone):</b> a <code>handoffs-open</code> clause in <code>verdicts.py status()</code> keyed to a separate <code>handoffs.json</code>, <i>not</i> the prose hash — so a reword cannot close a science problem; only the upstream stance's <b>recorded</b> output can. <code>ship</code>/<code>accept-residual</code> refuse while any handoff is open.</li>
+      <li><b>The backstop (catches the anchor):</b> a panel <code>SURVIVES-IF-NARROWED</code> whose narrowing needs material not in <code>docs/</code> is <i>mechanically forced</i> to <code>NEEDS-STANCE</code>, regardless of how a reader self-tagged it.</li>
+      <li><b>Sticky lesson:</b> a new <code>evidence_status: suspect</code> (set by <code>/interpret</code>, never <code>/write</code>) makes a future cite of the broken number a DET flag.</li>
+      <li><b>Builds X1–X4</b> next session alongside P3 (the four-chunk plan is in the build-plan). 16 <code>SC-XSTANCE-*</code> scenarios; anchor SC-XSTANCE-01 = the dry-run, verbatim.</li>
+    </ul>
+    <p style="margin:10px 0 0;padding-top:10px;border-top:1px solid var(--line)"><b>Does not</b> close the framing-sentence escape (a load-bearing sentence never entered as a claim stays invisible — human gate only); and the classification is RUB, so the guarantee is: <b>panel-detectable science problems are mechanically caught; non-panel ones rest on reader honesty + the gate.</b></p>
+  </div>
+
+  <p class="foot">Sources: <code>docs/references/write-redesign-sources.md</code> · canon: <code>scientific-writing-methodology.md</code> · juice: <code>writing-skills-ecosystem-audit.md</code> · ground-truth failure: <code>supervisor-feedback.md</code>. v0.2 hardened against a clean-context opus counter-critique + Codex adversarial review. <b>Build</b> (Step 3): granular per-chunk log + decisions in <code>docs/references/write-redesign-build-plan.md</code>; status board in <code>docs/ladder.md</code>. <b>Step 4</b> (cross-stance handoff, D050, BUILD-READY): <code>docs/references/write-redesign-xstance.md</code>.</p>
 
 </div>

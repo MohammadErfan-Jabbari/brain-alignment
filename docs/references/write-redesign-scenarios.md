@@ -34,6 +34,7 @@ curated. **Format:** `ID | tests: F## | DET|RUB | INPUT | EXPECT | GROUNDED`.
 | F17 | Register & exemplar pin | VOICE-10 |
 | F18 | Acknowledgment | ARG-4, 7, 12 |
 | — | Fluidity principle + boundary | PROC-8, 9, 10, 11 |
+| F20 | Cross-stance handoff (D050, BUILD-READY) | SC-XSTANCE-01..16 — defined in full in `write-redesign-xstance.md` §E; folded into this suite at build-chunk X4 (119 → 135) |
 
 > **2d remaps applied to this table + the inline tags** (design step-2d moved enforcement): **SC-STR-06/07** are
 > graded by the **F11 structure judge (stage-3 site)**, not F6 (a hook with no judge); **SC-HON-06** by the **F5

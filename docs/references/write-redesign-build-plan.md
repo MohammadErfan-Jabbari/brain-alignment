@@ -91,7 +91,8 @@ table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d 
 
 ## Status (live)
 **Phase 1 (C1–C8) ✅ + Phase 2 P2-A ✅ + P2-B ✅ + P2-C ✅ + P2-D ✅ (1..6) + P2-E ✅ (authoring review)** —
-**PHASE 2 COMPLETE.** **NEXT = P3 cutover (next session, Erfan drives — IRREVERSIBLE).**
+**PHASE 2 COMPLETE.** **NEXT = the cross-stance handoff build (X1–X4, D050, BUILD-READY — see the
+section below + `write-redesign-xstance.md`) then P3 cutover (next session, Erfan drives — IRREVERSIBLE).**
 (P1+P2-A S35→S36, P2-B + P2-C S37, P2-D + P2-E S38 — see the session logs above + the build log below.)
 The CC-power upgrades, chunked: **P2-D-1 ✅** structured verdict schema + convergence state machine
 (`verdicts.py`); **P2-D-2 ✅** parallel stage-5 fan-out + verdict-recording orchestration (SKILL stage 5);
@@ -100,6 +101,26 @@ The CC-power upgrades, chunked: **P2-D-1 ✅** structured verdict schema + conve
 `caption`/`shows`); **P2-D-6 ✅** fluidity/deviation-log enforcement (SC-PROC-8/9/10/11). **NEXT = P3 cutover**
 (run the full 119-scenario suite → retire the old flow → repoint CLAUDE.md + 03-methodology → record
 D048-complete) — **IRREVERSIBLE, explicit go from Erfan required.** Per-chunk decisions in the build log below.
+
+## Cross-stance handoff (D050) — BUILD-READY addition, builds next session alongside P3
+
+A dry-run (S39) proved a structural gap: when a stage-5 reader finds a defect the prose **cannot** fix
+because it lives in the evidence/argument substrate (the E006 voxel-bootstrap CI the F13 panel caught),
+the pipeline has no path to route it to the owning stance — it would either dump it on the human or
+(worse) paper over it by rewording with an unrecorded number. The fix — a **cross-stance handoff**
+orchestration function (detect → classify → emit handoff → block stickily → recommend the stance; never
+auto-spawn, never adopt a number) — is designed to BUILD-READY in **`write-redesign-xstance.md`** (hardened
+across 4 opus reviews). **Four build chunks, same three-net loop, dependency order X1→X4:**
+- **X1** — `evidence_status: suspect` at all four sites (`lattice_integrity.EVIDENCE_STATUS`,
+  `claim_binding.STALE` + `check_register`, `LATTICE.md`, register).
+- **X2** — `verdicts.py`: the `handoffs.json` store + `handoff open/resolve/status/check --lattice` + the
+  `handoffs-open` clause in `status()` + the `ship`/`accept-residual` refusal + no-op-when-missing selftest.
+- **X3** — SKILL **stage-5.5 triage**: reader self-tag, the M3 backstop force-rule, the handoff emit +
+  human surface, the two-gate rebind contract.
+- **X4** — wire the anchor (SC-XSTANCE-01 = the dry-run) end-to-end; fold the 16 `SC-XSTANCE-*` into the
+  suite (119 → 135).
+
+This should land **before** P3 cutover so the cutover does not freeze a system with this known gap.
 
 ## Build log (append-only; durable decisions mined/made during the build)
 *Phase 1 + P2-A decisions live in the two session logs (provenance table above) + `docs/learnings.md` L059–L061.
