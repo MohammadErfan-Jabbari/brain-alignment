@@ -78,7 +78,9 @@
   <h1>The Ideal Writing System</h1>
   <p class="sub">A design canvas for <code>/write</code> — how a system would turn recorded findings into proper, tasteful academic prose.</p>
   <p class="sub dim">Step 1: design it hypothetically, free of any tool constraint. Step 2 (later): project onto Claude Code's real capabilities.</p>
-  <span class="tag">living document · v1.1 · step 2 build-ready · effort tiers set</span>
+  <span class="tag">living document · v2.0 · Phase 2 built · P3 cutover next</span>
+
+  <div class="delta"><b>v2.0</b> (the build, S35→S38): the design below is frozen as the spec; <b>Step 3</b> (added below) tracks what got built against it. <b>Phase 1 (walking skeleton C1–C8) ✅ · Phase 2 (full coverage P2-A→P2-E + the CC-power upgrades + an authoring review) ✅</b>. Built in a clean skill <code>.claude/skills/sci-write-v2/</code>; the live <code>scientific-writing</code> stays the default until cutover. Next = <b>P3 cutover (irreversible)</b>. Granular per-chunk log: <code>write-redesign-build-plan.md</code>.</div>
 
   <div class="delta"><b>v1.0</b> (opus review — verdict BUILD-READY): folded the CC-power upgrades (see the "CC-power upgrades" box below) — <b>parallel stage-5 audits</b>, <b>Stop-hook convergence</b>, <b>structured-output verdicts</b>, <b>gate via AskUserQuestion/ExitPlanMode</b>; effort stays high-for-all (xhigh-for-3 is an open option). <span class="dim">v0.8: agent cohesion merges (F10 dissolved, lattice_integrity hook, F13 panel). v0.6: F19 + evidence.status. v0.4: 2a hardened. v0.2–0.3: 4 concerns, gated loop, 2a matrix.</span></div>
 
@@ -274,6 +276,49 @@
     <p style="margin:10px 0 0;padding-top:10px;border-top:1px solid var(--line)"><b>Effort (Erfan-approved):</b> HIGH for all subagents; <b>XHIGH</b> for the 3 hardest judges — F4 argument, F5 scope, F11 structure. <b>Optional / lower-leverage (not yet applied):</b> lattice GET/PUT tools with pre-write schema validation; context-mode-index the exemplar papers to save tokens over revision cycles.</p>
   </div>
 
-  <p class="foot">Sources: <code>docs/references/write-redesign-sources.md</code> · canon: <code>scientific-writing-methodology.md</code> · juice: <code>writing-skills-ecosystem-audit.md</code> · ground-truth failure: <code>supervisor-feedback.md</code>. v0.2 hardened against a clean-context opus counter-critique + Codex adversarial review.</p>
+  <h2>Step 3 · The build (design → running code)</h2>
+  <p class="dim">The design above is the frozen spec. This is what got built against it, across four build sessions under one per-chunk verification loop. <b>The granular per-chunk log + every durable build decision lives in <code>docs/references/write-redesign-build-plan.md</code></b> (the build's single source of truth — not duplicated here). The skill is <code>.claude/skills/sci-write-v2/</code>; the live <code>scientific-writing</code> is untouched until the cutover.</p>
+
+  <div class="tablescroll"><table>
+    <thead><tr><th>Phase</th><th>What</th><th>Where</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td class="id">1</td><td><span class="nm">Walking skeleton (C1–C8)</span>the minimum vertical slice through the whole spine: lattice schema (F15) · claim-binding (F3) · minimal skeleton (F6) · drafter emitting <code>\evd</code> (F8a) · voice + fidelity audits · gate (F16). Validated on the abstract.</td><td class="cc">S35→S36</td><td><span class="pill trust">✅ done</span></td></tr>
+      <tr><td class="id">2</td><td><span class="nm">Full concern coverage</span>P2-A argument/scope judges · P2-B reader-model + structure judge · P2-C figures + premortem panel + acknowledgment + voice-realize + consistency · <b>P2-D the CC-power upgrades</b> (convergence machine, parallel fan-out, live Stop-hook, AskUserQuestion gate, caption≤figure, deviation-log) · <b>P2-E an authoring review</b> (SKILL de-sediment, agent fixes, effort frontmatter fleet-wide).</td><td class="cc">S36→S38</td><td><span class="pill trust">✅ done</span></td></tr>
+      <tr><td class="id">3</td><td><span class="nm">Cutover</span>run the full 119-scenario suite → retire the old <code>scientific-writing</code> flow → repoint <code>CLAUDE.md</code> + <code>03-methodology.md</code> → record D048-complete.</td><td class="cc">next session</td><td><span class="pill arg">next · IRREVERSIBLE</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <h3>The build method — three nets per atomic chunk</h3>
+    <p style="margin:0">Every chunk passed three independent nets before its commit, in order: <b>(1) embedded <code>--selftest</code></b> (the regression net — each script carries its scenarios) → <b>(2) opus <code>oracle-reviewer</code>, run on <i>every</i> chunk</b> regardless of selftest greenness (the discovery net — it caught a real hole on each chunk, including the P2-D-3 repo-wide-outage catastrophe; its new boundary cases fold back into the selftest) → <b>(3) a fresh <code>claude -p</code> clean-room verify</b> (a real subprocess that loads the on-disk artifact and builds its own fixtures). Then an atomic commit + a build-log entry. Proven across C1–C8 + all of P2 (learnings L059–L062).</p>
+  </div>
+
+  <h2>Where the build refined the design</h2>
+  <p class="dim">The design steps 2a–2d stand as the historical spec; these are the points where building against it on real CC primitives changed or sharpened a design decision. (The 2d re-maps were already folded into the tables above; these are <i>new</i>, from the build.)</p>
+  <div class="tablescroll"><table>
+    <thead><tr><th>Design said</th><th>Built as</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>F1 → a separate <code>reader-model.md</code> ARTIFACT (4 artifacts)</td><td>F1 writes the lattice <code>reader_model</code> field; new top-level lattice fields <code>frame</code> · <code>contribution_type</code> · <code>register</code></td><td>the lattice (F15) is the single spine artifact — the reader-model is a field on it, not a separate file (artifacts drop 4→3)</td></tr>
+      <tr><td>F19 = a SUBAGENT for caption ≤ figure</td><td>DET half = <code>consistency_check.py</code> (abstract#=body#, no CI in abstract); caption ≤ figure (SC-XS-3) <b>folded into the F5 scope judge</b> via a new lattice <code>shows</code> field</td><td>caption-over-claim <i>is</i> a scope question — no 8th subagent. <b>F19 is NOT a convergence reader;</b> caption sizes against what the figure <i>plots</i> (<code>shows</code>), not the bound claim</td></tr>
+      <tr><td>F2 "not one sentence → flag" (DET)</td><td>the floor asserts the message <i>exists</i>; one-sentence-ness is RUB / human-gated at F16</td><td>a sentence-counter false-positives on "Sec."/"U.S."/ellipses — not a ground-truth invariant (L060)</td></tr>
+      <tr><td>Stop-hook convergence (sketch) + structured verdicts</td><td><code>verdicts.py</code> (the draft-side twin of <code>gate_state.py</code>) + live <code>stop_sw_converge.py</code>; <b>7 required readers</b> (F4·F5·F9b·F11·F12·F13·F18); one line <code>&lt;TAG&gt;-VERDICT:{ready_to_ship,findings}</code></td><td>hash-keyed to prose content (a one-byte edit re-blocks); fail-INERT off the happy path, fail-toward-release on session-id doubt, MAX_BLOCKS=3 loop-guard. Enforces <b>staleness + convergence, not provenance</b></td></tr>
+      <tr><td>F13 premortem returns a verdict</td><td>the <b>orchestrator synthesizes</b> it: ready := counter-argument bare <code>SURVIVES</code> ∧ every objection mapped to a claim. <code>SURVIVES-IF-NARROWED</code> is NOT ready</td><td>the shared D017 panel emits <code>PANEL-VERDICT</code> with no <code>ready_to_ship</code> slot — left untouched; the adapter lives in the orchestrator</td></tr>
+      <tr><td>F16 gate via AskUserQuestion / ExitPlanMode</td><td><b>AskUserQuestion</b> — and the presented package == the hashed <code>_projection</code> <i>exactly</i> (every gated field is shown)</td><td>a discrete approval token; ExitPlanMode conflates "plan is fine" with "approve this exact package". A gated-but-unshown field = a silent term in a signed contract</td></tr>
+      <tr><td>F8b voice-realize = a register pass, tags preserved</td><td>+ a <b>number-conservation DET</b> (numeric-literal multiset identical pre/post); tools = Read/Edit/Bash (dropped <code>Write</code>)</td><td>tags/markers were already re-checked, but a silently-altered <i>result number</i> was honor-system only — now mechanically floored</td></tr>
+      <tr><td>effort: HIGH-for-all, XHIGH-for-3 (an open option)</td><td><b>adopted fleet-wide (D049):</b> all 24 agents declare <code>effort:</code> — xhigh for F4/F5/F11, high for the rest</td><td>F4/F5/F11 were silently inheriting session <code>high</code> despite their descriptions promising xhigh — the real fix</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout honesty">
+    <h3>Open for P3 (before the irreversible cutover)</h3>
+    <ul style="margin:0">
+      <li><b>The RUB-grading harness is undefined</b> — "pass the 119-suite" has no scorer or pass-threshold for the ~41 RUB scenarios, and no named sign-off mechanic beyond "Erfan signs." P3 is blocked on designing this <i>before</i> running anything.</li>
+      <li><b>The framing-sentence escape</b> — an assertive sentence modeled as "framing" rather than a claim slips the Trust floor; the human gate is the only catch. The one leak in the every-claim-binds-to-evidence promise (a prose→lattice claim-coverage check would close it; not built).</li>
+      <li><b>Provenance is an accepted non-goal</b> — a hand-typed <code>ready_to_ship:true</code> is indistinguishable from a real verdict (same trust model as the sibling hooks). The convergence machine is a discipline aid, not a proof.</li>
+      <li><b>Not yet exercised end-to-end on real prose</b> — validation to date is selftest + opus-oracle + clean-room <i>fixtures</i>, not an actual thesis section. Recommend a one-section dry-run as P3's first step, before retiring the old flow.</li>
+    </ul>
+  </div>
+
+  <p class="foot">Sources: <code>docs/references/write-redesign-sources.md</code> · canon: <code>scientific-writing-methodology.md</code> · juice: <code>writing-skills-ecosystem-audit.md</code> · ground-truth failure: <code>supervisor-feedback.md</code>. v0.2 hardened against a clean-context opus counter-critique + Codex adversarial review. <b>Build</b> (Step 3): granular per-chunk log + decisions in <code>docs/references/write-redesign-build-plan.md</code>; status board in <code>docs/ladder.md</code>.</p>
 
 </div>
