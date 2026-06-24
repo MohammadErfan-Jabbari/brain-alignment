@@ -50,6 +50,7 @@ Exit code: status -> 0 converged / 1 not; record -> 0; bad input -> nonzero.
 from __future__ import annotations
 
 import argparse
+import datetime
 import hashlib
 import json
 import os
@@ -68,6 +69,9 @@ READER_TAGS = {
     "acknowledgment": "ACK-VERDICT",     # F18 sw-acknowledgment (stage-5 re-run)
 }
 REQUIRED = list(READER_TAGS)
+
+# X2 (D050): the stances a cross-stance handoff may route to (the owning truth-producing / direction stances).
+HANDOFF_STANCES = {"work", "interpret", "review", "scout", "plan"}
 
 
 def repo_root(explicit: str | None = None) -> Path:
@@ -136,6 +140,26 @@ def status(root: Path, prose_path: Path) -> tuple[bool, list[str]]:
             converged = False
         else:
             lines.append(f"  [ready]     {reader}")
+
+    # X2 (D050): the sticky cross-stance-handoff blocker. Read the store INDEPENDENTLY of the prose hash —
+    # a reword (new hash -> stale readers) must never clear a substrate defect; only the upstream stance
+    # recording its output (handoff resolve) can. A MISSING store == zero open (the no-op invariant: every
+    # pre-X2 draft converges exactly as before); a CORRUPT store fails toward blocking (can't prove zero-open).
+    # This is an extra clause, NOT an 8th REQUIRED reader — adding it to REQUIRED would re-key it to the prose
+    # hash and defeat the whole point (that is the M1 keystone).
+    handoffs = _load_handoffs(root)
+    if handoffs is None:
+        lines.append("  [handoffs-open] handoffs.json unreadable -> treated as blocking (fail-safe)")
+        converged = False
+    else:
+        for hid, rec in handoffs.items():
+            if _is_resolved(rec):
+                continue
+            stance = rec.get("target_stance", "?") if isinstance(rec, dict) else "?"
+            lines.append(f"  [handoffs-open] {hid}: unresolved handoff -> /{stance} "
+                         f"(blocks convergence; a reword cannot clear it — only the upstream stance can)")
+            converged = False
+
     return converged, lines
 
 
@@ -240,13 +264,120 @@ def clear_gate_state(root: Path) -> None:
     grow unbounded or leave a stale residual. Leaves approvals.json (gate_state.py / F16 owns it)."""
     import shutil
     base = root / ".claude/state/sw-gate"
-    for name in ("active.json", "blocks.json", "residual.json"):
+    for name in ("active.json", "blocks.json", "residual.json", "handoffs.json"):
         p = base / name
         if p.exists():
             p.unlink()
     vdir = base / "verdicts"
     if vdir.exists():
         shutil.rmtree(vdir, ignore_errors=True)
+
+
+# --------------------------------------------------------------------------- X2: cross-stance handoff store (D050)
+# ONE store, keyed by handoff_id, at .claude/state/sw-gate/handoffs.json — NOT a lattice field. A handoff records a
+# substrate defect a /write reader cannot fix by rewording, routes it to the owning stance, and (via status()'s
+# handoffs-open clause) STICKILY blocks convergence until the upstream stance records its output. /write never
+# resolves a handoff and never adopts the reader's number (carried as proposed_unverified, born later in /work).
+
+def _now_iso() -> str:
+    return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _is_resolved(rec) -> bool:
+    """Resolved iff explicitly stamped so. Anything else (open, a missing/junk status, a non-dict record) BLOCKS —
+    a handoff clears only when its upstream stance records the fix, never by default (fail toward more checking)."""
+    return isinstance(rec, dict) and rec.get("status") == "resolved"
+
+
+def _load_handoffs(root: Path) -> dict | None:
+    """Read the handoff store. {} when ABSENT (the no-op invariant: a missing store == zero open, so every pre-X2
+    draft and selftest is unchanged). None when present-but-unreadable (the caller fails toward blocking)."""
+    p = root / ".claude/state/sw-gate/handoffs.json"
+    if not p.exists():
+        return {}
+    try:
+        d = json.loads(p.read_text())
+    except Exception:
+        return None
+    return d if isinstance(d, dict) else None
+
+
+def _save_handoffs(root: Path, d: dict) -> Path:
+    p = _state(root, "handoffs.json")
+    p.write_text(json.dumps(d, indent=2))
+    return p
+
+
+def open_handoffs(root: Path) -> tuple[list[str], bool]:
+    """(open-handoff-ids, store_unreadable). Used by status()'s sibling callers ship/accept-residual to refuse
+    past an open handoff. A corrupt store reports unreadable=True so those callers also fail toward blocking."""
+    d = _load_handoffs(root)
+    if d is None:
+        return [], True
+    return [hid for hid, rec in d.items() if not _is_resolved(rec)], False
+
+
+def open_handoff(root: Path, hid: str, *, finding: str, threatens_claim: str, target_stance: str,
+                 why_not_writing: str, what_to_produce: str, recommended_command: str,
+                 proposed_unverified: str | None = None, opened_by_reader: str | None = None) -> Path:
+    if not hid or not str(hid).strip():
+        raise SystemExit("verdicts: handoff open requires a non-empty handoff_id")
+    if target_stance not in HANDOFF_STANCES:
+        raise SystemExit(f"verdicts: target_stance {target_stance!r} not in {sorted(HANDOFF_STANCES)}")
+    d = _load_handoffs(root)
+    if d is None:
+        raise SystemExit("verdicts: handoffs.json is corrupt — fix or remove it before opening a handoff")
+    d[hid] = {
+        "handoff_id": hid,
+        "finding": finding,
+        "threatens_claim": threatens_claim,
+        "why_not_writing": why_not_writing,
+        "target_stance": target_stance,
+        "what_to_produce": what_to_produce,
+        "recommended_command": recommended_command,
+        "proposed_unverified": proposed_unverified,   # a reader's recompute; carried, NEVER adopted into prose
+        "resolution_ref": None,
+        "status": "open",
+        "opened_by_reader": opened_by_reader,
+        "detected_at": {"session": os.environ.get("CLAUDE_CODE_SESSION_ID", ""), "at": _now_iso()},
+    }
+    return _save_handoffs(root, d)
+
+
+def resolve_handoff(root: Path, hid: str, ref: str) -> None:
+    if not ref or not str(ref).strip():
+        raise SystemExit("verdicts: resolve requires --ref (the recorded upstream output: experiment key / "
+                         "decision id / commit / evidence_status change)")
+    d = _load_handoffs(root)
+    if d is None:
+        raise SystemExit("verdicts: handoffs.json is corrupt — fix or remove it before resolving a handoff")
+    if hid not in d:
+        raise SystemExit(f"verdicts: no handoff {hid!r} to resolve")
+    if not isinstance(d[hid], dict):
+        # a corrupt/hand-edited non-dict record: refuse with a clean SystemExit like every sibling guard,
+        # never a bare TypeError (and never a partial write). The handoff stays open until the store is fixed.
+        raise SystemExit(f"verdicts: handoff {hid!r} record is corrupt (not an object) — fix or remove it")
+    d[hid]["status"] = "resolved"
+    d[hid]["resolution_ref"] = str(ref).strip()
+    _save_handoffs(root, d)
+
+
+def check_handoffs_vs_lattice(root: Path, lattice: dict) -> list[str]:
+    """NH4 dangling-handoff guard: an OPEN handoff whose threatens_claim was deleted by a re-skeleton would be an
+    unkillable orphan. Flag it so it is re-pointed or resolved. Lives WITH the store, not in lattice_integrity."""
+    d = _load_handoffs(root)
+    if d is None:
+        return ["[handoff-store] handoffs.json unreadable"]
+    claim_ids = {c.get("claim_id") for c in lattice.get("claims", []) if isinstance(c, dict)}
+    f = []
+    for hid, rec in d.items():
+        if not isinstance(rec, dict) or _is_resolved(rec):
+            continue
+        tc = rec.get("threatens_claim")
+        if tc is not None and tc not in claim_ids:
+            f.append(f"[dangling-handoff] {hid}: threatens_claim '{tc}' is not in the lattice "
+                     f"(re-skeletoned away?) — re-point or resolve it")
+    return f
 
 
 def report_status(converged: bool, lines: list[str], h: str) -> int:
@@ -423,12 +554,135 @@ def _selftest() -> int:
         activate(root, d1); bump_block(root, prose_hash(d1)); accept_residual(root, d1)
         (root / ".claude/state/sw-gate/approvals.json").write_text("{}")
         record(root, d1, "voice", True, 0)
+        open_handoff(root, "HX", finding="f", threatens_claim="C1", target_stance="interpret",
+                     why_not_writing="w", what_to_produce="p", recommended_command="/interpret")
         clear_gate_state(root)
         expect("clear: active gone", active_draft(root), None)
         expect("clear: blocks gone", (root / ".claude/state/sw-gate/blocks.json").exists(), False)
         expect("clear: residual gone", (root / ".claude/state/sw-gate/residual.json").exists(), False)
         expect("clear: verdicts gone", (root / ".claude/state/sw-gate/verdicts").exists(), False)
+        expect("clear: handoffs gone", (root / ".claude/state/sw-gate/handoffs.json").exists(), False)
         expect("clear: approvals preserved (F16)", (root / ".claude/state/sw-gate/approvals.json").exists(), True)
+
+    # --- X2 (D050): cross-stance handoff store + the sticky `handoffs-open` blocker ---
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        prose = root / "d.tex"; prose.write_text("v1\n")
+        # NO-OP INVARIANT: with no handoffs.json, 7-ready -> converged exactly as pre-X2 (a missing store is silent).
+        for r in REQUIRED:
+            record(root, prose, r, True, 0)
+        conv, lines = status(root, prose)
+        expect("X2 no store -> converged (no-op invariant)", conv, True)
+        expect("X2 no store -> no [handoffs-open] line", any("[handoffs-open]" in l for l in lines), False)
+
+        # open a handoff while all 7 are ready -> convergence blocked by the handoff alone.
+        open_handoff(root, "H1", finding="E006 CI is a voxel bootstrap (F13)", threatens_claim="C1",
+                     target_stance="interpret", why_not_writing="wrong inferential unit, not a wording fix",
+                     what_to_produce="fold-level CI", recommended_command="/interpret E006",
+                     proposed_unverified="fold CI still excludes 0", opened_by_reader="premortem")
+        conv, lines = status(root, prose)
+        expect("X2 open handoff blocks convergence", conv, False)
+        expect("X2 [handoffs-open] H1 flagged", any("[handoffs-open] H1" in l for l in lines), True)
+
+        # SC-XSTANCE-09 (M1 keystone): reword the prose (new hash) + re-record every reader ready -> STILL blocked.
+        prose.write_text("v2 reworded\n")
+        for r in REQUIRED:
+            record(root, prose, r, True, 0)
+        conv, _ = status(root, prose)
+        expect("SC-XSTANCE-09 reword cannot clear a handoff", conv, False)
+
+        # SC-XSTANCE-13 (two gates independent): resolve the handoff but leave a reader not-ready -> blocked by reader.
+        resolve_handoff(root, "H1", "E006-suspect-recorded")
+        record(root, prose, "fidelity", False, 1)
+        conv, lines = status(root, prose)
+        expect("SC-XSTANCE-13 resolved handoff + not-ready reader -> blocked", conv, False)
+        expect("SC-XSTANCE-13 blocked by the reader, not the handoff",
+               any("[not-ready] fidelity" in l for l in lines) and not any("[handoffs-open]" in l for l in lines), True)
+
+        # SC-XSTANCE-10 (happy path): resolved handoff + all readers ready -> converged.
+        record(root, prose, "fidelity", True, 0)
+        conv, _ = status(root, prose)
+        expect("SC-XSTANCE-10 resolved + readers ready -> converged", conv, True)
+
+        # SC-XSTANCE-15 (multiple): two handoffs, one open -> blocked until ALL clear.
+        open_handoff(root, "H2", finding="needs a source", threatens_claim="C1", target_stance="scout",
+                     why_not_writing="cited paper absent from canonical/", what_to_produce="canonical note",
+                     recommended_command="/scout")
+        conv, _ = status(root, prose)
+        expect("SC-XSTANCE-15 one open of two -> blocked", conv, False)
+        resolve_handoff(root, "H2", "canonical/foo.md")
+        conv, _ = status(root, prose)
+        expect("SC-XSTANCE-15 all resolved -> converged", conv, True)
+
+        # SC-XSTANCE-14 (NH4 dangling-handoff guard): an OPEN handoff whose threatens_claim is gone -> flagged.
+        open_handoff(root, "H3", finding="orphaned", threatens_claim="CZZ", target_stance="interpret",
+                     why_not_writing="w", what_to_produce="p", recommended_command="/interpret")
+        lattice = {"claims": [{"claim_id": "C1"}, {"claim_id": "C2"}]}
+        fnd = check_handoffs_vs_lattice(root, lattice)
+        expect("SC-XSTANCE-14 dangling threatens_claim flagged", any("[dangling-handoff] H3" in x for x in fnd), True)
+        # an OPEN handoff pointing at a real claim is NOT flagged.
+        open_handoff(root, "H4", finding="real", threatens_claim="C2", target_stance="interpret",
+                     why_not_writing="w", what_to_produce="p", recommended_command="/interpret")
+        expect("SC-XSTANCE-14 open+valid claim -> not dangling",
+               any("H4" in x for x in check_handoffs_vs_lattice(root, lattice)), False)
+        # a RESOLVED dangling handoff is NOT flagged (only open ones can block/orphan).
+        resolve_handoff(root, "H3", "ref"); resolve_handoff(root, "H4", "ref")
+        expect("SC-XSTANCE-14 resolved dangling not flagged",
+               any("H3" in x for x in check_handoffs_vs_lattice(root, lattice)), False)
+
+        # target_stance typo guard.
+        try:
+            open_handoff(root, "HBAD", finding="f", threatens_claim="C1", target_stance="writing",
+                         why_not_writing="w", what_to_produce="p", recommended_command="/x")
+            expect("X2 bad target_stance rejected", "no-raise", "raise")
+        except SystemExit:
+            expect("X2 bad target_stance rejected", "raise", "raise")
+        # empty handoff_id guard (oracle nice-to-have: as defensive as the CLI wrapper).
+        try:
+            open_handoff(root, "", finding="f", threatens_claim="C1", target_stance="interpret",
+                         why_not_writing="w", what_to_produce="p", recommended_command="/x")
+            expect("X2 empty hid rejected", "no-raise", "raise")
+        except SystemExit:
+            expect("X2 empty hid rejected", "raise", "raise")
+
+    # oracle MUST-FIX: resolve on a CORRUPT (non-dict) record raises a clean SystemExit, never a bare TypeError.
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        _state(root, "handoffs.json").write_text(json.dumps({"H1": "i am not an object"}))
+        try:
+            resolve_handoff(root, "H1", "ref")
+            expect("X2 resolve on corrupt record -> SystemExit", "no-raise", "raise")
+        except SystemExit:
+            expect("X2 resolve on corrupt record -> SystemExit", "raise", "raise")
+        except Exception as e:
+            expect("X2 resolve on corrupt record -> SystemExit", f"raw-{type(e).__name__}", "raise")
+
+    # corrupt store -> fail-safe BLOCK (cannot prove zero-open).
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        prose = root / "d.tex"; prose.write_text("p\n")
+        for r in REQUIRED:
+            record(root, prose, r, True, 0)
+        (_state(root, "handoffs.json")).write_text("{not json")
+        conv, lines = status(root, prose)
+        expect("X2 corrupt store -> blocked (fail-safe)", conv, False)
+        expect("X2 corrupt store flagged unreadable",
+               any("[handoffs-open]" in l and "unreadable" in l for l in lines), True)
+
+    # MF-A: ship / accept-residual REFUSE past an open handoff (tested through main()'s dispatch + exit codes).
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        prose = root / "d.tex"; prose.write_text("p\n")
+        open_handoff(root, "H1", finding="f", threatens_claim="C1", target_stance="interpret",
+                     why_not_writing="w", what_to_produce="p", recommended_command="/interpret")
+        expect("MF-A ship refuses with open handoff", main(["ship", "--repo-root", str(root)]), 1)
+        expect("MF-A accept-residual refuses with open handoff",
+               main(["accept-residual", "--prose", str(prose), "--repo-root", str(root)]), 1)
+        expect("MF-A refused ship did NOT clear the store",
+               (root / ".claude/state/sw-gate/handoffs.json").exists(), True)
+        resolve_handoff(root, "H1", "ref")
+        expect("MF-A ship succeeds once resolved", main(["ship", "--repo-root", str(root)]), 0)
+        expect("MF-A ship then cleared the store", (root / ".claude/state/sw-gate/handoffs.json").exists(), False)
 
     print("verdicts selftest: " + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1
@@ -454,6 +708,14 @@ def main(argv=None):
     sub.add_parser("ship", parents=[common])            # orchestrator, after converge+approve: disarm the hook
     pres = sub.add_parser("accept-residual", parents=[common])  # Erfan: sign off the current draft bytes
     pres.add_argument("--prose", type=Path, required=True)
+    ph = sub.add_parser("handoff", parents=[common])    # X2 (D050): cross-stance handoff store ops
+    ph.add_argument("action", choices=["open", "resolve", "status", "check"])
+    ph.add_argument("hid", nargs="?", help="handoff id (required for open/resolve)")
+    ph.add_argument("--finding"); ph.add_argument("--threatens-claim"); ph.add_argument("--target-stance")
+    ph.add_argument("--why"); ph.add_argument("--what-to-produce"); ph.add_argument("--recommended-command")
+    ph.add_argument("--proposed-unverified", default=None); ph.add_argument("--reader", default=None)
+    ph.add_argument("--ref", help="resolve: the recorded upstream output (experiment key / decision id / commit)")
+    ph.add_argument("--lattice", type=Path, help="check: the claim-lattice to validate threatens_claim against")
     args = ap.parse_args(argv)
 
     if args.selftest:
@@ -477,15 +739,84 @@ def main(argv=None):
         print(f"verdicts: armed convergence Stop-hook on {args.prose}")
         return 0
     if args.cmd == "ship":
+        blocking, bad = open_handoffs(root)
+        if bad or blocking:
+            sys.stderr.write("verdicts: cannot ship — open cross-stance handoff(s): "
+                             + (", ".join(blocking) if blocking else "<store unreadable>") + "\n"
+                             "Resolve each via its upstream stance first: "
+                             "verdicts.py handoff resolve <id> --ref <recorded-output>\n")
+            return 1
         clear_gate_state(root)
         print("verdicts: shipped — convergence Stop-hook disarmed + gate state cleared")
         return 0
     if args.cmd == "accept-residual":
         if not args.prose.is_file():
             raise SystemExit(f"verdicts: prose {args.prose}: not a file")
+        blocking, bad = open_handoffs(root)
+        if bad or blocking:
+            sys.stderr.write("verdicts: cannot accept-residual — an open handoff is not a residual the human may "
+                             "wave through; only its upstream stance closes it. Open: "
+                             + (", ".join(blocking) if blocking else "<store unreadable>") + "\n")
+            return 1
         h = accept_residual(root, args.prose)
         print(f"verdicts: accepted-residual sign-off recorded for draft {h}")
         return 0
+    if args.cmd == "handoff":
+        if args.action == "open":
+            if not args.hid:
+                raise SystemExit("verdicts: handoff open requires an <id>")
+            req = {"--finding": args.finding, "--threatens-claim": args.threatens_claim,
+                   "--target-stance": args.target_stance, "--why": args.why,
+                   "--what-to-produce": args.what_to_produce, "--recommended-command": args.recommended_command}
+            missing = [k for k, v in req.items() if not v]
+            if missing:
+                raise SystemExit(f"verdicts: handoff open missing required fields: {missing}")
+            open_handoff(root, args.hid, finding=args.finding, threatens_claim=args.threatens_claim,
+                         target_stance=args.target_stance, why_not_writing=args.why,
+                         what_to_produce=args.what_to_produce, recommended_command=args.recommended_command,
+                         proposed_unverified=args.proposed_unverified, opened_by_reader=args.reader)
+            print(f"verdicts: opened handoff {args.hid} -> /{args.target_stance} "
+                  f"(convergence now blocked until the upstream stance resolves it)")
+            return 0
+        if args.action == "resolve":
+            if not args.hid:
+                raise SystemExit("verdicts: handoff resolve requires an <id>")
+            resolve_handoff(root, args.hid, args.ref)
+            print(f"verdicts: resolved handoff {args.hid} (ref {args.ref}) — the writer must still rebind the "
+                  f"claim and the readers re-run clean before it converges")
+            return 0
+        if args.action == "status":
+            d = _load_handoffs(root)
+            if d is None:
+                print("verdicts handoff: handoffs.json UNREADABLE (treated as blocking)")
+                return 1
+            openk = [h for h, r in d.items() if not _is_resolved(r)]
+            donek = [h for h, r in d.items() if _is_resolved(r)]
+            print(f"verdicts handoff: {len(openk)} open, {len(donek)} resolved")
+            for h in openk:
+                rec = d[h] if isinstance(d[h], dict) else {}
+                print(f"  [open]     {h} -> /{rec.get('target_stance', '?')}: {rec.get('finding', '')}")
+            for h in donek:
+                rec = d[h] if isinstance(d[h], dict) else {}
+                print(f"  [resolved] {h} (ref {rec.get('resolution_ref')})")
+            return 1 if openk else 0
+        if args.action == "check":
+            if not args.lattice:
+                raise SystemExit("verdicts: handoff check requires --lattice <claim-lattice.json>")
+            try:
+                lattice = json.loads(args.lattice.read_text(encoding="utf-8"))
+            except FileNotFoundError:
+                raise SystemExit(f"verdicts: {args.lattice}: NOT FOUND")
+            except json.JSONDecodeError as e:
+                raise SystemExit(f"verdicts: {args.lattice}: invalid JSON ({e})")
+            findings = check_handoffs_vs_lattice(root, lattice)
+            if findings:
+                print("verdicts handoff check — dangling:")
+                for x in findings:
+                    print(f"  {x}")
+                return 1
+            print("verdicts handoff check: PASS (no dangling open handoff)")
+            return 0
     ap.print_help()
     return 1
 

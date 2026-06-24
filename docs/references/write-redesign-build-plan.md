@@ -425,3 +425,27 @@ demoted/superseded: no later verdict overruled it, but a `/write` reader doubts 
   `claim_binding.py:82-89` updated to say this honestly (oracle nice-to-have).
 - **No other enum-switch site existed** (oracle grep): `gate_state.py` only projects the key for change-detection,
   never validates the value; no hardcoded `{live,demoted,superseded}` set survives anywhere that would reject suspect.
+
+**X2 — `verdicts.py` handoff store + the sticky `handoffs-open` blocker.** ONE store
+`.claude/state/sw-gate/handoffs.json` keyed by `handoff_id`; `handoff open/resolve/status/check --lattice`
+subcommands; the `handoffs-open` clause in `status()` (read independently of the prose hash); `ship`/`accept-residual`
+refuse past an open handoff (MF-A); `clear_gate_state` now clears `handoffs.json`. Three nets green (selftest 23
+new asserts · opus oracle **FIX-THEN-PASS** · fresh `claude -p` 7/7 integration PASS incl. the M1 reword test).
+Durable decisions:
+- **The M1 keystone is hash-independence.** The blocker is a `status()` CLAUSE, **NOT** an 8th `REQUIRED` reader —
+  adding it to `REQUIRED` would re-key it to the prose hash and a reword could clear a substrate defect. Verified:
+  reword + re-record all 7 readers ready → still blocked; only `handoff resolve` (the upstream stance recording its
+  output) clears it. The two gates are independent (MF2): clearing the handoff ≠ converged; the readers must re-run.
+- **Fail toward blocking, everywhere (L059).** `_load_handoffs` returns `{}` ONLY for a truly absent file (the
+  no-op invariant: every pre-X2 draft converges byte-identically); a corrupt/non-dict store returns `None` →
+  `status()` blocks. `_is_resolved` requires the exact `status == "resolved"` — `"Resolved"`, a trailing space,
+  `True`, missing, or junk all stay open. A missing/junk status can never authorize convergence.
+- **MF-A is enforced in code, at the CLI dispatch layer** (the right layer — the internal `clear_gate_state`/
+  `accept_residual` are only reached *after* the guard). Both `ship` and `accept-residual` exit nonzero listing the
+  open handoff; a handoff is not a residual the human may wave through — only its upstream stance closes it.
+- **Oracle MUST-FIX (applied):** `resolve_handoff` raw-crashed (`TypeError`) on a corrupt non-dict record instead
+  of the clean `SystemExit` every sibling guard emits → added the `isinstance(d[hid], dict)` guard + a selftest;
+  also added the empty-`hid` guard at the function layer (CLI already guarded it). Repo-root-mismatch on `ship`
+  (resolves from `$CLAUDE_PROJECT_DIR`) is a shared-by-all-state-ops surface, not an X2 regression — flagged, the
+  production caller passes the armed `--repo-root`. JSON write non-atomicity left as-is (single-process CLI; a
+  corrupt store fails toward blocking; consistent with `blocks.json`/`residual.json`).
