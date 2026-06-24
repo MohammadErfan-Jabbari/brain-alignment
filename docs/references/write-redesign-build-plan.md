@@ -402,3 +402,26 @@ default).** Three reviewers fanned out, each against its proper authority; fixes
   framing-sentence prose→lattice escape stays the known Phase-2 residual.
 
 **P2-D + P2-E COMPLETE — Phase 2 done. P3 is the next session (Erfan drives; IRREVERSIBLE).**
+
+---
+
+### Cross-stance handoff build (D050, X1–X4, S40) — three-net loop per chunk
+
+**X1 — `evidence_status: suspect` at all four sites.** Added the new enum value (distinct from
+demoted/superseded: no later verdict overruled it, but a `/write` reader doubts it; set by
+`/interpret`→`/work`+Erfan, never by `/write`). Sites: `lattice_integrity.EVIDENCE_STATUS` (schema-valid),
+`claim_binding.STALE` (suspect ∈ STALE → cite-as-live fires `[stale-evidence]`+`[status-mismatch]`),
+`claim_binding.check_register` resolve-tuple (a recorded suspect key must resolve on disk like live/demoted),
+`LATTICE.md` (row + Enums gloss), `evidence-register.json` `_meta` (`status_values` + gloss). Three nets green
+(both selftests · opus oracle **PASS** first pass — only a comment-clarity nice-to-have, applied · fresh
+`claude -p` ALL-PASS on 6 independent fixtures). Durable decisions:
+- **`suspect` joins `STALE`, it is not a fourth branch.** A suspect result reuses the demoted/superseded
+  "not citable as live" path — same over-claim, so the existing `[stale-evidence]`+`[status-mismatch]` flags
+  carry it with no new code path. A suspect-labeled-suspect claim still fires `[stale-evidence]` (a reader
+  cannot self-clear a suspect by stamping the claim suspect) but correctly suppresses the false mismatch.
+- **`check_register` requires a suspect key to resolve on disk** (unlike fileless-OK `superseded`): suspect is a
+  real recorded status with a file. A fileless suspect is an anomaly the reconciler catches as `[register-orphan]`,
+  NOT duplicated in `check()` as `[dangling-cite]` (the stale-path already flags the binding loudly). Comment at
+  `claim_binding.py:82-89` updated to say this honestly (oracle nice-to-have).
+- **No other enum-switch site existed** (oracle grep): `gate_state.py` only projects the key for change-detection,
+  never validates the value; no hardcoded `{live,demoted,superseded}` set survives anywhere that would reject suspect.

@@ -49,7 +49,10 @@ import json
 import sys
 from pathlib import Path
 
-EVIDENCE_STATUS = {"live", "demoted", "superseded"}
+# `suspect` (X1/D050): no later verdict has overruled this result, but a /write reader found reason to
+# doubt it (e.g. a contested aggregation unit). Distinct from demoted/superseded (a newer verdict DID
+# overrule). Set by /interpret (proposes) -> /work + Erfan (record); /write never stamps it.
+EVIDENCE_STATUS = {"live", "demoted", "superseded", "suspect"}
 STRENGTH = {"unsupported", "observed", "supported", "strong"}
 FRAME = {"basic-science", "technology"}        # F2: the evaluation frame (name which game you are playing)
 READER_MODEL_KEYS = {"venue", "old", "new", "prior_beliefs", "doubts"}  # F1: who the reader is
@@ -341,6 +344,9 @@ def _selftest() -> int:
     expect("SC-PROC-7", diff(good, d), True, "append-safe")
     d = clone(); d["claims"][0]["evidence_status"] = "current"
     expect("bad evidence_status enum", validate(d), True, "schema")
+    # X1 (D050): 'suspect' is a real evidence_status enum value, not a bad-enum schema flag.
+    d = clone(); d["claims"][0]["evidence_status"] = "suspect"
+    expect("X1 suspect is a valid evidence_status (no schema flag)", validate(d), False)
     d = clone(); d["claims"][0]["section"] = None
     expect("orphan-claim", validate(d), True, "orphan-claim")
     d = clone(); d["claims"][0]["tags"] = []

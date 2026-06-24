@@ -48,7 +48,7 @@ It is append-safe at both the top level and per sub-field (gutting `exemplars` w
 | `claim_id` | string | stage 2 (F3) | unique, e.g. `C1` |
 | `text` | string | stage 2 (F3) | the claim itself |
 | `bound_experiment` | string \| null | stage 2 (F3) | evidence key, e.g. `E008`; `null` → F3 raises a `\gap` |
-| `evidence_status` | enum | stage 2 (F3) | `live` \| `demoted` \| `superseded` — F3 reads it; citing a demoted/superseded number as live is a DET flag |
+| `evidence_status` | enum | stage 2 (F3) | `live` \| `demoted` \| `superseded` \| `suspect` — F3 reads it; citing a demoted/superseded/suspect number as live is a DET flag |
 | `strength` | enum | stage 2 (F3) | `unsupported` \| `observed` \| `supported` \| `strong` — bounds the wording; F9a asserts tag ≤ this |
 | `scope` | string \| null | stage 2 (F3/F5) | e.g. `per-individual, n=9, LeBel, Qwen0.5B` |
 | `is_central` | bool | stage 2 (F3) | a central contribution → needs a figure (F7) |
@@ -61,7 +61,7 @@ It is append-safe at both the top level and per sub-field (gutting `exemplars` w
 (handled by the owning functionality, e.g. `bound_experiment: null` → F3's `\gap`).
 
 ## Enums
-- `evidence_status`: `live` (current verdict, safe to cite) · `demoted` (overturned / artifact, e.g. E005's +0.0081) · `superseded` (replaced by a later experiment).
+- `evidence_status`: `live` (current verdict, safe to cite) · `demoted` (overturned / artifact, e.g. E005's +0.0081) · `superseded` (replaced by a later experiment) · `suspect` (no later verdict has overruled it, but a `/write` reader found reason to doubt it — e.g. a contested aggregation unit; set by `/interpret` → `/work`+Erfan, never by `/write`; not citable as live until the cross-stance handoff resolves it — D050).
 - `strength`: `unsupported` · `observed` · `supported` · `strong` (the claim-evidence contract ladder; lifted from the live skill).
 
 ## `lattice_integrity` rules (all pure-DET; the rigid floor)

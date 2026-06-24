@@ -36,7 +36,9 @@ from evidence_resolve import find_repo_root, resolve_key
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_REGISTER = HERE.parent / "evidence-register.json"
-STALE = {"demoted", "superseded"}
+# `suspect` (X1/D050) joins STALE: a result a reader has flagged as doubtful is not citable as live
+# support until the handoff resolves it — citing it as live is the same over-claim as citing a demoted one.
+STALE = {"demoted", "superseded", "suspect"}
 
 
 def _raw_register(path: Path = DEFAULT_REGISTER) -> dict:
@@ -79,7 +81,9 @@ def check(lattice: dict, register: dict, root: Path) -> list[str]:
 
         if reg_status in STALE:
             # The binding itself is the problem; this holds whether or not the author mislabeled, and
-            # whether or not a superseded key has a file (the register knows it -> suppress dangling).
+            # whether or not the key has a file (the register knows it -> suppress dangling here). A
+            # superseded key may legitimately be fileless; a fileless `suspect` is instead an anomaly that
+            # check_register flags as [register-orphan], not duplicated here as [dangling-cite].
             f.append(f"[stale-evidence] claim {cid}: cites {be} which is '{reg_status}' — a "
                      f"{reg_status} result is not citable as live support; rebind to the current verdict (D011)")
             if claim_status != reg_status:
@@ -102,7 +106,7 @@ def check_register(register_raw: dict, root: Path) -> list[str]:
     exp = register_raw.get("experiments", register_raw)
     for key, rec in exp.items():
         status = rec.get("status") if isinstance(rec, dict) else rec
-        if status in ("live", "demoted") and not resolve_key(key, root):
+        if status in ("live", "demoted", "suspect") and not resolve_key(key, root):
             f.append(f"[register-orphan] {key} is '{status}' but no record resolves under docs/experiments/")
     return f
 
@@ -197,6 +201,21 @@ def _selftest() -> int:
 
     # register integrity: every live/demoted key resolves on disk (the reconciler half).
     expect("register reconcile (live/demoted resolve)", check_register(_raw_register(), root), False)
+
+    # --- X1 (D050): `suspect` evidence_status (SC-XSTANCE-07) ---
+    # a register key marked suspect, cited as live -> stale-evidence (suspect in STALE) + status-mismatch.
+    sus_reg = {"E006": {"status": "suspect"}}
+    s_sus = check(lat(claim("C1", "E006", "live")), sus_reg, root)
+    expect("X1 SC-XSTANCE-07 suspect cited as live -> stale", s_sus, True, "stale-evidence")
+    expect("X1 SC-XSTANCE-07 suspect cited as live -> mismatch", s_sus, True, "status-mismatch")
+    # a suspect result, even labeled suspect, is STILL not citable as live support (stale fires; no false mismatch).
+    s_sus2 = check(lat(claim("C1", "E006", "suspect")), sus_reg, root)
+    expect("X1 suspect labeled suspect -> still stale (not citable)", s_sus2, True, "stale-evidence")
+    expect_no_rule("X1 suspect labeled suspect -> no false mismatch", s_sus2, True, "status-mismatch")
+    # check_register: a recorded suspect key must resolve on disk like live/demoted (E006 resolves -> clean).
+    expect("X1 suspect resolves on disk -> clean", check_register({"experiments": {"E006": {"status": "suspect"}}}, root), False)
+    # a fileless suspect key -> register-orphan (suspect is recorded, not fileless like superseded).
+    expect("X1 fileless suspect -> register-orphan", check_register({"experiments": {"E999X": {"status": "suspect"}}}, root), True, "register-orphan")
 
     print("claim_binding selftest: " + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1

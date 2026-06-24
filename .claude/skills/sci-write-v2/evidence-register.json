@@ -1,12 +1,13 @@
 {
   "_meta": {
     "purpose": "Maps each experiment key to the CURRENT status of the number/verdict it carries, so F3 (claim_binding) can mechanically flag a claim that cites a demoted/superseded result as if it were live (SC-TRUST-2/3). This is the bootstrap that makes evidence_status a DET check instead of a judgment.",
-    "status_values": ["live", "demoted", "superseded"],
+    "status_values": ["live", "demoted", "superseded", "suspect"],
     "seeded_from": "docs/ladder.md (S35, 2026-06-22)",
     "maintenance": "Update a key when its rung verdict flips. /wrap should reconcile this against docs/ladder.md (a register<->ladder reconciler is a cutover task). F3 flags an unregistered experiment so a new result cannot be cited without a status.",
     "live": "current verdict, safe to cite",
     "demoted": "the cited number/verdict was overturned or shown to be an artifact; rebind to the current verdict",
     "superseded": "replaced by a later experiment; the original is no longer the binding result",
+    "suspect": "no later verdict has overruled it, but a /write reader found reason to doubt it (e.g. a contested aggregation unit); proposed by /interpret, recorded by /work+Erfan, never set by /write; not citable as live until the cross-stance handoff resolves it (D050)",
     "intentionally_absent": "Experiments that are DESIGNED but not yet run (E023, E024) carry no result-status and are deliberately NOT registered — citing one as evidence correctly raises [unregistered]. Learning keys (Lnn) are syntheses, not verdict-bearing experiments, so F3 resolves them on disk but applies no status check."
   },
   "experiments": {
