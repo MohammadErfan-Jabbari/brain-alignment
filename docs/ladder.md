@@ -75,6 +75,18 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 
 ## Next session (what `/orient` surfaces)
 
+> **S39 NEXT (2026-06-24, stance: `/meta` → build X1–X4, then P3).** A `/meta` session that (1) folded the
+> build into the design canvas (Step 3, v2.0); (2) ran a `/write` dry-run of `sci-write-v2` on R06/§4.1 that
+> validated the pipeline **and** surfaced that the **E006 voxelwise CI is a pseudo-replicated voxel bootstrap**
+> (a **parked `/interpret` item** — a lead to verify, NOT adjudicated here); (3) designed the **cross-stance
+> handoff** to BUILD-READY (**D050**, `docs/references/write-redesign-xstance.md`; 4 opus reviews). **NEXT =
+> build the four chunks X1–X4** (three-net loop): X1 `evidence_status: suspect` (4 sites) · X2 `verdicts.py`
+> handoff store + `handoffs-open` clause + ship-guard · X3 SKILL stage-5.5 triage · X4 wire SC-XSTANCE-01 +
+> fold 16 SC-XSTANCE scenarios (119→135). **X1–X4 must land BEFORE P3 cutover** (don't freeze the known gap).
+> Then P3 (IRREVERSIBLE, Erfan drives — first define the RUB-grading harness). Build state:
+> `write-redesign-build-plan.md`. **NO experiment, NO rung change; Q0–Q5 stand.** Live science thread
+> unchanged: Q4 E024; analysis lane next = R08 (Q2).
+>
 > **S38 NEXT (2026-06-23, stance: `/meta` → P3 cutover, Erfan drives).** **`/write` rebuild Phase 2 is COMPLETE
 > — next is P3 cutover.** S38 finished **P2-D** (D-1 `verdicts.py` convergence machine · D-2 parallel stage-5
 > fan-out + verdict recording · D-3 the **live** `stop_sw_converge` Stop-hook, pipeline+session-scoped,
