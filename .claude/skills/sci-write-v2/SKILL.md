@@ -162,6 +162,80 @@ in `run_checks`; its RUB half — **caption ≤ figure** (SC-XS-3) — is judged
 (a caption is the same scope axis as a claim), sizing `figures[].caption` against `figures[].shows` (NOT the
 broader bound claim). The convergence Stop-hook that gates this whole audit is described at stage 6.
 
+**Stage 5.5 · Handoff triage (D050).** *("5.5" is a label for this step only — NEVER write it to `meta.stage`,
+which is a validated int 1–6.)* Before you loop a finding back into the stage-6 revise, classify **why** it is
+blocking. Some defects the prose **cannot** fix because they live in the evidence/argument substrate (the E006
+voxel-bootstrap CI is the anchor): rewording would only paper over them, and the one repair — recomputing or
+re-adjudicating a number — is forbidden here (a number is born in `/work` and recorded in `docs/`; `/write` may
+not produce or alter it). Route those upstream instead of looping forever.
+
+Each blocking finding gets **one of three outcomes**:
+- **PASS** — not a defect; it converges.
+- **WRITING-REVISE** — a reword *within the currently recorded evidence* fixes it → the stage-6 loop.
+- **NEEDS-STANCE(s)** — no rewording within recorded evidence can resolve it → emit a handoff, block, surface.
+A finding is `NEEDS-STANCE` **iff no rewording within the currently recorded evidence could resolve it.**
+
+**The reader self-tag (the RUB half, M3).** As the cheap first pass, each of the **6 prose readers** (argument,
+scope, fidelity, structure, voice, acknowledgment) tags its own finding `{class: writing-revise | needs-stance,
+target_stance?, why_not_writing?}`. The 7th reader, **premortem (F13)**, has no self-tag line — its substrate-defect
+signal is the panel `CONCLUSION-STATUS`, which the M3 backstop below reads directly. **On ambiguity, tag
+`needs-stance`, never `writing-revise`** (fail toward more checking — L059; a missed substrate defect is the
+catastrophe, an over-routed one only costs a human glance).
+
+**The M3 backstop (the DET force-rule, the under-routing guard).** Over the aggregated findings: **any F13 panel
+verdict that is `SURVIVES-IF-NARROWED` or `DOES-NOT-SURVIVE`, where the narrowing needs a number or claim NOT
+already recorded in `docs/`, is FORCED to `needs-stance` regardless of how a reader tagged it.** This is exactly
+what catches the E006 anchor (F13 surfaces it as `SURVIVES-IF-NARROWED`; the fold-level CI it would need is not
+recorded). **The in-`docs/` side does NOT fire** (SC-XSTANCE-16): if a recorded result already supports the
+narrower claim, narrow it in prose — that is `writing-revise`, not a handoff.
+
+**The over-routing guard (SC-XSTANCE-08).** Conversely: a finding a reword *within the currently recorded evidence*
+fixes is `writing-revise`, not a handoff — a merely-hard sentence is not a substrate defect. Fail toward
+`needs-stance` only on genuine **ambiguity about whether the evidence exists**, not on every difficult sentence.
+
+**The trigger taxonomy (route by what the finding is):**
+
+| # | Finding | Routes to |
+|---|---|---|
+| 1 | a recorded result exists but a number is broken, OR its aggregation/contrast is contested | `/interpret` (re-adjudicate) → `/work` (recompute if needed) |
+| 2 | a load-bearing claim has **no recorded result at all** (not even a contested one) | `/work` — **write the `\gap` in prose AND emit the handoff** (complement, never replace) |
+| 3a | a claim contradicts another report/cross-section number (internal) | `/interpret` (or `/review`) |
+| 3b | a claim contradicts an external source | `/scout` → `/interpret` |
+| 4 | a reader computes a number no cited record contained | `/work` to record it first, then resume (the honesty floor blocks citing it meanwhile) |
+| 5 | a related-work claim needs a source we lack | `/scout` (lit-scout) |
+| 6 | a frame/scope decision only the human owns | `/plan` / human gate |
+| 7 | a cited result is recorded but never adjudicated | `/interpret` |
+
+**Row 1 vs row 2 — route by whether a recorded result exists.** If the experiment ran and its result is recorded
+but a number is broken or its aggregation/contrast is contested — **the E006 anchor: the CI exists, only its
+inferential unit (voxel bootstrap vs fold) is wrong** — that is **row 1 → `/interpret`** (re-adjudicate the unit),
+which itself chains to `/work` if a recompute is needed. Reach for **row 2 → `/work` + `\gap`** only when there is
+*no recorded result at all*. A specific sub-statistic that was never computed off an existing result is still row 1.
+
+**On `NEEDS-STANCE`, the orchestrator (detect-and-recommend — it never acts upstream itself):**
+1. classify the target stance from the taxonomy;
+2. emit the handoff — `python3 .claude/skills/sci-write-v2/scripts/verdicts.py handoff open <id> --finding <…> --threatens-claim <claim_id> --target-stance <work|interpret|review|scout|plan> --why <why prose can't fix it> --what-to-produce <…> --recommended-command <e.g. "/interpret E006"> [--proposed-unverified <a reader's recompute>] [--reader <which reader>]`;
+3. that **stickily blocks convergence** (X2's `handoffs-open` clause — a reword cannot clear it);
+4. **surface to the human**: the finding, the claim it threatens, **why writing can't fix it**, the target stance, the recommended command;
+5. **never auto-spawn** the stance — recommend it; Erfan drives;
+6. **never adopt a reader's computed number** — carry it as `proposed_unverified` on the handoff, to be born in `/work`/`/interpret`. Record that reader's verdict as `--ready false` too, so the reader gate and the handoff gate both hold.
+
+**`evidence_status: suspect` ownership.** `/write` only **emits the handoff recommending** `suspect`; `/interpret`
+**proposes** it; `/work` + Erfan **record** it. `/write` never stamps a status (X1).
+
+**The two-gate rebind contract (MF3) — resolving a handoff is NOT the end.** A handoff `resolve`s when the upstream
+stance **records** its output (`--ref` points to the experiment key / decision id / commit / `evidence_status`
+change). That clears only the `handoffs-open` clause. The draft **still** will not converge until the writer
+**rebinds the lattice claim** to the corrected evidence (so `claim_binding` passes) and the readers re-run clean —
+a **logic revision that re-enters the F16 gate**. The transient `claim_binding` `[status-mismatch]` (the claim
+says `live` while the register now says `suspect`) is **intended** — it keeps blocking until the rebind. Flow:
+`/interpret` records → `handoff resolve` → writer rebinds (re-gate) → readers re-run → converge.
+
+**Orphan guard + human surface.** After any re-skeleton or claim-id change (a stage-6 logic revision drops/renames
+a `claim_id`), run `verdicts.py handoff check --lattice <claim-lattice.json>`: a `[dangling-handoff]` flag means an
+open handoff's `threatens-claim` was deleted — re-point or resolve it, or it becomes an unkillable orphan that
+blocks convergence forever. `verdicts.py handoff status` lists open/resolved handoffs (the human-facing surface).
+
 **Stage 6 · Revise.** Fix coarse-to-fine, **never reversed**: logic → sentence → lexical. A **logic** fix
 (it changes **any gated field** — message, frame, contribution_type, reader-model, register, a claim, a warrant,
 the skeleton, a figure: the full `gate_state._projection` set) **re-enters the gate** — re-run the relevant
@@ -196,6 +270,12 @@ After converge + Erfan's approval, `verdicts.py ship` (disarms + clears the gate
 - **An assertive sentence modeled as *framing* escapes the Trust floor.** The floor checks "every *claim*
   binds"; it cannot see a load-bearing sentence the agent chose not to enter as a claim (a stated hypothesis
   like "at most a weak prior"). The human gate is the catch until a prose→lattice claim-coverage check exists.
+  **D050 does NOT close this** — the cross-stance handoff routes substrate defects *that surface as findings*; a
+  framing sentence that was never entered as a claim surfaces as no finding, so the human gate remains its catch.
+- **The stage-5.5 classification is RUB, with one DET backstop.** A voice/structure reader meeting a substrate
+  defect could mislabel it `writing-revise` — **except** where the M3 force-rule fires (a panel verdict whose
+  narrowing needs an out-of-`docs/` number). The guarantee is bounded: **panel-detectable science problems are
+  caught mechanically; non-panel ones rest on reader honesty + the human gate.**
 
 **Effort:** spawn all subagents at **HIGH**; the three hardest judges — F4 argument, F5 scope, F11 structure —
 at **XHIGH**. The orchestrator runs at the session model.

@@ -449,3 +449,25 @@ Durable decisions:
   (resolves from `$CLAUDE_PROJECT_DIR`) is a shared-by-all-state-ops surface, not an X2 regression — flagged, the
   production caller passes the armed `--repo-root`. JSON write non-atomicity left as-is (single-process CLI; a
   corrupt store fails toward blocking; consistent with `blocks.json`/`residual.json`).
+
+**X3 — SKILL.md "Stage 5.5 · Handoff triage" section.** Instructions-only (no DET code). Inserted between
+stage-5 audit and stage-6 revise: the three outcomes (PASS / WRITING-REVISE / NEEDS-STANCE), the reader self-tag
+(RUB half), the M3 backstop force-rule (a panel `SURVIVES-IF-NARROWED`/`DOES-NOT-SURVIVE` needing an out-of-`docs/`
+number is FORCED to needs-stance — catches the E006 anchor), the 7-row trigger taxonomy, the 6-step
+detect-and-recommend (open handoff → sticky block → surface → never auto-spawn → never adopt a number), the two-gate
+rebind contract (MF3), and `suspect` ownership. "Honest limits" amended (D050 does NOT close the framing-sentence
+escape; classification is RUB-with-one-DET-backstop). SKILL 206→~285 lines — justified functional spec, not
+sediment. Three nets green (CLI-flag consistency + run_checks regression · opus oracle **FIX-THEN-PASS** · fresh
+`claude -p` actionability ALL-correct). Durable decisions:
+- **"5.5" is a doc label only, never `meta.stage`** (a validated int 1–6).
+- **Fail toward `needs-stance` only on genuine ambiguity about whether the evidence exists** — NOT on every hard
+  sentence. Paired with the over-routing guard (SC-XSTANCE-08: a reword within recorded evidence is writing-revise).
+- **Oracle G1 (applied):** surfaced `handoff check --lattice` (the NH4 orphan guard, to run after a stage-6
+  re-skeleton drops/renames a claim_id) + `handoff status` (human surface) — the SKILL had instructed only
+  `handoff open`, the one gap with a silent-defect consequence (an orphaned open handoff blocking forever).
+- **Oracle G2 (applied):** the premortem (F13) reader has no self-tag line — "7 readers self-tag" was false; scoped
+  the self-tag to the 6 prose readers; premortem's signal is the panel `CONCLUSION-STATUS` the M3 backstop reads.
+- **Fresh-verify-found disambiguation (applied):** the row-1-vs-row-2 boundary was ambiguous for "a result exists
+  but a specific sub-statistic was never computed" (E006's fold-level CI). Tightened: a recorded result with a
+  contested aggregation is **row 1 → /interpret** (chains to /work); row 2 (/work + \gap) is only for NO recorded
+  result at all. The third net caught what the oracle didn't — the point of running it.
