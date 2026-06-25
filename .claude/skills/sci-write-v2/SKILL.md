@@ -267,11 +267,18 @@ After converge + Erfan's approval, `verdicts.py ship` (disarms + clears the gate
 - **A `\gap` lives in the prose, not the lattice.** A claim with no recorded evidence is an *error* the floor
   flags (`[unbound]`) — not a lattice claim with `bound_experiment: null`. An honest gap is written as a
   `\gap{reason}` macro in the prose (allowed at the report/extended layer).
-- **An assertive sentence modeled as *framing* escapes the Trust floor.** The floor checks "every *claim*
-  binds"; it cannot see a load-bearing sentence the agent chose not to enter as a claim (a stated hypothesis
-  like "at most a weak prior"). The human gate is the catch until a prose→lattice claim-coverage check exists.
-  **D050 does NOT close this** — the cross-stance handoff routes substrate defects *that surface as findings*; a
-  framing sentence that was never entered as a claim surfaces as no finding, so the human gate remains its catch.
+- **An assertive sentence modeled as *framing* escapes the Trust floor — ACCEPTED as a documented cutover limit
+  (D051).** The floor checks "every *claim* binds"; it cannot see a load-bearing sentence the agent chose not to
+  enter as a claim (a stated hypothesis like "at most a weak prior"). **The residual is narrow:** the F5 scope
+  judge and F12 voice auditor both read *all* prose (not only `\evd`-tagged claims), so an *over-scoped* framing
+  sentence (SC-HON-06) and a *badly-voiced* one (the Claudio anchors SC-VOICE-01..04 are framing sentences) are
+  already caught. What slips is only a **cleanly-voiced, plausibly-scoped empirical assertion** placed as framing
+  and never entered as a claim. **D050 does NOT close this** (the handoff routes substrate defects that surface
+  as findings; this surfaces as none), and **D051 deliberately does NOT build a prose→lattice claim-coverage
+  check** — that check is inherently a judge (load-bearing assertion vs legitimate framing/transition is a
+  judgment, not a DET invariant), and a high-false-positive judge that flattens legitimate framing is the L060
+  trap. **The F16 human gate is the designed backstop** for this narrow residual; revisit (build the check) only
+  if a real framing-sentence escape is observed shipping. See `docs/decisions/decisions.md` D051.
 - **The stage-5.5 classification is RUB, with one DET backstop.** A voice/structure reader meeting a substrate
   defect could mislabel it `writing-revise` — **except** where the M3 force-rule fires (a panel verdict whose
   narrowing needs an out-of-`docs/` number). The guarantee is bounded: **panel-detectable science problems are
