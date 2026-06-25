@@ -584,3 +584,18 @@ live judge result correctly:
 
 **G1 COMPLETE (a–d).** The RUB-grading harness exists, is selftested (DET), oracle-hardened (3 chunks ×
 FIX-THEN-PASS), and proven on live judges. The standing P3 blocker (no RUB scorer) is cleared.
+
+**G2 COMPLETE — D051.** The framing-sentence escape is DECIDED (accept as a documented cutover limit, do not
+build a prose→lattice check — the residual is narrow because F5/F12 read all prose, and closing it is a high-FP
+judge / the L060 trap; F16 human gate is the backstop). No longer a drift.
+
+**G3 COMPLETE (optional confidence, not a gate) — the convergence loop closes on real prose.** Ran the live
+stage-5 prose judges (voice/scope/structure) on a real Methods slice: the first draft was correctly NOT clean
+(voice flagged a reflex passive one token from an active sentence; structure flagged old→new inversion on
+"encoding scores" + a CCC break conflating extraction with the ridge fit — the audit discriminates, it does not
+rubber-stamp). Applied the findings (one revise round) → re-audited → **all three judges `ready_to_ship:true,
+findings:0`**. The revise loop closed and good prose shipped. With G1-d (live grading, all 4 mechanisms) and the
+S39 full-pipeline end-to-end run, the apparatus is demonstrated working.
+
+**PRE-P3 CHECKLIST CLEARED (G1 built+proven · G2 decided · G3 demonstrated).** Next: the final opus readiness
+review, then P3 cutover (Erfan drives — IRREVERSIBLE).
