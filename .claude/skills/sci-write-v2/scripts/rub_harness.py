@@ -267,6 +267,7 @@ def _report(fails: list[str], n_live: int) -> int:
 # ─────────────────────────────────────────────────────────────────────────────
 
 RESULTS_DIR = HERE.parent / "state" / "rub-results"  # one <scenario-id>.json per recorded result
+_PANEL_STATES = {"SURVIVES", "SURVIVES-IF-NARROWED", "DOES-NOT-SURVIVE"}  # the F13 counter-argument enum (exact)
 
 
 def _coerce_bool(v):
@@ -324,10 +325,17 @@ def score_one(rec: dict, result: dict | None) -> tuple[bool, str]:
         why = f"judge {'flagged' if flagged else 'clean'}; expect={expect}"
 
     elif mech == "panel-synthesis":
-        cs, mapped = result.get("conclusion_status"), bool(result.get("all_objections_mapped"))
-        # bare SURVIVES with every objection claim-mapped = no-flag; SURVIVES-IF-NARROWED / DOES-NOT-SURVIVE /
-        # unmapped = flag (the verdicts.py synthesis rule — ternary, not boolean).
-        flagged = not (cs == "SURVIVES" and mapped)
+        # NORMALIZE the conclusion_status (oracle-readiness premortem mode 3): a bare `cs == "SURVIVES"` exact
+        # match false-passes a real judge that emits "Survives" or "SURVIVES (with caveats)". Strip+upper, then
+        # require an EXACT known enum; anything else is MALFORMED -> fail-safe (never silently reads as a clean
+        # SURVIVES nor as a flag). "SURVIVES (caveat)" -> malformed -> FAIL -> the operator re-records the enum.
+        cs_raw = result.get("conclusion_status")
+        cs = cs_raw.strip().upper() if isinstance(cs_raw, str) else None
+        mapped = _coerce_bool(result.get("all_objections_mapped"))
+        if cs not in _PANEL_STATES or mapped is None:
+            return False, (f"malformed panel result (status={cs_raw!r}, mapped={result.get('all_objections_mapped')!r}) "
+                           "-> fail-safe (re-record the exact enum + a real bool)")
+        flagged = not (cs == "SURVIVES" and mapped is True)
         passed = (flagged == (expect == "flag"))
         why = f"panel={cs} mapped={mapped} -> {'flag' if flagged else 'clean'}; expect={expect}"
 
@@ -357,6 +365,23 @@ def score_one(rec: dict, result: dict | None) -> tuple[bool, str]:
         ftext = (result.get("finding_text") or "").lower()
         if kws and not any(k in ftext for k in kws):
             return False, f"ANCHOR flagged but finding did not name the expected defect ({why})"
+
+    # PROVENANCE (premortem mode 1): for the free-text-verdict mechanisms, if a verbatim grader line was recorded
+    # (`raw`), the parsed result must be CONSISTENT with it — a typed bool that contradicts the pasted verdict line
+    # FAILs. Raises the cost of batch-faking the tail of a 94-spawn run from "type a bool" to "fabricate a
+    # consistent verdict line per scenario." Absent `raw` is allowed (back-compat); `score` surfaces the coverage.
+    if passed and mech in ("verdict-line", "panel-synthesis"):
+        raw = result.get("raw")
+        if isinstance(raw, str) and raw.strip():
+            low = raw.lower()
+            if mech == "verdict-line":
+                rs = _coerce_bool(result.get("ready_to_ship"))
+                token = "true" if rs is True else "false"
+                if f'"ready_to_ship": {token}' not in low.replace("'", '"') and f'ready_to_ship": {token}' not in low.replace("'", '"'):
+                    return False, f"provenance mismatch: parsed ready_to_ship={rs} not found in the recorded verdict line"
+            else:  # panel-synthesis
+                if cs and cs not in raw.upper():
+                    return False, f"provenance mismatch: conclusion_status {cs!r} not found in the recorded panel line"
     return passed, why
 
 
@@ -369,6 +394,7 @@ def score_suite(records: list[dict], entries: dict[str, dict], det_green: bool) 
     missing: list[str] = []
     stale: list[str] = []
     anchor_fail: list[str] = []
+    no_provenance: list[str] = []   # passing free-text-verdict rows with no recorded verbatim line (premortem 1)
     for rec in records:
         sid = rec["id"]
         entry = entries.get(sid)
@@ -380,6 +406,9 @@ def score_suite(records: list[dict], entries: dict[str, dict], det_green: bool) 
         else:
             res = entry.get("result")
         passed, why = score_one(rec, res)
+        if passed and res is not None and rec["grading_mechanism"] in ("verdict-line", "panel-synthesis") \
+                and not (isinstance(res.get("raw"), str) and res.get("raw").strip()):
+            no_provenance.append(sid)
         if entry is not None and res is None and sid in stale:
             why = "STALE result (scenario INPUT changed since it was recorded) -> re-run required"
         m = rec["grading_mechanism"]
@@ -396,7 +425,7 @@ def score_suite(records: list[dict], entries: dict[str, dict], det_green: bool) 
     return {
         "overall": overall, "det_green": det_green, "rub_clean": rub_clean,
         "n": len(records), "missing": missing, "stale": stale, "failures": failures,
-        "anchor_fail": anchor_fail, "per_mechanism": per_mech,
+        "anchor_fail": anchor_fail, "per_mechanism": per_mech, "no_provenance": no_provenance,
     }
 
 
@@ -468,6 +497,9 @@ def score(scenarios: Path, store: Path, results_dir: Path, det_green: bool | Non
         print(f"  UNGRADED (no result, => FAIL): {len(out['missing'])}  e.g. {out['missing'][:5]}")
     if out["stale"]:
         print(f"  STALE (INPUT changed since recorded, => FAIL): {len(out['stale'])}  e.g. {out['stale'][:5]}")
+    if out["no_provenance"]:
+        print(f"  PROVENANCE GAP (passing free-text verdict, no verbatim line recorded): {len(out['no_provenance'])}"
+              f"  e.g. {out['no_provenance'][:5]}  — re-record with --raw for a real gate run")
     if out["failures"]:
         print(f"  FAILURES ({len(out['failures'])}):")
         for sid, why in out["failures"][:20]:
@@ -648,6 +680,13 @@ def _selftest() -> int:
           score_one(rec("panel-synthesis", "flag"), {"conclusion_status": "SURVIVES-IF-NARROWED", "all_objections_mapped": True})[0])
     check("panel unmapped objection counts as flag",
           score_one(rec("panel-synthesis", "flag"), {"conclusion_status": "SURVIVES", "all_objections_mapped": False})[0])
+    # premortem mode 3: normalize the free-text status; malformed -> fail-safe, never a silent pass/flag
+    check("panel lowercase 'survives' normalizes -> clean (noflag PASS)",
+          score_one(rec("panel-synthesis", "noflag"), {"conclusion_status": "survives", "all_objections_mapped": True})[0])
+    check("panel 'SURVIVES (caveat)' -> malformed -> FAIL (not a silent clean)",
+          not score_one(rec("panel-synthesis", "noflag"), {"conclusion_status": "SURVIVES (with caveats)", "all_objections_mapped": True})[0])
+    check("panel garbage status -> malformed -> FAIL",
+          not score_one(rec("panel-synthesis", "noflag"), {"conclusion_status": "maybe?", "all_objections_mapped": True})[0])
     # lattice-classification: graded on expect_class
     check("lattice MUST-classify-NEW PASS", score_one(rec("lattice-classification", "classify", expect_class="NEW"), {"classified": "NEW"})[0])
     check("lattice wrong classification FAIL", not score_one(rec("lattice-classification", "classify", expect_class="OLD"), {"classified": "NEW"})[0])
@@ -668,6 +707,13 @@ def _selftest() -> int:
           score_one(rec("handoff-state", "noflag"), {"handoff_opened": False, "classified_writing_revise": True})[0])
     check("handoff guard FAIL when triage did NOTHING (both halves required)",
           not score_one(rec("handoff-state", "noflag"), {"handoff_opened": False, "classified_writing_revise": False})[0])
+    # premortem mode 1: a recorded verbatim verdict line (raw) must be CONSISTENT with the parsed result
+    check("provenance: consistent raw verdict line -> PASS",
+          score_one(rec("verdict-line", "noflag"), {"ready_to_ship": True, "findings": 0, "raw": 'VOICE-VERDICT: {"ready_to_ship": true, "findings": 0}'})[0])
+    check("provenance: raw line contradicts the typed bool -> FAIL",
+          not score_one(rec("verdict-line", "noflag"), {"ready_to_ship": True, "findings": 0, "raw": 'VOICE-VERDICT: {"ready_to_ship": false, "findings": 2}'})[0])
+    check("provenance: panel raw must contain the conclusion enum",
+          not score_one(rec("panel-synthesis", "noflag"), {"conclusion_status": "SURVIVES", "all_objections_mapped": True, "raw": "CONCLUSION-STATUS: DOES-NOT-SURVIVE"})[0])
     # MF-4: anchor flagged but for the WRONG reason -> FAIL even though it flagged
     voa = rec("verdict-line", "flag", id="SC-VOICE-01", anchor=True, reason="MUST flag storytelling / agency-to-abstraction")
     check("ANCHOR flag PASS when finding names the defect",
@@ -731,6 +777,8 @@ def main(argv=None):
     rp = sub.add_parser("record")
     rp.add_argument("--id", required=True)
     rp.add_argument("--result", required=True, help="the grader result as a JSON object")
+    rp.add_argument("--raw", default=None, help="the verbatim grader verdict line (provenance; required for a real "
+                    "gate run on verdict-line/panel rows — score checks the parsed result is consistent with it)")
     rp.add_argument("--results-dir", type=Path, default=RESULTS_DIR)
     rp.add_argument("--store", type=Path, default=STORE)
     so = sub.add_parser("sign-off")
@@ -765,6 +813,8 @@ def main(argv=None):
         match = [r for r in store_recs if r["id"] == args.id]
         if not match:
             ap.error(f"{args.id} is not a RUB scenario in {args.store}")
+        if args.raw:
+            result = {**result, "raw": args.raw}
         return record_result(args.id, result, args.results_dir, match[0].get("input", ""))
     if args.cmd == "sign-off":
         return sign_off(args.scenarios, args.store, args.results_dir, args.det_green,

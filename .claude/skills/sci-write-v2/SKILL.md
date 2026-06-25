@@ -277,8 +277,13 @@ After converge + Erfan's approval, `verdicts.py ship` (disarms + clears the gate
   as findings; this surfaces as none), and **D051 deliberately does NOT build a prose→lattice claim-coverage
   check** — that check is inherently a judge (load-bearing assertion vs legitimate framing/transition is a
   judgment, not a DET invariant), and a high-false-positive judge that flattens legitimate framing is the L060
-  trap. **The F16 human gate is the designed backstop** for this narrow residual; revisit (build the check) only
-  if a real framing-sentence escape is observed shipping. See `docs/decisions/decisions.md` D051.
+  trap. **The F16 human gate is the designed backstop** for this narrow residual — and to make the gate bite (not
+  just "trust the human to notice"), at F16 **enumerate the framing/transition sentences carrying an empirical
+  verb** (*tracks, predicts, improves, outperforms, aligns, generalizes*) and force a per-sentence **claim vs
+  cited-background** tag: a "claim" must be entered into the lattice and bound; "background" must carry a citation.
+  This converts the invisible-to-machines residual into a bounded human checklist (the cheap middle option between
+  a high-FP auto-judge and doing nothing). Revisit (build the prose→lattice check) only if a real escape ships
+  anyway. See `docs/decisions/decisions.md` D051.
 - **The stage-5.5 classification is RUB, with one DET backstop.** A voice/structure reader meeting a substrate
   defect could mislabel it `writing-revise` — **except** where the M3 force-rule fires (a panel verdict whose
   narrowing needs an out-of-`docs/` number). The guarantee is bounded: **panel-detectable science problems are

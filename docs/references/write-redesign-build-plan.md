@@ -599,3 +599,22 @@ S39 full-pipeline end-to-end run, the apparatus is demonstrated working.
 
 **PRE-P3 CHECKLIST CLEARED (G1 built+proven · G2 decided · G3 demonstrated).** Next: the final opus readiness
 review, then P3 cutover (Erfan drives — IRREVERSIBLE).
+
+**Readiness hardening (S42, after the dual final review — oracle READY-FOR-P3 + premortem).** The premortem (the
+pessimist of the two) found real pre-cutover defects; fixed before declaring ready:
+- **Panel-synthesis exact-match brittleness (premortem mode 3, a false-PASS code defect):** `cs == "SURVIVES"`
+  false-passed a real judge emitting "Survives" / "SURVIVES (with caveats)". Now strip+upper-normalized against
+  the exact enum set; an unrecognized status is **MALFORMED → fail-safe FAIL**, never a silent clean/flag.
+- **Spawn provenance (premortem mode 1, the #1 risk):** `record --raw "<verbatim verdict line>"`; `score` checks
+  the parsed result is CONSISTENT with the recorded line (a typed bool contradicting the pasted line FAILs) and
+  surfaces a **PROVENANCE GAP** count for passing free-text rows with no `raw`. Raises batch-faking cost from
+  "type a bool" to "fabricate a consistent verdict line per scenario." (TRUSTED-not-verified still holds; this
+  narrows it.)
+- **Protocol field-name fix (oracle):** the lattice step reads `sw-reader-model`'s `old`/`new` arrays (was the
+  non-existent `terms_old`/`terms_new`); `--raw` requirement added to the protocol.
+- **P3-plan guardrails folded into `tasks.md` (premortem modes 1/4/5):** P3-0 = a committed fresh-context
+  ~10-scenario dress rehearsal before the one-shot 94-run; P3-2 splits the irreversible step (tombstone the old
+  flow ~1 week; triage which of the 13 DET checks are safe as always-on per-edit hooks vs suite-time only).
+- **D051 amended (premortem mode 2):** the F16 gate gains a framing-sentence forcing-function (enumerate empirical-
+  verb framing sentences → force a claim-vs-cited-background tag) — the cheap middle option, not a high-FP judge.
+Selftest green after all of it (validate-suite PASS; full selftest PASS).
