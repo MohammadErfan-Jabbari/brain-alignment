@@ -50,14 +50,15 @@ from 5 to the 3 ungraded voice anchors.
 > (Original fixture leaked the answer by appending "(Known live limit: the Q2 lever is undemonstrated)". Removed.
 > The agent now infers the missing acknowledgment itself.)
 
-**SC-ARG-5** (panel) — REBUILT cue-free: draft + claim + two raw objections, no "names no claim" editorial:
-> Draft: "Brain-alignment training yields more faithful representations (E005)." Only claim c1 = "alignment
-> training improves representational faithfulness" (bound E005, observed). Objections: (a) "may be explained by
-> perplexity alone"; (b) "training data is not the fMRI stimuli".
-> NOTE (scenario-quality, for P3-1): with a clean fixture the panel MAPPED both objections to c1 (the only claim
-> is broad enough to absorb both), so the scenario flagged via `conclusion_status = SURVIVES-IF-NARROWED`, NOT via
-> the intended `all_objections_mapped = false` path. To genuinely exercise the unmapped-objection path, the
-> scenario needs a multi-claim lattice with an objection that threatens NO enumerated claim. Logged for P3-1.
+**SC-ARG-5** (panel) — SCENARIO FIXED (the suite scenario itself was rewritten, not just the fixture): the
+objection now threatens NO enumerated claim, so it exercises the intended `all_objections_mapped = false` path:
+> Lattice has ONE enumerated claim c1 = "the brain-alignment encoding signal is real beyond confounds (E006)".
+> Supplied premortem objection: "the distillation use-case shows no practical payoff (Q4)" — orthogonal to c1
+> (signal-reality vs downstream-utility). Both panel agents independently ruled it threatens no enumerated claim →
+> `all_objections_mapped = false` → flag, via the intended unmapped path (not the conclusion-status route).
+> (The original scenario's single broad claim let the panel map every objection, so it could only flag via
+> SURVIVES-IF-NARROWED — it never tested the unmapped path. Fixed in `write-redesign-scenarios.md` + regenerated
+> store; validate-suite PASS, 94 rows unchanged.)
 
 **SC-ARG-10** (panel) — REBUILT: claim reference embedded naturally in the objection, not pre-labeled:
 > Draft (honestly hedged): "We do not claim a demonstrated Q2 lever. The E004 association ... rests on a

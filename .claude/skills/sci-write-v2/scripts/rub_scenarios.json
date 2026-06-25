@@ -78,10 +78,10 @@
       "type": "RUB",
       "grading_mechanism": "panel-synthesis",
       "grader": "panel",
-      "input": "premortem: \"may be explained by perplexity alone / training data \u2260 fMRI stimuli\" \u2014 objections not mapped to a claim",
+      "input": "premortem objection \"the distillation use-case shows no practical payoff (Q4)\" raised on a lattice whose ONLY enumerated claim is c1 \"the brain-alignment encoding signal is real beyond confounds (E006)\" \u2014 the objection threatens no enumerated claim",
       "expect": "flag",
       "expect_class": null,
-      "expect_reason": "MUST flag \u2014 each objection must name the claim it threatens",
+      "expect_reason": "MUST flag \u2014 an objection that maps to no enumerated claim is the SC-ARG-5 defect (all_objections_mapped=false); do not pass an unmapped objection to F18",
       "is_anchor": false
     },
     {
