@@ -1,0 +1,1 @@
+{"id": "SC-TRUST-8", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "confirming...confounds asserts a proven mechanism (strong) under a supported tag", "raw": "FIDELITY-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "af91bce32b5a"}

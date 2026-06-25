@@ -751,9 +751,9 @@
       "grading_mechanism": "verdict-line",
       "grader": "sw-claim-fidelity-judge",
       "input": "\"Across all data fractions, brain-tuned models never underperform the pretrained model, ruling out catastrophic forgetting.\"",
-      "expect": "noflag",
+      "expect": "flag",
       "expect_class": null,
-      "expect_reason": "MUST NOT flag \u2014 \"ruling out\" scoped to tested conditions, not proven-zero",
+      "expect_reason": "MUST flag \u2014 \"ruling out\" asserts a proven mechanistic elimination (strong) beyond the scoped supported evidence; honest form is \"no sign of catastrophic forgetting under the tested conditions\" (Erfan, S43)",
       "is_anchor": false
     },
     {

@@ -1,0 +1,1 @@
+{"id": "SC-EX-2209-5", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - reports the caveat on its own result", "raw": "FIDELITY-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "9ab4d4898fcd"}

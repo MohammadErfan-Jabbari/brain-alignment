@@ -1,0 +1,1 @@
+{"id": "SC-EX-2511-3", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - null scoped to observed data, not no-effect", "raw": "FIDELITY-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "2e7ef75a26d2"}

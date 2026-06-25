@@ -1,0 +1,1 @@
+{"id": "SC-EX-2510-4", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "FAIL(noflag): judge read ruling out as strong proven-elimination vs supported tag - re-run pending", "raw": "FIDELITY-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "be478b43279c"}
