@@ -569,3 +569,18 @@ the inverted-guard regression). Durable decisions:
 - **Field cross-check clean (oracle):** every field the doc tells the orchestrator to `record` is exactly what
   `score_one` reads; `record` parses `--result` via `json.loads` so values are real bools/ints (and `_coerce_bool`
   defends anyway). The prior oracle's KILL-risk (records-raw-strings) is closed.
+
+**G1-d — the required live dry-run (one grader per mechanism).** No code changed; this is the net the Python
+selftest cannot reach — REAL graders spawned on real fixtures, recorded, and scored. All four mechanisms grade a
+live judge result correctly:
+- **verdict-line** `SC-VOICE-01` (anchor) → `sw-voice-auditor` returned `{ready_to_ship:false, findings:1}`,
+  naming *anthropomorphized abstraction / agency-to-abstraction* → graded PASS, **anchor reason-match satisfied**.
+- **lattice-classification** `SC-RM-2` → `sw-reader-model` classified "voxelwise noise ceiling" **NEW** → PASS.
+- **panel-synthesis** `SC-ARG-10` → `counter-argument` returned `SURVIVES` + objection-mapped → noflag → PASS.
+- **handoff-state** `SC-XSTANCE-01` (anchor) → the stage-5.5 triage opened `needs-stance(/interpret)`, did NOT
+  narrow prose, named **E006** → PASS, **anchor reason-match satisfied** (the M3 backstop fired exactly as designed).
+- `score` over the 4 live results: each mechanism 1/N passing, **none in the failure list**, the two run anchors
+  cleared. The spawning layer + all four mechanism-readers work end-to-end on live judges.
+
+**G1 COMPLETE (a–d).** The RUB-grading harness exists, is selftested (DET), oracle-hardened (3 chunks ×
+FIX-THEN-PASS), and proven on live judges. The standing P3 blocker (no RUB scorer) is cleared.
