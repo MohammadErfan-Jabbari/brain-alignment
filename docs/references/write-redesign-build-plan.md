@@ -526,3 +526,25 @@ black-box CLI on an independent fixture). Durable decisions:
   (G1-b), so a stale store reason would silently grade an anchor against drifted text.
 - **Oracle NH-1:** a parse-integrity guard requires exactly 6 pipe-fields per RUB row — a literal `|` inside an
   INPUT would silently shift EXPECT (a misread, not a drop); now flagged, never silent-misread.
+
+**G1-b — the scorer (`score_one`/`score_suite`/`record`/`score`).** The DRAFT-side twin of `verdicts.py`: four
+mechanism-readers, the threshold (every DET green ∧ every RUB recorded-fresh-and-PASS, anchors never waivable),
+the result store, the sign-off hash. Three nets green (selftest ~40 checks incl. flag+noflag per mechanism ·
+opus oracle **FIX-THEN-PASS** · black-box `record`→`score` on real ids). Durable decisions:
+- **The flag signal per mechanism:** verdict-line = `ready_to_ship` coerced (a found defect = flagged);
+  panel-synthesis = the verdicts.py ternary (bare `SURVIVES` ∧ all-objections-mapped = clean, else flag);
+  lattice = `classified == expect_class`; handoff = right-stance handoff present ∧ not-narrowed (flag side) /
+  no-handoff ∧ writing-revise (guard side, both halves — oracle G1-a watch-item).
+- **MF-4 anchor reason-binding is real:** for the 5 anchors, a flag must keyword-match the recorded defect or it
+  FAILs (verified live — a wrong-reason flag on SC-VOICE-01 reappears in `anchor_fail`).
+- **Oracle MF-1 (the cardinal silent-pass):** dropped `verdicts.py`'s `_coerce_bool`, so a result recorded as the
+  string `"false"` read as not-flagged → a flagged judge silently passed a near-miss. Restored the coercion +
+  the `findings` bool-exclusion (`isinstance(True,int)`); uncoercible `ready_to_ship` fails toward flag.
+- **Oracle MF-2:** lattice `None == None` passed when both `expect_class` and `classified` were absent — now
+  requires both non-None.
+- **Oracle MF-3 (the freshness twin):** the result store had no INPUT binding, so a stale judge result from an
+  old fixture silently counted. Now each result is stamped with the hash of the scenario INPUT it was produced
+  from (`record` reads it from the store); at `score` time a mismatch is STALE → FAIL → re-run required — the
+  `verdicts.py` "a YES dies when a byte changes" guarantee, applied to the RUB INPUT.
+- **TRUSTED-not-verified, stated in-file:** the store records which result was entered + its INPUT freshness, but
+  cannot prove a result came from a real judge run vs a hand-typed one (same surface as `gate_state`/`verdicts`).

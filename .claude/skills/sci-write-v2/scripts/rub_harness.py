@@ -129,7 +129,7 @@ def parse_scenarios_md(path: Path) -> list[dict]:
         parts = [p.strip() for p in ln.split("|")]
         if len(parts) < 5:
             continue
-        sid, func, typ, expect = parts[0], parts[1], parts[2], parts[4]
+        sid, func, typ, inp, expect = parts[0], parts[1], parts[2], parts[3], parts[4]
         if "RUB" not in typ.upper():
             continue
         tags = _split_tags(func)
@@ -141,6 +141,7 @@ def parse_scenarios_md(path: Path) -> list[dict]:
             "type": typ,                       # RUB or RUB+DET / DET+RUB
             "grading_mechanism": mech,
             "grader": derive_grader(tags, mech),
+            "input": inp,                      # the fixture text fed to the grader (freshness-bound, MF-3)
             # flag/noflag is the verdict-line/panel/handoff signal; lattice rows grade on expect_class instead.
             "expect": "classify" if mech == "lattice-classification"
                       else ("noflag" if "MUST NOT" in expect.upper() else "flag"),
@@ -212,7 +213,7 @@ def validate_suite(scenarios: Path, store: Path) -> int:
         if sid in live_by_id:
             # expect_reason is in the tuple: it is the BINDING reason-match text for the 5 anchors (G1-b MF-4),
             # so a stale store reason would silently grade an anchor against drifted text (oracle G1-a MF-3).
-            for fld in ("grading_mechanism", "grader", "expect", "expect_class", "expect_reason", "is_anchor"):
+            for fld in ("grading_mechanism", "grader", "expect", "expect_class", "expect_reason", "input", "is_anchor"):
                 if r.get(fld) != live_by_id[sid].get(fld):
                     fails.append(f"[drift] {sid}.{fld}: store={r.get(fld)!r} != derived={live_by_id[sid].get(fld)!r}")
         # the grader must resolve to a real on-disk owner.
@@ -239,6 +240,219 @@ def _report(fails: list[str], n_live: int) -> int:
         return 1
     print(f"validate-suite: PASS ({n_live} RUB rows; store <-> live markdown agree)")
     return 0
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# G1-b — the scorer. Given per-scenario recorded grader RESULTS, score each by its
+# grading_mechanism, apply the threshold, emit the tally. The DRAFT-side twin of
+# verdicts.py: pure scoring functions the selftest drives with synthetic results; the
+# CLI wires the real result store + the real DET-green signal (run_checks --selftest).
+#
+# TRUSTED-not-verified (same surface as verdicts.py / gate_state): the store records WHICH
+# result was entered and the INPUT it was produced from (the input_hash freshness binding,
+# so an INPUT edit makes a result stale -> FAIL), but it CANNOT prove a recorded result came
+# from a real judge run rather than a hand-typed one. The sign-off (G1-c) keys on suite_hash;
+# `score` printing "PASS" attests the recorded results pass, not that they are unfabricated.
+# ─────────────────────────────────────────────────────────────────────────────
+
+RESULTS_DIR = HERE.parent / "state" / "rub-results"  # one <scenario-id>.json per recorded result
+
+
+def _coerce_bool(v):
+    """verdicts.py twin (verdicts.py:_coerce_bool): a real bool, or the strings 'true'/'false'; anything else
+    (None, a number, junk) is None -> the caller fails toward flagging (L059). Stops a string 'false' silently
+    reading as not-flagged."""
+    if isinstance(v, bool):
+        return v
+    if isinstance(v, str) and v.strip().lower() in ("true", "false"):
+        return v.strip().lower() == "true"
+    return None
+
+
+def _input_hash(input_text: str) -> str:
+    import hashlib
+    return hashlib.sha256((input_text or "").strip().encode()).hexdigest()[:12]
+
+_STOP = {"flag", "must", "with", "that", "this", "from", "over", "name", "names", "than",
+         "into", "they", "their", "when", "what", "which", "where", "have", "been", "also",
+         "only", "true", "false", "scope", "claim", "prose", "result", "results"}
+
+
+def _expect_stance(reason: str) -> str | None:
+    """The stance a handoff-state flag scenario must route to, parsed from EXPECT (needs-stance(/X))."""
+    m = re.search(r"needs-stance\(/?(interpret|work|scout|plan|review)\)", reason.lower())
+    if m:
+        return m.group(1)
+    m = re.search(r"/(interpret|work|scout|plan|review)\b", reason.lower())
+    return m.group(1) if m else None
+
+
+def _reason_keywords(reason: str) -> set[str]:
+    """Salient defect terms for the binding anchor reason-match (MF-4). Keep ids (e006) + content words."""
+    toks = re.findall(r"[a-z0-9][a-z0-9-]{3,}", reason.lower())
+    return {t for t in toks if t not in _STOP}
+
+
+def score_one(rec: dict, result: dict | None) -> tuple[bool, str]:
+    """Score ONE scenario from its recorded grader result. Returns (passed, why). Fail-safe: a missing or
+    malformed result is never a PASS (L059)."""
+    mech, expect = rec["grading_mechanism"], rec["expect"]
+    if result is None:
+        return False, "no recorded result (ungraded)"
+
+    if mech == "verdict-line":
+        rs = _coerce_bool(result.get("ready_to_ship"))   # MF-1: a string 'false' must not read as not-flagged
+        f = result.get("findings")
+        f_is_int = isinstance(f, int) and not isinstance(f, bool)   # bool is an int subclass — exclude it
+        if rs is None and not f_is_int:
+            return False, "malformed verdict (no usable ready_to_ship / findings) -> treated not-ready (flag)"
+        # a found defect = the judge flagged it. An uncoercible ready_to_ship already failed above; here rs is a
+        # real bool or None-with-a-real-findings-count, so fail toward flag when ready_to_ship is anything but True.
+        flagged = (rs is not True) or (f_is_int and f > 0)
+        passed = (flagged == (expect == "flag"))
+        why = f"judge {'flagged' if flagged else 'clean'}; expect={expect}"
+
+    elif mech == "panel-synthesis":
+        cs, mapped = result.get("conclusion_status"), bool(result.get("all_objections_mapped"))
+        # bare SURVIVES with every objection claim-mapped = no-flag; SURVIVES-IF-NARROWED / DOES-NOT-SURVIVE /
+        # unmapped = flag (the verdicts.py synthesis rule — ternary, not boolean).
+        flagged = not (cs == "SURVIVES" and mapped)
+        passed = (flagged == (expect == "flag"))
+        why = f"panel={cs} mapped={mapped} -> {'flag' if flagged else 'clean'}; expect={expect}"
+
+    elif mech == "lattice-classification":
+        cls, exp = result.get("classified"), rec.get("expect_class")
+        # MF-2: a missing classification or a None expect_class must NOT pass via None==None.
+        passed = (cls is not None and exp is not None and cls == exp)
+        why = f"classified {cls!r}; expect_class={exp!r}"
+
+    elif mech == "handoff-state":
+        opened, stance = bool(result.get("handoff_opened")), result.get("handoff_stance")
+        narrowed, wrev = bool(result.get("prose_narrowed")), bool(result.get("classified_writing_revise"))
+        if expect == "flag":  # MUST emit a needs-stance handoff to the right stance, and NOT narrow prose
+            exp = _expect_stance(rec["expect_reason"])
+            passed = opened and (exp is None or stance == exp) and not narrowed
+            why = f"opened={opened} stance={stance!r}(exp {exp!r}) narrowed={narrowed}"
+        else:  # over-routing guard (SC-XSTANCE-08/16): MUST NOT emit AND must classify writing-revise (both halves)
+            passed = (not opened) and wrev
+            why = f"opened={opened} writing-revise={wrev} (both halves required)"
+
+    else:
+        return False, f"unknown grading_mechanism {mech!r}"
+
+    # MF-4: for the never-waivable anchors, a flag must NAME the right defect, not merely fire.
+    if passed and rec.get("is_anchor") and expect == "flag":
+        kws = _reason_keywords(rec["expect_reason"])
+        ftext = (result.get("finding_text") or "").lower()
+        if kws and not any(k in ftext for k in kws):
+            return False, f"ANCHOR flagged but finding did not name the expected defect ({why})"
+    return passed, why
+
+
+def score_suite(records: list[dict], entries: dict[str, dict], det_green: bool) -> dict:
+    """Apply the threshold: every DET green AND every RUB recorded-fresh-and-PASS, anchors never waivable.
+    `entries` maps id -> the full recorded record {"result", "input_hash"}; a result whose input_hash no longer
+    matches the live scenario INPUT is STALE -> treated missing -> FAIL (MF-3, the verdicts.py freshness twin)."""
+    per_mech: dict[str, list[int]] = {}   # mechanism -> [pass, total]
+    failures: list[tuple[str, str]] = []
+    missing: list[str] = []
+    stale: list[str] = []
+    anchor_fail: list[str] = []
+    for rec in records:
+        sid = rec["id"]
+        entry = entries.get(sid)
+        res = None
+        if entry is None:
+            missing.append(sid)
+        elif entry.get("input_hash") != _input_hash(rec.get("input", "")):
+            stale.append(sid)            # recorded against an old INPUT -> must be re-run, never counts as current
+        else:
+            res = entry.get("result")
+        passed, why = score_one(rec, res)
+        if entry is not None and res is None and sid in stale:
+            why = "STALE result (scenario INPUT changed since it was recorded) -> re-run required"
+        m = rec["grading_mechanism"]
+        per_mech.setdefault(m, [0, 0])
+        per_mech[m][1] += 1
+        if passed:
+            per_mech[m][0] += 1
+        else:
+            failures.append((sid, why))
+            if rec.get("is_anchor"):
+                anchor_fail.append(sid)
+    rub_clean = not failures            # missing/stale rows are already failures (score_one returns False)
+    overall = bool(det_green and rub_clean)
+    return {
+        "overall": overall, "det_green": det_green, "rub_clean": rub_clean,
+        "n": len(records), "missing": missing, "stale": stale, "failures": failures,
+        "anchor_fail": anchor_fail, "per_mechanism": per_mech,
+    }
+
+
+def _load_results(results_dir: Path) -> dict[str, dict]:
+    """id -> {"result", "input_hash"}. A corrupt file = a missing result = a FAIL (fail-safe), never a PASS."""
+    out: dict[str, dict] = {}
+    if not results_dir.exists():
+        return out
+    for p in sorted(results_dir.glob("*.json")):
+        try:
+            d = json.loads(p.read_text())
+            out[d["id"]] = {"result": d.get("result", {}), "input_hash": d.get("input_hash")}
+        except Exception:
+            continue
+    return out
+
+
+def record_result(sid: str, result: dict, results_dir: Path, input_text: str) -> int:
+    """Stamp the result with the hash of the INPUT it was produced from, so a later INPUT edit makes it stale."""
+    results_dir.mkdir(parents=True, exist_ok=True)
+    (results_dir / f"{sid}.json").write_text(
+        json.dumps({"id": sid, "result": result, "input_hash": _input_hash(input_text)}) + "\n")
+    print(f"record: {sid} (input_hash {_input_hash(input_text)}) -> {results_dir / (sid + '.json')}")
+    return 0
+
+
+def suite_hash(records: list[dict], entries: dict[str, dict], outcome: dict) -> str:
+    """The content hash the G1-c sign-off token keys on (so a sign-off dies when any result/outcome changes)."""
+    import hashlib
+    payload = json.dumps({
+        "ids": sorted(r["id"] for r in records),
+        "entries": {k: entries[k] for k in sorted(entries)},
+        "overall": outcome["overall"],
+    }, sort_keys=True)
+    return hashlib.sha256(payload.encode()).hexdigest()[:16]
+
+
+def score(scenarios: Path, store: Path, results_dir: Path, det_green: bool | None) -> int:
+    """CLI: validate the store, get the DET-green signal, load recorded results, score, print the tally + hash."""
+    if validate_suite(scenarios, store) != 0:
+        print("score: FAIL — fix validate-suite first (store integrity is a precondition).")
+        return 1
+    records = json.loads(store.read_text())["scenarios"]
+    if det_green is None:  # the real every-DET-green signal: run_checks runs every DET script's --selftest
+        import subprocess
+        rc = subprocess.run([sys.executable, str(HERE / "run_checks.py"), "--selftest"],
+                            capture_output=True, text=True).returncode
+        det_green = (rc == 0)
+    entries = _load_results(results_dir)
+    out = score_suite(records, entries, det_green)
+    h = suite_hash(records, entries, out)
+    print(f"\nRUB suite score  (hash {h})")
+    print(f"  DET floor green : {out['det_green']}")
+    for m, (p, t) in sorted(out["per_mechanism"].items()):
+        print(f"  {m:22} {p}/{t}")
+    if out["missing"]:
+        print(f"  UNGRADED (no result, => FAIL): {len(out['missing'])}  e.g. {out['missing'][:5]}")
+    if out["stale"]:
+        print(f"  STALE (INPUT changed since recorded, => FAIL): {len(out['stale'])}  e.g. {out['stale'][:5]}")
+    if out["failures"]:
+        print(f"  FAILURES ({len(out['failures'])}):")
+        for sid, why in out["failures"][:20]:
+            tag = "  ANCHOR" if sid in out["anchor_fail"] else ""
+            print(f"     {sid}{tag}: {why}")
+    print(f"\nrub_harness score: {'PASS — suite ready' if out['overall'] else 'FAIL'}"
+          + ("" if out["overall"] else f"  (det_green={out['det_green']}, anchor_fail={out['anchor_fail']})"))
+    return 0 if out["overall"] else 1
 
 
 def _selftest() -> int:
@@ -314,6 +528,91 @@ def _selftest() -> int:
         tmp.write_text("{ not json")
         check("validate-suite FAIL on a corrupt store", validate_suite(SCENARIOS_MD, tmp) == 1)
 
+    # 4. G1-b scoring — one MUST-flag AND one MUST-NOT-flag synthetic per mechanism (oracle MF-5 symmetry),
+    #    plus the anchor reason-binding, the missing-result fail-safe, and the threshold.
+    def rec(mech, expect, **kw):
+        return {"id": kw.pop("id", "SC-X"), "grading_mechanism": mech, "expect": expect,
+                "expect_reason": kw.pop("reason", ""), "is_anchor": kw.pop("anchor", False),
+                "expect_class": kw.pop("expect_class", None), "input": kw.pop("input", "fixture")}
+
+    def entry(rec_, result):  # wrap a result as a fresh recorded entry (matching input_hash)
+        return {"result": result, "input_hash": _input_hash(rec_["input"])}
+
+    # verdict-line: flag <=> not ready / findings>0
+    check("verdict-line MUST-flag PASS", score_one(rec("verdict-line", "flag"), {"ready_to_ship": False, "findings": 1})[0])
+    check("verdict-line MUST-flag FAIL when judge says clean",
+          not score_one(rec("verdict-line", "flag"), {"ready_to_ship": True, "findings": 0})[0])
+    check("verdict-line MUST-NOT-flag PASS (near-miss clean)",
+          score_one(rec("verdict-line", "noflag"), {"ready_to_ship": True, "findings": 0})[0])
+    check("verdict-line MUST-NOT-flag FAIL when judge flags a near-miss",
+          not score_one(rec("verdict-line", "noflag"), {"ready_to_ship": False, "findings": 2})[0])
+    check("verdict-line malformed result -> FAIL (fail-safe)",
+          not score_one(rec("verdict-line", "noflag"), {})[0])
+    # MF-1: a string 'false' / 0 must NOT read as not-flagged (the _coerce_bool silent-pass)
+    check("verdict-line string 'false' on a near-miss -> FAIL (MF-1)",
+          not score_one(rec("verdict-line", "noflag"), {"ready_to_ship": "false", "findings": 0})[0])
+    check("verdict-line string 'true' on a near-miss -> PASS (MF-1 coerces)",
+          score_one(rec("verdict-line", "noflag"), {"ready_to_ship": "true", "findings": 0})[0])
+    check("verdict-line findings:True (bool) is not a finding count",
+          score_one(rec("verdict-line", "noflag"), {"ready_to_ship": "true", "findings": True})[0])
+    # panel-synthesis: bare SURVIVES + mapped = clean; else flag (ternary)
+    check("panel MUST-NOT-flag PASS on bare SURVIVES+mapped",
+          score_one(rec("panel-synthesis", "noflag"), {"conclusion_status": "SURVIVES", "all_objections_mapped": True})[0])
+    check("panel SURVIVES-IF-NARROWED counts as flag",
+          score_one(rec("panel-synthesis", "flag"), {"conclusion_status": "SURVIVES-IF-NARROWED", "all_objections_mapped": True})[0])
+    check("panel unmapped objection counts as flag",
+          score_one(rec("panel-synthesis", "flag"), {"conclusion_status": "SURVIVES", "all_objections_mapped": False})[0])
+    # lattice-classification: graded on expect_class
+    check("lattice MUST-classify-NEW PASS", score_one(rec("lattice-classification", "classify", expect_class="NEW"), {"classified": "NEW"})[0])
+    check("lattice wrong classification FAIL", not score_one(rec("lattice-classification", "classify", expect_class="OLD"), {"classified": "NEW"})[0])
+    # MF-2: missing classification + None expect_class must NOT pass via None==None
+    check("lattice None==None -> FAIL (MF-2)", not score_one(rec("lattice-classification", "classify", expect_class=None), {})[0])
+    check("lattice missing classification -> FAIL", not score_one(rec("lattice-classification", "classify", expect_class="OLD"), {})[0])
+    # handoff-state: flag scenario needs the right stance + no narrowing; guard needs absent + writing-revise
+    check("handoff flag PASS (right stance, not narrowed)",
+          score_one(rec("handoff-state", "flag", reason="needs-stance(/interpret) names E006"),
+                    {"handoff_opened": True, "handoff_stance": "interpret", "prose_narrowed": False, "finding_text": "E006"})[0])
+    check("handoff flag FAIL when prose narrowed anyway",
+          not score_one(rec("handoff-state", "flag", reason="needs-stance(/interpret)"),
+                        {"handoff_opened": True, "handoff_stance": "interpret", "prose_narrowed": True})[0])
+    check("handoff flag FAIL on wrong stance",
+          not score_one(rec("handoff-state", "flag", reason="needs-stance(/work)"),
+                        {"handoff_opened": True, "handoff_stance": "scout", "prose_narrowed": False})[0])
+    check("handoff guard PASS (no handoff + writing-revise)",
+          score_one(rec("handoff-state", "noflag"), {"handoff_opened": False, "classified_writing_revise": True})[0])
+    check("handoff guard FAIL when triage did NOTHING (both halves required)",
+          not score_one(rec("handoff-state", "noflag"), {"handoff_opened": False, "classified_writing_revise": False})[0])
+    # MF-4: anchor flagged but for the WRONG reason -> FAIL even though it flagged
+    voa = rec("verdict-line", "flag", id="SC-VOICE-01", anchor=True, reason="MUST flag storytelling / agency-to-abstraction")
+    check("ANCHOR flag PASS when finding names the defect",
+          score_one(voa, {"ready_to_ship": False, "findings": 1, "finding_text": "storytelling: the question 'earns'"})[0])
+    check("ANCHOR flag FAIL when finding names the WRONG defect (MF-4 binding)",
+          not score_one(voa, {"ready_to_ship": False, "findings": 1, "finding_text": "em-dash splice"})[0])
+    # threshold via score_suite (entries are id -> {result, input_hash})
+    rA, rB = rec("verdict-line", "flag", id="A"), rec("verdict-line", "noflag", id="B")
+    good = {"A": entry(rA, {"ready_to_ship": False, "findings": 1}), "B": entry(rB, {"ready_to_ship": True, "findings": 0})}
+    check("score_suite PASS when DET green + all RUB pass", score_suite([rA, rB], good, True)["overall"])
+    check("score_suite FAIL when DET not green", not score_suite([rA, rB], good, False)["overall"])
+    check("score_suite FAIL on a missing result", not score_suite([rA, rB], {"A": good["A"]}, True)["overall"])
+    # MF-3: a result recorded against an OLD input is stale -> FAIL, even though it would otherwise PASS
+    stale_entries = {"A": {"result": {"ready_to_ship": False, "findings": 1}, "input_hash": _input_hash("OLD INPUT")},
+                     "B": good["B"]}
+    so = score_suite([rA, rB], stale_entries, True)
+    check("score_suite FAIL on a stale (input changed) result (MF-3)", (not so["overall"]) and so["stale"] == ["A"])
+    arec = [rec("verdict-line", "flag", id="SC-VOICE-01", anchor=True, reason="MUST flag storytelling")]
+    bad = {"SC-VOICE-01": entry(arec[0], {"ready_to_ship": False, "findings": 1, "finding_text": "wrong reason"})}
+    out = score_suite(arec, bad, True)
+    check("score_suite reports an anchor failure", out["anchor_fail"] == ["SC-VOICE-01"] and not out["overall"])
+    # record/_load round-trip (now stamps + returns input_hash)
+    with tempfile.TemporaryDirectory() as td:
+        rd = Path(td) / "r"
+        record_result("SC-Z", {"ready_to_ship": True, "findings": 0}, rd, "the fixture")
+        loaded = _load_results(rd).get("SC-Z")
+        check("record/_load round-trip carries result + input_hash",
+              loaded["result"] == {"ready_to_ship": True, "findings": 0} and loaded["input_hash"] == _input_hash("the fixture"))
+        (rd / "SC-bad.json").write_text("{ nope")
+        check("corrupt result file -> not loaded (=> missing => FAIL)", "SC-bad" not in _load_results(rd))
+
     print("rub_harness selftest: " + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1
 
@@ -321,10 +620,19 @@ def _selftest() -> int:
 def main(argv=None):
     ap = argparse.ArgumentParser(description="RUB-grading harness for the /write pipeline (G1).")
     sub = ap.add_subparsers(dest="cmd")
-    for name in ("validate-suite", "gen-store"):
+    for name in ("validate-suite", "gen-store", "score"):
         p = sub.add_parser(name)
         p.add_argument("--scenarios", type=Path, default=SCENARIOS_MD)
         p.add_argument("--store", type=Path, default=STORE)
+    score_p = sub.choices["score"]
+    score_p.add_argument("--results-dir", type=Path, default=RESULTS_DIR)
+    score_p.add_argument("--det-green", dest="det_green", action="store_true", default=None,
+                         help="assert the DET floor is green instead of running run_checks --selftest (testing)")
+    rp = sub.add_parser("record")
+    rp.add_argument("--id", required=True)
+    rp.add_argument("--result", required=True, help="the grader result as a JSON object")
+    rp.add_argument("--results-dir", type=Path, default=RESULTS_DIR)
+    rp.add_argument("--store", type=Path, default=STORE)
     ap.add_argument("--selftest", action="store_true")
     args = ap.parse_args(argv)
     if args.selftest:
@@ -333,6 +641,22 @@ def main(argv=None):
         return validate_suite(args.scenarios, args.store)
     if args.cmd == "gen-store":
         return gen_store(args.scenarios, args.store)
+    if args.cmd == "score":
+        return score(args.scenarios, args.store, args.results_dir, args.det_green)
+    if args.cmd == "record":
+        try:
+            result = json.loads(args.result)
+        except Exception as e:
+            ap.error(f"--result must be a JSON object: {e}")
+        # bind the result to the scenario's CURRENT input (so a later INPUT edit makes it stale, MF-3).
+        try:
+            store_recs = json.loads(args.store.read_text())["scenarios"]
+        except Exception as e:
+            ap.error(f"cannot read store {args.store}: {e}")
+        match = [r for r in store_recs if r["id"] == args.id]
+        if not match:
+            ap.error(f"{args.id} is not a RUB scenario in {args.store}")
+        return record_result(args.id, result, args.results_dir, match[0].get("input", ""))
     ap.error("a subcommand or --selftest is required")
 
 
