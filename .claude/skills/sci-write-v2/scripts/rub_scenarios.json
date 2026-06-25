@@ -1087,7 +1087,7 @@
       "grading_mechanism": "handoff-state",
       "grader": "triage",
       "input": "a finding that IS writing-fixable (a scope over-read a reword within recorded evidence fixes)",
-      "expect": "flag",
+      "expect": "noflag",
       "expect_class": null,
       "expect_reason": "classify writing-revise, NOT a handoff; goes to the revise loop",
       "is_anchor": false
@@ -1123,7 +1123,7 @@
       "grading_mechanism": "handoff-state",
       "grader": "triage",
       "input": "F13=SURVIVES-IF-NARROWED but the narrowing IS satisfiable within docs/ (a recorded result already supports the narrower claim)",
-      "expect": "flag",
+      "expect": "noflag",
       "expect_class": null,
       "expect_reason": "classify writing-revise (narrow in prose), NOT needs-stance \u2014 the backstop fires only on out-of-docs/ narrowings",
       "is_anchor": false

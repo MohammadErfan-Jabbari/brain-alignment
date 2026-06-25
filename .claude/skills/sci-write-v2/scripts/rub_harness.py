@@ -99,6 +99,18 @@ def derive_grader(tags: list[str], mechanism: str) -> str:
     return "sw-structure-judge"
 
 
+def _derive_expect(expect_text: str, mechanism: str) -> str:
+    """flag / noflag / classify. noflag = a near-miss ('MUST NOT flag') OR an over-routing GUARD — the handoff
+    guards SC-XSTANCE-08/16 phrase it as 'classify writing-revise, NOT a handoff' / 'NOT needs-stance', with no
+    literal 'MUST NOT' (oracle G1-c MF-1: testing only 'MUST NOT' inverted these two and rewarded the regression)."""
+    if mechanism == "lattice-classification":
+        return "classify"
+    up = expect_text.upper()
+    if "MUST NOT" in up or re.search(r"NOT\s+(?:A\s+)?(?:HANDOFF|NEEDS-STANCE)", up):
+        return "noflag"
+    return "flag"
+
+
 def _expect_class(expect: str) -> str | None:
     """For a lattice-classification row, the expected term classification parsed from EXPECT (SC-RM-1/2)."""
     up = expect.upper()
@@ -143,8 +155,7 @@ def parse_scenarios_md(path: Path) -> list[dict]:
             "grader": derive_grader(tags, mech),
             "input": inp,                      # the fixture text fed to the grader (freshness-bound, MF-3)
             # flag/noflag is the verdict-line/panel/handoff signal; lattice rows grade on expect_class instead.
-            "expect": "classify" if mech == "lattice-classification"
-                      else ("noflag" if "MUST NOT" in expect.upper() else "flag"),
+            "expect": _derive_expect(expect, mech),
             "expect_class": ecls,              # OLD|NEW for lattice rows, else None
             "expect_reason": expect,
             "is_anchor": sid in ANCHORS,
@@ -423,11 +434,14 @@ def suite_hash(records: list[dict], entries: dict[str, dict], outcome: dict) -> 
     return hashlib.sha256(payload.encode()).hexdigest()[:16]
 
 
-def score(scenarios: Path, store: Path, results_dir: Path, det_green: bool | None) -> int:
-    """CLI: validate the store, get the DET-green signal, load recorded results, score, print the tally + hash."""
+SIGNOFF = HERE.parent / "state" / "rub-signoff.json"
+
+
+def _compute(scenarios: Path, store: Path, results_dir: Path, det_green: bool | None):
+    """Shared by `score` and `sign-off`: validate the store, get the DET-green signal, load results, score.
+    Returns (records, entries, outcome, suite_hash) or None if the store is invalid (a hard precondition)."""
     if validate_suite(scenarios, store) != 0:
-        print("score: FAIL — fix validate-suite first (store integrity is a precondition).")
-        return 1
+        return None
     records = json.loads(store.read_text())["scenarios"]
     if det_green is None:  # the real every-DET-green signal: run_checks runs every DET script's --selftest
         import subprocess
@@ -436,7 +450,16 @@ def score(scenarios: Path, store: Path, results_dir: Path, det_green: bool | Non
         det_green = (rc == 0)
     entries = _load_results(results_dir)
     out = score_suite(records, entries, det_green)
-    h = suite_hash(records, entries, out)
+    return records, entries, out, suite_hash(records, entries, out)
+
+
+def score(scenarios: Path, store: Path, results_dir: Path, det_green: bool | None) -> int:
+    """CLI: validate the store, get the DET-green signal, load recorded results, score, print the tally + hash."""
+    computed = _compute(scenarios, store, results_dir, det_green)
+    if computed is None:
+        print("score: FAIL — fix validate-suite first (store integrity is a precondition).")
+        return 1
+    records, entries, out, h = computed
     print(f"\nRUB suite score  (hash {h})")
     print(f"  DET floor green : {out['det_green']}")
     for m, (p, t) in sorted(out["per_mechanism"].items()):
@@ -453,6 +476,61 @@ def score(scenarios: Path, store: Path, results_dir: Path, det_green: bool | Non
     print(f"\nrub_harness score: {'PASS — suite ready' if out['overall'] else 'FAIL'}"
           + ("" if out["overall"] else f"  (det_green={out['det_green']}, anchor_fail={out['anchor_fail']})"))
     return 0 if out["overall"] else 1
+
+
+# ─── G1-c sign-off: a recorded Erfan token over the current suite hash (lift of accept-residual). ───
+# It REFUSES a failing suite, and goes STALE the moment the suite changes (the token's suite_hash no longer
+# matches) — so a sign-off can never silently cover a later edit. TRUSTED-not-verified, same as the rest.
+
+def signoff_decision(outcome: dict) -> tuple[bool, str]:
+    """A sign-off is allowed iff the whole threshold passed (DET green ∧ every RUB PASS ∧ no anchor failure)."""
+    if not outcome["overall"]:
+        return False, (f"REFUSED — suite not passing (det_green={outcome['det_green']}, "
+                       f"{len(outcome['failures'])} RUB failure(s), anchor_fail={outcome['anchor_fail']})")
+    return True, "all RUB PASS, DET floor green, no anchor failure"
+
+
+def read_signoff(path: Path) -> dict | None:
+    try:
+        return json.loads(path.read_text())
+    except Exception:
+        return None
+
+
+def signoff_status(current_hash: str, path: Path) -> tuple[str, str]:
+    """SIGNED (token matches the current suite) / STALE (suite changed since) / UNSIGNED."""
+    tok = read_signoff(path)
+    if not tok or not isinstance(tok, dict) or "suite_hash" not in tok:
+        return "UNSIGNED", "no valid sign-off token"
+    if tok["suite_hash"] == current_hash:
+        return "SIGNED", f"signed by {tok.get('by')!r} for suite {current_hash}"
+    return "STALE", f"token is for suite {tok['suite_hash']}, current is {current_hash} — re-sign required"
+
+
+def sign_off(scenarios: Path, store: Path, results_dir: Path, det_green: bool | None,
+             by: str | None, note: str, status_only: bool, signoff_path: Path) -> int:
+    computed = _compute(scenarios, store, results_dir, det_green)
+    if computed is None:
+        print("sign-off: FAIL — store invalid (fix validate-suite).")
+        return 1
+    _records, _entries, out, h = computed
+    if status_only:
+        state, msg = signoff_status(h, signoff_path)
+        print(f"sign-off status: {state} — {msg}")
+        return 0 if state == "SIGNED" else 1
+    ok_to_sign, why = signoff_decision(out)
+    if not ok_to_sign:
+        print(f"sign-off: {why}")
+        return 1
+    if not by:
+        print("sign-off: --by is required to record who signed.")
+        return 1
+    import time
+    signoff_path.parent.mkdir(parents=True, exist_ok=True)
+    signoff_path.write_text(json.dumps(
+        {"by": by, "note": note, "suite_hash": h, "n": out["n"], "at": int(time.time())}) + "\n")
+    print(f"sign-off: RECORDED — {by} signed suite {h} ({out['n']} RUB scenarios, all PASS). -> {signoff_path}")
+    return 0
 
 
 def _selftest() -> int:
@@ -502,6 +580,14 @@ def _selftest() -> int:
               and r["grader"] == "sw-structure-judge" for r in live))
     check("the 10 SC-XSTANCE RUB rows are handoff-state",
           sum(1 for r in live if r["id"].startswith("SC-XSTANCE") and r["grading_mechanism"] == "handoff-state") == 10)
+    # oracle G1-c MF-1: the over-routing guards must derive expect=noflag (they phrase it without 'MUST NOT').
+    guards = {r["id"]: r["expect"] for r in live if r["id"] in ("SC-XSTANCE-08", "SC-XSTANCE-16")}
+    check("over-routing guards SC-XSTANCE-08/16 derive expect=noflag (MF-1)",
+          guards == {"SC-XSTANCE-08": "noflag", "SC-XSTANCE-16": "noflag"})
+    check("the handoff flag rows (e.g. 01,02) stay expect=flag",
+          all(r["expect"] == "flag" for r in live if r["id"] in ("SC-XSTANCE-01", "SC-XSTANCE-02")))
+    check("_derive_expect: 'NOT a handoff' -> noflag", _derive_expect("classify writing-revise, NOT a handoff", "handoff-state") == "noflag")
+    check("_derive_expect: 'prose NOT narrowed' stays flag", _derive_expect("needs-stance(/interpret); prose NOT narrowed", "handoff-state") == "flag")
     # MF-2: every lattice row's EXPECT is a real OLD/NEW classification, never a flag — the assert that would
     # have gone red on SC-STR-03's misroute.
     lat = [r for r in live if r["grading_mechanism"] == "lattice-classification"]
@@ -613,6 +699,20 @@ def _selftest() -> int:
         (rd / "SC-bad.json").write_text("{ nope")
         check("corrupt result file -> not loaded (=> missing => FAIL)", "SC-bad" not in _load_results(rd))
 
+    # 5. G1-c sign-off: refuse a failing suite; SIGNED only when the token matches the current hash; STALE after.
+    passing = {"overall": True, "det_green": True, "failures": [], "anchor_fail": []}
+    failing = {"overall": False, "det_green": True, "failures": [("X", "y")], "anchor_fail": ["SC-VOICE-01"]}
+    check("sign-off ALLOWED on a passing suite", signoff_decision(passing)[0])
+    check("sign-off REFUSED on a failing suite", not signoff_decision(failing)[0])
+    with tempfile.TemporaryDirectory() as td:
+        sp = Path(td) / "signoff.json"
+        check("UNSIGNED when no token", signoff_status("abc123", sp)[0] == "UNSIGNED")
+        sp.write_text(json.dumps({"by": "Erfan", "suite_hash": "abc123"}))
+        check("SIGNED when token matches current hash", signoff_status("abc123", sp)[0] == "SIGNED")
+        check("STALE when suite changed (hash differs)", signoff_status("def456", sp)[0] == "STALE")
+        sp.write_text("{ corrupt")
+        check("UNSIGNED on a corrupt token (fail-safe)", signoff_status("abc123", sp)[0] == "UNSIGNED")
+
     print("rub_harness selftest: " + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1
 
@@ -633,6 +733,15 @@ def main(argv=None):
     rp.add_argument("--result", required=True, help="the grader result as a JSON object")
     rp.add_argument("--results-dir", type=Path, default=RESULTS_DIR)
     rp.add_argument("--store", type=Path, default=STORE)
+    so = sub.add_parser("sign-off")
+    so.add_argument("--scenarios", type=Path, default=SCENARIOS_MD)
+    so.add_argument("--store", type=Path, default=STORE)
+    so.add_argument("--results-dir", type=Path, default=RESULTS_DIR)
+    so.add_argument("--det-green", dest="det_green", action="store_true", default=None)
+    so.add_argument("--by", default=None, help="who is signing (required to record a sign-off)")
+    so.add_argument("--note", default="")
+    so.add_argument("--status", action="store_true", help="report SIGNED/STALE/UNSIGNED for the current suite")
+    so.add_argument("--signoff-path", type=Path, default=SIGNOFF)
     ap.add_argument("--selftest", action="store_true")
     args = ap.parse_args(argv)
     if args.selftest:
@@ -657,6 +766,9 @@ def main(argv=None):
         if not match:
             ap.error(f"{args.id} is not a RUB scenario in {args.store}")
         return record_result(args.id, result, args.results_dir, match[0].get("input", ""))
+    if args.cmd == "sign-off":
+        return sign_off(args.scenarios, args.store, args.results_dir, args.det_green,
+                        args.by, args.note, args.status, args.signoff_path)
     ap.error("a subcommand or --selftest is required")
 
 

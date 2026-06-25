@@ -548,3 +548,24 @@ opus oracle **FIX-THEN-PASS** · black-box `record`→`score` on real ids). Dura
   `verdicts.py` "a YES dies when a byte changes" guarantee, applied to the RUB INPUT.
 - **TRUSTED-not-verified, stated in-file:** the store records which result was entered + its INPUT freshness, but
   cannot prove a result came from a real judge run vs a hand-typed one (same surface as `gate_state`/`verdicts`).
+
+**G1-c — the run-protocol + the sign-off mechanic.** Built the `sign-off` CLI (`signoff_decision`/`signoff_status`/
+`sign_off` + the `_compute` helper) and the run-protocol doc `references/rub-harness-protocol.md` (the P3
+gate procedure: run each scenario's owning step per mechanism → `record` → `score` → `sign-off`). Three nets green
+(selftest incl. 6 sign-off cases · opus oracle **FIX-THEN-PASS** · black-box `record`→`score`→guard-grading +
+the inverted-guard regression). Durable decisions:
+- **Sign-off lifts `accept-residual`:** it REFUSES a failing suite, and the token binds to the suite content hash
+  (`suite_hash`) so it goes **STALE** the moment any result or the suite changes — a sign-off can never silently
+  cover a later edit. `signoff_status` fail-safes a corrupt/missing/partial token to UNSIGNED.
+- **Oracle MF-1 (the inverted-guard silent-pass, a G1-a parser bug surfaced here):** `SC-XSTANCE-08/16` phrase
+  their noflag EXPECT as "classify writing-revise, NOT a handoff" / "NOT needs-stance" — no literal "MUST NOT" —
+  so `expect` derived to `flag`, and `score_one` graded them under the inverted branch: correct pipeline behavior
+  FAILed and the regression PASSed. Fixed with `_derive_expect` (a guard pattern `NOT (a )?(handoff|needs-stance)`
+  → noflag; verified `prose NOT narrowed` still stays flag). Added the selftest assert the gap revealed (the 10
+  XSTANCE rows are handoff-state AND 08/16 are noflag — the old test only counted the mechanism, never `expect`).
+- **Oracle MF-2:** the doc now pins the panel-synthesis rule — `conclusion_status` is `counter-argument`'s
+  `CONCLUSION-STATUS` verbatim (premortem has no status; its TOP-RISK folds in as an advisory objection), citing
+  `verdicts.py:27-35`. **NH-1:** the doc states SC-XSTANCE-01's `finding_text` must name E006 (the anchor binding).
+- **Field cross-check clean (oracle):** every field the doc tells the orchestrator to `record` is exactly what
+  `score_one` reads; `record` parses `--result` via `json.loads` so values are real bools/ints (and `_coerce_bool`
+  defends anyway). The prior oracle's KILL-risk (records-raw-strings) is closed.
