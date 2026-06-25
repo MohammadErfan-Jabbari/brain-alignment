@@ -859,9 +859,9 @@
       "grading_mechanism": "verdict-line",
       "grader": "sw-voice-auditor",
       "input": "\"...the Platonic Representation Hypothesis, which suggests that as models get better they converge to a common representation.\"",
-      "expect": "flag",
+      "expect": "noflag",
       "expect_class": null,
-      "expect_reason": "MUST flag agency-to-abstraction (a hypothesis doesn't suggest; its authors do)",
+      "expect_reason": "MUST NOT flag \u2014 \"X hypothesis suggests Y\" is standard scientific idiom, not an agency tell (Erfan, S43); flag only egregious agency (results establish, the question demands)",
       "is_anchor": false
     },
     {

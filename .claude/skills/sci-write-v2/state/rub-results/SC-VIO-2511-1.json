@@ -1,0 +1,1 @@
+{"id": "SC-VIO-2511-1", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "MISS: auditor treated hypothesis suggests as acceptable hedging; did NOT flag agency-to-abstraction", "raw": "VOICE-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "37b882c8c66a"}
