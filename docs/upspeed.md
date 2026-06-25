@@ -27,6 +27,7 @@ dry-run + cross-stance design.)
   live DET selftest label or its RUB P3-harness pass criterion.
 
 ## What's next (resume here)
+- **X1–X4 independently verified (S41) — build holds, no re-check needed.** Both DET selftests green on HEAD, the keystone selftest asserts "reword cannot clear a handoff," MF1/MF-A confirmed, 16 scenarios present. The cross-stance gap is SOLVED. **The ordered PRE-P3 READINESS CHECKLIST (G1 RUB-harness · G2 framing-escape decision · G3 optional converged-demo) is in `tasks.md`** — work that before the cutover can run. See `docs/timeline/2026-06-25-1345_*`.
 - **P3 cutover — IRREVERSIBLE, Erfan drives.** X1–X4 are done, so the cutover no longer freezes a known gap.
   **First task: stand up the RUB-grading harness** for the ~51 RUB scenarios (incl. the 10 RUB `SC-XSTANCE-*`) + a
   sign-off mechanic — none exists (the standing P3 open loop, now also carrying the cross-stance scenarios). Then:
