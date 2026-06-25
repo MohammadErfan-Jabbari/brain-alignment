@@ -1,0 +1,1 @@
+{"id": "SC-STR-11", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "no point sentence; drifting topic; all procedural", "raw": "STRUCTURE-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "d0d6ccf3ef49"}

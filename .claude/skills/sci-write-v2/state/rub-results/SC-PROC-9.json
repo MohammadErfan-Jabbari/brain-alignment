@@ -1,0 +1,1 @@
+{"id": "SC-PROC-9", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "CARS intro moves force-fit onto a Methods section (justification template where procedure belongs)", "raw": "STRUCTURE-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "5144e8841a4b"}

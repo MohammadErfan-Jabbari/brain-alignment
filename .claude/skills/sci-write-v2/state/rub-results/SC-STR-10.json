@@ -1,0 +1,1 @@
+{"id": "SC-STR-10", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - short but complete; point opens, CCC respected, forward link closes", "raw": "STRUCTURE-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "87a502fd685c"}

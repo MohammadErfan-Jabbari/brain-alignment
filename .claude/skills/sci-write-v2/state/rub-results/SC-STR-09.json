@@ -1,0 +1,1 @@
+{"id": "SC-STR-09", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - context(ceiling def)->content(method)->point(71%); old-to-new respected", "raw": "STRUCTURE-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "1822c248597a"}

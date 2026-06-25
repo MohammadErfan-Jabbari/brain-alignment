@@ -1,0 +1,1 @@
+{"id": "SC-STR-06", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "opening promises 4 contributions, discussion resolves 1 (width overpromise)", "raw": "STRUCTURE-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "6d2f943132f0"}

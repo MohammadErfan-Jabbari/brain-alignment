@@ -1,0 +1,1 @@
+{"id": "SC-EX-2209-4", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - CARS gap, names what prior work failed to show", "raw": "STRUCTURE-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "9fee95c83ba3"}

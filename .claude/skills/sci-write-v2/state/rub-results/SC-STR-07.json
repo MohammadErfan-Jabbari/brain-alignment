@@ -1,0 +1,1 @@
+{"id": "SC-STR-07", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "territory->this-work, Move-2 gap/niche missing", "raw": "STRUCTURE-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "5054a97331b3"}
