@@ -1,0 +1,1 @@
+{"id": "SC-ARG-5", "result": {"conclusion_status": "SURVIVES-IF-NARROWED", "all_objections_mapped": true, "finding_text": "panel SURVIVES-IF-NARROWED (needs matched-ppl narrowing); both objections mapped to c1 by the panel; flags via the status route", "raw": "CONCLUSION-STATUS: SURVIVES-IF-NARROWED"}, "input_hash": "7aaea4ab1436"}

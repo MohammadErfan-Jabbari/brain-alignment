@@ -1,0 +1,1 @@
+{"id": "SC-ARG-4", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "c1 carries no acknowledgment; agent independently inferred the missing limit (Q2 causal lever undemonstrated; E002/E006 associative, no isolating intervention)", "raw": "ACK-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "6dd607e601d7"}
