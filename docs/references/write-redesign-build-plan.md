@@ -498,3 +498,31 @@ reader that finds a substrate defect now routes it upstream (handoff), blocks co
 and never papers it over or adopts a number. **NEXT = P3 cutover (Erfan drives, IRREVERSIBLE)** — first stand up the
 RUB-grading harness (the 10 RUB SC-XSTANCE-* + the ~41 prior RUB), then run the full 135-suite, retire the old flow,
 repoint CLAUDE.md + 03-methodology, record D048-complete.
+
+---
+
+### G1 build — the RUB-grading harness (the P3 blocker), S42. Plan: `write-redesign-g1-plan.md` (BUILD-READY, 2 oracle rounds).
+Same three-net loop per chunk (selftest → opus oracle → black-box/fresh-`claude -p` → atomic commit + this log).
+
+**G1-a — the scenario store + the `validate-suite` DET.** Built `scripts/rub_harness.py` (parser + `gen-store` +
+`validate-suite` + `--selftest`) and `scripts/rub_scenarios.json` (the store). Corrected the canonical RUB count
+`~51 → 94` in `tasks.md` + `scenarios.md`. Three nets green (selftest 30 checks · opus oracle **FIX-THEN-PASS** ·
+black-box CLI on an independent fixture). Durable decisions:
+- **The store is DERIVED from `scenarios.md`, never hand-assigned** — `validate-suite` parses the markdown LIVE and
+  diffs every derived field (`grading_mechanism`/`grader`/`expect`/`expect_class`/`expect_reason`/`is_anchor`), so
+  the JSON cannot drift from the spec (oracle N-1). `gen-store` regenerates; a corrupt/dropped/drifted store fails
+  toward blocking (L059).
+- **94 RUB rows** (live parse), by mechanism: **verdict-line 80 · handoff-state 10 · panel-synthesis 2 ·
+  lattice-classification 2**. The honest count; the "~51"/"93" earlier figures dropped the 36 `SC-EX-*`/`SC-VIO-*`
+  real-prose RUB rows.
+- **Oracle MF-1 (load-bearing):** `SC-STR-03` (`F1`, EXPECT "MUST flag jargon not glossed") was misrouted to
+  `lattice-classification`, but the reader-model emits no flag — the **F11 structure judge** owns it (reads
+  `reader_model`), exactly like `SC-STR-12`. Fixed by branching the F1-only mechanism on the EXPECT text: "MUST
+  classify" → lattice (only `SC-RM-1/2`); a flag → verdict-line/structure. The selftest now asserts every lattice
+  row's EXPECT is a real OLD/NEW class, never a flag (the assert that would have gone red on the misroute).
+- **Oracle MF-2:** lattice rows carry a distinct `expect_class` (OLD|NEW) — a flag/noflag boolean collapsed
+  `SC-RM-1` (classify OLD) and `SC-RM-2` (classify NEW) to the same value. `validate-suite` asserts a clean class.
+- **Oracle MF-3:** `expect_reason` is in the drift tuple — it is the binding reason-match text for the 5 anchors
+  (G1-b), so a stale store reason would silently grade an anchor against drifted text.
+- **Oracle NH-1:** a parse-integrity guard requires exactly 6 pipe-fields per RUB row — a literal `|` inside an
+  INPUT would silently shift EXPECT (a misread, not a drop); now flagged, never silent-misread.

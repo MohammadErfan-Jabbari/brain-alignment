@@ -318,6 +318,9 @@ but is the DET layer that makes the blocker bite at ship time (under SC-01/02/09
 synthetic + 24 real positive near-misses + 12 real over-claims + 13 hardening; **+16 SC-XSTANCE-* (D050)**). Full
 coverage F1–F20 + fluidity, both-direction precision guards on every checker, Claudio + cross-stance anchors
 locked, F17 exemplar set seeded from real venue prose, `evidence.status` field added.
-**Next (P3):** stand up the RUB-grading harness for the ~51 RUB scenarios (incl. the **10 RUB** SC-XSTANCE-* — the
-7 pure-RUB 03/04/05/06/08/11/16 + the RUB halves of 01/02/12) — none exists yet; then 2c (map each functionality →
+**Next (P3):** stand up the RUB-grading harness for the **94 RUB scenarios** (a live parse: 94 RUB-containing rows
++ 41 DET-only = 135 — the earlier "~51" dropped the 36 `SC-EX-*`/`SC-VIO-*` real-prose RUB rows + the hardening
+near-misses; G1-a corrects the count and is the canonical source via `rub_scenarios.json`). Incl. the **10 RUB**
+SC-XSTANCE-* (7 pure-RUB 03/04/05/06/08/11/16 + the RUB halves of 01/02/12). **G1-a built it** (the store +
+`validate-suite` DET); G1-b/c/d add the scorer, run-protocol, and live dry-run. Then 2c (map each functionality →
 CC primitive) · 2d (reverse coverage check).
