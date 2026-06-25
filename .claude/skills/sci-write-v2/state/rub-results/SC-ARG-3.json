@@ -1,0 +1,1 @@
+{"id": "SC-ARG-3", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "correlation-as-causation: rho=-0.88 descriptive co-variation read as an interventional lever", "raw": "ARGUMENT-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "287d7b88b1db"}

@@ -1,0 +1,1 @@
+{"id": "SC-EX-TRIBE-6", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - matched-input baseline upgrade before comparison (anti-strawman)", "raw": "ARGUMENT-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "ec9b12ecd60e"}

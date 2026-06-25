@@ -1,0 +1,1 @@
+{"id": "SC-CITE-1", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "wrong-grounding: E008 (per-individual null of ADDING the loss) cited for a KD-shedding claim; forged receipt", "raw": "ARGUMENT-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "0f9a55242411"}
