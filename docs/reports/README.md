@@ -6,7 +6,7 @@ thesis prose (`docs/manuscript/`). When new information lands on a topic, we **r
 report in place** and bump its `Last updated` line.
 
 Reports are the **continuous** write-layer (D035): the syntheses we iterate as work happens, and the
-source the extended manuscript is consolidated from at checkpoints. The `scientific-writing` skill governs
+source the extended manuscript is consolidated from at checkpoints. The `sci-write-v2` pipeline governs
 how they are written (voice, the `[E0nn]` cite rule, the verifiers).
 
 Rules:
@@ -22,7 +22,7 @@ Rules:
   `decisions/`. There is no chronological-narrative exception: `R05`, the old teaching companion, is
   retired (frozen for history; see the index).
 - State sources and **flag gaps**; **only numbers a working session actually recorded** (D011). Literature
-  numbers cite their canonical note. Route all report writing through the `scientific-writing` skill (voice,
+  numbers cite their canonical note. Route all report writing through the `sci-write-v2` pipeline (voice,
   the `[E0nn]` cite rule, the verifiers).
 - **Math-grounded, in LaTeX.** Formalize the report's core quantity and any foundational concept in real LaTeX
   (`$…$` / `$$…$$`, which Markdown renders); cite the course note (`docs/06-theory-grounding.md`) for any

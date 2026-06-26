@@ -17,7 +17,7 @@ when you want one, and switch freely as the work turns. The mechanics live in th
 |---|---|---|---|
 | `/work` | run an experiment and get a verdict-grade result | high autonomy, long `/goal` runs; locks design, runs, judges | yes (produces) |
 | `/interpret` | decide what a result means | pins a claim-manifest, re-computes the contrast, runs the panel | yes (adjudicates) |
-| `/write` | turn a settled finding into report or manuscript prose | the `scientific-writing` skill; verdict-first, cite-or-flag | reports them |
+| `/write` | turn a settled finding into report or manuscript prose | the `sci-write-v2` pipeline; verdict-first, cite-or-flag | reports them |
 | `/teach` | understand a finding deeply (your own work) | a guided-learning crawl over a report, one question at a time | reads them |
 | `/scout` | bring in outside papers or datasets | `lit-scout` / `dataset-scout` / `paper-digest` to canonical notes | external evidence |
 | `/plan` | decide what to do next | roadmap, kill-gate triage, sequencing | no |

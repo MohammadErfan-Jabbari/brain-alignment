@@ -27,7 +27,7 @@ A stance fixes three things, plus one it does not touch:
 |---|---|---|---|---|
 | `/work` | produce evidence: lock a design, run it, judge it, record it | high (long `/goal` runs) | yes, produces | `modes/work.md` (precheck + goalsmith + ritual) |
 | `/interpret` | turn recorded evidence into an adjudicated verdict | medium | yes, adjudicates | `modes/interpret.md` |
-| `/write` | turn settled findings into report or manuscript prose | low-medium | reports them | `modes/write.md` (scientific-writing) |
+| `/write` | turn settled findings into report or manuscript prose | low-medium | reports them | `modes/write.md` (sci-write-v2) |
 | `/teach` | transfer understanding of any subject (concept, report, file, experiment, paper, question) into the user's head | low, conversational | reads them | `modes/teach.md` |
 | `/scout` | bring external literature and data into the brain | medium | external evidence | `modes/scout.md` (lit-scout / dataset-scout / paper-digest) |
 | `/meta` | build or maintain the apparatus (tooling, methodology, records) | variable | no | `modes/meta.md` |
@@ -59,7 +59,7 @@ The thesis rests on never inventing a result. That guard does not depend on whic
   infer it from a stand-in.
 - **The actuator is a write-time hook**, not stance prose. Any write to `docs/reports/` or
   `docs/manuscript/` (the prose deliverables that use the inline-cite convention) runs the D011 check
-  (`scientific-writing/scripts/check_evd_resolution.py`); a result-like number with no cite is flagged.
+  (the always-on `.claude/hooks/honesty_writecheck.py`); a result-like number with no cite is flagged.
   The flag fires no matter the stance, so it cannot be skipped by mislabeling the work. The `/wrap`
   number-provenance audit is the backstop. (The ladder/learnings/experiments docs reference results by
   bare code and are not checked this way — L052.)

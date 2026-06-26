@@ -21,7 +21,7 @@ Day-to-day picture: `docs/operating-map.md`.
 |---|---|---|
 | `/work` | produce evidence (Design → Run → Judge); high-autonomy `/goal` runs; **explicit-only** | yes, produces |
 | `/interpret` | turn a recorded result into an adjudicated verdict (claim-manifest + panel) | yes, adjudicates |
-| `/write` | turn a finding into report/manuscript prose (the `scientific-writing` skill) | reports them |
+| `/write` | turn a finding into report/manuscript prose (the `sci-write-v2` pipeline) | reports them |
 | `/teach` | transfer understanding of any subject (concept, report, file, experiment, paper, question) into Erfan's head (guided-learning, rendered) | reads them |
 | `/scout` | bring external papers/data in (`lit-scout`/`dataset-scout`/`paper-digest` → canonical notes) | external |
 | `/plan` | set direction: roadmap, kill-gate triage, what to run next | no |
@@ -45,10 +45,11 @@ document: **reports** (`docs/reports/*.md`, Markdown) are the *continuous* singl
 you write as work happens; the **extended manuscript** (`docs/manuscript/extended/`, LaTeX) is the
 internal master (always-current paper body + append-only checkpoint log); the **public manuscript**
 (`docs/manuscript/public/vN/`, LaTeX) is a frozen submission cut compressed from the extended. Knowledge
-flows down only. **Route all report and manuscript writing through the `scientific-writing` skill, and
-never auto-update the extended or public manuscript — they are rebuilt only at a checkpoint Erfan
-explicitly calls.** Full spec: `docs/03-methodology.md` ("Deliverable layers"); skill:
-`.claude/skills/scientific-writing/`.
+flows down only. **Route all report and manuscript writing through the `sci-write-v2` pipeline (D048, cut
+over from `scientific-writing` at S43/P3), and never auto-update the extended or public manuscript — they
+are rebuilt only at a checkpoint Erfan explicitly calls.** Full spec: `docs/03-methodology.md`
+("Deliverable layers"); skill: `.claude/skills/sci-write-v2/` (the old `scientific-writing/` is tombstoned,
+kept ~1 week as a rollback window).
 
 ## Read this first, every session
 
@@ -166,7 +167,7 @@ Rules (unchanged): scoped staging only — never `git add -A`/`.`; stage explici
 | `dataset-verifier` | Mechanical data-readiness — response matrix present? shape? voxel mapper? timestamps? annex pulled? — to prevent mid-run walls. (sonnet) |
 | `dataset-scout` | Find/characterize a new dataset (access / format / pipeline / prior-use); the dataset mirror of `lit-scout`. (sonnet to gather / opus to analyze) |
 | `paper-repo-extractor` | One paper's repo → mechanical data/code/checkpoint/license extraction; built for fan-out. (haiku) |
-| `prose-register-auditor` | Read a draft (report/manuscript) for the scientific-register tells the linter can't catch — anthropomorphized abstractions, self-narrated moves, internal-metaphor leakage, dramatized framing, reflex passive density. Spawned by the `scientific-writing` review pass for anything supervisor-facing; the dedicated voice reader (vs the panel, which attacks the claim). Read-only; never edits. (sonnet; D046/L054) |
+| `prose-register-auditor` | Read a draft (report/manuscript) for the scientific-register tells the linter can't catch — anthropomorphized abstractions, self-narrated moves, internal-metaphor leakage, dramatized framing, reflex passive density. **Superseded by `sw-voice-auditor` (F12) in the `sci-write-v2` pipeline (D048/S43); this is the original D046 voice reader, kept while the old flow is tombstoned.** The dedicated voice reader (vs the panel, which attacks the claim). Read-only; never edits. (sonnet; D046/L054) |
 
 The **`/precheck`** command (anti-confound-designer → oracle-reviewer → READY-TO-RUN) is the pre-compute gate; the full fleet rationale + the §4 thinker-prompt alignment live in `docs/references/agent-fleet-redesign.md`.
 
@@ -200,7 +201,7 @@ and silently inheriting session effort.)
 
 Full rationale: `docs/references/agent-fleet-redesign.md`. **Fire these by default at the matching phase — don't wait to be asked; commoditizing the workflow so Erfan never re-explains it is the whole point.**
 
-**Commands** (`.claude/commands/`): **`/orient`** (session start — where we are + next step; now also flags uncommitted work + a missed `/wrap`) · **`/precheck`** (pre-compute gate — `anti-confound-designer` assembles the control battery → `oracle-reviewer` gates it → `READY-TO-RUN`) · **`/goalsmith <item>`** (build the ≤4000-char single-line `/goal` condition for a working item, pointing at its PRD) · **`/wrap`** (session close — ritual + parallel `wrap-auditor` swarm). **Skills:** **`scientific-writing`** (all report/manuscript prose; the D011 number rule); global gbrain/estack skills route via their resolvers.
+**Commands** (`.claude/commands/`): **`/orient`** (session start — where we are + next step; now also flags uncommitted work + a missed `/wrap`) · **`/precheck`** (pre-compute gate — `anti-confound-designer` assembles the control battery → `oracle-reviewer` gates it → `READY-TO-RUN`) · **`/goalsmith <item>`** (build the ≤4000-char single-line `/goal` condition for a working item, pointing at its PRD) · **`/wrap`** (session close — ritual + parallel `wrap-auditor` swarm). **Skills:** **`sci-write-v2`** (all report/manuscript prose; the gated 4-concern loop + the D011 number rule; D048, cut over from `scientific-writing` at S43/P3); global gbrain/estack skills route via their resolvers.
 
 **Agents** (`.claude/agents/`, 14) — grouped by *when* in the loop they run:
 - **Pre-compute (BEFORE a run):** `anti-confound-designer` (assemble the battery) → `oracle-reviewer` (gate it, DESIGN mode).

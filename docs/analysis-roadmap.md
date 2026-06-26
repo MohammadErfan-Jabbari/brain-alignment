@@ -9,7 +9,7 @@ it, and (4) **produce** the manuscript v1.0 with the S14 scope correction and re
 > **⚠️ UPDATE (S16, 2026-06-16) — the OUTPUT layer changed; the reading/concepts/self-checks below are still valid.**
 > **R05 is retired** (D036). The per-session deliverable is no longer "an R05 section" but a **finding-report**
 > (`reports/R<NN>_*.md`): one Q-tagged claim per file, current-truth-only, each 1:1 with a manuscript Results section.
-> Write them in the reading order of `reports/README.md`, through the `scientific-writing` skill. Where a session below
+> Write them in the reading order of `reports/README.md`, through the `sci-write-v2` pipeline. Where a session below
 > says "Produce: R05 §N", read it as "write/extend the corresponding finding-report":
 >
 > | This roadmap's session | Finding-report (output) | Status |
