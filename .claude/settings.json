@@ -45,10 +45,6 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/stop_register_gate.py\""
-          },
-          {
-            "type": "command",
             "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/stop_sw_converge.py\""
           }
         ]

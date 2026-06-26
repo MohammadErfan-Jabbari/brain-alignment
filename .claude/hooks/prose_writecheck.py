@@ -4,7 +4,7 @@
 Sibling to honesty_writecheck.py. That hook guards NUMBERS (D011); this one guards
 PROSE. Fires after an Edit / Write / MultiEdit to a prose deliverable:
     docs/reports/  docs/manuscript/
-Runs the anti-AI-tell linter (scientific-writing/scripts/ai_tell_lint.py) on the
+Runs the anti-AI-tell linter (sci-write-v2/scripts/ai_tell_lint.py, D048 cutover S43) on the
 written file and surfaces its output — both the hard Class-C tells and the soft
 Class-A register / Class-B passive warnings — to the model as feedback.
 
@@ -55,7 +55,7 @@ def main() -> int:
     if not guarded or path.suffix.lower() not in CHECKABLE_SUFFIXES or not path.exists():
         return 0
 
-    linter = Path(proj) / ".claude/skills/scientific-writing/scripts/ai_tell_lint.py"
+    linter = Path(proj) / ".claude/skills/sci-write-v2/scripts/ai_tell_lint.py"
     if not linter.exists():
         return 0
 
