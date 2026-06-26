@@ -164,7 +164,7 @@ The research corpus continuing the path (full table + decision rules in `ladder.
 
 R05 retired (D036); the analysis lane now writes the **finding-reports** (`reports/R06`–`R14`), one Q-tagged claim
 per file, each 1:1 with a manuscript Results section, in the reading order of `reports/README.md`. Deep reading
-order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each written through the `scientific-writing` skill.
+order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each written through the `sci-write-v2` skill.
 - [x] 2026-06-16 — **R06** (Q0/A2 — the alignment signal is real beyond confounds) ✅ written.
 - [x] 2026-06-17 — **R07** (Q1 — plain KD does not preserve alignment, from E003) ✅ written (full loop + panel review pass: counter-argument/premortem/first-principles, opus; DPI reframed to fixed-function-compression ceiling, rate-distortion demoted to analogy, objective-attribution over-reach removed).
 - [ ] **R08** (Q2 — the lever is real but weak and ppl-confounded).

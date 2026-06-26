@@ -4,7 +4,7 @@ This is the home for the LaTeX manuscripts in two sublayers (D035): `extended/` 
 supervisor-facing master, an always-current paper body plus an append-only checkpoint log) and
 `public/vN/` (frozen submission cuts, derived by compression from the extended). A manuscript is **not**
 the same document as a report (`../reports/`, Markdown, the continuous layer that feeds these). Write here
-through the `scientific-writing` skill; full spec in `../03-methodology.md` ("Deliverable layers") and
+through the `sci-write-v2` skill; full spec in `../03-methodology.md` ("Deliverable layers") and
 decision D035 (D011 still binds every number).
 
 ## What goes here

@@ -1,29 +1,34 @@
 # Scientific writing: pointer to the skill
 
-All the detail lives in the **`scientific-writing` skill** (`.claude/skills/scientific-writing/`). This
-page is a one-screen summary so the docs index can point at it; read the skill for anything real.
+**The `/write` engine is the `sci-write-v2` skill** (`.claude/skills/sci-write-v2/`) as of the D048
+cutover (S43, 2026-06-26). The old `scientific-writing` skill is **tombstoned** (read-only ~1 week, then
+deleted) — do not route new writing to it. Read the v2 skill for anything real; this page is a one-screen
+index pointer.
 
 **What it is.** The single governor of how recorded evidence becomes written argument across the three
-deliverable layers (defined in `03-methodology.md` "Deliverable layers"): markdown reports, the LaTeX
-extended manuscript, and frozen LaTeX public cuts. It keeps prose in a real scientific voice with no AI
-tells, makes every number trace to recorded evidence (D011), hedges by what was measured, and runs
-deterministic checks before a manuscript ships. It never invents a result.
+deliverable layers (`03-methodology.md` "Deliverable layers": markdown reports, the LaTeX extended
+manuscript, frozen LaTeX public cuts). It separates four concerns — **Trust** (claims↔evidence, strength-
+tagged), **Argument** (warrants + honest scope/acknowledgment), **Structure** (reader-expectation),
+**Voice** (scientific register) — over a **gated loop**: build the claim-lattice + skeleton, gate the whole
+package as one (F16, before any prose), then draft (one `\evd{claim}{strength}` per claim sentence), audit
+with the parallel stage-5 readers, and revise to convergence. Every number traces to recorded evidence
+(D011); it never invents a result; a defect the prose can't fix routes upstream via the cross-stance
+handoff (D050).
 
 **When it fires.** Any time you write, draft, edit, consolidate, compress, or review a report, manuscript
-section, abstract, results paragraph, or checkpoint-log entry. Small report edits take a fast path (style
-floor plus the cite rule); section writes, consolidations, and public cuts take the full loop.
+section, abstract, results paragraph, or checkpoint-log entry.
 
-**The verifiers** (run before a section or cut ships):
+**The verifiers** (the DET floor — run after each stage write):
 
 ```
-uv run python .claude/skills/scientific-writing/scripts/run_checks.py --layer <report|extended|public> <path>
+uv run python .claude/skills/sci-write-v2/scripts/run_checks.py --lattice <claim-lattice.json> [--prose <path>]
 ```
 
-`ai_tell_lint` (anti-AI-tell floor), `check_evd_resolution` (D011: every number cited, every cite
-resolves), and for a public cut also `check_gap_survival`, `check_number_consistency`, and
-`check_claim_survival` (the compression gate).
+dispatches `lattice_integrity` · `claim_binding` · `claim_fidelity` · `warrant_schema` · `gate_state` and
+(with `--prose`) `draft_check` · `ai_tell_lint` · `scope_lint` · `consistency_check`. Convergence is
+enforced by the `stop_sw_converge` Stop-hook + `verdicts.py`; the always-on per-edit tripwires are
+`.claude/hooks/honesty_writecheck.py` (D011 numbers) + `prose_writecheck.py` (→ v2 `ai_tell_lint`).
 
-**The reference docs inside the skill:** `writing-style.md` (voice + the anti-AI-tell rules),
-`provenance-d011.md` (`\evd`/`\gap`, keyed numbers), `latex-conventions.md` (source style, the shared
-preamble, the build), `review-pass.md` (the Devil's-Advocate review). The LaTeX assets (preamble,
-templates, keyed-number registry, bib, build config) live under the skill's `assets/`.
+**Design + spec.** `docs/references/write-redesign-design.html` (the canvas) + `write-redesign-build-plan.md`
+(the build) + `decisions/decisions.md` D048/D050/D051. The reference docs inside the skill carry the voice
+rules, the `\evd`/`\gap` provenance convention, the LaTeX conventions, and the review philosophy.
