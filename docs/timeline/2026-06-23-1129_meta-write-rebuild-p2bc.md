@@ -56,7 +56,7 @@ table was stale — now fixed in both the table and the inline tags).
   the committed `check_numbers`); exact "abstract" section match. **caption ≤ figure (SC-XS-3) deferred** — RUB,
   the lattice carries no caption text. Fresh 6/6 (model name + year clean; mismatch + CI flagged).
 
-## Build state (the source of truth = `docs/references/write-redesign-build-plan.md`)
+## Build state (the source of truth = [`docs/references/write-redesign-build-plan.md`](../references/write-redesign-build-plan.md))
 - **Phase 1 (C1–C8) ✅ + P2-A ✅ + P2-B ✅ + P2-C ✅.** All DET scripts green (`run_checks --selftest`).
 - **P2-D next** — the CC-power upgrades: parallel stage-5 fan-out · structured `ready_to_ship` **Stop-hook
   convergence** (a real `settings.json` hook, D047 pattern) · AskUserQuestion gate. The judges already emit
@@ -82,7 +82,7 @@ table was stale — now fixed in both the table and the inline tags).
 - **Git:** clean tree, 7 atomic conventional commits, scoped staging throughout. Not pushed (not asked).
 
 ## Next session
-`/orient` → resume the `/write` build at **P2-D**. Read `write-redesign-build-plan.md` (Status + build log) and
+`/orient` → resume the `/write` build at **P2-D**. Read [`write-redesign-build-plan.md`](../references/write-redesign-build-plan.md) (Status + build log) and
 [`upspeed.md`](../upspeed.md) first. Method unchanged (three-net per chunk). P2-D is orchestration/hook plumbing (different in kind
 from the F-functionalities); the recurring DET failure modes to watch remain L059 (bind to ground truth) and L060
 (never HARD-block a dual-use surface).

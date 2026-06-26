@@ -20,7 +20,7 @@ On the powered naturalistic voxelwise substrate, does per-individual brain-tunin
 - **The powered statistic (the crux — NOT mean-over-voxels, which E006 showed MDE +0.013):** per-voxel-paired (mse − perm per NC-voxel) and/or LH-language-region-restricted. Per-subject within estimate, then across-subject (n=3) sign/consistency.
 
 ## Predeclared decision rule
-- **Per-individual effect EXISTS on the powered substrate:** per-voxel-paired (or region-restricted) gap excludes 0 consistently across ≥2/3 subjects, brain-specifically, at matched ppl → the Tuckute-ROI null (E008) is substrate-dependent; a per-individual effect appears on powered naturalistic voxelwise data → **qualify the thesis toward Fork-A** (major; rewrite). 
+- **Per-individual effect EXISTS on the powered substrate:** per-voxel-paired (or region-restricted) gap excludes 0 consistently across ≥2/3 subjects, brain-specifically, at matched ppl → the Tuckute-ROI null (E008) is substrate-dependent; a per-individual effect appears on powered naturalistic voxelwise data → **qualify the thesis toward Fork-A** (major; rewrite).
 - **NULL on the powered substrate too:** confirms the per-individual null generalizes to where A2 is powered → **closes the substrate-mismatch limitation, hardens Fork-B**.
 
 ## The CRUX for the oracle (build-or-not)

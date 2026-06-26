@@ -6,10 +6,10 @@ aliases: [cheng-2026_abstraction-induces-brain-alignment]
 
 # Abstraction Induces the Brain Alignment of Language and Speech Models
 
-**Authors:** Emily Cheng; Aditya R. Vaidya; Richard Antonello  
-**Year:** 2026  
-**Venue:** Preprint (arXiv, submitted February 2026)  
-**DOI/arXiv:** 10.48550/arXiv.2602.04081  
+**Authors:** Emily Cheng; Aditya R. Vaidya; Richard Antonello
+**Year:** 2026
+**Venue:** Preprint (arXiv, submitted February 2026)
+**DOI/arXiv:** 10.48550/arXiv.2602.04081
 **Canonical ID:** cheng-2026_abstraction-induces-brain-alignment
 
 **Tags:** #literature #canonical
@@ -22,7 +22,7 @@ aliases: [cheng-2026_abstraction-induces-brain-alignment]
 - [ ] Full PDF scanned (search + targeted read)
 - [ ] Extracted text only
 
-PDF verified: 2026-06-10 — full 20-page PDF read page-by-page including all appendices (A–I).  
+PDF verified: 2026-06-10 — full 20-page PDF read page-by-page including all appendices (A–I).
 Comprehension self-check passed: Y
 
 ---

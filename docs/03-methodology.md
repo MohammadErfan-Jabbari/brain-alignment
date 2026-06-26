@@ -48,7 +48,7 @@ a gated machine. Each converts one kind of uncertainty into one kind of knowledg
 | **Run**      | a protocol → traceable evidence (not conclusions)    | `experiments/*.md` (iteration log)                                           |
 | **Judge**    | evidence → adjudicated claim status                  | hypothesis update + [`learnings.md`](learnings.md)                           |
 | **Argue**    | judged claims → a written argument                   | reports (continuous) → manuscripts at checkpoints (see "Deliverable layers") |
-| **Compound** | a finished effort → reusable residue                 | `learnings.md`, updated landscape                                            |
+| **Compound** | a finished effort → reusable residue                 | [`learnings.md`](learnings.md), updated landscape                                            |
 
 The non-negotiables (these are where solo research most easily self-deceives):
 - **Multiple competing hypotheses**, not one cherished one.
@@ -66,7 +66,7 @@ The non-negotiables (these are where solo research most easily self-deceives):
 
 Work runs by **interaction stance**, invoked at any moment and switched freely, not by a session-level
 mode (the working/analysis split is retired, D044). The epistemic path still has its natural seam, and
-the stances sit along it. There are eight (full map and mechanics: `docs/operating-map.md` and the
+the stances sit along it. There are eight (full map and mechanics: [`docs/operating-map.md`](operating-map.md) and the
 `stances` skill); the methodologically load-bearing distinction is whether a stance **touches a science
 number**:
 
@@ -101,7 +101,7 @@ depth, format, cadence, who triggers a write). The point of naming three is that
 job* and a *different update rhythm*; collapsing them is what makes a research write-up rot (a paper you
 edit continuously drifts from the evidence; a narrative you only touch at submission goes stale). This
 section is the **single source of truth** for what each layer is and when it changes. (Durable decision;
-logged in `decisions/decisions.md`.)
+logged in [`decisions/decisions.md`](decisions/decisions.md).)
 
 **The cascade — knowledge flows one way, DOWN.** A lower layer is *derived from* the layers above it by
 compression; an upper layer is never edited to match a lower one. A number or claim is born in the
@@ -198,7 +198,7 @@ derived (compressed + hedged + length-disciplined) from the extended manuscript 
 specific destination: a thesis chapter, a workshop/conference submission, a supervisor checkpoint that
 needs a stable copy to cite. Public cuts are **frozen** — a new milestone produces a new `vN`, it does
 not rewrite an old one. They are LaTeX in the target venue/thesis class. (The existing
-`docs/manuscript/00_paper-draft-v0.md` is the current public draft, v0.9, in the pre-decision Markdown
+[`docs/manuscript/00_paper-draft-v0.md`](manuscript/00_paper-draft-v0.md) is the current public draft, v0.9, in the pre-decision Markdown
 era; it is the **seed** for the extended manuscript and is retained as the last md-era cut. The first
 LaTeX public cut is a later `vN` derived from the extended master.)
 
@@ -263,7 +263,7 @@ is visible rather than silently rotting.
 
 ## Reasoning frame
 
-When designing or deciding, use the Elon / Feynman / Naval frame in `references/reasoning-frame.md`:
+When designing or deciding, use the Elon / Feynman / Naval frame in [`references/reasoning-frame.md`](references/reasoning-frame.md):
 reduce to the real goal and delete false constraints (Elon); explain the mechanism plainly and state
 where it breaks (Feynman); prefer the smallest durable change that compounds (Naval).
 
@@ -279,7 +279,7 @@ where it breaks (Feynman); prefer the smallest durable change that compounds (Na
   into `reports/` (continuous), and into the `manuscript/` layers only at a checkpoint Erfan calls (see
   "Deliverable layers").
 - **End (always):** `/wrap` runs the `session-logger`, which writes an immutable
-  `timeline/YYYY-MM-DD-HHMM.md`, REPLACES `upspeed.md`, moves items in `tasks.md`, appends any hard-won
+  `timeline/YYYY-MM-DD-HHMM.md`, REPLACES [`upspeed.md`](upspeed.md), moves items in [`tasks.md`](tasks.md), appends any hard-won
   lesson to `learnings.md`, and updates the ladder. The log records which stances ran; the `upspeed.md`
   framing follows the dominant one (`/work`: *what ran / next to run*; reporting stances: *what's now
   understood / written / figured*).

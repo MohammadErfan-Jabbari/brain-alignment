@@ -8,7 +8,7 @@ tags: [hypothesis]
 **ID:** HNNN
 **Created:** YYYY-MM-DD
 **Status:** proposed | testing | confirmed | rejected | inconclusive
-**Charter:** `../00-charter.md` · **Experiment:** `../experiments/<name>.md`
+**Charter:** [`../00-charter.md`](../00-charter.md) · **Experiment:** `../experiments/<name>.md`
 
 ---
 

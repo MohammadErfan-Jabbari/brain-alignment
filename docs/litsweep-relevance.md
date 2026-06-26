@@ -35,7 +35,7 @@ After the candidate set is built and embedding-ranked, tier each survivor:
 Cap Tier-1 digests per sweep batch and `log()` what was dropped to Tier 2/3 — never silently truncate (a dropped Tier-1 reads as "covered" when it wasn't).
 
 ## Output of the sweep
-A ranked candidate index per venue/year (`data/papers/litsweep/INDEX.jsonl`: {venue,year,title,abstract,cluster_hits,embed_score,tier,dedupe_match}), and Tier-1 survivors handed to `paper-digest` → new canonical notes → new nodes/edges in `docs/idea-tree.md`. Every new node records the paper that spawned it.
+A ranked candidate index per venue/year (`data/papers/litsweep/INDEX.jsonl`: {venue,year,title,abstract,cluster_hits,embed_score,tier,dedupe_match}), and Tier-1 survivors handed to `paper-digest` → new canonical notes → new nodes/edges in [`docs/idea-tree.md`](idea-tree.md). Every new node records the paper that spawned it.
 
 
 ## Related

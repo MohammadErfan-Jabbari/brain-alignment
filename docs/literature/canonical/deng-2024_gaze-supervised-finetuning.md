@@ -263,8 +263,8 @@ of which only ~0.3 pp survives a shuffle control; they do **not** residualize ag
 no decoder LM, no EEG, no OOD/sample-efficiency, and no matched-budget control — exactly the six axes
 E021 owns.
 
-**Does this change `docs/01-research-landscape.md`?** Yes — suggest adding a row in the A3 / behavioral
-prior-art block (near the Negi 2025 row), flagged as the *behavioral* closest-prior-art and the paper
+**Does this change [`docs/01-research-landscape.md`](../../01-research-landscape.md)?** Yes — suggest adding a row in the A3 / behavioral
+prior-art block (near the [Negi 2025](negi-2025_brain-informed-finetuning-multilingual.md) row), flagged as the *behavioral* closest-prior-art and the paper
 E021 positions against. Proposed row:
 
 > | Deng, Prasse, Reich, Scheffer, Jäger 2024 (ACL short) | `deng-2024_gaze-supervised-finetuning` | **Closest behavioral prior art to E021.** Synthetic-scanpath (fixation-order) auxiliary branch + GRU, dropped at inference; BERT/RoBERTa on GLUE; ~2–3 pp (BERT) / 1–2 pp (RoBERTa) low-resource gains, mixed at full data. **Raw gaze order, no surprisal-residualization; encoder-only; in-distribution GLUE only; no OOD/sample-efficiency; no matched-budget control; no EEG.** Table 4 shuffle control: real-order increment over shuffled scanpath ≈ 0.3 pp, untested. E021 owns residualization + decoder + EEG + OOD/budget. |

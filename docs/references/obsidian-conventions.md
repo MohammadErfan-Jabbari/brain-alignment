@@ -65,7 +65,7 @@ Rules:
 3. **Evidence cites are clickable:** `[E003]` → `[E003](../experiments/E003_*.md)`. The `[E003]` form is preserved (the honesty checker matches it regardless of the trailing `(path)`), so the cite still validates *and* navigates.
 4. **Literature citations link to the canonical note on first mention** in a doc: `[Negi et al., 2025](../literature/canonical/negi-2025_*.md)`. A "Surname YYYY" mention left bare when the canonical note exists is a defect.
 5. **First meaningful mention per doc** gets the link (plus links in tables, lists, and the `## Related` footer). Don't linkify every one of dozens of inline repeats — that is a wall of links. Backticks remain correct for true non-navigable literals (a shell command, a config key, a filename with no page).
-6. **Never link a bare `folder/`** as a navigation target — it's a dead click in Obsidian. Link to the folder's index note (`[experiments](../experiments/README.md)`) or leave it as plain text if no index exists.
+6. **Never link a bare `folder/`** as a navigation target — it's a dead click in Obsidian. Link to the folder's index note (`[reports](../reports/README.md)`) or leave it as plain text if no index exists.
 7. External URLs are normal Markdown links; never bare URLs.
 
 ## 5. Callouts — the 5 cross-compatible types only

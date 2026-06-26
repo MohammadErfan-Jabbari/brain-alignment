@@ -14,7 +14,7 @@ it, and (4) **produce** the manuscript v1.0 with the S14 scope correction and re
 > **⚠️ UPDATE (S16, 2026-06-16) — the OUTPUT layer changed; the reading/concepts/self-checks below are still valid.**
 > **R05 is retired** (D036). The per-session deliverable is no longer "an R05 section" but a **finding-report**
 > (`reports/R<NN>_*.md`): one Q-tagged claim per file, current-truth-only, each 1:1 with a manuscript Results section.
-> Write them in the reading order of `reports/README.md`, through the `sci-write-v2` pipeline. Where a session below
+> Write them in the reading order of [`reports/README.md`](reports/README.md), through the `sci-write-v2` pipeline. Where a session below
 > says "Produce: R05 §N", read it as "write/extend the corresponding finding-report":
 >
 > | This roadmap's session | Finding-report (output) | Status |
@@ -123,7 +123,7 @@ encoding scores*, not *brain-tuning*, and none use a perplexity-matched control 
 ### ▶ Analysis Session B — The quality law: why "brain-specific" gains track perplexity (E015 / I1)
 - **Goal:** understand the cross-family **alignment ∝ −bits-per-byte** law and why it is the *mechanism* behind
   "matched-perplexity is the missing control." Internalize the r≈−0.92 → −0.78 correction.
-- **Read:** `experiments/E015_*.md` → `learnings.md` **L034** (the −0.78 correction; bpb not per-token-ppl + the
+- **Read:** `experiments/E015_*.md` → [`learnings.md`](learnings.md) **L034** (the −0.78 correction; bpb not per-token-ppl + the
   single-model scoring bug) and **L035** (unique-R² over a low-level nuisance can't separate "matches brain computation"
   from "encodes the stimulus") → `docs/literature/canonical/antonello-2023_*.md`, `gao-2024_*.md` (scaling anchors) →
   the new `raugel`/King NeurIPS-spotlight note if digested (size+context vs our bpb framing).
@@ -147,7 +147,7 @@ encoding scores*, not *brain-tuning*, and none use a perplexity-matched control 
   objective, substrate, parameterization (LoRA/full-FT). Understand the DPI argument for why.
 - **Read:** `experiments/E017_*.md` (full-FT, n=9) → `learnings.md` **L036** (method-general lever failure + the
   catastrophic-forgetting trap: a gentle-LR n=1 flip washed out when powered) → re-skim E011/E013/E013b records →
-  `06-theory-grounding.md` §2 (DPI) + info-theory lecture 6 (`6_..._DPI_SourceCodingI_study.md`).
+  [`06-theory-grounding.md`](06-theory-grounding.md) §2 (DPI) + info-theory lecture 6 (`6_..._DPI_SourceCodingI_study.md`).
 - **Concepts to master:**
   - *Data-processing inequality:* along θ\*→S→R(S)→Y, I(θ\*;Y) ≤ I(θ\*;S) — brain-as-data cannot carry more about the
     optimal parameters than the stimulus already does. This is the spine's theoretical backbone (and its limit — see Session D).
@@ -166,7 +166,7 @@ encoding scores*, not *brain-tuning*, and none use a perplexity-matched control 
 - **Read:** `experiments/E020_*.md` IN FULL (§1, §v2, §v2.1, the VERDICT) → `learnings.md` **L039** (a shared-LM probe
   of a leave-one-subject-out residual is ~0 *by construction*), **L040** (a content-laden eng1000 nuisance-partial can
   *vacuously* collapse any LM alignment — test with the symmetric partial), **L041** (the scope correction + the DPI
-  side-channel + Negi-passes-permuted) → `decisions/decisions.md` **D029/D030/D034** → `06-theory-grounding.md` §2–§3.
+  side-channel + Negi-passes-permuted) → [`decisions/decisions.md`](decisions/decisions.md) **D029/D030/D034** → `06-theory-grounding.md` §2–§3.
 - **Concepts to master:**
   - *The decomposition* Y_subj = E[Y|S] + ε_subj, and why, for the *true* conditional mean, Cov(R(S),ε)=0 follows from
     the **conditional-mean projection** (ε ⟂ any function of S) — *not* specifically from Y⊥θ\*|S. Against the *empirical*
@@ -198,7 +198,7 @@ encoding scores*, not *brain-tuning*, and none use a perplexity-matched control 
 - **Goal:** understand what E019 establishes (and, crucially, what it does *not*), and lock the related-work positioning.
 - **Read:** `experiments/E019_*.md` (all versions + the VERDICT) → `learnings.md` **L042** (corroboration not clincher;
   the raw-mean-r ruler is quality-blind) → `decisions/decisions.md` **D031/D032** → the new canonical note
-  `docs/literature/canonical/jia-2026_lpact-prediction-scores-not-enough.md` → [`01-research-landscape.md`](01-research-landscape.md) (the Jia row
+  [`docs/literature/canonical/jia-2026_lpact-prediction-scores-not-enough.md`](literature/canonical/jia-2026_lpact-prediction-scores-not-enough.md) → [`01-research-landscape.md`](01-research-landscape.md) (the Jia row
   + Hadidi→Nature-Comms cite) → `negi-2025_*.md` (the reproduction target; note Negi *passes* the permuted twin Δr=0.133
   on encoding, so our encoding clincher must be matched-ppl, not permuted — L041).
 - **Concepts to master:**
@@ -219,7 +219,7 @@ encoding scores*, not *brain-tuning*, and none use a perplexity-matched control 
 ### ▶ Analysis Session F — The synthesis: manuscript v1.0 reframe (the capstone)
 - **Goal:** assemble the refocused paper. Apply the scope correction throughout; make the powered nulls the spine and
   E019/E020 the corroboration.
-- **Read:** `docs/manuscript/00_paper-draft-v0.md` IN FULL → this roadmap §1 (the headline) → `ladder.md` (the spine
+- **Read:** [`docs/manuscript/00_paper-draft-v0.md`](manuscript/00_paper-draft-v0.md) IN FULL → this roadmap §1 (the headline) → [`ladder.md`](ladder.md) (the spine
   wording, post-S14) → the framing note `brain-alignment-thesis-framing-s14` (gbrain) if reachable.
 - **Produce (manuscript edits — this is the analysis lane's main output):**
   - **Abstract + Intro:** reframe to the control-protocol + per-individual-null + E[Y|S]-ceiling headline.

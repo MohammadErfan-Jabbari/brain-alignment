@@ -6,10 +6,10 @@ aliases: [merlin-2024_beyond-next-word-brain-alignment]
 
 # Language models and brains align due to more than next-word prediction and word-level information
 
-**Authors:** Gabriele Merlin; Mariya Toneva  
-**Year:** 2024  
-**Venue:** EMNLP 2024  
-**DOI/arXiv:** 10.18653/v1/2024.emnlp-main.1024  
+**Authors:** Gabriele Merlin; Mariya Toneva
+**Year:** 2024
+**Venue:** EMNLP 2024
+**DOI/arXiv:** 10.18653/v1/2024.emnlp-main.1024
 **Canonical ID:** merlin-2024_beyond-next-word-brain-alignment
 
 **Tags:** #literature #canonical
@@ -22,7 +22,7 @@ aliases: [merlin-2024_beyond-next-word-brain-alignment]
 - [ ] Full PDF scanned (search + targeted read)
 - [ ] Extracted text only
 
-PDF verified: 2026-03-02  
+PDF verified: 2026-03-02
 Comprehension self-check passed: Y
 
 ## Comprehension Summary [REQUIRED]

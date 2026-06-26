@@ -39,7 +39,7 @@ stances, and build a LearnLM/Gemini-style `/teach` stance plus the report→teac
 4. **Built (Pass 1 + Pass 2, 6 commits).** The `stances` skill (`SKILL.md` spine + 8 mode files +
    `formats/learning-record.md`), 8 command doors, the write-time honesty hook
    (`.claude/hooks/honesty_writecheck.py`, tested), the report plain-language-lead amendment to
-   `scientific-writing`, `docs/operating-map.md`, the canonical docs rewritten to stances (`CLAUDE.md`,
+   `scientific-writing`, [`docs/operating-map.md`](../operating-map.md), the canonical docs rewritten to stances (`CLAUDE.md`,
    [`03-methodology.md`](../03-methodology.md), **D044**, `orient`/`wrap`/`session-logger`), and the LearnLM + Bloom canonical
    notes. The learning ledger seeded at `docs/learning/`.
 
@@ -71,7 +71,7 @@ thread is still **Q4 sample-efficiency/LUPI** (re-substrate to higher-N gaze), u
   this session's own commits) rather than the true session start — the SessionStart hook re-fired after
   the long session. `/wrap` should sanity-check `start_sha` against the session's commits; used the
   `dfe5223` fallback here.
-- **Hook-scope fire (caught by the trial):** the first `/wrap` edit to `docs/ladder.md` flagged 41
+- **Hook-scope fire (caught by the trial):** the first `/wrap` edit to [`docs/ladder.md`](../ladder.md) flagged 41
   pre-existing bare numbers — the ladder references results by bare code, not `[E0nn]`. Narrowed the
   hook from 5 paths to `docs/reports/` + `docs/manuscript/` (the prose deliverables); ladder/learnings/
   experiments need a different check (L052).

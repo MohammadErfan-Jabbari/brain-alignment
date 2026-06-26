@@ -20,7 +20,7 @@ This directory is the memory and working surface of the `/teach` stance, in two 
   `.claude/skills/stances/formats/learning-record.md`.
 
 Raw process (`lessons/`) stays separate from curated mastery (`records/`) — the repo's raw-vs-interpreted
-discipline. `thesis-arc-checklist.md` is the prior whole-thesis comprehension tracker, kept for history.
+discipline. [`thesis-arc-checklist.md`](thesis-arc-checklist.md) is the prior whole-thesis comprehension tracker, kept for history.
 This README is not a record.
 
 

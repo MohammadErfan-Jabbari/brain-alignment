@@ -48,7 +48,7 @@ R07 edit S20 correctly could not (D011: a working session never edits an analysi
 - Optional, Erfan's call: R07 could add a half-clause that the dissociation P-values are
   construction-sensitive (now documented in `outputs/E003_dissociation.json`). Left out — the existing
   "marginal, p≈0.09" wording is correct and the caveat is already tight.
-- Pre-existing untracked files in the tree (`docs/manuscript/supervisor-email_2026-06.md`,
+- Pre-existing untracked files in the tree ([`docs/manuscript/supervisor-email_2026-06.md`](../manuscript/supervisor-email_2026-06.md),
   `untitled.md`) are from the earlier manuscript work, not this session; left untouched.
 
 ## Next session

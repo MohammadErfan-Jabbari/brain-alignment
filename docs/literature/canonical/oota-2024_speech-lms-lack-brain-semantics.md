@@ -6,10 +6,10 @@ aliases: [oota-2024_speech-lms-lack-brain-semantics]
 
 # Speech language models lack important brain-relevant semantics
 
-**Authors:** Subba Reddy Oota; Emin Celik; Fatma Deniz; Mariya Toneva  
-**Year:** 2024  
-**Venue:** ACL 2024  
-**DOI/arXiv:** 10.18653/v1/2024.acl-long.462  
+**Authors:** Subba Reddy Oota; Emin Celik; Fatma Deniz; Mariya Toneva
+**Year:** 2024
+**Venue:** ACL 2024
+**DOI/arXiv:** 10.18653/v1/2024.acl-long.462
 **Canonical ID:** oota-2024_speech-lms-lack-brain-semantics
 
 **Tags:** #literature #canonical
@@ -22,7 +22,7 @@ aliases: [oota-2024_speech-lms-lack-brain-semantics]
 - [ ] Full PDF scanned (search + targeted read)
 - [ ] Extracted text only
 
-PDF verified: 2026-03-02  
+PDF verified: 2026-03-02
 Comprehension self-check passed: Y
 
 ## Comprehension Summary [REQUIRED]

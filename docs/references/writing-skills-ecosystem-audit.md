@@ -14,7 +14,7 @@ step at a time.
 ideation/planning/paper skills in each (the bio-database, office-automation, and dev-tooling skills were skipped
 as out of scope). Plus the earlier 7-slice deep audit of `imbad0202/academic-research-skills` (the skill Erfan
 actually used). Each reader scored its slice against the established writing canon (Gopen-Swan, Williams, Schimel,
-Swales, McEnerney, Mensh-Kording, Whitesides — see `scientific-writing-methodology.md`) AND captured the repo's
+Swales, McEnerney, Mensh-Kording, Whitesides — see [`scientific-writing-methodology.md`](scientific-writing-methodology.md)) AND captured the repo's
 own approach, including mechanisms the canon doesn't cover. Companion doc: `scientific-writing-methodology.md`.
 
 ---

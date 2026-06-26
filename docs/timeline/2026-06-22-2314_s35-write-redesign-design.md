@@ -14,7 +14,7 @@ science number, NO rung change — Q0–Q5 stand exactly as S33/S34.**
 Took the `/write` stance + `scientific-writing` skill from "an immune system, not a notion of health" (the S33
 diagnosis: it detects defects but encodes no positive model of good writing) to a complete, build-ready redesign.
 
-1. **Established the methodology** (`docs/references/scientific-writing-methodology.md`). Researched the real canon
+1. **Established the methodology** ([`docs/references/scientific-writing-methodology.md`](../references/scientific-writing-methodology.md)). Researched the real canon
    of how to write a scientific paper (exa + firecrawl + web): Gopen-Swan (topic/stress, reader-expectation),
    Williams (old-to-new), Schimel (OCAR), Swales (CARS), McEnerney (value-to-reader), Mensh-Kording (C-C-C),
    Whitesides (outline-first); + Pinker (curse of knowledge) and Toulmin (warrant) pulled mid-session.

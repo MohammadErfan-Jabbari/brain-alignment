@@ -14,9 +14,9 @@ This session was a guided Socratic walk-through of the thesis for Erfan ("teach 
 1. **/orient** → confirmed analysis mode with Erfan. State unchanged: experimental program closed, Fork B, manuscript v0.9.
 2. **Taught Layer 0 (the frame & bet)** — verified Erfan can reconstruct: brain alignment = linear map LLM mid-layer → brain; MI is the *lens* but **encoding-model unique R²** is what we measure; linear-on-purpose (guardrail + linear-accessibility); A1/A2/A3 with A2 gating (dependent, not parallel); distillation = first *use case*, not the whole thesis. Mastered (open + MCQ checks).
 3. **Feedback captured (quiz style).** Erfan flagged that my MCQ correct-answer was always option "A". Saved to project memory `quiz-style-preference.md` + mirrored to gbrain (`inbox/erfan-teaching-quiz-style-preference`). Switched to open-ended + randomized/harder MCQs.
-4. **Created `docs/07-concepts-primer.md`** — Erfan found E002's prose opaque (Tuckute / ROI-vs-voxel / noise-ceiling / "% of ceiling" undefined). Decision (Erfan-chosen): a single DRY concepts primer rather than patching E002/R03. Pointers added from E002, R03, README map. Later extended with **perplexity** + an E/R/L/D-number naming gloss (doc-audit gap).
+4. **Created [`docs/07-concepts-primer.md`](../07-concepts-primer.md)** — Erfan found E002's prose opaque (Tuckute / ROI-vs-voxel / noise-ceiling / "% of ceiling" undefined). Decision (Erfan-chosen): a single DRY concepts primer rather than patching E002/R03. Pointers added from E002, R03, README map. Later extended with **perplexity** + an E/R/L/D-number naming gloss (doc-audit gap).
 5. **Taught Layer 1 (measurement + lever)** — plain unpacking of E002 (Tuckute ROI, A2 PASS) and E006 (LeBel voxelwise, A2 STRONG PASS, +0.0207/+0.0277 gap, 95–99% voxels +); then **statistical power & MDE** (bathroom-scale analogy), and the E006 MDE (+0.013–0.015) ≫ E004 lever (+0.003) → E007 cancelled → reroute to E005. The "real ≠ movable ≠ useful" seam.
-6. **Created `docs/reports/R05_thesis-narrative-from-first-principles.md`** (LIVING) — Erfan's request: a continually-updating, pedagogical, course-grounded narrative of the whole arc, distinct in role from the terse manuscript. First version covers Layer 0 → Layer 1 / E007 reroute (the §2 information-budget/DPI/PAC-Bayes theory tied to course lectures 1/4/5/6/26; E002/E006/E003/E004). §9+ (E005 collapse → robustness → Fork B) left as structured placeholders.
+6. **Created [`docs/reports/R05_thesis-narrative-from-first-principles.md`](../reports/R05_thesis-narrative-from-first-principles.md)** (LIVING) — Erfan's request: a continually-updating, pedagogical, course-grounded narrative of the whole arc, distinct in role from the terse manuscript. First version covers Layer 0 → Layer 1 / E007 reroute (the §2 information-budget/DPI/PAC-Bayes theory tied to course lectures 1/4/5/6/26; E002/E006/E003/E004). §9+ (E005 collapse → robustness → Fork B) left as structured placeholders.
 7. **Doc-shortfall audit swarm** (5 haiku Explore agents over nav docs / deep docs / experiments / reports+manuscript / learnings+decisions) + **thinking panel on R05** (counter-argument, first-principles-grounder, socratic-thinker, premortem-analyst). Folded findings into R05 and fixed the cheap doc gaps.
 
 ## R05 panel findings folded in (verified against source docs)
@@ -33,8 +33,8 @@ This session was a guided Socratic walk-through of the thesis for Erfan ("teach 
 First-principles agent verdict on §2: **GROUNDED-WITH-CAVEAT** — the two load-bearing bounds match the course notes verbatim, arithmetic checks to the digit, all cited course-note paths exist; only the DPI chain head and two over-stated identities needed the fixes above (done).
 
 ## Doc-audit fixes landed
-- `docs/README.md` map was **missing the [`ladder.md`](../ladder.md) row** (the source-of-truth file) — added.
-- `docs/00-charter.md` Status said "Activating" — updated to **write-up phase** (program closed 2026-06-12; ladder is current state).
+- [`docs/README.md`](../README.md) map was **missing the [`ladder.md`](../ladder.md) row** (the source-of-truth file) — added.
+- [`docs/00-charter.md`](../00-charter.md) Status said "Activating" — updated to **write-up phase** (program closed 2026-06-12; ladder is current state).
 - Primer: added perplexity + E/R/L/D-number gloss.
 
 ## Doc-audit findings NOT yet fixed (logged to [tasks.md](../tasks.md) — real but low-severity, write-up phase)

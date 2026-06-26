@@ -24,14 +24,14 @@ them into canonical notes and close the `\gap`s. All are external pedagogy liter
    - `The_correction_of_errors…pdf` = **Butterfield & Metcalfe _2006_** (Metacognition & Learning, the
      attention/tone-detection mechanism follow-up), **not** the 2001 article. → its own new note.
    - Both OLM PDFs = **Bodily et al. _2018_** (LAK'18 OLM/LAD review, preprint + published), **not**
-     Long & Aleven 2017. → its own new note.
-   - `Mind_Your_Errors.pdf` = **Moser 2011** ✓; later `Butterfield20Metcalfe202001.pdf` = **B&M 2001** ✓;
+     [Long & Aleven 2017](../literature/canonical/long-aleven-2017_olm-self-regulated-learning.md). → its own new note.
+   - `Mind_Your_Errors.pdf` = **[Moser 2011](../literature/canonical/moser-2011_growth-mindset-error-processing.md)** ✓; later `Butterfield20Metcalfe202001.pdf` = **B&M 2001** ✓;
      `s11257-016-9186-6.pdf` = **Long & Aleven 2017** ✓.
 3. **Processed (5 commits).** All six PDFs moved to `data/papers/` (gitignored). Two `paper-digest`
    agents (opus) wrote the two new mechanism/RCT notes; the rest done inline by reading the extracted
    text. Notes touched: `moser-2011_*` (filled), `butterfield-metcalfe-2006_*` (new),
    `bodily-2018_*` (new), `butterfield-metcalfe-2001_*` (filled), `long-aleven-2017_*` (new),
-   `open-learner-models_2025-review.md` (Long & Aleven correction), `open-learner-models-and-errorful-learning.md`
+   [`open-learner-models_2025-review.md`](../literature/canonical/open-learner-models_2025-review.md) (Long & Aleven correction), [`open-learner-models-and-errorful-learning.md`](../literature/canonical/open-learner-models-and-errorful-learning.md)
    (stale-`\gap`-language fix, at wrap).
 4. **Two factual corrections to the repo's carried-over numbers:**
    - **Long & Aleven N = 301, not 302** — the abstract says 302; participants/overview/conclusion all
@@ -48,7 +48,7 @@ them into canonical notes and close the `\gap`s. All are external pedagogy liter
 External-literature numbers now recorded first-hand (cite-or-flag, NOT thesis results): Moser 2011
 (N=25; ERN-no-mindset Fs<1.24 / Pe-yes F(1,23)=8.64, p<.01, r=.52; mediation indirect-effect 95% CI
 [.01,.04]); B&M 2001 (gamma +.36, t(18)=3.07; mediation null .64 vs .63); B&M 2006 (hypercorrection γ
-+.13/+.16; tone-attention γ −.22/−.21); Bodily 2018 (102 articles/107 OLMs; 57.9% single-data-type);
++.13/+.16; tone-attention γ −.22/−.21); [Bodily 2018](../literature/canonical/bodily-2018_olm-lad-systematic-review.md) (102 articles/107 OLMs; 57.9% single-data-type);
 Long & Aleven 2017 (N=301; OLM×PS interaction F(1,236)=7.535, p=.007). All trace to the supplied PDFs.
 
 ## Current truth

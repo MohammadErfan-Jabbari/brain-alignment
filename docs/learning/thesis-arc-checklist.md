@@ -5,14 +5,14 @@ tags: [learning]
 
 # Thesis-arc comprehension checklist (analysis-session teaching aid)
 
-*'Layer N' below = teaching chapter (coarse lesson unit); the kill-gated rungs are Q0–Q5 — see `../map.md`.*
+*'Layer N' below = teaching chapter (coarse lesson unit); the kill-gated rungs are Q0–Q5 — see [`../map.md`](../map.md).*
 
 Running checklist for the Socratic walk-through of the brain-alignment thesis, R03 → now.
 **Purpose:** verify Erfan deeply understands every layer before advancing. Updated live as we go.
 Status: ⬜ not started · 🟡 in progress · ✅ mastered (demonstrated, not just read).
 
-> This is a teaching artifact, not a source of truth. The science lives in `docs/ladder.md`,
-> `docs/experiments/`, `docs/learnings.md`. If this ever disagrees with those, those win.
+> This is a teaching artifact, not a source of truth. The science lives in [`docs/ladder.md`](../ladder.md),
+> `docs/experiments/`, [`docs/learnings.md`](../learnings.md). If this ever disagrees with those, those win.
 
 ---
 
@@ -70,9 +70,9 @@ Status: ⬜ not started · 🟡 in progress · ✅ mastered (demonstrated, not j
 ## Session log
 - 2026-06-12 — path designed, checklist created. Assessing Erfan's starting point before Layer 0.
 - 2026-06-12 — Layer 0 ✅ (frame, MI-vs-encoding-R², why-linear, A1/A2/A3 ordering, distillation-as-use-case).
-- 2026-06-12 — Created `docs/07-concepts-primer.md` (plain primitives) after Erfan found E002 jargon opaque; pointers from E002/[R03](../reports/R03_brain-as-training-signal.md)/README.
+- 2026-06-12 — Created [`docs/07-concepts-primer.md`](../07-concepts-primer.md) (plain primitives) after Erfan found E002 jargon opaque; pointers from E002/[R03](../reports/R03_brain-as-training-signal.md)/README.
 - 2026-06-12 — Taught E002 + E006 plainly (Tuckute/ROI/voxel/noise-ceiling/% of ceiling); taught statistical power + MDE (bathroom-scale analogy). Layer 1 content delivered; closing understanding-check still pending.
-- 2026-06-12 — Created `docs/reports/R05_thesis-narrative-from-first-principles.md` (LIVING) covering the arc through Layer 1 / E007 reroute. Erfan wants it extended each session until it covers everything.
+- 2026-06-12 — Created [`docs/reports/R05_thesis-narrative-from-first-principles.md`](../reports/R05_thesis-narrative-from-first-principles.md) (LIVING) covering the arc through Layer 1 / E007 reroute. Erfan wants it extended each session until it covers everything.
 
 
 ## Related

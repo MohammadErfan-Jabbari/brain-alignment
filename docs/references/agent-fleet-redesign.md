@@ -55,7 +55,7 @@ tags: [reference]
 ## 3. Architecture / structure problems
 
 - **A. Pre-compute vs post-result agents mixed in the CLAUDE.md table.** `oracle-reviewer` is invited to run post-result with a design-shaped prompt. **Fix:** BEFORE/AFTER labels in each agent's `description`; split the table into "Pre-compute gate" vs "Post-result panel."
-- **B. Confound catalog duplicated in `counter-argument` + `oracle-reviewer`.** A new L-entry must be edited twice or they drift. **Fix:** extract to `docs/references/confound-catalog.md` (seed from L003/L011/L012/L013/L014); all three (incl. `anti-confound-designer`) read it. One source of truth.
+- **B. Confound catalog duplicated in `counter-argument` + `oracle-reviewer`.** A new L-entry must be edited twice or they drift. **Fix:** extract to [`docs/references/confound-catalog.md`](confound-catalog.md) (seed from L003/L011/L012/L013/L014); all three (incl. `anti-confound-designer`) read it. One source of truth.
 - **C. `wrap-auditor` scopes only reachable from `/wrap`.** Provenance/doc-status are needed *mid-session* (when a verdict flips) — why E015's number drifted 2 sessions. **Fix:** make `wrap-auditor` independently invokable with `--scope`.
 - **D. No `.mcp.json`.** Research agents rely on the global Exa/Firecrawl config. **Fix:** add a project `.mcp.json` wiring Exa so a fresh checkout reproduces them.
 - **E. "Panel-clean" undefined / unowned.** Fixed by §2's `/goalsmith` clause + `/wrap` reconcile note; flagged here as the structural gap.
@@ -145,7 +145,7 @@ WHAT-WOULD-UPGRADE: ... | WHAT-WOULD-KILL: ...
 **DONE (committed):**
 - **§4 thinker/oracle prompt blocks + `/goalsmith` panel-clean clause** — `02be369`. Each thinker now labels objections VERIFIED-AGAINST-DATA vs SPECULATIVE, forks nulls to IMPL/THEORY-NULL/SCOPE-MISMATCH, and emits a `PANEL-VERDICT:` block; oracle gained DESIGN-vs-RESULT mode.
 - **The 5 new agents** (`stat-aggregation-auditor`, `anti-confound-designer`, `dataset-verifier`, `dataset-scout`, `paper-repo-extractor`) — `498f658`.
-- **`confound-catalog.md` (single source of truth) + `/precheck`** — `e9b3067`.
+- **[`confound-catalog.md`](confound-catalog.md) (single source of truth) + `/precheck`** — `e9b3067`.
 - **`wrap-auditor` scope upgrades** (number-provenance→provenance-completeness; continuity-docs→doc-status-sync) **+ mid-session invocability**; **`/orient`** working-tree + missing-wrap checks; **`counter-argument`/`oracle-reviewer`** catalog pointers; **`lit-scout`** task-dependent tier + no-judge; **`agent_routing_lint.py`** PreToolUse hook + settings wiring; **CLAUDE.md** routing refinement + new-agent registration — `dad2324`.
 
 **No edit needed:**

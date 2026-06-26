@@ -20,15 +20,15 @@ tags: [timeline]
    (fMRI-free proxy). Repo-wide relabel via a folder-by-folder subagent swarm with an exact mapping contract; verified
    clean (norms / λ / transformer layers / lecture numbers untouched; learnings count unchanged). Timeline logs stay
    immutable (old `L`).
-2. **Added `docs/map.md`** (`7695ed4`) — a one-screen orientation aid: the naming legend (`Q`/`E`/`A`/`D`/`L`/`F`) and
-   the whole experimental journey as a tree, plus the L↔Q table. It is **not** the status board (`ladder.md` still wins).
+2. **Added [`docs/map.md`](../map.md)** (`7695ed4`) — a one-screen orientation aid: the naming legend (`Q`/`E`/`A`/`D`/`L`/`F`) and
+   the whole experimental journey as a tree, plus the L↔Q table. It is **not** the status board ([`ladder.md`](../ladder.md) still wins).
    Wired the convention into `CLAUDE.md`.
 3. **Adopted the finding-report convention + piloted R06** (`adf270a`, `e8e472f`). A report is now **one durable claim
    per file**, flat append-only `R<NN>` IDs (issue-number rule — never renumbered), **current-truth-only** (history
    lives in [`map.md`](../map.md)/`timeline/`/`decisions/`, not in the report), Q-tagged, each mapping **1:1 to a manuscript Results
    section**. Reading order + Q→report map live in `reports/README.md`. R06 = Q0/A2, "the LM↔brain alignment signal is
    real, beyond confounds."
-4. **Retired R05** (`67f1c34`) — frozen for history across the living docs, superseded by the finding-reports + `map.md`.
+4. **Retired R05** (`67f1c34`) — frozen for history across the living docs, superseded by the finding-reports + [`map.md`](../map.md).
 5. **Formalized R06 as conditional-MI + a math-grounded report convention** (`d5731ca`); then **scientific voice for the
    R06 math + a voice rule in the skill** (`e75240e`), and a **"presenting a measured quantity"** rule
    (`373fe1a`). Reports now formalize their core quantity and foundational concepts in real LaTeX and cite the course

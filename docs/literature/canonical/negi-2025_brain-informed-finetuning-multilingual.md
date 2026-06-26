@@ -270,7 +270,7 @@ missing.
 
 **What it gives us (positive):**
 - First published demonstration that brain-tuning a text LM (not just a speech LM) produces
-  downstream NLP gains across multiple languages, going beyond the Schwartz et al. (2019) founding
+  downstream NLP gains across multiple languages, going beyond the [Schwartz et al. (2019)](schwartz-2019_inducing-brain-relevant-bias.md) founding
   work and the Moussa et al. (2025) speech-model line.
 - The multilingual and zero-shot transfer result is a new A3-relevant finding: the semantic
   structure encoded by bilingual fMRI generalises beyond the fine-tuning languages, which is
@@ -314,7 +314,7 @@ brain-specific* for downstream tasks — that claim is unsupported by the existi
 contribution is exactly the matched-ppl + permuted-brain downstream evaluation that would settle the
 question.
 
-**Does this paper change anything in `docs/01-research-landscape.md`?** Yes — it should be added to
+**Does this paper change anything in [`docs/01-research-landscape.md`](../../01-research-landscape.md)?** Yes — it should be added to
 Section A as a new row in the "What the alignment signal is, and what drives it" table, directly
 adjacent to the Moussa et al. (2025) row. The existing E009 design doc (S8 lit-scout entry) already
 cites Negi et al. accurately; the landscape should be updated to reflect that the full paper has now

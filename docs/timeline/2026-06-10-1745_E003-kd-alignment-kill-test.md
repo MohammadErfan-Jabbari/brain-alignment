@@ -29,9 +29,9 @@ A clean, PCA-rank-robust **monotone alignment gradient**: conventional gpt2 (ρ�
 
 ## Artifacts
 
-- `docs/experiments/E003_kd-alignment-preservation.md` (locked design + results + verdict + both reviews).
+- [`docs/experiments/E003_kd-alignment-preservation.md`](../experiments/E003_kd-alignment-preservation.md) (locked design + results + verdict + both reviews).
 - `scripts/run_kd_alignment.py` (runner; reuses `distill.py` + `pilot_lib`). Outputs `outputs/E003_{cold,warm}.json` (gitignored). KD corpus `data/kd_corpus/` (gitignored).
-- `docs/learnings.md` L011; R03 §5 ladder (Layer 2a) + R04 §8 updated.
+- [`docs/learnings.md`](../learnings.md) L011; R03 §5 ladder (Layer 2a) + R04 §8 updated.
 - **R04 §7 factual corrections to R03 were already applied** (commit `4b548d1`, prior session) — verified this session, nothing to do. R03 line-1 corruption does not exist (working tree clean).
 
 

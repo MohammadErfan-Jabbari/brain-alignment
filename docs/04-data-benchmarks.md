@@ -120,7 +120,7 @@ a benchmark. Their encoding-grade stimulus data is largely the Pereira set.
 
 - **No kill on data access.** Every adequately powered English benchmark is CC0/CC-BY, anonymous
   S3/DataLad/OSF, no DUA.
-- **⚠️ Reframe — Merlin & Toneva 2026, "When Language Models Lose Their Mind"** ([arXiv 2603.23091](https://arxiv.org/abs/2603.23091)).
+- **⚠️ Reframe — [Merlin & Toneva 2026](literature/canonical/merlin-2026_when-lms-lose-their-mind.md), "When Language Models Lose Their Mind"** ([arXiv 2603.23091](https://arxiv.org/abs/2603.23091)).
   Causally manipulates brain alignment at matched perplexity; brain-misaligned models do substantially
   worse on 200+ downstream tasks. This is the closest published work to **A3** (preserved alignment
   buys something practical) and **supports our premise** — but it is *adversarial fine-tuning of one

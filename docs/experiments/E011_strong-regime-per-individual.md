@@ -7,7 +7,7 @@ aliases: [E011]
 # Experiment — E011: is the per-individual F1 null REGIME-SPECIFIC? (strong-regime per-subject test, vs Negi)
 
 **Created:** 2026-06-12 · **Status:** COMPLETE (ran 2026-06-12) — per-individual null robust to heavy-LoRA capacity (r64/6ep, +0.0004 [−0.0005,+0.0013], incl 0; the knob that moves the rep wrecks ppl; L019) · **Mode:** working
-**Direction:** the manuscript's key open test (§6). E008's per-individual null was under *light* LoRA (r=16, 3 epochs, frozen base → perplexity preserved). The counter-argument's live rebuttal: "you got null because you didn't tune hard enough — Negi 2025 got a *positive* per-individual encoding gain under full fine-tuning." E011 settles whether the null survives a strong regime.
+**Direction:** the manuscript's key open test (§6). E008's per-individual null was under *light* LoRA (r=16, 3 epochs, frozen base → perplexity preserved). The counter-argument's live rebuttal: "you got null because you didn't tune hard enough — [Negi 2025](../literature/canonical/negi-2025_brain-informed-finetuning-multilingual.md) got a *positive* per-individual encoding gain under full fine-tuning." E011 settles whether the null survives a strong regime.
 **Predecessors:** [`E008`](E008_per-participant-f1-solidification.md) (light-LoRA per-subject null, +0.0001) · [`E004`](E004_brain-loss-lever-test.md) (full-FT collapses perplexity 226→865) · [`negi-2025`](../literature/canonical/negi-2025_brain-informed-finetuning-multilingual.md) (positive per-individual encoding, full-FT, non-ppl-matched)
 **Code:** **no new code** — `run_brain_lever.py` with `--uids` + `--lora-r 64`/`--no-lora` + `--epochs`. Verdict: `analyze_e008.py` (crossed inference).
 **Output:** `outputs/E011_heavylora_Qwen.json`, `outputs/E011_fullft_Qwen.json`

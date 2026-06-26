@@ -78,7 +78,7 @@ The open question it directly raises for us: if a text LM's layers already exhib
 
 ## Open Questions
 
-Does brain-tuning produce the same layer-wise hierarchy reorganization in text LMs as in speech models? The speech result (rising curve for late language regions; flat-to-falling in pretrained models) has a direct analogue in text models that has not been tested — Oota 2023 and related work report aggregate alignment, not layer-by-layer alignment broken out by brain region type. Running this diagnostic on a text LM with fMRI-text pairs would directly test whether the structural finding generalizes beyond speech and is the most tractable extension of this paper for our thesis.
+Does brain-tuning produce the same layer-wise hierarchy reorganization in text LMs as in speech models? The speech result (rising curve for late language regions; flat-to-falling in pretrained models) has a direct analogue in text models that has not been tested — [Oota 2023](oota-2023_joint-linguistic-processing-brain-lms.md) and related work report aggregate alignment, not layer-by-layer alignment broken out by brain region type. Running this diagnostic on a text LM with fMRI-text pairs would directly test whether the structural finding generalizes beyond speech and is the most tractable extension of this paper for our thesis.
 
 ---
 

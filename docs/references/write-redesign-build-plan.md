@@ -87,7 +87,7 @@ Then an **atomic commit** with a build-log entry below. Mechanics that bit us on
 ## Authority note — the 2d remaps win over the scenario-suite coverage table
 
 `write-redesign-design.html` step **2d** re-mapped which functionality *enforces* several scenarios; the coverage
-table in `write-redesign-scenarios.md` still lists the **pre-2d** owner. The 2d mapping is authoritative:
+table in [`write-redesign-scenarios.md`](write-redesign-scenarios.md) still lists the **pre-2d** owner. The 2d mapping is authoritative:
 - **SC-STR-06 (width) + SC-STR-07 (CARS-niche)** — table files them under **F6**; enforced by the **F11 structure
   judge, stage-3 site** (F6 is hook-only, can't grade a rubric).
 - **SC-HON-06 (frame-blend in prose)** — table files it under **F2**; enforced by the **F5 scope judge, stage-5
@@ -114,7 +114,7 @@ because it lives in the evidence/argument substrate (the E006 voxel-bootstrap CI
 the pipeline has no path to route it to the owning stance — it would either dump it on the human or
 (worse) paper over it by rewording with an unrecorded number. The fix — a **cross-stance handoff**
 orchestration function (detect → classify → emit handoff → block stickily → recommend the stance; never
-auto-spawn, never adopt a number) — is designed to BUILD-READY in **`write-redesign-xstance.md`** (hardened
+auto-spawn, never adopt a number) — is designed to BUILD-READY in **[`write-redesign-xstance.md`](write-redesign-xstance.md)** (hardened
 across 4 opus reviews). **Four build chunks, same three-net loop, dependency order X1→X4:**
 - **X1** — `evidence_status: suspect` at all four sites (`lattice_integrity.EVIDENCE_STATUS`,
   `claim_binding.STALE` + `check_register`, `LATTICE.md`, register).
@@ -128,7 +128,7 @@ across 4 opus reviews). **Four build chunks, same three-net loop, dependency ord
 This should land **before** P3 cutover so the cutover does not freeze a system with this known gap.
 
 ## Build log (append-only; durable decisions mined/made during the build)
-*Phase 1 + P2-A decisions live in the two session logs (provenance table above) + `docs/learnings.md` L059–L061.
+*Phase 1 + P2-A decisions live in the two session logs (provenance table above) + [`docs/learnings.md`](../learnings.md) L059–L061.
 This log starts at P2-B.*
 
 **P2-B-i — stage-1 front-end (F1 reader-model + F2 message&frame).** Built `agents/sw-reader-model.md` (sonnet),
@@ -506,7 +506,7 @@ repoint CLAUDE.md + 03-methodology, record D048-complete.
 
 ---
 
-### G1 build — the RUB-grading harness (the P3 blocker), S42. Plan: `write-redesign-g1-plan.md` (BUILD-READY, 2 oracle rounds).
+### G1 build — the RUB-grading harness (the P3 blocker), S42. Plan: [`write-redesign-g1-plan.md`](write-redesign-g1-plan.md) (BUILD-READY, 2 oracle rounds).
 Same three-net loop per chunk (selftest → opus oracle → black-box/fresh-`claude -p` → atomic commit + this log).
 
 **G1-a — the scenario store + the `validate-suite` DET.** Built `scripts/rub_harness.py` (parser + `gen-store` +
@@ -617,7 +617,7 @@ pessimist of the two) found real pre-cutover defects; fixed before declaring rea
   narrows it.)
 - **Protocol field-name fix (oracle):** the lattice step reads `sw-reader-model`'s `old`/`new` arrays (was the
   non-existent `terms_old`/`terms_new`); `--raw` requirement added to the protocol.
-- **P3-plan guardrails folded into `tasks.md` (premortem modes 1/4/5):** P3-0 = a committed fresh-context
+- **P3-plan guardrails folded into [`tasks.md`](../tasks.md) (premortem modes 1/4/5):** P3-0 = a committed fresh-context
   ~10-scenario dress rehearsal before the one-shot 94-run; P3-2 splits the irreversible step (tombstone the old
   flow ~1 week; triage which of the 13 DET checks are safe as always-on per-edit hooks vs suite-time only).
 - **D051 amended (premortem mode 2):** the F16 gate gains a framing-sentence forcing-function (enumerate empirical-

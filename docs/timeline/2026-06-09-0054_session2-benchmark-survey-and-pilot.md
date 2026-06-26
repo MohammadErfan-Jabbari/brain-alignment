@@ -26,14 +26,14 @@ test — with the anti-confound protocol baked in. Be adaptive about the data de
   question is **not** answered — only the pipeline is validated. Nothing synthetic is presented as a
   thesis result.
 
-## Task 1 — language-fMRI benchmark survey (→ `docs/04-data-benchmarks.md`)
+## Task 1 — language-fMRI benchmark survey (→ [`docs/04-data-benchmarks.md`](../04-data-benchmarks.md))
 
 - Surveyed Pereira 2018, Narratives, LeBel 2023, Petit Prince, and EvLab/Fedorenko releases: license,
   N, noise ceiling, English/multilingual, modality/TR, and +0.05 R² power for each.
 - **SPOF resolved.** Three open, no-login English benchmarks. **Recommendation: LeBel `ds003020`
   primary** (powered within-subject, noise ceiling, CC0/CC-BY, anonymous S3/DataLad), **Narratives
   `ds002345`** generalisation, **Pereira `crwz7`** plumbing. Charter data-access kill not triggered.
-- **Reframe flag (not a kill):** Merlin & Toneva 2026 ("When LMs Lose Their Mind") already proved the
+- **Reframe flag (not a kill):** [Merlin & Toneva 2026](../literature/canonical/merlin-2026_when-lms-lose-their-mind.md) ("When LMs Lose Their Mind") already proved the
   A3 premise via fine-tuning; we must differentiate on **compression/distillation at matched budget**.
 
 ## Task 2 — toy distillation pilot (→ `scripts/`, `configs/`, `docs/experiments/E001`)

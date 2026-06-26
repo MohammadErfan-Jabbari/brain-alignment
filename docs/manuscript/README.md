@@ -9,7 +9,7 @@ This is the home for the LaTeX manuscripts in two sublayers (D035): `extended/` 
 supervisor-facing master, an always-current paper body plus an append-only checkpoint log) and
 `public/vN/` (frozen submission cuts, derived by compression from the extended). A manuscript is **not**
 the same document as a report (`../reports/`, Markdown, the continuous layer that feeds these). Write here
-through the `sci-write-v2` skill; full spec in `../03-methodology.md` ("Deliverable layers") and
+through the `sci-write-v2` skill; full spec in [`../03-methodology.md`](../03-methodology.md) ("Deliverable layers") and
 decision D035 (D011 still binds every number).
 
 ## What goes here
@@ -34,7 +34,7 @@ If the manuscript needs a number that isn't recorded, that is a **gap to flag** 
 slot and add a working-session task to produce it. Never invent, estimate, or carry a synthetic
 stand-in (e.g. E001's synthetic-fMRI numbers, L004) into the manuscript as if it were evidence.
 
-## Conventions (inherit from `../README.md`)
+## Conventions (inherit from [`../README.md`](../README.md))
 
 - Specific numbers with uncertainty and the named test — "Δ = +0.06 ± 0.01, n=3, contiguous split".
 - One source of truth: cite `experiments/`, don't restate derivations.

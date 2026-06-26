@@ -19,7 +19,7 @@ aliases: [E019]
 ## Design sketch (to be locked + oracle-gated)
 1. **Pick the target** by feasibility: literal pipeline (Negi bilingual fMRI = infeasible, no data) vs. a recipe reproducible on data we HAVE (LeBel + **denizenslab n=6, now downloaded** — 6 subjects, reading+listening naturalistic). Leading candidate: a **Bilgin/Moussa-style full-FT brain-tuning recipe on denizenslab/LeBel**, evaluated their way (vanilla baseline, their split convention) to **reproduce the qualitative positive**, then re-evaluated under our controls.
 2. **Arms (≥3 seeds, per-subject inference):** (a) vanilla baseline; (b) brain-tuned (their recipe) — the reproduced gain; (c) **perplexity-matched generic-text fine-tune** (matched by construction — anchor/early-stop to the brain arm's held-out ppl); (d) **permuted-brain twin**.
-3. **Outcome:** the gain (b−a) and how much survives the controls — (b−c) at matched ppl, and (b−d) brain-specificity. Anti-confound: contiguous/story splits, nuisance subtraction, the bpb quality axis (L034/D023). 
+3. **Outcome:** the gain (b−a) and how much survives the controls — (b−c) at matched ppl, and (b−d) brain-specificity. Anti-confound: contiguous/story splits, nuisance subtraction, the bpb quality axis (L034/D023).
 4. **Predeclared readings:** gain collapses to within the matched-ppl + permuted band → **the field's positive is a quality/fine-tuning artifact** (the paper's external-validity clincher). Gain SURVIVES matched-ppl + permuted (CI excludes the control band) → a **genuine brain-specific training effect at scale** → Fork-A-qualifying → STOP for Erfan.
 
 ## Open risks (pre-flag for the oracle gate)

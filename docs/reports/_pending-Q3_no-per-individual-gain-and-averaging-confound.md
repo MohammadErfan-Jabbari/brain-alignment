@@ -7,7 +7,7 @@ tags: [report]
 
 **Answers Q3 (F1, the headline). Verdict: ❌ NULL per-individual, well-powered, and stable across capacity, objective, substrate, and parameterisation. The positive contribution is methodological: a measurement-validity finding (cross-subject target-averaging manufactures apparent brain-specificity) plus the control protocol that detects it (matched-perplexity, a per-kind permuted-brain twin, and per-subject inference).** This report states current truth only. The discovery order (E005 looked like a win, then collapsed) lives in [`map.md`](../map.md), `timeline/`, and `decisions/`, not here. Sources: `experiments/E005`, [`E008`](../experiments/E008_per-participant-f1-solidification.md), [`E011`](../experiments/E011_strong-regime-per-individual.md), [`E013`](../experiments/E013_open-frontier-multisubject-naturalistic.md), `E013b`, [`E017`](../experiments/E017_matched-ppl-control-on-braintuning-gain.md), [`E006`](../experiments/E006_lebel-voxelwise-feasibility.md); lessons L011 / L015 / L016 / L041.
 
-This is a finding-report under the report convention (D036): one claim, Q-tagged, current-truth-only, fixed skeleton. It is the synthesis of Q3. The history of how the field (and we) got here lives in `map.md` (the journey tree), `timeline/`, and `decisions/`.
+This is a finding-report under the report convention (D036): one claim, Q-tagged, current-truth-only, fixed skeleton. It is the synthesis of Q3. The history of how the field (and we) got here lives in [`map.md`](../map.md) (the journey tree), `timeline/`, and `decisions/`.
 
 ## The question
 

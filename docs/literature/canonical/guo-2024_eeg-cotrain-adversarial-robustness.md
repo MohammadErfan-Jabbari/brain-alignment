@@ -32,7 +32,7 @@ shuffled/random control gains in the text; these absences are noted where releva
 
 ## Comprehension Summary [REQUIRED]
 
-1. Problem solved: Prior work (Safarani 2021, Pirlot 2022) showed modest robustness gains from
+1. Problem solved: Prior work (Safarani 2021, [Pirlot 2022](pirlot-2022_dcca-neural-regularizer-cnns.md)) showed modest robustness gains from
    co-training ANNs with invasive monkey neural data; this paper asks whether the same effect holds
    with cheaper, non-invasive human EEG collected on 16,540 natural images (THINGS-EEG2) and extends
    the test across 24 diverse dual-task learning architectures and 3 attack types.

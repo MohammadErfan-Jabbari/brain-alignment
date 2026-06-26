@@ -56,7 +56,7 @@ otherwise write prose at stage 3 and bypass the gate).
   Stop-hook convergence + the AskUserQuestion gate.
 - **P3 (gated, IRREVERSIBLE — needs Erfan)** — run the FULL 119-scenario suite end-to-end; only when green,
   retire the old `scientific-writing` flow, wire the DET checks as always-on hooks, point `CLAUDE.md` +
-  `docs/03-methodology.md` at the new pipeline, record D048-complete.
+  [`docs/03-methodology.md`](../03-methodology.md) at the new pipeline, record D048-complete.
 
 ## Ladder
 Unchanged. This is a `/meta` apparatus build; no rung flips, Q0–Q5 stand. The live science next-step

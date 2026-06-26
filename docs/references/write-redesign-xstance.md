@@ -7,7 +7,7 @@ tags: [reference]
 
 **Status:** design complete, BUILD-READY (hardened across 4 clean-context opus reviews, the L058 discipline).
 Builds next session as chunks X1–X4 (§H), alongside P3. Companion to `write-redesign-design.html` (the
-canvas) and `write-redesign-build-plan.md` (the build). Regression anchor: SC-XSTANCE-01 = the dry-run.
+canvas) and [`write-redesign-build-plan.md`](write-redesign-build-plan.md) (the build). Regression anchor: SC-XSTANCE-01 = the dry-run.
 
 Adds to the D048 `/write` pipeline the capability the dry-run proved missing: when an auditor finds a
 defect the prose **cannot** fix because it lives in the evidence/argument substrate (not the writing),

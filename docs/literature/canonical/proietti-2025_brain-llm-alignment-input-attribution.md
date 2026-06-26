@@ -133,7 +133,7 @@ All patterns replicate on MRH (Appendix D).
 
 1. **Attribution method reliability.** GXI computes local first-order gradient information; for deep nonlinear models with the ridge regressor bottleneck, the gradient path may be noisy or saturated. IG was only run on two of five models, and only for positional and linguistic comparisons — not for the full IoU analysis. No perturbation-based (occlusion/LIME) cross-check was performed on the full model set.
 
-2. **Frozen models only.** Attributions reflect the inductive biases of pretrained models; they do not reflect what a brain-alignment-fine-tuned model (e.g., Brain Tuned from Merlin 2026) would rely on. The finding is about the passive structure of the mapping, not about an optimized objective.
+2. **Frozen models only.** Attributions reflect the inductive biases of pretrained models; they do not reflect what a brain-alignment-fine-tuned model (e.g., Brain Tuned from [Merlin 2026](merlin-2026_when-lms-lose-their-mind.md)) would rely on. The finding is about the passive structure of the mapping, not about an optimized objective.
 
 3. **No anti-confound controls per Hadidi/Feghhi 2026.** The study uses contiguous folds (4-fold by runs for HP; 11-fold by story for MRH), which satisfies the basic temporal-leakage requirement. However, there is no explicit subtraction of sentence-position, sentence-length, or static word-embedding nuisance variables from the brain alignment measure used as the attribution target. The claim that BA reflects semantic/discourse content is observational; the alternative — that the BA attribution patterns trace word-level features that happen to be semantic by coincidence (e.g., content words are longer and at less predictable positions) — is not ruled out by a formal nuisance decomposition.
 
@@ -164,7 +164,7 @@ The Proietti et al. finding offers a plausible mechanism for the E005 F1 result 
 **What this changes in our design or guardrails:**
 
 - The citation is now grounded. We can use Proietti et al. (arXiv:2510.12355) as the specific reference for "brain alignment and next-word prediction draw on distinct input word subsets (Proietti et al. 2025)" in the mechanism paragraph of the thesis.
-- Do NOT upgrade this citation to "brain alignment is causally independent of NWP" — that would require Merlin 2024 (residual alignment after controlling NWP) and Merlin 2026 (causal gradient reversal).
+- Do NOT upgrade this citation to "brain alignment is causally independent of NWP" — that would require [Merlin 2024](merlin-2024_beyond-next-word-brain-alignment.md) (residual alignment after controlling NWP) and Merlin 2026 (causal gradient reversal).
 - The finding that the divergence is larger at middle and late layers (BA AUC > NWP AUC in mid/late) matches the theoretical motivation for using middle-layer representations in our encoding model — and is worth citing in the layer-selection rationale.
 - No change to the experimental design is required; the paper is supporting motivation, not a procedure we need to replicate.
 

@@ -14,11 +14,11 @@ tags: [timeline]
 ## What happened (in order)
 
 1. **Reconciled the state boards to S16's committed work** (commit `3b52bfb`):
-   - `ladder.md` — prepended an S16 entry to the header; repointed the analysis-lane "Next session" block from R05 §9 to the finding-report set (R06 ✅ → R07 next). No rung or verdict touched.
-   - `upspeed.md` — replaced with S16 prose (L→Q rename, [`map.md`](../map.md), D036 finding-report convention, R05 retired, R06 written; next = R07).
-   - `tasks.md` — repointed the binding rule + the ANALYSIS-lane queue to the finding-reports [`R06`](../reports/R06_alignment-signal-is-real-beyond-confounds.md)–`R14`; added an S16 "Done this session" block.
+   - [`ladder.md`](../ladder.md) — prepended an S16 entry to the header; repointed the analysis-lane "Next session" block from R05 §9 to the finding-report set (R06 ✅ → R07 next). No rung or verdict touched.
+   - [`upspeed.md`](../upspeed.md) — replaced with S16 prose (L→Q rename, [`map.md`](../map.md), D036 finding-report convention, R05 retired, R06 written; next = R07).
+   - [`tasks.md`](../tasks.md) — repointed the binding rule + the ANALYSIS-lane queue to the finding-reports [`R06`](../reports/R06_alignment-signal-is-real-beyond-confounds.md)–`R14`; added an S16 "Done this session" block.
    - [`analysis-roadmap.md`](../analysis-roadmap.md) — banner mapping the (still-valid) pedagogical Sessions A–G onto the finding-reports R06–R14; R05 retired as the output layer.
-   - Added a reconstructed S16 timeline log (`2026-06-16-0233_session16-finding-report-convention-R06.md`) from git + D036, to complete the immutable record S16 never wrote.
+   - Added a reconstructed S16 timeline log ([`2026-06-16-0233_session16-finding-report-convention-R06.md`](2026-06-16-0233_session16-finding-report-convention-R06.md)) from git + D036, to complete the immutable record S16 never wrote.
 2. **Completed the D036 brain mirror.** The gbrain page `brain-alignment-naming-convention` (created 2026-06-15 15:55) already covered the L→Q rename + code system + manuscript code rule, but **predated** the finding-report convention added later in S16. Updated it in place (`put_page`, `write_through.written: true`) to add: the finding-report convention (one claim per file, flat `R<NN>` IDs, current-truth-only, R05 retired, R06 written, the R07–R14 plan) and the estimand-first lens. `brain-alignment-deliverable-system` (D035) already existed and is current. Left the bare `projects/brain-alignment` hub stub alone (enrichment is its own task).
 
 ## Verdict / science state

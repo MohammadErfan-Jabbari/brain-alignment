@@ -12,7 +12,7 @@ result, a lesson, where we are, where we're going — it lives here, not in chat
 
 The governing principle (inherited from the Nexus redesign, and earned from its two failures):
 **adaptive semistructure — specify only what is critical for shared truth, keep the rest light.**
-We do *not* run the heavy Nexus stage-machine here. See `03-methodology.md` for why.
+We do *not* run the heavy Nexus stage-machine here. See [`03-methodology.md`](03-methodology.md) for why.
 
 ## Map
 
@@ -31,23 +31,23 @@ We do *not* run the heavy Nexus stage-machine here. See `03-methodology.md` for 
 | [`06-theory-grounding.md`](06-theory-grounding.md) | Maps Erfan's MSc coursework (Info Theory for ML + Probabilistic ML) to the thesis: the formal bounds/definitions/theorems behind R03's argument (MI generalization bound, DPI, conditional MI, rate-distortion), with pointers to the course notes under `data/course-material/`. | When a course concept becomes load-bearing |
 | [`07-concepts-primer.md`](07-concepts-primer.md) | Plain-language glossary of the reusable primitives every experiment/report assumes (voxel, ROI, encoding model, unique R², noise ceiling & "% of ceiling", trained−untrained gap, permuted twin, the datasets). Intuition; `06` is the formal version. | When a recurring primitive needs a clear home |
 | [`decisions/decisions.md`](decisions/decisions.md) | Append-only decision log (ADR-style, D001…). | When a real decision is made |
-| [`timeline/`](timeline/) | Immutable session logs `YYYY-MM-DD-HHMM.md`. The path we actually walked. | End of each session |
-| [`hypotheses/`](hypotheses/) | One file per hypothesis (`HNNN_…`). Falsifiable claim + kill criteria. | Stage: Claim onward |
-| [`experiments/`](experiments/) | One file per experiment: design + iteration log + results. | Stage: Design onward |
+| `timeline/` | Immutable session logs `YYYY-MM-DD-HHMM.md`. The path we actually walked. | End of each session |
+| `hypotheses/` | One file per hypothesis (`HNNN_…`). Falsifiable claim + kill criteria. | Stage: Claim onward |
+| `experiments/` | One file per experiment: design + iteration log + results. | Stage: Design onward |
 | [`reports/`](reports/README.md) | **Continuous** per-topic syntheses (`R01…`, Markdown) — the write-layer of every session, and the source the extended manuscript consolidates from. Rewritten in place as info lands. Governed by the `sci-write-v2` pipeline (D035/D048). | As work touches a topic |
-| [`manuscript/`](manuscript/) | The thesis in two LaTeX sublayers (D035): `extended/` (internal master — always-current paper body + append-only checkpoint log) and `public/vN/` (frozen submission cuts, compressed from the extended). **Checkpoint-derived, not continuous.** | At a checkpoint Erfan calls |
-| [`literature/canonical/`](literature/canonical/) | One note per paper actually read (self-contained copies). | When a paper is read |
-| [`literature/_prior-work/`](literature/_prior-work/) | Provenance: the prior dossier, oracle review, origin idea (frozen, read-only history). | Never edited |
-| [`references/`](references/) | Reusable reasoning frames and conventions. | Rarely |
+| [`manuscript/`](manuscript/README.md) | The thesis in two LaTeX sublayers (D035): `extended/` (internal master — always-current paper body + append-only checkpoint log) and `public/vN/` (frozen submission cuts, compressed from the extended). **Checkpoint-derived, not continuous.** | At a checkpoint Erfan calls |
+| `literature/canonical/` | One note per paper actually read (self-contained copies). | When a paper is read |
+| `literature/_prior-work/` | Provenance: the prior dossier, oracle review, origin idea (frozen, read-only history). | Never edited |
+| `references/` | Reusable reasoning frames and conventions. | Rarely |
 | [`learnings.md`](learnings.md) | Accumulated lessons and corrected mistakes. The anti-amnesia file. | When we learn something the hard way |
 
 ## Conventions
 
-- **One source of truth.** Link, don't duplicate. If a fact lives in `02-environment.md`, point to it.
+- **One source of truth.** Link, don't duplicate. If a fact lives in [`02-environment.md`](02-environment.md), point to it.
 - **Specific numbers only.** "Retention ratio 0.91 ± 0.02, n=3 seeds" — never "it worked better."
 - **Kill criteria are mandatory** for every hypothesis and every multi-day effort.
-- **Negative results are results.** Record them in `learnings.md` and the relevant hypothesis.
+- **Negative results are results.** Record them in [`learnings.md`](learnings.md) and the relevant hypothesis.
 - Dates are absolute (`2026-06-08`), never "today" / "last week".
-- Session logs are immutable; `upspeed.md` is overwritten each session (history lives in `timeline/`).
+- Session logs are immutable; [`upspeed.md`](upspeed.md) is overwritten each session (history lives in `timeline/`).
 - **Prose is not hard-wrapped: one line per paragraph (and per bullet/cell), let editors soft-wrap.** Hard wraps render as broken double-spaced text when an editor inserts blank lines between physical lines. New files follow this; existing hard-wrapped files get reflowed lazily when next edited.
 - **Markdown structure follows the Obsidian/GitHub conventions** in [`references/obsidian-conventions.md`](references/obsidian-conventions.md) (frontmatter, standard relative links — never wikilinks, the 5 cross-compatible callouts, hub + `## Related` footers). The repo is both a GitHub repo and an Obsidian vault.

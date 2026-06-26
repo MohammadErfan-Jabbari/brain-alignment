@@ -6,10 +6,10 @@ aliases: [oota-2023_joint-linguistic-processing-brain-lms]
 
 # Joint processing of linguistic properties in brains and language models
 
-**Authors:** Subba Reddy Oota; Manish Gupta; Mariya Toneva  
-**Year:** 2023  
-**Venue:** NeurIPS 2023  
-**DOI/arXiv:** 10.48550/arXiv.2212.08094  
+**Authors:** Subba Reddy Oota; Manish Gupta; Mariya Toneva
+**Year:** 2023
+**Venue:** NeurIPS 2023
+**DOI/arXiv:** 10.48550/arXiv.2212.08094
 **Canonical ID:** oota-2023_joint-linguistic-processing-brain-lms
 
 **Tags:** #literature #canonical
@@ -22,7 +22,7 @@ aliases: [oota-2023_joint-linguistic-processing-brain-lms]
 - [ ] Full PDF scanned (search + targeted read)
 - [ ] Extracted text only
 
-PDF verified: 2026-03-02  
+PDF verified: 2026-03-02
 Comprehension self-check passed: Y
 
 ## Comprehension Summary [REQUIRED]

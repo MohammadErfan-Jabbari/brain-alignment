@@ -48,7 +48,7 @@ before touching code.
   DET selftests: `uv run python {lattice_integrity,claim_binding,verdicts,run_checks}.py --selftest` — all green.
 - **Incidental cleanup:** a fresh verifier triggered a LaTeX build of the extended manuscript; removed the
   regenerable artifacts (`.aux/.bbl/.pdf/.log/…` under `.claude/skills/scientific-writing/assets/`; the `.tex`
-  source is what's tracked). The stray `docs/learning/lessons/2026-06-24-boruta-feature-selector.md` (foreign to
+  source is what's tracked). The stray [`docs/learning/lessons/2026-06-24-boruta-feature-selector.md`](../learning/lessons/2026-06-24-boruta-feature-selector.md) (foreign to
   this repo's conventions) was left untouched per Erfan.
 
 ## Verdict / ladder
@@ -60,7 +60,7 @@ no science doc. The live science thread is unchanged: Q4 sample-efficiency E024;
 
 **P3 cutover** (next session, Erfan drives — IRREVERSIBLE). First task: **stand up the RUB-grading harness** for
 the ~51 RUB scenarios (incl. the 10 RUB `SC-XSTANCE-*`) + a sign-off mechanic — none exists. Then run the full
-135-suite, retire the old `scientific-writing` flow, repoint `CLAUDE.md` + `docs/03-methodology.md`, wire DET as
+135-suite, retire the old `scientific-writing` flow, repoint `CLAUDE.md` + [`docs/03-methodology.md`](../03-methodology.md), wire DET as
 always-on hooks, record D048-complete.
 
 

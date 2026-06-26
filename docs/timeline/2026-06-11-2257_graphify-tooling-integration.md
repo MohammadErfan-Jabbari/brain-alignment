@@ -25,7 +25,7 @@ navigator for this repo. Cloned into gitignored `data/graphify/` for source read
   video, course-material PDFs. Proven necessary — an explicit path into gitignored `data/` returns 0
   files (graphify walks up to the git root collecting ignore rules), so the override is the only way to
   graph `data/paper-repos/`.
-- **`CLAUDE.md`:** added a `## graphify` section, explicitly **subordinate** to `docs/ladder.md` + gbrain
+- **`CLAUDE.md`:** added a `## graphify` section, explicitly **subordinate** to [`docs/ladder.md`](../ladder.md) + gbrain
   (navigation aid, never a number source).
 - Commits: `ea22aa4` (gitignore graphify-out/), `077eef2` (integration).
 
@@ -64,7 +64,7 @@ navigator for this repo. Cloned into gitignored `data/graphify/` for source read
 
 ## Open thread
 
-- **Get to the bottom of graphify later** (see `tasks.md`): if we revisit the doc-graph, the lever is
+- **Get to the bottom of graphify later** (see [`tasks.md`](../tasks.md)): if we revisit the doc-graph, the lever is
   `--mode deep` + a stronger model (3.1 Pro), and a clear use it serves that gbrain doesn't — else the
   code-graph-only conclusion stands.
 

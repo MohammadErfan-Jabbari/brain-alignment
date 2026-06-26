@@ -49,7 +49,7 @@ uv run python scripts/<name>.py --seed 42 --config configs/<name>.json
 
 ## Interpretation
 
-<What the evidence licenses — and what it does not. Update the hypothesis status and `../learnings.md`.>
+<What the evidence licenses — and what it does not. Update the hypothesis status and [`../learnings.md`](../learnings.md).>
 
 
 ## Related

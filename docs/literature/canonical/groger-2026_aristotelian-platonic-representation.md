@@ -56,7 +56,7 @@ The empirical re-analysis of the Platonic Representation Hypothesis uses the WIT
 
 - `C1` evidence: Proposition 4.1 (p. 3–4) proves O(d/n) null baseline for spectral metrics via Random Matrix Theory; Figure 3 (p. 6) shows empirical confirmation across Gaussian and heavy-tailed distributions; Appendix F.1 (Figure 8) extends to Laplace and Gaussian mixtures.
 - `C2` evidence: Proposition 4.2 (p. 4) proves k/n null baseline for mKNN; Equations 5–7 (p. 4) derive the O(σ√log M) depth inflation; Figure 5 (p. 7) shows aggregation-aware calibration removes layer-count inflation.
-- `C3` evidence: Figure 6a (p. 8), calibrated CKA-RBF vs. language model capacity — calibrated scores flat or noisy, no trend; uncalibrated scores show the upward slope originally reported by Huh et al. (2024).
+- `C3` evidence: Figure 6a (p. 8), calibrated CKA-RBF vs. language model capacity — calibrated scores flat or noisy, no trend; uncalibrated scores show the upward slope originally reported by [Huh et al. (2024)](huh-2024_platonic-representation-hypothesis.md).
 - `C4` evidence: Figure 6b (p. 8), calibrated mKNN vs. language model capacity — clear increasing trend remains after calibration; Figure 7 (p. 8) replicates for VideoMAE video encoders.
 - `C5` evidence: Section 6.3 interpretation (p. 7–8); further note that models converge in *which points are neighbors*, but not in pairwise distances — CKA-RBF with small bandwidth (sensitive to local distances) shows no calibrated alignment (Appendix F.9, cited p. 8).
 

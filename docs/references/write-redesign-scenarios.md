@@ -46,7 +46,7 @@ curated. **Format:** `ID | tests: F## | DET|RUB | INPUT | EXPECT | GROUNDED`.
 > **2d remaps applied to this table + the inline tags** (design step-2d moved enforcement): **SC-STR-06/07** are
 > graded by the **F11 structure judge (stage-3 site)**, not F6 (a hook with no judge); **SC-HON-06** by the **F5
 > scope judge (stage-5 site)**, not F2 (which only sets/gates the frame) — and is RUB, not DET. See
-> `write-redesign-build-plan.md` "Authority note".
+> [`write-redesign-build-plan.md`](write-redesign-build-plan.md) "Authority note".
 
 Adversarial near-misses (MUST NOT flag — the precision boundary): TRUST-5, 7, 11 · HON-09, 10 · STR-09, 10 ·
 VOICE-12, 13 · ARG-9, 10 · PROC-12 · XSTANCE-08, 16 (the over-routing guards — a writing-fixable finding, and an
@@ -265,7 +265,7 @@ tests recall on the known four; generalization rests on those.
 
 ## Cross-stance handoff (F20, D050)
 
-The 16 scenarios for the cross-stance handoff (built as chunks X1–X4; full design in `write-redesign-xstance.md`
+The 16 scenarios for the cross-stance handoff (built as chunks X1–X4; full design in [`write-redesign-xstance.md`](write-redesign-xstance.md)
 §E). SC-XSTANCE-01 is the cross-stance regression anchor (the S39 dry-run verbatim); SC-XSTANCE-08/16 are the
 over-routing negative anchors. The DET half is asserted live in the script selftests (see the P3 plan below);
 the RUB half is judge-graded in the P3 harness.

@@ -27,7 +27,7 @@ induces has downstream value.
 
 ## Why this is the gap (grounded in the S8 lit-scout)
 
-- **Negi et al. 2025 (NeurIPS):** brain-tuning improves multilingual downstream NLP — BUT baseline =
+- **[Negi et al. 2025](../literature/canonical/negi-2025_brain-informed-finetuning-multilingual.md) (NeurIPS):** brain-tuning improves multilingual downstream NLP — BUT baseline =
   vanilla pretrained, **NOT perplexity-matched**, and no compression. We add the matched-ppl + permuted
   controls and the compression frame. (The positive prior art to outdo in rigor.)
 - **Schwartz/Toneva/Wehbe 2019:** founding "no harm + modest gains," weak control (no matched-ppl).
@@ -36,7 +36,7 @@ induces has downstream value.
   not accuracy**, and the permuted-brain twin is the load-bearing control.
 - **Hoak et al. 2025:** *aggregate* alignment does NOT predict robustness; *feature-specific* alignment does.
   → don't claim robustness from a gross brain-score bump; tie it to the specific representational change.
-- **Guo et al. 2024 (EEG):** brain-co-training robustness gains are "limited but consistent" → predeclare a
+- **[Guo et al. 2024](../literature/canonical/guo-2024_eeg-cotrain-adversarial-robustness.md) (EEG):** brain-co-training robustness gains are "limited but consistent" → predeclare a
   small MDE and a power analysis; expect a small effect (consistent with our A+B framing).
 
 ## Arms (reuse the E005/E008 KD students — no new tuning needed for the first pass)
@@ -87,7 +87,7 @@ give the effect a chance. Predeclare the escalation; a null on a non-moving mode
   is honestly power-bounded).
 - **The contribution, made explicit (grounded by the S8 digests):** *every* A3 prior lacks the two controls
   we add. Negi 2025 (closest positive) baselines against vanilla pretrained — no matched-ppl, no shuffled-brain
-  downstream null. Schwartz 2019 claims only "does not harm," no controls. Guo 2024 ran shuffled controls but
+  downstream null. [Schwartz 2019](../literature/canonical/schwartz-2019_inducing-brain-relevant-bias.md) claims only "does not harm," no controls. Guo 2024 ran shuffled controls but
   never quantified the brain-specific increment. → **our novelty is the matched-perplexity + permuted-brain
   paired contrast** (is the downstream gain brain-specific and not just "a different/better LM?"), the same
   confound-clean design that carried E005/E008.

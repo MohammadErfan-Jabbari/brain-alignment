@@ -70,7 +70,7 @@ A technique can be rated low/moderate either because its effect is real but **li
 
 ## Relevance to this thesis
 
-This is **apparatus grounding for the agent's own `/teach` stance — NOT thesis science.** It touches none of A1/A2/A3, produces no brain-alignment number, and uses none of our datasets. Its sole role in this repo is to let `teach.md` **cite** the durable-learning mechanisms it runs on instead of asserting them from parametric memory (the cite-or-flag spine). It belongs in `docs/literature/canonical/` for traceability and should **not** appear in `docs/01-research-landscape.md`'s brain/distillation tables.
+This is **apparatus grounding for the agent's own `/teach` stance — NOT thesis science.** It touches none of A1/A2/A3, produces no brain-alignment number, and uses none of our datasets. Its sole role in this repo is to let `teach.md` **cite** the durable-learning mechanisms it runs on instead of asserting them from parametric memory (the cite-or-flag spine). It belongs in `docs/literature/canonical/` for traceability and should **not** appear in [`docs/01-research-landscape.md`](../../01-research-landscape.md)'s brain/distillation tables.
 
 **What `/teach` may now cite this note for (and at what strength):**
 - The **testing effect / practice testing** as a *high-utility* mechanism — the spine of the lesson↔record split (retrieval, not re-exposure, drives durable learning; the gap widens with delay).
@@ -83,7 +83,7 @@ This is **apparatus grounding for the agent's own `/teach` stance — NOT thesis
 2. The utility ratings are **relative judgments graded on generalizability**, not effect sizes — do not quote a rating as if it were a measured Δ.
 3. Numbers (Runquist 53/36/35/4%; Bahrick; Cepeda lag) are **single-study illustrations** — cite them as examples of the mechanism, not as the effect size of the technique.
 
-This note pairs with `bloom-1984_two-sigma-problem` (the motivating analogy, with the deliberate affect-lever drop) and `learnlm-2024_improving-gemini-for-learning` (the five pedagogy dimensions and the scaffolding-over-answer-dumping framing) as the three pedagogy sources `teach.md` cites. `teach.md` already names Dunlosky 2013 as the grounding for "retrieval practice, spacing, desirable difficulty" (via [`06-theory-grounding.md`](../../06-theory-grounding.md)) — this note makes that citation real.
+This note pairs with `bloom-1984_two-sigma-problem` (the motivating analogy, with the deliberate affect-lever drop) and `learnlm-2024_improving-gemini-for-learning` (the five pedagogy dimensions and the scaffolding-over-answer-dumping framing) as the three pedagogy sources `teach.md` cites. `teach.md` already names [Dunlosky 2013](dunlosky-2013_effective-learning-techniques.md) as the grounding for "retrieval practice, spacing, desirable difficulty" (via [`06-theory-grounding.md`](../../06-theory-grounding.md)) — this note makes that citation real.
 
 ## Verified
 

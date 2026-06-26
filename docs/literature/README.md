@@ -6,7 +6,7 @@ tags: [literature]
 # Literature
 
 Self-contained copies of the papers actually read for this thesis. The organized map (which paper
-plays which role, the gap, the guardrails) is in `../01-research-landscape.md` — read that first.
+plays which role, the gap, the guardrails) is in [`../01-research-landscape.md`](../01-research-landscape.md) — read that first.
 
 ## Layout
 

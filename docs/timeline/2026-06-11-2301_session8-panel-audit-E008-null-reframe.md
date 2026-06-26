@@ -15,10 +15,10 @@ Working (Design → Run → Judge): produced new evidence (E008), a reproducible
 
 ## What happened
 1. **Built the thinking panel (D017).** Four reasoning-methodology subagents in `.claude/agents/` — `counter-argument`, `socratic-thinker`, `premortem-analyst`, `first-principles-grounder` (fable/sonnet, MECE vs the pre-compute `oracle-reviewer`) + model-routing on existing agents. The post-step adversarial loop Erfan asked for.
-2. **Panel audit overturned the planned next step (pre-compute).** Three fable reviews + a reproducible re-analysis (`scripts/reanalyze_e005_e006.py`) found: (a) E005's "F1 CONFIRMED, CI excludes 0" is **pseudo-replicated** — 15 cells over one 5-UID-averaged target; at the honest fold unit the t-CI **includes 0**; one outlier fold = 52% (L015). (b) The planned **LeBel transfer test is underpowered** (paired MDE needs ρ≥0.9). (c) Grounding fixes: "rate-distortion curve" is a proxy frontier not the literal theorem; the uncited Proietti 2025 paper digested.
+2. **Panel audit overturned the planned next step (pre-compute).** Three fable reviews + a reproducible re-analysis (`scripts/reanalyze_e005_e006.py`) found: (a) E005's "F1 CONFIRMED, CI excludes 0" is **pseudo-replicated** — 15 cells over one 5-UID-averaged target; at the honest fold unit the t-CI **includes 0**; one outlier fold = 52% (L015). (b) The planned **LeBel transfer test is underpowered** (paired MDE needs ρ≥0.9). (c) Grounding fixes: "rate-distortion curve" is a proxy frontier not the literal theorem; the uncited [Proietti 2025](../literature/canonical/proietti-2025_brain-llm-alignment-input-attribution.md) paper digested.
 3. **Pivoted to solidify the foundation (E008), oracle-gated.** Per-participant in-domain test (n=9 Tuckute UIDs as independent units; uid 853 excluded — incomplete ROI). Oracle HOLD → addressed (crossed subject+fold inference, LOO-fold, train/held-out split, n_perm=5, SNR control). Extended `run_brain_lever.py` (`--uids`) + wrote `analyze_e008.py` (crossed inference). Smoke PASS. Ran 945 LoRA-KD runs across 4 GPUs.
 4. **E008 VERDICT: well-powered NULL (L016).** Per-subject brain-specific gain = **+0.00010** (t-CI [−0.0004,+0.0006], n=9, sign 5/9; fold-clustered CI incl 0, fails LOO-fold; the 4 E005-averaged subjects individually null). Two-panel-adjudicated (counter-argument + first-principles): well-powered (MDE≈+0.0006), not noise-floor; the averaging-SNR steelman tested and rejected. **E005's +0.0081 was a group-averaged-target / shared-stimulus-response measurement** (~1.7× averaging + 2.4× fold-4 inflation), NOT per-person brain alignment.
-5. **Grounded A3 (the real gap):** drafted [`E009`](../experiments/E009_a3-practical-payoff.md), digested its 3 prior-art finalists (Negi 2025, Schwartz 2019, Guo 2024). Key: the matched-ppl + permuted-brain control is exactly what every A3 prior lacks. Oracle-gated E009 → HOLD resolved (all-data save-checkpoint mode, *measured* MDE, text-feature control arm, OOD-ppl-ratio primary; pilot-first).
+5. **Grounded A3 (the real gap):** drafted [`E009`](../experiments/E009_a3-practical-payoff.md), digested its 3 prior-art finalists (Negi 2025, [Schwartz 2019](../literature/canonical/schwartz-2019_inducing-brain-relevant-bias.md), [Guo 2024](../literature/canonical/guo-2024_eeg-cotrain-adversarial-robustness.md)). Key: the matched-ppl + permuted-brain control is exactly what every A3 prior lacks. Oracle-gated E009 → HOLD resolved (all-data save-checkpoint mode, *measured* MDE, text-feature control arm, OOD-ppl-ratio primary; pilot-first).
 6. **Doc-consistency cleared:** feghhi→hadidi canonical redirect; R03/R04 have no stale "E004=headline" refs.
 
 ## Decisions made
@@ -26,7 +26,7 @@ Working (Design → Run → Judge): produced new evidence (E008), a reproducible
 - **D018** — in-domain F1 reframed to Fork-B: per-subject NULL (E008); A3 is the central contribution. Supersedes D016's "F1 confirmed in-domain (A+B)." **Erfan-confirmed (D015 gate).**
 
 ## Current truth (the ladder, Erfan-confirmed)
-- **L0/A2** ✅ real & measurable, powered (E006). 
+- **L0/A2** ✅ real & measurable, powered (E006).
 - **L1** 🟡 lever fragile (E004).
 - **L3/F1** ❌ **NULL per-subject** (E008) — averaged-target-only trend; E005's +0.0081 was a group-target/shared-response artifact, not per-person alignment.
 - **L2b/A3** 🔵 NEXT (E009, designed + grounded + oracle-gated).
@@ -62,7 +62,7 @@ Artifacts added: `scripts/run_a3_pilot.py`, `scripts/analyze_a3_pilot.py`; `outp
 
 Continued autonomously (Stop hook: don't pause at phase boundaries). Picked option (a) — accept Fork-B + write up — per the panel's recommendation.
 
-- **Drafted the paper** (`docs/manuscript/00_paper-draft-v0.md`), grounded (every number → recorded source). Panel-reviewed it (counter-argument + first-principles, fable):
+- **Drafted the paper** ([`docs/manuscript/00_paper-draft-v0.md`](../manuscript/00_paper-draft-v0.md)), grounded (every number → recorded source). Panel-reviewed it (counter-argument + first-principles, fable):
   - first-principles found 2 factual mismatches (n=9 split mis-stated 5/5 → train-4/held-5; "Spearman" → Pearson r=−0.88) + MDE range + explicit 1.7× arithmetic + absolute uR² — all fixed.
   - counter-argument (MAJOR-REVISION): "manufactures" was asserted not shown; Negi-2025's per-participant TR-shuffle-controlled *positive encoding* result unaddressed; positive/null on different substrates. → added the Negi reconciliation, separated the two contributions, substrate-mismatch + strong-regime-open-test limitations, softened verb to "inflates."
 - **E010 — the averaging dose-response** — to EARN the central claim: gap(k) = −0.0002/−0.0001/+0.0023/+0.0194/+0.0071 for k=1/2/3/5/9. **k=1 null; the gap appears only on averaging** → averaging *produces* the apparent brain-specificity (rising limb tracks the noise-ceiling). Honest caveat: not perfectly monotone (k=9<k=5, wide 4-seed bars) → qualitative law, not a precise fit. L018; §4.2b added.

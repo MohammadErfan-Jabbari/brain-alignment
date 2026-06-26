@@ -13,7 +13,7 @@ pre-PhD student finishing this master; the thesis is the deliverable. (NeurIPS t
 for the live verdict (A2 real & powered; per-individual F1 = null; thesis is Fork B = a measurement-validity
 result + well-powered nulls). This charter records the *original* framing/scope; the ladder is current state.
 **Deadline:** ~end of August 2026 (tentative — exact date TBD, confirm).
-**Created:** 2026-06-08 · **Scope locked:** 2026-06-08 (see `decisions/decisions.md` D006).
+**Created:** 2026-06-08 · **Scope locked:** 2026-06-08 (see [`decisions/decisions.md`](decisions/decisions.md) D006).
 
 ---
 

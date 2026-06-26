@@ -116,8 +116,8 @@ communicates that evidence — recall what was done, explain concepts, digest re
 write manuscript/report sections (phases Argue → Compound; outputs in `../manuscript/`). Each session
 declares its mode at the start; the close ritual and [`upspeed.md`](../upspeed.md) framing follow the mode. Binding rule:
 **an analysis session may only report numbers a working session actually recorded in `docs/`** — a
-missing number is a gap to flag, never one to invent. Encoded in `../../CLAUDE.md` ("Two kinds of
-session") and `../03-methodology.md` ("Two session modes"); analysis outputs home created at
+missing number is a gap to flag, never one to invent. Encoded in [`../../CLAUDE.md`](../../CLAUDE.md) ("Two kinds of
+session") and [`../03-methodology.md`](../03-methodology.md) ("Two session modes"); analysis outputs home created at
 `../manuscript/`.
 **Rationale:** The two modes have opposite self-deception risks — a working session over-fits the hoped
 result (guarded by kill criteria / locked design / anti-confound), an analysis session narrates past the
@@ -177,11 +177,11 @@ reconstructions) from a `course-lecture-study` workflow; these are *higher quali
 sparse, image-heavy slides, so the markdown notes ARE the usable text and the PDFs are kept only as
 source-of-record. The reframing is the point: this was never an extraction problem, it is a curation+integration
 problem. **(2) Gitignored + indexed, not committed-as-text.** The notes stay under gitignored `data/` (canonical
-copies live in Erfan's `~/uni/`); the committed, portable record is the curated index `docs/06-theory-grounding.md`
+copies live in Erfan's `~/uni/`); the committed, portable record is the curated index [`docs/06-theory-grounding.md`](../06-theory-grounding.md)
 plus a navigation `data/course-material/INDEX.md`. **(3) Fold the load-bearing math into the live docs now.**
 R03 §2 gains a Step 7 that anchors its first-principles bounds to the course's exact theorems (MI generalization
 bound `gen ≤ √(2σ²I(W;Zⁿ)/n)`, data-processing inequality, conditional MI = "unique R²", rate-distortion = the F1
-trade-off curve); `01-research-landscape.md` §E and `CLAUDE.md` "Read this first" now point at the grounding doc.
+trade-off curve); [`01-research-landscape.md`](../01-research-landscape.md) §E and `CLAUDE.md` "Read this first" now point at the grounding doc.
 **Rationale:** The course supplies, in proved textbook form, the exact math R03 was invoking informally — the
 weak-prior bound IS the MI generalization bound, the unique-R² metric IS conditional MI, the compression brake IS
 the DPI, the F1 trade-off IS rate-distortion. Capturing that lets future methods/related-work sections cite rather
@@ -193,9 +193,9 @@ the Block-4 VAE papers) becomes load-bearing and needs a `paper-digest` pass.
 
 ### D015 — 2026-06-10 — State lives in a maintained ladder board + an `/orient` start command; stop hand-carrying it between sessions
 
-**Decision:** Make `docs/ladder.md` the **single canonical status board** for project state: the kill-gated
+**Decision:** Make [`docs/ladder.md`](../ladder.md) the **single canonical status board** for project state: the kill-gated
 scientific rungs (R03 §5 / R04 §8), each with status, the experiment + verdict that addressed it, and the next
-action — plus a "Next session" block (mode + concrete step). It is the source of truth; when `upspeed.md`,
+action — plus a "Next session" block (mode + concrete step). It is the source of truth; when [`upspeed.md`](../upspeed.md),
 [`tasks.md`](../tasks.md), or R03/R04 disagree, the ladder wins and they get fixed. R03 §5 keeps the *narrative/why*; the ladder
 holds the *live status*. Maintained at **every** session close, **after Erfan confirms the verdict** (a rung flips
 to ✅ only on an agreed, `experiments/`-recorded result; partials stay 🟡). Wired into the CLAUDE.md "Read this
@@ -218,7 +218,7 @@ the docs and stops being trustworthy.
 
 ### D016 — 2026-06-11 — `$\mathcal{L}_{\text{brain}}$` form RESOLVED (co-trained MSE encoding loss); E007 not built; thesis framing = A+B synthesis
 
-> **⚠️ PART (3) SUPERSEDED by [[D018]] (2026-06-12).** The "A+B synthesis / F1 confirmed in-domain" framing in (3) below did **not** survive per-individual inference: E008 (n=9, well-powered) returned a per-subject NULL, and E005's +0.0081 was a group-averaged-target artifact. The thesis is now **Fork B** (per-individual null + measurement-validity result). The "Reverses if" condition effectively fired. **Parts (1) [L_brain = co-trained MSE] and (2) [E007 not built] still STAND.** Read (3) only as historical context.
+> **⚠️ PART (3) SUPERSEDED by D018 (2026-06-12).** The "A+B synthesis / F1 confirmed in-domain" framing in (3) below did **not** survive per-individual inference: E008 (n=9, well-powered) returned a per-subject NULL, and E005's +0.0081 was a group-averaged-target artifact. The thesis is now **Fork B** (per-individual null + measurement-validity result). The "Reverses if" condition effectively fired. **Parts (1) [L_brain = co-trained MSE] and (2) [E007 not built] still STAND.** Read (3) only as historical context.
 
 **Decision:** Three coupled resolutions from Session 7 (E004 + E006 + E005):
 **(1) D010 is resolved — the brain-alignment loss is a co-trained linear MSE encoding readout** from the student's
@@ -303,7 +303,7 @@ configuration Codex's own docs sanction for externally-sandboxed envs. Safety = 
 runs the script). Verified live: Codex (xhigh) independently re-ran `reanalyze_e005_e006.py` and reproduced
 the S8 panel's diagnosis — independent corroboration, not redundancy.
 **Reverses / revisits if:** the host stops being a container (then re-enable the real sandbox), or a codex
-plugin update overwrites the `codex.mjs` patch (reapply it — `tasks.md` carry-forward). Full mechanics:
+plugin update overwrites the `codex.mjs` patch (reapply it — [`tasks.md`](../tasks.md) carry-forward). Full mechanics:
 [`docs/references/codex-usage.md`](../references/codex-usage.md).
 
 ---
@@ -368,7 +368,7 @@ no science number that flips a rung; verdicts are Erfan's, numbers come from the
 **Decision.** The repo's objective is explicitly **two-fold**: (1) complete Erfan's MSc thesis (UC3M, ML for
 Health), and (2) extract **at least one top-venue AI publication** (ICML / ICLR / NeurIPS / AAAI-class) from
 the work. (2) raises the bar on every implementation step: senior-researcher rigor, everything grounded in the
-papers (`docs/literature/`, `data/papers`, `data/paper-repos`) and the course material (`06-theory-grounding.md`
+papers (`docs/literature/`, `data/papers`, `data/paper-repos`) and the course material ([`06-theory-grounding.md`](../06-theory-grounding.md)
 + `data/course-material`), and the *idea is not holy text* — it stays dynamic, refocused toward the genuine
 under-researched literature gap as evidence accumulates.
 
@@ -670,7 +670,7 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Decision.** The scientific-ladder rungs are renamed from `L` to `Q` and renumbered into execution (climb) order. The old `L` collided with learning IDs (`L001–L043`) and ran out of execution order (L2a before L1). Mapping: `L0→Q0` (signal real, A2) · `L2a→Q1` (KD-preservation gate) · `L1→Q2` (the lever) · `L3→Q3` (headline, F1) · `L2b→Q4` (practical payoff, A3) · `L4→Q5` (fMRI-free proxy). Climb order is now `Q0→Q5`.
 
-**The naming convention (canonical, in `docs/map.md` + `CLAUDE.md`):**
+**The naming convention (canonical, in [`docs/map.md`](../map.md) + `CLAUDE.md`):**
 - **Stable artifacts keep flat, immutable, chronological IDs** — `E`nnn (experiment), `D`nnn (decision), `L`nnn (learning), `A`1–A3 (assumption). They are like issue numbers: never renumbered when interpretation shifts, and one experiment may serve several rungs (the structure is a DAG, not a tree — which is *why* fusing identity with ladder-position via hierarchical IDs like `E0.1` was rejected).
 - **The ladder is a separate hierarchical view**: rungs are `Q`n, the only rung vocabulary. "Layer N" is retired as a rung synonym (kept historically in R03/R04 with a mapping note; in the tutoring checklist it means a *teaching chapter*, not a rung).
 - Not rungs, left untouched: transformer layers (`L7`/`L12`), `L2`/`L∞` norms, lecture numbers, `λ`/`L_brain`/`L²`.
@@ -679,7 +679,7 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Why no new skill.** A naming convention is an always-in-effect rule, not a triggered procedure, so it lives in `CLAUDE.md` (always read) + `docs/map.md` (the canonical reference); the manuscript code-usage rule lives in the existing `scientific-writing` skill. A separate skill would lazy-load a rule that must always hold. (Ties D035.)
 
-**Execution.** Repo-wide relabel via a folder-by-folder subagent swarm with an exact mapping contract + guardrails; verified clean (learnings count unchanged at 579; norms / λ / layers / lecture numbers untouched). Timeline logs stay immutable (old `L`; `map.md` carries the L↔Q table). No science, number, or verdict changed — a labeling decision only.
+**Execution.** Repo-wide relabel via a folder-by-folder subagent swarm with an exact mapping contract + guardrails; verified clean (learnings count unchanged at 579; norms / λ / layers / lecture numbers untouched). Timeline logs stay immutable (old `L`; [`map.md`](../map.md) carries the L↔Q table). No science, number, or verdict changed — a labeling decision only.
 
 **Why three.** Each layer has a different cadence and reader, and collapsing them is what rots a write-up: a paper edited continuously drifts from the evidence; a narrative touched only at submission goes stale. Reports stay cheap and searchable; the extended stays deep and current; public cuts stay frozen and venue-grade. **The behavioral rule for the agent: reports are the continuous write-layer; the extended and public manuscripts are checkpoint-derived only on Erfan's explicit call, never auto-updated.** (Supersedes the old "paper and report are the same document" framing in the manuscript README.)
 
@@ -725,7 +725,7 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 ## D044 — Operating model = invokable interaction stances; the working/analysis split (D011) retired — 2026-06-19 (S27)
 
-**Decision (Erfan-approved, atomic walk).** Replace the two-mode working/analysis session split (D011) with **eight invokable interaction stances**, implemented as one fat skill (`.claude/skills/stances/`) whose `SKILL.md` spine routes to deep per-mode files. The stances: **`/work`** (produce evidence), **`/interpret`** (evidence→verdict), **`/write`** (communicate), **`/teach`** (transfer understanding), **`/scout`** (literature+data intake), **`/meta`** (build/maintain apparatus), **`/plan`** (strategy/roadmap), **`/review`** (thinking panel + Codex on demand). You invoke a stance (explicitly, or by intent with the agent **stating** which it entered) and switch freely mid-session; `/work` is explicit-only and never auto-fires. The day-to-day picture is `docs/operating-map.md`; the model is defined in `docs/03-methodology.md`.
+**Decision (Erfan-approved, atomic walk).** Replace the two-mode working/analysis session split (D011) with **eight invokable interaction stances**, implemented as one fat skill (`.claude/skills/stances/`) whose `SKILL.md` spine routes to deep per-mode files. The stances: **`/work`** (produce evidence), **`/interpret`** (evidence→verdict), **`/write`** (communicate), **`/teach`** (transfer understanding), **`/scout`** (literature+data intake), **`/meta`** (build/maintain apparatus), **`/plan`** (strategy/roadmap), **`/review`** (thinking panel + Codex on demand). You invoke a stance (explicitly, or by intent with the agent **stating** which it entered) and switch freely mid-session; `/work` is explicit-only and never auto-fires. The day-to-day picture is [`docs/operating-map.md`](../operating-map.md); the model is defined in [`docs/03-methodology.md`](../03-methodology.md).
 
 **The honesty spine is armed at write-time, not in the stance.** A PostToolUse hook (`.claude/hooks/honesty_writecheck.py`) runs the D011 number-check on writes to `docs/reports/` and `docs/manuscript/` (the prose deliverables that use the inline-cite convention; **scope corrected on the S27 trial** — `docs/ladder.md`/[`docs/learnings.md`](../learnings.md)/`docs/experiments/` reference results by bare code and false-positived 41× on the first edit, so they are excluded; they need a different check, L052), flagging an unsourced result-like number regardless of which stance is active (non-blocking; the `/wrap` provenance audit is the backstop). This was the adversarial panel's load-bearing fix: the fabrication guard cannot be skipped by mislabeling the work. Each truth-producing stance still carries its own *standard* (the threshold: `/work` = kill-criteria + contiguous splits + ≥3 seeds; `/interpret` = strict adjudication, never loose reading).
 
@@ -739,7 +739,7 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Decision (Erfan-directed).** Fix the `/teach` surface rule that the v2 build encoded wrong. The skill exists because the CLI cannot render LaTeX, yet `modes/teach.md` line 47 said *"the live Q&A is in the terminal; update the lesson at the end of a round"* — which inverted Erfan's explicit instruction (teach v2 session, msg 227) and made the R07 live test (session `c4b6fb0d`) dump the whole DPI derivation as raw `$$…$$` into the terminal, the exact failure the mode was built to prevent. The corrected loop, per part (one concept/chunk, sized by learning logic): **(1)** write the part's explanation + math + diagrams into the lesson file first and re-render — the user reads it rendered; **(2)** ask the question in the *terminal* (math allowed when it echoes the rendered file); **(3)** run the whole back-and-forth in the *terminal*, plain language; **(4)** at the part boundary, write the answer + what-did-not-land + a `---` divider + the next part's explanation into the file in one pass, re-render. The file is touched **at part boundaries only**, never mid-question; math never appears unrendered in the terminal. Edits: the surface-contract passages of `modes/teach.md` and `formats/lesson-format.md`, and the lesson template (unit = "part", not "round"). No file-tree, script, or other-behavior change; the two-layer memory (`lessons/` raw + `records/` OLM), pedagogy grounding, SCR, and sub-modes are untouched.
 
-**Why.** Resolves the one tension the v2 counter-critique raised against the two-surface idea (split-attention / cognitive load, msg 1198): the surfaces are *sequential, not simultaneous* — read the rendered part, then talk in the terminal — so the file *lowers* working-memory load (a persistent external representation; LearnLM "manage cognitive load") rather than raising it, and unrendered terminal LaTeX (pure extraneous load) is eliminated. The sequence mirrors Erfan's own prior `course-lecture-study` skill: teach a chunk into the rendered note, interact, stabilize, advance. Pedagogy grounding unchanged (LearnLM, Bloom, Gemini guided-learning, Dunlosky 2013, Bjork & Bjork 2011, the hypercorrection/OLM cluster). **Reverses if:** the part-boundary cadence proves too coarse in live use (then allow finer in-part file writes) — but only on observed friction, not pre-emptively.
+**Why.** Resolves the one tension the v2 counter-critique raised against the two-surface idea (split-attention / cognitive load, msg 1198): the surfaces are *sequential, not simultaneous* — read the rendered part, then talk in the terminal — so the file *lowers* working-memory load (a persistent external representation; LearnLM "manage cognitive load") rather than raising it, and unrendered terminal LaTeX (pure extraneous load) is eliminated. The sequence mirrors Erfan's own prior `course-lecture-study` skill: teach a chunk into the rendered note, interact, stabilize, advance. Pedagogy grounding unchanged (LearnLM, Bloom, Gemini guided-learning, [Dunlosky 2013](../literature/canonical/dunlosky-2013_effective-learning-techniques.md), [Bjork & Bjork 2011](../literature/canonical/bjork-2011_desirable-difficulties.md), the hypercorrection/OLM cluster). **Reverses if:** the part-boundary cadence proves too coarse in live use (then allow finer in-part file writes) — but only on observed friction, not pre-emptively.
 
 ## D046 — Prose ship-gate: a three-layer defense against LLM-register tells reaching a human — 2026-06-22 (S30, /meta)
 

@@ -36,14 +36,14 @@ S42 — /meta built the G1 RUB-grading harness + cleared the pre-P3 checklist.)
   control → re-gate → build), OR **`/write` R08 (Q2)** as the next finding-report (now on sci-write-v2), OR
   **`/interpret`** the parked E006 voxelwise-CI item. Erfan's call which.
 - **Dated chore (on/after 2026-07-03):** delete the tombstoned `scientific-writing/` + dead
-  `stop_register_gate.py` + old register-verdict scripts (see `tasks.md`).
+  `stop_register_gate.py` + old register-verdict scripts (see [`tasks.md`](tasks.md)).
 
 ## Blockers / open loops
 - **50 commits unpushed on main** (push only when asked).
 - **Pre-existing D011 gap:** `docs/manuscript/README.md:34` bare `+0.06` (no cite) + em-dashes — predates this
   session; a navigational README, fix on a `/write` touch, not chased here.
 - **Two untracked strays** left untouched: `.obsidian/` (editor config) and
-  `docs/learning/lessons/2026-06-24-boruta-feature-selector.md` (foreign to repo conventions, per Erfan).
+  [`docs/learning/lessons/2026-06-24-boruta-feature-selector.md`](learning/lessons/2026-06-24-boruta-feature-selector.md) (foreign to repo conventions, per Erfan).
 
 ## Key facts for next session
 - **`sci-write-v2` is the `/write` engine.** Sanity (one shot): `cd .claude/skills/sci-write-v2/scripts && uv run

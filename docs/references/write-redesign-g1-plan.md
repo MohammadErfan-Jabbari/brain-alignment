@@ -19,7 +19,7 @@ The 135-scenario suite has **~90 RUB-containing rows** (a live parse: 93 rows ta
 duals; 40 DET-only) with **no scorer**. Only the DET halves are machine-verified (the per-script `--selftest`s).
 So "135 scenarios" is **not** "135 auto-passing" — the RUB half is ungraded.
 
-> **Count correction (a real defect this plan surfaces, oracle MF-1).** `tasks.md` G1, the scenarios-doc close
+> **Count correction (a real defect this plan surfaces, oracle MF-1).** [`tasks.md`](../tasks.md) G1, the scenarios-doc close
 > (line ~321), and this plan's first draft all say "~51 RUB (41 prior + 10 SC-XSTANCE)". That silently excludes
 > the **36 `SC-EX-*`/`SC-VIO-*` real-prose-mined RUB scenarios** (`scenarios.md:166-207`) — which are RUB-tagged,
 > judge-graded, and explicitly in the suite — plus the hardening near-miss guards (`SC-F4-OK`, `SC-VOICE-14/15`,
@@ -76,7 +76,7 @@ decomposition holds; the run-protocol (G1-c) just carries four readers instead o
 | `run_checks.py --selftest` (runs every DET script's selftest, rc=0 ⇔ DET floor green) | the **"every DET green"** half of the threshold | **call it** |
 | SKILL stage-5 parallel fan-out (spawn N `sw-*` judges in one message, capture verdicts) | the **run protocol** | **adapt** (per-scenario, INPUT as fixture) |
 | the 6 `sw-*` RUB judges + the F13 panel | the **graders** | **reuse unchanged** |
-| `write-redesign-scenarios.md` (the RUB rows, INPUT/EXPECT/tag) | the **scenario source of truth** | **extract to a machine-readable store + keep markdown as the human spec** |
+| [`write-redesign-scenarios.md`](write-redesign-scenarios.md) (the RUB rows, INPUT/EXPECT/tag) | the **scenario source of truth** | **extract to a machine-readable store + keep markdown as the human spec** |
 | `accept-residual` / Erfan-token pattern in `verdicts.py` | the **sign-off** mechanic | **lift** (a recorded sign-off, anchors never waivable) |
 | — (none today) | `rub_scenarios.json` (the store) · `rub_harness.py` (scorer+CLI) · the SKILL "RUB-suite" protocol section | **build new** |
 
@@ -155,7 +155,7 @@ on a real fixture. May be run as one exercise with the separate G3 demo, but it 
    independent fixtures stands in (as it did for P2-D-1).
 
 Then **one atomic commit + one build-log entry** (entry written *before* the commit), appended to
-`write-redesign-build-plan.md` so that doc stays the single build-log.
+[`write-redesign-build-plan.md`](write-redesign-build-plan.md) so that doc stays the single build-log.
 
 **Mechanics not to re-hit (L059–L062):** `CLAUDE_WRAP_SNAPSHOT_SKIP=1` on every `claude -p` child; Bash tool
 `timeout` ≥ 540000 ms; `cd /home/centcom/data/brain-alignment` inside subprocess commands; scoped staging only

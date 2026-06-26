@@ -6,7 +6,7 @@ aliases: [map]
 
 # The Map — the codes, and the path we have travelled
 
-**What this is.** A one-screen orientation aid: the naming system (what `Q`, `E`, `A`, `D`, `L`, `F` mean) and the whole experimental journey as a tree, so you never lose the track. **It is not the status board** — canonical, always-current status lives in [`ladder.md`](ladder.md); when this map and the ladder disagree, the ladder wins and this map gets fixed. Read this when the codes or the path stop making sense; read `ladder.md` for "where exactly are we now."
+**What this is.** A one-screen orientation aid: the naming system (what `Q`, `E`, `A`, `D`, `L`, `F` mean) and the whole experimental journey as a tree, so you never lose the track. **It is not the status board** — canonical, always-current status lives in [`ladder.md`](ladder.md); when this map and the ladder disagree, the ladder wins and this map gets fixed. Read this when the codes or the path stop making sense; read [`ladder.md`](ladder.md) for "where exactly are we now."
 
 ---
 
@@ -19,8 +19,8 @@ The system separates **stable artifacts** (flat, immutable IDs, like issue numbe
 | **Q**n | **rung** / research **Q**uestion | a kill-gated question on the ladder — the conceptual spine | `Q0`→`Q5`, **in climb order** (do Q0 first, only climb if it holds) |
 | **E**nnn | **E**xperiment | a concrete run that happened — the *evidence* | flat, chronological (`E001`, `E002`, …); never renumbered |
 | **A**n | **A**ssumption | one of the three falsifiable bets the thesis rests on | `A1`, `A2`, `A3` (A2 gates the others) |
-| **D**nnn | **D**ecision | a recorded choice, in `decisions/decisions.md` | flat, chronological |
-| **L**nnn | **L**earning | a hard-won lesson, in `learnings.md` | flat, chronological (`L001`–`L0xx`) |
+| **D**nnn | **D**ecision | a recorded choice, in [`decisions/decisions.md`](decisions/decisions.md) | flat, chronological |
+| **L**nnn | **L**earning | a hard-won lesson, in [`learnings.md`](learnings.md) | flat, chronological (`L001`–`L0xx`) |
 | **F**n | **F**ork / surviving slice | the headline research slice (F1) + forward-program steps | see note §5 |
 
 **The rule of thumb:** `Q` = a *question* we ask; `E` = an *experiment* that answers it; `A` = an *assumption* a question tests; `D`/`L` = the decisions and lessons logged along the way. A single experiment can serve more than one rung (the structure is a DAG, not a tree), which is exactly why `E`-IDs are flat and the `Q`-ladder is a separate view on top.
@@ -108,5 +108,5 @@ The rungs were renamed `L`→`Q` on 2026-06-15 (D036), renumbered into execution
 - **"Layer N" is retired as a rung synonym.** Early docs (R03/R04) called the rungs "Layer 0…Layer 4"; that vocabulary is historical (those docs keep it with a mapping note). In active docs the only rung label is `Q`n. The one legitimate surviving use of "Layer N" is in the tutoring checklist, where it means a *teaching chapter* (a coarse lesson unit), not a rung.
 - **`F`-labels.** `F1` is the headline question (= rung Q3); it is kept as an alias because it is deeply embedded ("Fork B", "F1-close"). In the *forward program*, `F2`/`F3`/`F4` are follow-on experiment-sequence steps, not rungs — a separate namespace. "Fork A / Fork B" are the two narrative outcomes (optimistic win vs honest-null), prose not IDs.
 - **What is NOT a rung:** transformer layers (`L7`, `L12`), `L2`/`L∞` norms and "L2 loss", lecture numbers, `λ`/`L_brain`/`L²`. These keep their `L` and are unrelated to the ladder.
-- **Where things live:** canonical status → `ladder.md`; **current-truth findings → the finding-reports `reports/R*.md`, one claim each, Q-tagged (D036)** — Q0/A2 = `R06` (the signal is real beyond confounds); the rest are written in reading order as each finding is covered (index + reading order + Q→report map in `reports/README.md`); the history/journey of the whole arc → this `map.md` tree + `timeline/`; the analysis-week plan → `analysis-roadmap.md` (being repointed from R05-sections to the finding-report set); experiments → `experiments/E*.md`; decisions/lessons → `decisions/decisions.md` + `learnings.md`. (`R05` = the retired chronological narrative, frozen for history.)
+- **Where things live:** canonical status → `ladder.md`; **current-truth findings → the finding-reports `reports/R*.md`, one claim each, Q-tagged (D036)** — Q0/A2 = `R06` (the signal is real beyond confounds); the rest are written in reading order as each finding is covered (index + reading order + Q→report map in [`reports/README.md`](reports/README.md)); the history/journey of the whole arc → this `map.md` tree + `timeline/`; the analysis-week plan → [`analysis-roadmap.md`](analysis-roadmap.md) (being repointed from R05-sections to the finding-report set); experiments → `experiments/E*.md`; decisions/lessons → `decisions/decisions.md` + `learnings.md`. (`R05` = the retired chronological narrative, frozen for history.)
 - **Report convention (D036):** a report owns one claim, tagged with the question it answers, states current truth only (no "obsolete / not yet narrated" scaffolding — history lives here in `map.md` + `timeline/` + `decisions/`), and follows the skeleton header→question→design→evidence→verdict→caveats. Spec in the `sci-write-v2` skill.

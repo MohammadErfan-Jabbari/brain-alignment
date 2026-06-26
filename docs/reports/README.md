@@ -6,7 +6,7 @@ tags: [report]
 # Reports — living topic syntheses
 
 A **report** is a single-topic synthesis that we keep current. It is *not* a per-paper note
-(`docs/literature/canonical/`), *not* the frontier map (`docs/01-research-landscape.md`), and *not*
+(`docs/literature/canonical/`), *not* the frontier map ([`docs/01-research-landscape.md`](../01-research-landscape.md)), and *not*
 thesis prose (`docs/manuscript/`). When new information lands on a topic, we **rewrite/update the
 report in place** and bump its `Last updated` line.
 
@@ -30,7 +30,7 @@ Rules:
   numbers cite their canonical note. Route all report writing through the `sci-write-v2` pipeline (voice,
   the `[E0nn]` cite rule, the verifiers).
 - **Math-grounded, in LaTeX.** Formalize the report's core quantity and any foundational concept in real LaTeX
-  (`$…$` / `$$…$$`, which Markdown renders); cite the course note (`docs/06-theory-grounding.md`) for any
+  (`$…$` / `$$…$$`, which Markdown renders); cite the course note ([`docs/06-theory-grounding.md`](../06-theory-grounding.md)) for any
   definition or bound rather than re-deriving. Prose explains; the formula pins it down.
 
 ## Index
@@ -45,7 +45,7 @@ Rules:
 - [`R04_gap-analysis.md`](R04_gap-analysis.md) — full-PDF re-read of the literature: what is genuinely scooped vs open.
 - [`R05_thesis-narrative-from-first-principles.md`](R05_thesis-narrative-from-first-principles.md) — **RETIRED (2026-06-16).** The old pedagogical
   narrative of the arc, frozen for history and no longer maintained. Superseded by the finding-reports
-  (R06+) and `map.md`.
+  (R06+) and [`map.md`](../map.md).
 
 **Findings** (read in this order; each maps 1:1 to a manuscript Results section):
 

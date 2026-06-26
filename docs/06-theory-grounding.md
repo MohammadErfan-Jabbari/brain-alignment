@@ -141,7 +141,7 @@ The deferred gap-fill ran on 2026-06-10 (6 Sonnet subagents). **Seven new notes 
 
 ## Pointers into the rest of the brain
 
-- `reports/R03_brain-as-training-signal.md` §2 — the first-principles bound this file formally grounds (MI bound, DPI, weak-prior selection).
+- [`reports/R03_brain-as-training-signal.md`](reports/R03_brain-as-training-signal.md) §2 — the first-principles bound this file formally grounds (MI bound, DPI, weak-prior selection).
 - [`01-research-landscape.md`](01-research-landscape.md) — the anti-confound protocol (= conditional MI) and the compression trade-off (= rate-distortion / DPI) the course backs.
 - [`learnings.md`](learnings.md) L003 — why every brain-alignment number must be unique variance after nuisance subtraction (the conditional-MI requirement).
 
@@ -151,14 +151,14 @@ The `/teach` pedagogy is grounded in three canonical notes, kept here so teach c
 asserting from memory. None carries A1/A2/A3 weight or a brain-alignment number — this is how-we-teach,
 not thesis science.
 
-- `literature/canonical/dunlosky-2013_effective-learning-techniques.md` — practice testing + distributed
+- [`literature/canonical/dunlosky-2013_effective-learning-techniques.md`](literature/canonical/dunlosky-2013_effective-learning-techniques.md) — practice testing + distributed
   practice (high utility); interleaving / self-explanation / elaborative interrogation (moderate). The
   evidence-strength ratings the teach loop rests on.
-- `literature/canonical/bjork-2011_desirable-difficulties.md` — storage vs retrieval strength, the
+- [`literature/canonical/bjork-2011_desirable-difficulties.md`](literature/canonical/bjork-2011_desirable-difficulties.md) — storage vs retrieval strength, the
   performance/learning dissociation (in-session fluency is an anti-signal), and the expertise caveat
   behind teach's per-topic gating.
-- `literature/canonical/open-learner-models-and-errorful-learning.md` — synthesis over four digested notes
-  (Wong & Lim 2022 derring; Butterfield & Metcalfe 2001 hypercorrection; Moser 2011 mindset/error ERP;
+- [`literature/canonical/open-learner-models-and-errorful-learning.md`](literature/canonical/open-learner-models-and-errorful-learning.md) — synthesis over four digested notes
+  (Wong & Lim 2022 derring; [Butterfield & Metcalfe 2001](literature/canonical/butterfield-metcalfe-2001_hypercorrection-effect.md) hypercorrection; [Moser 2011](literature/canonical/moser-2011_growth-mindset-error-processing.md) mindset/error ERP;
   Robles Mucho et al. 2025 OLM review): why teach's mistake handling is diagnostic, not a scorecard.
 
 

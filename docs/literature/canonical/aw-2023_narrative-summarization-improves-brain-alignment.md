@@ -6,10 +6,10 @@ aliases: [aw-2023_narrative-summarization-improves-brain-alignment]
 
 # Training language models to summarize narratives improves brain alignment
 
-**Authors:** Khai Loong Aw; Mariya Toneva  
-**Year:** 2023  
-**Venue:** ICLR 2023  
-**DOI/arXiv:** 10.48550/arXiv.2212.10898  
+**Authors:** Khai Loong Aw; Mariya Toneva
+**Year:** 2023
+**Venue:** ICLR 2023
+**DOI/arXiv:** 10.48550/arXiv.2212.10898
 **Canonical ID:** aw-2023_narrative-summarization-improves-brain-alignment
 
 **Tags:** #literature #canonical
@@ -22,7 +22,7 @@ aliases: [aw-2023_narrative-summarization-improves-brain-alignment]
 - [ ] Full PDF scanned (search + targeted read)
 - [ ] Extracted text only
 
-PDF verified: 2026-03-02  
+PDF verified: 2026-03-02
 Comprehension self-check passed: Y
 
 ## Comprehension Summary [REQUIRED]

@@ -7,10 +7,10 @@ aliases: [E002]
 # Experiment — E002 real-data encoding feasibility on Tuckute 2024 (the A2 question)
 
 **Created:** 2026-06-10 · **Status:** done — A2 PASS across 3 models (gpt2, gpt2-medium, Qwen2.5-0.5B)
-**Direction:** `../reports/R03_brain-as-training-signal.md` (Q0 of the ladder) · **Mode:** working
+**Direction:** [`../reports/R03_brain-as-training-signal.md`](../reports/R03_brain-as-training-signal.md) (Q0 of the ladder) · **Mode:** working
 **Code:** `scripts/run_encoding_feasibility.py`, `scripts/data_adapters.py:load_tuckute`, `scripts/pilot_lib.py`
 **Output:** `outputs/E002_tuckute_feasibility.json`
-**New to the vocabulary?** Voxel/ROI, encoding model, unique R², noise ceiling, "% of ceiling", what Tuckute is → `../07-concepts-primer.md`.
+**New to the vocabulary?** Voxel/ROI, encoding model, unique R², noise ceiling, "% of ceiling", what Tuckute is → [`../07-concepts-primer.md`](../07-concepts-primer.md).
 
 ---
 
@@ -31,7 +31,7 @@ This is **A2** (measured alignment is not primarily nuisance). If it fails, the 
 ## Design (locked before running)
 
 - **Data:** Tuckute 2024 (`data/tuckute2024/`), 1000 isolated baseline sentences × 5 LH language ROIs (`lang_LH_{AntTemp,IFG,IFGorb,MFG,PostTemp}`), averaged over the 5 train participants (UIDs 848/853/865/875/876, matching the paper's encoding fit). Rows ordered by `item_id` (deterministic, contiguous-split friendly).
-- **Models:** `gpt2` (12L), `gpt2-medium` (24L), `Qwen/Qwen2.5-0.5B` (24L). Layers probed: a spread around the middle (the brain-alignment sweet spot, Oota 2023).
+- **Models:** `gpt2` (12L), `gpt2-medium` (24L), `Qwen/Qwen2.5-0.5B` (24L). Layers probed: a spread around the middle (the brain-alignment sweet spot, [Oota 2023](../literature/canonical/oota-2023_joint-linguistic-processing-brain-lms.md)).
 - **Nuisance:** length + position (raw 2-D) and the mean **input-embedding** per sentence (static, non-contextual). Static and contextual blocks PCA-reduced to equal rank (50) per fold → capacity-fair partition (the L004 fix).
 - **Control:** randomly-initialised model of the same architecture (Feghhi 2024 untrained-network control), ≥3 seeds, to show the signal is about *trained* language processing, not architecture + nuisance.
 - **Anti-confound:** contiguous-block CV only (no shuffling); unique variance after nuisance subtraction is the only number claimed (L003).

@@ -18,8 +18,8 @@ Build a durable, broad-coverage dataset watchlist and a local reference corpus o
 **1. Continuity check via gbrain.**
 Recalled the prior session ("Establishment of Research Reports and Literature Synthesis"), confirming R01/R02 reports and the no-hard-wrap prose convention were the last committed work. Picked up from that baseline.
 
-**2. Built `docs/05-dataset-registry.md` — living dataset watchlist.**
-Catalogued every dataset that might be relevant (neural / behavioral / NLP-baseline). 11 neural/behavioral datasets received full feature profiles: modality, subjects, stimuli, license, access, size, noise ceiling, use-case fit, status. Low-priority/out-of-scope candidates got compact entries. Registered the file in `docs/README.md`'s map.
+**2. Built [`docs/05-dataset-registry.md`](../05-dataset-registry.md) — living dataset watchlist.**
+Catalogued every dataset that might be relevant (neural / behavioral / NLP-baseline). 11 neural/behavioral datasets received full feature profiles: modality, subjects, stimuli, license, access, size, noise ceiling, use-case fit, status. Low-priority/out-of-scope candidates got compact entries. Registered the file in [`docs/README.md`](../README.md)'s map.
 
 Research method: 8 parallel Sonnet subagents did direct page/paper fetches for the 6 datasets not already covered by [`04-data-benchmarks.md`](../04-data-benchmarks.md). Strict accuracy rubric — NOT-STATED for genuinely unknown fields, all sources cited. The 4 committed benchmarks (LeBel, Narratives ds002345, Pereira, Le Petit Prince) cross-reference `04` instead of duplicating its power analysis.
 
@@ -60,7 +60,7 @@ This should be a **working session**. Priority order:
 1. Re-evaluate D008: LeBel ds003020 vs denizenslab CC0 (noise ceiling, subjects, download size, existing loader code). Make a decision, record it, then pull the winner.
 2. Pull the chosen dataset (one subject to start). Verify the fMRI matrix is actually in the download before treating it as ready (L005 lesson).
 3. Re-run E001 on real neural data — `--backend pereira` or the new backend. This is the actual scientific verdict on A1/A2.
-4. Digest Merlin & Toneva 2026 and Toneva (paper-digest agent) for the G1 reframe check — still pending from prior sessions.
+4. Digest [Merlin & Toneva 2026](../literature/canonical/merlin-2026_when-lms-lose-their-mind.md) and Toneva (paper-digest agent) for the G1 reframe check — still pending from prior sessions.
 
 ## Friction and improvements
 

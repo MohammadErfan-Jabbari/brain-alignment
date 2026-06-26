@@ -86,7 +86,7 @@ lens:
 |---|---|
 | **Statistical referee** | confound subtraction, CI bootstrap **unit** (seed/fold/voxel — not pseudo-replicated), clustering, multiple-comparisons exposure, power/MDE vs the effect. Does the code compute the statistic it claims? |
 | **Reviewer-2 skeptic** | assume the output is an artifact; find the line of code that would let a confound (split leakage, ppl/LM-quality, length/position) masquerade as the construct. |
-| **First-principles re-deriver** | re-derive the computation from the math (`docs/06-theory-grounding.md`, the canonical notes) and check the implementation matches intent — not just that it runs. |
+| **First-principles re-deriver** | re-derive the computation from the math ([`docs/06-theory-grounding.md`](../06-theory-grounding.md), the canonical notes) and check the implementation matches intent — not just that it runs. |
 | **Reproducibility / leakage auditor** | seeds & determinism, contiguous-split integrity, off-by-one in fold/story splits, whether the permuted-twin null is actually built correctly in code. |
 
 Dispatch shape (read-only, background, persona-framed) — invoke the `codex:codex-rescue` subagent once

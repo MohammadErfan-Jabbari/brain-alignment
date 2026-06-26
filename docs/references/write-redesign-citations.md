@@ -7,7 +7,7 @@ tags: [reference]
 
 Every load-bearing decision in the ideal-system design (`write-redesign-design.html` v0.2), grounded in a primary
 source, so the protocols we write next can cite rather than assert. Two new primary sources were pulled this
-session (Pinker, Toulmin); the rest are in `scientific-writing-methodology.md` and `writing-skills-ecosystem-audit.md`.
+session (Pinker, Toulmin); the rest are in [`scientific-writing-methodology.md`](scientific-writing-methodology.md) and [`writing-skills-ecosystem-audit.md`](writing-skills-ecosystem-audit.md).
 
 ## The four concerns
 
@@ -17,7 +17,7 @@ session (Pinker, Toulmin); the rest are in `scientific-writing-methodology.md` a
 | **Argument** (warrants between claims) | An argument is claim ← grounds ← **warrant** (the often-implicit license linking evidence to claim); "an argument with a weak warrant is easily disproven" | **Toulmin, *The Uses of Argument* (1958)** — claim/grounds/warrant/backing/qualifier/rebuttal; **Booth, Colomb & Williams, *The Craft of Research*** (claim←reason←evidence + warrant + acknowledgment) |
 | **Argument → honesty/scope** (scope ≤ evidence; anti-over-claim) | Opening-width must equal Resolution-width — over/under-claim is a structural defect; calibrate claims | **Schimel, *Writing Science*** (OCAR width-matching); our anti-confound discipline (Feghhi/Oota, L003); epistemic-status calibration (`imbad0202`) |
 | **Structure** (reader-expectation, fractal) | Readers decode meaning from structure: old-to-new, topic/stress, context→content→conclusion at every scale | **Gopen & Swan, "The Science of Scientific Writing"** (1990); **Williams, *Style: Lessons in Clarity and Grace*** (given-new contract); **Mensh & Kording, "Ten Simple Rules for Structuring Papers"** (2017, C-C-C fractal) |
-| **Voice** (scientific register) | A scientific document, not a story; no agency to abstractions, no metadiscourse/tells, no unmotivated passive | Pinker (metadiscourse/"academese"); our D046 register rules; structural AI-tell detox (`jamditis/ai-writing-detox`); Claudio's feedback (`supervisor-feedback.md`) |
+| **Voice** (scientific register) | A scientific document, not a story; no agency to abstractions, no metadiscourse/tells, no unmotivated passive | Pinker (metadiscourse/"academese"); our D046 register rules; structural AI-tell detox (`jamditis/ai-writing-detox`); Claudio's feedback ([`supervisor-feedback.md`](supervisor-feedback.md)) |
 
 ## The six stages
 

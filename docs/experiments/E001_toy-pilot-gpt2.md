@@ -7,7 +7,7 @@ aliases: [E001]
 # Experiment — E001 toy brain-alignment distillation pilot (GPT-2 medium → small)
 
 **Created:** 2026-06-09 · **Status:** done (scaffold + synthetic smoke; real-data run pending)
-**Hypothesis:** `../hypotheses/H001_alignment-guided-distillation.md` · **Mode:** exploratory
+**Hypothesis:** [`../hypotheses/H001_alignment-guided-distillation.md`](../hypotheses/H001_alignment-guided-distillation.md) · **Mode:** exploratory
 **Code:** `scripts/{pilot_lib,distill,data_adapters,run_toy_pilot}.py`, `configs/toy_pilot.json`,
 `scripts/README.md`
 
@@ -33,7 +33,7 @@ verdict waits on neural data.
   extraction, ridge encoding, scalar + static nuisance baselines, capacity-fair variance partition,
   contiguous block CV, ≥3-seed paired reporting. Smoke test + full 3-seed run both pass on GPU.
 - **Real data path:** **NOT run on real fMRI.** The chosen plumbing benchmark (Pereira, OSF crwz7)
-  ships only stimulus sentences, not neural responses (see `../04-data-benchmarks.md`). So the run used
+  ships only stimulus sentences, not neural responses (see [`../04-data-benchmarks.md`](../04-data-benchmarks.md)). So the run used
   the **hybrid path: real Pereira sentences + synthetic fMRI** (a known-structure stand-in built from
   teacher features + length/position confound + noise). **A synthetic result tests plumbing, not science.**
 
@@ -106,7 +106,7 @@ is *not* trivially a function of teacher features (LeBel `ds003020`).
 **Design lessons for the real run.** (1) The static-embedding nuisance must be PCA-matched to the
 contextual block or it unfairly absorbs the signal — fixed here. (2) On real data, consider a frozen
 teacher-encoding-map loss or a CKA proxy rather than a trainable head, since the head overfits the train
-block (this is the open `L_brain` design decision in `../tasks.md`). (3) Keep λ modest; large λ degrades.
+block (this is the open `L_brain` design decision in [`../tasks.md`](../tasks.md)). (3) Keep λ modest; large λ degrades.
 
 Hypothesis status: **H001 remains untested** (synthetic cannot test it). Learning recorded as L004.
 

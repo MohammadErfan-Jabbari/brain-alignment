@@ -7,9 +7,9 @@ tags: [reference]
 
 **What this is.** A plain-language glossary of the primitives that recur across every experiment doc
 and report. (Naming: **E-numbers** are experiment notebooks under `docs/experiments/` — E002 = the
-Tuckute feasibility test, E006 = the LeBel voxelwise test, etc.; their live status is in `docs/ladder.md`,
+Tuckute feasibility test, E006 = the LeBel voxelwise test, etc.; their live status is in [`docs/ladder.md`](ladder.md),
 the canonical board that wins any conflict. **R-numbers** are synthesis reports under `docs/reports/`.
-**L-numbers** are lessons in `docs/learnings.md`; **D-numbers** are decisions in `docs/decisions/`.) The experiment docs deliberately stay terse and
+**L-numbers** are lessons in [`docs/learnings.md`](learnings.md); **D-numbers** are decisions in `docs/decisions/`.) The experiment docs deliberately stay terse and
 assume these terms; this file is where they are defined *once*, clearly, so a reader new to a doc can
 ground the vocabulary here instead of re-deriving it. The math/theory version of several of these
 (MI bound, DPI, conditional-MI = unique R², rate-distortion) lives in [`06-theory-grounding.md`](06-theory-grounding.md); this
@@ -70,7 +70,7 @@ Four distinct lies, each with the tool that kills it:
 **Unique R².** Instead of the raw R², we report what the LLM adds *beyond* nuisance features:
 `unique R² = R²(nuisance + LLM features) − R²(nuisance alone)`. Only the *extra* variance the LLM
 explains over and above length/rate/position/static-embeddings counts. (Formally this is a conditional
-mutual information — see `06-theory-grounding.md`.)
+mutual information — see [`06-theory-grounding.md`](06-theory-grounding.md).)
 
 **Contiguous splits.** We never shuffle the train/test split. Adjacent samples are autocorrelated (in
 time, or in position), so a shuffled split drops near-identical samples into both train and test,
@@ -147,7 +147,7 @@ questions, established by three separate rungs:
 - **Useful** (A3 / Q4): does induced alignment buy something practical? (E009 — bounded null.)
 
 A strong PASS on "real" says nothing about "movable" or "useful." Keeping these separate is the spine
-of the whole ladder — see `ladder.md`.
+of the whole ladder — see [`ladder.md`](ladder.md).
 
 
 ## Related

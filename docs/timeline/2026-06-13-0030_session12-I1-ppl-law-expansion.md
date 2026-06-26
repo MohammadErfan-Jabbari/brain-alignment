@@ -45,7 +45,7 @@ Full Design→Run→Judge with the complete rigor stack:
 1. Manuscript/ladder cite E015 as **r≈−0.92 (L030)** → correct to **r≈−0.78** across-range / ≈−0.48 operative-band
    (bpb, 6 families/≈2 generations). The matched-ppl-control *argument* is unchanged and better-grounded; only the
    *number* needs a one-line fix (~3 places).
-2. New canonical note `antonello-2023_scaling-laws-fmri-encoding.md`; suggested [`01-research-landscape.md`](../01-research-landscape.md) §A row (additive).
+2. New canonical note [`antonello-2023_scaling-laws-fmri-encoding.md`](../literature/canonical/antonello-2023_scaling-laws-fmri-encoding.md); suggested [`01-research-landscape.md`](../01-research-landscape.md) §A row (additive).
 
 ## Cost / process note
 Long autonomous turn (~$120). Held the line on rigor (gate+panel+Codex) and on "no rung flips / no analysis-lane

@@ -9,7 +9,7 @@ aliases: [H001]
 **ID:** H001
 **Created:** 2026-02-27 (Nexus) · ported 2026-06-08
 **Status:** proposed (inherited; not yet tested by us)
-**Charter:** `../00-charter.md` · **Landscape:** `../01-research-landscape.md`
+**Charter:** [`../00-charter.md`](../00-charter.md) · **Landscape:** [`../01-research-landscape.md`](../01-research-landscape.md)
 **Experiment:** `../experiments/toy-pilot-gpt2.md` (to be created)
 
 ---
@@ -59,8 +59,8 @@ language utility.
 
 ## Evidence
 
-- **From literature:** see `../01-research-landscape.md`. Anchors: Oota 2026 (dissociation), Merlin
-  2024 (non-trivial target), Gao 2024 (base teacher). Brakes: Feghhi 2024, Oota 2024.
+- **From literature:** see `../01-research-landscape.md`. Anchors: [Oota 2026](../literature/canonical/oota-2026_brain-encoding-scale-compression.md) (dissociation), Merlin
+  2024 (non-trivial target), [Gao 2024](../literature/canonical/gao-2024_scaling-not-instruction-brain-alignment.md) (base teacher). Brakes: [Feghhi 2024](../literature/canonical/feghhi-2024_case-against-over-reliance-brain-scores.md), [Oota 2024](../literature/canonical/oota-2024_speech-lms-lack-brain-semantics.md).
 - **From experiments:** none yet. The toy pilot is the first.
 
 ## Log

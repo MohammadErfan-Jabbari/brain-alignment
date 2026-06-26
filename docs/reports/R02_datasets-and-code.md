@@ -30,7 +30,7 @@ aliases: [R02]
 
 **Takeaways for our blocker:**
 
-- The fastest open pull is **Narratives reading-listening (denizenslab, CC0, 9 subjects)** — it's the exact set [`oota-2024`](../literature/canonical/oota-2024_speech-lms-lack-brain-semantics.md)/[`oota-2026`](../literature/canonical/oota-2026_brain-encoding-scale-compression.md) used, downloadable from a g-node GIN URL with no login, and `oota-2024`'s code already wires LLM→fMRI on it. That is a strong alternative to the LeBel `ds003020` plan in `upspeed.md`, and arguably faster.
+- The fastest open pull is **Narratives reading-listening (denizenslab, CC0, 9 subjects)** — it's the exact set [`oota-2024`](../literature/canonical/oota-2024_speech-lms-lack-brain-semantics.md)/[`oota-2026`](../literature/canonical/oota-2026_brain-encoding-scale-compression.md) used, downloadable from a g-node GIN URL with no login, and `oota-2024`'s code already wires LLM→fMRI on it. That is a strong alternative to the LeBel `ds003020` plan in [`upspeed.md`](../upspeed.md), and arguably faster.
 - **Pereira / Fedorenko / Blank** all come bundled through the `neural-nlp` repo (the Brain-Score lineage) with explicit open licenses — note [`feghhi-2024`](../literature/canonical/feghhi-2024_case-against-over-reliance-brain-scores.md)'s own anti-confound code (`beyond-brainscore`) is built against exactly these.
 - None of these 20 papers actually used **LeBel ds003020** (our current D008 primary). Worth knowing: the powered-primary choice is *our* call, not something inherited from this literature. Narratives is the more common substrate here.
 

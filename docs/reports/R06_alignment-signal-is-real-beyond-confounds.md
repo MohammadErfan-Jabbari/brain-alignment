@@ -8,7 +8,7 @@ aliases: [R06]
 
 **Answers Q0 (A2). Verdict: ✅ PASS, and powered at voxel scale.** A trained language model's middle-layer representation carries unique variance about real human language-network activity that survives a low-level nuisance regression under contiguous splits, and that a same-architecture *untrained* network does not carry. The effect is small in absolute R² but unambiguous: at voxel scale the trained−untrained gap is **+0.021 (gpt2) / +0.028 (Qwen)** with tight bootstrap CIs and 95–99% of reliable voxels positive [E006](../experiments/E006_lebel-voxelwise-feasibility.md). This report states current truth only; the order in which we learned it (an ROI screen first, then the powered voxelwise confirmation) lives in [`map.md`](../map.md), `timeline/`, and `decisions/`, not here. Sources: `experiments/E002`, `E006`; lessons L003, L007, L011/L012.
 
-This is a finding-report under the report convention (D036): one claim, Q-tagged, current-truth-only. It is also the **foundation the rest of the report set stands on**: every later report (the lever, the per-individual null, the quality law, the ceiling) is a qualification of *this* positive, and every one of them reuses the measurement apparatus defined here. The history of how the arc actually unfolded (the wrong turns, the order they happened) lives in `map.md` (the journey tree) and `timeline/`, not in any report.
+This is a finding-report under the report convention (D036): one claim, Q-tagged, current-truth-only. It is also the **foundation the rest of the report set stands on**: every later report (the lever, the per-individual null, the quality law, the ceiling) is a qualification of *this* positive, and every one of them reuses the measurement apparatus defined here. The history of how the arc actually unfolded (the wrong turns, the order they happened) lives in [`map.md`](../map.md) (the journey tree) and `timeline/`, not in any report.
 
 ## The question
 
@@ -48,7 +48,7 @@ $$
 I\big(\text{LM};\,B \mid Z_{\text{nuis}}\big) > 0,
 $$
 
-which unique R² estimates with ridge. For jointly Gaussian variables, conditional MI is a monotone function of the squared partial correlation $\rho^2_{XY\cdot Z}$ (standard result; see `06-theory-grounding.md` §3 for the object, Cover & Thomas 2006 §8 for the Gaussian closed form),
+which unique R² estimates with ridge. For jointly Gaussian variables, conditional MI is a monotone function of the squared partial correlation $\rho^2_{XY\cdot Z}$ (standard result; see [`06-theory-grounding.md`](../06-theory-grounding.md) §3 for the object, Cover & Thomas 2006 §8 for the Gaussian closed form),
 
 $$
 I(X;Y\mid Z) = -\tfrac{1}{2}\ln\!\big(1-\rho^2_{XY\cdot Z}\big).

@@ -187,7 +187,7 @@ it should treat "guide don't tell" as our own gloss, not a LearnLM quote.
 
 1. **Bloom's "two-sigma problem" is NOT in this paper.** No mention of Bloom, "two sigma," or the
    2σ tutoring effect anywhere in the text. If the skill invokes the two-sigma motivation, it must
-   cite Bloom (1984) directly — NOT LearnLM — or flag it as background, never attribute it here.
+   cite [Bloom (1984)](bloom-1984_two-sigma-problem.md) directly — NOT LearnLM — or flag it as background, never attribute it here.
 2. **No turn-by-turn pacing rule.** The paper specifies only a *minimum conversation length* (≥10
    turns, ≥5 learner + ≥5 system) for data collection. It does NOT mandate one-question-per-turn or
    any per-turn structure. The "ask one question at a time / one question per turn" rule that shows up

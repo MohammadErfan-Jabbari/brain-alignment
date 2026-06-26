@@ -7,8 +7,8 @@ aliases: [E003]
 # Experiment — E003: does perplexity-only knowledge distillation preserve or destroy brain alignment? (R04 Q1 kill-test)
 
 **Created:** 2026-06-10 · **Status:** COMPLETE (ran 2026-06-10) — Q1 PARTIAL: monotone alignment gradient (not preserve-for-free), but alignment co-varies with perplexity (ρ=−0.88), KD-specific shedding only p≈0.1 (L011) · **Mode:** working
-**Direction:** `../reports/R04_gap-analysis.md` §6(a) / §8 (Q1) · `../reports/R03_brain-as-training-signal.md` (ladder)
-**Theory:** `../06-theory-grounding.md` §2 (data-processing inequality) + §4 (rate–distortion = the F1 trade-off curve)
+**Direction:** [`../reports/R04_gap-analysis.md`](../reports/R04_gap-analysis.md) §6(a) / §8 (Q1) · [`../reports/R03_brain-as-training-signal.md`](../reports/R03_brain-as-training-signal.md) (ladder)
+**Theory:** [`../06-theory-grounding.md`](../06-theory-grounding.md) §2 (data-processing inequality) + §4 (rate–distortion = the F1 trade-off curve)
 **Predecessor:** [`E002_tuckute-encoding-feasibility.md`](E002_tuckute-encoding-feasibility.md) (A2 PASS — the encoding signal is real on Tuckute)
 **Code:** `scripts/run_kd_alignment.py` (E003 runner), reuses `scripts/distill.py`, `scripts/pilot_lib.py`, `scripts/data_adapters.py:load_tuckute`
 **Output:** `outputs/E003_cold.json` + `outputs/E003_warm.json` (+ `.log` each). Provenance sidecars (recomputed 2026-06-17): `outputs/E003_perplexity.json` (reference-arm held-out ppls), `outputs/E003_dissociation.json` (the log-ppl fit + dissociation stats). See "Provenance repair" at the end.

@@ -6,10 +6,10 @@ aliases: [moussa-2025_brain-tuning-speech-lms]
 
 # Improving Semantic Understanding in Speech Language Models via Brain-tuning
 
-**Authors:** Omer Moussa; Dietrich Klakow; Mariya Toneva  
-**Year:** 2025  
-**Venue:** ICLR 2025  
-**DOI/arXiv:** 10.48550/arXiv.2410.09230  
+**Authors:** Omer Moussa; Dietrich Klakow; Mariya Toneva
+**Year:** 2025
+**Venue:** ICLR 2025
+**DOI/arXiv:** 10.48550/arXiv.2410.09230
 **Canonical ID:** moussa-2025_brain-tuning-speech-lms
 
 **Tags:** #literature #canonical
@@ -22,7 +22,7 @@ aliases: [moussa-2025_brain-tuning-speech-lms]
 - [ ] Full PDF scanned (search + targeted read)
 - [ ] Extracted text only
 
-PDF verified: 2026-06-10 — full 20-page PDF read page-by-page including all appendices (A–D).  
+PDF verified: 2026-06-10 — full 20-page PDF read page-by-page including all appendices (A–D).
 Comprehension self-check passed: Y
 
 ---
