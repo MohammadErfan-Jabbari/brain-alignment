@@ -4,7 +4,7 @@
 
 > **New to the codes?** → **[`map.md`](map.md)** is the visual map (legend + the whole journey as a tree). Quick legend: **Q**n = ladder rung / research question (Q0→Q5, in climb order); **E**nnn = experiment (the evidence); **A**1–A3 = the three assumptions; **D**nnn = decision; **L**nnn = learning. Rungs were renamed **L→Q** on 2026-06-15 (D036, execution-order numbering); pre-2026-06-15 timeline logs still use the old L labels — see `map.md` for the L↔Q table.
 
-**Last updated:** 2026-06-25 (S42 — /meta: **pre-P3 checklist CLEARED — G1 RUB-grading harness BUILT (a–d); G2/G3
+**Last updated:** 2026-06-26 (S43 — /meta: **D048 `/write` cutover EXECUTED — `sci-write-v2` is now the default `/write` engine.** P3-0 committed 12-scenario dress rehearsal (opus fixture-fairness audit caught + rebuilt 4 unfair fixtures) → P3-1 full **94-RUB acceptance suite graded in 7 batches → PASS + the 13 DET green, Erfan-signed** (suite `e49865ea3939f212`; 2 scenarios Erfan-adjudicated, SC-ARG-5 rewritten) → P3-2 cutover (routing repointed scientific-writing→sci-write-v2 across the live surface, old skill tombstoned read-only ~1wk, hook layer cut over: `stop_register_gate` retired so `stop_sw_converge` is the sole convergence gate, `prose_writecheck`→v2 `ai_tell_lint`), D048 amended COMPLETE. 14 commits. **NO experiment, NO science number, NO rung change — Q0–Q5 stand.** — prior: S42 — /meta: **pre-P3 checklist CLEARED — G1 RUB-grading harness BUILT (a–d); G2/G3
 done; dual opus review → READY-FOR-P3.** Built the one hard P3 blocker, the RUB-grading harness (`rub_harness.py` +
 `rub_scenarios.json`, **94 RUB scenarios**, 4 grading mechanisms) in 4 atomic chunks under the three-net loop
 (selftest → opus oracle → fresh `claude -p`/black-box → commit). G1-a store + live-parse `validate-suite` DET
@@ -90,6 +90,18 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 
 ## Next session (what `/orient` surfaces)
 
+> **S43 DONE → the `/write` rebuild is CLOSED; next is SCIENCE (2026-06-26, stance: Erfan's call).** The D048
+> cutover is complete — `sci-write-v2` is the default `/write` engine, the 94-RUB acceptance suite passed and is
+> Erfan-signed (suite `e49865ea3939f212`), the old `scientific-writing` skill is tombstoned (delete on/after
+> 2026-07-03, see `tasks.md`). **NO rung changed — Q0–Q5 stand exactly as S25.** The live science thread is
+> UNCHANGED and is where the next real work lives — three options, Erfan picks: **(a) `/work` Q4
+> sample-efficiency E024** (re-substrate to a higher-N gaze corpus → synthetic-PI MDE positive-control → re-gate
+> → build); **(b) `/write` R08 (Q2 — the lever is real but weak and ppl-confounded)** as the next finding-report,
+> now running on `sci-write-v2`; **(c) `/interpret`** the parked **E006 voxelwise-CI** item (pseudo-replicated
+> voxel bootstrap; restate at fold level, set `evidence_status`). **50 commits unpushed on main** (Erfan asked to
+> push this session). **Pre-existing open loop:** `docs/manuscript/README.md:34` bare `+0.06` (no cite) — a
+> README, fix on a `/write` touch.
+>
 > **S42 DONE → P3 NEXT (2026-06-25, stance: `/meta` build → next is the P3 cutover, Erfan drives, IRREVERSIBLE).**
 > S42 CLEARED the pre-P3 readiness checklist. **G1** — the RUB-grading harness (`rub_harness.py` +
 > `rub_scenarios.json`, **94 RUB scenarios**, 4 grading mechanisms: verdict-line/panel-synthesis/lattice-
