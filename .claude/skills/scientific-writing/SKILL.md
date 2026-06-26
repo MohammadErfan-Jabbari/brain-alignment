@@ -1,16 +1,21 @@
 ---
 name: scientific-writing
 description: >-
-  Write, draft, edit, or review scientific prose for this thesis: a results paragraph, an abstract, a
-  related-work or discussion section, or any edit to a docs/reports/R*.md report. Use it on the everyday
-  cases ("write up X", "update a finding-report", "add a paragraph on the gap", "draft the intro", "tighten this
-  section") as much as the heavy ones ("consolidate the extended manuscript", "cut a public version",
-  "review this section"). It keeps prose in a real scientific voice with no AI tells, makes every number
-  trace to recorded evidence (the D011 rule), hedges by what was actually measured, and runs deterministic
-  checks before a manuscript ships. Reach for it before writing, not after.
+  DEPRECATED (S43/P3, D048) — superseded by the `sci-write-v2` pipeline. Do NOT use this skill for any
+  new writing, drafting, editing, or review. Route ALL report/manuscript prose through `sci-write-v2`.
+  Kept read-only as a ~1-week rollback window after the cutover, then deleted. No longer the `/write` engine.
 ---
 
-# Scientific Writing
+# Scientific Writing — TOMBSTONED (D048 cutover, S43/P3, 2026-06-26)
+
+> **This skill is retired.** The `/write` engine is now **`sci-write-v2`** (`.claude/skills/sci-write-v2/`),
+> which separates Trust / Argument / Structure / Voice over a gated loop and passed its 94-scenario
+> acceptance suite (signed by Erfan). This file is kept **read-only for ~1 week** as a rollback window, then
+> deleted. Do not route new writing here, do not edit it, do not re-enable its hooks (`stop_register_gate`
+> was retired at cutover). For the migration map and rationale see `docs/decisions/decisions.md` D048 and
+> `docs/references/write-redesign-design.html`. The text below is preserved for reference only.
+
+## (archived) Scientific Writing
 
 The science is produced in working sessions and recorded in `docs/experiments/`, `docs/learnings.md`,
 `docs/ladder.md`, `docs/decisions/`. This skill governs how that recorded evidence becomes written
