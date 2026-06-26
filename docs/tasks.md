@@ -1,3 +1,9 @@
+---
+title: "Tasks — the backlog (behind & ahead)"
+tags: [reference]
+aliases: [tasks, backlog]
+---
+
 # Tasks — the path behind and ahead
 
 Durable backlog. The session task tracker is ephemeral; this file is the source of truth across

@@ -1,3 +1,9 @@
+---
+title: "The Platonic Representation Hypothesis"
+tags: [literature]
+aliases: [huh-2024_platonic-representation-hypothesis]
+---
+
 # The Platonic Representation Hypothesis
 
 **Authors:** Minyoung Huh, Brian Cheung, Tongzhou Wang, Phillip Isola
@@ -62,3 +68,8 @@ How much of the reported convergence survives stronger null calibration and laye
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

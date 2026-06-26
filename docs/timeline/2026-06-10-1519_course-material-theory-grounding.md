@@ -1,3 +1,8 @@
+---
+title: "2026-06-10 15:19 — Course material adopted as theory-grounding source (Session 5, analysis)"
+tags: [timeline]
+---
+
 # 2026-06-10 15:19 — Course material adopted as theory-grounding source (Session 5, analysis)
 
 **Mode:** Analysis (consume + communicate evidence; produce understanding + docs; no new experimental number).
@@ -36,3 +41,8 @@ No experiment ran; no number was produced or altered. The R03 ladder is unchange
 
 - **R03 line-1 corruption** was a stale working-tree artifact at session start (transcript pasted in front of the heading; HEAD was clean). Fixed. The pre-existing `$$…$$` multi-line reformatting in the same working-tree diff was left intact and is bundled into the R03 grounding commit.
 - **A concurrent session committed while this one ran:** `9c6dcb7` (full-read digests of the 12 brain-as-training-signal papers), `93db8ae` (landscape-map update after that pass), `d5314b2` (new `reports/R04` gap analysis). So the canonical notes (`moussa-2025`, `oota-2026`, `merlin-2026`, `moussa-2025b`) are **already committed**, not pending. My `01-research-landscape.md` §E edit was applied on top of the post-`93db8ae` version (Read+Edit matched cleanly). Next session: reconcile R03 §2 Step 7 / the new R04 / the updated landscape so the framing is consistent across all three.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

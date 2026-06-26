@@ -1,3 +1,9 @@
+---
+title: "Abstraction Induces the Brain Alignment of Language and Speech Models"
+tags: [literature]
+aliases: [cheng-2026_abstraction-induces-brain-alignment]
+---
+
 # Abstraction Induces the Brain Alignment of Language and Speech Models
 
 **Authors:** Emily Cheng; Aditya R. Vaidya; Richard Antonello  
@@ -102,3 +108,8 @@ If $I_d$ is the right surrogate, there is a precise distillation design question
 ## Read Date
 
 2026-06-10
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

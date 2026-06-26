@@ -1,3 +1,9 @@
+---
+title: "Experiment — E010: the averaging dose-response (does the apparent brain-specific gain grow with…"
+tags: [experiment]
+aliases: [E010]
+---
+
 # Experiment — E010: the averaging dose-response (does the apparent brain-specific gain grow with subjects averaged?)
 
 **Created:** 2026-06-12 · **Status:** RAN — verdict recorded · **Mode:** working
@@ -30,3 +36,8 @@ The socratic capstone flagged that E010's clean monotone curve used **nested** s
 
 ## Status
 Recorded (E010 nested + E010b random). Earns the manuscript's "averaging inflates/produces apparent brain-specificity" claim ONLY via the E005-vs-E008 contrast — the dose-response itself is hedged as suggestive-but-noisy (the nested curve was partly a design artifact; L018 + L020). Manuscript §4.2b + Fig 1 show both curves; not load-bearing.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

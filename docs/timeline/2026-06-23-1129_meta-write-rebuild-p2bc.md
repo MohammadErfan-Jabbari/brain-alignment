@@ -1,3 +1,8 @@
+---
+title: "2026-06-23 11:29 — /meta: `/write` rebuild, Phase-2 P2-B + P2-C built & verified"
+tags: [timeline]
+---
+
 # 2026-06-23 11:29 — /meta: `/write` rebuild, Phase-2 P2-B + P2-C built & verified
 
 **Stance:** `/meta` throughout (apparatus build). No science number produced or consumed; **no rung moved; Q0–Q5
@@ -81,3 +86,8 @@ table was stale — now fixed in both the table and the inline tags).
 `upspeed.md` first. Method unchanged (three-net per chunk). P2-D is orchestration/hook plumbing (different in kind
 from the F-functionalities); the recurring DET failure modes to watch remain L059 (bind to ground truth) and L060
 (never HARD-block a dual-use surface).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

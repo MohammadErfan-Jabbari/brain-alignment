@@ -1,3 +1,8 @@
+---
+title: "Timeline — 2026-06-10 17:45 — E003: the perplexity-only-KD alignment kill-test (Layer 2a)"
+tags: [timeline]
+---
+
 # Timeline — 2026-06-10 17:45 — E003: the perplexity-only-KD alignment kill-test (Layer 2a)
 
 **Mode:** working (Design → Run → Judge). **Branch:** main. **Commits this session:** `b2f23bb` (locked design) → `d11c89b` (runner) → `7483848` (verdict) → `b996a2c` (ladder + L011).
@@ -28,3 +33,8 @@ A clean, PCA-rank-robust **monotone alignment gradient**: conventional gpt2 (ρ�
 - `scripts/run_kd_alignment.py` (runner; reuses `distill.py` + `pilot_lib`). Outputs `outputs/E003_{cold,warm}.json` (gitignored). KD corpus `data/kd_corpus/` (gitignored).
 - `docs/learnings.md` L011; R03 §5 ladder (Layer 2a) + R04 §8 updated.
 - **R04 §7 factual corrections to R03 were already applied** (commit `4b548d1`, prior session) — verified this session, nothing to do. R03 line-1 corruption does not exist (working tree clean).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

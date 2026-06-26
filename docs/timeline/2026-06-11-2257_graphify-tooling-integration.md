@@ -1,3 +1,8 @@
+---
+title: "2026-06-11 22:57 — graphify integration (tooling session, no science)"
+tags: [timeline]
+---
+
 # 2026-06-11 22:57 — graphify integration (tooling session, no science)
 
 **Mode:** tooling / infrastructure. **Touched the science: NO.** `ladder.md` and `upspeed.md`
@@ -62,3 +67,8 @@ navigator for this repo. Cloned into gitignored `data/graphify/` for source read
 - **Get to the bottom of graphify later** (see `tasks.md`): if we revisit the doc-graph, the lever is
   `--mode deep` + a stronger model (3.1 Pro), and a clear use it serves that gbrain doesn't — else the
   code-graph-only conclusion stands.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

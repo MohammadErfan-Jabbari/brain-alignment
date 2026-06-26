@@ -1,3 +1,8 @@
+---
+title: "Session 8 (continuation 2) — mock peer-review of v0.9, power positive-control, E015 cross-family…"
+tags: [timeline]
+---
+
 # Session 8 (continuation 2) — mock peer-review of v0.9, power positive-control, E015 cross-family ppl law
 
 **Date:** 2026-06-12 · **Mode:** WORKING (evidence produced: the power positive-control + E015) with an analysis spine (mock peer-review + manuscript hardening) · **Cost:** ~$1385 cumulative (long autonomous run)
@@ -21,3 +26,8 @@ Continuation after the artifact-completion log (`2026-06-12-...session8-cont`). 
 Experimental program remains **closed** (Erfan-confirmed); this stretch *hardened* the existing paper rather than opening new rungs. Manuscript v0.9: mock-peer-reviewed, power-claim defended, E015 folded in + honestly positioned. All committed atomically; working tree clean. gbrain: 3 pages written/updated (s8-paper-artifact-complete, mock-peer-review-v0.9, e015-ppl-alignment-law).
 
 **Open (Erfan / fresh build):** (1) the premortem's spine reframe → matched-ppl-as-missing-control as the headline, demonstrated on ONE external published result (needs online / a multi-day re-analysis); (2) more model families for E015 (OPT/Llama/Mistral — needs online) to beat the n=8/3-cluster caveat; (3) the full-FT multi-subject naturalistic build (the one untested induction method). None are offline-doable now.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

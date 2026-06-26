@@ -1,3 +1,9 @@
+---
+title: "Findings of the BabyLM Challenge (1st, 2023 → 3rd, 2025): the verdict on cognitively-inspired…"
+tags: [literature]
+aliases: [babylm-2025_cognitive-objectives-findings]
+---
+
 # Findings of the BabyLM Challenge (1st, 2023 → 3rd, 2025): the verdict on cognitively-inspired training objectives at a matched data budget
 
 **Authors:** BabyLM Team. *3rd (2025):* Charpentier, Choshen, Cotterell, Gul, Hu, Liu, Jumelet, Linzen, Mueller, Ross, Shah, Warstadt, Wilcox, Williams. *1st (2023):* Warstadt, Mueller, Choshen, Wilcox, Zhuang, Ciro, Mosquera, Paranjape, Williams, Linzen, Cotterell.
@@ -297,3 +303,8 @@ surprisal-*residualized* objective was tried in either iteration; (d) no fMRI/EE
 objective in any submission (behavioral proxies only); (e) the single un-replicated "in one case …
 significant improvements" (2023 §9) is unnamed.
 Read date: 2026-06-17
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

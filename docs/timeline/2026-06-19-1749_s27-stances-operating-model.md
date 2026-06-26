@@ -1,3 +1,8 @@
+---
+title: "S27 — The stances operating model (working/analysis retired)"
+tags: [timeline]
+---
+
 # S27 — The stances operating model (working/analysis retired)
 
 **Date:** 2026-06-19 · **Stances:** `/meta` (dominant: methodology + tooling) · `/plan` (the design +
@@ -75,3 +80,8 @@ thread is still **Q4 sample-efficiency/LUPI** (re-substrate to higher-N gaze), u
 - **Follow-up:** sweep the remaining "working/analysis" mentions in `CLAUDE.md`'s fleet section,
   `goalsmith` ("working sessions only"), and agent descriptions; D044 documents the mapping so they stay
   interpretable, but a cleanup pass removes the drift.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

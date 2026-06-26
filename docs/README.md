@@ -1,3 +1,9 @@
+---
+title: "docs/ — the research brain (map)"
+tags: [reference]
+aliases: [docs-map, docs-readme]
+---
+
 # docs/ — the brain-alignment research brain
 
 This folder is the **running knowledge base** for the thesis. It is the memory that survives
@@ -12,28 +18,28 @@ We do *not* run the heavy Nexus stage-machine here. See `03-methodology.md` for 
 
 | File / dir | What it holds | Write cadence |
 |---|---|---|
-| `ladder.md` | **THE canonical status board** — which rungs hold, with what verdict, and the single next step. Read first every session; wins any conflict. | Each session close (verdict-confirmed) |
-| `map.md` | **The visual map + code legend** (Q=rung/question, E=experiment, A=assumption, D=decision, L=learning) and the whole journey as a tree. Read when the codes or the path lose you; not a status board (ladder wins). | When the rung set or naming convention changes |
-| `upspeed.md` | **Read first, write last.** Current state, next actions, blockers. | Every session (REPLACE) |
-| `tasks.md` | The path behind and ahead: backlog → now → done. | As tasks move |
-| `00-charter.md` | The idea, the real problem, scope, thesis context, success/kill criteria. | Rarely (on scope change) |
-| `01-research-landscape.md` | Literature frontier map: prior art, the gap, the falsifiable assumptions, anti-confound protocol, baselines. | When literature shifts |
-| `02-environment.md` | centcom facts: GPUs, disk, uv, cached models, datasets, how to run. | When the environment changes |
-| `03-methodology.md` | The lightweight idea→evidence path we follow, and what we deliberately dropped from Nexus and why. | Rarely |
-| `04-data-benchmarks.md` | Powered survey + decision (D008) on the four language-fMRI benchmarks we committed to. | When the benchmark choice shifts |
-| `05-dataset-registry.md` | Living watchlist of *every* dataset that might be relevant (neural/behavioral/NLP), with features + use-case fit + status. | When a candidate dataset is found |
-| `06-theory-grounding.md` | Maps Erfan's MSc coursework (Info Theory for ML + Probabilistic ML) to the thesis: the formal bounds/definitions/theorems behind R03's argument (MI generalization bound, DPI, conditional MI, rate-distortion), with pointers to the course notes under `data/course-material/`. | When a course concept becomes load-bearing |
-| `07-concepts-primer.md` | Plain-language glossary of the reusable primitives every experiment/report assumes (voxel, ROI, encoding model, unique R², noise ceiling & "% of ceiling", trained−untrained gap, permuted twin, the datasets). Intuition; `06` is the formal version. | When a recurring primitive needs a clear home |
-| `decisions/decisions.md` | Append-only decision log (ADR-style, D001…). | When a real decision is made |
-| `timeline/` | Immutable session logs `YYYY-MM-DD-HHMM.md`. The path we actually walked. | End of each session |
-| `hypotheses/` | One file per hypothesis (`HNNN_…`). Falsifiable claim + kill criteria. | Stage: Claim onward |
-| `experiments/` | One file per experiment: design + iteration log + results. | Stage: Design onward |
-| `reports/` | **Continuous** per-topic syntheses (`R01…`, Markdown) — the write-layer of every session, and the source the extended manuscript consolidates from. Rewritten in place as info lands. Governed by the `sci-write-v2` pipeline (D035/D048). | As work touches a topic |
-| `manuscript/` | The thesis in two LaTeX sublayers (D035): `extended/` (internal master — always-current paper body + append-only checkpoint log) and `public/vN/` (frozen submission cuts, compressed from the extended). **Checkpoint-derived, not continuous.** | At a checkpoint Erfan calls |
-| `literature/canonical/` | One note per paper actually read (self-contained copies). | When a paper is read |
-| `literature/_prior-work/` | Provenance: the prior dossier, oracle review, origin idea (frozen, read-only history). | Never edited |
-| `references/` | Reusable reasoning frames and conventions. | Rarely |
-| `learnings.md` | Accumulated lessons and corrected mistakes. The anti-amnesia file. | When we learn something the hard way |
+| [`ladder.md`](ladder.md) | **THE canonical status board** — which rungs hold, with what verdict, and the single next step. Read first every session; wins any conflict. | Each session close (verdict-confirmed) |
+| [`map.md`](map.md) | **The visual map + code legend** (Q=rung/question, E=experiment, A=assumption, D=decision, L=learning) and the whole journey as a tree. Read when the codes or the path lose you; not a status board (ladder wins). | When the rung set or naming convention changes |
+| [`upspeed.md`](upspeed.md) | **Read first, write last.** Current state, next actions, blockers. | Every session (REPLACE) |
+| [`tasks.md`](tasks.md) | The path behind and ahead: backlog → now → done. | As tasks move |
+| [`00-charter.md`](00-charter.md) | The idea, the real problem, scope, thesis context, success/kill criteria. | Rarely (on scope change) |
+| [`01-research-landscape.md`](01-research-landscape.md) | Literature frontier map: prior art, the gap, the falsifiable assumptions, anti-confound protocol, baselines. | When literature shifts |
+| [`02-environment.md`](02-environment.md) | centcom facts: GPUs, disk, uv, cached models, datasets, how to run. | When the environment changes |
+| [`03-methodology.md`](03-methodology.md) | The lightweight idea→evidence path we follow, and what we deliberately dropped from Nexus and why. | Rarely |
+| [`04-data-benchmarks.md`](04-data-benchmarks.md) | Powered survey + decision (D008) on the four language-fMRI benchmarks we committed to. | When the benchmark choice shifts |
+| [`05-dataset-registry.md`](05-dataset-registry.md) | Living watchlist of *every* dataset that might be relevant (neural/behavioral/NLP), with features + use-case fit + status. | When a candidate dataset is found |
+| [`06-theory-grounding.md`](06-theory-grounding.md) | Maps Erfan's MSc coursework (Info Theory for ML + Probabilistic ML) to the thesis: the formal bounds/definitions/theorems behind R03's argument (MI generalization bound, DPI, conditional MI, rate-distortion), with pointers to the course notes under `data/course-material/`. | When a course concept becomes load-bearing |
+| [`07-concepts-primer.md`](07-concepts-primer.md) | Plain-language glossary of the reusable primitives every experiment/report assumes (voxel, ROI, encoding model, unique R², noise ceiling & "% of ceiling", trained−untrained gap, permuted twin, the datasets). Intuition; `06` is the formal version. | When a recurring primitive needs a clear home |
+| [`decisions/decisions.md`](decisions/decisions.md) | Append-only decision log (ADR-style, D001…). | When a real decision is made |
+| [`timeline/`](timeline/) | Immutable session logs `YYYY-MM-DD-HHMM.md`. The path we actually walked. | End of each session |
+| [`hypotheses/`](hypotheses/) | One file per hypothesis (`HNNN_…`). Falsifiable claim + kill criteria. | Stage: Claim onward |
+| [`experiments/`](experiments/) | One file per experiment: design + iteration log + results. | Stage: Design onward |
+| [`reports/`](reports/README.md) | **Continuous** per-topic syntheses (`R01…`, Markdown) — the write-layer of every session, and the source the extended manuscript consolidates from. Rewritten in place as info lands. Governed by the `sci-write-v2` pipeline (D035/D048). | As work touches a topic |
+| [`manuscript/`](manuscript/) | The thesis in two LaTeX sublayers (D035): `extended/` (internal master — always-current paper body + append-only checkpoint log) and `public/vN/` (frozen submission cuts, compressed from the extended). **Checkpoint-derived, not continuous.** | At a checkpoint Erfan calls |
+| [`literature/canonical/`](literature/canonical/) | One note per paper actually read (self-contained copies). | When a paper is read |
+| [`literature/_prior-work/`](literature/_prior-work/) | Provenance: the prior dossier, oracle review, origin idea (frozen, read-only history). | Never edited |
+| [`references/`](references/) | Reusable reasoning frames and conventions. | Rarely |
+| [`learnings.md`](learnings.md) | Accumulated lessons and corrected mistakes. The anti-amnesia file. | When we learn something the hard way |
 
 ## Conventions
 
@@ -44,3 +50,4 @@ We do *not* run the heavy Nexus stage-machine here. See `03-methodology.md` for 
 - Dates are absolute (`2026-06-08`), never "today" / "last week".
 - Session logs are immutable; `upspeed.md` is overwritten each session (history lives in `timeline/`).
 - **Prose is not hard-wrapped: one line per paragraph (and per bullet/cell), let editors soft-wrap.** Hard wraps render as broken double-spaced text when an editor inserts blank lines between physical lines. New files follow this; existing hard-wrapped files get reflowed lazily when next edited.
+- **Markdown structure follows the Obsidian/GitHub conventions** in [`references/obsidian-conventions.md`](references/obsidian-conventions.md) (frontmatter, standard relative links — never wikilinks, the 5 cross-compatible callouts, hub + `## Related` footers). The repo is both a GitHub repo and an Obsidian vault.

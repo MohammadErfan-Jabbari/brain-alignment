@@ -1,3 +1,9 @@
+---
+title: "Beware of Calibration Data for Pruning Large Language Models"
+tags: [literature]
+aliases: [ji-2025_calibration-data-pruning-llms]
+---
+
 # Beware of Calibration Data for Pruning Large Language Models
 
 **Authors:** Yixin Ji; Yang Xiang; Juntao Li; Qingrong Xia; Ping Li; Xinyu Duan; Zhefeng Wang; Min Zhang
@@ -62,3 +68,8 @@ This paper reframes calibration data from an implementation detail into a major 
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

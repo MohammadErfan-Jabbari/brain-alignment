@@ -1,3 +1,8 @@
+---
+title: "Confound catalog — the single source of truth for the control battery"
+tags: [reference]
+---
+
 # Confound catalog — the single source of truth for the control battery
 
 **What this is.** The one place the repo's confounds, controls, and the matched-perplexity / 5-control
@@ -32,3 +37,8 @@ Apply only the applicable arms; mark the rest **N/A** with the reason.
 5. **Matched-information non-brain privileged teacher** — the signal must beat the best non-brain teacher (LM surprisal / teacher-hidden-state / difficulty) at matched capacity+reliability; only this shows a gain is *biosignal-specific*, not "any teacher helps."
 
 > Maintenance: add new confound rows here as `L`-entries land; do not re-list the catalog inside agent prompts.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

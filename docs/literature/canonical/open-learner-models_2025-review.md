@@ -1,3 +1,9 @@
+---
+title: "Open learner models and pedagogical strategies in higher education: a meta-synthesis of approaches…"
+tags: [literature]
+aliases: [open-learner-models_2025-review]
+---
+
 # Open learner models and pedagogical strategies in higher education: a meta-synthesis of approaches to self-regulated learning
 
 **Authors / Year / Venue:** Robles Mucho, J.L.; Andrade-Girón, D.C.; Benites-Tirado, V.R.; Quispe-Maquera, N.B.; Ayala-Jara, C.; Tito Chura, H.E.; Luna-Victoria, F.M.; Laura-De La Cruz, K.M.; Rivera-Lozada, O.; Cerna Salcedo, A.A.; Jaramillo Arica, P.S.; Barboza, J.J. / 2025 (received Dec 2025, published 26 Jan 2026 — Frontiers dates it to vol. 10, 2025) / *Frontiers in Education* 10:1760183, Systematic Review article · **Link:** https://doi.org/10.3389/feduc.2025.1760183
@@ -74,3 +80,8 @@ This note pairs with `open-learner-models-and-errorful-learning.md` (the broader
 ## Read Date
 
 2026-06-19
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

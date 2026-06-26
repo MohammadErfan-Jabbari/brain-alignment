@@ -1,3 +1,9 @@
+---
+title: "Experiment — E011: is the per-individual F1 null REGIME-SPECIFIC? (strong-regime per-subject test,…"
+tags: [experiment]
+aliases: [E011]
+---
+
 # Experiment — E011: is the per-individual F1 null REGIME-SPECIFIC? (strong-regime per-subject test, vs Negi)
 
 **Created:** 2026-06-12 · **Status:** COMPLETE (ran 2026-06-12) — per-individual null robust to heavy-LoRA capacity (r64/6ep, +0.0004 [−0.0005,+0.0013], incl 0; the knob that moves the rep wrecks ppl; L019) · **Mode:** working
@@ -42,3 +48,8 @@ The counter-argument panel (fable) caught that **heavy LoRA did NOT actually mov
 
 ## Status
 COMPLETE — verdict recorded (capacity-robust null; honest framing). Manuscript §6 + L019 updated. No further per-individual-at-matched-ppl experiment is informative (capacity exhausted, λ breaks the control); the only open direction is a different objective+data regime (future work / new data).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

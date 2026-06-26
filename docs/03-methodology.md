@@ -1,3 +1,8 @@
+---
+title: "Methodology — how we work in this repo"
+tags: [methodology]
+---
+
 # Methodology — how we work in this repo
 
 This is the operating philosophy. It is deliberately light. The reasoning for *why* it is light is
@@ -285,3 +290,8 @@ This methodology, `CLAUDE.md`, the agents, and the docs are **living**. When a w
 reconstructed in chat, or a mistake repeats, update the relevant file. When a task is done twice
 without a tool, consider a new subagent or script. Per Erfan's global rule: propose changes to *his*
 private/global instructions before editing them — but this repo's own docs are ours to keep current.
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

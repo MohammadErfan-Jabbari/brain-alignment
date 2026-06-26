@@ -1,3 +1,8 @@
+---
+title: "Codex — second-model critic + rescue (how we use it in this repo)"
+tags: [reference]
+---
+
 # Codex — second-model critic + rescue (how we use it in this repo)
 
 Codex (OpenAI CLI, model `gpt-5.5`) is a **second model** we drive from Claude Code via the `codex`
@@ -118,3 +123,8 @@ is real evidence, and one that disagrees is a bug lead.
 - **Stop-review-gate stays OFF.** It would force a Codex review before Claude can stop, which fights
   the docs-first `/wrap` ritual and adds latency to our mostly-docs commits. Enable only during a heavy
   code-writing stretch (`/codex:setup --enable-review-gate`), and disable it after.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

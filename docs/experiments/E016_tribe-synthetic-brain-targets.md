@@ -1,3 +1,9 @@
+---
+title: "Experiment — E016: TRIBE-v2 synthetic brain targets — can a brain foundation model break the…"
+tags: [experiment]
+aliases: [E016]
+---
+
 # Experiment — E016: TRIBE-v2 synthetic brain targets — can a brain foundation model break the data-scarcity wall, and what is the ceiling on brain-guided LM training?
 
 **Created:** 2026-06-12 · **Status:** **P0 PASSED (2026-06-13); now the FORWARD-PROGRAM F1 = NEXT TO RUN** (it was
@@ -477,3 +483,8 @@ ground-truth E[Y|S]** and is strictly stronger than TRIBE's ~7% estimate. So:
   such a target. Phase 3 = optional Fork-B booster (null at scale removes the scarcity excuse), NOT a blocker.
 - **Do NOT** pursue per-subject-fine-tuned TRIBE or a video-stimulus ceiling (abandons the language substrate).
 Forward order (D028): **F1-close (E020) → F2 (E019, paper-critical) → F3 (I3) → F4 (E015 Q2)**; TRIBE Phase 3 after F2 if pursued.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,8 @@
+---
+title: "Learnings — the anti-amnesia file"
+tags: [learning]
+---
+
 # Learnings — the anti-amnesia file
 
 Hard-won lessons, corrected mistakes, and dead ends worth remembering. The rule (from Nexus):
@@ -534,3 +539,8 @@ P3-0 graded a 12-scenario dress rehearsal of the `sci-write-v2` RUB harness and 
 
 ### L068 — batching scenarios into one grader spawn cross-primes false fails; per-scenario context must match that scenario's specific test (2026-06-26, S43, P3-1)
 Running the 94-RUB suite, I grouped same-grader scenarios into shared spawns for efficiency (e.g. 10 voice snippets, 5 structure paragraphs per call). This was efficient and the discrimination (mixed flag/noflag in one call) was a genuine test — but it produced **false fails twice** from the *shared* context I injected: SC-VOICE-13 (a clean target-register sentence) got flagged because the grouped prompt primed the voice auditor toward defect-hunting and it over-reached into a claim-precision issue outside its voice remit; SC-EX-2506-4 (a clean sequencing example) got flagged because the grouped reader-model I supplied listed neuro terms as "needs gloss," priming the structure judge to hunt gloss issues this scenario was not testing. Both came back clean on a **dedicated re-run with scenario-matched context** (voice-only instruction; the correct reader for a sequencing test). **The general lesson:** when you batch independent items through one judge to save spawns, the shared framing/context is itself an input that can bias items it doesn't fit — a scenario about concern A gets contaminated by context meant for concern B. Either give each scenario context matched to *its* specific test, or keep groups within a single concern and keep the shared instruction generic. A surprising fail in a batched grade should first be re-checked dedicated before it is recorded as a real defect (cheaper than mis-recording, and it isolates priming from a true judge/scenario disagreement). No science touched. Erfan-approved.
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

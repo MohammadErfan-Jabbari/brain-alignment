@@ -1,3 +1,8 @@
+---
+title: "Language-fMRI Benchmarks — Survey, Power, and Recommendation"
+tags: [dataset]
+---
+
 # Language-fMRI Benchmarks — Survey, Power, and Recommendation
 
 **Last updated:** 2026-06-09 (Session 2). Source: `lit-scout` survey + direct OSF/OpenNeuro
@@ -137,3 +142,8 @@ a benchmark. Their encoding-grade stimulus data is largely the Pereira set.
 1. **LeBel et al. 2023** — noise-ceiling computation + preprocessing details (primary benchmark).
 2. **Merlin & Toneva 2026 "When LMs Lose Their Mind"** — exactly what it claims vs A3 (reframe trigger).
 3. **Nastase et al. 2021 Narratives** — per-study TR table + ISC reliability (generalisation benchmark).
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

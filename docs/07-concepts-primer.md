@@ -1,3 +1,8 @@
+---
+title: "Concepts Primer — the reusable vocabulary every experiment assumes"
+tags: [reference]
+---
+
 # Concepts Primer — the reusable vocabulary every experiment assumes
 
 **What this is.** A plain-language glossary of the primitives that recur across every experiment doc
@@ -143,3 +148,8 @@ questions, established by three separate rungs:
 
 A strong PASS on "real" says nothing about "movable" or "useful." Keeping these separate is the spine
 of the whole ladder — see `ladder.md`.
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

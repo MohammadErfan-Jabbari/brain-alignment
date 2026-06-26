@@ -1,3 +1,9 @@
+---
+title: "Experiment — E019: reproduce a PUBLISHED brain-tuning positive, then collapse it with the…"
+tags: [experiment]
+aliases: [E019]
+---
+
 # Experiment — E019: reproduce a PUBLISHED brain-tuning positive, then collapse it with the matched-ppl + permuted-twin control
 
 **Created:** 2026-06-13 · **Status:** PLANNED (forward program; design to be oracle-gated before compute) · **Mode:** working
@@ -213,3 +219,8 @@ catastrophic forgetting that degrades alignment — CONVERGING with the E008/E01
 (L036), now demonstrated on the Negi head too.* **E019 = corroboration of the lever-failure spine, NOT the external
 clincher.** The **stale v1 "NON-NEGOTIABLE" framing is RETIRED** (L041/L042): the spine rests on the POWERED
 per-individual nulls (E008/E011/E017) + E015, not on E019. **No rung flip. No Fork-A.** Framing = Erfan's call.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,9 @@
+---
+title: "Experiment — E008: in-domain F1 solidification — is the brain-specific gain real ACROSS individual…"
+tags: [experiment]
+aliases: [E008]
+---
+
 # Experiment — E008: in-domain F1 solidification — is the brain-specific gain real ACROSS individual participants?
 
 **Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11) — per-individual F1 NULL, well-powered (n=9, mean +0.00010, t-CI [−0.0004,+0.0006], power 1.0 at δ=+0.003); E005's +0.0081 = group-averaged-target artifact (L016) · **Mode:** working
@@ -138,3 +144,8 @@ The brain-specific gain collapses from E005's averaged **+0.0081** to a per-subj
 ## Status
 
 VERDICT RECORDED (NULL, well-powered, panel-adjudicated). **Ladder Q3/F1 flip pending Erfan's confirmation (D015)** — the in-domain F1 downgrades from 🟡 PARTIAL-PASS to a per-subject NULL / averaged-target-only trend. Next: A3 (E009) as the central contribution, gated on Erfan's confirmation of the reframe.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

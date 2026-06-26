@@ -1,3 +1,8 @@
+---
+title: "Cover email for the thesis progress draft (2026-06)"
+tags: [manuscript]
+---
+
 # Cover email for the thesis progress draft (2026-06)
 
 Send with the extended manuscript PDF attached.
@@ -22,3 +27,8 @@ Thanks in advance for your time and help.
 
 Best regards,
 MohammadErfan
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

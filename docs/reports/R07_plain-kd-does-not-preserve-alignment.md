@@ -1,3 +1,9 @@
+---
+title: "R07: Plain perplexity-only knowledge distillation does not preserve a teacher's brain alignment by…"
+tags: [Q1, report]
+aliases: [R07]
+---
+
 # R07: Plain perplexity-only knowledge distillation does not preserve a teacher's brain alignment by default. A from-scratch logit-KD student lands far below its teacher, but how much of that drop is specific to the compression objective rather than to the loss of language-model quality is not resolved at this benchmark
 
 **Answers Q1. Verdict: ✅ PARTIAL.** Knowledge distillation trains a small student to imitate a larger teacher by matching the teacher's output probabilities, rather than learning from raw text, and the question here is whether a student trained that way keeps the teacher's brain alignment. It does not, not for free. The governing variable is how much of the student's representation was *inherited* from ordinary pretraining versus *rebuilt* from the teacher's outputs alone: the more a model had to rebuild, the less alignment it kept. Along that ordering alignment falls monotonically, from a conventional same-size GPT-2 that matches the teacher, through warm-started and real published distillations, down to a from-scratch student trained on the teacher's logits alone, which sits a significant $\Delta=+0.018$ below the teacher ($p<0.001$; it retains only 0.37 of the teacher's alignment above an untrained floor, where 1.0 would be full retention) [E003]. The full five-point ladder is in the evidence table below. So the outcome that would have made the thesis's distillation question a non-problem, *that compression preserves alignment by default*, is ruled out: perplexity-only KD leaves real alignment headroom below the teacher. What the gradient does *not* establish is the stronger claim that the distillation objective sheds alignment beyond the language-model quality it costs. Across the trained and distilled models alignment is tightly predicted by log-perplexity (Pearson $r=-0.88$), so quality alone could account for the whole gradient; the two contrasts that would separate an objective-specific loss from "alignment just tracks quality" are only marginal ($p\approx0.09$), and the from-scratch student is itself under-trained, so part of its low alignment is simply that it is a worse language model [E003] [L011].
@@ -78,3 +84,7 @@ What it does not license is "the distillation objective sheds alignment beyond t
 - The shed *fractions* are PCA-rank-sensitive (the two confounded arms flip sign across $n_{\text{pca}}=25/50/100$); only the gradient's *ordering* is stable across rank. Read the ordering as the finding and the magnitudes as rank-dependent [E003].
 - "Preserve" and "shed" are claims about this ROI screen at a matched corpus and compute budget (and, as noted above, the cold arm in fact ran twice the epochs, so even the step count was not matched). The thesis-deciding form of the question is at matched *perplexity* on the powered substrate, and that is where Q2 and Q3 take it.
 
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

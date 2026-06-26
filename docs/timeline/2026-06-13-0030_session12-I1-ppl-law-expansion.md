@@ -1,3 +1,8 @@
+---
+title: "Session 12 — I1: cross-family ppl↔alignment law expansion (E015) — WORKING (autonomous)"
+tags: [timeline]
+---
+
 # Session 12 — I1: cross-family ppl↔alignment law expansion (E015) — WORKING (autonomous)
 
 **Date:** 2026-06-13 (started ~2026-06-12 23:09, ran overnight) · **Mode:** working (autonomous, /goal set)
@@ -79,3 +84,8 @@ installed (sudo apt-get) for whisperx ASR. Repro: `scripts/tribe_p0_verify.py`. 
 Session total: **I1 ✅, I2 ✅ (full-FT induction null), I3 blocked, I4 P0 ✅ PASSED + verified; ~17 atomic
 commits; no rung flipped; analysis-lane flags recorded for Erfan.** Clean gate boundary — Phases 1–3 are the
 substantial capstone science (fresh focused run).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

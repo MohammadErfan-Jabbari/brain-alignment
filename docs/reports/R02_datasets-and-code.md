@@ -1,3 +1,9 @@
+---
+title: "R02 — Datasets & code provenance across the reading list"
+tags: [report]
+aliases: [R02]
+---
+
 # R02 — Datasets & code provenance across the reading list
 
 **Last updated:** 2026-06-09
@@ -91,3 +97,8 @@ These are standard NLP benchmarks, all open: **GLUE** (wang-2020, liu-2022, fu-2
 - **`zhu-2025` datasets are non-language** (monkey M1/PMd, mouse V1) and referenced, not directly linked — low priority for us.
 - This report is provenance only; it does not re-verify any *result*. Numbers stay in the canonical notes / R01.
 </content>
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

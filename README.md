@@ -1,3 +1,9 @@
+---
+title: "brain-alignment — MSc thesis research repo"
+tags: [reference, charter]
+aliases: [brain-alignment, home]
+---
+
 # brain-alignment
 
 Master's thesis (ML for Health, UC3M): **using the linear mapping between LLM middle layers and brain

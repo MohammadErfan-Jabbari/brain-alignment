@@ -1,3 +1,8 @@
+---
+title: "2026-06-25 15:22 — /meta: G1 RUB-grading harness built; G2/G3 cleared; dual opus review →…"
+tags: [timeline]
+---
+
 # 2026-06-25 15:22 — /meta: G1 RUB-grading harness built; G2/G3 cleared; dual opus review → READY-FOR-P3
 
 **Stance:** `/meta` throughout (build/maintain the apparatus). No other stance entered. **NO experiment, NO
@@ -68,3 +73,8 @@ not done here, per the stop condition.
 before the 94-run. Then P3-1 (full 135-suite, expect a multi-round first pass) → P3-2 (split the irreversible
 commit: tombstone the old flow ~1 week, triage the 13 DET checks for hook-safety) → repoint `CLAUDE.md` +
 `03-methodology.md`, record D048-complete. The E006 voxelwise-CI `/interpret` item stays parked (orthogonal).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,9 @@
+---
+title: "Open Learner Models and Learning Analytics Dashboards: A Systematic Review"
+tags: [literature]
+aliases: [bodily-2018_olm-lad-systematic-review]
+---
+
 # Open Learner Models and Learning Analytics Dashboards: A Systematic Review
 
 **Authors / Year / Venue:** Robert Bodily; Judy Kay; Vincent Aleven; Ioana Jivet; Dan Davis; Franceska Xhakaj; Katrien Verbert / 2018 / *LAK '18: Proceedings of the 8th International Conference on Learning Analytics and Knowledge* (Sydney, NSW, Australia, Mar 7–9, 2018), ACM, pp. 41–50 · **Link:** https://doi.org/10.1145/3170358.3170409
@@ -105,3 +111,8 @@ The pattern: OLMs are **more evaluated, more interactive, universally assessment
 ## Read Date
 
 2026-06-20
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

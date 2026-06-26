@@ -1,3 +1,9 @@
+---
+title: "What Are Large Language Models Mapping to in the Brain? A Case Against Over-Reliance on Brain Scores"
+tags: [literature]
+aliases: [hadidi-2024_case-against-brainscore-reliance]
+---
+
 # What Are Large Language Models Mapping to in the Brain? A Case Against Over-Reliance on Brain Scores
 
 **Authors:** Ebrahim Feghhi*; Nima Hadidi*; Bryan Song; Idan A. Blank; Jonathan C. Kao
@@ -329,3 +335,8 @@ The Nature Communications 2026 version (DOI 10.1038/s41467-026-72253-7) is behin
 was not separately fetched; the arXiv preprint is confirmed to be the same work.
 Code is publicly available at `beyond-brainscore` on GitHub.
 Read date: 2026-06-11
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

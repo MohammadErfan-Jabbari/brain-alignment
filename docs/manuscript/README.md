@@ -1,3 +1,8 @@
+---
+title: "manuscript/ — the thesis, built from recorded evidence"
+tags: [manuscript]
+---
+
 # manuscript/ — the thesis, built from recorded evidence
 
 This is the home for the LaTeX manuscripts in two sublayers (D035): `extended/` (the internal,
@@ -34,3 +39,8 @@ stand-in (e.g. E001's synthetic-fMRI numbers, L004) into the manuscript as if it
 - Specific numbers with uncertainty and the named test — "Δ = +0.06 ± 0.01, n=3, contiguous split".
 - One source of truth: cite `experiments/`, don't restate derivations.
 - Dates absolute. The extended manuscript is one living doc (git is its history; tag it when shared); each public `vN` is a frozen snapshot, never rewritten.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

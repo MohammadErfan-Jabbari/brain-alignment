@@ -1,3 +1,8 @@
+---
+title: "Project Charter — Brain-Alignment-Guided Methods for LLMs"
+tags: [charter]
+---
+
 # Project Charter — Brain-Alignment-Guided Methods for LLMs
 
 **Owner:** MohammadErfan Jabbari
@@ -100,3 +105,8 @@ the whole thesis. *"This is where this thesis will live or die."*
   differentiable proxy?).
 - The "edge" deployment scenario — **explicitly deferred.** We do not design for deployment until the
   fundamental question above (does the signal help, beyond confounds?) is answered.
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

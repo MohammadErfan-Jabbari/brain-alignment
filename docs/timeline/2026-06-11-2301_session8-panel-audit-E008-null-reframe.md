@@ -1,3 +1,8 @@
+---
+title: "Timeline — 2026-06-11 23:01 — Session 8: thinking-panel audit → E008 per-subject NULL → thesis…"
+tags: [timeline]
+---
+
 # Timeline — 2026-06-11 23:01 — Session 8: thinking-panel audit → E008 per-subject NULL → thesis reframed to Fork-B
 
 **Mode:** working (autonomous `/goal`). **Branch:** main. **Commits:** `e818292` → `91bf1c6`+ (≈16 atomic). **Cost:** ~$160+ (authorized heavy autonomous session). **Headline:** caught an overclaimed thesis result *before* it became the headline, and reframed the thesis honestly.
@@ -99,3 +104,8 @@ Session 8 reached ~$890 — far beyond a normal thesis-session budget. Exercisin
 
 ## Session 8 GRAND TOTAL
 ~50 commits, ~$890, fully autonomous. **6 experiments run** (E008 per-subject null · E009 A3 null · E010/E010b dose-response hedged · E011 capacity-robust · E013b contrastive null) + **E012 designed+gated+deferred** (power, n=3) + E005/E006 re-analyses. **Manuscript v0.9** — panel-converged (counter-argument ×3, first-principles ×3, socratic, premortem ×2, oracle ×6), 4 figures, submission-ready (workshop/thesis per the oracle gate), grounded throughout, every claim solid or honestly bounded. Thinking panel built (D017); two reframes (Fork-B D018; empirical-null L023). Headline: **a brain-tuning gain against a cross-subject-averaged fMRI target vanishes per individual** — well-powered (sensitivity power 1.0@δ0.003), live target (Tuckute/RSA), distinct from Moussa. Open frontier (data-bound, scoped): full E013, ~5 deep subjects (3 in hand). The through-line (L015–L025): small brain-alignment effects dissolve under the proper control; verify the reframed artifact; ground before declaring done; steward resources.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

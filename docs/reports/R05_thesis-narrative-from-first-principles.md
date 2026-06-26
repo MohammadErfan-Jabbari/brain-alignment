@@ -1,3 +1,9 @@
+---
+title: "R05 — The Thesis, From First Principles: a step-by-step, concept-by-concept narrative of the whole…"
+tags: [report]
+aliases: [R05]
+---
+
 # R05 — The Thesis, From First Principles: a step-by-step, concept-by-concept narrative of the whole experimental arc
 
 **Created:** 2026-06-12 (Session 9 — analysis). **Status: RETIRED 2026-06-16.** Frozen, no longer maintained, and not part of the active report set. Superseded by the current-truth finding-reports (`R06` onward; index in `reports/README.md`) and the journey tree in `map.md`. Kept verbatim for history: it is the only doc that walked the arc chronologically (through Q2), and the wrong turns it records are part of the lesson. Nothing here is canonical; when it disagrees with `ladder.md` or a finding-report, they win.
@@ -191,3 +197,8 @@ The narrative above is complete through the lever verdict. The following are rec
 ---
 
 **Last updated:** 2026-06-12 (Session 9; panel-reviewed + revised). Narrative frontier: end of Q2 (lever verdict / E007 reroute). Next: §9 (E005).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,9 @@
+---
+title: "Local Intrinsic Dimension of Representations Predicts Alignment and Generalization in AI Models and…"
+tags: [literature]
+aliases: [yu-2026_intrinsic-dimension-alignment-generalization]
+---
+
 # Local Intrinsic Dimension of Representations Predicts Alignment and Generalization in AI Models and Human Brain
 
 **Authors:** Junjie Yu; Wenxiao Ma; Chen Wei; Jianyu Zhang; Haotian Deng; Zihan Deng; Quanying Liu (equal contribution: Yu and Ma)
@@ -96,3 +102,8 @@ Does the LID–alignment negative correlation hold within a matched distillation
 ## Read Date
 
 2026-06-10
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

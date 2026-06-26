@@ -1,3 +1,9 @@
+---
+title: "Experiment E020 — the empirical-E[Y|S] ceiling (TRIBE-free): does the LM align to brain signal…"
+tags: [experiment]
+aliases: [E020]
+---
+
 # Experiment E020 — the empirical-E[Y|S] ceiling (TRIBE-free): does the LM align to brain signal beyond the stimulus-predictable part?
 
 **Created:** 2026-06-14 (S13) · **Status:** **DESIGNED — NEXT to run (F1-close).** Replaces the walled TRIBE
@@ -184,3 +190,8 @@ r, NC-context reported separately): A_total = LM→Y_s (raw per-subject), A_shar
 Primary ratio ρ = raw A_resid / raw A_shared (same normalization on both). Also report whether A_total ≈ A_shared
 (the decomposition sanity check — if the LM's alignment to raw Y is carried by the shared part, that IS the ceiling
 statement, arithmetically not just rhetorically).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

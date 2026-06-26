@@ -1,3 +1,8 @@
+---
+title: "/write redesign — design → source citation map"
+tags: [reference]
+---
+
 # /write redesign — design → source citation map
 
 Every load-bearing decision in the ideal-system design (`write-redesign-design.html` v0.2), grounded in a primary
@@ -40,3 +45,8 @@ session (Pinker, Toulmin); the rest are in `scientific-writing-methodology.md` a
   Curse of Knowledge; classic style; revise-for-clarity as a separate pass. https://stevenpinker.com/files/pinker/files/pinker_2014_why_academics_writing_stinks.pdf
 - **Stephen Toulmin**, *The Uses of Argument* (1958) — the claim/grounds/warrant/backing/qualifier/rebuttal model;
   the warrant as the implicit evidence→claim license. (overview: utsa.edu TWC Toulmin model PDF)
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

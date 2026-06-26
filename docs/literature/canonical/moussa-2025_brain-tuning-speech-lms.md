@@ -1,3 +1,9 @@
+---
+title: "Improving Semantic Understanding in Speech Language Models via Brain-tuning"
+tags: [literature]
+aliases: [moussa-2025_brain-tuning-speech-lms]
+---
+
 # Improving Semantic Understanding in Speech Language Models via Brain-tuning
 
 **Authors:** Omer Moussa; Dietrich Klakow; Mariya Toneva  
@@ -75,3 +81,8 @@ Does the same L2 voxelwise loss work for text LMs where stimulus pairing is word
 ## Read Date
 
 2026-06-10
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

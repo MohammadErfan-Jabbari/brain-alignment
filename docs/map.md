@@ -1,3 +1,9 @@
+---
+title: "The Map — codes & the journey"
+tags: [reference, methodology]
+aliases: [map]
+---
+
 # The Map — the codes, and the path we have travelled
 
 **What this is.** A one-screen orientation aid: the naming system (what `Q`, `E`, `A`, `D`, `L`, `F` mean) and the whole experimental journey as a tree, so you never lose the track. **It is not the status board** — canonical, always-current status lives in [`ladder.md`](ladder.md); when this map and the ladder disagree, the ladder wins and this map gets fixed. Read this when the codes or the path stop making sense; read `ladder.md` for "where exactly are we now."

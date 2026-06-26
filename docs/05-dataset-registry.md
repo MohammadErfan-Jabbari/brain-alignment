@@ -1,3 +1,8 @@
+---
+title: "05 — Dataset Registry (living watchlist)"
+tags: [dataset]
+---
+
 # 05 — Dataset Registry (living watchlist)
 
 **Last updated:** 2026-06-09
@@ -94,3 +99,8 @@ Noise ceiling **r = 0.56** — the highest of any neuroimaging set in AlKhamissi
 - **Recurring subject-count discrepancies** (Fedorenko 4↔5, Blank 5↔22, Reading-Brain 50↔52, Tuckute 5↔14, denizenslab 6↔9) are all real and explained per entry — always state which subset a number refers to.
 - This registry records *availability and fit*, not results. Numbers about model performance stay in the canonical notes / R01.
 - Distillation-side NLP corpora (GLUE, SQuAD, C4, SlimPajama, DCLM, LongBench, …) are catalogued compactly in `reports/R02` §3 — they're standard HF datasets streamed for baseline matching, not profiled here.
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

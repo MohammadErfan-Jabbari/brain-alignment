@@ -1,3 +1,8 @@
+---
+title: "2026-06-23 15:51 — /meta: /write rebuild — P2-D complete + P2-E authoring review"
+tags: [timeline]
+---
+
 # 2026-06-23 15:51 — /meta: /write rebuild — P2-D complete + P2-E authoring review
 
 **Stance:** `/meta` throughout (apparatus build + authoring/quality review). No other stance. **NO experiment, NO science number, NO Q-rung change — Q0–Q5 stand exactly as S37.** Session id `1b3b0846-9914-45ab-9ccf-b9d70bdecd10`. Changeset `930f441..HEAD` = 11 atomic commits, 35 files.
@@ -30,3 +35,8 @@ Continued the D048 `/write` rebuild (skill `.claude/skills/sci-write-v2/`; the l
 
 ## Live science thread (UNCHANGED since S25)
 Q4 sample-efficiency E024; analysis lane next = R08 (Q2). Q2 ❌, Q3 ❌ stand. None touched this session.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

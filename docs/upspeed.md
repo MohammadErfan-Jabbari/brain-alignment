@@ -1,3 +1,9 @@
+---
+title: "Upspeed — last-session state (read first)"
+tags: [reference]
+aliases: [upspeed]
+---
+
 # Upspeed — read first, write last
 
 **Last updated:** 2026-06-26 (S43 — **/meta: D048 `/write` cutover EXECUTED; `sci-write-v2` is now the default

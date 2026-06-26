@@ -1,3 +1,8 @@
+---
+title: "Research Landscape — Brain-Alignment-Guided Distillation"
+tags: [literature, reference]
+---
+
 # Research Landscape — Brain-Alignment-Guided Distillation
 
 **Last updated:** 2026-06-08 (seeded from the prior Nexus dossier + oracle review)
@@ -108,3 +113,8 @@ robustness from one benchmark family.
 - Language-fMRI datasets: Pereira 2018, Nastase *Narratives*, LeBel 2023, Fedorenko lab releases —
   which are open, sized, and English/multilingual? **Power analysis required.**
 - Recent (2026) brain-alignment-for-compression work to confirm the gap is still open.
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

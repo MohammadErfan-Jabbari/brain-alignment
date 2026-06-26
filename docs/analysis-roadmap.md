@@ -1,3 +1,8 @@
+---
+title: "Analysis-Week Roadmap — resume the analysis lane, get current, and write the paper"
+tags: [methodology]
+---
+
 # Analysis-Week Roadmap — resume the analysis lane, get current, and write the paper
 
 **Created:** 2026-06-14 (S14 close, by the agent, for Erfan's heavy analysis week starting 2026-06-15).
@@ -290,3 +295,8 @@ None of these block the paper; the spine is fully supported by powered evidence 
 it, *correcting* the over-claims (the scope correction is the keystone), and *producing* a manuscript whose every
 caveat is in the claim. Resume at R05 §9 (Session A); the keystone conceptual session is D (the ceiling + scope
 correction); the capstone is F (the manuscript reframe). Learn the five bounds in §3 as you go.
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

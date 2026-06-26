@@ -1,3 +1,9 @@
+---
+title: "From Language to Cognition: How LLMs Outgrow the Human Language Network"
+tags: [literature]
+aliases: [alkhamissi-2025_llms-outgrow-human-language-network]
+---
+
 # From Language to Cognition: How LLMs Outgrow the Human Language Network
 
 **Authors:** Badr AlKhamissi, Greta Tuckute, Yingtian Tang, Taha Binhuraib, Antoine Bosselut, Martin Schrimpf
@@ -62,3 +68,8 @@ This paper's main value is temporal decomposition: it explains when and why alig
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

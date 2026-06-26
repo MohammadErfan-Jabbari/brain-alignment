@@ -1,3 +1,8 @@
+---
+title: "2026-06-24 17:26 — /meta: /write dry-run + cross-stance handoff designed to BUILD-READY (D050)"
+tags: [timeline]
+---
+
 # 2026-06-24 17:26 — /meta: /write dry-run + cross-stance handoff designed to BUILD-READY (D050)
 
 **Stances:** `/meta` throughout (dominant). Crossed into `/review` (the opus reviewer panel) and a thin
@@ -26,3 +31,8 @@ A third audit outcome `NEEDS-STANCE(S)`: detect → classify → emit a handoff 
 ## Continuity notes
 - `start.json` was stale (its `start_sha` was this session's own last commit `cadfea3` — the SessionStart hook re-fired on a resume after the commits). Used the git-log fallback (`310021f..HEAD`).
 - Untracked `docs/learning/lessons/2026-06-24-boruta-feature-selector.md` was present at session start (not from this session) — left as-is.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

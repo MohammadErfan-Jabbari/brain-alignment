@@ -1,3 +1,9 @@
+---
+title: "Linguistic properties and model scale in brain encoding: from small to compressed language models"
+tags: [literature]
+aliases: [oota-2026_brain-encoding-scale-compression]
+---
+
 # Linguistic properties and model scale in brain encoding: from small to compressed language models
 
 **Authors:** Subba Reddy Oota; Vijay Rowtula; Satya Sai Srinath Namburi; Khushbu Pahwa; Anant Khandelwal; Manish Gupta; Tanmoy Chakraborty; Bapi S. Raju
@@ -106,3 +112,8 @@ The decisive open question for the thesis: does a student trained by standard KD
 ## Read Date
 
 2026-06-10
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

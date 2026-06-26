@@ -1,3 +1,8 @@
+---
+title: "/write redesign — step 2b · the scenario suite (TDD-for-writing)"
+tags: [reference]
+---
+
 # /write redesign — step 2b · the scenario suite (TDD-for-writing)
 
 The acceptance/regression suite for the functionality matrix (`write-redesign-design.html` v0.5). Each scenario
@@ -324,3 +329,8 @@ near-misses; G1-a corrects the count and is the canonical source via `rub_scenar
 SC-XSTANCE-* (7 pure-RUB 03/04/05/06/08/11/16 + the RUB halves of 01/02/12). **G1-a built it** (the store +
 `validate-suite` DET); G1-b/c/d add the scorer, run-protocol, and live dry-run. Then 2c (map each functionality →
 CC primitive) · 2d (reverse coverage check).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

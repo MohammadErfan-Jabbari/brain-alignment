@@ -1,3 +1,8 @@
+---
+title: "06 — Theory grounding: the Information-Theory and Probabilistic-ML course as a source of truth"
+tags: [methodology]
+---
+
 # 06 — Theory grounding: the Information-Theory and Probabilistic-ML course as a source of truth
 
 **Created:** 2026-06-10 (Session 5 — analysis). **Status:** living index. **Full width, no hard wrap.**
@@ -155,3 +160,8 @@ not thesis science.
 - `literature/canonical/open-learner-models-and-errorful-learning.md` — synthesis over four digested notes
   (Wong & Lim 2022 derring; Butterfield & Metcalfe 2001 hypercorrection; Moser 2011 mindset/error ERP;
   Robles Mucho et al. 2025 OLM review): why teach's mistake handling is diagnostic, not a scorecard.
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

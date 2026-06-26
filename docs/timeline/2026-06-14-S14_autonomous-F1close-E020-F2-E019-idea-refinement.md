@@ -1,3 +1,8 @@
+---
+title: "Session 14 — autonomous working: F1-close (E020) + F2 (E019) + idea refinement"
+tags: [timeline]
+---
+
 # Session 14 — autonomous working: F1-close (E020) + F2 (E019) + idea refinement
 
 **Date:** 2026-06-14 · **Mode:** working (autonomous /goal: implement forward-program layers, continuous subagent
@@ -51,3 +56,8 @@ needed to write the paper. F3 only if Erfan wants literal 100%-rule coverage.
 ~12 subagent runs (oracle×2, socratic, first-principles×3, counter-argument×2, premortem×2, lit-scout, paper-digest,
 Explore). 3 gbrain writes + reads. ~19 atomic commits. 3 L40S GPUs in parallel. No rung flips; no Fork-A; no
 analysis-lane edits beyond the ladder spine-wording scope correction (flagged for Erfan's manuscript pass).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,9 @@
+---
+title: "Making Things Hard on Yourself, But in a Good Way: Creating Desirable Difficulties to Enhance…"
+tags: [literature]
+aliases: [bjork-2011_desirable-difficulties]
+---
+
 # Making Things Hard on Yourself, But in a Good Way: Creating Desirable Difficulties to Enhance Learning
 
 **Authors / Year / Venue:** Elizabeth L. Bjork & Robert A. Bjork / 2011 / In M. A. Gernsbacher, R. W. Pew, L. M. Hough & J. R. Pomerantz (Eds.), *Psychology and the Real World: Essays Illustrating Fundamental Contributions to Society* (pp. 56–64), Worth Publishers · **Link:** https://bjorklab.psych.ucla.edu/wp-content/uploads/sites/13/2016/04/EBjork_RBjork_2011.pdf
@@ -79,3 +85,8 @@ Full chapter read. The WebFetch model could not parse the binary PDF, so the tex
 ## Read Date
 
 2026-06-19
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

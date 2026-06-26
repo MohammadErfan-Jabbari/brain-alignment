@@ -1,3 +1,9 @@
+---
+title: "BERT Learns to Teach: Knowledge Distillation with Meta Learning"
+tags: [literature]
+aliases: [zhou-2022_bert-learns-to-teach-metadistil]
+---
+
 # BERT Learns to Teach: Knowledge Distillation with Meta Learning
 
 **Authors:** Wangchunshu Zhou; Canwen Xu; Julian McAuley
@@ -62,3 +68,8 @@ The main reusable idea is not a new KD loss, but a training dynamic: optimize th
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

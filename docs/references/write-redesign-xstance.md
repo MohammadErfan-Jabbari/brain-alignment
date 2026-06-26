@@ -1,3 +1,8 @@
+---
+title: "/write cross-stance handoff — design addition (D050, BUILD-READY)"
+tags: [reference]
+---
+
 # /write cross-stance handoff — design addition (D050, BUILD-READY)
 
 **Status:** design complete, BUILD-READY (hardened across 4 clean-context opus reviews, the L058 discipline).
@@ -294,3 +299,8 @@ Single-store collapse merged the old X2+X3 → four chunks. Each: *embedded self
   handoff emit + human surface, the two-gate rebind contract (SC-01/02/03/04/05/06/08/11/12/16).
 - **X4** — wire the regression anchor (SC-XSTANCE-01 = the dry-run) end-to-end; fold all 16 `SC-XSTANCE-*`
   into the suite (119 → 135) and the coverage table.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

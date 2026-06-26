@@ -1,3 +1,9 @@
+---
+title: "Revisiting the Platonic Representation Hypothesis: An Aristotelian View"
+tags: [literature]
+aliases: [groger-2026_aristotelian-platonic-representation]
+---
+
 # Revisiting the Platonic Representation Hypothesis: An Aristotelian View
 
 **Authors:** Fabian Gröger; Shuo Wen; Maria Brbić
@@ -85,3 +91,8 @@ If local neighborhood convergence is the robust signal, does it carry sufficient
 ## Read Date
 
 2026-06-10
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

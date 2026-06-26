@@ -1,3 +1,8 @@
+---
+title: "2026-06-22 16:34 — S34 · /meta: hook-layering audit + graphify→context-mode CLAUDE.md swap"
+tags: [timeline]
+---
+
 # 2026-06-22 16:34 — S34 · /meta: hook-layering audit + graphify→context-mode CLAUDE.md swap
 
 **Stance:** `/meta` (apparatus only). No experiment, no science number, no manuscript prose authored, no ladder rung touched. Q0–Q5 stand exactly as S33.
@@ -32,3 +37,8 @@ Unchanged from S33 — the live thread is the `/write` extended-manuscript clean
 
 ## Note
 `/wrap` ran inline (light tier); the upspeed.md update was surgical (header + key fact + stragglers-now-committed), deliberately NOT a full replace, to preserve the S33 manuscript-clean resume state.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

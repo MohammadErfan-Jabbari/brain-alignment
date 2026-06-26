@@ -1,3 +1,9 @@
+---
+title: "Experiment — E015: the alignment ∝ −perplexity LAW across model families (matched-ppl control,…"
+tags: [experiment]
+aliases: [E015]
+---
+
 # Experiment — E015: the alignment ∝ −perplexity LAW across model families (matched-ppl control, generalized)
 
 **Created:** 2026-06-12 · **Status:** COMPLETE · **Mode:** working (analysis-support)
@@ -129,3 +135,8 @@ Final panel pass against `06-theory-grounding.md` + canonical notes. **All 5 cla
 5. **L016 caveat made load-bearing: unique-R² does NOT protect against the shared-component reading.** The nuisance set (length, position, static embeddings) is **low-level**; the shared stimulus-evoked component is **high-level signal that SURVIVES nuisance subtraction**. So I(LM;B | length,pos,static) cannot separate "predict brain computation" from "predict the stimulus that drives the shared component." Ruling it out would require conditioning on a **stimulus-content representation** (not in the nuisance set) or SNR-resolved per-individual targets — neither done here. The averaged-target law is therefore consistent with "better LMs encode the stimulus better," exactly the project's L016 theme.
 
 **Source actions:** (a) **Antonello & Huth 2023 was undigested** (load-bearing for Q1/Q2) → `paper-digest` dispatched → `docs/literature/canonical/antonello-2023_*.md`. (b) Naming fix: this doc's "Hadidi 2025 'Illusions'" is the repo's canonical **hadidi-2024** ("A Case Against Over-Reliance on Brain Scores"; ≤10.1% unique-R² residual) — citation drift, corrected. **No claim contradicted; verdict stands as corrected. No rung flips.**
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

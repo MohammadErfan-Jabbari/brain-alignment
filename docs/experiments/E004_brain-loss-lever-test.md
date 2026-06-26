@@ -1,3 +1,9 @@
+---
+title: "Experiment — E004: is `$\mathcal{L}_{\text{brain}}$` a usable *lever*? (R03 Q2) + the D010…"
+tags: [experiment]
+aliases: [E004]
+---
+
 # Experiment — E004: is `$\mathcal{L}_{\text{brain}}$` a usable *lever*? (R03 Q2) + the D010 loss-form resolution
 
 **Created:** 2026-06-10 · **Re-locked:** 2026-06-11 (after oracle-reviewer HOLD → design reshaped) · **Status:** COMPLETE (ran 2026-06-11) — Q2 verdict **REVISED S25 (2026-06-19, Erfan-confirmed): NO DEMONSTRATED LEVER** (was "🟡 PARTIAL — fragile lever"). The headline +0.0032 [+0.0006,+0.0058] ("excludes 0") was a **15-cell pseudo-replicated bootstrap** (3 seeds × 5 folds as 15 independent — the L015 error the project fixed for E005 but never applied here); at the honest n=5-fold unit t-CI = **[−0.0023,+0.0086] includes 0**, fold-4 carries **64%** (LOFO-f4 → +0.0014), `beats_permuted_null=False`. → no valid-unit evidence the loss moves held-out alignment. **Caveat: n=5 underpowered to exclude a small (~+0.003) lever → "undemonstrated," NOT "proven zero."** Still perplexity-entangled (L011/L012). See the S25 recompute note at the bottom. · **Mode:** working
@@ -181,3 +187,8 @@ zero": n=5 folds is underpowered to exclude a small (~+0.003) effect, and a powe
 lever," and that is consistent with the robust Q3 per-individual null. Ladder Q2 flipped 🟡 → ❌
 (with the caveat in-cell). Reproducible: `outputs/E004_brain_lever_Qwen.json` + the L015 fold-level
 machinery in `scripts/reanalyze_e005_e006.py`.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

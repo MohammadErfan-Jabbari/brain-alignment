@@ -1,3 +1,8 @@
+---
+title: "Reasoning toolkit — frames and lenses for how we think"
+tags: [reference]
+---
+
 # Reasoning toolkit — frames and lenses for how we think
 
 Not hero worship, a small catalog of thinking tools Erfan asks for. Use them when designing methods,
@@ -93,3 +98,8 @@ Two guardrails so the toolkit stays sharp instead of sprawling (the D001 "adapti
   one-off.
 - **Split by purpose.** A tool mainly about *writing* lives in the `scientific-writing` skill and is only
   pointed to here; a tool about *approaching* a problem lives here. **Prune** a lens that stops earning its keep.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

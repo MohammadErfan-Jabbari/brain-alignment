@@ -1,3 +1,9 @@
+---
+title: "Experiment — E001 toy brain-alignment distillation pilot (GPT-2 medium → small)"
+tags: [experiment]
+aliases: [E001]
+---
+
 # Experiment — E001 toy brain-alignment distillation pilot (GPT-2 medium → small)
 
 **Created:** 2026-06-09 · **Status:** done (scaffold + synthetic smoke; real-data run pending)
@@ -103,3 +109,8 @@ teacher-encoding-map loss or a CKA proxy rather than a trainable head, since the
 block (this is the open `L_brain` design decision in `../tasks.md`). (3) Keep λ modest; large λ degrades.
 
 Hypothesis status: **H001 remains untested** (synthetic cannot test it). Learning recorded as L004.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

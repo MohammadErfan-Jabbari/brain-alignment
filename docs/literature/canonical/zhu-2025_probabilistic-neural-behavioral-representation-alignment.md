@@ -1,3 +1,9 @@
+---
+title: "Neural Representational Consistency Emerges from Probabilistic Neural-Behavioral Representation…"
+tags: [literature]
+aliases: [zhu-2025_probabilistic-neural-behavioral-representation-alignment]
+---
+
 # Neural Representational Consistency Emerges from Probabilistic Neural-Behavioral Representation Alignment
 
 **Authors:** Yu Zhu, Chunfeng Song, Wanli Ouyang, Shan Yu, Tiejun Huang
@@ -62,3 +68,8 @@ The paper's strongest contribution is not just better alignment scores, but the 
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

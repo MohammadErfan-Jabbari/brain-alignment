@@ -1,3 +1,9 @@
+---
+title: "Language models and brains align due to more than next-word prediction and word-level information"
+tags: [literature]
+aliases: [merlin-2024_beyond-next-word-brain-alignment]
+---
+
 # Language models and brains align due to more than next-word prediction and word-level information
 
 **Authors:** Gabriele Merlin; Mariya Toneva  
@@ -58,3 +64,8 @@ How robust is the IFG/AG residual across other architectures and larger datasets
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

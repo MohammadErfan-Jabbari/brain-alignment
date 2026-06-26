@@ -1,3 +1,8 @@
+---
+title: "Session 16 — analysis: rungs renamed L→Q, the finding-report convention (D036), R05 retired, R06…"
+tags: [timeline]
+---
+
 # Session 16 — analysis: rungs renamed L→Q, the finding-report convention (D036), R05 retired, R06 written
 
 **Date:** 2026-06-15 17:46 → 2026-06-16 02:33 (+0200) · **Mode:** ANALYSIS (no new evidence; no rung changed).
@@ -50,3 +55,8 @@ the **write-up layer**, not the science.
 - **Brain mirror** of D035/D036 to gbrain `projects/brain-alignment` still pending (carried from S15).
 - The parked Q3 draft `reports/_pending-Q3_*.md` still carries a stale "# R06 —" title; it becomes R09 when promoted.
 - **Next:** R07 (Q1 — plain KD does not preserve alignment), the next finding-report in reading order.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

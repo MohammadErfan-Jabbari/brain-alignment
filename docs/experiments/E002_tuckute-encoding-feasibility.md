@@ -1,3 +1,9 @@
+---
+title: "Experiment — E002 real-data encoding feasibility on Tuckute 2024 (the A2 question)"
+tags: [experiment]
+aliases: [E002]
+---
+
 # Experiment — E002 real-data encoding feasibility on Tuckute 2024 (the A2 question)
 
 **Created:** 2026-06-10 · **Status:** done — A2 PASS across 3 models (gpt2, gpt2-medium, Qwen2.5-0.5B)
@@ -102,3 +108,8 @@ The headline E001 could never produce: on **real** language-network BOLD, a trai
 **A2 verdict: PASS on Tuckute.** The alignment signal is real, not nuisance, on real neural data. The charter's gating kill condition is **not** triggered.
 
 **What this licenses:** climbing to **Q2** of the R03 ladder (is the signal a *lever* we can move by training — i.e. can we brain-tune a small model and watch unique R² rise?). **What it does NOT license:** any A3 / distillation claim — that preserving the signal *buys* something practical is still untested. **Caveats:** (1) Tuckute is ROI-level (5 dims, coarse); the powered *voxelwise* verdict belongs to LeBel UTS03 (Q3, data now staged, adapter pending). (2) Isolated sentences make this a *lower-bound-friendly* test (no temporal-autocorrelation inflation) — a genuine plus for trusting the positive result.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

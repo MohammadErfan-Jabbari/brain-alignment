@@ -1,3 +1,8 @@
+---
+title: "Decision Log"
+tags: [decision]
+---
+
 # Decision Log
 
 Append-only. One entry per real decision. Newest at the bottom. Format: ID, date, decision,
@@ -793,3 +798,8 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 **Honest limit (recorded, not hidden).** A cleanly-voiced, well-scoped, unsupported empirical assertion placed as framing and never entered as a claim can ship without the Trust floor catching it; the human gate is the only catch. This is bounded by the F5/F12 all-prose reads (over-claim + voice subsets covered) but not eliminated. **Reverses if:** a real framing-sentence escape is observed shipping (an unsupported framing claim that passed the human gate) — then build the prose→lattice claim-coverage check (necessarily as an RUB judge, with a precision guard against flagging legitimate framing). Until observed, the check is YAGNI. **Builds on D048/D050; does not supersede — it closes the G2 checklist item by decision.**
 
 **Amendment (S42, same session, after the P3-readiness premortem).** The premortem flagged that "accept" skipped a cheap middle option between the high-FP auto-judge (rightly rejected) and doing nothing. D051 is amended: the F16 human gate gains a **forcing-function** — enumerate framing/transition sentences carrying an empirical verb (tracks/predicts/improves/outperforms/aligns/generalizes) and force a per-sentence *claim* (→ enter+bind in the lattice) vs *cited-background* (→ citation) tag. This bounds the residual into a human checklist rather than leaving it to unaided noticing. Recorded in the SKILL "Honest limits". Does not change the accept decision; strengthens its backstop.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,8 @@
+---
+title: "Scientific writing: pointer to the skill"
+tags: [reference]
+---
+
 # Scientific writing: pointer to the skill
 
 **The `/write` engine is the `sci-write-v2` skill** (`.claude/skills/sci-write-v2/`) as of the D048
@@ -32,3 +37,8 @@ enforced by the `stop_sw_converge` Stop-hook + `verdicts.py`; the always-on per-
 **Design + spec.** `docs/references/write-redesign-design.html` (the canvas) + `write-redesign-build-plan.md`
 (the build) + `decisions/decisions.md` D048/D050/D051. The reference docs inside the skill carry the voice
 rules, the `\evd`/`\gap` provenance convention, the LaTeX conventions, and the review philosophy.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

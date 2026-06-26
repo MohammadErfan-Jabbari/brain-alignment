@@ -1,3 +1,9 @@
+---
+title: "Improve Language Model and Brain Alignment via Associative Memory"
+tags: [literature]
+aliases: [yin-2025_associative-memory-improves-lm-brain-alignment]
+---
+
 # Improve Language Model and Brain Alignment via Associative Memory
 
 **Authors:** Congchi Yin, Yongpeng Zhang, Xuyun Wen, Piji Li
@@ -62,3 +68,8 @@ The strongest gains come from compact lexical associations, not long sentence in
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

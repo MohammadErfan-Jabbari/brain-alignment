@@ -1,3 +1,8 @@
+---
+title: "Timeline — 2026-06-18 18:19 — Offshoot: precedent-engine repo bootstrapped"
+tags: [timeline]
+---
+
 # Timeline — 2026-06-18 18:19 — Offshoot: precedent-engine repo bootstrapped
 
 **Breadcrumb (not a thesis-evidence session).** This session did **no** brain-alignment science — the ladder is unchanged. It designed and scaffolded a separate tooling project spun out of this thesis's needs.
@@ -9,3 +14,8 @@
 - **Full story:** `precedent-engine/docs/journey/2026-06-18_session-01_design-and-problem-analysis.md`.
 
 Nothing here needs follow-up in the thesis. Pointer only, so a future brain-alignment session knows where that tooling went.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

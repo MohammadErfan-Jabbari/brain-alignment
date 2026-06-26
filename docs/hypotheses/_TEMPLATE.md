@@ -1,3 +1,8 @@
+---
+title: "Hypothesis HNNN — <title>"
+tags: [hypothesis]
+---
+
 # Hypothesis HNNN — <title>
 
 **ID:** HNNN
@@ -42,3 +47,8 @@
 | Date | Update |
 |---|---|
 | YYYY-MM-DD | Created. |
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

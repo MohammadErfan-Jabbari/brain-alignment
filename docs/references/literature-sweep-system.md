@@ -1,3 +1,8 @@
+---
+title: "Literature-Sweep System (`conference-scout`) — what's built, and the future 'fetch-once,…"
+tags: [reference]
+---
+
 # Literature-Sweep System (`conference-scout`) — what's built, and the future "fetch-once, query-forever" corpus
 
 **Status:** *tooling built + live-tested this session (S22); the exhaustive sweep was deliberately NOT run.* This doc records what exists, how to use it, and the design for the larger one-time build Erfan wants to do later — fetch every relevant paper from the top venues once and store it in a queryable form. Reference doc, not a finding-report.
@@ -33,3 +38,8 @@ The vision: run the sweep **once**, exhaustively, and store the result as a **pe
 5. **Scale note:** ~10 venues × 6 years × thousands each ≈ 100k+ papers — so the pipeline is metadata-pull → keyword/concept prefilter → embedding rerank → digest only the Tier-1 survivors. Never silently truncate; log what's dropped.
 
 This is a real engineering project (a day+), best done once and reused. It is NOT on the critical path for the current thesis/paper — recorded here so the work already done isn't lost and the build is well-specified when Erfan picks it up.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,9 @@
+---
+title: "Experiment E022 — Moussa brain-tuning, matched-quality external demonstration (Path-A)"
+tags: [experiment]
+aliases: [E022]
+---
+
 # Experiment E022 — Moussa brain-tuning, matched-quality external demonstration (Path-A)
 
 **Created:** 2026-06-17 (S22) · **Status:** DONE — **PILOT = NON-REPRODUCTION → STOP (full shrink-test vacuous). 2026-06-18.** Brain-tuning gives only +0.52 phoneme-F1 over pretrained (CI [−0.36,+1.40], below the +2 gate, includes 0). The planned matched-twin shrink-test is therefore vacuous and is NOT built. Honest scope: non-reproduction in a REDUCED setup (single-subject UTS03, 24 stories, our pipeline, both arms from `wav2vec2-base` pretrain) — NOT a refutation of Moussa's full multi-participant result. Net for Path A: the external "main-track lift" demonstration is off the table on our data.
@@ -28,3 +34,8 @@ The full design as built (`scripts/run_moussa_arms.py`) would reach "the gain sh
 
 ## Results / Interpretation
 **NON-REPRODUCTION (STOP).** Per-seed brain−pretrained phoneme-F1: +0.93 / +0.30 / +0.33 (mean +0.52, CI [−0.36,+1.40]). Below the predeclared +2 gate, CI includes 0. The fMRI loss did fall (1.00→0.913, LoRA gradients flowing), so brain-tuning *happened* — it just didn't transfer to a downstream phoneme-F1 gain at this scale. **Implications:** (1) the planned matched-quality-twin shrink-test is **vacuous** (you can't show a non-existent gain shrinks) → not built; (2) the synthetic-TR caveat does NOT fire (the gain is too small, not suspiciously large); (3) **honest scope** — this is single-subject (UTS03, 24 stories) on our pipeline with both arms from the pretrain checkpoint, NOT Moussa's full multi-participant setup, so it is non-reproduction-in-a-reduced-setup, a weak data point, NOT a refutation of Moussa. **For Path A:** the external "main-track lift" demonstration is not viable on our data; the Path-A negative paper rests on our OWN evidence (E008/E004/E009/E015/E020 + E021) + this honest non-reproduction note. TIMIT now on disk (`kylelovesllms/timit_asr` mirror); pilot script `scripts/e022_pilot.py` (self-contained). Exploratory; no rung flip.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

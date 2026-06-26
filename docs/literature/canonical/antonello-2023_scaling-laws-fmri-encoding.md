@@ -1,3 +1,9 @@
+---
+title: "Scaling laws for language encoding models in fMRI"
+tags: [literature]
+aliases: [antonello-2023_scaling-laws-fmri-encoding]
+---
+
 # Scaling laws for language encoding models in fMRI
 
 **Authors:** Richard Antonello; Aditya Vaidya; Alexander G. Huth
@@ -143,3 +149,8 @@ Is the layer-optimal shift (OPT peaks at 3/4 depth; LLaMA peaks early) a consequ
 ## Read Date
 
 2026-06-13
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,8 @@
+---
+title: "S40 — /meta: cross-stance handoff X1–X4 BUILT (D050); suite 119 → 135"
+tags: [timeline]
+---
+
 # S40 — /meta: cross-stance handoff X1–X4 BUILT (D050); suite 119 → 135
 
 **Date:** 2026-06-25 · **Stance:** `/meta` (build) — the only stance this session.
@@ -57,3 +62,8 @@ no science doc. The live science thread is unchanged: Q4 sample-efficiency E024;
 the ~51 RUB scenarios (incl. the 10 RUB `SC-XSTANCE-*`) + a sign-off mechanic — none exists. Then run the full
 135-suite, retire the old `scientific-writing` flow, repoint `CLAUDE.md` + `docs/03-methodology.md`, wire DET as
 always-on hooks, record D048-complete.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

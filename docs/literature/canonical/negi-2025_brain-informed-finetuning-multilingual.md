@@ -1,3 +1,9 @@
+---
+title: "Brain-Informed Fine-Tuning for Improved Multilingual Understanding in Language Models"
+tags: [literature]
+aliases: [negi-2025_brain-informed-finetuning-multilingual]
+---
+
 # Brain-Informed Fine-Tuning for Improved Multilingual Understanding in Language Models
 
 **Authors:** Anuja Negi*; Subba Reddy Oota* (* equal contribution); Anwar O Nunez-Elizalde; Manish Gupta; Fatma Deniz
@@ -328,3 +334,8 @@ directly from Tables 1, 2, 8–11 and from the text of Sections 3.3, 3.4, 4.1, 4
 Appendix F.1. The supplementary zip (sections 2–3, XLM-R / XGLM / LLaMA results) was not
 separately accessible; those model results are flagged above as not read.
 Read date: 2026-06-11
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

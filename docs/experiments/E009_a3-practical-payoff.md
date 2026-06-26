@@ -1,3 +1,9 @@
+---
+title: "Experiment — E009 (A3 / Q4): does brain-alignment buy anything PRACTICAL at matched perplexity?"
+tags: [experiment]
+aliases: [E009]
+---
+
 # Experiment — E009 (A3 / Q4): does brain-alignment buy anything PRACTICAL at matched perplexity?
 
 **Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11) — A3 bounded NULL, null-by-construction (n=8; no brain-specific OOD-ppl payoff; the matched-ppl fulcrum is itself ~0; L017) · **Mode:** working
@@ -159,3 +165,8 @@ harness + text-feature control arm, run the 3–5-seed pilot to (a) confirm the 
 in all-data students, (b) measure the real MDE, (c) λ-sweep the max brain-specific Δ at matched ppl. That
 pilot green-lights or cheaply kills the full A3. (Deferred to next session per the S8 close — a fresh
 multi-hour harness build is its own unit, not a tail-of-session rush; fully specified above.)
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,9 @@
+---
+title: "Fine-Tuning Pre-Trained Language Models with Gaze Supervision"
+tags: [literature]
+aliases: [deng-2024_gaze-supervised-finetuning]
+---
+
 # Fine-Tuning Pre-Trained Language Models with Gaze Supervision
 
 **Authors:** Shuwen Deng; Paul Prasse; David R. Reich; Tobias Scheffer; Lena A. Jäger
@@ -278,3 +284,8 @@ real-vs-shuffle increment; no surprisal residualization; no OOD/robustness/sampl
 significance tests. The earlier automated abstract-skim claims (ZuCo dataset, raw-fixation-duration
 auxiliary head, no shuffle control) were WRONG and are corrected here.
 Read date: 2026-06-17
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

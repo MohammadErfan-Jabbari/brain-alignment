@@ -1,3 +1,8 @@
+---
+title: "Thesis-arc comprehension checklist (analysis-session teaching aid)"
+tags: [learning]
+---
+
 # Thesis-arc comprehension checklist (analysis-session teaching aid)
 
 *'Layer N' below = teaching chapter (coarse lesson unit); the kill-gated rungs are Q0–Q5 — see `../map.md`.*
@@ -68,3 +73,8 @@ Status: ⬜ not started · 🟡 in progress · ✅ mastered (demonstrated, not j
 - 2026-06-12 — Created `docs/07-concepts-primer.md` (plain primitives) after Erfan found E002 jargon opaque; pointers from E002/R03/README.
 - 2026-06-12 — Taught E002 + E006 plainly (Tuckute/ROI/voxel/noise-ceiling/% of ceiling); taught statistical power + MDE (bathroom-scale analogy). Layer 1 content delivered; closing understanding-check still pending.
 - 2026-06-12 — Created `docs/reports/R05_thesis-narrative-from-first-principles.md` (LIVING) covering the arc through Layer 1 / E007 reroute. Erfan wants it extended each session until it covers everything.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

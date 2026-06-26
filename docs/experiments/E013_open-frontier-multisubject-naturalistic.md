@@ -1,3 +1,9 @@
+---
+title: "Experiment — E013 (the open frontier): powered per-individual brain-tuning on multi-subject…"
+tags: [experiment]
+aliases: [E013]
+---
+
 # Experiment — E013 (the open frontier): powered per-individual brain-tuning on multi-subject naturalistic fMRI
 
 **Created:** 2026-06-12 · **Status:** CLOSED (S25, 2026-06-19, Erfan-directed). Voxelwise distillation-readout lever RAN (no λ improves held-out alignment over base, never beats permuted twin: a single-subject *mechanism* failure → n≥5 moot; L026/L027). The full-FT (not LoRA-readout) multi-subject naturalistic route — "the one untested door" — is **NOT BUILT and assessed CLOSED, the decisive reason being DATASET SIZE: denizenslab is only n=6 subjects, too few to power the per-individual population claim** (see the S25 verdict at the bottom). · **Mode:** working (design)
@@ -82,3 +88,8 @@ cheap single-subject gate (scoped in the S25 timeline + feasibility-confirmed: T
 **abandoned** for the same size reason — a 1-subject gate cannot move a population claim that n=6 cannot power. Forward
 compute goes to the sample-efficiency line (Q4), which hits the *same* root cause from the other side (Q4 = 400 sentences).
 See **L051** (data-scale is the binding constraint on the remaining brain-alignment doors).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

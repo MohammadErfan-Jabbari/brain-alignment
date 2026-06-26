@@ -1,3 +1,9 @@
+---
+title: "Brain-Informed Language Model Training Enables Scalable and Generalizable Alignment with Human…"
+tags: [literature]
+aliases: [bilgin-2026_brain-informed-lm-training]
+---
+
 # Brain-Informed Language Model Training Enables Scalable and Generalizable Alignment with Human Brain Activity
 
 **Authors:** Isil Poyraz Bilgin; Marie St-Laurent; Pierre Bellec; Leila Wehbe
@@ -138,3 +144,8 @@ Secondary question: does the cosine-similarity brain loss, rather than L2, drive
 ## Read Date
 
 2026-06-10
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

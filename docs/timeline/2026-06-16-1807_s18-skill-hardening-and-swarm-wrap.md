@@ -1,3 +1,8 @@
+---
+title: "S18 — scientific-writing skill hardening + the swarm-wrap system"
+tags: [timeline]
+---
+
 # S18 — scientific-writing skill hardening + the swarm-wrap system
 
 **Date:** 2026-06-16 · **Session:** 18 · **Branch:** main
@@ -75,3 +80,8 @@ separate git worktree.
   session. The new sonnet-default routing for wrap auditors will cut future wrap cost; the audit fan-out
   was a one-off design exercise.
 - **New task filed:** `check_number_freshness.py` (the one mechanical check the freshness rule needs).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

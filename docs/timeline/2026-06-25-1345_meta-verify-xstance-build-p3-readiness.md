@@ -1,3 +1,8 @@
+---
+title: "2026-06-25 13:45 — /meta: independent verification of the X1–X4 cross-stance build + P3-readiness…"
+tags: [timeline]
+---
+
 # 2026-06-25 13:45 — /meta: independent verification of the X1–X4 cross-stance build + P3-readiness verdict
 
 **Stance:** `/meta` (review/verify). Read-only — **no files changed, no commits, no science number, no rung
@@ -32,3 +37,8 @@ on HEAD (`e9eee84`). This session exists so the next one can trust the X1–X4 b
 ## Next focus (unchanged from S40's wrap, now sharpened + confirmed)
 Start P3 — **first stand up the RUB-grading harness**, then run the 135-suite → cutover. The **E006 CI**
 stays a parked `/interpret` item (the handoff is now the path to route it). Build verified; no re-check needed.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

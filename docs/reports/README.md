@@ -1,3 +1,8 @@
+---
+title: "Reports — living topic syntheses"
+tags: [report]
+---
+
 # Reports — living topic syntheses
 
 A **report** is a single-topic synthesis that we keep current. It is *not* a per-paper note
@@ -60,3 +65,8 @@ We are writing in reading order, so the filename number tracks it for now (R06 =
 parked `_pending-Q3_no-per-individual-gain-and-averaging-confound.md` is the existing finished Q3 draft;
 it reclaims a number (R09) when we reach read-position 4. The flat-ID rule still protects any *future*
 out-of-order finding: it takes the next free number and the index shows where it reads.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

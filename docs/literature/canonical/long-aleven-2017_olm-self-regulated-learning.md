@@ -1,3 +1,9 @@
+---
+title: "Enhancing learning outcomes through self-regulated learning support with an Open Learner Model"
+tags: [literature]
+aliases: [long-aleven-2017_olm-self-regulated-learning]
+---
+
 # Enhancing learning outcomes through self-regulated learning support with an Open Learner Model
 
 **Authors / Year / Venue:** Yanjin Long; Vincent Aleven / 2017 (online 31 Dec 2016) / *User Modeling and User-Adapted Interaction (UMUAI)* 27(1):55–88 · **Link:** https://doi.org/10.1007/s11257-016-9186-6
@@ -98,3 +104,8 @@ This note pairs with `open-learner-models_2025-review.md` (Robles Mucho et al. 2
 ## Read Date
 
 2026-06-20
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,9 @@
+---
+title: "Experiment — E005: alignment-guided KD vs perplexity-only KD at MATCHED PERPLEXITY (the F1 headline…"
+tags: [experiment]
+aliases: [E005]
+---
+
 # Experiment — E005: alignment-guided KD vs perplexity-only KD at MATCHED PERPLEXITY (the F1 headline / rate–distortion trade-off curve)
 
 **Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11) — in-domain +0.0081 was OVERSTATED (pseudo-replicated, one outlier fold); honest verdict = a small brain-specific *trend*, NOT a "CI-excludes-0" result; per-individual = NULL, confirmed by E008. **The ADDENDUM below is the lead verdict; the §Interpretation is superseded.** (L014→L015→L016) · **Mode:** working
@@ -97,3 +103,8 @@ honest inference and should be read as overstated.** See L015. Specifics (pure r
 trend** (4/5 folds positive, median ~+0.003–0.004), brain-specific-leaning, **not** a significant
 "CI excludes 0" result. **Next = solidify in-domain per-participant (E008) before any transfer.** The
 ladder Q3/F1 verdict needs revisiting with Erfan (D015) — not flipped unilaterally.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,9 @@
+---
+title: "Methods for computing the maximum performance of computational models of fMRI responses"
+tags: [literature]
+aliases: [lage-castellanos-2019_fmri-noise-ceiling]
+---
+
 # Methods for computing the maximum performance of computational models of fMRI responses
 
 **Authors:** Agustin Lage-Castellanos, Giancarlo Valente, Elia Formisano, Federico De Martino
@@ -105,3 +111,8 @@ Cite as the **formal definition of the voxelwise fMRI noise ceiling** and the ma
 ## Verified
 
 Full PDF read, all 25 pages, page-by-page via the Read tool (pages 1–25 in three passes). No parse issues — the PLoS HTML page and the printable PDF were both accessible. All equations confirmed directly from the PDF images. The paper does not contain any explicit cross-subject averaging formula; the statement that group-level analysis is out of scope appears verbatim on p. 23 (Discussion paragraph beginning "For group level analysis..."). No figures were inaccessible.
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

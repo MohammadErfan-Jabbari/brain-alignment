@@ -1,3 +1,9 @@
+---
+title: "R04 — Gap analysis: does 'use the brain to train an LM' survive contact with the 2025–26 papers,…"
+tags: [report]
+aliases: [R04]
+---
+
 # R04 — Gap analysis: does "use the brain to train an LM" survive contact with the 2025–26 papers, and what is the single unscooped question left?
 
 **Created:** 2026-06-10 (Session 5 — analysis). **Status:** living gap-analysis doc. **Full width, no hard wrap.**
@@ -127,3 +133,8 @@ R03's ladder is sound; the papers add one rung and re-weight two.
 - **Hold F3 as a stretch, and if pursued, use a null-calibrated neighborhood-overlap surrogate** (per `groger-2026`), not CKA or a naive LID objective, and validate the surrogate's *direction* against real fMRI first (the `cheng-2026`/`yu-2026` sign problem).
 
 The headline is unchanged and now better defended: the thesis lives in the empty *shrink × optimize* cell, framed as recovering the causally load-bearing alignment that knowledge distillation silently sheds.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

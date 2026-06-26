@@ -1,3 +1,9 @@
+---
+title: "Alignment of Auditory Artificial Networks with Massive Individual fMRI Brain Data Leads to…"
+tags: [literature]
+aliases: [freteault-2025_auditory-ann-fmri-finetuning]
+---
+
 # Alignment of Auditory Artificial Networks with Massive Individual fMRI Brain Data Leads to Generalisable Improvements in Brain Encoding and Downstream Tasks
 
 **Authors:** Maëlle Freteault; Maximilien Le Clei; Loic Tetrel; Lune Bellec; Nicolas Farrugia
@@ -106,3 +112,8 @@ The single most actionable open question for this thesis: does the low-data HEAR
 ## Read Date
 
 2026-06-10
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

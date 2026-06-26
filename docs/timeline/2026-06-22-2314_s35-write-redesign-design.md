@@ -1,3 +1,8 @@
+---
+title: "S35 — 2026-06-22 — /write pipeline redesign: full design → BUILD-READY"
+tags: [timeline]
+---
+
 # S35 — 2026-06-22 — /write pipeline redesign: full design → BUILD-READY
 
 **Stances:** dominant **/meta** (build/maintain the apparatus). Crossed into **/scout** (cloned + mined 12 external
@@ -57,3 +62,8 @@ abstract. Acceptance: catches Claudio's class (SC-VOICE-01–04), passes the nea
 - The HTML design canvas as a continuously-redeployed Artifact worked well as a living shared-read surface.
 - Live science thread UNCHANGED since S25: Q4 sample-efficiency E024 (re-substrate → MDE positive-control → re-gate
   → build). Q2 ❌, Q3 ❌ stand.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

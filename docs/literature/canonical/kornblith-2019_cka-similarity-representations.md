@@ -1,3 +1,9 @@
+---
+title: "Similarity of Neural Network Representations Revisited"
+tags: [literature]
+aliases: [kornblith-2019_cka-similarity-representations]
+---
+
 # Similarity of Neural Network Representations Revisited
 
 **Authors:** Simon Kornblith, Mohammad Norouzi, Honglak Lee, Geoffrey Hinton
@@ -62,3 +68,8 @@ Can CKA be integrated with intervention-based probes to separate shared geometry
 ## Read Date
 
 2026-03-03
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

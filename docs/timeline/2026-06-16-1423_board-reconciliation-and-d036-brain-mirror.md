@@ -1,3 +1,8 @@
+---
+title: "Session — analysis/maintenance: reconcile the stale state boards to S16 + complete the D036 brain…"
+tags: [timeline]
+---
+
 # Session — analysis/maintenance: reconcile the stale state boards to S16 + complete the D036 brain mirror
 
 **Date:** 2026-06-16 14:23 · **Mode:** ANALYSIS / MAINTENANCE (no new evidence; no rung changed).
@@ -40,3 +45,8 @@
 - The concurrent R06/E002/E006/`explainer_pipeline.html` edits are uncommitted — their author should commit them.
 - `projects/brain-alignment` gbrain hub is still a bare stub (enrich when convenient).
 - The parked Q3 draft `reports/_pending-Q3_*.md` still carries a stale "# R06 —" title; becomes R09 when promoted.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

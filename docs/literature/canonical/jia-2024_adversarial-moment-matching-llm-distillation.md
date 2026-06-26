@@ -1,3 +1,9 @@
+---
+title: "Adversarial Moment-Matching Distillation of Large Language Models"
+tags: [literature]
+aliases: [jia-2024_adversarial-moment-matching-llm-distillation]
+---
+
 # Adversarial Moment-Matching Distillation of Large Language Models
 
 **Authors:** Chen Jia
@@ -62,3 +68,8 @@ This work argues that copying token probabilities is a weak proxy for copying us
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

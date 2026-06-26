@@ -1,3 +1,9 @@
+---
+title: "Experiment — E024: brain/cognitive signal as train-only PRIVILEGED INFORMATION → sample-efficiency…"
+tags: [experiment]
+aliases: [E024]
+---
+
 # Experiment — E024: brain/cognitive signal as train-only PRIVILEGED INFORMATION → sample-efficiency (ZuCo, P1)
 
 **Created:** 2026-06-18 (S25) · **Status:** DESIGN (data staging; pre-oracle) · **Mode:** working
@@ -112,3 +118,8 @@ substrate is NOT staged. ZuCo 2.0 SR EEG assets sit under `data/zuco-benchmark/m
 
 **NEXT (needs Erfan's substrate call): pick the re-substrate (recommended: eye-tracking-first on a larger-N gaze corpus),
 then synthetic-PI MDE positive-control → fix control 5 → per-word loader decision → re-gate → build. No verdict without the gate.**
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

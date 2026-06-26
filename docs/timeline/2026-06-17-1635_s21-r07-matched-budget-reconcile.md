@@ -1,3 +1,8 @@
+---
+title: "S21 — review S20's E003 repair + close R07's one pending edit (analysis; no science changed)"
+tags: [timeline]
+---
+
 # S21 — review S20's E003 repair + close R07's one pending edit (analysis; no science changed)
 
 **Date:** 2026-06-17 · **Session:** S21 · **Branch:** main · **Mode:** analysis
@@ -51,3 +56,8 @@ R07 edit S20 correctly could not (D011: a working session never edits an analysi
 Analysis lane: **R08** (Q2 — the lever is real but weak and ppl-confounded), or the extended
 manuscript (front matter + Methods + Results Q0–Q1 from R06/R07), through `scientific-writing`, full
 loop. Working lane has no queued decisive work.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

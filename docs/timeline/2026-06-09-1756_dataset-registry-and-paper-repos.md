@@ -1,3 +1,8 @@
+---
+title: "Session log — 2026-06-09-1756 — Dataset registry and paper-repos corpus"
+tags: [timeline]
+---
+
 # Session log — 2026-06-09-1756 — Dataset registry and paper-repos corpus
 
 ## Purpose
@@ -60,3 +65,8 @@ This should be a **working session**. Priority order:
 ## Friction and improvements
 
 No notable friction this session. The parallel subagent approach for dataset research worked well (8 agents, strict rubric, NOT-STATED discipline kept the registry honest). The division-of-labour clarification between `04`/`R02`/`05` should be maintained going forward.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

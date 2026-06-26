@@ -1,3 +1,9 @@
+---
+title: "Errorful learning & learner models — `/teach` pedagogy synthesis"
+tags: [literature]
+aliases: [open-learner-models-and-errorful-learning]
+---
+
 # Errorful learning & learner models — `/teach` pedagogy synthesis
 
 **Type:** synthesis / index over the per-paper canonical notes listed below. **Apparatus grounding for the
@@ -43,3 +49,8 @@ A synthesis over the per-paper canonical notes above; each carries its own verif
 Metcalfe 2001 and Moser 2011 were abstract-only in earlier versions but are now read first-hand
 (publisher PDFs, 2026-06-20) — their `\gap`s are closed. The bottom line is a well-sourced **design
 rationale** for the teach apparatus, not a measured thesis result.
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,9 @@
+---
+title: "Speech language models lack important brain-relevant semantics"
+tags: [literature]
+aliases: [oota-2024_speech-lms-lack-brain-semantics]
+---
+
 # Speech language models lack important brain-relevant semantics
 
 **Authors:** Subba Reddy Oota; Emin Celik; Fatma Deniz; Mariya Toneva  
@@ -58,3 +64,8 @@ What training changes let speech models retain late-language alignment after low
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

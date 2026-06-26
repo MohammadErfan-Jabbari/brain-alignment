@@ -1,3 +1,8 @@
+---
+title: "Timeline — 2026-06-10 — Real-data A2 pass (E002) + brain-as-training-signal reframe (R03)"
+tags: [timeline]
+---
+
 # Timeline — 2026-06-10 — Real-data A2 pass (E002) + brain-as-training-signal reframe (R03)
 
 **Mode:** working session (produced evidence) with an analysis deliverable (R03).
@@ -32,3 +37,8 @@
 
 ## Commits
 `0072dad` feat(scripts) tuckute loader + E002 runner · `3ce434c` docs(lit) brain-tuning prior art · `c5f015c` docs R03 + D013 · (close commit to follow with E002 doc + learnings + upspeed + tasks).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

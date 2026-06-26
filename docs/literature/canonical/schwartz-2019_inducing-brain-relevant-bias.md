@@ -1,3 +1,9 @@
+---
+title: "Inducing Brain-Relevant Bias in Natural Language Processing Models"
+tags: [literature]
+aliases: [schwartz-2019_inducing-brain-relevant-bias]
+---
+
 # Inducing Brain-Relevant Bias in Natural Language Processing Models
 
 **Authors:** Dan Schwartz; Mariya Toneva; Leila Wehbe
@@ -134,3 +140,8 @@ The differences are small: the largest gain is RTE (+4.41 for MEG vs. Vanilla); 
 Full PDF read: yes. Downloaded via `curl` from arXiv (1911.03268v1, 18 pages), extracted with `pdftotext`, read in full including all appendix figures (A1–A8) and Table 1. No image-only pages; text extraction was clean throughout. Parse issues: none.
 
 Read date: 2026-06-11
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

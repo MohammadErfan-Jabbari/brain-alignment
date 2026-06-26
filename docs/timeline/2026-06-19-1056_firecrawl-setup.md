@@ -1,3 +1,8 @@
+---
+title: "2026-06-19 10:56 — Firecrawl setup (S26, tooling)"
+tags: [timeline]
+---
+
 # 2026-06-19 10:56 — Firecrawl setup (S26, tooling)
 
 **Session mode:** Tooling / infrastructure. **No science ran, no number produced, no ladder rung moved (Q0–Q5 stand exactly as S25 left them).** A short interlude between S25 (Q2 demotion + Q3/Q4 gates) and the next science working session (Q4 re-substrate).
@@ -41,3 +46,8 @@ This **partially resolves D041's deferred `.mcp.json` item** — the repo now ha
 ## Tier note
 
 `/wrap` nominally flags this **heavy** (`.claude/skills/` was touched), but the substance is tooling with no science, no ladder rung, no numbers, no manuscript, and full orchestrator context — so it was closed **inline** (Part A + B), no audit swarm. `start.json` was present (no fallback needed).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

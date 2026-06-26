@@ -1,3 +1,9 @@
+---
+title: "E023 — Does perplexity-only KD shed brain alignment *beyond quality*? An identified program across…"
+tags: [experiment]
+aliases: [E023]
+---
+
 # E023 — Does perplexity-only KD shed brain alignment *beyond quality*? An identified program across scale
 
 **Type:** program design + identification framework (analysis-lane authored; **nothing run yet**). **Status:** ⬜ DESIGNED — not gated, not run. **Created:** 2026-06-18 (S24, analysis). **Owner:** Erfan (analysis-lane design). **Gate:** requires `oracle-reviewer` PASS + a thesis-vs-paper scope decision before any compute.
@@ -89,3 +95,8 @@ R07's clean read needed **cold-init** (random student) so any alignment was *tra
 ---
 
 **One-line summary.** The thing to measure is not "alignment across KD'd sizes" (that re-traces E015) but **the vertical drop of a KD student below the same-family alignment-vs-perplexity manifold, measured where the manifold is flat (≥3B), with a same-init non-KD finetune as the paired control** — and the cold-init ideal is infeasible at scale, so the feasible identification is the KD-minus-finetune difference at matched perplexity.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

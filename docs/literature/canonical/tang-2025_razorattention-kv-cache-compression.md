@@ -1,3 +1,9 @@
+---
+title: "RazorAttention: Efficient KV Cache Compression Through Retrieval Heads"
+tags: [literature]
+aliases: [tang-2025_razorattention-kv-cache-compression]
+---
+
 # RazorAttention: Efficient KV Cache Compression Through Retrieval Heads
 
 **Authors:** Hanlin Tang; Yang Lin; Jing Lin; Qingsen Han; Shikuan Hong; Yiwu Yao; Gongyi Wang
@@ -62,3 +68,8 @@ RazorAttention is best read as an interpretability-driven systems method: it tur
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

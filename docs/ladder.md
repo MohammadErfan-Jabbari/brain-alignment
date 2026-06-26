@@ -1,3 +1,9 @@
+---
+title: "Ladder — the canonical status board"
+tags: [reference]
+aliases: [ladder, status-board]
+---
+
 # Ladder — the canonical status board (where we are, what's next)
 
 **This is the single source of truth for project state.** Read it first, every session. It is maintained at every session close, *after Erfan confirms the verdict*. The prose narrative of *why* the ladder is shaped this way lives in `reports/R03_brain-as-training-signal.md` §5 and `reports/R04_gap-analysis.md` §8; this file is the live status of it. `upspeed.md` is the last-session prose; `tasks.md` is the granular backlog. When they disagree, **this file wins** and the others get fixed.

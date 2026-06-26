@@ -1,3 +1,8 @@
+---
+title: "S29 — /teach surface-contract fix (the v2 build had inverted Erfan's instruction)"
+tags: [timeline]
+---
+
 # S29 — /teach surface-contract fix (the v2 build had inverted Erfan's instruction)
 
 **Date:** 2026-06-20 · **Stance:** `/meta` (dominant; investigation + apparatus fix). **NO experiment ran,
@@ -64,3 +69,8 @@ Apparatus-only session. The live science next-step is still **Q4 sample-efficien
 - **teach v2 had no timeline log** — the biggest rewrite of the mode happened in an unlogged evening block,
   which is why the regression went unnoticed until the live test.
 - Gitignored `docs/learning/lessons/*.html` (disposable renders) so they stop showing as untracked.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

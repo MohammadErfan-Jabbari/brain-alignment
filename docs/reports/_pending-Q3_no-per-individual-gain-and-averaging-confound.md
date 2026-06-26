@@ -1,3 +1,8 @@
+---
+title: "R06 — No per-individual brain-specific alignment gain is inducible beyond perplexity; cross-subject…"
+tags: [report]
+---
+
 # R06 — No per-individual brain-specific alignment gain is inducible beyond perplexity; cross-subject averaging manufactures the apparent gain
 
 **Answers Q3 (F1, the headline). Verdict: ❌ NULL per-individual, well-powered, and stable across capacity, objective, substrate, and parameterisation. The positive contribution is methodological: a measurement-validity finding (cross-subject target-averaging manufactures apparent brain-specificity) plus the control protocol that detects it (matched-perplexity, a per-kind permuted-brain twin, and per-subject inference).** This report states current truth only. The discovery order (E005 looked like a win, then collapsed) lives in `map.md`, `timeline/`, and `decisions/`, not here. Sources: `experiments/E005`, `E008`, `E011`, `E013`, `E013b`, `E017`, `E006`; lessons L011 / L015 / L016 / L041.
@@ -30,3 +35,8 @@ Alignment-guided KD shows no detectable per-individual brain-specific alignment 
 - The claim is operational: "not *inducible* beyond perplexity via the readouts tested (linear-ridge / MSE / contrastive, LoRA and full-FT)." The stronger information-theoretic reading ("the residual is task-independent noise") rests on Y⊥θ\*|S as an assumption, not a result (L041).
 - "Brain-specific" is relative to the nuisance set actually subtracted; surprisal and imageability are not conditioned in (L011 / L012), so a residual low-level nuisance cannot be fully excluded. This weakens only the averaged-target positive, never the per-individual null.
 - The one grounded path to a per-individual positive is higher per-subject SNR (within-subject repeats), not more averaging [E008].
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

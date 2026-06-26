@@ -1,3 +1,9 @@
+---
+title: "Do Language Models Align with Brains? Prediction Scores Are Not Enough"
+tags: [literature]
+aliases: [jia-2026_lpact-prediction-scores-not-enough]
+---
+
 # Do Language Models Align with Brains? Prediction Scores Are Not Enough
 
 **Authors:** Xiao Jia (single author)
@@ -289,3 +295,8 @@ binary PDF was not rendered page-by-page; per-row numeric sub-scores are HTML-so
 verified. The four absences load-bearing for our novelty (no fine-tuning/brain-tuning, no perplexity-
 matched control, no averaging confound, no powered per-individual null) were each confirmed by direct
 negative query against the v1 HTML.
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

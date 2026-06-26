@@ -1,3 +1,8 @@
+---
+title: "Session Log: 2026-06-09 00:54 CEST — Benchmark survey + toy pilot harness"
+tags: [timeline]
+---
+
 # Session Log: 2026-06-09 00:54 CEST — Benchmark survey + toy pilot harness
 
 **Project:** brain-alignment (MSc thesis, UC3M)
@@ -68,3 +73,8 @@ test — with the anti-confound protocol baked in. Be adaptive about the data de
   responses from the separate host), then re-run E001 with `--backend pereira`/lebel for the real verdict.
 - Decide the $\mathcal{L}_{\text{brain}}$ form (frozen encoding map vs CKA vs head) on real data.
 - Hand LeBel 2023 + Merlin & Toneva 2026 + Narratives to `paper-digest`.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

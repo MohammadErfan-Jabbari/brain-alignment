@@ -1,3 +1,8 @@
+---
+title: "Timeline — 2026-06-12 23:04 — Session 10: Codex wired as second-model critic + rescue; bwrap…"
+tags: [timeline]
+---
+
 # Timeline — 2026-06-12 23:04 — Session 10: Codex wired as second-model critic + rescue; bwrap sandbox disabled (container limit)
 
 **Mode:** TOOLING / infrastructure (NOT science — no evidence produced or consumed, no ladder rung touched). **Branch:** main. **Commits:** `80b22dd`, `1aa2a43`, `e2e10c8` (+ this close). **Cost:** ~$83 (authorized; heavy on live Codex diagnostic runs). **Headline:** Codex (`gpt-5.5`) is now a usable second-model critic + rescue tool for this repo, the container's bwrap-sandbox blocker is diagnosed and worked around, and the integration is documented so future sessions just use it.
@@ -33,3 +38,8 @@ Tooling session; **no rung moved, no verdict touched.** L0/A2 ✅ powered; L3/F1
 - **Ladder integrity:** intact; no rung claims changed; partials keep their caveats; "Next session" concrete + mode-tagged.
 - **Git:** clean working tree; 3 atomic commits this session, conventional messages, scoped staging. `~/.codex/config.toml` + the `codex.mjs` patch are machine/plugin-cache state (outside the repo by design) — documented, not committed. Not pushed (Erfan hasn't asked).
 - **Open loops:** none running (all stray Codex processes killed). The only carry-forward: reapply the `codex.mjs` patch after a codex plugin update.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

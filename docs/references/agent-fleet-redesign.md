@@ -1,3 +1,8 @@
+---
+title: "Agent-fleet redesign — proposal (S24)"
+tags: [reference]
+---
+
 # Agent-fleet redesign — proposal (S24)
 
 **Status:** PROPOSAL for Erfan to review. **Nothing implemented.** Synthesis of two parallel audits of the repo's session corpus (2026-06-18): a timeline-narrative workflow (`repo-agent-audit`, 6 agents) + an empirical transcript-mining pass over all **266 subagent runs / 27 sessions**, plus the precedent-engine reference session (`b17c635e`). Every line is specific enough that applying it is mechanical.
@@ -149,3 +154,8 @@ WHAT-WOULD-UPGRADE: ... | WHAT-WOULD-KILL: ...
 
 **DEFERRED (with reason):**
 - **`.mcp.json` (§3-D)** — no Exa transport config is findable under `~/.claude` (it comes from the global harness); writing a guessed one risks shadowing the working global Exa. Needs the actual Exa connection details — Erfan to provide/confirm, then it is a 1-file add.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

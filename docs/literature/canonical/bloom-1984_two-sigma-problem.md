@@ -1,3 +1,9 @@
+---
+title: "The 2 Sigma Problem: The Search for Methods of Group Instruction as Effective as One-to-One Tutoring"
+tags: [literature]
+aliases: [bloom-1984_two-sigma-problem]
+---
+
 # The 2 Sigma Problem: The Search for Methods of Group Instruction as Effective as One-to-One Tutoring
 
 **Authors / Year / Venue:** Benjamin S. Bloom / 1984 / *Educational Researcher* 13(6):4–16 · **Link:** https://doi.org/10.3102/0013189X013006004 (JSTOR `0013-189X(198406/07)13:6<4>`)
@@ -75,3 +81,8 @@ Suggested home in `docs/01-research-landscape.md`: it does not fit the existing 
 ## Verified
 
 Full paper read (all 14 OCR'd pages of the gwern.net JSTOR scan: 13 article pages 4–16 + the JSTOR linked-citations page). **Parse note:** the MIT mirror (`web.mit.edu/5.95/...`) is a CCITTFax image scan with no text layer and could not be parsed by WebFetch; the gwern mirror (`gwern.net/doc/psychology/1984-bloom.pdf`) carries a usable OCR text layer (extracted via `pypdf`), which is what was read in full. Table I's two-column layout was scrambled by OCR (figure captions and the table interleave); the upper-half effect sizes were recovered by cross-checking each value against Bloom's in-text statements (he restates 2.00/98, 1.00/84, .80/79, .50/69, .20/58 in prose) and confirmed against the standard published Table I (Reinforcement 1.2; Time on task 1.00; Initial cognitive prerequisites .60). Lower-half precise σ values that the OCR could not confirm and Bloom does not restate in text are reported as "below .5 sigma" rather than as fabricated figures. Mastery standard "80%", time-on-task figures (65/75/90+%), and all combination effect sizes (1.5/1.6/1.7 sigma) are quoted directly from the body text.
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

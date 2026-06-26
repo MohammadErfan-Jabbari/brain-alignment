@@ -1,5 +1,5 @@
 ---
-title: Obsidian & Markdown Conventions (the container layer)
+title: "Obsidian & Markdown Conventions (the container layer)"
 tags: [reference, methodology]
 aliases: [obsidian-conventions, markdown-conventions, vault-conventions]
 ---

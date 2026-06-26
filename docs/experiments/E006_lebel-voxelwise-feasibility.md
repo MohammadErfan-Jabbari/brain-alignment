@@ -1,3 +1,9 @@
+---
+title: "Experiment — E006: LeBel UTS03 voxelwise A2-feasibility (powered substrate validation)"
+tags: [experiment]
+aliases: [E006]
+---
+
 # Experiment — E006: LeBel UTS03 voxelwise A2-feasibility (powered substrate validation)
 
 **Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11) — A2 STRONG PASS at voxel scale (powered: trained−untrained gap +0.0207/+0.0277, 95–99% of 11,442 NC-reliable voxels positive); E007 lever-line structurally underpowered (MDE +0.013–0.015 ≫ the +0.003 effect) → E007 NOT built, rerouted to E005 · **Mode:** working
@@ -135,3 +141,8 @@ E006 = powered A2 PASS (recorded). Lever line (E007) not built (structurally und
 | 2026-06-11 | design | — | adapter validated; design locked pending oracle | scoped A2-only (lever→E007) | oracle review → build runner → run |
 | 2026-06-11 | oracle HOLD→resolved | — | 2 fatal fixes (phone-tier nuisance; held-out CC_norm voxel selection) + E007-MDE deliverable + paired-primary E007 lock | flagged the "quiet kill": lever line may be structurally underpowered if MDE > +0.003 | build runner → run |
 | 2026-06-11 | FULL run | gpt2 + Qwen, 20 stories, 5 folds, rel>0.5 | **A2 STRONG PASS** (gap +0.021/+0.028, 95–99% voxels+); **E007-lever MDE +0.013/+0.015 → can't resolve +0.003** | substrate alive; lever line underpowered → pivot to E005 trade-off curve | design E005 (matched-ppl KD) |
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

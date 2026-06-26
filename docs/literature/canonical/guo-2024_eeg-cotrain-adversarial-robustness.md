@@ -1,3 +1,9 @@
+---
+title: "Limited but Consistent Gains in Adversarial Robustness by Co-training with Human EEG"
+tags: [literature]
+aliases: [guo-2024_eeg-cotrain-adversarial-robustness]
+---
+
 # Limited but Consistent Gains in Adversarial Robustness by Co-training with Human EEG
 
 **Authors:** Manshan Guo; Bhavin Choksi; Sari Sadiya; Alessandro T. Gifford; Martina G. Vilas; Radoslaw M. Cichy; Gemma Roig
@@ -267,3 +273,8 @@ Key absences confirmed: (a) shuffled-control gains are not tabulated numerically
 accuracy is not reported; (c) no significance test for real vs. shuffled comparison; (d) no power
 analysis.
 Read date: 2026-06-11
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

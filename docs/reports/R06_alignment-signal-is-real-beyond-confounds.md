@@ -1,3 +1,9 @@
+---
+title: "R06: The LM↔brain alignment signal is real, beyond confounds"
+tags: [Q0, report]
+aliases: [R06]
+---
+
 # R06: The LM↔brain alignment signal is real, beyond confounds. A trained language model's middle layer predicts held-out brain activity well above an untrained control after the full nuisance subtraction
 
 **Answers Q0 (A2). Verdict: ✅ PASS, and powered at voxel scale.** A trained language model's middle-layer representation carries unique variance about real human language-network activity that survives a low-level nuisance regression under contiguous splits, and that a same-architecture *untrained* network does not carry. The effect is small in absolute R² but unambiguous: at voxel scale the trained−untrained gap is **+0.021 (gpt2) / +0.028 (Qwen)** with tight bootstrap CIs and 95–99% of reliable voxels positive [E006]. This report states current truth only; the order in which we learned it (an ROI screen first, then the powered voxelwise confirmation) lives in `map.md`, `timeline/`, and `decisions/`, not here. Sources: `experiments/E002`, `E006`; lessons L003, L007, L011/L012.
@@ -112,3 +118,7 @@ This is the one load-bearing *positive* of the thesis, and everything downstream
 - The ROI screen (E002) is coarse (five dimensions, train-participant-averaged) and is a screen, not the verdict. The powered claim is the voxelwise run (E006). Where the two could disagree, E006 wins. E006's 11,442 voxels are selected by split-half reliability on naturalistic story listening, not by a language localizer; this trades anatomical specificity for statistical power. In practice, voxels reliably driven by story listening are predominantly language-responsive, consistent with the ROI screen [E002, E006].
 - A2 says the signal is real and measurable. It says nothing about whether optimizing a brain-alignment loss raises held-out alignment (the lever is fragile, in its own report) or whether induced alignment transfers to a per-individual or practical gain (it does not, at matched perplexity — its own report). Reading A2's positive as evidence for those is the exact over-claim the rest of the report set exists to prevent.
 
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

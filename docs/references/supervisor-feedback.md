@@ -1,3 +1,8 @@
+---
+title: "Supervisor feedback on the writing (asset for the /write redesign)"
+tags: [reference]
+---
+
 # Supervisor feedback on the writing (asset for the /write redesign)
 
 The real-world signal that triggered the whole `/write` rework. IMDEA supervisor **Claudio**, on Erfan's first
@@ -26,3 +31,8 @@ still read as story-prose to a real supervisor. The redesign's job is to make th
 ship — not by listing Claudio's four sentences, but by building the positive model that prevents the whole class.
 Links to [[scientific-writing-methodology]] (the reader-expectation canon), [[writing-skills-ecosystem-audit]]
 (group C — structural AI-tells), and the S33 "immune system, not a notion of health" diagnosis.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

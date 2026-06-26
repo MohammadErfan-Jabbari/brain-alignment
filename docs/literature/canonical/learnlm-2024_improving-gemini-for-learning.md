@@ -1,3 +1,9 @@
+---
+title: "LearnLM: Improving Gemini for Learning"
+tags: [literature]
+aliases: [learnlm-2024_improving-gemini-for-learning]
+---
+
 # LearnLM: Improving Gemini for Learning
 
 **Authors:** LearnLM Team, Google (45 authors; lead names incl. Irina Jurenka, Markus Kunesch, Kevin R. McKee, Shakir Mohamed, Yannis Assael)
@@ -212,3 +218,8 @@ paper never measures?
 ## Read Date
 
 2026-06-19
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

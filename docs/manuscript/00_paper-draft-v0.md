@@ -1,3 +1,8 @@
+---
+title: "A brain-tuning gain that vanishes per individual: cross-subject-averaged fMRI targets inflate…"
+tags: [manuscript]
+---
+
 # A brain-tuning gain that vanishes per individual: cross-subject-averaged fMRI targets inflate apparent alignment-specificity at matched perplexity
 
 *Working draft (v0.9), 2026-06-12.* Contribution: an empirical measurement-validity result — a brain-tuning gain measured against a cross-subject-averaged fMRI target need not reflect alignment to any individual brain — with a confound-clean validation protocol (matched-perplexity + permuted-fMRI twin + per-individual inference). All reported numbers trace to a recorded experiment (`docs/experiments/ENNN`) or learning (`docs/learnings.md` Lnnn), cited inline; this provenance note is for the internal repo and would be dropped at submission.
@@ -153,3 +158,8 @@ Entries 1–14 are read from our canonical notes (`docs/literature/canonical/`);
 19. Tuckute, G., Sathe, A., Srikant, S., Taliaferro, M., Wang, M., Schrimpf, M., Kay, K., & Fedorenko, E. (2024). Driving and suppressing the human language network using large language models. *Nature Human Behaviour, 8*(3), 544–561. https://doi.org/10.1038/s41562-023-01783-7
 20. Li, Z., Brendel, W., Walker, E., Cobos, E., Muhammad, T., Reimer, J., Bethge, M., Sinz, F., Pitkow, Z., & Tolias, A. (2019). Learning from brains how to regularize machines. In *Advances in Neural Information Processing Systems 32 (NeurIPS 2019)*, 9525–9535. arXiv:1911.05072.
 21. Hoak, B., Li, K., & McDaniel, P. (2025). Alignment and adversarial robustness: Are more human-like models more secure? In *Workshop on Security and Privacy-Preserving AI/ML (SPAIML @ ECAI 2025)*. arXiv:2502.12377. *(vision-domain: Brain-Score models under AutoAttack — aggregate alignment weakly predicts robustness, feature-specific alignment strongly; cited in §2/§6 strictly for the vision robustness literature.)*
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

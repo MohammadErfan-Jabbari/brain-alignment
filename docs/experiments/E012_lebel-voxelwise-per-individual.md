@@ -1,3 +1,9 @@
+---
+title: "Experiment — E012: per-individual brain-tuning on the POWERED voxelwise substrate (closes the…"
+tags: [experiment]
+aliases: [E012]
+---
+
 # Experiment — E012: per-individual brain-tuning on the POWERED voxelwise substrate (closes the substrate-mismatch limitation)
 
 **Created:** 2026-06-12 · **Status:** DEFERRED — oracle-adjudicated as power-limited at n=3 (2026-06-12); the voxelwise per-individual question is carried by E013's same-substrate loop instead · **Mode:** working
@@ -35,3 +41,8 @@ The oracle gate returned **DEFER-POWER-LIMITED**, quantitatively:
 
 ## Status
 DEFER (oracle-adjudicated, power-limited at n=3). Data (UTS01/02/03) acquired + retained for a future n≳8–10 cohort. Manuscript §6.5 updated. The per-individual-at-matched-ppl line is now closed on every substrate we can power (Tuckute ROI n=9 + this); the remaining open door is Negi's distinct objective+data regime.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

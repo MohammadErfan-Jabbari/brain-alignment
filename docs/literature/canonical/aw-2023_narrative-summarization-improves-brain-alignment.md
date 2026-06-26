@@ -1,3 +1,9 @@
+---
+title: "Training language models to summarize narratives improves brain alignment"
+tags: [literature]
+aliases: [aw-2023_narrative-summarization-improves-brain-alignment]
+---
+
 # Training language models to summarize narratives improves brain alignment
 
 **Authors:** Khai Loong Aw; Mariya Toneva  
@@ -58,3 +64,8 @@ How much of the observed gain transfers to non-narrative stimuli and non-English
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

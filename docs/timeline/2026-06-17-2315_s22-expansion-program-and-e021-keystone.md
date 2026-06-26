@@ -1,3 +1,8 @@
+---
+title: "S22 — 2026-06-17 — Autonomous expansion program + the E021 keystone (working session)"
+tags: [timeline]
+---
+
 # S22 — 2026-06-17 — Autonomous expansion program + the E021 keystone (working session)
 
 **Mode:** working (generated new evidence: E021, G0/G1, the clean v3 arms). Autonomous (`/goal`: expand the idea set toward a top-venue result). Long, heavy session (~$140+, ~15 subagents). Ended by handing the strategic fork to Erfan.
@@ -28,3 +33,8 @@ The keystone did **not** deliver a clean main-track positive. It delivered a *na
 - **Path-A floor is ready to execute** (`run_moussa_arms.py`) if Erfan wants the external matched-ppl demonstration for the negative-results paper.
 - **No ladder rung changed** (Q0–Q5 unchanged; E021 is a new exploratory experiment, not a rung). Analysis lane (R08–R14 + extended manuscript) untouched and still the thesis floor — it is Erfan's lane (D011).
 - Tree clean except deps (`pyproject.toml`/`uv.lock`) + pre-existing untracked files; E021 v3 outputs gitignored under `outputs/e021/`.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,9 @@
+---
+title: "R03 — Brain as a Training Signal: a first-principles interrogation of the inversion idea, and where…"
+tags: [report]
+aliases: [R03]
+---
+
 # R03 — Brain as a Training Signal: a first-principles interrogation of the inversion idea, and where the real open space is
 
 **Created:** 2026-06-10 (Session 4 — working/analysis). **Status:** living direction doc. **Full width, no hard wrap.**
@@ -164,3 +170,7 @@ The literature's own substrate is Narratives/Pereira/Fedorenko/Harry-Potter/Tuck
 2. The first-principles bound (§2) is itself a *contribution* worth writing: a clear argument for *why* brain data can only be a weak regularizer, and therefore *where* (small/compressed/low-data) it can matter — which predicts the regimes the experiments should target. Step 7 now anchors it to the exact theorems of the Information-Theory course (MI generalization bound, DPI, conditional MI, rate-distortion), so the methods/related-work sections can cite established results rather than assert them — see `docs/06-theory-grounding.md`.
 3. The ladder (§5) is the de-risking plan: cheap kills first. Q0 (E002) is done tonight; it tells us whether to climb at all.
 
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

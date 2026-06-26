@@ -1,3 +1,8 @@
+---
+title: "S33 — 2026-06-22 15:41 — /write: extended-manuscript abstract clean + em-dash guardrail fix"
+tags: [timeline]
+---
+
 # S33 — 2026-06-22 15:41 — /write: extended-manuscript abstract clean + em-dash guardrail fix
 
 **Stances:** `/write` (dominant — abstract rewrite via the `scientific-writing` skill), with a `/meta` sliver (linter guardrail fix). Opened with `/orient`.
@@ -23,3 +28,8 @@ NO rung changed. Q0–Q5 stand. This is a write-layer (and meta) session.
 ## Next
 
 Continue the manuscript clean: **§1 Introduction ¶1** is teed up (split the wall sentence-3; fix "rewards representations the brain would predict"; de-echo the abstract opening). Then §1 ¶2 carries the big intuition-up/formalism-down dedup decision (Erfan leans option 1). Then §2–§4, including naming the E006 voxel-bootstrap CI unit in the §4 caption.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

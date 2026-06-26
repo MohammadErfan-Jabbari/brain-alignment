@@ -1,3 +1,9 @@
+---
+title: "LRC-BERT: Latent-representation Contrastive Knowledge Distillation for Natural Language…"
+tags: [literature]
+aliases: [fu-2021_lrc-bert-contrastive-kd]
+---
+
 # LRC-BERT: Latent-representation Contrastive Knowledge Distillation for Natural Language Understanding
 
 **Authors:** Hao Fu; Shaojun Zhou; Qihong Yang; Junjie Tang; Guiquan Liu; Kaikui Liu; Xiaolong Li
@@ -62,3 +68,8 @@ This work is best read as a "structure-aware KD" design that treats inter-sample
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

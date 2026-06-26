@@ -1,3 +1,8 @@
+---
+title: "/write redesign — build plan (the bridge from design to code)"
+tags: [reference]
+---
+
 # /write redesign — build plan (the bridge from design to code)
 
 Design is BUILD-READY (`write-redesign-design.html` v1.1, hardened across 4 opus reviews). This is the plan to
@@ -618,3 +623,8 @@ pessimist of the two) found real pre-cutover defects; fixed before declaring rea
 - **D051 amended (premortem mode 2):** the F16 gate gains a framing-sentence forcing-function (enumerate empirical-
   verb framing sentences → force a claim-vs-cited-background tag) — the cheap middle option, not a high-FP judge.
 Selftest green after all of it (validate-suite PASS; full selftest PASS).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

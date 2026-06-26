@@ -1,3 +1,8 @@
+---
+title: "Environment — centcom"
+tags: [reference]
+---
+
 # Environment — centcom
 
 **Surveyed:** 2026-06-08. Treat as fact until the box changes; re-verify GPU/data before a long run.
@@ -72,3 +77,8 @@ uv run python scripts/<name>.py --seed 42        # always via uv run
 
 Closest working reference for layout, configs, and a 3-seed pilot runner:
 `/home/centcom/data/brain-jepa` (uv + cu128, `scripts/objective_pilot.py`, `configs/*.json`).
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

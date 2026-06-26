@@ -1,3 +1,9 @@
+---
+title: "Experiment — E003: does perplexity-only knowledge distillation preserve or destroy brain alignment?…"
+tags: [experiment]
+aliases: [E003]
+---
+
 # Experiment — E003: does perplexity-only knowledge distillation preserve or destroy brain alignment? (R04 Q1 kill-test)
 
 **Created:** 2026-06-10 · **Status:** COMPLETE (ran 2026-06-10) — Q1 PARTIAL: monotone alignment gradient (not preserve-for-free), but alignment co-varies with perplexity (ρ=−0.88), KD-specific shedding only p≈0.1 (L011) · **Mode:** working
@@ -143,3 +149,8 @@ A provenance audit (R07 review panel, then a counter-argument / premortem / firs
 5. **Step-budget asymmetry** (cold 2 epochs vs warm 1) recorded in the Design "Matched budget" bullet; R07's "matched budget" wording flagged for an analysis-lane review (not edited).
 
 The estimator note for both sidecars: single-window, `max_length=64`, no sliding-window stride — matched to the trained arms, so cross-arm ratios and the log-ppl fit are coherent.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

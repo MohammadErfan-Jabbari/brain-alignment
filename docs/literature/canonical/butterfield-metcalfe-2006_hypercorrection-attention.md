@@ -1,3 +1,9 @@
+---
+title: "The Correction of Errors Committed with High Confidence"
+tags: [literature]
+aliases: [butterfield-metcalfe-2006_hypercorrection-attention]
+---
+
 # The Correction of Errors Committed with High Confidence
 
 **Authors / Year / Venue:** Brady Butterfield, Janet Metcalfe / 2006 / *Metacognition and Learning* 1(1):69–84 (Springer) · **Link:** https://doi.org/10.1007/s11409-006-6894-z
@@ -104,3 +110,8 @@ Full PDF read first-hand (text-layer extraction; image renderer unavailable, not
 ## Read Date
 
 2026-06-20
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

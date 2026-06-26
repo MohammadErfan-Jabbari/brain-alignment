@@ -1,3 +1,9 @@
+---
+title: "What Are Large Language Models Mapping to in the Brain? A Case Against Over-Reliance on Brain Scores"
+tags: [literature]
+aliases: [feghhi-2024_case-against-over-reliance-brain-scores]
+---
+
 # What Are Large Language Models Mapping to in the Brain? A Case Against Over-Reliance on Brain Scores
 
 > **⚠ DUPLICATE — same paper as [`hadidi-2024_case-against-brainscore-reliance`](hadidi-2024_case-against-brainscore-reliance.md), which is the CANONICAL note.** This is the earlier arXiv-version digest (first author Feghhi); `hadidi-2024` is the fuller Nature Communications 2026 digest (the * = equal-contribution author list is randomized, so the same paper appears under both first authors). The anti-confound bar (residual ≤10%, contiguous splits, shuffled-split inflation) lives in `hadidi-2024`. Kept as a redirect so existing `feghhi-2024` references resolve; cite `hadidi-2024` going forward. (Dedup logged in ladder/tasks, S8 2026-06-11.)
@@ -60,3 +66,8 @@ Would the same deconstruction on larger, higher-sample neural datasets leave mor
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

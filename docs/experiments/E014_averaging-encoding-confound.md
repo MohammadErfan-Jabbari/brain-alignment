@@ -1,3 +1,9 @@
+---
+title: "Experiment — E014: does cross-subject averaging inflate the ENCODING brain-score (the measurement,…"
+tags: [experiment]
+aliases: [E014]
+---
+
 # Experiment — E014: does cross-subject averaging inflate the ENCODING brain-score (the measurement, not just our distillation)?
 
 **Created:** 2026-06-12 · **Status:** COMPLETE — NOT a main-track lift (panel-deflated) · **Mode:** working (analysis-support)
@@ -20,3 +26,8 @@ The thinking panel (counter-argument + first-principles, fable) rejected the "av
 
 ## Status
 COMPLETE. **E014 is a legitimate-SNR / estimand-shift effect, NOT a second confound; it does not strengthen the paper and is NOT added to it.** The averaging-confound headline stays on E005-vs-E008 (well-powered per-individual ZERO on the *optimization* side, where the per-individual reality is genuinely null). Recorded in L028; PCA-seed fix in `pilot_lib.py`.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

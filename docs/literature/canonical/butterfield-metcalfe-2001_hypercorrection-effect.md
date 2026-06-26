@@ -1,3 +1,9 @@
+---
+title: "Errors Committed with High Confidence Are Hypercorrected"
+tags: [literature]
+aliases: [butterfield-metcalfe-2001_hypercorrection-effect]
+---
+
 # Errors Committed with High Confidence Are Hypercorrected
 
 **Authors / Year / Venue:** Brady Butterfield, Janet Metcalfe / 2001 / *Journal of Experimental Psychology: Learning, Memory, and Cognition* 27(6):1491–1494 · **Link:** https://doi.org/10.1037/0278-7393.27.6.1491
@@ -72,3 +78,8 @@ Citation verified against CrossRef and OpenAlex (exact agreement); the article's
 ## Read Date
 
 2026-06-19 (secondary-record only) → **full text read first-hand 2026-06-20** (publisher PDF supplied by Erfan; all `\gap` numbers filled).
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

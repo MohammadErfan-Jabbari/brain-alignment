@@ -1,3 +1,8 @@
+---
+title: "Session 13 — F1: TRIBE Phase-1 fidelity (E016) — WORKING (autonomous)"
+tags: [timeline]
+---
+
 # Session 13 — F1: TRIBE Phase-1 fidelity (E016) — WORKING (autonomous)
 
 **Date:** 2026-06-14 (started ~00:00) · **Mode:** working (autonomous /goal: forward program F1→F4)
@@ -67,3 +72,8 @@ false alarm reaches Erfan. **A2 reconfirmed on denizenslab** (trained Qwen NC-al
 the single-story group-avg-TRIBE ceiling is a dead-end; redesign queued (stronger TRIBE target + ≥3 stories +
 frame-valid estimand; or pursue the ceiling on TRIBE's home-turf video stimuli — open strategy Q for Erfan).
 Session cost ~$240. F2/F3/F4 not started (deferred to fresh sessions). No rung flips; no analysis-lane edits.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

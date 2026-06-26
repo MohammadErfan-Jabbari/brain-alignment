@@ -1,3 +1,8 @@
+---
+title: "The Idea Tree — the full possibility space, by solution altitude"
+tags: [reference]
+---
+
 # The Idea Tree — the full possibility space, by solution altitude
 
 **What this is.** The forward-planning map of *every* idea this project could pursue, organized so the climb has a principled order. It is the complement of `[map.md](map.md)`: `map.md` records the **journey we have travelled** (history, the E-nodes that ran); this tree records the **whole space including the untravelled branches**, so "climb the highest untested layer" is a well-defined instruction. Canonical *status* still lives in `[ladder.md](ladder.md)` and the program state in `[expansion-program.md](expansion-program.md)`; when they disagree, the ladder wins and this gets fixed.
@@ -115,3 +120,8 @@ Compute budget = 4× L40S → up to 4 nodes in flight. Revised order:
 - **NEW methodological node — the 5-control battery** (phase-randomized shape-twin + zeroed/shuffled-PI + rep-move gate + matched-ppl + **matched-information non-brain privileged teacher**): the contribution even under a full null.
 
 **S24 climb queue:** Tier 1 (close every open *experimental + theoretical* door except fMRI-free) → Tier 2 (the 5 method ideas + whatever surfaces while working, complete) → Tier 3: **P1** = ZuCo-first supervised low-data learning curve, real PI must beat all 5 controls + the rep-move gate → **P2** biosignal→control/robotics (future-work, quarantined) → **P3** modality expansion (Broderick / Brennan-Hale / MEG-MASC). Calibration: methodology paper most likely; top-venue positive = the tail.
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

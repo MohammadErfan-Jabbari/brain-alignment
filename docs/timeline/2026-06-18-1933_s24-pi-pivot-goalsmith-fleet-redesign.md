@@ -1,3 +1,8 @@
+---
+title: "S24 — 2026-06-18: R07/theory analysis → PI/sample-efficiency pivot → /goalsmith + agent-fleet…"
+tags: [timeline]
+---
+
 # S24 — 2026-06-18: R07/theory analysis → PI/sample-efficiency pivot → /goalsmith + agent-fleet redesign
 
 **Mode:** analysis → tooling/design. **NO experiment ran. NO Q-rung changed (Q0–Q5 stand).**
@@ -37,3 +42,8 @@ Q0–Q5 stand. No experiment ran; no new science number. The forward direction r
 
 ## Commits
 512f39e · 1c37e5a · d94da33 · 1905c25 · d157081 · f5bf28f · 9a6454a · 02be369 · 498f658 · e9b3067 · dad2324 · acfe605 · (+ CLAUDE.md self-activation, + this wrap's records).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

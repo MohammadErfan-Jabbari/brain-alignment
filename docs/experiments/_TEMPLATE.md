@@ -1,3 +1,8 @@
+---
+title: "Experiment — <name>"
+tags: [experiment]
+---
+
 # Experiment — <name>
 
 **Created:** YYYY-MM-DD · **Status:** design | running | done | killed
@@ -45,3 +50,8 @@ uv run python scripts/<name>.py --seed 42 --config configs/<name>.json
 ## Interpretation
 
 <What the evidence licenses — and what it does not. Update the hypothesis status and `../learnings.md`.>
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

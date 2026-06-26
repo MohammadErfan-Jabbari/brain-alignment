@@ -1,3 +1,8 @@
+---
+title: "Literature"
+tags: [literature]
+---
+
 # Literature
 
 Self-contained copies of the papers actually read for this thesis. The organized map (which paper
@@ -26,3 +31,8 @@ zhang-2025 (AlignDistil), zhou-2022 (MetaDistil), jia-2024.
 
 - Language-fMRI datasets and their power (Pereira, Narratives, LeBel, Fedorenko).
 - Any 2026 brain-alignment-for-compression work — confirm the gap is still open.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

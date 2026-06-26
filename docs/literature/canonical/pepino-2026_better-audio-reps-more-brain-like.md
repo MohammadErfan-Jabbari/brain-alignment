@@ -1,3 +1,9 @@
+---
+title: "Better audio representations are more brain-like: linking model-brain alignment with performance in…"
+tags: [literature]
+aliases: [pepino-2026_better-audio-reps-more-brain-like]
+---
+
 # Better audio representations are more brain-like: linking model-brain alignment with performance in downstream auditory tasks
 
 **Authors:** Leonardo Pepino; Pablo Riera; Juan Kamienkowski; Luciana Ferrer
@@ -111,3 +117,8 @@ The paper's own discussion raises the most critical open question for our thesis
 ## Read Date
 
 2026-06-10
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

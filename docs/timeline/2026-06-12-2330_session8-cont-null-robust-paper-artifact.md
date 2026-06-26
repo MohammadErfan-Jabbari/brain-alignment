@@ -1,3 +1,8 @@
+---
+title: "Session 8 (continuation) — per-individual null robustified across all axes; manuscript completed as…"
+tags: [timeline]
+---
+
 # Session 8 (continuation) — per-individual null robustified across all axes; manuscript completed as an artifact
 
 **Date:** 2026-06-12 · **Mode:** working → analysis (long autonomous `/goal` run) · **Cost:** ~$1217 (authorized)
@@ -29,3 +34,8 @@ The thinking panel corrected **three** of my own overclaims this session: E005 p
 Experimental program **complete and panel-bounded**; per-individual null **robust across light/heavy LoRA, MSE/contrastive, ROI/voxelwise**. Manuscript artifact-complete + gate-READY. Everything captured to gbrain (`projects/brain-alignment-s8-paper-artifact-complete`).
 
 **Two genuine decision points remain for Erfan:** (1) confirm the ladder flip (experimental program complete → write-up); (2) choose between submitting v0.9 (measurement-validity contribution) and committing a fresh session to the one untested door — full-FT (not a distillation readout) on multi-subject naturalistic voxelwise targets (denizenslab n=6; mechanism evidence suggests likely-null but it's the only path that could move the verdict).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

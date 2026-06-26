@@ -1,3 +1,9 @@
+---
+title: "MiniLM: Deep Self-Attention Distillation for Task-Agnostic Compression of Pre-Trained Transformers"
+tags: [literature]
+aliases: [wang-2020_minilm-self-attention-distillation]
+---
+
 # MiniLM: Deep Self-Attention Distillation for Task-Agnostic Compression of Pre-Trained Transformers
 
 **Authors:** Wenhui Wang; Furu Wei; Li Dong; Hangbo Bao; Nan Yang; Ming Zhou
@@ -62,3 +68,8 @@ MiniLM's main durable idea is relation-space distillation: comparing scaled dot-
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

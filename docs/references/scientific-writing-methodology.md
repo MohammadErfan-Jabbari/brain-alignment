@@ -1,3 +1,8 @@
+---
+title: "Scientific-writing methodology — the established body of practice"
+tags: [reference]
+---
+
 # Scientific-writing methodology — the established body of practice
 
 Research pass (2026-06-22, `/meta`, S35) for the `/write` + `scientific-writing` redesign. Question Erfan
@@ -90,3 +95,8 @@ line-by-line.** If the structure is right and the floor is clean, the prose is t
 - Whitesides 2004, *Writing a Paper* (Adv. Mater.) — https://www.chemistry.nat.fau.eu/files/2019/07/whitesides.pdf
 - Swales CARS — https://en.wikipedia.org/wiki/CARS_model ; usc.edu writing guide
 - Booth/Colomb/Williams, *The Craft of Research* — book
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,8 @@
+---
+title: "The writing-skills ecosystem — what 11 repos actually implement"
+tags: [reference]
+---
+
 # The writing-skills ecosystem — what 11 repos actually implement
 
 Audit pass (2026-06-22, `/meta`, S35) for the `/write` + `scientific-writing` redesign. Erfan asked: clone the
@@ -236,3 +241,8 @@ The audit confirms the S33 diagnosis and points to a concrete rebuild. Stated as
 
 Source detail for every claim above lives in the sub-agent findings (this session's transcript) and in the named
 repo files under `data/reference-repos/`.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

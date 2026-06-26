@@ -1,3 +1,9 @@
+---
+title: "Joint processing of linguistic properties in brains and language models"
+tags: [literature]
+aliases: [oota-2023_joint-linguistic-processing-brain-lms]
+---
+
 # Joint processing of linguistic properties in brains and language models
 
 **Authors:** Subba Reddy Oota; Manish Gupta; Mariya Toneva  
@@ -58,3 +64,8 @@ Which additional linguistic or discourse properties account for the substantial 
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,8 @@
+---
+title: "Operating map — how to work in this repo"
+tags: [methodology]
+---
+
 # Operating map — how to work in this repo
 
 This is the day-to-day picture of how Erfan and the agent work together. It replaces the old
@@ -63,3 +68,8 @@ process kept out of the reports. **`records/`** is the curated mastery ledger: o
 demonstrably master, written only on demonstrated mastery, never on coverage — and it, not the lessons,
 is re-read on a later session to know what to skip and what to teach next. Four sub-modes: `guided`
 (Socratic crawl, default), `walkthrough` (faster), `feynman` (you teach it back), `drill` (it quizzes you).
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

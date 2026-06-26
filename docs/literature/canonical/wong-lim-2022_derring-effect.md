@@ -1,3 +1,9 @@
+---
+title: "Deliberate Errors Promote Meaningful Learning"
+tags: [literature]
+aliases: [wong-lim-2022_derring-effect]
+---
+
 # Deliberate Errors Promote Meaningful Learning
 
 **Authors / Year / Venue:** Sarah Shi Hui Wong & Stephen Wee Hun Lim / 2022 / *Journal of Educational Psychology* 114(8):1817–1831 (Online First 2021-12-30) · **Link:** https://doi.org/10.1037/edu0000720
@@ -80,3 +86,8 @@ Full 15-page published article read end to end — abstract, full Method/Results
 ## Read Date
 
 2026-06-19
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

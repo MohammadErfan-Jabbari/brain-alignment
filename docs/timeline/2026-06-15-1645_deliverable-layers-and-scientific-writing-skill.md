@@ -1,3 +1,8 @@
+---
+title: "Session 15 — analysis / infrastructure: the three-layer deliverable model + the scientific-writing…"
+tags: [timeline]
+---
+
 # Session 15 — analysis / infrastructure: the three-layer deliverable model + the scientific-writing skill
 
 **Date:** 2026-06-15 · **Mode:** ANALYSIS / INFRASTRUCTURE (no new evidence; no rung changed). Began as an analysis session (resume R05) and pivoted, at Erfan's direction, to building the writing system that the analysis week will run on.
@@ -30,3 +35,8 @@
 - **Brain mirror:** D035 warrants a gbrain `put_page` to `projects/brain-alignment`; deferred to conserve this (very long) session's budget, flagged for the next session start.
 - **Git:** 8 atomic commits, tree clean except two pre-existing untracked items (`docs/manuscript/latex/` coursework templates; `untitled.md` scratch, harmless).
 - **Open loop:** the original analysis task (R05 §9) is still pending; the writing system is now in place to do it well.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

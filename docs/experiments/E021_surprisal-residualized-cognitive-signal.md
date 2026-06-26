@@ -1,3 +1,9 @@
+---
+title: "Experiment E021 — surprisal-residualized cognitive-signal auxiliary training (the keystone, T1.3)"
+tags: [experiment]
+aliases: [E021]
+---
+
 # Experiment E021 — surprisal-residualized cognitive-signal auxiliary training (the keystone, T1.3)
 
 **Created:** 2026-06-17 · **Status:** RESOLVED — **CLEAN NULL on cognition (v5, panel-driven, 2026-06-18).** Surprisal-orthogonality NULL (raw≈residual). The RT edge over learnability-matched controls (the v4 below-trend gap) is REAL but is **signal SHAPE, not cognition**: a phase-randomized twin carrying RT's autocorrelation (lag-1 ~0.62) + heavy-tailed marginal (kurtosis ~13) but ZERO behavioral content TIES the residual (172.1 vs 177.4, +5.3 [−7.9,+18.5]) — a content-free shape twin reproduces the whole advantage. So human reading time carries no cognition-specific trainable structure beyond its statistical shape. Matches H1 + Deng'24 + BabyLM. NO rung flip.**
@@ -161,3 +167,8 @@ The v4 below-trend gap is **real but mis-attributed.** A thinking panel (counter
 **What this IS (the positive framing of a negative):** a clean cross-modal extension of the E008/E004 line — *cognitive/behavioral signals buy nothing beyond generic word-aligned regularization, and the LM's own surprisal already subsumes the predictable part* — now shown on **behavioral reading-time** data, not just fMRI. This **strengthens the Path-A negative paper** (the matched-control thesis, now multi-modal). The main-track *positive* the keystone hoped for did not appear.
 
 **Decisive finishing control (both panels):** a pure **log-frequency** aux arm. If it also beats permuted/random (it will, per DPI/mechanism), cognition is definitively excluded. Cheap; verdict-confirming, not verdict-changing. **Status: exploratory** (post-lock metric switch + the bug both forbid "promotable"). **No rung flipped — Erfan adjudicates the strategic use of this negative.**
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

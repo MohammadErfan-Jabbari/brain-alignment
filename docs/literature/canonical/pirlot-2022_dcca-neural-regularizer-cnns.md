@@ -1,3 +1,9 @@
+---
+title: "Improving the Accuracy and Robustness of CNNs Using a Deep CCA Neural Data Regularizer"
+tags: [literature]
+aliases: [pirlot-2022_dcca-neural-regularizer-cnns]
+---
+
 # Improving the Accuracy and Robustness of CNNs Using a Deep CCA Neural Data Regularizer
 
 **Authors:** Cassidy Pirlot; Richard C. Gerum; Cory Efird; Joel Zylberberg; Alona Fyshe
@@ -91,3 +97,8 @@ For text LMs, does real fMRI structure outperform distributional-statistics-only
 ## Read Date
 
 2026-06-10
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

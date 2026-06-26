@@ -1,3 +1,8 @@
+---
+title: "S20 — E003 record-provenance repair (working; provenance-only, no science changed)"
+tags: [timeline]
+---
+
 # S20 — E003 record-provenance repair (working; provenance-only, no science changed)
 
 **Date:** 2026-06-17 · **Session:** S20 · **Branch:** main · **Mode:** working
@@ -69,3 +74,8 @@ analysis-lane edit (handoff text produced this session). Not edited from this wo
 
 Analysis lane: R08 (Q2 — the lever is real but weak and ppl-confounded), or the extended manuscript.
 Working lane has no queued decisive work (forward program complete).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,8 @@
+---
+title: "Timeline — 2026-06-11 13:03 — Session 7: the lever (E004), powered A2 (E006), and F1 confirmed…"
+tags: [timeline]
+---
+
 # Timeline — 2026-06-11 13:03 — Session 7: the lever (E004), powered A2 (E006), and F1 confirmed in-domain (E005)
 
 **Mode:** working (Design → Run → Judge, three full cycles). **Branch:** main. **Autonomous** (long `/goal` run). **Commits:** `888b446` → `7a1375c` (14 atomic commits).
@@ -38,3 +43,8 @@ This session built the keystone (`$\mathcal{L}_{\text{brain}}$`) and climbed thr
 - **Tooling:** background `nohup &` jobs aren't harness-tracked (used `run_in_background` waiter loops to get completion notifications). LoRA needed (full-FT collapses ppl).
 - **Doc consistency:** feghhi-2024/hadidi-2024 duplicate (same paper) and the E004→E005 headline rename need a sweep (logged in tasks + ladder). Ladder is the source of truth and is current.
 - **Verdict integrity:** all three rung flips Erfan-confirmed (D015). Raw evidence (`outputs/E00{4,5,6}_*.json`, gitignored) separate from interpretation.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

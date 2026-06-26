@@ -1,3 +1,9 @@
+---
+title: "Fine-Grained Analysis of Brain-LLM Alignment through Input Attribution"
+tags: [literature]
+aliases: [proietti-2025_brain-llm-alignment-input-attribution]
+---
+
 # Fine-Grained Analysis of Brain-LLM Alignment through Input Attribution
 
 **Authors:** Michela Proietti; Roberto Capobianco; Mariya Toneva
@@ -171,3 +177,8 @@ The Proietti et al. finding offers a plausible mechanism for the E005 F1 result 
 Full PDF extracted with pdftotext from arXiv:2510.12355v1 PDF (5.9 MB, downloaded 2026-06-11). Main paper pages 1–9 read in full. Appendices A (Methods: A.1 dataset details, A.2 model descriptions, A.3 attribution formulas, A.4 brain activity prediction pipeline), B (layer selection), C (masking sanity check), D (MRH replication: D.1 IoU, D.2 spread, D.3 positional), E (IG validation: E.1 linguistic features, E.2 positional patterns), F (full positional results: F.1 t=10% CoM, F.2–F.5 per-model distributions), G (best-aligned model), H (Qwen2-1.5B control), I (short-context Llama oscillation control), J (compute details) all read. No parse failures; text extraction was clean. Key numbers (IoU ≈ 0.16 at t=10%, IoU > 0.80 at t=98%, AUC significance p < 0.001 BH-corrected) confirmed directly from text. Code at https://github.com/michelaproietti/Brain-LLM-Alignment-Attribution.
 
 Read date: 2026-06-11
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

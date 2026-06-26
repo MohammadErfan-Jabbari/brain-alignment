@@ -1,3 +1,9 @@
+---
+title: "Instruction-tuned large language models misalign with natural language comprehension in humans"
+tags: [literature]
+aliases: [gao-2024_scaling-not-instruction-brain-alignment]
+---
+
 # Instruction-tuned large language models misalign with natural language comprehension in humans
 
 **Authors:** Changjiang Gao; Zhengwu Ma; Jiajun Chen; Ping Li; Shujian Huang; Jixing Li
@@ -62,3 +68,8 @@ For brain-alignment use cases in naturalistic reading, this source supports a "s
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

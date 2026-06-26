@@ -1,3 +1,9 @@
+---
+title: "R01 — The mapping between LLM internals and brain activation"
+tags: [report]
+aliases: [R01]
+---
+
 # R01 — The mapping between LLM internals and brain activation
 
 **Last updated:** 2026-06-10
@@ -211,3 +217,8 @@ These are flagged so the next working session knows where to dig. Nothing here i
 | Similarity metric (CKA) | Kornblith 2019 | `kornblith-2019_cka-similarity-representations` |
 
 **Not yet in `canonical/` (digest, then update this report):** Merlin & Toneva 2026; LeBel 2023.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

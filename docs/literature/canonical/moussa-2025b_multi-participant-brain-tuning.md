@@ -1,3 +1,9 @@
+---
+title: "Brain-tuning Improves Generalizability and Efficiency of Brain Alignment in Speech Models"
+tags: [literature]
+aliases: [moussa-2025b_multi-participant-brain-tuning]
+---
+
 # Brain-tuning Improves Generalizability and Efficiency of Brain Alignment in Speech Models
 
 **Authors:** Omer Moussa; Mariya Toneva
@@ -116,3 +122,8 @@ VERDICT: **CORRECT** for the numbers, but with an important precision note on wh
 ## Read Date
 
 2026-06-10
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

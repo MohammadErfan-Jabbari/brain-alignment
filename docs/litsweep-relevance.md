@@ -1,3 +1,8 @@
+---
+title: "Literature-Sweep Relevance Taxonomy — what counts as related, and how hard to read it"
+tags: [reference]
+---
+
 # Literature-Sweep Relevance Taxonomy — what counts as related, and how hard to read it
 
 **Purpose.** The "what to look for" half of the conference sweep (P3). The `conference-scout` tooling fetches venue paper lists + abstracts; this file defines which titles/abstracts are *relevant to this thesis*, biased toward the gaps the idea tree wants filled, plus the digest-priority rubric so reading effort is spent where it pays. Judge on **title AND abstract**, never title alone (Erfan's explicit instruction). Dedupe every hit against the 40 canonical notes in `docs/literature/canonical/` before queuing a digest.
@@ -31,3 +36,8 @@ Cap Tier-1 digests per sweep batch and `log()` what was dropped to Tier 2/3 — 
 
 ## Output of the sweep
 A ranked candidate index per venue/year (`data/papers/litsweep/INDEX.jsonl`: {venue,year,title,abstract,cluster_hits,embed_score,tier,dedupe_match}), and Tier-1 survivors handed to `paper-digest` → new canonical notes → new nodes/edges in `docs/idea-tree.md`. Every new node records the paper that spawned it.
+
+
+## Related
+- [`ladder.md`](./ladder.md) — the canonical status board
+- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,9 @@
+---
+title: "AlignDistil: Token-Level Language Model Alignment as Adaptive Policy Distillation"
+tags: [literature]
+aliases: [zhang-2025_aligndistil-token-level-policy-distillation]
+---
+
 # AlignDistil: Token-Level Language Model Alignment as Adaptive Policy Distillation
 
 **Authors:** Songming Zhang; Xue Zhang; Tong Zhang; Bojie Hu; Yufeng Chen; Jinan Xu
@@ -62,3 +68,8 @@ AlignDistil's key move is to treat alignment as teacher-distribution shaping at 
 ## Read Date
 
 2026-03-02
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

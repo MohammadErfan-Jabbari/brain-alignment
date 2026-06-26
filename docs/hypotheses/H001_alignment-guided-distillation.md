@@ -1,3 +1,9 @@
+---
+title: "Hypothesis H001 — Alignment-guided distillation retains neural predictivity under compression"
+tags: [hypothesis]
+aliases: [H001]
+---
+
 # Hypothesis H001 — Alignment-guided distillation retains neural predictivity under compression
 
 **ID:** H001
@@ -63,3 +69,8 @@ language utility.
 |---|---|
 | 2026-02-27 | Created from Nexus Wave-5 Stage-3 simulation. |
 | 2026-06-08 | Ported into this repo; reframed A1/A2/A3 dependence; sibling hypotheses noted. |
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

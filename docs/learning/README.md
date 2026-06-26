@@ -1,3 +1,8 @@
+---
+title: "The learning workspace"
+tags: [learning]
+---
+
 # The learning workspace
 
 This directory is the memory and working surface of the `/teach` stance, in two layers:
@@ -17,3 +22,8 @@ This directory is the memory and working surface of the `/teach` stance, in two 
 Raw process (`lessons/`) stays separate from curated mastery (`records/`) — the repo's raw-vs-interpreted
 discipline. `thesis-arc-checklist.md` is the prior whole-thesis comprehension tracker, kept for history.
 This README is not a record.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,8 @@
+---
+title: "S25 — 2026-06-18 (working session): critique panel on Q2–Q4, Q2 recompute, Q3/Q4 pre-compute gates"
+tags: [timeline]
+---
+
 # S25 — 2026-06-18 (working session): critique panel on Q2–Q4, Q2 recompute, Q3/Q4 pre-compute gates
 
 **Mode:** working. **Trigger:** Erfan — run the critique panel on Q2/Q3/Q4 and finalize, per rung, whether we need
@@ -147,3 +152,8 @@ call.** ZuCo 1.0 clone running (has task3-TSR so far; NR/SR later) — useful re
 ## Cost / process note
 ~$15+ session; server crashed once under the ZuCo-1.0 full-clone I/O load. Heavy downloads should be scoped + foreground.
 The "all-night autonomous" frame met reality: Q3/Q4 are multi-day supervised builds, gated not rushed (rigor-before-compute, S8).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

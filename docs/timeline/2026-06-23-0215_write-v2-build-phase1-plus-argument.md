@@ -1,3 +1,8 @@
+---
+title: "2026-06-23 — /write pipeline BUILD: Phase-1 walking skeleton (C1–C8) + P2-A (Argument concern)"
+tags: [timeline]
+---
+
 # 2026-06-23 — /write pipeline BUILD: Phase-1 walking skeleton (C1–C8) + P2-A (Argument concern)
 
 **Stance:** `/meta` (build the apparatus). **NO experiment, NO science number, NO rung change — Q0–Q5 stand
@@ -56,3 +61,8 @@ otherwise write prose at stage 3 and bypass the gate).
 ## Ladder
 Unchanged. This is a `/meta` apparatus build; no rung flips, Q0–Q5 stand. The live science next-step
 (Q4 sample-efficiency E024) is unchanged.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

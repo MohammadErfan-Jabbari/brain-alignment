@@ -1,3 +1,9 @@
+---
+title: "Mind Your Errors: Evidence for a Neural Mechanism Linking Growth Mind-Set to Adaptive Posterror…"
+tags: [literature]
+aliases: [moser-2011_growth-mindset-error-processing]
+---
+
 # Mind Your Errors: Evidence for a Neural Mechanism Linking Growth Mind-Set to Adaptive Posterror Adjustments
 
 **Authors / Year / Venue:** Jason S. Moser, Hans S. Schroder, Carrie Heeter, Tim P. Moran, Yu-Hao Lee / 2011 / *Psychological Science* 22(12):1484–1489 · **Link:** https://doi.org/10.1177/0956797611419520 (PMID 22042726)
@@ -73,3 +79,8 @@ This is **apparatus grounding for the agent's own `/teach` stance — NOT thesis
 ## Read Date
 
 2026-06-19 (abstract-only) → **full text read first-hand 2026-06-20** (publisher PDF supplied by Erfan; all `\gap` numbers filled).
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,8 @@
+---
+title: "S28 — Pedagogy `\gap` papers ingested (the /teach grounding completed)"
+tags: [timeline]
+---
+
 # S28 — Pedagogy `\gap` papers ingested (the /teach grounding completed)
 
 **Date:** 2026-06-20 · **Stances:** `/orient` (open) → `/meta` (dominant; scout pipeline run under it) ·
@@ -84,3 +89,8 @@ REQUIRES-ERFAN): Moser "497 ms" → "496 ms" (496.34 rounds to 496); OLM-2025 "F
 primary source); errorful-learning Provenance still called B&M 2001 + Moser 2011 `\gap` (now closed) →
 updated. Everything else PASS — all numbers trace, cross-refs resolve, both corrections consistent across
 notes, no D011 violation.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,8 @@
+---
+title: "/write redesign — G1 build plan: the RUB-grading harness (the P3 blocker)"
+tags: [reference]
+---
+
 # /write redesign — G1 build plan: the RUB-grading harness (the P3 blocker)
 
 **Status: BUILD-READY** (hardened across 2 opus `oracle-reviewer` rounds: round 1 HOLD → 5 must-fixes + 3
@@ -172,3 +177,8 @@ anchors / advisory elsewhere**; the four grading mechanisms are settled. Remaini
 - **Cost note:** grading ~90 RUB scenarios = ~90 live judge spawns per full suite run. Fine for a P3 gate run, but
   worth knowing it is not free to re-run casually. (DET stays instant.)
 ```
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

@@ -1,3 +1,8 @@
+---
+title: "/write redesign — source index"
+tags: [reference]
+---
+
 # /write redesign — source index
 
 The canonical context for the `/write` redesign. Point every subagent here as its source set. Eight asset groups.
@@ -45,3 +50,8 @@ The canonical context for the `/write` redesign. Point every subagent here as it
 ---
 **Working artifact:** `docs/references/write-redesign-design.html` — the living design canvas (ideal system first,
 then projected to Claude Code reality).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

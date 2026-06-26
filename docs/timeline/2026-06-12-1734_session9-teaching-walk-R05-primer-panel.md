@@ -1,3 +1,8 @@
+---
+title: "Session 9 — analysis: teaching-walk (Layer 0→1), concepts primer, R05 living narrative, panel + doc…"
+tags: [timeline]
+---
+
 # Session 9 — analysis: teaching-walk (Layer 0→1), concepts primer, R05 living narrative, panel + doc audit
 
 **Date:** 2026-06-12 · **Mode:** ANALYSIS (consume/communicate evidence; no new science, no ladder rung change) · **Cost:** ~$80 (authorized)
@@ -39,3 +44,8 @@ First-principles agent verdict on §2: **GROUNDED-WITH-CAVEAT** — the two load
 
 ## State at close
 Experimental program still complete/Fork-B; manuscript v0.9 unchanged. Two new durable analysis docs (primer, R05) + the teaching checklist. The walk reached Layer 1; next analysis step = Layer 3 (E005 collapse), which is also R05 §9. **No rung flipped — analysis session.** Working tree clean; ~9 atomic commits.
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

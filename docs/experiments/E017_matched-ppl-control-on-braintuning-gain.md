@@ -1,3 +1,9 @@
+---
+title: "Experiment — E017 (I2): the matched-perplexity control on a REPRODUCED brain-tuning gain"
+tags: [experiment]
+aliases: [E017]
+---
+
 # Experiment — E017 (I2): the matched-perplexity control on a REPRODUCED brain-tuning gain
 
 **Created:** 2026-06-13 · **Status:** DESIGN (locked before run; oracle gate pending) · **Mode:** working (autonomous)
@@ -53,3 +59,8 @@ Ran the feasibility gate, then red-teamed it, then powered it (`outputs/E017_mat
 **Reading (predeclared FAIL branch):** full-FT — the last untested *induction method* on the LeBel substrate — **fails like the LoRA readout did** (E013), converging with E011 (capacity-invariant), E013b (objective-invariant), E008 (per-individual null). The lever failure is **method-general, not parameterization-specific**. → **KILL the LeBel-encoding/readout induction route.** The matched-ppl-control *contribution* (I2's intent) is **banked where it actually lives: E009 (downstream matched-ppl + permuted-twin bounded null) + E015/I1 (the cross-family quality→alignment law).** E017 adds the confirmed negative that full-FT joins LoRA in failing.
 **Honest caveats:** (1) n=3 LeBel = a per-subject existence probe (L021/L024), MDE-limited — but the point estimate is ~0 with manip_ok mostly False (full-FT doesn't even beat vanilla), not a power-limited "trending positive"; (2) the sole *still-untested* induction variant is **multi-subject naturalistic n≥5 (denizenslab — I3, data-blocked)**, and TRIBE-synthetic targets (I4). (3) Thinking-panel note: the gentle-config→powered sequence WAS the adversarial verify-then-address loop (it caught and resolved the forgetting-artifact objection empirically); given this is the 5th converging null with a clean CI/p, the full fable panel was not spun up — a cost-aware call, recorded for transparency.
 **Status: COMPLETE (null). Not a Fork-A surprise → no Erfan stop required. No rung flips** (E013/Q3 already ❌; this reinforces it). **I3 stays data-blocked → proceed to I4/TRIBE** (the genuinely novel remaining induction-ceiling program).
+
+
+## Related
+- [`ladder.md`](../ladder.md) — the canonical status board
+- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

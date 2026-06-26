@@ -1,3 +1,9 @@
+---
+title: "Improving Students' Learning With Effective Learning Techniques: Promising Directions From…"
+tags: [literature]
+aliases: [dunlosky-2013_effective-learning-techniques]
+---
+
 # Improving Students' Learning With Effective Learning Techniques: Promising Directions From Cognitive and Educational Psychology
 
 **Authors / Year / Venue:** John Dunlosky, Katherine A. Rawson, Elizabeth J. Marsh, Mitchell J. Nathan, Daniel T. Willingham / 2013 / *Psychological Science in the Public Interest* 14(1):4–58 · **Link:** https://doi.org/10.1177/1529100612453266
@@ -86,3 +92,8 @@ Full monograph read from the WKU mirror PDF (`wku.edu/senate/documents/improving
 ## Read Date
 
 2026-06-19
+
+
+## Related
+- [`ladder.md`](../../ladder.md) — the canonical status board
+- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map
