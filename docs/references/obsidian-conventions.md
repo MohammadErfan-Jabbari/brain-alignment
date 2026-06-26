@@ -6,112 +6,102 @@ aliases: [obsidian-conventions, markdown-conventions, vault-conventions]
 
 # Obsidian & Markdown Conventions — the container layer
 
-**This is the canonical spec for how every `.md` file in this repo is *structured*.** It is the
-*container*; the *prose body* of reports and manuscripts is owned by `/write` (the `sci-write-v2`
-pipeline). The rule of thumb:
+**The canonical spec for how every `.md` file in this repo is *structured*.** The repo is at once a
+**GitHub repo** (remote `origin`) and an **Obsidian vault**; every file must render correctly in
+*both*. This file governs the *container* (naming, frontmatter, links, formatting, layout). The
+*prose body* of reports and manuscripts is owned by `/write` (the `sci-write-v2` pipeline).
 
-> **Structure from these conventions; words from `/write`.** Frontmatter, links, tags, callouts and
-> hub layout follow this file. The scientific argument, the claim↔evidence binding, the `[E0nn]`
-> cites and every number follow `/write` and its hooks. The two never overlap.
+> **Structure from these conventions; words from `/write`.** The two never overlap. `.tex` files are
+> LaTeX, not Markdown — these conventions do not apply to them (only `/write` does).
 
-`.tex` files are LaTeX, not Markdown — these conventions do **not** apply to them (only `/write` does).
+When writing or editing any `.md` file, follow the numbered rules below. The do/don't checklist at the
+end is the fast reference. Obsidian syntax questions route to the `obsidian-*` skills (`obsidian-markdown`,
+`obsidian-bases`, `json-canvas`, `obsidian-cli`, `defuddle`) — but **this spec overrides the skill's
+wikilink default** (§4).
 
-## Why these and not the Obsidian defaults
+---
 
-The repo is simultaneously a **GitHub repo** (remote `origin`) and an **Obsidian vault**. Everything
-here must render correctly in *both*. That forces one deliberate override of the `obsidian-markdown`
-skill:
+## 1. File naming
 
-- **Internal links are standard Markdown `[text](path.md)`, NOT `[[wikilinks]]`.** The skill
-  recommends wikilinks for in-vault links; we reject that because `[[ ]]`, `![[ ]]` embeds and
-  `^block-refs` render as literal junk on GitHub. **Standard Markdown links create Obsidian graph
-  edges exactly like wikilinks do** — so we lose nothing in the graph and keep GitHub clean. (Proof:
-  `data/reference-repos/awesome-llm-apps` is 100% standard Markdown and lights up perfectly in the
-  graph.)
+- Lowercase, hyphen-separated slugs: `04-data-benchmarks.md`, `oota-2024_speech-lms-lack-brain-semantics.md`.
+- Code-system files carry their flat ID as the prefix: `E008_*.md`, `R07_*.md`, `H001_*.md`, and the decision/learning logs (`decisions/decisions.md`, `learnings.md`) hold `D`/`L` entries as in-file sections.
+- **Zero-pad to the prefix's established width** (`E`/`H` = 3 digits, `R` = 2 digits). Do not renumber existing files; just match the width when adding one. *(Known inconsistency: `R` is 2-digit while `E`/`H` are 3 — kept as-is to avoid breaking refs; flagged, not fixed.)*
+- Filenames are the Obsidian graph node label, so they must be self-describing.
 
-We adopt the rest of the skill's syntax knowledge (frontmatter/properties, tags, callouts, math,
-mermaid). For Obsidian syntax questions, route to the `obsidian-*` skills:
-
-| Need | Skill |
-|---|---|
-| Markdown syntax / formatting | `obsidian-markdown` |
-| Database / table views over notes | `obsidian-bases` |
-| Visual canvas boards | `json-canvas` |
-| Driving the Obsidian app from the shell | `obsidian-cli` |
-| Web page → clean Markdown | `defuddle` |
-
-## 1. Frontmatter (every `.md` file)
-
-Every doc opens with YAML frontmatter:
+## 2. Frontmatter (every tracked `.md`, except the exemptions in §11)
 
 ```yaml
 ---
-title: <human-readable title>
-tags: [<rung?>, <type>]
+title: "<human-readable title>"
+tags: [<type>, <rung?>]
 aliases: [<code handle>, <nickname>]
 ---
 ```
 
-- **`title`** — the human title (Obsidian shows it; node label stays the filename).
-- **`tags`** — from the controlled vocabulary below. Powers the tag pane, filtered search, and graph
-  colour groups.
-- **`aliases`** — **the code-system handle goes here** (`R07`, `E017`, `D048`, `Q2`) plus any
-  nickname. This makes the `Qn/Ennn/Dnnn/Lnnn` codes searchable and link-resolvable in Obsidian
-  without linkifying every inline mention.
+- **Key order is fixed:** `title`, `tags`, `aliases`. Nothing else unless a rule adds it.
+- **`title`** — concise human title (≤ ~100 chars). Not the whole H1 sentence.
+- **`tags`** — from the controlled vocabulary only:
+  - **type** (exactly one, required): `report` `experiment` `decision` `learning` `reference` `manuscript` `dataset` `literature` `timeline` `methodology` `hypothesis` `charter`
+  - **rung** (optional, when the doc is *about* one rung): `Q0`–`Q5`. Kept in `tags` intentionally so the graph can colour by rung.
+- **`aliases`** — the code handle (`R07`, `E008`, `oota-2024`) plus any nickname, so the code system and paper keys resolve in search.
+- No synonym tags, no one-off tags outside the vocab.
 
-## 2. Controlled tag vocabulary
+## 3. Prose formatting
 
-Keep it small and exact (one handle per concept — no synonyms).
+- **One physical line per paragraph** (and per bullet, per table row). Let the editor soft-wrap. **Never hard-wrap a paragraph across multiple short lines** — hard wraps make diffs noisy and re-flow as broken double-spaced text. *(This is the single most violated rule by the `paper-digest` agent output — fix on touch.)*
+- **No em-dashes** (`—` or the spaced ` — `) in new prose, per the global voice rule: use commas, parentheses, or separate sentences. The report/manuscript hook already enforces this. *(Existing docs predate the rule and carry ~4.9k uses; a repo-wide cleanup is a separate decision, not automatic.)*
+- One blank line between blocks; a single trailing newline at EOF; **no trailing whitespace** (a trailing double-space is a stray markdown hard-break).
 
-- **Rung** (when the doc is about one): `Q0` `Q1` `Q2` `Q3` `Q4` `Q5`
-- **Type** (always one): `report` `experiment` `decision` `learning` `reference` `manuscript`
-  `dataset` `literature` `timeline` `methodology` `hypothesis` `charter`
+## 4. Links — link every reference; never a bare path
 
-Example — a report on Q1: `tags: [Q1, report]`. An experiment record: `tags: [experiment, Q3]`.
+**The core rule: if you mention another file, doc, experiment, decision, or paper that has a page in this repo, make it a link.** A path or title in plain backticks is dead text — it is *not* clickable in either tool and defeats the vault.
 
-## 3. Links — the standard-Markdown rule
+- ❌ `` see `04-data-benchmarks.md` `` &nbsp;&nbsp; ❌ `` `decisions/decisions.md` `` &nbsp;&nbsp; ❌ "Anchors: Oota 2026"
+- ✅ ``see [`04-data-benchmarks.md`](../04-data-benchmarks.md)`` &nbsp;&nbsp; ✅ `[Oota et al., 2026](../literature/canonical/oota-2026_brain-encoding-scale-compression.md)`
 
-- A cross-reference to another file is a **real relative link**, never bare backticked text.
-  - ❌ `` see `ladder.md` ``
-  - ✅ ``see [`ladder.md`](../ladder.md)`` (backticks inside the link keep the monospace look and
-    render as a clickable link in both GitHub and Obsidian)
-- Paths are **relative to the current file**. A link from `docs/reports/R07.md` to the ladder is
-  `[`ladder.md`](../ladder.md)`.
-- **Do not linkify the dense inline code tokens** (every `Q2`, `E017`, `D048` in prose). That is
-  noise and churn. The graph connects through **hubs + the "Related" footer** (§5), and the codes
-  resolve through **aliases** (§1). Linkify only: (a) hub→child links, (b) the "Related" footer, (c)
-  the first/defining mention of another doc in prose where a reader would click.
-- **`[E0nn]` evidence cites stay verbatim.** They are a `/write` content convention bound to the
-  honesty hook — never rewrite them into links.
+Rules:
+1. **Internal links are standard Markdown `[text](relative/path.md)`, never `[[wikilinks]]`.** Standard links create Obsidian graph edges exactly like wikilinks *and* stay clickable on GitHub; wikilinks render as literal junk on GitHub. (Proof: `data/reference-repos/awesome-llm-apps` is 100% standard Markdown and the graph is fully connected.)
+2. **Paths are relative to the current file** (`../experiments/E008_*.md` from a report). Verify the target exists.
+3. **Evidence cites are clickable:** `[E003]` → `[E003](../experiments/E003_*.md)`. The `[E003]` form is preserved (the honesty checker matches it regardless of the trailing `(path)`), so the cite still validates *and* navigates.
+4. **Literature citations link to the canonical note on first mention** in a doc: `[Negi et al., 2025](../literature/canonical/negi-2025_*.md)`. A "Surname YYYY" mention left bare when the canonical note exists is a defect.
+5. **First meaningful mention per doc** gets the link (plus links in tables, lists, and the `## Related` footer). Don't linkify every one of dozens of inline repeats — that is a wall of links. Backticks remain correct for true non-navigable literals (a shell command, a config key, a filename with no page).
+6. **Never link a bare `folder/`** as a navigation target — it's a dead click in Obsidian. Link to the folder's index note (`[experiments](../experiments/README.md)`) or leave it as plain text if no index exists.
+7. External URLs are normal Markdown links; never bare URLs.
 
-## 4. Callouts — the 5 cross-compatible types only
+## 5. Callouts — the 5 cross-compatible types only
 
-GitHub and Obsidian share exactly five alert types. Use only these (case-insensitive):
+`> [!NOTE]` `> [!TIP]` `> [!IMPORTANT]` `> [!WARNING]` `> [!CAUTION]` (case-insensitive) render in both tools. **Banned:** every other type (`[!info]`, `[!question]`, …) and the foldable `-`/`+` suffix (Obsidian-only; degrade to plain blockquotes on GitHub).
 
-```markdown
-> [!NOTE]
-> ...
-> [!TIP]
-> ...
-> [!IMPORTANT]
-> ...
-> [!WARNING]
-> ...
-> [!CAUTION]
-> ...
-```
+## 6. Tables
 
-**Banned** (Obsidian-only — degrade to plain blockquotes on GitHub): every other callout type
-(`[!info]`, `[!question]`, `[!example]`, …) and the foldable `-`/`+` suffix.
+- Every row's cell count must equal the header's. **Escape literal pipes inside a cell as `\|`** (an unescaped `|` — common in a command or a `→|` config string — silently breaks the table on GitHub).
+- Blank line before and after the table.
+- Status glyphs (✅/❌/🟡) inside table *cells* are fine and load-bearing.
 
-## 5. Hub notes and the "Related" footer
+## 7. Headings
 
-The connected graph comes from this pattern (the same one that centres `awesome-llm-apps`):
+- **Exactly one H1** per file, matching the title intent; the rest nest without skipping levels.
+- **No emoji or decorative glyphs in headings** — they leak into the auto-generated anchor slug and make in-doc links fragile. Carry status as a trailing plain token if needed (`## Addendum (caution)`).
+- Sentence case for scientific titles; no trailing `.`/`!` on a heading.
 
-- **`map.md`** is the master hub — the graph centre. It links to the main docs.
-- **Every `README.md`** is its folder's hub: it links down to the notable files in that folder.
-- **Every substantive note ends with a `## Related` footer** linking *up* to its hub and *across* to
-  its key siblings:
+## 8. Lists & whitespace
+
+- **One bullet marker repo-wide: `-`.** No `+` or `*` for unordered lists.
+- Ordered lists and task lists are standard GFM.
+- No raw HTML for content that must render in both tools (`<details>` does not collapse in Obsidian; a literal `<placeholder>` can be eaten as an unknown tag). Use plain Markdown; for a template placeholder use a backtick literal.
+
+## 9. Banned everywhere (GitHub-incompatible)
+
+`[[wikilinks]]` · `![[embeds]]` (use `![alt](path.png)`) · `^block-refs` · `%%comments%%` · `==highlight==` · Obsidian-only callouts (§5) · raw HTML for load-bearing content (§8).
+
+Allowed and cross-compatible: standard Markdown, GFM tables/task-lists/footnotes, fenced code, `$LaTeX$` math, ` ```mermaid ` diagrams, the 5 alerts, YAML frontmatter.
+
+## 10. Hub notes and the `## Related` footer
+
+The connected graph comes from this pattern (what centres `awesome-llm-apps`):
+
+- `map.md` is the master hub; every `README.md` is its folder's hub (links down to its notable files).
+- Every substantive note ends with a `## Related` footer linking *up* to its hub and *across* to key siblings:
 
   ```markdown
   ## Related
@@ -119,38 +109,52 @@ The connected graph comes from this pattern (the same one that centres `awesome-
   - [`R06`](R06_alignment-signal-is-real-beyond-confounds.md) — the prior finding
   ```
 
-Hub-down + Related-up is what makes the graph connect, with zero risky edits to prose.
+## 11. Exemptions
 
-## 6. Banned everywhere (GitHub-incompatible)
+These trees are **not** held to the rules above (archival or machine-generated):
 
-- `[[wikilinks]]` and `[[note|alias]]`
-- `![[embeds]]` (use standard `![alt](path.png)` for images)
-- `^block-references`
-- `%%Obsidian comments%%` (invisible on GitHub — use normal prose or HTML comments if truly needed)
-- `==highlight==` (renders literally on GitHub)
-- Obsidian-only callout types and foldable callouts (§4)
+- `docs/literature/_prior-work/` — frozen provenance (the wikilinks / missing frontmatter there are inherent; never edited).
+- `docs/graphify-out/` — generated graph reports (wikilink-heavy by construction).
 
-Allowed and cross-compatible: standard Markdown, GFM tables, task lists, footnotes, fenced code,
-`$LaTeX$` math, ` ```mermaid ` diagrams, the 5 alerts, YAML frontmatter.
+## 12. Tooling
 
-## 7. The `.obsidian/` folder and `.claude` visibility
+`obsidian-linter` (platers) is **app-only — no CLI/headless mode** — so it is not an agent/CI gate; it is a *live formatter inside the Obsidian GUI* you may enable. If you do, set the safe rules (yaml-key-sort, consecutive-blank-lines, heading-blank-lines, blank-lines-around code-fences/tables, `-` list style, line-break-at-EOF) and **disable `yaml-title-alias`** (it injects a private `linter-yaml-title-alias` key into every file's frontmatter on save → git churn) and `capitalize-headings`.
 
-- `.obsidian/` is **tracked in git** (shared view config: `app.json`, `appearance.json`,
-  `core-plugins.json`, `graph.json`, `themes/`). Only `workspace.json` is gitignored (per-machine
-  cursor/pane churn).
-- Obsidian hard-hides any folder starting with `.`, so `.claude` is invisible by default. Three
-  non-dot **symlinks at the repo root** expose the writable apparatus for review:
-  `claude-agents → .claude/agents`, `claude-commands → .claude/commands`,
-  `claude-skills → .claude/skills`. (Regenerate with the one-liner in the repo root if a checkout
-  drops them.) `.claude/state` and `.claude/worktrees` are deliberately *not* exposed (machine state
-  / git worktrees — noise).
+The **agent/CI-runnable stack** (the actual enforcement layer):
 
-## 8. Reports & manuscript — container only, body is `/write`'s
+| Tool | Type | Job |
+|---|---|---|
+| `markdownlint-cli2` | CLI, `--fix` | formatting gate (headings, blank lines, list style, trailing whitespace) |
+| internal link-checker (`scratchpad`/repo script) | Python | every relative `[](*.md)` link resolves (0 broken) |
+| `lychee` | CLI (CI, not pre-commit) | external-URL health |
 
-For `docs/reports/*.md` and `docs/manuscript/`: apply the **container** (frontmatter, hub backlinks,
-a Related footer) but **do not touch the prose body, the `[E0nn]` cites, or any number** outside a
-real `/write` session — those files are guarded by the `honesty_writecheck` + `ai_tell_lint` hooks
-and the signed `sci-write-v2` acceptance suite.
+Do **not** use Prettier — it re-wraps paragraphs, breaking §3.
+
+## 13. The `.obsidian/` folder and `.claude` visibility
+
+- `.obsidian/` is tracked (shared view config: `app.json` forces standard relative links in-app; `graph.json` colour-groups by tag/path; `appearance.json`, `core-plugins.json`, `themes/`). Only `workspace.json` is gitignored.
+- Obsidian hides dotfolders, so `.claude` is exposed via root symlinks `claude-agents → .claude/agents`, `claude-commands → .claude/commands`, `claude-skills → .claude/skills`. `.claude/state` and `.claude/worktrees` are deliberately not exposed.
+
+## 14. Reports & manuscript — container only, body is `/write`'s
+
+For `docs/reports/*.md` and `docs/manuscript/`: the container rules apply (frontmatter, links, hub backlinks, Related footer), but **the prose body, the `[E0nn]` cites' text, and every number are `/write`'s** — change them only in a real `/write` session (they are guarded by the `honesty_writecheck` + `ai_tell_lint` hooks and the signed `sci-write-v2` suite). Making a cite *clickable* (adding the `(path)`) is a container edit and is allowed; rewording or re-citing is not.
+
+---
+
+## Do / Don't quick checklist
+
+| Do | Don't |
+|---|---|
+| `[text](rel/path.md)` for every in-repo reference | bare `` `path.md` `` in backticks |
+| link a paper's first mention to its canonical note | leave "Surname YYYY" unlinked |
+| `[E003](../experiments/E003_*.md)` (clickable cite) | leave `[E003]` as dead text |
+| one physical line per paragraph | hard-wrap a paragraph |
+| `-` for every bullet | mix `-` / `+` / `*` |
+| escape `\|` inside table cells; equal cell counts | unescaped `|` in a cell |
+| plain heading text, one H1 | emoji in headings; multiple H1 |
+| commas / parens / sentences | em-dashes in new prose |
+| link to a folder's `README.md` | link a bare `folder/` |
+| standard Markdown links | `[[wikilinks]]`, `![[embeds]]`, `==highlight==`, `%%comments%%` |
 
 ## Related
 - [`README.md`](../README.md) — the docs map
