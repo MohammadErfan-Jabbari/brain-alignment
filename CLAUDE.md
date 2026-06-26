@@ -82,6 +82,24 @@ lecture PDFs**; the `*_study.md`/`*_OCR.md` notes beat any fresh OCR pass).
 
 **Reports (`docs/reports/`) are written full width — one line per paragraph, no hard wrapping.**
 
+## Markdown & Obsidian conventions (the container layer)
+
+This repo is **both a GitHub repo and an Obsidian vault**, and every `.md` file must render in both.
+All Markdown *structure* follows the canonical spec [`docs/references/obsidian-conventions.md`](docs/references/obsidian-conventions.md):
+YAML frontmatter (`title` / controlled-vocab `tags` / `aliases` carrying the `Qn/Ennn/Dnnn` code
+handle), **standard relative Markdown links — never `[[wikilinks]]`** (they break GitHub; standard
+links make the same Obsidian graph edges), hub-note + `## Related`-footer linking, and **only the 5
+GitHub-compatible callouts** (`[!NOTE] [!TIP] [!IMPORTANT] [!WARNING] [!CAUTION]`). Obsidian syntax
+questions route to the `obsidian-*` skill set (`obsidian-markdown`, `obsidian-bases`, `json-canvas`,
+`obsidian-cli`, `defuddle`) — but the spec **overrides** the skill's wikilink default for the reasons
+above.
+
+**The boundary that matters:** this is the *container*. `/write` (`sci-write-v2`) owns the *prose
+body* of reports/manuscript — the argument, the claim↔evidence binding, the `[E0nn]` cites, every
+number. **Structure from the conventions; words from `/write`.** The two never overlap, and the
+`[E0nn]` cites / numbers are never rewritten into links. (`.tex` files are LaTeX — the Obsidian
+conventions do not apply; only `/write` does.)
+
 ## How we run code
 
 - **Always `uv run`.** This is a minimal uv project (Python 3.11, `.venv/`, `[tool.uv] package=false`

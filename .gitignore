@@ -22,6 +22,11 @@ tmp/
 # OS / editor
 .DS_Store
 
+# Obsidian — track shared vault config, ignore per-machine pane/cursor state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
 # graphify — regenerable knowledge-graph output (build with /graphify)
 graphify-out/
 
