@@ -1,5 +1,6 @@
 {
   "showUnsupportedFiles": true,
+  "alwaysOpenInNewTab": true,
   "useMarkdownLinks": true,
   "newLinkFormat": "relative",
   "alwaysUpdateLinks": true
