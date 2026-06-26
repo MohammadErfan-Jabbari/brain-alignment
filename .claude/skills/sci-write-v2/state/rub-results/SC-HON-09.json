@@ -1,0 +1,1 @@
+{"id": "SC-HON-09", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - scoped to TRIBE, R2+CI+n+contiguous split named, no inflation", "raw": "SCOPE-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "b2c77c75f235"}

@@ -1,0 +1,1 @@
+{"id": "SC-HON-08", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "scope>evidence: full trade-off curve claimed from a single tested lambda", "raw": "SCOPE-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "cf45e2a77dd3"}

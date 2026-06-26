@@ -1,0 +1,1 @@
+{"id": "SC-HON-05", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "prove...absent claims a proven zero from a bounded/underpowered null", "raw": "SCOPE-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "d4b7c4a663a1"}

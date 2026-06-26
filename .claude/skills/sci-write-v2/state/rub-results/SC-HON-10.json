@@ -1,0 +1,1 @@
+{"id": "SC-HON-10", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - target null framing (0-for-5, powered at delta, undemonstrated not ruled out)", "raw": "SCOPE-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "841ce02f29f6"}
