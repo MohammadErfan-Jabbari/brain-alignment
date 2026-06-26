@@ -800,6 +800,16 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 **Amendment (S42, same session, after the P3-readiness premortem).** The premortem flagged that "accept" skipped a cheap middle option between the high-FP auto-judge (rightly rejected) and doing nothing. D051 is amended: the F16 human gate gains a **forcing-function** — enumerate framing/transition sentences carrying an empirical verb (tracks/predicts/improves/outperforms/aligns/generalizes) and force a per-sentence *claim* (→ enter+bind in the lattice) vs *cited-background* (→ citation) tag. This bounds the residual into a human checklist rather than leaving it to unaided noticing. Recorded in the SKILL "Honest limits". Does not change the accept decision; strengthens its backstop.
 
 
+## D052 — the repo is an Obsidian-native vault; markdown conventions are codified and binding — 2026-06-26 (S44, /meta)
+
+**Decision (Erfan-directed).** Make the repo a first-class Obsidian vault while keeping it GitHub-clean, and codify how every `.md` file is written in [`../references/obsidian-conventions.md`](../references/obsidian-conventions.md) (the binding container-layer spec). The repo is now read primarily in Obsidian.
+
+**The settled rules.** Internal references are **standard relative Markdown links, never `[[wikilinks]]`** (wikilinks render as junk on GitHub, and standard links make the same Obsidian graph edges; Erfan's call after seeing that the all-GitHub `awesome-llm-apps` graph is fully connected). Every in-repo reference is a link, never a bare backtick path. Evidence cites are clickable (`[E003]` to its experiment file; still passes the honesty checker). Literature citations link to their canonical note on first mention. Frontmatter (title/tags/aliases) on every doc; `## Related` footers + `map.md`/`README.md` hubs drive the graph. One line per paragraph, `-` bullets, escaped `\|` in tables, one H1, no emoji in headings, the 5 cross-compatible callouts only. **Em-dashes are banned in new prose only** (Erfan, option A); the existing uses are left, no repo-wide cleanup. Exemptions: `_prior-work/` and `graphify-out/`.
+
+**Tooling reality (recorded).** `obsidian-linter` is app-only (no CLI; its `yaml-title-alias` rule dirties frontmatter on save, so disable it). The agent/CI enforcement layer is `markdownlint-cli2` + `lychee` + an internal link-checker; Prettier is banned (it re-wraps prose).
+
+**Rationale.** Obsidian needs near-zero conversion to be useful (it reads plain Markdown + relative links), so the work was about making references clickable and the graph connected, not switching syntax. Markdown links deliver Obsidian clickability AND GitHub rendering, so there is no fork to make. **Reverses if** Erfan decides GitHub rendering no longer matters, in which case wikilinks become viable. **Boundary:** this governs markdown structure (the container); `/write` (sci-write-v2) still owns report/manuscript prose bodies and their numbers/cites (D048).
+
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
 - [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

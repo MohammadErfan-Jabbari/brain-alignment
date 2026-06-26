@@ -184,6 +184,14 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
   - [x] **Checkpoint 2 / v0.2** (S31, 2026-06-22) — R07 (Q1) folded in + v0.1 register repair (L054/D046); PDF built (tectonic+biber, L056).
   - [ ] **Checkpoint 3** — fold R08 (Q2) once its finding-report is written; then R09–R14 as they land. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
 
+### Done this session (S44, /meta: Obsidian-native vault overhaul; NO science, NO number, NO rung moved)
+- ✅ Ratified + applied the markdown conventions spec ([`references/obsidian-conventions.md`](references/obsidian-conventions.md), D052): frontmatter + `## Related` footers on 183 docs; references linkified repo-wide (330 + 268 path-links + 123 citation-links, clickable cites, citations to canonical notes); `.obsidian/` tracked + graph colour-groups; `.claude` exposed via symlinks; links-open-in-new-tab. 6 commits, all pushed.
+
+### Obsidian follow-ups (optional, S44; do opportunistically)
+- ⬜ Targeted hard-wrap reflow of `paper-digest` output (auto-reflow is unsafe globally; needs per-file care).
+- ⬜ Folder-index `README.md` notes for `experiments/`, `timeline/` (their `docs/README` entries are plain text for now).
+- ⬜ Cosmetic tidy: mixed `+`/`-` bullets, emoji-in-headings.
+
 ### Done this session (S40 — /meta build; NO science, NO number, NO rung moved)
 - [x] 2026-06-25 — **Cross-stance handoff X1–X4 built (D050); `/write` suite 119 → 135.** Four atomic commits (`e1702a5`/`fd07799`/`077a57b`/`d12c725`), three-net loop each. `evidence_status: suspect`, the `verdicts.py` handoff store + sticky `handoffs-open` blocker, SKILL Stage-5.5 triage, the 16 `SC-XSTANCE-*` folded in + a P3 test-plan. Q0–Q5 stand. Details: `docs/timeline/2026-06-25-1334_*`.
 - **L062 bit (handled):** the `claude -p` verifiers re-snapshotted `start.json` → `start_sha == HEAD`; `/wrap` used the first-commit fallback (`2e9bde0..HEAD`). Proper fix is a write-once SessionStart hook (in `~/.claude/`, not this repo).
