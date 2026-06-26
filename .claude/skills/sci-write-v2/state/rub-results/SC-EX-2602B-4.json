@@ -1,0 +1,1 @@
+{"id": "SC-EX-2602B-4", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - names the assumption, failure mode, and fix", "raw": "ACK-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "6d0c234d3e40"}
