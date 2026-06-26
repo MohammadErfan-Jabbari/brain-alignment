@@ -71,7 +71,7 @@ Only if **G0, G1, G2 all pass** do the 6 science arms run.
 2. **Surprisal-extraction + train-fold residualization script** (per-word surprisal from the base LM; ridge fit train-only).
 3. **Aux-training loop** (adapt `distill.py`/`run_brain_lever.py` for the co-trained residual-prediction head, matched budget; the AULC eval harness over the predeclared caps).
 
-**Positioning (done S22):** canonical notes written for **Deng'24** (`deng-2024_gaze-supervised-finetuning` — raw synthetic-scanpath order, BERT, in-dist GLUE, no residualization; its own shuffle control gives only +0.33pp over shuffled → supports our prior) and **BabyLM** (`babylm-2025_cognitive-objectives-findings` — cognitive aux ≈ randomized-order null; no submission ever residualized → E021's gap). E021 owns: surprisal-residualization, decoder LM, AULC/sample-efficiency, matched-budget, the random-structured + permuted triple dissociation, the EEG cross-modal arm.
+**Positioning (done S22):** canonical notes written for **Deng'24** ([`deng-2024_gaze-supervised-finetuning`](../literature/canonical/deng-2024_gaze-supervised-finetuning.md) — raw synthetic-scanpath order, BERT, in-dist GLUE, no residualization; its own shuffle control gives only +0.33pp over shuffled → supports our prior) and **BabyLM** ([`babylm-2025_cognitive-objectives-findings`](../literature/canonical/babylm-2025_cognitive-objectives-findings.md) — cognitive aux ≈ randomized-order null; no submission ever residualized → E021's gap). E021 owns: surprisal-residualization, decoder LM, AULC/sample-efficiency, matched-budget, the random-structured + permuted triple dissociation, the EEG cross-modal arm.
 
 ## Iteration log
 

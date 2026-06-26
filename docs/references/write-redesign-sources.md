@@ -31,7 +31,7 @@ The canonical context for the `/write` redesign. Point every subagent here as it
 ## 5. The S33 diagnosis (analysis already paid for)
 - "Immune system, not a notion of health": the apparatus detects defects but encodes no positive model of good
   writing. Three defect classes: A register/storytelling (semantic, no banned token) · B passive (hybrid) · C
-  lexical AI-tells (deterministic). Lives in this session's history + `docs/upspeed.md` (S33) + `learnings.md` L054/L057.
+  lexical AI-tells (deterministic). Lives in this session's history + `docs/upspeed.md` (S33) + [`learnings.md`](../learnings.md) L054/L057.
 
 ## 6. Our own writing as test cases (before/after)
 - `docs/manuscript/extended/main-extended.tex` — the v0.1 that drew Claudio's feedback (bad), now mid-clean with

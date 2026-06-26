@@ -15,7 +15,7 @@ R07 edit S20 correctly could not (D011: a working session never edits an analysi
 
 ## What happened
 
-1. **Reviewed S20** against the 7-item acceptance checklist I wrote into `tasks.md` (S19). Verified
+1. **Reviewed S20** against the 7-item acceptance checklist I wrote into [`tasks.md`](../tasks.md) (S19). Verified
    the artifacts directly: `outputs/E003_perplexity.json`, `outputs/E003_dissociation.json`, the two
    new scripts, and the E003.md repairs (Output pointer, untrained→order-of-magnitude, multiplier
    "≈6.4× the teacher (≈4.5× the gpt2 student)", dissociation citations + E015 forward-pointer, the

@@ -17,7 +17,7 @@ Built **Phase-2 P2-B and P2-C** of the pipeline — five atomic chunks, each thr
 verify**) → atomic commit with a build-log entry. 7 commits this session.
 
 **Session-provenance bookkeeping (first action, at Erfan's request):** recorded the two source-of-truth session
-logs in `write-redesign-build-plan.md` — the **redesign** session `3ce96589-47c5-4d6b-ab6b-d2e7b7a85134` and the
+logs in [`write-redesign-build-plan.md`](../references/write-redesign-build-plan.md) — the **redesign** session `3ce96589-47c5-4d6b-ab6b-d2e7b7a85134` and the
 **first build** session `1709254b-72c6-40a0-bacd-0d88e900691f` (both under
 `~/.claude/projects/-home-centcom-data-brain-alignment/`). Also recorded the per-chunk build method + a **2d-remap
 authority note** (the design's step-2d moved SC-STR-06/07 enforcement to F11 and SC-HON-06 to F5; the scenario
@@ -62,7 +62,7 @@ table was stale — now fixed in both the table and the inline tags).
   convergence** (a real `settings.json` hook, D047 pattern) · AskUserQuestion gate. The judges already emit
   `*-VERDICT: {ready_to_ship, findings}` lines.
 - **P3 cutover (IRREVERSIBLE, explicit Erfan go):** full 119-scenario suite green → retire the old flow → repoint
-  `CLAUDE.md` + `03-methodology.md` → record D048-complete.
+  `CLAUDE.md` + [`03-methodology.md`](../03-methodology.md) → record D048-complete.
 
 ## Continuity-audit findings
 - **TOOLING (recurring, real):** `start.json` was clobbered by a verifier child — its `session_id` was
@@ -74,7 +74,7 @@ table was stale — now fixed in both the table and the inline tags).
   owed** (filed in tasks): the snapshot hook should be write-once-per-session / detect it's a `-p` child, or the
   skip var is not reaching the hook subprocess. See L062.
 - **Doc consistency:** the scenario-suite coverage table was stale vs the design's 2d remaps — fixed this session
-  (SC-STR-06/07 → F11, SC-HON-06 → F5, table + inline). `ladder.md` Q0–Q5 unchanged and consistent. No D011
+  (SC-STR-06/07 → F11, SC-HON-06 → F5, table + inline). [`ladder.md`](../ladder.md) Q0–Q5 unchanged and consistent. No D011
   number was produced (pure `/meta`), so no cite-or-flag exposure.
 - **Build decisions:** all are sub-decisions of D048 and live in the build-plan **build log** (append-only, one
   entry per chunk) — no new top-level `Dnnn` warranted. C3 (the LaTeX/number primitives are duplicated across
@@ -83,7 +83,7 @@ table was stale — now fixed in both the table and the inline tags).
 
 ## Next session
 `/orient` → resume the `/write` build at **P2-D**. Read `write-redesign-build-plan.md` (Status + build log) and
-`upspeed.md` first. Method unchanged (three-net per chunk). P2-D is orchestration/hook plumbing (different in kind
+[`upspeed.md`](../upspeed.md) first. Method unchanged (three-net per chunk). P2-D is orchestration/hook plumbing (different in kind
 from the F-functionalities); the recurring DET failure modes to watch remain L059 (bind to ground truth) and L060
 (never HARD-block a dual-use surface).
 

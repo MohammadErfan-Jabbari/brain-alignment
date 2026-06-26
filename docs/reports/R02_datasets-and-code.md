@@ -10,7 +10,7 @@ aliases: [R02]
 
 **Status:** Extracted by 20 parallel subagents reading the actual local PDFs (in `nexus.bak-2026-06-08/assets/literature-fetch/full-read/`). Every dataset/repo below is stated in its paper; "not stated"/"none found" means the paper did not provide it.
 
-**Why this report exists:** the thesis's #1 blocker is *real neural data on disk* (`upspeed.md`). This maps which fMRI/ECoG datasets each paper used, whether they are open, and where to pull them — plus reusable code for both the brain-alignment side and the distillation side.
+**Why this report exists:** the thesis's #1 blocker is *real neural data on disk* ([`upspeed.md`](../upspeed.md)). This maps which fMRI/ECoG datasets each paper used, whether they are open, and where to pull them — plus reusable code for both the brain-alignment side and the distillation side.
 
 ---
 
@@ -30,8 +30,8 @@ aliases: [R02]
 
 **Takeaways for our blocker:**
 
-- The fastest open pull is **Narratives reading-listening (denizenslab, CC0, 9 subjects)** — it's the exact set `oota-2024`/`oota-2026` used, downloadable from a g-node GIN URL with no login, and `oota-2024`'s code already wires LLM→fMRI on it. That is a strong alternative to the LeBel `ds003020` plan in `upspeed.md`, and arguably faster.
-- **Pereira / Fedorenko / Blank** all come bundled through the `neural-nlp` repo (the Brain-Score lineage) with explicit open licenses — note `feghhi-2024`'s own anti-confound code (`beyond-brainscore`) is built against exactly these.
+- The fastest open pull is **Narratives reading-listening (denizenslab, CC0, 9 subjects)** — it's the exact set [`oota-2024`](../literature/canonical/oota-2024_speech-lms-lack-brain-semantics.md)/[`oota-2026`](../literature/canonical/oota-2026_brain-encoding-scale-compression.md) used, downloadable from a g-node GIN URL with no login, and `oota-2024`'s code already wires LLM→fMRI on it. That is a strong alternative to the LeBel `ds003020` plan in `upspeed.md`, and arguably faster.
+- **Pereira / Fedorenko / Blank** all come bundled through the `neural-nlp` repo (the Brain-Score lineage) with explicit open licenses — note [`feghhi-2024`](../literature/canonical/feghhi-2024_case-against-over-reliance-brain-scores.md)'s own anti-confound code (`beyond-brainscore`) is built against exactly these.
 - None of these 20 papers actually used **LeBel ds003020** (our current D008 primary). Worth knowing: the powered-primary choice is *our* call, not something inherited from this literature. Narratives is the more common substrate here.
 
 ---
@@ -94,7 +94,7 @@ These are standard NLP benchmarks, all open: **GLUE** (wang-2020, liu-2022, fu-2
 - **Repos not yet verified live.** URLs are as stated in the papers; none have been cloned or checked for license/runnability this pass. Verify before depending on one.
 - **`feghhi` repo URL is a name, not a full link** ("beyond-brainscore on GitHub") — resolve the exact org before use.
 - **`oota-2026` released no code** — only "models on HuggingFace." Reproducing its compression sweep means reimplementing.
-- **`zhu-2025` datasets are non-language** (monkey M1/PMd, mouse V1) and referenced, not directly linked — low priority for us.
+- **[`zhu-2025`](../literature/canonical/zhu-2025_probabilistic-neural-behavioral-representation-alignment.md) datasets are non-language** (monkey M1/PMd, mouse V1) and referenced, not directly linked — low priority for us.
 - This report is provenance only; it does not re-verify any *result*. Numbers stay in the canonical notes / R01.
 </content>
 

@@ -30,17 +30,17 @@ Status: ⬜ not started · 🟡 in progress · ✅ mastered (demonstrated, not j
 - [ ] Encoding model + unique R² — what we actually compute.
 - [ ] The confound problem (Feghhi/Oota): length, position, low-level features, split leakage.
 - [ ] The anti-confound kit: contiguous splits, nuisance baselines, permuted twin, noise ceiling.
-- [ ] E002 (Tuckute ROI) + E006 (LeBel voxelwise) → why A2 PASSES, powered.
+- [ ] [E002](../experiments/E002_tuckute-encoding-feasibility.md) (Tuckute ROI) + [E006](../experiments/E006_lebel-voxelwise-feasibility.md) (LeBel voxelwise) → why A2 PASSES, powered.
 
-### Layer 2 — The lever: can you optimize it? (Q2/E004) ⬜
+### Layer 2 — The lever: can you optimize it? (Q2/[E004](../experiments/E004_brain-loss-lever-test.md)) ⬜
 - [ ] What `L_brain` is and the loss family (mse/cos/pearson/frozen/cka).
 - [ ] "Lever" = does *optimizing* the loss *raise held-out* alignment (not just fit training)?
-- [ ] Why E004 is only PARTIAL: brain-specific lever exists but fragile + perplexity-coupled.
+- [ ] Why [E004](../experiments/E004_brain-loss-lever-test.md) is only PARTIAL: brain-specific lever exists but fragile + perplexity-coupled.
 
 ### Layer 3 — The would-be headline and its collapse (Q3/F1) ⬜
-- [ ] E005's apparent +0.0081 — what target it was measured against (group-averaged).
+- [ ] [E005](../experiments/E005_alignment-guided-kd-tradeoff.md)'s apparent +0.0081 — what target it was measured against (group-averaged).
 - [ ] The panel catch: pseudo-replication (15 cells over ONE 5-UID-averaged target).
-- [ ] E008: per-individual, n=9, well-powered → NULL (+0.00010, CI crosses 0).
+- [ ] [E008](../experiments/E008_per-participant-f1-solidification.md): per-individual, n=9, well-powered → NULL (+0.00010, CI crosses 0).
 - [ ] The protocol that bites: matched-perplexity + per-kind permuted-twin + per-subject inference.
 - [ ] WHY matched-perplexity is the load-bearing control.
 
@@ -50,15 +50,15 @@ Status: ⬜ not started · 🟡 in progress · ✅ mastered (demonstrated, not j
 - [ ] What "manufactures apparent brain-specificity" means and why prior work falls for it.
 
 ### Layer 5 — Robustness: closing every escape ⬜
-- [ ] E011 (heavy LoRA — capacity): null holds; the knob that moves the rep wrecks ppl.
+- [ ] [E011](../experiments/E011_strong-regime-per-individual.md) (heavy LoRA — capacity): null holds; the knob that moves the rep wrecks ppl.
 - [ ] E013b (contrastive/InfoNCE — objective): null holds.
-- [ ] E013 (voxelwise — substrate): a *mechanism* failure, not a power limit → n≥5 moot.
-- [ ] E014 (averaging on the ENCODING score): NOT a confound — why it's legitimate here.
+- [ ] [E013](../experiments/E013_open-frontier-multisubject-naturalistic.md) (voxelwise — substrate): a *mechanism* failure, not a power limit → n≥5 moot.
+- [ ] [E014](../experiments/E014_averaging-encoding-confound.md) (averaging on the ENCODING score): NOT a confound — why it's legitimate here.
 - [ ] Why "robust across capacity/objective/substrate" makes the null trustworthy.
 
 ### Layer 6 — Practical payoff & the supporting law ⬜
-- [ ] E009 (A3): bounded null, "null-by-construction" — what that phrase means.
-- [ ] E015: alignment ∝ −perplexity law across families (r≈−0.92) and why it strengthens the control.
+- [ ] [E009](../experiments/E009_a3-practical-payoff.md) (A3): bounded null, "null-by-construction" — what that phrase means.
+- [ ] [E015](../experiments/E015_ppl-alignment-law.md): alignment ∝ −perplexity law across families (r≈−0.92) and why it strengthens the control.
 
 ### Layer 7 — Where we stand & the open doors ⬜
 - [ ] Manuscript v0.9 = the Fork-B story; what the headline is now.
@@ -70,7 +70,7 @@ Status: ⬜ not started · 🟡 in progress · ✅ mastered (demonstrated, not j
 ## Session log
 - 2026-06-12 — path designed, checklist created. Assessing Erfan's starting point before Layer 0.
 - 2026-06-12 — Layer 0 ✅ (frame, MI-vs-encoding-R², why-linear, A1/A2/A3 ordering, distillation-as-use-case).
-- 2026-06-12 — Created `docs/07-concepts-primer.md` (plain primitives) after Erfan found E002 jargon opaque; pointers from E002/R03/README.
+- 2026-06-12 — Created `docs/07-concepts-primer.md` (plain primitives) after Erfan found E002 jargon opaque; pointers from E002/[R03](../reports/R03_brain-as-training-signal.md)/README.
 - 2026-06-12 — Taught E002 + E006 plainly (Tuckute/ROI/voxel/noise-ceiling/% of ceiling); taught statistical power + MDE (bathroom-scale analogy). Layer 1 content delivered; closing understanding-check still pending.
 - 2026-06-12 — Created `docs/reports/R05_thesis-narrative-from-first-principles.md` (LIVING) covering the arc through Layer 1 / E007 reroute. Erfan wants it extended each session until it covers everything.
 

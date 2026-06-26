@@ -8,7 +8,7 @@ tags: [timeline]
 **Date:** 2026-06-15 17:46 → 2026-06-16 02:33 (+0200) · **Mode:** ANALYSIS (no new evidence; no rung changed).
 
 > **Reconstructed log (written 2026-06-16 by the next session).** S16 was committed to git but never formally
-> `/wrap`ped, so the state boards (`ladder.md`, `upspeed.md`, `tasks.md`, `analysis-roadmap.md`) went stale. This log
+> `/wrap`ped, so the state boards ([`ladder.md`](../ladder.md), [`upspeed.md`](../upspeed.md), [`tasks.md`](../tasks.md), [`analysis-roadmap.md`](../analysis-roadmap.md)) went stale. This log
 > is reconstructed from the git history (`4763f97`→`1fc19d5`) and `decisions/decisions.md` D036, not from a live
 > session transcript. It exists to complete the immutable record.
 
@@ -25,14 +25,14 @@ tags: [timeline]
    Wired the convention into `CLAUDE.md`.
 3. **Adopted the finding-report convention + piloted R06** (`adf270a`, `e8e472f`). A report is now **one durable claim
    per file**, flat append-only `R<NN>` IDs (issue-number rule — never renumbered), **current-truth-only** (history
-   lives in `map.md`/`timeline/`/`decisions/`, not in the report), Q-tagged, each mapping **1:1 to a manuscript Results
+   lives in [`map.md`](../map.md)/`timeline/`/`decisions/`, not in the report), Q-tagged, each mapping **1:1 to a manuscript Results
    section**. Reading order + Q→report map live in `reports/README.md`. R06 = Q0/A2, "the LM↔brain alignment signal is
    real, beyond confounds."
 4. **Retired R05** (`67f1c34`) — frozen for history across the living docs, superseded by the finding-reports + `map.md`.
 5. **Formalized R06 as conditional-MI + a math-grounded report convention** (`d5731ca`); then **scientific voice for the
    R06 math + a voice rule in the skill** (`e75240e`), and a **"presenting a measured quantity"** rule
    (`373fe1a`). Reports now formalize their core quantity and foundational concepts in real LaTeX and cite the course
-   note (`06-theory-grounding.md`) rather than re-derive.
+   note ([`06-theory-grounding.md`](../06-theory-grounding.md)) rather than re-derive.
 6. **Added the estimand-first lens to the reasoning toolkit** (`dbef679`) — name the estimand, the estimator, and the
    identifying assumption that ties them; plus a rule to grow the toolkit as new lenses prove themselves.
 7. **Clarified the R06 design section** (`1fc19d5`) — the gap and the three controls (matched perplexity, a per-kind

@@ -11,7 +11,7 @@ deleted) — do not route new writing to it. Read the v2 skill for anything real
 index pointer.
 
 **What it is.** The single governor of how recorded evidence becomes written argument across the three
-deliverable layers (`03-methodology.md` "Deliverable layers": markdown reports, the LaTeX extended
+deliverable layers ([`03-methodology.md`](../03-methodology.md) "Deliverable layers": markdown reports, the LaTeX extended
 manuscript, frozen LaTeX public cuts). It separates four concerns — **Trust** (claims↔evidence, strength-
 tagged), **Argument** (warrants + honest scope/acknowledgment), **Structure** (reader-expectation),
 **Voice** (scientific register) — over a **gated loop**: build the claim-lattice + skeleton, gate the whole
@@ -34,7 +34,7 @@ dispatches `lattice_integrity` · `claim_binding` · `claim_fidelity` · `warran
 enforced by the `stop_sw_converge` Stop-hook + `verdicts.py`; the always-on per-edit tripwires are
 `.claude/hooks/honesty_writecheck.py` (D011 numbers) + `prose_writecheck.py` (→ v2 `ai_tell_lint`).
 
-**Design + spec.** `docs/references/write-redesign-design.html` (the canvas) + `write-redesign-build-plan.md`
+**Design + spec.** `docs/references/write-redesign-design.html` (the canvas) + [`write-redesign-build-plan.md`](write-redesign-build-plan.md)
 (the build) + `decisions/decisions.md` D048/D050/D051. The reference docs inside the skill carry the voice
 rules, the `\evd`/`\gap` provenance convention, the LaTeX conventions, and the review philosophy.
 

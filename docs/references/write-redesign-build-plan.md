@@ -61,7 +61,7 @@ Wire the **CC-power upgrades**: parallel stage-5 audits · structured-output ver
 the Stop-hook convergence · the gate via AskUserQuestion.
 
 **Phase 3 — Cutover.** Run the full 119-scenario suite. When green: retire the old `SKILL.md` flow, update
-`CLAUDE.md` + `docs/03-methodology.md` to point at the new pipeline, record the decision.
+`CLAUDE.md` + [`docs/03-methodology.md`](../03-methodology.md) to point at the new pipeline, record the decision.
 
 ## Effort / model (set)
 HIGH for all subagents; **XHIGH for F4 (argument), F5 (scope), F11 (structure)**. opus for argument/scope/draft,
@@ -511,7 +511,7 @@ Same three-net loop per chunk (selftest → opus oracle → black-box/fresh-`cla
 
 **G1-a — the scenario store + the `validate-suite` DET.** Built `scripts/rub_harness.py` (parser + `gen-store` +
 `validate-suite` + `--selftest`) and `scripts/rub_scenarios.json` (the store). Corrected the canonical RUB count
-`~51 → 94` in `tasks.md` + `scenarios.md`. Three nets green (selftest 30 checks · opus oracle **FIX-THEN-PASS** ·
+`~51 → 94` in [`tasks.md`](../tasks.md) + `scenarios.md`. Three nets green (selftest 30 checks · opus oracle **FIX-THEN-PASS** ·
 black-box CLI on an independent fixture). Durable decisions:
 - **The store is DERIVED from `scenarios.md`, never hand-assigned** — `validate-suite` parses the markdown LIVE and
   diffs every derived field (`grading_mechanism`/`grader`/`expect`/`expect_class`/`expect_reason`/`is_anchor`), so

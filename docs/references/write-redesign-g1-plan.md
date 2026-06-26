@@ -13,7 +13,7 @@ session drafted+hardened a plan before building; every build session executed in
 chunks under a three-net loop). The harness it produces should be the *minimum* that actually grades the RUB
 scenarios — a twin of the apparatus we already have, not a new species.
 
-## The problem (corrected — `tasks.md` G1 undercounts)
+## The problem (corrected — [`tasks.md`](../tasks.md) G1 undercounts)
 
 The 135-scenario suite has **~90 RUB-containing rows** (a live parse: 93 rows tagged RUB, 4 of them RUB+DET
 duals; 40 DET-only) with **no scorer**. Only the DET halves are machine-verified (the per-script `--selftest`s).

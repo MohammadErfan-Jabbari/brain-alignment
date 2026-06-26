@@ -38,17 +38,17 @@ coupled control plane are pure overhead. We keep the thinking, not the bureaucra
 A paper is a truth-production pipeline, not a writing task. We follow these phases as a *guide*, not
 a gated machine. Each converts one kind of uncertainty into one kind of knowledge:
 
-| Phase | Converts | Artifact here |
-|---|---|---|
-| **Notice** | a signal → a captured idea | a note (already done: the origin idea) |
-| **Commit** | an idea → a real, anchored problem | `00-charter.md` (problem reality anchor) |
-| **Map** | unknown landscape → bounded frontier | `01-research-landscape.md` |
-| **Claim** | uncertainty → falsifiable hypotheses + kill criteria | `hypotheses/HNNN_*.md` |
-| **Design** | a claim → a fair test (locked before running) | `experiments/*.md` (design section) |
-| **Run** | a protocol → traceable evidence (not conclusions) | `experiments/*.md` (iteration log) |
-| **Judge** | evidence → adjudicated claim status | hypothesis update + `learnings.md` |
-| **Argue** | judged claims → a written argument | reports (continuous) → manuscripts at checkpoints (see "Deliverable layers") |
-| **Compound** | a finished effort → reusable residue | `learnings.md`, updated landscape |
+| Phase        | Converts                                             | Artifact here                                                                |
+| ------------ | ---------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Notice**   | a signal → a captured idea                           | a note (already done: the origin idea)                                       |
+| **Commit**   | an idea → a real, anchored problem                   | [`00-charter.md`](00-charter.md) (problem reality anchor)                    |
+| **Map**      | unknown landscape → bounded frontier                 | [`01-research-landscape.md`](01-research-landscape.md)                       |
+| **Claim**    | uncertainty → falsifiable hypotheses + kill criteria | `hypotheses/HNNN_*.md`                                                       |
+| **Design**   | a claim → a fair test (locked before running)        | `experiments/*.md` (design section)                                          |
+| **Run**      | a protocol → traceable evidence (not conclusions)    | `experiments/*.md` (iteration log)                                           |
+| **Judge**    | evidence → adjudicated claim status                  | hypothesis update + [`learnings.md`](learnings.md)                           |
+| **Argue**    | judged claims → a written argument                   | reports (continuous) → manuscripts at checkpoints (see "Deliverable layers") |
+| **Compound** | a finished effort → reusable residue                 | `learnings.md`, updated landscape                                            |
 
 The non-negotiables (these are where solo research most easily self-deceives):
 - **Multiple competing hypotheses**, not one cherished one.
@@ -269,7 +269,7 @@ where it breaks (Feynman); prefer the smallest durable change that compounds (Na
 
 ## Session ritual (the anti-amnesia loop)
 
-- **Start:** `/orient` reads `upspeed.md`, `tasks.md`, and the ladder, and proposes the stance to open
+- **Start:** `/orient` reads [`upspeed.md`](upspeed.md), [`tasks.md`](tasks.md), and the ladder, and proposes the stance to open
   in. Re-verify GPU/data only if a `/work` run is imminent.
 - **During a truth-producing stance** (`/work`, `/interpret`): capture decisions in
   `decisions/decisions.md` as they happen; capture surprises immediately; keep raw evidence in

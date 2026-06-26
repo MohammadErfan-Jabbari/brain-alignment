@@ -76,7 +76,7 @@ that it improves the alignment/utility *trade-off curve* at matched compression.
 - `kornblith-2019_cka-similarity-representations` — CKA, a candidate differentiable-ish alignment proxy.
 - `huh-2024_platonic-representation-hypothesis` — why cross-model representations may converge to a
   shared (brain-predictive) geometry; theoretical backing for generalization.
-- **Course theory grounding** (`06-theory-grounding.md`) — Erfan's MSc Information-Theory coursework supplies the *formal, proved* tools the argument leans on, so methods/related-work can cite rather than assert: the **MI generalization bound** $\overline{\mathrm{gen}}\le\sqrt{2\sigma^2 I(W;Z^n)/n}$ (the exact form of R03's weak-prior bound); the **data-processing inequality** $I(Z_{\text{student}};B)\le I(Y_{\text{teacher}};B)$ (compression can only *lose* alignment — the formal backing for engaging the 2602.07547 trade-off, not the binary); **conditional mutual information** $I(\text{LM};B\mid\text{nuisance})$ (exactly the "unique R²" the §B anti-confound protocol measures); and the **rate-distortion function** $R(D)=\min_{P_{\hat S\mid S}:\,\mathbb{E}[d]\le D}I(S;\hat S)$ (the F1 alignment-vs-rate trade-off curve).
+- **Course theory grounding** ([`06-theory-grounding.md`](06-theory-grounding.md)) — Erfan's MSc Information-Theory coursework supplies the *formal, proved* tools the argument leans on, so methods/related-work can cite rather than assert: the **MI generalization bound** $\overline{\mathrm{gen}}\le\sqrt{2\sigma^2 I(W;Z^n)/n}$ (the exact form of R03's weak-prior bound); the **data-processing inequality** $I(Z_{\text{student}};B)\le I(Y_{\text{teacher}};B)$ (compression can only *lose* alignment — the formal backing for engaging the 2602.07547 trade-off, not the binary); **conditional mutual information** $I(\text{LM};B\mid\text{nuisance})$ (exactly the "unique R²" the §B anti-confound protocol measures); and the **rate-distortion function** $R(D)=\min_{P_{\hat S\mid S}:\,\mathbb{E}[d]\le D}I(S;\hat S)$ (the F1 alignment-vs-rate trade-off curve).
 
 ## Baseline matrix the thesis must run (from the frontier map)
 
@@ -104,7 +104,7 @@ robustness from one benchmark family.
 - The effect may be small (+0.03–0.05 R²) and the measurement matrix enormous → is it worth proving?
 - "Edge" is unspecified → reviewers ask "why care?" Need a named deployment scenario.
 - **SPOF:** a language-fMRI benchmark with adequate power and an open license must be accessible.
-  None is staged on disk yet (see `02-environment.md`). This is the first thing to de-risk.
+  None is staged on disk yet (see [`02-environment.md`](02-environment.md)). This is the first thing to de-risk.
 - The alignment↔utility trade-off might be a step function (collapses below a threshold, trivial
   above) → reduces the thesis to "don't over-compress."
 

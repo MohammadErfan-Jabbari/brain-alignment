@@ -18,11 +18,11 @@ diagnosis: it detects defects but encodes no positive model of good writing) to 
    of how to write a scientific paper (exa + firecrawl + web): Gopen-Swan (topic/stress, reader-expectation),
    Williams (old-to-new), Schimel (OCAR), Swales (CARS), McEnerney (value-to-reader), Mensh-Kording (C-C-C),
    Whitesides (outline-first); + Pinker (curse of knowledge) and Toulmin (warrant) pulled mid-session.
-2. **Audited the ecosystem** (`writing-skills-ecosystem-audit.md`). Cloned 11 skill repos to `data/reference-repos/`,
+2. **Audited the ecosystem** ([`writing-skills-ecosystem-audit.md`](../references/writing-skills-ecosystem-audit.md)). Cloned 11 skill repos to `data/reference-repos/`,
    fanned out 13 readers. Finding: the whole ecosystem has our same shape (thick integrity/process, thin craft);
    the canon is almost entirely absent from tooling; the juice is the macro structure + claim-evidence machinery
    (evoskills, bahayonghang, k-dense, imbad0202, jamditis are the richest).
-3. **Recorded the ground-truth failure** (`supervisor-feedback.md`): Claudio's 4 flagged sentences (storytelling
+3. **Recorded the ground-truth failure** ([`supervisor-feedback.md`](../references/supervisor-feedback.md)): Claudio's 4 flagged sentences (storytelling
    register + unmotivated passive) — the permanent regression anchor.
 4. **Designed the ideal system** (`write-redesign-design.html`, the living canvas, → v1.1). Four concerns —
    **Trust / Argument / Structure / Voice** — separated; a gated-loop spine (Evidence → Message&Reader → Claim&
@@ -34,7 +34,7 @@ diagnosis: it detects defects but encodes no positive model of good writing) to 
    (~10 subagents, ~6 hooks, 4 skill-sections, 2 gates, 4 artifacts) → 2d reverse coverage check (113/119 clean,
    6 re-mapped, no new agent). CC-power upgrades folded: parallel stage-5 audits, Stop-hook convergence,
    structured-output verdicts, gate via AskUserQuestion. `evidence.status` field + F19 consistency added.
-6. **Recorded the build plan** (`write-redesign-build-plan.md`): the old→new migration map (lift the 9 DET scripts,
+6. **Recorded the build plan** ([`write-redesign-build-plan.md`](../references/write-redesign-build-plan.md)): the old→new migration map (lift the 9 DET scripts,
    rewrite the SKILL.md body, build the new spine), the Phase-1 walking skeleton (one section, full spine, the
    abstract case), build order, effort tiers.
 

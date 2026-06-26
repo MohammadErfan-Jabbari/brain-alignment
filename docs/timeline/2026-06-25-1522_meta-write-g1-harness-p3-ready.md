@@ -17,7 +17,7 @@ subagents to extract the working pattern faithfully — plan-then-chunk, the **t
 `--selftest` → opus `oracle-reviewer` on every chunk → fresh `claude -p` clean-room → atomic commit + build-log
 entry), continuous adversarial review. Then replicated it.
 
-**Phase A — the G1 plan, hardened to BUILD-READY (2 oracle rounds).** Drafted `write-redesign-g1-plan.md`; opus
+**Phase A — the G1 plan, hardened to BUILD-READY (2 oracle rounds).** Drafted [`write-redesign-g1-plan.md`](../references/write-redesign-g1-plan.md); opus
 oracle round 1 = **HOLD** (5 must-fixes) → revised → round 2 = **PASS**. The HOLD paid off: it caught that the
 canonical docs **undercounted the RUB suite (~51 → 94 real rows)** and that "spawn the judge, read flag/no-flag"
 only covers ⅔ of the suite — the F13 panel, reader-model, and XSTANCE-triage scenarios each grade differently.
@@ -26,7 +26,7 @@ Fix: a per-scenario **`grading_mechanism`** field (four mechanisms). `eb479f8`.
 **Phase B — built G1 in 4 atomic chunks, each through the three-net loop:**
 - **G1-a** (`6c79062`) — `rub_harness.py` parser + store (`rub_scenarios.json`, 94 RUB rows) + `validate-suite`
   DET (parses `scenarios.md` LIVE, diffs the store so they never drift). Corrected the `~51→94` count in
-  `tasks.md` + `scenarios.md`. Oracle FIX-THEN-PASS: MF-1 `SC-STR-03` misroute (→ F11 verdict-line, not lattice);
+  [`tasks.md`](../tasks.md) + `scenarios.md`. Oracle FIX-THEN-PASS: MF-1 `SC-STR-03` misroute (→ F11 verdict-line, not lattice);
   MF-2 `expect_class` for lattice; MF-3 `expect_reason` in the drift tuple; NH-1 parse-integrity (6-field guard).
 - **G1-b** (`1a1e474`) — the scorer: four mechanism-readers + the threshold (every DET green ∧ every RUB
   recorded-fresh-and-PASS, anchors never waivable) + `record`. Oracle FIX-THEN-PASS: MF-1 restored
@@ -72,7 +72,7 @@ not done here, per the stop condition.
 ~10-scenario dress rehearsal (≥2/mechanism, a flag-expecting panel row + an anchor, `--raw`, artifacts committed)
 before the 94-run. Then P3-1 (full 135-suite, expect a multi-round first pass) → P3-2 (split the irreversible
 commit: tombstone the old flow ~1 week, triage the 13 DET checks for hook-safety) → repoint `CLAUDE.md` +
-`03-methodology.md`, record D048-complete. The E006 voxelwise-CI `/interpret` item stays parked (orthogonal).
+[`03-methodology.md`](../03-methodology.md), record D048-complete. The E006 voxelwise-CI `/interpret` item stays parked (orthogonal).
 
 
 ## Related

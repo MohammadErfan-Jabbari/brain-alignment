@@ -9,7 +9,7 @@ tags: [charter]
 **Program:** MSc, Machine Learning for Health — Universidad Carlos III de Madrid (UC3M). Erfan is a
 pre-PhD student finishing this master; the thesis is the deliverable. (NeurIPS track is dropped.)
 **Repo:** `/home/centcom/data/brain-alignment` (single-node, centcom)
-**Status:** **Write-up phase** (as of 2026-06-12) — the experimental program is CLOSED; see `ladder.md`
+**Status:** **Write-up phase** (as of 2026-06-12) — the experimental program is CLOSED; see [`ladder.md`](ladder.md)
 for the live verdict (A2 real & powered; per-individual F1 = null; thesis is Fork B = a measurement-validity
 result + well-powered nulls). This charter records the *original* framing/scope; the ladder is current state.
 **Deadline:** ~end of August 2026 (tentative — exact date TBD, confirm).
@@ -98,7 +98,7 @@ the whole thesis. *"This is where this thesis will live or die."*
 - **Platonic Representation Hypothesis** — sibling idea-03; could give theoretical grounding for why
   brain alignment generalizes across model families.
 
-## What this charter does NOT yet pin down (open, see `tasks.md`)
+## What this charter does NOT yet pin down (open, see [`tasks.md`](tasks.md))
 
 - The named language-fMRI benchmark (Pereira / Narratives / LeBel-style) and its power analysis.
 - The concrete form of $\mathcal{L}_{\text{brain}}$ (frozen encoding model as fixed loss? CKA-style?

@@ -167,7 +167,7 @@ with these; see L039):
 **(i) What E020 establishes — scoped honestly (NOT the universal spine).** A_resid uses a SHARED group LM R(S),
 identical across subjects. By construction ε_s = Y_s − E[Y|S]_{-s} removes everything shared across subjects, and a
 shared R(S) cannot track genuinely *idiosyncratic* deviation — so **A_resid ≈ 0 is the EXPECTED, theory-consistent
-result** (it is also what the DPI predicts for any deterministic function of S: note 2, `06-theory-grounding.md`).
+result** (it is also what the DPI predicts for any deterministic function of S: note 2, [`06-theory-grounding.md`](../06-theory-grounding.md)).
 E020 therefore **confirms + bounds + guards**, it does not independently *prove* a universal ceiling. Its real
 contribution: it is the **mechanistic ceiling that explains E008's per-individual null** — E008 showed you cannot
 *train* to induce per-subject alignment; E020 shows there is little per-subject-residual signal a *shared stimulus

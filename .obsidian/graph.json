@@ -7,15 +7,69 @@
   "showOrphans": true,
   "collapse-color-groups": false,
   "colorGroups": [
-    { "query": "tag:#report", "color": { "a": 1, "rgb": 5025616 } },
-    { "query": "tag:#experiment", "color": { "a": 1, "rgb": 2201331 } },
-    { "query": "tag:#decision", "color": { "a": 1, "rgb": 16750592 } },
-    { "query": "tag:#learning", "color": { "a": 1, "rgb": 10233776 } },
-    { "query": "tag:#literature", "color": { "a": 1, "rgb": 38536 } },
-    { "query": "tag:#timeline", "color": { "a": 1, "rgb": 10395294 } },
-    { "query": "tag:#reference OR tag:#methodology", "color": { "a": 1, "rgb": 16761095 } },
-    { "query": "tag:#manuscript", "color": { "a": 1, "rgb": 16007990 } },
-    { "query": "path:claude-skills OR path:claude-agents OR path:claude-commands", "color": { "a": 1, "rgb": 15277667 } }
+    {
+      "query": "tag:#report",
+      "color": {
+        "a": 1,
+        "rgb": 5025616
+      }
+    },
+    {
+      "query": "tag:#experiment",
+      "color": {
+        "a": 1,
+        "rgb": 2201331
+      }
+    },
+    {
+      "query": "tag:#decision",
+      "color": {
+        "a": 1,
+        "rgb": 16750592
+      }
+    },
+    {
+      "query": "tag:#learning",
+      "color": {
+        "a": 1,
+        "rgb": 10233776
+      }
+    },
+    {
+      "query": "tag:#literature",
+      "color": {
+        "a": 1,
+        "rgb": 38536
+      }
+    },
+    {
+      "query": "tag:#timeline",
+      "color": {
+        "a": 1,
+        "rgb": 10395294
+      }
+    },
+    {
+      "query": "tag:#reference OR tag:#methodology",
+      "color": {
+        "a": 1,
+        "rgb": 16761095
+      }
+    },
+    {
+      "query": "tag:#manuscript",
+      "color": {
+        "a": 1,
+        "rgb": 16007990
+      }
+    },
+    {
+      "query": "path:claude-skills OR path:claude-agents OR path:claude-commands",
+      "color": {
+        "a": 1,
+        "rgb": 15277667
+      }
+    }
   ],
   "collapse-display": true,
   "showArrow": true,

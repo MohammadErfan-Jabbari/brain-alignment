@@ -9,7 +9,7 @@ tags: [timeline]
 
 ## What happened (in order)
 
-1. **R05 review (the original analysis task).** Confirmed R05 has been byte-stable since S9 (its only 3 commits are all S9; the four working sessions S10–S14 correctly never touched it). Cross-checked every written number (§0–§7) against `ladder.md`: all current. One stale number found and fixed: the §13 placeholder cited the E015 law as `r≈−0.92`, now corrected to `r≈−0.78` (bpb). Expanded the §8 placeholders (§11–§16) to name the post-S9 experiments (E017, E020, E019) and the L041 scope correction, and synced the §0 coverage-frontier sentence. Commit `6c51bd9`. Narrative frontier unchanged: next is §9 (E005→E008).
+1. **R05 review (the original analysis task).** Confirmed R05 has been byte-stable since S9 (its only 3 commits are all S9; the four working sessions S10–S14 correctly never touched it). Cross-checked every written number (§0–§7) against [`ladder.md`](../ladder.md): all current. One stale number found and fixed: the §13 placeholder cited the E015 law as `r≈−0.92`, now corrected to `r≈−0.78` (bpb). Expanded the §8 placeholders (§11–§16) to name the post-S9 experiments (E017, E020, E019) and the L041 scope correction, and synced the §0 coverage-frontier sentence. Commit `6c51bd9`. Narrative frontier unchanged: next is §9 (E005→E008).
 
 2. **Designed the three-layer written-deliverable model** (deep interview with Erfan): **reports** (Markdown, continuous) → **extended manuscript** (LaTeX, internal master) → **public manuscript** (LaTeX, frozen `vN` cuts). The extended is a hybrid: an always-current paper body (compresses cleanly to a public cut) plus an append-only dated checkpoint log. Knowledge flows down only; cadences differ (reports continuous; manuscripts checkpoint-derived only on Erfan's explicit call). Format decision grounded by a real grep test on `project.tex` vs `R05.md` (md returns whole-paragraph matches and cannot break a build → the continuous layer; LaTeX for the checkpoint manuscripts). Landed as the `docs/03-methodology.md` "Deliverable layers" section. Commit `27c7cae`.
 
@@ -26,7 +26,7 @@ tags: [timeline]
 ## Decisions / learnings
 
 - **D035** — the three-layer deliverable model + the scientific-writing skill (Erfan-approved). Recorded in `decisions/decisions.md`.
-- **L043** — `ecc:skill-create` is a git-history pattern extractor, not a skill-authoring tool; author designed skills to spec (or via the official `skill-creator:skill-creator` plugin). Recorded in `learnings.md`.
+- **L043** — `ecc:skill-create` is a git-history pattern extractor, not a skill-authoring tool; author designed skills to spec (or via the official `skill-creator:skill-creator` plugin). Recorded in [`learnings.md`](../learnings.md).
 
 ## Continuity-audit notes
 

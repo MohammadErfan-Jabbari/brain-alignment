@@ -102,7 +102,7 @@ Compute budget = 4× L40S → up to 4 nodes in flight. Revised order:
 4. ~~**T2.2** — brain as regularizer/prior~~ — **DEMOTED.** Plausibly the E004 `frozen` arm relabeled (non-specific, +0.0028 ≈ its permuted twin). Revisit only if T1.3 opens a coupling where a brain-specific prior is mechanically distinct from generic regularization.
 5. **T3.4 (O1) n=6 full-FT · T3.5 (O2) TRIBE-at-scale** — coverage/booster only, low leverage (another null adds little). Parallel filler at most; not headline bets.
 
-**Discipline (non-negotiable):** every node climbed gets the full ritual — write the contribution/mechanism claim first → design lock (oracle-gate) → run → thinking panel (counter-argument + socratic + premortem + first-principles) → verify each objection against data → address survivors → record in `experiments/E*.md` + `learnings.md` + this tree + `ladder.md` (rung flips only on Erfan's confirmation). A node's result then spawns/prunes nodes here before the next climb.
+**Discipline (non-negotiable):** every node climbed gets the full ritual — write the contribution/mechanism claim first → design lock (oracle-gate) → run → thinking panel (counter-argument + socratic + premortem + first-principles) → verify each objection against data → address survivors → record in `experiments/E*.md` + [`learnings.md`](learnings.md) + this tree + [`ladder.md`](ladder.md) (rung flips only on Erfan's confirmation). A node's result then spawns/prunes nodes here before the next climb.
 
 **Thesis-floor guard (premortem #5):** the bounded, high-certainty deliverable (analysis-lane reports R08–R14 + extended manuscript) is Erfan's lane (D011 — working sessions don't write them). This program must not starve it; if the climb consumes the runway, flag it. The floor ships regardless of the top-venue outcome.
 
@@ -110,7 +110,7 @@ Compute budget = 4× L40S → up to 4 nodes in flight. Revised order:
 
 ## The S24 evolution — PI/sample-efficiency tier (Erfan-directed; from the S24 critique loop)
 
-**Reframe:** brain/biosignal as train-only **PRIVILEGED INFORMATION (LUPI)** for the **LEARNING CURVE** (sample-efficiency), not the static encoding-R² metric. **Reopens T4.4** — the climb-queue kill assumed a *static checkpoint*; LUPI changes the *training trajectory*, a different object. This is the charter's original **F2**, returned to with theory + higher-SNR regimes + a control battery it never had. Full spec: `expansion-program.md` §8.
+**Reframe:** brain/biosignal as train-only **PRIVILEGED INFORMATION (LUPI)** for the **LEARNING CURVE** (sample-efficiency), not the static encoding-R² metric. **Reopens T4.4** — the climb-queue kill assumed a *static checkpoint*; LUPI changes the *training trajectory*, a different object. This is the charter's original **F2**, returned to with theory + higher-SNR regimes + a control battery it never had. Full spec: [`expansion-program.md`](expansion-program.md) §8.
 
 **Node status changes:**
 - **T4.4 sample-efficiency** ⬜ → **ACTIVE LEAD** (reopened; the decisive node).

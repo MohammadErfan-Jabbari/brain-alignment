@@ -7,9 +7,9 @@ aliases: [E024]
 # Experiment — E024: brain/cognitive signal as train-only PRIVILEGED INFORMATION → sample-efficiency (ZuCo, P1)
 
 **Created:** 2026-06-18 (S25) · **Status:** DESIGN (data staging; pre-oracle) · **Mode:** working
-**Direction:** `expansion-program.md` §8 (the S24 privileged-information / sample-efficiency trajectory, P1) — the charter's
+**Direction:** [`expansion-program.md`](../expansion-program.md) §8 (the S24 privileged-information / sample-efficiency trajectory, P1) — the charter's
 **F2** returned to with a theory (LUPI), a higher-SNR regime (EEG+gaze), and the 5-control battery it lacked.
-**Theory:** `06-theory-grounding.md` §1 (MI bound), §2 (DPI ceiling); Lopez-Paz 2016 / Vapnik LUPI; Provodin 2024 (LUPI
+**Theory:** [`06-theory-grounding.md`](../06-theory-grounding.md) §1 (MI bound), §2 (DPI ceiling); Lopez-Paz 2016 / Vapnik LUPI; Provodin 2024 (LUPI
 gains can be artifacts → zeroed-PI mandatory).
 **Predecessors:** E009/E017 (the matched-ppl induction nulls — this changes the *metric* from encoding-R² to the learning
 curve, the unmeasured channel L041 named). Q4/A3 bounded null is "argued-shut, not measured-shut" on exactly this axis.

@@ -8,7 +8,7 @@ aliases: [E008]
 
 **Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11) — per-individual F1 NULL, well-powered (n=9, mean +0.00010, t-CI [−0.0004,+0.0006], power 1.0 at δ=+0.003); E005's +0.0081 = group-averaged-target artifact (L016) · **Mode:** working
 **Direction:** Q3/F1 (the in-domain headline). Closes the n=1 pseudo-replication hole the S8 panel found in E005 (L015) **before** any transfer/curve work.
-**Predecessors:** `E005` (in-domain F1, but "CI excludes 0" was a 15-cell bootstrap over ONE subject-average — L015 honest re-analysis: fold-level t-CI includes 0, median +0.0034, one outlier fold carries 52%) · `E004` (lever, fragile)
+**Predecessors:** [`E005`](E005_alignment-guided-kd-tradeoff.md) (in-domain F1, but "CI excludes 0" was a 15-cell bootstrap over ONE subject-average — L015 honest re-analysis: fold-level t-CI includes 0, median +0.0034, one outlier fold carries 52%) · [`E004`](E004_brain-loss-lever-test.md) (lever, fragile)
 **Theory:** `../06-theory-grounding.md` §3 (conditional-MI = unique R²)
 **Code:** extends `scripts/run_brain_lever.py` (add `--uids` per-subject loop + n_perm null + across-subject inference)
 **Output:** `outputs/E008_per_participant_Qwen.json`

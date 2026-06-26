@@ -8,7 +8,7 @@ aliases: [E010]
 
 **Created:** 2026-06-12 · **Status:** RAN — verdict recorded · **Mode:** working
 **Direction:** the decisive test for the manuscript's positive contribution — does cross-subject target averaging *produce* the apparent brain-specificity (S8 manuscript counter-argument #1: "manufactures" was asserted, not shown).
-**Predecessors:** `E005` (averaged k=5 → +0.008) · `E008` (per-subject k=1 → null) — the two endpoints; E010 fills the curve.
+**Predecessors:** [`E005`](E005_alignment-guided-kd-tradeoff.md) (averaged k=5 → +0.008) · [`E008`](E008_per-participant-f1-solidification.md) (per-subject k=1 → null) — the two endpoints; E010 fills the curve.
 **Code:** `scripts/run_averaging_doseresponse.py` · **Output:** `outputs/E010_averaging_doseresponse.json`
 
 ## Question / mechanism

@@ -6,7 +6,7 @@ tags: [dataset]
 # Language-fMRI Benchmarks — Survey, Power, and Recommendation
 
 **Last updated:** 2026-06-09 (Session 2). Source: `lit-scout` survey + direct OSF/OpenNeuro
-inspection. This resolves the #1 single-point-of-failure flagged in `01-research-landscape.md`
+inspection. This resolves the #1 single-point-of-failure flagged in [`01-research-landscape.md`](01-research-landscape.md)
 (an open, adequately powered language-fMRI benchmark must be accessible).
 
 ## Bottom line

@@ -39,7 +39,7 @@ it, and (4) **produce** the manuscript v1.0 with the S14 scope correction and re
 > the **concepts to master** (with the course-note tie-in), what to **produce** (a concrete R05 section or manuscript
 > edit), and a **self-check** (quiz / derivation) to confirm you actually understand it before moving on. Do them in
 > order — each builds on the last. Pace is deliberately slow + math-grounded (your stated preference). The canonical
-> status is always `ladder.md`; this roadmap is the *plan*, the ladder is the *truth*.
+> status is always [`ladder.md`](ladder.md); this roadmap is the *plan*, the ladder is the *truth*.
 >
 > **Hard rule (D011, unchanged):** the analysis lane may only report numbers a working session actually recorded in
 > `docs/`/`outputs/`. Every number below traces to an `experiments/` doc or an `outputs/` file — never invent or
@@ -100,7 +100,7 @@ encoding scores*, not *brain-tuning*, and none use a perplexity-matched control 
 - **Goal:** narrate *the* turn of the thesis — E005's apparent +0.0081 brain-specific gain, and why it collapsed to a
   per-individual null. Understand the **averaging confound** deeply; it is the paper's most defensible result.
 - **Read (in order):** `docs/reports/R05_*.md` §7–§8 (re-read the resume point) → `experiments/E005_*.md` (the apparent
-  headline) → `experiments/E008_*.md` (the per-individual solidification → null) → `learnings.md` L014, **L016** (the
+  headline) → `experiments/E008_*.md` (the per-individual solidification → null) → [`learnings.md`](learnings.md) L014, **L016** (the
   averaging confound, the heart of it), L015 (the pseudo-replication catch) → `docs/literature/canonical/
   lage-castellanos-2019_fmri-noise-ceiling.md` (the noise-ceiling-of-an-average math).
 - **Concepts to master:**
@@ -109,7 +109,7 @@ encoding scores*, not *brain-tuning*, and none use a perplexity-matched control 
     a permuted twin) even when *no individual subject shows it*. The +0.0081→+0.00010 ~80× collapse is the signature.
   - *Pseudo-replication* (L015): 15 cells over one 5-UID-averaged target is **not** n=15; the legitimate replication
     unit is the independent subject/stimulus. This burned the program repeatedly (L015/L016/L018/L020) — know it cold.
-  - **Course tie-in:** conditional MI = unique R² (`06-theory-grounding.md` §3, info-theory lecture 4) — what "unique
+  - **Course tie-in:** conditional MI = unique R² ([`06-theory-grounding.md`](06-theory-grounding.md) §3, info-theory lecture 4) — what "unique
     variance beyond nuisance" *means* information-theoretically.
 - **Produce:** R05 **§9 (E005)** + **§10 (E008, the collapse)** — the living narrative, in your slow math-grounded
   voice. Mark §11–§14 placeholders for the robustness escapes.
@@ -198,7 +198,7 @@ encoding scores*, not *brain-tuning*, and none use a perplexity-matched control 
 - **Goal:** understand what E019 establishes (and, crucially, what it does *not*), and lock the related-work positioning.
 - **Read:** `experiments/E019_*.md` (all versions + the VERDICT) → `learnings.md` **L042** (corroboration not clincher;
   the raw-mean-r ruler is quality-blind) → `decisions/decisions.md` **D031/D032** → the new canonical note
-  `docs/literature/canonical/jia-2026_lpact-prediction-scores-not-enough.md` → `01-research-landscape.md` (the Jia row
+  `docs/literature/canonical/jia-2026_lpact-prediction-scores-not-enough.md` → [`01-research-landscape.md`](01-research-landscape.md) (the Jia row
   + Hadidi→Nature-Comms cite) → `negi-2025_*.md` (the reproduction target; note Negi *passes* the permuted twin Δr=0.133
   on encoding, so our encoding clincher must be matched-ppl, not permuted — L041).
 - **Concepts to master:**

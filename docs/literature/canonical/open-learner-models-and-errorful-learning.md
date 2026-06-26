@@ -8,7 +8,7 @@ aliases: [open-learner-models-and-errorful-learning]
 
 **Type:** synthesis / index over the per-paper canonical notes listed below. **Apparatus grounding for the
 `/teach` stance, NOT thesis science** — touches no A1/A2/A3, produces no brain-alignment number. Keep it out
-of `01-research-landscape.md`; never import a number here into a finding-report or manuscript.
+of [`01-research-landscape.md`](../../01-research-landscape.md); never import a number here into a finding-report or manuscript.
 
 ## Bottom line
 

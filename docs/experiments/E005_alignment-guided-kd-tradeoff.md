@@ -8,12 +8,12 @@ aliases: [E005]
 
 **Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11) — in-domain +0.0081 was OVERSTATED (pseudo-replicated, one outlier fold); honest verdict = a small brain-specific *trend*, NOT a "CI-excludes-0" result; per-individual = NULL, confirmed by E008. **The ADDENDUM below is the lead verdict; the §Interpretation is superseded.** (L014→L015→L016) · **Mode:** working
 **Direction:** R03/R04 F1 (Q3) — the headline thesis experiment. Decides A (alignment-guided distillation wins) vs B (honest trade-off-curve / measurement-rigor framing) **on evidence**.
-**Predecessors:** `E003` (perplexity-only KD PARTIAL; L011 — alignment co-varies with perplexity) · `E004` (lever real-but-small-fragile, co-trained MSE front-runner) · `E006` (powered A2 PASS at voxel scale; lever statistically underpowered)
+**Predecessors:** [`E003`](E003_kd-alignment-preservation.md) (perplexity-only KD PARTIAL; L011 — alignment co-varies with perplexity) · [`E004`](E004_brain-loss-lever-test.md) (lever real-but-small-fragile, co-trained MSE front-runner) · [`E006`](E006_lebel-voxelwise-feasibility.md) (powered A2 PASS at voxel scale; lever statistically underpowered)
 **Theory:** `../06-theory-grounding.md` §4 (rate–distortion = the F1 trade-off curve), §2 (DPI ceiling)
 **Code:** reuses `scripts/distill.py` (λ_brain), `scripts/brain_loss.py` (co-trained MSE), `scripts/run_kd_alignment.py` (KD harness), `scripts/run_lebel_encoding.py` (powered alignment measurement)
 **Output:** `outputs/E005_tradeoff.json`
 
-> **⚠ READ THE ADDENDUM FIRST (bottom of file).** The §Interpretation below records the *original* "F1 CONFIRMED in-domain" read, which the Session-8 panel showed was **overstated** (pseudo-replication + one outlier fold). The honest verdict — a small brain-specific trend, and a **per-individual NULL** confirmed by E008 — is in the ADDENDUM and `ladder.md` (Q3 = ❌). The §Interpretation is kept only as a record of what we first thought (L014→L015→L016).
+> **⚠ READ THE ADDENDUM FIRST (bottom of file).** The §Interpretation below records the *original* "F1 CONFIRMED in-domain" read, which the Session-8 panel showed was **overstated** (pseudo-replication + one outlier fold). The honest verdict — a small brain-specific trend, and a **per-individual NULL** confirmed by E008 — is in the ADDENDUM and [`ladder.md`](../ladder.md) (Q3 = ❌). The §Interpretation is kept only as a record of what we first thought (L014→L015→L016).
 
 ---
 

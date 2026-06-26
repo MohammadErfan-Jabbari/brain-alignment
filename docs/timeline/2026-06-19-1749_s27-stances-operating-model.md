@@ -40,7 +40,7 @@ stances, and build a LearnLM/Gemini-style `/teach` stance plus the report→teac
    `formats/learning-record.md`), 8 command doors, the write-time honesty hook
    (`.claude/hooks/honesty_writecheck.py`, tested), the report plain-language-lead amendment to
    `scientific-writing`, `docs/operating-map.md`, the canonical docs rewritten to stances (`CLAUDE.md`,
-   `03-methodology.md`, **D044**, `orient`/`wrap`/`session-logger`), and the LearnLM + Bloom canonical
+   [`03-methodology.md`](../03-methodology.md), **D044**, `orient`/`wrap`/`session-logger`), and the LearnLM + Bloom canonical
    notes. The learning ledger seeded at `docs/learning/`.
 
 ## Decisions
@@ -59,7 +59,7 @@ thread is still **Q4 sample-efficiency/LUPI** (re-substrate to higher-N gaze), u
 - **Test `/teach` live** on a real report (Erfan, planned) — the only real proof of the guided loop.
 - The honesty hook is live (fired this session); scoped to reports + manuscript after the ladder false-positived (L052).
 - Science next-step unchanged: **Q4** (E024 re-substrate → synthetic-PI MDE control → build), per
-  `expansion-program.md` §8.
+  [`expansion-program.md`](../expansion-program.md) §8.
 
 ## Friction & improvements
 

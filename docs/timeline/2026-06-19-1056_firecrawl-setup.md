@@ -41,7 +41,7 @@ This **partially resolves D041's deferred `.mcp.json` item** — the repo now ha
 - **Ladder integrity:** unchanged; Q0–Q5 and the S25 "Next session = Q4 re-substrate" block stand.
 - **Brain mirror:** deliberately **not** mirrored to gbrain — this is repo-recorded tooling plumbing (CLAUDE.md + .mcp.json + D043 + this log) with no cross-project knowledge signal that another session/project would need from the brain.
 - **Git:** both commits atomic, conventional, scoped-staged. Working tree carries only the pre-existing non-ours untracked files (`untitled.md`, `docs/manuscript/supervisor-email_2026-06.md`, `.claude/worktrees/`). Nothing pushed.
-- **Background job (carried from S25):** ZuCo 1.0 clone — `data/zuco1` still **61G** on disk; process status unconfirmed this session. Blocker preserved in `upspeed.md`.
+- **Background job (carried from S25):** ZuCo 1.0 clone — `data/zuco1` still **61G** on disk; process status unconfirmed this session. Blocker preserved in [`upspeed.md`](../upspeed.md).
 
 ## Tier note
 

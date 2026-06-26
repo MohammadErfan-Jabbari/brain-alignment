@@ -5,8 +5,8 @@ tags: [timeline]
 
 # 2026-06-11 22:57 — graphify integration (tooling session, no science)
 
-**Mode:** tooling / infrastructure. **Touched the science: NO.** `ladder.md` and `upspeed.md`
-deliberately left untouched — no rung moved, no evidence produced. This log + `tasks.md` are the record.
+**Mode:** tooling / infrastructure. **Touched the science: NO.** [`ladder.md`](../ladder.md) and [`upspeed.md`](../upspeed.md)
+deliberately left untouched — no rung moved, no evidence produced. This log + [`tasks.md`](../tasks.md) are the record.
 
 ## What was done
 

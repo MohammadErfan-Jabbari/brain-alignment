@@ -9,7 +9,7 @@ tags: [dataset]
 
 **What this doc is:** a continuously-updated catalogue of *every* dataset that might ever be relevant to this thesis — neural, behavioral, and the NLP corpora used by the distillation baselines. One row per dataset: what it is, its key features, how open it is, and our use-case fit + status. The point is that when we need data in the future, we already know what exists and what it costs to get.
 
-**What this doc is *not*:** it is not the decision (that's `04-data-benchmarks.md`, the powered survey of the four language-fMRI benchmarks we committed to, with the power analysis behind D008), and it is not paper-by-paper provenance (that's `reports/R02_datasets-and-code.md`, which maps which paper used which dataset + the code repos). Where those cover an entry in depth, this doc links to them instead of duplicating.
+**What this doc is *not*:** it is not the decision (that's [`04-data-benchmarks.md`](04-data-benchmarks.md), the powered survey of the four language-fMRI benchmarks we committed to, with the power analysis behind D008), and it is not paper-by-paper provenance (that's `reports/R02_datasets-and-code.md`, which maps which paper used which dataset + the code repos). Where those cover an entry in depth, this doc links to them instead of duplicating.
 
 **Accuracy rule (carried from R02 / L003):** every feature below is stated by the dataset's own page or paper. "NOT STATED" means the source genuinely did not give it — it is never an estimate. Where two sources disagree (subject counts especially), both numbers are shown and the conflict is flagged. Verified 2026-06-09 by direct fetch of dataset pages + papers; the four benchmarks marked → 04 were verified in Session 2.
 

@@ -12,7 +12,7 @@ canvas) and `write-redesign-build-plan.md` (the build). Regression anchor: SC-XS
 Adds to the D048 `/write` pipeline the capability the dry-run proved missing: when an auditor finds a
 defect the prose **cannot** fix because it lives in the evidence/argument substrate (not the writing),
 `/write` must route it to the owning stance and stop — never paper over, never produce/adopt a number.
-Regression anchor: the **E006 voxel-bootstrap CI** the F13 panel caught in the dry-run (a `live`, sourced,
+Regression anchor: the **[E006](../experiments/E006_lebel-voxelwise-feasibility.md) voxel-bootstrap CI** the F13 panel caught in the dry-run (a `live`, sourced,
 not-demoted number that is actually mis-aggregated — invisible to every existing guard).
 
 ---

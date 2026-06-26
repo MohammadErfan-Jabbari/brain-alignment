@@ -12,10 +12,10 @@ the canonical board that wins any conflict. **R-numbers** are synthesis reports 
 **L-numbers** are lessons in `docs/learnings.md`; **D-numbers** are decisions in `docs/decisions/`.) The experiment docs deliberately stay terse and
 assume these terms; this file is where they are defined *once*, clearly, so a reader new to a doc can
 ground the vocabulary here instead of re-deriving it. The math/theory version of several of these
-(MI bound, DPI, conditional-MI = unique R², rate-distortion) lives in `06-theory-grounding.md`; this
+(MI bound, DPI, conditional-MI = unique R², rate-distortion) lives in [`06-theory-grounding.md`](06-theory-grounding.md); this
 file is the intuition, not the formal treatment.
 
-> If a definition here ever disagrees with `ladder.md` or an experiment's recorded numbers, those win.
+> If a definition here ever disagrees with [`ladder.md`](ladder.md) or an experiment's recorded numbers, those win.
 > This is a teaching/reference aid, not a source of truth.
 
 ---
@@ -133,8 +133,8 @@ temporal-autocorrelation leakage that plagues continuous stimuli. **Our Layer-0/
 
 **LeBel ds003020, subject UTS03** (`data/lebel_ds003020/`). Naturalistic spoken-story listening, deep
 within-subject sampling, ~95k **voxels** with a CC_norm noise ceiling. Fine-grained and powered.
-**Our Layer-3 thesis-grade voxelwise benchmark.** (Full registry: `04-data-benchmarks.md`,
-`05-dataset-registry.md`.)
+**Our Layer-3 thesis-grade voxelwise benchmark.** (Full registry: [`04-data-benchmarks.md`](04-data-benchmarks.md),
+[`05-dataset-registry.md`](05-dataset-registry.md).)
 
 ---
 

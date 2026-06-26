@@ -8,7 +8,7 @@ aliases: [E012]
 
 **Created:** 2026-06-12 · **Status:** DEFERRED — oracle-adjudicated as power-limited at n=3 (2026-06-12); the voxelwise per-individual question is carried by E013's same-substrate loop instead · **Mode:** working
 **Direction:** close the manuscript's substrate-mismatch limitation (§6.5): the A2 *positive* is on LeBel voxelwise (powered), but the optimization *null* (E008) is on Tuckute ROIs. Run the per-individual optimization test on the SAME powered substrate — and get closer to Negi's naturalistic regime.
-**Predecessors:** `E006` (powered A2 on LeBel UTS03, measurement-only; flagged the TR-level tuning loop "E007" as mean-over-voxels-underpowered, MDE +0.013) · `E008` (per-individual null on Tuckute ROIs) · `E011` (regime-robust on Tuckute)
+**Predecessors:** [`E006`](E006_lebel-voxelwise-feasibility.md) (powered A2 on LeBel UTS03, measurement-only; flagged the TR-level tuning loop "E007" as mean-over-voxels-underpowered, MDE +0.013) · [`E008`](E008_per-participant-f1-solidification.md) (per-individual null on Tuckute ROIs) · [`E011`](E011_strong-regime-per-individual.md) (regime-robust on Tuckute)
 **New data (acquired this session):** LeBel deep subjects **UTS01, UTS02** downloaded (20 stories each) via `scripts/download_lebel_subjects.py` — joins UTS03 → **n=3 deep subjects** (E006 had only 1; this is what makes a per-individual test newly possible).
 **Code:** would extend `run_lebel_encoding.py` (measurement) with a TR-level brain-tuning loop (the un-built "E007") — a MAJOR new pipeline; build ONLY if oracle PASS on power.
 

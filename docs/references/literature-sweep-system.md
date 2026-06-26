@@ -34,7 +34,7 @@ The vision: run the sweep **once**, exhaustively, and store the result as a **pe
 1. **Metadata pull:** loop `dblp_venue_papers.py` / `openreview_papers.py` over all 10 venues × 2020–now → one normalized table {venue, year, title, authors, abstract, doi, pdf_path}.
 2. **Enrich + dedup:** fill abstracts (the enrichment chain); dedup by DOI/title; dedup against our 40 canonical notes.
 3. **Store queryably:** a local store — SQLite/parquet for metadata + an **embedding index** over title+abstract (a local sentence model, e.g. SPECTER2/bge on the L40S) for semantic search. Optionally mirror into gbrain as pages.
-4. **Query interface → a skill:** wrap "search the corpus for papers about X, ranked, with abstracts and PDF links" as a `conference-corpus` skill. The relevance taxonomy already exists: `docs/litsweep-relevance.md` (8 topic clusters + a Tier-1/2/3 digest-priority rubric).
+4. **Query interface → a skill:** wrap "search the corpus for papers about X, ranked, with abstracts and PDF links" as a `conference-corpus` skill. The relevance taxonomy already exists: [`docs/litsweep-relevance.md`](../litsweep-relevance.md) (8 topic clusters + a Tier-1/2/3 digest-priority rubric).
 5. **Scale note:** ~10 venues × 6 years × thousands each ≈ 100k+ papers — so the pipeline is metadata-pull → keyword/concept prefilter → embedding rerank → digest only the Tier-1 survivors. Never silently truncate; log what's dropped.
 
 This is a real engineering project (a day+), best done once and reused. It is NOT on the critical path for the current thesis/paper — recorded here so the work already done isn't lost and the build is well-specified when Erfan picks it up.

@@ -83,7 +83,7 @@ This is **apparatus grounding for the agent's own `/teach` stance — NOT thesis
 2. The utility ratings are **relative judgments graded on generalizability**, not effect sizes — do not quote a rating as if it were a measured Δ.
 3. Numbers (Runquist 53/36/35/4%; Bahrick; Cepeda lag) are **single-study illustrations** — cite them as examples of the mechanism, not as the effect size of the technique.
 
-This note pairs with `bloom-1984_two-sigma-problem` (the motivating analogy, with the deliberate affect-lever drop) and `learnlm-2024_improving-gemini-for-learning` (the five pedagogy dimensions and the scaffolding-over-answer-dumping framing) as the three pedagogy sources `teach.md` cites. `teach.md` already names Dunlosky 2013 as the grounding for "retrieval practice, spacing, desirable difficulty" (via `06-theory-grounding.md`) — this note makes that citation real.
+This note pairs with `bloom-1984_two-sigma-problem` (the motivating analogy, with the deliberate affect-lever drop) and `learnlm-2024_improving-gemini-for-learning` (the five pedagogy dimensions and the scaffolding-over-answer-dumping framing) as the three pedagogy sources `teach.md` cites. `teach.md` already names Dunlosky 2013 as the grounding for "retrieval practice, spacing, desirable difficulty" (via [`06-theory-grounding.md`](../../06-theory-grounding.md)) — this note makes that citation real.
 
 ## Verified
 

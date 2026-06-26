@@ -59,7 +59,7 @@ Set `HF_HOME=/home/centcom/data/hf-cache` (32 G cache). Already present:
   resting-state autism fMRI, CC200-atlas ROI timeseries (507 `.1D` files). This is **brain-jepa's**
   data and is **not** a language-fMRI corpus.
 - **No language-fMRI dataset is staged** (no Pereira / Narratives / LeBel). Budget time to download
-  one onto the 1.2 T volume — this is the gating resource for the thesis (see `01-research-landscape.md`).
+  one onto the 1.2 T volume — this is the gating resource for the thesis (see [`01-research-landscape.md`](01-research-landscape.md)).
 
 ## Network / remote
 

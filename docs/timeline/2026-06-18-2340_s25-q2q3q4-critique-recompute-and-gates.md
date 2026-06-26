@@ -18,7 +18,7 @@ Server crashed mid-session under download load; this is the recovery checkpoint.
 
 Headline: **none of Q2/Q3/Q4 is closable by theoretical proof.** The two nulls (Q3, Q4) rest on the same unproven
 premise — $Y \perp \theta^\* \mid S$ (the DPI-ceiling assumption, already flagged L041) — which the math we cite
-(`06-theory-grounding.md`) cannot discharge. So the honest closes are one free recompute (Q2) and experiments (Q3/Q4),
+([`06-theory-grounding.md`](../06-theory-grounding.md)) cannot discharge. So the honest closes are one free recompute (Q2) and experiments (Q3/Q4),
 not proofs.
 
 | Rung | Reconciled bucket | One-line |

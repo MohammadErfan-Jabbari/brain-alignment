@@ -33,11 +33,11 @@ This session was a guided Socratic walk-through of the thesis for Erfan ("teach 
 First-principles agent verdict on §2: **GROUNDED-WITH-CAVEAT** — the two load-bearing bounds match the course notes verbatim, arithmetic checks to the digit, all cited course-note paths exist; only the DPI chain head and two over-stated identities needed the fixes above (done).
 
 ## Doc-audit fixes landed
-- `docs/README.md` map was **missing the `ladder.md` row** (the source-of-truth file) — added.
+- `docs/README.md` map was **missing the [`ladder.md`](../ladder.md) row** (the source-of-truth file) — added.
 - `docs/00-charter.md` Status said "Activating" — updated to **write-up phase** (program closed 2026-06-12; ladder is current state).
 - Primer: added perplexity + E/R/L/D-number gloss.
 
-## Doc-audit findings NOT yet fixed (logged to tasks.md — real but low-severity, write-up phase)
+## Doc-audit findings NOT yet fixed (logged to [tasks.md](../tasks.md) — real but low-severity, write-up phase)
 - ~8 experiment docs (E003/E004/E006/E008/E009/E011/E012/E013) have stale Status lines ("DESIGN LOCKED / pre-run / oracle-gate pending") despite recorded results.
 - **E005** doc body still leads with the retracted "F1 CONFIRMED" Interpretation; the honest addendum should become the lead verdict.
 - R03/R01 carry pre-correction literature phrasings (Moussa +30%, Bilgin "L2"→cosine, Cheng/Yu LID sign agreement, Pirlot "monkey IT"→V1, Feghhi/Hadidi naming) that R04 corrected but R03 still asserts without an inline note.

@@ -35,7 +35,7 @@ Comprehension self-check passed: Y
 **Note on existing note:** An earlier stub (`feghhi-2024_case-against-over-reliance-brain-scores`)
 exists in this directory from a pre-full-read session (2026-03-02). That note was abstract-level and
 lacked all quantitative specifics. The present note supersedes it as the complete, numbers-exact
-record of the same paper. The old slug should be treated as deprecated; `01-research-landscape.md`
+record of the same paper. The old slug should be treated as deprecated; [`01-research-landscape.md`](../../01-research-landscape.md)
 references should migrate to this slug.
 
 ---

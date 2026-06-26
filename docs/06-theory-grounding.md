@@ -9,7 +9,7 @@ tags: [methodology]
 
 ## What this is, and why it exists
 
-This repo has three kinds of external source feeding the thesis: the **papers** (canonical notes in `literature/canonical/`, the frontier map in `01-research-landscape.md`), the **datasets** (`04-data-benchmarks.md`, `05-dataset-registry.md`), and — added here — Erfan's **master's coursework** in Information Theory for ML and Probabilistic ML (UC3M, 2025–26). The coursework is the *theoretical grounding* layer: it is where the math the thesis keeps invoking informally (the information budget, the weak-prior bound, the unique-variance metric, the compression trade-off) has its exact, proved, textbook-faithful form. This file is the map from that coursework to the thesis, so a future session can cite the right result instead of re-deriving it from scratch or guessing the constant.
+This repo has three kinds of external source feeding the thesis: the **papers** (canonical notes in `literature/canonical/`, the frontier map in [`01-research-landscape.md`](01-research-landscape.md)), the **datasets** ([`04-data-benchmarks.md`](04-data-benchmarks.md), [`05-dataset-registry.md`](05-dataset-registry.md)), and — added here — Erfan's **master's coursework** in Information Theory for ML and Probabilistic ML (UC3M, 2025–26). The coursework is the *theoretical grounding* layer: it is where the math the thesis keeps invoking informally (the information budget, the weak-prior bound, the unique-variance metric, the compression trade-off) has its exact, proved, textbook-faithful form. This file is the map from that coursework to the thesis, so a future session can cite the right result instead of re-deriving it from scratch or guessing the constant.
 
 The material lives under `data/course-material/` (gitignored — see "How it is stored" below). It is **already preprocessed** to a high standard, so the job of any future session is to *use* it, not to re-extract it.
 
@@ -142,8 +142,8 @@ The deferred gap-fill ran on 2026-06-10 (6 Sonnet subagents). **Seven new notes 
 ## Pointers into the rest of the brain
 
 - `reports/R03_brain-as-training-signal.md` §2 — the first-principles bound this file formally grounds (MI bound, DPI, weak-prior selection).
-- `01-research-landscape.md` — the anti-confound protocol (= conditional MI) and the compression trade-off (= rate-distortion / DPI) the course backs.
-- `learnings.md` L003 — why every brain-alignment number must be unique variance after nuisance subtraction (the conditional-MI requirement).
+- [`01-research-landscape.md`](01-research-landscape.md) — the anti-confound protocol (= conditional MI) and the compression trade-off (= rate-distortion / DPI) the course backs.
+- [`learnings.md`](learnings.md) L003 — why every brain-alignment number must be unique variance after nuisance subtraction (the conditional-MI requirement).
 
 ## Learning-science grounding (for the `/teach` stance — apparatus, not thesis math)
 

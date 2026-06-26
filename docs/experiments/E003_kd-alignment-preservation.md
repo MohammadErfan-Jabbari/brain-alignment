@@ -9,7 +9,7 @@ aliases: [E003]
 **Created:** 2026-06-10 · **Status:** COMPLETE (ran 2026-06-10) — Q1 PARTIAL: monotone alignment gradient (not preserve-for-free), but alignment co-varies with perplexity (ρ=−0.88), KD-specific shedding only p≈0.1 (L011) · **Mode:** working
 **Direction:** `../reports/R04_gap-analysis.md` §6(a) / §8 (Q1) · `../reports/R03_brain-as-training-signal.md` (ladder)
 **Theory:** `../06-theory-grounding.md` §2 (data-processing inequality) + §4 (rate–distortion = the F1 trade-off curve)
-**Predecessor:** `E002_tuckute-encoding-feasibility.md` (A2 PASS — the encoding signal is real on Tuckute)
+**Predecessor:** [`E002_tuckute-encoding-feasibility.md`](E002_tuckute-encoding-feasibility.md) (A2 PASS — the encoding signal is real on Tuckute)
 **Code:** `scripts/run_kd_alignment.py` (E003 runner), reuses `scripts/distill.py`, `scripts/pilot_lib.py`, `scripts/data_adapters.py:load_tuckute`
 **Output:** `outputs/E003_cold.json` + `outputs/E003_warm.json` (+ `.log` each). Provenance sidecars (recomputed 2026-06-17): `outputs/E003_perplexity.json` (reference-arm held-out ppls), `outputs/E003_dissociation.json` (the log-ppl fit + dissociation stats). See "Provenance repair" at the end.
 
@@ -19,7 +19,7 @@ aliases: [E003]
 
 R04's structural map (§1) places the thesis (F1) in the empty *shrink × optimize* cell, and §6 factors the sharpest question into a cheap decisive half and a thesis half:
 
-> **6(a) — cheap, decisive, nobody has run it:** Does standard perplexity/logit-only knowledge distillation into a smaller student **preserve** or **destroy** the teacher's brain alignment? `oota-2026` answered this for quantization and pruning; it is *unmeasured for KD* — a far more destructive transform (KD re-fits a smaller function from scratch, rather than perturbing a fixed function).
+> **6(a) — cheap, decisive, nobody has run it:** Does standard perplexity/logit-only knowledge distillation into a smaller student **preserve** or **destroy** the teacher's brain alignment? [`oota-2026`](../literature/canonical/oota-2026_brain-encoding-scale-compression.md) answered this for quantization and pruning; it is *unmeasured for KD* — a far more destructive transform (KD re-fits a smaller function from scratch, rather than perturbing a fixed function).
 
 This experiment is 6(a). It builds **no** `L_brain` and runs **no** alignment-guided KD — that is 6(b)/E004, and only happens if E003 shows headroom. E003 is pure measurement plus cheap perplexity-only KD runs.
 
@@ -30,7 +30,7 @@ Two Opus reviews (oracle-reviewer + an independent counter-argument) flagged tha
 - The teacher sits at an alignment level $A_T$ (the DPI ceiling a compressed student can inherit).
 - Perplexity-only KD lands the student at $A_S \le A_T$.
 - The **gap $\Delta = A_T - A_S$ is the headroom** an alignment-guided objective ($\lambda_{\text{brain}}>0$, E004) could recover. It is the vertical distance on the rate–distortion curve (`06` §4) between perplexity-only KD and the loss-free point at the same rate.
-- **Large gap** ⇒ KD sheds alignment ⇒ F1 has a confirmed job. **~Zero gap** ⇒ perplexity-only KD is already near the DPI-tight bound ⇒ F1's win would be marginal (it survives only as a trade-off-curve / measurement-rigor note, the way `oota-2026` complicates the quantization story — *not* a headline).
+- **Large gap** ⇒ KD sheds alignment ⇒ F1 has a confirmed job. **~Zero gap** ⇒ perplexity-only KD is already near the DPI-tight bound ⇒ F1's win would be marginal (it survives only as a trade-off-curve / measurement-rigor note, the way [`oota-2026`](../literature/canonical/oota-2026_brain-encoding-scale-compression.md) complicates the quantization story — *not* a headline).
 
 E003 does **not** by itself kill or confirm F1 (that needs the two-curve comparison in E004). It **sizes the headroom** and answers 6(a).
 
@@ -68,7 +68,7 @@ Trained arms (`kd_cold`, `kd_warm`, `lmft_warm`) are run over **≥3 seeds** at 
 Primary read on **`kd_cold`** (the only arm that answers 6(a)); corroborated by `distilgpt2` and interpreted via `kd_warm`/`lmft_warm`.
 
 - **LARGE HEADROOM — KD sheds alignment, F1 has a confirmed job.** `kd_cold` unique-R² CI includes 0 / sits at the floor ($\rho' \le 0.33$) **and** $\Delta=A_T-A_S$ is significant (>2σ). An alignment-guided objective has clear room to recover.
-- **SMALL HEADROOM — KD preserves alignment, F1 motivation is weak.** `kd_cold` CI overlaps the teacher ($\rho' \ge 0.80$), $\Delta$ not significant. Perplexity-only KD is already near the DPI-tight bound; F1 survives only as a trade-off-curve / rigor note, not a headline (the `oota-2026`-complicates-quantization outcome).
+- **SMALL HEADROOM — KD preserves alignment, F1 motivation is weak.** `kd_cold` CI overlaps the teacher ($\rho' \ge 0.80$), $\Delta$ not significant. Perplexity-only KD is already near the DPI-tight bound; F1 survives only as a trade-off-curve / rigor note, not a headline (the [`oota-2026`](../literature/canonical/oota-2026_brain-encoding-scale-compression.md)-complicates-quantization outcome).
 - **MODERATE HEADROOM (PARTIAL):** $0.33 < \rho' < 0.80$, $\Delta$ real but modest ⇒ headroom exists but is partial; **triggers confirmation on LeBel UTS03 voxelwise** (Q3, the powered benchmark — Tuckute is ROI-coarse, 5 dims, NC≈0.35, adequate only for a cheap screen).
 
 Negative results count (D007 / charter). A SMALL-HEADROOM verdict is a real, publishable finding that re-weights the thesis, and it ends F1 *as a headline* cheaply — exactly what a kill-test is for.

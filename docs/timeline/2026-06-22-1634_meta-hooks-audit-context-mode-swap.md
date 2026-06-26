@@ -36,7 +36,7 @@ tags: [timeline]
 Unchanged from S33 — the live thread is the `/write` extended-manuscript clean, next unit **§1 Introduction ¶1**. This meta session did not advance it.
 
 ## Note
-`/wrap` ran inline (light tier); the upspeed.md update was surgical (header + key fact + stragglers-now-committed), deliberately NOT a full replace, to preserve the S33 manuscript-clean resume state.
+`/wrap` ran inline (light tier); the [upspeed.md](../upspeed.md) update was surgical (header + key fact + stragglers-now-committed), deliberately NOT a full replace, to preserve the S33 manuscript-clean resume state.
 
 
 ## Related

@@ -164,7 +164,7 @@ declining to defend a single pedagogical theory.
 dataset of ours. Its only role in this repo is as the **pedagogical grounding for the agent's own
 `/teach` stance skill** — the source we cite when the agent claims its teaching behavior follows
 learning science. Keep it filed as canonical for traceability, but it is orthogonal to the thesis
-science and should not appear in `01-research-landscape.md`'s brain/distillation tables.
+science and should not appear in [`01-research-landscape.md`](../../01-research-landscape.md)'s brain/distillation tables.
 
 **The five named principles — cite them as LearnLM dimensions, with the right wording.** The popular
 shorthand "inspire active learning / manage cognitive load / adapt to the learner / stimulate
