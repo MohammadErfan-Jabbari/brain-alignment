@@ -1,15 +1,16 @@
 \section{Methods}
+\label{sec:methods}
 
 \subsection{The encoding model and the alignment score}
 
-Alignment is measured with an encoding model: a ridge regression from a frozen model's per-stimulus middle-layer activations $X$ to recorded brain activity $Y$, fit on training stimuli and scored on held-out ones.
+We measure alignment with an encoding model: a ridge regression from a frozen model's per-stimulus middle-layer activations $X$ to recorded brain activity $Y$, fit on training stimuli and scored on held-out ones.
 For activations $X \in \mathbb{R}^{n\times d}$ over $n$ stimuli and a $v$-voxel response $Y$, the fitted map is
 \begin{equation}
   \hat W = \arg\min_W \; \lVert Y - XW \rVert_F^2 + \lambda \lVert W \rVert_F^2 ,
 \end{equation}
 and the per-voxel score is the held-out correlation between predicted and measured response.
-A raw score of this kind is not reportable on its own, because a model can predict the brain for reasons that have nothing to do with language understanding: utterance length, word position, generic word identity.
-The quantity reported throughout is therefore the unique variance the model adds \emph{on top of} a low-level nuisance set $Z_{\mathrm{nuis}}$, the difference of two cross-validated fits,
+We do not report a raw score of this kind on its own, because a model can predict the brain for reasons that have nothing to do with language understanding: utterance length, word position, generic word identity.
+We therefore report the unique variance the model adds \emph{on top of} a low-level nuisance set $Z_{\mathrm{nuis}}$, the difference of two cross-validated fits,
 \begin{equation}
   \uniqueR \;=\; R^2\!\big([Z_{\mathrm{nuis}},\,\mathrm{LM}]\big) - R^2\!\big([Z_{\mathrm{nuis}}]\big),
 \end{equation}
@@ -17,7 +18,7 @@ a positive value of which says the contextual representation explains brain acti
 
 \subsection{What that quantity is, formally}
 
-In one sentence: the score is a lower bound on the information the model's representation carries about brain activity beyond the low-level confounds.
+The score is a lower bound on the information the model's representation carries about brain activity beyond the low-level confounds.
 The unique-variance score is, formally, the linear-Gaussian estimator of a conditional mutual information.
 For a triple $(X,Y,Z)$, the conditional mutual information $I(X;Y\mid Z) = H(Y\mid Z) - H(Y\mid X,Z)$ is the dependence between $X$ and $Y$ that survives once the context $Z$ is known \autocite{cover2006}.
 It is the right object because plain mutual information conflates a genuine dependence with a spurious one in which $X$ and $Y$ are merely co-driven by a common source: when that holds, $X\perp Y\mid Z$ and the conditional term is zero even though the unconditional one is positive, so conditioning is what tells the two apart.
@@ -43,14 +44,14 @@ A weak-but-aimed brain prior should therefore help most in low-information regim
 
 \subsection{The verdict statistic: the trained\textendash untrained gap}
 
-The quantity reported is not a trained model's absolute unique-variance score but the \emph{gap} between it and a same-architecture untrained network fit under identical nuisance and splits.
+We report not a trained model's absolute unique-variance score but the \emph{gap} between it and a same-architecture untrained network fit under identical nuisance and splits.
 The reason is that on naturalistic data an untrained network can score slightly positive through a shared-cause path: the stimulus drives both the response and the untrained features, leaving a residual dependence when the nuisance only partially captures the stimulus, so the absolute score is not a clean measure of what training adds.
 Both arms pass through the byte-identical nuisance subtraction, so the baseline term cancels in the difference and the gap directly isolates what \emph{language training} contributes over random initialisation, controlling for architecture, tokenisation, and residual temporal structure \evd{E006}.
-The gap is the statistic reported throughout.
+We report this gap throughout.
 
 \subsection{Three controls, fixed as the standard}
 
-Three controls make that gap trustworthy, and they are applied uniformly.
+Three controls make that gap trustworthy, and we apply them uniformly.
 \emph{Contiguous splits}: train and test are divided in blocks (block cross-validation on the ROI screen, whole-story-held-out cross-validation on the voxelwise run), because shuffling time-adjacent fMRI samples leaks near-duplicate timepoints across the split and inflates the score \evd{E002}\evd{E006}.
 \emph{A capacity-fair nuisance floor}: the wide contextual block and the wide static-embedding block are each reduced by PCA to the same rank, fit on the training fold only, so that when the model wins it wins on content rather than on carrying more dimensions; the few low-level scalars stay raw \evd{E006}.
 \emph{A held-out noise ceiling}: on the voxelwise run only reliable voxels are kept, and they are selected on a separate story repeated ten times and held entirely out of the cross-validation pool, scored by split-half reliability, so the estimate is not inflated by voxels that happen to correlate with the model by chance \evd{E006}.

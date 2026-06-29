@@ -1,18 +1,18 @@
 \section{Introduction}
 
 A decade of work has established a simple, reliable instrument: for a person and a language model reading the same text, a linear map predicts the person's recorded brain activity from the model's middle-layer activations, and how well it predicts on held-out data is the model's brain-alignment score \autocite{oota2023}.
-This instrument almost always runs in one direction, to \emph{measure} alignment as a property observed after a model is trained.
-This thesis asks the inverted question: can that alignment instead be \emph{used} as a training signal, a term added to a model's objective that rewards representations the brain would predict, and does a model trained that way gain anything a model trained on text alone does not.
+It almost always runs in one direction: to \emph{measure} alignment as a property of a model after training.
+We invert it. Can that alignment instead be \emph{used} as a training signal, a term in the objective that rewards representations predictive of brain activity, and does a model trained that way gain anything a text-only model does not?
 
-Inverting the question is only worth a thesis if it clears a hard prior.
+The answer turns first on an information budget.
 A language model already learns from on the order of $10^{12}$ tokens of dense, self-supervised supervision, while a language-fMRI dataset offers a few thousand noisy stimuli whose explainable variance is capped by a low noise ceiling.
 Adding a brain term to a language objective is, up to constants, a maximum-a-posteriori estimate in which the text enters as the likelihood and the brain term as a prior, not a second teacher.
 A prior worth, generously, $10^5$ bits cannot install task knowledge against a likelihood worth $10^{12}$; what it can do is \emph{select} among the many text-consistent solutions a large model admits, the way any weak-but-aimed regularizer does.
 Standard sample-complexity bounds then yield a falsifiable prediction: if a brain prior helps at all, it helps most where the text signal is weakest (small models, scarce data, aggressive compression), and washes out where data is abundant, the benefit shrinking as the task data grows.
-The methods make this argument formal and tie it to the information-theoretic bounds behind it.
+We make this argument formal in Section~\ref{sec:methods} and tie it to the information-theoretic bounds behind it.
 
-Using fMRI to shape a language model is, by 2026, already done.
-It has been demonstrated for speech models \autocite{moussa2025}, for text models \autocite{bilgin2026}, and causally: text models driven to be brain-\emph{misaligned} at matched perplexity do substantially worse across a broad downstream suite, so alignment is load-bearing rather than incidental \autocite{merlin2026}.
+Using fMRI to shape a language model is not new.
+Prior work does it for speech models \autocite{moussa2025}, for text models \autocite{bilgin2026}, and causally: text models driven to be brain-\emph{misaligned} at matched perplexity do substantially worse across a broad downstream suite, so alignment is causally relevant rather than incidental \autocite{merlin2026}.
 Every one of these interventions \emph{grows} the model: it fine-tunes, adds adapters, or bolts on a brain-prediction head; none compresses one.
 The one study that compresses language models measures how quantization and pruning move an \emph{observed} alignment score, never puts alignment in the training objective, and never tests knowledge distillation at all \autocite{oota2026}.
 On two axes, what happens to the parameter budget (grow or shrink) and how alignment is treated (measured or optimized), the field fills three cells and leaves one empty: \emph{shrink the model while alignment is in the objective}.
@@ -20,10 +20,10 @@ The contribution of this thesis is to occupy that empty cell, alignment-guided d
 
 The contribution depends entirely on the alignment score being a real signal rather than an artifact, because the field has repeatedly shown how easily it is not.
 Shuffled train-test splits leak through the temporal autocorrelation of fMRI, to the point that an \emph{untrained} network can appear to ``explain'' brain data through sentence length and position alone \autocite{hadidi2026}.
-This work therefore fixes its measurement standard before measuring anything: the reported quantity is never a raw score but the unique variance the model adds on top of a low-level nuisance set, on contiguous splits, with a same-architecture untrained network as the control \autocite{oota2023,merlin2024}.
-The program is then a sequence of kill-gated questions, each asked only if the one before it holds: whether the signal is real beyond confounds, whether plain distillation preserves it, whether an alignment-guided objective moves alignment beyond what perplexity already implies, whether any such gain holds per individual at matched perplexity, and whether it improves a downstream task.
+We therefore fix the measurement standard up front: we never report a raw score, but the unique variance the model adds on top of a low-level nuisance set, on contiguous splits, with a same-architecture untrained network as the control \autocite{oota2023,merlin2024}.
+The program is then a sequence of dependent questions, each asked only if the one before it holds: whether the signal is real beyond confounds, whether plain distillation preserves it, whether an alignment-guided objective moves alignment beyond what perplexity already implies, whether any such gain holds per individual at matched perplexity, and whether it improves a downstream task.
 
-This manuscript reports those results in the order their questions depend on one another.
+We report results in the order the questions depend on one another.
 Two are established so far.
 First, the foundation everything else qualifies: a trained model's middle layer carries unique, out-of-sample variance about real language-network activity that a same-architecture untrained network does not, and at voxel scale the effect is powered and unambiguous \evd{E006}.
 Second, plain perplexity-only distillation does not preserve that alignment by default: a from-scratch student trained on the teacher's outputs alone lands far below the teacher, though whether the drop is specific to the distillation objective or tracks the language-model quality the student loses is not resolved at this benchmark \evd{E003}.

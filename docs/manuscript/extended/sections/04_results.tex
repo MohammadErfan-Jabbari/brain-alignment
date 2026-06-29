@@ -42,7 +42,7 @@ The confidence intervals exclude zero, and the gap is carried by language traini
   \end{tabular}
 \end{table}
 
-Three controls keep the positive honest, and the screen and the powered run are complementary on them.
+Three controls rule out the obvious artifacts, and the screen and the powered run are complementary on them.
 The ROI screen uses isolated sentences, which removes the temporal-autocorrelation inflation that contaminates naturalistic time series, so its positive is harder to obtain rather than easier \evd{E002}.
 The voxelwise run reintroduces naturalistic stimuli but adds whole-story-held-out cross-validation, so test timepoints are never adjacent to training timepoints, and voxel selection on a separate held-out repeated story, so the score cannot be inflated by voxels that correlate with the model by chance \evd{E006}.
 The nuisance set subtracted in both arms is the low-level set most likely to manufacture a false positive: word and phoneme rate, word duration and length, log word-frequency, and a static word-embedding block \evd{E006}.
@@ -59,7 +59,7 @@ The signal is real beyond confounds on real neural data.
 The three-model ROI screen carries the breadth, and the deeply-sampled single subject UTS03 carries the statistical power at voxel scale.
 Cross-subject generality of the powered effect is a question this single-subject design leaves open, not one it settles.
 Qwen aligns more strongly than either GPT-2 variant, while the two GPT-2 variants are nearly tied despite a threefold parameter difference, so this single cross-family contrast does not by itself establish a quality ordering; that question is taken up later \evd{E002}.
-This is the one load-bearing positive in the program, necessary but not sufficient for everything after it.
+This is the foundational positive in the program: necessary but not sufficient for everything after it.
 \emph{Real} does not imply \emph{movable}, and \emph{movable} does not imply \emph{useful}: this result establishes only that the signal is real.
 
 \subsection{Plain distillation does not preserve alignment by default}
@@ -75,8 +75,8 @@ For a deterministic post-processing of a fixed teacher, the quantization and pru
 Distillation is not that regime: a from-scratch student fit by gradient descent on the teacher's logits has a side-channel to the stimulus through the raw next-token targets that bypasses the teacher's features, the data-processing premise fails, and nothing forces the student back to the teacher's alignment \evd{E003}.
 
 The verdict therefore rests on a cold-init student.
-A warm-started student inherits full teacher-grade alignment from its own pretraining, which the reality result already measures, so a high retention for it would show only that a few KD epochs did not erase what the student was born with, not that the KD channel carried alignment \evd{E003}.
-The verdict-bearing arm is a randomly initialised GPT-2 trained on the teacher's logits alone, the one arm whose surviving alignment was transmitted through distillation; a warm-init KD arm and a no-teacher plain-LM-finetune arm are kept as labelled fine-tuning-drift and corpus-drift controls, and every arm is scored at a fixed layer within the 12-layer GPT-2 architecture so no cross-architecture layer choice confounds the comparison \evd{E003}.
+A warm-started student inherits full teacher-grade alignment from its own pretraining, which the reality result already measures, so a high retention for it would show only that a few KD epochs did not erase the alignment the student already had, not that the KD channel carried it \evd{E003}.
+The verdict-bearing arm is a randomly initialised GPT-2 trained on the teacher's logits alone, the one arm whose surviving alignment was transmitted through distillation; we keep a warm-init KD arm and a no-teacher plain-LM-finetune arm as labelled fine-tuning-drift and corpus-drift controls, and we score every arm at a fixed layer within the 12-layer GPT-2 architecture so no cross-architecture layer choice confounds the comparison \evd{E003}.
 
 \begin{table}[H]
   \centering
@@ -101,7 +101,7 @@ The verdict-bearing arm is a randomly initialised GPT-2 trained on the teacher's
 
 The durable finding is the monotone gradient (Table~\ref{tab:kd}).
 Retention falls cleanly along the rebuild ordering: conventional GPT-2 at the teacher's level ($\rho'\approx1.0$), warm-init KD at $0.84$, the published distilgpt2 at $0.60$, the from-scratch cold-init student at $0.37$, and the untrained floor at $0$ \evd{E003}.
-The references behave as they should: off-the-shelf GPT-2 sits at the teacher's level, the untrained control at the floor, and two runs scoring the same references on different GPUs reproduced them to about $0.0003$ \evd{E003}.
+The reference arms validate the measurement: off-the-shelf GPT-2 sits at the teacher's level and the untrained control at the floor, and two runs scoring the same references on different GPUs reproduced them to about $0.0003$ \evd{E003}.
 The ordering holds at every PCA rank tested ($n_{\mathrm{pca}}\in\{25,50,100\}$), but the absolute shed fractions are rank-sensitive and the two confounded arms flip sign across ranks, so the ordering is the finding and the magnitudes are rank-dependent \evd{E003}.
 
 The gradient does not isolate the distillation objective from the language-model quality the student loses, because alignment co-varies with quality across the same arms.
