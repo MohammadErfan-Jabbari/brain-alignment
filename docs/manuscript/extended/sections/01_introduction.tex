@@ -74,11 +74,10 @@ Section~\ref{sec:methods} makes the argument precise.
 
 Using fMRI to shape a language model is not new.
 It has been done for speech models \autocite{moussa2025} and for text models \autocite{bilgin2026}, and its effect is causal: text models pushed to be brain-\emph{misaligned} at matched perplexity perform worse across a broad downstream suite \autocite{merlin2026}.
-Every one of these methods \emph{grows} the model.
-Each fine-tunes it, adds adapters, or attaches a brain-prediction head, and none compresses.
+Every one of these methods \emph{grows} the model, by fine-tuning it, adding adapters, or attaching a brain-prediction head, and none compresses it.
 The single study that compresses language models only measures how quantization and pruning move an alignment score.
 It never puts alignment in the objective, and never tests distillation \autocite{oota2026}.
-Two axes organize the field: whether an intervention grows or shrinks the model, and whether it measures or optimizes alignment.
+The work splits along two questions: does an intervention grow or shrink the model, and does it measure or optimize alignment?
 Three of the four combinations are occupied, and one is empty (Figure~\ref{fig:cells-diagram}).
 This thesis occupies the empty cell.
 It studies alignment-guided distillation at a matched student budget, the regime where our hypothesis says a brain prior could matter, rather than one where it is assumed to pay off.
@@ -107,15 +106,15 @@ The contributions below summarize that standard, and Section~\ref{sec:methods} d
 This thesis makes the following contributions, scoped to the results it establishes here.
 \begin{itemize}[noitemsep,topsep=2pt]
   \item It formulates alignment-guided distillation and locates it as the one combination the recent literature leaves open (Figure~\ref{fig:cells-diagram}).
-  \item It gives an information-budget argument that predicts where a brain prior can and cannot help, turning a loose appeal to brain data into a falsifiable claim.
-  \item It fixes a confound-clean protocol for measuring alignment: unique variance over a capacity-matched nuisance floor, contiguous splits, a same-architecture untrained control, a held-out noise ceiling, and a permuted-target control for specificity, the controls the alignment-training literature has largely lacked.
-  \item It establishes, at voxel scale and with statistical power, that the alignment signal is real beyond those confounds \evd{E006}.
+  \item It gives an information-budget argument that predicts where a brain prior can and cannot help, turning a vague argument for using brain data into a falsifiable prediction.
+  \item It fixes a measurement protocol that controls for the artifacts that can fake an alignment score: unique variance over a capacity-matched nuisance floor, contiguous splits, a same-architecture untrained control, a held-out noise ceiling, and a permuted-target control for specificity, the controls the alignment-training literature has largely lacked.
+  \item It establishes, at voxel scale and with statistical power, that the alignment signal is real beyond those artifacts \evd{E006}.
   \item It shows that plain perplexity-only distillation does not preserve alignment by default, while making explicit that the drop cannot yet be separated from the language-model quality the student loses \evd{E003}.
   \item It shows that optimizing an alignment objective moves alignment only weakly, that the effect is confounded by quality, and that it does not survive the honest unit of inference \evd{E004}.
 \end{itemize}
 
 The program is a sequence of dependent questions, each asked only if the previous one holds.
-Is the signal real beyond confounds?
+Is the signal real, or an artifact?
 Does plain distillation preserve it?
 Does an alignment objective move it beyond what perplexity already implies?
 Does any such gain survive per individual at matched perplexity?
