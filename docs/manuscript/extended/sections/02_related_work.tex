@@ -57,7 +57,7 @@ The bare inverted idea is not novel, but no study here compresses a model: every
 
 One study compresses language models and tracks alignment, and it is the closest prior work to this thesis.
 Alignment survives only certain post-training quantizers on models of at least a few billion parameters; other quantizers, smaller models, and pruning all degrade it, and distillation is never tested \autocite{oota2026}.
-This is \emph{shrink} crossed with \emph{measure}, not with \emph{optimize}: the study observes alignment under a fixed reshaping of the weights and never makes it a training target.
+That study measures alignment under compression but never optimizes it. It reports how quantization and pruning move the score, and never makes alignment a training target.
 Distillation is a different and lossier operation.
 It refits a smaller model from scratch against the teacher, the step most likely to discard the middle-layer structure where alignment lives, so a result about quantization does not carry over.
 The data-processing inequality says why the question is one of degree: a student can only lose alignment relative to its teacher, never create it.
