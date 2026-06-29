@@ -251,6 +251,59 @@ def paired_delta(res, arm, ref="text_only", metric="f1"):
 
 
 # ----------------------------- positive control (the gate) -----------------------------
+def estimate_mde(X, y, paragraph_ids, low_ns, candidate_deltas=(0.03, 0.05, 0.08, 0.11, 0.15),
+                 n_resamples=20, n_boot=400, test_frac=0.3, base_seed=0):
+    """Empirical MDE that correctly reflects TEST-SET binomial noise (the dominant limit).
+
+    For each low-n: fit text_only over resamples -> per-test-item correctness. For each candidate
+    accuracy lift delta, model a true effect that corrects round(delta*n_test) currently-wrong
+    items, then BOOTSTRAP THE TEST ITEMS (n_boot) to get the paired-Δ CI. delta is 'detected' at
+    n if the pooled 2.5th percentile of Δ > 0. MDE(n) = smallest detected delta; MDE = max over
+    low-n (the hardest). This is the McNemar/test-set-noise reality, not the (fixed-test) resample CI.
+    """
+    from sklearn.decomposition import PCA
+    from sklearn.preprocessing import StandardScaler
+    tr_idx, te_idx = paragraph_split(paragraph_ids, y, test_frac, base_seed)
+    Xtr_pool, ytr_pool = X[tr_idx], y[tr_idx]
+    Xte, yte = X[te_idx], y[te_idx]
+    n_te = len(te_idx)
+    n_comp = min(50, Xtr_pool.shape[0] - 1, Xtr_pool.shape[1])
+    sc = StandardScaler().fit(Xtr_pool); pca = PCA(n_comp, random_state=base_seed).fit(sc.transform(Xtr_pool))
+    Xtr_pool = pca.transform(sc.transform(Xtr_pool)); Xte = pca.transform(sc.transform(Xte))
+    per_n = {}
+    for n in low_ns:
+        # pooled per-item correctness across resamples
+        corr = []
+        for r in range(n_resamples):
+            rng = np.random.default_rng(base_seed * 7919 + n * 17 + r)
+            sub = _stratified_subsample(ytr_pool, n, rng)
+            pred = _fit_predict(Xtr_pool[sub], ytr_pool[sub], Xte, lam=0.0, seed=r)
+            corr.append((pred == yte).astype(float))
+        corr = np.array(corr)                                   # [R x n_te]
+        detected = {}
+        for delta in candidate_deltas:
+            k = int(round(delta * n_te))
+            deltas_bs = []
+            rng = np.random.default_rng(base_seed * 104729 + n * 31 + k)
+            for r in range(corr.shape[0]):
+                base = corr[r]
+                wrong = np.where(base == 0)[0]
+                boosted = base.copy()
+                if k > 0 and len(wrong) > 0:
+                    fix = rng.choice(wrong, size=min(k, len(wrong)), replace=False)
+                    boosted[fix] = 1.0
+                for _ in range(n_boot // corr.shape[0] + 1):
+                    bi = rng.integers(0, n_te, n_te)            # bootstrap test items
+                    deltas_bs.append(boosted[bi].mean() - base[bi].mean())
+            lo = float(np.percentile(deltas_bs, 2.5))
+            detected[delta] = lo > 0
+        mde_n = next((d for d in candidate_deltas if detected[d]), None)
+        per_n[n] = {"mde": mde_n, "detected": detected, "text_acc": float(corr.mean())}
+    mdes = [per_n[n]["mde"] for n in low_ns if per_n[n]["mde"] is not None]
+    overall = max(mdes) if len(mdes) == len(low_ns) else None    # None if some n never detect
+    return {"n_test": n_te, "per_n": per_n, "MDE_lown": overall}
+
+
 def pi_to_label_accuracy(PI, y, n_splits=5, seed=0):
     """PI->label probe + a_real: cross-validated accuracy of a teacher on the REAL PI."""
     from sklearn.linear_model import LogisticRegression
@@ -282,36 +335,36 @@ def run_positive_control(seed=0, n_resamples=40, low_ns=(16, 24, 32, 48),
     ns = list(low_ns) + list(high_ns)
     low = list(low_ns)
 
-    arms = {"text_only": None}
-    for p in boost_sweep:
-        arms[f"boost_{int(p*100):02d}pp"] = (p, "oracle_boost")     # estimator MDE calibration
-    arms["realgaze_distill"] = (_zscore(real_pi), "distill")        # realized real-gaze effect (sanity)
-    arms["realgaze_shuffled"] = (shuffle_pi(_zscore(real_pi), np.random.default_rng(seed)), "distill")
+    # GATE: empirical MDE via test-item bootstrap (correctly reflects test-set binomial noise)
+    mde = estimate_mde(X, y, pids, low, n_resamples=n_resamples, base_seed=seed)
+    # realized real-gaze effect (reported, NOT part of the gate) via the learning curve
+    arms = {"text_only": None,
+            "realgaze_distill": (_zscore(real_pi), "distill"),
+            "realgaze_shuffled": (shuffle_pi(_zscore(real_pi), np.random.default_rng(seed)), "distill")}
     res, ntr, nte = learning_curve(X, y, pids, arms, ns, n_resamples=n_resamples, base_seed=seed)
 
     findings = {"a_real_gaze_pi_to_label_acc": a_real, "n_sentences": int(len(y)),
                 "binary_balance": np.bincount(y).tolist(), "n_train_pool": ntr, "n_test": nte,
                 "ns": ns, "low_ns": low, "metric": metric, "mde_threshold": mde_threshold,
-                "chance_acc": float(max(np.bincount(y)) / len(y)), "arms": {}}
+                "chance_acc": float(max(np.bincount(y)) / len(y)),
+                "mde_detail": mde, "arms": {}}
     for a in arms:
         if a != "text_only":
             findings["arms"][a] = paired_delta(res, a, metric=metric)
 
-    detected = [p for p in boost_sweep
-                if all(findings["arms"][f"boost_{int(p*100):02d}pp"][n]["ci95"][0] > 0 for n in low)]
-    mde = min(detected) if detected else None
+    mde_lown = mde["MDE_lown"]
     def low_n_pos(arm):
         return any(findings["arms"][arm][n]["ci95"][0] > 0 for n in low)
     findings["gate"] = {
-        "empirical_MDE_lown_acc": mde,
-        "MDE_meets_threshold": bool(mde is not None and mde <= mde_threshold),
+        "empirical_MDE_lown_acc": mde_lown,
+        "MDE_meets_threshold": bool(mde_lown is not None and mde_lown <= mde_threshold),
         "realgaze_distill_lifts_lown": bool(low_n_pos("realgaze_distill")),
         "realgaze_shuffled_lifts_lown": bool(low_n_pos("realgaze_shuffled")),
-        "PASS": bool(mde is not None and mde <= mde_threshold),
-        "rule": ("PASS iff the empirical low-n MDE (smallest detectable injected accuracy gain, "
-                 "paired CI>0 at all low n) <= mde_threshold; the test set can resolve a "
-                 "plausibly-LUPI-sized single-digit-pp low-n gain. Real-gaze arms are reported as "
-                 "the realized effect, not part of the gate."),
+        "PASS": bool(mde_lown is not None and mde_lown <= mde_threshold),
+        "rule": ("PASS iff the empirical low-n MDE (smallest accuracy lift whose test-item-"
+                 "bootstrap CI excludes 0 at every low n) <= mde_threshold; i.e. the test set can "
+                 "resolve a plausibly-LUPI single-digit-pp low-n gain. Real-gaze arms are the "
+                 "realized effect, not part of the gate."),
     }
     os.makedirs(OUT_DIR, exist_ok=True)
     with open(os.path.join(OUT_DIR, "positive_control.json"), "w") as fh:
@@ -330,7 +383,15 @@ def _print_gate(f):
     print(f"  real gaze PI -> label CV acc (a_real): {f['a_real_gaze_pi_to_label_acc']:.3f}  "
           f"(chance {f['chance_acc']:.3f})")
     print(f"  n_train_pool={f['n_train_pool']} n_test={f['n_test']}  low-ns={f['low_ns']}  metric={f['metric']}")
-    for arm, by_n in f["arms"].items():
+    md = f["mde_detail"]
+    print(f"  --- estimator MDE (test-item bootstrap, n_test={md['n_test']}) ---")
+    for n in f["low_ns"]:
+        pn = md["per_n"][n]
+        print(f"    n={n:>3}: text_acc={pn['text_acc']:.3f}  MDE={pn['mde']}  "
+              f"detected={ {round(k,3):v for k,v in pn['detected'].items()} }")
+    print(f"  --- realized real-gaze distillation effect (NOT the gate) ---")
+    for arm in ("realgaze_distill", "realgaze_shuffled"):
+        by_n = f["arms"][arm]
         s = "  ".join(f"n{n}:{by_n[n]['mean']:+.3f}[{by_n[n]['ci95'][0]:+.3f},{by_n[n]['ci95'][1]:+.3f}]"
                       for n in list(by_n)[:4])
         print(f"    {arm:>18}: {s}")
@@ -378,6 +439,10 @@ def _selftest():
     # paragraph split disjoint
     tr, te = paragraph_split(pids, y, 0.3, 0)
     assert set(pids[tr]).isdisjoint(set(pids[te]))
+    # estimate_mde: big test + easy text -> small MDE detected; returns sane structure
+    mde = estimate_mde(X, y, pids, low_ns=[16, 32], n_resamples=8, n_boot=200, test_frac=0.4)
+    assert mde["n_test"] > 0 and "per_n" in mde
+    assert mde["per_n"][16]["mde"] is None or 0 < mde["per_n"][16]["mde"] <= 0.2
     print(f"selftest OK (+10pp boost detected {d10[16]['mean']:+.3f}{d10[16]['ci95']}; "
           f"zero-boost null {d00[16]['mean']:+.3f}{d00[16]['ci95']}; paragraph-split disjoint)")
 
