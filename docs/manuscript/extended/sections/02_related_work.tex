@@ -61,8 +61,8 @@ That study measures alignment under compression but never optimizes it. It repor
 Distillation is a different and lossier operation.
 It refits a smaller model from scratch against the teacher, the step most likely to destroy the middle-layer structure where alignment lives.
 So alignment surviving quantization, a gentle reshaping of fixed weights, does not imply it survives distillation.
-The data-processing inequality says why the question is one of degree: a student can only lose alignment relative to its teacher, never create it.
-Where preservation does hold, that bound is nearly tight, so the open question is whether distillation falls well short of it by default, and whether a brain objective pulls the student back toward it.
+Whether distillation preserves alignment is therefore an open empirical question: how much does it lose by default, and can a brain objective recover the rest?
+We develop the information-theoretic bound behind this in Section~\ref{sec:methods}.
 
 \subsection{The empty cell}
 
