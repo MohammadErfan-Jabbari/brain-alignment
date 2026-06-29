@@ -20,6 +20,22 @@ TASKS = {
 }
 
 
+def load_labels_tsr(csv_path):
+    """TSR relations_labels_task3.csv: ';'-delimited, rows = pid;sid;sentence;relation-type
+    (header mislabels it as 3 cols). relation = last field; sentence = the middle (robust to
+    an embedded ';')."""
+    rows = []
+    lines = open(csv_path, encoding="utf-8").read().splitlines()
+    for ln in lines[1:]:
+        parts = ln.split(";")
+        if len(parts) < 4:
+            continue
+        rows.append({"sentence": ";".join(parts[2:-1]).strip(),
+                     "paragraph_id": parts[0], "sentence_id": parts[1],
+                     "relation": parts[-1].strip(), "control": ""})
+    return rows
+
+
 def discover_task_subjects(mat_dir, pat, rgx):
     subs = []
     for p in sorted(glob.glob(os.path.join(mat_dir, pat))):
@@ -115,15 +131,22 @@ def probe_multiclass(featmat, rels):
     Xm, ym = featmat[mask], prim[mask]
     classes, ym_i = np.unique(ym, return_inverse=True)
     chance = float(max(np.bincount(ym_i)) / len(ym_i))
-    skf = StratifiedKFold(5, shuffle=True, random_state=0)
-    bacc, f1 = [], []
-    for tr, te in skf.split(Xm, ym_i):
-        sc = StandardScaler().fit(Xm[tr])
-        clf = LogisticRegression(max_iter=2000).fit(sc.transform(Xm[tr]), ym_i[tr])
-        p = clf.predict(sc.transform(Xm[te]))
-        bacc.append(balanced_accuracy_score(ym_i[te], p)); f1.append(f1_score(ym_i[te], p, average="macro"))
-    return {"classes": list(classes), "n": int(mask.sum()), "chance_acc": chance,
-            "balanced_acc": float(np.mean(bacc)), "macro_f1": float(np.mean(f1))}
+    def cv_bacc(yy):
+        skf = StratifiedKFold(5, shuffle=True, random_state=0)
+        b = []
+        for tr, te in skf.split(Xm, yy):
+            sc = StandardScaler().fit(Xm[tr])
+            clf = LogisticRegression(max_iter=2000).fit(sc.transform(Xm[tr]), yy[tr])
+            b.append(balanced_accuracy_score(yy[te], clf.predict(sc.transform(Xm[te]))))
+        return float(np.mean(b))
+    obs = cv_bacc(ym_i)
+    rng = np.random.default_rng(0)
+    null = np.array([cv_bacc(rng.permutation(ym_i)) for _ in range(300)])
+    perm_p = float((np.sum(null >= obs) + 1) / (len(null) + 1))
+    return {"classes": list(classes), "n": int(mask.sum()),
+            "chance_majority": chance, "chance_balanced": 1.0 / len(classes),
+            "balanced_acc": obs, "perm_null_mean": float(null.mean()),
+            "perm_null_p95": float(np.percentile(null, 95)), "perm_p": perm_p}
 
 
 def main():
@@ -134,7 +157,7 @@ def main():
     global OUT
     OUT = f"outputs/e024/gaze_richness_probe_{args.task}.json"
     print(f"=== TASK {args.task} ===")
-    labels = Z.load_labels(labels_csv)
+    labels = Z.load_labels(labels_csv) if args.task == "NR" else load_labels_tsr(labels_csv)
     subjects = discover_task_subjects(mat_dir, pat, rgx)
     # union of mat keys -> resolve labels (reuse loader join)
     subj_rich = {}
@@ -155,17 +178,23 @@ def main():
     feat = np.nan_to_num(feat, nan=0.0)
     print(f"\nrich featurization: {feat.shape}, binary balance {np.bincount(y).tolist()}, "
           f"chance(majority)={max(np.bincount(y))/len(y):.3f}")
-    res = probe(feat, y)
-    print("\n=== gaze (RICH ~35-d) -> BINARY relation label, 5-fold CV ===")
-    for clf, m in res.items():
-        print(f"  {clf:>7}: acc={m['acc']:.3f}  bal_acc={m['balanced_acc']:.3f}  "
-              f"macroF1={m['macro_f1']:.3f}  auc={m['auc']:.3f}")
-    perm = perm_auc_test(feat, y)
-    print(f"  permutation AUC test: observed={perm['observed_auc']:.3f}  null_mean={perm['null_mean']:.3f}  "
-          f"null_p95={perm['null_p95']:.3f}  p={perm['perm_p']:.3f}")
+    res, perm = None, None
+    if len(np.unique(y)) >= 2:
+        res = probe(feat, y)
+        print("\n=== gaze (RICH ~35-d) -> BINARY relation label, 5-fold CV ===")
+        for clf, m in res.items():
+            print(f"  {clf:>7}: acc={m['acc']:.3f}  bal_acc={m['balanced_acc']:.3f}  "
+                  f"macroF1={m['macro_f1']:.3f}  auc={m['auc']:.3f}")
+        perm = perm_auc_test(feat, y)
+        print(f"  permutation AUC test: observed={perm['observed_auc']:.3f}  null_mean={perm['null_mean']:.3f}  "
+              f"null_p95={perm['null_p95']:.3f}  p={perm['perm_p']:.3f}")
+    else:
+        print(f"\n[binary probe skipped: only one class present (balance {np.bincount(y).tolist()}) "
+              f"-> task-specific reading has no NO-RELATION sentences; multiclass is the readout]")
     mc = probe_multiclass(feat, [resolved[k]["relation"] for k in keep])
     print(f"\n=== gaze (RICH ~35-d) -> MULTICLASS relation TYPE ({len(mc['classes'])} classes, n={mc['n']}) ===")
-    print(f"  balanced_acc={mc['balanced_acc']:.3f}  macroF1={mc['macro_f1']:.3f}  chance(majority)={mc['chance_acc']:.3f}")
+    print(f"  balanced_acc={mc['balanced_acc']:.3f}  chance(balanced)={mc['chance_balanced']:.3f}  "
+          f"null_mean={mc['perm_null_mean']:.3f}  null_p95={mc['perm_null_p95']:.3f}  perm_p={mc['perm_p']:.3f}")
     os.makedirs("outputs/e024", exist_ok=True)
     with open(OUT, "w") as fh:
         json.dump({"n": len(y), "ndim": int(ndim), "balance": np.bincount(y).tolist(),
