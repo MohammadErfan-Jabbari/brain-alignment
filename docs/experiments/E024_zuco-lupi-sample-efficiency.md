@@ -210,6 +210,22 @@ label-relevant features are the *unreliable* ones. So in normal reading, gaze ca
 a signal orthogonal to the label cannot). Mechanism-consistent with the spine: gaze's stimulus-predictable part
 `$\mathbb E[Y\mid S]$` for *relation detection* is ~null; the residual is reading-mechanics noise w.r.t. this task.
 
+**Finding 3 — the leak contrast (NR vs TSR): gaze carries the relation ONLY under task-directed reading.**
+Running the same `gaze → relation-type` probe on task3-TSR (task-specific reading: readers are told to hunt a target
+relation) vs task2-NR (natural reading), multiclass balanced-accuracy with a 300-permutation test:
+
+| reading regime | gaze → relation-type | chance (balanced) | permutation p |
+|---|---|---|---|
+| **NR** (natural reading) | 0.202 | 0.200 | **0.35** (null) |
+| **TSR** (task-directed) | **0.295** | 0.100 | **0.003** (significant) |
+
+So gaze predicts the relation **only when the reader is actively hunting it** (TSR), not in natural reading (NR). A
+train-only "LUPI gain" from gaze on a relation task would therefore be the **task-direction leak** — the reader's
+*intent* leaking into gaze — not transferable cognitive signal. This is exactly the artifact class the 5-control
+battery (the PI→label probe + the L049 shape-twin + the matched-information teacher) is built to expose, and it is why
+TSR was predeclared a leaky secondary, never pooled into the NR primary. (TSR is all-relation-present — no NO-RELATION —
+so the binary task is degenerate there; the readout is multiclass relation-type.)
+
 **Finding 2 — the substrate is structurally disqualified for a leakage-free learning curve (independent of Finding 1).**
 ZuCo-NR's 300 sentences come from only **7 paragraphs** (sizes {154,68,36,24,10,7,1}). A paragraph-disjoint split
 (required — entity/topic leak across sentences of one paragraph) cannot define a stable test set: across split seeds
@@ -238,9 +254,13 @@ caught the reliability-deflation bug (0.51 → 0.71), no further bugs.
 2. **OneStop** (comprehension task, reliable 360-reader gaze) — but first-principles flagged it as the leaky/
    non-transferable trap (its gaze→label channel is severed at test); expected to yield a non-transferable leaky "gain"
    = another held-out-estimand null. Low expected value; NOT recommended as a multi-day build.
-3. **TSR sharpening (cheap, deferred)** — task-specific reading: readers *hunt* the relation, so TSR gaze should predict
-   the label *via task-direction* (a leak). Running the same probe on task3-TSR would sharpen Finding 1 into "gaze
-   carries relation info ONLY under task-directed reading (a leak), not natural reading." A nice contrast, not required.
+3. **TSR sharpening — DONE (S45, Finding 3):** task3-TSR gaze predicts the relation type at balanced-acc 0.295
+   (perm p=0.003) vs NR's chance 0.202 (p=0.35) → gaze carries relation info ONLY under task-directed reading (a leak),
+   not natural reading. The negative is now a sharp contrast.
+
+**Chosen path (Erfan, S45): option 3 (TSR sharpening) → then stop the ZuCo gaze-relation line and consolidate the
+negative as the methodology contribution (option 1).** OneStop (option 2) not pursued — the first-principles
+transferability trap makes its expected value low.
 
 Q4/A3 (practical payoff) stays ❌; this adds the privileged-information / sample-efficiency axis (gaze, relation
 detection, normal reading) to the robust null. No rung flips without Erfan.
