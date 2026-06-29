@@ -49,7 +49,7 @@ A second line puts alignment in the objective of a fine-tuned or grown model, ac
 For speech, a voxelwise brain loss fine-tunes compact encoders and improves both alignment and several downstream tasks, with a multi-participant variant reporting further gains at higher data efficiency \autocite{moussa2025,moussa2025b}.
 For text, training GPT-2 and LLaMA-2 with a cosine brain loss beats text-only baselines, though the gains are mixed and the splits are shuffled with no brain-shuffled control, so they would not clear the measurement bar this work adopts \autocite{bilgin2026}.
 The strongest evidence is causal.
-Training a text model to be \emph{less} brain-aligned, while holding its perplexity fixed, makes it worse across a suite of more than two hundred tasks; training it to be \emph{more} aligned helps \autocite{merlin2026}.
+Training a text model to be \emph{less} brain-aligned, at fixed perplexity, makes it worse across a suite of more than two hundred tasks, while training it to be \emph{more} aligned improves performance on the same suite \autocite{merlin2026}.
 So alignment is doing causal work, not just riding along with a good model.
 So the bare inverted idea is not novel.
 What none of this work does is compress: every method grows or holds the parameter budget, which leaves the compression question open.
