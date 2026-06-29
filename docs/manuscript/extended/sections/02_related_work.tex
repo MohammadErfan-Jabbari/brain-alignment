@@ -55,8 +55,8 @@ The bare inverted idea is not novel, but no study here compresses a model: every
 
 \subsection{Alignment under compression}
 
-One study compresses language models and tracks alignment, and it is the closest prior work to this thesis.
-Alignment survives only certain post-training quantizers on models of at least a few billion parameters; other quantizers, smaller models, and pruning all degrade it, and distillation is never tested \autocite{oota2026}.
+The closest prior work to this thesis is the compression study of \textcite{oota2026}, which tracks how alignment changes as a model is compressed.
+They find that alignment survives only certain post-training quantizers on models of at least a few billion parameters; other quantizers, smaller models, and pruning all degrade it, and distillation is never tested.
 That study measures alignment under compression but never optimizes it. It reports how quantization and pruning move the score, and never makes alignment a training target.
 Distillation is a different and lossier operation.
 It refits a smaller model from scratch against the teacher, the step most likely to discard the middle-layer structure where alignment lives, so a result about quantization does not carry over.
