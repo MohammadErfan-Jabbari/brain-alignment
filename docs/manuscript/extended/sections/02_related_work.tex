@@ -34,7 +34,7 @@ We review the three occupied cells in turn, then the measurement standard this w
   \end{tabular}}
 \end{table}
 
-\subsection{Grown models, alignment measured: the classical brain-score literature}
+\subsection{The classical brain-score literature}
 
 The largest body of work fits encoding models to frozen, pretrained networks, then reads off how alignment varies with architecture, scale, and training.
 Three findings recur.
@@ -43,7 +43,7 @@ It grows with model scale and saturates around a few billion parameters, and at 
 Beyond that scale the trend can flatten or reverse, as the largest models outgrow the human language network and track formal competence more than behavior \autocite{alkhamissi2025}.
 This line of work shows the signal exists and is structured, but it never intervenes through alignment, so it cannot say whether alignment is usable.
 
-\subsection{Grown models, alignment optimized: brain-tuning, and why the bare inversion is not novel}
+\subsection{Brain-tuning}
 
 A second line puts alignment in the objective of a fine-tuned or grown model, across modalities.
 For speech, a voxelwise brain loss fine-tunes compact encoders and improves both alignment and several downstream tasks, with a multi-participant variant reporting further gains at higher data efficiency \autocite{moussa2025,moussa2025b}.
@@ -52,7 +52,7 @@ The strongest evidence is causal: driving text models \emph{away} from alignment
 So the bare inverted idea is not novel.
 What none of this work does is compress: every method grows or holds the parameter budget, which leaves the compression question open.
 
-\subsection{Shrunk models, alignment measured: the compression study that does not close the gap}
+\subsection{Alignment under compression}
 
 One study compresses language models and tracks alignment, and it is the closest prior work, so its scope needs a careful reading.
 Alignment survives only certain post-training quantizers on models of at least a few billion parameters; other quantizers, smaller models, and pruning all degrade it, and distillation is never tested \autocite{oota2026}.
@@ -62,7 +62,7 @@ It refits a smaller model from scratch against the teacher, the step most likely
 The data-processing inequality says why the question is one of degree: a student can only lose alignment relative to its teacher, never create it.
 Where preservation does hold, that bound is nearly tight, so the open question is whether distillation falls well short of it by default, and whether a brain objective pulls the student back toward it.
 
-\subsection{The empty cell, and the adjacent precedents that motivate it weakly}
+\subsection{The empty cell}
 
 The remaining cell, shrink the model while alignment is optimized at a matched budget, is empty, and it is where this work sits.
 Two precedents from vision and audio are sometimes read as support for a brain regularizer in the low-data regime, but each weakens on a closer look.
@@ -70,7 +70,7 @@ A neural-data regularizer on a vision network improves accuracy and adversarial 
 fMRI fine-tuning of a small audio network improves most downstream tasks, but with no interaction test and no matched non-brain control, so the apparent low-data advantage is suggestive, not isolated \autocite{freteault2025}.
 Both omit the matched non-brain control that would isolate a brain-specific gain, and neither transfers cleanly to distillation, so they are cautions more than evidence.
 
-\subsection{The measurement-validity bar, and the fMRI-free surrogate question}
+\subsection{The measurement bar}
 
 A parallel line warns that alignment scores are easy to inflate and easy to over-read, and it sets the standard this work measures against.
 Shuffled splits leak through temporal autocorrelation, low-level and static features carry much of the apparent signal, and some audited frozen-encoding scores fail basic predictive and reliability checks \autocite{hadidi2026,jia2026}.
