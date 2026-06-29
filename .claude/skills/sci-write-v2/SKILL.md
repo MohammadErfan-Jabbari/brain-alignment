@@ -36,7 +36,21 @@ whole DET floor in one call** — run it after every stage write and treat any f
 number; the evidence is frozen. Seed `.../evidence-register.json` status from the ladder if a cited experiment
 is missing (it is keyed live/demoted/superseded).
 
-**Stage 1 · Message & Reader (F2 + F1).** State the **one-sentence message** (Mensh-Kording: one paper, one
+**Stage 1 · Message & Reader (F2 + F1).**
+
+**First, set the deliverable layer (the mode).** Write `meta.layer` ∈ {`report` | `extended` | `public`} — it
+fixes the audience and the internal-code policy; the reader-model derives from it, never guessed. Per
+`docs/03-methodology.md` (Deliverable layers) and the archived "internal codes descend by layer" rule:
+- **`report`** — reader = *us + whoever needs the topic* (internal). The repo's codes (`Qn`/`Ennn`/`Dnnn`/`Lnnn`/`Rnn`)
+  and already-established project results are **OLD**: use them freely in prose, do not gloss them. (Scaffolding
+  *metaphors* — ladder/rung/lever — are still named in prose at every layer.)
+- **`extended`** — reader = supervisor. A code appears only as a **parenthetical pointer** ("a per-individual
+  null (E008)"), never a sentence's subject.
+- **`public`** — reader = external reviewer. **Zero codes**; name every result in prose; gloss only what that
+  venue's reader would miss.
+
+**Pass `meta.layer` to `sw-reader-model`** so `old`/`new` and gloss depth are set per the layer, not invented.
+Then state the **one-sentence message** (Mensh-Kording: one paper, one
 message — a norm the human gates at F16, *not* a DET check: a sentence-counter false-positives on "Sec.",
 "U.S.", ellipses, so it stays a judgment), the **`frame`** (`basic-science | technology` — name which game you
 are playing; for this thesis the technology frame is closed by the Q3 null), and the **`contribution_type`**;

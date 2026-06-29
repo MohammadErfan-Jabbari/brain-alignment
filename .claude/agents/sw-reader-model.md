@@ -40,6 +40,13 @@ A term is **OLD** if a typical reader at the named venue already holds it and wo
   old/new *for the named reader*. If you are unsure where a term sits for this reader, put it in `new` (a
   needless gloss costs a clause; a missing one loses the reader) and say so.
 
+**The deliverable layer (`meta.layer`) sets the project-internal terms.** If given `layer: report` (internal
+audience — us + supervisor), the repo's own codes (`Qn`/`Ennn`/`Dnnn`/`Lnnn`/`Rnn`) and already-established
+project results are **OLD** (assumed, used freely in prose, not glossed). If `layer: public` (external reviewer),
+they are **NEW** or must be named in prose — a reviewer must never need the repo to parse the paper; `layer:
+extended` (supervisor) sits between, codes only as parenthetical pointers. Calibrate gloss depth to the layer's
+audience.
+
 Two failure modes to avoid, both real (SC-STR-03, SC-STR-12): **under-glossing** (a neuroscience term used in
 Results with no gloss for an ML reader) and **inverted old/new** (leading with neuro-preprocessing as if it were
 shared/old for an ML reader). Your `old`/`new` lists are what let F11 catch both.

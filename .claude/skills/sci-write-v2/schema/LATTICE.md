@@ -8,7 +8,7 @@ argument) from frame → gate → draft → audit so nothing drops between hands
 
 ```json
 {
-  "meta":        {"stage": <int 1-6>, "schema_version": "1"},
+  "meta":        {"stage": <int 1-6>, "schema_version": "1", "layer": "report" | "extended" | "public"},
   "message":     "<one-sentence message of the paper>" | null,
   "frame":       "basic-science" | "technology" | null,
   "contribution_type": "<e.g. empirical-finding | methodological | conceptual>" | null,
@@ -24,6 +24,13 @@ argument) from frame → gate → draft → audit so nothing drops between hands
 ```
 
 ## Stage-1 fields (F2 + F1, written at stage 1; required by the gate — stage ≥ 3)
+
+`meta.layer` (optional, default `report`) is the **deliverable layer / audience mode** — `report | extended |
+public` — set at stage 1. It drives the reader-model's internal-code and gloss policy: **report** uses the repo's
+codes (`Qn`/`Ennn`/`Dnnn`) freely in prose for an internal reader; **extended** allows codes only as parenthetical
+pointers; **public** carries zero codes and names every result in prose for an external reviewer. It is distinct
+from `frame` (the scientific game, `basic-science | technology`). It is guidance for F1/the drafter/the judges,
+not a DET gate.
 
 `message`, `frame`, `contribution_type` are the **F2** outputs; `reader_model` is the **F1** output. They are
 optional before the gate and **required, well-formed, at stage ≥ 3** (the coupled package the human approves):
