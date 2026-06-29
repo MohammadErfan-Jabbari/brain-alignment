@@ -190,6 +190,10 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
   - [x] **Checkpoint 2 / v0.2** (S31, 2026-06-22) — R07 (Q1) folded in + v0.1 register repair (L054/D046); PDF built (tectonic+biber, L056).
   - [ ] **Checkpoint 3** — fold R08 (Q2) once its finding-report is written; then R09–R14 as they land. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
 
+### Done this session (S45, /work Q4 E024: gaze-as-privileged-information → recorded NEGATIVE; Q4 stays ❌)
+- ✅ **E024 ran to a recorded NEGATIVE through the binding positive-control gate.** Substrate converged (ZuCo-NR, gaze-first; dual-opus-reviewed; Lopez-Paz digested). Built the per-word gaze loader (Codex caught a reliability bug → 0.71), embeddings (Qwen2.5-0.5B L12), and the LUPI/MDE harness. **Finding: gaze ⊥ relation-label** (airtight — binary AUC 0.51 p=0.45; multiclass balanced-acc 0.20 p=0.35; rich-35d+RF; within-subject) → 5-arm build correctly NOT triggered. **Structural disqualifier:** 7 paragraphs → no stable split. **Leak (Finding 3):** TSR task-directed gaze predicts relation-type (perm-p 0.003). Panel converged. 8 commits (worktree, merged to main). Record: [`experiments/E024_*.md`](experiments/E024_zuco-lupi-sample-efficiency.md); L069/L070; brain `projects/brain-alignment-e024-gaze-lupi-negative`.
+- [ ] **(Erfan) Consolidate the E024 negative** into the negative-results / methodology spine (the PI→label probe + DPI bound + control battery as the contribution) — a `/write`/analysis task, not `/work`. OneStop NOT pursued (transferability trap).
+
 ### Done this session (S44, /meta: Obsidian-native vault overhaul; NO science, NO number, NO rung moved)
 - ✅ Ratified + applied the markdown conventions spec ([`references/obsidian-conventions.md`](references/obsidian-conventions.md), D052): frontmatter + `## Related` footers on 183 docs; references linkified repo-wide (330 + 268 path-links + 123 citation-links, clickable cites, citations to canonical notes); `.obsidian/` tracked + graph colour-groups; `.claude` exposed via symlinks; links-open-in-new-tab. 6 commits, all pushed.
 
