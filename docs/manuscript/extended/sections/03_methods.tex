@@ -3,7 +3,8 @@
 % === ROUND 2 --- §3 goals & contents ======================================
 % Section goal: define WHAT we measure, WHAT it is formally, WHY brain data is only
 % a weak prior, the verdict STATISTIC, the CONTROLS, the data, and the training setup.
-% Treatment: content kept; Round 3 = FLOW PASS (esp. 3.2: break the cond-MI sentences).
+% Treatment: FULL REWRITE to the §1 standard (equations/claims kept; prose rebuilt;
+% 3.2/3.3 grounded derivations from docs/06-theory-grounding.md; 3.7 written from scratch). Plain titles.
 %  3.1 encoding model + score -- GOAL: define the alignment score (unique R^2) and why
 %      a raw score is not reportable. CONTAINS: ridge encoding; unique-variance def; the nuisance set.
 %  3.2 what it is, formally -- GOAL: ground the score as a conditional-MI lower bound.
@@ -21,52 +22,89 @@
 %      MSE, D010) + lambda; cold/warm arms + drift controls; permuted-twin reuse; fixed verdict layer.
 % ===========================================================================
 
-\subsection{The encoding model and the alignment score}
+\subsection{The alignment score}
 
 We measure alignment with an encoding model: a ridge regression from a frozen model's per-stimulus middle-layer activations $X$ to recorded brain activity $Y$, fit on training stimuli and scored on held-out ones.
 For activations $X \in \mathbb{R}^{n\times d}$ over $n$ stimuli and a $v$-voxel response $Y$, the fitted map is
 \begin{equation}
   \hat W = \arg\min_W \; \lVert Y - XW \rVert_F^2 + \lambda \lVert W \rVert_F^2 ,
 \end{equation}
-and the per-voxel score is the held-out correlation between predicted and measured response.
-We do not report a raw score of this kind on its own, because a model can predict the brain for reasons that have nothing to do with language understanding: utterance length, word position, generic word identity.
-We therefore report the unique variance the model adds \emph{on top of} a low-level nuisance set $Z_{\mathrm{nuis}}$, the difference of two cross-validated fits,
+and the score for each voxel is the held-out correlation between its predicted and measured response.
+A raw score of this kind means little on its own, because a model can predict the brain for reasons that have nothing to do with language: utterance length, word position, generic word identity.
+We therefore report not the raw score but the variance the model adds \emph{on top of} a low-level nuisance set $Z_{\mathrm{nuis}}$, the difference of two cross-validated fits,
 \begin{equation}
-  \uniqueR \;=\; R^2\!\big([Z_{\mathrm{nuis}},\,\mathrm{LM}]\big) - R^2\!\big([Z_{\mathrm{nuis}}]\big),
+  \uniqueR \;=\; R^2\!\big([Z_{\mathrm{nuis}},\,\mathrm{LM}]\big) - R^2\!\big([Z_{\mathrm{nuis}}]\big).
 \end{equation}
-a positive value of which says the contextual representation explains brain activity that length, rate, and static word identity cannot \evd{E002}.
+A positive \uniqueR{} says the contextual representation explains brain activity that length, rate, and static word identity cannot \evd{E002}.
 
-\subsection{What that quantity is, formally}
+\subsection{What the score measures}
 
-The score is a lower bound on the information the model's representation carries about brain activity beyond the low-level confounds.
-The unique-variance score is, formally, the linear-Gaussian estimator of a conditional mutual information.
-For a triple $(X,Y,Z)$, the conditional mutual information $I(X;Y\mid Z) = H(Y\mid Z) - H(Y\mid X,Z)$ is the dependence between $X$ and $Y$ that survives once the context $Z$ is known \autocite{cover2006}.
-It is the right object because plain mutual information conflates a genuine dependence with a spurious one in which $X$ and $Y$ are merely co-driven by a common source: when that holds, $X\perp Y\mid Z$ and the conditional term is zero even though the unconditional one is positive, so conditioning is what tells the two apart.
-The chain rule splits the question into a baseline and an increment, $I((X,Y);Z) = I(X;Z) + I(Y;Z\mid X)$, so the value of a learned representation $Y$ over a cheap baseline $X$ is the increment $I(Y;Z\mid X)$.
-Identifying the nuisance with $X$, the model's middle layer with $Y$, and brain activity with $Z$, the reality claim is that $I(\mathrm{LM};B\mid Z_{\mathrm{nuis}}) > 0$, which the unique-variance score estimates with ridge.
-For jointly Gaussian variables the conditional mutual information is a monotone function of the squared partial correlation, $I(X;Y\mid Z) = -\tfrac{1}{2}\ln(1-\rho^2_{XY\cdot Z})$ \autocite[Ch.~8]{cover2006}.
-The reported score is the \emph{semipartial} $R^2$, the raw increment, which differs from the partial $\rho^2$ by a factor $1/(1-R^2([Z]))$; both vanish together, so a positive semipartial score is equivalent to a positive conditional mutual information, which is the biconditional the argument needs.
-Because ridge is linear, the score captures the linearly decodable part of that dependence: a population-level lower bound on the true information, and the appropriate target for a thesis about the linear map.
+The score has an exact meaning in information terms: it is a lower bound on the information the model's representation carries about brain activity, beyond the low-level baseline.
+The object behind it is conditional mutual information.
+For three variables $(X,Y,Z)$,
+\begin{equation}
+  I(X;Y\mid Z) = H(Y\mid Z) - H(Y\mid X,Z)
+\end{equation}
+is the dependence between $X$ and $Y$ that remains once $Z$ is known \autocite{cover2006}.
+Conditioning makes this the right object.
+Plain mutual information cannot separate a genuine dependence from a shared cause, in which $X$ and $Y$ are both driven by some common $Z$; there $X \perp Y \mid Z$ holds and the conditional term is zero, even when the unconditional one is positive.
+The chain rule splits the dependence into a baseline and the increment over it,
+\begin{equation}
+  I\big(B;[Z_{\mathrm{nuis}},\mathrm{LM}]\big) = I(B;Z_{\mathrm{nuis}}) + I(B;\mathrm{LM}\mid Z_{\mathrm{nuis}}),
+\end{equation}
+with $B$ the brain response, so the information the model's representation adds over the nuisance is exactly the conditional term $I(B;\mathrm{LM}\mid Z_{\mathrm{nuis}})$.
+The reality claim is that this term is positive.
 
-The choice of conditioning variable scopes the whole program.
-Conditioning on the low-level nuisance $Z_{\mathrm{nuis}}$ establishes that the signal is real beyond low-level confound, not beyond the stimulus as a common cause; the stronger conditioning on the full stimulus-predictable response $\Eys$ is a separate, later question.
-The same chain rule with a stronger $Z$ is what the downstream ceiling analysis evaluates.
+The unique-variance score estimates that term under a linear-Gaussian model.
+For jointly Gaussian variables the conditional mutual information is a monotone function of the squared partial correlation,
+\begin{equation}
+  I(X;Y\mid Z) = -\tfrac{1}{2}\ln\!\big(1-\rho^2_{XY\cdot Z}\big),
+\end{equation}
+so it is positive exactly when the partial correlation is \autocite[Ch.~8]{cover2006}.
+The reported score is the \emph{semipartial} $R^2$, the raw increment, which differs from the partial $\rho^2$ only by the factor $1/(1-R^2([Z_{\mathrm{nuis}}]))$.
+Both vanish together, so a positive semipartial score is equivalent to a positive conditional mutual information.
+Ridge is linear, so the score captures the linearly decodable part of that information: a population-level lower bound, and the right target for a thesis about the linear map.
 
-\subsection{Why brain data can only be a weak prior}
+The choice of $Z$ fixes what the claim means.
+Conditioning on the low-level nuisance $Z_{\mathrm{nuis}}$ shows the signal is real beyond low-level features, not beyond the stimulus as a whole.
+Conditioning instead on the full stimulus-predictable response $\Eys$ is a stronger and separate question, the one the downstream ceiling analysis takes up with the same chain rule and a larger $Z$.
 
-The regime where a brain signal could matter follows from an information budget, and that budget predicts where the experiments should and should not find an effect.
-Adding a brain term to a language objective is, up to constants, a maximum-a-posteriori estimate in which the text enters as the likelihood and the brain term as the log-prior.
-The likelihood's pull scales with the supervision it carries, on the order of $10^{12}$ to $10^{13}$ bits across a training corpus, while the brain side offers $10^3$ to $10^4$ noisy stimuli whose per-voxel information is capped by a noise-ceiling channel capacity $I \le \tfrac12\log_2(1+\mathrm{SNR})$ with $\mathrm{SNR}=r_{\max}^2/(1-r_{\max}^2)$, putting the usable brain budget, as an order-of-magnitude estimate, around $10^4$ to $10^6$ bits \autocite{cover2006}.
-The data-processing inequality shrinks even that: the brain response is a noisy function of the same stimulus the model already trains on, so for the chain $S\to R(S)\to Y$ it carries no more about the optimal parameters than the stimulus does, $I(\theta^\star;Y)\le I(\theta^\star;S)$ \autocite{cover2006}.
-A prior this weak cannot teach new task structure against a likelihood this strong; what it can do is \emph{select} among the high-dimensional manifold of near-equivalent text-optima that a large model admits, which is the precise sense in which a brain term is a regularizer rather than a teacher.
-A generalization bound makes the consequence quantitative: a prior concentrated on the right hypotheses tightens a sample-complexity bound by an amount that scales as the square root of the extra information it injects over the task data, and so vanishes as that data grows \autocite{xu2017}.
-A weak-but-aimed brain prior should therefore help most in low-information regimes (small, under-trained, or aggressively compressed models) and wash out where the text signal already dominates, which is the regime logic behind targeting distillation.
+\subsection{Why a brain signal is only a weak prior}
 
-\subsection{The verdict statistic: the trained\textendash untrained gap}
+Whether a brain term can matter at all follows from an information budget, and that budget predicts where to look for an effect.
+Adding a brain term to a language objective is, up to constants, a maximum-a-posteriori estimate: the text is the likelihood, the brain term is the log-prior.
+The two enter on very different scales.
+A training corpus carries on the order of $10^{12}$ to $10^{13}$ bits of supervision.
+The brain side offers a few thousand noisy stimuli, and the information each voxel can carry is capped by its noise ceiling, a channel capacity
+\begin{equation}
+  I \le \tfrac{1}{2}\log_2(1+\mathrm{SNR}), \qquad \mathrm{SNR} = \frac{r_{\max}^2}{1-r_{\max}^2},
+\end{equation}
+which puts the usable brain budget, as an order of magnitude, around $10^4$ to $10^6$ bits \autocite{cover2006}.
+The data-processing inequality shrinks it further.
+The brain response is a noisy function of the same stimulus the model already trains on, so along the chain $S \to R(S) \to B$ it carries no more about the optimal parameters than the stimulus does,
+\begin{equation}
+  I(\theta^\star; B) \le I(\theta^\star; S).
+\end{equation}
+A prior this small cannot teach new task structure against a likelihood this large.
+What it can do is \emph{select} among the many near-equivalent solutions a large model admits, which is the precise sense in which a brain term is a regularizer, not a second teacher.
 
-We report not a trained model's absolute unique-variance score but the \emph{gap} between it and a same-architecture untrained network fit under identical nuisance and splits.
-The reason is that on naturalistic data an untrained network can score slightly positive through a shared-cause path: the stimulus drives both the response and the untrained features, leaving a residual dependence when the nuisance only partially captures the stimulus, so the absolute score is not a clean measure of what training adds.
-Both arms pass through the byte-identical nuisance subtraction, so the baseline term cancels in the difference and the gap directly isolates what \emph{language training} contributes over random initialisation, controlling for architecture, tokenisation, and residual temporal structure \evd{E006}.
+A generalization bound makes the consequence quantitative.
+Modelling training as a channel from the data $Z^n$ to the learned parameters $W$, the expected generalization gap is bounded by the information the parameters keep about the data,
+\begin{equation}
+  \overline{\mathrm{gen}} \;\le\; \sqrt{\frac{2\sigma^2\, I(W;Z^n)}{n}},
+\end{equation}
+for $\sigma$-sub-Gaussian loss \autocite{xu2017}.
+If the brain prior adds $\Delta I$ bits to that quantity, its benefit to generalization is at most $O(\sqrt{\Delta I / n})$: real, but small, and shrinking as the task data $n$ grows.
+A weak but aimed brain prior should therefore help most where the text signal is weakest, in small, under-trained, or aggressively compressed models, and fade where text data already dominates.
+That is the reasoning behind targeting distillation.
+
+\subsection{The trained\textendash untrained gap}
+
+We report not a trained model's absolute score but the \emph{gap} between it and a same-architecture untrained network, fit under identical nuisance and splits.
+The reason is that on naturalistic data even an untrained network can score slightly positive.
+The stimulus drives both the brain response and the untrained features, so when the nuisance captures the stimulus only in part, a residual shared-cause dependence is left behind, and the absolute score is not a clean measure of what training adds.
+Both arms pass through the byte-identical nuisance subtraction, so the baseline term cancels in the difference.
+The gap therefore isolates what \emph{language training} adds over random initialisation, holding architecture, tokenisation, and residual temporal structure fixed \evd{E006}.
 We report this gap throughout.
 
 \begin{figure}[t]
@@ -83,7 +121,7 @@ We report this gap throughout.
   \label{fig:uniquevar}
 \end{figure}
 
-\subsection{Three controls, fixed as the standard}
+\subsection{The controls}
 
 Three controls make that gap trustworthy, and we apply them uniformly.
 \emph{Contiguous splits}: train and test are divided in blocks (block cross-validation on the ROI screen, whole-story-held-out cross-validation on the voxelwise run), because shuffling time-adjacent fMRI samples leaks near-duplicate timepoints across the split and inflates the score \evd{E002}\evd{E006}.
@@ -99,13 +137,28 @@ The ROI screen uses 1000 isolated sentences and the five left-hemisphere languag
 The powered measurement uses subject UTS03 of the deep-sampled naturalistic story-listening dataset of \textcite{lebel2023}, with 20 stories, story-level folds, and \result{e006_reliable_voxels} voxels retained at split-half reliability above $0.5$ on a held-out repeated story \evd{E006}.
 The models are GPT-2, GPT-2-medium, and Qwen2.5-0.5B, each read at its alignment-peak middle layer, with a same-architecture untrained network as the control in every comparison \evd{E002}\evd{E006}.
 
-\subsection{Distillation setup and the brain training term}
-% [NEW in this scope] Required because Results now reach Q1 (plain KD) and Q2 (the lever).
-% Round-2 goal + Round-3 prose to come. Beats to cover:
-%  - knowledge distillation: teacher -> smaller student, the matched-budget definition
-%    (compute-matched, and the step-count caveat from E003);
-%  - the brain training term \Lbrain added to the objective, the co-trained MSE form (D010),
-%    and the mixing weight \lambda; the cold/warm-init arms and the labelled drift controls;
-%  - the permuted-twin specificity control (brain-\emph{specificity}, not reality), reused from §3.5;
-%  - what is held fixed across arms (fixed verdict layer within one architecture).
-\gap{Round-3: write the distillation + \Lbrain{} training setup. The mechanism it describes is the bottom (``use'') stage of Figure~\ref{fig:pipeline}; cross-reference rather than redraw.}
+\subsection{Distillation and the brain term}
+
+The compression setting is knowledge distillation: a smaller \emph{student} learns to reproduce a larger \emph{teacher}'s next-token distribution, rather than learning from text directly.
+This connects to perplexity through one identity.
+Per-token cross-entropy is code length, maximum-likelihood training minimizes the KL divergence from the data distribution to the model's, and perplexity is the exponential of that cross-entropy \autocite{cover2006}.
+Plain language-model training and distillation are the same KL objective against different references: plain training projects the student onto the empirical data, distillation onto the teacher's softened distribution.
+Matching \emph{held-out perplexity} across arms therefore holds output quality fixed while only the objective varies, which is the control the alignment-training literature usually lacks; matching compute is not that control.
+
+This objective does not force alignment to be preserved, for two reasons.
+The objective constrains the \emph{output} distribution, whereas alignment is a property of the \emph{internal} representation, and the readout from representation to logits is many-to-one,
+\begin{equation}
+  D\big(p_T \,\Vert\, q_S\big)\to 0 \;\not\Rightarrow\; Z_S \approx Y_{\mathrm{teacher}} \;\not\Rightarrow\; I(Z_S;B\mid Z_{\mathrm{nuis}}) = I(Y_{\mathrm{teacher}};B\mid Z_{\mathrm{nuis}}),
+\end{equation}
+so matching the teacher's output need not match its representation.
+A from-scratch student also fits the stimulus through a side-channel the teacher's features do not mediate, which breaks the Markov chain behind the data-processing bound, so the teacher's alignment no longer even upper-bounds the student's.
+Whether distillation preserves alignment is therefore an empirical question, not a corollary.
+
+The brain term enters the objective as a co-trained regression loss,
+\begin{equation}
+  \mathcal{L} = \mathcal{L}_{\mathrm{KD}} + \lambda\,\Lbrain,
+\end{equation}
+with mixing weight $\lambda$.
+The verdict-bearing arm is a randomly initialised student, the one arm whose surviving alignment was carried through the distillation channel; a warm-initialised student and a no-teacher fine-tune are kept as labelled drift controls, and every arm is scored at one fixed layer within a single architecture so no layer choice biases the comparison \evd{E003}.
+Brain \emph{specificity} is tested by the permuted twin of the controls above, the same loss against brain targets shuffled across stimuli.
+The match across arms is the compute budget, and the from-scratch arm runs about twice the optimizer steps of the warm arms, a caveat we record rather than hide \evd{E003}.
