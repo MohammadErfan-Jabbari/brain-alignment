@@ -107,11 +107,13 @@ def extract_subject(filepath: str):
         words = getattr(s, "word", None)
         if words is None:
             continue
-        words = np.atleast_1d(words)
-        n_words = words.size
-        if n_words == 0:
+        # A sentence with no word-level data squeezes to a float nan / empty array; keep only
+        # real word mat_structs (Codex review: np.atleast_1d(nan) was injecting a fake all-zero
+        # word -> deflating reliability for ZJS/ZPH). Skip -> leave that subj-sentence MISSING.
+        words = [w for w in np.atleast_1d(words) if hasattr(w, "FFD") or hasattr(w, "content")]
+        if len(words) == 0:
             continue
-        mat = np.full((n_words, len(GAZE_FIELDS)), np.nan, dtype=np.float64)
+        mat = np.full((len(words), len(GAZE_FIELDS)), np.nan, dtype=np.float64)
         for j, w in enumerate(words):
             for k, fld in enumerate(GAZE_FIELDS):
                 mat[j, k] = _scalar_v5(getattr(w, fld, None))
@@ -332,6 +334,8 @@ def main():
         os.path.join(OUT_DIR, "zuco_nr_processed.npz"),
         per_subj_summ=per_subj,
         y_binary=y_bin,
+        paragraph_ids=np.array([str(r["paragraph_id"]) for r in kept_labels], dtype=object),
+        sentence_ids=np.array([str(r["sentence_id"]) for r in kept_labels], dtype=object),
         sentences=np.array(keep, dtype=object),
         relations=np.array([r["relation"] for r in kept_labels], dtype=object),
         subjects=np.array([s for s, _ in subjects], dtype=object),
