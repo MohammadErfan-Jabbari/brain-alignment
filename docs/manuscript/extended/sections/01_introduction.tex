@@ -113,17 +113,11 @@ This thesis makes the following contributions, scoped to the results it establis
   \item It shows that optimizing an alignment objective moves alignment only weakly, that the effect is confounded by quality, and that it does not survive the honest unit of inference \evd{E004}.
 \end{itemize}
 
-The program is a sequence of dependent questions, each asked only if the previous one holds.
+The program asks five questions in sequence, each only if the previous one holds.
 Is the signal real, or an artifact?
 Does plain distillation preserve it?
 Does an alignment objective move it beyond what perplexity already implies?
-Does any such gain survive per individual at matched perplexity?
+Does any gain survive per individual at matched perplexity?
 And does it improve a downstream task?
-We take the questions in that order, because each depends on the answer before it.
 
-Three of them are settled in this document, and they frame the rest.
-The signal is real: a trained model's middle layer carries out-of-sample variance about real language-network activity that a same-architecture untrained network does not, and at voxel scale the effect is unambiguous \evd{E006}.
-Plain distillation does not keep it for free: a from-scratch student trained only on the teacher's outputs lands well below the teacher \evd{E003}.
-An explicit alignment objective is at best a weak, quality-confounded lever, not a reliable one \evd{E004}.
-These three results separate ideas that are easy to conflate.
-A real signal need not be preserved under compression, and an objective that nudges it need not make the nudge reliable or useful.
+The first three are settled here: the signal is real \evd{E006}, plain distillation does not preserve it \evd{E003}, and an alignment objective moves it only weakly and in step with model quality \evd{E004}.
