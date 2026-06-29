@@ -24,6 +24,12 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 > results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
 > of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
+### 🛠 S45 META follow-ups (sci-write-v2 two-mode, D053)
+
+- [ ] **Validate D053 end-to-end (Erfan, next session):** re-run the R07 rebuild with `meta.layer: report` and confirm `sci-write-v2` now produces report-register prose (Qn/Ennn/Dnnn codes used in prose, closer to the baseline R07). The end-to-end test that the two-mode fix works.
+- [ ] **Per-layer F17 register exemplars (deferred, D053 honest-limit):** build an internal-report exemplar set only if report-mode proves to need its own register anchors (voice rules currently apply at all layers).
+- [ ] **Optional: light DET validation of `meta.layer`** — add only if the field gets routinely mis-set in practice (kept guidance-only for now).
+
 ### 🛠 S27 META follow-ups (tooling, not science — do opportunistically; D044)
 
 - [ ] **Test `/teach` live** on a real report (Erfan) — the proof of the guided loop.
