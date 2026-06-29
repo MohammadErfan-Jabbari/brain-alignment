@@ -176,6 +176,74 @@ battery is about the text task and **portable**.
 **Reviewer verdicts (S45).** `oracle-reviewer` (DESIGN): **HOLD → PASS** conditional on conditions 1–4 above (the
 single highest-value action: run the positive-control on NR first). `first-principles-grounder`: **GROUNDED-WITH-CAVEAT**
 — ZuCo primary / OneStop replication is theory-decidable now; close the caveat by digesting Lopez-Paz 2016.
+(Caveat CLOSED S45: Lopez-Paz digest confirms the LUPI precondition is target-tied capacity/approximation, not teacher
+reliability — [`lopez-paz-2016_unifying-distillation-privileged-information.md`](../literature/canonical/lopez-paz-2016_unifying-distillation-privileged-information.md).)
+
+---
+
+## RESULT — S45 (2026-06-29): the binding gate FAILED → NEGATIVE, the 5-arm build is NOT triggered
+The substrate ran through the binding positive-control gate (the oracle's "do this FIRST") before any 5-arm build.
+The gate returned a decisive **FAIL**, and a deeper probe turned it into a clean, airtight **negative**. Numbers are
+born here in `/work`; code: `scripts/e024/{zuco_nr_loader,embed,lupi_harness,probe_gaze_richness}.py`; artifacts:
+`outputs/e024/{zuco_nr_reliability,positive_control,gaze_richness_probe_NR}.json`.
+
+**Setup.** ZuCo 1.0 task2-NR, 300 sentences, 12 subjects, all labels joined (285 exact + 15 fuzzy). Binary task
+(relation present vs NO-RELATION), balance 136/164. Per-word gaze (FFD/GD/GPT/TRT/nFix) → per-sentence PI; LLM
+embeddings = Qwen2.5-0.5B layer-12 mean-pooled (896-d). Gaze split-half reliability (Spearman-Brown, subject splits) =
+**0.71 combined** (after the Codex-caught fix; the deflated 0.51 was a no-word-data → fake-zero bug for ZJS/ZPH).
+
+**Finding 1 — the privileged signal is uninformative about the label (PI→label probe fires NULL, airtight).**
+Gaze → relation-label CV accuracy across every feasible readout sits at chance:
+
+| readout | metric | value | chance | verdict |
+|---|---|---|---|---|
+| binary, 9-d summary, logreg | acc | 0.543 | 0.547 | null |
+| binary, rich 35-d, logreg / RF | balanced-acc | 0.499 / 0.500 | 0.500 | null |
+| binary, rich 35-d | AUC (perm test) | 0.508, **p = 0.45** | 0.50 | null |
+| binary, 108-d per-subject stacked / within-subject (panel) | AUC | 0.51–0.53 | 0.50 | null |
+| **multiclass relation-type** (5 cls, n=269), rich 35-d | balanced-acc | **0.202** | 0.20 | null |
+
+Robust across binary/multiclass \| linear/nonlinear \| 9-/35-/108-d \| subject-averaged/within-subject. The *reliable*
+gaze features (nFixWords SB 0.99, sNFIX 0.97) are a **sentence-length confound** (r ≈ 0.00 to the label); the
+label-relevant features are the *unreliable* ones. So in normal reading, gaze carries ~no relation-label information →
+**LUPI's informativeness precondition is violated at the root** (Lopez-Paz: PI must reduce the target hypothesis space;
+a signal orthogonal to the label cannot). Mechanism-consistent with the spine: gaze's stimulus-predictable part
+`$\mathbb E[Y\mid S]$` for *relation detection* is ~null; the residual is reading-mechanics noise w.r.t. this task.
+
+**Finding 2 — the substrate is structurally disqualified for a leakage-free learning curve (independent of Finding 1).**
+ZuCo-NR's 300 sentences come from only **7 paragraphs** (sizes {154,68,36,24,10,7,1}). A paragraph-disjoint split
+(required — entity/topic leak across sentences of one paragraph) cannot define a stable test set: across split seeds
+`n_test` swings 8→161 and the empirical low-n MDE swings 0.03 → 0.08 → undefined. The realized real-gaze distillation
+arm is null/negative at every low n (e.g. n16 Δ = −0.07, CI incl. 0). A realistic two-way arm MDE is ≥ ~10pp — far
+above any plausible LUPI gaze gain (which Finding 1 says is zero anyway).
+
+**Verdict (panel-converged): NEGATIVE — do NOT build the 5-arm experiment on ZuCo-NR.** This is the binding gate
+working exactly as designed (the oracle's "run the positive-control first" caught a dead substrate before a multi-day
+build). It is a recordable negative, not a power excuse: more N (NR-2.0) fixes neither the gaze⊥label root cause nor,
+per the panel, reliably the power (~600 sentences → `n_test` ≈ 90 → projected MDE ≈ 0.057, still missing the 5pp gate).
+
+**Post-result panel (S45).** `counter-argument`: **SURVIVES-IF-NARROWED** — the FAIL holds and gaze⊥label is robust
+across 6 readouts (incl. within-subject); the only surviving objection (binary collapse hides signal) is **refuted** by
+the multiclass probe (balanced-acc 0.202 = chance) and the rich-35-d per-word-derived featurization (also chance).
+`stat-aggregation-auditor`: **VERDICT-SAFE: YES** — a_real reproduces (AUC ≈ 0.52, permutation p = 0.42, gaze-null
+solid); the FAIL/escalate *direction* is right; but the single-split MDE = 0.08 is fragile (7-paragraph structure), so
+the honest statement is "no stable paragraph-disjoint test set exists; realistic MDE ≥ ~10pp." `codex` (code review):
+caught the reliability-deflation bug (0.51 → 0.71), no further bugs.
+
+**Strategic options (Erfan's call — a research-direction fork, not a within-work decision):**
+1. **(recommended) Record the negative + consolidate the methodology contribution and stop the ZuCo gaze-relation line.**
+   The clean PI⊥label null + the first-principles DPI bound (only the text-recoverable `$\mathbb E[Y\mid S]$` part of any
+   biosignal is portable to a held-out-text estimand) + the control battery that *detected* it (the PI→label probe) is a
+   methodology finding consistent with §8's "methodology/negative most likely." Fold into the broader negative-results spine.
+2. **OneStop** (comprehension task, reliable 360-reader gaze) — but first-principles flagged it as the leaky/
+   non-transferable trap (its gaze→label channel is severed at test); expected to yield a non-transferable leaky "gain"
+   = another held-out-estimand null. Low expected value; NOT recommended as a multi-day build.
+3. **TSR sharpening (cheap, deferred)** — task-specific reading: readers *hunt* the relation, so TSR gaze should predict
+   the label *via task-direction* (a leak). Running the same probe on task3-TSR would sharpen Finding 1 into "gaze
+   carries relation info ONLY under task-directed reading (a leak), not natural reading." A nice contrast, not required.
+
+Q4/A3 (practical payoff) stays ❌; this adds the privileged-information / sample-efficiency axis (gaze, relation
+detection, normal reading) to the robust null. No rung flips without Erfan.
 
 
 ## Related
