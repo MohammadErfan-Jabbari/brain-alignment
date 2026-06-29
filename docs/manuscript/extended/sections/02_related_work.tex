@@ -75,8 +75,7 @@ Neither study is in the distillation regime this work targets, so both inform ou
 \subsection{The measurement bar}
 
 A separate line of work warns that alignment scores are easy to inflate and over-read, and it sets the standard this work adopts.
-Shuffled splits leak through temporal autocorrelation, low-level and static features carry much of the apparent signal, and some audited frozen-encoding scores fail basic predictive and reliability checks \autocite{hadidi2026,jia2026}.
-A further caution is that an aggregate score hides mechanism: the same headline number can be real semantics in one model and shallow phonology in another \autocite{oota2024}.
-A more ambitious route would replace the live fMRI loss with a differentiable surrogate, but the literature does not yet agree on which way to push one.
-Local intrinsic dimension correlates with alignment in opposite directions across language and vision, and a similarity-based surrogate depends on width and depth, with only neighborhood-overlap surviving a null calibration \autocite{cheng2026,yu2026,groger2026}.
-A surrogate objective is therefore left to future work, since its direction must first be checked against real fMRI.
+Shuffled splits leak through the temporal autocorrelation of fMRI, low-level features like sentence length carry much of the apparent signal, and some published scores fail basic predictive and reliability checks \autocite{hadidi2026,jia2026}.
+The same headline score can reflect real semantics in one model and shallow phonology in another, so the number alone does not pin down the mechanism \autocite{oota2024}.
+A differentiable, fMRI-free surrogate would go further, but the literature does not agree on its direction: local intrinsic dimension correlates with alignment in opposite ways across language and vision, and similarity-based surrogates track width and depth as much as alignment \autocite{cheng2026,yu2026,groger2026}.
+We therefore leave a surrogate to future work, since its direction must first be validated against real fMRI.
