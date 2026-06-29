@@ -66,11 +66,11 @@ We develop the information-theoretic bound behind this in Section~\ref{sec:metho
 
 \subsection{The empty cell}
 
-The remaining cell, shrink the model while alignment is optimized at a matched budget, is empty, and it is where this work sits.
-Two precedents from vision and audio are sometimes read as support for a brain regularizer in the low-data regime, but each weakens on a closer look.
-A neural-data regularizer on a vision network improves accuracy and adversarial robustness, but a shuffled-label control reproduces the accuracy gain, so only the robustness benefit needs real neural structure \autocite{pirlot2022}.
-fMRI fine-tuning of a small audio network improves most downstream tasks, but with no interaction test and no matched non-brain control, so the apparent low-data advantage is suggestive, not isolated \autocite{freteault2025}.
-Both omit the matched non-brain control that would isolate a brain-specific gain, and neither transfers cleanly to distillation, so they are cautions more than evidence.
+No prior work occupies the empty cell.
+Two nearby precedents, one in vision and one in audio, are sometimes cited as indirect support for a brain regularizer when data is scarce, but neither isolates a brain-specific effect.
+\textcite{pirlot2022} regularize a vision network with neural data and improve both accuracy and adversarial robustness, yet a shuffled-label control reproduces the accuracy gain, so only the robustness benefit depends on real neural structure.
+\textcite{freteault2025} fine-tune a small audio network on fMRI and improve most downstream tasks, but without an interaction test or a matched non-brain control, the low-data advantage is not isolated.
+Neither study is in the distillation regime this work targets, so both inform our design without testing the claim.
 
 \subsection{The measurement bar}
 
