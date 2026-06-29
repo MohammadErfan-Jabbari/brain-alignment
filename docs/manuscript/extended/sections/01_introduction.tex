@@ -1,15 +1,30 @@
 \section{Introduction}
 
-% === SKELETON (Round 1). Intended beat order for the Round-3 rewrite: ======
-%  1. The instrument and the inversion (alignment measured -> used).   [Fig. pipeline]
-%  2. Problem (boxed plainly): compression discards the middle-layer structure
-%     where alignment lives; can alignment-guided distillation preserve or improve
-%     it at a matched student budget, and does that buy anything downstream?
-%  3. Hypothesis (labelled): the weak-prior / regulariser prediction.
-%  4. Positioning: the empty cell.                                     [Fig. 2x2 cells]
-%  5. Contributions (explicit list).
-%  6. The program and what is established so far (dependent-question roadmap).
-% The prose below is the v0.2 draft; Round 3 reworks it into this order under the doctrine.
+% === ROUND 2 --- §1 goals & contents (Round 3 writes the prose to this) ====
+% Section goal: in ~1.5 pages the reader can restate the PROBLEM, the HYPOTHESIS,
+% and the CONTRIBUTIONS, and can picture the setup. Audience = ML readers, not
+% brain experts: gloss neuro terms on first use, assume ML terms.
+% Beat order + per-beat job:
+%  1. Instrument + inversion [Fig. pipeline] -- GOAL: what brain alignment is, and
+%     the move from MEASURING it to USING it. CONTAINS: the linear-map instrument;
+%     that the field only measures; the inversion (alignment as a training term).
+%  2. Problem (boxed) -- GOAL: reader states the problem in one sentence. CONTAINS:
+%     distillation discards the middle-layer structure alignment lives in; can an
+%     alignment-guided objective preserve/improve it at a matched student budget,
+%     and does it buy anything downstream; why it matters (the open 2025-26 case).
+%  3. Hypothesis (labelled) -- GOAL: one falsifiable hypothesis. CONTAINS: the brain
+%     term is a weak prior / regulariser, not a second teacher; prediction = helps
+%     where the text signal is weak (small/compressed/scarce), washes out with data.
+%     One line of intuition; the math lives in §3.3.
+%  4. Positioning [Fig. 2x2] -- GOAL: locate the contribution as the one empty cell.
+%     CONTAINS: the two axes; three filled cells (one cite each); the empty cell.
+%  5. Contributions -- GOAL: a scannable explicit list. CONTAINS: the six items
+%     (problem+positioning; weak-prior theory; confound-clean protocol; reality
+%     result; no-preservation screen; weak/confounded lever). No Q3--Q4 verdicts.
+%  6. Program + established -- GOAL: the dependent-question roadmap and what is
+%     settled so far. CONTAINS: the question sequence; the established results stated
+%     QUALITATIVELY (the numbers live in §4, not here).
+% The prose below is the v0.2 draft; Round 3 reworks it into this order + the doctrine.
 % ===========================================================================
 
 A decade of work has established a simple, reliable instrument: for a person and a language model reading the same text, a linear map predicts the person's recorded brain activity from the model's middle-layer activations, and how well it predicts on held-out data is the model's brain-alignment score \autocite{oota2023}.

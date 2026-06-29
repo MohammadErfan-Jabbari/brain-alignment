@@ -1,4 +1,19 @@
 \section{Related work}
+% === ROUND 2 --- §2 goals & contents ======================================
+% Section goal: pin the empty cell PRECISELY and set the measurement-validity bar
+% this work is judged against. Treatment: content kept; Round 3 = FLOW PASS only
+% (break the long sentences, kill residual register tells), not a rewrite.
+%  2.1 grown/measured -- GOAL: the signal exists & is non-trivial but never
+%      intervenes. CONTAINS: scale/layer/saturation findings; takeaway = silent on usability.
+%  2.2 grown/optimised -- GOAL: the bare inversion is not novel, but no one compresses.
+%      CONTAINS: speech+text brain-tuning, the causal result; the gap (all GROW).
+%  2.3 shrunk/measured -- GOAL: the closest prior work, scoped exactly. CONTAINS:
+%      oota2026 (narrow quantization survival; pruning/KD untested); why KD is lossier; DPI framing.
+%  2.4 empty cell + weak precedents -- GOAL: the cell is unoccupied; adjacent
+%      precedents weaken. CONTAINS: the empty cell; vision/audio precedents + the missing matched control.
+%  2.5 measurement bar + surrogate -- GOAL: the standard + why a surrogate is future
+%      work. CONTAINS: leakage/confound cautions; the surrogate direction is unsettled.
+% ===========================================================================
 
 The work on language models and the brain organizes on two axes, and on those axes three of the four cells are occupied while the fourth, where this work sits, is empty.
 The first axis is what an intervention does to the parameter budget: it either \emph{grows} the model (fine-tunes, adds adapters, attaches a brain-prediction head) or \emph{shrinks} it (quantizes, prunes, or distills into a smaller student).

@@ -1,5 +1,25 @@
 \section{Methods}
 \label{sec:methods}
+% === ROUND 2 --- §3 goals & contents ======================================
+% Section goal: define WHAT we measure, WHAT it is formally, WHY brain data is only
+% a weak prior, the verdict STATISTIC, the CONTROLS, the data, and the training setup.
+% Treatment: content kept; Round 3 = FLOW PASS (esp. 3.2: break the cond-MI sentences).
+%  3.1 encoding model + score -- GOAL: define the alignment score (unique R^2) and why
+%      a raw score is not reportable. CONTAINS: ridge encoding; unique-variance def; the nuisance set.
+%  3.2 what it is, formally -- GOAL: ground the score as a conditional-MI lower bound.
+%      CONTAINS: cond-MI def; common-cause -> why condition; linear-Gaussian = semipartial R^2; lower-bound reading.
+%  3.3 why a weak prior -- GOAL: the information-budget argument predicting where to look.
+%      CONTAINS: MAP framing; the supervision-budget asymmetry; DPI; generalisation bound; the low-info prediction.
+%  3.4 verdict statistic [Fig. uniquevar] -- GOAL: define the trained-untrained gap & why it is the right stat.
+%      CONTAINS: the shared-cause problem; the gap cancels the nuisance term.
+%  3.5 three controls -- GOAL: the fixed standard. CONTAINS: contiguous splits; capacity-fair
+%      nuisance floor; held-out noise ceiling; surprisal held out; the permuted-twin (specificity).
+%  3.6 data and models -- GOAL: the two datasets + the models. CONTAINS: Tuckute ROI screen;
+%      LeBel UTS03 voxelwise; the models + same-architecture untrained control.
+%  3.7 distillation setup + brain term [NEW] -- GOAL: define KD, matched budget, the brain term,
+%      the arms. CONTAINS: teacher->student; matched-budget def + step-count caveat; L_brain (co-trained
+%      MSE, D010) + lambda; cold/warm arms + drift controls; permuted-twin reuse; fixed verdict layer.
+% ===========================================================================
 
 \subsection{The encoding model and the alignment score}
 
