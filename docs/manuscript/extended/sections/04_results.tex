@@ -99,6 +99,19 @@ The verdict-bearing arm is a randomly initialised GPT-2 trained on the teacher's
   \end{tabular}}
 \end{table}
 
+\begin{figure}[t]
+  \centering
+  \safeimage[width=0.92\textwidth]{../figures/fig_kd_retention.png}
+  \caption{[PLACEHOLDER: generate from \evd{E003}] Two panels.
+    (A) Floor-anchored retention $\rho'$ along the rebuild ordering (teacher, conventional GPT-2,
+    warm-init KD, distilgpt2, cold-init KD, untrained floor) with bootstrap CIs, showing the
+    monotone fall.
+    (B) Unique $R^2$ versus log-perplexity across the same arms, with the Pearson
+    \result{e003_quality_corr} fit, showing that alignment co-varies with model quality.
+    \gap{Round-3: render the two-panel figure (scripts/figures) and finalise the caption.}}
+  \label{fig:kd}
+\end{figure}
+
 The durable finding is the monotone gradient (Table~\ref{tab:kd}).
 Retention falls cleanly along the rebuild ordering: conventional GPT-2 at the teacher's level ($\rho'\approx1.0$), warm-init KD at $0.84$, the published distilgpt2 at $0.60$, the from-scratch cold-init student at $0.37$, and the untrained floor at $0$ \evd{E003}.
 The reference arms validate the measurement: off-the-shelf GPT-2 sits at the teacher's level and the untrained control at the floor, and two runs scoring the same references on different GPUs reproduced them to about $0.0003$ \evd{E003}.
@@ -116,7 +129,19 @@ Whether an alignment-guided objective can recover that headroom beyond what perp
 The benchmark here is a cheap ROI screen ($\mathrm{NC}\approx0.35$) at matched compute budget, under-powered to resolve a $\sim0.005$ objective-specific gap and not run at matched perplexity, which is why that question moves to the powered voxelwise substrate \evd{E003}\evd{L011}.
 
 \subsection{An alignment-guided objective moves alignment, weakly and confounded by quality}
-\gap{Results Q2 awaits finding-report R08 (source E004): the brain-specific lever on the strong aligner and its fragility.}
+% [IN SCOPE this version] Q2 / R08, source E004. Round-3 writes the prose from the recorded numbers.
+\gap{Results Q2 (source E004), to write in Round 3: optimising \Lbrain{} on the strong aligner moves held-out alignment only weakly; the effect is confounded by perplexity; at the honest fold-level inference unit the interval includes zero, so no lever is demonstrated (undemonstrated, not proven zero).}
+
+\begin{figure}[t]
+  \centering
+  \safeimage[width=0.78\textwidth]{../figures/fig_lever.png}
+  \caption{[PLACEHOLDER: generate from \evd{E004}] The brain-specific lever on the strong aligner:
+    held-out unique-$R^2$ change from optimising \Lbrain{} against its \permtwin{} control,
+    shown at the honest fold-level inference unit (folds, not pooled cells), with the interval
+    spanning zero and the single dominant fold marked.
+    \gap{Round-3: render from the E004 record and finalise the caption.}}
+  \label{fig:lever}
+\end{figure}
 
 \subsection{No per-individual gain at matched perplexity, and the averaging confound}
 \gap{Results Q3 awaits finding-reports R09--R13 (sources E005, E008, E011, E013, E017, E019, E020): the per-individual null, the cross-subject-averaging confound, the method-general failure, the quality law, the stimulus-predictability ceiling, and the external reproduction. The parked draft reports/\_pending-Q3 reclaims R09.}

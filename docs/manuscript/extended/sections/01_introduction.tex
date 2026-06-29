@@ -1,8 +1,36 @@
 \section{Introduction}
 
+% === SKELETON (Round 1). Intended beat order for the Round-3 rewrite: ======
+%  1. The instrument and the inversion (alignment measured -> used).   [Fig. pipeline]
+%  2. Problem (boxed plainly): compression discards the middle-layer structure
+%     where alignment lives; can alignment-guided distillation preserve or improve
+%     it at a matched student budget, and does that buy anything downstream?
+%  3. Hypothesis (labelled): the weak-prior / regulariser prediction.
+%  4. Positioning: the empty cell.                                     [Fig. 2x2 cells]
+%  5. Contributions (explicit list).
+%  6. The program and what is established so far (dependent-question roadmap).
+% The prose below is the v0.2 draft; Round 3 reworks it into this order under the doctrine.
+% ===========================================================================
+
 A decade of work has established a simple, reliable instrument: for a person and a language model reading the same text, a linear map predicts the person's recorded brain activity from the model's middle-layer activations, and how well it predicts on held-out data is the model's brain-alignment score \autocite{oota2023}.
 It almost always runs in one direction: to \emph{measure} alignment as a property of a model after training.
 We invert it. Can that alignment instead be \emph{used} as a training signal, a term in the objective that rewards representations predictive of brain activity, and does a model trained that way gain anything a text-only model does not?
+
+\begin{figure}[t]
+  \centering
+  \figspec[0.30\textheight]{pipeline / method schematic}{%
+    Left-to-right setup, then the inversion.
+    (a) A stimulus (a story or sentence) is read by a person and by a frozen language model;
+    the model's middle-layer activations $X$ are extracted.
+    (b) A ridge encoding map $\hat W$ predicts recorded brain activity $Y$ (fMRI) from $X$;
+    alignment is the held-out \emph{unique} variance $\Delta R^2(X;Y\mid Z_{\mathrm{nuis}})$,
+    the increment over a low-level nuisance floor, reported as the trained$-$untrained gap.
+    (c) The inversion: the same alignment becomes a training term $\lambda\,\Lbrain$ added to
+    knowledge distillation, where a smaller student is trained from a teacher at a matched budget.
+    Render in TikZ; keep three labelled stages (extract / measure / use).}
+  \caption{The instrument and its inversion: how brain alignment is measured, and how it is turned into a training signal during distillation. \gap{Round-3: finalise caption once §3.6 (training term) is written.}}
+  \label{fig:pipeline}
+\end{figure}
 
 The answer turns first on an information budget.
 A language model already learns from on the order of $10^{12}$ tokens of dense, self-supervised supervision, while a language-fMRI dataset offers a few thousand noisy stimuli whose explainable variance is capped by a low noise ceiling.
@@ -18,10 +46,32 @@ The one study that compresses language models measures how quantization and prun
 On two axes, what happens to the parameter budget (grow or shrink) and how alignment is treated (measured or optimized), the field fills three cells and leaves one empty: \emph{shrink the model while alignment is in the objective}.
 The contribution of this thesis is to occupy that empty cell, alignment-guided distillation at a matched student budget, the regime the weak-prior argument singles out as the place to test whether a brain prior is recoverable at all rather than one where it is assumed to pay off.
 
+\begin{figure}[t]
+  \centering
+  \figspec[0.26\textheight]{2$\times$2 positioning of the field}{%
+    A two-by-two grid. Rows = what an intervention does to the parameter budget
+    (grow / shrink); columns = how it treats brain alignment (measured / optimised).
+    Cells: (grow, measured) classical brain-score \autocite{oota2023,gao2024,alkhamissi2025};
+    (grow, optimised) brain-tuning \autocite{moussa2025,bilgin2026,merlin2026};
+    (shrink, measured) compression robustness \autocite{oota2026};
+    (shrink, optimised) \textbf{this thesis}, starred, labelled ``empty in the 2026 literature''.
+    Render in TikZ from Table~\ref{tab:cells}; visually emphasise the starred empty cell.}
+  \caption{The field on two axes; three cells are occupied and the fourth, where this work sits, is empty.}
+  \label{fig:cells-diagram}
+\end{figure}
+
 The contribution depends entirely on the alignment score being a real signal rather than an artifact, because the field has repeatedly shown how easily it is not.
 Shuffled train-test splits leak through the temporal autocorrelation of fMRI, to the point that an \emph{untrained} network can appear to ``explain'' brain data through sentence length and position alone \autocite{hadidi2026}.
 We therefore fix the measurement standard up front: we never report a raw score, but the unique variance the model adds on top of a low-level nuisance set, on contiguous splits, with a same-architecture untrained network as the control \autocite{oota2023,merlin2024}.
 The program is then a sequence of dependent questions, each asked only if the one before it holds: whether the signal is real beyond confounds, whether plain distillation preserves it, whether an alignment-guided objective moves alignment beyond what perplexity already implies, whether any such gain holds per individual at matched perplexity, and whether it improves a downstream task.
+
+% Contributions list (beat 5) — Round 3 writes the prose; scope = through Q2, methodology spine.
+\paragraph{Contributions.}
+\gap{Round-3 itemised contributions, scoped through Q2 (no Q3--Q4 verdicts):
+ (i) formulate brain-alignment-guided distillation and locate it as the empty cell;
+ (ii) an information-budget theory predicting where a brain prior can help (the weak prior);
+ (iii) a confound-clean measurement protocol (unique variance over a capacity-fair nuisance floor, contiguous splits, same-architecture untrained control, held-out noise ceiling, permuted-twin specificity);
+ (iv) the powered reality result \evd{E006}; (v) the no-preservation distillation screen \evd{E003}; (vi) the weak, quality-confounded lever \evd{E004}.}
 
 We report results in the order the questions depend on one another.
 Two are established so far.

@@ -19,6 +19,8 @@
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{enumitem}
 \RequirePackage{ifthen}
+\RequirePackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,backgrounds,calc}
 
 % --- bibliography (pinned to biber in latexmkrc) -------------------------
 \RequirePackage[backend=biber,style=numeric-comp,sorting=none]{biblatex}
@@ -38,6 +40,17 @@
   {\fbox{\parbox[c][0.25\textheight][c]{0.8\textwidth}{\centering\small
         Missing figure: \texttt{\detokenize{#2}}}}}%
 }
+
+% --- \figspec: a visible, self-documenting placeholder for an un-drawn -----
+% diagram (conceptual TikZ figures we scaffold now and render in a later round).
+% #1 (optional) = box height; #2 = short title; #3 = the spec the render must satisfy.
+% Result-data figures use \safeimage (missing-file box) instead; this is for
+% diagrams that have no source PNG and will be drawn in TikZ.
+\newcommand{\figspec}[3][0.24\textheight]{%
+  \setlength{\fboxsep}{8pt}%
+  \fcolorbox{gray}{gray!8}{\parbox[c][#1][c]{0.9\textwidth}{\centering\small
+      \textbf{[DIAGRAM PLACEHOLDER: #2]}\\[4pt]
+      \textcolor{blue!45!black}{\itshape #3}}}}
 
 % --- provenance: \evd (D011 cite) and \gap (open slot) --------------------
 % \evd default (extended/draft): a light grey inline tag so the source is visible

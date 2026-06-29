@@ -49,6 +49,20 @@ The reason is that on naturalistic data an untrained network can score slightly 
 Both arms pass through the byte-identical nuisance subtraction, so the baseline term cancels in the difference and the gap directly isolates what \emph{language training} contributes over random initialisation, controlling for architecture, tokenisation, and residual temporal structure \evd{E006}.
 We report this gap throughout.
 
+\begin{figure}[t]
+  \centering
+  \figspec[0.27\textheight]{the unique-variance score and the trained$-$untrained gap}{%
+    A small construction diagram. Top: for one network, two nested cross-validated ridge fits,
+    $R^2([Z_{\mathrm{nuis}}])$ and $R^2([Z_{\mathrm{nuis}},\,\mathrm{LM}])$; their difference is the
+    unique-variance score $\Delta R^2$ (the increment the representation adds over the nuisance floor).
+    Bottom: the same construction run twice, once for the trained network and once for the
+    same-architecture untrained one; the reported statistic is the \emph{gap}, trained $\Delta R^2$
+    minus untrained $\Delta R^2$, so the shared nuisance term cancels.
+    Render in TikZ as two stacked bar-pairs with the increment and the gap annotated.}
+  \caption{What the reported number is: the unique variance a network adds over the nuisance floor, and the gap between the trained network and its untrained twin.}
+  \label{fig:uniquevar}
+\end{figure}
+
 \subsection{Three controls, fixed as the standard}
 
 Three controls make that gap trustworthy, and we apply them uniformly.
@@ -64,3 +78,14 @@ Two real datasets span the design.
 The ROI screen uses 1000 isolated sentences and the five left-hemisphere language regions of \textcite{tuckute2024}, a coarse but high-ceiling, train-participant-averaged benchmark whose isolated-sentence design sidesteps the temporal-autocorrelation leakage of naturalistic time series; its reported noise ceiling is $r\approx 0.35$ \evd{E002}.
 The powered measurement uses subject UTS03 of the deep-sampled naturalistic story-listening dataset of \textcite{lebel2023}, with 20 stories, story-level folds, and \result{e006_reliable_voxels} voxels retained at split-half reliability above $0.5$ on a held-out repeated story \evd{E006}.
 The models are GPT-2, GPT-2-medium, and Qwen2.5-0.5B, each read at its alignment-peak middle layer, with a same-architecture untrained network as the control in every comparison \evd{E002}\evd{E006}.
+
+\subsection{Distillation setup and the brain training term}
+% [NEW in this scope] Required because Results now reach Q1 (plain KD) and Q2 (the lever).
+% Round-2 goal + Round-3 prose to come. Beats to cover:
+%  - knowledge distillation: teacher -> smaller student, the matched-budget definition
+%    (compute-matched, and the step-count caveat from E003);
+%  - the brain training term \Lbrain added to the objective, the co-trained MSE form (D010),
+%    and the mixing weight \lambda; the cold/warm-init arms and the labelled drift controls;
+%  - the permuted-twin specificity control (brain-\emph{specificity}, not reality), reused from §3.5;
+%  - what is held fixed across arms (fixed verdict layer within one architecture).
+\gap{Round-3: write the distillation + \Lbrain{} training setup. The mechanism it describes is the bottom (``use'') stage of Figure~\ref{fig:pipeline}; cross-reference rather than redraw.}
