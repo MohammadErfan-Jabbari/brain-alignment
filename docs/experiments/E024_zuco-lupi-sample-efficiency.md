@@ -6,7 +6,7 @@ aliases: [E024]
 
 # Experiment — E024: brain/cognitive signal as train-only PRIVILEGED INFORMATION → sample-efficiency (ZuCo, P1)
 
-**Created:** 2026-06-18 (S25) · **Status:** DESIGN (data staging; pre-oracle) · **Mode:** working
+**Created:** 2026-06-18 (S25) · **Status:** DESIGN — substrate CONVERGED (S45, 2026-06-29: ZuCo-NR primary, dual-opus-reviewed); pre-/precheck · **Mode:** working (`/work`)
 **Direction:** [`expansion-program.md`](../expansion-program.md) §8 (the S24 privileged-information / sample-efficiency trajectory, P1) — the charter's
 **F2** returned to with a theory (LUPI), a higher-SNR regime (EEG+gaze), and the 5-control battery it lacked.
 **Theory:** [`06-theory-grounding.md`](../06-theory-grounding.md) §1 (MI bound), §2 (DPI ceiling); Lopez-Paz 2016 / Vapnik LUPI; Provodin 2024 (LUPI
@@ -118,6 +118,64 @@ substrate is NOT staged. ZuCo 2.0 SR EEG assets sit under `data/zuco-benchmark/m
 
 **NEXT (needs Erfan's substrate call): pick the re-substrate (recommended: eye-tracking-first on a larger-N gaze corpus),
 then synthetic-PI MDE positive-control → fix control 5 → per-word loader decision → re-gate → build. No verdict without the gate.**
+
+---
+
+## Substrate decision — CONVERGED (S45, 2026-06-29; Erfan delegated the call; dual-opus-reviewed)
+The S25 oracle HOLD's substrate call was delegated to the agent (decide for the job, not 99%). A `dataset-scout`
+pass characterized the candidate gaze corpora; the decision was then stress-tested by two opus reviewers run in
+parallel before it was committed. Both converged.
+
+**The decision.**
+- **PRIMARY substrate = ZuCo 1.0 task2-NR (normal reading), relation detection, ~300 unique Wikipedia sentences,
+  gaze-first** — per-word eye-tracking (FFD/GD/GPT/TRT/nFix) as the primary privileged signal; per-word EEG band-power
+  is a SECONDARY PI channel, not the lead (the oracle's "eye-tracking-first": gaze is ~an order more reliable than
+  per-sentence EEG band-power). On disk (`data/zuco1/`); reference loader `data/zuco-benchmark/src/data_loading_helpers.py`.
+- **N-escalation ladder (only if the binding gate below is borderline), in order:** (1) **pool ZuCo 2.0 NR** (same
+  *normal-reading* regime → clean N-doubling to ~600 unique sentences, no regime confound; needs OSF `cqa8j` download);
+  then (2) **OneStop Eye Movements** (Meiri & Berzak 2024; 360 readers/item → high-reliability gaze; CC-BY, `osf.io/2prdq`)
+  as a reliability-stress replication that *also* serves as the natural label-leak stress case.
+- **TSR (task-specific reading) = predeclared SECONDARY / robustness arm — NEVER pooled into the primary contrast.**
+  TSR readers hunt the target relation, so TSR gaze is task-directed and partially a function of the label (a quiet
+  PI→label leak). Report NR-only and (if used) NR+TSR-pooled separately; run the PI→label MI probe **split by regime**.
+
+**Why ZuCo over OneStop (the load-bearing reason — first-principles).** Under the committed estimand (held-out test
+*sentences*, unit = text), OneStop's high 360-reader gaze reliability is a **trap**: its gaze→label relation
+(comprehension/difficulty) is so direct that any train-time gain flows through a *participant-gaze→label* channel that
+is **severed at test** (held-out sentences read by different / no people). By the DPI / conditional-MI logic of
+[`06-theory-grounding.md`](../06-theory-grounding.md) §2–3 and the spine's "only `$\mathbb E[Y\mid S]$` is portable"
+([`learnings.md`](../learnings.md) L041, stated as an assumption), that gain is partly **un-generalizable by
+construction**; Pirlot 2022's shuffled-control collapse is the empirical warning that a *reliable* signal regularizes
+by shape regardless of content. ZuCo's text-intrinsic, low-leak relation label means its (noisier) PI constrains the
+genuine text→label hypothesis space — the leg the LUPI fast rate actually requires — so a ZuCo gain that survives the
+battery is about the text task and **portable**.
+
+**Conditions absorbed from the two reviews (must hold before/with the build):**
+1. **The synthetic-PI MDE positive-control is a BINDING, numeric, run-FIRST gate** (not a clause). Plant a known
+   label-correlated signal at the **measured** ZuCo-NR gaze split-half reliability; the gate PASSES only if the harness
+   detects that planted effect at the low-`$n$` end at a **predeclared power threshold on the real metric (macro-F1)**
+   with the **real ~100–150-sentence test set**. PASS → proceed to the 5-arm build. FAIL → escalate per the ladder
+   (NR-2.0, then OneStop), re-running the positive-control at each rung. If no clean-estimand substrate clears it → the
+   sample-efficiency line is **data-blocked** (an honest L049-class instrument verdict), STOP for Erfan — do **not**
+   dress a noisy null as a result.
+2. **Measure ZuCo-NR gaze split-half reliability BEFORE finalizing the loader**, and set the control-5
+   non-brain-teacher noise target *from* that number (else every teacher floors out and ties at text-only — a false
+   null masking a vacuous manipulation). This number also distinguishes "LUPI precondition violated" from "instrument
+   too noisy."
+3. **Quote the paired macro-F1 MDE on the real split sizes** in the design record, next to the plausible LUPI gain,
+   before any compute (power claim on the record). Note the multilabel thin-per-class-support risk (e.g. WIFE≈1,
+   AWARD≈4 in task2) — the positive-control must use the real label structure / metric, and may collapse to
+   relation-present-vs-NO-RELATION if macro-F1 support is too thin.
+4. **Frame the contribution as the control protocol from the start** (a null is the paper; a battery-surviving gain is
+   the upside). This is the differentiator from the Hollenstein 2021 partial scoop (gaze→relation detection without the
+   5-control battery), together with the LLM-middle-layer geometry and the learning-curve estimand.
+5. **Grounding closer (non-blocking):** digest Lopez-Paz 2016 to confirm the LUPI precondition is
+   *hypothesis-space-reduction-of-the-target-text-function*, not mere teacher reliability (the substrate choice is
+   theory-decidable now and needs no re-run; this hardens first-principles' GROUNDED-WITH-CAVEAT to GROUNDED).
+
+**Reviewer verdicts (S45).** `oracle-reviewer` (DESIGN): **HOLD → PASS** conditional on conditions 1–4 above (the
+single highest-value action: run the positive-control on NR first). `first-principles-grounder`: **GROUNDED-WITH-CAVEAT**
+— ZuCo primary / OneStop replication is theory-decidable now; close the caveat by digesting Lopez-Paz 2016.
 
 
 ## Related
