@@ -96,13 +96,13 @@ The brain response is a noisy function of the same stimulus the model already tr
 Such a small prior cannot teach new task structure the text does not already contain.
 It can only select among the many near-equivalent solutions an overparameterized model admits, which defines the role of the brain term as a regularizer rather than a source of new information.
 
-A generalization bound makes the consequence quantitative.
-Modelling training as a channel from the data $Z^n$ to the learned parameters $W$, the expected generalization gap is bounded by the information the parameters keep about the data,
+A generalization bound turns that into a quantitative rate.
+Modelling training as a channel from the data $Z^n$ to the learned parameters $\theta$, the expected generalization gap is bounded by the mutual information between them,
 \begin{equation}
-  \overline{\mathrm{gen}} \;\le\; \sqrt{\frac{2\sigma^2\, I(W;Z^n)}{n}},
+  \overline{\mathrm{gen}} \;\le\; \sqrt{\frac{2\sigma^2\, I(\theta;Z^n)}{n}},
 \end{equation}
 for $\sigma$-sub-Gaussian loss \autocite{xu2017}.
-If the brain prior adds $\Delta I$ bits to that quantity, its benefit to generalization is at most $O(\sqrt{\Delta I / n})$: real, but small, and shrinking as the task data $n$ grows.
+If the brain prior adds $\Delta I$ bits to $I(\theta;Z^n)$, its benefit to generalization is at most $O(\sqrt{\Delta I / n})$, and it shrinks as the task data $n$ grows.
 A weak but well-targeted brain prior should therefore help most where the text signal is weakest, in small, under-trained, or aggressively compressed models, and fade where text data already dominates.
 Distillation is the regime where that prediction is most testable.
 
