@@ -20,10 +20,10 @@
 \subsection{The alignment signal is real beyond low-level artifacts}
 
 Under contiguous splits and the full low-level nuisance regression, a trained model's middle layer carries unique, out-of-sample variance about language-network activity that a same-architecture untrained network does not.
-The ROI screen shows the effect across models, and the powered voxelwise run confirms it at voxel scale.
+The ROI screen shows the effect across models, and the powered voxelwise run confirms the effect at voxel scale.
 
 The ROI screen uses the five left-hemisphere language regions of \textcite{tuckute2024}, 1000 isolated sentences, and five contiguous folds.
-It shows a positive trained-minus-untrained gap for all three models, with the untrained control negative at every layer and seed (Table~\ref{tab:roi}).
+The screen shows a positive trained-minus-untrained gap for all three models, with the untrained control negative at every layer and seed (Table~\ref{tab:roi}).
 The signal is positive across a broad plateau of middle layers rather than at a single peak, and is absent from random features \evd{E002}.
 
 \begin{table}[H]
@@ -44,7 +44,7 @@ The signal is positive across a broad plateau of middle layers rather than at a 
 \end{table}
 
 The powered voxelwise run uses subject UTS03 of \textcite{lebel2023}, 20 naturalistic stories, and \result{e006_reliable_voxels} voxels selected at split-half reliability above $0.5$ on a held-out repeated story.
-It gives a trained-minus-untrained gap of \result{e006_gpt2_gap} for GPT-2 and \result{e006_qwen_gap} for Qwen2.5-0.5B; 95\% and 99\% of reliable voxels are positive respectively, and the untrained unique $R^2$ is $-0.017$ in both (Table~\ref{tab:vox}) \evd{E006}.
+The voxelwise run gives a trained-minus-untrained gap of \result{e006_gpt2_gap} for GPT-2 and \result{e006_qwen_gap} for Qwen2.5-0.5B; 95\% and 99\% of reliable voxels are positive respectively, and the untrained unique $R^2$ is $-0.017$ in both (Table~\ref{tab:vox}) \evd{E006}.
 The confidence intervals exclude zero, and the gap is carried by language training rather than by architecture or the temporal structure the nuisance floor absorbs \evd{E006}.
 
 \begin{table}[H]
@@ -67,9 +67,9 @@ The ROI screen uses isolated sentences.
 The isolated-sentence design removes temporal autocorrelation from naturalistic time series, so a positive result is harder to obtain rather than easier \evd{E002}.
 The voxelwise run uses naturalistic stimuli but holds out whole stories, so test timepoints are never adjacent to training timepoints.
 Voxel selection also uses a separate repeated story, preventing a score driven by voxels that correlate with the model by chance \evd{E006}.
-Both arms subtract the low-level set most likely to manufacture a false positive: word and phoneme rate, word duration and length, log word frequency, and a static word-embedding block \evd{E006}.
+Both the trained and untrained scores subtract the low-level set most likely to produce a false positive: word and phoneme rate, word duration and length, log word frequency, and a static word-embedding block \evd{E006}.
 Surprisal and imageability are deliberately left unsubtracted, so the floor alone does not rule out residual contextual structure.
-The untrained network provides the stronger check: it has the same architecture and the same stimulus set, yet scores negative at $-0.017$, so architecture, rate, and residual temporal structure cannot manufacture the gap \evd{E006}.
+The untrained network provides the stronger check: under the same architecture and the same stimulus set, the control scores negative at $-0.017$, so architecture, rate, and residual temporal structure cannot explain the gap \evd{E006}.
 
 \begin{figure}[H]
   \centering
@@ -79,11 +79,12 @@ The untrained network provides the stronger check: it has the same architecture 
 \end{figure}
 
 The alignment signal is real beyond low-level artifacts in neural data.
-The three-model ROI screen carries the breadth, and the deeply-sampled single subject UTS03 carries the statistical power at voxel scale.
-Cross-subject generality of the powered effect is a question this single-subject design leaves open, not one it settles.
-Qwen aligns more strongly than either GPT-2 variant, while the two GPT-2 variants are nearly tied despite a threefold parameter difference, so this single cross-family contrast does not by itself establish a quality ordering; that question is taken up later \evd{E002}.
-The result is necessary for the rest of the program, but not sufficient for it.
-It establishes only that the signal is real; it does not show that the signal can be moved or that moving it improves a model.
+The three-model ROI screen supplies breadth, and the deeply sampled single subject UTS03 supplies voxel-scale statistical power.
+The single-subject design leaves cross-subject generality of the powered effect open.
+Qwen aligns more strongly than either GPT-2 variant, while the two GPT-2 variants are nearly tied despite a threefold parameter difference.
+The single cross-family contrast does not by itself establish a quality ordering; the quality-ordering question is taken up later \evd{E002}.
+The Q0 result is necessary for the rest of the program, but not sufficient for it.
+The Q0 result establishes that the signal is real, not that the signal can be moved or that moving it improves a model.
 
 \subsection{Plain distillation does not preserve alignment by default}
 
