@@ -46,8 +46,7 @@ For three variables $(X,Y,Z)$,
   I(X;Y\mid Z) = H(Y\mid Z) - H(Y\mid X,Z)
 \end{equation}
 is the dependence between $X$ and $Y$ that remains once $Z$ is known \autocite{cover2006}.
-Conditioning makes this the right object.
-Plain mutual information cannot separate a genuine dependence from a shared cause, in which $X$ and $Y$ are both driven by some common $Z$; there $X \perp Y \mid Z$ holds and the conditional term is zero, even when the unconditional one is positive.
+Conditioning is what makes it the right object: plain mutual information cannot separate a genuine dependence from a shared cause, in which $X$ and $Y$ are both driven by some common $Z$, and there $X \perp Y \mid Z$ holds and the conditional term is zero, even when the unconditional one is positive.
 The chain rule splits the dependence into a baseline and the increment over it,
 \begin{equation}
   I\big(B;[Z_{\mathrm{nuis}},\mathrm{LM}]\big) = I(B;Z_{\mathrm{nuis}}) + I(B;\mathrm{LM}\mid Z_{\mathrm{nuis}}),
@@ -63,7 +62,7 @@ For jointly Gaussian variables the conditional mutual information is a monotone 
 so it is positive exactly when the partial correlation is \autocite[Ch.~8]{cover2006}.
 The reported score is the \emph{semipartial} $R^2$, the raw increment, which differs from the partial $\rho^2$ only by the factor $1/(1-R^2([Z_{\mathrm{nuis}}]))$.
 Both vanish together, so a positive semipartial score is equivalent to a positive conditional mutual information.
-Ridge is linear, so the score captures the linearly decodable part of that information: a population-level lower bound, and the right target for a thesis about the linear map.
+Ridge is linear, so the score captures the linearly decodable part of that information, a population-level lower bound.
 
 The choice of $Z$ fixes what the claim means.
 Conditioning on the low-level nuisance $Z_{\mathrm{nuis}}$ shows the signal is real beyond low-level features, not beyond the stimulus as a whole.
@@ -95,17 +94,16 @@ Modelling training as a channel from the data $Z^n$ to the learned parameters $W
 \end{equation}
 for $\sigma$-sub-Gaussian loss \autocite{xu2017}.
 If the brain prior adds $\Delta I$ bits to that quantity, its benefit to generalization is at most $O(\sqrt{\Delta I / n})$: real, but small, and shrinking as the task data $n$ grows.
-A weak but aimed brain prior should therefore help most where the text signal is weakest, in small, under-trained, or aggressively compressed models, and fade where text data already dominates.
-That is the reasoning behind targeting distillation.
+A weak but well-targeted brain prior should therefore help most where the text signal is weakest, in small, under-trained, or aggressively compressed models, and fade where text data already dominates.
+Distillation is the regime where that prediction is most testable.
 
 \subsection{The trained\textendash untrained gap}
 
-We report not a trained model's absolute score but the \emph{gap} between it and a same-architecture untrained network, fit under identical nuisance and splits.
-The reason is that on naturalistic data even an untrained network can score slightly positive.
+The reported statistic is the \emph{gap} between a trained model and a same-architecture untrained network, fit under identical nuisance and splits, rather than the trained model's absolute score.
+On naturalistic data even an untrained network can score slightly positive.
 The stimulus drives both the brain response and the untrained features, so when the nuisance captures the stimulus only in part, a residual shared-cause dependence is left behind, and the absolute score is not a clean measure of what training adds.
 Both arms pass through the byte-identical nuisance subtraction, so the baseline term cancels in the difference.
 The gap therefore isolates what \emph{language training} adds over random initialisation, holding architecture, tokenisation, and residual temporal structure fixed \evd{E006}.
-We report this gap throughout.
 
 \begin{figure}[t]
   \centering
@@ -117,7 +115,7 @@ We report this gap throughout.
     same-architecture untrained one; the reported statistic is the \emph{gap}, trained $\Delta R^2$
     minus untrained $\Delta R^2$, so the shared nuisance term cancels.
     Render in TikZ as two stacked bar-pairs with the increment and the gap annotated.}
-  \caption{What the reported number is: the unique variance a network adds over the nuisance floor, and the gap between the trained network and its untrained twin.}
+  \caption{The reported number: the unique variance a network adds over the nuisance floor, and the gap between the trained network and its untrained twin.}
   \label{fig:uniquevar}
 \end{figure}
 
@@ -132,7 +130,7 @@ The permuted-target null (brain responses shuffled across stimuli, which breaks 
 
 \subsection{Data and models}
 
-Two real datasets span the design.
+We use two real datasets.
 The ROI screen uses 1000 isolated sentences and the five left-hemisphere language regions of \textcite{tuckute2024}, a coarse but high-ceiling, train-participant-averaged benchmark whose isolated-sentence design sidesteps the temporal-autocorrelation leakage of naturalistic time series; its reported noise ceiling is $r\approx 0.35$ \evd{E002}.
 The powered measurement uses subject UTS03 of the deep-sampled naturalistic story-listening dataset of \textcite{lebel2023}, with 20 stories, story-level folds, and \result{e006_reliable_voxels} voxels retained at split-half reliability above $0.5$ on a held-out repeated story \evd{E006}.
 The models are GPT-2, GPT-2-medium, and Qwen2.5-0.5B, each read at its alignment-peak middle layer, with a same-architecture untrained network as the control in every comparison \evd{E002}\evd{E006}.
@@ -140,8 +138,7 @@ The models are GPT-2, GPT-2-medium, and Qwen2.5-0.5B, each read at its alignment
 \subsection{Distillation and the brain term}
 
 The compression setting is knowledge distillation: a smaller \emph{student} learns to reproduce a larger \emph{teacher}'s next-token distribution, rather than learning from text directly.
-This connects to perplexity through one identity.
-Per-token cross-entropy is code length, maximum-likelihood training minimizes the KL divergence from the data distribution to the model's, and perplexity is the exponential of that cross-entropy \autocite{cover2006}.
+This connects to perplexity through one identity: per-token cross-entropy is code length, maximum-likelihood training minimizes the KL divergence from the data distribution to the model's, and perplexity is the exponential of that cross-entropy \autocite{cover2006}.
 Plain language-model training and distillation are the same KL objective against different references: plain training projects the student onto the empirical data, distillation onto the teacher's softened distribution.
 Matching \emph{held-out perplexity} across arms therefore holds output quality fixed while only the objective varies, which is the control the alignment-training literature usually lacks; matching compute is not that control.
 
@@ -161,4 +158,4 @@ The brain term enters the objective as a co-trained regression loss,
 with mixing weight $\lambda$.
 The verdict-bearing arm is a randomly initialised student, the one arm whose surviving alignment was carried through the distillation channel; a warm-initialised student and a no-teacher fine-tune are kept as labelled drift controls, and every arm is scored at one fixed layer within a single architecture so no layer choice biases the comparison \evd{E003}.
 Brain \emph{specificity} is tested by the permuted twin of the controls above, the same loss against brain targets shuffled across stimuli.
-The match across arms is the compute budget, and the from-scratch arm runs about twice the optimizer steps of the warm arms, a caveat we record rather than hide \evd{E003}.
+The match across arms is the compute budget, and the from-scratch arm runs about twice the optimizer steps of the warm arms, a caveat carried into the results \evd{E003}.
