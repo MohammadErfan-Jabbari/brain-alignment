@@ -53,8 +53,8 @@ The chain rule splits the dependence into a baseline and the increment over it,
 \end{equation}
 with $B$ the brain response, so the information the model's representation adds over the nuisance is exactly the conditional term $I(B;\mathrm{LM}\mid Z_{\mathrm{nuis}})$.
 
-The unique-variance score estimates that term under a linear-Gaussian model.
-For jointly Gaussian variables the conditional mutual information is a monotone function of the squared partial correlation,
+The conditional mutual information is not directly measurable from data, so we estimate it through the unique-variance score, which is its linear-Gaussian surrogate.
+Under joint Gaussianity the conditional mutual information is a monotone function of the squared partial correlation,
 \begin{equation}
   I(X;Y\mid Z) = -\tfrac{1}{2}\ln\!\big(1-\rho^2_{XY\cdot Z}\big),
 \end{equation}
