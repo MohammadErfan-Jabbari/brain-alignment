@@ -93,8 +93,9 @@ The brain response is a noisy function of the same stimulus the model already tr
 \begin{equation}
   I(\theta^\star; B) \le I(\theta^\star; S).
 \end{equation}
-A prior this small cannot teach new task structure against a likelihood this large.
-What it can do is \emph{select} among the many near-equivalent solutions a large model admits, which is the precise sense in which a brain term is a regularizer, not a second teacher.
+Such a small prior cannot install task knowledge the text does not already carry.
+It can only select among the many near-equivalent solutions an overparameterized model admits.
+That is what makes a brain term a regularizer, not a second teacher.
 
 A generalization bound makes the consequence quantitative.
 Modelling training as a channel from the data $Z^n$ to the learned parameters $W$, the expected generalization gap is bounded by the information the parameters keep about the data,
