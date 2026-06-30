@@ -157,54 +157,6 @@
       \field{title}{Brain alignment under quantization and pruning of language models}
       \field{year}{2026}
     \endentry
-    \entry{gao2024}{article}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{1}{}{%
-        {{hash=ffb5e09af5fe51d3ce2a10206f5d7a98}{%
-           family={Gao},
-           familyi={G\bibinitperiod}}}%
-      }
-      \strng{namehash}{bccc8beddeb856a9e2269b4b171e2605}
-      \strng{fullhash}{bccc8beddeb856a9e2269b4b171e2605}
-      \strng{bibnamehash}{bccc8beddeb856a9e2269b4b171e2605}
-      \strng{authorbibnamehash}{bccc8beddeb856a9e2269b4b171e2605}
-      \strng{authornamehash}{bccc8beddeb856a9e2269b4b171e2605}
-      \strng{authorfullhash}{bccc8beddeb856a9e2269b4b171e2605}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Preprint}
-      \field{note}{use a base teacher, not instruct; see canonical/gao-2024}
-      \field{title}{Scaling, not instruction-tuning, drives brain alignment}
-      \field{year}{2024}
-    \endentry
-    \entry{alkhamissi2025}{article}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{1}{}{%
-        {{hash=aa128bdc3b38956ccb22bef0c63a9bde}{%
-           family={AlKhamissi},
-           familyi={A\bibinitperiod},
-           given={Badr},
-           giveni={B\bibinitperiod}}}%
-      }
-      \strng{namehash}{f6964ada44364cdd3b1e0f8947107e6c}
-      \strng{fullhash}{f6964ada44364cdd3b1e0f8947107e6c}
-      \strng{bibnamehash}{f6964ada44364cdd3b1e0f8947107e6c}
-      \strng{authorbibnamehash}{f6964ada44364cdd3b1e0f8947107e6c}
-      \strng{authornamehash}{f6964ada44364cdd3b1e0f8947107e6c}
-      \strng{authorfullhash}{f6964ada44364cdd3b1e0f8947107e6c}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Preprint}
-      \field{note}{alignment tracks formal competence, can reverse at scale; see canonical/alkhamissi-2025}
-      \field{title}{Large language models can outgrow the human language network}
-      \field{year}{2025}
-    \endentry
     \entry{hadidi2026}{article}{}
       \true{moreauthor}
       \true{morelabelname}
@@ -224,8 +176,8 @@
       \strng{authorbibnamehash}{ff87d12aaf1a482011e20b5f4ea64495}
       \strng{authornamehash}{ff87d12aaf1a482011e20b5f4ea64495}
       \strng{authorfullhash}{ff87d12aaf1a482011e20b5f4ea64495}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Nature Communications}
@@ -256,14 +208,62 @@
       \strng{authornamehash}{14596cf0e4f055b53cafc5d2629281d1}
       \strng{authorfullhash}{14596cf0e4f055b53cafc5d2629281d1}
       \field{extraname}{2}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Preprint}
       \field{note}{a residual survives next-word controls in IFG/AG; see canonical/merlin-2024}
       \field{title}{Language models and brain alignment: beyond word-level and next-word prediction}
       \field{year}{2024}
+    \endentry
+    \entry{gao2024}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=ffb5e09af5fe51d3ce2a10206f5d7a98}{%
+           family={Gao},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{bccc8beddeb856a9e2269b4b171e2605}
+      \strng{fullhash}{bccc8beddeb856a9e2269b4b171e2605}
+      \strng{bibnamehash}{bccc8beddeb856a9e2269b4b171e2605}
+      \strng{authorbibnamehash}{bccc8beddeb856a9e2269b4b171e2605}
+      \strng{authornamehash}{bccc8beddeb856a9e2269b4b171e2605}
+      \strng{authorfullhash}{bccc8beddeb856a9e2269b4b171e2605}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Preprint}
+      \field{note}{use a base teacher, not instruct; see canonical/gao-2024}
+      \field{title}{Scaling, not instruction-tuning, drives brain alignment}
+      \field{year}{2024}
+    \endentry
+    \entry{alkhamissi2025}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=aa128bdc3b38956ccb22bef0c63a9bde}{%
+           family={AlKhamissi},
+           familyi={A\bibinitperiod},
+           given={Badr},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{f6964ada44364cdd3b1e0f8947107e6c}
+      \strng{fullhash}{f6964ada44364cdd3b1e0f8947107e6c}
+      \strng{bibnamehash}{f6964ada44364cdd3b1e0f8947107e6c}
+      \strng{authorbibnamehash}{f6964ada44364cdd3b1e0f8947107e6c}
+      \strng{authornamehash}{f6964ada44364cdd3b1e0f8947107e6c}
+      \strng{authorfullhash}{f6964ada44364cdd3b1e0f8947107e6c}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Preprint}
+      \field{note}{alignment tracks formal competence, can reverse at scale; see canonical/alkhamissi-2025}
+      \field{title}{Large language models can outgrow the human language network}
+      \field{year}{2025}
     \endentry
     \entry{moussa2025b}{inproceedings}{}
       \true{moreauthor}
@@ -302,8 +302,8 @@
       \strng{authorbibnamehash}{28a4cd28480108176b4cb2edbf8c29ae}
       \strng{authornamehash}{28a4cd28480108176b4cb2edbf8c29ae}
       \strng{authorfullhash}{28a4cd28480108176b4cb2edbf8c29ae}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Preprint (arXiv:2209.02582)}
@@ -325,8 +325,8 @@
       \strng{authorbibnamehash}{1bd726b4cf5377c412b8e9c4e463fcd0}
       \strng{authornamehash}{1bd726b4cf5377c412b8e9c4e463fcd0}
       \strng{authorfullhash}{1bd726b4cf5377c412b8e9c4e463fcd0}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Imaging Neuroscience}
@@ -502,8 +502,8 @@
       \strng{authorbibnamehash}{c87c42a0e1ba5004a3fe120b8a88b171}
       \strng{authornamehash}{c87c42a0e1ba5004a3fe120b8a88b171}
       \strng{authorfullhash}{c87c42a0e1ba5004a3fe120b8a88b171}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{NeurIPS}
@@ -527,8 +527,8 @@
       \strng{authorbibnamehash}{cc3450e5b9366586e953ca651ecdd71c}
       \strng{authornamehash}{cc3450e5b9366586e953ca651ecdd71c}
       \strng{authorfullhash}{cc3450e5b9366586e953ca651ecdd71c}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Nature Human Behaviour}
