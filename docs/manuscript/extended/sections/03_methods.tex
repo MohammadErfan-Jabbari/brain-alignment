@@ -29,7 +29,7 @@ For activations $X \in \mathbb{R}^{n\times d}$ over $n$ stimuli and a $v$-voxel 
 \begin{equation}
   \hat W = \arg\min_W \; \lVert Y - XW \rVert_F^2 + \lambda \lVert W \rVert_F^2 ,
 \end{equation}
-and the score for each voxel is the held-out correlation between its predicted and measured response.
+and the score for each voxel is the correlation between its predicted and measured response.
 A raw score of this kind means little on its own, because a model can predict the brain for reasons that have nothing to do with language: utterance length, word position, generic word identity.
 We therefore report not the raw score but the variance the model adds \emph{on top of} a low-level nuisance set $Z_{\mathrm{nuis}}$, the difference of two cross-validated fits,
 \begin{equation}
