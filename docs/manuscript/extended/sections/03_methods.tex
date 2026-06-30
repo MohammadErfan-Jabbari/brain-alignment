@@ -24,7 +24,7 @@
 
 \subsection{The alignment score}
 
-We measure alignment with an encoding model: a ridge regression from a frozen model's per-stimulus middle-layer activations $X$ to recorded brain activity $Y$, fit on training stimuli and scored on held-out ones.
+We measure alignment with a ridge encoding model that maps a frozen model's per-stimulus middle-layer activations $X$ to recorded brain activity $Y$, fit on training stimuli and scored on held-out ones.
 For activations $X \in \mathbb{R}^{n\times d}$ over $n$ stimuli and a $v$-voxel response $Y$, the fitted map is
 \begin{equation}
   \hat W = \arg\min_W \; \lVert Y - XW \rVert_F^2 + \lambda \lVert W \rVert_F^2 ,
