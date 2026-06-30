@@ -70,7 +70,7 @@ Conditioning instead on the full stimulus-predictable response $\Eys$ asks a str
 \subsection{Why a brain signal is only a weak prior}
 
 A brain term in a language objective is, up to constants, a maximum-a-posteriori estimate.
-To see it, write training as choosing parameters $\theta$ that minimise a loss, and add a brain term to the usual language-model loss:
+Training chooses parameters $\theta$ that minimise a loss, and adding a brain term to the usual language-model loss gives
 \begin{equation}
   \hat{\theta} \;=\; \arg\min_{\theta}\; \underbrace{\Big[\textstyle -\sum_{t=1}^{N}\log p_\theta(x_t \mid x_{<t})\Big]}_{-\log p(\mathcal{D}_{\text{text}}\mid\theta)} \;+\; \lambda\,\underbrace{\Lbrain(\theta)}_{-\log p(\theta)}.
 \end{equation}
