@@ -96,7 +96,7 @@ The brain response is a noisy function of the same stimulus the model already tr
 Such a small prior cannot teach new task structure the text does not already contain.
 It can only select among the many near-equivalent solutions an overparameterized model admits, which defines the role of the brain term as a regularizer rather than a source of new information.
 
-A generalization bound turns that into a quantitative rate.
+A generalization bound can show quantitatively how and where such a weak prior can help.
 Modelling training as a channel from the data $Z^n$ to the learned parameters $\theta$, the expected generalization gap is bounded by the mutual information between them,
 \begin{equation}
   \overline{\mathrm{gen}} \;\le\; \sqrt{\frac{2\sigma^2\, I(\theta;Z^n)}{n}},
