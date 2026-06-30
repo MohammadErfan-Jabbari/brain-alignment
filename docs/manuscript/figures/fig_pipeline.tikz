@@ -1,0 +1,34 @@
+\begin{tikzpicture}[
+  font=\small,
+  >=Latex,
+  node distance=0.85cm and 0.9cm,
+  stage/.style={draw=black!55, rounded corners=3pt, fill=gray!6, minimum height=1.05cm, align=center, inner sep=6pt},
+  object/.style={draw=black!55, rounded corners=3pt, fill=white, minimum height=0.78cm, align=center, inner sep=5pt},
+  signal/.style={draw=black!45, rounded corners=2pt, fill=blue!6, minimum height=0.66cm, align=center, inner sep=4pt},
+  loss/.style={draw=black!50, rounded corners=2pt, fill=orange!10, minimum height=0.66cm, align=center, inner sep=4pt},
+  arrow/.style={->, line width=0.55pt, draw=black!70},
+  softarrow/.style={->, line width=0.5pt, draw=black!45},
+]
+  \node[stage, text width=2.55cm] (stim) at (-4.4,0) {\textbf{1. Shared text}\\story or sentence};
+  \node[object, text width=2.45cm] (human) at (-1.05,1.05) {person reads\\fMRI response $Y$};
+  \node[object, text width=2.45cm] (lm) at (-1.05,-1.05) {LM reads\\middle layer $X$};
+
+  \node[stage, text width=2.85cm] (measure) at (2.75,0.55) {\textbf{2. Measure}\\ridge map $X\hat W \to Y$};
+  \node[signal, text width=3.05cm] (score) at (2.75,-1.05) {alignment score\\unique $\Delta R^2$ over nuisance};
+
+  \node[stage, text width=2.95cm] (use) at (7.25,0.55) {\textbf{3. Use alignment}\\distill teacher $\to$ student};
+  \node[loss, text width=2.85cm] (brainloss) at (7.25,-1.05) {$\mathcal{L}_{\mathrm{KD}} + \lambda\Lbrain$\\matched budget};
+
+  \draw[arrow] (stim.east) to[out=0,in=180] (human.west);
+  \draw[arrow] (stim.east) to[out=0,in=180] (lm.west);
+  \draw[arrow] (human.east) -- ([yshift=4pt]measure.west);
+  \draw[arrow] (lm.east) -- ([yshift=-4pt]measure.west);
+  \draw[arrow] (measure) -- (score);
+  \draw[arrow] (measure.east) -- node[above, font=\footnotesize] {invert} (use.west);
+  \draw[arrow] (use) -- (brainloss);
+  \draw[softarrow] (score.east) -- node[below, font=\footnotesize] {derive term} (brainloss.west);
+
+  \node[draw=black!35, rounded corners=3pt, fit=(stim)(human)(lm), inner sep=7pt, label={[font=\footnotesize]above:input}] {};
+  \node[draw=black!35, rounded corners=3pt, fit=(measure)(score), inner sep=7pt, label={[font=\footnotesize]above:measurement}] {};
+  \node[draw=black!35, rounded corners=3pt, fit=(use)(brainloss), inner sep=7pt, label={[font=\footnotesize]above:intervention}] {};
+\end{tikzpicture}

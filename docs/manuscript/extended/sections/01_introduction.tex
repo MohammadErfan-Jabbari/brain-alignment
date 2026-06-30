@@ -40,17 +40,8 @@ And if it can, does a model trained that way gain anything a text-only model doe
 
 \begin{figure}[t]
   \centering
-  \figspec[0.30\textheight]{pipeline / method schematic}{%
-    Left-to-right setup, then the inversion.
-    (a) A stimulus (a story or sentence) is read by a person and by a frozen language model;
-    the model's middle-layer activations $X$ are extracted.
-    (b) A ridge encoding map $\hat W$ predicts recorded brain activity $Y$ (fMRI) from $X$;
-    alignment is the held-out \emph{unique} variance $\Delta R^2(X;Y\mid Z_{\mathrm{nuis}})$,
-    the increment over a low-level nuisance floor, reported as the trained$-$untrained gap.
-    (c) The inversion: the same alignment becomes a training term $\lambda\,\Lbrain$ added to
-    knowledge distillation, where a smaller student is trained from a teacher at a matched budget.
-    Render in TikZ; keep three labelled stages (extract / measure / use).}
-  \caption{The measurement instrument and its inversion. A ridge encoding model maps language-model activations to held-out brain responses and reports unique variance over the nuisance floor; the thesis asks whether the same alignment term can guide a distilled student.}
+  \resizebox{0.98\textwidth}{!}{\input{../figures/fig_pipeline.tikz}}
+  \caption{The measurement instrument and its inversion. A ridge encoding model maps language-model activations to brain responses; held-out accuracy is reported as unique variance over the nuisance floor. The thesis asks whether a corresponding brain-alignment term can guide a distilled student.}
   \label{fig:pipeline}
 \end{figure}
 
