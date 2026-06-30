@@ -39,14 +39,15 @@ A positive \uniqueR{} says the contextual representation explains brain activity
 
 \subsection{What the score measures}
 
-The score has an exact meaning in information terms: it is a lower bound on the information the model's representation carries about brain activity, beyond the low-level baseline.
-The object behind it is conditional mutual information.
+We use the score as a linear lower-bound proxy for an information increment: the information the model's representation carries about brain activity beyond the low-level baseline.
+The underlying estimand is conditional mutual information.
 For three variables $(X,Y,Z)$,
 \begin{equation}
   I(X;Y\mid Z) = H(Y\mid Z) - H(Y\mid X,Z)
 \end{equation}
 is the dependence between $X$ and $Y$ that remains once $Z$ is known \autocite{cover2006}.
-Conditioning is what makes it the right object: plain mutual information cannot separate a genuine dependence from a shared cause, in which $X$ and $Y$ are both driven by some common $Z$, and there $X \perp Y \mid Z$ holds and the conditional term is zero, even when the unconditional one is positive.
+Conditioning is essential here.
+Plain mutual information cannot distinguish the dependence of interest from a shared driver: if $X$ and $Y$ are both driven by some common $Z$, then $X \perp Y \mid Z$, so the conditional term is zero even when the unconditional term is positive.
 The chain rule splits the dependence into a baseline and the increment over it,
 \begin{equation}
   I\big(B;[Z_{\mathrm{nuis}},\mathrm{LM}]\big) = I(B;Z_{\mathrm{nuis}}) + I(B;\mathrm{LM}\mid Z_{\mathrm{nuis}}),
@@ -54,11 +55,11 @@ The chain rule splits the dependence into a baseline and the increment over it,
 with $B$ the brain response, so the information the model's representation adds over the nuisance is exactly the conditional term $I(B;\mathrm{LM}\mid Z_{\mathrm{nuis}})$.
 
 The conditional mutual information is not directly measurable from data, so we estimate it through the unique-variance score, which is its linear-Gaussian surrogate.
-Under joint Gaussianity the conditional mutual information is a monotone function of the squared partial correlation,
+Under joint Gaussianity, conditional mutual information is a monotone function of the squared partial correlation,
 \begin{equation}
   I(X;Y\mid Z) = -\tfrac{1}{2}\ln\!\big(1-\rho^2_{XY\cdot Z}\big),
 \end{equation}
-so it is positive exactly when the partial correlation is nonzero \autocite[Ch.~8]{cover2006}.
+so the quantity is positive exactly when the partial correlation is nonzero \autocite[Ch.~8]{cover2006}.
 The reported score is the \emph{semipartial} $R^2$, the raw increment, which differs from the partial $\rho^2$ only by the factor $1/(1-R^2([Z_{\mathrm{nuis}}]))$.
 Both vanish together, so a positive semipartial score is equivalent to a positive conditional mutual information.
 Ridge is linear, so the score captures the linearly decodable part of that information, a population-level lower bound.
@@ -75,7 +76,7 @@ Training chooses parameters $\theta$ that minimise a loss, and adding a brain te
   \hat{\theta} \;=\; \arg\min_{\theta}\; \underbrace{\Big[\textstyle -\sum_{t=1}^{N}\log p_\theta(x_t \mid x_{<t})\Big]}_{-\log p(\mathcal{D}_{\text{text}}\mid\theta)} \;+\; \lambda\,\underbrace{\Lbrain(\theta)}_{-\log p(\theta)}.
 \end{equation}
 The first term is the negative log-likelihood of the text: next-token prediction is maximum likelihood, and minimising it maximises $p(\mathcal{D}_{\text{text}}\mid\theta)$.
-The second term is the negative log-prior: any regulariser that penalises a property of $\theta$ is, up to the constant $\lambda$ sets, a prior $p(\theta)\propto\exp\!\big(\!-\lambda\Lbrain(\theta)\big)$ over parameters that favour that property.
+The second term is the negative log-prior: any regulariser that penalises a property of $\theta$ corresponds, up to a normalisation constant, to a prior $p(\theta)\propto\exp\!\big(\!-\lambda\Lbrain(\theta)\big)$ over parameters that favour that property, with $\lambda$ setting its strength.
 Minimising their sum is therefore
 \begin{equation}
   \hat\theta_{\mathrm{MAP}} \;=\; \arg\max_{\theta}\;\big[\log p(\mathcal{D}_{\text{text}}\mid\theta) + \log p(\theta)\big],
@@ -89,10 +90,12 @@ The brain side offers a few thousand noisy stimuli, and the information each vox
 \end{equation}
 which puts the usable brain budget, as an order of magnitude, around $10^4$ to $10^6$ bits \autocite{cover2006}.
 The data-processing inequality shrinks it further.
-The brain response is a noisy function of the same stimulus the model already trains on, so along the chain $S \to R(S) \to B$ it carries no more about the optimal parameters than the stimulus does,
+Let $S$ be the stimulus and $B$ its noisy brain response.
+Under the modelling assumption that $B$ is generated from $S$, the chain $\theta^\star \to S \to B$ gives
 \begin{equation}
   I(\theta^\star; B) \le I(\theta^\star; S).
 \end{equation}
+The brain response cannot contain more information about the target parameters than the stimulus that elicited it.
 Such a small prior cannot teach new task structure the text does not already contain.
 It can only select among the many near-equivalent solutions an overparameterized model admits, which defines the role of the brain term as a regularizer rather than a source of new information.
 
@@ -109,7 +112,7 @@ Distillation is the regime where that prediction is most testable.
 \subsection{The trained\textendash untrained gap}
 
 We report the \emph{gap} between a trained model and a same-architecture untrained network, both fit with the same nuisance set and the same splits, rather than the trained model's absolute score.
-The absolute score is not enough on naturalistic data, because even an untrained network can score slightly positive.
+An absolute score is insufficient on naturalistic data, because even an untrained network can score slightly positive.
 The stimulus drives both the brain response and the untrained features; if the nuisance set captures only part of the stimulus, residual shared-cause dependence can remain.
 Subtracting the untrained arm removes the component shared by architecture, tokenisation, and residual temporal structure.
 The gap therefore estimates what \emph{language training} adds over random initialisation \evd{E006}.
@@ -142,7 +145,7 @@ It tests brain-\emph{specificity}, not whether the baseline alignment signal is 
 
 We use two datasets.
 The ROI screen uses the 1000 isolated sentences and five left-hemisphere language regions of \textcite{tuckute2024}.
-This benchmark averages responses across training participants, so it is coarse, but its isolated-sentence design avoids the temporal-autocorrelation leakage of naturalistic time series; its reported noise ceiling is $r\approx 0.35$ \evd{E002}.
+The ROI benchmark averages responses across training participants, so it is coarse, but its isolated-sentence design avoids the temporal-autocorrelation leakage of naturalistic time series; its reported noise ceiling is $r\approx 0.35$ \evd{E002}.
 The powered measurement uses subject UTS03 of the deep-sampled naturalistic story-listening dataset of \textcite{lebel2023}: 20 stories, story-level folds, and \result{e006_reliable_voxels} voxels retained at split-half reliability above $0.5$ on a held-out repeated story \evd{E006}.
 The models are GPT-2, GPT-2-medium, and Qwen2.5-0.5B, each read at its alignment-peak middle layer, with a same-architecture untrained network as the control in every comparison \evd{E002}\evd{E006}.
 
@@ -151,10 +154,10 @@ The models are GPT-2, GPT-2-medium, and Qwen2.5-0.5B, each read at its alignment
 The compression setting is knowledge distillation: a smaller \emph{student} learns to reproduce a larger \emph{teacher}'s next-token distribution, rather than learning from text directly.
 Perplexity gives the output-quality control.
 Per-token cross-entropy is code length, maximum-likelihood training minimizes the KL divergence from the data distribution to the model's, and perplexity is the exponential of that cross-entropy \autocite{cover2006}.
-Plain language-model training and distillation are therefore KL objectives against different references: plain training projects the student onto the empirical data, while distillation projects it onto the teacher's softened distribution.
+Both objectives are KL objectives with different references: plain language-model training projects the student onto the empirical data, while distillation projects it onto the teacher's softened distribution.
 Matching \emph{held-out perplexity} across arms holds output quality fixed while the objective varies; matching compute does not.
 
-The distillation objective does not force alignment to be preserved, for two reasons.
+The distillation objective does not by itself imply preserved alignment, for two reasons.
 First, it constrains the \emph{output} distribution, whereas alignment is a property of the \emph{internal} representation, and the readout from representation to logits is many-to-one,
 \begin{equation}
   D\big(p_T \,\Vert\, q_S\big)\to 0 \;\not\Rightarrow\; Z_S \approx Y_{\mathrm{teacher}} \;\not\Rightarrow\; I(Z_S;B\mid Z_{\mathrm{nuis}}) = I(Y_{\mathrm{teacher}};B\mid Z_{\mathrm{nuis}}),
