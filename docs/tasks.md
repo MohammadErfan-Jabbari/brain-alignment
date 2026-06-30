@@ -355,16 +355,6 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 
 - ~~(Tooling) Build a number-freshness verifier (`check_number_freshness.py`)~~ — **dropped 2026-06-16 (S18).** No honest deterministic check exists: records are prose with many numbers, so matching a cited value to the current one is comprehension, not regex — a script would give false confidence. **Reframed as a subagent spot-check** (provenance-d011.md): at a full-loop handoff for manuscript-bound work, a cheap subagent (sonnet; haiku if numbers are cleanly keyed) verifies each load-bearing number against its current record and flags mismatches. The `number-provenance` `wrap-auditor` already covers this at session close. No script to build.
 
-- [ ] **Get to the bottom of graphify** (deferred — tooling, not science). Integrated 2026-06-11 as a
-      code navigator (`.claude/skills/graphify/`, `.graphifyignore`, CLI via uv tool; see timeline
-      `2026-06-11-2257`). Code graph = useful/accurate/free; semantic doc-graph via Flash-Lite = thin
-      (file-level, redundant with gbrain). **If revisited:** try `--mode deep` + Gemini 3.1 Pro on
-      `docs/`, and name the use it serves that gbrain doesn't — else the code-graph-only conclusion
-      stands. Full 2500-file semantic build NOT run. For any Gemini run use the Antigravity subscription
-      quota or a billing-off key (never the training-on-inputs free tier).
-- [x] 2026-06-11 — **Integrated graphify** (CLI + `/graphify` skill + Antigravity config + scoped
-      `.graphifyignore`; stripped its nag PreToolUse hooks; `CLAUDE.md` section subordinate to ladder+gbrain).
-      `ea22aa4`, `077eef2`.
 - [x] 2026-06-09 — **Disabled the GateGuard fact-forcing + doc-file-warning ECC hooks** for this repo via
       `.claude/settings.json` `ECC_DISABLED_HOOKS` (D012). Settles the Session-2 friction.
 

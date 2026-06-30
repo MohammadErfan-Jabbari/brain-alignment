@@ -19,7 +19,7 @@ Every lesson grounds in the repo's own material and cites it. Find the source fo
 | experiment + its rationale | `docs/experiments/` + the report + the code |
 | paper / a topic in it | `docs/literature/canonical/` (or the PDF / `data/paper-repos/`) |
 | course concept | `data/course-material/*_study.md` (already preprocessed — do not re-OCR) |
-| free question | repo search (graphify / grep) + the brain |
+| free question | repo search + the brain |
 
 Read the source before teaching. Never teach from parametric memory when a source exists.
 

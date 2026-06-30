@@ -38,7 +38,6 @@ Working (Design → Run → Judge): produced new evidence (E008), a reproducible
 ## Friction & improvements
 - The 4 new panel agents weren't in the session registry until a refresh (~mid-session) — ran them as `general-purpose`+persona until then; now registered. New agents need a session reload to register.
 - Data: Tuckute uid 853 has incomplete ROI coverage (60 NaNs) — excluded; the other 9 UIDs clean. The per-UID NaN check (`load_tuckute`) caught it (one shard failed fast, relaunched).
-- Two `graphify` tooling commits appeared from subagent/hook activity (additive, harmless) — noted, not reverted.
 - Cost ~$160+ for the full cycle (panel + E008 945-run + 6 fable/sonnet agents + A3 grounding). Justified for a thesis-headline-deciding result.
 - **The process worked exactly as designed:** the panel-before-compute caught a pseudo-replicated headline; the oracle-gated per-subject test settled it; a second panel adjudicated the steelman. Rigor over momentum.
 

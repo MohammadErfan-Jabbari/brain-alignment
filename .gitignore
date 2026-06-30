@@ -27,9 +27,6 @@ tmp/
 .obsidian/workspace-mobile.json
 .obsidian/cache
 
-# graphify — regenerable knowledge-graph output (build with /graphify)
-graphify-out/
-
 # Claude Code per-worktree session state (wrap snapshot, etc.) — not shared
 .claude/state/
 .claude/worktrees/

@@ -17,8 +17,8 @@ Set up Firecrawl (https://github.com/firecrawl/firecrawl) for the repo and docum
 - Node v22 / `npx` available; `firecrawl-mcp@3.20.6` current.
 
 **Landed (2 commits):**
-- `71c0894` — `feat(tooling)`: Firecrawl as a **project-scoped MCP server** in `.mcp.json` at repo root, **remote transport** with `${FIRECRAWL_API_KEY}` interpolated (no secret committed). New `## Firecrawl` section in `CLAUDE.md` documenting the `firecrawl_*` tool surface (scrape/map/crawl/extract/search, the **research index**, agent/interact/monitors), the authority order (docs brain wins; never a science number, never a rung flip — same hard line as Codex/graphify), the cost discipline (cheap path WebFetch/exa first; credits billed), and add-ons.
-- `c868446` — `feat(skills)`: installed the **`firecrawl-research-index`** skill **repo-local** at `.claude/skills/firecrawl-research-index/SKILL.md` (a real file, matching how `graphify`/`scientific-writing` are tracked here). It drives the `firecrawl_research_*` tools (semantic paper search → citation-graph expansion → in-body verify) and complements `lit-scout`. `CLAUDE.md` updated to reflect it's installed.
+- `71c0894` — `feat(tooling)`: Firecrawl as a **project-scoped MCP server** in `.mcp.json` at repo root, **remote transport** with `${FIRECRAWL_API_KEY}` interpolated (no secret committed). New `## Firecrawl` section in `CLAUDE.md` documenting the `firecrawl_*` tool surface (scrape/map/crawl/extract/search, the **research index**, agent/interact/monitors), the authority order (docs brain wins; never a science number, never a rung flip — same hard line as Codex), the cost discipline (cheap path WebFetch/exa first; credits billed), and add-ons.
+- `c868446` — `feat(skills)`: installed the **`firecrawl-research-index`** skill **repo-local** at `.claude/skills/firecrawl-research-index/SKILL.md`. It drives the `firecrawl_research_*` tools (semantic paper search → citation-graph expansion → in-body verify) and complements `lit-scout`. `CLAUDE.md` updated to reflect it's installed.
 
 **Decisions in the work:**
 - **Self-hosted: skipped** (no Docker). Cloud API instead.
@@ -34,7 +34,7 @@ This **partially resolves D041's deferred `.mcp.json` item** — the repo now ha
 
 ## Continuity audit (Part B)
 
-- **Friction:** none recurring. The estack-vs-repo install path was a one-time clarification (now settled: repo-local for project-specific external skills, matching graphify/scientific-writing).
+- **Friction:** none recurring. The estack-vs-repo install path was a one-time clarification (now settled: repo-local for project-specific external skills when Erfan asks for that scope).
 - **Tooling that misbehaved:** none. (Note: the codex companion shell wrapper garbles `pgrep` output in compound commands — cosmetic; `du` was clean.)
 - **Doc consistency:** `CLAUDE.md` corrected mid-session (the "research skill not auto-installed" line was made true once it was installed). No number-provenance issue — zero numbers produced. Ladder untouched and still accurate.
 - **New artifact:** none warranted beyond what landed.

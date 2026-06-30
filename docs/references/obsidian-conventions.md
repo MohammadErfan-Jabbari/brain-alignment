@@ -114,7 +114,6 @@ The connected graph comes from this pattern (what centres `awesome-llm-apps`):
 These trees are **not** held to the rules above (archival or machine-generated):
 
 - `docs/literature/_prior-work/` — frozen provenance (the wikilinks / missing frontmatter there are inherent; never edited).
-- `docs/graphify-out/` — generated graph reports (wikilink-heavy by construction).
 
 ## 12. Tooling
 
