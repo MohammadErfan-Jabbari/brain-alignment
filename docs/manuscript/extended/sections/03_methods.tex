@@ -131,9 +131,9 @@ The gap therefore estimates what \emph{language training} adds over random initi
 \subsection{The controls}
 
 We apply three controls uniformly.
-\emph{Contiguous splits}: train and test are divided in blocks (block cross-validation on the ROI screen, whole-story-held-out cross-validation on the voxelwise run), because shuffling time-adjacent fMRI samples leaks near-duplicate timepoints across the split and inflates the score \evd{E002}\evd{E006}.
-\emph{A capacity-fair nuisance floor}: the wide contextual block and the wide static-embedding block are each reduced by PCA to the same rank, fit on the training fold only, so the language model does not win merely by carrying more dimensions; the few low-level scalars stay raw \evd{E006}.
-\emph{A held-out noise ceiling}: on the voxelwise run only reliable voxels are kept, selected by split-half reliability on a separate story repeated ten times and held entirely out of the cross-validation pool, so the estimate is not inflated by voxels that happen to correlate with the model by chance \evd{E006}.
+\emph{(1) Contiguous splits}: train and test are divided in blocks (block cross-validation on the ROI screen, whole-story-held-out cross-validation on the voxelwise run), because shuffling time-adjacent fMRI samples leaks near-duplicate timepoints across the split and inflates the score \evd{E002}\evd{E006}.
+\emph{(2) A capacity-fair nuisance floor}: the wide contextual block and the wide static-embedding block are each reduced by PCA to the same rank, fit on the training fold only, so the language model does not win merely by carrying more dimensions; the few low-level scalars stay raw \evd{E006}.
+\emph{(3) A held-out noise ceiling}: on the voxelwise run only reliable voxels are kept, selected by split-half reliability on a separate story repeated ten times and held entirely out of the cross-validation pool, so the estimate is not inflated by voxels that happen to correlate with the model by chance \evd{E006}.
 Surprisal is deliberately left out of the nuisance set, since it is itself LM-derived and subtracting it would remove part of the construct under test; log word-frequency, a static lexical scalar, is distinct and is subtracted \evd{E006}.
 The permuted-target null shuffles brain responses across stimuli, breaking the stimulus-response pairing while preserving temporal structure.
 It tests brain-\emph{specificity}, not whether the baseline alignment signal is real, and enters only where the question is whether the signal can be moved.
