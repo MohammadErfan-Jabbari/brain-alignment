@@ -69,7 +69,21 @@ Conditioning instead on the full stimulus-predictable response $\Eys$ asks a str
 
 \subsection{Why a brain signal is only a weak prior}
 
-A brain term in a language objective is, up to constants, a maximum-a-posteriori estimate: the text is the likelihood, the brain term is the log-prior.
+A brain term in a language objective is, up to constants, a maximum-a-posteriori estimate.
+The derivation is short.
+Training chooses parameters $\theta$ that minimise a loss, and adding a brain term to the usual language-model loss gives
+\begin{equation}
+  \hat{\theta} \;=\; \arg\min_{\theta}\; \underbrace{\Big[\textstyle -\sum_{t=1}^{N}\log p_\theta(x_t \mid x_{<t})\Big]}_{-\log p(\mathcal{D}_{\text{text}}\mid\theta)} \;+\; \lambda\,\underbrace{\Lbrain(\theta)}_{-\log p(\theta)}.
+\end{equation}
+The first term is the negative log-likelihood of the text: next-token prediction is maximum likelihood, and minimising it maximises $p(\mathcal{D}_{\text{text}}\mid\theta)$.
+The second term is the negative log-prior: any regulariser that penalises a property of $\theta$ is, up to the constant $\lambda$ sets, a prior $p(\theta)\propto\exp\!\big(\!-\lambda\Lbrain(\theta)\big)$ over parameters that favour that property.
+Minimising their sum is therefore
+\begin{equation}
+  \hat\theta_{\mathrm{MAP}} \;=\; \arg\max_{\theta}\;\big[\log p(\mathcal{D}_{\text{text}}\mid\theta) + \log p(\theta)\big],
+\end{equation}
+a MAP estimate in which the text is the likelihood and the brain term is the log-prior.
+The question this subsection answers is how far a prior that small can move a posterior dominated by the text.
+
 The two enter on very different scales.
 A training corpus carries on the order of $10^{12}$ to $10^{13}$ bits of supervision.
 The brain side offers a few thousand noisy stimuli, and the information each voxel can carry is capped by its noise ceiling, a channel capacity
