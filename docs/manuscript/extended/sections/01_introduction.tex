@@ -75,15 +75,8 @@ It studies alignment-guided distillation at a matched student budget, the regime
 
 \begin{figure}[t]
   \centering
-  \figspec[0.26\textheight]{2$\times$2 positioning of the field}{%
-    A two-by-two grid. Rows = what an intervention does to the parameter budget
-    (grow / shrink); columns = how it treats brain alignment (measured / optimised).
-    Cells: (grow, measured) classical brain-score \autocite{oota2023,gao2024,alkhamissi2025};
-    (grow, optimised) brain-tuning \autocite{moussa2025,bilgin2026,merlin2026};
-    (shrink, measured) compression robustness \autocite{oota2026};
-    (shrink, optimised) \textbf{this thesis}, starred, labelled ``empty in the 2026 literature''.
-    Render in TikZ from Table~\ref{tab:cells}; visually emphasise the starred empty cell.}
-  \caption{The field on two axes; three cells are occupied and the fourth, where this work sits, is empty.}
+  \resizebox{0.82\textwidth}{!}{\input{../figures/fig_cells.tikz}}
+  \caption{The field on two axes; three cells are occupied and the fourth, where this work sits, is open in language-model compression. Examples and citations are given in Table~\ref{tab:cells}.}
   \label{fig:cells-diagram}
 \end{figure}
 

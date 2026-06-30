@@ -1,0 +1,19 @@
+\begin{tikzpicture}[
+  font=\small,
+  >=Latex,
+  cell/.style={draw=black!55, rounded corners=3pt, fill=gray!6, minimum width=3.95cm, minimum height=1.28cm, align=center, inner sep=6pt},
+  thesis/.style={draw=orange!70!black, rounded corners=3pt, fill=orange!13, minimum width=3.95cm, minimum height=1.46cm, align=center, inner sep=6pt, line width=0.8pt},
+  head/.style={font=\small\bfseries, align=center},
+  rowhead/.style={font=\small\bfseries, align=center, text width=2.4cm},
+  note/.style={font=\footnotesize, align=center, text=black!70},
+]
+  \node[head] (c1) at (0,2.15) {Alignment measured\\after training};
+  \node[head] (c2) at (4.45,2.15) {Alignment optimized\\during training};
+  \node[rowhead] (r1) at (-3.4,0.65) {Not\\compressed};
+  \node[rowhead] (r2) at (-3.4,-0.95) {Compressed};
+
+  \node[cell] (gm) at (0,0.65) {classical brain-score\\\footnotesize frozen-model encoding};
+  \node[cell] (go) at (4.45,0.65) {brain tuning\\\footnotesize fine-tune / adapter / head};
+  \node[cell] (sm) at (0,-0.95) {compression robustness\\\footnotesize quantization / pruning};
+  \node[thesis] (so) at (4.45,-0.95) {\textbf{this thesis}\\\footnotesize alignment-guided\\distillation\\[-1pt]\scriptsize open in LM compression};
+\end{tikzpicture}
