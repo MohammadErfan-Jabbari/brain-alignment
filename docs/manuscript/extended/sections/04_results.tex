@@ -3,21 +3,21 @@
 % Section goal: report the established findings in DEPENDENCY ORDER; each subsection
 % is one self-contained claim that gates the next. Numbers appear ONCE here (not in §1).
 % Doctrine: one sentence one job; finding -> mechanism -> caveat across sentences.
-%  4.1 Q0 real [Fig. a2] -- GOAL: the signal is real beyond confounds (the foundation).
+%  4.1 Q0 real [Fig. a2] -- GOAL: the signal is real beyond low-level artifacts (the foundation).
 %      CONTAINS: ROI screen (3 models, the gap, untrained negative); powered voxelwise (gap, CI, % positive);
 %      the controls' role; scope (single subject; cross-subject open). Close: real != movable.
 %  4.2 Q1 no-preservation [Fig. kd] -- GOAL: plain KD does not preserve alignment by default,
-%      but the drop is quality-confounded. CONTAINS: the monotone retention gradient (Table); the
-%      cold-init verdict-arm logic; the quality co-variation confound (state the r once); under-training/budget
-%      caveats. Close: headroom genuine but confounded -> the matched-ppl question is deferred.
-%  4.3 Q2 weak lever [Fig. lever] -- GOAL: optimising the brain objective moves alignment only weakly
-%      and confounded; no lever demonstrated at the honest unit. CONTAINS: the lever on the strong aligner
+%      but the drop is entangled with quality. CONTAINS: the monotone retention gradient (Table); the
+%      cold-init verdict-arm logic; the quality co-variation (state the r once); under-training/budget
+%      caveats. Close: headroom genuine but quality-entangled -> the matched-ppl question is deferred.
+%  4.3 Q2 weak lever [Fig. lever] -- GOAL: the apparent brain-objective effect is small
+%      and quality-entangled; no lever demonstrated at the honest unit. CONTAINS: the lever on the strong aligner
 %      (E004); the pseudo-replication correction (15-cell -> n=5 folds, interval includes 0); fold-4 dominance;
 %      "undemonstrated, not zero"; tie to the quality law. Close: gates the per-individual question (Q3, out of scope).
 % Q3--Q4 remain stubs (out of scope this version).
 % ===========================================================================
 
-\subsection{The alignment signal is real, beyond confounds}
+\subsection{The alignment signal is real beyond low-level artifacts}
 
 A trained model's middle layer carries unique, out-of-sample variance about real language-network activity that a same-architecture untrained network does not, and the effect survives the full low-level nuisance regression under contiguous splits.
 The ROI screen passes on every model tested, and the powered voxelwise run confirms it where the screen could only hint.
@@ -30,6 +30,7 @@ The signal is positive across a broad plateau of middle layers rather than at a 
   \footnotesize
   \caption{ROI screen on Tuckute 2024 (five LH language ROIs, five contiguous folds). Unique $R^2$ is the semipartial increment over the nuisance set; the gap is trained minus untrained. NC-norm is the gap as a fraction of the $r\approx0.353$ noise ceiling.}
   \label{tab:roi}
+  \resizebox{\textwidth}{!}{%
   \begin{tabular}{lcccccc}
     \toprule
     Model & Best layer & Trained \uniqueR{} (mean\,$\pm$\,SD) & Untrained \uniqueR{} & Gap & NC-norm & Source \\
@@ -38,7 +39,7 @@ The signal is positive across a broad plateau of middle layers rather than at a 
     GPT-2-medium (24L) & L14 & $+0.019 \pm 0.005$ & $-0.014$ & $+0.033$ & $0.053$ & \evd{E002} \\
     Qwen2.5-0.5B (24L) & L12 & $+0.036 \pm 0.010$ & $-0.014$ & $+0.050$ & $0.102$ & \evd{E002} \\
     \bottomrule
-  \end{tabular}
+  \end{tabular}}
 \end{table}
 
 The powered voxelwise run, on subject UTS03 of \textcite{lebel2023} over 20 naturalistic stories and \result{e006_reliable_voxels} voxels selected at split-half reliability above $0.5$ on a held-out repeated story, gives a trained-minus-untrained gap of \result{e006_gpt2_gap} for GPT-2 and \result{e006_qwen_gap} for Qwen2.5-0.5B, with 95\% and 99\% of reliable voxels positive respectively and the untrained unique $R^2$ at $-0.017$ in both (Table~\ref{tab:vox}) \evd{E006}.
@@ -72,7 +73,7 @@ Surprisal and imageability are deliberately left unsubtracted, so a residual con
   \label{fig:a2}
 \end{figure}
 
-The signal is real beyond confounds on real neural data.
+The signal is real beyond low-level artifacts on real neural data.
 The three-model ROI screen carries the breadth, and the deeply-sampled single subject UTS03 carries the statistical power at voxel scale.
 Cross-subject generality of the powered effect is a question this single-subject design leaves open, not one it settles.
 Qwen aligns more strongly than either GPT-2 variant, while the two GPT-2 variants are nearly tied despite a threefold parameter difference, so this single cross-family contrast does not by itself establish a quality ordering; that question is taken up later \evd{E002}.
@@ -93,7 +94,7 @@ Distillation is not that regime: a from-scratch student fit by gradient descent 
 
 The verdict therefore rests on a cold-init student.
 A warm-started student inherits full teacher-grade alignment from its own pretraining, which the reality result already measures, so a high retention for it would show only that a few KD epochs did not erase the alignment the student already had, not that the KD channel carried it \evd{E003}.
-The verdict-bearing arm is a randomly initialised GPT-2 trained on the teacher's logits alone, the one arm whose surviving alignment was transmitted through distillation; we keep a warm-init KD arm and a no-teacher plain-LM-finetune arm as labelled fine-tuning-drift and corpus-drift controls, and we score every arm at a fixed layer within the 12-layer GPT-2 architecture so no cross-architecture layer choice confounds the comparison \evd{E003}.
+The verdict-bearing arm is a randomly initialised GPT-2 trained on the teacher's logits alone, the one arm whose surviving alignment was transmitted through distillation; we keep a warm-init KD arm and a no-teacher plain-LM-finetune arm as labelled fine-tuning-drift and corpus-drift controls, and we score every arm at a fixed layer within the 12-layer GPT-2 architecture so no cross-architecture layer choice biases the comparison \evd{E003}.
 
 \begin{table}[H]
   \centering
@@ -132,7 +133,7 @@ The verdict-bearing arm is a randomly initialised GPT-2 trained on the teacher's
 The durable finding is the monotone gradient (Table~\ref{tab:kd}).
 Retention falls cleanly along the rebuild ordering: conventional GPT-2 at the teacher's level ($\rho'\approx1.0$), warm-init KD at $0.84$, the published distilgpt2 at $0.60$, the from-scratch cold-init student at $0.37$, and the untrained floor at $0$ \evd{E003}.
 The reference arms validate the measurement: off-the-shelf GPT-2 sits at the teacher's level and the untrained control at the floor, and two runs scoring the same references on different GPUs reproduced them to about $0.0003$ \evd{E003}.
-The ordering holds at every PCA rank tested ($n_{\mathrm{pca}}\in\{25,50,100\}$), but the absolute shed fractions are rank-sensitive and the two confounded arms flip sign across ranks, so the ordering is the finding and the magnitudes are rank-dependent \evd{E003}.
+The ordering holds at every PCA rank tested ($n_{\mathrm{pca}}\in\{25,50,100\}$), but the absolute shed fractions are rank-sensitive and the two quality-entangled arms flip sign across ranks, so the ordering is the finding and the magnitudes are rank-dependent \evd{E003}.
 
 The gradient does not isolate the distillation objective from the language-model quality the student loses, because alignment co-varies with quality across the same arms.
 Alignment is tightly predicted by log-perplexity across these arms (Pearson \result{e003_quality_corr}).
@@ -141,13 +142,13 @@ The two contrasts that would separate an objective-specific loss from "alignment
 The cold-init arm compounds the difficulty with under-training, its held-out perplexity ($477$) sitting far above the converged arms' ($44$ to $95$), so part of its near-floor alignment is simply a worse language model rather than distillation shedding alignment, the convergence caveat the design predeclared \evd{E003}.
 The match across arms was the compute budget, not the optimizer-step count: the from-scratch arm ran about twice the steps of the warm arms, which deepens this caveat rather than flattering it \evd{E003}.
 
-Plain perplexity-only distillation does not preserve brain alignment by default, and the headroom below the teacher is genuine but quality-confounded.
+Plain perplexity-only distillation does not preserve brain alignment by default, and the headroom below the teacher is genuine but entangled with model quality.
 Whether an alignment-guided objective can recover that headroom beyond what perplexity already implies is the matched-perplexity question the rest of the program takes up, not one this screen settles.
 The benchmark here is a cheap ROI screen ($\mathrm{NC}\approx0.35$) at matched compute budget, under-powered to resolve a $\sim0.005$ objective-specific gap and not run at matched perplexity, which is why that question moves to the powered voxelwise substrate \evd{E003}\evd{L011}.
 
-\subsection{An alignment-guided objective moves alignment, weakly and confounded by quality}
+\subsection{An alignment-guided objective has no demonstrated usable lever}
 % [IN SCOPE this version] Q2 / R08, source E004. Round-3 writes the prose from the recorded numbers.
-\gap{Results Q2 (source E004), to write in Round 3: optimising \Lbrain{} on the strong aligner moves held-out alignment only weakly; the effect is confounded by perplexity; at the honest fold-level inference unit the interval includes zero, so no lever is demonstrated (undemonstrated, not proven zero).}
+\gap{Results Q2 (source E004), to write in Round 3: optimising \Lbrain{} on the strong aligner shows only a small apparent held-out alignment movement; the effect is entangled with perplexity, and at the honest fold-level inference unit the interval includes zero, so no usable lever is demonstrated (undemonstrated, not proven zero).}
 
 \begin{figure}[t]
   \centering
@@ -160,8 +161,8 @@ The benchmark here is a cheap ROI screen ($\mathrm{NC}\approx0.35$) at matched c
   \label{fig:lever}
 \end{figure}
 
-\subsection{No per-individual gain at matched perplexity, and the averaging confound}
-\gap{Results Q3 awaits finding-reports R09--R13 (sources E005, E008, E011, E013, E017, E019, E020): the per-individual null, the cross-subject-averaging confound, the method-general failure, the quality law, the stimulus-predictability ceiling, and the external reproduction. The parked draft reports/\_pending-Q3 reclaims R09.}
+\subsection{No per-individual gain at matched perplexity, and the averaging artifact}
+\gap{Results Q3 awaits finding-reports R09--R13 (sources E005, E008, E011, E013, E017, E019, E020): the per-individual null, the cross-subject-averaging artifact, the method-general failure, the quality law, the stimulus-predictability ceiling, and the external reproduction. The parked draft reports/\_pending-Q3 reclaims R09.}
 
 \subsection{No practical payoff}
 \gap{Results Q4/A3 awaits finding-report R14 (source E009): the bounded OOD-perplexity null and its null-by-construction reading.}

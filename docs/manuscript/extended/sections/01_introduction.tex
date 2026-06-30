@@ -19,8 +19,8 @@
 %  4. Positioning [Fig. 2x2] -- GOAL: locate the contribution as the one empty cell.
 %     CONTAINS: the two axes; three filled cells (one cite each); the empty cell.
 %  5. Contributions -- GOAL: a scannable explicit list. CONTAINS: the six items
-%     (problem+positioning; weak-prior theory; confound-clean protocol; reality
-%     result; no-preservation screen; weak/confounded lever). No Q3--Q4 verdicts.
+%     (problem+positioning; weak-prior theory; artifact-resistant protocol; reality
+%     result; no-preservation screen; weak quality-entangled lever). No Q3--Q4 verdicts.
 %  6. Program + established -- GOAL: the dependent-question roadmap and what is
 %     settled so far. CONTAINS: the question sequence; the established results stated
 %     QUALITATIVELY (the numbers live in §4, not here).
@@ -66,7 +66,7 @@ If a brain signal helps at all, it helps as a weak prior, not as a second teache
 The reason is a mismatch in scale.
 A language model learns from on the order of a trillion tokens of text.
 A language-fMRI dataset offers a few thousand noisy recordings, and a low noise ceiling caps the variance any model can explain in them.
-A prior that small cannot install knowledge the text does not already carry.
+A prior that small cannot teach task structure the text does not already contain.
 What it can do is select among the many text-consistent solutions a large model admits, the way a weak regularizer does.
 This gives a falsifiable prediction.
 A brain prior should help most where the text signal is weakest, in small, heavily compressed, or data-starved models, and should wash out wherever text data is abundant.
@@ -110,7 +110,7 @@ This thesis makes the following contributions, scoped to the results it establis
   \item It fixes a measurement protocol that controls for the artifacts that can fake an alignment score: unique variance over a capacity-matched nuisance floor, contiguous splits, a same-architecture untrained control, a held-out noise ceiling, and a permuted-target control for specificity, the controls the alignment-training literature has largely lacked.
   \item It establishes, at voxel scale and with statistical power, that the alignment signal is real beyond those artifacts \evd{E006}.
   \item It shows that plain perplexity-only distillation does not preserve alignment by default, while making explicit that the drop cannot yet be separated from the language-model quality the student loses \evd{E003}.
-  \item It shows that optimizing an alignment objective moves alignment only weakly, that the effect is confounded by quality, and that it does not survive the honest unit of inference \evd{E004}.
+  \item It shows that the apparent alignment-objective effect is small, entangled with model quality, and does not survive the honest unit of inference \evd{E004}.
 \end{itemize}
 
 The program asks five questions in sequence, each only if the previous one holds.
