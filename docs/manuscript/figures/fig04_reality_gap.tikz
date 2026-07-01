@@ -1,6 +1,7 @@
-% E006 recorded values used for bar heights:
-% untrained unique R^2 = -0.017 for both models; gaps are +0.0207 (GPT-2) and +0.0277 (Qwen2.5-0.5B),
-% giving trained means of +0.0037 and +0.0107. See docs/manuscript/extended/numbers.tex and E006.
+% E006 recorded values used for bar heights and labels:
+% GPT-2 L7: trained +0.0038, untrained -0.0169, gap +0.0207 [0.0205, 0.0209], 95% voxels > 0.
+% Qwen2.5-0.5B L12: trained +0.0103, untrained -0.0173, gap +0.0277 [0.0274, 0.0280], 99% voxels > 0.
+% See docs/experiments/E006_lebel-voxelwise-feasibility.md and docs/manuscript/extended/numbers.tex.
 \begin{tikzpicture}[
   font=\small,
   >=Latex,
@@ -9,39 +10,42 @@
   untrained/.style={bar, fill=gray!55},
   tick/.style={font=\footnotesize, text=black!70},
   val/.style={font=\scriptsize, text=black!80, align=center},
-  ann/.style={font=\footnotesize, align=center},
+  ann/.style={font=\scriptsize, align=center},
+  gapnote/.style={font=\scriptsize, align=center, text=red!70!black},
 ]
-  \def\ymin{-2.2}
+  \def\ymin{-2.85}
   \def\ymax{1.8}
   \def\bw{0.30}
 
   % Axes and ticks. Coordinates are value * 100, so 0.010 is y=1.0.
   \draw[->, draw=black!65] (-0.95,\ymin) -- (-0.95,\ymax) node[above, tick] {unique $R^2$};
-  \draw[draw=black!45] (-0.95,0) -- (4.65,0);
+  \draw[draw=black!45] (-0.95,0) -- (5.45,0);
   \foreach \v/\lab in {-2.0/$-0.020$,-1.5/$-0.015$,-1.0/$-0.010$,-0.5/$-0.005$,0/$0$,0.5/$0.005$,1.0/$0.010$,1.5/$0.015$} {
     \draw[draw=black!45] (-1.02,\v) -- (-0.88,\v);
     \node[tick, anchor=east] at (-1.07,\v) {\lab};
   }
 
   % GPT-2 group.
-  \draw[trained] (0-\bw,0) rectangle (0+\bw,0.37);
-  \draw[untrained] (0.72-\bw,0) rectangle (0.72+\bw,-1.70);
-  \draw[<->, draw=red!70!black, line width=0.55pt] (1.15,-1.70) -- (1.15,0.37);
-  \node[ann, text=red!70!black, anchor=west] at (1.21,-0.66) {gap\\$+0.0207$};
-  \node[tick] at (0.36,-2.40) {GPT-2 L7};
+  \draw[trained] (0-\bw,0) rectangle (0+\bw,0.38);
+  \draw[untrained] (0.72-\bw,0) rectangle (0.72+\bw,-1.69);
+  \draw[<->, draw=red!70!black, line width=0.55pt] (1.15,-1.69) -- (1.15,0.38);
+  \node[tick] at (0.36,-2.35) {GPT-2 L7};
+  \node[gapnote] at (0.36,-2.66) {gap $+0.0207$};
+  \node[ann] at (0.36,-2.96) {95\% voxels $>$ 0};
   % Absolute bar values.
-  \node[val, anchor=south] at (0,0.42) {$+0.0037$};
-  \node[val, anchor=north] at (0.72,-1.75) {$-0.017$};
+  \node[val, anchor=south] at (0,0.43) {$+0.0038$};
+  \node[val, anchor=north] at (0.72,-1.74) {$-0.0169$};
 
   % Qwen group.
-  \draw[trained] (2.75-\bw,0) rectangle (2.75+\bw,1.07);
-  \draw[untrained] (3.47-\bw,0) rectangle (3.47+\bw,-1.70);
-  \draw[<->, draw=red!70!black, line width=0.55pt] (3.95,-1.70) -- (3.95,1.07);
-  \node[ann, text=red!70!black, anchor=west] at (4.01,-0.35) {gap\\$+0.0277$};
-  \node[tick] at (3.11,-2.40) {Qwen2.5-0.5B L12};
+  \draw[trained] (2.75-\bw,0) rectangle (2.75+\bw,1.03);
+  \draw[untrained] (3.47-\bw,0) rectangle (3.47+\bw,-1.73);
+  \draw[<->, draw=red!70!black, line width=0.55pt] (3.95,-1.73) -- (3.95,1.03);
+  \node[tick] at (3.11,-2.35) {Qwen2.5-0.5B L12};
+  \node[gapnote] at (3.11,-2.66) {gap $+0.0277$};
+  \node[ann] at (3.11,-2.96) {99\% voxels $>$ 0};
   % Absolute bar values.
-  \node[val, anchor=south] at (2.75,1.12) {$+0.0107$};
-  \node[val, anchor=north] at (3.47,-1.75) {$-0.017$};
+  \node[val, anchor=south] at (2.75,1.08) {$+0.0103$};
+  \node[val, anchor=north] at (3.47,-1.78) {$-0.0173$};
 
   % Legend (top right, vertical, clear of value labels).
   \begin{scope}[shift={(3.35,1.65)}]
