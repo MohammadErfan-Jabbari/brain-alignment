@@ -73,7 +73,7 @@ The untrained network provides the stronger check: under the same architecture a
 
 \begin{figure}[H]
   \centering
-  \resizebox{0.82\textwidth}{!}{\input{../figures/fig3_a2.tikz}}
+  \resizebox{0.82\textwidth}{!}{\input{../figures/fig04_reality_gap.tikz}}
   \caption{Mean unique-$R^2$ on LeBel UTS03 reliable voxels. Trained GPT-2 L7 and Qwen2.5-0.5B L12 exceed same-architecture untrained controls; arrows show trained-minus-untrained gaps of $+0.0207$ and $+0.0277$ \evd{E006}.}
   \label{fig:a2}
 \end{figure}
@@ -136,7 +136,7 @@ Every arm is scored at one fixed layer within the 12-layer GPT-2 architecture, s
 
 \begin{figure}[t]
   \centering
-  \resizebox{0.98\textwidth}{!}{\input{../figures/fig_kd_retention.tikz}}
+  \resizebox{0.98\textwidth}{!}{\input{../figures/fig05_kd_retention.tikz}}
   \caption{Plain KD leaves alignment headroom but does not isolate the distillation objective from model quality. (A) Floor-anchored retention $\rho'$ falls along the rebuild ordering, from teacher-level pretrained references toward the untrained floor; the distilgpt2 retention follows the E003 lineage-teacher denominator. Error bars are bootstrap intervals where recorded. (B) Unique $R^2$ co-varies with held-out perplexity; the teacher is plotted for context, and the line is the recorded fit over the five non-teacher arms with Pearson coefficient \result{e003_quality_corr} \evd{E003}.}
   \label{fig:kd}
 \end{figure}
