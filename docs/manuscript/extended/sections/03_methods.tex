@@ -2,8 +2,8 @@
 \label{sec:methods}
 % === ROUND 2 --- §3 goals & contents ======================================
 % Section goal: define WHAT we measure, WHAT it is formally, WHY brain data is only
-% a weak prior, the verdict STATISTIC, the CONTROLS, the data, and the training setup.
-% Treatment: FULL REWRITE to the §1 standard (equations/claims kept; prose rebuilt;
+% a weak prior, the primary statistic, the CONTROLS, the data, and the training setup.
+% Treatment: FULL REWRITE to the §1 standard (equations/claims kept; text rebuilt;
 % 3.2/3.3 grounded derivations from docs/06-theory-grounding.md; 3.7 written from scratch). Plain titles.
 %  3.1 encoding model + score -- GOAL: define the alignment score (unique R^2) and why
 %      a raw score is not reportable. CONTAINS: ridge encoding; unique-variance def; the nuisance set.
@@ -11,15 +11,15 @@
 %      CONTAINS: cond-MI def; common-cause -> why condition; linear-Gaussian = semipartial R^2; lower-bound reading.
 %  3.3 why a weak prior -- GOAL: the information-budget argument predicting where to look.
 %      CONTAINS: MAP framing; the supervision-budget asymmetry; DPI; generalisation bound; the low-info prediction.
-%  3.4 verdict statistic [Fig. uniquevar] -- GOAL: define the trained-untrained gap & why it is the right stat.
+%  3.4 primary gap statistic [Fig. uniquevar] -- GOAL: define the trained-untrained gap & why it is the right stat.
 %      CONTAINS: the shared-cause problem; the gap cancels the nuisance term.
 %  3.5 three controls -- GOAL: the fixed standard. CONTAINS: contiguous splits; capacity-fair
 %      nuisance floor; held-out noise ceiling; surprisal held out; the permuted-twin (specificity).
-%  3.6 data and models -- GOAL: the two datasets + the models. CONTAINS: Tuckute ROI screen;
+%  3.6 data and models -- GOAL: the two datasets + the models. CONTAINS: Tuckute ROI benchmark;
 %      LeBel UTS03 voxelwise; the models + same-architecture untrained control.
 %  3.7 distillation setup + brain term [NEW] -- GOAL: define KD, matched budget, the brain term,
 %      the arms. CONTAINS: teacher->student; matched-budget def + step-count caveat; L_brain (co-trained
-%      MSE, D010) + lambda; cold/warm arms + drift controls; permuted-twin reuse; fixed verdict layer.
+%      MSE, D010) + lambda; cold/warm arms + drift controls; permuted-twin reuse; fixed alignment layer.
 % ===========================================================================
 
 \subsection{The alignment score}
@@ -127,7 +127,7 @@ The gap therefore estimates what \emph{language training} adds over random initi
 \subsection{The controls}
 
 We apply three controls uniformly.
-\emph{(1) Contiguous splits}: train and test are divided in blocks (block cross-validation on the ROI screen, whole-story-held-out cross-validation on the voxelwise run), because shuffling time-adjacent fMRI samples leaks near-duplicate timepoints across the split and inflates the score \autocite{hadidi2026}\evd{E002}\evd{E006}.
+\emph{(1) Contiguous splits}: train and test are divided in blocks (block cross-validation on the ROI benchmark, whole-story-held-out cross-validation on the voxelwise run), because shuffling time-adjacent fMRI samples leaks near-duplicate timepoints across the split and inflates the score \autocite{hadidi2026}\evd{E002}\evd{E006}.
 \emph{(2) A capacity-fair nuisance floor}: the wide contextual block and the wide static-embedding block are each reduced by PCA to the same rank, fit on the training fold only, so the language model does not win merely by carrying more dimensions; the few low-level scalars stay raw \autocite{hadidi2026,jia2026}\evd{E006}.
 \emph{(3) A held-out noise ceiling}: on the voxelwise run only reliable voxels are kept, selected by split-half reliability on a separate story repeated ten times and held entirely out of the cross-validation pool, so the estimate is not inflated by voxels that happen to correlate with the model by chance \autocite{lage2019,lebel2023}\evd{E006}.
 Surprisal is deliberately left out of the nuisance set, since it is itself LM-derived and subtracting it would remove part of the construct under test; log word-frequency, a static lexical scalar, is distinct and is subtracted \evd{E006}.
@@ -137,8 +137,8 @@ It tests brain-\emph{specificity}, not whether the baseline alignment signal is 
 \subsection{Data and models}
 
 We use two datasets.
-The ROI screen uses the 1000 isolated sentences and five left-hemisphere language regions of \textcite{tuckute2024}.
-The ROI benchmark averages responses across training participants, so it is coarse, but its isolated-sentence design avoids the temporal-autocorrelation leakage of naturalistic time series; its reported noise ceiling is $r\approx 0.35$ \evd{E002}.
+The Tuckute ROI benchmark uses the 1000 isolated sentences and five left-hemisphere language regions of \textcite{tuckute2024}.
+It averages responses across training participants, so it is coarse, but its isolated-sentence design avoids the temporal-autocorrelation leakage of naturalistic time series; its reported noise ceiling is $r\approx 0.35$ \evd{E002}.
 The powered measurement uses subject UTS03 of the deep-sampled naturalistic story-listening dataset of \textcite{lebel2023}: 20 stories, story-level folds, and \result{e006_reliable_voxels} voxels retained at split-half reliability above $0.5$ on a held-out repeated story \evd{E006}.
 The models are GPT-2, GPT-2-medium, and Qwen2.5-0.5B, each read at its alignment-peak middle layer, with a same-architecture untrained network as the control in every comparison \evd{E002}\evd{E006}.
 
@@ -165,7 +165,7 @@ The brain term enters the objective as a co-trained regression loss,
   \mathcal{L} = \mathcal{L}_{\mathrm{KD}} + \lambda\,\Lbrain,
 \end{equation}
 with mixing weight $\lambda$.
-The verdict-bearing arm is a randomly initialised student, because any alignment it retains must be learned during distillation rather than inherited from pretraining.
+The primary test arm is a randomly initialised student, because any alignment it retains must be learned during distillation rather than inherited from pretraining.
 A warm-initialised student and a no-teacher fine-tune are kept as labelled drift controls, and every arm is scored at one fixed layer within a single architecture so no layer choice biases the comparison \evd{E003}.
 Brain \emph{specificity} is tested with a permuted-target twin: the same loss, but against brain targets shuffled across stimuli.
 The arms share corpus, batch size, learning rate, and architecture, but they are not fully compute matched: the from-scratch arm runs about twice the optimizer steps of the warm arms, a caveat carried into the results \evd{E003}.

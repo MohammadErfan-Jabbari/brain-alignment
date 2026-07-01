@@ -4,11 +4,11 @@
 % is one self-contained claim that gates the next. Numbers appear ONCE here (not in §1).
 % Doctrine: one sentence one job; finding -> mechanism -> caveat across sentences.
 %  4.1 Q0 real [Fig. a2] -- GOAL: the signal is real beyond low-level artifacts (the foundation).
-%      CONTAINS: ROI screen (3 models, the gap, untrained negative); powered voxelwise (gap, CI, % positive);
+%      CONTAINS: ROI benchmark (3 models, the gap, untrained negative); powered voxelwise (gap, CI, % positive);
 %      the controls' role; scope (single subject; cross-subject open). Close: real != movable.
 %  4.2 Q1 no-preservation [Fig. kd] -- GOAL: plain KD does not preserve alignment by default,
 %      but the drop is entangled with quality. CONTAINS: the monotone retention gradient (Table); the
-%      cold-init verdict-arm logic; the quality co-variation (state the r once); under-training/budget
+%      cold-init key-arm logic; the quality co-variation (state the r once); under-training/budget
 %      caveats. Close: headroom genuine but quality-entangled -> the matched-ppl question is deferred.
 %  4.3 Q2 weak lever [Fig. lever] -- GOAL: the apparent brain-objective effect is small
 %      and quality-entangled; no lever demonstrated at the honest unit. CONTAINS: the lever on the strong aligner
@@ -21,16 +21,16 @@
 
 A trained middle layer predicts held-out language-network activity beyond low-level stimulus features, while a same-architecture untrained network does not.
 The reality check matters because the later intervention questions only make sense if the measured score is not a low-level artifact.
-The ROI screen shows the effect across three language models, and the LeBel UTS03 run repeats it at voxel scale with much higher power.
+The Tuckute ROI benchmark shows the effect across three language models, and the LeBel UTS03 run repeats it at voxel scale with much higher power.
 
-The ROI screen uses the five left-hemisphere language regions of \textcite{tuckute2024}, 1000 isolated sentences, and five contiguous folds.
+The Tuckute ROI benchmark uses the five left-hemisphere language regions of \textcite{tuckute2024}, 1000 isolated sentences, and five contiguous folds.
 The trained-minus-untrained gap is positive for all three models, while the untrained control is negative at every layer and seed (Table~\ref{tab:roi}).
 The positive signal spans a broad plateau of middle layers and disappears for random features \evd{E002}.
 
 \begin{table}[H]
   \centering
   \footnotesize
-  \caption{ROI screen on Tuckute 2024 (five LH language ROIs, five contiguous folds). Unique $R^2$ is the semipartial increment over the nuisance set; the gap is trained minus untrained. NC-norm is the gap as a fraction of the $r\approx0.353$ noise ceiling.}
+  \caption{Tuckute ROI benchmark (five LH language ROIs, five contiguous folds). Unique $R^2$ is the semipartial increment over the nuisance set; the gap is trained minus untrained. NC-norm is the gap as a fraction of the $r\approx0.353$ noise ceiling.}
   \label{tab:roi}
   \resizebox{\textwidth}{!}{%
   \begin{tabular}{lcccccc}
@@ -67,7 +67,7 @@ Because each trained model is compared with a same-architecture untrained contro
 \end{table}
 
 The controls address different ways a low-level artifact could mimic alignment.
-The ROI screen uses isolated sentences, which removes temporal autocorrelation from naturalistic time series and makes a positive result harder to obtain \evd{E002}.
+The Tuckute ROI benchmark uses isolated sentences, which removes temporal autocorrelation from naturalistic time series and makes a positive result harder to obtain \evd{E002}.
 The voxelwise run uses naturalistic stimuli but holds out whole stories; test timepoints are never adjacent to training timepoints.
 Voxel selection uses a separate repeated story, preventing the analysis from selecting voxels because they happen to correlate with a model on the evaluation stories \evd{E006}.
 Both trained and untrained scores subtract word and phoneme rate, word duration and length, log word frequency, and a static word-embedding block, the low-level feature set most likely to inflate the score \evd{E006}.
@@ -82,8 +82,8 @@ Architecture, rate, and residual temporal structure therefore cannot explain the
   \label{fig:a2}
 \end{figure}
 
-Together, the ROI screen and the powered voxelwise run establish that the alignment score contains a real language-training signal.
-The screen supplies breadth across models, and the deeply sampled UTS03 run supplies voxel-scale statistical power.
+Together, the Tuckute ROI benchmark and the powered voxelwise run establish that the alignment score contains a real language-training signal.
+The Tuckute benchmark supplies breadth across models, and the deeply sampled UTS03 run supplies voxel-scale statistical power.
 Because the powered evidence comes from one subject, cross-subject generality remains open.
 Qwen aligns more strongly than either GPT-2 variant, while the two GPT-2 variants are nearly tied despite a threefold parameter difference.
 The single cross-family contrast alone cannot establish a quality ordering; Section~4.2 takes up the quality question directly \evd{E002}.
@@ -96,27 +96,27 @@ Knowledge distillation (KD) trains a smaller student to match a larger teacher's
 E003 asks whether that ordinary perplexity-only objective keeps the teacher's brain alignment.
 The from-scratch logit-KD student lands far below its teacher, with a gap of \result{e003_kd_cold_delta} ($p<0.001$), and retains only \result{e003_kd_cold_retention} of the teacher's alignment above an untrained floor \evd{E003}.
 The cold-init drop rules out automatic preservation and gives the later alignment-guided objective real headroom.
-The same screen also narrows the verdict: across the five non-teacher arms, alignment co-varies with log-perplexity at Pearson \result{e003_quality_corr}, so language-model quality could explain the gradient \evd{E003}\evd{L011}.
+That same E003 comparison also limits the claim: among the five non-teacher arms, alignment tracks log-perplexity (Pearson \result{e003_quality_corr}), so the retention gradient could reflect language-model quality rather than the distillation objective itself \evd{E003}\evd{L011}.
 
 The headroom is $\Delta = A_T - A_S$, where $A_T$ is the teacher's alignment and $A_S$ is the student's alignment.
-Both quantities use the same measurement protocol as Q0: unique $R^2$ on the Tuckute ROI screen, contiguous folds, and the capacity-fair nuisance baseline.
+Both quantities use the same measurement protocol as Q0: unique $R^2$ on the Tuckute ROI benchmark, contiguous folds, and the capacity-fair nuisance baseline.
 KD has to be measured directly because it follows a different path from fixed-function compression.
 For deterministic post-processing of a fixed teacher, such as the quantization and pruning studied by \textcite{oota2026}, the student's features depend on the stimulus through the teacher's features.
 The data-processing inequality then bounds $I(Z_{\mathrm{student}};B)\le I(Y_{\mathrm{teacher}};B)$ along that teacher-to-student path.
 A from-scratch KD student has another route: gradient descent on the teacher's logits still exposes the student to the training text.
 The fixed-function premise no longer holds, so preservation becomes an empirical question \evd{E003}.
 
-The cold-init student carries the verdict.
+The cold-init student is the key test.
 A warm-started student already inherits teacher-level alignment from pretraining, which Q0 measured directly.
 High retention after a few KD epochs would mainly measure fine-tuning drift from that starting point \evd{E003}.
 The cold-init GPT-2 begins from random weights and is trained on the teacher's logits, so any surviving alignment must pass through the distillation run.
 The warm-init KD arm and the no-teacher plain-LM finetune remain as drift controls.
-All verdict arms use the 12-layer GPT-2 architecture and one fixed layer, so cross-architecture layer choice cannot bias the comparison \evd{E003}.
+All comparison arms use the 12-layer GPT-2 architecture and one fixed layer, so cross-architecture layer choice cannot bias the comparison \evd{E003}.
 
 \begin{table}[H]
   \centering
   \footnotesize
-  \caption{Knowledge-distillation arms on the Tuckute ROI screen at the fixed verdict layer \evd{E003}. The \uniqueR{} column reports raw unique $R^2$; E003 also reports NC-normalised values using noise ceiling $0.353$. Floor-anchored retention $\rho' = (A_S-A_0)/(A_T-A_0)$ is $0$ at the untrained floor and $1$ at the teacher; for distilgpt2, $\rho'$ and $\Delta$ use GPT-2, its lineage teacher. $p$(no-drop) is the bootstrap probability of no drop from the teacher.}
+  \caption{Knowledge-distillation arms on the Tuckute ROI benchmark at the fixed alignment layer \evd{E003}. The \uniqueR{} column reports raw unique $R^2$; E003 also reports NC-normalised values using noise ceiling $0.353$. Floor-anchored retention $\rho' = (A_S-A_0)/(A_T-A_0)$ is $0$ at the untrained floor and $1$ at the teacher; for distilgpt2, $\rho'$ and $\Delta$ use GPT-2, its lineage teacher. $p$(no-drop) is the bootstrap probability of no drop from the teacher.}
   \label{tab:kd}
   \resizebox{\textwidth}{!}{%
   \begin{tabular}{llcccccc}
@@ -163,12 +163,12 @@ The step imbalance deepens the under-training caveat instead of removing it \evd
 
 Plain perplexity-only distillation therefore leaves genuine headroom below the teacher.
 E003 does not decide whether an alignment-guided objective can recover that headroom beyond what perplexity already predicts.
-The evaluation is a screen-level ROI benchmark ($\mathrm{NC}\approx0.35$), not a matched-perplexity or fully optimizer-step-matched causal test.
-The ROI screen is also underpowered for a $\sim0.005$ objective-specific gap.
+The evaluation is an ROI benchmark ($\mathrm{NC}\approx0.35$), not a matched-perplexity or fully optimizer-step-matched causal test.
+The Tuckute ROI benchmark is also underpowered for a $\sim0.005$ objective-specific gap.
 The matched-perplexity question therefore moves to the powered voxelwise substrate \evd{E003}\evd{L011}.
 
 \subsection{An alignment-guided objective has no demonstrated usable lever}
-% [IN SCOPE this version] Q2 / R08, source E004. Round-3 writes the prose from the recorded numbers.
+% [IN SCOPE this version] Q2 / R08, source E004. Round-3 writes the text from the recorded numbers.
 \gap{Results Q2 (source E004), to write in Round 3: optimising \Lbrain{} on the strong aligner shows only a small apparent held-out alignment movement; the effect is entangled with perplexity, and at the honest fold-level inference unit the interval includes zero, so no usable lever is demonstrated (undemonstrated, not proven zero).}
 
 \begin{figure}[t]
