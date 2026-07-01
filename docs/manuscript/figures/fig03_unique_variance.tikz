@@ -7,29 +7,27 @@
   bartrain/.style={fill=blue!30, draw=blue!55!black, line width=0.45pt},
   baruntrained/.style={fill=gray!35, draw=black!45, line width=0.45pt},
   label/.style={font=\footnotesize, align=center},
+  ann/.style={font=\scriptsize, align=center},
   title/.style={font=\small\bfseries, align=center},
 ]
-  \node[title] at (1.95,2.25) {A. Unique variance for one network};
-  \draw[axis] (0,0.2) -- (4.4,0.2);
+  \node[title] at (1.95,2.25) {A. Unique variance};
   \draw[barbase] (0,1.25) rectangle (2.25,1.60);
   \draw[barbase] (0,0.65) rectangle (2.25,1.00);
   \draw[barinc] (2.25,0.65) rectangle (3.65,1.00);
   \node[label, left=0.10cm] at (0,1.425) {$R^2(Z_{\mathrm{nuis}})$};
   \node[label, left=0.10cm] at (0,0.825) {$R^2(Z_{\mathrm{nuis}},\mathrm{LM})$};
-  \node[label] at (2.95,-0.10) {unique\\$\Delta R^2$};
+  \node[label, text=blue!55!black] at (2.95,0.05) {unique $R^2$\\model increment};
   \draw[<->, draw=blue!55!black, line width=0.5pt] (2.25,0.48) -- (3.65,0.48);
-  \node[label] at (1.13,1.82) {nuisance floor};
-  \node[label, text=blue!55!black] at (2.95,1.20) {model\\increment};
+  \node[ann] at (1.13,1.82) {nuisance floor};
 
   \begin{scope}[xshift=6.55cm]
-    \node[title] at (1.95,2.25) {B. Reported trained$-$untrained gap};
-    \draw[axis] (0,0.2) -- (4.4,0.2);
+    \node[title] at (1.95,2.25) {B. Reported gap};
     \draw[bartrain] (0,1.25) rectangle (3.45,1.60);
     \draw[baruntrained] (0,0.65) rectangle (1.05,1.00);
-    \node[label, left=0.10cm] at (0,1.425) {trained\\network};
-    \node[label, left=0.10cm] at (0,0.825) {untrained\\control};
-    \node[label] at (1.72,1.82) {trained unique $\Delta R^2$};
+    \node[label, left=0.10cm] at (0,1.425) {trained};
+    \node[label, left=0.10cm] at (0,0.825) {untrained};
+    \node[ann] at (1.72,1.82) {trained unique $R^2$};
     \draw[<->, draw=orange!70!black, line width=0.65pt] (1.05,0.48) -- (3.45,0.48);
-    \node[label, text=orange!70!black] at (2.25,0.05) {reported gap};
+    \node[label, text=orange!70!black] at (2.25,0.05) {trained$-$untrained gap};
   \end{scope}
 \end{tikzpicture}
