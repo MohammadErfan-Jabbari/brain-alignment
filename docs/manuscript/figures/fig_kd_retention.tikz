@@ -1,0 +1,74 @@
+% E003 recorded values from docs/experiments/E003_kd-alignment-preservation.md and numbers.tex.
+% Panel A: floor-anchored retention rho'. Panel B: unique R^2 vs log held-out perplexity;
+% fit line uses the archived E003 dissociation fit align = 0.050 - 0.0079 ln(ppl), r=-0.88.
+\begin{tikzpicture}[
+  font=\scriptsize,
+  >=Latex,
+  axis/.style={draw=black!60, line width=0.45pt},
+  grid/.style={draw=black!14, line width=0.3pt},
+  point/.style={circle, draw=black!55, fill=blue!60, inner sep=1.3pt},
+  refpoint/.style={circle, draw=black!55, fill=gray!55, inner sep=1.3pt},
+  coldpoint/.style={circle, draw=black!55, fill=orange!80, inner sep=1.3pt},
+  fitline/.style={draw=red!65!black, line width=0.65pt},
+  err/.style={draw=black!65, line width=0.45pt},
+  label/.style={font=\scriptsize, align=center},
+  tag/.style={font=\scriptsize, fill=white, inner sep=0.8pt},
+  title/.style={font=\small\bfseries, align=center},
+]
+  % ---------------- Panel A: retention gradient ----------------
+  \node[title] at (2.15,2.95) {A. Retention gradient};
+  \draw[axis, ->] (-0.35,0) -- (4.75,0);
+  \draw[axis, ->] (-0.35,0) -- (-0.35,2.75) node[above, label] {$\rho'$};
+  \foreach \y/\lab in {0/0,1/0.5,2/1.0} {
+    \draw[grid] (-0.35,\y) -- (4.55,\y);
+    \node[label, anchor=east] at (-0.42,\y) {\lab};
+  }
+
+  % x positions: teacher, gpt2, lmft, kd_warm, distilgpt2, kd_cold, floor
+  \foreach \x/\name in {0/teacher,0.7/GPT-2,1.4/LMFT,2.1/warm KD,2.8/distil,3.5/cold KD,4.2/floor} {
+    \node[label, rotate=35, anchor=east] at (\x,-0.18) {\name};
+  }
+  \draw[err] (0.70,1.54) -- (0.70,2.54); \draw[err] (0.60,1.54) -- (0.80,1.54); \draw[err] (0.60,2.54) -- (0.80,2.54);
+  \draw[err] (1.40,1.62) -- (1.40,2.26); \draw[err] (1.30,1.62) -- (1.50,1.62); \draw[err] (1.30,2.26) -- (1.50,2.26);
+  \draw[err] (2.10,1.34) -- (2.10,2.08); \draw[err] (2.00,1.34) -- (2.20,1.34); \draw[err] (2.00,2.08) -- (2.20,2.08);
+  \draw[err] (2.80,0.84) -- (2.80,1.68); \draw[err] (2.70,0.84) -- (2.90,0.84); \draw[err] (2.70,1.68) -- (2.90,1.68);
+  \draw[err] (3.50,0.28) -- (3.50,1.16); \draw[err] (3.40,0.28) -- (3.60,0.28); \draw[err] (3.40,1.16) -- (3.60,1.16);
+  \node[refpoint] at (0,2.00) {};
+  \node[point] at (0.70,2.04) {};
+  \node[point] at (1.40,1.90) {};
+  \node[point] at (2.10,1.68) {};
+  \node[point] at (2.80,1.20) {};
+  \node[coldpoint] at (3.50,0.74) {};
+  \node[refpoint] at (4.20,0.00) {};
+
+  % ---------------- Panel B: quality entanglement ----------------
+  \begin{scope}[xshift=7.2cm]
+    \node[title] at (2.05,2.95) {B. Alignment tracks quality};
+    \draw[axis, ->] (-0.35,0) -- (4.25,0) node[right, label] {held-out ppl (log)};
+    \draw[axis, ->] (-0.35,0) -- (-0.35,2.15) node[above, label] {unique $R^2$};
+    \foreach \y/\lab in {0/0,0.8/0.010,1.6/0.020} {
+      \draw[grid] (-0.35,\y) -- (4.05,\y);
+      \node[label, anchor=east] at (-0.42,\y) {\lab};
+    }
+    \foreach \x/\lab in {0.31/50,1.36/100,3.77/500} {
+      \draw[axis] (\x,-0.06) -- (\x,0.06);
+      \node[label, anchor=north] at (\x,-0.12) {\lab};
+    }
+
+    \draw[fitline] (0.00,1.66) -- (3.75,0.08);
+    \node[label, text=red!65!black, anchor=west] at (2.45,1.72) {$r=-0.88$};
+
+    \node[refpoint] (teacher) at (0.91,1.50) {};
+    \node[tag, anchor=south] at (0.82,1.62) {teacher};
+    \node[point] (gpt2) at (1.43,1.56) {};
+    \node[tag, anchor=south west] at (1.47,1.63) {GPT-2};
+    \node[point] (lmft) at (0.13,1.39) {};
+    \node[tag, anchor=east] at (0.04,1.33) {LMFT};
+    \node[point] (kdwarm) at (1.28,1.15) {};
+    \node[tag, anchor=north east] at (1.22,1.05) {warm KD};
+    \node[point] (distil) at (2.15,0.61) {};
+    \node[tag, anchor=south west] at (2.30,0.76) {distil};
+    \node[coldpoint] (kdcold) at (3.70,0.04) {};
+    \node[tag, anchor=south east] at (3.62,0.25) {cold KD};
+  \end{scope}
+\end{tikzpicture}

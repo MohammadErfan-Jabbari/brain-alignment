@@ -116,7 +116,7 @@ Every arm is scored at one fixed layer within the 12-layer GPT-2 architecture, s
 \begin{table}[H]
   \centering
   \footnotesize
-  \caption{Knowledge-distillation arms on the Tuckute ROI screen at the fixed verdict layer (NC-normalised unique $R^2$, noise ceiling $0.353$) \evd{E003}. Floor-anchored retention $\rho' = (A_S-A_0)/(A_T-A_0)$ is $0$ at the untrained floor and $1$ at the teacher; $\Delta$ is the gap versus the teacher; $p$(no-drop) is the bootstrap probability of no drop from the teacher.}
+  \caption{Knowledge-distillation arms on the Tuckute ROI screen at the fixed verdict layer \evd{E003}. The \uniqueR{} column reports raw unique $R^2$; E003 also reports NC-normalised values using noise ceiling $0.353$. Floor-anchored retention $\rho' = (A_S-A_0)/(A_T-A_0)$ is $0$ at the untrained floor and $1$ at the teacher; for distilgpt2, $\rho'$ is anchored to GPT-2, its lineage teacher. $\Delta$ is the gap versus the teacher, and $p$(no-drop) is the bootstrap probability of no drop from the teacher.}
   \label{tab:kd}
   \resizebox{\textwidth}{!}{%
   \begin{tabular}{llcccccc}
@@ -129,21 +129,15 @@ Every arm is scored at one fixed layer within the 12-layer GPT-2 architecture, s
     kd\_warm            & warm $+$ pure logit KD     & $+0.0144$ & $0.84$ [$0.67$, $1.04$] & $+0.0046$ & $0.061$ & $95$ & \evd{E003} \\
     distilgpt2          & real distillation ($+$hidden-cosine) & $+0.0076$ & $0.60$ [$0.42$, $0.84$] & $+0.0119$ & $0.001$ & $169$ & \evd{E003} \\
     \textbf{kd\_cold}   & \textbf{random $+$ pure logit KD} & $+0.0005$ & \result{e003_kd_cold_retention} & \result{e003_kd_cold_delta} & $0.000$ & $477$ & \evd{E003} \\
-    untrained           & random (floor)            & $-0.0102$ & $0$ & n/a & n/a & $\sim$$50000$ & \evd{E003} \\
+    untrained           & random (floor)            & $-0.0102$ & $0$ & n/a & n/a & $\sim6\times10^4$ & \evd{E003} \\
     \bottomrule
   \end{tabular}}
 \end{table}
 
 \begin{figure}[t]
   \centering
-  \safeimage[width=0.92\textwidth]{../figures/fig_kd_retention.png}
-  \caption{[PLACEHOLDER: generate from \evd{E003}] Two panels.
-    (A) Floor-anchored retention $\rho'$ along the rebuild ordering (teacher, conventional GPT-2,
-    warm-init KD, distilgpt2, cold-init KD, untrained floor) with bootstrap CIs, showing the
-    monotone fall.
-    (B) Unique $R^2$ versus log-perplexity across the same arms, with the Pearson
-    \result{e003_quality_corr} fit, showing that alignment co-varies with model quality.
-    \gap{Round-3: render the two-panel figure (scripts/figures) and finalise the caption.}}
+  \resizebox{0.98\textwidth}{!}{\input{../figures/fig_kd_retention.tikz}}
+  \caption{Plain KD leaves alignment headroom but does not isolate the distillation objective from model quality. (A) Floor-anchored retention $\rho'$ falls along the rebuild ordering, from teacher-level pretrained references toward the untrained floor; the distilgpt2 retention follows the E003 lineage-teacher denominator. Error bars are bootstrap intervals where recorded. (B) Unique $R^2$ co-varies with held-out perplexity; the teacher is plotted for context, and the line is the recorded fit over the five non-teacher arms with Pearson coefficient \result{e003_quality_corr} \evd{E003}.}
   \label{fig:kd}
 \end{figure}
 
@@ -157,7 +151,7 @@ Alignment is tightly predicted by log-perplexity across these arms (Pearson \res
 In the log-perplexity fit, warm-init KD lies essentially on the regression line, while conventional GPT-2 is the only arm more aligned than its perplexity predicts.
 The two contrasts that would separate an objective-specific loss from "alignment tracks quality" are both marginal.
 Warm-init KD is less aligned than GPT-2 despite lower perplexity, but the bootstrap $P(\text{gpt2}\le\text{kd\_warm})=0.092$.
-At matched budget, the no-teacher finetune beats warm-init KD on both perplexity and alignment, but $P(\text{lmft}\le\text{kd\_warm})=0.085$.
+Among the warm-start controls, the no-teacher finetune beats warm-init KD on both perplexity and alignment, but $P(\text{lmft}\le\text{kd\_warm})=0.085$.
 Each contrast leans on a single unreplicated point and, under a paired-fold test, on one fold carrying about $44\%$ of the signal \evd{E003}\evd{L011}.
 Under-training adds another caveat: the cold-init arm's held-out perplexity ($477$) sits far above the converged arms' ($44$ to $95$).
 Part of its near-floor alignment may reflect a worse language model rather than distillation reducing alignment.
@@ -166,7 +160,7 @@ The arms were matched on corpus, batch size, learning rate, and architecture, bu
 
 Plain perplexity-only distillation does not preserve brain alignment by default, and the headroom below the teacher is genuine but entangled with model quality.
 Whether an alignment-guided objective can recover that headroom beyond what perplexity already implies is the matched-perplexity question the rest of the program takes up; this screen does not settle that question.
-The E003 evaluation is a screen-level ROI benchmark ($\mathrm{NC}\approx0.35$) at matched compute budget.
+The E003 evaluation is a screen-level ROI benchmark ($\mathrm{NC}\approx0.35$), not a matched-perplexity or fully optimizer-step-matched causal test.
 The screen is not powered to resolve a $\sim0.005$ objective-specific gap and was not run at matched perplexity, so that question moves to the powered voxelwise substrate \evd{E003}\evd{L011}.
 
 \subsection{An alignment-guided objective has no demonstrated usable lever}
