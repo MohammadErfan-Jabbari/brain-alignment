@@ -94,7 +94,7 @@ When arms are ordered by how much of each representation was rebuilt through the
 A from-scratch logit-KD student lands far below its teacher, a gap of \result{e003_kd_cold_delta} ($p<0.001$) at which it retains only \result{e003_kd_cold_retention} of the teacher's alignment above an untrained floor \evd{E003}.
 The cold-init drop rules out automatic preservation, the outcome under which compression would need no alignment intervention, and measures the headroom a perplexity-only objective leaves below the teacher.
 The E003 result does not establish the stronger claim that the distillation objective reduces alignment beyond the language-model quality it costs.
-Across the trained and distilled models, alignment tracks log-perplexity at Pearson \result{e003_quality_corr}, so quality alone could account for the whole gradient \evd{E003}\evd{L011}.
+Across the five non-teacher arms, alignment tracks log-perplexity at Pearson \result{e003_quality_corr}, so quality alone could account for the whole gradient \evd{E003}\evd{L011}.
 
 The headroom is $\Delta = A_T - A_S$, where $A_T$ is the teacher's alignment and $A_S$ is the student's alignment.
 Both quantities are measured with the same protocol as the reality result: unique $R^2$ on the Tuckute ROI screen, contiguous folds, and the capacity-fair nuisance floor.
@@ -116,7 +116,7 @@ Every arm is scored at one fixed layer within the 12-layer GPT-2 architecture, s
 \begin{table}[H]
   \centering
   \footnotesize
-  \caption{Knowledge-distillation arms on the Tuckute ROI screen at the fixed verdict layer \evd{E003}. The \uniqueR{} column reports raw unique $R^2$; E003 also reports NC-normalised values using noise ceiling $0.353$. Floor-anchored retention $\rho' = (A_S-A_0)/(A_T-A_0)$ is $0$ at the untrained floor and $1$ at the teacher; for distilgpt2, $\rho'$ is anchored to GPT-2, its lineage teacher. $\Delta$ is the gap versus the teacher, and $p$(no-drop) is the bootstrap probability of no drop from the teacher.}
+  \caption{Knowledge-distillation arms on the Tuckute ROI screen at the fixed verdict layer \evd{E003}. The \uniqueR{} column reports raw unique $R^2$; E003 also reports NC-normalised values using noise ceiling $0.353$. Floor-anchored retention $\rho' = (A_S-A_0)/(A_T-A_0)$ is $0$ at the untrained floor and $1$ at the teacher; for distilgpt2, $\rho'$ and $\Delta$ use GPT-2, its lineage teacher. $p$(no-drop) is the bootstrap probability of no drop from the teacher.}
   \label{tab:kd}
   \resizebox{\textwidth}{!}{%
   \begin{tabular}{llcccccc}
@@ -142,11 +142,11 @@ Every arm is scored at one fixed layer within the 12-layer GPT-2 architecture, s
 \end{figure}
 
 The supported finding is the monotone gradient (Table~\ref{tab:kd}).
-Retention falls monotonically along the rebuild ordering: conventional GPT-2 at the teacher's level ($\rho'\approx1.0$), warm-init KD at $0.84$, the published distilgpt2 at $0.60$, the from-scratch cold-init student at $0.37$, and the untrained floor at $0$ \evd{E003}.
+Retention falls monotonically along the rebuild ordering: conventional GPT-2 at the teacher's level ($\rho'\approx1.0$), warm-init KD at $0.84$, the published distilgpt2 at $0.60$ relative to GPT-2, the from-scratch cold-init student at $0.37$, and the untrained floor at $0$ \evd{E003}.
 The reference arms validate the measurement: off-the-shelf GPT-2 sits at the teacher's level and the untrained control at the floor, and two runs scoring the same references on different GPUs reproduced the reference scores to about $0.0003$ \evd{E003}.
 The ordering holds at every PCA rank tested ($n_{\mathrm{pca}}\in\{25,50,100\}$), but the absolute loss fractions are rank-sensitive and the two quality-entangled arms change sign in unique $R^2$ across ranks, so the ordering is the finding and the magnitudes are rank-dependent \evd{E003}.
 
-The gradient does not isolate the distillation objective from the language-model quality the student loses, because alignment co-varies with quality across the same arms.
+The gradient does not isolate the distillation objective from the language-model quality the student loses, because alignment co-varies with quality across the same non-teacher arms.
 Alignment is tightly predicted by log-perplexity across these arms (Pearson \result{e003_quality_corr}).
 In the log-perplexity fit, warm-init KD lies essentially on the regression line, while conventional GPT-2 is the only arm more aligned than its perplexity predicts.
 The two contrasts that would separate an objective-specific loss from "alignment tracks quality" are both marginal.

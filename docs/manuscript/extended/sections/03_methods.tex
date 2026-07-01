@@ -168,4 +168,4 @@ with mixing weight $\lambda$.
 The verdict-bearing arm is a randomly initialised student, because any alignment it retains must be learned during distillation rather than inherited from pretraining.
 A warm-initialised student and a no-teacher fine-tune are kept as labelled drift controls, and every arm is scored at one fixed layer within a single architecture so no layer choice biases the comparison \evd{E003}.
 Brain \emph{specificity} is tested with a permuted-target twin: the same loss, but against brain targets shuffled across stimuli.
-The arms are matched by compute budget, not by optimizer-step count; the from-scratch arm runs about twice the optimizer steps of the warm arms, a caveat carried into the results \evd{E003}.
+The arms share corpus, batch size, learning rate, and architecture, but they are not fully compute matched: the from-scratch arm runs about twice the optimizer steps of the warm arms, a caveat carried into the results \evd{E003}.

@@ -94,7 +94,7 @@ This thesis makes the following contributions, scoped to the results it establis
   \item It fixes a measurement protocol that controls for the artifacts that can fake an alignment score: unique variance over a capacity-matched nuisance floor, contiguous splits, a same-architecture untrained control, a held-out noise ceiling, and a permuted-target control for specificity, the controls the alignment-training literature has largely lacked.
   \item It establishes, at voxel scale and with statistical power, that the alignment signal is real beyond those artifacts \evd{E006}.
   \item It shows that plain perplexity-only distillation does not preserve alignment by default, while making explicit that the drop cannot yet be separated from the language-model quality the student loses \evd{E003}.
-  \item It shows that the apparent alignment-objective effect is small, entangled with model quality, and does not survive the honest unit of inference \evd{E004}.
+  \item \gap{Add the E004 alignment-objective contribution only after the R08 finding report is consolidated; do not state the Q2 result from the experiment record alone.}
 \end{itemize}
 
 The program asks five questions in sequence, each only if the previous one holds.
@@ -104,4 +104,5 @@ Does an alignment objective move it beyond what perplexity already implies?
 Does any gain survive per individual at matched perplexity?
 And does it improve a downstream task?
 
-The first three are settled here: the signal is real \evd{E006}, plain distillation does not preserve it \evd{E003}, and an alignment objective moves it only weakly and in step with model quality \evd{E004}.
+The first two are settled here: the signal is real \evd{E006}, and plain distillation does not preserve it \evd{E003}.
+The third question remains a marked consolidation gap until the E004 finding report is written.
