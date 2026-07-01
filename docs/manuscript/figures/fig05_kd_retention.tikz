@@ -43,8 +43,8 @@
 
   % ---------------- Panel B: quality entanglement ----------------
   \begin{scope}[xshift=7.2cm]
-    \node[title] at (2.05,2.95) {B. Alignment tracks quality};
-    \draw[axis, ->] (-0.35,0) -- (4.25,0) node[right, label] {held-out ppl (log)};
+    \node[title] at (2.05,2.95) {B. Quality entanglement};
+    \draw[axis, ->] (-0.35,0) -- (4.25,0) node[right, label] {held-out perplexity (log)};
     \draw[axis, ->] (-0.35,0) -- (-0.35,2.15) node[above, label] {unique $R^2$};
     \foreach \y/\lab in {0/0,0.8/0.010,1.6/0.020} {
       \draw[grid] (-0.35,\y) -- (4.05,\y);
@@ -56,7 +56,7 @@
     }
 
     \draw[fitline] (0.00,1.66) -- (3.75,0.08);
-    \node[label, text=red!65!black, anchor=west] at (2.45,1.72) {$r=-0.88$};
+    \node[label, text=red!65!black, anchor=west] at (2.50,1.32) {non-teacher fit, $r=-0.88$};
 
     \node[refpoint] (teacher) at (0.91,1.50) {};
     \node[tag, anchor=south] at (0.82,1.62) {teacher};
@@ -67,7 +67,7 @@
     \node[point] (kdwarm) at (1.28,1.15) {};
     \node[tag, anchor=north east] at (1.22,1.05) {warm KD};
     \node[point] (distil) at (2.15,0.61) {};
-    \node[tag, anchor=south west] at (2.30,0.76) {distil};
+    \node[tag, anchor=south west] at (2.30,0.76) {distilgpt2};
     \node[coldpoint] (kdcold) at (3.70,0.04) {};
     \node[tag, anchor=south east] at (3.62,0.25) {cold KD};
   \end{scope}

@@ -19,12 +19,13 @@
 
 \subsection{The alignment signal is real beyond low-level artifacts}
 
-Under contiguous splits and the full low-level nuisance regression, a trained model's middle layer carries unique, out-of-sample variance about language-network activity that a same-architecture untrained network does not.
-The ROI screen shows the effect across models, and the powered voxelwise run confirms the effect at voxel scale.
+A trained middle layer predicts held-out language-network activity beyond low-level stimulus features, while a same-architecture untrained network does not.
+The reality check matters because the later intervention questions only make sense if the measured score is not a low-level artifact.
+The ROI screen shows the effect across three language models, and the LeBel UTS03 run repeats it at voxel scale with much higher power.
 
 The ROI screen uses the five left-hemisphere language regions of \textcite{tuckute2024}, 1000 isolated sentences, and five contiguous folds.
-The screen shows a positive trained-minus-untrained gap for all three models, with the untrained control negative at every layer and seed (Table~\ref{tab:roi}).
-The signal is positive across a broad plateau of middle layers rather than at a single peak, and is absent from random features \evd{E002}.
+The trained-minus-untrained gap is positive for all three models, while the untrained control is negative at every layer and seed (Table~\ref{tab:roi}).
+The positive signal spans a broad plateau of middle layers and disappears for random features \evd{E002}.
 
 \begin{table}[H]
   \centering
@@ -44,13 +45,16 @@ The signal is positive across a broad plateau of middle layers rather than at a 
 \end{table}
 
 The powered voxelwise run uses subject UTS03 of \textcite{lebel2023}, 20 naturalistic stories, and \result{e006_reliable_voxels} voxels selected at split-half reliability above $0.5$ on a held-out repeated story.
-The voxelwise run gives a trained-minus-untrained gap of \result{e006_gpt2_gap} for GPT-2 and \result{e006_qwen_gap} for Qwen2.5-0.5B; 95\% and 99\% of reliable voxels are positive respectively, and the untrained unique $R^2$ is $-0.017$ in both (Table~\ref{tab:vox}) \evd{E006}.
-The confidence intervals exclude zero, and the gap is carried by language training rather than by architecture or the temporal structure the nuisance floor absorbs \evd{E006}.
+The main readout is the trained-minus-untrained gap: \result{e006_gpt2_gap} for GPT-2 and \result{e006_qwen_gap} for Qwen2.5-0.5B (Table~\ref{tab:vox}).
+The sign is also widespread across voxels: 95\% of reliable GPT-2 voxels and 99\% of reliable Qwen voxels have positive gaps.
+The untrained unique $R^2$ is $-0.017$ in both comparisons \evd{E006}.
+The confidence intervals exclude zero.
+Because each trained model is compared with a same-architecture untrained control on the same stimuli, the gap points to language training rather than architecture or residual temporal structure \evd{E006}.
 
 \begin{table}[H]
   \centering
   \footnotesize
-  \caption{Powered voxelwise run on LeBel UTS03 (20 stories, story-level folds). The gap is the trained-minus-untrained unique $R^2$; CIs are bootstrap.}
+  \caption{Powered voxelwise run on LeBel UTS03 (20 stories, story-level folds). The gap is the trained-minus-untrained unique $R^2$; the 95\% CIs quantify uncertainty on the mean gap. The percentage column reports how many reliable voxels have a positive trained-minus-untrained gap.}
   \label{tab:vox}
   \begin{tabular}{lcccc}
     \toprule
@@ -62,14 +66,14 @@ The confidence intervals exclude zero, and the gap is carried by language traini
   \end{tabular}
 \end{table}
 
-Three controls address the main artifacts, with complementary roles in the screen and the powered run.
-The ROI screen uses isolated sentences.
-The isolated-sentence design removes temporal autocorrelation from naturalistic time series, so a positive result is harder to obtain rather than easier \evd{E002}.
-The voxelwise run uses naturalistic stimuli but holds out whole stories, so test timepoints are never adjacent to training timepoints.
-Voxel selection also uses a separate repeated story, preventing a score driven by voxels that correlate with the model by chance \evd{E006}.
-Both the trained and untrained scores subtract the low-level set most likely to produce a false positive: word and phoneme rate, word duration and length, log word frequency, and a static word-embedding block \evd{E006}.
-Surprisal and imageability are deliberately left unsubtracted, so the floor alone does not rule out residual contextual structure.
-The untrained network provides the stronger check: under the same architecture and the same stimulus set, the control scores negative at $-0.017$, so architecture, rate, and residual temporal structure cannot explain the gap \evd{E006}.
+The controls address different ways a low-level artifact could mimic alignment.
+The ROI screen uses isolated sentences, which removes temporal autocorrelation from naturalistic time series and makes a positive result harder to obtain \evd{E002}.
+The voxelwise run uses naturalistic stimuli but holds out whole stories; test timepoints are never adjacent to training timepoints.
+Voxel selection uses a separate repeated story, preventing the analysis from selecting voxels because they happen to correlate with a model on the evaluation stories \evd{E006}.
+Both trained and untrained scores subtract word and phoneme rate, word duration and length, log word frequency, and a static word-embedding block, the low-level feature set most likely to inflate the score \evd{E006}.
+Surprisal and imageability are deliberately left unsubtracted; the nuisance baseline therefore does not remove every contextual property of the stimulus.
+The same-architecture untrained network supplies the stronger check: on the same stimuli and nuisance baseline, it scores negative at $-0.017$.
+Architecture, rate, and residual temporal structure therefore cannot explain the positive trained-minus-untrained gap alone \evd{E006}.
 
 \begin{figure}[H]
   \centering
@@ -78,40 +82,36 @@ The untrained network provides the stronger check: under the same architecture a
   \label{fig:a2}
 \end{figure}
 
-The alignment signal is real beyond low-level artifacts in neural data.
-The three-model ROI screen supplies breadth, and the deeply sampled single subject UTS03 supplies voxel-scale statistical power.
-The single-subject design leaves cross-subject generality of the powered effect open.
+Together, the ROI screen and the powered voxelwise run establish that the alignment score contains a real language-training signal.
+The screen supplies breadth across models, and the deeply sampled UTS03 run supplies voxel-scale statistical power.
+Because the powered evidence comes from one subject, cross-subject generality remains open.
 Qwen aligns more strongly than either GPT-2 variant, while the two GPT-2 variants are nearly tied despite a threefold parameter difference.
-The single cross-family contrast does not by itself establish a quality ordering; the quality-ordering question is taken up later \evd{E002}.
-The Q0 result is necessary for the rest of the program, but not sufficient for it.
-The Q0 result establishes that the signal is real, not that the signal can be moved or that moving it improves a model.
+The single cross-family contrast alone cannot establish a quality ordering; Section~4.2 takes up the quality question directly \evd{E002}.
+Q0 therefore gives the rest of the program a valid measurement target.
+The result does not show that the target can be moved during training or that moving it improves a model.
 
 \subsection{Plain distillation does not preserve alignment by default}
 
-Knowledge distillation (KD) trains a smaller student to match a larger teacher's output distribution rather than to learn directly from text.
-A distillation-trained student does not keep the teacher's brain alignment by default.
-When arms are ordered by how much of each representation was rebuilt through the distillation channel rather than inherited from ordinary pretraining, unique $R^2$ falls monotonically.
-A from-scratch logit-KD student lands far below its teacher, a gap of \result{e003_kd_cold_delta} ($p<0.001$) at which it retains only \result{e003_kd_cold_retention} of the teacher's alignment above an untrained floor \evd{E003}.
-The cold-init drop rules out automatic preservation, the outcome under which compression would need no alignment intervention, and measures the headroom a perplexity-only objective leaves below the teacher.
-The E003 result does not establish the stronger claim that the distillation objective reduces alignment beyond the language-model quality it costs.
-Across the five non-teacher arms, alignment tracks log-perplexity at Pearson \result{e003_quality_corr}, so quality alone could account for the whole gradient \evd{E003}\evd{L011}.
+Knowledge distillation (KD) trains a smaller student to match a larger teacher's output distribution.
+E003 asks whether that ordinary perplexity-only objective keeps the teacher's brain alignment.
+The from-scratch logit-KD student lands far below its teacher, with a gap of \result{e003_kd_cold_delta} ($p<0.001$), and retains only \result{e003_kd_cold_retention} of the teacher's alignment above an untrained floor \evd{E003}.
+The cold-init drop rules out automatic preservation and gives the later alignment-guided objective real headroom.
+The same screen also narrows the verdict: across the five non-teacher arms, alignment co-varies with log-perplexity at Pearson \result{e003_quality_corr}, so language-model quality could explain the gradient \evd{E003}\evd{L011}.
 
 The headroom is $\Delta = A_T - A_S$, where $A_T$ is the teacher's alignment and $A_S$ is the student's alignment.
-Both quantities are measured with the same protocol as the reality result: unique $R^2$ on the Tuckute ROI screen, contiguous folds, and the capacity-fair nuisance floor.
-Because preservation is empirical rather than guaranteed, the design needs an arm whose alignment can only arrive through distillation.
-For deterministic post-processing of a fixed teacher, such as the quantization and pruning of \textcite{oota2026}, the student's features depend on the stimulus only through the teacher's.
-The data-processing inequality then bounds $I(Z_{\mathrm{student}};B)\le I(Y_{\mathrm{teacher}};B)$, so a fixed-function compression cannot exceed the teacher's alignment under the teacher-to-student information path.
-In the fixed-function setting, the study asks how much alignment is lost.
-Distillation lacks a fixed-function path.
-A from-scratch student fit by gradient descent on the teacher's logits has an additional route through the training text, bypassing the teacher's features.
-The data-processing premise fails, and nothing forces the student back to the teacher's alignment \evd{E003}.
+Both quantities use the same measurement protocol as Q0: unique $R^2$ on the Tuckute ROI screen, contiguous folds, and the capacity-fair nuisance baseline.
+KD has to be measured directly because it follows a different path from fixed-function compression.
+For deterministic post-processing of a fixed teacher, such as the quantization and pruning studied by \textcite{oota2026}, the student's features depend on the stimulus through the teacher's features.
+The data-processing inequality then bounds $I(Z_{\mathrm{student}};B)\le I(Y_{\mathrm{teacher}};B)$ along that teacher-to-student path.
+A from-scratch KD student has another route: gradient descent on the teacher's logits still exposes the student to the training text.
+The fixed-function premise no longer holds, so preservation becomes an empirical question \evd{E003}.
 
-The verdict rests on a cold-init student.
-A warm-started student inherits full teacher-level alignment from its own pretraining, which the reality result already measures.
-High retention for the warm-started arm would show only that a few KD epochs did not erase existing alignment, not that the KD channel carried the alignment \evd{E003}.
-The verdict-bearing arm is a randomly initialised GPT-2 trained on the teacher's logits alone, the only arm whose surviving alignment must pass through distillation.
-The warm-init KD arm and the no-teacher plain-LM finetune remain as labelled fine-tuning-drift and corpus-drift controls.
-Every arm is scored at one fixed layer within the 12-layer GPT-2 architecture, so cross-architecture layer choice cannot bias the comparison \evd{E003}.
+The cold-init student carries the verdict.
+A warm-started student already inherits teacher-level alignment from pretraining, which Q0 measured directly.
+High retention after a few KD epochs would mainly measure fine-tuning drift from that starting point \evd{E003}.
+The cold-init GPT-2 begins from random weights and is trained on the teacher's logits, so any surviving alignment must pass through the distillation run.
+The warm-init KD arm and the no-teacher plain-LM finetune remain as drift controls.
+All verdict arms use the 12-layer GPT-2 architecture and one fixed layer, so cross-architecture layer choice cannot bias the comparison \evd{E003}.
 
 \begin{table}[H]
   \centering
@@ -137,31 +137,35 @@ Every arm is scored at one fixed layer within the 12-layer GPT-2 architecture, s
 \begin{figure}[t]
   \centering
   \resizebox{0.98\textwidth}{!}{\input{../figures/fig05_kd_retention.tikz}}
-  \caption{Plain KD leaves alignment headroom but does not isolate the distillation objective from model quality. (A) Floor-anchored retention $\rho'$ falls along the rebuild ordering, from teacher-level pretrained references toward the untrained floor; the distilgpt2 retention follows the E003 lineage-teacher denominator. Error bars are bootstrap intervals where recorded. (B) Unique $R^2$ co-varies with held-out perplexity; the teacher is plotted for context, and the line is the recorded fit over the five non-teacher arms with Pearson coefficient \result{e003_quality_corr} \evd{E003}.}
+  \caption{Plain KD leaves alignment headroom, with the loss entangled with model quality. (A) Floor-anchored retention $\rho'$ falls along the rebuild ordering, from teacher-level pretrained references toward the untrained floor; the distilgpt2 retention follows the E003 lineage-teacher denominator. Error bars are bootstrap intervals where recorded. (B) Unique $R^2$ co-varies with held-out perplexity; the teacher is plotted for context, and the line is the recorded fit over the five non-teacher arms with Pearson coefficient \result{e003_quality_corr} \evd{E003}.}
   \label{fig:kd}
 \end{figure}
 
-The supported finding is the monotone gradient (Table~\ref{tab:kd}).
-Retention falls monotonically along the rebuild ordering: conventional GPT-2 at the teacher's level ($\rho'\approx1.0$), warm-init KD at $0.84$, the published distilgpt2 at $0.60$ relative to GPT-2, the from-scratch cold-init student at $0.37$, and the untrained floor at $0$ \evd{E003}.
-The reference arms validate the measurement: off-the-shelf GPT-2 sits at the teacher's level and the untrained control at the floor, and two runs scoring the same references on different GPUs reproduced the reference scores to about $0.0003$ \evd{E003}.
-The ordering holds at every PCA rank tested ($n_{\mathrm{pca}}\in\{25,50,100\}$), but the absolute loss fractions are rank-sensitive and the two quality-entangled arms change sign in unique $R^2$ across ranks, so the ordering is the finding and the magnitudes are rank-dependent \evd{E003}.
+The supported finding is the monotone retention gradient (Table~\ref{tab:kd}).
+Conventional GPT-2 sits at the teacher's level ($\rho'\approx1.0$), warm-init KD retains $0.84$, the published distilgpt2 retains $0.60$ relative to GPT-2, the cold-init student retains $0.37$, and the untrained floor is $0$ \evd{E003}.
+The reference arms behave as expected: off-the-shelf GPT-2 sits at the teacher's level and the untrained control sits at the floor.
+Two runs scoring the same references on different GPUs reproduced the reference scores to about $0.0003$ \evd{E003}.
+The ordering holds at every PCA rank tested ($n_{\mathrm{pca}}\in\{25,50,100\}$).
+The absolute magnitudes are less stable: the two quality-entangled arms change sign in unique $R^2$ across ranks, so the ordering is the durable finding and the loss fractions are rank-dependent \evd{E003}.
 
-The gradient does not isolate the distillation objective from the language-model quality the student loses, because alignment co-varies with quality across the same non-teacher arms.
-Alignment is tightly predicted by log-perplexity across these arms (Pearson \result{e003_quality_corr}).
-In the log-perplexity fit, warm-init KD lies essentially on the regression line, while conventional GPT-2 is the only arm more aligned than its perplexity predicts.
-The two contrasts that would separate an objective-specific loss from "alignment tracks quality" are both marginal.
-Warm-init KD is less aligned than GPT-2 despite lower perplexity, but the bootstrap $P(\text{gpt2}\le\text{kd\_warm})=0.092$.
-Among the warm-start controls, the no-teacher finetune beats warm-init KD on both perplexity and alignment, but $P(\text{lmft}\le\text{kd\_warm})=0.085$.
-Each contrast leans on a single unreplicated point and, under a paired-fold test, on one fold carrying about $44\%$ of the signal \evd{E003}\evd{L011}.
-Under-training adds another caveat: the cold-init arm's held-out perplexity ($477$) sits far above the converged arms' ($44$ to $95$).
-Part of its near-floor alignment may reflect a worse language model rather than distillation reducing alignment.
-The design predeclared this convergence caveat \evd{E003}.
-The arms were matched on corpus, batch size, learning rate, and architecture, but not on optimizer-step count: the from-scratch arm ran about twice the steps of the warm arms, and the step imbalance deepens rather than removes this caveat \evd{E003}.
+The quality caveat is load-bearing.
+Alignment co-varies with log-perplexity across the same non-teacher arms (Pearson \result{e003_quality_corr}).
+In that fit, warm-init KD lies essentially on the regression line, while conventional GPT-2 is the only arm more aligned than its perplexity predicts.
+Two contrasts would separate objective-specific loss from a quality explanation, and both are marginal.
+Warm-init KD is less aligned than GPT-2 despite lower perplexity, with bootstrap $P(\text{gpt2}\le\text{kd\_warm})=0.092$.
+Among the warm-start controls, the no-teacher finetune beats warm-init KD on both perplexity and alignment, with $P(\text{lmft}\le\text{kd\_warm})=0.085$.
+Both contrasts lean on a single unreplicated point and, under a paired-fold test, on one fold carrying about $44\%$ of the signal \evd{E003}\evd{L011}.
+The cold-init arm also remains under-trained: its held-out perplexity is $477$, far above the converged arms' $44$ to $95$.
+Part of its near-floor alignment may therefore reflect a weaker language model rather than the distillation objective itself.
+E003 predeclared that convergence guard \evd{E003}.
+The arms were matched on corpus, batch size, learning rate, and architecture, but the from-scratch arm ran about twice the optimizer steps of the warm arms.
+The step imbalance deepens the under-training caveat instead of removing it \evd{E003}.
 
-Plain perplexity-only distillation does not preserve brain alignment by default, and the headroom below the teacher is genuine but entangled with model quality.
-Whether an alignment-guided objective can recover that headroom beyond what perplexity already implies is the matched-perplexity question the rest of the program takes up; this screen does not settle that question.
-The E003 evaluation is a screen-level ROI benchmark ($\mathrm{NC}\approx0.35$), not a matched-perplexity or fully optimizer-step-matched causal test.
-The screen is not powered to resolve a $\sim0.005$ objective-specific gap and was not run at matched perplexity, so that question moves to the powered voxelwise substrate \evd{E003}\evd{L011}.
+Plain perplexity-only distillation therefore leaves genuine headroom below the teacher.
+E003 does not decide whether an alignment-guided objective can recover that headroom beyond what perplexity already predicts.
+The evaluation is a screen-level ROI benchmark ($\mathrm{NC}\approx0.35$), not a matched-perplexity or fully optimizer-step-matched causal test.
+The ROI screen is also underpowered for a $\sim0.005$ objective-specific gap.
+The matched-perplexity question therefore moves to the powered voxelwise substrate \evd{E003}\evd{L011}.
 
 \subsection{An alignment-guided objective has no demonstrated usable lever}
 % [IN SCOPE this version] Q2 / R08, source E004. Round-3 writes the prose from the recorded numbers.
