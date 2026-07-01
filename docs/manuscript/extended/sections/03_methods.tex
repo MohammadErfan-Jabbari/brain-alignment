@@ -114,20 +114,13 @@ Distillation is the regime where that prediction is most testable.
 We report the \emph{gap} between a trained model and a same-architecture untrained network, both fit with the same nuisance set and the same splits, rather than the trained model's absolute score.
 An absolute score is insufficient on naturalistic data, because even an untrained network can score slightly positive.
 The stimulus drives both the brain response and the untrained features; if the nuisance set captures only part of the stimulus, residual shared-cause dependence can remain.
-Subtracting the untrained arm removes the component shared by architecture, tokenisation, and residual temporal structure.
+Subtracting the untrained arm subtracts an estimate of the component shared by architecture, tokenisation, and residual temporal structure.
 The gap therefore estimates what \emph{language training} adds over random initialisation \evd{E006}.
 
 \begin{figure}[t]
   \centering
-  \figspec[0.27\textheight]{the unique-variance score and the trained$-$untrained gap}{%
-    A small construction diagram. Top: for one network, two nested cross-validated ridge fits,
-    $R^2([Z_{\mathrm{nuis}}])$ and $R^2([Z_{\mathrm{nuis}},\,\mathrm{LM}])$; their difference is the
-    unique-variance score $\Delta R^2$ (the increment the representation adds over the nuisance floor).
-    Bottom: the same construction run twice, once for the trained network and once for the
-    same-architecture untrained one; the reported statistic is the \emph{gap}, trained $\Delta R^2$
-    minus untrained $\Delta R^2$, so the shared nuisance term cancels.
-    Render in TikZ as two stacked bar-pairs with the increment and the gap annotated.}
-  \caption{The two reported quantities: the unique variance a network adds over the nuisance floor, and the trained-minus-untrained gap.}
+  \resizebox{0.98\textwidth}{!}{\input{../figures/fig_uniquevar.tikz}}
+  \caption{Schematic of the two computed quantities. Unique variance is the held-out $R^2$ increment from adding LM features to the nuisance model. The reported gap is $\Delta R^2_{\mathrm{trained}}-\Delta R^2_{\mathrm{untrained}}$, with both arms scored using the same nuisance set and splits. Bar lengths are illustrative.}
   \label{fig:uniquevar}
 \end{figure}
 

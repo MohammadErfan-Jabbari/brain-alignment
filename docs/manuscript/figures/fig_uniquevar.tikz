@@ -1,0 +1,35 @@
+\begin{tikzpicture}[
+  font=\small,
+  >=Latex,
+  axis/.style={draw=black!55, line width=0.45pt},
+  barbase/.style={fill=gray!18, draw=black!45, line width=0.35pt},
+  barinc/.style={fill=blue!18, draw=blue!45!black, line width=0.45pt},
+  bartrain/.style={fill=blue!30, draw=blue!55!black, line width=0.45pt},
+  baruntrained/.style={fill=gray!35, draw=black!45, line width=0.45pt},
+  label/.style={font=\footnotesize, align=center},
+  title/.style={font=\small\bfseries, align=center},
+]
+  \node[title] at (1.95,2.25) {A. Unique variance for one network};
+  \draw[axis] (0,0.2) -- (4.4,0.2);
+  \draw[barbase] (0,1.25) rectangle (2.25,1.60);
+  \draw[barbase] (0,0.65) rectangle (2.25,1.00);
+  \draw[barinc] (2.25,0.65) rectangle (3.65,1.00);
+  \node[label, left=0.10cm] at (0,1.425) {$R^2(Z_{\mathrm{nuis}})$};
+  \node[label, left=0.10cm] at (0,0.825) {$R^2(Z_{\mathrm{nuis}},\mathrm{LM})$};
+  \node[label] at (2.95,-0.10) {unique\\$\Delta R^2$};
+  \draw[<->, draw=blue!55!black, line width=0.5pt] (2.25,0.48) -- (3.65,0.48);
+  \node[label] at (1.13,1.82) {nuisance floor};
+  \node[label, text=blue!55!black] at (2.95,1.20) {model\\increment};
+
+  \begin{scope}[xshift=6.55cm]
+    \node[title] at (1.95,2.25) {B. Reported trained$-$untrained gap};
+    \draw[axis] (0,0.2) -- (4.4,0.2);
+    \draw[bartrain] (0,1.25) rectangle (3.45,1.60);
+    \draw[baruntrained] (0,0.65) rectangle (1.05,1.00);
+    \node[label, left=0.10cm] at (0,1.425) {trained\\network};
+    \node[label, left=0.10cm] at (0,0.825) {untrained\\control};
+    \node[label] at (1.72,1.82) {trained unique $\Delta R^2$};
+    \draw[<->, draw=orange!70!black, line width=0.65pt] (1.05,0.48) -- (3.45,0.48);
+    \node[label, text=orange!70!black] at (2.25,0.05) {reported gap};
+  \end{scope}
+\end{tikzpicture}
