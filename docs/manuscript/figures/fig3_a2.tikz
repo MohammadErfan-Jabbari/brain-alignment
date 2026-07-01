@@ -1,0 +1,44 @@
+% E006 recorded values used for bar heights:
+% untrained unique R^2 = -0.017 for both models; gaps are +0.0207 (GPT-2) and +0.0277 (Qwen2.5-0.5B),
+% giving trained means of +0.0037 and +0.0107. See docs/manuscript/extended/numbers.tex and E006.
+\begin{tikzpicture}[
+  font=\small,
+  >=Latex,
+  bar/.style={draw=black!45, line width=0.35pt},
+  trained/.style={bar, fill=green!55!black},
+  untrained/.style={bar, fill=orange!80},
+  tick/.style={font=\footnotesize, text=black!70},
+  ann/.style={font=\footnotesize, align=center},
+]
+  \def\ymin{-2.0}
+  \def\ymax{1.55}
+  \def\bw{0.34}
+
+  % Axes and ticks. Coordinates are value * 100, so 0.010 is y=1.0.
+  \draw[->, draw=black!65] (-0.95,\ymin) -- (-0.95,\ymax) node[above, tick] {unique $R^2$};
+  \draw[draw=black!45] (-0.95,0) -- (4.75,0);
+  \foreach \v/\lab in {-2.0/$-0.020$,-1.5/$-0.015$,-1.0/$-0.010$,-0.5/$-0.005$,0/$0$,0.5/$0.005$,1.0/$0.010$,1.5/$0.015$} {
+    \draw[draw=black!45] (-1.02,\v) -- (-0.88,\v);
+    \node[tick, anchor=east] at (-1.07,\v) {\lab};
+  }
+
+  % GPT-2 group.
+  \draw[trained] (0-\bw,0) rectangle (0+\bw,0.37);
+  \draw[untrained] (0.72-\bw,0) rectangle (0.72+\bw,-1.70);
+  \draw[<->, draw=red!70!black, line width=0.55pt] (1.22,-1.70) -- (1.22,0.37);
+  \node[ann, text=red!70!black, anchor=west] at (1.28,-0.66) {gap\\$+0.0207$};
+  \node[tick] at (0.36,-2.30) {GPT-2 L7};
+
+  % Qwen group.
+  \draw[trained] (2.85-\bw,0) rectangle (2.85+\bw,1.07);
+  \draw[untrained] (3.57-\bw,0) rectangle (3.57+\bw,-1.70);
+  \draw[<->, draw=red!70!black, line width=0.55pt] (4.07,-1.70) -- (4.07,1.07);
+  \node[ann, text=red!70!black, anchor=west] at (4.13,-0.35) {gap\\$+0.0277$};
+  \node[tick] at (3.21,-2.30) {Qwen2.5-0.5B L12};
+
+  % Legend.
+  \draw[trained] (1.30,1.31) rectangle (1.60,1.48);
+  \node[tick, anchor=west] at (1.67,1.395) {trained};
+  \draw[untrained] (2.80,1.31) rectangle (3.10,1.48);
+  \node[tick, anchor=west] at (3.17,1.395) {untrained};
+\end{tikzpicture}
