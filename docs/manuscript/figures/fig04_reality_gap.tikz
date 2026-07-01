@@ -31,7 +31,7 @@
   \draw[<->, draw=red!70!black, line width=0.55pt] (1.15,-1.69) -- (1.15,0.38);
   \node[gapnote, anchor=west] at (1.21,-0.655) {gap\\$+0.0207$};
   \node[tick] at (0.36,-2.35) {GPT-2 L7};
-  \node[ann] at (0.36,-2.60) {95\% voxels $>$ 0};
+  \node[tick] at (0.36,-2.60) {(95\% voxels $>$ 0)};
   % Absolute bar values.
   \node[val, anchor=south] at (0,0.43) {$+0.0038$};
   \node[val, anchor=north] at (0.72,-1.74) {$-0.0169$};
@@ -42,7 +42,7 @@
   \draw[<->, draw=red!70!black, line width=0.55pt] (3.95,-1.73) -- (3.95,1.03);
   \node[gapnote, anchor=west] at (4.01,-0.35) {gap\\$+0.0277$};
   \node[tick] at (3.11,-2.35) {Qwen2.5-0.5B L12};
-  \node[ann] at (3.11,-2.60) {99\% voxels $>$ 0};
+  \node[tick] at (3.11,-2.60) {(99\% voxels $>$ 0)};
   % Absolute bar values.
   \node[val, anchor=south] at (2.75,1.08) {$+0.0103$};
   \node[val, anchor=north] at (3.47,-1.78) {$-0.0173$};
