@@ -39,8 +39,9 @@ so the next session resumes instantly. Read `docs/upspeed.md`, `docs/tasks.md`, 
 6. **Append to `docs/learnings.md`** only if a genuine lesson, corrected mistake, or negative result
    emerged (new `Lnnn` entry). Don't pad it.
 7. **Record decisions** in `docs/decisions/decisions.md` if any real decision was made and isn't there.
-8. If this is a git repo and the user asked to commit: scoped staging only (the touched docs),
-   no `git add -A`, no push unless asked. Otherwise just report the changed files.
+8. If this is a git repo and the user asked to commit or wrap: scoped staging only (the touched docs),
+   no `git add -A`; after the wrap commit(s) land, push committed work to `origin` unless Erfan
+   explicitly says not to or the push is blocked. Otherwise just report the changed files.
 
 ## Return
 

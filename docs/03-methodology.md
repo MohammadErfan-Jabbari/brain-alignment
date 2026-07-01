@@ -258,7 +258,9 @@ is visible rather than silently rotting.
 - Report CIs / std dev; name the statistical test. "X achieves Y under condition Z."
 - Root cause, not symptom — never silently work around a blocker.
 - Git: scoped staging only (never `git add -A`/`.`), no `--amend`, no destructive ops without
-  explicit approval, push only when asked. (Git norm: decision D007; the repo is on `main`.)
+  explicit approval. At session close, after the wrap commit(s) land, push committed work to
+  `origin` unless Erfan explicitly says not to or the push is blocked. (Git norm: decision D007 +
+  D054; the repo is on `main`.)
 - Prompts may have typos; infer intent.
 
 ## Reasoning frame
@@ -282,7 +284,8 @@ where it breaks (Feynman); prefer the smallest durable change that compounds (Na
   `timeline/YYYY-MM-DD-HHMM.md`, REPLACES [`upspeed.md`](upspeed.md), moves items in [`tasks.md`](tasks.md), appends any hard-won
   lesson to `learnings.md`, and updates the ladder. The log records which stances ran; the `upspeed.md`
   framing follows the dominant one (`/work`: *what ran / next to run*; reporting stances: *what's now
-  understood / written / figured*).
+  understood / written / figured*). After the wrap commit(s) are made, push `main` to `origin` by
+  default and report any blocked or intentionally skipped push.
 
 ## Self-maintenance clause
 

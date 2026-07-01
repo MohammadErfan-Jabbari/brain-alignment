@@ -169,7 +169,9 @@ in `docs/decisions/decisions.md` and writing a `docs/timeline/` log each session
 *why*, git carries the *what/when*.
 
 Rules (unchanged): scoped staging only — never `git add -A`/`.`; stage explicit paths; no `--amend`
-(prefer a new commit); no destructive ops without explicit approval; **push only when asked.**
+(prefer a new commit); no destructive ops without explicit approval. **At session close, after the
+wrap commit(s) land, push the committed work to `origin` unless Erfan explicitly says not to or the
+push is blocked.**
 
 ## Subagents (`.claude/agents/`)
 
@@ -249,7 +251,8 @@ new-artifact check; mirror of the `/orient` start command). The `session-logger`
 hand are equivalent fallbacks. The ritual: immutable timeline log, refreshed `upspeed.md`, moved tasks,
 any hard-won lesson appended to `docs/learnings.md`, and — **the keystone of the state-tracking process
 (D015)** — an updated `docs/ladder.md`: flip the rung status, record the verdict, and rewrite the
-"Next session" block.
+"Next session" block. Once the wrap changes are committed, push `main` to `origin` by default; report
+any failed or deliberately skipped push in the close summary.
 **The ladder update must be confirmed with Erfan before it lands** (a rung flips to ✅ only on a
 verdict he has agreed); never update the board on a unilateral read. The logger records which
 **stances** ran and frames the close by the dominant one (a `/work` session logs *what ran / what's next

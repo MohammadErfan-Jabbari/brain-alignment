@@ -1,66 +1,44 @@
 ---
-title: "Upspeed — last-session state (read first)"
+title: "Upspeed - last-session state (read first)"
 tags: [reference]
 aliases: [upspeed]
 ---
 
-# Upspeed — read first, write last
+# Upspeed - read first, write last
 
-**Last updated:** 2026-06-29 (S45 — TWO parallel sessions, both worktree-merged to main. **/work Q4 E024:**
-gaze-as-privileged-information → recorded **NEGATIVE**, gate-blocked (gaze ⊥ relation-label on ZuCo-NR; 5-arm
-build correctly NOT triggered; Q4/A3 stays ❌; L069/L070). **/write + /meta:** rebuilt R07 through
-`sci-write-v2` as a skill-eval (→ comparison artifact) and restored the audience-by-layer "two modes" rule
-the D048 cutover dropped (`meta.layer`; D053, L071). **NO experiment-driven rung change — Q0–Q5 stand.**)
+**Last updated:** 2026-07-02 (S46 - retroactive close for the recent `/write` + `/review` + `/meta` manuscript sessions. Dominant stance: `/write`. **NO experiment, NO science number, NO rung change - Q0-Q5 stand exactly as S25.**)
 
-> **Canonical Q-rung state lives in [`ladder.md`](ladder.md)** (Q0–Q5 unchanged since S25; Q4 also null on the
-> gaze-PI/sample-efficiency axis). With no task, run `/orient`.
+> **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
-## What S45 did — two parallel tracks
+## Current state
 
-### /work — E024 (the privileged-information line)
-- Ran the LUPI sample-efficiency climb on ZuCo-1.0 NR relation-detection (gaze-first) through the binding
-  positive-control gate, continuous opus review + Codex.
-- **Recorded NEGATIVE, gate-blocked:** (1) **gaze ⊥ relation-label** — airtight null every readout (binary AUC
-  0.51 p=0.45; multiclass balanced-acc 0.20 p=0.35; rich-35d+RF; within-subject), reliable gaze = length
-  confound; (2) **structural disqualifier** — ZuCo-NR has only 7 paragraphs → no stable paragraph-disjoint
-  split; (3) **leak sharpening** — TSR task-directed gaze predicts relation-type (balanced-acc 0.295, perm-p
-  0.003) → gaze carries the relation only when actively hunted. The 5-arm build was correctly NOT triggered.
-  **Q4/A3 stays ❌.** Lessons L069 + L070.
-- Erfan stopped the ZuCo gaze-relation line; the negative + DPI bound + control battery is the methodology
-  contribution to consolidate. Full record:
-  [`experiments/E024_zuco-lupi-sample-efficiency.md`](experiments/E024_zuco-lupi-sample-efficiency.md); brain
-  `projects/brain-alignment-e024-gaze-lupi-negative`.
+The recent unwrapped sessions moved the extended manuscript forward rather than the experiment ladder. Section 4.1 (Q0) and Section 4.2 (Q1) have been rewritten in the reader-facing pattern mined from the prior Claude/OpenCode sessions: verdict first, numbers separated from interpretation, caveats kept local, and no compliance-list prose.
 
-### /write + /meta — R07 rebuild + sci-write-v2 two modes
-- **/write:** rebuilt R07 (Q1) from frozen E003 through the full `sci-write-v2` loop (lattice → F16 gate,
-  Erfan-approved → draft → 4 audit/revise rounds to convergence; an opus oracle-reviewer at every stage). →
-  [`reports/R07_sci-write-v2-rebuild.md`](reports/R07_sci-write-v2-rebuild.md), a comparison artifact (NOT
-  canonical, NOT in the reports ordering).
-- Two blind opus analyses (ours + Erfan's external top-venue rubric) agreed: rebuild = external/manuscript
-  register, baseline = internal-report register; both bound claims correctly.
-- **/meta — D053:** the external register traced to the reader-model audience being set externally, because the
-  D048 cutover dropped the archived "codes descend by layer" rule. Restored via `meta.layer`
-  (report|extended|public), 3 files, zero script-logic change, all selftests pass. D053; L071.
+Figure 5 is finalized for the KD/Q1 story. The source and rendered artifact now match the current manuscript: Panel B is titled "Quality entanglement," the x-axis is held-out perplexity on the log scale, the non-teacher fit label is separated from nearby points, and `distilgpt2` is named consistently.
 
-## What's next (resume here) — Erfan's call
-- **Validate D053:** re-run the R07 rebuild with `meta.layer: report` → expect report-register prose (codes in
-  prose, closer to the baseline). The end-to-end test that the two-mode fix works.
-- **Consolidate the E024 negative** into the negative-results spine (a `/write`/analysis task).
-- **Live science thread (UNCHANGED since S25):** `/write` R08 (Q2), OR `/interpret` the parked E006
-  voxelwise-CI item. (The Q4 gaze-PI line is stopped.)
+## What was done
+
+- Reviewed the prior session material and the existing manuscript-readability lesson list. Root cause: the prose kept treating each paragraph as a container for obligations instead of as a guided argument for a reader.
+- Finalized Figure 5 in [`manuscript/figures/fig05_kd_retention.tikz`](manuscript/figures/fig05_kd_retention.tikz) and regenerated [`manuscript/figures/fig05_kd_retention.png`](manuscript/figures/fig05_kd_retention.png).
+- Rebuilt [`manuscript/extended/main-extended.pdf`](manuscript/extended/main-extended.pdf). The build succeeds; the remaining overfull warnings at `main-extended.tex:54` are pre-existing.
+- Polished [`manuscript/extended/sections/04_results.tex`](manuscript/extended/sections/04_results.tex): Section 4.1 now separates confidence intervals from voxel-positivity percentages, and Section 4.2 now presents Q1 as headroom plus a quality caveat rather than as a stronger causal KD claim.
+- Committed the manuscript work as `fd92346 docs(manuscript): polish results q0 q1 prose and figure 5`.
+- Changed the repo's wrap rule: close-session commits should now be pushed to `origin` by default unless Erfan says not to or the push is blocked (D054).
+
+## What to do next
+
+- Continue the Results pass with Section 4.3 (Q2 / E004): apply the same pattern as 4.1 and 4.2, especially around the pseudo-replication caveat and the "undemonstrated, not proven zero" wording.
+- Keep the parked `/interpret` item visible: E006's voxelwise CI unit remains a separate adjudication task if the manuscript needs inferential wording beyond the current descriptive treatment.
+- On every wrap from now on: commit scoped changes, then push `main` to `origin` by default and report the push result.
 
 ## Blockers / open loops
-- R07 rebuild is an external-register comparison artifact; to become canonical, re-derive in `report` mode.
-- `docs/manuscript/README.md:34` bare `+0.06` (no cite) — pre-existing, fix on a `/write` touch.
 
-## Key facts for next session
-- **Two modes now live in `sci-write-v2`:** set `meta.layer` at Stage 1 (report = internal/codes-OK; extended =
-  parenthetical; public = zero codes, all named in prose). D053 + the SKILL Stage 1.
-- **The LUPI design rules:** L069 (train-only PI helps only to the extent text-recoverable; reliable-but-leaked
-  is a trap), L070 (check the paragraph/grouping count + run the PI→label probe + positive-control gate before
-  any build).
-- **Run code:** `uv run`; `export HF_HOME=/home/centcom/data/hf-cache`; 4× L40S. ZuCo `.mat` are MATLAB v5
-  (scipy). Git: `main`.
-- **Worktrees:** both S45 sessions used `git worktree` + merged to main — the clean way to run parallel
-  sessions; reconcile the four status docs at merge (this wrap did: combined Last-updated/Next-session,
-  kept both sessions' learnings L069/L070/L071).
+- `docs/manuscript/README.md:34` still has a pre-existing bare `+0.06` with no cite; fix on the next manuscript README touch.
+- The build warning at `docs/manuscript/extended/main-extended.tex:54` remains pre-existing.
+- Before this wrap, `main` was 83 commits ahead of `origin/main`; this close is expected to push the accumulated history.
+
+## Key facts
+
+- `docs/manuscript/extended/main-extended.pdf` builds with Tectonic from `docs/manuscript/extended/`.
+- Section 4.2's supported Q1 claim is: plain perplexity-only KD leaves alignment headroom below the teacher, but the loss is entangled with model quality; matched-perplexity causal recovery moves to the powered voxelwise substrate.
+- Git close rule is now D054: scoped commit first, push to `origin` at wrap by default.

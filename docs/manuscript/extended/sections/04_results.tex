@@ -143,7 +143,7 @@ All verdict arms use the 12-layer GPT-2 architecture and one fixed layer, so cro
 
 The supported finding is the monotone retention gradient (Table~\ref{tab:kd}).
 Conventional GPT-2 sits at the teacher's level ($\rho'\approx1.0$), warm-init KD retains $0.84$, the published distilgpt2 retains $0.60$ relative to GPT-2, the cold-init student retains $0.37$, and the untrained floor is $0$ \evd{E003}.
-The reference arms behave as expected: off-the-shelf GPT-2 sits at the teacher's level and the untrained control sits at the floor.
+The reference arms therefore anchor both ends of the scale: off-the-shelf GPT-2 marks teacher-level alignment, and the random model marks the floor.
 Two runs scoring the same references on different GPUs reproduced the reference scores to about $0.0003$ \evd{E003}.
 The ordering holds at every PCA rank tested ($n_{\mathrm{pca}}\in\{25,50,100\}$).
 The absolute magnitudes are less stable: the two quality-entangled arms change sign in unique $R^2$ across ranks, so the ordering is the durable finding and the loss fractions are rank-dependent \evd{E003}.

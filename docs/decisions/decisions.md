@@ -69,7 +69,9 @@ commit with a proper conventional-commit message — so git history is a fine-gr
 record of file changes over time. This is **in addition to, never a replacement for, the docs
 record:** decisions still go in this file and every session still gets a `../timeline/` log. Docs
 carry the *why* (reasoning, narrative); git carries the *what/when* (mechanical diffs). Rules
-unchanged: scoped staging only (never `git add -A`/`.`), no `--amend`, push only when asked.
+unchanged: scoped staging only (never `git add -A`/`.`), no `--amend`. **Amended by D054 for
+session close:** wrap commits are pushed to `origin` by default unless Erfan explicitly says not to
+or the push is blocked.
 **Rationale:** Erfan wants a detailed, granular overview of how the repo evolved — and the decision
 log + timeline remain the canonical research record.
 **Reverses if:** never expected — it is a working norm.
@@ -819,6 +821,14 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 **Rationale.** The report layer's job (D035) is internal synthesis wired to the docs brain; for an internal reader the repo's codes and established results **are** OLD, and re-explaining them in every report is the curse-of-knowledge in reverse. Manuscript-readiness is bought **once** at the compression step (extended → public strips codes), not by taxing every report. So reports *should* be project-embedded — the cutover regression had made `sci-write-v2` unable to write in that register. The two-mode behavior was always a **reader-model + RUB-judge** concern, never a DET gate (`ai_tell_lint` never policed internal codes), so the one lever is the reader-model audience — which is exactly what `meta.layer` now sets.
 
 **Honest limit (recorded, not hidden).** `meta.layer` is **guidance, not DET-validated** (kept surgical; the F16 human gate surfaces a wrong audience as the backstop). **Per-layer register exemplars (F17) were NOT added** — the voice rules apply at all layers; an internal-report exemplar set is a future refinement. **Reverses if:** the layer gets routinely mis-set in practice (then add light validation), or report-mode proves to need its own register anchors (then build the per-layer F17 set). **Provenance:** the rule lived in the archived `scientific-writing` `SKILL.md` ("Internal codes are scaffolding… descend by layer. Reports may use them freely.") + [`../03-methodology.md`](../03-methodology.md) Deliverable layers (audience per layer). **Builds on D048** (the pipeline) **+ D035** (the layer model); extends, does not supersede. This session also produced the R07 comparison rebuild ([`../reports/R07_sci-write-v2-rebuild.md`](../reports/R07_sci-write-v2-rebuild.md)) — a skill-eval artifact, not a canonical finding-report, not wired into the reports ordering. **No science number, no rung change — Q0–Q5 stand.**
+
+## D054 — Wrap commits are pushed to origin by default — 2026-07-02 (S46, /meta)
+
+**Decision (Erfan-directed).** Session close now includes a push by default: after `/wrap` records the timeline, refreshes continuity docs, stages only the touched files, and commits the wrap changes atomically, the agent pushes the committed work on `main` to `origin`. The old rule, "push only when asked," is superseded for wrap/close behavior.
+
+**Rationale.** The Codex sidebar showed a clean working tree but a large `main...origin/main` delta. That was not uncommitted work; it was committed local history that had not been pushed. For this repo, a clean close should mean both the working tree and the remote handoff are clean enough for the next session or machine to resume.
+
+**Boundary.** Scoped staging remains unchanged: never `git add -A`/`.`; no `--amend`; no destructive operation without explicit approval. The push is skipped only if Erfan explicitly says not to, the network/auth/remote rejects it, or pushing would require resolving a non-fast-forward situation. Any skipped or failed push is reported in the close summary. **Builds on D007** (atomic scoped commits); supersedes only the previous "push only when asked" close-session rule.
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
