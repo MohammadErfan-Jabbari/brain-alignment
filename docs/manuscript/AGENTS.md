@@ -25,6 +25,7 @@ This folder holds the LaTeX manuscript layers derived from recorded evidence. A 
 - If a needed number is missing, mark it as a gap and add a `/work` task. Do not invent, estimate, or promote synthetic stand-ins.
 - Use specific numbers with uncertainty and named tests.
 - Cite experiments and reports; do not restate derivations if the report already owns them.
+- In `references.bib`, use non-printing `annotation` for internal provenance or critique notes. Do not use `note` for repo-internal comments because it prints in the rendered reference list.
 
 ## Figure Pipeline
 
