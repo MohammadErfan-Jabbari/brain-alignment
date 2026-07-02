@@ -508,6 +508,31 @@ the dense synthetic target cache, add the matched-ppl three-arm runner, pre-regi
 inherited no-text/TRIBE confound control, then run a smoke + reviewer gate before any multi-day training. This is a
 gate-fired completion, not a science null and not a ladder move.
 
+### Step 12 — Phase-3 infrastructure scaffold BUILT + smoke-tested; still NOT a Phase-3 result (2026-07-02)
+Follow-up work-session action filled the Step-11 mechanical gaps. Built:
+- `scripts/tribe_predict_kd_corpus.py` — KD-corpus TRIBE target-cache builder. The cache path uses direct
+  synthetic `Word` events with `features_to_use=["text"]`, avoiding 96k gTTS/ASR calls; dense target generation
+  remains compute work. The old public `text_path` route remains as `--event-mode tts-single` for debug/fidelity
+  checks. Cache schema:
+  `targets`, `texts`, `item_indices`, `vertex_index`, `segment_counts`, and JSON metadata.
+- `scripts/run_tribe_phase3.py` — three-arm matched-budget runner over a cache:
+  KD-only / KD+TRIBE-MSE / KD+TRIBE-block-permuted, with train-only target standardization, fixed heldout-PPL
+  probe, lambda grid support, and optional heldout target-R² if a heldout TRIBE cache exists.
+- `scripts/analyze_tribe_phase3.py` — gate/analyzer that refuses interpretation unless the run has ≥3 seeds,
+  PPL-matched brain/permuted arms, and heldout target metrics. It labels small runs as smoke/incomplete.
+
+Smoke artifacts (pipeline check only, not evidence): direct TRIBE text-event cache succeeded for 2 train and
+2 heldout WikiText sentences at 16 vertices:
+`outputs/E016_tribe/kd_targets/text/train_start0_n2_d16_smoke.npz` and
+`outputs/E016_tribe/kd_targets/text/heldout_start0_n2_d16_smoke.npz`. A tiny-gpt2 1-seed runner smoke completed
+all three arms and analyzer correctly returned `science_ready=false`:
+`outputs/E016_tribe/phase3/phase3_smoke_tiny.json` +
+`outputs/E016_tribe/phase3/phase3_smoke_tiny.analysis.json`.
+
+**Status:** the missing infra is no longer the blocker. What remains before any Phase-3 claim is actual target
+generation at the intended scale/dimension, a predeclared full run (≥3 seeds, matched PPL, permuted twin), and a
+review gate before interpretation. No science verdict, no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

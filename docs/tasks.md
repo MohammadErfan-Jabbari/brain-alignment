@@ -110,10 +110,12 @@ The research corpus continuing the path (full table + decision rules in [`ladder
   (symmetric partial collapses A_shared too — L040). **Verdict: NO Fork-A; ceiling bounded-not-closed** (2nd
   instrument to wall at n=6 after TRIBE). Convergent corroboration; spine rests on E008/E011/E017. Oracle + socratic +
   first-principles + counter-argument + premortem all run. `outputs/E020_eys/`. D029/D030, L039/L040. No rung flip.
-- [ ] **TRIBE Phase 3 (OPTIONAL Fork-B booster, slot after F2 if pursued)** — distill toward TRIBE-generated dense
+- [~] **TRIBE Phase 3 (OPTIONAL Fork-B booster, slot after F2 if pursued)** — distill toward TRIBE-generated dense
   brain targets on the REAL KD corpus (where no fMRI exists; empirical averaging impossible — TRIBE's only
   irreplaceable use), matched-ppl vs permuted twin. Phase 1 validated TRIBE is faithful enough to be a target. A
-  null at scale removes the scarcity/SNR excuse = strongest Fork-B. NOT a blocker. (E016 §5 Phase 3.)
+  null at scale removes the scarcity/SNR excuse = strongest Fork-B. NOT a blocker. **Infra scaffolded 2026-07-02:**
+  target-cache builder + three-arm runner + analyzer smoke-tested on 2+2 sentences; full dense cache and ≥3-seed
+  matched-PPL run remain undone. (E016 §5 Phase 3 / Step 12.)
 
 The research corpus continuing the path (full table + decision rules in `ladder.md` → "THE FORWARD PROGRAM"):
 - **F1 · E016 TRIBE Phase 1→2 — the ceiling.** Prereq **voxel-space mapping SOLVED** (substrate → denizenslab,

@@ -72,8 +72,9 @@ unless Erfan redirects.
 S48 (`/work`) completed the requested priority set: E023a-prime gate, E005/Qwen averaged-target λ-sweep,
 and E016 Phase-3 preflight. New bounded averaged-target context numbers were recorded in E005, but **no rung
 changed**. E023 decisive E023b/E023f is gate-blocked (`ready_for_decisive_e023b_training=false`); E016 Phase 3
-needs a dense TRIBE KD-corpus target cache plus a matched-ppl three-arm runner before compute. The official next
-repo step remains `/write` Section 4.3 / Q2 and Figure 6 unless Erfan redirects to a new `/work` build gate.
+now has a target-cache builder plus matched-ppl three-arm runner/analyzer scaffold smoke-tested, but still needs
+the dense cache and ≥3-seed matched-PPL run before compute can become evidence. The official next repo step
+remains `/write` Section 4.3 / Q2 and Figure 6 unless Erfan redirects to a new `/work` build gate.
 
 ## Current position
 
@@ -293,7 +294,7 @@ ceiling = analysis-lane / Erfan call (flagged).
 |---|---|---|---|
 | **F1 P1 ✅ (done)** | **E016 TRIBE Phase 1 — fidelity** | TRIBE validated as a faithful in-pipeline fMRI stand-in: beats a strong nuisance floor in higher-order language Δ=+0.113 [+0.045,+0.181], 6/6 (tool-gate, no rung flip). Prereqs solved: voxel mapping → denizenslab (D027), TRIBE long-audio bug (L037). | **PASS (S13)** |
 | **F1-close — E020 ✅ (bounded)** | **empirical-E[Y|S] ceiling (TRIBE-free)** | Ran story_11 n=6. **NO Fork-A** (A_resid=+0.090 = confirmed leaked-stimulus+autocorr; gapped+eng1000-partialled trained−untrained gap −0.018≈0). **Ceiling bounded-not-closed** — n=6 E[Y|S] reference too noisy (ref-rel 0.33, ε-NC 0.17 = KILL regime); 2nd instrument walled at n=6 (after TRIBE). Demoted to convergent corroboration of E008/E011/E017. Oracle+socratic+first-principles+counter-argument+premortem all run; D030/L040. No rung flip. | **DONE — bounded (S14)** |
-| **TRIBE Phase 3 (optional)** | **E016 §5 Phase 3 — synthetic-target KD** | TRIBE's only irreplaceable use: dense brain targets for the real KD corpus (no fMRI; averaging impossible), matched-ppl vs permuted. Null at scale = strongest Fork-B (removes scarcity excuse). Optional booster, slot after F2. | designed (E016 §5) |
+| **TRIBE Phase 3 (optional)** | **E016 §5 Phase 3 — synthetic-target KD** | TRIBE's only irreplaceable use: dense brain targets for the real KD corpus (no fMRI; averaging impossible), matched-ppl vs permuted. Null at scale = strongest Fork-B (removes scarcity excuse). Optional booster, slot after F2. | infra scaffolded + smoke-tested; full run not started (E016 Step 12) |
 | **F2 — E019 ✅ (corroboration)** | **E019 external reproduce-and-control** | Built a faithful Negi head (differentiable Lanczos+FIR+NT-Xent full-FT, Lanczos verified vs source) on LeBel UTS01/02/03. **No positive encoding gain at any lr** (gentle gain_r −0.0006±0.0027 n=9, uR² −0.0001±0.001; sweep 2e-5/3e-5/5e-5 monotone-negative; 1e-4 catastrophic ppl→11.5k). **NOT a clean external clincher** (counter-argument + premortem + eval-positive-control): the raw-mean-r ruler is quality-insensitive (enc_r 0.5B+0.150≈3B+0.143), the gentle regime didn't move the LM (Δppl≈0), decoder≠Negi's BERT. **= corroboration of the E008/E011/E017 lever-failure spine** (L036), not the clincher; "NON-NEGOTIABLE" framing RETIRED. D031/D032, L041/L042. No rung flip; no Fork-A. | **DONE — corroboration (S14)** |
 | **F3** | **E013/I3 denizenslab n=6 full-FT** | ~~the POWERED multi-subject induction test~~ → **KILLED (S25, 2026-06-19): NOT the powered test we hoped — n=6 is too small to power the per-individual population claim (σ unmeasured, possibly n≈8 needed); full-FT already null in E017; gate 0-for-5.** Decisively a DATASET-SIZE kill. E013 S25 verdict + L051. | ❌ **KILLED — dataset too small (n=6)** |
 | **F4** | **E015 Q2 architecture-residual extension** | add ≥3 modern-family sizes (Llama/Mistral) + base-vs-instruct ablation at matched bpb → claim or bury the architecture-beyond-quality residual (now p=0.20, underpowered). | designed (E015) |
