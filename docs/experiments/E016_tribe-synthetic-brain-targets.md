@@ -624,6 +624,16 @@ Verification:
 
 **Status:** matched-information control infrastructure only. No new Phase-3 science result, no top-tier claim, no rung flip. If the active TRIBE full run is positive, this control is the next required comparison before treating the gain as brain-specific rather than a dense auxiliary-target effect.
 
+### Step 19 - Analyzer paired-effect audit fields added while full cache runs (2026-07-02)
+Hardened the post-run analyzer output for the eventual `/interpret` pass without changing the science-readiness gate. `scripts/analyze_tribe_phase3.py` now records the per-seed paired deltas for target-vs-permuted and target-vs-KD heldout target-R2 contrasts, whether all paired seed deltas are positive, and a deterministic two-sided sign-flip p-value for the paired mean. This is meant to make the post-result audit less brittle when the active full run finally writes its analyzer JSON.
+
+Verification:
+- `uv run python -m py_compile scripts/analyze_tribe_phase3.py` passed.
+- Existing default mini-real artifact analysis still returns `science_ready=false`.
+- The tiny text-feature smoke analysis still returns `science_ready=false` and now includes paired delta values plus sign-flip p-values in the JSON artifact.
+
+**Status:** analyzer reporting only. No new Phase-3 science result, no top-tier claim, no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

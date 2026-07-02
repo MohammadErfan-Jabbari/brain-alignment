@@ -26,6 +26,38 @@ def mean_ci(vals: list[float]) -> dict:
     return {"mean": m, "ci95": [m - 1.96 * se, m + 1.96 * se], "n": int(len(arr))}
 
 
+def sign_flip_p_two_sided(vals: list[float]) -> float | None:
+    arr = np.asarray(vals, dtype=float)
+    if len(arr) == 0:
+        return None
+    obs = abs(float(arr.mean()))
+    mags = np.abs(arr)
+    if len(arr) <= 20:
+        n_extreme = 0
+        n_total = 2 ** len(arr)
+        for mask in range(n_total):
+            signs = np.array([1.0 if (mask >> i) & 1 else -1.0 for i in range(len(arr))])
+            if abs(float((signs * mags).mean())) >= obs - 1e-12:
+                n_extreme += 1
+        return float(n_extreme / n_total)
+    rng = np.random.default_rng(0)
+    signs = rng.choice([-1.0, 1.0], size=(100000, len(arr)))
+    means = np.abs((signs * mags).mean(axis=1))
+    return float(np.mean(means >= obs - 1e-12))
+
+
+def paired_delta_stats(vals: list[float]) -> dict:
+    stats = mean_ci(vals)
+    stats.update(
+        {
+            "values": [float(v) for v in vals],
+            "all_positive": bool(vals) and all(v > 0 for v in vals),
+            "sign_flip_p_two_sided": sign_flip_p_two_sided(vals),
+        }
+    )
+    return stats
+
+
 def by_seed(rows: list[dict], arm: str, lam: float | None = None) -> dict[int, dict]:
     out = {}
     for row in rows:
@@ -179,10 +211,10 @@ def main():
             "ppl_rel_delta_real_vs_kd": mean_ci(ppl_target),
             "ppl_rel_delta_perm_vs_kd": mean_ci(ppl_perm),
             "ppl_matched": ppl_ok,
-            "target_r2_target_minus_perm": mean_ci(r2_target_perm),
-            "target_r2_target_minus_kd": mean_ci(r2_target_kd),
-            "target_r2_real_minus_perm": mean_ci(r2_target_perm),
-            "target_r2_real_minus_kd": mean_ci(r2_target_kd),
+            "target_r2_target_minus_perm": paired_delta_stats(r2_target_perm),
+            "target_r2_target_minus_kd": paired_delta_stats(r2_target_kd),
+            "target_r2_real_minus_perm": paired_delta_stats(r2_target_perm),
+            "target_r2_real_minus_kd": paired_delta_stats(r2_target_kd),
         }
 
     n_train = int(summary["n_train"] or 0)
