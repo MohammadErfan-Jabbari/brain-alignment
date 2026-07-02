@@ -584,6 +584,16 @@ metrics. These thresholds can be overridden explicitly only by CLI argument.
 run is λ=0.1, not λ=1.0. What remains is full-dimension target-cache generation, then an at-scale ≥3-seed run
 using only PPL-matchable λ settings, followed by the analyzer/review gate. No science verdict, no rung flip.
 
+### Step 15 - Analyzer grid-completeness hardening while full Phase-3 cache runs (2026-07-02)
+While the full Phase-3 pipeline was still building the train TRIBE cache, hardened `scripts/analyze_tribe_phase3.py` against a partial-run false-ready mode. The previous analyzer required ≥3 observed seeds and PPL-matched common paired seeds, but a malformed runner output could in principle include three KD-only seeds while missing one or more TRIBE/permuted rows and still let the paired checks run on the smaller common subset. The analyzer now reads the expected seed list and lambda grid from the run config, constructs the full expected arm grid (`kd_only` plus `tribe_mse` and `tribe_perm` for every seed/lambda), records missing/duplicate/extra rows, requires `has_lambda_grid=true`, requires `arm_seed_grid_complete=true`, and requires each paired contrast to contain all expected seeds before `science_ready` can pass.
+
+Verification:
+- `uv run python -m py_compile scripts/analyze_tribe_phase3.py` passed.
+- Existing mini real-model artifact remains blocked as intended: `science_ready=false`, with `enough_seeds=false`, `ppl_matched_all_lambdas=false`, and scale/dimension gates false.
+- A deliberately incomplete temporary copy with expected seeds `0,1,2` and a missing `tribe_perm` row now returns `arm_seed_grid_complete=false` and `all_paired_common_seeds=false`.
+
+**Status:** analyzer hardening only. No new science number, no Phase-3 result, no rung flip. The active full run is still cache-building and will use this stricter analyzer when it reaches the analysis step.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

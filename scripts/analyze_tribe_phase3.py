@@ -37,6 +37,18 @@ def by_seed(rows: list[dict], arm: str, lam: float | None = None) -> dict[int, d
     return out
 
 
+def parse_int_csv(spec: object) -> list[int]:
+    if spec is None:
+        return []
+    return [int(x) for x in str(spec).split(",") if x.strip()]
+
+
+def parse_float_csv(spec: object) -> list[float]:
+    if spec is None:
+        return []
+    return [float(x) for x in str(spec).split(",") if x.strip()]
+
+
 def rel_delta(a: float, b: float) -> float:
     return abs(a - b) / max(abs(b), 1e-8)
 
@@ -55,11 +67,20 @@ def main():
     rows = data["rows"]
     seeds = sorted({int(r["seed"]) for r in rows})
     lams = sorted({float(r["lambda_brain"]) for r in rows if r["arm"] != "kd_only"})
+    config = data.get("config", {})
+    expected_seeds = parse_int_csv(config.get("seeds")) or seeds
+    expected_lams = parse_float_csv(config.get("lambda_brain_grid")) or lams
     kd = by_seed(rows, "kd_only")
 
     summary = {
         "run": str(args.run_json),
         "n_seeds": len(seeds),
+        "expected_seeds": expected_seeds,
+        "observed_seeds": seeds,
+        "expected_lambdas": expected_lams,
+        "observed_lambdas": lams,
+        "expected_rows": len(expected_seeds) * (1 + 2 * len(expected_lams)),
+        "observed_rows": len(rows),
         "target_dim": rows[0].get("target_dim") if rows else None,
         "n_train": rows[0].get("n_train") if rows else None,
         "n_heldout_ppl": rows[0].get("n_heldout_ppl") if rows else None,
@@ -70,6 +91,37 @@ def main():
         "arms": {},
         "paired": {},
         "gate": {},
+    }
+
+    seen = set()
+    duplicate_rows = []
+    for row in rows:
+        key = (int(row["seed"]), row["arm"], float(row["lambda_brain"]))
+        if key in seen:
+            duplicate_rows.append({"seed": key[0], "arm": key[1], "lambda_brain": key[2]})
+        seen.add(key)
+
+    expected_grid = [(seed, "kd_only", 0.0) for seed in expected_seeds]
+    for seed in expected_seeds:
+        for lam in expected_lams:
+            expected_grid.append((seed, "tribe_mse", float(lam)))
+            expected_grid.append((seed, "tribe_perm", float(lam)))
+    missing_rows = [
+        {"seed": seed, "arm": arm, "lambda_brain": lam}
+        for seed, arm, lam in expected_grid
+        if (seed, arm, lam) not in seen
+    ]
+    extra_rows = [
+        {"seed": seed, "arm": arm, "lambda_brain": lam}
+        for seed, arm, lam in sorted(seen)
+        if (seed, arm, lam) not in set(expected_grid)
+    ]
+    arm_seed_grid_complete = not missing_rows and not duplicate_rows and not extra_rows
+    summary["grid"] = {
+        "complete": bool(arm_seed_grid_complete),
+        "missing_rows": missing_rows,
+        "duplicate_rows": duplicate_rows,
+        "extra_rows": extra_rows,
     }
 
     grouped = defaultdict(list)
@@ -86,11 +138,14 @@ def main():
         }
 
     matched_all = True
-    has_target_metric = any(r.get("target_r2") is not None for r in rows)
-    for lam in lams:
+    all_paired_common_seeds = True
+    has_target_metric = bool(rows) and all(r.get("target_r2") is not None for r in rows)
+    for lam in expected_lams:
         real = by_seed(rows, "tribe_mse", lam)
         perm = by_seed(rows, "tribe_perm", lam)
         common = sorted(set(kd) & set(real) & set(perm))
+        common_complete = common == expected_seeds
+        all_paired_common_seeds = all_paired_common_seeds and common_complete
         ppl_real, ppl_perm = [], []
         r2_real_perm, r2_real_kd = [], []
         for seed in common:
@@ -101,13 +156,14 @@ def main():
                 r2_real_kd.append(real[seed]["target_r2"] - kd[seed]["target_r2"])
         lam_key = f"lambda{lam:g}"
         ppl_ok = (
-            len(common) > 0
+            common_complete
             and max(ppl_real or [float("inf")]) <= args.ppl_rel_tolerance
             and max(ppl_perm or [float("inf")]) <= args.ppl_rel_tolerance
         )
         matched_all = matched_all and ppl_ok
         summary["paired"][lam_key] = {
             "common_seeds": common,
+            "common_seeds_complete": bool(common_complete),
             "ppl_rel_delta_real_vs_kd": mean_ci(ppl_real),
             "ppl_rel_delta_perm_vs_kd": mean_ci(ppl_perm),
             "ppl_matched": ppl_ok,
@@ -123,10 +179,23 @@ def main():
         and n_heldout >= args.min_heldout_science
         and target_dim >= args.min_target_dim_science
     )
-    science_ready = len(seeds) >= 3 and matched_all and has_target_metric and scale_ready
+    enough_expected_seeds = len(expected_seeds) >= 3 and seeds == expected_seeds
+    has_lambda_grid = len(expected_lams) > 0
+    science_ready = (
+        enough_expected_seeds
+        and has_lambda_grid
+        and arm_seed_grid_complete
+        and all_paired_common_seeds
+        and matched_all
+        and has_target_metric
+        and scale_ready
+    )
     summary["gate"] = {
         "science_ready": bool(science_ready),
-        "enough_seeds": len(seeds) >= 3,
+        "enough_seeds": bool(enough_expected_seeds),
+        "has_lambda_grid": bool(has_lambda_grid),
+        "arm_seed_grid_complete": bool(arm_seed_grid_complete),
+        "all_paired_common_seeds": bool(all_paired_common_seeds),
         "ppl_matched_all_lambdas": bool(matched_all),
         "has_heldout_target_metric": bool(has_target_metric),
         "scale_ready": bool(scale_ready),
