@@ -9,7 +9,7 @@ aliases: [E001]
 **Created:** 2026-06-09 · **Status:** done (scaffold + synthetic smoke; real-data run pending)
 **Hypothesis:** [`../hypotheses/H001_alignment-guided-distillation.md`](../hypotheses/H001_alignment-guided-distillation.md) · **Mode:** exploratory
 **Code:** `scripts/{pilot_lib,distill,data_adapters,run_toy_pilot}.py`, `configs/toy_pilot.json`,
-`scripts/README.md`
+`scripts/AGENTS.md`
 
 ---
 

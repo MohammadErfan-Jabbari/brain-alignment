@@ -178,7 +178,7 @@ The research corpus continuing the path (full table + decision rules in `ladder.
 ### 📖 ANALYSIS lane (Erfan's queue — ACTIVE: write the finding-report set; working sessions DO NOT edit these docs)
 
 R05 retired (D036); the analysis lane now writes the **finding-reports** (`reports/R06`–`R14`), one Q-tagged claim
-per file, each 1:1 with a manuscript Results section, in the reading order of [`reports/README.md`](reports/README.md). Deep reading
+per file, each 1:1 with a manuscript Results section, in the reading order of [`reports/AGENTS.md`](reports/AGENTS.md). Deep reading
 order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each written through the `sci-write-v2` skill.
 - [x] 2026-06-16 — **R06** (Q0/A2 — the alignment signal is real beyond confounds) ✅ written.
 - [x] 2026-06-17 — **R07** (Q1 — plain KD does not preserve alignment, from E003) ✅ written (full loop + panel review pass: counter-argument/premortem/first-principles, opus; DPI reframed to fixed-function-compression ceiling, rate-distortion demoted to analogy, objective-attribution over-reach removed).
@@ -192,6 +192,9 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
   - [x] **Checkpoint 2 / v0.2** (S31, 2026-06-22) — R07 (Q1) folded in + v0.1 register repair (L054/D046); PDF built (tectonic+biber, L056).
   - [ ] **Checkpoint 3** — fold R08 (Q2) once its finding-report is written; then R09–R14 as they land. (References verified + [VERIFY] flags cleared, lit-scout 2026-06-12.)
 
+### Done this session (S49, /meta: agent orientation + README migration; NO science, NO number, NO rung moved)
+- [x] 2026-07-02 — **Made the repo agent-readable and README-clean.** Added root `AGENTS.md -> CLAUDE.md`, `docs/repo-orientation.md`, repo-local `memories/AGENTS.md` plus memory notes, and folder-local `AGENTS.md` replacements for every tracked non-root README. Added the continuous-maintenance rule that changed folders must refresh their nearest `AGENTS.md`. Added a minimal `.agents` layer only for skills/agents (`.agents/skills -> .claude/skills`, `.agents/agents -> .claude/agents`); no command/workflow/hook/settings mapping yet.
+
 ### Done this session (S45, /work Q4 E024: gaze-as-privileged-information → recorded NEGATIVE; Q4 stays ❌)
 - ✅ **E024 ran to a recorded NEGATIVE through the binding positive-control gate.** Substrate converged (ZuCo-NR, gaze-first; dual-opus-reviewed; Lopez-Paz digested). Built the per-word gaze loader (Codex caught a reliability bug → 0.71), embeddings (Qwen2.5-0.5B L12), and the LUPI/MDE harness. **Finding: gaze ⊥ relation-label** (airtight — binary AUC 0.51 p=0.45; multiclass balanced-acc 0.20 p=0.35; rich-35d+RF; within-subject) → 5-arm build correctly NOT triggered. **Structural disqualifier:** 7 paragraphs → no stable split. **Leak (Finding 3):** TSR task-directed gaze predicts relation-type (perm-p 0.003). Panel converged. 8 commits (worktree, merged to main). Record: [`experiments/E024_*.md`](experiments/E024_zuco-lupi-sample-efficiency.md); L069/L070; brain `projects/brain-alignment-e024-gaze-lupi-negative`.
 - [ ] **(Erfan) Consolidate the E024 negative** into the negative-results / methodology spine (the PI→label probe + DPI bound + control battery as the contribution) — a `/write`/analysis task, not `/work`. OneStop NOT pursued (transferability trap).
@@ -201,7 +204,7 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 
 ### Obsidian follow-ups (optional, S44; do opportunistically)
 - ⬜ Targeted hard-wrap reflow of `paper-digest` output (auto-reflow is unsafe globally; needs per-file care).
-- ⬜ Folder-index `README.md` notes for `experiments/`, `timeline/` (their `docs/README` entries are plain text for now).
+- ⬜ Folder-local `AGENTS.md` notes for `experiments/`, `timeline/` (their `docs/AGENTS.md` entries are plain text for now).
 - ⬜ Cosmetic tidy: mixed `+`/`-` bullets, emoji-in-headings.
 
 ### Done this session (S40 — /meta build; NO science, NO number, NO rung moved)
@@ -242,7 +245,7 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 
 ### Done this session (S16 — analysis, 2026-06-16; no science, no rung moved)
 - [x] 2026-06-16 — **Renamed ladder rungs L→Q in execution order + added [`map.md`](map.md)** (legend + journey tree; L↔Q table). D036.
-- [x] 2026-06-16 — **Adopted the finding-report convention (D036):** one durable claim per file, flat append-only `R<NN>` IDs, current-truth-only, Q-tagged, 1:1 with a manuscript Results section; index + reading order in `reports/README.md`. **Retired R05** (frozen for history).
+- [x] 2026-06-16 — **Adopted the finding-report convention (D036):** one durable claim per file, flat append-only `R<NN>` IDs, current-truth-only, Q-tagged, 1:1 with a manuscript Results section; index + reading order in `reports/AGENTS.md`. **Retired R05** (frozen for history).
 - [x] 2026-06-16 — **Wrote R06** (Q0/A2 — the alignment signal is real beyond confounds), formalized as conditional-MI with a math-grounded report convention.
 - [x] 2026-06-16 — **scientific-writing skill:** added a math-voice rule + a "presenting a measured quantity" rule.
 - [x] 2026-06-16 — **reasoning toolkit:** added the **estimand-first lens** + a rule to grow the toolkit ([`docs/references/reasoning-frame.md`](references/reasoning-frame.md)).
@@ -253,7 +256,7 @@ order + concepts + self-checks per report: `docs/analysis-roadmap.md`. Each writ
 - [x] 2026-06-15 — **Designed + documented the three-layer deliverable model (D035)**: reports (md, continuous) → extended manuscript (LaTeX) → public manuscript (LaTeX, frozen `vN`). [`03-methodology.md`](03-methodology.md) "Deliverable layers".
 - [x] 2026-06-15 — **Built the `scientific-writing` skill** (17 files: SKILL.md + 4 references + 6 verifier scripts + 6 LaTeX assets + pointer doc). Panel-hardened ×2; verifiers tested; full `latexmk`+`biber` build passes.
 - [x] 2026-06-15 — **Cloned `academic-research-skills`** (read-only, gitignored, `data/reference-repos/`); swarm-mapped it; adopted patterns C1–C6, declined the heavy plugin machinery.
-- [x] 2026-06-15 — **Fused D035** into `CLAUDE.md`, the doc map, and the manuscript/reports READMEs (removed the false "paper = report" / "no latest copy" lines).
+- [x] 2026-06-15 — **Fused D035** into `CLAUDE.md`, the doc map, and the manuscript/reports folder guides (removed the false "paper = report" / "no latest copy" lines).
 - [x] 2026-06-16 — **Carry-forward (S15→S16): resumed the analysis lane** via the finding-report convention (R05 retired, R06 written).
 - [x] 2026-06-16 — **Mirrored D035/D036 to gbrain** — D035 page (`brain-alignment-deliverable-system`) already current; D036 page (`brain-alignment-naming-convention`) updated with the finding-report convention + R06 + the estimand-first lens (`write_through: written`). The bare `projects/brain-alignment` hub stub still wants enrichment (future).
 

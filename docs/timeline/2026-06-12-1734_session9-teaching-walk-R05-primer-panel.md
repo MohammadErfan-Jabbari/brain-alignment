@@ -33,7 +33,7 @@ This session was a guided Socratic walk-through of the thesis for Erfan ("teach 
 First-principles agent verdict on §2: **GROUNDED-WITH-CAVEAT** — the two load-bearing bounds match the course notes verbatim, arithmetic checks to the digit, all cited course-note paths exist; only the DPI chain head and two over-stated identities needed the fixes above (done).
 
 ## Doc-audit fixes landed
-- [`docs/README.md`](../README.md) map was **missing the [`ladder.md`](../ladder.md) row** (the source-of-truth file) — added.
+- [`docs/AGENTS.md`](../AGENTS.md) map was **missing the [`ladder.md`](../ladder.md) row** (the source-of-truth file) — added.
 - [`docs/00-charter.md`](../00-charter.md) Status said "Activating" — updated to **write-up phase** (program closed 2026-06-12; ladder is current state).
 - Primer: added perplexity + E/R/L/D-number gloss.
 

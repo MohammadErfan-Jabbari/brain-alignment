@@ -10,6 +10,8 @@ aliases: [ladder, status-board]
 
 > **New to the codes?** → **[`map.md`](map.md)** is the visual map (legend + the whole journey as a tree). Quick legend: **Q**n = ladder rung / research question (Q0→Q5, in climb order); **E**nnn = experiment (the evidence); **A**1–A3 = the three assumptions; **D**nnn = decision; **L**nnn = learning. Rungs were renamed **L→Q** on 2026-06-15 (D036, execution-order numbering); pre-2026-06-15 timeline logs still use the old L labels — see [`map.md`](map.md) for the L↔Q table.
 
+> **Latest close:** 2026-07-02 (S49 — `/meta` agent orientation, README migration, minimal `.agents` layer. No experiment, no science number, no rung change; Q0–Q5 stand.)
+
 **Last updated:** 2026-07-02 (S47 — `/write` manuscript cleanup + Figure 6 deferral. Removed weak manuscript handles from the manuscript tree, kept the skill layer unchanged per Erfan, confirmed Figure 6 belongs to §4.3/Q2/E004 and should be finalized with that section. **NO experiment, NO science number, NO rung change — Q0–Q5 stand exactly as S25.**) — prior: S46 — retroactive `/write` + `/review` + `/meta` close for the recent manuscript sessions. Finalized Figure 5, polished Results §4.1/§4.2, clarified Q0 CI-vs-positive-voxel wording, framed Q1 as headroom plus quality caveat, and added D054: wrap commits push to `origin` by default. **NO experiment, NO science number, NO rung change — Q0–Q5 stand exactly as S25.** — prior: S45 — two parallel sessions, both worktree-merged to main. **/work Q4 E024: gaze-as-privileged-information → recorded NEGATIVE, gate-blocked** (LUPI climb on ZuCo-NR; **gaze ⊥ relation-label**, airtight null every readout; reliable gaze = length confound; substrate structurally disqualified, 7 paragraphs; TSR task-directed leak perm-p 0.003; 5-arm build correctly NOT triggered; **Q4/A3 stays ❌**, PI/sample-efficiency axis added to the null; L069/L070). **/write + /meta: rebuilt R07 through `sci-write-v2` as a skill-eval** (converged → [`reports/R07_sci-write-v2-rebuild.md`](reports/R07_sci-write-v2-rebuild.md), a comparison artifact not in the reports ordering; two blind analyses → external/manuscript vs the baseline's internal-report register) **and restored the audience-by-layer "two modes" rule the D048 cutover dropped** — `meta.layer` now drives the reader-model code/gloss policy (**D053**, L071). **NO experiment-driven rung change — Q0–Q5 stand exactly as S25.** — prior: S44 — /meta: **made the repo an Obsidian-native vault (still GitHub-clean).** Ratified the markdown conventions spec (`obsidian-conventions.md`); frontmatter + Related footers on 183 docs; references linkified repo-wide (330 + 268 path-links + 123 citation-links, clickable cites, citations→canonical notes); `.obsidian/` tracked + graph colour-groups; `.claude` exposed via symlinks; links-open-in-new-tab. 6 commits, all pushed. **NO experiment, NO science number, NO rung change — Q0–Q5 stand.** — prior: S43 — /meta: **D048 `/write` cutover EXECUTED — `sci-write-v2` is now the default `/write` engine.** P3-0 committed 12-scenario dress rehearsal (opus fixture-fairness audit caught + rebuilt 4 unfair fixtures) → P3-1 full **94-RUB acceptance suite graded in 7 batches → PASS + the 13 DET green, Erfan-signed** (suite `e49865ea3939f212`; 2 scenarios Erfan-adjudicated, SC-ARG-5 rewritten) → P3-2 cutover (routing repointed scientific-writing→sci-write-v2 across the live surface, old skill tombstoned read-only ~1wk, hook layer cut over: `stop_register_gate` retired so `stop_sw_converge` is the sole convergence gate, `prose_writecheck`→v2 `ai_tell_lint`), D048 amended COMPLETE. 14 commits. **NO experiment, NO science number, NO rung change — Q0–Q5 stand.** — prior: S42 — /meta: **pre-P3 checklist CLEARED — G1 RUB-grading harness BUILT (a–d); G2/G3
 done; dual opus review → READY-FOR-P3.** Built the one hard P3 blocker, the RUB-grading harness (`rub_harness.py` +
 `rub_scenarios.json`, **94 RUB scenarios**, 4 grading mechanisms) in 4 atomic chunks under the three-net loop
@@ -32,7 +34,7 @@ current-truth-only, Q-tagged, each mapping 1:1 to a manuscript Results section).
 Wrote **R06** (Q0/A2 — the alignment signal is real beyond confounds), formalized as conditional-MI with a math-grounded
 report convention; added a "presenting a measured quantity" + math-voice rule to the `scientific-writing` skill and the
 **estimand-first lens** to the reasoning toolkit. **Resume point for the analysis lane = the finding-report set in
-reading order ([`reports/README.md`](reports/README.md)): R06 ✅ done → R07 ✅ done (S19; source E003 provenance-repaired S20) → next R08 (Q2, the lever is real but weak and ppl-confounded).**
+reading order ([`reports/AGENTS.md`](reports/AGENTS.md)): R06 ✅ done → R07 ✅ done (S19; source E003 provenance-repaired S20) → next R08 (Q2, the lever is real but weak and ppl-confounded).**
 — prior: S15 — analysis/infrastructure. Built the three-layer deliverable model (D035) + the `scientific-writing`
 skill; **NO science rung changed**, ladder unchanged from S14.
 — prior: S14 autonomous working — **F1-close (E020 empirical-E[Y|S] ceiling) DONE → bounded-not-closed.**
@@ -55,6 +57,15 @@ redesign** (stronger TRIBE target + ≥3 stories + frame-valid estimand), next f
 **I1 ✅ + I2 ✅ DONE.** I1: E015 → 22 models/6 families, cross-family law corrected to **r≈−0.78** bits-per-byte (was inflated −0.92); Q2 architecture-residual = underpowered hypothesis; L016 tie-in. I2 (E017): full-FT induction **NULL** (real−perm +0.0003, CI [−0.0002,+0.0008], p=0.27) — full-FT fails like LoRA → **method-general lever failure** (converges E013/E011/E013b/E008); matched-ppl contribution banked in E009+E015. **No rung flipped** (reinforces Q3/F1 ❌). I3 data✅ DOWNLOADED (35G, 6 subj). **Forward program landed (Erfan-approved, 100% rule): F1 TRIBE-ceiling (next) → F2 external reproduce-and-control (E019) → F3 I3 powered n=6 → F4 Q2 ext.** Roadmap I1✅→I2✅→I4-P0✅→forward-program. Analysis lane frozen at R05 §9. **Analysis-lane FLAG: manuscript "r≈−0.92" → ≈−0.78; induction now NULL across LoRA+full-FT+objective+capacity.**)
 
 ---
+
+## S49 close note
+
+S49 (`/meta`) made the repo agent-readable and README-clean: root `AGENTS.md` points to `CLAUDE.md`,
+tracked non-root README content was migrated into folder-local `AGENTS.md` files, Claude project memories were
+mirrored under `memories/`, and `.agents/` now exposes only `skills` and `agents` as symlinks to `.claude/`.
+Commands, workflows, hooks, and settings were intentionally left unmapped. **No experiment, no science number,
+no rung change - Q0-Q5 stand.** The official thesis next step remains `/write` Section 4.3 / Q2 and Figure 6
+unless Erfan redirects.
 
 ## S48 close note
 
@@ -104,6 +115,13 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 
 ## Next session (what `/orient` surfaces)
 
+> **S49 DONE -> next still defaults to `/write` Section 4.3 / Q2 and Figure 6 (2026-07-02).** S49 was a
+> `/meta` agent-navigation session: root `AGENTS.md` now points to `CLAUDE.md`; non-root README content was
+> migrated to folder-local `AGENTS.md` files; Claude memories were mirrored into `memories/`; and `.agents/`
+> exposes only `skills` and `agents` by symlink for now. **NO experiment, NO science number, NO rung changed
+> - Q0-Q5 stand.** If the next session continues agent setup, keep it stepwise and do not map commands,
+> workflows, hooks, or settings until Erfan asks.
+>
 > **S48 DONE → next still defaults to `/write` Section 4.3 / Q2 and Figure 6 (2026-07-02).** S48 was a `/work`
 > priority closure: E023a-prime gate ran and blocked decisive E023b/E023f; E005/Qwen averaged-target λ-sweep ran
 > with λ-matched permuted twins; E016 Phase 3 was recorded as no-go until target-cache + runner build gates exist.
@@ -151,8 +169,8 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 > → build); **(b) `/write` R08 (Q2 — the lever is real but weak and ppl-confounded)** as the next finding-report,
 > now running on `sci-write-v2`; **(c) `/interpret`** the parked **E006 voxelwise-CI** item (pseudo-replicated
 > voxel bootstrap; restate at fold level, set `evidence_status`). **50 commits unpushed on main** (Erfan asked to
-> push this session). **Pre-existing open loop:** `docs/manuscript/README.md:34` bare `+0.06` (no cite) — a
-> README, fix on a `/write` touch.
+> push this session). **Pre-existing open loop:** `docs/manuscript/AGENTS.md:34` bare `+0.06` (no cite) — a
+> folder guide, fix on a `/write` touch.
 >
 > **S42 DONE → P3 NEXT (2026-06-25, stance: `/meta` build → next is the P3 cutover, Erfan drives, IRREVERSIBLE).**
 > S42 CLEARED the pre-P3 readiness checklist. **G1** — the RUB-grading harness (`rub_harness.py` +
@@ -227,7 +245,7 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 >
 > **S33 NEXT (2026-06-22, stance: `/write`).** Continue the extended-manuscript deep clean, paragraph by paragraph with Erfan. Only the ABSTRACT is finalized. Next unit = **§1 Introduction ¶1** (split the long sentence-3; fix "rewards representations the brain would predict"; de-echo the abstract opening), then **§1 ¶2** (push the weak-prior/MAP formalism down to Methods §3.3, keep only the intuition + falsifiable prediction in the intro — Erfan leans this way), then §2 (dedup the "empty cell" stated 3×), §3, §4 (name the E006 CI unit in the `tab:vox` caption = bootstrap over the 11,442 reliable voxels). Per finalized paragraph: run `run_checks` + `prose-register-auditor` + taste-reader, then write to the file; the real ≥2-fresh-auditor clean register verdict runs at the END of the pass (the file currently carries an accepted-residual WIP sign-off, not a clean verdict). **NO rung changed; Q0–Q5 stand.**
 >
-> **S31 NEXT (2026-06-22).** Two open lanes, Erfan's call which. **(a) Analysis lane (`/write`):** the next finding-report is **R08 (Q2 — the lever is real but weak and ppl-confounded)**, then fold it at extended-manuscript **checkpoint 3** (R07/Q1 is now consolidated at checkpoint 2). Reading order in `reports/README.md`. **(b) Science lane (`/work`):** unchanged — Q4 sample-efficiency E024 (re-substrate to higher-N gaze → synthetic-PI MDE positive-control first → re-gate → build). **NO rung changed this session; Q0–Q5 stand.** Build the manuscript PDF with tectonic (L056; recipe in `upspeed.md` Key facts).
+> **S31 NEXT (2026-06-22).** Two open lanes, Erfan's call which. **(a) Analysis lane (`/write`):** the next finding-report is **R08 (Q2 — the lever is real but weak and ppl-confounded)**, then fold it at extended-manuscript **checkpoint 3** (R07/Q1 is now consolidated at checkpoint 2). Reading order in `reports/AGENTS.md`. **(b) Science lane (`/work`):** unchanged — Q4 sample-efficiency E024 (re-substrate to higher-N gaze → synthetic-PI MDE positive-control first → re-gate → build). **NO rung changed this session; Q0–Q5 stand.** Build the manuscript PDF with tectonic (L056; recipe in `upspeed.md` Key facts).
 >
 > **S27 NEXT (2026-06-19, stance: `/work` for the science, or `/teach` to test the new tutor).** The operating model was rebuilt this session (eight stances replace working/analysis, D044; how-to-operate = `operating-map.md`) — NO science changed. The live science next-step is UNCHANGED from S25 below: **Q4 sample-efficiency (E024)** — re-substrate to a higher-N gaze corpus → synthetic-PI MDE positive-control FIRST → fix control-5 + per-word loader → re-gate → build. Also: test `/teach` live on a real report (the honesty hook activates on the next `claude` start).
 >
@@ -303,13 +321,13 @@ while Erfan studies in the analysis lane.
   **no rung flips without Erfan.**
 - **📖 ANALYSIS lane (Erfan) — ACTIVE, now the finding-report set (D036):** R05 is retired; the analysis lane writes
   the **finding-reports** (`reports/R06`–`R14`), each a single Q-tagged claim mapping 1:1 to a manuscript Results
-  section, in the reading order of `reports/README.md`. **R06 ✅ (Q0/A2) + R07 ✅ (Q1) done; next = R08 (Q2).** The parked Q3 draft
+  section, in the reading order of `reports/AGENTS.md`. **R06 ✅ (Q0/A2) + R07 ✅ (Q1) done; next = R08 (Q2).** The parked Q3 draft
   (`reports/_pending-Q3_*.md`) reclaims **R09** at read-position 4. Working sessions must NOT edit the analysis-lane
   docs (the finding-reports, manuscript, E005–E014 records).
 
 **The manuscript (v0.9) is content-complete + panel-converged + artifact-complete** ([`docs/manuscript/00_paper-draft-v0.md`](manuscript/00_paper-draft-v0.md)): references verified, cross-refs resolve, gate = READY (thesis/workshop). Headline = the well-powered per-individual NULL + the averaging-confound measurement-validity result; the dose-response (E010/E010b) is hedged, not load-bearing.
 
-**Analysis-session backlog (write the finding-report set, in reading order — `reports/README.md`):**
+**Analysis-session backlog (write the finding-report set, in reading order — `reports/AGENTS.md`):**
 1. **The finding-reports (D036)** — each Q-tagged, current-truth-only, 1:1 with a manuscript Results section, written through the `scientific-writing` skill. Deep reading order, concepts, and self-checks per report live in [`docs/analysis-roadmap.md`](analysis-roadmap.md); source evidence in `docs/experiments/ENNN_*.md` + [`learnings.md`](learnings.md).
    - **R06** (Q0/A2 — signal real beyond confounds) ✅ **written**.
    - **R07** (Q1 — plain KD does not preserve alignment) ✅ **written (S19); consolidated into the extended manuscript at checkpoint 2 (S31, 2026-06-22).** Its source E003's record was provenance-repaired (S20); R07's "matched budget" wording was corrected (S21) to record that the cold arm ran 2 epochs vs the warm arms' 1 (step count not matched — deepens the under-training caveat; no number/verdict changed).

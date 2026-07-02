@@ -26,7 +26,7 @@ tags: [timeline]
 3. **Adopted the finding-report convention + piloted R06** (`adf270a`, `e8e472f`). A report is now **one durable claim
    per file**, flat append-only `R<NN>` IDs (issue-number rule — never renumbered), **current-truth-only** (history
    lives in [`map.md`](../map.md)/`timeline/`/`decisions/`, not in the report), Q-tagged, each mapping **1:1 to a manuscript Results
-   section**. Reading order + Q→report map live in `reports/README.md`. R06 = Q0/A2, "the LM↔brain alignment signal is
+   section**. Reading order + Q→report map live in `reports/AGENTS.md`. R06 = Q0/A2, "the LM↔brain alignment signal is
    real, beyond confounds."
 4. **Retired R05** (`67f1c34`) — frozen for history across the living docs, superseded by the finding-reports + [`map.md`](../map.md).
 5. **Formalized R06 as conditional-MI + a math-grounded report convention** (`d5731ca`); then **scientific voice for the

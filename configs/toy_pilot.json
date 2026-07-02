@@ -1,5 +1,5 @@
 {
-  "_comment": "Toy brain-alignment distillation pilot. Teacher gpt2-medium -> student gpt2. Two arms (baseline lambda_brain=0 vs brain lambda_brain>0) at matched budget; report unique_r2 (encoding R^2 after nuisance subtraction) on a contiguous held-out eval block. See scripts/README.md and docs/03-methodology.md.",
+  "_comment": "Toy brain-alignment distillation pilot. Teacher gpt2-medium -> student gpt2. Two arms (baseline lambda_brain=0 vs brain lambda_brain>0) at matched budget; report unique_r2 (encoding R^2 after nuisance subtraction) on a contiguous held-out eval block. See scripts/AGENTS.md and docs/03-methodology.md.",
 
   "backend": "synthetic",
   "data_dir": null,

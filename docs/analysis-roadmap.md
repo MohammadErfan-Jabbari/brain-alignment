@@ -14,7 +14,7 @@ it, and (4) **produce** the manuscript v1.0 with the S14 scope correction and re
 > **⚠️ UPDATE (S16, 2026-06-16) — the OUTPUT layer changed; the reading/concepts/self-checks below are still valid.**
 > **R05 is retired** (D036). The per-session deliverable is no longer "an R05 section" but a **finding-report**
 > (`reports/R<NN>_*.md`): one Q-tagged claim per file, current-truth-only, each 1:1 with a manuscript Results section.
-> Write them in the reading order of [`reports/README.md`](reports/README.md), through the `sci-write-v2` pipeline. Where a session below
+> Write them in the reading order of [`reports/AGENTS.md`](reports/AGENTS.md), through the `sci-write-v2` pipeline. Where a session below
 > says "Produce: R05 §N", read it as "write/extend the corresponding finding-report":
 >
 > | This roadmap's session | Finding-report (output) | Status |
@@ -32,7 +32,7 @@ it, and (4) **produce** the manuscript v1.0 with the S14 scope correction and re
 > | **Session G** (adversarial review + figures) | review pass + figures | ⬜ |
 >
 > Reading order across the *finding-reports* is by Q-rung climb order (Q0→Q4); the session ordering below is the
-> *pedagogical* order (the conceptual core, Session D, deliberately late). Both are fine — pick reports in the README's
+> *pedagogical* order (the conceptual core, Session D, deliberately late). Both are fine — pick reports in `reports/AGENTS.md`'s
 > reading order, use the matching session below for the deep read + self-checks.
 
 > **How to use this.** Each "Analysis Session" below is a self-contained chunk: a **goal**, what to **read** (in order),

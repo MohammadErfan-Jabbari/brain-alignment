@@ -63,12 +63,27 @@ kept ~1 week as a rollback window).
    **L**, and pre-2026-06-15 timeline logs keep the old L labels (`map.md` has the L↔Q table).
 1. `docs/upspeed.md` — last-session prose: what ran, blockers, key facts.
 2. `docs/tasks.md` — the granular backlog behind and ahead.
-3. Then the relevant deep doc: `docs/00-charter.md` (idea/scope), `docs/01-research-landscape.md`
+3. `docs/repo-orientation.md` — compact filesystem/evidence map for agents entering the repo from a cold start.
+4. `memories/AGENTS.md` — repo-local mirror of Claude's saved collaboration/prose memories; use these for behavior, not for evidence.
+5. Then the relevant deep doc: `docs/00-charter.md` (idea/scope), `docs/01-research-landscape.md`
    (literature + the gap), `docs/02-environment.md` (compute/data/how-to-run),
    `docs/03-methodology.md` (how we work and why).
 
-`docs/` is the persistent research brain — see `docs/README.md` for the full map. If something
+`docs/` is the persistent research brain — see `docs/AGENTS.md` for the full map. If something
 matters past this session, it goes in `docs/`, not just in chat.
+
+**Folder `AGENTS.md` files are live autoload contracts.** The root `AGENTS.md` is a symlink to this file; subfolder
+`AGENTS.md` files carry the local map, conventions, commands, and traps an agent should load when working there.
+Keep them current continuously: whenever you change a folder's structure, workflow, run commands, evidence rules,
+or recurring gotchas, update the nearest relevant `AGENTS.md` in the same change. Do not create non-root
+`README.md` files; root `README.md` is the only README. During `/wrap`, explicitly check whether any changed folder's
+`AGENTS.md` is now stale, and fix it or record the follow-up.
+
+**`.agents/` is a minimal compatibility layer, not a second apparatus.** See `.agents/AGENTS.md`.
+For now it only exposes `.agents/skills -> .claude/skills` and `.agents/agents -> .claude/agents`.
+If `.claude/skills` or `.claude/agents` changes shape, keep the symlinked `.agents` surface valid in
+the same change. Do not map commands, workflows, hooks, or settings into `.agents/` until Erfan asks
+for that step explicitly.
 
 **Three external sources feed the thesis — use them, don't re-derive from them:** (1) the **papers**
 (`docs/literature/canonical/`, frontier map in `01-research-landscape.md`); (2) the **datasets**

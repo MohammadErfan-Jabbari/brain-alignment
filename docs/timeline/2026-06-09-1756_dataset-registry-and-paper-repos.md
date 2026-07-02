@@ -19,7 +19,7 @@ Build a durable, broad-coverage dataset watchlist and a local reference corpus o
 Recalled the prior session ("Establishment of Research Reports and Literature Synthesis"), confirming R01/R02 reports and the no-hard-wrap prose convention were the last committed work. Picked up from that baseline.
 
 **2. Built [`docs/05-dataset-registry.md`](../05-dataset-registry.md) — living dataset watchlist.**
-Catalogued every dataset that might be relevant (neural / behavioral / NLP-baseline). 11 neural/behavioral datasets received full feature profiles: modality, subjects, stimuli, license, access, size, noise ceiling, use-case fit, status. Low-priority/out-of-scope candidates got compact entries. Registered the file in [`docs/README.md`](../README.md)'s map.
+Catalogued every dataset that might be relevant (neural / behavioral / NLP-baseline). 11 neural/behavioral datasets received full feature profiles: modality, subjects, stimuli, license, access, size, noise ceiling, use-case fit, status. Low-priority/out-of-scope candidates got compact entries. Registered the file in [`docs/AGENTS.md`](../AGENTS.md)'s map.
 
 Research method: 8 parallel Sonnet subagents did direct page/paper fetches for the 6 datasets not already covered by [`04-data-benchmarks.md`](../04-data-benchmarks.md). Strict accuracy rubric — NOT-STATED for genuinely unknown fields, all sources cited. The 4 committed benchmarks (LeBel, Narratives ds002345, Pereira, Le Petit Prince) cross-reference `04` instead of duplicating its power analysis.
 

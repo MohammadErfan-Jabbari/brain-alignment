@@ -6,44 +6,53 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-02 (S48 - `/work` priority closure: E023 gate, E005 λ-sweep, E016 Phase-3 no-go. **New bounded science numbers, NO rung change - Q0-Q5 stand exactly as S25.**)
+**Last updated:** 2026-07-02 (S49 - `/meta` agent orientation, README migration, minimal `.agents` layer. No experiment, no science number, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
 ## Current state
 
-S48 completed the three requested `/work` priorities end-to-end under gates:
+S49 was a repo-hygiene `/meta` session. It made the repository easier for agents to navigate without changing the
+scientific state.
 
-1. **E023a-prime gate ran.** `scripts/e023_slope_gate.py` reads `outputs/E015_expand/E015_expand_merged.json` and writes `outputs/E023/e023a_slope_gate.json`. Result: Pythia has one lower-quality pilot flat pair (`pythia-1b -> pythia-410m`), Qwen has no flat pair, and `ready_for_decisive_e023b_training=false`. Decision: do not run decisive E023b/E023f saturated KD-vs-LMFT training.
-2. **E005/Qwen averaged-target λ-sweep ran.** Patched `run_brain_lever.py` so `--lambda-grid` creates λ-matched permuted twins with `null_key`/`perm_draw` and paired real-minus-perm summaries. Ran Qwen2.5-0.5B with Qwen2.5-1.5B teacher, λ ∈ {1,3,10,30}, 3 seeds × 5 folds. Outputs: `outputs/E005_lambda_sweep_avg_Qwen.json`, log, and `outputs/E005_lambda_sweep_avg_Qwen_analysis.json`.
-3. **E016 Phase-3 preflight closed as NO-GO.** The valid current action is a PRD/build gate, not multi-day training: no dense TRIBE KD-corpus target cache exists, no matched-ppl three-arm Phase-3 runner exists, and the Phase-2 ceiling artifact remains walled/inconclusive.
+The tracked repo now has root `README.md` as the only README. Folder-local guidance lives in `AGENTS.md` files.
+Root `AGENTS.md` points to `CLAUDE.md`, and subfolder `AGENTS.md` files carry local maps, conventions, commands,
+and traps for future agents.
 
-No ladder rung changes. The λ-sweep is averaged-target context only, not per-individual evidence.
+No experiment ran, no result was interpreted, and no ladder rung changed. Q0-Q5 stand exactly as before.
 
 ## What was done
 
-- Added `scripts/e023_slope_gate.py` and recorded the E023 S48 gate update in `docs/experiments/E023_kd-alignment-objective-vs-quality.md`.
-- Fixed `scripts/run_brain_lever.py` λ-grid controls: λ-specific permuted twins, stable non-colliding permutation seed, `perm_draw`, paired `vs_matched_perm`, and explicitly unpaired legacy p95 labels.
-- Added `scripts/analyze_lambda_sweep.py` with stale-output guards for old multi-λ outputs lacking `null_key`/`perm_draw`.
-- Ran smoke tests and the full Qwen λ-sweep; recorded the fold-level table in `docs/experiments/E005_alignment-guided-kd-tradeoff.md`.
-- Marked the opportunistic λ-sweep complete in `docs/tasks.md`.
-- Recorded the E016 Phase-3 no-go / PRD-before-compute gate in `docs/experiments/E016_tribe-synthetic-brain-targets.md`.
+- Added root `AGENTS.md -> CLAUDE.md`.
+- Added `docs/repo-orientation.md` with a compact repo map, evidence trail, first-read order, and coding conventions.
+- Mirrored Claude's saved project memories into `memories/*.md`, indexed by `memories/AGENTS.md`.
+- Migrated every tracked non-root README into the nearest useful `AGENTS.md`, then removed those non-root README files.
+- Updated README links and folder links across docs/configs/timeline records to point at `AGENTS.md` or the new
+  orientation note.
+- Added a continuous-maintenance rule to `CLAUDE.md`, `/wrap`, and `session-logger`: when folder structure or workflow
+  changes, refresh the nearest folder `AGENTS.md`.
+- Added a deliberately minimal `.agents` layer:
+  `.agents/AGENTS.md`, `.agents/skills -> ../.claude/skills`, and `.agents/agents -> ../.claude/agents`.
+  Commands, workflows, hooks, and settings are not mapped yet.
 
 ## What to do next
 
-- Official next step still defaults to `/write` Section 4.3 (Q2 / E004) and Figure 6, using the honest fold-level inference unit.
-- If returning to `/work`, the valid next E023 action is a dedicated lower-quality Pythia pilot runner/power gate, not decisive saturated E023b/E023f training.
-- If returning to E016 Phase 3, first build the dense TRIBE target cache + matched-ppl three-arm runner + smoke/reviewer gate.
+- Official thesis next step remains `/write` Section 4.3 / Q2 and Figure 6, unless Erfan redirects.
+- If continuing agent setup, keep it stepwise: test the minimal `.agents` skills/agents surface before mapping commands,
+  workflows, hooks, or settings.
+- When editing any folder, keep the nearest `AGENTS.md` fresh in the same change.
 
 ## Blockers / open loops
 
-- E023 decisive training is gate-blocked: no same-lineage high-quality/saturated flat pair is supported by the E015-expanded data.
-- E016 Phase 3 is build-blocked: no dense KD-corpus TRIBE targets and no valid runner yet.
-- The λ-sweep does not change Q3/F1: it is averaged-target only; near-rate λ=1/3/10 do not survive fold-level CIs; λ=30 is fold-level-positive but degrades PPL materially.
+- Generic link checking still reports pre-existing placeholder/example links unrelated to the README migration
+  (`references/codex-usage.md`, `rel/path.md`, `path.png`, and similar examples).
+- Ignored third-party/downloaded README files may still exist under gitignored data/artifact directories; the tracked
+  repo policy is root README only.
+- The wrap start hook's `start_sha` predates several committed sessions, so `start_sha..HEAD` is broader than S49.
+  Treat `git status --short` as the practical S49 working-tree inventory.
 
 ## Key facts
 
-- E005 λ-sweep fold-level headline: λ=3 is the best near-rate mean (`ppl=51.9`, Δ=+0.0046, fold-CI [-0.0021,+0.0112]) but fold-4/control dominated; λ=30 is the only fold-level-positive arm (`ppl=67.4`, Δ=+0.0043, vs perm +0.0060) and is a rate-costly trade.
-- `outputs/E005_lambda_sweep_avg_Qwen_analysis.json` is the honest inference artifact; the flat 15-cell bootstrap in the runner summary is descriptive.
-- `outputs/E023/e023a_slope_gate.json` is the E023 gate artifact.
-- Git close rule D054 remains active: scoped commit first, push to `origin` at wrap by default.
+- `.agents/` is a compatibility layer, not a second apparatus.
+- `.claude/skills` and `.claude/agents` remain canonical; `.agents/skills` and `.agents/agents` are symlinks.
+- The root README rule is now explicit: do not create non-root `README.md` files.

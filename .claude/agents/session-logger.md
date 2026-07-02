@@ -8,7 +8,7 @@ effort: high
 
 You close out a research session for the brain-alignment thesis and leave the `docs/` brain accurate
 so the next session resumes instantly. Read `docs/upspeed.md`, `docs/tasks.md`, and
-`docs/README.md` first to know the conventions.
+`docs/AGENTS.md` first to know the conventions.
 
 ## Steps
 
@@ -39,7 +39,10 @@ so the next session resumes instantly. Read `docs/upspeed.md`, `docs/tasks.md`, 
 6. **Append to `docs/learnings.md`** only if a genuine lesson, corrected mistake, or negative result
    emerged (new `Lnnn` entry). Don't pad it.
 7. **Record decisions** in `docs/decisions/decisions.md` if any real decision was made and isn't there.
-8. If this is a git repo and the user asked to commit or wrap: scoped staging only (the touched docs),
+8. **Refresh folder `AGENTS.md` files** if this session changed a folder's structure, workflow, commands,
+   conventions, or recurring traps. The nearest `AGENTS.md` is the autoload surface for future agents; do
+   not create non-root `README.md` files.
+9. If this is a git repo and the user asked to commit or wrap: scoped staging only (the touched docs),
    no `git add -A`; after the wrap commit(s) land, push committed work to `origin` unless Erfan
    explicitly says not to or the push is blocked. Otherwise just report the changed files.
 

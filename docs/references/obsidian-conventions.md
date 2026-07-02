@@ -65,7 +65,7 @@ Rules:
 3. **Evidence cites are clickable:** `[E003]` → `[E003](../experiments/E003_*.md)`. The `[E003]` form is preserved (the honesty checker matches it regardless of the trailing `(path)`), so the cite still validates *and* navigates.
 4. **Literature citations link to the canonical note on first mention** in a doc: `[Negi et al., 2025](../literature/canonical/negi-2025_*.md)`. A "Surname YYYY" mention left bare when the canonical note exists is a defect.
 5. **First meaningful mention per doc** gets the link (plus links in tables, lists, and the `## Related` footer). Don't linkify every one of dozens of inline repeats — that is a wall of links. Backticks remain correct for true non-navigable literals (a shell command, a config key, a filename with no page).
-6. **Never link a bare `folder/`** as a navigation target — it's a dead click in Obsidian. Link to the folder's index note (`[reports](../reports/README.md)`) or leave it as plain text if no index exists.
+6. **Never link a bare `folder/`** as a navigation target — it's a dead click in Obsidian. Link to the folder's `AGENTS.md` note (`[reports](../reports/AGENTS.md)`) or leave it as plain text if no index exists.
 7. External URLs are normal Markdown links; never bare URLs.
 
 ## 5. Callouts — the 5 cross-compatible types only
@@ -100,7 +100,7 @@ Allowed and cross-compatible: standard Markdown, GFM tables/task-lists/footnotes
 
 The connected graph comes from this pattern (what centres `awesome-llm-apps`):
 
-- `map.md` is the master hub; every `README.md` is its folder's hub (links down to its notable files).
+- `map.md` is the master hub; `AGENTS.md` is the folder-local agent hub (links down to notable files). The only README is the root `README.md`.
 - Every substantive note ends with a `## Related` footer linking *up* to its hub and *across* to key siblings:
 
   ```markdown
@@ -152,10 +152,10 @@ For `docs/reports/*.md` and `docs/manuscript/`: the container rules apply (front
 | escape `\|` inside table cells; equal cell counts | unescaped `|` in a cell |
 | plain heading text, one H1 | emoji in headings; multiple H1 |
 | commas / parens / sentences | em-dashes in new prose |
-| link to a folder's `README.md` | link a bare `folder/` |
+| link to a folder's `AGENTS.md` | link a bare `folder/` |
 | standard Markdown links | `[[wikilinks]]`, `![[embeds]]`, `==highlight==`, `%%comments%%` |
 
 ## Related
-- [`README.md`](../README.md) — the docs map
+- [`AGENTS.md`](../AGENTS.md) — the docs map
 - [`map.md`](../map.md) — the master hub / code system
 - [`03-methodology.md`](../03-methodology.md) — how we work (deliverable layers)

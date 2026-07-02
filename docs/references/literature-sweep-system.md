@@ -23,7 +23,7 @@ Layered because **no single source is authoritative** (verified live: OpenAlex's
 | `openreview_papers.py <venue> <year>` | ICLR (all) + NeurIPS (2021+): abstracts + PDF urls + decisions directly |
 | `enrich_abstracts.py <jsonl>` | Adds abstracts to DBLP rows via OpenAlex → Crossref → Semantic-Scholar (idempotent, cached, backs off on 429) |
 | `fetch_pdf.py <jsonl> [--limit N]` | Resolves + downloads PDFs: OpenReview → arXiv → OpenAlex OA → DOI landing |
-| `README.md` | usage + data layout + full-sweep command examples |
+| `scripts/litsweep/AGENTS.md` | usage + data layout + full-sweep command examples |
 
 **Verified live (S22):** DBLP NeurIPS'23 = 3,540 papers; ICML'23 = 1,828; OpenReview ICLR'24 = 2,260 with abstracts+PDFs; enrichment hit-rate ~50% on DBLP NeurIPS rows (no DOIs there — venues with DOIs do better); 4 real PDFs downloaded (OpenReview + arXiv). Data lands under `data/papers/litsweep/<venue>/<year>/` (gitignored).
 
