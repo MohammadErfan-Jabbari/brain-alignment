@@ -57,6 +57,8 @@ aliases: [top-venue-frontier-refresh-2026-07-02, venue-refresh]
 
 4. **Scout the ACL 2026 ECoG-tuning repo only after E016 clears or fails.** It is the highest-upside modality pivot, but currently not the cheapest path.
 
+The result-contingent paper decision tree is now frozen in [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md).
+
 ## Post-CoNLL experiment logic
 
 The full CoNLL read changes the burden of proof but not the next run. E016 Phase 3 remains the cheapest live gateway because it asks the one question CoNLL, Bilgin, Negi, Moussa, and Oota still do not answer: what happens at a fixed student budget under KD?
@@ -85,6 +87,7 @@ Interpret E016 asymmetrically:
 
 - [`ladder.md`](ladder.md) - canonical project status
 - [`expansion-program.md`](expansion-program.md) - standing top-venue expansion program
+- [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md) - result-contingent paper plan
 - [`01-research-landscape.md`](01-research-landscape.md) - literature map
 - [`E016`](experiments/E016_tribe-synthetic-brain-targets.md) - TRIBE synthetic target experiment
 - [`E023`](experiments/E023_kd-alignment-objective-vs-quality.md) - objective-vs-quality experiment
