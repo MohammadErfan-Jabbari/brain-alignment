@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import time
 from dataclasses import asdict
@@ -98,6 +99,12 @@ def lambda_grid(spec: str) -> list[float]:
     return vals
 
 
+def validate_target_label(label: str) -> str:
+    if not re.fullmatch(r"[A-Za-z0-9_]+", label):
+        raise ValueError("--target-label must contain only letters, digits, and underscores")
+    return label
+
+
 def jsonable_args(args: argparse.Namespace) -> dict:
     out = {}
     for key, value in vars(args).items():
@@ -108,6 +115,7 @@ def jsonable_args(args: argparse.Namespace) -> dict:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--target-cache", type=Path, required=True)
+    ap.add_argument("--target-label", default="tribe", help="arm prefix for target/permuted arms")
     ap.add_argument("--heldout-target-cache", type=Path, default=None)
     ap.add_argument("--heldout-corpus", type=Path, default=CORPUS_HELDOUT)
     ap.add_argument("--out", type=Path, default=ROOT / "outputs/E016_tribe/phase3/phase3_smoke.json")
@@ -127,6 +135,7 @@ def main():
 
     t0 = time.time()
     device = P.pick_device()
+    target_label = validate_target_label(args.target_label)
     train_cache = load_cache(args.target_cache)
     train_texts = train_cache["texts"]
     Y = train_cache["targets"]
@@ -162,9 +171,9 @@ def main():
     for seed in seeds:
         arm_specs: list[tuple[str, float, np.ndarray | None]] = [("kd_only", 0.0, None)]
         for lam in lams:
-            arm_specs.append(("tribe_mse", lam, Yz))
+            arm_specs.append((f"{target_label}_mse", lam, Yz))
             Yperm = BL.block_permute(Yz, n_blocks=min(args.perm_blocks, max(1, len(Yz))), seed=seed)
-            arm_specs.append(("tribe_perm", lam, Yperm))
+            arm_specs.append((f"{target_label}_perm", lam, Yperm))
         for arm, lam, target in arm_specs:
             print(f"== seed={seed} arm={arm} lambda={lam} ==", flush=True)
             P.set_seed(seed)
@@ -219,6 +228,7 @@ def main():
         "student": args.student,
         "device": device,
         "target_cache": str(args.target_cache),
+        "target_label": target_label,
         "heldout_target_cache": str(args.heldout_target_cache) if args.heldout_target_cache else None,
         "target_cache_meta": train_cache["metadata"],
         "config": jsonable_args(args),

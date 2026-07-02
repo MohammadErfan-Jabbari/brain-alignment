@@ -612,6 +612,17 @@ Design implication:
 
 **Status:** design interpretation only. No new science number, no Phase-3 result, no rung flip.
 
+### Step 18 - Matched-information non-brain control tooling added (2026-07-02)
+Added `scripts/build_text_feature_target_cache.py` to support the post-CoNLL control implied by Step 17. The builder creates target caches with the same schema as the TRIBE cache, but the targets are frozen LM hidden states projected to the requested dimensionality and therefore contain only stimulus-text information, not brain-derived predictions. The Phase-3 runner now accepts `--target-label`, so the same KD-only / target-MSE / target-permuted design can be run as either the default `tribe_mse`/`tribe_perm` comparison or a `textfeat_mse`/`textfeat_perm` matched-information control.
+
+Verification:
+- `uv run python -m py_compile scripts/build_text_feature_target_cache.py scripts/run_tribe_phase3.py scripts/analyze_tribe_phase3.py` passed.
+- Existing default analyzer behavior remains backward compatible on `phase3_mini_real_gpt2_n256_s0.json`: default arms still resolve to `tribe_mse` and `tribe_perm`, and the smoke artifact remains `science_ready=false`.
+- A relabeled temporary smoke artifact with `target_label=textfeat` resolved to `textfeat_mse` and `textfeat_perm`, kept `arm_seed_grid_complete=true`, and still returned `science_ready=false`.
+- A tiny text-feature cache smoke completed with `distilgpt2`, 4 train items, and 16 dimensions at `outputs/E016_tribe/kd_targets/text_feature/smoke_train_textfeat_d16.npz`. This is a plumbing check only.
+
+**Status:** matched-information control infrastructure only. No new Phase-3 science result, no top-tier claim, no rung flip. If the active TRIBE full run is positive, this control is the next required comparison before treating the gain as brain-specific rather than a dense auxiliary-target effect.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

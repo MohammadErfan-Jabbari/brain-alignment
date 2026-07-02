@@ -26,6 +26,7 @@ This folder holds experiment runners, data adapters, analysis scripts, literatur
 | `data_adapters.py` / `lebel_adapter.py` | Dataset loading and normalization. |
 | `run_*.py` | Experiment runners. |
 | `analyze_*.py` / `reanalyze_*.py` | Post-run analysis and robustness checks. |
+| `build_text_feature_target_cache.py` | E016 matched-information control target builder: frozen LM text features projected into the Phase-3 target-cache schema; pair with `run_tribe_phase3.py --target-label textfeat`. |
 | `e016_phase3_status.py` | Read-only monitor for the long E016 Phase-3 pipeline; use `uv run python scripts/e016_phase3_status.py --pretty` before hand-parsing the log. |
 | `figures/` | Figure generation scripts. |
 | `litsweep/` | Literature search and PDF utilities. See `litsweep/AGENTS.md`. |

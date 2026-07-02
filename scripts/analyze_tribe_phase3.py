@@ -53,6 +53,11 @@ def rel_delta(a: float, b: float) -> float:
     return abs(a - b) / max(abs(b), 1e-8)
 
 
+def arm_names(config: dict) -> tuple[str, str, str]:
+    target_label = str(config.get("target_label") or "tribe")
+    return target_label, f"{target_label}_mse", f"{target_label}_perm"
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("run_json", type=Path)
@@ -68,6 +73,7 @@ def main():
     seeds = sorted({int(r["seed"]) for r in rows})
     lams = sorted({float(r["lambda_brain"]) for r in rows if r["arm"] != "kd_only"})
     config = data.get("config", {})
+    target_label, target_arm, perm_arm = arm_names(config)
     expected_seeds = parse_int_csv(config.get("seeds")) or seeds
     expected_lams = parse_float_csv(config.get("lambda_brain_grid")) or lams
     kd = by_seed(rows, "kd_only")
@@ -79,6 +85,9 @@ def main():
         "observed_seeds": seeds,
         "expected_lambdas": expected_lams,
         "observed_lambdas": lams,
+        "target_label": target_label,
+        "target_arm": target_arm,
+        "permuted_arm": perm_arm,
         "expected_rows": len(expected_seeds) * (1 + 2 * len(expected_lams)),
         "observed_rows": len(rows),
         "target_dim": rows[0].get("target_dim") if rows else None,
@@ -104,8 +113,8 @@ def main():
     expected_grid = [(seed, "kd_only", 0.0) for seed in expected_seeds]
     for seed in expected_seeds:
         for lam in expected_lams:
-            expected_grid.append((seed, "tribe_mse", float(lam)))
-            expected_grid.append((seed, "tribe_perm", float(lam)))
+            expected_grid.append((seed, target_arm, float(lam)))
+            expected_grid.append((seed, perm_arm, float(lam)))
     missing_rows = [
         {"seed": seed, "arm": arm, "lambda_brain": lam}
         for seed, arm, lam in expected_grid
@@ -141,34 +150,39 @@ def main():
     all_paired_common_seeds = True
     has_target_metric = bool(rows) and all(r.get("target_r2") is not None for r in rows)
     for lam in expected_lams:
-        real = by_seed(rows, "tribe_mse", lam)
-        perm = by_seed(rows, "tribe_perm", lam)
-        common = sorted(set(kd) & set(real) & set(perm))
+        target = by_seed(rows, target_arm, lam)
+        perm = by_seed(rows, perm_arm, lam)
+        common = sorted(set(kd) & set(target) & set(perm))
         common_complete = common == expected_seeds
         all_paired_common_seeds = all_paired_common_seeds and common_complete
-        ppl_real, ppl_perm = [], []
-        r2_real_perm, r2_real_kd = [], []
+        ppl_target, ppl_perm = [], []
+        r2_target_perm, r2_target_kd = [], []
         for seed in common:
-            ppl_real.append(rel_delta(real[seed]["perplexity"], kd[seed]["perplexity"]))
+            ppl_target.append(rel_delta(target[seed]["perplexity"], kd[seed]["perplexity"]))
             ppl_perm.append(rel_delta(perm[seed]["perplexity"], kd[seed]["perplexity"]))
-            if real[seed].get("target_r2") is not None and perm[seed].get("target_r2") is not None:
-                r2_real_perm.append(real[seed]["target_r2"] - perm[seed]["target_r2"])
-                r2_real_kd.append(real[seed]["target_r2"] - kd[seed]["target_r2"])
+            if target[seed].get("target_r2") is not None and perm[seed].get("target_r2") is not None:
+                r2_target_perm.append(target[seed]["target_r2"] - perm[seed]["target_r2"])
+                r2_target_kd.append(target[seed]["target_r2"] - kd[seed]["target_r2"])
         lam_key = f"lambda{lam:g}"
         ppl_ok = (
             common_complete
-            and max(ppl_real or [float("inf")]) <= args.ppl_rel_tolerance
+            and max(ppl_target or [float("inf")]) <= args.ppl_rel_tolerance
             and max(ppl_perm or [float("inf")]) <= args.ppl_rel_tolerance
         )
         matched_all = matched_all and ppl_ok
         summary["paired"][lam_key] = {
             "common_seeds": common,
             "common_seeds_complete": bool(common_complete),
-            "ppl_rel_delta_real_vs_kd": mean_ci(ppl_real),
+            "target_arm": target_arm,
+            "permuted_arm": perm_arm,
+            "ppl_rel_delta_target_vs_kd": mean_ci(ppl_target),
+            "ppl_rel_delta_real_vs_kd": mean_ci(ppl_target),
             "ppl_rel_delta_perm_vs_kd": mean_ci(ppl_perm),
             "ppl_matched": ppl_ok,
-            "target_r2_real_minus_perm": mean_ci(r2_real_perm),
-            "target_r2_real_minus_kd": mean_ci(r2_real_kd),
+            "target_r2_target_minus_perm": mean_ci(r2_target_perm),
+            "target_r2_target_minus_kd": mean_ci(r2_target_kd),
+            "target_r2_real_minus_perm": mean_ci(r2_target_perm),
+            "target_r2_real_minus_kd": mean_ci(r2_target_kd),
         }
 
     n_train = int(summary["n_train"] or 0)
