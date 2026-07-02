@@ -654,6 +654,16 @@ Verification:
 
 **Status:** monitoring utility only. No Phase-3 result, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 22 - Status helper made cache-stage-aware before heldout build (2026-07-03)
+Hardened `scripts/e016_phase3_status.py` before the active run reaches the heldout-cache stage. The helper now parses train and heldout cache-builder sections separately, reports `active_cache_stage`, uses the correct denominator for each stage (`95999` train items, `1999` heldout items), and attaches ETA fields only to the active cache stage. This prevents heldout `=== batch a:b ===` lines from being misread as train progress after the train cache finishes.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_phase3_status.py` passed.
+- `git diff --check` passed.
+- `uv run python scripts/e016_phase3_status.py --pretty` reported `active_cache_stage=train`, train latest batch `84192:84224`, lower-bound train progress `84224/95999`, and no heldout/run/analyzer artifact yet.
+
+**Status:** monitoring correction only. No Phase-3 result, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

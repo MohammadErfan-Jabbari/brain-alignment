@@ -87,18 +87,50 @@ def parse_etime_seconds(spec: str) -> int | None:
     return day_part * 86400 + hours * 3600 + minutes * 60 + seconds
 
 
-def add_train_eta(log: dict, processes: list[dict]) -> None:
-    progress = log.get("train_cache_progress")
+def section_batches(text: str, start_marker: str, end_markers: list[str]) -> list[tuple[int, int]]:
+    start_idx = text.find(start_marker)
+    if start_idx < 0:
+        return []
+    end_candidates = [idx for marker in end_markers if (idx := text.find(marker, start_idx + 1)) >= 0]
+    end_idx = min(end_candidates, default=len(text))
+    section = text[start_idx:end_idx]
+    return [(int(a), int(b)) for a, b in re.findall(r"=== batch (\d+):(\d+) ===", section)]
+
+
+def progress_rec(batches: list[tuple[int, int]], expected_items: int) -> dict | None:
+    if not batches:
+        return None
+    start, end = batches[-1]
+    return {
+        "latest_batch": {"start": start, "end": end},
+        "items_done_lower_bound": min(end, expected_items),
+        "items_expected": expected_items,
+        "fraction": round(min(end, expected_items) / expected_items, 6),
+    }
+
+
+def add_active_eta(log: dict, processes: list[dict]) -> None:
+    stage = log.get("active_cache_stage")
+    if stage not in {"train", "heldout"}:
+        return
+    progress = log.get(f"{stage}_cache_progress")
     if not progress:
         return
     fraction = float(progress.get("fraction") or 0.0)
     if fraction <= 0.0 or fraction >= 1.0:
         return
+    active_cache = TRAIN_CACHE if stage == "train" else HELDOUT_CACHE
     elapsed_options = [
         parse_etime_seconds(str(proc.get("elapsed", "")))
         for proc in processes
-        if str(RUN_SCRIPT) in str(proc.get("cmd", "")) or str(TRAIN_CACHE) in str(proc.get("cmd", ""))
+        if str(active_cache) in str(proc.get("cmd", ""))
     ]
+    if not elapsed_options and stage == "train":
+        elapsed_options = [
+            parse_etime_seconds(str(proc.get("elapsed", "")))
+            for proc in processes
+            if str(RUN_SCRIPT) in str(proc.get("cmd", ""))
+        ]
     elapsed = max([value for value in elapsed_options if value is not None], default=None)
     if elapsed is None or elapsed <= 0:
         return
@@ -108,7 +140,7 @@ def add_train_eta(log: dict, processes: list[dict]) -> None:
     items_per_hour = items_done / (elapsed / 3600.0)
     estimated_total = elapsed / fraction
     eta = max(0, int(round(estimated_total - elapsed)))
-    progress["elapsed_s"] = int(elapsed)
+    progress["active_elapsed_s"] = int(elapsed)
     progress["items_per_hour_lower_bound"] = round(items_per_hour, 2)
     progress["eta_s_lower_bound"] = eta
     progress["eta_utc_lower_bound"] = (datetime.now(timezone.utc) + timedelta(seconds=eta)).isoformat()
@@ -124,7 +156,7 @@ def discover_processes() -> list[dict]:
             continue
         pid, elapsed, stat, cmd = parts
         is_parent = str(RUN_SCRIPT) in cmd
-        is_builder = "tribe_predict_kd_corpus.py" in cmd and str(TRAIN_CACHE) in cmd
+        is_builder = "tribe_predict_kd_corpus.py" in cmd and (str(TRAIN_CACHE) in cmd or str(HELDOUT_CACHE) in cmd)
         if is_parent or is_builder:
             rows.append({"pid": int(pid), "elapsed": elapsed, "stat": stat, "cmd": cmd})
     return rows
@@ -135,15 +167,6 @@ def log_rec(path: Path, expected_train: int) -> dict:
     if not path.exists():
         return rec
     text = path.read_text(encoding="utf-8", errors="replace")
-    batches = [(int(a), int(b)) for a, b in re.findall(r"=== batch (\d+):(\d+) ===", text)]
-    if batches:
-        start, end = batches[-1]
-        rec["latest_batch"] = {"start": start, "end": end}
-        rec["train_cache_progress"] = {
-            "items_done_lower_bound": min(end, expected_train),
-            "items_expected": expected_train,
-            "fraction": round(min(end, expected_train) / expected_train, 6),
-        }
     markers = [
         "Building full train TRIBE cache",
         "Building full heldout TRIBE cache",
@@ -153,6 +176,34 @@ def log_rec(path: Path, expected_train: int) -> dict:
         "E016 full Phase-3 pipeline complete",
     ]
     rec["markers_seen"] = [m for m in markers if m in text]
+    train_progress = progress_rec(
+        section_batches(
+            text,
+            "Building full train TRIBE cache",
+            ["Building full heldout TRIBE cache", "Validating full caches"],
+        ),
+        expected_train,
+    )
+    heldout_progress = progress_rec(
+        section_batches(
+            text,
+            "Building full heldout TRIBE cache",
+            ["Validating full caches", "Running full GPT-2 Phase-3 arms"],
+        ),
+        HELDOUT_EXPECTED,
+    )
+    if train_progress:
+        rec["train_cache_progress"] = train_progress
+    if heldout_progress:
+        rec["heldout_cache_progress"] = heldout_progress
+    if "Building full heldout TRIBE cache" in rec["markers_seen"] and "Validating full caches" not in rec["markers_seen"]:
+        rec["active_cache_stage"] = "heldout"
+    elif "Building full train TRIBE cache" in rec["markers_seen"] and "Building full heldout TRIBE cache" not in rec["markers_seen"]:
+        rec["active_cache_stage"] = "train"
+    if rec.get("active_cache_stage"):
+        active = rec.get(f"{rec['active_cache_stage']}_cache_progress")
+        if active:
+            rec["latest_batch"] = active["latest_batch"]
     rec["tail"] = text.splitlines()[-12:]
     return rec
 
@@ -205,7 +256,7 @@ def main() -> None:
     log = log_rec(args.log, TRAIN_EXPECTED)
     explicit_pids = [pid for pid in [args.parent_pid, args.builder_pid] if pid is not None]
     processes = ps_rec(explicit_pids) if explicit_pids else discover_processes()
-    add_train_eta(log, processes)
+    add_active_eta(log, processes)
     payload = {
         "checked_at_utc": datetime.now(timezone.utc).isoformat(),
         "phase": infer_phase(train, heldout, run, analysis, log, processes),
