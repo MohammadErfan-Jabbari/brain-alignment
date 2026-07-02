@@ -55,6 +55,11 @@ aliases: [top-venue-frontier-refresh-2026-07-02, venue-refresh]
 
 4. **Scout the ACL 2026 ECoG-tuning repo only after E016 clears or fails.** It is the highest-upside modality pivot, but currently not the cheapest path.
 
+## Scout updates
+
+- **CoNLL 2026 brain-data-adds target.** The ACL page and abstract are available, and the associated GitHub organization lists [`bridge-ai-neuro/lm-brain-tuning`](https://github.com/bridge-ai-neuro/lm-brain-tuning), but on 2026-07-02 the public repo contained only a one-line README. OpenReview PDF access was browser-challenge blocked in this environment, and the ACL PDF fetch failed through the browser tool. Treat this as abstract-level evidence until a full PDF or usable code checkout is available.
+- **ACL 2026 ECoG-tuning pivot.** The [`Mochizuki-BUPT/ECoG-Tuning-main`](https://github.com/Mochizuki-BUPT/ECoG-Tuning-main) repo is public, MIT-licensed, and contains trainer code plus expected preprocessing formats. It uses the public [Podcast ECoG dataset](https://openneuro.org/datasets/ds005574), word-level 30 s audio windows, and per-word 200 ms high-gamma ECoG windows for language and speech latencies. This makes the modality pivot feasible to scout, but it remains speech-model ECoG work, not immediate text-LM compression/KD.
+
 ## Must-not-claim
 
 - Do not claim "brain data improves LMs" as novel.
