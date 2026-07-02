@@ -27,16 +27,12 @@
 % The text below is the v0.2 draft; Round 3 reworks it into this order + the doctrine.
 % ===========================================================================
 
-For a decade, one instrument has anchored the study of language and the brain.
-A person and a language model read the same text.
-A linear map predicts the person's recorded brain activity from the model's middle-layer activations.
-Its accuracy on held-out text is the model's brain-alignment score \autocite{oota2023}.
-
-This map almost always runs in one direction.
-It \emph{measures} alignment, as a property read off a model after training.
-We ask whether it can run the other way.
-Can alignment instead be \emph{used} during training, as a term in the objective that rewards representations from which brain activity is linearly predictable?
-And if it can, does a model trained that way gain anything a text-only model does not?
+Brain alignment has become a way to study what language models and the human language system share.
+Linear encoding studies ask how well a model's internal activations predict human brain responses to the same text, and the resulting score has been used to compare architectures, layers, training objectives, scale, and compression \autocite{oota2023,aw2023,gao2024,oota2026}.
+Recent work also shows that the score is fragile: it can reflect linguistic structure, but it can also be inflated by low-level stimulus features or weak evaluation splits \autocite{oota2024,hadidi2026}.
+Together, this literature has made brain alignment useful as a measurement.
+This thesis asks whether the same signal can be useful as a training signal.
+In particular, we study model compression: during knowledge distillation, can a small student be guided by a brain-alignment objective, and does that guidance preserve anything ordinary text-only compression loses?
 
 \begin{figure}[t]
   \centering

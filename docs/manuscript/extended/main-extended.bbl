@@ -45,6 +45,140 @@
       \field{title}{Joint processing of linguistic properties in brains and language models}
       \field{year}{2023}
     \endentry
+    \entry{aw2023}{article}{}
+      \name{author}{2}{}{%
+        {{hash=0b2d055e70f7e83b22ec9bb601ba9218}{%
+           family={Aw},
+           familyi={A\bibinitperiod},
+           given={Khai\bibnamedelima Loong},
+           giveni={K\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=1710543a010127602134a3bf71dd8c67}{%
+           family={Toneva},
+           familyi={T\bibinitperiod},
+           given={Mariya},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{e9792286c597a9de83c7211b493ff34f}
+      \strng{fullhash}{e9792286c597a9de83c7211b493ff34f}
+      \strng{bibnamehash}{e9792286c597a9de83c7211b493ff34f}
+      \strng{authorbibnamehash}{e9792286c597a9de83c7211b493ff34f}
+      \strng{authornamehash}{e9792286c597a9de83c7211b493ff34f}
+      \strng{authorfullhash}{e9792286c597a9de83c7211b493ff34f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ICLR}
+      \field{note}{objective shapes alignment, not just LM loss; see canonical/aw-2023}
+      \field{title}{Training language models to summarize narratives improves brain alignment}
+      \field{year}{2023}
+    \endentry
+    \entry{gao2024}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=ffb5e09af5fe51d3ce2a10206f5d7a98}{%
+           family={Gao},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{bccc8beddeb856a9e2269b4b171e2605}
+      \strng{fullhash}{bccc8beddeb856a9e2269b4b171e2605}
+      \strng{bibnamehash}{bccc8beddeb856a9e2269b4b171e2605}
+      \strng{authorbibnamehash}{bccc8beddeb856a9e2269b4b171e2605}
+      \strng{authornamehash}{bccc8beddeb856a9e2269b4b171e2605}
+      \strng{authorfullhash}{bccc8beddeb856a9e2269b4b171e2605}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Preprint}
+      \field{note}{use a base teacher, not instruct; see canonical/gao-2024}
+      \field{title}{Scaling, not instruction-tuning, drives brain alignment}
+      \field{year}{2024}
+    \endentry
+    \entry{oota2026}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=d2302142768cf205bdcffe4b585c049d}{%
+           family={Oota},
+           familyi={O\bibinitperiod},
+           given={Subba\bibnamedelima Reddy},
+           giveni={S\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{afb4606d0f17a9de8269851c7ba7c9db}
+      \strng{fullhash}{afb4606d0f17a9de8269851c7ba7c9db}
+      \strng{bibnamehash}{afb4606d0f17a9de8269851c7ba7c9db}
+      \strng{authorbibnamehash}{afb4606d0f17a9de8269851c7ba7c9db}
+      \strng{authornamehash}{afb4606d0f17a9de8269851c7ba7c9db}
+      \strng{authorfullhash}{afb4606d0f17a9de8269851c7ba7c9db}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Preprint (arXiv:2602.07547)}
+      \field{note}{AWQ/SmoothQuant preserve on >=3B; GPTQ/pruning degrade; KD untested; see canonical/oota-2026}
+      \field{title}{Brain alignment under quantization and pruning of language models}
+      \field{year}{2026}
+    \endentry
+    \entry{oota2024}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=d2302142768cf205bdcffe4b585c049d}{%
+           family={Oota},
+           familyi={O\bibinitperiod},
+           given={Subba\bibnamedelima Reddy},
+           giveni={S\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{afb4606d0f17a9de8269851c7ba7c9db}
+      \strng{fullhash}{afb4606d0f17a9de8269851c7ba7c9db}
+      \strng{bibnamehash}{afb4606d0f17a9de8269851c7ba7c9db}
+      \strng{authorbibnamehash}{afb4606d0f17a9de8269851c7ba7c9db}
+      \strng{authornamehash}{afb4606d0f17a9de8269851c7ba7c9db}
+      \strng{authorfullhash}{afb4606d0f17a9de8269851c7ba7c9db}
+      \field{extraname}{3}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACL}
+      \field{note}{raw scores can be hollow phonology; decompose; see canonical/oota-2024}
+      \field{title}{Speech language models lack important brain-relevant semantics}
+      \field{year}{2024}
+    \endentry
+    \entry{hadidi2026}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{2}{}{%
+        {{hash=a9e03c26973a95dacbfcc9288c62c639}{%
+           family={Hadidi},
+           familyi={H\bibinitperiod},
+           given={Nima},
+           giveni={N\bibinitperiod}}}%
+        {{hash=038a9696368132464a880bdec7903bfa}{%
+           family={Feghhi},
+           familyi={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{ff87d12aaf1a482011e20b5f4ea64495}
+      \strng{fullhash}{ff87d12aaf1a482011e20b5f4ea64495}
+      \strng{bibnamehash}{ff87d12aaf1a482011e20b5f4ea64495}
+      \strng{authorbibnamehash}{ff87d12aaf1a482011e20b5f4ea64495}
+      \strng{authornamehash}{ff87d12aaf1a482011e20b5f4ea64495}
+      \strng{authorfullhash}{ff87d12aaf1a482011e20b5f4ea64495}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature Communications}
+      \field{note}{the published anti-confound protocol; see canonical/hadidi-2024}
+      \field{title}{Illusions of alignment: brain-score inflation from low-level and static features}
+      \field{year}{2026}
+      \verb{doi}
+      \verb 10.1038/s41467-026-72253-7
+      \endverb
+    \endentry
     \entry{moussa2025}{inproceedings}{}
       \name{author}{3}{}{%
         {{hash=bc87988c15e5720c33f990f279e4dcdd}{%
@@ -65,8 +199,8 @@
       \strng{authorbibnamehash}{046670a8674173f305da82a378fc5558}
       \strng{authornamehash}{046670a8674173f305da82a378fc5558}
       \strng{authorfullhash}{046670a8674173f305da82a378fc5558}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{ICLR}
@@ -93,8 +227,8 @@
       \strng{authorbibnamehash}{1d8aebf22378804c85023af1e6a13688}
       \strng{authornamehash}{1d8aebf22378804c85023af1e6a13688}
       \strng{authorfullhash}{1d8aebf22378804c85023af1e6a13688}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{ICLR}
@@ -122,71 +256,14 @@
       \strng{authornamehash}{14596cf0e4f055b53cafc5d2629281d1}
       \strng{authorfullhash}{14596cf0e4f055b53cafc5d2629281d1}
       \field{extraname}{1}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{ICLR}
       \field{note}{gradient-reversal de-alignment hurts 200+ tasks; see canonical/merlin-2026}
       \field{title}{When language models lose their mind: brain (mis)alignment at matched perplexity}
       \field{year}{2026}
-    \endentry
-    \entry{oota2026}{article}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{1}{}{%
-        {{hash=d2302142768cf205bdcffe4b585c049d}{%
-           family={Oota},
-           familyi={O\bibinitperiod},
-           given={Subba\bibnamedelima Reddy},
-           giveni={S\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
-      }
-      \strng{namehash}{afb4606d0f17a9de8269851c7ba7c9db}
-      \strng{fullhash}{afb4606d0f17a9de8269851c7ba7c9db}
-      \strng{bibnamehash}{afb4606d0f17a9de8269851c7ba7c9db}
-      \strng{authorbibnamehash}{afb4606d0f17a9de8269851c7ba7c9db}
-      \strng{authornamehash}{afb4606d0f17a9de8269851c7ba7c9db}
-      \strng{authorfullhash}{afb4606d0f17a9de8269851c7ba7c9db}
-      \field{extraname}{2}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Preprint (arXiv:2602.07547)}
-      \field{note}{AWQ/SmoothQuant preserve on >=3B; GPTQ/pruning degrade; KD untested; see canonical/oota-2026}
-      \field{title}{Brain alignment under quantization and pruning of language models}
-      \field{year}{2026}
-    \endentry
-    \entry{hadidi2026}{article}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{2}{}{%
-        {{hash=a9e03c26973a95dacbfcc9288c62c639}{%
-           family={Hadidi},
-           familyi={H\bibinitperiod},
-           given={Nima},
-           giveni={N\bibinitperiod}}}%
-        {{hash=038a9696368132464a880bdec7903bfa}{%
-           family={Feghhi},
-           familyi={F\bibinitperiod}}}%
-      }
-      \strng{namehash}{ff87d12aaf1a482011e20b5f4ea64495}
-      \strng{fullhash}{ff87d12aaf1a482011e20b5f4ea64495}
-      \strng{bibnamehash}{ff87d12aaf1a482011e20b5f4ea64495}
-      \strng{authorbibnamehash}{ff87d12aaf1a482011e20b5f4ea64495}
-      \strng{authornamehash}{ff87d12aaf1a482011e20b5f4ea64495}
-      \strng{authorfullhash}{ff87d12aaf1a482011e20b5f4ea64495}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Nature Communications}
-      \field{note}{the published anti-confound protocol; see canonical/hadidi-2024}
-      \field{title}{Illusions of alignment: brain-score inflation from low-level and static features}
-      \field{year}{2026}
-      \verb{doi}
-      \verb 10.1038/s41467-026-72253-7
-      \endverb
     \endentry
     \entry{merlin2024}{article}{}
       \name{author}{2}{}{%
@@ -208,36 +285,13 @@
       \strng{authornamehash}{14596cf0e4f055b53cafc5d2629281d1}
       \strng{authorfullhash}{14596cf0e4f055b53cafc5d2629281d1}
       \field{extraname}{2}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Preprint}
-      \field{note}{a residual survives next-word controls in IFG/AG; see canonical/merlin-2024}
-      \field{title}{Language models and brain alignment: beyond word-level and next-word prediction}
-      \field{year}{2024}
-    \endentry
-    \entry{gao2024}{article}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{1}{}{%
-        {{hash=ffb5e09af5fe51d3ce2a10206f5d7a98}{%
-           family={Gao},
-           familyi={G\bibinitperiod}}}%
-      }
-      \strng{namehash}{bccc8beddeb856a9e2269b4b171e2605}
-      \strng{fullhash}{bccc8beddeb856a9e2269b4b171e2605}
-      \strng{bibnamehash}{bccc8beddeb856a9e2269b4b171e2605}
-      \strng{authorbibnamehash}{bccc8beddeb856a9e2269b4b171e2605}
-      \strng{authornamehash}{bccc8beddeb856a9e2269b4b171e2605}
-      \strng{authorfullhash}{bccc8beddeb856a9e2269b4b171e2605}
       \field{sortinit}{8}
       \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Preprint}
-      \field{note}{use a base teacher, not instruct; see canonical/gao-2024}
-      \field{title}{Scaling, not instruction-tuning, drives brain alignment}
+      \field{note}{a residual survives next-word controls in IFG/AG; see canonical/merlin-2024}
+      \field{title}{Language models and brain alignment: beyond word-level and next-word prediction}
       \field{year}{2024}
     \endentry
     \entry{alkhamissi2025}{article}{}
@@ -256,8 +310,8 @@
       \strng{authorbibnamehash}{f6964ada44364cdd3b1e0f8947107e6c}
       \strng{authornamehash}{f6964ada44364cdd3b1e0f8947107e6c}
       \strng{authorfullhash}{f6964ada44364cdd3b1e0f8947107e6c}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Preprint}
@@ -302,8 +356,8 @@
       \strng{authorbibnamehash}{28a4cd28480108176b4cb2edbf8c29ae}
       \strng{authornamehash}{28a4cd28480108176b4cb2edbf8c29ae}
       \strng{authorfullhash}{28a4cd28480108176b4cb2edbf8c29ae}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Preprint (arXiv:2209.02582)}
@@ -356,32 +410,6 @@
       \field{note}{four-gate audit of frozen-encoding alignment; see canonical/jia-2026}
       \field{title}{L-PACT: prediction scores are not enough for brain alignment}
       \field{year}{2026}
-    \endentry
-    \entry{oota2024}{article}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{1}{}{%
-        {{hash=d2302142768cf205bdcffe4b585c049d}{%
-           family={Oota},
-           familyi={O\bibinitperiod},
-           given={Subba\bibnamedelima Reddy},
-           giveni={S\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
-      }
-      \strng{namehash}{afb4606d0f17a9de8269851c7ba7c9db}
-      \strng{fullhash}{afb4606d0f17a9de8269851c7ba7c9db}
-      \strng{bibnamehash}{afb4606d0f17a9de8269851c7ba7c9db}
-      \strng{authorbibnamehash}{afb4606d0f17a9de8269851c7ba7c9db}
-      \strng{authornamehash}{afb4606d0f17a9de8269851c7ba7c9db}
-      \strng{authorfullhash}{afb4606d0f17a9de8269851c7ba7c9db}
-      \field{extraname}{3}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{ACL}
-      \field{note}{raw scores can be hollow phonology; decompose; see canonical/oota-2024}
-      \field{title}{Speech language models lack important brain-relevant semantics}
-      \field{year}{2024}
     \endentry
     \entry{cheng2026}{article}{}
       \true{moreauthor}
@@ -502,8 +530,8 @@
       \strng{authorbibnamehash}{c87c42a0e1ba5004a3fe120b8a88b171}
       \strng{authornamehash}{c87c42a0e1ba5004a3fe120b8a88b171}
       \strng{authorfullhash}{c87c42a0e1ba5004a3fe120b8a88b171}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{NeurIPS}
