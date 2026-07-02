@@ -9,7 +9,7 @@ Send with the extended manuscript PDF attached.
 
 ---
 
-**Subject:** First thesis progress update — brain alignment as a training signal
+**Subject:** First thesis progress update: brain alignment as a training signal
 
 Dear Alejandro and Pablo,
 
@@ -19,9 +19,9 @@ Since getting back from my trip I have started working on the thesis more seriou
 
 Attached is a current draft of my thesis (extended) manuscript. I am sending it as a progress update rather than a finished document, to show where the work stands and to get your feedback on the framing and scope before I write up the remaining results. The draft covers the motivation and positioning against the recent literature, the full methods, and the first results section. Since it is a working draft, the later results, discussion, and conclusion are left as marked placeholders ("[GAP: ...]") for findings I am still writing up. The experiments behind those sections are already done and recorded; it will just take me some time to go through them properly and digest them before I can write them up.
 
-In very short: the thesis studies the linear map between a language model's middle layers and human language-network activity, and asks whether that alignment can be used as a training signal during model compression, a case the 2025–26 literature leaves open. I could expand on this, but I would rather not keep you here and let you spend the time on the PDF instead :)
+In very short: the thesis studies the linear map between a language model's middle layers and human language-network activity, and asks whether that alignment can be used as a training signal during model compression, a case the 2025-26 literature leaves open. I will keep this short and let the PDF carry the details.
 
-Please send me any feedback you have on the topic and the direction. I am also happy to meet to discuss whether the scope and direction look right, though I think it would have to be online, since Alejandro is not in Madrid (if I am not mistaken).
+Please send me any feedback you have on the topic and direction. I would also be happy to meet online to discuss whether the scope and direction look right.
 
 Thanks in advance for your time and help.
 
@@ -30,5 +30,5 @@ MohammadErfan
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`ladder.md`](../ladder.md) - the canonical status board
+- [`map.md`](../map.md) - code system (Q/E/A/D/L) and journey map

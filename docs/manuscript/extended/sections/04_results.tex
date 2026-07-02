@@ -148,7 +148,7 @@ Two runs scoring the same references on different GPUs reproduced the reference 
 The ordering holds at every PCA rank tested ($n_{\mathrm{pca}}\in\{25,50,100\}$).
 The absolute magnitudes are less stable: the two quality-entangled arms change sign in unique $R^2$ across ranks, so the ordering is the durable finding and the loss fractions are rank-dependent \evd{E003}.
 
-The quality caveat is load-bearing.
+The quality caveat is important.
 Alignment co-varies with log-perplexity across the same non-teacher arms (Pearson \result{e003_quality_corr}).
 In that fit, warm-init KD lies essentially on the regression line, while conventional GPT-2 is the only arm more aligned than its perplexity predicts.
 Two contrasts would separate objective-specific loss from a quality explanation, and both are marginal.
@@ -167,19 +167,15 @@ The evaluation is an ROI benchmark ($\mathrm{NC}\approx0.35$), not a matched-per
 The Tuckute ROI benchmark is also underpowered for a $\sim0.005$ objective-specific gap.
 The matched-perplexity question therefore moves to the powered voxelwise substrate \evd{E003}\evd{L011}.
 
-\subsection{An alignment-guided objective has no demonstrated usable lever}
-% [IN SCOPE this version] Q2 / R08, source E004. Round-3 writes the text from the recorded numbers.
-\gap{Results Q2 (source E004), to write in Round 3: optimising \Lbrain{} on the strong aligner shows only a small apparent held-out alignment movement; the effect is entangled with perplexity, and at the honest fold-level inference unit the interval includes zero, so no usable lever is demonstrated (undemonstrated, not proven zero).}
+\subsection{An alignment-guided objective has not yet shown a reliable held-out gain}
+% [IN SCOPE this version] Q2 / R08, source E004. The subsection is deferred until its finding report is consolidated.
+\gap{Results Q2 (source E004): this subsection is deferred until its finding report is consolidated. The recorded result is that optimising \Lbrain{} on the strong aligner shows only a small apparent held-out alignment movement; the effect is entangled with perplexity, and at the honest fold-level inference unit the interval includes zero. This supports no demonstrated reliable gain yet, while not proving the gain is zero.}
 
-\begin{figure}[t]
+\begin{figure}[H]
   \centering
-  \safeimage[width=0.78\textwidth]{../figures/fig_lever.png}
-  \caption{[PLACEHOLDER: generate from \evd{E004}] The brain-specific lever on the strong aligner:
-    held-out unique-$R^2$ change from optimising \Lbrain{} against its \permtwin{} control,
-    shown at the honest fold-level inference unit (folds, not pooled cells), with the interval
-    spanning zero and the single dominant fold marked.
-    \gap{Round-3: render from the E004 record and finalise the caption.}}
-  \label{fig:lever}
+  \figspec[0.18\textheight]{Planned Q2 result figure}{Source: \evd{E004}. Show held-out unique-$R^2$ change from optimising \Lbrain{} against its \permtwin{} control at the honest fold-level inference unit. The plotted interval should span zero, with the dominant fold marked.}
+  \caption{Planned Q2 result figure. The final version will render the E004 held-out alignment change at the fold-level inference unit and mark the dominant fold. \gap{Render from the E004 record and finalise the caption after the R08 finding report is consolidated.}}
+  \label{fig:q2_gain}
 \end{figure}
 
 \subsection{No per-individual gain at matched perplexity, and the averaging artifact}
