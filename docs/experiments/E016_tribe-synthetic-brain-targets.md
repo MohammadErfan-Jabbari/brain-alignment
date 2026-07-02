@@ -594,6 +594,15 @@ Verification:
 
 **Status:** analyzer hardening only. No new science number, no Phase-3 result, no rung flip. The active full run is still cache-building and will use this stricter analyzer when it reaches the analysis step.
 
+### Step 16 - Read-only Phase-3 status helper added while full cache runs (2026-07-02)
+Added `scripts/e016_phase3_status.py`, a read-only helper for monitoring the full Phase-3 pipeline without loading the large cache arrays. It reports process state, expected artifact presence, log markers, latest cache-builder batch, train-cache progress from log parsing, and analyzer gate contents once the analyzer JSON exists. It reads only the log plus small JSON sidecars.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_phase3_status.py` passed.
+- `uv run python scripts/e016_phase3_status.py --pretty` reported `phase=train_cache_building`, no train/heldout/run/analyzer artifact yet, and a live latest-batch marker from the train-cache log.
+
+**Status:** monitoring utility only. No new science number, no Phase-3 result, no rung flip. Use this before hand-parsing the long run log.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
