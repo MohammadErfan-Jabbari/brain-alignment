@@ -603,6 +603,15 @@ Verification:
 
 **Status:** monitoring utility only. No new science number, no Phase-3 result, no rung flip. Use this before hand-parsing the long run log.
 
+### Step 17 - Post-CoNLL control implication for Phase 3 (2026-07-02)
+The full CoNLL 2026 paper "What Brain Data Adds to Language Model Training" was digested in [`merlin-2026_what-brain-data-adds`](../literature/canonical/merlin-2026_what-brain-data-adds.md). It directly compares Brain-Tuned, Stimulus-Tuned, and Jointly-Tuned BERT/GPT-2 LoRA arms, so the broad "brain data adds beyond stimulus text" claim is no longer ours. Phase 3 remains the right gateway because CoNLL does not test compression, KD-only students, matched perplexity, or a fixed student budget.
+
+Design implication:
+- If the active full run is null (`kd_only` ≈ `tribe_mse` ≈ `tribe_perm` at matched PPL), the result is still informative: dense synthetic neural targets did not move a KD student even after the scarcity/SNR objection was removed.
+- If the active full run is positive (`tribe_mse` beats `tribe_perm` and `kd_only` at matched PPL), it is not yet enough for a top-tier brain-specific claim. The next control should be a matched-information non-brain privileged target or stimulus-derived teacher target with the same student budget, so the claim is not merely "a dense text-derived auxiliary target helps."
+
+**Status:** design interpretation only. No new science number, no Phase-3 result, no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
