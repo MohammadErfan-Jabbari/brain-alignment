@@ -644,6 +644,16 @@ Verification:
 
 **Status:** queued control launcher only. It must not be run while the active TRIBE full run is still building, and it is required only if the TRIBE result is positive enough to need a brain-specificity check.
 
+### Step 21 - Status helper ETA fields added while full cache runs (2026-07-03)
+Extended `scripts/e016_phase3_status.py` with ETA fields for the long train-cache build, derived from the latest parsed cache-builder batch and the elapsed time of the active full-run process. This makes the monitor useful without hand-parsing the long log or loading cache arrays.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_phase3_status.py` passed.
+- `git diff --check` passed.
+- `uv run python scripts/e016_phase3_status.py --pretty` reported `phase=train_cache_building` at `2026-07-02T22:13:47.136566+00:00`, with no train/heldout/run/analyzer artifact yet. The monitor parsed latest batch `84000:84032`, lower-bound progress `84032/95999`, and an ETA projection to `2026-07-02T23:58:08.136530+00:00`.
+
+**Status:** monitoring utility only. No Phase-3 result, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

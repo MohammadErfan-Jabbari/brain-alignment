@@ -6,7 +6,7 @@ import argparse
 import json
 import re
 import subprocess
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -60,6 +60,59 @@ def ps_rec(pids: list[int]) -> list[dict]:
         if len(parts) == 4:
             rows.append({"pid": int(parts[0]), "elapsed": parts[1], "stat": parts[2], "cmd": parts[3]})
     return rows
+
+
+def parse_etime_seconds(spec: str) -> int | None:
+    """Parse ps etime strings of the form [[DD-]HH:]MM:SS."""
+    day_part = 0
+    rest = spec.strip()
+    if "-" in rest:
+        day_text, rest = rest.split("-", 1)
+        try:
+            day_part = int(day_text)
+        except ValueError:
+            return None
+    parts = rest.split(":")
+    try:
+        vals = [int(part) for part in parts]
+    except ValueError:
+        return None
+    if len(vals) == 2:
+        hours = 0
+        minutes, seconds = vals
+    elif len(vals) == 3:
+        hours, minutes, seconds = vals
+    else:
+        return None
+    return day_part * 86400 + hours * 3600 + minutes * 60 + seconds
+
+
+def add_train_eta(log: dict, processes: list[dict]) -> None:
+    progress = log.get("train_cache_progress")
+    if not progress:
+        return
+    fraction = float(progress.get("fraction") or 0.0)
+    if fraction <= 0.0 or fraction >= 1.0:
+        return
+    elapsed_options = [
+        parse_etime_seconds(str(proc.get("elapsed", "")))
+        for proc in processes
+        if str(RUN_SCRIPT) in str(proc.get("cmd", "")) or str(TRAIN_CACHE) in str(proc.get("cmd", ""))
+    ]
+    elapsed = max([value for value in elapsed_options if value is not None], default=None)
+    if elapsed is None or elapsed <= 0:
+        return
+    items_done = int(progress["items_done_lower_bound"])
+    expected = int(progress["items_expected"])
+    remaining = max(0, expected - items_done)
+    items_per_hour = items_done / (elapsed / 3600.0)
+    estimated_total = elapsed / fraction
+    eta = max(0, int(round(estimated_total - elapsed)))
+    progress["elapsed_s"] = int(elapsed)
+    progress["items_per_hour_lower_bound"] = round(items_per_hour, 2)
+    progress["eta_s_lower_bound"] = eta
+    progress["eta_utc_lower_bound"] = (datetime.now(timezone.utc) + timedelta(seconds=eta)).isoformat()
+    progress["remaining_items_lower_bound"] = remaining
 
 
 def discover_processes() -> list[dict]:
@@ -152,6 +205,7 @@ def main() -> None:
     log = log_rec(args.log, TRAIN_EXPECTED)
     explicit_pids = [pid for pid in [args.parent_pid, args.builder_pid] if pid is not None]
     processes = ps_rec(explicit_pids) if explicit_pids else discover_processes()
+    add_train_eta(log, processes)
     payload = {
         "checked_at_utc": datetime.now(timezone.utc).isoformat(),
         "phase": infer_phase(train, heldout, run, analysis, log, processes),
