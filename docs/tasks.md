@@ -115,8 +115,8 @@ The research corpus continuing the path (full table + decision rules in [`ladder
   irreplaceable use), matched-ppl vs permuted twin. Phase 1 validated TRIBE is faithful enough to be a target. A
   null at scale removes the scarcity/SNR excuse = strongest Fork-B. NOT a blocker. **Infra scaffolded 2026-07-02:**
   target-cache builder + three-arm runner + analyzer smoke-tested on 2+2 sentences; 256-train/128-heldout
-  cache-throughput pilot PASS; mini real-model runner check, full dense cache, and ≥3-seed matched-PPL run remain
-  undone. (E016 §5 Phase 3 / Steps 12-13.)
+  cache-throughput pilot PASS; mini real-model runner check PASS (λ=0.1 PPL-matchable, λ=1.0 too strong);
+  full dense cache and ≥3-seed matched-PPL run remain undone. (E016 §5 Phase 3 / Steps 12-14.)
 
 The research corpus continuing the path (full table + decision rules in `ladder.md` → "THE FORWARD PROGRAM"):
 - **F1 · E016 TRIBE Phase 1→2 — the ceiling.** Prereq **voxel-space mapping SOLVED** (substrate → denizenslab,

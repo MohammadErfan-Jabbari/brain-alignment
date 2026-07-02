@@ -519,7 +519,8 @@ Follow-up work-session action filled the Step-11 mechanical gaps. Built:
   KD-only / KD+TRIBE-MSE / KD+TRIBE-block-permuted, with train-only target standardization, fixed heldout-PPL
   probe, lambda grid support, and optional heldout target-R² if a heldout TRIBE cache exists.
 - `scripts/analyze_tribe_phase3.py` — gate/analyzer that refuses interpretation unless the run has ≥3 seeds,
-  PPL-matched brain/permuted arms, and heldout target metrics. It labels small runs as smoke/incomplete.
+  PPL-matched brain/permuted arms, heldout target metrics, and intended-scale train/heldout/full-dimension
+  target coverage. It labels small runs as smoke/incomplete.
 
 Smoke artifacts (pipeline check only, not evidence): direct TRIBE text-event cache succeeded for 2 train and
 2 heldout WikiText sentences at 16 vertices:
@@ -554,6 +555,34 @@ cost but increase saved array size and write/I/O time.
 **Decision:** cache-throughput gate = **PASS**. Do not launch the full Phase-3 science run yet. The next valid
 step is a mini real-model Phase-3 runner check on a modest cached subset, verifying matched-PPL behavior,
 lambda/permuted control wiring, and analyzer gates before spending the full cache + >=3-seed compute.
+
+### Step 14 — Mini real-model Phase-3 runner check PASS; still NOT a Phase-3 result (2026-07-02)
+Ran the next gate on the pilot caches with a real GPT-2-family pair: teacher `gpt2-medium`, student `gpt2`,
+seed 0, 256 train items, 128 heldout items, one epoch, `max_length=64`, `lambda_brain_grid=0.1,1.0`. Artifacts:
+- `outputs/E016_tribe/phase3/phase3_mini_real_gpt2_n256_s0.json`
+- `outputs/E016_tribe/phase3/phase3_mini_real_gpt2_n256_s0.analysis.json`
+
+Runner health:
+- Completed 5 arms in 50.531 s: KD-only plus TRIBE/permuted twins at λ=0.1 and λ=1.0.
+- Heldout target-R² path worked for every arm.
+- Analyzer gate worked and returned `science_ready=false`, with target metrics present but failures for seed count,
+  all-lambda PPL matching, and scale/dimension readiness.
+
+Calibration read:
+- KD-only: PPL 92.647, heldout target-R² +0.3060.
+- λ=0.1: TRIBE PPL 96.238 and permuted PPL 96.171; both within the default 5% PPL-match tolerance
+  (relative deltas 3.88% and 3.80%). TRIBE−permuted target-R² was +0.00002 in this one-seed check.
+- λ=1.0: TRIBE PPL 106.919 and permuted PPL 107.362; both outside the 5% tolerance (15.4% and 15.9%), so
+  λ=1.0 is too strong for the matched-PPL spec at this configuration.
+
+During the gate check, hardened `scripts/analyze_tribe_phase3.py` so a small three-seed toy/subset run cannot
+accidentally label itself science-ready: default science thresholds now require at least 50,000 train items,
+1,000 heldout items, and 20,484 target dimensions, in addition to ≥3 seeds, PPL matching, and heldout target
+metrics. These thresholds can be overridden explicitly only by CLI argument.
+
+**Decision:** mini real-model runner gate = **PASS** as infrastructure. The plausible predeclared λ for the full
+run is λ=0.1, not λ=1.0. What remains is full-dimension target-cache generation, then an at-scale ≥3-seed run
+using only PPL-matchable λ settings, followed by the analyzer/review gate. No science verdict, no rung flip.
 
 
 ## Related

@@ -46,6 +46,9 @@ def main():
     ap.add_argument("run_json", type=Path)
     ap.add_argument("--out", type=Path, default=None)
     ap.add_argument("--ppl-rel-tolerance", type=float, default=0.05)
+    ap.add_argument("--min-train-science", type=int, default=50000)
+    ap.add_argument("--min-heldout-science", type=int, default=1000)
+    ap.add_argument("--min-target-dim-science", type=int, default=20484)
     args = ap.parse_args()
 
     data = json.loads(args.run_json.read_text(encoding="utf-8"))
@@ -59,7 +62,11 @@ def main():
         "n_seeds": len(seeds),
         "target_dim": rows[0].get("target_dim") if rows else None,
         "n_train": rows[0].get("n_train") if rows else None,
+        "n_heldout_ppl": rows[0].get("n_heldout_ppl") if rows else None,
         "ppl_rel_tolerance": args.ppl_rel_tolerance,
+        "min_train_science": args.min_train_science,
+        "min_heldout_science": args.min_heldout_science,
+        "min_target_dim_science": args.min_target_dim_science,
         "arms": {},
         "paired": {},
         "gate": {},
@@ -108,12 +115,24 @@ def main():
             "target_r2_real_minus_kd": mean_ci(r2_real_kd),
         }
 
-    science_ready = len(seeds) >= 3 and matched_all and has_target_metric
+    n_train = int(summary["n_train"] or 0)
+    n_heldout = int(summary["n_heldout_ppl"] or 0)
+    target_dim = int(summary["target_dim"] or 0)
+    scale_ready = (
+        n_train >= args.min_train_science
+        and n_heldout >= args.min_heldout_science
+        and target_dim >= args.min_target_dim_science
+    )
+    science_ready = len(seeds) >= 3 and matched_all and has_target_metric and scale_ready
     summary["gate"] = {
         "science_ready": bool(science_ready),
         "enough_seeds": len(seeds) >= 3,
         "ppl_matched_all_lambdas": bool(matched_all),
         "has_heldout_target_metric": bool(has_target_metric),
+        "scale_ready": bool(scale_ready),
+        "train_size_ready": n_train >= args.min_train_science,
+        "heldout_size_ready": n_heldout >= args.min_heldout_science,
+        "target_dim_ready": target_dim >= args.min_target_dim_science,
         "interpretation": (
             "READY_FOR_INTERPRETATION_GATE"
             if science_ready
