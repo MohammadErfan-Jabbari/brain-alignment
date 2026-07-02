@@ -56,6 +56,14 @@ redesign** (stronger TRIBE target + ≥3 stories + frame-valid estimand), next f
 
 ---
 
+## S48 close note
+
+S48 (`/work`) completed the requested priority set: E023a-prime gate, E005/Qwen averaged-target λ-sweep,
+and E016 Phase-3 preflight. New bounded averaged-target context numbers were recorded in E005, but **no rung
+changed**. E023 decisive E023b/E023f is gate-blocked (`ready_for_decisive_e023b_training=false`); E016 Phase 3
+needs a dense TRIBE KD-corpus target cache plus a matched-ppl three-arm runner before compute. The official next
+repo step remains `/write` Section 4.3 / Q2 and Figure 6 unless Erfan redirects to a new `/work` build gate.
+
 ## Current position
 
 **The honest story (post-E008 reframe).** Brain alignment is **robustly real and measurable** (Q0/A2, powered at voxel scale — E006). But **optimizing it does NOT produce a per-individual brain-specific alignment gain**: E008 (per-participant, n=9, well-powered, MDE≈+0.0006) returns a clean **NULL** (mean +0.00010, CI [−0.0004,+0.0006]). E005's headline +0.0081 was a **group-averaged-target** measurement — a higher-SNR read of the *shared stimulus-evoked response*, inflated ~1.7× by averaging and ~2.4× by one outlier fold — **not** per-person brain alignment.
@@ -96,6 +104,13 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 
 ## Next session (what `/orient` surfaces)
 
+> **S48 DONE → next still defaults to `/write` Section 4.3 / Q2 and Figure 6 (2026-07-02).** S48 was a `/work`
+> priority closure: E023a-prime gate ran and blocked decisive E023b/E023f; E005/Qwen averaged-target λ-sweep ran
+> with λ-matched permuted twins; E016 Phase 3 was recorded as no-go until target-cache + runner build gates exist.
+> **New bounded averaged-target context numbers, NO rung change — Q0-Q5 stand.** If the next session is `/work`,
+> valid options are a lower-quality Pythia E023 pilot runner gate or an E016 Phase-3 PRD/build gate, not immediate
+> decisive/multi-day training.
+>
 > **S47 DONE → next is `/write` Section 4.3 / Q2 and Figure 6 (2026-07-02).** Section 4.2 is current after
 > the weak-word cleanup; Figure 6 is not a Q1 figure and is not final. It is the placeholder `fig:lever`
 > in §4.3, sourced by E004. **NO experiment, NO science number, NO rung changed — Q0-Q5 stand.** **Next

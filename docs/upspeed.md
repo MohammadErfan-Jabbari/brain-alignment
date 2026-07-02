@@ -6,41 +6,44 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-02 (S47 - `/write` manuscript cleanup + Figure 6 deferral. **NO experiment, NO science number, NO rung change - Q0-Q5 stand exactly as S25.**)
+**Last updated:** 2026-07-02 (S48 - `/work` priority closure: E023 gate, E005 λ-sweep, E016 Phase-3 no-go. **New bounded science numbers, NO rung change - Q0-Q5 stand exactly as S25.**)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
 ## Current state
 
-Results Section 4.1 and 4.2 are current for this checkpoint. Section 4.2 now avoids the weak handles Erfan flagged: `screen` became the specific Tuckute ROI benchmark/comparison, and the old "same screen also narrows the verdict" sentence now states the actual logic: the E003 comparison limits the claim because alignment tracks log-perplexity across the five non-teacher arms.
+S48 completed the three requested `/work` priorities end-to-end under gates:
 
-The manuscript tree has no remaining standalone `screen` and no `prose`/`verdict` strings after the cleanup. The skills were deliberately not changed; Erfan said those should be rewritten from scratch later, not patched here.
+1. **E023a-prime gate ran.** `scripts/e023_slope_gate.py` reads `outputs/E015_expand/E015_expand_merged.json` and writes `outputs/E023/e023a_slope_gate.json`. Result: Pythia has one lower-quality pilot flat pair (`pythia-1b -> pythia-410m`), Qwen has no flat pair, and `ready_for_decisive_e023b_training=false`. Decision: do not run decisive E023b/E023f saturated KD-vs-LMFT training.
+2. **E005/Qwen averaged-target λ-sweep ran.** Patched `run_brain_lever.py` so `--lambda-grid` creates λ-matched permuted twins with `null_key`/`perm_draw` and paired real-minus-perm summaries. Ran Qwen2.5-0.5B with Qwen2.5-1.5B teacher, λ ∈ {1,3,10,30}, 3 seeds × 5 folds. Outputs: `outputs/E005_lambda_sweep_avg_Qwen.json`, log, and `outputs/E005_lambda_sweep_avg_Qwen_analysis.json`.
+3. **E016 Phase-3 preflight closed as NO-GO.** The valid current action is a PRD/build gate, not multi-day training: no dense TRIBE KD-corpus target cache exists, no matched-ppl three-arm Phase-3 runner exists, and the Phase-2 ceiling artifact remains walled/inconclusive.
 
-Figure 6 is not final. It is the placeholder figure inside Section 4.3 (`fig:lever`, currently `../figures/fig_lever.png`) and belongs to Q2/E004, not to Section 4.2. It should be finalized only when Section 4.3/R08 is written.
+No ladder rung changes. The λ-sweep is averaged-target context only, not per-individual evidence.
 
 ## What was done
 
-- Rewrote the unclear Section 4.2 sentence to: "That same E003 comparison also limits the claim..." with the quality/perplexity caveat stated directly.
-- Replaced weak manuscript wording across `docs/manuscript/`: `prose`, `verdict`, and standalone `screen` were removed or made specific.
-- Rebuilt `docs/manuscript/extended/main-extended.pdf`; the build succeeds with only the pre-existing overfull warnings at `main-extended.tex:54`.
-- Committed and pushed the cleanup as `f7cd1e2 docs(manuscript): replace weak result wording`.
-- Confirmed Figure 6 maps to Q2/E004: the "no demonstrated usable lever" question, with the honest fold-level interval including zero and the dominant-fold caveat.
+- Added `scripts/e023_slope_gate.py` and recorded the E023 S48 gate update in `docs/experiments/E023_kd-alignment-objective-vs-quality.md`.
+- Fixed `scripts/run_brain_lever.py` λ-grid controls: λ-specific permuted twins, stable non-colliding permutation seed, `perm_draw`, paired `vs_matched_perm`, and explicitly unpaired legacy p95 labels.
+- Added `scripts/analyze_lambda_sweep.py` with stale-output guards for old multi-λ outputs lacking `null_key`/`perm_draw`.
+- Ran smoke tests and the full Qwen λ-sweep; recorded the fold-level table in `docs/experiments/E005_alignment-guided-kd-tradeoff.md`.
+- Marked the opportunistic λ-sweep complete in `docs/tasks.md`.
+- Recorded the E016 Phase-3 no-go / PRD-before-compute gate in `docs/experiments/E016_tribe-synthetic-brain-targets.md`.
 
 ## What to do next
 
-- Write Section 4.3 (Q2 / E004) next.
-- Finalize Figure 6 as part of that Section 4.3 pass, using the E004 record and the honest inference unit: folds, not pooled seed-fold cells; interval includes zero; fold 4 carries much of the old apparent signal; wording must say "undemonstrated, not proven zero."
-- Keep the parked E006 CI-unit `/interpret` item separate unless the manuscript needs inferential wording the current records do not support.
+- Official next step still defaults to `/write` Section 4.3 (Q2 / E004) and Figure 6, using the honest fold-level inference unit.
+- If returning to `/work`, the valid next E023 action is a dedicated lower-quality Pythia pilot runner/power gate, not decisive saturated E023b/E023f training.
+- If returning to E016 Phase 3, first build the dense TRIBE target cache + matched-ppl three-arm runner + smoke/reviewer gate.
 
 ## Blockers / open loops
 
-- Figure 6 is intentionally deferred until Section 4.3/R08.
-- `docs/manuscript/README.md:34` still has a pre-existing bare `+0.06` with no cite; fix on the next manuscript README touch.
-- The build warning at `docs/manuscript/extended/main-extended.tex:54` remains pre-existing.
+- E023 decisive training is gate-blocked: no same-lineage high-quality/saturated flat pair is supported by the E015-expanded data.
+- E016 Phase 3 is build-blocked: no dense KD-corpus TRIBE targets and no valid runner yet.
+- The λ-sweep does not change Q3/F1: it is averaged-target only; near-rate λ=1/3/10 do not survive fold-level CIs; λ=30 is fold-level-positive but degrades PPL materially.
 
 ## Key facts
 
-- `docs/manuscript/extended/main-extended.pdf` builds with Tectonic from `docs/manuscript/extended/`.
-- Section 4.2's supported Q1 claim is: plain perplexity-only KD leaves alignment headroom below the teacher, but the loss is entangled with model quality; matched-perplexity causal recovery moves to the powered voxelwise substrate.
-- Figure 6 belongs to Q2/E004 and should not be finalized as part of Q1/Section 4.2.
+- E005 λ-sweep fold-level headline: λ=3 is the best near-rate mean (`ppl=51.9`, Δ=+0.0046, fold-CI [-0.0021,+0.0112]) but fold-4/control dominated; λ=30 is the only fold-level-positive arm (`ppl=67.4`, Δ=+0.0043, vs perm +0.0060) and is a rate-costly trade.
+- `outputs/E005_lambda_sweep_avg_Qwen_analysis.json` is the honest inference artifact; the flat 15-cell bootstrap in the runner summary is descriptive.
+- `outputs/E023/e023a_slope_gate.json` is the E023 gate artifact.
 - Git close rule D054 remains active: scoped commit first, push to `origin` at wrap by default.

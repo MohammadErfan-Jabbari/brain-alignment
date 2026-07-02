@@ -104,6 +104,45 @@ trend** (4/5 folds positive, median ~+0.003–0.004), brain-specific-leaning, **
 "CI excludes 0" result. **Next = solidify in-domain per-participant (E008) before any transfer.** The
 ladder Q3/F1 verdict needs revisiting with Erfan (D015) — not flipped unilaterally.
 
+## S48 addendum — Qwen averaged-target λ-sweep / rate-distortion context (2026-07-02)
+
+Ran the optional averaged-target λ-sweep with λ-matched permuted twins after patching
+`scripts/run_brain_lever.py` so every `--lambda-grid` MSE arm gets its own `null_key`/`perm_draw` control:
+
+```bash
+HF_HOME=/home/centcom/data/hf-cache HF_HUB_OFFLINE=1 CUDA_VISIBLE_DEVICES=1 \
+uv run python scripts/run_brain_lever.py \
+  --model Qwen/Qwen2.5-0.5B \
+  --kd-teacher Qwen/Qwen2.5-1.5B \
+  --arms mse lm_only \
+  --permute-kinds mse \
+  --seeds 0 1 2 \
+  --folds 5 \
+  --lambda-grid 1 3 10 30 \
+  --n-perm 1 \
+  --out outputs/E005_lambda_sweep_avg_Qwen.json
+
+uv run python scripts/analyze_lambda_sweep.py \
+  outputs/E005_lambda_sweep_avg_Qwen.json \
+  --out outputs/E005_lambda_sweep_avg_Qwen_analysis.json
+```
+
+Fold-level analysis (n=5 fold means; seed-fold flat bootstrap is descriptive only):
+
+| Arm | PPL | Δ vs base, fold-t CI | vs `lm_only`, fold-t CI | vs matched permuted, fold-t CI | Read |
+|---|---:|---:|---:|---:|---|
+| `lm_only` | 51.5 | +0.0007 [-0.0011,+0.0024] | n/a | n/a | KD-only anchor. |
+| `mse_l1` | 51.6 | +0.0032 [-0.0009,+0.0073] | +0.0025 [-0.0010,+0.0060] | +0.0030 [-0.0025,+0.0085] | Small near-rate trend; not fold-level significant. |
+| `mse_l3` | 51.9 | +0.0046 [-0.0021,+0.0112] | +0.0039 [-0.0028,+0.0106] | +0.0063 [-0.0092,+0.0218] | Best near-rate mean, but fold-4/control dominated; leave-fold-4-out vs perm = +0.0010. |
+| `mse_l10` | 55.4 | +0.0038 [-0.0011,+0.0088] | +0.0031 [-0.0014,+0.0077] | +0.0072 [-0.0044,+0.0188] | Similar to original λ=10 trend; worse PPL and fold-4-sensitive. |
+| `mse_l30` | 67.4 | +0.0043 [+0.0020,+0.0065] | +0.0036 [+0.0009,+0.0062] | +0.0060 [+0.0002,+0.0119] | Only fold-level-positive arm, but it buys the gain by degrading PPL materially. |
+
+**Interpretation:** the sweep supports the original honest magnitude read: averaged-target brain loss can nudge
+Tuckute in-domain alignment by a few `unique_R2` points, but the useful near-rate arms (`λ=1,3,10`) do **not**
+survive fold-level CIs. The only arm that clears fold-level CIs (`λ=30`) moves from `lm_only` PPL ≈51.5 to ≈67.4,
+so it is a rate-distortion trade, not a practical free improvement. This is **context for "how small / how costly"**,
+not new per-individual evidence and not a ladder move.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

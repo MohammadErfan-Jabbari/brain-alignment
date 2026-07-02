@@ -96,6 +96,23 @@ R07's clean read needed **cold-init** (random student) so any alignment was *tra
 
 **One-line summary.** The thing to measure is not "alignment across KD'd sizes" (that re-traces E015) but **the vertical drop of a KD student below the same-family alignment-vs-perplexity manifold, measured where the manifold is flat (≥3B), with a same-init non-KD finetune as the paired control** — and the cold-init ideal is infeasible at scale, so the feasible identification is the KD-minus-finetune difference at matched perplexity.
 
+## S48 gate update — E023a-prime slope/knee audit (2026-07-02)
+
+Ran the analysis-only gate script:
+
+```bash
+uv run python scripts/e023_slope_gate.py
+```
+
+Output: `outputs/E023/e023a_slope_gate.json`.
+
+Result:
+- **Pythia:** one local flat pair, `pythia-1b -> pythia-410m` (`slope=+0.015`, `dy=+0.0007`, `dbpb=0.066`). This is **pilot support only**: it is below the decisive high-quality/saturated scope required for E023b/E023f.
+- **Qwen:** no flat pair under the predeclared local-slope gate (`Qwen2.5-7B -> Qwen2.5-3B` slope `+0.334`; `3B -> 1.5B` slope `-0.217`; `1.5B -> 0.5B` slope `+0.076`).
+- Gate artifact verdict: `ready_for_e023b_pilot=true`; `ready_for_decisive_e023b_training=false`.
+
+**Decision:** do **not** run a decisive E023b/E023f KD-vs-LMFT training job in this work session. The only supported next E023 compute would be a lower-quality Pythia pilot after a dedicated runner/power/matched-BPB gate, not a rung-moving saturated objective-specificity test.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

@@ -484,6 +484,30 @@ ground-truth E[Y|S]** and is strictly stronger than TRIBE's ~7% estimate. So:
 - **Do NOT** pursue per-subject-fine-tuned TRIBE or a video-stimulus ceiling (abandons the language substrate).
 Forward order (D028): **F1-close (E020) → F2 (E019, paper-critical) → F3 (I3) → F4 (E015 Q2)**; TRIBE Phase 3 after F2 if pursued.
 
+### Step 11 — S48 Phase-3 launch preflight: NO-GO for this work session (2026-07-02)
+Priority-3 work-session audit asked whether Phase 3 can be run now as a scaled synthetic-target KD experiment.
+Verdict: **NO-GO for valid Phase-3 compute.**
+
+Reasons:
+- The existing Phase-2 artifact is explicitly inconclusive/walled: `outputs/E016_tribe/ceiling/ceiling_results.json`
+  records the failed LM→TRIBE target-alignment diagnostic (`trained.A_tribe_full_hl=+0.030`; the JSON helper flag
+  `vacuity_check.tribe_full_aligns_above_chance=false`). That keeps the Phase-2 ceiling claim walled/inconclusive;
+  it is not itself the original Phase-3 launch gate.
+- Independently, Phase 3 requires dense TRIBE targets on the KD corpus, but no such target cache exists in
+  `outputs/E016_tribe/`.
+- There is no Phase-3 runner implementing the required three-arm matched-perplexity design:
+  KD-only / KD+TRIBE-MSE / KD+TRIBE-block-permuted, with ≥3 seeds, matched ppl, train-only normalization/PCA,
+  and a fixed heldout corpus. A no-text/TRIBE variant should be inherited as an added confound-control from the
+  Phase-2 audit, but it was not part of the original Phase-3 gate.
+- The available distillation code can accept `fmri_train`, but `scripts/run_kd_alignment.py` is the old pure-KD
+  GPT-2/E003 harness (`lambda_brain=0`), and `scripts/run_brain_lever.py` targets the 5-UID Tuckute averaged
+  target rather than dense TRIBE predictions.
+
+**Decision:** do not run Phase 3 in this work session. The valid next action is a Phase-3 PRD/build gate: produce
+the dense synthetic target cache, add the matched-ppl three-arm runner, pre-register the permuted control plus any
+inherited no-text/TRIBE confound control, then run a smoke + reviewer gate before any multi-day training. This is a
+gate-fired completion, not a science null and not a ladder move.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

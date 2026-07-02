@@ -170,8 +170,10 @@ The research corpus continuing the path (full table + decision rules in `ladder.
     gated); `ffmpeg` installed for whisperx ASR. Repro `scripts/tribe_p0_verify.py`. Isolated `.venv-tribe`.
   - [ ] **F1 = P1 FIDELITY (spatial-specificity) → P2 CEILING (cheapest decisive; + no-text ablation) → P3 CLINCHER**
     — prereq: voxel-space mapping (LeBel-vol↔fsaverage5). Refined design in E016 "PHASE 1/2 DESIGN — REFINED".
-- [ ] **(Opportunistic Fork-B rigor, slot anywhere)** λ-sweep / rate-distortion curve on the averaged target
-  (`run_brain_lever.py --lambda-grid`) — the "how small" magnitude characterization, if A3 needs context.
+- [x] **(Opportunistic Fork-B rigor, S48)** λ-sweep / rate-distortion curve on the averaged target
+  (`run_brain_lever.py --lambda-grid`) — ran Qwen averaged-target sweep with λ-matched permuted twins; record in
+  `docs/experiments/E005_alignment-guided-kd-tradeoff.md` S48 addendum. Verdict: near-rate λ=1/3/10 trends do not
+  survive fold-level CIs; λ=30 is fold-level-positive but pays a large PPL cost.
 
 ### 📖 ANALYSIS lane (Erfan's queue — ACTIVE: write the finding-report set; working sessions DO NOT edit these docs)
 

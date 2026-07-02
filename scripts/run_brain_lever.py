@@ -28,6 +28,7 @@ reviews; HOLD->PASS). Load-bearing choices baked in here:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 import time
@@ -62,6 +63,11 @@ def matched_nc(data_dir: str) -> float:
     nc = pd.read_csv(ncf)
     vals = [float(nc.loc[nc["roi"] == r, "nc"].iloc[0]) for r in TUCKUTE_SUBROIS]
     return float(np.mean(vals))
+
+
+def stable_seed(*parts) -> int:
+    h = hashlib.blake2s("|".join(map(str, parts)).encode("utf-8"), digest_size=8).digest()
+    return int.from_bytes(h, "little") % (2**32 - 1)
 
 
 def load_covariates(data_dir: str, n_items: int) -> np.ndarray:
@@ -267,12 +273,13 @@ def run_target(texts, Y, base, tok, layer, nc, cov, heldout, conditions,
         print(f"\n== {tag_uid}fold {fi}: tune={len(tune_idx)} eval={len(eval_idx)}  base unique_r2={a0:+.4f} "
               f"(NC {a0/nc:+.3f}) ==", flush=True)
         for seed in args.seeds:
-            for tag, kind, lam, perm in conditions:
+            for tag, kind, lam, perm, null_key in conditions:
                 P.set_seed(seed)
                 m, _ = load_model(args.model, device)
                 Ytune = tn["Y"]
                 if perm is not False:
-                    Ytune = BL.block_permute(tn["Y"], n_blocks=10, seed=1000 + fi * 100 + seed * 10 + perm)
+                    Ytune = BL.block_permute(tn["Y"], n_blocks=10,
+                                             seed=stable_seed("brain_lever_perm", null_key, fi, seed, perm))
                 frozen_W = None
                 if kind == "frozen":
                     ecfg = P.ExtractConfig(pool="mean", max_length=64, batch_size=32)
@@ -286,6 +293,8 @@ def run_target(texts, Y, base, tok, layer, nc, cov, heldout, conditions,
                 ppl = eval_perplexity(m, tok, heldout, device) if heldout else None
                 raw_rows.append({"uid": uid, "fold": fi, "seed": seed, "arm": tag, "kind": kind,
                                  "is_perm": bool(perm is not False), "lambda_brain": lam,
+                                 "perm_draw": None if perm is False else int(perm),
+                                 "null_key": null_key,
                                  "unique_r2": a_s, "delta": a_s - a0,
                                  "nc_norm": a_s / nc, "perplexity": ppl})
                 print(f"  [{tag_uid}{tag:12s} s{seed}] unique_r2={a_s:+.4f} (NC {a_s/nc:+.3f})  "
@@ -369,18 +378,27 @@ def main():
 
     mse_lams = args.lambda_grid if args.lambda_grid else [ARM_LAMBDA["mse"]]
     # Precompute conditions: real arms + a matched permuted-fMRI twin per permute-kind.
-    conditions = []  # (tag, kind, lambda_brain, perm)  perm: False=real, int=draw index
+    # `null_key` binds real arms to their correct null. With --lambda-grid, each MSE
+    # lambda needs a lambda-matched permuted twin rather than one pooled mse_perm.
+    conditions = []  # (tag, kind, lambda_brain, perm, null_key)  perm: False=real, int=draw index
     for arm in args.arms:
         if arm == "lm_only":
-            conditions.append(("lm_only", None, 0.0, False))
+            conditions.append(("lm_only", None, 0.0, False, "lm_only"))
         elif arm == "mse":
             for lam in mse_lams:
-                conditions.append(("mse" if len(mse_lams) == 1 else f"mse_l{lam:g}", "mse", lam, False))
+                key = "mse" if len(mse_lams) == 1 else f"mse_l{lam:g}"
+                conditions.append((key, "mse", lam, False, key))
         else:
-            conditions.append((arm, arm, ARM_LAMBDA[arm], False))
+            conditions.append((arm, arm, ARM_LAMBDA[arm], False, arm))
     for pk in args.permute_kinds:
-        for d in range(args.n_perm):
-            conditions.append((f"{pk}_perm" if args.n_perm == 1 else f"{pk}_perm{d}", pk, ARM_LAMBDA[pk], d))
+        if pk == "mse" and args.lambda_grid:
+            perm_specs = [("mse" if len(mse_lams) == 1 else f"mse_l{lam:g}", lam) for lam in mse_lams]
+        else:
+            perm_specs = [(pk, ARM_LAMBDA[pk])]
+        for null_key, lam in perm_specs:
+            for d in range(args.n_perm):
+                tag = f"{null_key}_perm" if args.n_perm == 1 else f"{null_key}_perm{d}"
+                conditions.append((tag, pk, lam, d, null_key))
     print("conditions:", [c[0] for c in conditions])
     results = {"model": args.model, "layer": layer, "nc_matched": nc,
                "anat_nc_legacy": meta["noise_ceiling_langnetw"], "config": vars(args),
@@ -401,11 +419,14 @@ def main():
     raw = results["raw"]
     arms_seen = sorted({r["arm"] for r in raw})
     summary = {}
-    # nulls keyed by kind: each real readout arm is tested vs ITS OWN permuted twin
+    # nulls keyed by null_key: each real readout arm is tested vs ITS OWN permuted twin.
     perm_by_kind = {}
+    perm_by_cell = {}
     for r in raw:
         if r["is_perm"]:
-            perm_by_kind.setdefault(r["kind"], []).append(r["delta"])
+            perm_by_kind.setdefault(r.get("null_key", r["kind"]), []).append(r["delta"])
+            cell = (r.get("null_key", r["kind"]), r.get("uid"), r["fold"], r["seed"])
+            perm_by_cell.setdefault(cell, []).append(r["delta"])
     lmonly_by_fs = {(r.get("uid"), r["fold"], r["seed"]): r["delta"] for r in raw if r["arm"] == "lm_only"}
     for arm in arms_seen:
         rs = [r for r in raw if r["arm"] == arm]
@@ -425,11 +446,22 @@ def main():
             if paired:
                 pm, plo, phi = bootstrap_ci(paired)
                 ent["vs_lm_only_mean"] = pm; ent["vs_lm_only_ci"] = [plo, phi]
-            # permuted-null exceedance vs THIS kind's own permuted twin (brain-specificity)
-            if kind in perm_by_kind:
-                nd = perm_by_kind[kind]
-                ent["permuted_null_p95"] = float(np.percentile(nd, 95))
-                ent["beats_permuted_null"] = bool(m > np.percentile(nd, 95))
+            # Paired permuted-null contrast vs this arm's lambda/fold/seed-matched twin.
+            null_key = rs[0].get("null_key", kind)
+            if null_key in perm_by_kind:
+                paired_perm = []
+                for r in rs:
+                    cell = (null_key, r.get("uid"), r["fold"], r["seed"])
+                    if cell in perm_by_cell:
+                        paired_perm.append(r["delta"] - float(np.mean(perm_by_cell[cell])))
+                if paired_perm:
+                    ppm, pplo, pphi = bootstrap_ci(paired_perm)
+                    ent["vs_matched_perm_mean"] = ppm
+                    ent["vs_matched_perm_ci"] = [pplo, pphi]
+                    ent["vs_matched_perm_ci_excludes_0"] = bool(pplo > 0 or pphi < 0)
+                nd = perm_by_kind[null_key]
+                ent["permuted_null_p95_unpaired"] = float(np.percentile(nd, 95))
+                ent["beats_permuted_null_unpaired"] = bool(m > np.percentile(nd, 95))
         summary[arm] = ent
     results["summary"] = summary
     results["permuted_null_by_kind"] = {
@@ -446,8 +478,11 @@ def main():
         extra = ""
         if "vs_lm_only_mean" in e:
             extra += f"  vs_lm_only={e['vs_lm_only_mean']:+.4f} CI[{e['vs_lm_only_ci'][0]:+.4f},{e['vs_lm_only_ci'][1]:+.4f}]"
-        if "beats_permuted_null" in e:
-            extra += f"  >perm95={e['beats_permuted_null']}"
+        if "vs_matched_perm_mean" in e:
+            extra += (f"  vs_perm_pair={e['vs_matched_perm_mean']:+.4f} "
+                      f"CI[{e['vs_matched_perm_ci'][0]:+.4f},{e['vs_matched_perm_ci'][1]:+.4f}]")
+        if "beats_permuted_null_unpaired" in e:
+            extra += f"  >perm95_unpaired={e['beats_permuted_null_unpaired']}"
         if "perplexity_mean" in e:
             extra += f"  ppl={e['perplexity_mean']:.1f}"
         print(f"  {arm:12s} Δ={e['delta_mean']:+.4f} CI[{e['delta_ci'][0]:+.4f},{e['delta_ci'][1]:+.4f}] "
