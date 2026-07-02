@@ -533,6 +533,28 @@ all three arms and analyzer correctly returned `science_ready=false`:
 generation at the intended scale/dimension, a predeclared full run (≥3 seeds, matched PPL, permuted twin), and a
 review gate before interpretation. No science verdict, no rung flip.
 
+### Step 13 — Cache-throughput pilot PASS; still NOT a Phase-3 result (2026-07-02)
+Ran the first post-infra calibration step: direct synthetic-text TRIBE target caching on WikiText KD sentences,
+with `features_to_use=["text"]`, requested `batch_items=32`, `target_dim=512`, GPU 1, and no model training.
+Artifacts:
+- `outputs/E016_tribe/kd_targets/text/train_start0_n256_d512_pilot.npz`
+- `outputs/E016_tribe/kd_targets/text/heldout_start0_n128_d512_pilot.npz`
+
+Validation:
+- Train pilot: `targets=(256, 512)`, elapsed 83.914 s, 3.051 items/s, segment-counts min/mean/max =
+  2/9.28/19, zero missing items, finite targets.
+- Heldout pilot: `targets=(128, 512)`, elapsed 49.644 s, 2.578 items/s, segment-counts min/mean/max =
+  2/10.88/21, zero missing items, finite targets.
+
+Projection from this pilot: the full 95,999-train + 1,999-heldout cache is about 8.96 GPU-hours at the 512-vertex
+pilot throughput. This is only a throughput extrapolation. TRIBE still predicts the full 20,484 cortical vertices
+before the builder slices `target_dim`, so full-dimension cache generation should mostly preserve forward-pass
+cost but increase saved array size and write/I/O time.
+
+**Decision:** cache-throughput gate = **PASS**. Do not launch the full Phase-3 science run yet. The next valid
+step is a mini real-model Phase-3 runner check on a modest cached subset, verifying matched-PPL behavior,
+lambda/permuted control wiring, and analyzer gates before spending the full cache + >=3-seed compute.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

@@ -114,8 +114,9 @@ The research corpus continuing the path (full table + decision rules in [`ladder
   brain targets on the REAL KD corpus (where no fMRI exists; empirical averaging impossible — TRIBE's only
   irreplaceable use), matched-ppl vs permuted twin. Phase 1 validated TRIBE is faithful enough to be a target. A
   null at scale removes the scarcity/SNR excuse = strongest Fork-B. NOT a blocker. **Infra scaffolded 2026-07-02:**
-  target-cache builder + three-arm runner + analyzer smoke-tested on 2+2 sentences; full dense cache and ≥3-seed
-  matched-PPL run remain undone. (E016 §5 Phase 3 / Step 12.)
+  target-cache builder + three-arm runner + analyzer smoke-tested on 2+2 sentences; 256-train/128-heldout
+  cache-throughput pilot PASS; mini real-model runner check, full dense cache, and ≥3-seed matched-PPL run remain
+  undone. (E016 §5 Phase 3 / Steps 12-13.)
 
 The research corpus continuing the path (full table + decision rules in `ladder.md` → "THE FORWARD PROGRAM"):
 - **F1 · E016 TRIBE Phase 1→2 — the ceiling.** Prereq **voxel-space mapping SOLVED** (substrate → denizenslab,

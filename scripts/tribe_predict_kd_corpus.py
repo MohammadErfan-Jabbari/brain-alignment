@@ -234,6 +234,7 @@ def main():
         "corpus": str(corpus),
         "start": args.start,
         "n_items": len(texts),
+        "batch_items": args.batch_items,
         "features": features,
         "event_mode": args.event_mode,
         "target_dim": int(targets.shape[1]),
