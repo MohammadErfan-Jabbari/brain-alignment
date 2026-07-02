@@ -634,6 +634,16 @@ Verification:
 
 **Status:** analyzer reporting only. No new Phase-3 science result, no top-tier claim, no rung flip.
 
+### Step 20 - Text-feature control launcher prepared, not run (2026-07-03)
+Added `scripts/e016_make_textfeat_control_script.py` to write the exact full matched-information control launcher for the post-CoNLL burden of proof. The generated launcher builds full train and heldout frozen-LM text-feature caches, validates their schema and finite targets, runs the same GPT-2-medium to GPT-2 Phase-3 setup with `--target-label textfeat`, then sends the result through the analyzer. It mirrors the active TRIBE full-run seeds, lambda, student, teacher, epoch count, heldout limit, and analyzer path shape, while changing only the target source and arm label.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_make_textfeat_control_script.py` passed.
+- `uv run python scripts/e016_make_textfeat_control_script.py --force` wrote `outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh` and did not launch it.
+- `bash -n outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh` passed.
+
+**Status:** queued control launcher only. It must not be run while the active TRIBE full run is still building, and it is required only if the TRIBE result is positive enough to need a brain-specificity check.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
