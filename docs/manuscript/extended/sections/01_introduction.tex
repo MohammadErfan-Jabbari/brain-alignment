@@ -42,32 +42,30 @@ In particular, we study model compression: during knowledge distillation, can a 
 \end{figure}
 
 \textbf{Problem.}
-The concrete setting is model compression.
-Knowledge distillation trains a small \emph{student} model to imitate a larger \emph{teacher}, refitting the student's representations from scratch.
-That refit tends to discard the structured middle-layer representations where brain alignment lives.
-The problem this thesis studies is whether brain alignment, used as a training signal during distillation, can preserve or even improve it in the student at a matched compute budget, and whether the result buys anything beyond the alignment score itself.
-The case matters because compression is how small, deployable models are built, and the recent literature leaves it untested.
+We focus on model compression.
+Knowledge distillation trains a small \emph{student} model to imitate a larger \emph{teacher}, reshaping the student's internal representations while it learns.
+That is where the alignment question becomes sharp: if brain alignment lives in middle-layer structure, can a brain-alignment objective shape the student while it is being distilled?
+We ask whether such a student preserves or improves alignment at a matched compute budget, and whether any gain matters beyond the alignment score itself.
+This case matters because compression is how small, deployable models are built, and recent work has left this training use of brain alignment open.
 
 \textbf{Hypothesis.}
-If a brain signal helps at all, it helps as a weak prior, not as a second teacher.
-The reason is a mismatch in scale.
+The hypothesis is that brain alignment can act, at most, as a weak prior over text-consistent representations.
+The reason is a severe mismatch in scale.
 A language model learns from on the order of a trillion tokens of text.
 A language-fMRI dataset offers a few thousand noisy recordings, and a low noise ceiling caps the variance any model can explain in them.
-A prior that small cannot teach task structure the text does not already contain.
-What it can do is select among the many text-consistent solutions a large model admits, the way a weak regularizer does.
+Against that imbalance, the brain term is too small to carry new task structure by itself.
+Its plausible role is to bias the student among solutions already compatible with the text objective, the way a weak regularizer does.
 This gives a falsifiable prediction.
 A brain prior should help most where the text signal is weakest, in small, heavily compressed, or data-starved models, and should wash out wherever text data is abundant.
 Section~\ref{sec:methods} makes the argument precise.
 
-Using fMRI to shape a language model is not new.
-It has been done for speech models \autocite{moussa2025} and for text models \autocite{bilgin2026}, and its effect is causal: text models pushed to be brain-\emph{misaligned} at matched perplexity perform worse across a broad downstream suite \autocite{merlin2026}.
-Every one of these methods \emph{grows} the model, by fine-tuning it, adding adapters, or attaching a brain-prediction head, and none compresses it.
-The single study that compresses language models only measures how quantization and pruning move an alignment score.
-It never puts alignment in the objective, and never tests distillation \autocite{oota2026}.
-The work splits along two questions: does an intervention grow or shrink the model, and does it measure or optimize alignment?
-Three of the four combinations are occupied, and one is empty (Figure~\ref{fig:cells-diagram}).
-This thesis occupies the empty cell.
-It studies alignment-guided distillation at a matched student budget, the regime where our hypothesis says a brain prior could matter, rather than one where it is assumed to pay off.
+Recent studies have already used fMRI as an optimization signal for speech and text models \autocite{moussa2025,bilgin2026}.
+The case is strengthened by causal evidence: text models pushed to be brain-\emph{misaligned} at matched perplexity perform worse across a broad downstream suite \autocite{merlin2026}.
+Those studies live on the grow-and-optimize side of the field: they fine-tune the model, add adapters, or attach a brain-prediction head.
+Compression work has taken the complementary path.
+It shrinks a language model first, through quantization or pruning, and measures the alignment score afterward \autocite{oota2026}.
+Alignment-guided distillation combines the two: the model is shrunk, and the alignment score enters the training objective.
+That is the open case in Figure~\ref{fig:cells-diagram}, and it is exactly the regime where the weak-prior hypothesis says a brain signal has its best chance to matter.
 
 \begin{figure}[t]
   \centering

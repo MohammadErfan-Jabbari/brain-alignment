@@ -227,8 +227,8 @@
       \strng{authorbibnamehash}{1d8aebf22378804c85023af1e6a13688}
       \strng{authornamehash}{1d8aebf22378804c85023af1e6a13688}
       \strng{authorfullhash}{1d8aebf22378804c85023af1e6a13688}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{ICLR}
@@ -256,8 +256,8 @@
       \strng{authornamehash}{14596cf0e4f055b53cafc5d2629281d1}
       \strng{authorfullhash}{14596cf0e4f055b53cafc5d2629281d1}
       \field{extraname}{1}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{ICLR}
@@ -285,8 +285,8 @@
       \strng{authornamehash}{14596cf0e4f055b53cafc5d2629281d1}
       \strng{authorfullhash}{14596cf0e4f055b53cafc5d2629281d1}
       \field{extraname}{2}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Preprint}
@@ -310,8 +310,8 @@
       \strng{authorbibnamehash}{f6964ada44364cdd3b1e0f8947107e6c}
       \strng{authornamehash}{f6964ada44364cdd3b1e0f8947107e6c}
       \strng{authorfullhash}{f6964ada44364cdd3b1e0f8947107e6c}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Preprint}
@@ -356,8 +356,8 @@
       \strng{authorbibnamehash}{28a4cd28480108176b4cb2edbf8c29ae}
       \strng{authornamehash}{28a4cd28480108176b4cb2edbf8c29ae}
       \strng{authorfullhash}{28a4cd28480108176b4cb2edbf8c29ae}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Preprint (arXiv:2209.02582)}
@@ -530,8 +530,8 @@
       \strng{authorbibnamehash}{c87c42a0e1ba5004a3fe120b8a88b171}
       \strng{authornamehash}{c87c42a0e1ba5004a3fe120b8a88b171}
       \strng{authorfullhash}{c87c42a0e1ba5004a3fe120b8a88b171}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{NeurIPS}
