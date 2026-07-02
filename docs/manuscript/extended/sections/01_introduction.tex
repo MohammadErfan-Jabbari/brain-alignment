@@ -27,9 +27,9 @@
 % The text below is the v0.2 draft; Round 3 reworks it into this order + the doctrine.
 % ===========================================================================
 
-Brain alignment has become a way to study what language models and the human language system share.
-Linear encoding studies ask how well a model's internal activations predict human brain responses to the same text, and the resulting score has been used to compare architectures, layers, training objectives, scale, and compression \autocite{oota2023,aw2023,gao2024,oota2026}.
-Recent work also shows that the score is fragile: it can reflect linguistic structure, but it can also be inflated by low-level stimulus features or weak evaluation splits \autocite{oota2024,hadidi2026}.
+Brain alignment has become a way to study what language models and the human language system share \autocite{tuckute2024,oota2023,merlin2024}.
+Linear encoding studies ask how well a model's internal activations predict human brain responses to the same text, and the resulting score has been used to compare architectures, layers, training objectives, scale, and compression \autocite{oota2023,aw2023,gao2024,alkhamissi2025,oota2026}.
+Recent work also shows that the score is fragile: it can reflect linguistic structure, but it can also be inflated by low-level stimulus features, shallow acoustic cues, or weak evaluation splits \autocite{oota2024,hadidi2026,jia2026}.
 Together, this literature has made brain alignment useful as a measurement.
 This thesis asks whether the same signal can be useful as a training signal.
 In particular, we study model compression: during knowledge distillation, can a small student be guided by a brain-alignment objective, and does that guidance preserve anything ordinary text-only compression loses?
@@ -44,22 +44,22 @@ In particular, we study model compression: during knowledge distillation, can a 
 \textbf{Problem.}
 We focus on model compression.
 Knowledge distillation trains a small \emph{student} model to imitate a larger \emph{teacher}, reshaping the student's internal representations while it learns.
-That is where the alignment question becomes sharp: if brain alignment lives in middle-layer structure, can a brain-alignment objective shape the student while it is being distilled?
+That is where the alignment question becomes sharp: if brain alignment lives in middle-layer structure, can a brain-alignment objective shape the student while it is being distilled \autocite{oota2023,oota2026}?
 We ask whether such a student preserves or improves alignment at a matched compute budget, and whether any gain matters beyond the alignment score itself.
-This case matters because compression is how small, deployable models are built, and recent work has left this training use of brain alignment open.
+This case matters because compression is how small, deployable models are built, and recent brain-tuning and compression work has left this training use of brain alignment open \autocite{moussa2025,bilgin2026,merlin2026,oota2026}.
 
 \textbf{Hypothesis.}
 The hypothesis is that brain alignment can act, at most, as a weak prior over text-consistent representations.
 The reason is a severe mismatch in scale.
 A language model learns from on the order of a trillion tokens of text.
-A language-fMRI dataset offers a few thousand noisy recordings, and a low noise ceiling caps the variance any model can explain in them.
+A language-fMRI dataset offers a few thousand noisy recordings, and a low noise ceiling caps the variance any model can explain in them \autocite{tuckute2024,lebel2023,lage2019}.
 Against that imbalance, the brain term is too small to carry new task structure by itself.
-Its plausible role is to bias the student among solutions already compatible with the text objective, the way a weak regularizer does.
+Its plausible role is to bias the student among solutions already compatible with the text objective, the way a weak regularizer does \autocite{xu2017,cover2006,pirlot2022,freteault2025}.
 This gives a falsifiable prediction.
 A brain prior should help most where the text signal is weakest, in small, heavily compressed, or data-starved models, and should wash out wherever text data is abundant.
 Section~\ref{sec:methods} makes the argument precise.
 
-Recent studies have already used fMRI as an optimization signal for speech and text models \autocite{moussa2025,bilgin2026}.
+Recent studies have already used fMRI as an optimization signal for speech and text models \autocite{moussa2025,moussa2025b,negi2025,bilgin2026}.
 The case is strengthened by causal evidence: text models pushed to be brain-\emph{misaligned} at matched perplexity perform worse across a broad downstream suite \autocite{merlin2026}.
 Those studies live on the grow-and-optimize side of the field: they fine-tune the model, add adapters, or attach a brain-prediction head.
 Compression work has taken the complementary path.
@@ -75,9 +75,9 @@ That is the open case in Figure~\ref{fig:cells-diagram}, and it is exactly the r
 \end{figure}
 
 Brain-alignment scores are easy to inflate.
-Shuffled splits leak through the temporal autocorrelation of fMRI, and low-level features such as sentence length carry much of an apparent score, so an untrained network can appear to explain brain data on its own \autocite{hadidi2026}.
+Shuffled splits leak through the temporal autocorrelation of fMRI, and low-level features such as sentence length carry much of an apparent score, so an untrained network can appear to explain brain data on its own \autocite{hadidi2026,jia2026}.
 We therefore hold every number in this thesis to a fixed standard, set before measuring anything.
-The contributions below summarize that standard, and Section~\ref{sec:methods} defines it \autocite{oota2023,merlin2024}.
+The contributions below summarize that standard, and Section~\ref{sec:methods} defines it \autocite{oota2023,merlin2024,oota2024,hadidi2026,jia2026}.
 
 % Contributions list (beat 5) — Round 3 writes the text; scope = through Q2, methodology spine.
 \paragraph{Contributions.}
