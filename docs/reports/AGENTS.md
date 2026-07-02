@@ -37,7 +37,7 @@ Read and write findings in this order:
 |---|---|---|---|---|
 | 1 | `R06_alignment-signal-is-real-beyond-confounds.md` | Q0 / A2 | Alignment signal is real beyond artifacts and defines the apparatus. | Written |
 | 2 | `R07_plain-kd-does-not-preserve-alignment.md` | Q1 | Plain KD does not preserve alignment by default. | Written |
-| 3 | R08 | Q2 | The lever is real but weak and perplexity-confounded. | To write |
+| 3 | `R08_alignment-objective-has-no-demonstrated-lever.md` | Q2 | The brain-alignment objective has not shown a reliable held-out alignment gain. | Written |
 | 4 | R09 | Q3 | No per-individual gain; averaging artifact. | Parked draft `_pending-Q3_*.md` |
 | 5 | R10 | Q3 | Null is method-general. | To write |
 | 6 | R11 | Q3 | Quality law; matched-perplexity is the missing control. | To write |

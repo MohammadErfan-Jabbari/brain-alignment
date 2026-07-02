@@ -46,8 +46,8 @@ THE BET:  the LM↔brain linear map is not just to MEASURE — it is a usable TR
    └─ E003  KD gradient ................... not preserved-for-free; births the matched-ppl control (L011)
    │
    ▼
- Q2        IS L_brain A LEVER — can we MOVE alignment by optimising it?    🟡 PARTIAL (fragile)
-   └─ E004  brain-tune (LoRA) ............. +0.0032 vs permuted twin, small & fragile; sub-threshold
+ Q2        IS L_brain A LEVER — can we MOVE alignment by optimising it?    ❌ NO DEMONSTRATED LEVER
+   └─ E004  brain-tune (LoRA) ............. +0.0032 vs permuted twin, but fold-level CI includes 0
    │
    ▼
  Q3 · F1   BRAIN-GUIDED KD vs matched-ppl baseline → per-individual gain?  ❌ NULL (powered) ◄ THE TURN
@@ -79,7 +79,7 @@ SUPPORTING TRACKS (not rungs; they explain WHY the spine holds):
 |---|---|---|---|
 | **Q0 · A2** | Is the signal real beyond confounds? | ✅ **PASS (powered)** | E002, **E006** |
 | **Q1** | Does plain perplexity-only KD preserve/destroy alignment? | 🟡 PARTIAL (headroom; not free) | E003 |
-| **Q2** | Is `L_brain` a lever — can we move it? | 🟡 PARTIAL (fragile, sub-threshold) | E004 |
+| **Q2** | Is `L_brain` a lever — can we move it? | ❌ **NO DEMONSTRATED LEVER** (undemonstrated, not proven zero) | E004 |
 | **Q3 · F1** | Brain-guided KD → per-individual gain at matched ppl? | ❌ **NULL per-subject** (robust) | **E008** (+E011/E013/E017) |
 | **Q4 · A3** | Does induced alignment buy something practical (OOD)? | ❌ bounded NULL | E009 |
 | **Q5 · F3** | An fMRI-free proxy that recovers the benefit? | ⬜ deferred (moot) | — |

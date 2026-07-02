@@ -20,8 +20,8 @@ it, and (4) **produce** the manuscript v1.0 with the S14 scope correction and re
 > | This roadmap's session | Finding-report (output) | Status |
 > |---|---|---|
 > | (Q0/A2, was R05 §0–§8) | **R06** — signal real beyond confounds | ✅ written (S16) |
-> | (Q1, was R05 §0–§8) | **R07** — plain KD does not preserve alignment | ⬜ **NEXT** |
-> | (Q2, was R05 §0–§8) | **R08** — the lever is real but weak / ppl-confounded | ⬜ |
+> | (Q1, was R05 §0–§8) | **R07** — plain KD does not preserve alignment | ✅ written |
+> | (Q2, was R05 §0–§8) | **R08** — no demonstrated reliable alignment lever | ✅ written |
 > | **Session A** (E005→E008) | **R09** — no per-individual gain; the averaging confound (parked `_pending-Q3_*.md`) | ⬜ |
 > | **Session C** (E017 + convergence) | **R10** — the null is method-general | ⬜ |
 > | **Session B** (E015 quality law) | **R11** — the quality law; matched-ppl is the missing control | ⬜ |
