@@ -774,7 +774,7 @@ Extended `scripts/e016_phase3_status.py` with a top-level `gpu` block from `nvid
 
 Verification:
 - `uv run python -m py_compile scripts/e016_phase3_status.py` passed.
-- `uv run python scripts/e016_phase3_status.py --pretty` reported `gpu.available=true`, `active_gpu_count=2`, and `max_utilization_gpu_pct=66` while the active full run remained `run_json.exists=false` and `analysis_json.exists=false`.
+- `uv run python scripts/e016_phase3_status.py --pretty` reported `gpu.available=true`, `active_gpu_count=2`, and nonzero GPU utilization while the active full run remained `run_json.exists=false` and `analysis_json.exists=false`.
 
 **Status:** monitoring hardening only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
