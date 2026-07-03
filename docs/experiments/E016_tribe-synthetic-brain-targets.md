@@ -769,6 +769,15 @@ Verification:
 
 **Status:** robustness hardening only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 33 - Status helper now reports node-level GPU activity (2026-07-03)
+Extended `scripts/e016_phase3_status.py` with a top-level `gpu` block from `nvidia-smi`. It reports per-GPU memory, GPU utilization, memory utilization, active GPU count, and a note that compute-app PIDs may be host-namespace PIDs, so the block is node-level activity rather than strict E016 attribution. This makes a quiet training log easier to distinguish from an idle or dead runner without running separate manual GPU commands.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_phase3_status.py` passed.
+- `uv run python scripts/e016_phase3_status.py --pretty` reported `gpu.available=true`, `active_gpu_count=2`, and `max_utilization_gpu_pct=66` while the active full run remained `run_json.exists=false` and `analysis_json.exists=false`.
+
+**Status:** monitoring hardening only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

@@ -282,6 +282,44 @@ def analysis_rec(path: Path) -> dict:
     return rec
 
 
+def gpu_rec() -> dict:
+    cmd = [
+        "nvidia-smi",
+        "--query-gpu=index,name,memory.used,memory.total,utilization.gpu,utilization.memory",
+        "--format=csv,noheader,nounits",
+    ]
+    proc = subprocess.run(cmd, check=False, text=True, capture_output=True)
+    if proc.returncode != 0:
+        return {"available": False, "error": proc.stderr.strip() or proc.stdout.strip()}
+    gpus = []
+    for line in proc.stdout.splitlines():
+        parts = [part.strip() for part in line.split(",")]
+        if len(parts) != 6:
+            continue
+        try:
+            idx, name, mem_used, mem_total, util_gpu, util_mem = parts
+            gpus.append(
+                {
+                    "index": int(idx),
+                    "name": name,
+                    "memory_used_mib": int(mem_used),
+                    "memory_total_mib": int(mem_total),
+                    "utilization_gpu_pct": int(util_gpu),
+                    "utilization_memory_pct": int(util_mem),
+                }
+            )
+        except ValueError:
+            continue
+    active = [gpu for gpu in gpus if gpu["utilization_gpu_pct"] > 0 or gpu["memory_used_mib"] > 1024]
+    return {
+        "available": True,
+        "note": "GPU process PIDs may be host-namespace PIDs; this block is node-level activity, not E016 attribution.",
+        "active_gpu_count": len(active),
+        "max_utilization_gpu_pct": max((gpu["utilization_gpu_pct"] for gpu in gpus), default=None),
+        "gpus": gpus,
+    }
+
+
 def health_rec(
     *,
     now: datetime,
@@ -358,11 +396,13 @@ def main() -> None:
     explicit_pids = [pid for pid in [args.parent_pid, args.builder_pid] if pid is not None]
     processes = ps_rec(explicit_pids) if explicit_pids else discover_processes()
     add_active_eta(log, processes)
+    gpu = gpu_rec()
     now = datetime.now(timezone.utc)
     payload = {
         "checked_at_utc": now.isoformat(),
         "phase": infer_phase(train, heldout, run, analysis, log, processes),
         "health": health_rec(now=now, log=log, processes=processes, run=run, analysis=analysis),
+        "gpu": gpu,
         "processes": processes,
         "train_cache": train,
         "heldout_cache": heldout,
