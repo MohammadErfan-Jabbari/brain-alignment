@@ -18,6 +18,8 @@ The live search strengthens the S51 conclusion: the broad novelty cells are crow
 
 The field has now covered measurement, attribution, multilingual alignment, brain-informed training, speech-model brain-tuning, brain-vs-stimulus comparisons, and reasoning-time/fine-tuning brain guidance. I did not find a primary-source paper that tests the exact deployment-relevant cell we can still contribute: **KD-only smaller student vs brain-guided KD under matched PPL/utility, with a permuted target and a matched-information non-brain privileged target.**
 
+The follow-up privileged-signal audit adds one more boundary: context/self-distillation, rich-feedback distillation, and gaze/cognitive supervision are active too. So the contribution cannot be "privileged or cognitive signal helps a model"; it must be the controlled biological/synthetic-neural target comparison under fixed-budget text-KD.
+
 ## Venue/open-question matrix
 
 | Venue/source cell | Fresh source pressure | What it closes | What remains open for us |
@@ -47,6 +49,7 @@ The active E016 path is still the right next experiment because it is the first 
 ## Immediate implications for E016
 
 - A TRIBE-only positive is not enough; the text-feature control is non-optional after the current frontier check.
+- A TRIBE positive that only beats KD/permuted targets is still vulnerable to a generic privileged-target/context-distillation interpretation; if it beats textfeat, the likely next reviewer demand is extra seeds plus either a stronger non-brain privileged-target control or real-brain evaluation.
 - A null is still publishable only if the analyzer gate is complete and the paired seed-level audit survives `/interpret`.
 - A positive branch must be described as synthetic-target compression until the matched-information control and extra inference strength are in hand.
 - The final paper introduction should concede generic brain-guided LLM utility as prior work, then move straight to the smaller-student/KD deployment question.
@@ -63,5 +66,6 @@ The active E016 path is still the right next experiment because it is the first 
 - [`top-venue-frontier-refresh-2026-07-02.md`](top-venue-frontier-refresh-2026-07-02.md)
 - [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md)
 - [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md)
+- [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md)
 - [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md)
 - [`experiments/E016_tribe-synthetic-brain-targets.md`](experiments/E016_tribe-synthetic-brain-targets.md)
