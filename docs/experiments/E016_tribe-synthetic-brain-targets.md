@@ -680,6 +680,16 @@ Verification:
 
 **Status:** target-cache artifact and monitoring update only. Training is running, but there is still no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 24 - Status helper now discovers the Phase-3 runner process (2026-07-03)
+Extended `scripts/e016_phase3_status.py` process discovery to include the active `run_tribe_phase3.py` runner, not only the shell parent and cache builders. This matters during training because the trainer is quiet after printing an arm marker; the process table, not log mtime alone, is the live-health check.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_phase3_status.py` passed.
+- `git diff --check` passed.
+- `uv run python scripts/e016_phase3_status.py --pretty` showed the launcher parent plus the `uv run python scripts/run_tribe_phase3.py` process and its `.venv/bin/python3` child. The Python child was running under the first full arm (`seed=0`, `arm=kd_only`, `lambda=0.0`), with `run_json.exists=false` and `analysis_json.exists=false`.
+
+**Status:** monitoring correction only. The full run is alive in training, but no run JSON, analyzer verdict, science claim, or rung flip exists yet.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

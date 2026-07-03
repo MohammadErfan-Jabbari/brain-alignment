@@ -158,7 +158,8 @@ def discover_processes() -> list[dict]:
         pid, elapsed, stat, cmd = parts
         is_parent = str(RUN_SCRIPT) in cmd
         is_builder = "tribe_predict_kd_corpus.py" in cmd and (str(TRAIN_CACHE) in cmd or str(HELDOUT_CACHE) in cmd)
-        if is_parent or is_builder:
+        is_runner = "run_tribe_phase3.py" in cmd and str(RUN_JSON) in cmd
+        if is_parent or is_builder or is_runner:
             rows.append({"pid": int(pid), "elapsed": elapsed, "stat": stat, "cmd": cmd})
     return rows
 
