@@ -15,8 +15,11 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from e016_phase3_status import ANALYSIS_JSON, RUN_JSON
+from e016_phase3_status import ANALYSIS_JSON, ROOT, RUN_JSON
 from e016_make_readiness_packet import out_path_for
+
+ANALYZER = ROOT / "scripts/analyze_tribe_phase3.py"
+READINESS_BUILDER = ROOT / "scripts/e016_make_readiness_packet.py"
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -32,9 +35,15 @@ def analysis_path_for(run_json: Path) -> Path:
     return run_json.with_suffix(".analysis.json")
 
 
+def absolutize(path: Path | None) -> Path | None:
+    if path is None:
+        return None
+    return path if path.is_absolute() else (Path.cwd() / path).resolve()
+
+
 def run_step(cmd: list[str]) -> None:
     print("$ " + " ".join(cmd), flush=True)
-    subprocess.run(cmd, check=True)
+    subprocess.run(cmd, check=True, cwd=ROOT)
 
 
 def stale(output: Path, inputs: list[Path]) -> bool:
@@ -84,9 +93,12 @@ def main() -> None:
     ap.add_argument("--out", type=Path, default=None, help="Optional status packet path.")
     args = ap.parse_args()
 
-    run_json = args.run_json
-    analysis_json = args.analysis_json or analysis_path_for(run_json)
-    readiness_json = args.readiness_json or out_path_for(analysis_json)
+    run_json = absolutize(args.run_json)
+    assert run_json is not None
+    analysis_json = absolutize(args.analysis_json) or analysis_path_for(run_json)
+    readiness_json = absolutize(args.readiness_json) or out_path_for(analysis_json)
+    comparison_json = absolutize(args.comparison_json)
+    out_path = absolutize(args.out)
 
     if not run_json.exists():
         packet = summary_packet(
@@ -98,15 +110,15 @@ def main() -> None:
         )
         text = json.dumps(packet, indent=2)
         print(text)
-        if args.out:
-            args.out.write_text(text + "\n", encoding="utf-8")
+        if out_path:
+            out_path.write_text(text + "\n", encoding="utf-8")
         return
 
     if args.force or stale(analysis_json, [run_json]):
         run_step(
             [
                 sys.executable,
-                "scripts/analyze_tribe_phase3.py",
+                str(ANALYZER),
                 str(run_json),
                 "--out",
                 str(analysis_json),
@@ -115,16 +127,16 @@ def main() -> None:
 
     readiness_cmd = [
         sys.executable,
-        "scripts/e016_make_readiness_packet.py",
+        str(READINESS_BUILDER),
         str(analysis_json),
         "--out",
         str(readiness_json),
     ]
-    if args.comparison_json is not None:
-        readiness_cmd.extend(["--comparison-json", str(args.comparison_json)])
+    if comparison_json is not None:
+        readiness_cmd.extend(["--comparison-json", str(comparison_json)])
     readiness_inputs = [analysis_json]
-    if args.comparison_json is not None:
-        readiness_inputs.append(args.comparison_json)
+    if comparison_json is not None:
+        readiness_inputs.append(comparison_json)
     if args.force or stale(readiness_json, readiness_inputs):
         run_step(readiness_cmd)
 
@@ -137,8 +149,8 @@ def main() -> None:
     )
     text = json.dumps(packet, indent=2)
     print(text)
-    if args.out:
-        args.out.write_text(text + "\n", encoding="utf-8")
+    if out_path:
+        out_path.write_text(text + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

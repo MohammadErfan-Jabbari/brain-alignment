@@ -758,6 +758,17 @@ Verification:
 
 **Status:** guarded post-run automation only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 32 - Finalizer made cwd-independent (2026-07-03)
+Hardened `scripts/e016_finalize_phase3.py` so it resolves the repo root from `scripts/e016_phase3_status.py`, passes absolute analyzer/readiness script paths to subprocesses, and resolves user-supplied artifact paths before changing subprocess cwd. This prevents a future handoff failure if the command is launched from a subdirectory rather than the repo root.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_finalize_phase3.py` passed.
+- Default invocation from the repo root returned `run_json_missing` for the still-incomplete active full run.
+- Default invocation from `docs/` via `uv run python ../scripts/e016_finalize_phase3.py` also returned the same full-run `run_json_missing` packet.
+- Existing smoke run fixture still regenerated a smoke analyzer/readiness pair using absolute script paths and preserved `science_ready=false` plus `paper_branch_hint.branch="not_ready"`.
+
+**Status:** robustness hardening only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
