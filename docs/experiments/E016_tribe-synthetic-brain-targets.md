@@ -664,6 +664,22 @@ Verification:
 
 **Status:** monitoring correction only. No Phase-3 result, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 23 - Full target caches validated and training-progress monitor added (2026-07-03)
+The active full Phase-3 launcher completed both target-cache stages and advanced into the GPT-2 training arms. `scripts/e016_phase3_status.py` now also parses the training-arm markers from the log, reporting the latest `seed`/`arm`/`lambda` marker and the number of arm markers seen out of the expected 9 arms.
+
+Cache/status snapshot at `2026-07-03T01:06:08.080057+00:00`:
+- Train target cache exists at `outputs/E016_tribe/kd_targets/text/train_start0_n95999_full.npz`, with sidecar `n_items=95999`, `target_dim=20484`, `elapsed_s=52654.695`, and `science_status="target-cache artifact only; not a Phase-3 result"`.
+- Heldout target cache exists at `outputs/E016_tribe/kd_targets/text/heldout_start0_n1999_full.npz`, with sidecar `n_items=1999`, `target_dim=20484`, `elapsed_s=1001.696`, and the same target-cache-only science status.
+- The launcher validation printed train shape `(95999, 20484)`, heldout shape `(1999, 20484)`, `missing=0`, and `finite=True` for both caches.
+- Training began at `2026-07-03T01:01:14Z`; the latest parsed arm marker was `seed=0`, `arm=kd_only`, `lambda=0.0`, with `1/9` arm markers seen.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_phase3_status.py` passed.
+- `git diff --check` passed.
+- `uv run python scripts/e016_phase3_status.py --pretty` reported `phase=training_running_or_interrupted`, both caches present, `run_json.exists=false`, and `analysis_json.exists=false`.
+
+**Status:** target-cache artifact and monitoring update only. Training is running, but there is still no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

@@ -22,6 +22,7 @@ ANALYSIS_JSON = PHASE3 / "phase3_full_gpt2_n95999_s0-1-2_lam0.1.analysis.json"
 
 TRAIN_EXPECTED = 95_999
 HELDOUT_EXPECTED = 1_999
+TRAINING_ARMS_EXPECTED = 9
 
 
 def iso_mtime(path: Path) -> str | None:
@@ -204,6 +205,14 @@ def log_rec(path: Path, expected_train: int) -> dict:
         active = rec.get(f"{rec['active_cache_stage']}_cache_progress")
         if active:
             rec["latest_batch"] = active["latest_batch"]
+    training_arms = re.findall(r"== seed=(\d+) arm=([a-z_]+) lambda=([^\s=]+) ==", text)
+    if training_arms:
+        seed, arm, lam = training_arms[-1]
+        rec["training_progress"] = {
+            "latest_arm": {"seed": int(seed), "arm": arm, "lambda": float(lam)},
+            "arm_markers_seen": len(training_arms),
+            "arms_expected": TRAINING_ARMS_EXPECTED,
+        }
     rec["tail"] = text.splitlines()[-12:]
     return rec
 
