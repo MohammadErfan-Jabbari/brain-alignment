@@ -24,6 +24,14 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 > results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
 > of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
+### 🔬 S76 `/goal` continuation - bounded E016 monitoring, full run advanced but still no result (2026-07-03)
+
+- [x] **E016 status rechecked and bounded watchers run.** Two bounded watcher runs (`--max-wait-s 720` and `--max-wait-s 1200`) reached their caps without a full run JSON. The first follow-up status showed the live run had advanced from 6/9 to 7/9 completed arms.
+- [x] **Current S76 close state recorded.** `checked_at_utc=2026-07-03T05:02:44.843177+00:00`, `phase=training_running_or_interrupted`, `health.status=runner_alive_log_quiet`, latest marker `seed=2`, `arm=tribe_mse`, `lambda=0.1`, `8/9` arm markers seen, `completed_arm_count=7`, `gpu.available=true`, `active_gpu_count=2`, `max_utilization_gpu_pct=75` in the instantaneous close-state sample, `run_json.exists=false`, `analysis_json.exists=false`.
+- [x] **No interpretation boundary crossed.** Latest completed arm is seed 2 `kd_only` (`ppl=98.120`, `target_r2=0.5932`), but this is partial-arm diagnostic output only, not a Phase-3 result.
+- [ ] **Monitor active E016 Phase-3 training to analyzer JSON.** Run `uv run python scripts/e016_phase3_status.py --pretty`; if the full run JSON appears, route with `uv run python scripts/e016_branch_decision.py` and only then finalize/analyze as directed.
+- [ ] **Do not launch textfeat/contextfeat or real-brain probes before the full E016 gate.** The active TRIBE job is still consuming resources and has no analyzer/readiness packet.
+
 ### 🔬 S75 `/goal` continuation - saved-student real-brain probe added, full run still no result (2026-07-03)
 
 - [x] **E016 status rechecked for wrap.** Current S75 close state: `checked_at_utc=2026-07-03T04:21:33.973460+00:00`, `phase=training_running_or_interrupted`, `health.status=runner_alive_log_quiet`, latest marker `seed=2`, `arm=kd_only`, `lambda=0.0`, `7/9` arm markers seen, `completed_arm_count=6`, `gpu.available=true`, `active_gpu_count=2`, `max_utilization_gpu_pct=58` in the instantaneous close-state sample, `run_json.exists=false`, `analysis_json.exists=false`. Completed-arm diagnostics remain partial diagnostics only, not Phase-3 results.
