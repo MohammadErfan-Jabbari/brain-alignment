@@ -875,6 +875,24 @@ Design implication: future textfeat/contextfeat or rerun-selected TRIBE arms can
 
 **Status:** model-artifact retention plumbing only. No active run was stopped or modified, no new full control was launched, no analyzer verdict exists, no science claim exists, and no rung flipped.
 
+### Step 41 - Saved students can be scored on the real Tuckute endpoint (2026-07-03)
+Added `scripts/e016_eval_saved_student_alignment.py`, a post-hoc helper for the positive-branch burden where synthetic-target gains must be separated from real-brain alignment. It reads an E016-style run JSON, loads rows with `model_artifact_dir`, and scores each saved student on Tuckute 2024 with the E003 anti-confound protocol: contiguous 5-fold variance partition, unique contextual R2 over length, position, and fixed static-embedding nuisance, plus verdict-layer PCA robustness.
+
+Intended use:
+
+- Run only after selected full-scale students exist from `--save-model-dir` runs.
+- Use the same fixed nuisance reference model across arms, normally `gpt2-medium`.
+- Treat the output JSON as a diagnostic input to `/interpret`; it does not establish an E016 verdict or a real-brain paper claim by itself.
+
+Verification:
+
+- `uv run python -m py_compile scripts/e016_eval_saved_student_alignment.py` passed.
+- CPU smoke on the tiny artifact-retention run loaded one saved `sshleifer/tiny-gpt2` student, scored Tuckute with `--reference-model sshleifer/tiny-gpt2 --limit-rows 1 --n-pca 2 --pca-robust 2`, and wrote `outputs/E016_tribe/phase3/phase3_smoke_save_model_test.tuckute_alignment.json` with `artifact_rows_scored=1`.
+
+Design implication: the top-venue positive branch now has a concrete real-brain probe path for artifacted students. The active TRIBE full run is still metrics-only unless selected arms are rerun with artifact saving, so this does not change the current E016 gate.
+
+**Status:** real-brain evaluation plumbing only. No active run was stopped or modified, no new full control was launched, no analyzer verdict exists, no science claim exists, and no rung flipped.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
