@@ -690,6 +690,16 @@ Verification:
 
 **Status:** monitoring correction only. The full run is alive in training, but no run JSON, analyzer verdict, science claim, or rung flip exists yet.
 
+### Step 25 - Status helper health block added for quiet training (2026-07-03)
+Extended `scripts/e016_phase3_status.py` with a `health` block that separates a quiet training log from a stopped run. The helper now reports `status`, total process count, runner-process count, maximum runner elapsed time, and `log_quiet_s`. In the current full run this is expected to read as `runner_alive_log_quiet` while `run_tribe_phase3.py` is fitting/evaluating an arm without emitting new log lines.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_phase3_status.py` passed.
+- `git diff --check` passed.
+- `uv run python scripts/e016_phase3_status.py --pretty` reported `health.status=runner_alive_log_quiet`, `runner_process_count=2`, `runner_elapsed_s_max=1346`, `log_quiet_s=1222`, latest parsed arm `seed=0`, `arm=kd_only`, `lambda=0.0`, and no run/analyzer JSON.
+
+**Status:** monitoring correction only. The full run is alive in training, but no run JSON, analyzer verdict, science claim, or rung flip exists yet.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

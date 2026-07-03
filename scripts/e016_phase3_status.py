@@ -233,6 +233,48 @@ def analysis_rec(path: Path) -> dict:
     return rec
 
 
+def health_rec(
+    *,
+    now: datetime,
+    log: dict,
+    processes: list[dict],
+    run: dict,
+    analysis: dict,
+) -> dict:
+    runner_processes = [proc for proc in processes if "run_tribe_phase3.py" in str(proc.get("cmd", ""))]
+    runner_elapsed = [
+        parse_etime_seconds(str(proc.get("elapsed", "")))
+        for proc in runner_processes
+    ]
+    runner_elapsed = [value for value in runner_elapsed if value is not None]
+    log_mtime = log.get("mtime_utc")
+    log_quiet_s = None
+    if log_mtime:
+        try:
+            log_quiet_s = int((now - datetime.fromisoformat(log_mtime)).total_seconds())
+        except ValueError:
+            log_quiet_s = None
+    if analysis.get("exists"):
+        status = "analysis_artifact_present"
+    elif run.get("exists"):
+        status = "run_json_present_no_analysis"
+    elif runner_processes:
+        status = "runner_alive_log_quiet" if log_quiet_s is not None and log_quiet_s > 600 else "runner_alive_log_recent"
+    elif "Running full GPT-2 Phase-3 arms" in (log.get("markers_seen") or []):
+        status = "training_marker_no_runner"
+    elif processes:
+        status = "processes_alive"
+    else:
+        status = "no_processes"
+    return {
+        "status": status,
+        "process_count": len(processes),
+        "runner_process_count": len(runner_processes),
+        "runner_elapsed_s_max": max(runner_elapsed, default=None),
+        "log_quiet_s": log_quiet_s,
+    }
+
+
 def infer_phase(train: dict, heldout: dict, run: dict, analysis: dict, log: dict, processes: list[dict]) -> str:
     if analysis.get("exists"):
         gate = analysis.get("gate") or {}
@@ -267,9 +309,11 @@ def main() -> None:
     explicit_pids = [pid for pid in [args.parent_pid, args.builder_pid] if pid is not None]
     processes = ps_rec(explicit_pids) if explicit_pids else discover_processes()
     add_active_eta(log, processes)
+    now = datetime.now(timezone.utc)
     payload = {
-        "checked_at_utc": datetime.now(timezone.utc).isoformat(),
+        "checked_at_utc": now.isoformat(),
         "phase": infer_phase(train, heldout, run, analysis, log, processes),
+        "health": health_rec(now=now, log=log, processes=processes, run=run, analysis=analysis),
         "processes": processes,
         "train_cache": train,
         "heldout_cache": heldout,
