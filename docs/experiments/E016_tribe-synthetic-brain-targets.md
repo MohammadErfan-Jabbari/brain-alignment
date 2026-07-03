@@ -893,6 +893,47 @@ Design implication: the top-venue positive branch now has a concrete real-brain 
 
 **Status:** real-brain evaluation plumbing only. No active run was stopped or modified, no new full control was launched, no analyzer verdict exists, no science claim exists, and no rung flipped.
 
+### Step 42 - Full TRIBE Phase-3 artifact reached analyzer-ready handoff (2026-07-03)
+The full GPT-2-medium to GPT-2 TRIBE Phase-3 run completed after the S76 close and produced the expected 9-row grid at `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.json`. The guarded finalizer refreshed the analyzer and readiness packet at `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.analysis.json` and `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.readiness.json`.
+
+Gate state:
+
+- `gate.science_ready=true`
+- `arm_seed_grid_complete=true`
+- `all_paired_common_seeds=true`
+- `ppl_matched_all_lambdas=true`
+- `has_heldout_target_metric=true`
+- `train_size_ready=true`, `heldout_size_ready=true`, `target_dim_ready=true`
+- `paper_branch_hint.branch="tribe_positive_needs_textfeat"`
+
+The independent `/interpret` recompute audit at `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.interpret_audit.json` matched the analyzer on the complete grid, paired deltas, and PPL checks. At lambda 0.1, the TRIBE target arm exceeded the permuted target arm on the synthetic target endpoint on all three paired seeds: mean target-R2 delta `+0.071871`, seed values `[+0.067040, +0.075710, +0.072863]`, sign-flip `p=0.25`. It also exceeded KD-only on all three paired seeds: mean delta `+0.077492`, seed values `[+0.077134, +0.076934, +0.078409]`, sign-flip `p=0.25`. Mean relative PPL deltas versus KD-only were `0.004973` for TRIBE-target and `0.004875` for TRIBE-permuted, with all per-seed deltas below the 0.05 matching tolerance.
+
+The branch router returned `status="textfeat_control_required"` and `route="run_textfeat_after_resource_check"`, with `active_runner_process_count=0` for the completed TRIBE job. The reason is explicit: a TRIBE-only positive cannot support brain specificity, so the matched-information text-feature control is required next.
+
+**Status:** analyzer-ready handoff and branch routing only. This records a TRIBE-positive synthetic-target route, not a final E016 verdict and not a brain-specific claim. No ladder rung flipped.
+
+### Step 43 - Full `textfeat` matched-information control launched (2026-07-03)
+After confirming the TRIBE runner was complete and resources were free, the prepared matched-information control launcher was started as a detached background job:
+
+- launcher: `outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh`
+- active process group root at launch: PID `3428588`
+- GPU: `GPU=1`, with `HF_HOME=/home/centcom/data/hf-cache`
+- log: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.log`
+- target run JSON: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.json`
+- target analyzer JSON: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.analysis.json`
+- saved-student artifact root: `outputs/E016_tribe/phase3/model_artifacts/textfeat_gpt2_n95999_s0-1-2_lam0.1/`
+
+The clean active run began at `2026-07-03T07:21:00Z`. The log also contains an earlier diagnostic/trace prelude from failed supervision attempts; the active detached run is the `setsid` launch with PID `3428588`.
+
+The launcher built and validated both full text-feature caches before entering training:
+
+- train cache: `outputs/E016_tribe/kd_targets/text_feature/gpt2-medium/train_start0_n95999_d20484_full.npz`, shape `(95999, 20484)`, `elapsed_s=176.718`, finite, `missing=0`
+- heldout cache: `outputs/E016_tribe/kd_targets/text_feature/gpt2-medium/heldout_start0_n1999_d20484_full.npz`, shape `(1999, 20484)`, `elapsed_s=9.014`, finite, `missing=0`
+
+At the latest monitored sample, the control had entered `scripts/run_tribe_phase3.py` for the full GPT-2 textfeat arms, with seed 0 `kd_only` active. GPU 1 was using about 5.4-5.6 GiB and nonzero utilization. No textfeat run JSON or analyzer JSON existed yet.
+
+**Status:** matched-information control running. No textfeat result exists yet, no TRIBE-vs-textfeat comparison exists, no brain-specific claim exists, and no rung flipped.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

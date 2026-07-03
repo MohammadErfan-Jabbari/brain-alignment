@@ -24,13 +24,23 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 > results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
 > of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
+### S77 `/goal` continuation - E016 TRIBE handoff and textfeat control launch (2026-07-03)
+
+- [x] **Full TRIBE Phase-3 artifact finalized to analyzer/readiness handoff.** `phase3_full_gpt2_n95999_s0-1-2_lam0.1.json`, `.analysis.json`, and `.readiness.json` exist; analyzer gate is `science_ready=true`, complete for 3 seeds x 3 arms, matched PPL, and full-scale train/heldout/target-dimension checks.
+- [x] **Independent `/interpret` recompute audit passed.** `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.interpret_audit.json` matched the analyzer grid, paired target-R2 deltas, and PPL checks. The audit is a routing check, not a verdict.
+- [x] **Branch router followed.** `uv run python scripts/e016_branch_decision.py` returned `status="textfeat_control_required"`, `route="run_textfeat_after_resource_check"`, and `active_runner_process_count=0` for the completed TRIBE runner.
+- [x] **Matched-information textfeat control launched.** `outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh` is running detached on GPU 1 as PID `3428588`; full text-feature train and heldout caches were built and validated before training started.
+- [ ] **Monitor textfeat to run JSON and analyzer JSON.** Watch `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.log` and the target JSON paths; if the runner exits without JSON, debug before interpreting.
+- [ ] **Finalize and compare only after textfeat is ready.** Run the textfeat finalizer/analyzer/readiness path, then `uv run python scripts/e016_compare_target_controls.py <tribe-analysis.json> <textfeat-analysis.json> --out <comparison.json>`, then switch to `/interpret`.
+- [ ] **Keep follow-up controls branch-gated.** Do not run contextfeat, extra seeds, or real-brain probes while textfeat is active; if TRIBE beats textfeat, the next burden is extra seeds plus context/on-policy control, real-brain evaluation, or a narrowed claim.
+
 ### 🔬 S76 `/goal` continuation - bounded E016 monitoring, full run advanced but still no result (2026-07-03)
 
 - [x] **E016 status rechecked and bounded watchers run.** Two bounded watcher runs (`--max-wait-s 720` and `--max-wait-s 1200`) reached their caps without a full run JSON. The first follow-up status showed the live run had advanced from 6/9 to 7/9 completed arms.
 - [x] **Current S76 close state recorded.** `checked_at_utc=2026-07-03T05:02:44.843177+00:00`, `phase=training_running_or_interrupted`, `health.status=runner_alive_log_quiet`, latest marker `seed=2`, `arm=tribe_mse`, `lambda=0.1`, `8/9` arm markers seen, `completed_arm_count=7`, `gpu.available=true`, `active_gpu_count=2`, `max_utilization_gpu_pct=75` in the instantaneous close-state sample, `run_json.exists=false`, `analysis_json.exists=false`.
 - [x] **No interpretation boundary crossed.** Latest completed arm is seed 2 `kd_only` (`ppl=98.120`, `target_r2=0.5932`), but this is partial-arm diagnostic output only, not a Phase-3 result.
-- [ ] **Monitor active E016 Phase-3 training to analyzer JSON.** Run `uv run python scripts/e016_phase3_status.py --pretty`; if the full run JSON appears, route with `uv run python scripts/e016_branch_decision.py` and only then finalize/analyze as directed.
-- [ ] **Do not launch textfeat/contextfeat or real-brain probes before the full E016 gate.** The active TRIBE job is still consuming resources and has no analyzer/readiness packet.
+- [x] **Monitor active E016 Phase-3 training to analyzer JSON.** Resolved in S77: the full run JSON, analyzer JSON, and readiness packet appeared; branch router routed to textfeat.
+- [x] **Do not launch textfeat/contextfeat or real-brain probes before the full E016 gate.** Resolved in S77: textfeat was launched only after the TRIBE runner completed and the analyzer/readiness gate routed to `textfeat_control_required`; contextfeat and real-brain probes remain gated.
 
 ### 🔬 S75 `/goal` continuation - saved-student real-brain probe added, full run still no result (2026-07-03)
 
