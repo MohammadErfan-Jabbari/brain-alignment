@@ -20,8 +20,9 @@ DEFAULT_TEXTFEAT_LAUNCHER = ROOT / "outputs/E016_tribe/phase3/run_textfeat_contr
 
 POST_COMPARE_BURDEN_NOTE = (
     "If the later comparator says TRIBE is stronger than textfeat, switch to /interpret and clear the "
-    "post-positive burden from docs/top-venue-privileged-signal-adjacency-audit-2026-07-03.md; that comparison "
-    "is not by itself brain-specific clearance."
+    "post-positive burden from docs/top-venue-privileged-signal-adjacency-audit-2026-07-03.md. Textfeat is a "
+    "sentence-local frozen-LM hidden-state target; beating it is not by itself long-context/on-policy or "
+    "real-brain clearance."
 )
 
 

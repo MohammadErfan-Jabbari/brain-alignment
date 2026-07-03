@@ -814,6 +814,18 @@ Verification:
 
 **Status:** post-positive burden-routing automation only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 37 - Target-control scope metadata added (2026-07-03)
+Refined the post-positive control ladder without launching any compute. `scripts/analyze_tribe_phase3.py` now preserves `target_cache`, `heldout_target_cache`, and `target_cache_meta` in analyzer JSONs, so downstream packets can identify which target source actually produced a control. `scripts/e016_make_readiness_packet.py` now exposes a `target_cache_scope` block; for `textfeat` it records the control as sentence-local frozen-LM hidden-state supervision and lists what it clears (non-brain hidden-state/dense-feature target under the same KD budget) versus what it does not clear (long-document context distillation, on-policy/self-distillation with privileged rationales/answers, or real-brain evaluation). `scripts/e016_compare_target_controls.py` now emits the same scope for both TRIBE and textfeat analyses under `target_scopes`.
+
+This narrows the reviewer-burden language from "stronger comparator" to the actual ladder: if TRIBE is positive, first run textfeat; if TRIBE also beats textfeat, the unresolved follow-up is extra seeds plus long-context/on-policy distillation, real-brain evaluation, or a deliberately narrower claim. The current sentence-level WikiText corpus is not sufficient by itself for a clean long-context control, because the prepared KD inputs are already sentence-split.
+
+Verification:
+- `uv run python -m py_compile scripts/analyze_tribe_phase3.py scripts/e016_compare_target_controls.py scripts/e016_make_readiness_packet.py scripts/e016_branch_decision.py` passed.
+- In-memory metadata smokes confirmed analyzer metadata propagation, readiness `target_cache_scope`, and comparator `target_scopes`.
+- Default branch-router invocation during the active incomplete full run still returned `status="waiting_for_run_json"`.
+
+**Status:** control-scope metadata and paper-branch clarification only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

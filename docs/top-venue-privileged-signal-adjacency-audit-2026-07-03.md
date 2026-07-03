@@ -40,7 +40,7 @@ The paper pitch should now be fenced at three levels:
 
 1. **Not novel:** train-only privileged information for LMs; context distillation; on-policy/self-distillation; dense feedback improving reasoning/post-training; gaze as supervision for VLMs or low-resource encoder fine-tuning.
 2. **Still open:** a controlled biological/synthetic-neural privileged target under fixed-budget text-LM KD, with matched-PPL/utility, permuted-target, and matched-information non-brain controls.
-3. **Most dangerous reviewer reinterpretation:** a positive TRIBE result may be just another privileged-context/dense-target effect. The text-feature control is the minimum answer; a top-tier positive may also need an on-policy/context-distillation baseline or a real-brain evaluation, depending on the analyzer branch.
+3. **Most dangerous reviewer reinterpretation:** a positive TRIBE result may be just another privileged-context/dense-target effect. The text-feature control is the minimum answer and should be named precisely: sentence-local frozen-LM hidden-state supervision, not long-context or on-policy distillation. A top-tier positive may also need an on-policy/context-distillation baseline or a real-brain evaluation, depending on the analyzer branch.
 
 ## Design implications for E016
 
@@ -48,7 +48,7 @@ The paper pitch should now be fenced at three levels:
 - If E016 is null, this audit strengthens the controlled-negative branch: adjacent PI/gaze methods can work elsewhere, so a null says something specific about synthetic brain-alignment targets under fixed text-KD controls.
 - If E016 is positive before textfeat, call it a TRIBE-target effect only.
 - If TRIBE and textfeat both help similarly, frame the paper as privileged target geometry under KD, not brain specificity.
-- If TRIBE beats textfeat, the next burden is not only extra seeds; it is also explaining why the effect is not a generic on-policy/context-distillation artifact. A context-conditioned teacher or teacher-hidden-state baseline becomes a likely reviewer-demanded follow-up.
+- If TRIBE beats textfeat, the next burden is not only extra seeds; it is also explaining why the effect is not a generic on-policy/context-distillation artifact. The prepared textfeat arm covers a teacher-hidden-state baseline; the unresolved follow-up is long-context/on-policy distillation or real-brain evaluation.
 
 ## Follow-up digest queue
 

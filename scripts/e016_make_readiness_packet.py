@@ -15,8 +15,8 @@ from typing import Any
 
 POST_POSITIVE_BURDEN_NOTE = (
     "Even after a TRIBE-vs-textfeat win, the 2026-07-03 privileged-signal adjacency audit means a top-tier "
-    "positive may need extra seeds plus a stronger non-brain/context-distillation comparator or a real-brain "
-    "follow-up before a brain-specific claim."
+    "positive may need extra seeds plus a long-context/on-policy distillation comparator or a real-brain follow-up "
+    "before a brain-specific claim."
 )
 
 
@@ -88,6 +88,42 @@ def paired_packet(paired: dict[str, Any]) -> dict[str, Any]:
     return out
 
 
+def target_cache_scope(analysis: dict[str, Any]) -> dict[str, Any]:
+    label = analysis.get("target_label")
+    meta = analysis.get("target_cache_meta") or {}
+    if not isinstance(meta, dict):
+        meta = {}
+    scope: dict[str, Any] = {
+        "target_label": label,
+        "target_cache": analysis.get("target_cache"),
+        "heldout_target_cache": analysis.get("heldout_target_cache"),
+        "cache_experiment": meta.get("experiment"),
+        "model": meta.get("model"),
+        "layer": meta.get("layer"),
+        "pool": meta.get("pool"),
+        "max_length": meta.get("max_length"),
+        "projection": meta.get("projection"),
+        "features": meta.get("features"),
+        "event_mode": meta.get("event_mode"),
+    }
+    if label == "textfeat":
+        scope["control_family"] = "sentence_local_teacher_hidden_state"
+        scope["clears"] = [
+            "non-brain frozen-LM hidden-state target under the same KD budget",
+            "dense stimulus-text feature target with a permuted dense-target twin",
+        ]
+        scope["does_not_clear"] = [
+            "long-document context distillation",
+            "on-policy/self-distillation with privileged rationales or answers",
+            "real-brain evaluation",
+        ]
+    elif label == "tribe":
+        scope["control_family"] = "synthetic_brain_target"
+    elif label:
+        scope["control_family"] = "non_tribe_target"
+    return {key: value for key, value in scope.items() if value not in (None, {}, [])}
+
+
 def reviewer_burden(analysis: dict[str, Any], packet: dict[str, Any]) -> list[str]:
     burdens: list[str] = []
     gate = analysis.get("gate") or {}
@@ -106,6 +142,13 @@ def reviewer_burden(analysis: dict[str, Any], packet: dict[str, Any]) -> list[st
         burdens.append(
             "This non-TRIBE control only becomes interpretable after TRIBE-vs-control comparison; a TRIBE win still inherits the post-positive reviewer burden."
         )
+        scope = packet.get("target_cache_scope") or {}
+        if scope.get("does_not_clear"):
+            burdens.append(
+                "This control's scope is limited; unresolved comparators include "
+                + ", ".join(str(x) for x in scope["does_not_clear"])
+                + "."
+            )
     if branch == "controlled_null_candidate":
         burdens.append("Controlled-null branch still needs /interpret, seed-level paired audit, and code/stat review before paper framing.")
     if branch == "mixed_requires_interpretation":
@@ -161,6 +204,7 @@ def make_packet(analysis_path: Path, comparison_path: Path | None = None) -> dic
         "target_label": analysis.get("target_label"),
         "target_arm": analysis.get("target_arm"),
         "permuted_arm": analysis.get("permuted_arm"),
+        "target_cache_scope": target_cache_scope(analysis),
         "n_seeds": analysis.get("n_seeds"),
         "expected_seeds": analysis.get("expected_seeds"),
         "observed_seeds": analysis.get("observed_seeds"),

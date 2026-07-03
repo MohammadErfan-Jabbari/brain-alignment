@@ -32,7 +32,7 @@ So the paper must not be framed as "brain data helps LMs." It must be framed as:
 | `tribe_mse` beats `tribe_perm` and `kd_only`, but PPL is not matched | Not a brain-alignment result; it is a quality/regularization confound. | Tune lambda or abandon the positive interpretation. |
 | `tribe_mse` beats `tribe_perm` and `kd_only` at matched PPL | Promising compression signal, but not yet brain-specific. | Run the matched-information `textfeat` control. A brain-specific claim requires beating `textfeat_mse` and `textfeat_perm` under the same budget. |
 | `tribe_mse` and `textfeat_mse` both beat KD/permuted similarly | Dense privileged targets help KD, but brain specificity is not supported. | Paper becomes a control finding about privileged target geometry, not a brain-specific paper. |
-| `tribe_mse` beats `textfeat_mse`, `tribe_perm`, and KD at matched PPL | Strongest positive branch. | Add seeds or a second evaluation target before a top-tier claim, because small-n sign-flip tests have low p-value resolution. |
+| `tribe_mse` beats `textfeat_mse`, `tribe_perm`, and KD at matched PPL | Strongest current positive branch, but only against a sentence-local teacher-hidden-state control. | Add seeds plus either long-context/on-policy distillation control, real-brain evaluation, or a narrowed claim before a top-tier brain-specific submission. |
 
 ## Experiment matrix
 
@@ -41,10 +41,11 @@ So the paper must not be framed as "brain data helps LMs." It must be framed as:
 | KD-only | Fixed-budget student baseline. | Active full E016 run will produce this. |
 | TRIBE target | Synthetic brain target under the same KD budget. | Active full E016 run will produce this. |
 | TRIBE block-permuted | Dense target/statistics control with stimulus alignment broken. | Active full E016 run will produce this. |
-| Text-feature target | Matched-information non-brain privileged target. | Launcher prepared by [`e016_make_textfeat_control_script.py`](../scripts/e016_make_textfeat_control_script.py), not run. |
+| Text-feature target | Matched-information non-brain privileged target: sentence-local frozen `gpt2-medium` hidden states, projected to the same target dimension. | Launcher prepared by [`e016_make_textfeat_control_script.py`](../scripts/e016_make_textfeat_control_script.py), not run. It clears the teacher-hidden-state/dense-feature alternative, not long-context or on-policy privileged distillation. |
 | Text-feature block-permuted | Dense non-brain target-statistics twin. | Launcher prepared, not run. |
 | TRIBE-vs-textfeat comparator | Read-only post-positive analyzer comparison. | [`e016_compare_target_controls.py`](../scripts/e016_compare_target_controls.py) prepared; use only after both analyzer JSONs are science-ready. |
 | Extra seeds | Inference-strengthening if the positive branch survives. | Do only after E016 and textfeat justify it. |
+| Long-context/on-policy non-brain control | Separates synthetic-brain specificity from generic context/self-distillation effects. | Not yet built. Requires reconstructing document context or a new on-policy teacher/student protocol; the current sentence corpus is insufficient for a clean long-context control by itself. |
 | Real-brain evaluation | Separates synthetic-target fit from real brain alignment. | Optional but likely needed for a top-tier positive claim. |
 
 ## Analyzer gates
@@ -85,7 +86,7 @@ For a positive paper, the paired effect must be inspected seed-by-seed. With onl
 - Do not claim first training-only privileged information improvement for smaller language models.
 - Do not claim first context/self-distillation, dense-feedback distillation, or gaze/cognitive supervision for modern LMs/VLMs.
 - Do not claim brain-specificity from TRIBE alone if `textfeat` is not run.
-- Do not claim that a positive TRIBE result is more than a dense privileged-target effect until it beats matched non-brain targets; if it beats `textfeat`, expect reviewers to ask about context/on-policy distillation variants or real-brain evaluation.
+- Do not claim that a positive TRIBE result is more than a dense privileged-target effect until it beats matched non-brain targets; if it beats `textfeat`, say exactly that it beat a sentence-local teacher-hidden-state control and expect reviewers to ask about long-context/on-policy distillation variants or real-brain evaluation.
 - Do not claim a science null or positive before the active full E016 run produces an analyzer JSON and passes `/interpret`.
 - Do not use synthetic target-R2 as a substitute for real-brain utility unless explicitly framed as a synthetic-target result.
 

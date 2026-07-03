@@ -16,8 +16,8 @@ from analyze_tribe_phase3 import paired_delta_stats
 
 POST_TEXTFEAT_POSITIVE_REVIEWER_BURDEN = [
     (
-        "TRIBE stronger than textfeat only clears the weakest dense-text-target alternative; it does not by "
-        "itself clear the context/self-distillation or rich-feedback privileged-signal adjacency raised in "
+        "TRIBE stronger than textfeat clears a sentence-local frozen-LM hidden-state target, not the full "
+        "context/self-distillation or rich-feedback privileged-signal adjacency raised in "
         "docs/top-venue-privileged-signal-adjacency-audit-2026-07-03.md."
     ),
     (
@@ -84,6 +84,42 @@ def seed_aligned_delta(a_seeds: list[int], a_vals: list[float], b_seeds: list[in
     out = paired_delta_stats(deltas)
     out["common_seeds"] = common
     return out
+
+
+def target_scope(analysis: dict) -> dict:
+    meta = analysis.get("target_cache_meta") or {}
+    if not isinstance(meta, dict):
+        meta = {}
+    label = analysis.get("target_label")
+    scope = {
+        "target_label": label,
+        "target_cache": analysis.get("target_cache"),
+        "heldout_target_cache": analysis.get("heldout_target_cache"),
+        "cache_experiment": meta.get("experiment"),
+        "model": meta.get("model"),
+        "layer": meta.get("layer"),
+        "pool": meta.get("pool"),
+        "max_length": meta.get("max_length"),
+        "projection": meta.get("projection"),
+        "features": meta.get("features"),
+        "event_mode": meta.get("event_mode"),
+    }
+    if label == "textfeat":
+        scope["control_family"] = "sentence_local_teacher_hidden_state"
+        scope["clears"] = [
+            "non-brain frozen-LM hidden-state target under the same KD budget",
+            "dense stimulus-text feature target with a permuted dense-target twin",
+        ]
+        scope["does_not_clear"] = [
+            "long-document context distillation",
+            "on-policy/self-distillation with privileged rationales or answers",
+            "real-brain evaluation",
+        ]
+    elif label == "tribe":
+        scope["control_family"] = "synthetic_brain_target"
+    elif label:
+        scope["control_family"] = "non_tribe_target"
+    return {key: value for key, value in scope.items() if value not in (None, {}, [])}
 
 
 def lambda_comparison(tribe: dict, textfeat: dict, lam_key: str) -> dict:
@@ -192,6 +228,10 @@ def compare(tribe_path: Path, textfeat_path: Path) -> dict:
             "Compares within-target paired gains over KD/permuted controls. It does not turn synthetic "
             "target-R2 into downstream utility or replace /interpret."
         ),
+        "target_scopes": {
+            "tribe": target_scope(tribe),
+            "textfeat": target_scope(textfeat),
+        },
         "common_lambdas": common_lams,
         "lambda_comparisons": {},
     }
