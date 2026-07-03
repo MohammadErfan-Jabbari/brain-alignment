@@ -18,7 +18,7 @@ The broad cells are now closed or too crowded:
 - [Xiao et al., 2026](literature/canonical/xiao-2026_brain-guided-llm-reasoning.md) shows task-fMRI-derived representation guidance can improve LLM reasoning.
 - [Zhang et al., 2026](literature/canonical/zhang-2026_temporal-precision-ecog-tuning.md) makes ECoG-tuning a credible positive speech-model branch.
 - Measurement and attribution papers sharpen how to score alignment, but do not test fixed-budget compression.
-- The distillation-adjacency audit shows that LLM KD, feature-level KD, and generic privileged-information distillation for LMs are also active. The paper therefore must not claim novelty for privileged-information KD itself; the open cell is biological/synthetic-brain privileged targets under the fixed-budget KD protocol.
+- The distillation-adjacency audit shows that LLM KD, feature-level KD, generic privileged-information distillation for LMs, and task-specific PI-enhanced KD into smaller LMs are active. The paper therefore must not claim novelty for privileged-information KD itself or for training-only PI improving smaller LMs; the open cell is biological/synthetic-brain privileged targets under the fixed-budget KD protocol.
 
 So the paper must not be framed as "brain data helps LMs." It must be framed as:
 
@@ -82,6 +82,7 @@ For a positive paper, the paired effect must be inspected seed-by-seed. With onl
 - Do not claim first brain-guided LLM improvement.
 - Do not claim first brain data beyond stimulus text.
 - Do not claim first privileged-information distillation for language models.
+- Do not claim first training-only privileged information improvement for smaller language models.
 - Do not claim brain-specificity from TRIBE alone if `textfeat` is not run.
 - Do not claim a science null or positive before the active full E016 run produces an analyzer JSON and passes `/interpret`.
 - Do not use synthetic target-R2 as a substitute for real-brain utility unless explicitly framed as a synthetic-target result.

@@ -5,7 +5,7 @@ tags: [literature, reference]
 
 # Research Landscape — Brain-Alignment-Guided Distillation
 
-**Last updated:** 2026-07-02 (CoNLL 2026 full-PDF scout and top-venue frontier refresh)
+**Last updated:** 2026-07-03 (distillation/privileged-information adjacency refresh)
 **Stage:** Map (frontier mapping). Literature is strong; this is a digest, not a fresh survey.
 
 > Full provenance: `literature/_prior-work/` holds the 26 KB literature dossier and the 10 KB oracle
@@ -19,7 +19,11 @@ use brain alignment as the objective **in distillation/compression at a matched 
 test whether *preserving* it (vs a perplexity-only student) buys anything practical. That untested loop
 is the contribution space — and it must survive one live complication: brain alignment is already fairly
 robust to *post-hoc* compression (arXiv 2602.07547), so the thesis must show distillation differs, or
-that it improves the alignment/utility *trade-off curve* at matched compression. See R03.
+that it improves the alignment/utility *trade-off curve* at matched compression. The KD-adjacent frontier is
+also crowded: feature-KD and privileged-information KD for LMs now exist, including a task-specific PI-enhanced
+KD paper for smaller empathetic-dialogue models. The remaining gap is therefore not "PI helps distillation,"
+but whether a **biological/synthetic-neural privileged target** contributes beyond KD-only, a permuted dense
+target, and a matched-information non-brain privileged target. See R03 and [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md).
 
 ## Prior art, organized
 
@@ -66,6 +70,9 @@ that it improves the alignment/utility *trade-off curve* at matched compression.
 | [Zhang 2025](literature/canonical/zhang-2025_aligndistil-token-level-policy-distillation.md) (AlignDistil) | `zhang-2025_aligndistil-token-level-policy-distillation` | Alignment-as-token-level-distillation; suggests alignment losses can decompose without per-step recordings. |
 | [Zhou 2022](literature/canonical/zhou-2022_bert-learns-to-teach-metadistil.md) (MetaDistil) | `zhou-2022_bert-learns-to-teach-metadistil` | Learned-teacher distillation; possible meta-objective. |
 | [Jia 2024](literature/canonical/jia-2024_adversarial-moment-matching-llm-distillation.md) | `jia-2024_adversarial-moment-matching-llm-distillation` | Token-prob copying is a weak proxy; behavioral/value imitation is stronger — supports a behavioral target. |
+| [Saadi & Wang 2026](literature/canonical/saadi-2026_task-tangent-feature-distillation-llms.md) | `saadi-2026_task-tangent-feature-distillation-llms` | Flex-KD makes modern feature-level LLM distillation a live baseline family: task-relevant functional subspaces, not raw feature matching. Pressure on E016: a TRIBE gain can be read as generic useful dense-target geometry unless it beats `textfeat`. |
+| [Penaloza et al. 2026](literature/canonical/penaloza-2026_privileged-information-distillation-lms.md) | `penaloza-2026_privileged-information-distillation-lms` | Generic privileged-information distillation for LMs is active in agentic tool-use settings. Closes "first PI distillation for LMs"; does not use brain/neural targets or fixed-budget language KD. |
+| [Wu et al. 2026](literature/canonical/wu-2026_pride-privileged-information-distillation-dialogue.md) (PRIDE) | `wu-2026_pride-privileged-information-distillation-dialogue` | Closest PI-enhanced KD pressure: training-only expert/future-context PI improves smaller empathetic-dialogue students. Closes "training-only PI can improve smaller LMs"; leaves the biological/synthetic-neural target and matched-information-control question open. |
 
 ### D. Systems-side constraints
 
@@ -116,6 +123,7 @@ robustness from one benchmark family.
 - Language-fMRI datasets: Pereira 2018, Nastase *Narratives*, LeBel 2023, Fedorenko lab releases —
   which are open, sized, and English/multilingual? **Power analysis required.**
 - Recent (2026) brain-alignment-for-compression work to confirm the gap is still open.
+- PI-enhanced KD and feature-KD follow-ups now staged as scout-grade notes; full PDF reads only if E016 positive branch survives or reviewers press that adjacency.
 
 
 ## Related

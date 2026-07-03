@@ -10,7 +10,7 @@ aliases: [top-venue-distillation-adjacency-audit-2026-07-03, distillation-adjace
 
 ## Bottom line
 
-The narrower literature check strengthens, but also narrows, the paper claim. **LLM distillation is crowded, feature-level distillation is crowded, and generic privileged-information distillation for language models is now active.** The open cell is therefore not "privileged information improves LMs" or "feature targets help KD." The defensible cell is:
+The narrower literature check strengthens, but also narrows, the paper claim. **LLM distillation is crowded, feature-level distillation is crowded, generic privileged-information distillation for language models is active, and task-specific PI-enhanced KD into smaller LMs now exists.** The open cell is therefore not "privileged information improves LMs," "feature targets help KD," or "training-only PI can improve smaller language models." The defensible cell is:
 
 > Under a fixed smaller-student KD budget, does a synthetic brain-alignment target improve the alignment/utility frontier beyond KD-only, a permuted dense-target twin, and a matched-information non-brain privileged target?
 
@@ -26,13 +26,14 @@ This makes the prepared `textfeat` control more central, not optional. If TRIBE 
 | [Saadi and Wang, 2025/2026, "What Should Feature Distillation Transfer in LLMs?"](https://arxiv.org/abs/2507.10155) | Modern feature KD asks which teacher hidden-state directions are functionally relevant, especially under teacher-student dimension mismatch. | Our target-control comparison must distinguish "useful dense target geometry" from "brain-specific signal." | No brain data; no matched biological-vs-nonbiological privileged target. |
 | [Hsieh et al., ACL Findings 2023, "Distilling Step-by-Step"](https://aclanthology.org/2023.findings-acl.507/) | Rationales serve as extra supervision for smaller models with less training data. | Extra training-time side information for small students is already a known recipe. | Rationales are language-derived; no neural target and no brain-specificity control. |
 | [Penaloza et al., 2026, "Privileged Information Distillation for Language Models"](https://arxiv.org/abs/2602.04942) | PI distillation for language models is now explicit, with PI-conditioned teacher/student objectives for agentic environments. | We must not claim the first PI-distillation-for-LMs paper. | Their PI is action/agentic information, not synthetic brain alignment, and not the fixed-KD compression protocol here. |
+| [Wu et al., 2026, "PRIDE: Privileged Information-enhanced Distillation for Empathetic Dialogue Generation"](https://arxiv.org/abs/2606.23124) | Training-only expert/future-context PI is used to distill smaller empathetic-dialogue students, with logit/feature alignment and smaller-student deployment motivation. | We must not claim that training-only privileged information improving smaller LMs is new. This is now the closest PI-KD pressure point. | Their PI is task-close psychological/contextual annotation, not brain/neural targets; no matched-information non-brain target versus biological target comparison. |
 | [Oota et al., 2026, "from small to compressed language models"](literature/canonical/oota-2026_brain-encoding-scale-compression.md) | Brain alignment can survive quantization/pruning; KD is explicitly absent in our canonical read. | "Compression destroys brain alignment by default" is too broad. | Whether KD-trained students preserve or gain brain alignment, and whether a brain target helps KD, remains open. |
 
 ## Claim update
 
 The paper pitch should be:
 
-1. **Not novel:** KD for LLM compression; feature-level KD; distillation with privileged information; measuring brain alignment of compressed models.
+1. **Not novel:** KD for LLM compression; feature-level KD; distillation with privileged information; PI-enhanced KD improving smaller task-specific LMs; measuring brain alignment of compressed models.
 2. **Potentially novel:** a controlled biological/synthetic-brain privileged target in fixed-budget LLM distillation, with matched-PPL/utility, permuted-target, and matched-information non-brain controls.
 3. **Most reviewer-facing risk:** any positive TRIBE effect can be reinterpreted as dense privileged-target regularization unless it beats `textfeat` under the same gate.
 
@@ -45,8 +46,8 @@ The paper pitch should be:
 
 ## Follow-up digest queue
 
-- Full canonical digest for [Penaloza et al., 2026](https://arxiv.org/abs/2602.04942) if the E016 positive branch survives; it is the closest generic PI-distillation threat.
-- Full canonical digest for [Saadi and Wang, 2025/2026](https://arxiv.org/abs/2507.10155) if reviewers push the feature-KD interpretation.
+- Scout-grade canonical notes now exist for [Penaloza et al., 2026](literature/canonical/penaloza-2026_privileged-information-distillation-lms.md), [Saadi and Wang, 2025/2026](literature/canonical/saadi-2026_task-tangent-feature-distillation-llms.md), and [Wu et al., 2026 PRIDE](literature/canonical/wu-2026_pride-privileged-information-distillation-dialogue.md).
+- Full PDF digests for these three are only needed if the E016 positive branch survives or reviewers press the PI/feature-KD adjacency.
 - No immediate digest needed for MiniLLM/FCD unless the methods section foregrounds KD baselines beyond KD-only/logit KD.
 
 ## Related
