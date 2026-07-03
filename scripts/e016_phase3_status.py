@@ -110,6 +110,60 @@ def progress_rec(batches: list[tuple[int, int]], expected_items: int) -> dict | 
     }
 
 
+def parse_float_or_none(spec: str) -> float | None:
+    if spec in {"None", "NA", "nan"}:
+        return None
+    return float(spec)
+
+
+def parse_training_progress(text: str) -> dict | None:
+    arms: list[dict] = []
+    current: dict | None = None
+    marker_re = re.compile(r"== seed=(\d+) arm=([a-z_]+) lambda=([^\s=]+) ==")
+    metric_re = re.compile(r"^\s*ppl=([^\s]+)(?:\s+target_r2=([^\s]+))?\s*$")
+    for line in text.splitlines():
+        marker = marker_re.search(line)
+        if marker:
+            current = {
+                "seed": int(marker.group(1)),
+                "arm": marker.group(2),
+                "lambda": float(marker.group(3)),
+                "status": "started",
+            }
+            arms.append(current)
+            continue
+        metric = metric_re.match(line)
+        if metric and current is not None and current.get("status") != "completed":
+            current["status"] = "completed"
+            current["ppl"] = parse_float_or_none(metric.group(1))
+            if metric.group(2) is not None:
+                current["target_r2"] = parse_float_or_none(metric.group(2))
+            current["science_status"] = "partial arm diagnostic only; not a Phase-3 result"
+    if not arms:
+        return None
+    completed = [arm for arm in arms if arm.get("status") == "completed"]
+    latest = arms[-1]
+    latest_completed = completed[-1] if completed else None
+    active_arm = latest if latest.get("status") != "completed" else None
+    return {
+        "latest_arm": {key: latest[key] for key in ("seed", "arm", "lambda")},
+        "latest_completed_arm": (
+            {
+                key: latest_completed[key]
+                for key in ("seed", "arm", "lambda", "ppl", "target_r2", "science_status")
+                if key in latest_completed
+            }
+            if latest_completed
+            else None
+        ),
+        "active_arm": ({key: active_arm[key] for key in ("seed", "arm", "lambda")} if active_arm else None),
+        "arm_markers_seen": len(arms),
+        "completed_arm_count": len(completed),
+        "arms_expected": TRAINING_ARMS_EXPECTED,
+        "completed_arms": completed,
+    }
+
+
 def add_active_eta(log: dict, processes: list[dict]) -> None:
     stage = log.get("active_cache_stage")
     if stage not in {"train", "heldout"}:
@@ -206,14 +260,9 @@ def log_rec(path: Path, expected_train: int) -> dict:
         active = rec.get(f"{rec['active_cache_stage']}_cache_progress")
         if active:
             rec["latest_batch"] = active["latest_batch"]
-    training_arms = re.findall(r"== seed=(\d+) arm=([a-z_]+) lambda=([^\s=]+) ==", text)
-    if training_arms:
-        seed, arm, lam = training_arms[-1]
-        rec["training_progress"] = {
-            "latest_arm": {"seed": int(seed), "arm": arm, "lambda": float(lam)},
-            "arm_markers_seen": len(training_arms),
-            "arms_expected": TRAINING_ARMS_EXPECTED,
-        }
+    training_progress = parse_training_progress(text)
+    if training_progress:
+        rec["training_progress"] = training_progress
     rec["tail"] = text.splitlines()[-12:]
     return rec
 

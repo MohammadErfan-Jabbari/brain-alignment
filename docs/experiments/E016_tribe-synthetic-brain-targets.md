@@ -726,6 +726,15 @@ Verification:
 
 **Status:** post-positive comparison tooling only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 29 - Status helper now separates started-arm markers from completed-arm diagnostics (2026-07-03)
+Extended `scripts/e016_phase3_status.py` so the training-progress block distinguishes arm markers from completed arm metrics. It now reports `arm_markers_seen`, `completed_arm_count`, `latest_completed_arm`, `active_arm`, and `completed_arms`, with completed-arm metric records labeled `science_status="partial arm diagnostic only; not a Phase-3 result"`.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_phase3_status.py` passed.
+- `uv run python scripts/e016_phase3_status.py --pretty` reported `arm_markers_seen=2`, `completed_arm_count=1`, latest completed arm `seed=0`, `arm=kd_only`, and active arm `seed=0`, `arm=tribe_mse`, while `run_json.exists=false` and `analysis_json.exists=false`.
+
+**Status:** monitoring correction only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
