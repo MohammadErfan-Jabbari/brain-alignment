@@ -14,6 +14,36 @@ from pathlib import Path
 from analyze_tribe_phase3 import paired_delta_stats
 
 
+POST_TEXTFEAT_POSITIVE_REVIEWER_BURDEN = [
+    (
+        "TRIBE stronger than textfeat only clears the weakest dense-text-target alternative; it does not by "
+        "itself clear the context/self-distillation or rich-feedback privileged-signal adjacency raised in "
+        "docs/top-venue-privileged-signal-adjacency-audit-2026-07-03.md."
+    ),
+    (
+        "A top-tier positive needs /interpret plus stat/code review, and likely extra seeds because n<=3 gives "
+        "low sign-flip p-value resolution."
+    ),
+    (
+        "Before a brain-specific claim, decide whether the paper needs a stronger non-brain/context-distillation "
+        "comparator or a real-brain follow-up."
+    ),
+]
+
+POST_TEXTFEAT_POSITIVE_NEXT_ACTIONS = [
+    "Switch to /interpret; do not record a verdict from this comparator alone.",
+    "Audit seed-aligned TRIBE-minus-textfeat margins, PPL matching, analyzer gates, and code/stat assumptions.",
+    "Read docs/top-venue-privileged-signal-adjacency-audit-2026-07-03.md before choosing the positive paper framing.",
+    "Choose the next evidence burden: extra seeds, stronger non-brain/context comparator, real-brain follow-up, or controlled-scoping of the claim.",
+]
+
+DENSE_GENERIC_NEXT_ACTIONS = [
+    "Switch to /interpret.",
+    "Treat the positive utility, if any, as dense privileged-target or text-feature supervision rather than brain-specific.",
+    "Do not use this branch as evidence for the top-tier brain-alignment claim.",
+]
+
+
 def load_analysis(path: Path) -> dict:
     data = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
@@ -126,7 +156,19 @@ def branch_hint(summary: dict) -> dict:
     else:
         branch = "mixed_requires_interpretation"
         reason = "Control comparison differs across lambdas or contrasts; inspect seed-level margins."
-    return {"branch": branch, "reason": reason, "lambda_votes": votes}
+    hint = {"branch": branch, "reason": reason, "lambda_votes": votes}
+    if branch == "tribe_stronger_than_textfeat_needs_review":
+        hint["post_positive_reviewer_burden"] = POST_TEXTFEAT_POSITIVE_REVIEWER_BURDEN
+        hint["next_actions"] = POST_TEXTFEAT_POSITIVE_NEXT_ACTIONS
+    elif branch == "dense_privileged_target_generic":
+        hint["next_actions"] = DENSE_GENERIC_NEXT_ACTIONS
+    elif branch == "mixed_requires_interpretation":
+        hint["next_actions"] = [
+            "Switch to /interpret.",
+            "Inspect seed-level margins instead of forcing a null or positive branch.",
+            "Do not claim brain specificity unless the mixedness is resolved by predeclared criteria.",
+        ]
+    return hint
 
 
 def compare(tribe_path: Path, textfeat_path: Path) -> dict:

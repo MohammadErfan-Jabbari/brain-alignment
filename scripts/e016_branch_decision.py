@@ -18,6 +18,12 @@ from e016_phase3_status import ANALYSIS_JSON, ROOT, RUN_JSON, discover_processes
 
 DEFAULT_TEXTFEAT_LAUNCHER = ROOT / "outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh"
 
+POST_COMPARE_BURDEN_NOTE = (
+    "If the later comparator says TRIBE is stronger than textfeat, switch to /interpret and clear the "
+    "post-positive burden from docs/top-venue-privileged-signal-adjacency-audit-2026-07-03.md; that comparison "
+    "is not by itself brain-specific clearance."
+)
+
 
 def load_json(path: Path) -> dict[str, Any]:
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -73,6 +79,7 @@ def base_packet(run_json: Path, analysis_json: Path, readiness_json: Path, textf
         "must_not_claim": [
             "Do not claim an E016 result from this router.",
             "Do not claim brain specificity from TRIBE alone.",
+            "Do not treat TRIBE>textfeat as brain-specific clearance without post-positive review and adjacency-burden follow-up.",
             "Do not run textfeat while the active TRIBE job is still consuming resources.",
             "Do not flip a ladder rung from this router.",
         ],
@@ -198,6 +205,7 @@ def route_ready_packet(packet: dict[str, Any], readiness: dict[str, Any], textfe
                 "reason": "TRIBE-only positive cannot support brain specificity; matched-information control is required.",
                 "active_runner_process_count": len(runners),
                 "active_runner_processes": runners,
+                "post_compare_burden_note": POST_COMPARE_BURDEN_NOTE,
                 "recommended_commands": [
                     command_for("bash", rel(textfeat_launcher))
                     if textfeat_launcher.exists()
@@ -217,6 +225,7 @@ def route_ready_packet(packet: dict[str, Any], readiness: dict[str, Any], textfe
                 "status": "ready_for_target_control_comparison",
                 "route": "compare_controls",
                 "reason": "This appears to be a non-TRIBE target readiness packet; compare it with ready TRIBE analysis.",
+                "post_compare_burden_note": POST_COMPARE_BURDEN_NOTE,
                 "recommended_commands": [
                     command_for(
                         "uv",

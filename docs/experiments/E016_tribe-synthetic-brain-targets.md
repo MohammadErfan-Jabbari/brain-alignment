@@ -802,6 +802,18 @@ Verification:
 
 **Status:** post-finalizer routing automation only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 36 - Post-positive reviewer-burden routing hardened (2026-07-03)
+Threaded the 2026-07-03 privileged-signal adjacency audit into the E016 handoff helpers. `scripts/e016_compare_target_controls.py` now attaches explicit post-positive reviewer-burden metadata when ready TRIBE and text-feature analyses yield the `tribe_stronger_than_textfeat_needs_review` branch: TRIBE > textfeat clears only the weakest dense-text-target alternative, not the broader context/self-distillation, rich-feedback, or cognitive-supervision adjacency. The next action is `/interpret`, with seed-level margin audit, PPL/gate/code/stat review, and a decision on whether the paper needs extra seeds, a stronger non-brain/context-distillation comparator, a real-brain follow-up, or a narrower claim.
+
+`scripts/e016_make_readiness_packet.py` and `scripts/e016_branch_decision.py` now carry the same warning in their `must_not_claim`, burden, and route metadata. This keeps the future one-command handoff from treating the matched-information control as brain-specific clearance. The analyzer science gate itself is unchanged.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_compare_target_controls.py scripts/e016_make_readiness_packet.py scripts/e016_branch_decision.py` passed.
+- In-memory route smokes for readiness and control-comparison helpers exercised the post-positive metadata paths.
+- Default branch-router invocation during the active incomplete full run still returned `status="waiting_for_run_json"`.
+
+**Status:** post-positive burden-routing automation only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

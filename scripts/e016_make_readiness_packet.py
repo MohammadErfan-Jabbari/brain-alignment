@@ -13,6 +13,13 @@ from pathlib import Path
 from typing import Any
 
 
+POST_POSITIVE_BURDEN_NOTE = (
+    "Even after a TRIBE-vs-textfeat win, the 2026-07-03 privileged-signal adjacency audit means a top-tier "
+    "positive may need extra seeds plus a stronger non-brain/context-distillation comparator or a real-brain "
+    "follow-up before a brain-specific claim."
+)
+
+
 def load_json(path: Path) -> dict[str, Any]:
     data = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
@@ -94,6 +101,11 @@ def reviewer_burden(analysis: dict[str, Any], packet: dict[str, Any]) -> list[st
         burdens.append("Three-or-fewer seeds give low sign-flip p-value resolution; a top-tier positive needs extra inference strength.")
     if branch == "tribe_positive_needs_textfeat":
         burdens.append("TRIBE-only positive cannot support brain-specificity; run the matched-information textfeat control first.")
+        burdens.append(POST_POSITIVE_BURDEN_NOTE)
+    if branch == "matched_information_control_ready":
+        burdens.append(
+            "This non-TRIBE control only becomes interpretable after TRIBE-vs-control comparison; a TRIBE win still inherits the post-positive reviewer burden."
+        )
     if branch == "controlled_null_candidate":
         burdens.append("Controlled-null branch still needs /interpret, seed-level paired audit, and code/stat review before paper framing.")
     if branch == "mixed_requires_interpretation":
@@ -125,11 +137,13 @@ def next_actions(analysis: dict[str, Any]) -> list[str]:
             "Do not claim brain specificity.",
             "Confirm the active TRIBE run is complete and resources are free.",
             "Run the queued text-feature control, then compare ready analyzer JSONs.",
+            "Before positive paper framing, inspect docs/top-venue-privileged-signal-adjacency-audit-2026-07-03.md.",
         ]
     if branch == "matched_information_control_ready":
         return [
             "Compare this non-TRIBE analysis against the ready TRIBE analyzer JSON.",
             "Use e016_compare_target_controls.py before any brain-specific paper claim.",
+            "If TRIBE exceeds the control, treat that as a post-positive review input rather than brain-specific clearance.",
         ]
     return [
         "Switch to /interpret.",
@@ -165,6 +179,7 @@ def make_packet(analysis_path: Path, comparison_path: Path | None = None) -> dic
         "must_not_claim": [
             "Do not claim an E016 null or positive unless gate.science_ready=true and /interpret audits it.",
             "Do not claim brain specificity from TRIBE alone.",
+            "Do not treat TRIBE>textfeat as brain-specific clearance without post-positive review and adjacency-burden follow-up.",
             "Do not treat synthetic target-R2 as downstream utility.",
             "Do not flip a ladder rung from this packet.",
         ],
