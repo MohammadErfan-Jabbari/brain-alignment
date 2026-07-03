@@ -54,17 +54,37 @@ The helper prints `corpus_replay="exact_match"` and writes:
 - `outputs/E016_tribe/kd_context_metadata/wikitext103_heldout_context_meta.jsonl`
 - `outputs/E016_tribe/kd_context_metadata/wikitext103_context_meta_summary.json`
 
+## Contextfeat builder
+
+Added [`../scripts/build_context_feature_target_cache.py`](../scripts/build_context_feature_target_cache.py), the target-cache builder for the mechanically feasible long-context control. It:
+
+- loads the recovered context metadata from `outputs/E016_tribe/kd_context_metadata/`,
+- verifies each selected corpus line against the metadata text,
+- follows `previous_same_doc_global_index` to recover preceding same-document context,
+- conditions a frozen LM on context plus target sentence,
+- pools hidden states over the target sentence tokens,
+- projects to the requested target dimension, and
+- writes the same target-cache schema consumed by [`../scripts/run_tribe_phase3.py`](../scripts/run_tribe_phase3.py).
+
+CPU smoke:
+
+```bash
+HF_HOME=/home/centcom/data/hf-cache uv run python scripts/build_context_feature_target_cache.py --split train --start 0 --limit 4 --model sshleifer/tiny-gpt2 --target-dim 16 --max-length 64 --batch-size 2 --device cpu --out outputs/E016_tribe/kd_targets/context_feature/smoke_train_contextfeat_d16.npz --overwrite
+```
+
+Observed smoke output: `shape=(4, 16)`, `context_items_with_previous=3`. This is a plumbing check only.
+
 ## Design implication
 
 If the positive branch reaches this burden, the next non-brain target family should be **context-feature** rather than a vague "stronger comparator":
 
 1. For each sentence, recover preceding same-document context from the JSONL metadata.
-2. Build a frozen-teacher hidden-state target with the teacher conditioned on preceding context plus the target sentence.
+2. Build a frozen-teacher hidden-state target with the teacher conditioned on preceding context plus the target sentence, using [`../scripts/build_context_feature_target_cache.py`](../scripts/build_context_feature_target_cache.py).
 3. Keep the same Phase-3 training budget, target dimension, heldout target-R2 machinery, and block-permuted twin.
 4. Name the arm precisely, for example `contextfeat_mse` / `contextfeat_perm`.
 5. Treat the result as a context-conditioned non-brain control, not as on-policy distillation.
 
-Open design choice before implementation: whether the target vector should pool only over the target sentence tokens after context-conditioning, or pool over the whole context+sentence sequence. The former is cleaner for the estimand if token offsets are reliable.
+The builder currently uses the cleaner estimand: it pools only over target sentence tokens after context-conditioning.
 
 ## Related
 

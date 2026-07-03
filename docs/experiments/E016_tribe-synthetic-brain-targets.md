@@ -841,6 +841,18 @@ Design implication: if E016 is positive and survives the prepared sentence-local
 
 **Status:** context-control feasibility and metadata recovery only. No target cache was built, no training was launched, no run JSON exists yet for the active E016 full run, no analyzer verdict exists, no science claim exists, and no rung flipped.
 
+### Step 39 - `contextfeat` target-cache builder added and CPU-smoked (2026-07-03)
+Added `scripts/build_context_feature_target_cache.py`, the possible long-context non-brain target builder for a future post-positive burden. It loads the recovered WikiText context metadata, verifies selected corpus lines against metadata text, follows `previous_same_doc_global_index` to recover preceding same-document context, conditions a frozen LM on context plus target sentence, pools hidden states over the target sentence tokens, projects to the requested target dimension, and writes the same target-cache schema consumed by `scripts/run_tribe_phase3.py`.
+
+Verification:
+- `uv run python -m py_compile scripts/build_context_feature_target_cache.py scripts/e016_recover_kd_context_metadata.py` passed.
+- CPU smoke command: `HF_HOME=/home/centcom/data/hf-cache uv run python scripts/build_context_feature_target_cache.py --split train --start 0 --limit 4 --model sshleifer/tiny-gpt2 --target-dim 16 --max-length 64 --batch-size 2 --device cpu --out outputs/E016_tribe/kd_targets/context_feature/smoke_train_contextfeat_d16.npz --overwrite`.
+- Smoke output: `shape=(4, 16)`, `context_items_with_previous=3`, saved under `outputs/E016_tribe/kd_targets/context_feature/smoke_train_contextfeat_d16.npz`.
+
+Design implication: if E016 is positive, survives textfeat, and reviewers still need a long-context non-brain control, the next target label should be `contextfeat` with arms `contextfeat_mse` and `contextfeat_perm`. Do **not** run the full contextfeat cache or training while the active TRIBE run is incomplete; this is only plumbing.
+
+**Status:** contextfeat target-cache plumbing only. No full contextfeat cache was built, no training was launched, no run JSON exists yet for the active E016 full run, no analyzer verdict exists, no science claim exists, and no rung flipped.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
