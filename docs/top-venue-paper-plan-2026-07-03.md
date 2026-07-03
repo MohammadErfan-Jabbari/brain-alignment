@@ -42,6 +42,7 @@ So the paper must not be framed as "brain data helps LMs." It must be framed as:
 | TRIBE block-permuted | Dense target/statistics control with stimulus alignment broken. | Active full E016 run will produce this. |
 | Text-feature target | Matched-information non-brain privileged target. | Launcher prepared by [`e016_make_textfeat_control_script.py`](../scripts/e016_make_textfeat_control_script.py), not run. |
 | Text-feature block-permuted | Dense non-brain target-statistics twin. | Launcher prepared, not run. |
+| TRIBE-vs-textfeat comparator | Read-only post-positive analyzer comparison. | [`e016_compare_target_controls.py`](../scripts/e016_compare_target_controls.py) prepared; use only after both analyzer JSONs are science-ready. |
 | Extra seeds | Inference-strengthening if the positive branch survives. | Do only after E016 and textfeat justify it. |
 | Real-brain evaluation | Separates synthetic-target fit from real brain alignment. | Optional but likely needed for a top-tier positive claim. |
 

@@ -30,6 +30,7 @@ This folder holds experiment runners, data adapters, analysis scripts, literatur
 | `e016_make_textfeat_control_script.py` | Writes the post-E016 full text-feature control launcher under `outputs/`; use after a positive TRIBE Phase-3 result makes the matched-information control necessary. |
 | `e016_phase3_status.py` | Read-only monitor for the long E016 Phase-3 pipeline; reports artifact presence, stage-aware cache progress/ETA, training-arm markers, analyzer gate fields, runner processes, and a `health` block for quiet-but-live training. Use `uv run python scripts/e016_phase3_status.py --pretty` before hand-parsing the log. |
 | `analyze_tribe_phase3.py` | E016 Phase-3 gate/analyzer; writes conservative readiness fields plus `paper_branch_hint`. The hint routes to the paper plan only after `science_ready=true`; it is not a verdict or rung flip. |
+| `e016_compare_target_controls.py` | Post-positive E016 comparator for ready TRIBE and text-feature analyzer JSONs; compares within-target paired gains over KD/permuted controls and emits a branch hint, never a verdict. |
 | `figures/` | Figure generation scripts. |
 | `litsweep/` | Literature search and PDF utilities. See `litsweep/AGENTS.md`. |
 

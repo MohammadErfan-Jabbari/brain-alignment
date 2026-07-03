@@ -80,8 +80,19 @@ PY
 - If `paper_branch_hint.branch="not_ready"`, stay in `/work`: debug missing grid rows, failed scale gates, missing target metrics, or PPL mismatch before interpretation.
 - If `paper_branch_hint.branch="controlled_null_candidate"`, switch to `/interpret`: run the stats/code audit, reconcile seed-level paired deltas, and only then decide whether the controlled-negative paper branch is real.
 - If `paper_branch_hint.branch="tribe_positive_needs_textfeat"`, do not claim brain specificity. Confirm the active TRIBE run is complete and resources are free, then run the queued text-feature launcher.
-- If a textfeat analyzer writes `matched_information_control_ready`, compare it against the completed TRIBE analyzer under the same manifest before making any paper claim.
+- If a textfeat analyzer writes `matched_information_control_ready`, compare it against the completed TRIBE analyzer under the same manifest before making any paper claim. Use [`scripts/e016_compare_target_controls.py`](../scripts/e016_compare_target_controls.py) for this post-positive comparison.
 - If any branch is mixed, write the mixedness down as the finding instead of forcing it into the desired paper shape.
+
+After both TRIBE and textfeat analyzer JSONs are science-ready, run:
+
+```bash
+uv run python scripts/e016_compare_target_controls.py \
+  --tribe-analysis outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.analysis.json \
+  --textfeat-analysis outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.analysis.json \
+  --out outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.tribe_vs_textfeat.json
+```
+
+The comparator compares within-target paired gains over KD and permuted controls. It does not turn synthetic target-R2 into downstream utility and does not replace `/interpret`.
 
 ## Must-not-claim
 
@@ -89,6 +100,7 @@ PY
 - Do not claim brain specificity from TRIBE alone.
 - Do not treat synthetic target-R2 as downstream utility.
 - Do not treat PPL-unmatched target gains as alignment gains.
+- Do not treat the TRIBE-vs-textfeat comparator's branch hint as a verdict.
 - Do not flip a ladder rung from this protocol or from the analyzer. E016 still requires `/interpret`, review, and Erfan confirmation before any board change.
 
 ## Related

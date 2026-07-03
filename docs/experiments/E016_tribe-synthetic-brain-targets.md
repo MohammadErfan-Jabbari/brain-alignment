@@ -716,6 +716,16 @@ Added [`e016-interpretation-protocol-2026-07-03.md`](../e016-interpretation-prot
 
 **Status:** interpretation precommitment only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 28 - TRIBE-vs-textfeat comparator prepared while full training runs (2026-07-03)
+Added `scripts/e016_compare_target_controls.py`, a read-only comparator for the post-positive branch where both the full TRIBE analyzer JSON and a later text-feature analyzer JSON are science-ready. The comparator refuses non-ready or mislabeled analyzer outputs, then compares within-target paired gains over KD-only and permuted controls. Its branch labels are `tribe_not_positive`, `dense_privileged_target_generic`, `tribe_stronger_than_textfeat_needs_review`, `mixed_requires_interpretation`, or `not_ready`.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_compare_target_controls.py` passed.
+- Running the comparator on existing smoke/incomplete analyzer JSONs returned `ready=false` and `branch_hint.branch="not_ready"`.
+- Temporary ready-analysis fixtures exercised the three post-ready route labels: `tribe_stronger_than_textfeat_needs_review`, `dense_privileged_target_generic`, and `tribe_not_positive`.
+
+**Status:** post-positive comparison tooling only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
