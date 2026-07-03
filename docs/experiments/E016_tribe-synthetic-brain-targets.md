@@ -789,6 +789,19 @@ Verification:
 
 **Status:** post-run handoff automation only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 35 - Branch-decision router added for the post-finalizer handoff (2026-07-03)
+Added `scripts/e016_branch_decision.py`, a conservative router that reads the full run JSON, analyzer JSON, readiness JSON, and prepared text-feature launcher path, then prints the next safe command or stance. It returns `waiting_for_run_json` while the active full artifact is absent, `needs_finalizer` if analyzer/readiness artifacts are missing or stale, `ready_for_interpret_controlled_null` for a controlled-null candidate, `textfeat_control_required` for a TRIBE-positive branch, and `ready_for_target_control_comparison` for a matched-information control branch.
+
+The router never launches training, never interprets analyzer values, and cannot flip a rung. Its purpose is to reduce handoff error when the long E016 run finishes: the user or agent should be able to run one command and see whether to monitor, finalize, switch to `/interpret`, or manually launch the queued text-feature control after confirming resources are free.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_branch_decision.py` passed.
+- Default invocation during the active incomplete full run returned `status="waiting_for_run_json"`, with monitor/watch commands and no science claim.
+- A smoke-run invocation using existing smoke artifacts returned a non-ready branch from the readiness packet rather than treating smoke output as a result.
+- In-memory route smokes exercised the post-ready labels `ready_for_interpret_controlled_null`, `textfeat_control_required`, `ready_for_target_control_comparison`, and `mixed_or_manual_interpretation_required`.
+
+**Status:** post-finalizer routing automation only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

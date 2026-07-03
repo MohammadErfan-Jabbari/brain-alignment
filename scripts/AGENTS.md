@@ -33,6 +33,7 @@ This folder holds experiment runners, data adapters, analysis scripts, literatur
 | `e016_make_readiness_packet.py` | Read-only post-analyzer packet builder for E016; extracts gate status, branch hint, paired effects, reviewer-burden flags, and next actions for `/interpret`. It is not a verdict engine. |
 | `e016_finalize_phase3.py` | Guarded E016 finalizer; no-ops while the full run JSON is missing, then runs or refreshes the analyzer and readiness-packet helper once artifacts exist. It uses repo-root script paths, so it is safe from subdirectories. It is not a verdict engine. |
 | `e016_watch_finalize_phase3.py` | Thin E016 watcher/finalizer wrapper; checks once by default, or polls with `--watch`, and runs `e016_finalize_phase3.py` only after the full run JSON exists. It is not a verdict engine. |
+| `e016_branch_decision.py` | Post-finalizer E016 router; reads run/analyzer/readiness artifact state and prints the next safe command or stance. It never launches training and is not a verdict engine. |
 | `e016_compare_target_controls.py` | Post-positive E016 comparator for ready TRIBE and text-feature analyzer JSONs; compares within-target paired gains over KD/permuted controls and emits a branch hint, never a verdict. |
 | `figures/` | Figure generation scripts. |
 | `litsweep/` | Literature search and PDF utilities. See `litsweep/AGENTS.md`. |
