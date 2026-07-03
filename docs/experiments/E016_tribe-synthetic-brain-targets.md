@@ -826,6 +826,21 @@ Verification:
 
 **Status:** control-scope metadata and paper-branch clarification only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 38 - WikiText context metadata recovered for a possible `contextfeat` control (2026-07-03)
+Refined the Step 37 statement that the current sentence-level WikiText corpus is insufficient by itself for a clean long-context control. The target caches themselves are sentence-local, but the original WikiText row/header provenance is recoverable exactly by replaying the E003 corpus extraction.
+
+Added `scripts/e016_recover_kd_context_metadata.py`, a CPU-only helper that replays the original `Salesforce/wikitext` extraction used by `scripts/run_kd_alignment.py`: skip raw rows beginning with `=`, split rows into sentences, keep 4-45 word sentences, deduplicate, and exclude Tuckute stimuli. The helper verifies exact equality against `data/kd_corpus/wikitext103_sentences_train.txt` and `data/kd_corpus/wikitext103_sentences_heldout.txt`, then writes gitignored JSONL metadata under `outputs/E016_tribe/kd_context_metadata/` with `split_index` as the join key for target-cache `item_indices`.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_recover_kd_context_metadata.py` passed.
+- `HF_HOME=/home/centcom/data/hf-cache uv run python scripts/e016_recover_kd_context_metadata.py --overwrite` returned `corpus_replay="exact_match"`.
+- The replay verified 96,000 train rows and 2,000 heldout rows. The active launcher uses the prefixes 95,999 and 1,999.
+- Context availability in the recovered metadata: train `doc_title_available=96000`, `same_doc_previous_available=95163`, `same_row_previous_available=73716`, `unique_doc_titles=837`; heldout `doc_title_available=2000`, `same_doc_previous_available=1988`, `same_row_previous_available=1487`, `unique_doc_titles=13`.
+
+Design implication: if E016 is positive and survives the prepared sentence-local `textfeat` control, a long-context non-brain target-cache family is mechanically feasible as `contextfeat_mse` / `contextfeat_perm`. It should condition a frozen teacher on recovered preceding same-document context, keep the same Phase-3 budget and target dimension, and include a block-permuted twin. This does **not** solve the on-policy comparator; student-rollout teacher supervision remains a separate runner protocol.
+
+**Status:** context-control feasibility and metadata recovery only. No target cache was built, no training was launched, no run JSON exists yet for the active E016 full run, no analyzer verdict exists, no science claim exists, and no rung flipped.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

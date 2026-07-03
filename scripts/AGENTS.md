@@ -35,6 +35,7 @@ This folder holds experiment runners, data adapters, analysis scripts, literatur
 | `e016_watch_finalize_phase3.py` | Thin E016 watcher/finalizer wrapper; checks once by default, or polls with `--watch`, and runs `e016_finalize_phase3.py` only after the full run JSON exists. It is not a verdict engine. |
 | `e016_branch_decision.py` | Post-finalizer E016 router; reads run/analyzer/readiness artifact state and prints the next safe command or stance. It also warns that a future TRIBE>textfeat comparison is not brain-specific clearance without post-positive review. It never launches training and is not a verdict engine. |
 | `e016_compare_target_controls.py` | Post-positive E016 comparator for ready TRIBE and text-feature analyzer JSONs; compares within-target paired gains over KD/permuted controls and emits target-scope metadata, a branch hint, and top-venue reviewer-burden metadata, never a verdict. |
+| `e016_recover_kd_context_metadata.py` | CPU-only E016 helper that replays the original WikiText KD-corpus extraction, verifies exact sentence equality, and writes gitignored context/provenance metadata for possible long-context controls. It is not a target builder or result engine. |
 | `figures/` | Figure generation scripts. |
 | `litsweep/` | Literature search and PDF utilities. See `litsweep/AGENTS.md`. |
 

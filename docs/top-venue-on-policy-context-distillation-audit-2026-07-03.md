@@ -22,7 +22,7 @@ That distinction changes only the positive branch. If E016 is null, the paper ca
 2. add a real-brain evaluation,
 3. narrow the claim to exactly what was cleared: TRIBE beat a sentence-local frozen-teacher hidden-state target under the fixed KD protocol.
 
-Starting a long-context/on-policy control before E016 and `textfeat` justify it would be premature. The active KD corpus is sentence-split; a clean context control would require reconstructing document context or designing a new on-policy teacher/student protocol rather than bolting a context label onto the existing target cache.
+Starting a long-context/on-policy control before E016 and `textfeat` justify it would be premature. The active KD target caches are sentence-local; a clean context control requires reconstructed document context or a new on-policy teacher/student protocol rather than bolting a context label onto the existing target cache. A follow-up feasibility check showed that WikiText context metadata is exactly recoverable from the original extraction, so a separate `contextfeat` target-cache family is buildable if the positive branch reaches that burden: [`top-venue-long-context-control-feasibility-2026-07-03.md`](top-venue-long-context-control-feasibility-2026-07-03.md).
 
 ## Source matrix
 
@@ -53,7 +53,7 @@ So the post-positive burden should be ordered, not expanded blindly:
 1. E016 full run must finish and pass the analyzer gate.
 2. If positive at matched PPL, run `textfeat`.
 3. If TRIBE does not beat `textfeat`, stop the brain-specific claim.
-4. If TRIBE beats `textfeat`, decide between extra seeds plus a long-context/on-policy control, extra seeds plus real-brain evaluation, or a deliberately narrowed claim.
+4. If TRIBE beats `textfeat`, decide between extra seeds plus a recovered-context `contextfeat` control, an on-policy protocol, real-brain evaluation, or a deliberately narrowed claim.
 
 ## Design note
 
@@ -63,13 +63,14 @@ A clean long-context/on-policy comparator is not just a new target cache over th
 - **On-policy estimand:** does teacher supervision on the student's own generations change the KD frontier differently from off-policy sentence KD?
 - **Brain-specificity estimand:** after non-brain context/on-policy privileges are matched, does the neural target add anything?
 
-Those are adjacent but not identical. The current active path should not pay that complexity until E016 and `textfeat` force it.
+Those are adjacent but not identical. The current active path should not pay that complexity until E016 and `textfeat` force it. The context-distillation branch is now known to be mechanically feasible through recovered WikiText metadata; the on-policy branch remains a separate runner design.
 
 ## Related
 
 - [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md)
 - [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md)
 - [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md)
+- [`top-venue-long-context-control-feasibility-2026-07-03.md`](top-venue-long-context-control-feasibility-2026-07-03.md)
 - [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md)
 - [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md)
 - [`experiments/E016_tribe-synthetic-brain-targets.md`](experiments/E016_tribe-synthetic-brain-targets.md)
