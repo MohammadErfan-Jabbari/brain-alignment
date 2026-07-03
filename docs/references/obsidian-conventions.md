@@ -132,7 +132,7 @@ Do **not** use Prettier — it re-wraps paragraphs, breaking §3.
 ## 13. The `.obsidian/` folder and `.claude` visibility
 
 - `.obsidian/` is tracked (shared view config: `app.json` forces standard relative links in-app; `graph.json` colour-groups by tag/path; `appearance.json`, `core-plugins.json`, `themes/`). Only `workspace.json` is gitignored.
-- Obsidian hides dotfolders, so `.claude` is exposed via root symlinks `claude-agents → .claude/agents`, `claude-commands → .claude/commands`, `claude-skills → .claude/skills`. `.claude/state` and `.claude/worktrees` are deliberately not exposed.
+- Obsidian hides dotfolders; after the 2026-07-03 cleanup, the repo no longer exposes `.claude` through root symlinks. Use `.claude/agents`, `.claude/commands`, and `.claude/skills` directly from the filesystem when needed. `.claude/state` and `.claude/worktrees` remain local-only surfaces, not shared vault content.
 
 ## 14. Reports & manuscript — container only, body is `/write`'s
 
