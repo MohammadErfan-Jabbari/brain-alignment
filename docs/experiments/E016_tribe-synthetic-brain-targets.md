@@ -735,6 +735,18 @@ Verification:
 
 **Status:** monitoring correction only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 30 - Readiness packet helper added for the post-analyzer handoff (2026-07-03)
+Added `scripts/e016_make_readiness_packet.py`, a read-only post-analyzer helper that converts an E016 analyzer JSON into a compact `/interpret` handoff packet. The packet extracts `gate`, failed gate fields, `paper_branch_hint`, grid/scale fields, paired target-vs-KD/permuted contrasts, reviewer-burden flags, and next actions. It also repeats the claim boundary: the packet is not a verdict, does not prove brain specificity, and cannot flip a rung.
+
+The helper can also attach a ready TRIBE-vs-textfeat comparator JSON after the matched-information control exists, so the positive branch has one stable handoff artifact instead of scattered analyzer/comparator fields.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_make_readiness_packet.py` passed.
+- Running the helper on existing incomplete smoke analyzer JSONs wrote readiness packets with `science_ready=false`, failed gate fields listed, and `paper_branch_hint.branch="not_ready"`.
+- Temporary ready-analysis fixtures exercised the controlled-null, TRIBE-positive-needs-textfeat, and matched-information-control-ready action routes.
+
+**Status:** post-analyzer handoff tooling only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

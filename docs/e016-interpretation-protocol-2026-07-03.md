@@ -75,6 +75,13 @@ print(json.dumps({"gate": d["gate"], "paper_branch_hint": d.get("paper_branch_hi
 PY
 ```
 
+For a compact `/interpret` handoff packet:
+
+```bash
+uv run python scripts/e016_make_readiness_packet.py \
+  outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.analysis.json
+```
+
 ## Branch actions
 
 - If `paper_branch_hint.branch="not_ready"`, stay in `/work`: debug missing grid rows, failed scale gates, missing target metrics, or PPL mismatch before interpretation.
@@ -93,6 +100,14 @@ uv run python scripts/e016_compare_target_controls.py \
 ```
 
 The comparator compares within-target paired gains over KD and permuted controls. It does not turn synthetic target-R2 into downstream utility and does not replace `/interpret`.
+
+If the comparator exists, include it in the readiness packet:
+
+```bash
+uv run python scripts/e016_make_readiness_packet.py \
+  outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.analysis.json \
+  --comparison-json outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.tribe_vs_textfeat.json
+```
 
 ## Must-not-claim
 
