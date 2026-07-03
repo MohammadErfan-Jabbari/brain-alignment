@@ -6,13 +6,13 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-03 (S52 - `/goal` continuation: paper decision tree plus E016 textfeat control launcher; `/work` + `/plan`. Active full E016 run, no science result, no rung change.)
+**Last updated:** 2026-07-03 (S53 - `/goal` continuation: E016 full-run monitoring/tooling; `/work`. Full target caches built and validated; training arm 1/9 running; no science result, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
 ## Current state
 
-The active E016 full Phase-3 run is still building the full train TRIBE cache. Last status check in S52: `phase=train_cache_building`; train-cache lower-bound progress `83648/95999 = 0.871342`; no train cache file yet, no heldout cache file, no Phase-3 run JSON, and no analyzer JSON. There is therefore no `/interpret` result yet.
+The active E016 full Phase-3 run has moved past target-cache generation into GPT-2 training. Last status check in S53: `phase=training_running_or_interrupted`; train cache exists with sidecar `n_items=95999`, `target_dim=20484`; heldout cache exists with sidecar `n_items=1999`, `target_dim=20484`; launcher validation printed finite targets and `missing=0` for both caches. Training began at `2026-07-03T01:01:14Z`; latest parsed training marker is `seed=0`, `arm=kd_only`, `lambda=0.0`, with `1/9` arm markers seen. The runner process is alive (`uv run python scripts/run_tribe_phase3.py` plus `.venv/bin/python3` child). There is still no Phase-3 run JSON and no analyzer JSON, so no `/interpret` result exists yet.
 
 The top-tier contribution path is now explicit: the paper cell is **brain-alignment-guided compression/distillation under fixed student budget**, not generic brain-tuning. The result-contingent paper plan is recorded in [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md). The matched-information text-feature control launcher is prepared but must not be run unless the active TRIBE Phase-3 result is positive enough to need a brain-specificity check.
 
@@ -20,22 +20,22 @@ No experiment result was produced, no science number was adjudicated, and no lad
 
 ## What was done
 
-- Added [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md), a result-contingent paper decision tree for null, confounded-positive, TRIBE-positive, textfeat-matched, and brain-specific-positive branches.
-- Linked that decision tree from [`top-venue-frontier-refresh-2026-07-02.md`](top-venue-frontier-refresh-2026-07-02.md).
-- Added [`scripts/e016_make_textfeat_control_script.py`](../scripts/e016_make_textfeat_control_script.py), which writes the post-E016 full matched-information text-feature control launcher under `outputs/`.
-- Generated `outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh` and checked it with `bash -n`; it was not executed.
-- Updated [`scripts/AGENTS.md`](../scripts/AGENTS.md) and [`E016`](experiments/E016_tribe-synthetic-brain-targets.md) with the queued-control launcher.
+- Added and hardened [`scripts/e016_phase3_status.py`](../scripts/e016_phase3_status.py) so it reports cache-stage progress, ETA fields, heldout-vs-train denominators, training-arm markers, and the active `run_tribe_phase3.py` runner processes.
+- Recorded E016 Steps 21-24 in [`experiments/E016_tribe-synthetic-brain-targets.md`](experiments/E016_tribe-synthetic-brain-targets.md): ETA monitor, stage-aware cache progress, full cache validation/training start, and runner-process discovery.
+- Confirmed the full train and heldout target caches exist and validated, then left the full Phase-3 launcher running on training arm 1/9.
+- Committed and pushed the monitoring/support updates through `959dcc3 fix: include E016 runner in status discovery`.
 
 ## What to do next
 
 1. Stay in `/work` and monitor the active full E016 run with `uv run python scripts/e016_phase3_status.py --pretty`.
-2. When the analyzer JSON exists, switch to `/interpret`. Inspect gate completeness, paired seed deltas, sign-flip p-values, and PPL matching before recording any result.
-3. If E016 is positive at matched PPL, run the prepared text-feature control launcher only after confirming the active TRIBE run is complete and resources are free.
-4. If E016 is null at matched PPL, use [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md) to frame the controlled-negative paper branch.
+2. If the runner exits without writing `phase3_full_gpt2_n95999_s0-1-2_lam0.1.json`, debug the runner/log before interpreting anything.
+3. When the analyzer JSON exists, switch to `/interpret`. Inspect gate completeness, paired seed deltas, sign-flip p-values, and PPL matching before recording any result.
+4. If E016 is positive at matched PPL, run the prepared text-feature control launcher only after confirming the active TRIBE run is complete and resources are free.
+5. If E016 is null at matched PPL, use [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md) to frame the controlled-negative paper branch.
 
 ## Blockers / open loops
 
-- The full E016 train cache is still building. The active process is healthy, but no result artifact exists yet.
+- The full E016 training run is still on the first parsed arm marker (`seed=0`, `kd_only`). Full-arm training may be long; do not treat quiet log mtime as failure unless the runner process exits or GPU/process state changes.
 - Firecrawl Research MCP tools were not exposed in the S51 scout turn, so the literature frontier record used web search and primary pages/PDFs.
 - The prepared text-feature launcher is queued-only. Running it while the active TRIBE job is building would compete for GPU and disk bandwidth.
 
@@ -44,4 +44,4 @@ No experiment result was produced, no science number was adjudicated, and no lad
 - Active run script: `outputs/E016_tribe/phase3/run_full_phase3_20260702.sh`.
 - Prepared textfeat control launcher: `outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh`.
 - Expected full TRIBE artifacts: `outputs/E016_tribe/kd_targets/text/train_start0_n95999_full.npz`, `outputs/E016_tribe/kd_targets/text/heldout_start0_n1999_full.npz`, `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.json`, and `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.analysis.json`.
-- Latest non-wrap work commit for this continuation: `2922289 docs: add top-venue paper decision tree`.
+- Latest non-wrap work commit for this continuation: `959dcc3 fix: include E016 runner in status discovery`.
