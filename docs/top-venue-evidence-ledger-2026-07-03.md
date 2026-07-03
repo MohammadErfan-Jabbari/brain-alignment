@@ -6,7 +6,7 @@ aliases: [top-venue-evidence-ledger-2026-07-03, compression-evidence-ledger]
 
 # Top-venue evidence ledger, 2026-07-03
 
-**Status.** This is a `/plan` and `/work` coordination artifact. It is not a report, not a manuscript section, and not a science verdict. It exists to keep the active top-venue goal honest while E016 trains.
+**Status.** This is a `/plan` and `/work` coordination artifact. It is not a report, not a manuscript section, and not a science verdict. It exists to keep the active top-venue goal honest while E016 trains. The pre-result post-run interpretation manifest is [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md).
 
 ## Purpose
 
@@ -56,6 +56,7 @@ The analyzer's `paper_branch_hint` is only a routing aid into this ledger. It is
 
 - [`top-venue-frontier-refresh-2026-07-02.md`](top-venue-frontier-refresh-2026-07-02.md) - literature frontier
 - [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md) - result-contingent paper plan
+- [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md) - pre-result post-run manifest
 - [`experiments/E016_tribe-synthetic-brain-targets.md`](experiments/E016_tribe-synthetic-brain-targets.md) - active experiment record
 - [`ladder.md`](ladder.md) - canonical thesis status
 - [`tasks.md`](tasks.md) - operational backlog

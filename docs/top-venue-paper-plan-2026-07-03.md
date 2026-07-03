@@ -6,7 +6,7 @@ aliases: [top-venue-paper-plan-2026-07-03, compression-paper-plan]
 
 # Top-venue paper plan, 2026-07-03
 
-**Status.** This is a `/plan` artifact built from the S51 `/scout` and `/work` state. It is not a report, not a manuscript section, and not a science verdict. It exists so the active E016 run has a clear decision tree when results arrive. The claim-by-claim proof ledger is [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md).
+**Status.** This is a `/plan` artifact built from the S51 `/scout` and `/work` state. It is not a report, not a manuscript section, and not a science verdict. It exists so the active E016 run has a clear decision tree when results arrive. The claim-by-claim proof ledger is [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md), and the pre-result interpretation manifest is [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md).
 
 ## Claim cell
 
@@ -87,6 +87,7 @@ For a positive paper, the paired effect must be inspected seed-by-seed. With onl
 
 - [`top-venue-frontier-refresh-2026-07-02.md`](top-venue-frontier-refresh-2026-07-02.md) - source frontier memo
 - [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md) - claim/readiness ledger
+- [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md) - pre-result post-run manifest
 - [`E016`](experiments/E016_tribe-synthetic-brain-targets.md) - active Phase-3 experiment
 - [`01-research-landscape.md`](01-research-landscape.md) - literature map
 - [`ladder.md`](ladder.md) - canonical status board

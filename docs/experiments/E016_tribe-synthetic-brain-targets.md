@@ -711,6 +711,11 @@ Verification:
 
 **Status:** analyzer reporting only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 27 - Interpretation manifest precommitted before full-run numbers (2026-07-03)
+Added [`e016-interpretation-protocol-2026-07-03.md`](../e016-interpretation-protocol-2026-07-03.md), a pre-result post-run protocol for the active full Phase-3 run. It records the branch-specific claim-intent manifests, overturn criteria, gate fields, commands, and branch actions to use once the run JSON and analyzer JSON exist. The protocol makes the conservative pre-result prior explicit: the controlled-null or dense-target-generic branch is more likely than a brain-specific positive given the recorded Q2-Q4 state, but E016 can overturn that only by passing the analyzer gate and the paired audits.
+
+**Status:** interpretation precommitment only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
