@@ -747,6 +747,17 @@ Verification:
 
 **Status:** post-analyzer handoff tooling only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 31 - Guarded Phase-3 finalizer added (2026-07-03)
+Added `scripts/e016_finalize_phase3.py`, a guarded post-run helper for the active full Phase-3 path. If the full run JSON is absent, it prints a status packet with `status="run_json_missing"` and exits cleanly. If the run JSON exists, it runs or refreshes `scripts/analyze_tribe_phase3.py`, then `scripts/e016_make_readiness_packet.py`, and prints a compact status packet pointing to the analyzer/readiness artifacts. It repeats the boundary that the finalizer output is not a verdict and cannot flip a rung.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_finalize_phase3.py` passed.
+- Missing-run fixture returned `run_json_missing` and `next_action="Stay in /work and monitor with scripts/e016_phase3_status.py."`
+- Existing smoke run fixture regenerated a smoke analyzer/readiness pair and preserved `science_ready=false`, `paper_branch_hint.branch="not_ready"`, and the failed gate fields.
+- Default full-run invocation returned `run_json_missing`, because the active full run has still not written `phase3_full_gpt2_n95999_s0-1-2_lam0.1.json`.
+
+**Status:** guarded post-run automation only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

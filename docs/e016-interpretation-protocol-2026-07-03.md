@@ -54,6 +54,12 @@ Monitor the active run:
 uv run python scripts/e016_phase3_status.py --pretty
 ```
 
+Guarded post-run finalizer. This is safe to run before the full artifact exists; it exits with `run_json_missing` and tells you to keep monitoring. Once the run JSON exists, it runs or refreshes the analyzer and readiness-packet helper:
+
+```bash
+uv run python scripts/e016_finalize_phase3.py
+```
+
 If the run JSON exists but the analyzer JSON does not:
 
 ```bash

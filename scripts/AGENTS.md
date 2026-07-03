@@ -31,6 +31,7 @@ This folder holds experiment runners, data adapters, analysis scripts, literatur
 | `e016_phase3_status.py` | Read-only monitor for the long E016 Phase-3 pipeline; reports artifact presence, stage-aware cache progress/ETA, training-arm markers, completed-arm diagnostics, analyzer gate fields, runner processes, and a `health` block for quiet-but-live training. Use `uv run python scripts/e016_phase3_status.py --pretty` before hand-parsing the log. |
 | `analyze_tribe_phase3.py` | E016 Phase-3 gate/analyzer; writes conservative readiness fields plus `paper_branch_hint`. The hint routes to the paper plan only after `science_ready=true`; it is not a verdict or rung flip. |
 | `e016_make_readiness_packet.py` | Read-only post-analyzer packet builder for E016; extracts gate status, branch hint, paired effects, reviewer-burden flags, and next actions for `/interpret`. It is not a verdict engine. |
+| `e016_finalize_phase3.py` | Guarded E016 finalizer; no-ops while the full run JSON is missing, then runs or refreshes the analyzer and readiness-packet helper once artifacts exist. It is not a verdict engine. |
 | `e016_compare_target_controls.py` | Post-positive E016 comparator for ready TRIBE and text-feature analyzer JSONs; compares within-target paired gains over KD/permuted controls and emits a branch hint, never a verdict. |
 | `figures/` | Figure generation scripts. |
 | `litsweep/` | Literature search and PDF utilities. See `litsweep/AGENTS.md`. |
