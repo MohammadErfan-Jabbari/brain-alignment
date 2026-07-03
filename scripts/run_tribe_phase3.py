@@ -9,6 +9,7 @@ is supplied. The analyzer decides whether the run is science-ready.
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timezone
 import json
 import re
 import sys
@@ -105,11 +106,54 @@ def validate_target_label(label: str) -> str:
     return label
 
 
+def artifact_name(seed: int, arm: str, lam: float) -> str:
+    lam_s = f"{lam:g}".replace(".", "p").replace("-", "m")
+    return f"seed{seed}_{arm}_lambda{lam_s}"
+
+
 def jsonable_args(args: argparse.Namespace) -> dict:
     out = {}
     for key, value in vars(args).items():
         out[key] = str(value) if isinstance(value, Path) else value
     return out
+
+
+def save_student_artifact(
+    student,
+    tok,
+    out_dir: Path,
+    *,
+    overwrite: bool,
+    args: argparse.Namespace,
+    seed: int,
+    arm: str,
+    lam: float,
+    result: dict,
+) -> Path:
+    save_dir = out_dir / artifact_name(seed, arm, lam)
+    if save_dir.exists() and not overwrite:
+        raise FileExistsError(f"model artifact already exists: {save_dir}")
+    save_dir.mkdir(parents=True, exist_ok=True)
+    student.save_pretrained(save_dir)
+    tok.save_pretrained(save_dir)
+    meta = {
+        "experiment": "E016 Phase 3 trained student artifact",
+        "science_status": "trained-student artifact for post-run evaluation; not a verdict",
+        "created_at_utc": datetime.now(timezone.utc).isoformat(),
+        "seed": seed,
+        "arm": arm,
+        "lambda_brain": lam,
+        "teacher": args.teacher,
+        "student": args.student,
+        "target_cache": str(args.target_cache),
+        "target_label": args.target_label,
+        "heldout_target_cache": str(args.heldout_target_cache) if args.heldout_target_cache else None,
+        "run_out": str(args.out),
+        "result_row": result,
+        "note": "The training-time brain head, if any, is intentionally discarded; this saves the fine-tuned causal LM for post-hoc evaluation.",
+    }
+    (save_dir / "e016_model_artifact.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
+    return save_dir
 
 
 def main():
@@ -131,6 +175,17 @@ def main():
     ap.add_argument("--limit-heldout", type=int, default=128)
     ap.add_argument("--perm-blocks", type=int, default=10)
     ap.add_argument("--skip-target-r2", action="store_true")
+    ap.add_argument(
+        "--save-model-dir",
+        type=Path,
+        default=None,
+        help="Optional directory for per-arm trained student artifacts; opt-in because full GPT-2 arms are large.",
+    )
+    ap.add_argument(
+        "--overwrite-model-artifacts",
+        action="store_true",
+        help="Allow --save-model-dir arm subdirectories to be overwritten.",
+    )
     args = ap.parse_args()
 
     t0 = time.time()
@@ -197,17 +252,31 @@ def main():
                 target_r2 = target_encoding_r2(
                     student, tok, train_texts, Yz, heldout_texts, Yh, device, args.max_length, layer
                 )
-            rows.append(
-                {
-                    **asdict(result),
-                    "lambda_brain": lam,
-                    "perplexity": ppl,
-                    "target_r2": target_r2,
-                    "target_dim": int(Yz.shape[1]),
-                    "n_train": len(train_texts),
-                    "n_heldout_ppl": len(heldout_texts),
-                }
-            )
+            row = {
+                **asdict(result),
+                "lambda_brain": lam,
+                "perplexity": ppl,
+                "target_r2": target_r2,
+                "target_dim": int(Yz.shape[1]),
+                "n_train": len(train_texts),
+                "n_heldout_ppl": len(heldout_texts),
+                "model_artifact_dir": None,
+            }
+            if args.save_model_dir is not None:
+                save_dir = save_student_artifact(
+                    student,
+                    tok,
+                    args.save_model_dir,
+                    overwrite=args.overwrite_model_artifacts,
+                    args=args,
+                    seed=seed,
+                    arm=arm,
+                    lam=lam,
+                    result=row,
+                )
+                row["model_artifact_dir"] = str(save_dir)
+                print(f"  saved_model={save_dir}", flush=True)
+            rows.append(row)
             print(
                 f"  ppl={ppl:.3f}"
                 + ("" if target_r2 is None else f" target_r2={target_r2:+.4f}"),

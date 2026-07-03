@@ -29,6 +29,7 @@ TRAIN_CACHE="$ROOT/outputs/E016_tribe/kd_targets/text_feature/{model_tag}/train_
 HELDOUT_CACHE="$ROOT/outputs/E016_tribe/kd_targets/text_feature/{model_tag}/heldout_start0_n1999_d20484_full.npz"
 RUN_JSON="$ROOT/outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.json"
 ANALYSIS_JSON="$ROOT/outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.analysis.json"
+MODEL_DIR="$ROOT/outputs/E016_tribe/phase3/model_artifacts/textfeat_gpt2_n95999_s0-1-2_lam0.1"
 LOG="$ROOT/outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.log"
 
 mkdir -p "$(dirname "$TRAIN_CACHE")" "$(dirname "$RUN_JSON")"
@@ -40,6 +41,7 @@ echo "TRAIN_CACHE=$TRAIN_CACHE"
 echo "HELDOUT_CACHE=$HELDOUT_CACHE"
 echo "RUN_JSON=$RUN_JSON"
 echo "ANALYSIS_JSON=$ANALYSIS_JSON"
+echo "MODEL_DIR=$MODEL_DIR"
 
 cd "$ROOT"
 if [[ ! -f "$TRAIN_CACHE" ]]; then
@@ -119,7 +121,8 @@ if [[ ! -f "$RUN_JSON" ]]; then
     --lr 5e-5 \\
     --batch-size 4 \\
     --max-length 64 \\
-    --limit-heldout 1999
+    --limit-heldout 1999 \\
+    --save-model-dir "$MODEL_DIR"
 else
   echo "[$(date -u +'%Y-%m-%dT%H:%M:%SZ')] Run JSON exists; skipping training"
 fi

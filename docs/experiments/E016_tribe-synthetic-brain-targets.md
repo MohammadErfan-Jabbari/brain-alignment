@@ -853,6 +853,28 @@ Design implication: if E016 is positive, survives textfeat, and reviewers still 
 
 **Status:** contextfeat target-cache plumbing only. No full contextfeat cache was built, no training was launched, no run JSON exists yet for the active E016 full run, no analyzer verdict exists, no science claim exists, and no rung flipped.
 
+### Step 40 - Future control runs can retain trained student artifacts (2026-07-03)
+Found a post-positive branch fragility while the active full TRIBE run was still training: `scripts/run_tribe_phase3.py` computed metrics, appended a row, and deleted each trained student without saving it. That is sufficient for the predeclared synthetic-target E016 gate, but it makes later probe or real-brain follow-up more expensive because selected arms would need to be rerun.
+
+Added opt-in trained-student artifact retention to `scripts/run_tribe_phase3.py`:
+
+- `--save-model-dir DIR` saves each per-arm student under `DIR/seed{seed}_{arm}_lambda{lambda}` using Hugging Face `save_pretrained`.
+- The tokenizer and an `e016_model_artifact.json` metadata sidecar are saved with each artifact.
+- `--overwrite-model-artifacts` is required to overwrite an existing arm artifact directory.
+- Each run row records `model_artifact_dir` when saving is enabled.
+
+Updated `scripts/e016_make_textfeat_control_script.py` so the queued post-positive textfeat control will save trained students under `outputs/E016_tribe/phase3/model_artifacts/textfeat_gpt2_n95999_s0-1-2_lam0.1/` if it is ever launched.
+
+Verification:
+- `uv run python -m py_compile scripts/run_tribe_phase3.py scripts/e016_make_textfeat_control_script.py` passed.
+- A tiny CPU smoke with `sshleifer/tiny-gpt2`, the 2-item smoke TRIBE cache, `--skip-target-r2`, and `--save-model-dir outputs/E016_tribe/phase3/model_artifacts/smoke_save_model_test` saved all three expected arm artifacts and wrote non-null `model_artifact_dir` fields in the run JSON.
+- `uv run python scripts/e016_make_textfeat_control_script.py --force` regenerated `outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh`.
+- `bash -n outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh` passed.
+
+Design implication: future textfeat/contextfeat or rerun-selected TRIBE arms can preserve trained students for post-hoc probes or real-brain evaluation. The currently active TRIBE full run was already in flight before this option existed, so it should still be treated as metrics-only unless selected arms are rerun with artifact saving. This is infrastructure only, not a result.
+
+**Status:** model-artifact retention plumbing only. No active run was stopped or modified, no new full control was launched, no analyzer verdict exists, no science claim exists, and no rung flipped.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
