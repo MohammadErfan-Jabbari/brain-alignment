@@ -6,19 +6,19 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-03 (S77 - `/goal` continuation: full E016 TRIBE artifact reached analyzer-ready handoff, routed to `tribe_positive_needs_textfeat`, and the matched-information `textfeat` control was launched; no final verdict, no brain-specific claim, no rung change.)
+**Last updated:** 2026-07-03 (S78 - `/goal` continuation: full textfeat control completed, readiness is science-ready, and the TRIBE-vs-textfeat comparator routes to `tribe_stronger_than_textfeat_needs_review`; no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
 ## Current State
 
-The full E016 TRIBE Phase-3 run is no longer training. It produced `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.json`, analyzer JSON, and readiness JSON. Last TRIBE status sample in S77: `checked_at_utc=2026-07-03T07:31:45.131949+00:00`; `phase=analysis_ready`; `health.status=analysis_artifact_present`; `run_json.exists=true`; `analysis_json.exists=true`; `gate.science_ready=true`; grid complete for 3 seeds x 3 arms.
+Both E016 full-run branches are now analyzer-ready. The TRIBE run produced `phase3_full_gpt2_n95999_s0-1-2_lam0.1.json`, analyzer JSON, and readiness JSON with `gate.science_ready=true`. The matched-information textfeat control also completed and produced `phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.json`, analyzer JSON, and readiness JSON with `gate.science_ready=true`.
 
-The readiness packet routed the artifact to `paper_branch_hint.branch="tribe_positive_needs_textfeat"`. The independent recompute audit passed: TRIBE target exceeded the permuted target on all three paired seeds at the synthetic target endpoint (mean delta `+0.071871`; sign-flip `p=0.25`) and exceeded KD-only on all three paired seeds (mean delta `+0.077492`; sign-flip `p=0.25`), while relative PPL deltas versus KD-only stayed below the 0.05 matching tolerance. This is routing evidence for the synthetic TRIBE target branch, not a brain-specific result.
+The TRIBE readiness packet routed to `tribe_positive_needs_textfeat`; the textfeat readiness packet routed to `matched_information_control_ready`. The ready comparator at `outputs/E016_tribe/phase3/phase3_full_tribe_vs_textfeat_comparison.json` returned `branch_hint.branch="tribe_stronger_than_textfeat_needs_review"`.
 
-The branch router returned `status="textfeat_control_required"`, `route="run_textfeat_after_resource_check"`, and `active_runner_process_count=0` for TRIBE. The matched-information `textfeat` control was launched in a detached process on GPU 1 (`PID=3428588`) using `outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh`. The clean active run began at `2026-07-03T07:21:00Z`; its log also contains earlier diagnostic/trace prelude from failed supervision attempts.
+Comparator summary at lambda 0.1: TRIBE gain versus KD-only `+0.077492`; TRIBE gain versus permuted TRIBE `+0.071871`; textfeat gain versus KD-only `+0.000761`; textfeat gain versus permuted textfeat `+0.002379`; TRIBE-minus-textfeat gain versus KD-only `+0.076731`; TRIBE-minus-textfeat gain versus permuted-control gains `+0.069492`.
 
-The `textfeat` launcher built and validated full train and heldout caches before entering training: train `(95999, 20484)`, heldout `(1999, 20484)`, finite, `missing=0`. At the last monitored sample it had entered `scripts/run_tribe_phase3.py` for the full textfeat arms with seed 0 `kd_only` active, GPU 1 active, and no textfeat run JSON or analyzer JSON yet.
+The comparator is a handoff, not a verdict. Its own burden says TRIBE stronger than textfeat clears only a sentence-local frozen-LM hidden-state target. It does not clear long-context/on-policy distillation, rich-feedback privileged-signal adjacency, or real-brain alignment. The next step is `/interpret`, including seed-aligned margin audit, PPL/gate/code/stat review, and a decision about extra seeds, context/on-policy control, real-brain evaluation, or narrowed claim.
 
 No final experiment verdict was adjudicated, no brain-specific claim was made, and no ladder rung changed.
 
@@ -31,20 +31,21 @@ No final experiment verdict was adjudicated, no brain-specific claim was made, a
 - Confirmed the TRIBE runner was no longer active, inspected resources, and launched the prepared `textfeat` control on GPU 1.
 - Monitored the launcher through full text-feature cache construction, validation, and entry into the first full training arm.
 - Updated the E016 experiment record, top-venue plan/ledger, tasks, ladder, and timeline around the handoff.
+- Detected textfeat completion, generated the textfeat readiness packet, and ran `scripts/e016_compare_target_controls.py`.
+- Recorded the completed-control/comparator handoff in the E016 experiment record, top-venue plan/ledger, tasks, ladder, and timeline.
 
 ## What To Do Next
 
-1. Stay in `/work` and monitor the active textfeat control: process group root `3428588`, log `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.log`.
-2. Do not start `contextfeat`, extra seeds, or real-brain probes while textfeat is active.
-3. When `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.json` appears, run the textfeat finalizer/analyzer/readiness path. The guarded finalizer supports `--run-json`; otherwise run `scripts/analyze_tribe_phase3.py` and `scripts/e016_make_readiness_packet.py` explicitly.
-4. When both TRIBE and textfeat analyzer JSONs are science-ready, run `uv run python scripts/e016_compare_target_controls.py` and then switch to `/interpret`.
-5. If TRIBE beats textfeat, state the scope precisely: `textfeat` is only a sentence-local teacher-hidden-state control. A top-tier brain-specific claim likely still needs extra seeds plus long-context/on-policy control, real-brain evaluation, or a narrowed claim.
-6. If textfeat matches or beats TRIBE, route toward a dense privileged-target/control paper, not a brain-specific positive.
+1. Switch to `/interpret`; do not record a verdict from the comparator alone.
+2. Audit seed-aligned TRIBE-minus-textfeat margins, PPL matching, analyzer gates, and code/stat assumptions.
+3. Inspect [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md) before choosing positive paper framing.
+4. Choose the next evidence burden: extra seeds, stronger non-brain/context comparator, real-brain follow-up, or controlled scoping of the claim.
 
 ## Blockers / Open Loops
 
-- The textfeat control is running and has no run JSON or analyzer JSON yet.
-- The TRIBE-positive branch is not a brain-specific claim; it is exactly the reason textfeat is required.
+- The comparator route is not a final verdict and not brain-specific clearance.
+- The run has only three seeds; sign-flip resolution is weak for a top-tier positive.
+- Textfeat clears only sentence-local frozen-teacher hidden-state supervision, not long-context/on-policy distillation or real-brain alignment.
 - The TRIBE run did not save model artifacts because it started before `--save-model-dir`; selected TRIBE arms may require rerun if real-brain probes are needed.
 - The prepared contextfeat builder is smoke-tested only. A full contextfeat cache/control is branch-gated behind E016 positive plus textfeat survival.
 - The Tuckute saved-student evaluator is smoke-tested only. Full-scale use requires saved artifacts from `--save-model-dir` runs and `/interpret` before any claim.
@@ -57,10 +58,11 @@ No final experiment verdict was adjudicated, no brain-specific claim was made, a
 - Completed TRIBE readiness packet: `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.readiness.json`.
 - Independent recompute audit: `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.interpret_audit.json`.
 - Active textfeat launcher: `outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh`.
-- Active textfeat PID at S77 wrap: `3428588`.
 - Active textfeat log: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.log`.
-- Active textfeat run JSON target: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.json`.
-- Active textfeat analysis JSON target: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.analysis.json`.
+- Completed textfeat run JSON: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.json`.
+- Completed textfeat analysis JSON: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.analysis.json`.
+- Completed textfeat readiness packet: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.readiness.json`.
+- Ready comparator JSON: `outputs/E016_tribe/phase3/phase3_full_tribe_vs_textfeat_comparison.json`.
 - Saved-student Tuckute evaluator: `uv run python scripts/e016_eval_saved_student_alignment.py --run-json <artifacted-run.json> --out <alignment.json> --reference-model gpt2-medium`.
 - Guarded finalizer command: `uv run python scripts/e016_finalize_phase3.py`.
 - Watch-finalize command: `uv run python scripts/e016_watch_finalize_phase3.py --watch --interval-s 300`.

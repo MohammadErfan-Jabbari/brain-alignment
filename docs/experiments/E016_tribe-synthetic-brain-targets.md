@@ -934,6 +934,35 @@ At the latest monitored sample, the control had entered `scripts/run_tribe_phase
 
 **Status:** matched-information control running. No textfeat result exists yet, no TRIBE-vs-textfeat comparison exists, no brain-specific claim exists, and no rung flipped.
 
+### Step 44 - `textfeat` control completed and TRIBE-vs-textfeat comparator routed to review (2026-07-03)
+The full matched-information `textfeat` control completed and wrote the expected artifacts:
+
+- run JSON: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.json`
+- analyzer JSON: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.analysis.json`
+- readiness packet: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.readiness.json`
+- comparison JSON: `outputs/E016_tribe/phase3/phase3_full_tribe_vs_textfeat_comparison.json`
+
+The launcher log ended with `E016 textfeat matched-information control complete` at `2026-07-03T11:46:44Z`, and no textfeat runner process remained at the post-run check. The analyzer gate is ready: `science_ready=true`, `arm_seed_grid_complete=true`, `all_paired_common_seeds=true`, `ppl_matched_all_lambdas=true`, `has_heldout_target_metric=true`, and the scale gates are true.
+
+Textfeat analyzer means at lambda 0.1:
+
+- `kd_only`: mean PPL `98.962656`, mean target-R2 `0.911742`
+- `textfeat_mse`: mean PPL `98.524176`, mean target-R2 `0.912503`
+- `textfeat_perm`: mean PPL `98.511881`, mean target-R2 `0.910124`
+
+The comparator returned `ready=true` and `branch_hint.branch="tribe_stronger_than_textfeat_needs_review"`. Its paired-gain summary at lambda 0.1:
+
+- TRIBE gain versus KD-only: `+0.077492`
+- TRIBE gain versus permuted TRIBE: `+0.071871`
+- textfeat gain versus KD-only: `+0.000761`
+- textfeat gain versus permuted textfeat: `+0.002379`
+- TRIBE minus textfeat gain versus KD-only: `+0.076731`
+- TRIBE minus textfeat gain versus permuted control: `+0.069492`
+
+The comparator's own burden language remains binding: this clears only the sentence-local frozen-LM hidden-state target, not long-context/on-policy distillation, rich-feedback privileged-signal adjacency, or real-brain alignment. The next action is `/interpret`, with seed-aligned margin audit, PPL/gate/code/stat review, and an explicit decision on whether the paper needs extra seeds, a stronger non-brain/context comparator, a real-brain follow-up, or a narrowed claim.
+
+**Status:** ready comparison handoff only. The branch is promising, but this is not a final E016 verdict, not brain-specific clearance, and not a rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

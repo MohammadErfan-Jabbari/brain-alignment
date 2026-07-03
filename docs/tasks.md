@@ -24,15 +24,24 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 > results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
 > of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
+### S78 `/goal` continuation - textfeat complete and comparator ready (2026-07-03)
+
+- [x] **Full textfeat control completed.** `phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.json`, `.analysis.json`, and `.readiness.json` exist; analyzer gate is `science_ready=true`, complete for 3 seeds x 3 arms, matched PPL, and full-scale train/heldout/target-dimension checks.
+- [x] **TRIBE-vs-textfeat comparator run.** `outputs/E016_tribe/phase3/phase3_full_tribe_vs_textfeat_comparison.json` is ready and routes to `tribe_stronger_than_textfeat_needs_review`.
+- [x] **Completion state recorded without verdict.** E016 experiment doc, upspeed, top-venue plan/ledger, ladder, tasks, and timeline now record the comparator handoff as review input only.
+- [ ] **Switch to `/interpret` for the comparator.** Audit seed-aligned margins, PPL matching, analyzer gates, and code/stat assumptions before any claim.
+- [ ] **Choose the post-positive evidence burden.** Decide between extra seeds, stronger non-brain/context comparator, real-brain follow-up, or a deliberately narrowed claim.
+- [ ] **Do not launch contextfeat, extra seeds, or real-brain probes before `/interpret` clears the comparator.**
+
 ### S77 `/goal` continuation - E016 TRIBE handoff and textfeat control launch (2026-07-03)
 
 - [x] **Full TRIBE Phase-3 artifact finalized to analyzer/readiness handoff.** `phase3_full_gpt2_n95999_s0-1-2_lam0.1.json`, `.analysis.json`, and `.readiness.json` exist; analyzer gate is `science_ready=true`, complete for 3 seeds x 3 arms, matched PPL, and full-scale train/heldout/target-dimension checks.
 - [x] **Independent `/interpret` recompute audit passed.** `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.interpret_audit.json` matched the analyzer grid, paired target-R2 deltas, and PPL checks. The audit is a routing check, not a verdict.
 - [x] **Branch router followed.** `uv run python scripts/e016_branch_decision.py` returned `status="textfeat_control_required"`, `route="run_textfeat_after_resource_check"`, and `active_runner_process_count=0` for the completed TRIBE runner.
 - [x] **Matched-information textfeat control launched.** `outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh` is running detached on GPU 1 as PID `3428588`; full text-feature train and heldout caches were built and validated before training started.
-- [ ] **Monitor textfeat to run JSON and analyzer JSON.** Watch `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.log` and the target JSON paths; if the runner exits without JSON, debug before interpreting.
-- [ ] **Finalize and compare only after textfeat is ready.** Run the textfeat finalizer/analyzer/readiness path, then `uv run python scripts/e016_compare_target_controls.py <tribe-analysis.json> <textfeat-analysis.json> --out <comparison.json>`, then switch to `/interpret`.
-- [ ] **Keep follow-up controls branch-gated.** Do not run contextfeat, extra seeds, or real-brain probes while textfeat is active; if TRIBE beats textfeat, the next burden is extra seeds plus context/on-policy control, real-brain evaluation, or a narrowed claim.
+- [x] **Monitor textfeat to run JSON and analyzer JSON.** Resolved in S78: full textfeat run JSON, analyzer JSON, and readiness packet appeared.
+- [x] **Finalize and compare only after textfeat is ready.** Resolved in S78: finalizer/readiness and TRIBE-vs-textfeat comparator ran after both analyzer JSONs were science-ready.
+- [x] **Keep follow-up controls branch-gated.** Resolved in S78: no contextfeat, extra seeds, or real-brain probe was launched; the next burden is `/interpret`.
 
 ### 🔬 S76 `/goal` continuation - bounded E016 monitoring, full run advanced but still no result (2026-07-03)
 
