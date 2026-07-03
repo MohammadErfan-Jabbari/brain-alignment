@@ -24,6 +24,15 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 > results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
 > of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
+### 🔬 S74 `/goal` continuation - E016 future control artifact retention added, full run still no result (2026-07-03)
+
+- [x] **E016 status rechecked for wrap.** Current S74 close state: `checked_at_utc=2026-07-03T04:14:42.369947+00:00`, `phase=training_running_or_interrupted`, `health.status=runner_alive_log_recent`, latest marker `seed=2`, `arm=kd_only`, `lambda=0.0`, `7/9` arm markers seen, `completed_arm_count=6`, `gpu.available=true`, `active_gpu_count=2`, `max_utilization_gpu_pct=55` in the instantaneous close-state sample, `run_json.exists=false`, `analysis_json.exists=false`. Completed-arm diagnostics remain partial diagnostics only, not Phase-3 results.
+- [x] **Future E016/control runs can retain trained students.** [`scripts/run_tribe_phase3.py`](../scripts/run_tribe_phase3.py) now accepts `--save-model-dir` and records `model_artifact_dir` per row, with `--overwrite-model-artifacts` required for overwrites.
+- [x] **Queued textfeat launcher regenerated with artifact saving.** [`scripts/e016_make_textfeat_control_script.py`](../scripts/e016_make_textfeat_control_script.py) now writes `--save-model-dir "$MODEL_DIR"` into `outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh`; the launcher was regenerated and `bash -n` passed.
+- [x] **Artifact-save smoke passed.** Tiny CPU smoke with `sshleifer/tiny-gpt2` and the 2-item smoke target cache saved all three expected arm artifacts under `outputs/E016_tribe/phase3/model_artifacts/smoke_save_model_test/` and wrote non-null `model_artifact_dir` fields in `outputs/E016_tribe/phase3/phase3_smoke_save_model_test.json`.
+- [ ] **Monitor active E016 Phase-3 training to analyzer JSON.** Run `uv run python scripts/e016_phase3_status.py --pretty`; if the full run JSON appears, route with `uv run python scripts/e016_branch_decision.py` and only then finalize/analyze as directed.
+- [ ] **If the positive branch needs post-hoc probes or real-brain evaluation, verify model artifacts first.** The active TRIBE full run started before `--save-model-dir` existed, so selected TRIBE arms may need a rerun with artifact saving.
+
 ### 🔬 S73 `/goal` continuation — context metadata recovered and `contextfeat` builder CPU-smoked, E016 still no result (2026-07-03)
 
 - [x] **WikiText context metadata recovered exactly.** [`scripts/e016_recover_kd_context_metadata.py`](../scripts/e016_recover_kd_context_metadata.py) replays the original E003 WikiText extraction and verified `corpus_replay="exact_match"` against the cached KD corpus, writing gitignored context metadata under `outputs/E016_tribe/kd_context_metadata/`.
