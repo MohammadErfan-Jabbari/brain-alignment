@@ -6,7 +6,7 @@ aliases: [top-venue-frontier-refresh-2026-07-02, venue-refresh]
 
 # Top-venue frontier refresh, 2026-07-02
 
-**Status.** This is a `/scout` plus `/plan` memo, not a science verdict and not a ladder update. It records the top-venue contribution search Erfan asked for on 2026-07-02 after orienting on [`ladder.md`](ladder.md), [`expansion-program.md`](expansion-program.md), the current experiment docs, canonical notes, and a live arXiv/conference search.
+**Status.** This is a `/scout` plus `/plan` memo, not a science verdict and not a ladder update. It records the top-venue contribution search Erfan asked for on 2026-07-02 after orienting on [`ladder.md`](ladder.md), [`expansion-program.md`](expansion-program.md), the current experiment docs, canonical notes, and a live arXiv/conference search. A follow-up venue/open-question audit is [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md).
 
 **Bottom line.** The generic paper is no longer ours: "brain-tuning improves language models" has been taken by speech, text, multilingual, causal-misalignment, and now brain-versus-stimulus comparisons. The defensible open contribution is narrower and stronger: **brain-alignment-guided compression/distillation under severe controls**, asking whether neural supervision changes the alignment/utility frontier at fixed student budget, fixed compute, matched perplexity, and with permuted or non-brain privileged-information twins. That is still not closed by the 2025 to 2026 literature. The claim-by-claim readiness ledger is [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md).
 
@@ -88,6 +88,7 @@ Interpret E016 asymmetrically:
 - [`ladder.md`](ladder.md) - canonical project status
 - [`expansion-program.md`](expansion-program.md) - standing top-venue expansion program
 - [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md) - result-contingent paper plan
+- [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md) - venue/open-question follow-up audit
 - [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md) - claim/readiness ledger
 - [`01-research-landscape.md`](01-research-landscape.md) - literature map
 - [`E016`](experiments/E016_tribe-synthetic-brain-targets.md) - TRIBE synthetic target experiment
