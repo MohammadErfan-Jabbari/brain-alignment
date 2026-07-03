@@ -128,6 +128,13 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 
 ## Next session (what `/orient` surfaces)
 
+> **S55 DONE -> paper-readiness ledger added while E016 continues training (2026-07-03).** S55 added
+> [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md): a claim-by-claim map from
+> current evidence to missing proof and venue burden for the AAAI/ICML/ICLR/NeurIPS objective. It does not claim
+> a result. E016 remains `phase=training_running_or_interrupted` with no run/analyzer JSON. **NO experiment
+> verdict, NO science claim, and NO rung change.** Next concrete step is still `/work` monitoring until either
+> a runner failure or analyzer JSON appears.
+>
 > **S54 DONE -> E016 is still training quietly; monitor health, not log mtime alone (2026-07-03).** S54 added
 > `health` reporting to `scripts/e016_phase3_status.py` after the first full training arm stayed quiet in the log
 > while the runner processes remained alive. Last status: `phase=training_running_or_interrupted`,
