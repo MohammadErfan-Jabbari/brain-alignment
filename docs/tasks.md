@@ -24,7 +24,7 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 > results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
 > of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
-### 🔬 S60 `/goal` continuation — E016 full run in training, no result yet (2026-07-03)
+### 🔬 S61 `/goal` continuation — E016 full run in training, top-venue open-question audit refreshed, no result yet (2026-07-03)
 
 - [x] **E016 target-cache stages completed and validated.** Full train cache (`95999 × 20484`) and heldout cache (`1999 × 20484`) exist; launcher validation printed finite targets and `missing=0` for both. These are target-cache artifacts only, not a Phase-3 result.
 - [x] **E016 status helper hardened for the live run.** [`scripts/e016_phase3_status.py`](../scripts/e016_phase3_status.py) now reports ETA fields, train/heldout stage-aware progress, training-arm markers, the active `run_tribe_phase3.py` runner processes, and a `health` block for quiet-but-live training.
@@ -36,7 +36,7 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 - [x] **E016 status helper now separates started and completed training arms.** [`scripts/e016_phase3_status.py`](../scripts/e016_phase3_status.py) reports completed-arm diagnostics separately from arm markers and labels partial metrics as not Phase-3 results.
 - [x] **E016 readiness packet helper prepared.** [`scripts/e016_make_readiness_packet.py`](../scripts/e016_make_readiness_packet.py) extracts analyzer gate status, branch hint, paired effects, reviewer-burden flags, and next actions into a compact `/interpret` handoff packet without acting as a verdict engine.
 - [x] **Top-venue open-question audit refreshed.** [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md) checks live arXiv/AAAI/ICML/ICLR/NeurIPS/ACL/CoNLL pressure and keeps fixed-budget KD/compression as the open cell.
-- [ ] **Monitor active E016 Phase-3 training to analyzer JSON.** Current S60 close state: `phase=training_running_or_interrupted`, `health.status=runner_alive_log_quiet`, latest marker `seed=0`, `arm=tribe_mse`, `lambda=0.1`, `2/9` arm markers seen, `completed_arm_count=1`, `run_json.exists=false`, `analysis_json.exists=false`. The completed-arm diagnostic is explicitly not a Phase-3 result.
+- [ ] **Monitor active E016 Phase-3 training to analyzer JSON.** Current S61 close state: `phase=training_running_or_interrupted`, `health.status=runner_alive_log_recent`, latest marker `seed=0`, `arm=tribe_perm`, `lambda=0.1`, `3/9` arm markers seen, `completed_arm_count=2`, `run_json.exists=false`, `analysis_json.exists=false`. The completed-arm diagnostics are explicitly not Phase-3 results.
 - [ ] **After analyzer JSON exists, build the readiness packet, then switch to `/interpret`.** Gate on completeness, all paired seeds, matched PPL, paired deltas, and sign-flip P-values before recording any verdict. Use `scripts/e016_make_readiness_packet.py` as the compact handoff, not as a verdict engine. Do not flip a rung without Erfan.
 
 ### 🛠 S45 META follow-ups (sci-write-v2 two-mode, D053)
