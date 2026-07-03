@@ -128,6 +128,13 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 
 ## Next session (what `/orient` surfaces)
 
+> **S56 DONE -> analyzer now writes a paper-branch hint, but E016 still has no result (2026-07-03).** S56 added
+> `paper_branch_hint` to `scripts/analyze_tribe_phase3.py`; it is gated behind `gate.science_ready` and only routes
+> a completed analysis into the predeclared paper ledger branches. Current E016 status remains
+> `phase=training_running_or_interrupted`, latest marker `seed=0`, `arm=kd_only`, `lambda=0.0`, `1/9` arm markers,
+> `run_json.exists=false`, `analysis_json.exists=false`. **NO experiment verdict, NO science claim, and NO rung
+> change.**
+>
 > **S55 DONE -> paper-readiness ledger added while E016 continues training (2026-07-03).** S55 added
 > [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md): a claim-by-claim map from
 > current evidence to missing proof and venue burden for the AAAI/ICML/ICLR/NeurIPS objective. It does not claim
