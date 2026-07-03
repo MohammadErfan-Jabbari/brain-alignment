@@ -18,7 +18,7 @@ The live search strengthens the S51 conclusion: the broad novelty cells are crow
 
 The field has now covered measurement, attribution, multilingual alignment, brain-informed training, speech-model brain-tuning, brain-vs-stimulus comparisons, and reasoning-time/fine-tuning brain guidance. I did not find a primary-source paper that tests the exact deployment-relevant cell we can still contribute: **KD-only smaller student vs brain-guided KD under matched PPL/utility, with a permuted target and a matched-information non-brain privileged target.**
 
-The follow-up privileged-signal audit adds one more boundary: context/self-distillation, rich-feedback distillation, and gaze/cognitive supervision are active too. So the contribution cannot be "privileged or cognitive signal helps a model"; it must be the controlled biological/synthetic-neural target comparison under fixed-budget text-KD.
+The follow-up privileged-signal and on-policy/context-distillation audits add one more boundary: context/self-distillation, on-policy teacher supervision, rich-feedback distillation, and gaze/cognitive supervision are active too. So the contribution cannot be "privileged or cognitive signal helps a model"; it must be the controlled biological/synthetic-neural target comparison under fixed-budget text-KD.
 
 ## Venue/open-question matrix
 
@@ -67,5 +67,6 @@ The active E016 path is still the right next experiment because it is the first 
 - [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md)
 - [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md)
 - [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md)
+- [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md)
 - [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md)
 - [`experiments/E016_tribe-synthetic-brain-targets.md`](experiments/E016_tribe-synthetic-brain-targets.md)

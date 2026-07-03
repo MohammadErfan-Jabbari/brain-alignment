@@ -6,7 +6,7 @@ aliases: [top-venue-privileged-signal-adjacency-audit-2026-07-03, privileged-sig
 
 # Top-venue privileged-signal adjacency audit, 2026-07-03
 
-**Status.** This is a `/scout` audit memo, not a canonical paper note, not a report, and not a science verdict. It checks whether adjacent work on context/self-distillation, privileged information, and gaze/cognitive supervision changes the active E016 paper cell while the full run trains.
+**Status.** This is a `/scout` audit memo, not a canonical paper note, not a report, and not a science verdict. It checks whether adjacent work on context/self-distillation, privileged information, and gaze/cognitive supervision changes the active E016 paper cell while the full run trains. A focused follow-up on the on-policy/context-distillation control burden is [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md).
 
 ## Search method and fallback
 
@@ -60,6 +60,7 @@ The paper pitch should now be fenced at three levels:
 
 - [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md)
 - [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md)
+- [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md)
 - [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md)
 - [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md)
 - [`experiments/E016_tribe-synthetic-brain-targets.md`](experiments/E016_tribe-synthetic-brain-targets.md)

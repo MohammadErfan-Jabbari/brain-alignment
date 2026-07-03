@@ -5,7 +5,7 @@ tags: [literature, reference]
 
 # Research Landscape — Brain-Alignment-Guided Distillation
 
-**Last updated:** 2026-07-03 (privileged-signal adjacency refresh)
+**Last updated:** 2026-07-03 (on-policy/context-distillation adjacency refresh)
 **Stage:** Map (frontier mapping). Literature is strong; this is a digest, not a fresh survey.
 
 > Full provenance: `literature/_prior-work/` holds the 26 KB literature dossier and the 10 KB oracle
@@ -21,9 +21,9 @@ is the contribution space — and it must survive one live complication: brain a
 robust to *post-hoc* compression (arXiv 2602.07547), so the thesis must show distillation differs, or
 that it improves the alignment/utility *trade-off curve* at matched compression. The KD-adjacent frontier is
 also crowded: feature-KD and privileged-information KD for LMs now exist, including a task-specific PI-enhanced
-KD paper for smaller empathetic-dialogue models; context/self-distillation, rich-feedback distillation, and gaze/cognitive supervision are active too. The remaining gap is therefore not "PI helps distillation" or "cognitive supervision helps models,"
+KD paper for smaller empathetic-dialogue models; context/self-distillation, on-policy teacher supervision, rich-feedback distillation, and gaze/cognitive supervision are active too. The remaining gap is therefore not "PI helps distillation" or "cognitive supervision helps models,"
 but whether a **biological/synthetic-neural privileged target** contributes beyond KD-only, a permuted dense
-target, and a matched-information non-brain privileged target. See R03, [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md), and [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md).
+target, and a matched-information non-brain privileged target. See R03, [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md), [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md), and [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md).
 
 ## Prior art, organized
 
@@ -73,7 +73,7 @@ target, and a matched-information non-brain privileged target. See R03, [`top-ve
 | [Saadi & Wang 2026](literature/canonical/saadi-2026_task-tangent-feature-distillation-llms.md) | `saadi-2026_task-tangent-feature-distillation-llms` | Flex-KD makes modern feature-level LLM distillation a live baseline family: task-relevant functional subspaces, not raw feature matching. Pressure on E016: a TRIBE gain can be read as generic useful dense-target geometry unless it beats `textfeat`. |
 | [Penaloza et al. 2026](literature/canonical/penaloza-2026_privileged-information-distillation-lms.md) | `penaloza-2026_privileged-information-distillation-lms` | Generic privileged-information distillation for LMs is active in agentic tool-use settings. Closes "first PI distillation for LMs"; does not use brain/neural targets or fixed-budget language KD. |
 | [Wu et al. 2026](literature/canonical/wu-2026_pride-privileged-information-distillation-dialogue.md) (PRIDE) | `wu-2026_pride-privileged-information-distillation-dialogue` | Closest PI-enhanced KD pressure: training-only expert/future-context PI improves smaller empathetic-dialogue students. Closes "training-only PI can improve smaller LMs"; leaves the biological/synthetic-neural target and matched-information-control question open. |
-| 2026 on-policy/context/self-distillation family | [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md) | OPCD/OPSD/SDPO/HDPO-style work makes context, feedback, and ground-truth-conditioned self-distillation active. Pressure on E016: a positive branch must not be sold as generic PI/context distillation; it must beat matched non-brain privileged targets and may need an on-policy/context-distillation comparator. |
+| 2026 on-policy/context/self-distillation family | [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md) | OPCD/OPSD/SDPO/HDPO/GATES/OEL-style work makes context, feedback, deployment experience, and ground-truth-conditioned self-distillation active. Pressure on E016: `textfeat` clears a sentence-local frozen-teacher hidden-state target, not long-context or on-policy distillation; a positive branch must either add that comparator, add real-brain evaluation, or narrow the claim. |
 
 ### D. Systems-side constraints
 

@@ -6,7 +6,7 @@ aliases: [top-venue-paper-plan-2026-07-03, compression-paper-plan]
 
 # Top-venue paper plan, 2026-07-03
 
-**Status.** This is a `/plan` artifact built from the S51 `/scout` and `/work` state. It is not a report, not a manuscript section, and not a science verdict. It exists so the active E016 run has a clear decision tree when results arrive. The claim-by-claim proof ledger is [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md), the pre-result interpretation manifest is [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md), the follow-up venue audit is [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md), the distillation-adjacency audit is [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md), and the privileged-signal adjacency audit is [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md).
+**Status.** This is a `/plan` artifact built from the S51 `/scout` and `/work` state. It is not a report, not a manuscript section, and not a science verdict. It exists so the active E016 run has a clear decision tree when results arrive. The claim-by-claim proof ledger is [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md), the pre-result interpretation manifest is [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md), the follow-up venue audit is [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md), the distillation-adjacency audit is [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md), the privileged-signal adjacency audit is [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md), and the on-policy/context-distillation audit is [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md).
 
 ## Claim cell
 
@@ -18,7 +18,7 @@ The broad cells are now closed or too crowded:
 - [Xiao et al., 2026](literature/canonical/xiao-2026_brain-guided-llm-reasoning.md) shows task-fMRI-derived representation guidance can improve LLM reasoning.
 - [Zhang et al., 2026](literature/canonical/zhang-2026_temporal-precision-ecog-tuning.md) makes ECoG-tuning a credible positive speech-model branch.
 - Measurement and attribution papers sharpen how to score alignment, but do not test fixed-budget compression.
-- The distillation-adjacency and privileged-signal audits show that LLM KD, feature-level KD, generic privileged-information distillation for LMs, context/self-distillation, rich-feedback distillation, gaze supervision, and task-specific PI-enhanced KD into smaller LMs are active. The paper therefore must not claim novelty for privileged-information KD itself, training-only PI improving smaller LMs, context internalization, dense feedback, or gaze/cognitive supervision. The open cell is biological/synthetic-brain privileged targets under the fixed-budget KD protocol.
+- The distillation-adjacency, privileged-signal, and on-policy/context-distillation audits show that LLM KD, feature-level KD, generic privileged-information distillation for LMs, context/self-distillation, rich-feedback distillation, gaze supervision, and task-specific PI-enhanced KD into smaller LMs are active. The paper therefore must not claim novelty for privileged-information KD itself, training-only PI improving smaller LMs, context internalization, dense feedback, on-policy teacher supervision, or gaze/cognitive supervision. The open cell is biological/synthetic-brain privileged targets under the fixed-budget KD protocol.
 
 So the paper must not be framed as "brain data helps LMs." It must be framed as:
 
@@ -32,7 +32,7 @@ So the paper must not be framed as "brain data helps LMs." It must be framed as:
 | `tribe_mse` beats `tribe_perm` and `kd_only`, but PPL is not matched | Not a brain-alignment result; it is a quality/regularization confound. | Tune lambda or abandon the positive interpretation. |
 | `tribe_mse` beats `tribe_perm` and `kd_only` at matched PPL | Promising compression signal, but not yet brain-specific. | Run the matched-information `textfeat` control. A brain-specific claim requires beating `textfeat_mse` and `textfeat_perm` under the same budget. |
 | `tribe_mse` and `textfeat_mse` both beat KD/permuted similarly | Dense privileged targets help KD, but brain specificity is not supported. | Paper becomes a control finding about privileged target geometry, not a brain-specific paper. |
-| `tribe_mse` beats `textfeat_mse`, `tribe_perm`, and KD at matched PPL | Strongest current positive branch, but only against a sentence-local teacher-hidden-state control. | Add seeds plus either long-context/on-policy distillation control, real-brain evaluation, or a narrowed claim before a top-tier brain-specific submission. |
+| `tribe_mse` beats `textfeat_mse`, `tribe_perm`, and KD at matched PPL | Strongest current positive branch, but only against a sentence-local teacher-hidden-state control. | Add seeds plus either long-context/on-policy distillation control, real-brain evaluation, or a narrowed claim before a top-tier brain-specific submission. See [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md). |
 
 ## Experiment matrix
 
@@ -45,7 +45,7 @@ So the paper must not be framed as "brain data helps LMs." It must be framed as:
 | Text-feature block-permuted | Dense non-brain target-statistics twin. | Launcher prepared, not run. |
 | TRIBE-vs-textfeat comparator | Read-only post-positive analyzer comparison. | [`e016_compare_target_controls.py`](../scripts/e016_compare_target_controls.py) prepared; use only after both analyzer JSONs are science-ready. |
 | Extra seeds | Inference-strengthening if the positive branch survives. | Do only after E016 and textfeat justify it. |
-| Long-context/on-policy non-brain control | Separates synthetic-brain specificity from generic context/self-distillation effects. | Not yet built. Requires reconstructing document context or a new on-policy teacher/student protocol; the current sentence corpus is insufficient for a clean long-context control by itself. |
+| Long-context/on-policy non-brain control | Separates synthetic-brain specificity from generic context/self-distillation effects. | Not yet built. Requires reconstructing document context or a new on-policy teacher/student protocol; the current sentence corpus is insufficient for a clean long-context control by itself. [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md) records the estimand split. |
 | Real-brain evaluation | Separates synthetic-target fit from real brain alignment. | Optional but likely needed for a top-tier positive claim. |
 
 ## Analyzer gates
@@ -85,6 +85,7 @@ For a positive paper, the paired effect must be inspected seed-by-seed. With onl
 - Do not claim first privileged-information distillation for language models.
 - Do not claim first training-only privileged information improvement for smaller language models.
 - Do not claim first context/self-distillation, dense-feedback distillation, or gaze/cognitive supervision for modern LMs/VLMs.
+- Do not treat `textfeat` as clearing long-context or on-policy distillation; it clears a sentence-local frozen-teacher hidden-state target.
 - Do not claim brain-specificity from TRIBE alone if `textfeat` is not run.
 - Do not claim that a positive TRIBE result is more than a dense privileged-target effect until it beats matched non-brain targets; if it beats `textfeat`, say exactly that it beat a sentence-local teacher-hidden-state control and expect reviewers to ask about long-context/on-policy distillation variants or real-brain evaluation.
 - Do not claim a science null or positive before the active full E016 run produces an analyzer JSON and passes `/interpret`.
@@ -96,6 +97,7 @@ For a positive paper, the paired effect must be inspected seed-by-seed. With onl
 - [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md) - source-facing venue/open-question audit
 - [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md) - KD/privileged-information adjacency audit
 - [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md) - context/self-distillation and gaze/cognitive-supervision adjacency audit
+- [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md) - focused on-policy/context-distillation control burden
 - [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md) - claim/readiness ledger
 - [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md) - pre-result post-run manifest
 - [`E016`](experiments/E016_tribe-synthetic-brain-targets.md) - active Phase-3 experiment
