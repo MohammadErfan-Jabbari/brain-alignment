@@ -128,6 +128,15 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 
 ## Next session (what `/orient` surfaces)
 
+> **S54 DONE -> E016 is still training quietly; monitor health, not log mtime alone (2026-07-03).** S54 added
+> `health` reporting to `scripts/e016_phase3_status.py` after the first full training arm stayed quiet in the log
+> while the runner processes remained alive. Last status: `phase=training_running_or_interrupted`,
+> `health.status=runner_alive_log_quiet`, latest marker `seed=0`, `arm=kd_only`, `lambda=0.0`, `1/9` arm markers,
+> `run_json.exists=false`, `analysis_json.exists=false`. **NO experiment verdict, NO science claim, and NO rung
+> change.** Next concrete step remains `/work`: run `uv run python scripts/e016_phase3_status.py --pretty`; if
+> `health.status=training_marker_no_runner` or the runner exits without a run JSON, debug the runner/log; if the
+> analyzer JSON exists, switch to `/interpret`.
+>
 > **S53 DONE -> active E016 full Phase-3 training is the next `/work` monitor target (2026-07-03).** S53
 > kept the autonomous top-venue goal moving without claiming a result: full E016 train and heldout TRIBE
 > target caches now exist and validated (`95999 × 20484` train, `1999 × 20484` heldout; finite, `missing=0`);
