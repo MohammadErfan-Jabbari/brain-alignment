@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-03 (S57 - `/goal` continuation: E016 interpretation protocol precommitted; `/work` + `/plan`. Full target caches built and validated; training arm 2/9 running; no science result, no rung change.)
+**Last updated:** 2026-07-03 (S58 - `/goal` continuation: E016 TRIBE-vs-textfeat comparator prepared; `/work` + `/plan`. Full target caches built and validated; training arm 2/9 running; no science result, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -14,7 +14,7 @@ aliases: [upspeed]
 
 The active E016 full Phase-3 run has moved past target-cache generation into GPT-2 training. Last status check in S57: `phase=training_running_or_interrupted`; `health.status=runner_alive_log_recent`; train cache exists with sidecar `n_items=95999`, `target_dim=20484`; heldout cache exists with sidecar `n_items=1999`, `target_dim=20484`; launcher validation printed finite targets and `missing=0` for both caches. Training began at `2026-07-03T01:01:14Z`; latest parsed training marker is `seed=0`, `arm=tribe_mse`, `lambda=0.1`, with `2/9` arm markers seen. The runner process is alive (`uv run python scripts/run_tribe_phase3.py` plus `.venv/bin/python3` child). There is still no Phase-3 run JSON and no analyzer JSON, so no `/interpret` result exists yet.
 
-The top-tier contribution path is now explicit: the paper cell is **brain-alignment-guided compression/distillation under fixed student budget**, not generic brain-tuning. The result-contingent paper plan is recorded in [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md), the claim-by-claim readiness ledger is [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md), and the pre-result post-run manifest is [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md). The matched-information text-feature control launcher is prepared but must not be run unless the active TRIBE Phase-3 result is positive enough to need a brain-specificity check.
+The top-tier contribution path is now explicit: the paper cell is **brain-alignment-guided compression/distillation under fixed student budget**, not generic brain-tuning. The result-contingent paper plan is recorded in [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md), the claim-by-claim readiness ledger is [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md), and the pre-result post-run manifest is [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md). The matched-information text-feature control launcher is prepared but must not be run unless the active TRIBE Phase-3 result is positive enough to need a brain-specificity check; [`e016_compare_target_controls.py`](../scripts/e016_compare_target_controls.py) is now prepared for the later ready-TRIBE-vs-ready-textfeat comparison.
 
 No experiment result was produced, no science number was adjudicated, and no ladder rung changed.
 
@@ -25,15 +25,16 @@ No experiment result was produced, no science number was adjudicated, and no lad
 - Added [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md), mapping each possible paper claim to current evidence, missing proof, and venue burden.
 - Added `paper_branch_hint` to [`scripts/analyze_tribe_phase3.py`](../scripts/analyze_tribe_phase3.py). It stays `not_ready` unless `gate.science_ready=true`; once ready, it routes to the predeclared paper branches (`controlled_null_candidate`, `tribe_positive_needs_textfeat`, or matched-information control comparison).
 - Added [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md), freezing the branch-specific claim-intent manifests, overturn criteria, gate checks, and branch actions before the full-run numbers are visible.
+- Added [`e016_compare_target_controls.py`](../scripts/e016_compare_target_controls.py), a read-only comparator for ready TRIBE and text-feature analyzer JSONs. It compares within-target paired gains over KD/permuted controls and emits a post-positive branch hint, not a verdict.
 - Confirmed the full train and heldout target caches exist and validated, then left the full Phase-3 launcher running on training arm 2/9.
-- Latest non-wrap paper-planning/tooling commit: `378a529 docs: precommit E016 interpretation protocol`.
+- Latest non-wrap paper-planning/tooling commit: `960afe6 feat: add E016 target-control comparator`.
 
 ## What to do next
 
 1. Stay in `/work` and monitor the active full E016 run with `uv run python scripts/e016_phase3_status.py --pretty`.
 2. If the runner exits without writing `phase3_full_gpt2_n95999_s0-1-2_lam0.1.json`, debug the runner/log before interpreting anything.
 3. When the analyzer JSON exists, switch to `/interpret`. Inspect gate completeness, paired seed deltas, sign-flip p-values, and PPL matching before recording any result.
-4. If E016 is positive at matched PPL, run the prepared text-feature control launcher only after confirming the active TRIBE run is complete and resources are free.
+4. If E016 is positive at matched PPL, run the prepared text-feature control launcher only after confirming the active TRIBE run is complete and resources are free; when both analyzer JSONs are science-ready, use [`e016_compare_target_controls.py`](../scripts/e016_compare_target_controls.py) before any brain-specific claim.
 5. If E016 is null at matched PPL, use [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md), [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md), and [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md) to frame the controlled-negative paper branch.
 
 ## Blockers / open loops
@@ -47,4 +48,4 @@ No experiment result was produced, no science number was adjudicated, and no lad
 - Active run script: `outputs/E016_tribe/phase3/run_full_phase3_20260702.sh`.
 - Prepared textfeat control launcher: `outputs/E016_tribe/phase3/run_textfeat_control_20260703.sh`.
 - Expected full TRIBE artifacts: `outputs/E016_tribe/kd_targets/text/train_start0_n95999_full.npz`, `outputs/E016_tribe/kd_targets/text/heldout_start0_n1999_full.npz`, `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.json`, and `outputs/E016_tribe/phase3/phase3_full_gpt2_n95999_s0-1-2_lam0.1.analysis.json`.
-- Latest non-wrap work commit for this continuation: `378a529 docs: precommit E016 interpretation protocol`.
+- Latest non-wrap work commit for this continuation: `960afe6 feat: add E016 target-control comparator`.
