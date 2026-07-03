@@ -50,6 +50,8 @@ Do not start another heavy run while E016 is active. The next legitimate state t
 4. **TRIBE positive at matched PPL:** run the prepared text-feature control only after confirming resources are free.
 5. **TRIBE null at matched PPL:** build the controlled-negative paper branch around the fact that the dense-target scarcity/SNR excuse was removed.
 
+The analyzer's `paper_branch_hint` is only a routing aid into this ledger. It is valid only after `gate.science_ready=true`; it is not a verdict and does not replace `/interpret`.
+
 ## Related
 
 - [`top-venue-frontier-refresh-2026-07-02.md`](top-venue-frontier-refresh-2026-07-02.md) - literature frontier

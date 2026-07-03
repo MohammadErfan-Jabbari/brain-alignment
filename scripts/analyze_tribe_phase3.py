@@ -90,6 +90,64 @@ def arm_names(config: dict) -> tuple[str, str, str]:
     return target_label, f"{target_label}_mse", f"{target_label}_perm"
 
 
+def paper_branch_hint(summary: dict) -> dict:
+    gate = summary.get("gate") or {}
+    if not gate.get("science_ready"):
+        failed = [key for key, value in gate.items() if isinstance(value, bool) and not value]
+        return {
+            "branch": "not_ready",
+            "reason": "Analyzer gate is not science-ready; do not map this artifact to a paper branch.",
+            "failed_gate_fields": failed,
+        }
+
+    target_label = summary.get("target_label")
+    if target_label != "tribe":
+        return {
+            "branch": "matched_information_control_ready",
+            "reason": (
+                "This analyzer result is for a non-TRIBE target. Compare it against the completed "
+                "TRIBE analysis before making a brain-specific claim."
+            ),
+        }
+
+    branch_votes = []
+    for lam_key, paired in sorted((summary.get("paired") or {}).items()):
+        target_minus_perm = (paired.get("target_r2_target_minus_perm") or {}).get("mean")
+        target_minus_kd = (paired.get("target_r2_target_minus_kd") or {}).get("mean")
+        all_pos_perm = bool((paired.get("target_r2_target_minus_perm") or {}).get("all_positive"))
+        all_pos_kd = bool((paired.get("target_r2_target_minus_kd") or {}).get("all_positive"))
+        if target_minus_perm is None or target_minus_kd is None:
+            vote = "missing_effect"
+        elif target_minus_perm > 0.0 and target_minus_kd > 0.0 and all_pos_perm and all_pos_kd:
+            vote = "positive"
+        elif target_minus_perm <= 0.0 or target_minus_kd <= 0.0:
+            vote = "null_or_negative"
+        else:
+            vote = "mixed_positive"
+        branch_votes.append(
+            {
+                "lambda": lam_key,
+                "vote": vote,
+                "target_minus_perm_mean": target_minus_perm,
+                "target_minus_kd_mean": target_minus_kd,
+                "target_minus_perm_all_positive": all_pos_perm,
+                "target_minus_kd_all_positive": all_pos_kd,
+            }
+        )
+
+    votes = {vote["vote"] for vote in branch_votes}
+    if votes == {"positive"}:
+        branch = "tribe_positive_needs_textfeat"
+        reason = "TRIBE target beats KD and permuted target on all paired seeds; matched-information control is required next."
+    elif votes <= {"null_or_negative"}:
+        branch = "controlled_null_candidate"
+        reason = "TRIBE target does not beat both KD and permuted target; interpret as the controlled-null branch if audits hold."
+    else:
+        branch = "mixed_requires_interpretation"
+        reason = "Paired effects are mixed across lambdas or contrasts; /interpret must inspect seed-level values."
+    return {"branch": branch, "reason": reason, "lambda_votes": branch_votes}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("run_json", type=Path)
@@ -254,6 +312,7 @@ def main():
             else "SMOKE_OR_INCOMPLETE_DO_NOT_INTERPRET_AS_PHASE3_RESULT"
         ),
     }
+    summary["paper_branch_hint"] = paper_branch_hint(summary)
 
     out = args.out or args.run_json.with_suffix(".analysis.json")
     out.write_text(json.dumps(summary, indent=2), encoding="utf-8")

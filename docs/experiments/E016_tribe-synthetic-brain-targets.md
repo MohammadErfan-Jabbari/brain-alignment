@@ -700,6 +700,17 @@ Verification:
 
 **Status:** monitoring correction only. The full run is alive in training, but no run JSON, analyzer verdict, science claim, or rung flip exists yet.
 
+### Step 26 - Analyzer paper-branch hint added while full training runs (2026-07-03)
+Extended `scripts/analyze_tribe_phase3.py` with a conservative `paper_branch_hint` block. The hint is downstream of `gate.science_ready`: incomplete or smoke artifacts map to `not_ready`, TRIBE-ready positives map to `tribe_positive_needs_textfeat`, TRIBE null/negative effects map to `controlled_null_candidate`, and non-TRIBE targets map to `matched_information_control_ready`. This is a paper-plan routing aid, not a verdict engine.
+
+Verification:
+- `uv run python -m py_compile scripts/analyze_tribe_phase3.py` passed.
+- `git diff --check` passed.
+- Running the analyzer on `outputs/E016_tribe/phase3/phase3_mini_real_gpt2_n256_s0.json` still returned `science_ready=false` and wrote `paper_branch_hint.branch="not_ready"`.
+- A direct function smoke over synthetic summaries returned the expected route labels: `tribe_positive_needs_textfeat`, `controlled_null_candidate`, and `matched_information_control_ready`.
+
+**Status:** analyzer reporting only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
