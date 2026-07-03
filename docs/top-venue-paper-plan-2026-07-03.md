@@ -6,7 +6,7 @@ aliases: [top-venue-paper-plan-2026-07-03, compression-paper-plan]
 
 # Top-venue paper plan, 2026-07-03
 
-**Status.** This is a `/plan` artifact built from the S51 `/scout` and `/work` state. It is not a report, not a manuscript section, and not a science verdict. It exists so the active E016 run has a clear decision tree when results arrive. The claim-by-claim proof ledger is [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md), the pre-result interpretation manifest is [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md), and the follow-up venue audit is [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md).
+**Status.** This is a `/plan` artifact built from the S51 `/scout` and `/work` state. It is not a report, not a manuscript section, and not a science verdict. It exists so the active E016 run has a clear decision tree when results arrive. The claim-by-claim proof ledger is [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md), the pre-result interpretation manifest is [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md), the follow-up venue audit is [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md), and the distillation-adjacency audit is [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md).
 
 ## Claim cell
 
@@ -18,6 +18,7 @@ The broad cells are now closed or too crowded:
 - [Xiao et al., 2026](literature/canonical/xiao-2026_brain-guided-llm-reasoning.md) shows task-fMRI-derived representation guidance can improve LLM reasoning.
 - [Zhang et al., 2026](literature/canonical/zhang-2026_temporal-precision-ecog-tuning.md) makes ECoG-tuning a credible positive speech-model branch.
 - Measurement and attribution papers sharpen how to score alignment, but do not test fixed-budget compression.
+- The distillation-adjacency audit shows that LLM KD, feature-level KD, and generic privileged-information distillation for LMs are also active. The paper therefore must not claim novelty for privileged-information KD itself; the open cell is biological/synthetic-brain privileged targets under the fixed-budget KD protocol.
 
 So the paper must not be framed as "brain data helps LMs." It must be framed as:
 
@@ -80,6 +81,7 @@ For a positive paper, the paired effect must be inspected seed-by-seed. With onl
 
 - Do not claim first brain-guided LLM improvement.
 - Do not claim first brain data beyond stimulus text.
+- Do not claim first privileged-information distillation for language models.
 - Do not claim brain-specificity from TRIBE alone if `textfeat` is not run.
 - Do not claim a science null or positive before the active full E016 run produces an analyzer JSON and passes `/interpret`.
 - Do not use synthetic target-R2 as a substitute for real-brain utility unless explicitly framed as a synthetic-target result.
@@ -88,6 +90,7 @@ For a positive paper, the paired effect must be inspected seed-by-seed. With onl
 
 - [`top-venue-frontier-refresh-2026-07-02.md`](top-venue-frontier-refresh-2026-07-02.md) - source frontier memo
 - [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md) - source-facing venue/open-question audit
+- [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md) - KD/privileged-information adjacency audit
 - [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md) - claim/readiness ledger
 - [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md) - pre-result post-run manifest
 - [`E016`](experiments/E016_tribe-synthetic-brain-targets.md) - active Phase-3 experiment
