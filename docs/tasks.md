@@ -24,6 +24,15 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 > results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
 > of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
+### 🔬 S73 `/goal` continuation — context metadata recovered and `contextfeat` builder CPU-smoked, E016 still no result (2026-07-03)
+
+- [x] **WikiText context metadata recovered exactly.** [`scripts/e016_recover_kd_context_metadata.py`](../scripts/e016_recover_kd_context_metadata.py) replays the original E003 WikiText extraction and verified `corpus_replay="exact_match"` against the cached KD corpus, writing gitignored context metadata under `outputs/E016_tribe/kd_context_metadata/`.
+- [x] **Long-context feasibility memo added.** [`top-venue-long-context-control-feasibility-2026-07-03.md`](top-venue-long-context-control-feasibility-2026-07-03.md) records that `contextfeat` is mechanically feasible as a post-positive non-brain target-cache family, while on-policy remains a separate runner protocol.
+- [x] **`contextfeat` target-cache builder added and CPU-smoked.** [`scripts/build_context_feature_target_cache.py`](../scripts/build_context_feature_target_cache.py) conditions a frozen LM on recovered same-document context and pools target-sentence hidden states into the Phase-3 target-cache schema. CPU smoke with `sshleifer/tiny-gpt2`, 4 train items, and target dim 16 saved `shape=(4, 16)` with `context_items_with_previous=3`.
+- [x] **E016 status rechecked for wrap.** Current S73 close state: `checked_at_utc=2026-07-03T04:03:04.350959+00:00`, `phase=training_running_or_interrupted`, `health.status=runner_alive_log_quiet`, latest marker `seed=1`, `arm=tribe_perm`, `lambda=0.1`, `6/9` arm markers seen, `completed_arm_count=5`, `gpu.available=true`, `active_gpu_count=2`, `max_utilization_gpu_pct=66` in the instantaneous close-state sample, `run_json.exists=false`, `analysis_json.exists=false`. Completed-arm diagnostics remain partial diagnostics only, not Phase-3 results.
+- [ ] **Monitor active E016 Phase-3 training to analyzer JSON.** Run `uv run python scripts/e016_phase3_status.py --pretty`; if the full run JSON appears, route with `uv run python scripts/e016_branch_decision.py` and only then finalize/analyze as directed.
+- [ ] **Branch-gate textfeat/contextfeat.** Do not run full textfeat or contextfeat while the active TRIBE run is incomplete. Textfeat is only for a positive E016 branch; contextfeat is only for a positive branch that also survives textfeat.
+
 ### 🔬 S72 `/goal` continuation — on-policy/context-distillation burden audited while E016 keeps training, no result yet (2026-07-03)
 
 - [x] **On-policy/context-distillation adjacency audit added.** [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md) records that OPD/OPCD/OPSD/PI-distillation/GATES/SDPO/HDPO/OEL-style work makes privileged context and on-policy teacher supervision an active 2026 LLM field.
