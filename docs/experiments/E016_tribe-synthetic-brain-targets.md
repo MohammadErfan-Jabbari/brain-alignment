@@ -778,6 +778,17 @@ Verification:
 
 **Status:** monitoring hardening only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
 
+### Step 34 - Watch-finalize helper added for the active full run (2026-07-03)
+Added `scripts/e016_watch_finalize_phase3.py`, a thin wrapper around the guarded finalizer. By default it checks once and exits with `status="waiting_for_run_json"` if the full run JSON is absent. With `--watch`, it polls until the run JSON appears or `--max-wait-s` expires, then calls `scripts/e016_finalize_phase3.py` with the same artifact arguments. It does not run training, does not interpret analyzer values, and cannot flip a rung.
+
+Verification:
+- `uv run python -m py_compile scripts/e016_watch_finalize_phase3.py` passed.
+- Default invocation returned `status="waiting_for_run_json"` for the still-incomplete active full run.
+- `uv run python scripts/e016_watch_finalize_phase3.py --watch --interval-s 300 --max-wait-s 0` returned immediately with `status="waiting_for_run_json"`, confirming the max-wait guard bounds polling.
+- A smoke-run invocation using `outputs/E016_tribe/phase3/phase3_smoke_tiny.json` called the guarded finalizer and preserved `science_ready=false` plus `paper_branch_hint.branch="not_ready"`.
+
+**Status:** post-run handoff automation only. The active full run is still training, with no run JSON, no analyzer verdict, no science claim, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
