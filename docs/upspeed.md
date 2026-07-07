@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S89 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; Firecrawl hidden-state distillation pressure refresh added; latest live check shows 4/9 arms completed and seed1 `tribe_mse` active; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S90 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; representation-control feasibility memo added; latest live check shows 4/9 arms completed and seed1 `tribe_mse` active; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -68,6 +68,8 @@ S88 combined Tuckute gate-status helper: `scripts/e016_tuckute_gate_status.py` n
 
 S89 hidden-state distillation pressure refresh: Firecrawl Research checked the closest new literature around brain-guided LLM training and representation-space distillation while the rerun remained active. `arxiv:2606.11893` closes broad "first brain-guided LLM improvement" framing through task-fMRI neural activation guided representation fine-tuning for reasoning. `arxiv:2606.06021` (OPRD) and `arxiv:2606.29340` (PHF) close novelty for hidden-state/hidden-flow distillation itself. The paper route is unchanged but narrower: E016 can only claim a brain-derived privileged-target KD result or controlled transfer-failure result if the matched-control and real-brain-transfer gates support it.
 
+S90 representation-control feasibility: [`top-venue-representation-control-feasibility-2026-07-07.md`](top-venue-representation-control-feasibility-2026-07-07.md) ranks the next possible non-brain controls after the hidden-state literature update. Recommendation: do not launch new compute while the combined Tuckute gate is pending; if the gate is nonpositive/mixed, launch no new representation controls; if positive and audit-clean, build `contextfeat` first because it preserves the current cache-based estimand. OPRD/PHF-style controls are new-runner work and should be `/precheck`-gated only after a robust positive and a clear venue need.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -101,6 +103,7 @@ S89 hidden-state distillation pressure refresh: Firecrawl Research checked the c
 - Added a limited primary-source literature pressure check to the 2026-07-07 top-venue refresh; no paper route changed.
 - Added a combined Tuckute gate-status helper so the final real-brain transfer handoff has a single readiness command.
 - Added a Firecrawl hidden-state distillation pressure refresh covering NARF, OPRD, PHF, and the original BERT brain-tuning precursor; no paper route changed, but the must-not-claim list tightened.
+- Added a representation-control feasibility memo ranking `contextfeat` before any OPRD/PHF-style runner if the active real-brain gate turns positive.
 
 ## What To Do Next
 
