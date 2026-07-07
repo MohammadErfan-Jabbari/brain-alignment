@@ -45,6 +45,7 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 - [x] **Harden combined Tuckute gate helper with watcher health.** `scripts/e016_tuckute_gate_status.py` now reports the selected runner plus rerun scorer, combined analyzer, combined auditor, rich monitor, and simple monitor process health; current gate remains not ready.
 - [x] **Fold rerun progress into the combined gate helper.** `uv run scripts/e016_tuckute_gate_status.py --markdown` now reports gate readiness, active rerun arm, completed-arm count, rough ETA, GPU activity, and watcher health in one compact status page.
 - [x] **Arm-level rerun progress confirmed again.** A bounded watch observed the sixth saved model artifact land (`seed1_tribe_perm_lambda0p1`) and the rerun enter `seed=2 arm=kd_only`; this is partial-arm progress only, not a result.
+- [x] **Launch combined-gate latest-status monitor.** `scripts/e016_monitor_tuckute_gate_status.py` writes `combined_tuckute_gate_latest_20260707.{json,md}` every 5 minutes and stops once the combined Tuckute gate is ready.
 - [ ] **Evaluate Tuckute over aligned seed `0-5`.** Wait for rerun TRIBE seed `0-2`, score/confirm its Tuckute output, combine with existing TRIBE seed `3-5`, and compare against the completed textfeat seed `0-5` Tuckute output.
 - [ ] **Choose paper route after six-seed Tuckute diagnostic.** Nonpositive or mixed real-brain gains narrow to a synthetic-target/control paper; positive gains only reopen the brain-specific route.
 

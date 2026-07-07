@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S96 - `/goal` continuation: E016 rerun advanced to 6/9 arms and entered seed2 `kd_only`; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S97 - `/goal` continuation: combined Tuckute gate latest-status monitor launched; E016 rerun still at 6/9 arms with seed2 `kd_only` active; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -82,6 +82,8 @@ S95 one-command gate/progress status: `scripts/e016_tuckute_gate_status.py` now 
 
 S96 rerun progress: a bounded 5-minute gate watch observed the sixth saved model artifact land. The latest gate status at `2026-07-07T23:07:49Z` reported `phase="waiting_for_rerun_run_json"`, `ready_for_interpret=false`, completed arms `6/9`, latest completed partial diagnostic `seed=1 arm=tribe_perm lambda=0.1 ppl=99.333 target_r2=0.5971`, active arm `seed=2 arm=kd_only lambda=0.0`, all selected watcher groups alive, and missing `run_json`, `rerun_tuckute`, `analysis_json`, and `audit_json`. Partial-arm progress only; no result.
 
+S97 combined gate monitor: `scripts/e016_monitor_tuckute_gate_status.py` now runs detached as PID `3901202`, with PID file `outputs/E016_tribe/phase3/combined_tuckute_gate_monitor_20260707.pid`, log `outputs/E016_tribe/phase3/combined_tuckute_gate_monitor_20260707.log`, latest JSON `outputs/E016_tribe/phase3/combined_tuckute_gate_latest_20260707.json`, and latest Markdown `outputs/E016_tribe/phase3/combined_tuckute_gate_latest_20260707.md`. It writes the combined gate state every 5 minutes and stops once `ready_for_interpret=true`. Latest snapshot at `2026-07-07T23:11:33Z` still reported `phase="waiting_for_rerun_run_json"`, `ready_for_interpret=false`, completed arms `6/9`, active `seed=2 arm=kd_only lambda=0.0`, all watcher groups alive, and missing `run_json`, `rerun_tuckute`, `analysis_json`, and `audit_json`. Monitoring only; no result.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -122,10 +124,12 @@ S96 rerun progress: a bounded 5-minute gate watch observed the sixth saved model
 - Hardened the combined Tuckute gate-status helper so a single command reports both gate readiness and the waiting postprocess watcher chain.
 - Folded rerun progress and rough ETA into the combined Tuckute gate-status helper, making it the one-command status check while the rerun trains.
 - Ran a bounded gate watch and observed the active rerun advance from `5/9` to `6/9` arms.
+- Added and launched a detached combined Tuckute gate monitor that refreshes latest JSON/Markdown every 5 minutes and stops when the gate is ready.
 
 ## What To Do Next
 
 1. Run `uv run scripts/e016_tuckute_gate_status.py --markdown` for the compact combined Tuckute gate and watcher state, or monitor `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.md` until the TRIBE rerun finishes.
+   The detached combined-gate monitor also writes `outputs/E016_tribe/phase3/combined_tuckute_gate_latest_20260707.md` every 5 minutes.
 2. Check `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.log`; the Python watcher should score rerun TRIBE seed `0-2` on Tuckute after the rerun JSON lands and the training process exits.
 3. Check `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`; the watcher should compute the aligned seed `0-5` real-brain diagnostic against the completed textfeat seed `0-5` Tuckute output after the rerun Tuckute JSON appears.
 4. If the Tuckute diagnostic becomes paper-load-bearing, run an independent second implementation or deeper code/stat review.

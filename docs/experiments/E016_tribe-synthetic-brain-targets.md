@@ -1431,6 +1431,26 @@ The new saved artifact directory is `outputs/E016_tribe/phase3/model_artifacts/t
 
 **Status:** partial-arm progress only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 67 - Combined Tuckute gate monitor launched (2026-07-07)
+Added and launched `scripts/e016_monitor_tuckute_gate_status.py`, a periodic read-only wrapper around `scripts/e016_tuckute_gate_status.py`. It writes the combined gate state to latest JSON/Markdown every 5 minutes and stops if `ready_for_interpret=true`. It does not launch training, score Tuckute, run the combined analyzer/audit, adjudicate a claim, or flip a rung.
+
+Launch details:
+
+- PID file: `outputs/E016_tribe/phase3/combined_tuckute_gate_monitor_20260707.pid`
+- monitor PID: `3901202`
+- log: `outputs/E016_tribe/phase3/combined_tuckute_gate_monitor_20260707.log`
+- latest JSON: `outputs/E016_tribe/phase3/combined_tuckute_gate_latest_20260707.json`
+- latest Markdown: `outputs/E016_tribe/phase3/combined_tuckute_gate_latest_20260707.md`
+
+Verification:
+
+- `uv run python -m py_compile scripts/e016_monitor_tuckute_gate_status.py scripts/e016_tuckute_gate_status.py` passed.
+- A one-shot render wrote the latest JSON/Markdown files.
+- The detached monitor process reparented to PID 1 and appeared in `ps`.
+- The latest Markdown snapshot at `2026-07-07T23:11:33Z` reported `phase="waiting_for_rerun_run_json"`, `ready_for_interpret=false`, completed arms `6/9`, active arm `seed=2 arm=kd_only lambda=0.0`, all selected watcher groups alive, and missing `run_json`, `rerun_tuckute`, `analysis_json`, and `audit_json`.
+
+**Status:** monitoring/handoff utility only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
