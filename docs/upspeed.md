@@ -36,6 +36,8 @@ No final experiment verdict was adjudicated, no brain-specific claim was made, a
 
 S82 claim-scope decision: run the bounded real-brain robustness rerun before narrowing the paper. The selected rerun is only missing TRIBE seed `0-2` with artifact saving, because textfeat seed `0-5` artifacts already exist. If the resulting seed `0-5` Tuckute diagnostic stays nonpositive or mixed, narrow to a synthetic-target/control paper.
 
+S82 literature refresh: [`top-venue-literature-refresh-2026-07-07.md`](top-venue-literature-refresh-2026-07-07.md) records the current scout read. Broad brain-tuning and privileged-information distillation claims are occupied; the live open cell is whether a brain-derived privileged target helps smaller-student KD beyond matched text-feature/permuted controls and survives real-brain transfer.
+
 S82 launch status: the first detached rerun launch exited before reaching Python, so the stable launch uses `setsid`. TRIBE seed `0-2` artifact-saving rerun is active as PID `3827100` with Python child `3827120` on GPU 1, log `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.log`, and target run JSON `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`. At the stability check it had entered `seed=0 arm=kd_only`.
 
 The textfeat seed `0-5` saved-student Tuckute scoring completed at `2026-07-07T20:12:13Z`, writing `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json` with 18/18 artifact rows scored and 0 missing/unusable rows. A 5-minute local monitor is active as PID `3827101`; latest status is written to `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md`. No TRIBE rerun result artifact exists yet.
@@ -58,6 +60,7 @@ The textfeat seed `0-5` saved-student Tuckute scoring completed at `2026-07-07T2
 - Recomputed the real-brain diagnostic from raw alignment rows in a local `/interpret` audit and routed it to claim-scope review.
 - Reviewed the Tuckute evaluator code path against E003 scoring helpers; no immediate implementation blocker found.
 - Selected and predeclared the bounded seed `0-2` TRIBE artifact-saving rerun before narrowing the paper route.
+- Ran a focused Firecrawl Research literature refresh and wrote the top-venue route implications.
 - Launched the rerun with `setsid` after the first detached launch died before Python; verified the stable Python child and GPU activity.
 - Restarted/continued textfeat seed `0-5` Tuckute scoring, which completed cleanly with 18/18 artifact rows scored, and started the 5-minute local monitor.
 - Added `scripts/e016_analyze_tuckute_alignment.py` and regression-checked it against the recorded seed `3-5` Tuckute analysis; it reproduces the load-bearing contrasts and PCA robustness means.

@@ -27,6 +27,7 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 ### S82 `/goal` continuation - six-seed real-brain robustness rerun selected (2026-07-07)
 
 - [x] **Claim-scope review completed.** [`top-venue-claim-scope-review-2026-07-07.md`](top-venue-claim-scope-review-2026-07-07.md) selects the bounded real-brain robustness/rerun path before narrowing the paper.
+- [x] **Literature route refreshed while rerun runs.** [`top-venue-literature-refresh-2026-07-07.md`](top-venue-literature-refresh-2026-07-07.md) records the current SOTA pressure: broad brain-tuning and privileged-information claims are occupied; our open cell is matched-control neural/cognitive PI distillation with real-brain transfer.
 - [x] **Rerun design locked before launch.** Rerun only missing TRIBE seeds `0,1,2` with artifact saving under the same Phase-3 protocol; do not rerun textfeat training.
 - [x] **Launch TRIBE seed `0-2` artifact-saving rerun.** The initial detached launch exited before reaching Python; the stable launch uses `setsid` and is live as PID `3827100` with Python child `3827120` on GPU 1. Target run JSON: `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`.
 - [x] **Start live rerun monitor.** `outputs/E016_tribe/phase3/monitor_rerun_realbrain_20260707.sh` is live as PID `3827101` and writes `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md` every 5 minutes.

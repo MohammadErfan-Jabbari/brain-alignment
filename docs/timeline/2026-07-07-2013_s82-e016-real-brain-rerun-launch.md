@@ -13,6 +13,7 @@ aliases: [S82, E016-real-brain-rerun-launch]
 ## What Changed
 
 - Predeclared the bounded real-brain robustness rerun in [`../top-venue-claim-scope-review-2026-07-07.md`](../top-venue-claim-scope-review-2026-07-07.md).
+- Ran a focused literature refresh and recorded the paper-route implication in [`../top-venue-literature-refresh-2026-07-07.md`](../top-venue-literature-refresh-2026-07-07.md).
 - Launched only the missing TRIBE seed `0,1,2` artifact-saving rerun under the original Phase-3 protocol.
 - Kept textfeat training fixed: textfeat seed `0-5` artifacts already exist, so only Tuckute scoring was needed.
 - Completed textfeat seed `0-5` Tuckute scoring.
