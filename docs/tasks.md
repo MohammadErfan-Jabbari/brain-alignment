@@ -24,6 +24,15 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 > results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
 > of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
+### S80 `/goal` continuation - combined six-seed comparator held (2026-07-07)
+
+- [x] **Merged original and extra seed artifacts.** `phase3_combined_tribe_gpt2_n95999_s0-5_lam0.1.json` and `phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.json` contain complete 18-row grids for seeds `0-5`.
+- [x] **Combined analyzers/readiness packets are science-ready.** Both combined analyzers have `science_ready=true`, complete grids, matched PPL, full scale, and heldout target metrics.
+- [x] **Combined comparator run.** `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_comparison.json` routes to `tribe_stronger_than_textfeat_needs_review`.
+- [x] **Independent raw-row audit passed.** `phase3_combined_tribe_vs_textfeat_s0-5_comparison.interpret_audit.json` shows all six TRIBE-minus-textfeat margins positive: `+0.077395` versus KD-only and `+0.072531` versus permuted-control gains, sign-flip `p=0.03125`, max relative PPL delta `0.009220`.
+- [ ] **Choose the next burden deliberately.** Decide between real-brain evaluation on saved seed `3-5` artifacts, stronger context/on-policy non-brain control, or narrowed synthetic-target claim.
+- [ ] **Do not flip a rung or claim brain-specific clearance from synthetic target-R2 alone.**
+
 ### S79 `/goal` continuation - comparator audit held; extra seeds running (2026-07-07)
 
 - [x] **Comparator `/interpret` audit recomputed from raw rows.** `outputs/E016_tribe/phase3/phase3_full_tribe_vs_textfeat_comparison.interpret_audit.json` matches the comparator means and gates: TRIBE-minus-textfeat gain is positive on all three seeds versus KD-only and versus permuted-control gains, with max relative PPL delta `0.009220`.
@@ -31,9 +40,9 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 - [x] **Extra TRIBE seeds launched.** `outputs/E016_tribe/phase3/run_extra_tribe_s3-5_20260707.sh` is detached as PID `3770641` on GPU 1, with Python child `3770685`; target output is `phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.json`.
 - [x] **Extra textfeat seeds launched.** `outputs/E016_tribe/phase3/run_extra_textfeat_s3-5_20260707.sh` is detached as PID `3770642` on GPU 2, with Python child `3770687`; target output is `phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.json`.
 - [x] **Four-minute monitor started.** `outputs/E016_tribe/phase3/monitor_extra_seed_progress_20260707.sh` is detached as PID `3770643`; log is `outputs/E016_tribe/phase3/extra_seed_progress_monitor_20260707.log`.
-- [ ] **Monitor extra-seed runs to analyzer/readiness JSONs.** Wait for both extra run JSONs, `.analysis.json`, and `.readiness.json`; inspect logs if either exits early.
-- [ ] **Merge or compare seeds `0-5`.** After both extra runs complete, combine or compare the original and extra analyzer outputs, rerun TRIBE-vs-textfeat audit, and update E016 before any next compute.
-- [ ] **Keep contextfeat, on-policy, and real-brain probes gated.** Do not launch them until the seed-extended comparison is interpreted.
+- [x] **Monitor extra-seed runs to analyzer/readiness JSONs.** Resolved in S80: both extra runs completed cleanly and both readiness packets are science-ready.
+- [x] **Merge or compare seeds `0-5`.** Resolved in S80: combined artifacts/analyzers/comparator/audit were produced.
+- [x] **Keep contextfeat, on-policy, and real-brain probes gated.** Resolved in S80: no next compute was launched before the six-seed comparator audit.
 
 ### S78 `/goal` continuation - textfeat complete and comparator ready (2026-07-03)
 

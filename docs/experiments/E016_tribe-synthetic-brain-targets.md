@@ -995,6 +995,42 @@ At the launch verification, both Python workers were alive and loading/running; 
 
 **Status:** local comparator audit supports the narrow post-positive route, but no final E016 verdict, no brain-specific clearance, and no rung flip. Extra evidence is actively running.
 
+### Step 46 - Combined seed `0-5` TRIBE-vs-textfeat audit held (2026-07-07)
+The extra artifact-saving seed runs completed cleanly and were merged with the original seed `0,1,2` artifacts into combined seed `0-5` run JSONs:
+
+- combined TRIBE run: `outputs/E016_tribe/phase3/phase3_combined_tribe_gpt2_n95999_s0-5_lam0.1.json`
+- combined TRIBE analyzer: `outputs/E016_tribe/phase3/phase3_combined_tribe_gpt2_n95999_s0-5_lam0.1.analysis.json`
+- combined TRIBE readiness: `outputs/E016_tribe/phase3/phase3_combined_tribe_gpt2_n95999_s0-5_lam0.1.readiness.json`
+- combined textfeat run: `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.json`
+- combined textfeat analyzer: `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.analysis.json`
+- combined textfeat readiness: `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.readiness.json`
+- combined comparator: `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_comparison.json`
+- combined independent audit: `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_comparison.interpret_audit.json`
+
+Both combined analyzers are science-ready with complete 6-seed x 3-arm grids, matched PPL, full scale, and heldout target metrics. Combined analyzer means at lambda 0.1:
+
+- TRIBE branch: KD-only PPL `99.133957`, target-R2 `0.595327`; TRIBE target PPL `98.811351`, target-R2 `0.673624`; TRIBE permuted PPL `98.803784`, target-R2 `0.598818`.
+- textfeat branch: KD-only PPL `99.133957`, target-R2 `0.911687`; textfeat target PPL `98.766267`, target-R2 `0.912590`; textfeat permuted PPL `98.818684`, target-R2 `0.910313`.
+
+The combined comparator returned `ready=true` and `branch_hint.branch="tribe_stronger_than_textfeat_needs_review"`. Its lambda 0.1 summary:
+
+- TRIBE gain versus KD-only: `+0.078298`
+- TRIBE gain versus permuted TRIBE: `+0.074807`
+- textfeat gain versus KD-only: `+0.000903`
+- textfeat gain versus permuted textfeat: `+0.002276`
+- TRIBE-minus-textfeat gain versus KD-only: `+0.077395`
+- TRIBE-minus-textfeat gain versus permuted-control gains: `+0.072531`
+
+The independent raw-row audit matched the comparator means and checks. Seed-level TRIBE-minus-textfeat margins:
+
+- gain versus KD-only: values `[+0.076338, +0.075906, +0.077948, +0.078325, +0.078158, +0.077694]`, all positive, mean `+0.077395`, sign-flip `p=0.03125`.
+- gain versus permuted-control gains: values `[+0.065526, +0.072959, +0.069991, +0.076589, +0.074926, +0.075194]`, all positive, mean `+0.072531`, sign-flip `p=0.03125`.
+- maximum observed relative PPL delta remained `0.009220`, below the predeclared `0.05` tolerance.
+
+Interpretation boundary: the 6-seed evidence supports that TRIBE survives the prepared sentence-local textfeat control on the synthetic target endpoint. It still does not clear long-context/on-policy distillation, rich-feedback privileged-signal adjacency, real-brain alignment, or downstream utility. The next burden should be chosen deliberately between real-brain evaluation on the saved seed `3-5` artifacts, a stronger context/on-policy non-brain control, or a deliberately narrowed synthetic-target claim.
+
+**Status:** stronger post-positive evidence, not a final E016 verdict, not brain-specific clearance, and not a rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

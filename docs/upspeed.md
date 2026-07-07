@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S79 - `/goal` continuation: comparator `/interpret` audit held locally and extra artifact-saving seeds `3,4,5` were launched for TRIBE and textfeat; no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S80 - `/goal` continuation: extra seeds completed, combined seed `0-5` TRIBE-vs-textfeat comparator/audit held, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -20,7 +20,9 @@ Comparator summary at lambda 0.1: TRIBE gain versus KD-only `+0.077492`; TRIBE g
 
 The local `/interpret` audit at `outputs/E016_tribe/phase3/phase3_full_tribe_vs_textfeat_comparison.interpret_audit.json` recomputed the comparison from raw run rows. It matched the comparator means, found all seed-aligned margins positive, and confirmed max relative PPL delta `0.009220` below the 0.05 tolerance. This supports the narrow post-positive route but not a final paper claim: `n=3` still gives sign-flip `p=0.25`, the endpoint is synthetic target-R2, and textfeat clears only sentence-local frozen-teacher hidden-state supervision.
 
-The selected next evidence step is extra artifact-saving seeds. TRIBE extra seeds `3,4,5` are running detached on GPU 1 with launcher PID `3770641` and Python child `3770685`. Textfeat extra seeds `3,4,5` are running detached on GPU 2 with launcher PID `3770642` and Python child `3770687`. A four-minute monitor is running as PID `3770643` and appends to `outputs/E016_tribe/phase3/extra_seed_progress_monitor_20260707.log`.
+The extra artifact-saving seeds completed cleanly. The original seed `0,1,2` and extra seed `3,4,5` artifacts were merged into combined seed `0-5` TRIBE and textfeat run JSONs. Both combined analyzers/readiness packets are science-ready. The combined comparator at `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_comparison.json` routes to `tribe_stronger_than_textfeat_needs_review`, and the independent raw-row audit at `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_comparison.interpret_audit.json` passed all checks.
+
+Six-seed audit summary: TRIBE-minus-textfeat gain versus KD-only is mean `+0.077395`, all six seed margins positive, sign-flip `p=0.03125`; TRIBE-minus-textfeat gain versus permuted-control gains is mean `+0.072531`, all six seed margins positive, sign-flip `p=0.03125`; max relative PPL delta remains `0.009220` under the `0.05` tolerance.
 
 No final experiment verdict was adjudicated, no brain-specific claim was made, and no ladder rung changed.
 
@@ -37,21 +39,21 @@ No final experiment verdict was adjudicated, no brain-specific claim was made, a
 - Recorded the completed-control/comparator handoff in the E016 experiment record, top-venue plan/ledger, tasks, ladder, and timeline.
 - Recomputed the TRIBE-vs-textfeat comparison from raw rows and wrote the local `/interpret` audit artifact.
 - Chose extra artifact-saving seeds as the next evidence burden and launched matched TRIBE/textfeat seed `3,4,5` runs.
+- Detected extra-seed completion, merged seeds `0-5`, reran analyzers/readiness/comparator, and wrote the six-seed independent audit.
 
 ## What To Do Next
 
-1. Monitor the extra-seed runs with `tail -f outputs/E016_tribe/phase3/extra_seed_progress_monitor_20260707.log` or direct log tails.
-2. When both extra run JSONs and analyzer/readiness JSONs exist, merge or compare seeds `0-5` and rerun the TRIBE-vs-textfeat audit.
-3. Do not launch contextfeat, on-policy distillation, or real-brain probes until the seed-extended comparison is interpreted.
-4. If the extended margin holds, choose the next burden: context/on-policy control, real-brain evaluation with saved artifacts, or a deliberately narrowed synthetic-target claim.
+1. Choose the next burden deliberately: real-brain evaluation on saved seed `3-5` artifacts, stronger context/on-policy non-brain control, or narrowed synthetic-target claim.
+2. If choosing real-brain evaluation, use `scripts/e016_eval_saved_student_alignment.py` on the artifacted extra-seed TRIBE/textfeat runs and treat the output as diagnostic, not a verdict.
+3. If choosing stronger non-brain control, define the estimand before launching contextfeat/on-policy compute.
+4. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 alone.
 
 ## Blockers / Open Loops
 
 - The comparator route is not a final verdict and not brain-specific clearance.
-- The current interpreted comparison still has only three completed seeds; sign-flip resolution is weak for a top-tier positive.
-- Extra seeds are running and may fail, drift, or reduce the margin.
+- The synthetic-target comparison is now six seeds and stable against textfeat, but still not real-brain evidence.
 - Textfeat clears only sentence-local frozen-teacher hidden-state supervision, not long-context/on-policy distillation or real-brain alignment.
-- The TRIBE run did not save model artifacts because it started before `--save-model-dir`; selected TRIBE arms may require rerun if real-brain probes are needed.
+- The original seed `0-2` TRIBE run did not save model artifacts; real-brain evaluation can currently use the saved seed `3-5` artifacts unless selected original arms are rerun.
 - The prepared contextfeat builder is smoke-tested only. A full contextfeat cache/control is branch-gated behind E016 positive plus textfeat survival.
 - The Tuckute saved-student evaluator is smoke-tested only. Full-scale use requires saved artifacts from `--save-model-dir` runs and `/interpret` before any claim.
 - On-policy distillation remains a separate protocol; contextfeat and the Tuckute probe do not clear student-rollout teacher supervision.
@@ -72,6 +74,9 @@ No final experiment verdict was adjudicated, no brain-specific claim was made, a
 - Active extra TRIBE launcher: `outputs/E016_tribe/phase3/run_extra_tribe_s3-5_20260707.sh`, PID `3770641`, target JSON `outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.json`.
 - Active extra textfeat launcher: `outputs/E016_tribe/phase3/run_extra_textfeat_s3-5_20260707.sh`, PID `3770642`, target JSON `outputs/E016_tribe/phase3/phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.json`.
 - Active monitor: `outputs/E016_tribe/phase3/monitor_extra_seed_progress_20260707.sh`, PID `3770643`, log `outputs/E016_tribe/phase3/extra_seed_progress_monitor_20260707.log`.
+- Combined TRIBE run/analyzer/readiness: `outputs/E016_tribe/phase3/phase3_combined_tribe_gpt2_n95999_s0-5_lam0.1.json`, `.analysis.json`, `.readiness.json`.
+- Combined textfeat run/analyzer/readiness: `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.json`, `.analysis.json`, `.readiness.json`.
+- Combined comparator/audit: `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_comparison.json`, `.interpret_audit.json`.
 - Saved-student Tuckute evaluator: `uv run python scripts/e016_eval_saved_student_alignment.py --run-json <artifacted-run.json> --out <alignment.json> --reference-model gpt2-medium`.
 - Guarded finalizer command: `uv run python scripts/e016_finalize_phase3.py`.
 - Watch-finalize command: `uv run python scripts/e016_watch_finalize_phase3.py --watch --interval-s 300`.
