@@ -30,6 +30,8 @@ Real-brain diagnostic summary: TRIBE target versus KD-only mean `-0.000735`; TRI
 
 The local raw-row `/interpret` audit at `outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment.interpret_audit.json` passed row-count, seed-arm grid, endpoint/protocol, arithmetic-match, and PCA-robustness checks. Its route is `real_brain_warning_needs_claim_scope_review`.
 
+Local code-path review of `scripts/e016_eval_saved_student_alignment.py` found no immediate implementation blocker: it mirrors the E003 `score_model` path, uses the shared contiguous-fold variance partition, and compiles with the relevant helpers. This is not a second implementation or a publishable code audit by itself.
+
 No final experiment verdict was adjudicated, no brain-specific claim was made, and no ladder rung changed.
 
 ## What Was Done
@@ -48,11 +50,12 @@ No final experiment verdict was adjudicated, no brain-specific claim was made, a
 - Detected extra-seed completion, merged seeds `0-5`, reran analyzers/readiness/comparator, and wrote the six-seed independent audit.
 - Chose the real-brain diagnostic burden, smoke-tested one saved artifact, scored saved seed `3-5` TRIBE/textfeat students on Tuckute, and wrote the paired real-brain analysis.
 - Recomputed the real-brain diagnostic from raw alignment rows in a local `/interpret` audit and routed it to claim-scope review.
+- Reviewed the Tuckute evaluator code path against E003 scoring helpers; no immediate implementation blocker found.
 
 ## What To Do Next
 
 1. Decide the next paper route: narrowed synthetic-target/control contribution, predeclared real-brain robustness/rerun, or stronger non-brain context/on-policy control with the Tuckute warning kept explicit.
-2. Run code review of `scripts/e016_eval_saved_student_alignment.py` before any paper claim uses the Tuckute diagnostic.
+2. If the Tuckute diagnostic becomes paper-load-bearing, run an independent second implementation or deeper code/stat review.
 3. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 or the post-hoc Tuckute diagnostic alone.
 
 ## Blockers / Open Loops

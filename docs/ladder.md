@@ -141,8 +141,8 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 > gains mean `-0.000784`. This is post-hoc and only seed `3-5`, so it is not a final verdict, but it is a serious
 > warning against a brain-specific positive claim. A local raw-row audit passed row/protocol/arithmetic/PCA checks and
 > routed to `real_brain_warning_needs_claim_scope_review`. **NO final experiment verdict, NO brain-specific clearance,
-> and NO rung change.** NEXT = choose narrowed synthetic-target/control paper versus predeclared real-brain robustness/rerun,
-> with code review of the evaluator before any paper claim.
+> and NO rung change.** A local code-path review found no immediate evaluator blocker, but it is not a second implementation.
+> NEXT = choose narrowed synthetic-target/control paper versus predeclared real-brain robustness/rerun.
 >
 > **S80 DONE -> combined six-seed TRIBE-vs-textfeat audit held (2026-07-07).** Extra seed `3,4,5` runs completed,
 > original and extra artifacts were merged into combined seed `0-5` TRIBE/textfeat artifacts, both combined analyzers

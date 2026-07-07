@@ -1081,6 +1081,21 @@ Interpretation boundary: the audit makes the diagnostic harder to dismiss as an 
 
 **Status:** local audit passed; route is claim-scope review; no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 49 - Tuckute evaluator code-path review found no immediate blocker (2026-07-07)
+Reviewed `scripts/e016_eval_saved_student_alignment.py` against the E003 scoring path and the shared helpers it calls. This was a local code-path review, not a second implementation.
+
+Checks:
+
+- `score_saved_model` mirrors `run_kd_alignment.score_model`: same `ExtractConfig` defaults (`pool="mean"`, `max_length=64`, `batch_size=32`), same `layers_to_probe`, same `verdict_layer`, same `P.variance_partition`, and same PCA robustness structure.
+- `P.variance_partition` uses contiguous folds, train-fit PCA, fixed scalar nuisance `[length, position]`, fixed static-embedding nuisance, and ridge R2 gain `R2_full - R2_nuisance`.
+- `load_tuckute` sorts rows by `item_id`, uses condition `B` by default, and returns the same ROI-level `subrois` target that the diagnostic recorded.
+- The evaluator loads saved Hugging Face artifact directories with their tokenizers and requires artifact availability when called with `--require-artifacts`.
+- `uv run python -m py_compile scripts/e016_eval_saved_student_alignment.py scripts/run_kd_alignment.py scripts/pilot_lib.py scripts/data_adapters.py` passed.
+
+No immediate implementation bug was found that would explain the negative Tuckute diagnostic. Residual limits remain: this is not an independent second implementation, not a voxelwise endpoint, not a seed `0-5` real-brain run, and not a predeclared verdict experiment. The diagnostic is therefore usable for claim-scope review, not for a final brain-specific claim.
+
+**Status:** local code-path review found no blocker; no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

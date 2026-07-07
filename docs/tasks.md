@@ -31,7 +31,8 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 - [x] **Ran full Tuckute saved-student scoring.** `phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json` and `phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json` scored all 18 artifacts with no missing rows.
 - [x] **Computed paired real-brain contrasts.** `phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment_analysis.json` shows TRIBE-minus-textfeat gain versus KD-only `-0.000862` and versus permuted-control gains `-0.000784`.
 - [x] **Run local `/interpret` arithmetic/stat audit before any claim.** `phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment.interpret_audit.json` passed row/protocol/arithmetic/PCA checks and routed to `real_brain_warning_needs_claim_scope_review`.
-- [ ] **Run code review of the Tuckute evaluator before any paper claim.** The local audit checks row mapping and arithmetic, not every implementation assumption in `scripts/e016_eval_saved_student_alignment.py`.
+- [x] **Run local code-path review of the Tuckute evaluator.** Step 49 found no immediate implementation blocker: the evaluator mirrors the E003 scoring path and `py_compile` passes. This is not a second implementation.
+- [ ] **Run independent second implementation or deeper code/stat review only if the diagnostic becomes paper-load-bearing.** The local review is enough for claim-scope routing, not enough to publish the diagnostic as a central result.
 - [ ] **Choose the next paper route.** Decide between narrowed synthetic-target/control paper, predeclared real-brain robustness/rerun, or a stronger non-brain control with the Tuckute warning kept explicit.
 
 ### S80 `/goal` continuation - combined six-seed comparator held (2026-07-07)

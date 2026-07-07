@@ -17,6 +17,7 @@ aliases: [S81, E016-real-brain-diagnostic]
 - Ran `scripts/e016_eval_saved_student_alignment.py` on the saved TRIBE and textfeat students with `--require-artifacts`.
 - Wrote the paired diagnostic analysis artifact: `outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment_analysis.json`.
 - Wrote the local raw-row audit artifact: `outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment.interpret_audit.json`.
+- Reviewed the evaluator code path against E003 scoring helpers; no immediate implementation blocker found.
 
 ## Result
 
@@ -29,7 +30,7 @@ The diagnostic moved against the brain-specific positive branch. On Tuckute sub-
 
 PCA robustness did not rescue the branch: TRIBE-minus-textfeat gain versus KD-only stayed negative at PCA `25`, `50`, and `100`.
 
-The local audit passed row-count, seed-arm grid, endpoint/protocol, arithmetic-match, and PCA-robustness checks. Its route is `real_brain_warning_needs_claim_scope_review`.
+The local audit passed row-count, seed-arm grid, endpoint/protocol, arithmetic-match, and PCA-robustness checks. Its route is `real_brain_warning_needs_claim_scope_review`. The code-path review found that the evaluator mirrors the E003 scoring path and uses the shared contiguous-fold variance partition; it did not find an implementation bug that would explain the warning.
 
 ## Boundary
 
@@ -38,7 +39,7 @@ This is a diagnostic, not a final E016 verdict: it is post-hoc, ROI-level Tuckut
 ## Next
 
 - Decide whether the paper route narrows to a synthetic-target/control contribution or whether a predeclared real-brain robustness/rerun is worth the compute.
-- Run code review of the evaluator before any paper claim uses the Tuckute diagnostic.
+- Run an independent second implementation or deeper code/stat review only if the diagnostic becomes paper-load-bearing.
 
 ## Verification
 
