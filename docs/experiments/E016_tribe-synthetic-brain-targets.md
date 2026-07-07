@@ -1340,6 +1340,22 @@ Verification:
 
 **Status:** monitoring utility only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 61 - Tuckute postprocess path pre-audited while rerun trains (2026-07-07)
+Used the waiting window to rehearse the completed part of the real-brain postprocess path against the already-recorded seed `3-5` Tuckute diagnostic. This checked that the analyzer/audit scripts still compile, that the completed Tuckute JSONs expose the expected row grids, and that repeated `--tribe-alignment` / `--textfeat-alignment` flags are parser-supported via `action="append"` before the combined seed `0-5` watcher needs them.
+
+Verification:
+
+- `uv run python -m py_compile scripts/e016_eval_saved_student_alignment.py scripts/e016_analyze_tuckute_alignment.py scripts/e016_audit_tuckute_alignment.py scripts/e016_watch_tuckute_eval.py scripts/e016_phase3_status.py scripts/e016_monitor_phase3_status.py` passed.
+- `phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json`: 9 scored rows, seeds `[3,4,5]`, arms `kd_only`, `tribe_mse`, `tribe_perm`, one protocol variant, 0 missing/unusable rows.
+- `phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json`: 9 scored rows, seeds `[3,4,5]`, arms `kd_only`, `textfeat_mse`, `textfeat_perm`, one protocol variant, 0 missing/unusable rows.
+- `phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json`: 18 scored rows, seeds `[0,1,2,3,4,5]`, arms `kd_only`, `textfeat_mse`, `textfeat_perm`, one protocol variant, 0 missing/unusable rows.
+- A seed `3-5` analyzer rehearsal wrote `/tmp/e016_s3-5_tuckute_alignment_analysis_reruncheck.json` with `ready_for_interpret=true`, `tribe_minus_textfeat_gain_vs_kd_mean=-0.000861728910529826`, and `tribe_minus_textfeat_gain_vs_perm_mean=-0.0007842046600033294`, matching the recorded diagnostic.
+- A seed `3-5` audit rehearsal wrote `/tmp/e016_s3-5_tuckute_alignment_audit_reruncheck.json` with `all_checks_pass=true`, route `real_brain_warning_needs_claim_scope_review`, complete seeds `[3,4,5]`, and no missing expected seeds.
+
+Live rerun state at the same check: runner PIDs `3827110` / `3827120` were still active, completed arms remained `3/9`, active arm was `seed=1 arm=kd_only lambda=0.0`, and the rerun JSON, rerun Tuckute JSON, combined Tuckute analysis JSON, and combined audit JSON were still absent.
+
+**Status:** postprocess readiness only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

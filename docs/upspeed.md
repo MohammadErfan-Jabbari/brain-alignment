@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S83 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; rich 5-minute monitor restarted with rough operational ETA fields; hardened Python rerun Tuckute scorer watcher active; latest snapshot shows 2/9 arms completed and seed0 `tribe_perm` active; no aligned six-seed result, no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S84 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; postprocess analyzer/audit path rehearsed on the completed seed `3-5` Tuckute diagnostic; latest live check shows 3/9 arms completed and seed1 `kd_only` active; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -56,6 +56,8 @@ S82 monitor ETA hardening: `scripts/e016_phase3_status.py` and `scripts/e016_mon
 
 S82 scorer watcher: the first ad hoc shell watcher, PID `3851658`, was retired because its `ps | grep` runner-exit check could match its own shell text after the rerun JSON appeared. The active replacement is `scripts/e016_watch_tuckute_eval.py`, PID `3853936`, PID file `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.pid`, and log `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.log`. It waits for the rerun JSON, polls `scripts/e016_phase3_status.py` until the selected run has `runner_process_count == 0`, then runs `scripts/e016_eval_saved_student_alignment.py` with `--require-artifacts` to write `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json`. This closes the handoff before the existing combined Tuckute analyzer watcher; it is postprocess automation only, not a result.
 
+S84 postprocess pre-audit: while the rerun remained active, the waiting Tuckute postprocess path was rehearsed against the completed seed `3-5` diagnostic. The relevant scripts compiled; the completed TRIBE seed `3-5`, textfeat seed `3-5`, and combined textfeat seed `0-5` Tuckute JSONs have complete scored row grids, one protocol variant, and 0 missing/unusable rows; the analyzer rehearsal reproduced `tribe_minus_textfeat_gain_vs_kd_mean=-0.000861728910529826` and `tribe_minus_textfeat_gain_vs_perm_mean=-0.0007842046600033294`; and the audit rehearsal returned `all_checks_pass=true`, route `real_brain_warning_needs_claim_scope_review`, complete seeds `[3,4,5]`. This is readiness only. The live rerun check still reported 3/9 completed arms, active `seed=1 arm=kd_only`, no rerun JSON, no rerun Tuckute JSON, no combined analysis, and no combined audit.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -85,6 +87,7 @@ S82 scorer watcher: the first ad hoc shell watcher, PID `3851658`, was retired b
 - Parameterized `scripts/e016_phase3_status.py` for explicit rerun monitoring; the default still reports the completed original full run, while the explicit rerun command correctly reports the live rerun.
 - Added and launched `scripts/e016_monitor_phase3_status.py` as a rich five-minute rerun monitor; latest snapshot shows the rerun advancing through seed0 arms with 2/9 completed.
 - Launched and hardened a detached rerun Tuckute scorer watcher so the saved-student real-brain evaluator runs automatically after the seed `0-2` rerun finishes.
+- Rehearsed the completed seed `3-5` Tuckute analyzer/audit path and confirmed the parser, row-grid, protocol, and arithmetic checks are ready for the combined seed `0-5` postprocess once the rerun Tuckute JSON appears.
 
 ## What To Do Next
 
@@ -136,6 +139,7 @@ S82 scorer watcher: the first ad hoc shell watcher, PID `3851658`, was retired b
 - Active combined Tuckute analysis watcher: `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.pid`, PID `3836562`, log `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`.
 - Active combined Tuckute audit watcher: `outputs/E016_tribe/phase3/combined_tuckute_audit_watcher_20260707.pid`, PID `3843773`, log `outputs/E016_tribe/phase3/combined_tuckute_audit_watcher_20260707.log`.
 - Combined Tuckute interpretation gate: `docs/e016-combined-tuckute-interpretation-gate-2026-07-07.md`.
+- Seed `3-5` Tuckute postprocess rehearsal: `/tmp/e016_s3-5_tuckute_alignment_analysis_reruncheck.json` and `/tmp/e016_s3-5_tuckute_alignment_audit_reruncheck.json` reproduced the recorded diagnostic; these are scratch verification files, not durable evidence artifacts.
 - Rerun-safe status command: `uv run python scripts/e016_phase3_status.py --pretty --log outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.log --run-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json --analysis-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.analysis.json --run-script outputs/E016_tribe/phase3/run_rerun_tribe_s0-2_save_20260707.sh`.
 - Seed-aligned Tuckute analyzer: `uv run python scripts/e016_analyze_tuckute_alignment.py --tribe-alignment <tribe-s0-2.tuckute.json> --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json --textfeat-alignment outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json --expected-seeds 0,1,2,3,4,5 --min-seeds 6 --out outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json`.
 - Seed-aligned Tuckute audit: `uv run python scripts/e016_audit_tuckute_alignment.py --tribe-alignment <tribe-s0-2.tuckute.json> --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json --textfeat-alignment outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json --analysis-json outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json --expected-seeds 0,1,2,3,4,5 --min-seeds 6 --out outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.audit.json`.
