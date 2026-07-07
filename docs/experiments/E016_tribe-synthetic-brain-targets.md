@@ -1356,6 +1356,20 @@ Live rerun state at the same check: runner PIDs `3827110` / `3827120` were still
 
 **Status:** postprocess readiness only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 62 - Combined Tuckute gate-status helper added (2026-07-07)
+Added `scripts/e016_tuckute_gate_status.py`, a read-only helper for the combined seed `0-5` Tuckute interpretation gate. It reports which required rerun/Tuckute/analysis/audit files are present, whether the gate is ready for `/interpret`, selected runner-process presence, and the next safe handoff action. It does not run Tuckute scoring, run the analyzer, run the audit, adjudicate a claim, or flip any rung.
+
+Verification:
+
+- `uv run python -m py_compile scripts/e016_tuckute_gate_status.py scripts/e016_phase3_status.py scripts/e016_monitor_phase3_status.py scripts/e016_analyze_tuckute_alignment.py scripts/e016_audit_tuckute_alignment.py` passed.
+- `uv run python scripts/e016_tuckute_gate_status.py --pretty` reported `phase="waiting_for_rerun_run_json"`, `ready_for_interpret=false`, `runner_process_count=2`, and missing files `run_json`, `rerun_tuckute`, `analysis_json`, and `audit_json`.
+- `uv run python scripts/e016_tuckute_gate_status.py --markdown` rendered the same not-ready state for a compact handoff.
+- `uv run python scripts/e016_tuckute_gate_status.py --fail-if-not-ready` exited `1` in the current not-ready state.
+
+Live rerun state at the same check: runner PIDs `3827110` / `3827120` were still active, completed arms remained `4/9`, active arm was `seed=1 arm=tribe_mse lambda=0.1`, and the rerun JSON, rerun Tuckute JSON, combined Tuckute analysis JSON, and combined audit JSON were still absent.
+
+**Status:** monitoring/handoff utility only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

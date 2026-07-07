@@ -42,6 +42,14 @@ The combined diagnostic is eligible for `/interpret` only if the audit JSON repo
 
 If any acceptance check fails, the result is not paper-load-bearing. The next action is debugging or evaluator/code review, not claim selection.
 
+For a one-shot readiness readout, use:
+
+```bash
+uv run python scripts/e016_tuckute_gate_status.py --pretty
+```
+
+This helper only reports missing files, runner presence, audit route, and the next safe handoff action. It does not produce the analysis, audit the rows, or adjudicate the result.
+
 ## Route Labels
 
 Use the audit `route` and then confirm the underlying per-seed pattern in `/interpret`.
