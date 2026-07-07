@@ -6,7 +6,7 @@ aliases: [top-venue-paper-plan-2026-07-03, compression-paper-plan]
 
 # Top-venue paper plan, 2026-07-03
 
-**Status.** This is a `/plan` artifact built from the S51 `/scout` and `/work` state. It is not a report, not a manuscript section, and not a science verdict. It exists so the active E016 run has a clear decision tree when results arrive. The claim-by-claim proof ledger is [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md), the pre-result interpretation manifest is [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md), the follow-up venue audit is [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md), the distillation-adjacency audit is [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md), the privileged-signal adjacency audit is [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md), the on-policy/context-distillation audit is [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md), the long-context control feasibility memo is [`top-venue-long-context-control-feasibility-2026-07-03.md`](top-venue-long-context-control-feasibility-2026-07-03.md), and the representation-control feasibility memo is [`top-venue-representation-control-feasibility-2026-07-07.md`](top-venue-representation-control-feasibility-2026-07-07.md).
+**Status.** This is a `/plan` artifact built from the S51 `/scout` and `/work` state. It is not a report, not a manuscript section, and not a science verdict. It exists so the active E016 run has a clear decision tree when results arrive. The claim-by-claim proof ledger is [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md), the pre-result interpretation manifest is [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md), the follow-up venue audit is [`top-venue-open-question-audit-2026-07-03.md`](top-venue-open-question-audit-2026-07-03.md), the distillation-adjacency audit is [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md), the privileged-signal adjacency audit is [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md), the on-policy/context-distillation audit is [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md), the long-context control feasibility memo is [`top-venue-long-context-control-feasibility-2026-07-03.md`](top-venue-long-context-control-feasibility-2026-07-03.md), the representation-control feasibility memo is [`top-venue-representation-control-feasibility-2026-07-07.md`](top-venue-representation-control-feasibility-2026-07-07.md), and the venue-specific readiness matrix is [`top-venue-readiness-matrix-2026-07-07.md`](top-venue-readiness-matrix-2026-07-07.md).
 
 ## Claim cell
 
@@ -82,6 +82,8 @@ For a positive paper, the paired effect must be inspected seed-by-seed. With onl
 
 ## Venue fit
 
+The venue-specific readiness matrix is [`top-venue-readiness-matrix-2026-07-07.md`](top-venue-readiness-matrix-2026-07-07.md). The short version is: AAAI is the default route if the combined real-brain gate is nonpositive or mixed; ICML becomes plausible for a crisp estimand/control paper or for a positive that survives `contextfeat`; ICLR/NeurIPS require a robust positive route plus stronger controls or a broader field-correcting negative.
+
 | Venue | Best-fit angle | Risk |
 |---|---|---|
 | ICLR | Representation learning and training-objective question. | Positive branch needs stronger inference or extra target evaluation. |
@@ -114,6 +116,7 @@ For a positive paper, the paired effect must be inspected seed-by-seed. With onl
 - [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md) - focused on-policy/context-distillation control burden
 - [`top-venue-long-context-control-feasibility-2026-07-03.md`](top-venue-long-context-control-feasibility-2026-07-03.md) - recovered WikiText context metadata for a possible contextfeat control
 - [`top-venue-representation-control-feasibility-2026-07-07.md`](top-venue-representation-control-feasibility-2026-07-07.md) - ranks contextfeat versus OPRD/PHF-style controls after the hidden-state distillation literature update
+- [`top-venue-readiness-matrix-2026-07-07.md`](top-venue-readiness-matrix-2026-07-07.md) - venue-specific burden map for AAAI, ICML, ICLR, and NeurIPS
 - [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md) - claim/readiness ledger
 - [`e016-interpretation-protocol-2026-07-03.md`](e016-interpretation-protocol-2026-07-03.md) - pre-result post-run manifest
 - [`E016`](experiments/E016_tribe-synthetic-brain-targets.md) - active Phase-3 experiment

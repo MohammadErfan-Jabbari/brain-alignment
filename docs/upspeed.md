@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S91 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; latest live watch advanced to 5/9 arms completed and seed1 `tribe_perm` active; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S92 - `/goal` continuation: E016 rerun still running at 5/9 arms with seed1 `tribe_perm` active; venue-readiness matrix added for AAAI/ICML/ICLR/NeurIPS routes; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -72,6 +72,8 @@ S90 representation-control feasibility: [`top-venue-representation-control-feasi
 
 S91 rerun progress: a bounded live watcher observed the fifth saved rerun artifact land at `2026-07-07T22:38:17Z`: `seed1_tribe_mse_lambda0p1`. The explicit rerun status at `2026-07-07T22:38:32Z` reported `phase="training_running_or_interrupted"`, `health.status="runner_alive_log_recent"`, completed arms `5/9`, latest completed partial diagnostic `seed=1 arm=tribe_mse lambda=0.1 ppl=99.384 target_r2=0.6728`, and active arm `seed=1 arm=tribe_perm lambda=0.1`. This is partial-arm progress only. The rerun JSON, rerun Tuckute JSON, combined Tuckute analysis JSON, and combined audit JSON were still absent; `scripts/e016_tuckute_gate_status.py` still reported `ready_for_interpret=false`.
 
+S92 venue-readiness matrix: [`top-venue-readiness-matrix-2026-07-07.md`](top-venue-readiness-matrix-2026-07-07.md) now maps the pending combined Tuckute gate to AAAI/ICML/ICLR/NeurIPS burden. Recommendation while the gate is incomplete: launch no new controls. If the combined real-brain route is nonpositive or mixed, default to an AAAI-style synthetic-target/control plus privileged-target transfer-failure package; ICML is possible only if the estimand/control lesson is crisp; ICLR/NeurIPS need a broader field-correcting negative. If the route becomes positive and audit-clean, run independent code/stat review first, then `contextfeat`; OPRD/PHF-style controls remain separate `/precheck` items.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -107,6 +109,7 @@ S91 rerun progress: a bounded live watcher observed the fifth saved rerun artifa
 - Added a Firecrawl hidden-state distillation pressure refresh covering NARF, OPRD, PHF, and the original BERT brain-tuning precursor; no paper route changed, but the must-not-claim list tightened.
 - Added a representation-control feasibility memo ranking `contextfeat` before any OPRD/PHF-style runner if the active real-brain gate turns positive.
 - Monitored the active TRIBE rerun until the fifth saved artifact landed; recorded the progress as partial-arm monitoring only.
+- Added a venue-readiness matrix for AAAI/ICML/ICLR/NeurIPS routing while the active real-brain gate remains pending.
 
 ## What To Do Next
 
@@ -114,7 +117,8 @@ S91 rerun progress: a bounded live watcher observed the fifth saved rerun artifa
 2. Check `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.log`; the Python watcher should score rerun TRIBE seed `0-2` on Tuckute after the rerun JSON lands and the training process exits.
 3. Check `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`; the watcher should compute the aligned seed `0-5` real-brain diagnostic against the completed textfeat seed `0-5` Tuckute output after the rerun Tuckute JSON appears.
 4. If the Tuckute diagnostic becomes paper-load-bearing, run an independent second implementation or deeper code/stat review.
-5. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 or the post-hoc Tuckute diagnostic alone.
+5. Use [`top-venue-readiness-matrix-2026-07-07.md`](top-venue-readiness-matrix-2026-07-07.md) after the gate resolves: nonpositive/mixed routes to transfer-failure/control writing, while positive routes to independent review plus `contextfeat`.
+6. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 or the post-hoc Tuckute diagnostic alone.
 
 ## Blockers / Open Loops
 
