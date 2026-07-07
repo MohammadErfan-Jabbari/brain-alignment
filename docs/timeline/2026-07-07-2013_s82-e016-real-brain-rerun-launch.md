@@ -17,6 +17,7 @@ aliases: [S82, E016-real-brain-rerun-launch]
 - Kept textfeat training fixed: textfeat seed `0-5` artifacts already exist, so only Tuckute scoring was needed.
 - Completed textfeat seed `0-5` Tuckute scoring.
 - Started a local 5-minute monitor for process/artifact status.
+- Added and regression-checked `scripts/e016_analyze_tuckute_alignment.py` for the seed `0-5` real-brain handoff.
 
 ## Live State
 
@@ -36,7 +37,7 @@ This is an active evidence-gathering state, not a result. No TRIBE rerun JSON, r
 
 - Monitor the status file until the TRIBE rerun finishes.
 - Score rerun TRIBE seed `0-2` on Tuckute if the launcher has not already done so.
-- Combine rerun TRIBE seed `0-2` with existing TRIBE seed `3-5` diagnostics and compare against textfeat seed `0-5`.
+- Combine rerun TRIBE seed `0-2` with existing TRIBE seed `3-5` diagnostics and compare against textfeat seed `0-5` using `scripts/e016_analyze_tuckute_alignment.py`.
 - Choose narrowed synthetic-target/control paper versus reopened positive route using the predeclared kill criteria.
 
 ## Related

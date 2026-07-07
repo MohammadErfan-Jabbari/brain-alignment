@@ -31,6 +31,7 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 - [x] **Launch TRIBE seed `0-2` artifact-saving rerun.** The initial detached launch exited before reaching Python; the stable launch uses `setsid` and is live as PID `3827100` with Python child `3827120` on GPU 1. Target run JSON: `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`.
 - [x] **Start live rerun monitor.** `outputs/E016_tribe/phase3/monitor_rerun_realbrain_20260707.sh` is live as PID `3827101` and writes `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md` every 5 minutes.
 - [x] **Score textfeat seed `0-5` on Tuckute.** `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json` scored 18/18 saved artifacts with 0 missing/unusable rows.
+- [x] **Prepare seed-aligned Tuckute analyzer.** `scripts/e016_analyze_tuckute_alignment.py` regression-checks against the recorded seed `3-5` analysis and is ready for the post-rerun seed `0-5` diagnostic.
 - [ ] **Evaluate Tuckute over aligned seed `0-5`.** Wait for rerun TRIBE seed `0-2`, score/confirm its Tuckute output, combine with existing TRIBE seed `3-5`, and compare against the completed textfeat seed `0-5` Tuckute output.
 - [ ] **Choose paper route after six-seed Tuckute diagnostic.** Nonpositive or mixed real-brain gains narrow to a synthetic-target/control paper; positive gains only reopen the brain-specific route.
 

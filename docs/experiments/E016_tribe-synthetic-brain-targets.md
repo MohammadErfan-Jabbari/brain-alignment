@@ -1153,6 +1153,29 @@ No rerun JSON, rerun analysis JSON, rerun readiness JSON, or rerun Tuckute JSON 
 
 **Status:** TRIBE rerun and monitor active; textfeat seed `0-5` Tuckute scoring complete; no aligned six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 52 - Seed-aligned Tuckute analysis helper added for the rerun handoff (2026-07-07)
+Added `scripts/e016_analyze_tuckute_alignment.py`, a reusable post-hoc diagnostic helper for the real-brain rerun handoff. It reads one or more TRIBE Tuckute alignment JSONs and one or more textfeat Tuckute alignment JSONs, keeps only seeds with complete KD / target / permuted grids on both sides, and writes the seed-level contrasts plus PCA robustness needed for `/interpret`.
+
+Regression check:
+
+- Command: `uv run python scripts/e016_analyze_tuckute_alignment.py --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json --textfeat-alignment outputs/E016_tribe/phase3/phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json --expected-seeds 3,4,5 --out outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment_analysis.script_check.json`
+- The script-check output reproduced the recorded S81 analysis means for all contrast means, signs, sign-flip fields, and PCA robustness means at absolute tolerance `1e-15`.
+- `uv run python -m py_compile scripts/e016_analyze_tuckute_alignment.py scripts/e016_eval_saved_student_alignment.py` passed.
+
+Intended post-rerun command after the TRIBE seed `0-2` Tuckute JSON exists:
+
+```bash
+uv run python scripts/e016_analyze_tuckute_alignment.py \
+  --tribe-alignment outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json \
+  --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json \
+  --textfeat-alignment outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json \
+  --expected-seeds 0,1,2,3,4,5 \
+  --min-seeds 6 \
+  --out outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json
+```
+
+**Status:** analysis infrastructure only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
