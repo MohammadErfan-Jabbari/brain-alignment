@@ -1370,6 +1370,24 @@ Live rerun state at the same check: runner PIDs `3827110` / `3827120` were still
 
 **Status:** monitoring/handoff utility only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 63 - Rerun progressed to seed1 permuted arm (2026-07-07)
+During a bounded live watch, the selected TRIBE seed `0-2` artifact-saving rerun wrote the fifth saved model artifact:
+
+- `outputs/E016_tribe/phase3/model_artifacts/tribe_gpt2_n95999_s0-2_lam0.1_rerun/seed1_tribe_mse_lambda0p1`
+
+The explicit rerun status helper at `2026-07-07T22:38:32Z` reported:
+
+- `phase="training_running_or_interrupted"`;
+- `health.status="runner_alive_log_recent"`;
+- completed arms `5/9`;
+- latest completed arm `seed=1 arm=tribe_mse lambda=0.1`, `ppl=99.384`, `target_r2=0.6728`;
+- active arm `seed=1 arm=tribe_perm lambda=0.1`;
+- rerun JSON, rerun Tuckute JSON, combined Tuckute analysis JSON, and combined Tuckute audit JSON still absent.
+
+The combined Tuckute gate helper still reported `phase="waiting_for_rerun_run_json"` and `ready_for_interpret=false`.
+
+**Status:** partial-arm progress only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S90 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; representation-control feasibility memo added; latest live check shows 4/9 arms completed and seed1 `tribe_mse` active; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S91 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; latest live watch advanced to 5/9 arms completed and seed1 `tribe_perm` active; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -70,6 +70,8 @@ S89 hidden-state distillation pressure refresh: Firecrawl Research checked the c
 
 S90 representation-control feasibility: [`top-venue-representation-control-feasibility-2026-07-07.md`](top-venue-representation-control-feasibility-2026-07-07.md) ranks the next possible non-brain controls after the hidden-state literature update. Recommendation: do not launch new compute while the combined Tuckute gate is pending; if the gate is nonpositive/mixed, launch no new representation controls; if positive and audit-clean, build `contextfeat` first because it preserves the current cache-based estimand. OPRD/PHF-style controls are new-runner work and should be `/precheck`-gated only after a robust positive and a clear venue need.
 
+S91 rerun progress: a bounded live watcher observed the fifth saved rerun artifact land at `2026-07-07T22:38:17Z`: `seed1_tribe_mse_lambda0p1`. The explicit rerun status at `2026-07-07T22:38:32Z` reported `phase="training_running_or_interrupted"`, `health.status="runner_alive_log_recent"`, completed arms `5/9`, latest completed partial diagnostic `seed=1 arm=tribe_mse lambda=0.1 ppl=99.384 target_r2=0.6728`, and active arm `seed=1 arm=tribe_perm lambda=0.1`. This is partial-arm progress only. The rerun JSON, rerun Tuckute JSON, combined Tuckute analysis JSON, and combined audit JSON were still absent; `scripts/e016_tuckute_gate_status.py` still reported `ready_for_interpret=false`.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -104,6 +106,7 @@ S90 representation-control feasibility: [`top-venue-representation-control-feasi
 - Added a combined Tuckute gate-status helper so the final real-brain transfer handoff has a single readiness command.
 - Added a Firecrawl hidden-state distillation pressure refresh covering NARF, OPRD, PHF, and the original BERT brain-tuning precursor; no paper route changed, but the must-not-claim list tightened.
 - Added a representation-control feasibility memo ranking `contextfeat` before any OPRD/PHF-style runner if the active real-brain gate turns positive.
+- Monitored the active TRIBE rerun until the fifth saved artifact landed; recorded the progress as partial-arm monitoring only.
 
 ## What To Do Next
 
