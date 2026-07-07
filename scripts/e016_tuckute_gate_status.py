@@ -91,6 +91,90 @@ def discover_runner_processes(run_json: Path) -> list[dict[str, Any]]:
     return out
 
 
+def path_needles(path: Path) -> list[str]:
+    resolved = resolve(path)
+    needles = [str(path), str(resolved)]
+    try:
+        needles.append(str(resolved.relative_to(ROOT)))
+    except ValueError:
+        pass
+    return sorted(set(needles), key=len, reverse=True)
+
+
+def line_matches_groups(line: str, groups: list[list[str]]) -> bool:
+    return all(any(needle in line for needle in group) for group in groups)
+
+
+def parse_process_line(line: str) -> dict[str, Any] | None:
+    parts = line.split(maxsplit=4)
+    if len(parts) < 5:
+        return None
+    return {
+        "pid": int(parts[0]),
+        "ppid": int(parts[1]),
+        "stat": parts[2],
+        "elapsed": parts[3],
+        "cmd": parts[4],
+    }
+
+
+def discover_processes_by_groups(groups: list[list[str]]) -> list[dict[str, Any]]:
+    proc = subprocess.run(
+        ["ps", "-eo", "pid,ppid,stat,etime,args"],
+        cwd=ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    out = []
+    for line in proc.stdout.splitlines()[1:]:
+        if not line_matches_groups(line, groups):
+            continue
+        parsed = parse_process_line(line)
+        if parsed is not None:
+            out.append(parsed)
+    return out
+
+
+def watcher_specs(args: argparse.Namespace) -> dict[str, list[list[str]]]:
+    return {
+        "rerun_tuckute_scorer": [
+            ["e016_watch_tuckute_eval.py"],
+            path_needles(args.run_json),
+            path_needles(args.rerun_tuckute),
+        ],
+        "combined_tuckute_analyzer": [
+            ["e016_analyze_tuckute_alignment.py"],
+            path_needles(args.rerun_tuckute),
+            path_needles(args.analysis_json),
+        ],
+        "combined_tuckute_auditor": [
+            ["e016_audit_tuckute_alignment.py"],
+            path_needles(args.analysis_json),
+            path_needles(args.audit_json),
+        ],
+        "rich_status_monitor": [
+            ["e016_monitor_phase3_status.py"],
+            path_needles(args.run_json),
+            path_needles(args.audit_json),
+        ],
+        "simple_rerun_monitor": [
+            ["monitor_rerun_realbrain"],
+        ],
+    }
+
+
+def discover_watchers(args: argparse.Namespace) -> dict[str, dict[str, Any]]:
+    watchers: dict[str, dict[str, Any]] = {}
+    for name, groups in watcher_specs(args).items():
+        processes = discover_processes_by_groups(groups)
+        watchers[name] = {
+            "process_count": len(processes),
+            "processes": processes,
+        }
+    return watchers
+
+
 def classify(
     required: dict[str, dict[str, Any]],
     audit: dict[str, Any] | None,
@@ -125,6 +209,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     audit, audit_error = load_json_if_present(args.audit_json)
     analysis, analysis_error = load_json_if_present(args.analysis_json)
     runners = discover_runner_processes(args.run_json)
+    watchers = discover_watchers(args)
     phase = classify(required, audit, audit_error, runners)
     missing = [key for key, status in required.items() if not status["nonempty"]]
     return {
@@ -136,6 +221,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
         "required_files": required,
         "runner_process_count": len(runners),
         "runner_processes": runners,
+        "postprocess_watchers": watchers,
         "analysis_summary": {
             "ready_for_interpret": analysis.get("ready_for_interpret") if isinstance(analysis, dict) else None,
             "complete_seeds": analysis.get("complete_seeds") if isinstance(analysis, dict) else None,
@@ -179,9 +265,16 @@ def render_markdown(payload: dict[str, Any]) -> str:
         f"- audit_all_checks_pass: `{payload['audit_summary']['all_checks_pass']}`",
         f"- next_action: {payload['next_action_hint']}",
         "",
-        "## Required Files",
+        "## Watchers",
         "",
     ]
+    for name, status in payload["postprocess_watchers"].items():
+        lines.append(f"- {name}: `{status['process_count']}` process(es)")
+    lines.extend([
+        "",
+        "## Required Files",
+        "",
+    ])
     for key, status in payload["required_files"].items():
         state = "present" if status["nonempty"] else "missing"
         lines.append(f"- {state}: `{key}` -> `{status['path']}`")

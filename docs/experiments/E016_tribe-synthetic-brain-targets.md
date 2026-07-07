@@ -1388,6 +1388,20 @@ The combined Tuckute gate helper still reported `phase="waiting_for_rerun_run_js
 
 **Status:** partial-arm progress only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 64 - Combined Tuckute gate helper reports watcher health (2026-07-07)
+Extended `scripts/e016_tuckute_gate_status.py` so the combined seed `0-5` Tuckute interpretation gate also reports read-only postprocess watcher process health. The helper now includes watcher groups for the rerun Tuckute scorer, combined Tuckute analyzer, combined Tuckute auditor, rich status monitor, and simple rerun monitor, making one status command enough to answer whether training and the waiting handoff chain are alive.
+
+Verification:
+
+- `uv run python -m py_compile scripts/e016_tuckute_gate_status.py` passed.
+- `uv run scripts/e016_tuckute_gate_status.py --pretty` reported `phase="waiting_for_rerun_run_json"`, `ready_for_interpret=false`, missing `run_json`, `rerun_tuckute`, `analysis_json`, and `audit_json`, and watcher process counts for `rerun_tuckute_scorer`, `combined_tuckute_analyzer`, `combined_tuckute_auditor`, `rich_status_monitor`, and `simple_rerun_monitor`.
+- `uv run scripts/e016_tuckute_gate_status.py --markdown` rendered the same not-ready state with a compact watcher section.
+- `uv run scripts/e016_tuckute_gate_status.py --fail-if-not-ready` exited `1` in the current not-ready state.
+
+Live rerun state at the same check: the selected runner was still alive, the rich monitor snapshot reported completed arms `5/9`, active arm `seed=1 arm=tribe_perm lambda=0.1`, no rerun JSON, no rerun Tuckute JSON, no combined Tuckute analysis JSON, and no combined Tuckute audit JSON. The rough monitor ETA remained operational scheduling metadata only.
+
+**Status:** monitoring/handoff utility only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S93 - `/goal` continuation: E016 rerun still running at 5/9 arms with seed1 `tribe_perm` active; positive-branch privileged-OPD pressure refreshed; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S94 - `/goal` continuation: E016 rerun still running at 5/9 arms with seed1 `tribe_perm` active; combined Tuckute gate helper now reports postprocess watcher health; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -76,6 +76,8 @@ S92 venue-readiness matrix: [`top-venue-readiness-matrix-2026-07-07.md`](top-ven
 
 S93 positive-branch privileged-OPD pressure: Firecrawl Research expansion from OPRD/PHF/DemoPSD/Rethinking OPSD surfaced and read AR-OPD, EDGE-OPD, and When Context Returns. The updated [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md), [`top-venue-literature-refresh-2026-07-07.md`](top-venue-literature-refresh-2026-07-07.md), and [`top-venue-representation-control-feasibility-2026-07-07.md`](top-venue-representation-control-feasibility-2026-07-07.md) now record the sharper objection: privileged supervision can fail through locally unsupported shortcuts, side-effect tokens, evidence-localized transfer, or non-robust internalization. This does not change the compute order. Wait for the combined Tuckute gate; if positive and clean, run independent review and then `contextfeat` before any new-runner OPD variant.
 
+S94 gate helper watcher-health hardening: `scripts/e016_tuckute_gate_status.py` now reports read-only postprocess watcher process health for the rerun Tuckute scorer, combined Tuckute analyzer, combined Tuckute auditor, rich status monitor, and simple rerun monitor. The latest gate check reported `phase="waiting_for_rerun_run_json"`, `ready_for_interpret=false`, runner process count `2`, all selected watcher groups alive, and missing `run_json`, `rerun_tuckute`, `analysis_json`, and `audit_json`. The rich monitor snapshot still showed completed arms `5/9`, active arm `seed=1 arm=tribe_perm lambda=0.1`, and rough ETA `2026-07-08T00:34:48Z`. This is monitoring/handoff utility only, not a result.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -113,10 +115,11 @@ S93 positive-branch privileged-OPD pressure: Firecrawl Research expansion from O
 - Monitored the active TRIBE rerun until the fifth saved artifact landed; recorded the progress as partial-arm monitoring only.
 - Added a venue-readiness matrix for AAAI/ICML/ICLR/NeurIPS routing while the active real-brain gate remains pending.
 - Ran a focused Firecrawl Research positive-branch pressure refresh over privileged OPD/internalization papers and updated the on-policy/context audit, literature refresh, and representation-control feasibility memo.
+- Hardened the combined Tuckute gate-status helper so a single command reports both gate readiness and the waiting postprocess watcher chain.
 
 ## What To Do Next
 
-1. Monitor `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.md` until the TRIBE rerun finishes.
+1. Run `uv run scripts/e016_tuckute_gate_status.py --markdown` for the compact combined Tuckute gate and watcher state, or monitor `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.md` until the TRIBE rerun finishes.
 2. Check `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.log`; the Python watcher should score rerun TRIBE seed `0-2` on Tuckute after the rerun JSON lands and the training process exits.
 3. Check `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`; the watcher should compute the aligned seed `0-5` real-brain diagnostic against the completed textfeat seed `0-5` Tuckute output after the rerun Tuckute JSON appears.
 4. If the Tuckute diagnostic becomes paper-load-bearing, run an independent second implementation or deeper code/stat review.
@@ -160,14 +163,14 @@ S93 positive-branch privileged-OPD pressure: Firecrawl Research expansion from O
 - Active bounded rerun launcher: `outputs/E016_tribe/phase3/run_rerun_tribe_s0-2_save_20260707.sh`, PID `3827100`, Python child `3827120`, target JSON `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`.
 - Completed textfeat seed `0-5` Tuckute output: `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json` (18/18 artifact rows scored, 0 missing/unusable).
 - Active rerun monitor: `outputs/E016_tribe/phase3/monitor_rerun_realbrain_20260707.sh`, PID `3827101`, latest status `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md`.
-- Active rich rerun monitor: `scripts/e016_monitor_phase3_status.py`, PID `3850339`, PID file `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.pid`, log `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.log`, latest JSON `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.json`, latest Markdown `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.md`.
+- Active rich rerun monitor: `scripts/e016_monitor_phase3_status.py`, wrapper PID `3860856`, Python child `3860860`, PID file `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.pid`, log `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.log`, latest JSON `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.json`, latest Markdown `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.md`.
 - Active rerun Tuckute scorer watcher: `scripts/e016_watch_tuckute_eval.py`, PID `3853936`, PID file `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.pid`, log `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.log`, target output `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json`.
 - Active combined Tuckute analysis watcher: `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.pid`, PID `3836562`, log `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`.
 - Active combined Tuckute audit watcher: `outputs/E016_tribe/phase3/combined_tuckute_audit_watcher_20260707.pid`, PID `3843773`, log `outputs/E016_tribe/phase3/combined_tuckute_audit_watcher_20260707.log`.
 - Combined Tuckute interpretation gate: `docs/e016-combined-tuckute-interpretation-gate-2026-07-07.md`.
 - Seed `3-5` Tuckute postprocess rehearsal: `/tmp/e016_s3-5_tuckute_alignment_analysis_reruncheck.json` and `/tmp/e016_s3-5_tuckute_alignment_audit_reruncheck.json` reproduced the recorded diagnostic; these are scratch verification files, not durable evidence artifacts.
 - Rerun-safe status command: `uv run python scripts/e016_phase3_status.py --pretty --log outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.log --run-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json --analysis-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.analysis.json --run-script outputs/E016_tribe/phase3/run_rerun_tribe_s0-2_save_20260707.sh`.
-- Combined Tuckute gate-status command: `uv run python scripts/e016_tuckute_gate_status.py --pretty`.
+- Combined Tuckute gate-status command: `uv run scripts/e016_tuckute_gate_status.py --markdown` for compact status or `uv run scripts/e016_tuckute_gate_status.py --pretty` for JSON.
 - Seed-aligned Tuckute analyzer: `uv run python scripts/e016_analyze_tuckute_alignment.py --tribe-alignment <tribe-s0-2.tuckute.json> --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json --textfeat-alignment outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json --expected-seeds 0,1,2,3,4,5 --min-seeds 6 --out outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json`.
 - Seed-aligned Tuckute audit: `uv run python scripts/e016_audit_tuckute_alignment.py --tribe-alignment <tribe-s0-2.tuckute.json> --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json --textfeat-alignment outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json --analysis-json outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json --expected-seeds 0,1,2,3,4,5 --min-seeds 6 --out outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.audit.json`.
 - Saved-student Tuckute evaluator: `uv run python scripts/e016_eval_saved_student_alignment.py --run-json <artifacted-run.json> --out <alignment.json> --reference-model gpt2-medium`.
