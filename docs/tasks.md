@@ -24,14 +24,25 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 > results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
 > of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
+### S79 `/goal` continuation - comparator audit held; extra seeds running (2026-07-07)
+
+- [x] **Comparator `/interpret` audit recomputed from raw rows.** `outputs/E016_tribe/phase3/phase3_full_tribe_vs_textfeat_comparison.interpret_audit.json` matches the comparator means and gates: TRIBE-minus-textfeat gain is positive on all three seeds versus KD-only and versus permuted-control gains, with max relative PPL delta `0.009220`.
+- [x] **Post-positive evidence burden chosen.** Next step is extra artifact-saving seeds before contextfeat/on-policy/real-brain escalation, because the current signal is strong but only `n=3` and the original TRIBE students were not saved.
+- [x] **Extra TRIBE seeds launched.** `outputs/E016_tribe/phase3/run_extra_tribe_s3-5_20260707.sh` is detached as PID `3770641` on GPU 1, with Python child `3770685`; target output is `phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.json`.
+- [x] **Extra textfeat seeds launched.** `outputs/E016_tribe/phase3/run_extra_textfeat_s3-5_20260707.sh` is detached as PID `3770642` on GPU 2, with Python child `3770687`; target output is `phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.json`.
+- [x] **Four-minute monitor started.** `outputs/E016_tribe/phase3/monitor_extra_seed_progress_20260707.sh` is detached as PID `3770643`; log is `outputs/E016_tribe/phase3/extra_seed_progress_monitor_20260707.log`.
+- [ ] **Monitor extra-seed runs to analyzer/readiness JSONs.** Wait for both extra run JSONs, `.analysis.json`, and `.readiness.json`; inspect logs if either exits early.
+- [ ] **Merge or compare seeds `0-5`.** After both extra runs complete, combine or compare the original and extra analyzer outputs, rerun TRIBE-vs-textfeat audit, and update E016 before any next compute.
+- [ ] **Keep contextfeat, on-policy, and real-brain probes gated.** Do not launch them until the seed-extended comparison is interpreted.
+
 ### S78 `/goal` continuation - textfeat complete and comparator ready (2026-07-03)
 
 - [x] **Full textfeat control completed.** `phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.json`, `.analysis.json`, and `.readiness.json` exist; analyzer gate is `science_ready=true`, complete for 3 seeds x 3 arms, matched PPL, and full-scale train/heldout/target-dimension checks.
 - [x] **TRIBE-vs-textfeat comparator run.** `outputs/E016_tribe/phase3/phase3_full_tribe_vs_textfeat_comparison.json` is ready and routes to `tribe_stronger_than_textfeat_needs_review`.
 - [x] **Completion state recorded without verdict.** E016 experiment doc, upspeed, top-venue plan/ledger, ladder, tasks, and timeline now record the comparator handoff as review input only.
-- [ ] **Switch to `/interpret` for the comparator.** Audit seed-aligned margins, PPL matching, analyzer gates, and code/stat assumptions before any claim.
-- [ ] **Choose the post-positive evidence burden.** Decide between extra seeds, stronger non-brain/context comparator, real-brain follow-up, or a deliberately narrowed claim.
-- [ ] **Do not launch contextfeat, extra seeds, or real-brain probes before `/interpret` clears the comparator.**
+- [x] **Switch to `/interpret` for the comparator.** Resolved in S79: raw-row audit recomputed the margins, PPL matching, gates, and comparator means.
+- [x] **Choose the post-positive evidence burden.** Resolved in S79: extra artifact-saving seeds are running before stronger-control or real-brain escalation.
+- [x] **Do not launch contextfeat, extra seeds, or real-brain probes before `/interpret` clears the comparator.** Resolved in S79: extra seeds launched after the local comparator audit held; contextfeat/on-policy/real-brain remain gated.
 
 ### S77 `/goal` continuation - E016 TRIBE handoff and textfeat control launch (2026-07-03)
 

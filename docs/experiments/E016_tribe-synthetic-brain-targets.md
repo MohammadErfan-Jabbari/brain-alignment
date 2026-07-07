@@ -963,6 +963,38 @@ The comparator's own burden language remains binding: this clears only the sente
 
 **Status:** ready comparison handoff only. The branch is promising, but this is not a final E016 verdict, not brain-specific clearance, and not a rung flip.
 
+### Step 45 - Comparator `/interpret` audit held; extra artifact-saving seeds launched (2026-07-07)
+The first-pass `/interpret` audit recomputed the TRIBE-vs-textfeat comparison directly from the raw run rows, rather than trusting the analyzer/comparator summaries. The audit artifact is `outputs/E016_tribe/phase3/phase3_full_tribe_vs_textfeat_comparison.interpret_audit.json`.
+
+Claim-intent manifest:
+
+- expected claim: TRIBE is stronger than the prepared textfeat matched-information control, but only as a narrow post-positive synthetic-target signal.
+- evidence: E016 Step 44 and `outputs/E016_tribe/phase3/phase3_full_tribe_vs_textfeat_comparison.json`.
+- overturn-if: any raw-row recompute, PPL/gate audit, or seed-aligned check fails, or textfeat gains match/exceed TRIBE gains.
+
+Audit result:
+
+- all readiness, seed-alignment, PPL, and comparator-mean checks passed.
+- TRIBE-minus-textfeat gain versus KD-only: mean `+0.076731`, seed values `[+0.076338, +0.075906, +0.077948]`, all positive, sign-flip `p=0.25`.
+- TRIBE-minus-textfeat gain versus permuted-control gains: mean `+0.069492`, seed values `[+0.065526, +0.072959, +0.069991]`, all positive, sign-flip `p=0.25`.
+- maximum observed relative PPL delta across the four target/permuted-vs-KD checks was `0.009220`, below the predeclared `0.05` tolerance.
+
+Interpretation boundary:
+
+- The prepared sentence-local textfeat objection does not explain the TRIBE synthetic-target gain.
+- The result is still not a top-tier paper claim by itself: `n=3` gives weak exact sign-flip resolution, the endpoint is synthetic target-R2, and textfeat does not clear long-context/on-policy distillation, rich-feedback privileged-signal adjacency, or real-brain alignment.
+- The original TRIBE run did not save model artifacts, so real-brain evaluation of exactly those TRIBE students is unavailable without selected reruns.
+
+Next evidence step selected: extra artifact-saving seeds before any contextfeat/on-policy/real-brain claim. Two detached full-scale extra-seed runs were launched:
+
+- TRIBE extra seeds `3,4,5`: launcher `outputs/E016_tribe/phase3/run_extra_tribe_s3-5_20260707.sh`, PID `3770641`, Python child `3770685`, GPU 1, output `outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.json`, model artifacts under `outputs/E016_tribe/phase3/model_artifacts/tribe_gpt2_n95999_s3-5_lam0.1/`.
+- textfeat extra seeds `3,4,5`: launcher `outputs/E016_tribe/phase3/run_extra_textfeat_s3-5_20260707.sh`, PID `3770642`, Python child `3770687`, GPU 2, output `outputs/E016_tribe/phase3/phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.json`, model artifacts under `outputs/E016_tribe/phase3/model_artifacts/textfeat_gpt2_n95999_s3-5_lam0.1/`.
+- four-minute monitor: `outputs/E016_tribe/phase3/monitor_extra_seed_progress_20260707.sh`, PID `3770643`, log `outputs/E016_tribe/phase3/extra_seed_progress_monitor_20260707.log`.
+
+At the launch verification, both Python workers were alive and loading/running; textfeat had entered seed 3 `kd_only`, and the monitor had recorded the first two samples. The next action is to monitor these two extra-seed runs to analyzer/readiness JSONs, then merge or compare seeds `0-5` before deciding whether to add context/on-policy controls or real-brain evaluation.
+
+**Status:** local comparator audit supports the narrow post-positive route, but no final E016 verdict, no brain-specific clearance, and no rung flip. Extra evidence is actively running.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
