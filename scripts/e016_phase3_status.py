@@ -164,7 +164,7 @@ def parse_training_progress(text: str) -> dict | None:
     }
 
 
-def add_active_eta(log: dict, processes: list[dict]) -> None:
+def add_active_eta(log: dict, processes: list[dict], train_cache: Path, heldout_cache: Path, run_script: Path) -> None:
     stage = log.get("active_cache_stage")
     if stage not in {"train", "heldout"}:
         return
@@ -174,7 +174,7 @@ def add_active_eta(log: dict, processes: list[dict]) -> None:
     fraction = float(progress.get("fraction") or 0.0)
     if fraction <= 0.0 or fraction >= 1.0:
         return
-    active_cache = TRAIN_CACHE if stage == "train" else HELDOUT_CACHE
+    active_cache = train_cache if stage == "train" else heldout_cache
     elapsed_options = [
         parse_etime_seconds(str(proc.get("elapsed", "")))
         for proc in processes
@@ -184,7 +184,7 @@ def add_active_eta(log: dict, processes: list[dict]) -> None:
         elapsed_options = [
             parse_etime_seconds(str(proc.get("elapsed", "")))
             for proc in processes
-            if str(RUN_SCRIPT) in str(proc.get("cmd", ""))
+            if str(run_script) in str(proc.get("cmd", ""))
         ]
     elapsed = max([value for value in elapsed_options if value is not None], default=None)
     if elapsed is None or elapsed <= 0:
@@ -202,7 +202,12 @@ def add_active_eta(log: dict, processes: list[dict]) -> None:
     progress["remaining_items_lower_bound"] = remaining
 
 
-def discover_processes() -> list[dict]:
+def discover_processes(
+    run_script: Path = RUN_SCRIPT,
+    train_cache: Path = TRAIN_CACHE,
+    heldout_cache: Path = HELDOUT_CACHE,
+    run_json: Path = RUN_JSON,
+) -> list[dict]:
     proc = subprocess.run(["ps", "-eo", "pid=,etime=,stat=,cmd="], check=False, text=True, capture_output=True)
     rows = []
     for line in proc.stdout.splitlines():
@@ -210,9 +215,9 @@ def discover_processes() -> list[dict]:
         if len(parts) != 4:
             continue
         pid, elapsed, stat, cmd = parts
-        is_parent = str(RUN_SCRIPT) in cmd
-        is_builder = "tribe_predict_kd_corpus.py" in cmd and (str(TRAIN_CACHE) in cmd or str(HELDOUT_CACHE) in cmd)
-        is_runner = "run_tribe_phase3.py" in cmd and str(RUN_JSON) in cmd
+        is_parent = str(run_script) in cmd
+        is_builder = "tribe_predict_kd_corpus.py" in cmd and (str(train_cache) in cmd or str(heldout_cache) in cmd)
+        is_runner = "run_tribe_phase3.py" in cmd and str(run_json) in cmd
         if is_parent or is_builder or is_runner:
             rows.append({"pid": int(pid), "elapsed": elapsed, "stat": stat, "cmd": cmd})
     return rows
@@ -368,6 +373,8 @@ def infer_phase(train: dict, heldout: dict, run: dict, analysis: dict, log: dict
         return "analysis_ready" if gate.get("science_ready") else "analysis_blocked_or_incomplete"
     if run.get("exists"):
         return "run_json_ready_no_analysis"
+    if any("run_tribe_phase3.py" in str(proc.get("cmd", "")) for proc in processes):
+        return "training_running_or_interrupted"
     markers = log.get("markers_seen") or []
     if "Running full GPT-2 Phase-3 arms" in markers:
         return "training_running_or_interrupted"
@@ -383,19 +390,31 @@ def infer_phase(train: dict, heldout: dict, run: dict, analysis: dict, log: dict
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--log", type=Path, default=DEFAULT_LOG)
+    ap.add_argument("--run-json", type=Path, default=RUN_JSON)
+    ap.add_argument("--analysis-json", type=Path, default=ANALYSIS_JSON)
+    ap.add_argument("--run-script", type=Path, default=RUN_SCRIPT)
+    ap.add_argument("--train-cache", type=Path, default=TRAIN_CACHE)
+    ap.add_argument("--heldout-cache", type=Path, default=HELDOUT_CACHE)
     ap.add_argument("--parent-pid", type=int)
     ap.add_argument("--builder-pid", type=int)
     ap.add_argument("--pretty", action="store_true")
     args = ap.parse_args()
 
-    train = file_rec(TRAIN_CACHE)
-    heldout = file_rec(HELDOUT_CACHE)
-    run = file_rec(RUN_JSON)
-    analysis = analysis_rec(ANALYSIS_JSON)
-    log = log_rec(args.log, TRAIN_EXPECTED)
+    train_cache = args.train_cache if args.train_cache.is_absolute() else ROOT / args.train_cache
+    heldout_cache = args.heldout_cache if args.heldout_cache.is_absolute() else ROOT / args.heldout_cache
+    run_json = args.run_json if args.run_json.is_absolute() else ROOT / args.run_json
+    analysis_json = args.analysis_json if args.analysis_json.is_absolute() else ROOT / args.analysis_json
+    run_script = args.run_script if args.run_script.is_absolute() else ROOT / args.run_script
+    log_path = args.log if args.log.is_absolute() else ROOT / args.log
+
+    train = file_rec(train_cache)
+    heldout = file_rec(heldout_cache)
+    run = file_rec(run_json)
+    analysis = analysis_rec(analysis_json)
+    log = log_rec(log_path, TRAIN_EXPECTED)
     explicit_pids = [pid for pid in [args.parent_pid, args.builder_pid] if pid is not None]
-    processes = ps_rec(explicit_pids) if explicit_pids else discover_processes()
-    add_active_eta(log, processes)
+    processes = ps_rec(explicit_pids) if explicit_pids else discover_processes(run_script, train_cache, heldout_cache, run_json)
+    add_active_eta(log, processes, train_cache, heldout_cache, run_script)
     gpu = gpu_rec()
     now = datetime.now(timezone.utc)
     payload = {

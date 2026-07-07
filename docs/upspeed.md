@@ -48,6 +48,8 @@ S82 postprocess automation: a detached audit watcher is active as PID `3843773`,
 
 S82 interpretation gate: [`e016-combined-tuckute-interpretation-gate-2026-07-07.md`](e016-combined-tuckute-interpretation-gate-2026-07-07.md) locks the postprocess acceptance checks and paper-route labels before the combined seed `0-5` Tuckute result exists. The gate requires complete seeds `[0,1,2,3,4,5]`, no missing artifacts, same endpoint/protocol, raw arithmetic agreement, and `all_checks_pass=true` before `/interpret`.
 
+S82 rerun-safe status helper: `scripts/e016_phase3_status.py` now accepts explicit `--run-json`, `--analysis-json`, `--run-script`, `--train-cache`, and `--heldout-cache` paths. Use the explicit rerun command in Key Facts, not the bare default command, when checking the active seed `0-2` rerun. The explicit rerun check at `2026-07-07T21:02:22Z` reported `phase="training_running_or_interrupted"`, `health.status="runner_alive_log_quiet"`, active arm `seed=0, arm=tribe_mse`, completed-arm count `1`, and no rerun JSON/analyzer JSON.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -74,6 +76,7 @@ S82 interpretation gate: [`e016-combined-tuckute-interpretation-gate-2026-07-07.
 - Added `scripts/e016_audit_tuckute_alignment.py` and regression-checked it against the recorded seed `3-5` Tuckute diagnostic; it recomputes raw-row Tuckute contrasts and checks row/protocol/arithmetic/PCA consistency before `/interpret`.
 - Launched a detached combined Tuckute audit watcher so the raw-row audit runs automatically after the combined analysis JSON appears.
 - Wrote the combined Tuckute interpretation gate so a future positive/nonpositive/mixed/failed-audit result routes to the correct paper burden without creating a premature claim.
+- Parameterized `scripts/e016_phase3_status.py` for explicit rerun monitoring; the default still reports the completed original full run, while the explicit rerun command correctly reports the live rerun.
 
 ## What To Do Next
 
@@ -123,6 +126,7 @@ S82 interpretation gate: [`e016-combined-tuckute-interpretation-gate-2026-07-07.
 - Active combined Tuckute analysis watcher: `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.pid`, PID `3836562`, log `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`.
 - Active combined Tuckute audit watcher: `outputs/E016_tribe/phase3/combined_tuckute_audit_watcher_20260707.pid`, PID `3843773`, log `outputs/E016_tribe/phase3/combined_tuckute_audit_watcher_20260707.log`.
 - Combined Tuckute interpretation gate: `docs/e016-combined-tuckute-interpretation-gate-2026-07-07.md`.
+- Rerun-safe status command: `uv run python scripts/e016_phase3_status.py --pretty --log outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.log --run-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json --analysis-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.analysis.json --run-script outputs/E016_tribe/phase3/run_rerun_tribe_s0-2_save_20260707.sh`.
 - Seed-aligned Tuckute analyzer: `uv run python scripts/e016_analyze_tuckute_alignment.py --tribe-alignment <tribe-s0-2.tuckute.json> --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json --textfeat-alignment outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json --expected-seeds 0,1,2,3,4,5 --min-seeds 6 --out outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json`.
 - Seed-aligned Tuckute audit: `uv run python scripts/e016_audit_tuckute_alignment.py --tribe-alignment <tribe-s0-2.tuckute.json> --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json --textfeat-alignment outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json --analysis-json outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json --expected-seeds 0,1,2,3,4,5 --min-seeds 6 --out outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.audit.json`.
 - Saved-student Tuckute evaluator: `uv run python scripts/e016_eval_saved_student_alignment.py --run-json <artifacted-run.json> --out <alignment.json> --reference-model gpt2-medium`.

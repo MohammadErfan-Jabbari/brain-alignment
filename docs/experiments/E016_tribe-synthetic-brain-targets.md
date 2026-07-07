@@ -1242,6 +1242,27 @@ The gate is deliberately narrower than a report: it only governs whether the com
 
 **Status:** interpretation handoff only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 56 - Status helper parameterized for rerun monitoring (2026-07-07)
+Hardened `scripts/e016_phase3_status.py` after a status check showed the default command reads the completed original full-run artifact rather than the active seed `0-2` rerun. The helper now accepts explicit `--run-json`, `--analysis-json`, `--run-script`, `--train-cache`, and `--heldout-cache` paths, and phase inference treats a discovered `run_tribe_phase3.py` process for the selected run JSON as `training_running_or_interrupted` before falling back to generic cache-ready states.
+
+Regression checks:
+
+- `uv run python -m py_compile scripts/e016_phase3_status.py scripts/e016_finalize_phase3.py scripts/e016_branch_decision.py scripts/e016_watch_finalize_phase3.py` passed.
+- Default command `uv run python scripts/e016_phase3_status.py --pretty` still reported the completed original full run as `phase="analysis_ready"` with the original full-run JSON/analyzer paths.
+- Explicit rerun command reported `phase="training_running_or_interrupted"`, `health.status="runner_alive_log_quiet"`, `run_json.exists=false`, `analysis_json.exists=false`, `process_count=2`, latest arm `seed=0, arm=tribe_mse`, and completed-arm count `1`.
+
+Correct rerun monitoring command:
+
+```bash
+uv run python scripts/e016_phase3_status.py --pretty \
+  --log outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.log \
+  --run-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json \
+  --analysis-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.analysis.json \
+  --run-script outputs/E016_tribe/phase3/run_rerun_tribe_s0-2_save_20260707.sh
+```
+
+**Status:** monitoring correctness only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
