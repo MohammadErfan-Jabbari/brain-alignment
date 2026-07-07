@@ -1276,6 +1276,32 @@ Latest rich snapshot at `2026-07-07T21:10:23.298803+00:00` reported `phase="trai
 
 **Status:** monitoring utility only; rerun training is active and advancing, but there is no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 58 - Rerun Tuckute scorer watcher launched (2026-07-07)
+Closed the postprocess automation gap between the active TRIBE seed `0-2` artifact-saving rerun and the already-running combined Tuckute analyzer watcher. The combined analyzer watcher waits for `phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json`, but that file is produced by `scripts/e016_eval_saved_student_alignment.py`, not by `scripts/run_tribe_phase3.py` itself.
+
+Launched a detached scorer watcher:
+
+- PID file: `outputs/E016_tribe/phase3/rerun_tuckute_eval_watcher_20260707.pid`
+- watcher PID: `3851658`
+- log: `outputs/E016_tribe/phase3/rerun_tuckute_eval_watcher_20260707.log`
+- waits for: `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`
+- writes: `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json`
+
+The watcher waits for the rerun JSON, then waits until the selected `run_tribe_phase3.py` process exits, sleeps briefly, and runs:
+
+```bash
+HF_HOME=/home/centcom/data/hf-cache CUDA_VISIBLE_DEVICES=1 \
+uv run python scripts/e016_eval_saved_student_alignment.py \
+  --run-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json \
+  --out outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json \
+  --reference-model gpt2-medium \
+  --require-artifacts
+```
+
+Verification at launch: the watcher reparented to PID 1 and wrote `[2026-07-07T21:13:53Z] waiting for rerun JSON ...`. The rerun was still active, with no rerun JSON or rerun Tuckute JSON yet.
+
+**Status:** postprocess automation only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
