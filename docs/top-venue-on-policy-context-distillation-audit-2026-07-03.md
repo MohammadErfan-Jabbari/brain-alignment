@@ -18,6 +18,8 @@ On-policy/context/self-distillation for LLMs is now a fast-moving adjacent field
 
 **2026-07-07 Firecrawl update.** A fresh Firecrawl Research pass added a sharper failure-mode lesson: recent OPD/OPSD work no longer treats privileged information as simply helpful side information. It now foregrounds leakage, shortcut transfer, teacher-student mismatch, overbroad all-token KL, and degradation when the privileged teacher sees information the deployment student will not see. This makes the active real-brain-transfer gate more valuable: E016 is not only asking whether a neural target can move a synthetic endpoint, but whether that privileged target transfers beyond the training proxy.
 
+**2026-07-07 hidden-state update.** A second Firecrawl Research pass found that OPD/OPSD is also moving into representation-space supervision. OPRD distills teacher hidden states on on-policy rollouts, and PHF distills privileged hidden-state transitions rather than only output distributions. This means a positive E016 branch cannot claim novelty for dense hidden targets; it can only claim whatever survives the brain-derived target, matched-control, and real-brain-transfer gates.
+
 That distinction changes only the positive branch. If E016 is null, the paper can still argue that dense synthetic neural targets failed under fixed-budget KD after the local target/statistics confounds were controlled. If E016 is positive and later beats `textfeat`, the paper must still choose one of three honest paths before a top-tier brain-specific claim:
 
 1. add a long-context or on-policy non-brain control,
@@ -43,6 +45,8 @@ Starting a long-context/on-policy control before E016 and `textfeat` justify it 
 | [Hübotter et al., 2026, "Reinforcement Learning via Self-Distillation"](https://arxiv.org/abs/2601.20802) | SDPO converts rich textual feedback into dense self-distillation signals without an external teacher or reward model. | Dense feedback and token-level self-teaching are crowded ideas. | Feedback is environment/textual, not neural, and the objective is RLVR rather than smaller-student compression. |
 | [Ding, 2026, "HDPO"](https://arxiv.org/abs/2603.23871) | Privileged ground-truth-conditioned rollouts can rescue prompts where standard RL gradients vanish. | Privileged self-distillation is becoming a recognizable post-training pattern. | It is same-model reasoning RL, not fixed-budget cross-model KD with biological controls. |
 | [Ye et al., 2026, "Online Experiential Learning"](https://arxiv.org/abs/2603.16856) | Deployment trajectories can be converted into experiential knowledge and consolidated through on-policy context distillation. | "Experience/context can be internalized into parameters" is already an active claim family. | It does not test neural targets or the matched-information biological specificity question. |
+| [Yang et al., 2026, "OPRD"](https://arxiv.org/abs/2606.06021) | On-policy representation distillation aligns student and teacher hidden states instead of only token distributions, and adds a bridge for cross-architecture/cross-tokenizer transfer. | Hidden-state distillation is now an explicit OPD baseline family; `textfeat` is only a sentence-local frozen-teacher version, not a full on-policy OPRD control. | OPRD uses model teacher hidden states, not fMRI/cognitive targets, and does not ask whether biological targets transfer beyond matched non-brain targets. |
+| [Li et al., 2026, "PHF"](https://arxiv.org/abs/2606.29340) | Privileged Hidden Flow distills hidden-state transition directions and trajectory geometry from a privileged OPSD teacher conditioned on reference solutions. | A reviewer can ask whether E016's dense target is just a weaker hidden-process target and whether pointwise/transition geometry matters. | PHF is same-model privileged reasoning distillation, not fixed-budget off-policy text KD with brain-derived or real-brain-transfer controls. |
 
 ## Control interpretation
 
@@ -52,6 +56,7 @@ It does not answer these distinct objections:
 
 - maybe a long-context teacher would transfer discourse information better than a sentence-local target,
 - maybe an on-policy context-conditioned teacher would work because it supervises the student's own trajectories,
+- maybe an on-policy hidden-state or hidden-flow teacher would be the stronger non-brain representation-space comparator,
 - maybe the synthetic target is useful only because it encodes text-derived context rather than brain-like structure,
 - maybe a real-brain evaluation is needed because synthetic-target fit does not guarantee biological utility.
 

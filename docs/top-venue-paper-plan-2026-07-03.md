@@ -38,7 +38,7 @@ Current route as of 2026-07-07: the full TRIBE artifact passed the analyzer/read
 
 Claim-scope decision as of 2026-07-07: run a bounded real-brain robustness rerun before narrowing. The rerun is only the missing TRIBE seed `0-2` artifact-saving run, because textfeat seed `0-5` artifacts already exist. If the resulting seed `0-5` Tuckute diagnostic remains nonpositive or mixed, the paper route narrows to a synthetic-target/control contribution.
 
-Literature pressure update as of 2026-07-07 22:06 UTC: newer PI/on-policy self-distillation papers now explicitly treat privileged-context degradation and privileged-information leakage as live failure modes. This does not occupy the brain-derived KD cell, but it changes the rhetoric of the narrow branch. A negative or mixed E016 real-brain-transfer result should be positioned as a controlled test of whether a privileged neural target transfers, rather than as a generic brain-KD failure. A positive result must answer the leakage/shortcut objection in addition to the textfeat/permuted-control objection.
+Literature pressure update as of 2026-07-07 22:20 UTC: newer PI/on-policy self-distillation papers now explicitly treat privileged-context degradation and privileged-information leakage as live failure modes, while OPRD and PHF make hidden-state/hidden-flow distillation active non-brain baseline families. This does not occupy the brain-derived KD cell, but it changes the rhetoric of the narrow branch. A negative or mixed E016 real-brain-transfer result should be positioned as a controlled test of whether a privileged neural target transfers, rather than as a generic brain-KD failure. A positive result must answer the leakage/shortcut objection and must not rely on novelty of representation-level distillation; it needs the textfeat/permuted controls plus real-brain transfer, and likely a stronger on-policy hidden-state/hidden-flow comparator before a top-tier brain-specific claim.
 
 ## Experiment matrix
 
@@ -93,6 +93,7 @@ For a positive paper, the paired effect must be inspected seed-by-seed. With onl
 - Do not claim first brain-guided LLM improvement.
 - Do not claim first brain data beyond stimulus text.
 - Do not claim first privileged-information distillation for language models.
+- Do not claim first hidden-state, representation-space, or hidden-process distillation for language models.
 - Do not claim first training-only privileged information improvement for smaller language models.
 - Do not claim first context/self-distillation, dense-feedback distillation, or gaze/cognitive supervision for modern LMs/VLMs.
 - Do not assume a privileged training signal transfers cleanly to the unprivileged student; recent PI/on-policy distillation work treats leakage, shortcut learning, and degraded transfer as expected failure modes.

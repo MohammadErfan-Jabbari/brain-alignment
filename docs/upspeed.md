@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S88 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; combined Tuckute gate-status helper added; latest live check shows 4/9 arms completed and seed1 `tribe_mse` active; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S89 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; Firecrawl hidden-state distillation pressure refresh added; latest live check shows 4/9 arms completed and seed1 `tribe_mse` active; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -66,6 +66,8 @@ S87 on-policy/context audit refresh: [`top-venue-on-policy-context-distillation-
 
 S88 combined Tuckute gate-status helper: `scripts/e016_tuckute_gate_status.py` now provides a one-shot read-only status for the combined seed `0-5` real-brain transfer gate. Current output is `phase="waiting_for_rerun_run_json"`, `ready_for_interpret=false`, `runner_process_count=2`, missing `run_json`, `rerun_tuckute`, `analysis_json`, and `audit_json`. It compiles, renders Markdown, and exits `1` with `--fail-if-not-ready` in the current not-ready state.
 
+S89 hidden-state distillation pressure refresh: Firecrawl Research checked the closest new literature around brain-guided LLM training and representation-space distillation while the rerun remained active. `arxiv:2606.11893` closes broad "first brain-guided LLM improvement" framing through task-fMRI neural activation guided representation fine-tuning for reasoning. `arxiv:2606.06021` (OPRD) and `arxiv:2606.29340` (PHF) close novelty for hidden-state/hidden-flow distillation itself. The paper route is unchanged but narrower: E016 can only claim a brain-derived privileged-target KD result or controlled transfer-failure result if the matched-control and real-brain-transfer gates support it.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -98,6 +100,7 @@ S88 combined Tuckute gate-status helper: `scripts/e016_tuckute_gate_status.py` n
 - Rehearsed the completed seed `3-5` Tuckute analyzer/audit path and confirmed the parser, row-grid, protocol, and arithmetic checks are ready for the combined seed `0-5` postprocess once the rerun Tuckute JSON appears.
 - Added a limited primary-source literature pressure check to the 2026-07-07 top-venue refresh; no paper route changed.
 - Added a combined Tuckute gate-status helper so the final real-brain transfer handoff has a single readiness command.
+- Added a Firecrawl hidden-state distillation pressure refresh covering NARF, OPRD, PHF, and the original BERT brain-tuning precursor; no paper route changed, but the must-not-claim list tightened.
 
 ## What To Do Next
 

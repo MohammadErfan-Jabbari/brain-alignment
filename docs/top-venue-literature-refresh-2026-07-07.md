@@ -96,6 +96,19 @@ Brain-alignment control pressure:
 
 Net update: the open cell is still not occupied, but its best framing shifts slightly. The negative/mixed E016 branch should be written, if it holds, as a **privileged-target transfer failure under strict controls**, not just as a brain-KD null. The positive branch, if reopened by the active real-brain rerun, must show not only TRIBE greater than textfeat on the synthetic endpoint but also that the privileged brain-derived target does not behave like the leakage/shortcut failure mode now foregrounded in the July PI-distillation literature.
 
+## Firecrawl Research Follow-Up, 2026-07-07 22:20 UTC
+
+A second focused Firecrawl Research pass checked the newer hidden-state/representation-distillation frontier against the brain-derived target cell. This matters because E016 uses a dense middle-layer target; novelty cannot rest on "hidden representations are better distillation targets" if the distillation literature already owns that move.
+
+New close pressure:
+
+- [Beyond representational alignment with brain-guided language models for robust reasoning](https://arxiv.org/abs/2606.11893) is now the closest brain-guided LLM training neighbor. It uses task-fMRI from deductive reasoning to derive neural activation guided representation intervention/fine-tuning, including mid-layer attention-module LoRA and a combined CE plus neural-similarity objective. It closes any broad "first brain-guided LLM improvement" framing. It does not test fixed-budget smaller-student KD, matched non-brain teacher-feature targets, or real-brain transfer after synthetic target training.
+- [OPRD: On-Policy Representation Distillation](https://arxiv.org/abs/2606.06021) moves OPD supervision from output distributions into hidden-state MSE on student rollouts, with a cross-architecture bridge. It makes "representation-level distillation" a crowded algorithmic claim and names cross-modal distillation as future work. It does not use brain/fMRI/cognitive targets.
+- [PHF: Privileged Hidden Flow for On-Policy Self-Distillation](https://arxiv.org/abs/2606.29340) adds privileged hidden-transition/trajectory-geometry supervision to OPSD. It strengthens the point that hidden-process targets are active in privileged distillation. It still uses model-internal privileged teachers conditioned on reference solutions, not external neural measurements.
+- Re-reading [Inducing brain-relevant bias in natural language processing models](https://arxiv.org/abs/1911.03268) confirms that brain-supervised BERT fine-tuning has been known since 2019, including MEG/fMRI prediction heads and downstream NLP non-degradation checks. This remains a precursor, not a fixed-budget generative-LM KD result.
+
+Net update: the open cell narrows again. A positive E016 route must be framed as **brain-derived privileged targets under controlled fixed-student KD**, not as hidden-state distillation, representation distillation, or brain-guided LLM improvement in general. A negative/mixed route becomes cleaner: it can say that a synthetic brain target can look strong against sentence-local hidden-state controls on the training proxy yet fail the real-brain transfer gate, under a protocol designed precisely because hidden-state and privileged-distillation baselines are now strong.
+
 ## Related
 
 - [`top-venue-claim-scope-review-2026-07-07.md`](top-venue-claim-scope-review-2026-07-07.md)
