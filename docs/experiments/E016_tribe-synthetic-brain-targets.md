@@ -1176,6 +1176,37 @@ uv run python scripts/e016_analyze_tuckute_alignment.py \
 
 **Status:** analysis infrastructure only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 53 - Reusable Tuckute audit helper added for the combined handoff (2026-07-07)
+Added `scripts/e016_audit_tuckute_alignment.py`, a local raw-row audit helper for the saved-student Tuckute analysis. It reads the TRIBE/textfeat Tuckute alignment JSONs plus the paired analysis JSON, recomputes the complete-seed grid, primary real-brain contrasts, by-arm summaries, and PCA-robustness summaries, then checks the analysis JSON for row/protocol/arithmetic/PCA consistency. It routes only to `/interpret` handoff labels; it is not an independent evaluator, verdict engine, or rung-flip mechanism.
+
+Regression check against the already-recorded seed `3-5` diagnostic:
+
+```bash
+uv run python scripts/e016_audit_tuckute_alignment.py \
+  --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json \
+  --textfeat-alignment outputs/E016_tribe/phase3/phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json \
+  --analysis-json outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment_analysis.json \
+  --expected-seeds 3,4,5 \
+  --out outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment.audit_script_check.json
+```
+
+The audit wrote `all_checks_pass=true`, `route="real_brain_warning_needs_claim_scope_review"`, `complete_seeds=[3,4,5]`, and matched the load-bearing means from the S81 diagnostic: TRIBE-minus-textfeat gain versus KD-only `-0.000861728910529826`, and versus permuted-control gains `-0.0007842046600033294`. `uv run python -m py_compile scripts/e016_audit_tuckute_alignment.py scripts/e016_analyze_tuckute_alignment.py scripts/e016_eval_saved_student_alignment.py` passed.
+
+Intended post-rerun audit command after the combined seed `0-5` Tuckute analysis exists:
+
+```bash
+uv run python scripts/e016_audit_tuckute_alignment.py \
+  --tribe-alignment outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json \
+  --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json \
+  --textfeat-alignment outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json \
+  --analysis-json outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json \
+  --expected-seeds 0,1,2,3,4,5 \
+  --min-seeds 6 \
+  --out outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.audit.json
+```
+
+**Status:** audit infrastructure only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

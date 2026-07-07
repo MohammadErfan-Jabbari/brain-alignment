@@ -42,6 +42,8 @@ S82 launch status: the first detached rerun launch exited before reaching Python
 
 The textfeat seed `0-5` saved-student Tuckute scoring completed at `2026-07-07T20:12:13Z`, writing `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json` with 18/18 artifact rows scored and 0 missing/unusable rows. A 5-minute local monitor is active as PID `3827101`; latest status is written to `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md`. A postprocess watcher is active as PID `3836562`, with PID/log files `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.pid` and `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`; once the rerun Tuckute JSON appears it will run the seed `0-5` Tuckute analyzer automatically. No TRIBE rerun result JSON exists yet.
 
+S82 audit tooling: `scripts/e016_audit_tuckute_alignment.py` now provides a reusable raw-row audit for the paired Tuckute analysis. It regression-passed against the saved seed `3-5` diagnostic with `all_checks_pass=true`, route `real_brain_warning_needs_claim_scope_review`, complete seeds `[3,4,5]`, TRIBE-minus-textfeat gain versus KD-only `-0.000861728910529826`, and versus permuted-control gains `-0.0007842046600033294`. After the combined seed `0-5` Tuckute analysis exists, run it on the rerun seed `0-2` TRIBE alignment plus existing seed `3-5` TRIBE alignment and completed seed `0-5` textfeat alignment.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -65,6 +67,7 @@ The textfeat seed `0-5` saved-student Tuckute scoring completed at `2026-07-07T2
 - Restarted/continued textfeat seed `0-5` Tuckute scoring, which completed cleanly with 18/18 artifact rows scored, and started the 5-minute local monitor.
 - Added `scripts/e016_analyze_tuckute_alignment.py` and regression-checked it against the recorded seed `3-5` Tuckute analysis; it reproduces the load-bearing contrasts and PCA robustness means.
 - Confirmed the rerun saved its first arm artifact and launched a detached postprocess watcher to run the combined seed `0-5` Tuckute analyzer after the rerun Tuckute output appears.
+- Added `scripts/e016_audit_tuckute_alignment.py` and regression-checked it against the recorded seed `3-5` Tuckute diagnostic; it recomputes raw-row Tuckute contrasts and checks row/protocol/arithmetic/PCA consistency before `/interpret`.
 
 ## What To Do Next
 
@@ -112,6 +115,7 @@ The textfeat seed `0-5` saved-student Tuckute scoring completed at `2026-07-07T2
 - Completed textfeat seed `0-5` Tuckute output: `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json` (18/18 artifact rows scored, 0 missing/unusable).
 - Active rerun monitor: `outputs/E016_tribe/phase3/monitor_rerun_realbrain_20260707.sh`, PID `3827101`, latest status `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md`.
 - Seed-aligned Tuckute analyzer: `uv run python scripts/e016_analyze_tuckute_alignment.py --tribe-alignment <tribe-s0-2.tuckute.json> --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json --textfeat-alignment outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json --expected-seeds 0,1,2,3,4,5 --min-seeds 6 --out outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json`.
+- Seed-aligned Tuckute audit: `uv run python scripts/e016_audit_tuckute_alignment.py --tribe-alignment <tribe-s0-2.tuckute.json> --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json --textfeat-alignment outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json --analysis-json outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json --expected-seeds 0,1,2,3,4,5 --min-seeds 6 --out outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.audit.json`.
 - Saved-student Tuckute evaluator: `uv run python scripts/e016_eval_saved_student_alignment.py --run-json <artifacted-run.json> --out <alignment.json> --reference-model gpt2-medium`.
 - Guarded finalizer command: `uv run python scripts/e016_finalize_phase3.py`.
 - Watch-finalize command: `uv run python scripts/e016_watch_finalize_phase3.py --watch --interval-s 300`.
