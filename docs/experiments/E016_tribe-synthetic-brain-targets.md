@@ -1413,6 +1413,24 @@ Verification:
 
 **Status:** monitoring/handoff utility only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 66 - Rerun progressed to seed2 KD arm (2026-07-07)
+Ran a bounded 5-minute gate watch with `uv run scripts/e016_tuckute_gate_status.py --pretty` as the underlying status source. The first five checks stayed at completed arms `5/9` with active arm `seed=1 arm=tribe_perm lambda=0.1`; the final check showed fresh log movement.
+
+The follow-up gate status at `2026-07-07T23:07:49Z` reported:
+
+- `phase="waiting_for_rerun_run_json"`;
+- `ready_for_interpret=false`;
+- `health="runner_alive_log_recent"`;
+- completed arms `6/9`;
+- latest completed arm `seed=1 arm=tribe_perm lambda=0.1`, `ppl=99.333`, `target_r2=0.5971`;
+- active arm `seed=2 arm=kd_only lambda=0.0`;
+- rerun JSON, rerun Tuckute JSON, combined Tuckute analysis JSON, and combined Tuckute audit JSON still absent;
+- all selected watcher groups still alive.
+
+The new saved artifact directory is `outputs/E016_tribe/phase3/model_artifacts/tribe_gpt2_n95999_s0-2_lam0.1_rerun/seed1_tribe_perm_lambda0p1`.
+
+**Status:** partial-arm progress only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

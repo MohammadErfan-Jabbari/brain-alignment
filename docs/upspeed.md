@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S95 - `/goal` continuation: E016 rerun still running at 5/9 arms with seed1 `tribe_perm` active; combined Tuckute gate helper now reports gate readiness, rerun progress/ETA, and postprocess watcher health in one command; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S96 - `/goal` continuation: E016 rerun advanced to 6/9 arms and entered seed2 `kd_only`; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -80,6 +80,8 @@ S94 gate helper watcher-health hardening: `scripts/e016_tuckute_gate_status.py` 
 
 S95 one-command gate/progress status: `scripts/e016_tuckute_gate_status.py` now embeds a compact read-only rerun progress summary from `scripts/e016_phase3_status.py`. `uv run scripts/e016_tuckute_gate_status.py --markdown` reports gate phase, missing required artifacts, active arm, completed arms, latest completed arm, rough ETA, max node-level GPU utilization, and watcher process counts in one page. Latest check still reported `phase="waiting_for_rerun_run_json"`, `ready_for_interpret=false`, completed arms `5/9`, active `seed=1 arm=tribe_perm lambda=0.1`, all watcher groups alive, and missing `run_json`, `rerun_tuckute`, `analysis_json`, and `audit_json`. Monitoring only; no result.
 
+S96 rerun progress: a bounded 5-minute gate watch observed the sixth saved model artifact land. The latest gate status at `2026-07-07T23:07:49Z` reported `phase="waiting_for_rerun_run_json"`, `ready_for_interpret=false`, completed arms `6/9`, latest completed partial diagnostic `seed=1 arm=tribe_perm lambda=0.1 ppl=99.333 target_r2=0.5971`, active arm `seed=2 arm=kd_only lambda=0.0`, all selected watcher groups alive, and missing `run_json`, `rerun_tuckute`, `analysis_json`, and `audit_json`. Partial-arm progress only; no result.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -119,6 +121,7 @@ S95 one-command gate/progress status: `scripts/e016_tuckute_gate_status.py` now 
 - Ran a focused Firecrawl Research positive-branch pressure refresh over privileged OPD/internalization papers and updated the on-policy/context audit, literature refresh, and representation-control feasibility memo.
 - Hardened the combined Tuckute gate-status helper so a single command reports both gate readiness and the waiting postprocess watcher chain.
 - Folded rerun progress and rough ETA into the combined Tuckute gate-status helper, making it the one-command status check while the rerun trains.
+- Ran a bounded gate watch and observed the active rerun advance from `5/9` to `6/9` arms.
 
 ## What To Do Next
 
