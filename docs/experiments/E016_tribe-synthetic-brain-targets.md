@@ -1031,6 +1031,37 @@ Interpretation boundary: the 6-seed evidence supports that TRIBE survives the pr
 
 **Status:** stronger post-positive evidence, not a final E016 verdict, not brain-specific clearance, and not a rung flip.
 
+### Step 47 - Saved seed `3-5` real-brain/Tuckute diagnostic completed (2026-07-07)
+The real-brain follow-up burden from Step 46 was executed on the artifacted extra-seed students, using the prepared Tuckute saved-student evaluator. The design was deliberately diagnostic: score the aligned seed `3,4,5` TRIBE and textfeat students on the real Tuckute endpoint with the contiguous 5-fold nuisance-subtracted protocol, then compare seed-aligned unique-R2 deltas against KD-only and permuted controls. This is not a verdict engine and does not flip a rung.
+
+Artifacts:
+
+- TRIBE Tuckute alignment: `outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json`
+- textfeat Tuckute alignment: `outputs/E016_tribe/phase3/phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json`
+- paired real-brain analysis: `outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment_analysis.json`
+
+Run status: both branches scored all 9 saved artifacts with no missing artifact rows. The endpoint used Tuckute condition `B`, target `subrois`, `n=1000` items, target shape `[1000, 5]`, verdict layer `7`, `n_pca=50`, and PCA robustness checks at `25,50,100`.
+
+By-arm real-brain verdict unique-R2 means:
+
+- TRIBE branch: KD-only `0.010581`; TRIBE target `0.009845`; TRIBE permuted `0.011562`.
+- textfeat branch: KD-only `0.010581`; textfeat target `0.010707`; textfeat permuted `0.011640`.
+
+Seed-aligned real-brain contrasts:
+
+- TRIBE target versus KD-only: mean `-0.000735`, seed values `[-0.002065, -0.000638, +0.000498]`.
+- TRIBE target versus TRIBE permuted: mean `-0.001717`, seed values `[-0.002131, -0.001670, -0.001348]`, all negative, sign-flip `p=0.25`.
+- textfeat target versus KD-only: mean `+0.000127`, seed values `[+0.000049, -0.000449, +0.000780]`.
+- textfeat target versus textfeat permuted: mean `-0.000932`, seed values `[-0.000031, -0.001288, -0.001478]`, all negative, sign-flip `p=0.25`.
+- TRIBE-minus-textfeat gain versus KD-only: mean `-0.000862`, seed values `[-0.002114, -0.000189, -0.000282]`, all negative, sign-flip `p=0.25`.
+- TRIBE-minus-textfeat gain versus permuted-control gains: mean `-0.000784`, seed values `[-0.002100, -0.000382, +0.000130]`.
+
+PCA robustness did not rescue the real-brain branch. TRIBE-minus-textfeat gain versus KD-only stayed negative at PCA `25`, `50`, and `100`: `-0.000347`, `-0.000862`, `-0.000741`. TRIBE-minus-textfeat gain versus permuted-control gains also stayed negative: `-0.001025`, `-0.000784`, `-0.001059`.
+
+Interpretation boundary: this is post-hoc, only seed `3-5`, ROI-level Tuckute, and original TRIBE seed `0-2` students were not saved. So this is not a final E016 verdict. But as a diagnostic it is a serious warning for the brain-specific positive branch: the synthetic target-R2 advantage over textfeat did not transfer to the real Tuckute alignment endpoint for the saved students. The next step should be `/interpret`/code/stat review of the diagnostic before choosing between a narrowed synthetic-target/control paper, a predeclared rerun/robustness real-brain check, or a stronger non-brain control.
+
+**Status:** real-brain diagnostic warning recorded; no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

@@ -24,14 +24,23 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 > results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
 > of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
+### S81 `/goal` continuation - saved-student real-brain diagnostic completed (2026-07-07)
+
+- [x] **Chose the next burden deliberately.** Real-brain evaluation on saved seed `3-5` artifacts was selected after the six-seed synthetic comparator held.
+- [x] **Verified artifact readiness.** Extra TRIBE and textfeat run JSONs each had all 9 seed/arm saved model artifacts for seeds `3,4,5`.
+- [x] **Ran full Tuckute saved-student scoring.** `phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json` and `phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json` scored all 18 artifacts with no missing rows.
+- [x] **Computed paired real-brain contrasts.** `phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment_analysis.json` shows TRIBE-minus-textfeat gain versus KD-only `-0.000862` and versus permuted-control gains `-0.000784`.
+- [ ] **Run `/interpret`/code/stat review before any claim.** This diagnostic is a warning, not a final E016 verdict or rung flip.
+- [ ] **Choose the next paper route.** Decide between narrowed synthetic-target/control paper, predeclared real-brain robustness/rerun, or a stronger non-brain control with the Tuckute warning kept explicit.
+
 ### S80 `/goal` continuation - combined six-seed comparator held (2026-07-07)
 
 - [x] **Merged original and extra seed artifacts.** `phase3_combined_tribe_gpt2_n95999_s0-5_lam0.1.json` and `phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.json` contain complete 18-row grids for seeds `0-5`.
 - [x] **Combined analyzers/readiness packets are science-ready.** Both combined analyzers have `science_ready=true`, complete grids, matched PPL, full scale, and heldout target metrics.
 - [x] **Combined comparator run.** `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_comparison.json` routes to `tribe_stronger_than_textfeat_needs_review`.
 - [x] **Independent raw-row audit passed.** `phase3_combined_tribe_vs_textfeat_s0-5_comparison.interpret_audit.json` shows all six TRIBE-minus-textfeat margins positive: `+0.077395` versus KD-only and `+0.072531` versus permuted-control gains, sign-flip `p=0.03125`, max relative PPL delta `0.009220`.
-- [ ] **Choose the next burden deliberately.** Decide between real-brain evaluation on saved seed `3-5` artifacts, stronger context/on-policy non-brain control, or narrowed synthetic-target claim.
-- [ ] **Do not flip a rung or claim brain-specific clearance from synthetic target-R2 alone.**
+- [x] **Choose the next burden deliberately.** Resolved in S81: real-brain evaluation on saved seed `3-5` artifacts was run.
+- [x] **Do not flip a rung or claim brain-specific clearance from synthetic target-R2 alone.** Resolved in S81 for this step: the Tuckute diagnostic was recorded as a warning, not a verdict.
 
 ### S79 `/goal` continuation - comparator audit held; extra seeds running (2026-07-07)
 
