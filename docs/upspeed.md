@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S86 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; Firecrawl Research follow-up found July 2026 PI/on-policy distillation leakage and degradation pressure; latest live check shows 4/9 arms completed and seed1 `tribe_mse` active; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S87 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; on-policy/context audit refreshed with PI leakage/degradation pressure; latest live check shows 4/9 arms completed and seed1 `tribe_mse` active; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -61,6 +61,8 @@ S84 postprocess pre-audit: while the rerun remained active, the waiting Tuckute 
 S85 literature pressure check: Firecrawl Research semantic search remained unavailable in this Codex surface, so a small primary-source web fallback checked AAAI/NeurIPS/arXiv pressure while the rerun trains. [`top-venue-literature-refresh-2026-07-07.md`](top-venue-literature-refresh-2026-07-07.md) now records that AAAI-26 includes a sentence-level LLM/fMRI alignment paper, reinforcing that brain-alignment-as-evaluation is crowded. The open cell remains unchanged: training-time brain/cognitive privileged-target KD under matched non-brain controls and real-brain transfer.
 
 S86 Firecrawl Research follow-up: Firecrawl Research became available in this Codex surface. A focused semantic search and related-paper expansion found July 2026 PI/on-policy distillation papers that make privileged-context degradation and privileged-information leakage active concerns. This does not occupy the brain-derived KD cell, but it strengthens the paper framing: if the active E016 real-brain rerun stays nonpositive or mixed, the likely route is a controlled privileged-target transfer-failure paper, not a generic "brain KD did not work" story.
+
+S87 on-policy/context audit refresh: [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md) now records the closest failure-mode neighbors: TRACE, Many Faces of OPD, AVSD, DemoPSD, and Rethinking OPSD for Thinking Models. The updated burden is explicit: the positive branch must address leakage/shortcut transfer, while the negative/mixed branch can be framed as a privileged-target transfer test under strict controls.
 
 ## What Was Done
 
