@@ -12,7 +12,9 @@ aliases: [ladder, status-board]
 
 > **Latest close:** 2026-07-07 (S81 - `/goal` continuation: saved seed `3-5` real-brain/Tuckute diagnostic completed. The six-seed synthetic target-R2 branch still stands, but the Tuckute diagnostic is a warning against a brain-specific positive claim. No final verdict, no brain-specific clearance, no rung change; Q0-Q5 stand.)
 
-**Last updated:** 2026-07-07 (S81 - `/goal` continuation: saved-student real-brain diagnostic held as warning. **NO final experiment verdict, NO brain-specific clearance, NO rung change - Q0-Q5 stand.**) - prior close chain begins below.
+> **Current active state:** 2026-07-07 (S82 - `/goal` continuation: bounded TRIBE seed `0-2` artifact-saving rerun is live, textfeat seed `0-5` Tuckute scoring is complete, and a 5-minute local monitor is writing status. No aligned six-seed real-brain result yet; no final verdict, no brain-specific clearance, no rung change; Q0-Q5 stand.)
+
+**Last updated:** 2026-07-07 (S82 - `/goal` continuation: rerun and monitor launched after predeclaration. **NO final experiment verdict, NO brain-specific clearance, NO rung change - Q0-Q5 stand.**) - prior close chain begins below.
 
 **Previous close:** 2026-07-07 (S80 - `/goal` continuation: extra seeds completed, combined seed `0-5` TRIBE-vs-textfeat comparator/audit held, and the narrow post-positive signal survived with all six margins positive. This is still synthetic-target evidence only; no final verdict, no brain-specific clearance, no rung change; Q0-Q5 stand.)
 
@@ -132,6 +134,16 @@ Legend: ✅ done · 🟡 partial / in progress · 🔵 next (designed) · ❌ te
 
 ## Next session (what `/orient` surfaces)
 
+> **S82 ACTIVE -> bounded six-seed real-brain robustness rerun launched (2026-07-07).** The claim-scope review chose
+> the smallest remaining real-brain check before narrowing the paper: rerun only missing TRIBE seed `0,1,2` with
+> saved artifacts, because textfeat seed `0-5` artifacts already exist. The stable launch uses `setsid`; TRIBE rerun
+> PID `3827100` has Python child `3827120` on GPU 1 and had entered `seed=0 arm=kd_only` at the stability check.
+> Textfeat seed `0-5` Tuckute scoring completed at `2026-07-07T20:12:13Z`, scoring 18/18 artifact rows with 0
+> missing/unusable rows. The 5-minute monitor PID `3827101` writes
+> `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md`. **NO aligned six-seed real-brain artifact
+> yet, NO final experiment verdict, NO brain-specific clearance, and NO rung change.** NEXT = monitor until the TRIBE
+> rerun/Tuckute artifacts finish, then compute the aligned seed `0-5` real-brain diagnostic.
+>
 > **S81 DONE -> saved-student real-brain diagnostic held as warning (2026-07-07).** The saved seed `3,4,5`
 > TRIBE and textfeat students were scored on Tuckute with the prepared contiguous 5-fold nuisance-subtracted protocol.
 > Both alignment outputs scored all 9 artifacts with no missing rows. The paired analysis

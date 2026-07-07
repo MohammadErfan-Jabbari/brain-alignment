@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S81 - `/goal` continuation: saved seed `3-5` real-brain/Tuckute diagnostic completed; warning against brain-specific positive claim; no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S82 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun launched with `setsid`; textfeat seed `0-5` Tuckute scoring complete; 5-minute monitor active; no aligned six-seed result, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -36,6 +36,10 @@ No final experiment verdict was adjudicated, no brain-specific claim was made, a
 
 S82 claim-scope decision: run the bounded real-brain robustness rerun before narrowing the paper. The selected rerun is only missing TRIBE seed `0-2` with artifact saving, because textfeat seed `0-5` artifacts already exist. If the resulting seed `0-5` Tuckute diagnostic stays nonpositive or mixed, narrow to a synthetic-target/control paper.
 
+S82 launch status: the first detached rerun launch exited before reaching Python, so the stable launch uses `setsid`. TRIBE seed `0-2` artifact-saving rerun is active as PID `3827100` with Python child `3827120` on GPU 1, log `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.log`, and target run JSON `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`. At the stability check it had entered `seed=0 arm=kd_only`.
+
+The textfeat seed `0-5` saved-student Tuckute scoring completed at `2026-07-07T20:12:13Z`, writing `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json` with 18/18 artifact rows scored and 0 missing/unusable rows. A 5-minute local monitor is active as PID `3827101`; latest status is written to `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md`. No TRIBE rerun result artifact exists yet.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -53,13 +57,17 @@ S82 claim-scope decision: run the bounded real-brain robustness rerun before nar
 - Chose the real-brain diagnostic burden, smoke-tested one saved artifact, scored saved seed `3-5` TRIBE/textfeat students on Tuckute, and wrote the paired real-brain analysis.
 - Recomputed the real-brain diagnostic from raw alignment rows in a local `/interpret` audit and routed it to claim-scope review.
 - Reviewed the Tuckute evaluator code path against E003 scoring helpers; no immediate implementation blocker found.
+- Selected and predeclared the bounded seed `0-2` TRIBE artifact-saving rerun before narrowing the paper route.
+- Launched the rerun with `setsid` after the first detached launch died before Python; verified the stable Python child and GPU activity.
+- Restarted/continued textfeat seed `0-5` Tuckute scoring, which completed cleanly with 18/18 artifact rows scored, and started the 5-minute local monitor.
 
 ## What To Do Next
 
-1. Launch the predeclared TRIBE seed `0-2` artifact-saving rerun.
-2. After it finishes, score rerun TRIBE seed `0-2` and textfeat seed `0-5` on Tuckute, then compute the aligned seed `0-5` real-brain diagnostic.
-3. If the Tuckute diagnostic becomes paper-load-bearing, run an independent second implementation or deeper code/stat review.
-4. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 or the post-hoc Tuckute diagnostic alone.
+1. Monitor `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md` until the TRIBE rerun finishes.
+2. After the rerun finishes, score rerun TRIBE seed `0-2` on Tuckute if the launcher has not already done so, then combine with existing TRIBE seed `3-5` diagnostics.
+3. Compute the aligned seed `0-5` real-brain diagnostic against the completed textfeat seed `0-5` Tuckute output.
+4. If the Tuckute diagnostic becomes paper-load-bearing, run an independent second implementation or deeper code/stat review.
+5. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 or the post-hoc Tuckute diagnostic alone.
 
 ## Blockers / Open Loops
 
@@ -67,7 +75,7 @@ S82 claim-scope decision: run the bounded real-brain robustness rerun before nar
 - The synthetic-target comparison is now six seeds and stable against textfeat, but still not real-brain evidence.
 - The saved-student Tuckute diagnostic is a warning against real-brain transfer: TRIBE does not beat KD/permuted/textfeat on the saved seed `3-5` real-brain endpoint.
 - Textfeat clears only sentence-local frozen-teacher hidden-state supervision, not long-context/on-policy distillation or real-brain alignment.
-- The original seed `0-2` TRIBE run did not save model artifacts; real-brain evaluation can currently use the saved seed `3-5` artifacts unless selected original arms are rerun.
+- The original seed `0-2` TRIBE run did not save model artifacts; the selected replacement rerun is active but not complete.
 - The prepared contextfeat builder is smoke-tested only. A full contextfeat cache/control is branch-gated behind E016 positive plus textfeat survival.
 - The Tuckute saved-student evaluator has now run at full scale for saved seed `3-5`, but still requires `/interpret` before any claim.
 - On-policy distillation remains a separate protocol; contextfeat and the Tuckute probe do not clear student-rollout teacher supervision.
@@ -85,9 +93,9 @@ S82 claim-scope decision: run the bounded real-brain robustness rerun before nar
 - Completed textfeat readiness packet: `outputs/E016_tribe/phase3/phase3_full_textfeat_gpt2_n95999_s0-1-2_lam0.1.readiness.json`.
 - Ready comparator JSON: `outputs/E016_tribe/phase3/phase3_full_tribe_vs_textfeat_comparison.json`.
 - Local comparator `/interpret` audit: `outputs/E016_tribe/phase3/phase3_full_tribe_vs_textfeat_comparison.interpret_audit.json`.
-- Active extra TRIBE launcher: `outputs/E016_tribe/phase3/run_extra_tribe_s3-5_20260707.sh`, PID `3770641`, target JSON `outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.json`.
-- Active extra textfeat launcher: `outputs/E016_tribe/phase3/run_extra_textfeat_s3-5_20260707.sh`, PID `3770642`, target JSON `outputs/E016_tribe/phase3/phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.json`.
-- Active monitor: `outputs/E016_tribe/phase3/monitor_extra_seed_progress_20260707.sh`, PID `3770643`, log `outputs/E016_tribe/phase3/extra_seed_progress_monitor_20260707.log`.
+- Completed extra TRIBE launcher: `outputs/E016_tribe/phase3/run_extra_tribe_s3-5_20260707.sh`, target JSON `outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.json`.
+- Completed extra textfeat launcher: `outputs/E016_tribe/phase3/run_extra_textfeat_s3-5_20260707.sh`, target JSON `outputs/E016_tribe/phase3/phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.json`.
+- Completed extra-seed monitor log: `outputs/E016_tribe/phase3/extra_seed_progress_monitor_20260707.log`.
 - Combined TRIBE run/analyzer/readiness: `outputs/E016_tribe/phase3/phase3_combined_tribe_gpt2_n95999_s0-5_lam0.1.json`, `.analysis.json`, `.readiness.json`.
 - Combined textfeat run/analyzer/readiness: `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.json`, `.analysis.json`, `.readiness.json`.
 - Combined comparator/audit: `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_comparison.json`, `.interpret_audit.json`.
@@ -95,6 +103,9 @@ S82 claim-scope decision: run the bounded real-brain robustness rerun before nar
 - textfeat saved-student Tuckute output: `outputs/E016_tribe/phase3/phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json`.
 - Paired real-brain diagnostic analysis: `outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment_analysis.json`.
 - Local real-brain diagnostic `/interpret` audit: `outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment.interpret_audit.json`.
+- Active bounded rerun launcher: `outputs/E016_tribe/phase3/run_rerun_tribe_s0-2_save_20260707.sh`, PID `3827100`, Python child `3827120`, target JSON `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`.
+- Completed textfeat seed `0-5` Tuckute output: `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json` (18/18 artifact rows scored, 0 missing/unusable).
+- Active rerun monitor: `outputs/E016_tribe/phase3/monitor_rerun_realbrain_20260707.sh`, PID `3827101`, latest status `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md`.
 - Saved-student Tuckute evaluator: `uv run python scripts/e016_eval_saved_student_alignment.py --run-json <artifacted-run.json> --out <alignment.json> --reference-model gpt2-medium`.
 - Guarded finalizer command: `uv run python scripts/e016_finalize_phase3.py`.
 - Watch-finalize command: `uv run python scripts/e016_watch_finalize_phase3.py --watch --interval-s 300`.

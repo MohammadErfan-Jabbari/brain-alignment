@@ -1124,6 +1124,35 @@ Kill criteria: the brain-specific positive route remains on HOLD unless the six-
 
 **Status:** design locked before rerun launch; no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 51 - Bounded real-brain rerun launched and monitored (2026-07-07)
+The predeclared rerun from Step 50 is now in flight. This is still a `/work` evidence-gathering state, not a result.
+
+Launch state:
+
+- TRIBE seed `0,1,2` artifact-saving rerun launcher: `outputs/E016_tribe/phase3/run_rerun_tribe_s0-2_save_20260707.sh`
+- stable process group root: PID `3827100`
+- Python child at the stability check: PID `3827120`
+- GPU: `GPU=1`, `HF_HOME=/home/centcom/data/hf-cache`
+- log: `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.log`
+- run JSON target: `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`
+- saved-student artifact root: `outputs/E016_tribe/phase3/model_artifacts/tribe_gpt2_n95999_s0-2_lam0.1_rerun/`
+
+Monitoring state:
+
+- monitor launcher: `outputs/E016_tribe/phase3/monitor_rerun_realbrain_20260707.sh`
+- monitor PID: `3827101`
+- latest status file: `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md`
+- monitor log: `outputs/E016_tribe/phase3/rerun_realbrain_monitor_20260707.log`
+- interval: 5 minutes
+
+Operational note: the first detached `nohup` launch exited before reaching the Python runner because the process did not survive the command shell. The stable launch uses `setsid`; after a one-minute check it had reparented to PID 1, retained its own session/process group, and had entered `seed=0 arm=kd_only` in `scripts/run_tribe_phase3.py`. GPU 1 was active at the same check.
+
+In parallel, the seed `0-5` textfeat saved-student Tuckute scoring was restarted from the debug shell and completed at `2026-07-07T20:12:13Z`. It wrote `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json`, scoring all 18 saved artifact rows with 0 missing or unusable artifacts.
+
+No rerun JSON, rerun analysis JSON, rerun readiness JSON, or rerun Tuckute JSON existed at launch verification. The next action is to monitor until the TRIBE rerun artifacts appear, then compute the aligned seed `0-5` real-brain diagnostic exactly as predeclared in Step 50 using the completed textfeat seed `0-5` Tuckute output.
+
+**Status:** TRIBE rerun and monitor active; textfeat seed `0-5` Tuckute scoring complete; no aligned six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
