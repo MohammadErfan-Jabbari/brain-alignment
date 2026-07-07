@@ -109,6 +109,16 @@ New close pressure:
 
 Net update: the open cell narrows again. A positive E016 route must be framed as **brain-derived privileged targets under controlled fixed-student KD**, not as hidden-state distillation, representation distillation, or brain-guided LLM improvement in general. A negative/mixed route becomes cleaner: it can say that a synthetic brain target can look strong against sentence-local hidden-state controls on the training proxy yet fail the real-brain transfer gate, under a protocol designed precisely because hidden-state and privileged-distillation baselines are now strong.
 
+## Firecrawl Research Follow-Up, 2026-07-07 22:47 UTC
+
+A focused positive-branch search expanded from OPRD, PHF, DemoPSD, and Rethinking OPSD to the wider privileged OPD failure-mode cluster. It found three extra pressure points:
+
+- [Anchored Residual Guidance for Privileged On-Policy Distillation](https://arxiv.org/abs/2606.10385) argues that monolithic full-view privileged imitation can push students toward hindsight-biased, locally unsupported shortcuts, and proposes separating a reachable anchor from a controlled residual.
+- [EDGE-OPD](https://arxiv.org/abs/2605.23493) treats privileged context as a possible source of leakage or side effects and trains only on token positions where a local evidence ratio says the context positively supports the sampled token.
+- [When Context Returns](https://arxiv.org/abs/2606.11627) shows that a context-distilled student can perform well without context yet degrade when the original context is reintroduced, motivating context removability as a robustness property.
+
+Net update: the positive E016 branch must not merely beat `textfeat` on synthetic target-R2 and then declare victory. It must show transfer-relevant student change. The current combined Tuckute gate is exactly the right next burden; if it becomes positive, independent code/stat review and `contextfeat` come before any OPRD/PHF/AR-OPD/EDGE-style runner. If it is nonpositive or mixed, these papers strengthen the transfer-failure framing rather than motivating more compute.
+
 ## Related
 
 - [`top-venue-claim-scope-review-2026-07-07.md`](top-venue-claim-scope-review-2026-07-07.md)

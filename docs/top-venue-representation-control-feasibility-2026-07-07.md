@@ -37,6 +37,16 @@ An OPRD/PHF-style comparator is a later, higher-cost burden. It requires a new o
 
 OPRD/PHF change several things at once: they move from off-policy sentence targets to student rollouts, from fixed cache targets to dynamic teacher forwards, and from sentence-level target fitting to token/trajectory-level hidden supervision. That is a different baseline family, not a drop-in stronger `textfeat`.
 
+## Follow-Up Pressure, 2026-07-07 22:47 UTC
+
+A focused Firecrawl Research expansion from OPRD/PHF and PI-leakage papers added AR-OPD, EDGE-OPD, and When Context Returns as sharper positive-branch objections. Their shared lesson is that privileged supervision can fail because the privileged teacher sees information the student cannot locally support, because useful signal is localized to a subset of tokens, or because internalized context is not robust when the context is reintroduced.
+
+This does not move OPRD-lite, PHF-lite, AR-OPD-style anchoring, or EDGE-style evidence masking ahead of `contextfeat`. Those methods are token/rollout objectives, while E016 is currently a fixed cache-target experiment. They become relevant only after:
+
+1. the combined real-brain gate is positive and audit-clean,
+2. independent review rules out evaluator/stat artifacts,
+3. `contextfeat` fails to explain the effect, or the chosen venue requires an on-policy representation/privileged-teacher comparator.
+
 ## Predeclared Decision Rule
 
 After the combined Tuckute gate:

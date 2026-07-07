@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S92 - `/goal` continuation: E016 rerun still running at 5/9 arms with seed1 `tribe_perm` active; venue-readiness matrix added for AAAI/ICML/ICLR/NeurIPS routes; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S93 - `/goal` continuation: E016 rerun still running at 5/9 arms with seed1 `tribe_perm` active; positive-branch privileged-OPD pressure refreshed; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -74,6 +74,8 @@ S91 rerun progress: a bounded live watcher observed the fifth saved rerun artifa
 
 S92 venue-readiness matrix: [`top-venue-readiness-matrix-2026-07-07.md`](top-venue-readiness-matrix-2026-07-07.md) now maps the pending combined Tuckute gate to AAAI/ICML/ICLR/NeurIPS burden. Recommendation while the gate is incomplete: launch no new controls. If the combined real-brain route is nonpositive or mixed, default to an AAAI-style synthetic-target/control plus privileged-target transfer-failure package; ICML is possible only if the estimand/control lesson is crisp; ICLR/NeurIPS need a broader field-correcting negative. If the route becomes positive and audit-clean, run independent code/stat review first, then `contextfeat`; OPRD/PHF-style controls remain separate `/precheck` items.
 
+S93 positive-branch privileged-OPD pressure: Firecrawl Research expansion from OPRD/PHF/DemoPSD/Rethinking OPSD surfaced and read AR-OPD, EDGE-OPD, and When Context Returns. The updated [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md), [`top-venue-literature-refresh-2026-07-07.md`](top-venue-literature-refresh-2026-07-07.md), and [`top-venue-representation-control-feasibility-2026-07-07.md`](top-venue-representation-control-feasibility-2026-07-07.md) now record the sharper objection: privileged supervision can fail through locally unsupported shortcuts, side-effect tokens, evidence-localized transfer, or non-robust internalization. This does not change the compute order. Wait for the combined Tuckute gate; if positive and clean, run independent review and then `contextfeat` before any new-runner OPD variant.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -110,6 +112,7 @@ S92 venue-readiness matrix: [`top-venue-readiness-matrix-2026-07-07.md`](top-ven
 - Added a representation-control feasibility memo ranking `contextfeat` before any OPRD/PHF-style runner if the active real-brain gate turns positive.
 - Monitored the active TRIBE rerun until the fifth saved artifact landed; recorded the progress as partial-arm monitoring only.
 - Added a venue-readiness matrix for AAAI/ICML/ICLR/NeurIPS routing while the active real-brain gate remains pending.
+- Ran a focused Firecrawl Research positive-branch pressure refresh over privileged OPD/internalization papers and updated the on-policy/context audit, literature refresh, and representation-control feasibility memo.
 
 ## What To Do Next
 
