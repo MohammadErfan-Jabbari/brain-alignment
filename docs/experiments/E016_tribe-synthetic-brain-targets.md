@@ -1302,6 +1302,22 @@ Verification at launch: the watcher reparented to PID 1 and wrote `[2026-07-07T2
 
 **Status:** postprocess automation only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 59 - Rerun Tuckute watcher hardened (2026-07-07)
+Replaced the ad hoc shell scorer watcher from Step 58 with a tracked Python watcher, `scripts/e016_watch_tuckute_eval.py`. The shell watcher polled `ps | grep` for the selected `run_tribe_phase3.py` command and could match its own shell text after the run JSON appeared, so it risked waiting forever. The Python watcher instead calls `scripts/e016_phase3_status.py` for the selected run and waits until `health.runner_process_count == 0` before launching the saved-student Tuckute evaluator.
+
+Verification:
+
+- `uv run python -m py_compile scripts/e016_watch_tuckute_eval.py scripts/e016_eval_saved_student_alignment.py scripts/e016_phase3_status.py` passed.
+- Replacement watcher PID: `3853936`
+- PID file: `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.pid`
+- log: `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.log`
+- target output: `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json`
+- launch log line: `[2026-07-07T21:17:45Z] waiting for run JSON ...`
+
+The older shell watcher process group `3851658` was terminated after the Python watcher was confirmed alive. At replacement time, the TRIBE rerun was still active with completed arms `2/9`, active arm `seed=0, arm=tribe_perm`, and no rerun JSON or rerun Tuckute JSON yet.
+
+**Status:** postprocess hardening only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

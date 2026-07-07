@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S82 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; rich 5-minute monitor active; rerun Tuckute scorer watcher active; latest snapshot shows 2/9 arms completed and seed0 `tribe_perm` active; no aligned six-seed result, no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-07 (S82 - `/goal` continuation: bounded seed `0-2` TRIBE artifact-saving rerun still running; rich 5-minute monitor active; hardened Python rerun Tuckute scorer watcher active; latest snapshot shows 2/9 arms completed and seed0 `tribe_perm` active; no aligned six-seed result, no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -52,7 +52,7 @@ S82 rerun-safe status helper: `scripts/e016_phase3_status.py` now accepts explic
 
 S82 rich rerun monitor: `scripts/e016_monitor_phase3_status.py` now writes a compact latest JSON/Markdown snapshot around the rerun-safe status helper. The detached five-minute wrapper is active as PID `3850339`, with PID file `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.pid`, log `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.log`, latest JSON `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.json`, and latest Markdown `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.md`. The latest snapshot at `2026-07-07T21:10:23.298803+00:00` reported `phase="training_running_or_interrupted"`, `health.status="runner_alive_log_recent"`, completed arms `2/9`, latest completed arm `seed=0, arm=tribe_mse`, and active arm `seed=0, arm=tribe_perm`. This is progress monitoring only; no rerun JSON, rerun analyzer JSON, rerun Tuckute JSON, combined Tuckute analysis JSON, or combined Tuckute audit JSON exists yet.
 
-S82 scorer watcher: `outputs/E016_tribe/phase3/rerun_tuckute_eval_watcher_20260707.pid` / `.log` tracks a detached watcher, PID `3851658`, that waits for the rerun JSON, waits for the selected `run_tribe_phase3.py` process to clear, then runs `scripts/e016_eval_saved_student_alignment.py` with `--require-artifacts` to write `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json`. This closes the handoff before the existing combined Tuckute analyzer watcher; it is postprocess automation only, not a result.
+S82 scorer watcher: the first ad hoc shell watcher, PID `3851658`, was retired because its `ps | grep` runner-exit check could match its own shell text after the rerun JSON appeared. The active replacement is `scripts/e016_watch_tuckute_eval.py`, PID `3853936`, PID file `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.pid`, and log `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.log`. It waits for the rerun JSON, polls `scripts/e016_phase3_status.py` until the selected run has `runner_process_count == 0`, then runs `scripts/e016_eval_saved_student_alignment.py` with `--require-artifacts` to write `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json`. This closes the handoff before the existing combined Tuckute analyzer watcher; it is postprocess automation only, not a result.
 
 ## What Was Done
 
@@ -82,12 +82,12 @@ S82 scorer watcher: `outputs/E016_tribe/phase3/rerun_tuckute_eval_watcher_202607
 - Wrote the combined Tuckute interpretation gate so a future positive/nonpositive/mixed/failed-audit result routes to the correct paper burden without creating a premature claim.
 - Parameterized `scripts/e016_phase3_status.py` for explicit rerun monitoring; the default still reports the completed original full run, while the explicit rerun command correctly reports the live rerun.
 - Added and launched `scripts/e016_monitor_phase3_status.py` as a rich five-minute rerun monitor; latest snapshot shows the rerun advancing through seed0 arms with 2/9 completed.
-- Launched a detached rerun Tuckute scorer watcher so the saved-student real-brain evaluator runs automatically after the seed `0-2` rerun finishes.
+- Launched and hardened a detached rerun Tuckute scorer watcher so the saved-student real-brain evaluator runs automatically after the seed `0-2` rerun finishes.
 
 ## What To Do Next
 
 1. Monitor `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.md` until the TRIBE rerun finishes.
-2. Check `outputs/E016_tribe/phase3/rerun_tuckute_eval_watcher_20260707.log`; the watcher should score rerun TRIBE seed `0-2` on Tuckute after the rerun JSON lands and the training process exits.
+2. Check `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.log`; the Python watcher should score rerun TRIBE seed `0-2` on Tuckute after the rerun JSON lands and the training process exits.
 3. Check `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`; the watcher should compute the aligned seed `0-5` real-brain diagnostic against the completed textfeat seed `0-5` Tuckute output after the rerun Tuckute JSON appears.
 4. If the Tuckute diagnostic becomes paper-load-bearing, run an independent second implementation or deeper code/stat review.
 5. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 or the post-hoc Tuckute diagnostic alone.
@@ -130,7 +130,7 @@ S82 scorer watcher: `outputs/E016_tribe/phase3/rerun_tuckute_eval_watcher_202607
 - Completed textfeat seed `0-5` Tuckute output: `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json` (18/18 artifact rows scored, 0 missing/unusable).
 - Active rerun monitor: `outputs/E016_tribe/phase3/monitor_rerun_realbrain_20260707.sh`, PID `3827101`, latest status `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md`.
 - Active rich rerun monitor: `scripts/e016_monitor_phase3_status.py`, PID `3850339`, PID file `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.pid`, log `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.log`, latest JSON `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.json`, latest Markdown `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.md`.
-- Active rerun Tuckute scorer watcher: `outputs/E016_tribe/phase3/rerun_tuckute_eval_watcher_20260707.pid`, PID `3851658`, log `outputs/E016_tribe/phase3/rerun_tuckute_eval_watcher_20260707.log`, target output `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json`.
+- Active rerun Tuckute scorer watcher: `scripts/e016_watch_tuckute_eval.py`, PID `3853936`, PID file `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.pid`, log `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.log`, target output `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json`.
 - Active combined Tuckute analysis watcher: `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.pid`, PID `3836562`, log `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`.
 - Active combined Tuckute audit watcher: `outputs/E016_tribe/phase3/combined_tuckute_audit_watcher_20260707.pid`, PID `3843773`, log `outputs/E016_tribe/phase3/combined_tuckute_audit_watcher_20260707.log`.
 - Combined Tuckute interpretation gate: `docs/e016-combined-tuckute-interpretation-gate-2026-07-07.md`.
