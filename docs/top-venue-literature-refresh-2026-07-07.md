@@ -62,6 +62,23 @@ Do not widen compute while the rerun is active. The next decisive evidence is al
 3. Run `scripts/e016_analyze_tuckute_alignment.py` over TRIBE seed `0-5` and textfeat seed `0-5`.
 4. Apply [`e016-combined-tuckute-interpretation-gate-2026-07-07.md`](e016-combined-tuckute-interpretation-gate-2026-07-07.md), then route the result through `/interpret` before narrowing or reopening the paper claim.
 
+## Limited Follow-Up, 2026-07-07 21:59 UTC
+
+Firecrawl Research semantic paper search was still not exposed in the Codex tool surface, and no local `firecrawl` CLI was present, so this follow-up used a small primary-source web fallback over arXiv, NeurIPS proceedings, and AAAI OJS. Treat it as a narrow pressure check, not a replacement for a canonical paper digest.
+
+Newly checked conference pressure:
+
+- AAAI-26 includes ["Do Large Language Models Think Like the Brain? Sentence-Level Evidences from Layer-Wise Embeddings and fMRI"](https://ojs.aaai.org/index.php/AAAI/article/view/37022/40984). It compares layer-wise embeddings from 14 LLMs against sentence-level fMRI responses and reports that model performance/instruction tuning relates to neural alignment. This reinforces that "LLM-brain alignment as an evaluation/comparison object" is now mainstream enough for AAAI; it does not occupy the training-time brain/cognitive privileged-target KD cell.
+
+Rechecked adjacent pressure points:
+
+- NeurIPS 2025 ["Brain-tuning Improves Generalizability and Efficiency of Brain Alignment in Speech Models"](https://proceedings.neurips.cc/paper_files/paper/2025/file/b0dfbc465fa47c7c31cbfc0f454df460-Paper-Conference.pdf) remains the strongest top-venue brain-training neighbor. It fine-tunes speech models to predict fMRI across participants and reports improved alignment/efficiency/generalization. It pressures broad "brain data improves models" claims, but still differs from fixed-student LLM KD with matched text-feature and real-brain-transfer controls.
+- Oota et al. 2026 ["Linguistic properties and model scale in brain encoding"](https://arxiv.org/abs/2602.07547) keeps pressure on any scale/compression framing: the abstract reports brain predictivity saturation around 3B models and robustness to most compression methods. This supports our need to frame E016 as a training-intervention/control question, not as generic compression-neuroscience.
+- Jia 2026 ["Do Language Models Align with Brains? Prediction Scores Are Not Enough"](https://arxiv.org/abs/2605.14025) strengthens the severe-control burden: prediction scores alone are insufficient, and many apparent positives can become control-explained. This aligns with our current refusal to infer brain-specific utility from synthetic target-R2.
+- Penaloza et al. 2026 ["Privileged Information Distillation for Language Models"](https://arxiv.org/abs/2602.04942) keeps the PI-distillation neighbor live: training-time PI transfer to an unconditioned student is the right abstract problem, but their PI sources are agentic trajectories/actions, not brain/cognitive targets.
+
+Net update: the narrow open cell is unchanged, but the AAAI-26 paper raises the bar for any venue framing that sounds like "LLM representations align with fMRI." The paper route should keep foregrounding the intervention question: whether a brain-derived privileged target changes a smaller KD student's behavior beyond matched non-brain targets and whether that survives real-brain transfer.
+
 ## Related
 
 - [`top-venue-claim-scope-review-2026-07-07.md`](top-venue-claim-scope-review-2026-07-07.md)

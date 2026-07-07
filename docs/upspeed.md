@@ -58,6 +58,8 @@ S82 scorer watcher: the first ad hoc shell watcher, PID `3851658`, was retired b
 
 S84 postprocess pre-audit: while the rerun remained active, the waiting Tuckute postprocess path was rehearsed against the completed seed `3-5` diagnostic. The relevant scripts compiled; the completed TRIBE seed `3-5`, textfeat seed `3-5`, and combined textfeat seed `0-5` Tuckute JSONs have complete scored row grids, one protocol variant, and 0 missing/unusable rows; the analyzer rehearsal reproduced `tribe_minus_textfeat_gain_vs_kd_mean=-0.000861728910529826` and `tribe_minus_textfeat_gain_vs_perm_mean=-0.0007842046600033294`; and the audit rehearsal returned `all_checks_pass=true`, route `real_brain_warning_needs_claim_scope_review`, complete seeds `[3,4,5]`. This is readiness only. The live rerun check still reported 3/9 completed arms, active `seed=1 arm=kd_only`, no rerun JSON, no rerun Tuckute JSON, no combined analysis, and no combined audit.
 
+S85 literature pressure check: Firecrawl Research semantic search remained unavailable in this Codex surface, so a small primary-source web fallback checked AAAI/NeurIPS/arXiv pressure while the rerun trains. [`top-venue-literature-refresh-2026-07-07.md`](top-venue-literature-refresh-2026-07-07.md) now records that AAAI-26 includes a sentence-level LLM/fMRI alignment paper, reinforcing that brain-alignment-as-evaluation is crowded. The open cell remains unchanged: training-time brain/cognitive privileged-target KD under matched non-brain controls and real-brain transfer.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -88,6 +90,7 @@ S84 postprocess pre-audit: while the rerun remained active, the waiting Tuckute 
 - Added and launched `scripts/e016_monitor_phase3_status.py` as a rich five-minute rerun monitor; latest snapshot shows the rerun advancing through seed0 arms with 2/9 completed.
 - Launched and hardened a detached rerun Tuckute scorer watcher so the saved-student real-brain evaluator runs automatically after the seed `0-2` rerun finishes.
 - Rehearsed the completed seed `3-5` Tuckute analyzer/audit path and confirmed the parser, row-grid, protocol, and arithmetic checks are ready for the combined seed `0-5` postprocess once the rerun Tuckute JSON appears.
+- Added a limited primary-source literature pressure check to the 2026-07-07 top-venue refresh; no paper route changed.
 
 ## What To Do Next
 
