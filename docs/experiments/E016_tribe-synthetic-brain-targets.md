@@ -1207,6 +1207,34 @@ uv run python scripts/e016_audit_tuckute_alignment.py \
 
 **Status:** audit infrastructure only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 54 - Combined Tuckute audit watcher launched (2026-07-07)
+Launched a second detached postprocess watcher so the combined seed `0-5` Tuckute audit runs automatically after the existing analyzer watcher writes `phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json`.
+
+Watcher state:
+
+- watcher PID: `3843773`
+- PID file: `outputs/E016_tribe/phase3/combined_tuckute_audit_watcher_20260707.pid`
+- log: `outputs/E016_tribe/phase3/combined_tuckute_audit_watcher_20260707.log`
+- waits for: `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json`
+- writes: `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.audit.json`
+
+The watcher runs:
+
+```bash
+uv run python scripts/e016_audit_tuckute_alignment.py \
+  --tribe-alignment outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json \
+  --tribe-alignment outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json \
+  --textfeat-alignment outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json \
+  --analysis-json outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json \
+  --expected-seeds 0,1,2,3,4,5 \
+  --min-seeds 6 \
+  --out outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.audit.json
+```
+
+Verification at launch: the watcher reparented to PID 1, has its own session/process group, wrote a waiting log line, and the TRIBE rerun was still active in `seed=0 arm=tribe_mse` with no rerun JSON, rerun Tuckute JSON, combined analysis JSON, or combined audit JSON yet.
+
+**Status:** postprocess automation only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
