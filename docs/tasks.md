@@ -30,7 +30,8 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 - [x] **Verified artifact readiness.** Extra TRIBE and textfeat run JSONs each had all 9 seed/arm saved model artifacts for seeds `3,4,5`.
 - [x] **Ran full Tuckute saved-student scoring.** `phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json` and `phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json` scored all 18 artifacts with no missing rows.
 - [x] **Computed paired real-brain contrasts.** `phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment_analysis.json` shows TRIBE-minus-textfeat gain versus KD-only `-0.000862` and versus permuted-control gains `-0.000784`.
-- [ ] **Run `/interpret`/code/stat review before any claim.** This diagnostic is a warning, not a final E016 verdict or rung flip.
+- [x] **Run local `/interpret` arithmetic/stat audit before any claim.** `phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment.interpret_audit.json` passed row/protocol/arithmetic/PCA checks and routed to `real_brain_warning_needs_claim_scope_review`.
+- [ ] **Run code review of the Tuckute evaluator before any paper claim.** The local audit checks row mapping and arithmetic, not every implementation assumption in `scripts/e016_eval_saved_student_alignment.py`.
 - [ ] **Choose the next paper route.** Decide between narrowed synthetic-target/control paper, predeclared real-brain robustness/rerun, or a stronger non-brain control with the Tuckute warning kept explicit.
 
 ### S80 `/goal` continuation - combined six-seed comparator held (2026-07-07)

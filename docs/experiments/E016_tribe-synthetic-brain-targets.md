@@ -1062,6 +1062,25 @@ Interpretation boundary: this is post-hoc, only seed `3-5`, ROI-level Tuckute, a
 
 **Status:** real-brain diagnostic warning recorded; no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 48 - Real-brain diagnostic `/interpret` audit passed locally (2026-07-07)
+A local `/interpret` audit recomputed the Tuckute diagnostic from the raw alignment rows rather than trusting the paired analysis JSON. The audit artifact is `outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment.interpret_audit.json`.
+
+Audit checks passed:
+
+- source alignment files and paired analysis JSON exist.
+- both branches scored 9 artifact rows with 0 missing or unusable artifacts.
+- no duplicate seed-arm rows.
+- expected seed `3,4,5` x arm grids are present for TRIBE and textfeat.
+- data endpoint and scoring protocol match across branches.
+- recomputed contrast means match the paired analysis JSON exactly.
+- PCA robustness means remain non-positive for TRIBE-minus-textfeat versus KD-only and versus permuted-control gains.
+
+The audit route is `real_brain_warning_needs_claim_scope_review`. The load-bearing audited means are unchanged: TRIBE-minus-textfeat gain versus KD-only `-0.000862`; TRIBE-minus-textfeat gain versus permuted-control gains `-0.000784`.
+
+Interpretation boundary: the audit makes the diagnostic harder to dismiss as an arithmetic or row-mapping error, but it still does not turn the post-hoc saved seed `3-5` result into a final verdict. The safe next state is claim-scope review: either narrow the paper to the synthetic-target/control finding, or predeclare a real-brain robustness/rerun path that could overturn the warning.
+
+**Status:** local audit passed; route is claim-scope review; no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

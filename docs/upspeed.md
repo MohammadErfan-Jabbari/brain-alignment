@@ -28,6 +28,8 @@ The next burden was chosen and run: saved seed `3-5` TRIBE/textfeat students wer
 
 Real-brain diagnostic summary: TRIBE target versus KD-only mean `-0.000735`; TRIBE target versus TRIBE permuted mean `-0.001717`; textfeat target versus KD-only mean `+0.000127`; TRIBE-minus-textfeat gain versus KD-only mean `-0.000862`; TRIBE-minus-textfeat gain versus permuted-control gains mean `-0.000784`. PCA robustness at `25,50,100` did not rescue the TRIBE-minus-textfeat real-brain contrast.
 
+The local raw-row `/interpret` audit at `outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment.interpret_audit.json` passed row-count, seed-arm grid, endpoint/protocol, arithmetic-match, and PCA-robustness checks. Its route is `real_brain_warning_needs_claim_scope_review`.
+
 No final experiment verdict was adjudicated, no brain-specific claim was made, and no ladder rung changed.
 
 ## What Was Done
@@ -45,11 +47,12 @@ No final experiment verdict was adjudicated, no brain-specific claim was made, a
 - Chose extra artifact-saving seeds as the next evidence burden and launched matched TRIBE/textfeat seed `3,4,5` runs.
 - Detected extra-seed completion, merged seeds `0-5`, reran analyzers/readiness/comparator, and wrote the six-seed independent audit.
 - Chose the real-brain diagnostic burden, smoke-tested one saved artifact, scored saved seed `3-5` TRIBE/textfeat students on Tuckute, and wrote the paired real-brain analysis.
+- Recomputed the real-brain diagnostic from raw alignment rows in a local `/interpret` audit and routed it to claim-scope review.
 
 ## What To Do Next
 
-1. Run `/interpret`/code/stat review on the Tuckute diagnostic before treating it as a result.
-2. Decide the next paper route: narrowed synthetic-target/control contribution, predeclared real-brain robustness/rerun, or stronger non-brain context/on-policy control with the Tuckute warning kept explicit.
+1. Decide the next paper route: narrowed synthetic-target/control contribution, predeclared real-brain robustness/rerun, or stronger non-brain context/on-policy control with the Tuckute warning kept explicit.
+2. Run code review of `scripts/e016_eval_saved_student_alignment.py` before any paper claim uses the Tuckute diagnostic.
 3. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 or the post-hoc Tuckute diagnostic alone.
 
 ## Blockers / Open Loops
@@ -85,6 +88,7 @@ No final experiment verdict was adjudicated, no brain-specific claim was made, a
 - TRIBE saved-student Tuckute output: `outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json`.
 - textfeat saved-student Tuckute output: `outputs/E016_tribe/phase3/phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json`.
 - Paired real-brain diagnostic analysis: `outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment_analysis.json`.
+- Local real-brain diagnostic `/interpret` audit: `outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment.interpret_audit.json`.
 - Saved-student Tuckute evaluator: `uv run python scripts/e016_eval_saved_student_alignment.py --run-json <artifacted-run.json> --out <alignment.json> --reference-model gpt2-medium`.
 - Guarded finalizer command: `uv run python scripts/e016_finalize_phase3.py`.
 - Watch-finalize command: `uv run python scripts/e016_watch_finalize_phase3.py --watch --interval-s 300`.
