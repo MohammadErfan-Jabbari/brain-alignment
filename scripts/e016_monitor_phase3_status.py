@@ -60,6 +60,7 @@ def render_markdown(payload: dict[str, Any], required_artifacts: list[Path]) -> 
     progress = log.get("training_progress") or {}
     active = progress.get("active_arm")
     latest = progress.get("latest_completed_arm")
+    eta = progress.get("rough_training_eta") or {}
     gpu = payload.get("gpu") or {}
     processes = payload.get("processes") or []
 
@@ -76,6 +77,9 @@ def render_markdown(payload: dict[str, Any], required_artifacts: list[Path]) -> 
         f"- completed_arms: `{progress.get('completed_arm_count')}/{progress.get('arms_expected')}`",
         f"- active_arm: `{active}`",
         f"- latest_completed_arm: `{latest}`",
+        f"- rough_training_eta_s: `{eta.get('eta_s')}`",
+        f"- rough_training_eta_utc: `{eta.get('eta_utc')}`",
+        f"- rough_training_eta_note: `{eta.get('note')}`",
         f"- max_gpu_utilization_pct: `{gpu.get('max_utilization_gpu_pct')}`",
         "",
         "## Processes",

@@ -164,6 +164,95 @@ def parse_training_progress(text: str) -> dict | None:
     }
 
 
+def add_training_eta(log: dict, processes: list[dict], *, now: datetime) -> None:
+    """Add a rough training-arm ETA from saved artifact timestamps.
+
+    The runner only prints between arms, so this is intentionally coarse. It is
+    operational monitoring metadata, not science evidence.
+    """
+    progress = log.get("training_progress")
+    if not progress:
+        return
+    completed_count = int(progress.get("completed_arm_count") or 0)
+    arms_expected = int(progress.get("arms_expected") or TRAINING_ARMS_EXPECTED)
+    if completed_count <= 0 or arms_expected <= completed_count:
+        return
+
+    artifact_paths: list[Path] = []
+    for line in log.get("tail") or []:
+        if "saved_model=" not in str(line):
+            continue
+        _, raw_path = str(line).split("saved_model=", 1)
+        path = Path(raw_path.strip())
+        if not path.is_absolute():
+            path = ROOT / path
+        sidecar = path / "e016_model_artifact.json"
+        if sidecar.exists():
+            artifact_paths.append(sidecar)
+
+    # The log tail can miss early artifacts, so fall back to all saved_model
+    # lines in the full log when needed.
+    log_path = Path(str(log.get("path", "")))
+    if len(artifact_paths) < 2 and log_path.exists():
+        text = log_path.read_text(encoding="utf-8", errors="replace")
+        for raw_path in re.findall(r"saved_model=([^\s]+)", text):
+            path = Path(raw_path.strip())
+            if not path.is_absolute():
+                path = ROOT / path
+            sidecar = path / "e016_model_artifact.json"
+            if sidecar.exists():
+                artifact_paths.append(sidecar)
+
+    artifact_paths = sorted(set(artifact_paths), key=lambda path: path.stat().st_mtime)
+    if len(artifact_paths) < 2:
+        return
+
+    runner_elapsed = [
+        parse_etime_seconds(str(proc.get("elapsed", "")))
+        for proc in processes
+        if "run_tribe_phase3.py" in str(proc.get("cmd", ""))
+    ]
+    runner_elapsed = [value for value in runner_elapsed if value is not None]
+    if not runner_elapsed:
+        return
+
+    runner_start = now - timedelta(seconds=max(runner_elapsed))
+    completed_times = [datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc) for path in artifact_paths]
+    observed_seconds: list[int] = []
+    previous = runner_start
+    for completed_at in completed_times:
+        delta = int((completed_at - previous).total_seconds())
+        if delta > 0:
+            observed_seconds.append(delta)
+            previous = completed_at
+    if not observed_seconds:
+        return
+
+    mean_arm_s = sum(observed_seconds) / len(observed_seconds)
+    active_arm = progress.get("active_arm")
+    active_elapsed_s = int((now - completed_times[-1]).total_seconds()) if active_arm else 0
+    remaining_completed_equiv = max(0, arms_expected - len(completed_times))
+    if active_arm:
+        active_remaining_s = max(0, int(round(mean_arm_s - active_elapsed_s)))
+        future_arms_after_active = max(0, arms_expected - len(completed_times) - 1)
+        eta_s = active_remaining_s + int(round(future_arms_after_active * mean_arm_s))
+    else:
+        eta_s = int(round(remaining_completed_equiv * mean_arm_s))
+
+    progress["rough_training_eta"] = {
+        "method": "saved-artifact cadence from completed arms",
+        "science_status": "operational estimate only; not a Phase-3 result",
+        "completed_artifact_count": len(completed_times),
+        "observed_arm_seconds": observed_seconds,
+        "mean_completed_arm_s": round(mean_arm_s, 1),
+        "active_arm_elapsed_s": active_elapsed_s if active_arm else None,
+        "eta_s": eta_s,
+        "eta_utc": (now + timedelta(seconds=eta_s)).isoformat(),
+        "confidence": "rough",
+        "note": "Assumes remaining arms take about the same wall-clock time as completed saved-artifact arms.",
+    }
+
+
 def add_active_eta(log: dict, processes: list[dict], train_cache: Path, heldout_cache: Path, run_script: Path) -> None:
     stage = log.get("active_cache_stage")
     if stage not in {"train", "heldout"}:
@@ -415,8 +504,9 @@ def main() -> None:
     explicit_pids = [pid for pid in [args.parent_pid, args.builder_pid] if pid is not None]
     processes = ps_rec(explicit_pids) if explicit_pids else discover_processes(run_script, train_cache, heldout_cache, run_json)
     add_active_eta(log, processes, train_cache, heldout_cache, run_script)
-    gpu = gpu_rec()
     now = datetime.now(timezone.utc)
+    add_training_eta(log, processes, now=now)
+    gpu = gpu_rec()
     payload = {
         "checked_at_utc": now.isoformat(),
         "phase": infer_phase(train, heldout, run, analysis, log, processes),

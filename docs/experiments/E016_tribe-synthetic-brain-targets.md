@@ -1318,6 +1318,28 @@ The older shell watcher process group `3851658` was terminated after the Python 
 
 **Status:** postprocess hardening only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 60 - Rerun monitor now reports rough training ETA (2026-07-07)
+Extended `scripts/e016_phase3_status.py` and `scripts/e016_monitor_phase3_status.py` so the selected rerun status payload includes a rough saved-artifact cadence ETA when enough completed arm artifacts exist. The estimate uses the active runner elapsed time and completed `e016_model_artifact.json` mtimes; it is explicitly operational monitoring metadata, not a science number and not a result.
+
+Verification target:
+
+```bash
+uv run python scripts/e016_phase3_status.py --pretty \
+  --log outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.log \
+  --run-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json \
+  --analysis-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.analysis.json \
+  --run-script outputs/E016_tribe/phase3/run_rerun_tribe_s0-2_save_20260707.sh
+```
+
+Verification:
+
+- `uv run python -m py_compile scripts/e016_phase3_status.py scripts/e016_monitor_phase3_status.py` passed.
+- The explicit rerun status command wrote `rough_training_eta` under `log.training_progress` with `science_status="operational estimate only; not a Phase-3 result"`.
+- A one-shot monitor render wrote the rough ETA fields into `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.md`.
+- The detached rich monitor was restarted to pick up the Markdown renderer change; new wrapper PID `3860856`, Python child `3860860`, PID file `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.pid`.
+
+**Status:** monitoring utility only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
