@@ -38,9 +38,9 @@ S82 claim-scope decision: run the bounded real-brain robustness rerun before nar
 
 S82 literature refresh: [`top-venue-literature-refresh-2026-07-07.md`](top-venue-literature-refresh-2026-07-07.md) records the current scout read. Broad brain-tuning and privileged-information distillation claims are occupied; the live open cell is whether a brain-derived privileged target helps smaller-student KD beyond matched text-feature/permuted controls and survives real-brain transfer.
 
-S82 launch status: the first detached rerun launch exited before reaching Python, so the stable launch uses `setsid`. TRIBE seed `0-2` artifact-saving rerun is active as PID `3827100` with Python child `3827120` on GPU 1, log `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.log`, and target run JSON `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`. At the stability check it had entered `seed=0 arm=kd_only`.
+S82 launch status: the first detached rerun launch exited before reaching Python, so the stable launch uses `setsid`. TRIBE seed `0-2` artifact-saving rerun is active as PID `3827100` with Python child `3827120` on GPU 1, log `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.log`, and target run JSON `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`. The first saved model artifact landed at `outputs/E016_tribe/phase3/model_artifacts/tribe_gpt2_n95999_s0-2_lam0.1_rerun/seed0_kd_only_lambda0`, and the rerun then entered `seed=0 arm=tribe_mse`. This is partial-arm progress only, not a result.
 
-The textfeat seed `0-5` saved-student Tuckute scoring completed at `2026-07-07T20:12:13Z`, writing `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json` with 18/18 artifact rows scored and 0 missing/unusable rows. A 5-minute local monitor is active as PID `3827101`; latest status is written to `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md`. No TRIBE rerun result artifact exists yet.
+The textfeat seed `0-5` saved-student Tuckute scoring completed at `2026-07-07T20:12:13Z`, writing `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json` with 18/18 artifact rows scored and 0 missing/unusable rows. A 5-minute local monitor is active as PID `3827101`; latest status is written to `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md`. A postprocess watcher is active as PID `3836562`, with PID/log files `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.pid` and `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`; once the rerun Tuckute JSON appears it will run the seed `0-5` Tuckute analyzer automatically. No TRIBE rerun result JSON exists yet.
 
 ## What Was Done
 
@@ -64,12 +64,13 @@ The textfeat seed `0-5` saved-student Tuckute scoring completed at `2026-07-07T2
 - Launched the rerun with `setsid` after the first detached launch died before Python; verified the stable Python child and GPU activity.
 - Restarted/continued textfeat seed `0-5` Tuckute scoring, which completed cleanly with 18/18 artifact rows scored, and started the 5-minute local monitor.
 - Added `scripts/e016_analyze_tuckute_alignment.py` and regression-checked it against the recorded seed `3-5` Tuckute analysis; it reproduces the load-bearing contrasts and PCA robustness means.
+- Confirmed the rerun saved its first arm artifact and launched a detached postprocess watcher to run the combined seed `0-5` Tuckute analyzer after the rerun Tuckute output appears.
 
 ## What To Do Next
 
 1. Monitor `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md` until the TRIBE rerun finishes.
 2. After the rerun finishes, score rerun TRIBE seed `0-2` on Tuckute if the launcher has not already done so, then combine with existing TRIBE seed `3-5` diagnostics.
-3. Compute the aligned seed `0-5` real-brain diagnostic against the completed textfeat seed `0-5` Tuckute output.
+3. Check `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`; the watcher should compute the aligned seed `0-5` real-brain diagnostic against the completed textfeat seed `0-5` Tuckute output after the rerun Tuckute JSON appears.
 4. If the Tuckute diagnostic becomes paper-load-bearing, run an independent second implementation or deeper code/stat review.
 5. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 or the post-hoc Tuckute diagnostic alone.
 
