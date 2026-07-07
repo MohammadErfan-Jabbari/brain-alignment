@@ -60,11 +60,12 @@ Do not widen compute while the rerun is active. The next decisive evidence is al
 1. Finish TRIBE seed `0-2` artifact-saving rerun.
 2. Score the rerun on Tuckute.
 3. Run `scripts/e016_analyze_tuckute_alignment.py` over TRIBE seed `0-5` and textfeat seed `0-5`.
-4. Route the result through `/interpret` before narrowing or reopening the paper claim.
+4. Apply [`e016-combined-tuckute-interpretation-gate-2026-07-07.md`](e016-combined-tuckute-interpretation-gate-2026-07-07.md), then route the result through `/interpret` before narrowing or reopening the paper claim.
 
 ## Related
 
 - [`top-venue-claim-scope-review-2026-07-07.md`](top-venue-claim-scope-review-2026-07-07.md)
+- [`e016-combined-tuckute-interpretation-gate-2026-07-07.md`](e016-combined-tuckute-interpretation-gate-2026-07-07.md)
 - [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md)
 - [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md)
 - [`experiments/E016_tribe-synthetic-brain-targets.md`](experiments/E016_tribe-synthetic-brain-targets.md)

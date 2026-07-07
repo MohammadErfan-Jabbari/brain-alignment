@@ -1235,6 +1235,13 @@ Verification at launch: the watcher reparented to PID 1, has its own session/pro
 
 **Status:** postprocess automation only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 55 - Combined Tuckute interpretation gate written (2026-07-07)
+Added `docs/e016-combined-tuckute-interpretation-gate-2026-07-07.md` to lock the postprocess acceptance and routing criteria before the combined seed `0-5` Tuckute result exists. The gate names the required rerun, Tuckute alignment, combined analysis, and audit files; requires complete seeds `[0,1,2,3,4,5]`, no missing artifacts, same endpoint/protocol, raw arithmetic agreement, and `all_checks_pass=true`; and maps the audit routes to paper consequences without allowing a ladder flip or paper claim.
+
+The gate is deliberately narrower than a report: it only governs whether the combined Tuckute diagnostic is eligible for `/interpret`, and what paper-route burden follows from a positive, nonpositive, mixed, failed-audit, or not-ready result.
+
+**Status:** interpretation handoff only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
