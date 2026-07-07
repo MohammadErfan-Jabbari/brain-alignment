@@ -1096,6 +1096,34 @@ No immediate implementation bug was found that would explain the negative Tuckut
 
 **Status:** local code-path review found no blocker; no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 50 - Six-seed real-brain robustness rerun predeclared (2026-07-07)
+The post-S81 claim-scope review selected the bounded real-brain robustness/rerun path before narrowing the paper. The review artifact is `docs/top-venue-claim-scope-review-2026-07-07.md`.
+
+Rationale: the synthetic target-R2 branch is positive across seed `0-5`, but the real-brain Tuckute diagnostic is negative on saved TRIBE seed `3-5`. The original TRIBE seed `0-2` students were not saved, while textfeat seed `0-5` artifacts already exist. Therefore the smallest evidence step that can fairly overturn or confirm the Tuckute warning is to rerun only TRIBE seed `0-2` with artifact saving and then evaluate the real-brain endpoint over aligned seed `0-5`.
+
+Locked rerun design:
+
+- target cache: `outputs/E016_tribe/kd_targets/text/train_start0_n95999_full.npz`
+- heldout target cache: `outputs/E016_tribe/kd_targets/text/heldout_start0_n1999_full.npz`
+- target label: `tribe`
+- teacher/student: `gpt2-medium` -> `gpt2`
+- seeds: `0,1,2`
+- lambda grid: `0.1`
+- epochs/lr/batch/max-length: `1`, `5e-5`, `4`, `64`
+- heldout limit: `1999`
+- required output: run JSON plus saved model artifacts for `kd_only`, `tribe_mse`, and `tribe_perm` for each seed.
+
+Predeclared next comparison after the rerun completes:
+
+- score rerun TRIBE seed `0-2` on Tuckute with `scripts/e016_eval_saved_student_alignment.py`.
+- score or reuse textfeat seed `0-5` Tuckute artifacts.
+- combine TRIBE seed `0-2` with existing TRIBE seed `3-5` Tuckute diagnostics.
+- compute seed-aligned TRIBE-minus-textfeat gains versus KD-only and versus permuted-control gains over seed `0-5`.
+
+Kill criteria: the brain-specific positive route remains on HOLD unless the six-seed real-brain diagnostic reverses the S81 warning. Nonpositive or mixed TRIBE-minus-textfeat real-brain gains route to a narrowed synthetic-target/control paper. A positive six-seed diagnostic would reopen, not prove, the positive route and would still require independent code/stat review plus `/interpret`.
+
+**Status:** design locked before rerun launch; no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

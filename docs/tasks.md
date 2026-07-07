@@ -24,6 +24,14 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 > results/docs/learnings/decisions/ladder updated along the way. TRIBE is the **last** task added at the end
 > of the train, **not** the first. The analysis lane is frozen at its resume point, ready for Erfan.
 
+### S82 `/goal` continuation - six-seed real-brain robustness rerun selected (2026-07-07)
+
+- [x] **Claim-scope review completed.** [`top-venue-claim-scope-review-2026-07-07.md`](top-venue-claim-scope-review-2026-07-07.md) selects the bounded real-brain robustness/rerun path before narrowing the paper.
+- [x] **Rerun design locked before launch.** Rerun only missing TRIBE seeds `0,1,2` with artifact saving under the same Phase-3 protocol; do not rerun textfeat training.
+- [ ] **Launch TRIBE seed `0-2` artifact-saving rerun.** Target run JSON: `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`.
+- [ ] **Evaluate Tuckute over aligned seed `0-5`.** Score rerun TRIBE seed `0-2`, combine with existing TRIBE seed `3-5`, and compare against textfeat seed `0-5`.
+- [ ] **Choose paper route after six-seed Tuckute diagnostic.** Nonpositive or mixed real-brain gains narrow to a synthetic-target/control paper; positive gains only reopen the brain-specific route.
+
 ### S81 `/goal` continuation - saved-student real-brain diagnostic completed (2026-07-07)
 
 - [x] **Chose the next burden deliberately.** Real-brain evaluation on saved seed `3-5` artifacts was selected after the six-seed synthetic comparator held.
@@ -33,7 +41,7 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 - [x] **Run local `/interpret` arithmetic/stat audit before any claim.** `phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment.interpret_audit.json` passed row/protocol/arithmetic/PCA checks and routed to `real_brain_warning_needs_claim_scope_review`.
 - [x] **Run local code-path review of the Tuckute evaluator.** Step 49 found no immediate implementation blocker: the evaluator mirrors the E003 scoring path and `py_compile` passes. This is not a second implementation.
 - [ ] **Run independent second implementation or deeper code/stat review only if the diagnostic becomes paper-load-bearing.** The local review is enough for claim-scope routing, not enough to publish the diagnostic as a central result.
-- [ ] **Choose the next paper route.** Decide between narrowed synthetic-target/control paper, predeclared real-brain robustness/rerun, or a stronger non-brain control with the Tuckute warning kept explicit.
+- [x] **Choose the next paper route.** Resolved in S82: predeclared real-brain robustness/rerun before narrowing.
 
 ### S80 `/goal` continuation - combined six-seed comparator held (2026-07-07)
 

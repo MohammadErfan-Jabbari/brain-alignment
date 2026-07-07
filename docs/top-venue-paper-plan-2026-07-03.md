@@ -36,6 +36,8 @@ So the paper must not be framed as "brain data helps LMs." It must be framed as:
 
 Current route as of 2026-07-07: the full TRIBE artifact passed the analyzer/readiness gate, the matched-information `textfeat` control completed, extra artifact-saving seeds `3,4,5` completed for both TRIBE and textfeat, and the combined seed `0-5` comparator routed to `tribe_stronger_than_textfeat_needs_review`. A local raw-row `/interpret` audit reproduced all synthetic target-R2 seed-aligned margins. The saved seed `3-5` real-brain/Tuckute diagnostic then moved against the brain-specific positive branch: TRIBE-minus-textfeat gain versus KD-only was `-0.000862`, and versus permuted-control gains was `-0.000784`. This route now supports a synthetic-target post-positive branch plus a real-brain warning, not a final verdict and not brain-specific clearance.
 
+Claim-scope decision as of 2026-07-07: run a bounded real-brain robustness rerun before narrowing. The rerun is only the missing TRIBE seed `0-2` artifact-saving run, because textfeat seed `0-5` artifacts already exist. If the resulting seed `0-5` Tuckute diagnostic remains nonpositive or mixed, the paper route narrows to a synthetic-target/control contribution.
+
 ## Experiment matrix
 
 | Arm | Purpose | Status |
@@ -52,6 +54,7 @@ Current route as of 2026-07-07: the full TRIBE artifact passed the analyzer/read
 | Long-context non-brain control (`contextfeat`) | Separates synthetic-brain specificity from generic context-conditioned teacher-feature effects. | Builder prepared and CPU-smoked only: [`e016_recover_kd_context_metadata.py`](../scripts/e016_recover_kd_context_metadata.py) exactly recovers WikiText row/header context, and [`build_context_feature_target_cache.py`](../scripts/build_context_feature_target_cache.py) writes context-conditioned teacher-feature caches. Full cache/run waits until E016 and textfeat justify it. See [`top-venue-long-context-control-feasibility-2026-07-03.md`](top-venue-long-context-control-feasibility-2026-07-03.md). |
 | On-policy non-brain control | Separates synthetic-brain specificity from generic teacher supervision on the student's own trajectories. | Not built. This remains a new runner protocol, not a target-cache variant. [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md) records the estimand split. |
 | Real-brain evaluation | Separates synthetic-target fit from real brain alignment. | Saved seed `3-5` diagnostic completed and does not support the brain-specific positive branch. It does not replace `/interpret`, and it makes a narrowed synthetic-target/control paper more plausible than a direct real-brain-positive top-tier claim unless a predeclared robustness/rerun path overturns it. |
+| Real-brain robustness rerun | Closes the missing-saved-artifact hole in the Tuckute diagnostic. | Predeclared in [`top-venue-claim-scope-review-2026-07-07.md`](top-venue-claim-scope-review-2026-07-07.md): rerun only TRIBE seed `0-2` with artifact saving, then compute the seed `0-5` real-brain diagnostic. |
 
 ## Analyzer gates
 

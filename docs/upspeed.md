@@ -34,6 +34,8 @@ Local code-path review of `scripts/e016_eval_saved_student_alignment.py` found n
 
 No final experiment verdict was adjudicated, no brain-specific claim was made, and no ladder rung changed.
 
+S82 claim-scope decision: run the bounded real-brain robustness rerun before narrowing the paper. The selected rerun is only missing TRIBE seed `0-2` with artifact saving, because textfeat seed `0-5` artifacts already exist. If the resulting seed `0-5` Tuckute diagnostic stays nonpositive or mixed, narrow to a synthetic-target/control paper.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -54,9 +56,10 @@ No final experiment verdict was adjudicated, no brain-specific claim was made, a
 
 ## What To Do Next
 
-1. Decide the next paper route: narrowed synthetic-target/control contribution, predeclared real-brain robustness/rerun, or stronger non-brain context/on-policy control with the Tuckute warning kept explicit.
-2. If the Tuckute diagnostic becomes paper-load-bearing, run an independent second implementation or deeper code/stat review.
-3. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 or the post-hoc Tuckute diagnostic alone.
+1. Launch the predeclared TRIBE seed `0-2` artifact-saving rerun.
+2. After it finishes, score rerun TRIBE seed `0-2` and textfeat seed `0-5` on Tuckute, then compute the aligned seed `0-5` real-brain diagnostic.
+3. If the Tuckute diagnostic becomes paper-load-bearing, run an independent second implementation or deeper code/stat review.
+4. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 or the post-hoc Tuckute diagnostic alone.
 
 ## Blockers / Open Loops
 
