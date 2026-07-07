@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import json
 import subprocess
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -17,6 +18,11 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 
 DEFAULT_RUN_JSON = Path("outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json")
+DEFAULT_PHASE3_LOG = Path("outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.log")
+DEFAULT_PHASE3_ANALYSIS_JSON = Path(
+    "outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.analysis.json"
+)
+DEFAULT_RUN_SCRIPT = Path("outputs/E016_tribe/phase3/run_rerun_tribe_s0-2_save_20260707.sh")
 DEFAULT_RERUN_TUCKUTE = Path(
     "outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json"
 )
@@ -175,6 +181,66 @@ def discover_watchers(args: argparse.Namespace) -> dict[str, dict[str, Any]]:
     return watchers
 
 
+def summarize_rerun_status(status: dict[str, Any]) -> dict[str, Any]:
+    health = status.get("health") if isinstance(status.get("health"), dict) else {}
+    log = status.get("log") if isinstance(status.get("log"), dict) else {}
+    progress = log.get("training_progress") if isinstance(log.get("training_progress"), dict) else {}
+    eta = progress.get("rough_training_eta") if isinstance(progress.get("rough_training_eta"), dict) else {}
+    gpu = status.get("gpu") if isinstance(status.get("gpu"), dict) else {}
+    return {
+        "available": True,
+        "phase": status.get("phase"),
+        "health_status": health.get("status"),
+        "runner_process_count": health.get("runner_process_count"),
+        "runner_elapsed_s_max": health.get("runner_elapsed_s_max"),
+        "log_quiet_s": health.get("log_quiet_s"),
+        "completed_arm_count": progress.get("completed_arm_count"),
+        "arms_expected": progress.get("arms_expected"),
+        "active_arm": progress.get("active_arm"),
+        "latest_completed_arm": progress.get("latest_completed_arm"),
+        "rough_training_eta_s": eta.get("eta_s"),
+        "rough_training_eta_utc": eta.get("eta_utc"),
+        "rough_training_eta_note": eta.get("note"),
+        "max_gpu_utilization_pct": gpu.get("max_utilization_gpu_pct"),
+        "science_status": "operational rerun status only; not a Phase-3 result",
+    }
+
+
+def collect_rerun_status(args: argparse.Namespace) -> dict[str, Any]:
+    cmd = [
+        sys.executable,
+        "scripts/e016_phase3_status.py",
+        "--pretty",
+        "--log",
+        str(resolve(args.phase3_log)),
+        "--run-json",
+        str(resolve(args.run_json)),
+        "--analysis-json",
+        str(resolve(args.phase3_analysis_json)),
+        "--run-script",
+        str(resolve(args.run_script)),
+    ]
+    proc = subprocess.run(cmd, cwd=ROOT, check=False, text=True, capture_output=True)
+    if proc.returncode != 0:
+        return {
+            "available": False,
+            "returncode": proc.returncode,
+            "stderr": proc.stderr.strip(),
+            "stdout_tail": proc.stdout.splitlines()[-20:],
+        }
+    try:
+        status = json.loads(proc.stdout)
+    except json.JSONDecodeError as exc:
+        return {
+            "available": False,
+            "parse_error": str(exc),
+            "stdout_tail": proc.stdout.splitlines()[-20:],
+        }
+    if not isinstance(status, dict):
+        return {"available": False, "parse_error": f"expected object, got {type(status).__name__}"}
+    return summarize_rerun_status(status)
+
+
 def classify(
     required: dict[str, dict[str, Any]],
     audit: dict[str, Any] | None,
@@ -210,6 +276,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     analysis, analysis_error = load_json_if_present(args.analysis_json)
     runners = discover_runner_processes(args.run_json)
     watchers = discover_watchers(args)
+    rerun_status = collect_rerun_status(args)
     phase = classify(required, audit, audit_error, runners)
     missing = [key for key, status in required.items() if not status["nonempty"]]
     return {
@@ -221,6 +288,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
         "required_files": required,
         "runner_process_count": len(runners),
         "runner_processes": runners,
+        "rerun_status_summary": rerun_status,
         "postprocess_watchers": watchers,
         "analysis_summary": {
             "ready_for_interpret": analysis.get("ready_for_interpret") if isinstance(analysis, dict) else None,
@@ -265,9 +333,29 @@ def render_markdown(payload: dict[str, Any]) -> str:
         f"- audit_all_checks_pass: `{payload['audit_summary']['all_checks_pass']}`",
         f"- next_action: {payload['next_action_hint']}",
         "",
-        "## Watchers",
+        "## Rerun Progress",
         "",
     ]
+    rerun = payload["rerun_status_summary"]
+    if rerun.get("available"):
+        lines.extend([
+            f"- status_phase: `{rerun['phase']}`",
+            f"- health: `{rerun['health_status']}`",
+            f"- completed_arms: `{rerun['completed_arm_count']}/{rerun['arms_expected']}`",
+            f"- active_arm: `{rerun['active_arm']}`",
+            f"- latest_completed_arm: `{rerun['latest_completed_arm']}`",
+            f"- rough_training_eta_utc: `{rerun['rough_training_eta_utc']}`",
+            f"- rough_training_eta_s: `{rerun['rough_training_eta_s']}`",
+            f"- max_gpu_utilization_pct: `{rerun['max_gpu_utilization_pct']}`",
+            "- progress_status: operational estimate only; not a science result",
+        ])
+    else:
+        lines.append(f"- unavailable: `{rerun}`")
+    lines.extend([
+        "",
+        "## Watchers",
+        "",
+    ])
     for name, status in payload["postprocess_watchers"].items():
         lines.append(f"- {name}: `{status['process_count']}` process(es)")
     lines.extend([
@@ -286,6 +374,9 @@ def render_markdown(payload: dict[str, Any]) -> str:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--run-json", type=Path, default=DEFAULT_RUN_JSON)
+    ap.add_argument("--phase3-log", type=Path, default=DEFAULT_PHASE3_LOG)
+    ap.add_argument("--phase3-analysis-json", type=Path, default=DEFAULT_PHASE3_ANALYSIS_JSON)
+    ap.add_argument("--run-script", type=Path, default=DEFAULT_RUN_SCRIPT)
     ap.add_argument("--rerun-tuckute", type=Path, default=DEFAULT_RERUN_TUCKUTE)
     ap.add_argument("--existing-tribe-tuckute", type=Path, default=DEFAULT_EXISTING_TRIBE_TUCKUTE)
     ap.add_argument("--textfeat-tuckute", type=Path, default=DEFAULT_TEXTFEAT_TUCKUTE)

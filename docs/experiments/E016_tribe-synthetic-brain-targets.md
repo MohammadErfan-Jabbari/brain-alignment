@@ -1402,6 +1402,17 @@ Live rerun state at the same check: the selected runner was still alive, the ric
 
 **Status:** monitoring/handoff utility only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 65 - Combined Tuckute gate helper embeds rerun progress (2026-07-07)
+Extended `scripts/e016_tuckute_gate_status.py` again so the combined seed `0-5` gate command also embeds a compact read-only rerun progress summary from `scripts/e016_phase3_status.py`. The Markdown status now reports the selected rerun's health, completed arms, active arm, latest completed arm, rough ETA, and max node-level GPU utilization alongside watcher health and required gate files. This makes `uv run scripts/e016_tuckute_gate_status.py --markdown` the single compact command for "done, stuck, or still training?" checks.
+
+Verification:
+
+- `uv run python -m py_compile scripts/e016_tuckute_gate_status.py` passed.
+- `uv run scripts/e016_tuckute_gate_status.py --markdown` rendered the new `Rerun Progress` section and still reported `phase="waiting_for_rerun_run_json"`, `ready_for_interpret=false`, completed arms `5/9`, active arm `seed=1 arm=tribe_perm lambda=0.1`, all selected watcher groups alive, and missing `run_json`, `rerun_tuckute`, `analysis_json`, and `audit_json`.
+- `uv run scripts/e016_tuckute_gate_status.py --pretty` exposed the same information under `rerun_status_summary`.
+
+**Status:** monitoring/handoff utility only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
