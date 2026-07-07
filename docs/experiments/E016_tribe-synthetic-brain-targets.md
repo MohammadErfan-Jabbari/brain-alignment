@@ -1263,6 +1263,19 @@ uv run python scripts/e016_phase3_status.py --pretty \
 
 **Status:** monitoring correctness only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 57 - Rich rerun monitor launched (2026-07-07)
+Added `scripts/e016_monitor_phase3_status.py`, a reusable read-only wrapper around the rerun-safe Phase-3 status helper. It repeatedly writes a latest JSON snapshot and compact Markdown status page for a selected run. The wrapper does not launch training, run analyzers, score Tuckute, or adjudicate any claim.
+
+Verification:
+
+- `uv run python -m py_compile scripts/e016_monitor_phase3_status.py scripts/e016_phase3_status.py` passed.
+- A one-shot rerun snapshot wrote `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.json` and `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.md`.
+- The detached five-minute wrapper is active as PID `3850339`, with PID file `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.pid` and log `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.log`.
+
+Latest rich snapshot at `2026-07-07T21:10:23.298803+00:00` reported `phase="training_running_or_interrupted"`, `health.status="runner_alive_log_recent"`, `process_count=2`, runner elapsed about `3537` seconds, completed arms `2/9`, latest completed arm `seed=0, arm=tribe_mse, lambda=0.1`, and active arm `seed=0, arm=tribe_perm, lambda=0.1`. The rerun JSON, rerun analyzer JSON, rerun Tuckute JSON, combined seed `0-5` Tuckute analysis JSON, and combined Tuckute audit JSON were still missing.
+
+**Status:** monitoring utility only; rerun training is active and advancing, but there is no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
