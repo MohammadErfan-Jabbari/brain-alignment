@@ -6,7 +6,7 @@ aliases: [top-venue-representation-control-feasibility-2026-07-07, representatio
 
 # Top-venue representation-control feasibility, 2026-07-07
 
-**Status.** This is a `/plan` artifact written while the E016 seed `0-2` TRIBE artifact-saving rerun is active. It is not a report, not a manuscript section, not a science verdict, and not permission to launch a new control before the combined Tuckute gate resolves.
+**Status.** This is a `/plan` artifact originally written while the E016 seed `0-2` TRIBE artifact-saving rerun was active, then updated after the combined Tuckute gate resolved as warning/nonpositive on 2026-07-08. It is not a report, not a manuscript section, not a science verdict, and not permission to launch a new control.
 
 ## Question
 
@@ -14,11 +14,11 @@ The hidden-state distillation literature has moved: OPRD and PHF make representa
 
 ## Bottom Line
 
-Do not build an OPRD/PHF-style control as the immediate next step. If the combined seed `0-5` Tuckute gate is nonpositive or mixed, no new representation-control compute is justified; the paper route narrows to a controlled privileged-target transfer-failure result. If the gate is positive and audit-clean, the next non-brain control should be `contextfeat` first, because it is already mechanically feasible in the current cache-based Phase-3 runner and tests a cleaner nearby objection: whether a context-conditioned frozen teacher hidden target explains the TRIBE gain.
+Do not build `contextfeat`, OPRD-lite, or PHF-lite as the immediate next step. The combined seed `0-5` Tuckute gate is warning/nonpositive after `/interpret`, so no new representation-control compute is justified by this goal. The paper route narrows to a controlled privileged-target transfer-failure result.
 
-An OPRD/PHF-style comparator is a later, higher-cost burden. It requires a new on-policy runner because the supervision target is teacher hidden states or hidden transitions on student rollouts, not a precomputed per-sentence target cache. It should be opened only if all of these hold:
+An OPRD/PHF-style comparator remains a later, higher-cost burden. It requires a new on-policy runner because the supervision target is teacher hidden states or hidden transitions on student rollouts, not a precomputed per-sentence target cache. It should be opened only if all of these hold in a future goal:
 
-1. combined Tuckute seed `0-5` is positive and audit-clean,
+1. a new predeclared endpoint/dataset or corrected evaluator reopens a positive real-brain transfer route,
 2. the claim remains brain-specific after `textfeat` and real-brain transfer,
 3. `contextfeat` does not explain the effect, or the intended venue claim explicitly compares against on-policy representation distillation.
 
@@ -27,7 +27,7 @@ An OPRD/PHF-style comparator is a later, higher-cost burden. It requires a new o
 | Option | What it tests | Fits current runner? | Cost | When to use |
 |---|---|---:|---:|---|
 | `textfeat` | Sentence-local frozen LM hidden-state targets, matched dimension and permuted twin. | Yes, already complete. | Paid. | Already mandatory; clears only sentence-local teacher-hidden features. |
-| `contextfeat` | Frozen teacher hidden states conditioned on recovered preceding WikiText context, pooled over target sentence tokens. | Yes; cache builder exists and CPU-smoked. | Medium: build train/heldout caches, run Phase-3 arms. | First extra non-brain control if E016 real-brain gate is positive. |
+| `contextfeat` | Frozen teacher hidden states conditioned on recovered preceding WikiText context, pooled over target sentence tokens. | Yes; cache builder exists and CPU-smoked. | Medium: build train/heldout caches, run Phase-3 arms. | Not next after the warning-route Tuckute gate; first extra non-brain control only if a future positive route reopens. |
 | OPRD-lite | Teacher hidden-state MSE on student-generated/on-policy text. | No; needs new runner. | High: rollout generation, teacher/student hidden capture, layer/position policy, analyzer. | Only after positive real-brain gate plus `contextfeat` need, or if top-tier reviewers require an on-policy representation baseline. |
 | PHF-lite | Teacher hidden-transition/trajectory-geometry matching on student rollouts. | No; needs new runner and transition-window design. | Very high: all OPRD-lite burdens plus transition/geometry choices. | Not a near-term E016 control; consider only for a new paper branch or a strong positive that survives simpler controls. |
 
@@ -41,9 +41,9 @@ OPRD/PHF change several things at once: they move from off-policy sentence targe
 
 A focused Firecrawl Research expansion from OPRD/PHF and PI-leakage papers added AR-OPD, EDGE-OPD, and When Context Returns as sharper positive-branch objections. Their shared lesson is that privileged supervision can fail because the privileged teacher sees information the student cannot locally support, because useful signal is localized to a subset of tokens, or because internalized context is not robust when the context is reintroduced.
 
-This does not move OPRD-lite, PHF-lite, AR-OPD-style anchoring, or EDGE-style evidence masking ahead of `contextfeat`. Those methods are token/rollout objectives, while E016 is currently a fixed cache-target experiment. They become relevant only after:
+This does not move OPRD-lite, PHF-lite, AR-OPD-style anchoring, or EDGE-style evidence masking ahead of the current paper planning step. Those methods are token/rollout objectives, while E016 is a fixed cache-target experiment. They become relevant only after:
 
-1. the combined real-brain gate is positive and audit-clean,
+1. a future positive real-brain route is positive and audit-clean,
 2. independent review rules out evaluator/stat artifacts,
 3. `contextfeat` fails to explain the effect, or the chosen venue requires an on-policy representation/privileged-teacher comparator.
 
@@ -56,6 +56,8 @@ After the combined Tuckute gate:
 - **Positive and audit-clean, but effect is fragile across seeds/PCA/protocol checks:** prioritize independent code/stat review or replication over new baselines.
 - **Positive and robust:** build `contextfeat` before any on-policy hidden-state runner.
 - **Positive, robust, and `contextfeat` cannot explain it:** design OPRD-lite as a separate `/precheck` item; PHF-lite remains optional and should need a venue-driven reason.
+
+The observed 2026-07-08 branch is the first row: warning/nonpositive. No representation-control compute is the default next step.
 
 ## OPRD-Lite Sketch If It Becomes Necessary
 
@@ -81,3 +83,4 @@ This is not a target-cache variant. It is a new training protocol and should go 
 - [`top-venue-long-context-control-feasibility-2026-07-03.md`](top-venue-long-context-control-feasibility-2026-07-03.md)
 - [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md)
 - [`e016-combined-tuckute-interpretation-gate-2026-07-07.md`](e016-combined-tuckute-interpretation-gate-2026-07-07.md)
+- [`e016-combined-tuckute-interpretation-2026-07-08.md`](e016-combined-tuckute-interpretation-2026-07-08.md)

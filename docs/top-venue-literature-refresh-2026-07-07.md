@@ -6,7 +6,7 @@ aliases: [top-venue-literature-refresh-2026-07-07, E016-literature-refresh]
 
 # Top-venue literature refresh, 2026-07-07
 
-**Status.** This is a scout/plan artifact written while the E016 seed `0-2` real-brain rerun is active. It is not a canonical paper digest, not a report, and not a science verdict. It records what the live literature search implies for the paper route.
+**Status.** This is a scout/plan artifact originally written while the E016 seed `0-2` real-brain rerun was active, then updated after the 2026-07-08 `/interpret` closeout. It is not a canonical paper digest, not a report, and not a ladder update. It records what the live literature search implies for the paper route.
 
 ## Search Scope
 
@@ -46,21 +46,20 @@ The strongest open cell is narrower and more defensible:
 
 > Does a brain-derived privileged target transfer useful information to a smaller language-model student beyond matched text-feature and permuted-target controls, and does that transfer survive evaluation on real brain alignment rather than only on the training proxy?
 
-This yields two possible paper routes after the active rerun:
+The active rerun has now resolved through [`e016-combined-tuckute-interpretation-2026-07-08.md`](e016-combined-tuckute-interpretation-2026-07-08.md). The route table is therefore settled for this goal:
 
 | E016 real-brain seed `0-5` outcome | Best paper route | Venue burden |
 |---|---|---|
-| Real-brain TRIBE-minus-textfeat remains nonpositive or mixed | Methodological/control paper: synthetic neural targets can produce a large synthetic-endpoint gain over textfeat, but the gain fails real-brain transfer; propose matched-PPL + textfeat + real-brain-transfer as a necessary evaluation ladder for neural/cognitive PI distillation. | Needs a clean `/interpret` audit, possibly context/on-policy non-brain controls if claiming brain specificity is ruled out rather than merely unsupported. This is likely a strong workshop / possible AAAI-style methodology paper, less likely ICML/ICLR/NeurIPS unless the control failure is generalized. |
-| Real-brain TRIBE-minus-textfeat becomes positive and robust | Positive brain-privileged KD paper: first evidence that a synthetic brain target can improve a smaller LM's real-brain alignment beyond sentence-local teacher-hidden-state supervision under matched budget. | Needs independent implementation/stat audit, stronger non-brain/context/on-policy controls, and likely an external dataset or endpoint. This is the only plausible ICML/ICLR/NeurIPS route from E016. |
+| Real-brain TRIBE-minus-textfeat stayed negative/nonpositive | Methodological/control paper: synthetic neural targets can produce a large synthetic-endpoint gain over textfeat, but the gain fails real-brain transfer; propose matched-PPL + textfeat + real-brain-transfer as a necessary evaluation ladder for neural/cognitive PI distillation. | Clean `/interpret` now exists. AAAI is the realistic default; ICML is possible only if the estimand/control lesson is generalized. |
+| Real-brain TRIBE-minus-textfeat positive branch | Not supported by this goal's artifacts. | Reopening requires a new predeclared endpoint/dataset or found evaluator/stat error, not additional interpretation of E016. |
 
 ## Immediate Action
 
-Do not widen compute while the rerun is active. The next decisive evidence is already running:
+Do not widen compute from this goal. The decisive rerun and `/interpret` are complete:
 
-1. Finish TRIBE seed `0-2` artifact-saving rerun.
-2. Score the rerun on Tuckute.
-3. Run `scripts/e016_analyze_tuckute_alignment.py` over TRIBE seed `0-5` and textfeat seed `0-5`.
-4. Apply [`e016-combined-tuckute-interpretation-gate-2026-07-07.md`](e016-combined-tuckute-interpretation-gate-2026-07-07.md), then route the result through `/interpret` before narrowing or reopening the paper claim.
+1. Plan the synthetic-target/control plus real-brain transfer-failure paper package.
+2. Run independent code/stat review only if the Tuckute diagnostic becomes a submitted-paper load-bearing result.
+3. Use `/write` through `sci-write-v2` after the paper claim lattice is agreed.
 
 ## Limited Follow-Up, 2026-07-07 21:59 UTC
 

@@ -38,6 +38,10 @@ DEFAULT_ANALYSIS_JSON = Path(
 DEFAULT_AUDIT_JSON = Path(
     "outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.audit.json"
 )
+DEFAULT_INTERPRETATION_DOC = Path("docs/e016-combined-tuckute-interpretation-2026-07-08.md")
+DEFAULT_INTERPRET_RECOMPUTE_JSON = Path(
+    "outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.interpret_recompute.json"
+)
 
 
 def resolve(path: Path) -> Path:
@@ -272,6 +276,9 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
         "audit_json": args.audit_json,
     }
     required = {key: file_status(path) for key, path in paths.items()}
+    interpretation_doc = file_status(args.interpretation_doc)
+    interpret_recompute = file_status(args.interpret_recompute_json)
+    interpretation_recorded = bool(interpretation_doc["nonempty"])
     audit, audit_error = load_json_if_present(args.audit_json)
     analysis, analysis_error = load_json_if_present(args.analysis_json)
     runners = discover_runner_processes(args.run_json)
@@ -284,6 +291,9 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
         "phase": phase,
         "science_status": "gate status only; not a result, verdict, or rung update",
         "ready_for_interpret": phase == "audit_ready_for_interpret",
+        "interpretation_recorded": interpretation_recorded,
+        "interpretation_doc": interpretation_doc,
+        "interpret_recompute": interpret_recompute,
         "missing_or_empty": missing,
         "required_files": required,
         "runner_process_count": len(runners),
@@ -303,11 +313,13 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
             "missing_expected_seeds": audit.get("missing_expected_seeds") if isinstance(audit, dict) else None,
             "read_error": audit_error,
         },
-        "next_action_hint": next_action_hint(phase),
+        "next_action_hint": next_action_hint(phase, interpretation_recorded),
     }
 
 
-def next_action_hint(phase: str) -> str:
+def next_action_hint(phase: str, interpretation_recorded: bool = False) -> str:
+    if phase == "audit_ready_for_interpret" and interpretation_recorded:
+        return "interpretation recorded; next default is /plan then /write for the narrowed transfer-failure paper route"
     return {
         "waiting_for_rerun_run_json": "keep monitoring the selected rerun; do not run Tuckute scoring yet",
         "waiting_for_rerun_or_runner_stopped_without_json": "inspect rerun log and runner exit state before taking action",
@@ -328,6 +340,7 @@ def render_markdown(payload: dict[str, Any]) -> str:
         f"- phase: `{payload['phase']}`",
         f"- ready_for_interpret: `{payload['ready_for_interpret']}`",
         f"- runner_process_count: `{payload['runner_process_count']}`",
+        f"- interpretation_recorded: `{payload['interpretation_recorded']}`",
         f"- missing_or_empty: `{payload['missing_or_empty']}`",
         f"- audit_route: `{payload['audit_summary']['route']}`",
         f"- audit_all_checks_pass: `{payload['audit_summary']['all_checks_pass']}`",
@@ -360,6 +373,17 @@ def render_markdown(payload: dict[str, Any]) -> str:
         lines.append(f"- {name}: `{status['process_count']}` process(es)")
     lines.extend([
         "",
+        "## Interpretation",
+        "",
+    ])
+    doc_status = payload["interpretation_doc"]
+    recompute_status = payload["interpret_recompute"]
+    lines.append(f"- interpretation_doc: `{'present' if doc_status['nonempty'] else 'missing'}` -> `{doc_status['path']}`")
+    lines.append(
+        f"- interpret_recompute: `{'present' if recompute_status['nonempty'] else 'missing'}` -> `{recompute_status['path']}`"
+    )
+    lines.extend([
+        "",
         "## Required Files",
         "",
     ])
@@ -382,6 +406,8 @@ def main() -> None:
     ap.add_argument("--textfeat-tuckute", type=Path, default=DEFAULT_TEXTFEAT_TUCKUTE)
     ap.add_argument("--analysis-json", type=Path, default=DEFAULT_ANALYSIS_JSON)
     ap.add_argument("--audit-json", type=Path, default=DEFAULT_AUDIT_JSON)
+    ap.add_argument("--interpretation-doc", type=Path, default=DEFAULT_INTERPRETATION_DOC)
+    ap.add_argument("--interpret-recompute-json", type=Path, default=DEFAULT_INTERPRET_RECOMPUTE_JSON)
     ap.add_argument("--pretty", action="store_true")
     ap.add_argument("--markdown", action="store_true")
     ap.add_argument("--fail-if-not-ready", action="store_true")

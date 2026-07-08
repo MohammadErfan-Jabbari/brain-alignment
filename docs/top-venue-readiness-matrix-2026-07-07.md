@@ -6,7 +6,7 @@ aliases: [top-venue-readiness-matrix-2026-07-07, venue-readiness-matrix]
 
 # Top-venue readiness matrix, 2026-07-07
 
-**Status.** This is a `/plan` artifact originally written while the bounded E016 TRIBE seed `0-2` artifact-saving rerun was active, then updated after the combined seed `0-5` Tuckute gate became audit-ready on 2026-07-08. It is not a report, not a manuscript section, not a science verdict, and not a ladder update. It converts the current literature/evidence state into a venue-specific burden map for AAAI, ICML, ICLR, and NeurIPS.
+**Status.** This is a `/plan` artifact originally written while the bounded E016 TRIBE seed `0-2` artifact-saving rerun was active, then updated after the combined seed `0-5` Tuckute gate became audit-ready and after the 2026-07-08 `/interpret` closeout. It is not a report, not a manuscript section, and not a ladder update. It converts the current literature/evidence state into a venue-specific burden map for AAAI, ICML, ICLR, and NeurIPS.
 
 ## Current Evidence State
 
@@ -14,17 +14,17 @@ The current candidate contribution is not broad brain-guided LLM improvement, ge
 
 The live open cell is narrower: under a fixed smaller-student KD budget, does a brain-derived privileged target beat KD-only, permuted dense-target controls, and matched non-brain text-feature controls, and does any gain transfer to real-brain alignment rather than only to the synthetic training proxy?
 
-As of the 2026-07-08 update, the six-seed synthetic TRIBE-vs-textfeat comparator remains positive and locally audited, but the combined seed `0-5` real-brain Tuckute gate is now artifact-complete and audit-ready with route `real_brain_warning_needs_claim_scope_review`. The audit reports complete seeds `[0,1,2,3,4,5]`, no missing expected seeds, and `all_checks_pass=true`; the key real-brain transfer contrasts are nonpositive/negative rather than positive. See [`experiments/E016_tribe-synthetic-brain-targets.md`](experiments/E016_tribe-synthetic-brain-targets.md) Step 68 for the recorded work evidence.
+As of the 2026-07-08 `/interpret` closeout, the six-seed synthetic TRIBE-vs-textfeat comparator remains positive and locally audited, but the combined seed `0-5` real-brain Tuckute gate is negative/nonpositive for the brain-specific route. The audit reports complete seeds `[0,1,2,3,4,5]`, no missing expected seeds, and `all_checks_pass=true`; the independent `/interpret` recompute matches the recorded analysis and audit. See [`experiments/E016_tribe-synthetic-brain-targets.md`](experiments/E016_tribe-synthetic-brain-targets.md) Step 69 and [`e016-combined-tuckute-interpretation-2026-07-08.md`](e016-combined-tuckute-interpretation-2026-07-08.md).
 
 ## Recommendation After The Gate Resolved
 
-Do not launch `contextfeat`, OPRD-lite, PHF-lite, or a new dataset as an automatic response to this gate. The positive branch did not open. The next work is `/interpret`: adjudicate whether the warning route supports a controlled transfer-failure paper, and define exactly how strongly we can claim that synthetic neural-target gains fail to transfer to this real-brain endpoint.
+Do not launch `contextfeat`, OPRD-lite, PHF-lite, or a new dataset as an automatic response to this gate. The positive real-brain branch did not open, and `/interpret` now narrows the paper route toward a controlled transfer-failure package.
 
 The strongest near-term paper route is now:
 
 | Combined seed `0-5` Tuckute route | Best immediate paper package | Next action |
 |---|---|---|
-| `real_brain_warning_needs_claim_scope_review` | Synthetic-target/control plus privileged-target transfer-failure paper. | Run `/interpret`, code/stat review if load-bearing, then write the control ladder: synthetic proxy gains can survive textfeat yet fail the real-brain transfer gate. Do not launch new representation controls before the interpretation verdict. |
+| `real_brain_warning_needs_claim_scope_review` | Synthetic-target/control plus privileged-target transfer-failure paper. | Plan the paper package, then write through `sci-write-v2`; run independent code/stat review only if the Tuckute diagnostic becomes publication-load-bearing. |
 
 ## Venue Matrix
 
@@ -47,7 +47,7 @@ If the gate is positive, robust, and audit-clean, the next control is `contextfe
 
 ## One-Line Submission Strategy
 
-The default submission target is now AAAI unless `/interpret` finds a broader field-correcting lesson strong enough for ICML. ICLR/NeurIPS are not the current default from this evidence: the positive route did not open, and the negative route would need a broader generalization story than this single controlled gate currently proves.
+The default submission target is now AAAI. ICML is possible only if the paper is framed as a crisp estimand/control contribution for biological privileged targets in distillation. ICLR/NeurIPS are not the current default from this evidence: the positive route did not open, and the negative route would need a broader generalization story than this single controlled gate currently proves.
 
 ## Related
 
@@ -56,4 +56,5 @@ The default submission target is now AAAI unless `/interpret` finds a broader fi
 - [`top-venue-literature-refresh-2026-07-07.md`](top-venue-literature-refresh-2026-07-07.md)
 - [`top-venue-representation-control-feasibility-2026-07-07.md`](top-venue-representation-control-feasibility-2026-07-07.md)
 - [`e016-combined-tuckute-interpretation-gate-2026-07-07.md`](e016-combined-tuckute-interpretation-gate-2026-07-07.md)
+- [`e016-combined-tuckute-interpretation-2026-07-08.md`](e016-combined-tuckute-interpretation-2026-07-08.md)
 - [`experiments/E016_tribe-synthetic-brain-targets.md`](experiments/E016_tribe-synthetic-brain-targets.md)

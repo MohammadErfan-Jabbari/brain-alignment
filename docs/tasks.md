@@ -47,8 +47,10 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 - [x] **Arm-level rerun progress confirmed again.** A bounded watch observed the sixth saved model artifact land (`seed1_tribe_perm_lambda0p1`) and the rerun enter `seed=2 arm=kd_only`; this is partial-arm progress only, not a result.
 - [x] **Launch combined-gate latest-status monitor.** `scripts/e016_monitor_tuckute_gate_status.py` writes `combined_tuckute_gate_latest_20260707.{json,md}` every 5 minutes and stops once the combined Tuckute gate is ready.
 - [x] **Evaluate Tuckute over aligned seed `0-5`.** Rerun TRIBE seed `0-2` completed, Tuckute scoring completed, combined analysis/audit completed, and the audit is ready for `/interpret` with route `real_brain_warning_needs_claim_scope_review`.
-- [ ] **Switch to `/interpret` for the combined Tuckute diagnostic.** The work artifact is ready; adjudicate the warning route and paper claim scope before any ladder/rung or manuscript movement.
-- [ ] **Choose paper route after six-seed Tuckute interpretation.** Current audit route narrows toward a synthetic-target/control plus real-brain transfer-failure paper, but the formal route choice waits for `/interpret`.
+- [x] **Switch to `/interpret` for the combined Tuckute diagnostic.** [`e016-combined-tuckute-interpretation-2026-07-08.md`](e016-combined-tuckute-interpretation-2026-07-08.md) records the manifest, independent row-level recompute, warning-route verdict, and review limits.
+- [x] **Choose paper route after six-seed Tuckute interpretation.** E016 now narrows to a synthetic-target/control plus real-brain transfer-failure paper route. The brain-specific positive route is not supported by this goal's evidence.
+- [ ] **Next paper step: plan/write the AAAI-style controlled transfer-failure package.** Do this in `/plan` then `/write` through `sci-write-v2`; no new compute is the default next action.
+- [ ] **Run independent code/stat review only if the combined Tuckute diagnostic becomes paper-load-bearing.** The local recompute is enough for claim-scope routing, not a final publication audit of the evaluator.
 
 ### S81 `/goal` continuation - saved-student real-brain diagnostic completed (2026-07-07)
 

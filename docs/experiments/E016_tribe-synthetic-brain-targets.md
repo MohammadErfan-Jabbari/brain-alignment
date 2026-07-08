@@ -1471,6 +1471,29 @@ Combined seed `0-5` Tuckute contrast summary from `outputs/E016_tribe/phase3/pha
 
 **Status:** artifact-complete real-brain transfer diagnostic ready for `/interpret`; no final E016 verdict, no brain-specific clearance, and no rung flip. The audit route is a warning/claim-scope route, not a positive brain-specific route.
 
+### Step 69 - Combined Tuckute diagnostic interpreted and paper route narrowed (2026-07-08)
+The `/interpret` closeout is recorded in [`../e016-combined-tuckute-interpretation-2026-07-08.md`](../e016-combined-tuckute-interpretation-2026-07-08.md). A local independent recompute rebuilt the seed-aligned Tuckute contrasts from the raw alignment JSON rows and wrote `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.interpret_recompute.json`.
+
+Recompute checks:
+
+- complete seed grid `[0,1,2,3,4,5]`;
+- no missing expected seed-arm cells;
+- no duplicate scored seed-arm rows;
+- all primary contrasts matched `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json` and `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.audit.json`;
+- official audit route stayed `real_brain_warning_needs_claim_scope_review` with `all_checks_pass=true`.
+
+Adjudicated claim:
+
+- the six-seed synthetic TRIBE-vs-textfeat result remains synthetic-endpoint evidence: TRIBE beats the sentence-local textfeat control on synthetic target-R2 under the matched Phase-3 protocol;
+- the six-seed real-brain Tuckute gate rejects the brain-specific positive route for this goal: TRIBE-minus-textfeat real-brain gain versus KD-only is mean `-0.001213`, CI `[-0.001846, -0.000580]`, `n=6`, all six margins negative, sign-flip `p=0.03125`;
+- TRIBE-minus-textfeat gain versus permuted-control gains is mean `-0.001005`, CI `[-0.001643, -0.000368]`, `n=6`, with five negative margins and one tiny positive margin;
+- TRIBE gain versus permuted TRIBE is mean `-0.001786`, CI `[-0.002166, -0.001407]`, `n=6`, all six margins negative, sign-flip `p=0.03125`;
+- PCA robustness at `25`, `50`, and `100` components does not reverse the warning route.
+
+**Verdict:** E016 supports a synthetic-target/control plus real-brain transfer-failure paper route, not a brain-specific positive KD paper. The next paper work should preserve the synthetic-target result, foreground the real-brain transfer gate, and avoid launching `contextfeat` or OPD/PHF-style controls as an automatic continuation.
+
+**Status:** E016 goal-level experimental loop closed for this session; no brain-specific clearance and no ladder rung flip.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

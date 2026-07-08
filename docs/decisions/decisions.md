@@ -830,6 +830,14 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Boundary.** Scoped staging remains unchanged: never `git add -A`/`.`; no `--amend`; no destructive operation without explicit approval. The push is skipped only if Erfan explicitly says not to, the network/auth/remote rejects it, or pushing would require resolving a non-fast-forward situation. Any skipped or failed push is reported in the close summary. **Builds on D007** (atomic scoped commits); supersedes only the previous "push only when asked" close-session rule.
 
+## D055 — E016 goal route narrows to synthetic-target/control plus real-brain transfer failure — 2026-07-08 (S99, /interpret)
+
+**Decision.** Close the current E016 experimental goal as a synthetic-target/control plus real-brain transfer-failure route, not a brain-specific positive KD route. The six-seed synthetic TRIBE-vs-textfeat comparator remains positive on the synthetic target endpoint, but the combined seed `0-5` Tuckute `/interpret` closeout rejects the real-brain positive branch for this goal: TRIBE-minus-textfeat real-brain gain versus KD-only is `-0.001213`, CI `[-0.001846, -0.000580]`, `n=6`, all seed margins negative; versus permuted-control gains it is `-0.001005`, CI `[-0.001643, -0.000368]`. The official audit passed and routed to `real_brain_warning_needs_claim_scope_review`, and a local row-level recompute matched the recorded analysis and audit artifacts. Recorded in [`../e016-combined-tuckute-interpretation-2026-07-08.md`](../e016-combined-tuckute-interpretation-2026-07-08.md) and [`../experiments/E016_tribe-synthetic-brain-targets.md`](../experiments/E016_tribe-synthetic-brain-targets.md) Step 69.
+
+**Why.** The decisive scientific distinction is synthetic-proxy success versus real-brain transfer. Beating a sentence-local text-feature target on synthetic target-R2 does not license a brain-specific claim when the saved students fail the real Tuckute endpoint under the same seed-aligned control ladder. Launching `contextfeat`, OPRD-lite, PHF-lite, or a new dataset now would answer a different positive-branch confound while the current blocking fact is transfer failure. The next useful work is `/plan` and then `/write`: turn this into a careful controlled paper package, likely AAAI-first, with independent code/stat review only if the Tuckute diagnostic becomes publication-load-bearing.
+
+**Boundary.** This decision does not flip a Q-rung and does not update the extended or public manuscript. It also does not prove that all neural/cognitive privileged targets fail, only that this E016 TRIBE synthetic target did not transfer to the recorded Tuckute endpoint under the current controls. Reopens only on a new predeclared endpoint/dataset or a found evaluator/stat error, not by reinterpreting these artifacts.
+
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board
 - [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map

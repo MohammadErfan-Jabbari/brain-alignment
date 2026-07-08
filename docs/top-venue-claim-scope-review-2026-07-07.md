@@ -6,7 +6,7 @@ aliases: [top-venue-claim-scope-review-2026-07-07, E016-claim-scope-review]
 
 # Top-venue claim-scope review, 2026-07-07
 
-**Status.** This is a `/plan` artifact after the E016 saved-student Tuckute diagnostic. It chooses the next evidence burden. It is not a report, not a manuscript section, and not a science verdict.
+**Status.** This is a `/plan` artifact after the E016 saved-student Tuckute diagnostic. It chose the bounded real-brain robustness rerun; the 2026-07-08 `/interpret` closeout below records how that rerun resolved. It is not a report, not a manuscript section, and not a ladder update.
 
 ## Current fork
 
@@ -53,9 +53,18 @@ So the order is:
 2. then choose narrow synthetic/control paper versus reopened positive route,
 3. only then decide whether contextfeat/on-policy controls are worth compute.
 
+## Resolution After Rerun
+
+The bounded robustness path completed on 2026-07-08 and is interpreted in [`e016-combined-tuckute-interpretation-2026-07-08.md`](e016-combined-tuckute-interpretation-2026-07-08.md). The combined seed `0-5` Tuckute audit passed with complete seeds `[0,1,2,3,4,5]`, no missing expected seeds, and route `real_brain_warning_needs_claim_scope_review`.
+
+The kill criteria fired for the brain-specific positive route: TRIBE-minus-textfeat real-brain gain versus KD-only is mean `-0.001213`, CI `[-0.001846, -0.000580]`, `n=6`, with all six margins negative; TRIBE-minus-textfeat gain versus permuted-control gains is mean `-0.001005`, CI `[-0.001643, -0.000368]`. The paper route now narrows to a synthetic-target/control plus real-brain transfer-failure package.
+
+**Resolved order:** the missing TRIBE seed `0-2` real-brain diagnostic is closed; the narrow synthetic/control route is selected for this goal; `contextfeat` and on-policy controls are not next by default.
+
 ## Related
 
 - [`e016-combined-tuckute-interpretation-gate-2026-07-07.md`](e016-combined-tuckute-interpretation-gate-2026-07-07.md)
+- [`e016-combined-tuckute-interpretation-2026-07-08.md`](e016-combined-tuckute-interpretation-2026-07-08.md)
 - [`top-venue-evidence-ledger-2026-07-03.md`](top-venue-evidence-ledger-2026-07-03.md)
 - [`top-venue-paper-plan-2026-07-03.md`](top-venue-paper-plan-2026-07-03.md)
 - [`top-venue-long-context-control-feasibility-2026-07-03.md`](top-venue-long-context-control-feasibility-2026-07-03.md)

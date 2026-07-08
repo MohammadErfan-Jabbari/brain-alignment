@@ -74,7 +74,7 @@ So the post-positive burden should be ordered, not expanded blindly:
 
 The 2026-07-07 update sharpens step 4: if the active real-brain transfer diagnostic stays nonpositive or mixed, the strongest route is likely a controlled transfer-failure paper. If it becomes positive, the next positive-branch burden is no longer just "add another non-brain control"; it is to show that the brain-derived privileged target is not a shortcut-like teacher signal that improves the training proxy while failing the deployment endpoint.
 
-The later 2026-07-07 positive-branch pass does not change the compute order. `contextfeat` remains first if the combined real-brain gate is positive because it preserves the cache-based E016 estimand while testing a nearby non-brain context objection. OPRD-lite, PHF-lite, AR-OPD-style anchoring, or EDGE-style evidence masking are new-runner protocols; they belong behind a `/precheck` only after a robust positive plus a venue need.
+The 2026-07-08 combined Tuckute `/interpret` closeout resolved the active branch as warning/nonpositive, so `contextfeat`, OPRD-lite, PHF-lite, AR-OPD-style anchoring, and EDGE-style evidence masking are not next by default. They remain future positive-branch controls only if a new predeclared endpoint/dataset or evaluator correction reopens real-brain transfer.
 
 ## Design note
 
