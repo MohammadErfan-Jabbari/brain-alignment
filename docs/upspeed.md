@@ -6,7 +6,7 @@ aliases: [upspeed]
 
 # Upspeed - read first, write last
 
-**Last updated:** 2026-07-07 (S97 - `/goal` continuation: combined Tuckute gate latest-status monitor launched; E016 rerun still at 6/9 arms with seed2 `kd_only` active; no rerun JSON, no aligned six-seed real-brain result, no final verdict, no brain-specific clearance, no rung change.)
+**Last updated:** 2026-07-08 (S98 - `/goal` continuation: combined seed 0-5 Tuckute gate is artifact-complete and audit-ready for `/interpret`; audit route is `real_brain_warning_needs_claim_scope_review`; no final verdict, no brain-specific clearance, no rung change.)
 
 > **Canonical Q-rung state lives in [`ladder.md`](ladder.md).** With no task, run `/orient`.
 
@@ -84,6 +84,8 @@ S96 rerun progress: a bounded 5-minute gate watch observed the sixth saved model
 
 S97 combined gate monitor: `scripts/e016_monitor_tuckute_gate_status.py` now runs detached as PID `3901202`, with PID file `outputs/E016_tribe/phase3/combined_tuckute_gate_monitor_20260707.pid`, log `outputs/E016_tribe/phase3/combined_tuckute_gate_monitor_20260707.log`, latest JSON `outputs/E016_tribe/phase3/combined_tuckute_gate_latest_20260707.json`, and latest Markdown `outputs/E016_tribe/phase3/combined_tuckute_gate_latest_20260707.md`. It writes the combined gate state every 5 minutes and stops once `ready_for_interpret=true`. Latest snapshot at `2026-07-07T23:11:33Z` still reported `phase="waiting_for_rerun_run_json"`, `ready_for_interpret=false`, completed arms `6/9`, active `seed=2 arm=kd_only lambda=0.0`, all watcher groups alive, and missing `run_json`, `rerun_tuckute`, `analysis_json`, and `audit_json`. Monitoring only; no result.
 
+S98 combined Tuckute gate ready: `uv run scripts/e016_tuckute_gate_status.py --markdown` at `2026-07-08T05:49:14Z` reported `phase="audit_ready_for_interpret"`, `ready_for_interpret=true`, rerun completed arms `9/9`, all required files present, and audit route `real_brain_warning_needs_claim_scope_review` with `all_checks_pass=true`. The combined seed `0-5` real-brain contrasts are negative/nonpositive for the brain-specific route: TRIBE-minus-textfeat gain versus KD-only mean `-0.001213` with 95% normal CI `[-0.001846, -0.000580]`, `n=6`, all seed margins negative, sign-flip `p=0.03125`; TRIBE-minus-textfeat gain versus permuted-control gains mean `-0.001005` with CI `[-0.001643, -0.000368]`. This is ready for `/interpret`, not yet a final verdict or rung change.
+
 ## What Was Done
 
 - Detected that the full TRIBE run had completed and that the analyzer JSON existed.
@@ -125,16 +127,14 @@ S97 combined gate monitor: `scripts/e016_monitor_tuckute_gate_status.py` now run
 - Folded rerun progress and rough ETA into the combined Tuckute gate-status helper, making it the one-command status check while the rerun trains.
 - Ran a bounded gate watch and observed the active rerun advance from `5/9` to `6/9` arms.
 - Added and launched a detached combined Tuckute gate monitor that refreshes latest JSON/Markdown every 5 minutes and stops when the gate is ready.
+- Detected completion of the rerun/Tuckute/analyzer/audit chain and recorded the audit-ready combined seed `0-5` real-brain transfer diagnostic.
 
 ## What To Do Next
 
-1. Run `uv run scripts/e016_tuckute_gate_status.py --markdown` for the compact combined Tuckute gate and watcher state, or monitor `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.md` until the TRIBE rerun finishes.
-   The detached combined-gate monitor also writes `outputs/E016_tribe/phase3/combined_tuckute_gate_latest_20260707.md` every 5 minutes.
-2. Check `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.log`; the Python watcher should score rerun TRIBE seed `0-2` on Tuckute after the rerun JSON lands and the training process exits.
-3. Check `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`; the watcher should compute the aligned seed `0-5` real-brain diagnostic against the completed textfeat seed `0-5` Tuckute output after the rerun Tuckute JSON appears.
-4. If the Tuckute diagnostic becomes paper-load-bearing, run an independent second implementation or deeper code/stat review.
-5. Use [`top-venue-readiness-matrix-2026-07-07.md`](top-venue-readiness-matrix-2026-07-07.md) after the gate resolves: nonpositive/mixed routes to transfer-failure/control writing, while positive routes to independent review plus `contextfeat`.
-6. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 or the post-hoc Tuckute diagnostic alone.
+1. Switch to `/interpret` for the combined seed `0-5` Tuckute diagnostic. Do not flip a rung without Erfan confirmation.
+2. If `/interpret` confirms the warning route, narrow the paper plan toward a synthetic-target/control plus privileged-target transfer-failure package; do not launch `contextfeat`.
+3. Run an independent code/stat review only if this diagnostic becomes paper-load-bearing.
+4. Do not claim brain-specific clearance or flip a rung from synthetic target-R2 or the post-hoc Tuckute diagnostic alone.
 
 ## Blockers / Open Loops
 
@@ -142,7 +142,7 @@ S97 combined gate monitor: `scripts/e016_monitor_tuckute_gate_status.py` now run
 - The synthetic-target comparison is now six seeds and stable against textfeat, but still not real-brain evidence.
 - The saved-student Tuckute diagnostic is a warning against real-brain transfer: TRIBE does not beat KD/permuted/textfeat on the saved seed `3-5` real-brain endpoint.
 - Textfeat clears only sentence-local frozen-teacher hidden-state supervision, not long-context/on-policy distillation or real-brain alignment.
-- The original seed `0-2` TRIBE run did not save model artifacts; the selected replacement rerun is active but not complete.
+- The original seed `0-2` TRIBE run did not save model artifacts; the selected replacement rerun is now complete and its combined Tuckute gate is audit-ready for `/interpret`.
 - The prepared contextfeat builder is smoke-tested only. A full contextfeat cache/control is branch-gated behind E016 positive plus textfeat survival.
 - The Tuckute saved-student evaluator has now run at full scale for saved seed `3-5`, but still requires `/interpret` before any claim.
 - On-policy distillation remains a separate protocol; contextfeat and the Tuckute probe do not clear student-rollout teacher supervision.
@@ -170,13 +170,12 @@ S97 combined gate monitor: `scripts/e016_monitor_tuckute_gate_status.py` now run
 - textfeat saved-student Tuckute output: `outputs/E016_tribe/phase3/phase3_extra_textfeat_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json`.
 - Paired real-brain diagnostic analysis: `outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment_analysis.json`.
 - Local real-brain diagnostic `/interpret` audit: `outputs/E016_tribe/phase3/phase3_extra_tribe_vs_textfeat_s3-5_tuckute_alignment.interpret_audit.json`.
-- Active bounded rerun launcher: `outputs/E016_tribe/phase3/run_rerun_tribe_s0-2_save_20260707.sh`, PID `3827100`, Python child `3827120`, target JSON `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`.
+- Completed bounded rerun launcher: `outputs/E016_tribe/phase3/run_rerun_tribe_s0-2_save_20260707.sh`, target JSON `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json`.
 - Completed textfeat seed `0-5` Tuckute output: `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json` (18/18 artifact rows scored, 0 missing/unusable).
 - Active rerun monitor: `outputs/E016_tribe/phase3/monitor_rerun_realbrain_20260707.sh`, PID `3827101`, latest status `outputs/E016_tribe/phase3/rerun_realbrain_status_latest_20260707.md`.
 - Active rich rerun monitor: `scripts/e016_monitor_phase3_status.py`, wrapper PID `3860856`, Python child `3860860`, PID file `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.pid`, log `outputs/E016_tribe/phase3/rich_rerun_status_monitor_20260707.log`, latest JSON `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.json`, latest Markdown `outputs/E016_tribe/phase3/rerun_realbrain_rich_status_latest_20260707.md`.
-- Active rerun Tuckute scorer watcher: `scripts/e016_watch_tuckute_eval.py`, PID `3853936`, PID file `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.pid`, log `outputs/E016_tribe/phase3/rerun_tuckute_eval_pywatcher_20260707.log`, target output `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json`.
-- Active combined Tuckute analysis watcher: `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.pid`, PID `3836562`, log `outputs/E016_tribe/phase3/combined_tuckute_analysis_watcher_20260707.log`.
-- Active combined Tuckute audit watcher: `outputs/E016_tribe/phase3/combined_tuckute_audit_watcher_20260707.pid`, PID `3843773`, log `outputs/E016_tribe/phase3/combined_tuckute_audit_watcher_20260707.log`.
+- Completed rerun Tuckute output: `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json`.
+- Combined seed `0-5` Tuckute analysis/audit: `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json`, `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.audit.json`.
 - Combined Tuckute interpretation gate: `docs/e016-combined-tuckute-interpretation-gate-2026-07-07.md`.
 - Seed `3-5` Tuckute postprocess rehearsal: `/tmp/e016_s3-5_tuckute_alignment_analysis_reruncheck.json` and `/tmp/e016_s3-5_tuckute_alignment_audit_reruncheck.json` reproduced the recorded diagnostic; these are scratch verification files, not durable evidence artifacts.
 - Rerun-safe status command: `uv run python scripts/e016_phase3_status.py --pretty --log outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.log --run-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.json --analysis-json outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.analysis.json --run-script outputs/E016_tribe/phase3/run_rerun_tribe_s0-2_save_20260707.sh`.

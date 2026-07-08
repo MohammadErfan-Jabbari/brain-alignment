@@ -1451,6 +1451,26 @@ Verification:
 
 **Status:** monitoring/handoff utility only; no new six-seed real-brain result, no final E016 verdict, no brain-specific clearance, and no rung flip.
 
+### Step 68 - Combined seed 0-5 Tuckute gate ready for interpretation (2026-07-08)
+The selected TRIBE seed `0-2` artifact-saving rerun completed all `9/9` arms, the rerun saved-student Tuckute scoring completed, and the combined seed `0-5` Tuckute analyzer and audit artifacts appeared.
+
+Gate status at `2026-07-08T05:49:14Z`:
+
+- `phase="audit_ready_for_interpret"`;
+- `ready_for_interpret=true`;
+- all required files present and non-empty: rerun JSON, rerun Tuckute JSON, existing TRIBE seed `3-5` Tuckute JSON, textfeat seed `0-5` Tuckute JSON, combined analysis JSON, and combined audit JSON;
+- rerun completed arms `9/9`;
+- `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.audit.json` reports `all_checks_pass=true`, complete seeds `[0,1,2,3,4,5]`, no missing expected seeds, and route `real_brain_warning_needs_claim_scope_review`.
+
+Combined seed `0-5` Tuckute contrast summary from `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json`:
+
+- TRIBE gain versus KD-only: mean `-0.000919`, 95% normal CI `[-0.001712, -0.000127]`, `n=6`;
+- TRIBE gain versus permuted TRIBE: mean `-0.001786`, 95% normal CI `[-0.002166, -0.001407]`, `n=6`, all six seed margins negative, sign-flip `p=0.03125`;
+- TRIBE-minus-textfeat gain versus KD-only: mean `-0.001213`, 95% normal CI `[-0.001846, -0.000580]`, `n=6`, all six seed margins negative, sign-flip `p=0.03125`;
+- TRIBE-minus-textfeat gain versus permuted-control gains: mean `-0.001005`, 95% normal CI `[-0.001643, -0.000368]`, `n=6`.
+
+**Status:** artifact-complete real-brain transfer diagnostic ready for `/interpret`; no final E016 verdict, no brain-specific clearance, and no rung flip. The audit route is a warning/claim-scope route, not a positive brain-specific route.
+
 
 ## Related
 - [`ladder.md`](../ladder.md) — the canonical status board

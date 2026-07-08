@@ -46,8 +46,9 @@ E005–E014 experiment records). Rungs flip only on Erfan's confirmation.
 - [x] **Fold rerun progress into the combined gate helper.** `uv run scripts/e016_tuckute_gate_status.py --markdown` now reports gate readiness, active rerun arm, completed-arm count, rough ETA, GPU activity, and watcher health in one compact status page.
 - [x] **Arm-level rerun progress confirmed again.** A bounded watch observed the sixth saved model artifact land (`seed1_tribe_perm_lambda0p1`) and the rerun enter `seed=2 arm=kd_only`; this is partial-arm progress only, not a result.
 - [x] **Launch combined-gate latest-status monitor.** `scripts/e016_monitor_tuckute_gate_status.py` writes `combined_tuckute_gate_latest_20260707.{json,md}` every 5 minutes and stops once the combined Tuckute gate is ready.
-- [ ] **Evaluate Tuckute over aligned seed `0-5`.** Wait for rerun TRIBE seed `0-2`, score/confirm its Tuckute output, combine with existing TRIBE seed `3-5`, and compare against the completed textfeat seed `0-5` Tuckute output.
-- [ ] **Choose paper route after six-seed Tuckute diagnostic.** Nonpositive or mixed real-brain gains narrow to a synthetic-target/control paper; positive gains only reopen the brain-specific route.
+- [x] **Evaluate Tuckute over aligned seed `0-5`.** Rerun TRIBE seed `0-2` completed, Tuckute scoring completed, combined analysis/audit completed, and the audit is ready for `/interpret` with route `real_brain_warning_needs_claim_scope_review`.
+- [ ] **Switch to `/interpret` for the combined Tuckute diagnostic.** The work artifact is ready; adjudicate the warning route and paper claim scope before any ladder/rung or manuscript movement.
+- [ ] **Choose paper route after six-seed Tuckute interpretation.** Current audit route narrows toward a synthetic-target/control plus real-brain transfer-failure paper, but the formal route choice waits for `/interpret`.
 
 ### S81 `/goal` continuation - saved-student real-brain diagnostic completed (2026-07-07)
 
