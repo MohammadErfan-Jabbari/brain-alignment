@@ -1,81 +1,96 @@
 \section{Related work}
-% === ROUND 2 --- §2 goals & contents ======================================
-% Section goal: pin the empty cell PRECISELY and set the measurement-validity bar
-% this work is judged against. Treatment: FULL REWRITE to the §1 standard
-% (claims/citations/table kept; text rewritten under the doctrine + readability lessons).
-%  2.1 grown/measured -- GOAL: the signal exists & is non-trivial but never
-%      intervenes. CONTAINS: scale/layer/saturation findings; takeaway = silent on usability.
-%  2.2 grown/optimised -- GOAL: the bare inversion is not novel, but no one compresses.
-%      CONTAINS: speech+text brain-tuning, the causal result; the gap (all GROW).
-%  2.3 shrunk/measured -- GOAL: the closest prior work, scoped exactly. CONTAINS:
-%      oota2026 (narrow quantization survival; pruning/KD untested); why KD is lossier; DPI framing.
-%  2.4 empty cell + weak precedents -- GOAL: the cell is unoccupied; adjacent
-%      precedents weaken. CONTAINS: the empty cell; vision/audio precedents + the missing matched control.
-%  2.5 measurement bar + surrogate -- GOAL: the standard + why a surrogate is future
-%      work. CONTAINS: leakage/artifact cautions; the surrogate direction is unsettled.
-% ===========================================================================
 
-This thesis sits in the one empty cell of a two-by-two grid: grow or shrink the model, and measure or optimize alignment (Table~\ref{tab:cells}).
-We review the three occupied cells in turn, then the measurement standard this work adopts.
+The literature relevant to this thesis has developed along two distinct axes: whether brain alignment is measured or optimized, and whether the model's parameter budget is preserved or reduced.
+Table~\ref{tab:cells} organizes these lines of work without treating adjacency as equivalence: measuring alignment after compression does not establish that alignment can guide compression, and optimizing alignment during ordinary fine-tuning does not establish that the same signal remains effective in a smaller student.
 
 \begin{table}[H]
   \centering
   \footnotesize
-  \caption{The field on two axes: what an intervention does to the parameter budget, and how it treats brain alignment. Three cells are occupied; the fourth, shrinking a model while alignment is in the objective, is empty in the 2026 literature and is where this work sits.}
+  \caption{A taxonomy of prior work by parameter-budget intervention and treatment of brain alignment. Alignment-guided distillation is the focus of this thesis.}
   \label{tab:cells}
   \resizebox{\textwidth}{!}{%
   \begin{tabular}{lll}
     \toprule
                        & Alignment measured & Alignment optimized \\
     \midrule
-    Model grown        & classical brain-score \autocite{oota2023,gao2024,alkhamissi2025} & brain-tuning \autocite{moussa2025,bilgin2026,merlin2026} \\
-    Model shrunk       & compression robustness \autocite{oota2026} & \textbf{this thesis (empty in the literature)} \\
+    Parameter budget preserved or increased & frozen-model encoding studies \autocite{oota2023,gao2024,alkhamissi2025} & brain-guided fine-tuning and adaptation \autocite{moussa2025,bilgin2026,merlin2026} \\
+    Parameter budget reduced & post-compression measurement \autocite{oota2026} & \textbf{alignment-guided distillation (this thesis)} \\
     \bottomrule
   \end{tabular}}
 \end{table}
 
-\subsection{The classical brain-score literature}
+\subsection{Measuring brain alignment}
 
-The largest body of work fits encoding models to frozen, pretrained networks, then reads off how alignment varies with architecture, scale, and training.
-Three findings recur.
-Alignment lives in the structured middle layers, where syntax drives the layerwise trend and semantics is more region-specific \autocite{oota2023}.
-It grows with model scale and saturates around a few billion parameters, and at a matched parameter count scale moves it more than instruction-tuning does, which is why a base model is the right teacher to align against \autocite{gao2024}.
-Beyond that scale the trend can flatten or reverse, as the largest models outgrow the human language network and track formal competence more than behavior \autocite{alkhamissi2025}.
-This line of work shows the signal exists and is structured, but it never intervenes through alignment, so it cannot say whether alignment is usable.
+Most brain--language-model studies treat a pretrained model as fixed and fit an encoding model from its internal representations to neural responses elicited by the same stimulus.
+This approach has established that alignment is structured rather than uniform across a network.
+Middle layers often predict language-selective activity better than early or final layers, while syntactic and semantic contributions vary across cortical regions \autocite{oota2023,oota2024}.
+Across model families, alignment generally increases with language-model capability and scale before flattening in larger systems \autocite{gao2024,alkhamissi2025}.
+These observations motivate the use of middle-layer representations in the present experiments, but they remain correlational: they describe where a brain score is high after training and do not show that changing the score changes the model.
 
-\subsection{Brain-tuning}
+Encoding results also depend on the level at which the neural target is summarized.
+Sentence-level ROI averages provide a compact benchmark with relatively high reliability, whereas naturalistic voxelwise datasets preserve temporal and spatial detail at the cost of harder alignment and fewer independent participants.
+Participant averaging emphasizes stimulus-locked structure shared across people and can improve predictability, but a high group-average score does not imply that the same relationship is strong or homogeneous for individual participants.
+This distinction appears throughout the broader literature because many benchmark comparisons optimize measurement reliability while intervention claims implicitly concern biological generalization.
+The present work treats those goals separately rather than using benchmark reliability as a substitute for participant-level inference.
 
-A second line puts alignment in the objective of a fine-tuned or grown model, across modalities.
-For speech, a voxelwise brain loss fine-tunes compact encoders and improves both alignment and several downstream tasks, with a multi-participant variant reporting further gains at higher data efficiency \autocite{moussa2025,moussa2025b}.
-For text, training GPT-2 and LLaMA-2 with a cosine brain loss beats text-only baselines, though the gains are mixed and the splits are shuffled with no brain-shuffled control, so they would not clear the measurement bar this work adopts \autocite{bilgin2026}.
-The strongest evidence is causal.
-Training a text model to be \emph{less} brain-aligned, at fixed perplexity, makes it worse across a suite of more than two hundred tasks, while training it to be \emph{more} aligned improves performance on the same suite \autocite{merlin2026}.
-Alignment is therefore doing causal work, not just riding along with a good model.
-The bare inverted idea is not novel, but no study here compresses a model: every method grows or holds the parameter budget, leaving the compression question open.
+The relationship between model quality and alignment is especially important for intervention studies.
+Better next-token prediction can accompany stronger encoding performance, so a comparison between models of unequal language quality may attribute an ordinary capability difference to a neural objective.
+The expanded analysis in this thesis confirms a cross-family association on the standard participant-averaged benchmark while also showing that the relationship is weaker in the capable operating range and difficult to estimate within low-signal individual participants \evd{E015}.
+Accordingly, language quality is treated as a control variable rather than as evidence that alignment is either reducible to perplexity or independent of it.
+
+\subsection{Optimizing neural alignment}
+
+A smaller literature moves from measurement to intervention by adding neural prediction or similarity terms during model training.
+In speech, voxelwise objectives have been used to adapt compact encoders, with reported improvements in neural prediction and downstream speech tasks; multi-participant variants report additional data-efficiency gains \autocite{moussa2025,moussa2025b}.
+In text, brain-guided objectives have been applied through fine-tuning, adapters, and auxiliary prediction heads, with mixed gains across models and evaluation settings \autocite{negi2025,bilgin2026}.
+Matched-quality interventions also provide evidence that deliberately increasing or decreasing alignment can change downstream behavior \autocite{merlin2026}.
+
+The positive studies differ substantially in modality, target construction, trainable component, and downstream endpoint.
+Some optimize a direct voxel-prediction loss, some use representational similarity, and others train a small head while leaving most of the language model fixed.
+A reported improvement can therefore establish that one neural objective worked under its own design without identifying a general property of ``brain guidance.''
+This thesis uses reduced external reproductions only as bounded checks of local mechanism transfer.
+Failure to reproduce a gain on one participant, a smaller corpus, or a different implementation is not treated as a refutation of a full multisubject result.
+
+These studies establish that neural data can participate in an optimization objective, but they do not settle the compression question addressed here.
+Most preserve the base model's parameter budget and begin from a pretrained representation that is already aligned.
+Their positive results can therefore combine inherited alignment, fine-tuning drift, language-quality change, target learnability, and brain-specific structure.
+The present design separates those possibilities with cold- and warm-initialization controls, matched-quality comparisons, target-permuted twins, participant-level inference, and a downstream gate that is interpreted only after a reliable representation change is established.
+
+Related neural-regularization studies in vision and audio illustrate why matched controls matter.
+Neural supervision can improve performance or robustness, but shuffled-label or non-neural objectives may reproduce part of the benefit \autocite{pirlot2022,freteault2025}.
+Such results do not make the neural objective uninformative; they show that a gain over an untuned baseline is insufficient to identify which part of the training signal caused it.
 
 \subsection{Alignment under compression}
 
-The closest prior work to this thesis is the compression study of \textcite{oota2026}, which tracks how alignment changes as a model is compressed.
-They find that alignment survives only certain post-training quantizers on models of at least a few billion parameters; other quantizers, smaller models, and pruning all degrade it, and distillation is never tested.
-That study measures alignment under compression but never optimizes it. It reports how quantization and pruning move the score, and never makes alignment a training target.
-Distillation is a different and lossier operation.
-It refits a smaller model from scratch against the teacher, the step most likely to destroy the middle-layer structure where alignment lives.
-So alignment surviving quantization, a gentle reshaping of fixed weights, does not imply it survives distillation.
-Whether distillation preserves alignment is therefore an open empirical question: how much does it lose by default, and can a brain objective recover the rest?
-We develop the information-theoretic bound behind this in Section~\ref{sec:methods}.
+Compression studies ask a complementary question: how much alignment remains after a model is made smaller.
+\textcite{oota2026} measure alignment after quantization and pruning and find that preservation depends on model size and compression method.
+This is evidence about robustness of a fixed trained representation under post-training transformation, not about using neural data to train a student.
 
-\subsection{The empty cell}
+Knowledge distillation changes the problem because it constrains a student's outputs while leaving substantial freedom in its internal representation.
+A student can match a teacher's next-token distribution without reproducing the teacher's middle-layer geometry, and a student trained from scratch also learns from the stimulus corpus along a path not mediated by fixed teacher features.
+The empirical question is therefore twofold: whether ordinary distillation preserves alignment, and whether an explicit neural term can recover or improve what is lost without merely changing language quality.
+The present experiments address both parts, including initialization, quality, capacity, loss-form, participant, and synthetic-target variants \evd{E003} \evd{E004} \evd{E008} \evd{E011} \evd{E013} \evd{E016} \evd{E017}.
 
-No prior work occupies the empty cell.
-Two nearby precedents, one in vision and one in audio, are sometimes cited as indirect support for a brain regularizer when data is scarce, but neither isolates a brain-specific effect.
-\textcite{pirlot2022} regularize a vision network with neural data and improve both accuracy and adversarial robustness, yet a shuffled-label control reproduces the accuracy gain, so only the robustness benefit depends on real neural structure.
-\textcite{freteault2025} fine-tune a small audio network on fMRI and improve most downstream tasks, but without an interaction test or a matched non-brain control, the low-data advantage is not isolated.
-Neither study is in the distillation regime this work targets, so both inform our design without testing the claim.
+This freedom creates both the opportunity and the identification problem.
+If several internal representations yield similar output distributions, an auxiliary target could in principle select among them without changing perplexity.
+If the student is under-trained or initialized differently, however, the same representational difference can arise from ordinary quality loss or inherited pretraining.
+Cold-start, warm-start, ordinary fine-tuning, and matched-perplexity arms are therefore not interchangeable baselines.
+They isolate transmission through the teacher channel, drift from a pretrained solution, change caused by more text training, and change remaining after output quality is held approximately fixed.
 
-\subsection{The measurement bar}
+\subsection{Validity, quality matching, and inference units}
 
-A separate line of work warns that alignment scores are easy to inflate and over-read, and it sets the standard this work adopts.
-Shuffled splits leak through the temporal autocorrelation of fMRI, low-level features like sentence length carry much of the apparent signal, and some published scores fail basic predictive and reliability checks \autocite{hadidi2026,jia2026}.
-The same headline score can reflect real semantics in one model and shallow phonology in another, so the number alone does not pin down the mechanism \autocite{oota2024}.
-A differentiable, fMRI-free surrogate would go further, but the literature does not agree on its direction: local intrinsic dimension correlates with alignment in opposite ways across language and vision, and similarity-based surrogates track width and depth as much as alignment \autocite{cheng2026,yu2026,groger2026}.
-We therefore leave a surrogate to future work, since real fMRI must first establish which way to push it.
+Brain scores are sensitive to evaluation design.
+Temporal autocorrelation can leak information across shuffled splits, low-level stimulus properties can support apparently positive prediction, and flexible feature spaces can exceed weaker nuisance baselines without isolating the construct of interest \autocite{hadidi2026,jia2026}.
+The same scalar score may also arise from different linguistic or acoustic features across models \autocite{oota2024}.
+For these reasons, held-out prediction is informative only relative to explicit splits, nuisance variables, model controls, reliability criteria, and an identified inference unit.
+
+Three distinctions are load-bearing for the present thesis.
+First, contiguous sentence blocks or whole stories prevent adjacent naturalistic samples from appearing on both sides of evaluation.
+Second, a same-architecture untrained model and a target-permuted training twin answer different questions: the former tests what language training adds to measurement, whereas the latter tests whether an intervention depends on the correspondence between stimulus and neural target.
+Third, repeated folds, seeds, voxels, and participants are not interchangeable replicates.
+Inference over five shared stimulus folds cannot be converted into population evidence by adding seeds, spatially dependent voxels do not create independent participants, and a response averaged across people defines a different estimand from the mean effect across individuals \evd{E004} \evd{E006} \evd{E008} \evd{E014}.
+
+Quality matching completes this validity framework.
+Because alignment co-varies with language-model quality over the broad model range, a neural intervention must be compared with a non-neural alternative at comparable held-out quality whenever the claim is objective-specific \evd{E015}.
+Matching quality still does not identify the content of an internal representation, but it removes a major alternative explanation for a higher alignment score.
+The contribution of the present work is therefore not the bare proposal to optimize a brain score; it is the controlled test of whether that optimization remains specific, participant-general, and useful when the model is compressed.

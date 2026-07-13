@@ -1,21 +1,61 @@
 \section{Limitations}
-% === ROUND 2 --- §6 Limitations: goal & contents ==========================
-% GOAL: pre-empt the obvious objections, each tied to a result. CONTAINS: absolute unique
-% R^2 is a few percent of the noise ceiling (a scale fact, not a weakness); "real beyond the
-% nuisance ACTUALLY subtracted" (surprisal held out by design); the powered claim is one
-% subject/cohort; the Q1 quality entanglement is unresolved at this cheap benchmark; Q2 is
-% underpowered at the fold unit.
-% ===========================================================================
-The UTS03 result is conditional on one deeply sampled participant.
-Its spatially dependent voxels provide resolution, not population replication, and its five story folds share training data \evd{E006}.
-The nuisance set subtracts the listed rate, duration, frequency, and static-semantic variables; surprisal and imageability remain outside it, so “beyond nuisance” means beyond those variables actually controlled.
 
-E004 has only five seed-averaged folds and uses an imperfect block-permutation sensitivity control.
-Its corrected interval cannot exclude a small lever near the observed mean \evd{E004}.
-E008 evaluates nine participants exposed to the same 1000 sentences, so the participant and stimulus axes are not jointly large \evd{E008}.
-E011 changes adapter capacity at the same effective operating point rather than inducing a stronger representation change, and E013's voxelwise result is a failed MSE-distillation manipulation rather than a substrate-wide impossibility \evd{E011}\evd{E013}.
+\subsection{Biological generalization}
 
-E009 measures OOD perplexity only, with per-arm language quality reported rather than exactly equalized; because its representation fulcrum is unreliable, it does not identify the payoff of a successful manipulation \evd{E009}.
-E024 is a precondition result: no five-arm privileged-information intervention was completed, and its seven-paragraph corpus cannot support the intended stable paragraph-disjoint learning curve \evd{E024}.
-E016 compares target families with different geometry and baseline difficulty, and its transfer inference spans six training seeds over one fixed participant-averaged Tuckute endpoint.
-Its block permutation is incomplete and remains outside the load-bearing transfer conclusion \evd{E016}.
+The voxelwise measurability result is conditional on one deeply sampled participant, UTS03.
+Spatially dependent voxels increase resolution but do not provide population replication, and the five story folds share training stories \evd{E006}.
+The primary intervention generalization test includes nine participants exposed to the same 1000 sentences, so participant diversity and stimulus diversity are both limited \evd{E008}.
+The three-participant LeBel intervention variants are existence probes rather than population estimates \evd{E013} \evd{E017} \evd{E019}.
+These limitations are asymmetric: a controlled within-participant positive can establish that a signal exists under that participant's measurement process, while a within-participant null cannot establish absence across the population.
+A decisive population claim would require more independently sampled people, prespecified participant-level aggregation, and an effect large enough to survive between-person heterogeneity.
+
+\subsection{Stimulus and target coverage}
+
+The Tuckute benchmark contains isolated English sentences summarized into five left-hemisphere language ROIs, whereas the LeBel experiments use naturalistic English stories from a small number of deeply sampled listeners.
+Neither substrate represents the full range of linguistic contexts, modalities, languages, or cortical systems.
+The isolated-sentence benchmark favors sentence-local representations and removes discourse history, whereas story listening introduces temporal context, acoustic structure, and hemodynamic alignment.
+Agreement across them is useful robustness evidence, but disagreement would not by itself identify whether stimulus format, modality, target resolution, or participant sampling caused the difference.
+The gaze experiment uses only 300 natural-reading sentences from seven highly unequal paragraphs, which prevents a stable paragraph-disjoint sample-efficiency curve \evd{E024}.
+
+\subsection{Construct validity}
+
+Unique $R^2$ is conditional on the nuisance variables actually included.
+The pipeline subtracts rate, duration, frequency, and static lexical or semantic features, but it deliberately leaves surprisal and imageability outside the nuisance set; “beyond nuisance” therefore does not mean beyond all stimulus-predictable content \evd{E006}.
+The trained-minus-untrained gap identifies what language training adds over a random network under those controls, not shared cognitive mechanism or representational identity.
+E020 further shows that estimating a stimulus-predictability ceiling is limited by the reliability of the empirical reference \evd{E020}.
+
+\subsection{Intervention strength}
+
+The tested objectives cover MSE, a contrastive ROI loss, LoRA capacity changes, full fine-tuning, behavioral auxiliary targets, and one dense synthetic target, but they do not span all possible neural objectives or optimization schedules.
+In E011, additional adapter capacity does not produce a materially stronger representation change, while E013 and E017 show that more aggressive intervention can instead damage the model \evd{E011} \evd{E013} \evd{E017}.
+A failed manipulation cannot identify the consequence of a successful one.
+Conversely, a manipulation that strongly fits its training target can still change the wrong internal degrees of freedom, as the synthetic-to-real transfer gate demonstrates.
+Future objectives need both a manipulation check on the optimized target and an independent biological endpoint that was not used to construct that target.
+
+\subsection{Inference and power}
+
+E004 has five valid seed-averaged fold units, and its corrected interval cannot exclude a small effect near the observed mean \evd{E004}.
+Several sensitivity analyses reuse folds, stories, or participants and are therefore not independent replications.
+The block-permutation implementation can leave some target rows fixed, so it is treated as a sensitivity control rather than an exact marginal-preserving randomization null \evd{E016}.
+Minimum-detectable-effect calculations bound the tested contrasts but do not convert a null into evidence of exact zero.
+The strongest null in the thesis is E008 because its participant-level interval excludes the predeclared $+0.003$ effect under the tested ROI regime; smaller effects and effects in other regimes remain possible \evd{E008}.
+Other nulls are correspondingly narrower when their valid unit count is smaller or when the intervention itself fails to move the representation.
+
+\subsection{External reproduction}
+
+E019 changes the architecture, dataset, training duration, and some implementation details relative to Negi, so it provides corroboration on the available substrate rather than a faithful refutation \evd{E019}.
+E022 uses one participant and a reduced speech setup rather than the full multi-participant Moussa protocol, so its non-reproduction is likewise local \evd{E022}.
+These experiments test whether the reported mechanisms transfer into the available controlled pipeline; they do not estimate the original studies' effects.
+
+\subsection{Synthetic-target comparability}
+
+TRIBE and textfeat have the same nominal output width but different rank, geometry, and baseline difficulty.
+Their held-out target $R^2$ values are therefore meaningful within target family, not as a shared cross-family scale \evd{E016}.
+The transfer endpoint averages five participants and five ROIs, and the synthetic objective and transfer readout use different student layers.
+Six stochastic seeds over this one fixed endpoint support a training-seed diagnostic, not participant- or population-level inference.
+
+\subsection{Downstream-task coverage}
+
+The primary practical test measures out-of-domain perplexity rather than task accuracy, robustness, calibration, or sample efficiency across a broad benchmark suite \evd{E009}.
+Because its alignment manipulation is unreliable, the test does not identify the downstream value of a successful brain-specific representation change.
+The gaze-privileged route stops before intervention and the reduced speech route fails its reproduction gate, leaving downstream utility bounded by preconditions rather than exhaustively tested \evd{E022} \evd{E024}.

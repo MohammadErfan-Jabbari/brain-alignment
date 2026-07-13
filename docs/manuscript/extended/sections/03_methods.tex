@@ -171,13 +171,16 @@ The primary intervention adds a brain-target regression term:
   \label{eq:brain-objective}
 \end{equation}
 Here $\mathcal{L}_{B}$ is either mean-squared error to a recorded or predicted brain target or a declared contrastive alternative, and $\lambda_B$ is its weight.
+For a mean-squared-error (MSE) target, a learned linear prediction head maps the selected student hidden state into the target space, such as five ROI values or a dense cortical-response vector.
+The prediction head and the permitted student parameters are optimized jointly, but only the student is retained as the language model after training; the head is used to impose the auxiliary geometry and to check target fit.
+The block-permuted twin uses the same head architecture, trainable parameters, and optimizer while changing which target is paired with each stimulus.
 The equation asks whether the auxiliary target selects a student representation that ordinary distillation would not select.
 It assumes only that the two losses can be optimized jointly.
 It does not imply that $\mathcal{L}_{B}$ measures cognition, that increasing $\lambda_B$ increases alignment, or that an easier target transfers to real brain responses.
 
 Cold-start students are initialized randomly, so any retained alignment must be learned during training.
 Warm-start students begin from pretrained weights and measure drift under further optimization.
-LoRA interventions restrict updates to low-rank adapters, while full fine-tuning permits all model parameters to change.
+Low-rank adaptation (LoRA) interventions restrict updates to small trainable adapter matrices, while full fine-tuning permits all model parameters to change.
 The experiments vary adapter rank, brain-loss weight, loss form, and initialization to distinguish insufficient optimization capacity from absence of a specific effect.
 
 Teacher, student, corpus, batch construction, and evaluation are held fixed within each paired real-versus-control contrast.
@@ -299,7 +302,10 @@ Reduced external reproductions of text and speech interventions are treated as c
 
 \paragraph{Synthetic targets and real-brain transfer.}
 The dense-target experiment distills GPT-2-medium into GPT-2 using 95,999 WikiText training sentences and 1,999 held-out sentences across six seeds \evd{E016}.
-The TRIBE endpoint is a 20,484-dimensional predicted cortical-response vector read from student layer~6, while the textfeat control projects a frozen teacher representation to the same nominal width.
+TRIBE v2 is a pretrained multimodal encoding model that maps naturalistic stimuli to predicted human fMRI responses on a standardized cortical surface \autocite{dascoli2026}.
+For the text-only E016 stimuli, its output is a 20,484-dimensional vector of predicted cortical locations and is treated as a synthetic neural target rather than recorded fMRI.
+The student layer~6 hidden state is mapped to that target by the jointly trained prediction head.
+The textfeat control instead Gaussian-projects a frozen teacher hidden representation to the same nominal width, then uses an otherwise matched prediction head and training path.
 Dimension matching controls output width but not effective rank, geometry, or information, so held-out target $R^2$ is interpreted within target family rather than compared as a shared scale.
 
 Saved students pass through a separate transfer gate on 1,000 Tuckute sentences using five contiguous nuisance-subtracted folds and student layer~7 \evd{E016}.

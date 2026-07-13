@@ -1,6 +1,6 @@
 % Extended manuscript: the always-current scientific interpretation.
 % Keep one sentence per source line and source keyed numbers from numbers.tex.
-% Build: latexmk -pdf main-extended.tex (config in latexmkrc).
+% Validate and build: uv run python .claude/scripts/manuscript_check.py docs/manuscript/extended --share-ready
 \documentclass[11pt]{article}
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage{preamble}
@@ -18,7 +18,7 @@ Brain alignment measures whether a model representation can predict recorded hum
 It is scientifically interesting because successful prediction reveals brain-relevant distinctions that are linearly accessible in the representation, while stopping short of showing that the model implements the brain's mechanism or thinks like a person.
 This thesis asks a stronger question: can a score that measures such correspondence also serve as a useful objective when training a smaller language model by knowledge distillation?
 We test the transition through five gates: controlled measurability, preservation under compression, movement under intervention, generalization across participants, and transfer to practical or independently biological targets.
-Trained language-model features contain measurable signal beyond specified nuisances, and compression produces a quality-entangled retention gradient, but direct brain-guided objectives do not yield a reliable target-specific improvement at valid fold or participant inference units in the tested regimes.
+Trained language-model features contain measurable signal beyond specified nuisances, and compression produces a quality-entangled retention gradient, but direct brain-guided objectives do not yield a reliable target-specific improvement at valid fold or participant inference units while preserving comparable language-model quality in the tested regimes.
 Participant averaging changes the estimand and can expose an apparent trend that does not generalize to individual participants; stronger capacity, alternative losses, full fine-tuning, external heads, privileged gaze information, and a learnable synthetic neural proxy do not establish the missing biological or practical gain.
 The bounded answer is therefore that brain alignment is measurable but is not demonstrated here to be a reliable training signal.
 The broader methodological implication is that measurement quality, inference unit, target specificity, and downstream validation are separate requirements and must be tested separately.

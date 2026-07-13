@@ -18,12 +18,12 @@ Table~\ref{tab:results-map} summarizes where the sequence passed, failed, or sto
     \toprule
     Question & Records & Valid unit & Verdict and scope \\
     \midrule
-    Is alignment measurable beyond recorded nuisance features? & \evd{E002}\evd{E006} & Five contiguous folds on one averaged ROI target; one participant with five held-out stories & Positive trained--untrained gaps on Tuckute and conditional UTS03 evidence; no participant-population claim. \\
+    Is alignment measurable beyond recorded nuisance features? & \evd{E002}\evd{E006} & Five contiguous folds on one averaged ROI target; one participant with 20 stories arranged into five held-out-story folds & Positive trained--untrained gaps on Tuckute and conditional UTS03 evidence; no participant-population claim. \\
     Does ordinary KD preserve it, and how does quality enter? & \evd{E003}\evd{E015} & Fixed averaged benchmark; family clusters rather than individual models & Partial preservation with genuine headroom; alignment is coupled to language-model quality, but not determined by it. \\
     Does a brain loss move held-out alignment? & \evd{E004}\evd{E005} & Five fold means after averaging seeds within fold & Small averaged-target trends; no reliable near-rate gain at the valid fold unit. \\
     Does the effect generalize across people? & \evd{E008}\evd{E010}\evd{E014} & Nine participants; subset curves are sensitivity analyses & No mean per-individual gain; averaging raises SNR and changes the estimand, while the proposed dose response does not identify a causal law. \\
-    Do stronger or different optimization regimes rescue it? & \evd{E011}\evd{E013}\evd{E017} & Nine participants for ROI tests; one- and three-participant feasibility probes for voxelwise tests & Extra LoRA capacity, contrastive loss, voxelwise MSE, and full fine-tuning do not produce a demonstrated brain-specific gain in the tested regimes. \\
-    Does the signal improve a practical learning outcome? & \evd{E009}\evd{E024} & Eight training seeds on fixed OOD sets; seven paragraph clusters for the gaze gate & No detected OOD-perplexity payoff when the manipulation is unreliable; the gaze-LUPI experiment stops because its information and split preconditions fail. \\
+    Do stronger or different optimization regimes rescue it? & \evd{E011}\evd{E013}\evd{E017} & Nine participants for ROI tests; one- and three-participant feasibility probes for voxelwise tests & Extra LoRA capacity, contrastive loss, voxelwise mean-squared error, and full fine-tuning do not produce a demonstrated brain-specific gain in the tested regimes. \\
+    Does the signal improve a practical learning outcome? & \evd{E009}\evd{E024} & Eight training seeds on fixed out-of-domain sets; seven paragraph clusters for the gaze gate & No detected out-of-domain-perplexity payoff when the manipulation is unreliable; the privileged-information experiment stops because its information and split preconditions fail. \\
     Does a dense synthetic brain target solve the bottleneck? & \evd{E020}\evd{E016} & One six-participant story diagnostic; six training seeds on one fixed averaged endpoint & The empirical ceiling instrument is too noisy to close the ceiling; synthetic-target fit improves, but the improvement does not transfer to the real-brain endpoint. \\
     \bottomrule
   \end{tabular}}
@@ -212,7 +212,7 @@ Thus, the E005 estimate is not an estimate of a mean per-person effect.
 It is an effect on a different, higher-SNR target: the response shared across the averaged participants.
 
 E010 tests whether participant count alone causes a smooth increase in the intervention gap.
-Its initial nested subsets give gaps of $-0.0002$, $+0.0061$, $+0.0187$, $+0.0191$, and $+0.0071$ for $k=1,2,3,5,9$ averaged participants \evd{E010}.
+Its initial nested subsets give gaps of $-0.0002$, $-0.0001$, $+0.0023$, $+0.0194$, and $+0.0071$ for $k=1,2,3,5,9$ averaged participants \evd{E010}.
 Because subject identity changes with $k$, this design confounds count with which participants enter the average.
 The random-subset rerun gives $+0.0015$, $-0.0013$, $+0.0088$, and $+0.0094$ for $k=1,3,5,9$, with standard deviations between $0.005$ and $0.015$ \evd{E010}.
 The non-monotone, noisy rerun does not identify a causal dose-response law.
@@ -237,7 +237,7 @@ This is why response averaging is described as an estimand change rather than as
 \subsection{Alternative intervention regimes do not rescue the tested lever}
 \label{sec:results-alternatives}
 
-E011 asks whether the E008 result is caused by insufficient LoRA capacity.
+E011 asks whether the E008 result is caused by insufficient low-rank adaptation (LoRA) capacity.
 It increases adapter rank from 16 to 64 and doubles the training duration while holding the target, objective, participant set, and matched-regime control fixed.
 Across the same nine participant units, the mean real-minus-permuted effect is \result{e011_mean} with $t$ interval \result{e011_ci} \evd{E011}.
 Six of nine effects are positive, but one participant contributes 79\% of their sum; leaving that participant out returns the estimate to approximately $+0.00010$ \evd{E011}.
@@ -283,17 +283,17 @@ These results therefore narrow the plausible success regime toward different dat
 \label{sec:results-practical}
 
 E009 asks whether alignment-guided KD improves a non-brain outcome: out-of-domain perplexity on Pereira and LeBel text.
-It compares KD-only, real-brain MSE, block-permuted MSE, and a text-feature auxiliary target over eight training seeds.
+It compares KD-only, real-brain mean-squared error (MSE), block-permuted MSE, and a text-feature auxiliary target over eight training seeds.
 The mediator that would make the downstream test interpretable is the real-minus-permuted alignment change on the in-domain averaged target \evd{E009}.
 
 That mediator has mean \result{e009_fulcrum_mean}, median \result{e009_fulcrum_median}, and 5/8 positive seed signs.
 Its measured 80\%-power minimum detectable effect is $0.023$, and seed 0 contributes $+0.063$ while the remaining seven seeds average approximately $+0.004$ \evd{E009}.
 The representation fulcrum is therefore not reliable.
 Every OOD-perplexity contrast also lies inside its measured minimum detectable effect: real MSE minus KD-only is $+0.009$ on Pereira and $+0.053$ on LeBel, while real MSE minus the permuted twin is $-0.019$ and $-0.068$ \evd{E009}.
-E009 supports no detected brain-specific OOD-perplexity payoff under this all-data, averaged-target setup.
+E009 supports no detected brain-specific out-of-domain (OOD) perplexity payoff under this all-data, averaged-target setup.
 It is a bounded result because the manipulation whose payoff was being tested did not reliably take hold, and because robustness and sample-efficiency outcomes were not run.
 
-E024 tests whether a cognitive measurement can help through a different channel: privileged information available only during training.
+E024 tests whether a cognitive measurement can help through a different channel: learning using privileged information (LUPI), where the auxiliary measurement is available only during training.
 The planned five-arm ZuCo intervention is gated on two preconditions: natural-reading gaze must contain information about the target label, and paragraph-disjoint splits must support a stable low-sample learning curve.
 The data comprise 300 natural-reading sentences from 12 participants, but only seven source paragraphs \evd{E024}.
 
@@ -331,6 +331,8 @@ This diagnostic finds no surviving non-stimulus residual alignment on the fixed 
 E020 is therefore a failed ceiling instrument with a successful artifact guard: bounded, not closed.
 
 E016 then asks a different question: whether a dense stimulus-derived brain target can be optimized at scale and transfer to measured fMRI alignment.
+TRIBE v2 is a pretrained multimodal model that predicts high-resolution cortical fMRI responses for new stimuli \autocite{dascoli2026}.
+E016 uses its 20,484 predicted cortical values per text stimulus as a synthetic neural target, not as newly recorded fMRI.
 TRIBE and a projected teacher-hidden-state control each define their own synthetic target; KD-only and block-permuted variants provide within-target references.
 The two synthetic target spaces are dimension-matched in the training harness but differ in rank, geometry, and baseline difficulty, so their raw target-$R^2$ values are not directly commensurate \evd{E016}.
 

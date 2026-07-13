@@ -1,28 +1,98 @@
 \section{Discussion}
-% === ROUND 2 --- §5 Discussion: goal & contents ===========================
-% GOAL: say what the program means SO FAR and name the spine. CONTAINS: recap the arc
-% (real / not preserved / weak quality-entangled lever); the spine = an artifact-resistant measurement
-% protocol + the matched-quality control prior positive claims lack; what the weak-prior
-% prediction implies so far; explicit about scope (through Q2). No Q3--Q4 verdicts.
-% ===========================================================================
-The experiments separate measurability from controllability.
-A linear readout detects a trained-over-untrained signal under the UTS03 controls, but that fact does not imply that a small neural loss can move the representation reliably during distillation.
-The loss may be weak relative to the text objective, the response target may be noisy, and the optimization path may damage the language model before it creates a stable alignment change.
 
-The inference unit changes the scientific answer.
-An objective-specific gain appears against a response averaged across participants, but the corresponding per-participant effects center near zero.
-This is not a contradiction: response averaging estimates alignment to a higher-SNR shared stimulus-evoked target, whereas the participant analysis estimates the mean individual effect.
-The protocol must name which of these estimands it claims before training begins.
+\subsection{Main empirical answer}
 
-The controls repeatedly narrow apparent positives.
-Seed-by-fold pooling creates a narrow Q2 interval that disappears at the fold unit; participant separation removes the averaged-target Q3 gain; and the Q4 payoff test becomes non-diagnostic when the representation manipulation itself is unstable.
-The contribution is therefore not a new optimizer that improves a downstream score, but a controlled account of where the training claim fails and which comparisons are needed to see that failure.
+The experiments separate the existence of a measurable correspondence from its value as an intervention target.
+Under the recorded controls, trained middle-layer representations predict brain responses beyond the low-level nuisance set and same-architecture untrained controls \evd{E002} \evd{E006}.
+Ordinary distillation leaves alignment headroom below the teacher, but that headroom is entangled with language-model quality rather than identified as an objective-specific loss \evd{E003} \evd{E015}.
+When neural targets enter the training objective, the tested methods do not establish a reliable participant-level gain or a practical downstream benefit \evd{E004} \evd{E008} \evd{E009} \evd{E011} \evd{E013} \evd{E017}.
+The answer is therefore bounded but coherent: brain alignment is measurable in the studied settings, yet it is not a demonstrated reliable training signal for the tested distillation regimes.
 
-E016 supplies a separate construct-validity warning.
-A dense brain-derived proxy can become easier for a student to predict while a common real-brain alignment endpoint does not improve.
-Proxy optimization and biological transfer are distinct estimands; a training paper needs both before calling a synthetic neural target brain-specific.
-Here the result supports a transfer failure for this target, model pair, and diagnostic, not a claim that synthetic neural supervision can never help.
+This conclusion is stronger than a failure to obtain a positive score and narrower than a universal impossibility claim.
+The program tests each link required for brain-guided distillation: valid measurement, preservation, controllable movement, participant generalization, and downstream transfer, each with a control suited to that link.
+Several apparent positives weaken at precisely those transitions.
+The value of the evidence lies in locating those failures rather than combining unlike endpoints into one verdict.
 
-The negative findings are bounded.
-They cover the tested models, datasets, objectives, and quality regimes.
-E013 shows that this voxelwise MSE distillation lever fails to take hold, not that every naturalistic or voxelwise neural objective is impossible; E024 stops an invalid substrate before an intervention rather than reporting a completed LUPI null.
+The result also changes what should count as success in this area.
+An intervention should not be credited merely because its optimized target rises, because an auxiliary task can become easier through generic regularization or target geometry.
+It should not be credited merely because a confidence interval over seeds excludes zero, because optimizer repeatability is not biological generalization.
+It should not be credited merely because perplexity remains acceptable, because similar output quality can coexist with different hidden representations.
+The complete success condition is a target-specific movement at the correct inference unit that transfers to an endpoint independent of the training proxy.
+
+\subsection{Where the causal chain breaks}
+
+The first break is between measurement and control.
+A linear readout can detect brain-relevant distinctions in a frozen representation even when a small auxiliary loss cannot reorganize that representation reliably during distillation.
+The neural term competes with a much larger language objective, the target is noisy and low-sample, and changing the representation can degrade language quality before it creates a stable target-specific gain.
+The fold-level E004 result, the participant-level E008 result, and the neutral-to-harmful voxelwise trajectory in E013 each locate a failure at this intervention stage under a different readout or inference unit \evd{E004} \evd{E008} \evd{E013}.
+
+Increasing flexibility does not by itself resolve the problem.
+Higher-rank LoRA changes capacity without producing a stronger effective manipulation, a contrastive ROI objective does not rescue the participant-level effect, and full fine-tuning alternates between negligible movement and catastrophic forgetting before converging on a near-zero brain-specific contrast \evd{E011} \evd{E013} \evd{E017}.
+These results implicate the tested induction mechanisms rather than one adapter rank or one loss parameterization.
+They do not rule out objectives with different targets, architectures, temporal models, or optimization regimes.
+
+The second break is between optimizing a proxy and transferring to biology.
+E016 shows that a dense brain-derived synthetic target can become substantially easier for a student to predict under nearly unchanged language quality, while the same students do not improve on a common real-brain endpoint \evd{E016}.
+Synthetic learnability is therefore evidence that an optimization channel exists, not evidence that the optimized geometry is brain-specific or biologically transferable.
+A training claim requires both a target-specific control and an independent real-brain transfer test.
+
+\subsection{Inference unit and response averaging}
+
+The inference unit changes the scientific answer because different repetitions support different claims.
+Pooling three seeds over five shared stimulus folds produced an apparently precise E004 interval, but the valid fold-level analysis has five units and includes zero \evd{E004}.
+Likewise, the participant-averaged target in E005 supports an apparent gain, whereas the corresponding effects across nine individually evaluated participants center near zero in E008 \evd{E005} \evd{E008}.
+Seeds measure optimization variability, folds measure stimulus variability, and participants measure biological variability; one axis cannot substitute for another.
+
+Response averaging is not merely a biased estimate of the average participant.
+It suppresses idiosyncratic noise and emphasizes the component evoked consistently by the shared stimulus, thereby increasing reliability and changing the estimand.
+The nested E010 curve suggested a dose response, but that pattern did not survive random-subset reanalysis, so it cannot carry a causal averaging law \evd{E010}.
+E014 independently shows that averaging can legitimately increase an encoding score when individual signals are already positive, through higher signal-to-noise ratio and a shift toward the shared component \evd{E014}.
+The defensible conclusion is thus specific: the positive averaged-target intervention result does not generalize to a mean per-individual effect in this cohort, while averaging itself is not generally an artifact.
+
+\subsection{What the negative results establish}
+
+The negative findings constrain particular mechanisms at particular inference units.
+E013 establishes that the tested voxelwise MSE distillation lever does not take hold across its weight range; it does not establish that naturalistic voxelwise objectives are impossible \evd{E013}.
+E009 detects no out-of-domain perplexity benefit in a regime where the prerequisite representation contrast is unreliable, so it does not estimate the payoff of a successful alignment manipulation \evd{E009}.
+E024 stops before a five-arm privileged-information intervention because natural-reading gaze is uninformative about the task label and the paragraph structure cannot support the intended learning curve; it is a failed precondition, not a completed LUPI null \evd{E024}.
+E020 finds that an apparent participant-residual signal is explained by stimulus leakage and autocorrelation under its strongest diagnostic, but its noisy reference prevents the experiment from closing a universal stimulus-predictability ceiling \evd{E020}.
+
+Three secondary experiments extend these boundaries without becoming external refutations.
+The faithful-as-feasible Negi-style head in E019 produces no positive brain-specific gain: gentle tuning barely moves the model, whereas stronger tuning damages both perplexity and encoding \evd{E019}.
+Differences in architecture, dataset, training duration, and metric prevent that result from adjudicating the original Negi study; it instead corroborates the mechanism failure observed in the primary experiments.
+In E021, a phase-randomized target that preserves the reading-time signal's autocorrelation and marginal shape reproduces its auxiliary-regularization advantage, so the gain is attributable to signal shape rather than cognitive content in that setup \evd{E021}.
+In E022, a reduced single-participant speech experiment does not reproduce the predeclared phoneme benefit, making the planned matched-quality follow-up vacuous, but the reduced dataset and protocol do not refute the multi-participant Moussa result \evd{E022}.
+
+\subsection{Requirements for future brain-guided training}
+
+The evidence implies a stricter sequence for future intervention claims.
+First, the alignment metric must survive leakage controls, a capacity-fair nuisance model, reliability selection independent of the test set, and an untrained-model comparison.
+Second, the training manipulation must beat a target-specific twin while preserving or explicitly matching language quality.
+Third, the effect must be evaluated at the inference unit named by the claim, with participants required for biological generalization.
+Fourth, a synthetic or averaged target must transfer to a separately measured real-brain endpoint.
+Only after these gates hold is a downstream comparison interpretable as the payoff of alignment rather than as generic regularization, language-quality change, or target learnability.
+
+The requirements also clarify what kind of neural target may be worth pursuing.
+A larger or denser target is useful only if its additional dimensions encode transferable structure rather than making an auxiliary task easier.
+Privileged information is useful only if it predicts the target concept without importing task-induced leakage.
+More participants can improve both reliability and the scope of inference, but averaging them into one response cannot replace participant-level evaluation when the claim concerns people.
+These are identification requirements, not preferences about model architecture.
+
+The sequence suggests an efficient future workflow as well as a stricter one.
+Before expensive training, a candidate neural or cognitive target should pass reliability, label-relevance, leakage, and split-stability gates.
+During training, manipulation success should be evaluated separately from outcome success, so a failed objective is not mistaken for evidence that a useful representation change has no consequence.
+After training, the real target and its control should be scored on a common endpoint with stable model identity and matched preprocessing.
+This ordering prevents compute from being spent on a downstream claim whose mediator or inference unit was never established.
+
+\subsection{Relation to prior positive studies}
+\label{sec:discussion-prior}
+
+Prior positive studies and the present negative results address overlapping but non-identical estimands.
+Brain-guided fine-tuning can begin from an already capable representation, use larger neural datasets, or evaluate a modality-specific downstream task, whereas the present thesis emphasizes compression, matched quality, and participant-aware inference \autocite{moussa2025,moussa2025b,negi2025,bilgin2026,merlin2026}.
+The findings therefore do not show that neural supervision is never useful.
+They show that a gain over an untuned baseline does not, by itself, identify a brain-specific training effect and that positive proxy fit does not guarantee biological transfer.
+
+The most durable synthesis is methodological rather than adversarial.
+Measurement, intervention, generalization, and payoff are separate estimands with separate controls.
+Results that satisfy one stage remain valuable even when a later stage fails, but they should not inherit the stronger interpretation of that later stage.
+This distinction allows positive and negative studies to be compared at the level of their actual interventions and inference units rather than by headline score alone.

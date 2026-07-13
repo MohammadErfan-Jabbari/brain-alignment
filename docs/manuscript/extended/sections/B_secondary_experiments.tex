@@ -4,13 +4,13 @@
 This appendix explains experiments that validate the apparatus, diagnose a main-track result, test a failed measurement instrument, or provide a reduced external reproduction.
 Each subsection states the question, intervention or comparison, estimand and inference unit, result, conclusion, limitation, and role in the thesis.
 
-\subsection{E001: end-to-end plumbing on a planted synthetic signal}
+\subsection{E001: end-to-end implementation validation on a planted synthetic signal}
 \label{sec:e001}
 
-E001 asked whether the initial software pipeline could recover a known relationship from synthetic language features and synthetic fMRI-like targets.
+E001 asked whether the initial implementation could recover a known relationship from synthetic language features and synthetic fMRI-like targets.
 The run exercised feature extraction, ridge fitting, cross-validation, and result serialization while holding the planted data-generating relationship under experimenter control.
 Its estimand was recovery of that constructed relationship, and the relevant unit was the synthetic sample rather than a participant or brain measurement.
-The pipeline recovered the planted signal and therefore passed its engineering smoke test. \evd{E001}
+The implementation recovered the planted signal and therefore passed its engineering validation. \evd{E001}
 This result licenses use of the implementation as a starting point, but it provides no evidence that a language model predicts real neural activity, that the nuisance controls are sufficient on real stimuli, or that a neural objective can improve training.
 E002 is the first scientific evidence because it replaces the constructed target with recorded language-network responses and adds trained-versus-untrained and nuisance controls.
 
@@ -19,8 +19,8 @@ E002 is the first scientific evidence because it replaces the constructed target
 
 E010 asked whether the apparent brain-specific intervention contrast increased as more participants were averaged into the target.
 The motivation was the discrepancy between E005, which used a five-participant average, and E008, which found a near-zero mean across individual participants.
-For nested averages of $k\in\{1,2,3,5,9\}$ participants, the measured contrast increased from approximately zero at $k=1$ to $+0.0702$ at $k=9$. \evd{E010}
-The original interpretation treated this monotone nested sequence as a dose response to increasing reliability.
+For nested averages of $k\in\{1,2,3,5,9\}$ participants, the measured intervention gaps were approximately $-0.0002,-0.0001,+0.0023,+0.0194,+0.0071$. \evd{E010}
+The original interpretation treated the rising $k=1$-to-$5$ limb as a reliability dose response while noting the reversal at $k=9$.
 That interpretation was not identified because every larger target contained the smaller target, participant order was fixed, and target construction changed together with signal-to-noise ratio.
 
 E010b therefore repeated the analysis over random participant subsets at each $k$.
@@ -71,6 +71,11 @@ E019 asked whether a faithful-as-feasible implementation of a published Negi-sty
 The implementation combined the available naturalistic LeBel substrate with a differentiable temporal head and tested learning-rate, probe, and positive-control variants before the final comparison.
 The relevant estimand was held-out alignment change for the real target relative to a permuted target under the same training and evaluation path.
 The head did not produce a stable target-specific lever on the local substrate, so the planned matched-quality collapse of a reproduced positive could not be performed. \evd{E019}
+Across three participants and three training seeds, gentle tuning changed encoding correlation by $-0.0006\pm0.0027$ and unique $R^2$ by $-0.0001\pm0.0010$ relative to the base model, where the terms after $\pm$ are descriptive standard deviations across the nine participant--seed cells. \evd{E019}
+The real-minus-permuted specificity contrast was $-0.0004\pm0.0018$, and the real-minus-intended-quality-control contrast was $-0.0010\pm0.0018$ on the same descriptive cell scale. \evd{E019}
+The intended quality control did not achieve a match: the real-target arm had perplexity about $51.1$--$51.7$, while the control was about $40.1$--$40.3$, so the latter contrast is not a matched-quality estimate. \evd{E019}
+Participants, not the nine participant--seed cells, are the biological inference units; these values are mechanism checks rather than population confidence intervals.
+Stronger learning rates produced negative encoding changes, and the strongest probe increased perplexity from approximately $50$ to $11{,}514$ while reducing encoding correlation by about $0.055$. \evd{E019}
 This corroborates the mechanism failure seen in the thesis's own objectives because a distinct objective family also failed to establish movement.
 It does not reproduce the published dataset, participant pool, full training scale, or exact implementation, and therefore cannot refute Negi et al.
 Its role is convergent boundary evidence: the local null is not confined to one MSE loss, but external validity remains unresolved.
@@ -81,9 +86,9 @@ Its role is convergent boundary evidence: the local null is not confined to one 
 E020 asked whether an empirical reference constructed from other participants could approximate $\mathbb{E}[Y\mid S]$ and reveal brain response structure beyond the stimulus-predictable mean.
 The intended comparison residualized a target participant's response against a leave-one-participant-out group reference, then measured how much language-model signal remained.
 An initial residual appeared to preserve substantial alignment, which would have suggested a participant-specific component beyond the shared stimulus response.
-Diagnostics showed that the reference was itself unreliable and that temporal leakage and autocorrelation could preserve apparent signal after subtraction. \evd{E020}
-Once the cleanest controlled construction was used, the remaining residual was bounded rather than decisively positive.
-The inference was within a limited set of subjects and stories, and the reference did not provide a high-reliability estimate of the latent conditional mean.
+Diagnostics showed that the reference was itself unreliable ($0.33$), residual split-half reliability was $0.174$, and temporal leakage and autocorrelation could preserve apparent signal after subtraction. \evd{E020}
+Once the cleanest controlled construction was used, the trained-minus-untrained residual gap was $-0.018$. \evd{E020}
+The inference used six participants on one fixed story, and the reference did not provide a high-reliability estimate of the latent conditional mean.
 E020 therefore rejects this particular ceiling instrument while leaving the general ceiling question open.
 Its role is to prevent the Discussion from turning a failed measurement into either a positive participant-specific mechanism or a universal closure result.
 
@@ -93,9 +98,9 @@ Its role is to prevent the Discussion from turning a failed measurement into eit
 E021 asked whether human reading time supplies a cognition-specific auxiliary target after removing the component predictable from language-model surprisal.
 The early comparisons used raw reading time, surprisal-residualized reading time, permuted targets, random targets, word length, frequency, and other-model surprisal, and evaluated frozen-probe learning curves across training seeds.
 Raw and surprisal-residualized reading time performed similarly, showing that removal of the model's own surprisal-predictable component did not remove the apparent benefit. \evd{E021}
-At v4 the residual target beat several learnability-matched controls, but those controls did not match its strong temporal autocorrelation and heavy-tailed marginal distribution.
-The final v5 control phase-randomized the signal while preserving its autocorrelation and approximate marginal shape but removed behavioral content.
-That content-free shape twin tied the reading-time residual: the AULC difference was $+5.3$ with a 95\% interval $[-7.9,+18.5]$. \evd{E021}
+In the penultimate analysis the residual target beat several learnability-matched controls, but those controls did not match its strong temporal autocorrelation and heavy-tailed marginal distribution.
+The final control phase-randomized the signal while preserving its autocorrelation and approximate marginal shape but removed behavioral content.
+That content-free shape twin tied the reading-time residual: the difference in area under the frozen-probe learning curve was $+5.3$ with a 95\% interval $[-7.9,+18.5]$, where lower area means faster or better learning. \evd{E021}
 The independent units were stochastic training seeds, and the claim is restricted to this learning-curve setup and target construction.
 The conclusion is that the observed advantage is attributable to signal shape or regularization, not demonstrated cognition-specific information.
 E021's role is methodological: auxiliary targets require controls matched for learnability and statistical geometry, not only random or permuted labels.
@@ -114,9 +119,9 @@ Its role is to show that the thesis did not obtain an external positive on which
 \subsection{E024: privileged gaze information stopped at the precondition gate}
 \label{sec:e024}
 
-E024 asked whether gaze and EEG observed only during training could improve the sample efficiency of a text classifier, following the learning-using-privileged-information setting.
+E024 asked whether gaze or EEG observed only during training could improve the sample efficiency of a text classifier, following the learning-using-privileged-information setting.
 The planned estimand was the area between held-out learning curves for a text-only student and privileged-information arms at paired training subsets.
-Before building five training arms, the design required that the privileged signal be reliable, informative about the label under natural reading, and evaluable with a leakage-free grouped split.
+Before building five training arms, the design predeclared gaze as the first binding gate and required it to be reliable, informative about the label under natural reading, and evaluable with a leakage-free grouped split.
 
 The reliable gaze summaries largely tracked sentence length and did not predict the relation label under natural reading.
 Across binary and multiclass probes, linear and nonlinear readouts, participant-averaged and within-participant features, natural-reading performance stayed near chance; the rich multiclass probe gave balanced accuracy $0.202$ against chance $0.200$ with permutation $p=0.35$. \evd{E024}
@@ -125,8 +130,8 @@ This contrast indicates task-intent leakage rather than a portable natural-readi
 
 The dataset also contained 300 sentences drawn from only seven paragraphs, so a paragraph-disjoint test set varied from 8 to 161 sentences across split seeds and did not support a stable low-data learning-curve estimand.
 These two failures were independent: the signal was uninformative for the clean target, and the grouping structure prevented a stable leakage-free evaluation.
-The five-arm LUPI intervention was therefore stopped at its binding precondition gate.
-This is not a completed negative intervention; it is evidence that the proposed substrate cannot identify the intended transferable privileged-information effect.
+The five-arm LUPI intervention was therefore stopped at its binding gaze precondition gate, and EEG was not evaluated.
+This is not a completed negative intervention or an EEG precondition result; it is evidence that the proposed gaze-first substrate cannot identify the intended transferable privileged-information effect.
 
 \subsection{E023: objective-specific shedding as an unexecuted identification program}
 \label{sec:e023-detail}
@@ -134,6 +139,7 @@ This is not a completed negative intervention; it is evidence that the proposed 
 E023 formalized a counterfactual question left open by E003 and E015: whether a distilled model lies below the alignment expected for a normally trained model of the same language-model quality.
 It proposed a same-lineage quality frontier, a matched-quality KD-versus-ordinary-fine-tuning comparison, and operation in a regime where the frontier is sufficiently flat to separate objective effects from ordinary quality loss.
 The only executed component was an analysis-only slope and knee gate using already measured Pythia and Qwen models.
-One lower-quality Pythia pair met the local flatness screen, while no Qwen pair cleared the decisive saturated-regime requirement. \evd{E023}
-The artifact therefore marked a pilot as potentially feasible but did not clear a rung-moving training comparison.
+The Pythia 1B-to-410M pair met the local flatness screen with slope $+0.015$, alignment change $+0.0007$, and quality change $0.066$ bits per byte. \evd{E023}
+The three checked Qwen pair slopes were $+0.334$, $-0.217$, and $+0.076$, so none cleared the decisive saturated-regime requirement. \evd{E023}
+The analysis-only gate marked a lower-quality pilot as feasible but did not clear a decisive training comparison; no inferential unit or hypothesis test was claimed for this descriptive screen.
 No KD-versus-fine-tuning intervention was run, so E023 contributes an identification framework rather than a scientific result about objective-specific shedding.

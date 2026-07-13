@@ -7,7 +7,7 @@ aliases: [current-status]
 # Project status
 
 **Updated:** 2026-07-13  
-**Manuscript:** `manuscript-sync-pending`
+**Manuscript:** `share-ready`
 **Latest frozen public cut:** [v0.9 Markdown](manuscript/public/v0.9/paper.md)
 
 ## Research state
@@ -23,20 +23,18 @@ aliases: [current-status]
 
 ## Active work
 
-- Reconstruct the extended manuscript as a standalone MSc thesis with complete experiment coverage and a ground-up conceptual introduction.
+- The extended manuscript is reconstructed as a standalone MSc thesis with complete implemented-experiment coverage, ground-up conceptual framing, and self-contained appendices.
 
 ## Blockers
 
-- Four theory statements require `/interpret` before expansion: the unique-$R^2$/conditional-MI relationship, the MI-generalization-bound direction, the data-processing chain, and the rate--distortion framing.
-- The current manuscript omits completed secondary experiments and must not be circulated until the coverage and review gates pass again.
+- None for supervisor circulation. Public-version metadata remains a separate checkpoint decision.
 
 ## Next actions
 
-1. Reconcile theory, E-record statuses, and newly load-bearing artifact provenance.
-2. Rebuild the Introduction and Methods from the concrete measurement setup upward.
-3. Integrate all implemented experiments into the main causal spine or complete appendices.
-4. Run deterministic, persona, and independent scientific-scope reviews.
-5. Obtain Erfan's framing approval, then restore `share-ready`.
+1. Read and circulate the extended-manuscript PDF to supervisors.
+2. Collect supervisor comments against this share-ready baseline.
+3. Confirm UC3M title-page rules and institutional supervisor metadata separately.
+4. Create a new immutable public cut only after Erfan explicitly calls that checkpoint.
 
 ## Related
 
