@@ -1,12 +1,12 @@
 ---
-title: "Experiment — E017 (I2): the matched-perplexity control on a REPRODUCED brain-tuning gain"
+title: "Experiment — E017: full-fine-tuning brain-loss intervention under matched quality"
 tags: [experiment]
 aliases: [E017]
 ---
 
-# Experiment — E017 (I2): the matched-perplexity control on a REPRODUCED brain-tuning gain
+# Experiment — E017: full-fine-tuning brain-loss intervention under matched quality
 
-**Created:** 2026-06-13 · **Status:** DESIGN (locked before run; oracle gate pending) · **Mode:** working (autonomous)
+**Created:** 2026-06-13 · **Status:** COMPLETE — gentler full fine-tuning was feasible after an aggressive forgetting regime, but the powered three-participant test showed no brain-specific gain; this is an existence probe, not population inference. · **Mode:** working→interpret
 **Roadmap:** implementation lane **I2** — "the matched-ppl control on an external published result (the main-track lift, premortem #1)." **Headline/spine call = Erfan (STOP at the verdict).**
 
 ## Why this, and why reframed from "external published result"

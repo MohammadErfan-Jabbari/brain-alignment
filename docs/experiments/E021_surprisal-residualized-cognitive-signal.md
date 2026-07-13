@@ -147,7 +147,7 @@ The v4 below-trend gap is **real but mis-attributed.** A thinking panel (counter
 
 **Net:** a clean cross-modal NEGATIVE that extends the fMRI null (E008) to behavioral reading-time data, with the mechanism pinned (shape, not content). Strengthens the Path-A negative paper. Exploratory; **no rung flip** (Erfan records the verdict).
 
-## FINAL verdict (clean v3 — supersedes the interim "NEGATIVE" section below)
+## SUPERSEDED v3 verdict (retained for audit; the v5 status at the top is final)
 
 **INCONCLUSIVE at n=3, with one clean sub-result. Exploratory; no rung flip.** Three honest claims the trustworthy data support:
 1. **Surprisal-orthogonality is NULL (clean).** raw ≈ residual (+4.3 [−3.9,+12.6]) — removing the surprisal-predictable component changes nothing. The experiment's *specific novelty* (surprisal-residualization) buys nothing. (This is the DPI prediction borne out — though DPI bounds *information*, not training utility, so it was the wrong reason to assert it pre-hoc.)

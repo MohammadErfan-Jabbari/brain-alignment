@@ -37,7 +37,7 @@ The raw material is 125 files, ≈ 292 MB, in two folders plus a reference book:
 
 These six connections are the ones the thesis argument actually depends on — the first five ground R03's first-principles case; the sixth grounds R07's distillation result (Q1). Each row gives the course result, its exact statement, the note it lives in, and the precise thesis claim it grounds.
 
-### 1. The mutual-information generalization bound — the formal twin of R03's "weak prior" bound
+### 1. The mutual-information generalization bound — a diagnostic constraint, not a benefit guarantee
 
 The course proves (lecture 26, via Donsker-Varadhan + sub-Gaussian concentration) that for a learning algorithm modelled as a channel $P_{W\mid Z^n}$ from the training set $Z^n$ to the learned parameters $W$, with $\sigma$-sub-Gaussian loss, the *average* generalization gap obeys
 
@@ -45,9 +45,9 @@ $$
 \overline{\operatorname{gen}} \;=\; L - \widehat{L} \;\le\; \sqrt{\frac{2\sigma^2\, I(W;Z^n)}{n}},
 $$
 
-and the bounded-loss variant $d(\widehat{L}\,\|\,L) \le I(W;Z^n)/n$ (file: `info-theory-course/26_generalization_error_bounds_OCR.md`). **This is the exact in-expectation form of the bound R03 §2 Step 6 invokes through its PAC-Bayes (McAllester) face.** Both descend from the *same* Donsker-Varadhan variational representation of KL that the course derives in lecture 5 and reuses in lecture 26 — PAC-Bayes is the high-probability form, the MI bound is the in-expectation form. The thesis consequence is direct: the brain term enters training as a weak prior, so its entire contribution to *generalization* is mediated by how much it changes $I(W;Z^n)$. If the brain prior adds only $\Delta I$ bits to the algorithm's input-output mutual information, the generalization benefit is bounded by $O(\sqrt{\Delta I / n})$ — which is *why* the benefit is real but small, and *why* it decays as task data $n$ grows. R03's order-of-magnitude "info budget" (Steps 2–4) is the estimate of that $\Delta I$.
+and the bounded-loss variant $d(\widehat{L}\,\|\,L) \le I(W;Z^n)/n$ (file: `info-theory-course/26_generalization_error_bounds_OCR.md`). This is an in-expectation upper bound on the magnitude of the generalization gap. Its right-hand side increases with $I(W;Z^n)$, so it does **not** say that adding an auxiliary brain signal improves generalization, and it does not supply a benefit of order $\sqrt{\Delta I/n}$. A brain-guided regularizer could tighten this bound only if it reduces the learned parameters' dependence on the sampled text while retaining empirical fit; whether it does so is an empirical question. The earlier order-of-magnitude information-budget argument is therefore retired and must not be used in the thesis.
 
-### 2. The data-processing inequality — the ceiling on alignment, and the answer to the compression counter-paper
+### 2. The data-processing inequality — valid only after the Markov chain is stated
 
 The course states and proves (lecture 6) that for a Markov chain $X \to Y \to Z$,
 
@@ -55,9 +55,9 @@ $$
 I(X;Y) \;\ge\; I(X;Z),
 $$
 
-and — crucially — its own "deployment reading" is *exactly* the thesis's compression argument (file: `info-theory-course/6_10022026_DPI_SourceCodingI_study.md`): "If you train a representation $Z$ from features $Y$ that were themselves derived from raw data $X$, then $I(Z;\text{label}) \le I(Y;\text{label})$." Map $X \to$ stimulus, $Y \to$ teacher LM features, $Z \to$ compressed student representation, label $\to$ brain activation $B$: then $I(Z_{\text{student}}; B) \le I(Y_{\text{teacher}}; B)$. **Compression can only lose brain alignment, never create it.** This is the formal grounding for two R03 claims at once: (a) §2 Step 4's "$I(\theta^\star;Y) \le I(\theta^\star;S)$ — most of the brain signal is already in the text," and (b) §2's third brake — the compression-preserves-alignment counter-evidence (arXiv 2602.07547). The counter-paper's empirical finding that alignment survives compression means the DPI bound is *nearly tight* in practice (compression is near-alignment-lossless), which is precisely why the thesis must compete on the **trade-off curve** (how favorably alignment trades against rate), not on a preserve-vs-destroy binary.
+For this thesis the useful reading is conditional. If a student representation $C$ is literally constructed only by post-processing a teacher representation $T$, so that brain response $B \to T \to C$ is a justified Markov chain, then $I(B;C) \le I(B;T)$. Ordinary knowledge distillation does not automatically satisfy that chain: teacher and student both receive stimulus or corpus information, which provides a side path. Likewise, a chain such as $\theta^\star \to S \to B$ is an explicit conditional-independence model, not a theorem that "most brain information is already in text." DPI therefore motivates preservation tests after the relevant chain is defended; it does not prove that compression must reduce an empirical encoding score or that an observed preservation result is near a universal ceiling.
 
-### 3. Conditional mutual information — the formal definition of "unique R² beyond confounds"
+### 3. Conditional mutual information and unique $R^2$ — related under explicit assumptions
 
 The course defines (lecture 4) conditional mutual information
 
@@ -65,9 +65,17 @@ $$
 I(X;Y \mid Z) \;=\; H(Y\mid Z) - H(Y\mid X,Z),
 $$
 
-as the dependence between $X$ and $Y$ that *remains after the context $Z$ is already known* (file: `info-theory-course/4_03022026_RelativeEntropy_MI_Jensen_study.md`). **The thesis's "unique variance after nuisance subtraction" is this object:** with $X \to$ LM features, $Y \to$ brain activation, $Z \to$ nuisance regressors (length, position, static embeddings), the quantity the encoding model is after is $I(\text{LM};\,B \mid \text{nuisance})$. The contiguous-split, nuisance-baseline anti-confound protocol (learnings L003; R01 §2/§4) is the empirical, ridge-regression operationalization of conditioning on $Z$. This is why "unique R²" is not an arbitrary convention but the right information-theoretic target.
+as the dependence between $X$ and $Y$ that remains after $Z$ is known (file: `info-theory-course/4_03022026_RelativeEntropy_MI_Jensen_study.md`). Under a population linear-Gaussian model with correctly specified, unregularized conditional means,
 
-### 4. The rate-distortion function — the formal object behind the F1 "trade-off curve"
+$$
+I(X;Y\mid Z)=-\tfrac12\log\!\left(1-R^2_{\mathrm{partial}}\right),
+\qquad
+\Delta R^2_{\mathrm{semi}}=(1-R^2_{\mathrm{reduced}})R^2_{\mathrm{partial}}.
+$$
+
+The thesis instead estimates a finite-sample, cross-validated **semipartial** $\Delta R^2$ using regularized ridge models. It is therefore an operational measure of incremental linear predictive value beyond specified nuisance features, not an estimator or lower bound for conditional mutual information. Contiguous splits and fold-only preprocessing protect that predictive estimand against particular leakage and nuisance pathways; they do not turn it into CMI without the assumptions above.
+
+### 4. The rate-distortion function — an organizing analogy for the empirical trade-off
 
 The course gives (lecture 1) the rate-distortion function
 
@@ -75,7 +83,7 @@ $$
 R(D) \;=\; \min_{P_{\hat S\mid S}:\,\mathbb{E}[(S-\hat S)^2]\le D}\; I(S;\hat S),
 $$
 
-the minimum rate achievable at a given distortion budget (file: `info-theory-course/1_InfTh_Intro_study.md`, Chunk 2). **F1 (alignment-guided distillation at matched budget) is literally a rate-distortion claim:** a compressed student sits at an operating point where *rate* is the student's budget (params / FLOPs) and *distortion* is alignment loss relative to the teacher. The thesis's contribution is to show brain-guided distillation moves the operating point favorably — lower alignment-distortion at the same rate. Lecture 1's Chunk 3 explicitly notes these ideas reappear "in representation learning, in reconstruction objectives, and in generalization analysis," which is the bridge from classical source coding to the neural setting the thesis works in.
+the minimum mutual-information rate achievable at a specified expected distortion (file: `info-theory-course/1_InfTh_Intro_study.md`, Chunk 2). The thesis does not identify this Shannon object: parameter count or FLOPs are not $I(S;\hat S)$, and brain-alignment loss is not shown to be the distortion measure of a source-coding problem. "Rate--distortion" is therefore used only as a **rate--distortion-style engineering analogy** for an empirical Pareto frontier among model budget, language-model quality, and alignment. No theorem about $R(D)$ licenses a favorable movement of that frontier.
 
 ### 5. The Donsker-Varadhan variational representation — proof engine, and a path to *measuring* the brain budget
 

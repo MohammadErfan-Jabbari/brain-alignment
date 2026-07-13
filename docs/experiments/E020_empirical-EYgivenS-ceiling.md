@@ -6,7 +6,7 @@ aliases: [E020]
 
 # Experiment E020 — the empirical-E[Y|S] ceiling (TRIBE-free): does the LM align to brain signal beyond the stimulus-predictable part?
 
-**Created:** 2026-06-14 (S13) · **Status:** **DESIGNED — NEXT to run (F1-close).** Replaces the walled TRIBE
+**Created:** 2026-06-14 (S13) · **Status:** **COMPLETE — the apparent residual was explained by reference unreliability and leakage/autocorrelation; the clean controlled residual was bounded, but this failed instrument does not close the general ceiling question.** Replaces the walled TRIBE
 stimulus-subtraction ceiling (E016 Phase 2 / Step 9) per **D028**. · **Mode:** working (design→run→judge)
 **Origin:** E016 Phase-2 hit a wall — TRIBE estimates E[Y|S] at only ~7% of per-vertex real-BOLD variance on
 story-listening, too weak to subtract (L038). The fix (Erfan-agreed): use the **ground-truth empirical E[Y|S]**

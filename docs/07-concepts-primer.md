@@ -12,7 +12,7 @@ while their evidence lives in the owning experiment record and their current int
 **L-numbers** are lessons in [`docs/learnings.md`](learnings.md); **D-numbers** are decisions in `docs/decisions/`.) The experiment docs deliberately stay terse and
 assume these terms; this file is where they are defined *once*, clearly, so a reader new to a doc can
 ground the vocabulary here instead of re-deriving it. The math/theory version of several of these
-(MI bound, DPI, conditional-MI = unique R², rate-distortion) lives in [`06-theory-grounding.md`](06-theory-grounding.md); this
+(MI bound, assumption-bound DPI, the relationship between conditional MI and unique R², and the rate--distortion analogy) lives in [`06-theory-grounding.md`](06-theory-grounding.md); this
 file is the intuition, not the formal treatment.
 
 > If a definition here disagrees with an experiment's recorded evidence or the extended manuscript's current interpretation, those authorities win.
@@ -91,7 +91,7 @@ just beat zero. This removes per-fold common-mode and is what detected (and late
 
 ---
 
-## Noise ceiling — and what "% of the ceiling" means
+## Noise ceiling — reliability context must stay on the correct scale
 
 fMRI is noisy: show the **same person the same sentence twice** and the recorded response is *not*
 identical (scanner noise, blood-flow fluctuation, attention drift). So there is a hard upper bound on
@@ -100,12 +100,7 @@ That bound is the **noise ceiling**, estimated from repeated presentations of th
 well does the brain predict *itself* across repeats?). **CC_norm** is the specific normalized-
 correlation estimator of it used on LeBel.
 
-Because raw R² has no meaning without the ceiling, we report alignment **as a fraction of the ceiling**.
-Example (Tuckute, matched five-functional-ROI mean ceiling R² = 0.491): Qwen's unique R² of 0.036 is not "3.6% of all variance" — it is
-`0.036 / 0.491 ≈ 0.074` = **~7% of the noise ceiling**. In plain words: *of the brain signal that is
-even predictable in principle, the LLM's unique contribution captures about a tenth.* That normalized
-number is the honest one; a raw R² of 0.036 against a ceiling of 0.35 is very different from the same
-0.036 against a ceiling of 0.9.
+The score and ceiling must be placed on compatible scales before any normalization. In Tuckute, the matched five-functional-ROI mean ceiling is a correlation, $r_{NC}=0.491$, whereas Qwen's unique score is variance-scale $R^2=0.036$. Dividing one by the other is invalid. We therefore report raw unique $R^2$ and the correlation ceiling separately. A normalized fraction would require a justified variance-scale ceiling computed for the same target and aggregation.
 
 **Voxel selection without double-dipping.** We only score voxels that are reliable (ceiling above a
 threshold), and we pick that reliable set on a *held-out* repeated story — never on the same data we

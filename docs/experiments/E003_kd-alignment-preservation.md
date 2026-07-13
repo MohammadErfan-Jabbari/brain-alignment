@@ -40,7 +40,7 @@ The obvious cheap design — fine-tune a **pretrained** `gpt2` student toward `g
 
 **Fix (locked):** the verdict-bearing arm is a **cold-init (randomly-initialised) gpt2 student trained only via logit-KD** — the only arm where any alignment the student ends with was *transmitted through the KD channel*, not inherited from pretraining. Warm-init KD is kept as a labelled *fine-tuning-drift control*, and a *fine-tune-only (no-teacher)* arm separates corpus-drift from the KD objective.
 
-## Models scored (all on Tuckute, full anti-confound, NC-normalised unique R²)
+## Models scored (all on Tuckute, full anti-confound, raw unique R²)
 
 The **primary verdict comparison is entirely within 12-layer gpt2-architecture models at a fixed layer (L7, E002's gpt2 peak)** — so there is *no* cross-architecture layer confound and *no* winner's-curse layer selection for the comparison that decides the verdict.
 
@@ -58,7 +58,7 @@ Trained arms (`kd_cold`, `kd_warm`, `lmft_warm`) are run over **≥3 seeds** at 
 
 ## Claim tuple (predeclared, locked before running)
 
-- **Metric:** NC-normalised unique encoding R² = [R²([len, pos, PCA(static), PCA(context)]) − R²([len, pos, PCA(static)])] / NC, contiguous 5-fold CV, capacity-fair PCA. Identical protocol to E002 (L003 anti-confound). The corrected ceiling matched to the five functional target ROIs is 0.491; the original run used a mislabeled 0.353 anatomical-Glasser ceiling, as corrected below from E004.
+- **Metric:** raw unique encoding R² = R²([len, pos, PCA(static), PCA(context)]) − R²([len, pos, PCA(static)]), contiguous 5-fold CV, capacity-fair PCA. Identical protocol to E002 (L003 anti-confound).
 - **Floor-anchored retention** (the well-conditioned statistic — review Objection 4): $\rho' = \dfrac{A_S - A_0}{A_T - A_0}$, where $A_0$ = untrained floor, $A_T$ = gpt2-medium teacher. Denominator $A_T-A_0 \approx 0.029$ (vs the raw teacher ≈0.019), so it is far better conditioned than the naive ratio, and $\rho'=0$ correctly means "fell back to the floor" = destroyed. Bootstrap the CI over folds×seeds; **decide on $\rho'$ with its CI and on $\Delta=A_T-A_S$ with a paired CI + p — never on a raw point ratio.**
 - **Convergence guard:** report each student's **held-out perplexity**. A cold student that never converged (perplexity ≫ teacher's) makes its alignment number *preliminary* (under-training confound, review Objection 5), not a clean verdict.
 - **Robustness:** report unique R² at **n_pca ∈ {25, 50, 100}**; the verdict must be stable across PCA rank (else it is a representational-geometry artifact, not brain structure). Report the **full layer sweep**, not only the peak.
@@ -96,21 +96,21 @@ CUDA_VISIBLE_DEVICES=0 uv run python scripts/run_kd_alignment.py --seeds 0 1 2
 ## Results
 
 > [!IMPORTANT]
-> **Ceiling correction (2026-07-13, from E004).** The original E003 table normalized by `0.353`, the same anatomical-Glasser ceiling mislabeled in E002. The ceiling matched to the five functional target ROIs is `0.491`. The table below has been recomputed with `0.491`; raw unique $R^2$, retention, gaps, probabilities, perplexities, and the verdict are unchanged.
+> **Ceiling correction (2026-07-13).** The five-ROI mean `0.491` is a correlation-scale ceiling, so dividing unique $R^2$ by it was invalid. The NC-normalized column is removed. Raw unique $R^2$, floor-anchored retention, gaps, probabilities, perplexities, and the verdict are unchanged.
 
 Ran 2026-06-10 on 4× L40S (cold arm on GPU 0, warm controls on GPU 3, parallel; ~58 min wall). KD corpus = 96k wikitext-103 sentences (2k held out for perplexity), deduped against Tuckute. Trained arms over 3 seeds; references deterministic. The two parallel runs scored the same references on different GPUs and **reproduced them to ~0.0003** — the measurement is stable. Positive controls behave: off-the-shelf gpt2 ≈ teacher (ρ′≈1.0), untrained gpt2 at the floor.
 
-**Headline table** — unique R² at the fixed verdict layer (L7 for 12L gpt2-arch, L14 teacher, L3 distilgpt2), NC-normalised by the corrected matched ceiling (NC=0.491), floor-anchored retention ρ′=(A−A₀)/(A_T−A₀) with bootstrap 95% CI, Δ=A_T−A_s, p(no-drop)=bootstrap P(no drop from teacher), held-out perplexity.
+**Headline table** — raw unique R² at the fixed verdict layer (L7 for 12L gpt2-arch, L14 teacher, L3 distilgpt2), floor-anchored retention ρ′=(A−A₀)/(A_T−A₀) with bootstrap 95% CI, Δ=A_T−A_s, p(no-drop)=bootstrap P(no drop from teacher), held-out perplexity.
 
-| Arm | init / objective | unique R² | NC-norm | ρ′ [95% CI] | Δ vs teacher | p(no-drop) | ppl |
-|---|---|---|---|---|---|---|---|
-| **teacher** gpt2-medium | pretrained | +0.0188 | 0.038 | — | — | — | 74 |
-| **gpt2** | pretrained (conventional) | +0.0195 | 0.040 | 1.02 [0.77, 1.27] | ≈0 | 0.57 | 105 |
-| **lmft_warm** | warm + plain LM finetune | +0.0174 | 0.035 | 0.95 [0.81, 1.13] | +0.0016 | 0.265 | 44 |
-| **kd_warm** | warm + pure logit KD | +0.0144 | 0.029 | 0.84 [0.67, 1.04] | +0.0046 | 0.061 | 95 |
-| **distilgpt2** | real distillation (6L/82M, +hidden-cosine) | +0.0076 | 0.015 | 0.60 [0.42, 0.84] | +0.0119 | 0.001 | 169 |
-| **kd_cold** | **random + pure logit KD** | +0.0005 | 0.001 | 0.37 [0.14, 0.58] | +0.0181 | 0.000 | 477 |
-| **untrained** | random (floor) | −0.0102 | −0.021 | 0 | — | — | ~6×10⁴ † |
+| Arm | init / objective | unique R² | ρ′ [95% CI] | Δ vs teacher | p(no-drop) | ppl |
+|---|---|---|---|---|---|---|
+| **teacher** gpt2-medium | pretrained | +0.0188 | — | — | — | 74 |
+| **gpt2** | pretrained (conventional) | +0.0195 | 1.02 [0.77, 1.27] | ≈0 | 0.57 | 105 |
+| **lmft_warm** | warm + plain LM finetune | +0.0174 | 0.95 [0.81, 1.13] | +0.0016 | 0.265 | 44 |
+| **kd_warm** | warm + pure logit KD | +0.0144 | 0.84 [0.67, 1.04] | +0.0046 | 0.061 | 95 |
+| **distilgpt2** | real distillation (6L/82M, +hidden-cosine) | +0.0076 | 0.60 [0.42, 0.84] | +0.0119 | 0.001 | 169 |
+| **kd_cold** | **random + pure logit KD** | +0.0005 | 0.37 [0.14, 0.58] | +0.0181 | 0.000 | 477 |
+| **untrained** | random (floor) | −0.0102 | 0 | — | — | ~6×10⁴ † |
 
 (distilgpt2 ρ′ is anchored to its own teacher gpt2, not gpt2-medium.) Raw output: `outputs/E003_cold.json`, `outputs/E003_warm.json`. The four **reference-arm** perplexities (teacher 74, gpt2 105, distilgpt2 169, untrained) were not stored in the original run (`record()` passed `ppl=None` for references); they are recomputed on the original cached held-out slice with the run's own estimator and archived in `outputs/E003_perplexity.json` (teacher 74.0, gpt2 104.9, distilgpt2 169.0 — all match the table within rounding). † untrained ppl is order-of-magnitude only: a random-init net's held-out ppl is large and seed-variable (measured 56k–60k, near the BPE vocab scale |V|=50257), not a stable converged-LM measurement. Trained-arm ppls (477/95/44) were measured in the run.
 
@@ -122,7 +122,7 @@ Ran 2026-06-10 on 4× L40S (cold arm on GPU 0, warm controls on GPU 3, parallel;
 
 ## Interpretation
 
-**Verdict (predeclared decision rule): MODERATE / PARTIAL HEADROOM — route to confirmation, do not over-claim.** By the locked rule, kd_cold at ρ′=0.37 (CI [0.14, 0.58]) is in the PARTIAL band (0.33 < ρ′ < 0.80), bordering LARGE; the drop from teacher is highly significant. So the kill-test cleanly rules out the *preserve-for-free* outcome — there is genuine alignment headroom that perplexity-only KD does not recover, growing with compression aggressiveness — **but it does not license "F1 has a confirmed job" as a settled causal claim**, because the headroom co-varies with perplexity and the KD-specific dissociation is only p≈0.1 at this ROI-coarse (5-dim, matched NC=0.491) benchmark.
+**Verdict (predeclared decision rule): MODERATE / PARTIAL HEADROOM — route to confirmation, do not over-claim.** By the locked rule, kd_cold at ρ′=0.37 (CI [0.14, 0.58]) is in the PARTIAL band (0.33 < ρ′ < 0.80), bordering LARGE; the drop from teacher is highly significant. So the kill-test cleanly rules out the *preserve-for-free* outcome — there is genuine alignment headroom that perplexity-only KD does not recover, growing with compression aggressiveness — **but it does not license "F1 has a confirmed job" as a settled causal claim**, because the headroom co-varies with perplexity and the KD-specific dissociation is only p≈0.1 at this ROI-coarse five-dimensional benchmark.
 
 **What this means for F1, stated honestly.** F1 is neither killed nor confirmed by E003. It is *not* in the `oota-2026` trap (alignment is plainly lost under real/aggressive distillation, not preserved by default), so the thesis cell stays open and motivated. But the load-bearing question — *is there alignment recoverable beyond what the perplexity objective already implies?* — is unresolved here. That is the right question for the next experiment, and E003's deflation sharpens its design precisely: **E004 must compare alignment-guided KD (λ_brain>0) against perplexity-only KD at *matched perplexity*, not just matched budget.** If the brain term buys alignment at matched ppl, that is exactly the dissociation E003 could not establish — and it is the only evidence that would convert "headroom" into "confirmed job." Per R04 §4 / `06` §4, F1 still lives on the rate–distortion trade-off curve; E003 shows the perplexity-only curve sits well below the teacher's alignment ceiling under aggressive compression, but cannot yet attribute that gap to the compression *objective* rather than to LM quality.
 

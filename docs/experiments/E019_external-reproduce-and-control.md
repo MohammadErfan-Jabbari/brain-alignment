@@ -1,12 +1,12 @@
 ---
-title: "Experiment — E019: reproduce a PUBLISHED brain-tuning positive, then collapse it with the…"
+title: "Experiment — E019: external Negi-style head with matched-quality and target-specificity controls"
 tags: [experiment]
 aliases: [E019]
 ---
 
-# Experiment — E019: reproduce a PUBLISHED brain-tuning positive, then collapse it with the matched-ppl + permuted-twin control
+# Experiment — E019: external Negi-style brain-tuning head with matched-quality and target-specificity controls
 
-**Created:** 2026-06-13 · **Status:** PLANNED (forward program; design to be oracle-gated before compute) · **Mode:** working
+**Created:** 2026-06-13 · **Status:** COMPLETE — the faithful-as-feasible Negi-style external head did not produce a target-specific lever on this substrate; corroboration of a local mechanism failure, not a refutation of Negi et al. · **Mode:** working→interpret
 **Roadmap:** the **external-validity demonstration** — the "100% version" of I2 (Erfan's complete-work rule). The premortem (S12 swarm) flagged this as **NON-NEGOTIABLE for the paper to survive review**: our matched-ppl contribution is currently demonstrated only on our OWN nulls (E009/E017); a top-venue reviewer will demand we apply the control to a *published positive* and show what it costs.
 
 ## The question

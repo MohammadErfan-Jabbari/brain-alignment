@@ -6,10 +6,7 @@ aliases: [E016]
 
 # Experiment — E016: TRIBE-v2 synthetic brain targets — can a brain foundation model break the data-scarcity wall, and what is the ceiling on brain-guided LM training?
 
-**Created:** 2026-06-12 · **Status:** **P0 PASSED (2026-06-13); now the FORWARD-PROGRAM F1 = NEXT TO RUN** (it was
-the I4 capstone/last of the original implementation roadmap, but the S12 planning swarm re-sequenced it to the
-front — the ceiling is the cheapest decisive next experiment). After I1 (E015-expand ✅), I2 (E017 ✅). P1→P3 design
-refined below (see "PHASE 1/2 DESIGN — REFINED"). · **Mode:** working (design→run→judge)
+**Created:** 2026-06-12 · **Status:** COMPLETE (2026-07-13) — the synthetic TRIBE target was learnable and outperformed the dimension-matched text-feature endpoint, but the improvement did not transfer to the fixed Tuckute real-brain diagnostic; Step 70 defines the final claim boundary. · **Mode:** working→interpret
 **Trigger:** Meta FAIR's **TRIBE v2** (d'Ascoli et al., ICLR 2026; arXiv 2605.04326; weights `facebook/tribev2`)
 — a trimodal (video/audio/text) foundation model that predicts fMRI BOLD for *arbitrary* naturalistic
 stimuli, SOTA on Algonauts 2025. Erfan flagged it (2026-06-12) as a possible answer to the data-scarcity
@@ -72,7 +69,7 @@ stimulus-predictable part — which is exactly what TRIBE estimates.** Consequen
 - beyond *the LM-being-distilled's own representation* → **the quantity that matters**; our nulls
   (E008/E011/E013b/E013) predict ≈0 in the *useful* sense. Phase 2 measures it directly.
 
-This is the course-grounded version (06-theory-grounding.md): conditional-MI = unique-R², DPI, rate-distortion.
+This is the course-grounded version after correction: unique $R^2$ is a predictive analogue of conditional dependence, DPI applies only under a defended Markov chain, and rate--distortion is an organizing analogy.
 TRIBE turns the abstract DPI argument into a *measurable* stimulus-subtraction.
 
 ---
