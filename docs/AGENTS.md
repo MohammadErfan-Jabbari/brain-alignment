@@ -1,61 +1,52 @@
----
-title: "Docs Agent Guidance"
-tags: [reference, onboarding]
-aliases: [docs-agents]
----
-
 # Docs Agent Guidance
 
-This folder is the persistent research brain for the thesis. If a fact matters past the current session, put it in `docs/`; if it is only collaboration/style preference, put it in `../memories/`.
+## Load order
 
-The governing principle is adaptive semistructure: specify only what is critical for shared truth, keep the rest light. Do not recreate a heavy stage machine here.
+1. [`status.md`](status.md) for current state and the next action.
+2. Follow only the E-record and manuscript links required for that action.
+3. Use [`repo-orientation.md`](repo-orientation.md) when the filesystem is unfamiliar.
+4. Use [`03-methodology.md`](03-methodology.md) for evidence and authority rules.
 
-## Load Order
+## Authorities
 
-When entering `docs/` without a narrower task, orient from:
+| Need | Owner |
+|---|---|
+| Evidence, provenance, experiment verdict | `experiments/ENNN_*.md` plus retained artifacts |
+| Current scientific interpretation | `manuscript/extended/` |
+| Operational state and next actions | `status.md` |
+| Historical rationale | `decisions/`, `learnings.md`, selected timelines, Git |
 
-1. `ladder.md` for canonical current status.
-2. `upspeed.md` for last-session continuity.
-3. `tasks.md` for granular next work.
-4. `map.md` when codes or the research arc are unclear.
-5. `repo-orientation.md` for the filesystem and evidence-trail map.
-6. `../memories/AGENTS.md` for collaboration and prose preferences.
+Do not create a report, roadmap, dashboard, readiness matrix, audit memo, routine timeline, claim database, or global artifact registry. Public manuscript cuts are frozen.
 
 ## Rules
 
-- Do not create new `README.md` files under `docs/`; folder-local agent instructions belong in `AGENTS.md`.
-- Use standard Markdown links, not wikilinks.
-- Keep numbers tied to recorded experiment evidence. Missing numbers are gaps, not estimates.
-- `ladder.md` wins over any conflicting status doc.
-- Session logs in `timeline/` are immutable; `upspeed.md` is replaced.
-- Reports are written full width: one line per paragraph or bullet unless a table/code block requires structure.
-- Use absolute dates, never "today" or "last week".
-- Negative results are results. Record them in `learnings.md` and the relevant hypothesis or experiment.
+- Numbers originate in E records and must carry the correct inference unit and uncertainty.
+- Route scientific contradictions to `/interpret`; do not resolve them during cleanup or prose editing.
+- Write settled paper-relevant interpretation directly into the extended manuscript.
+- Set `status.md` to `manuscript-sync-pending` whenever an upstream correction has not yet reached the manuscript.
+- Update only authorities whose state changed. No-op sessions create no documentation churn.
+- Timeline logs are exceptional: result, adjudication, correction, durable decision/learning, manuscript/public milestone, or lasting failure only.
+- Markdown must render in GitHub and Obsidian: relative Markdown links, no wikilinks, controlled frontmatter, supported callouts only.
+- Keep report/manuscript prose one paragraph per source line. LaTeX files follow LaTeX conventions, not Obsidian conventions.
+- Update the nearest `AGENTS.md` whenever folder structure or recurring commands change.
 
-## Map
+## Main map
 
-| Path | Holds | Write cadence |
+| Path | Purpose |
 |---|---|
-| `ladder.md` | Canonical status board: which rungs hold, with what verdict, and the single next step. | Each session close after verdict confirmation |
-| `map.md` | Code legend and full journey tree. Not a status board; `ladder.md` wins. | When rung set or naming changes |
-| `upspeed.md` | Current state, blockers, next action. | Every session, replace |
-| `tasks.md` | Backlog, now, done. | As tasks move |
-| `repo-orientation.md` | Compact filesystem and evidence-trail map for agents. | When structure changes |
-| `00-charter.md` | Idea, scope, success and kill criteria. | Rarely |
-| `01-research-landscape.md` | Literature frontier, gap, assumptions, controls, baselines. | When literature shifts |
-| `02-environment.md` | Compute, data, cached models, how to run. | When environment changes |
-| `03-methodology.md` | How the research process works and why. | Rarely |
-| `04-data-benchmarks.md` | Powered survey and committed benchmark choice. | When benchmark choice shifts |
-| `05-dataset-registry.md` | Living watchlist of candidate datasets. | When a dataset is found |
-| `06-theory-grounding.md` | MSc coursework mapped to thesis concepts and formal tools. | When theory becomes load-bearing |
-| `07-concepts-primer.md` | Plain-language reusable primitives. | When a recurring primitive needs a home |
-| `decisions/decisions.md` | Append-only decision log. | When a real decision is made |
-| `timeline/` | Immutable session logs. | End of each session |
-| `hypotheses/` | One falsifiable hypothesis per file. | Claim onward |
-| `experiments/` | Experiment designs, run logs, and results. | Design onward |
-| `reports/` | Continuous current-truth finding reports. See `reports/AGENTS.md`. | As work touches a topic |
-| `manuscript/` | Checkpoint-derived LaTeX manuscript layers. See `manuscript/AGENTS.md`. | Only when Erfan calls a checkpoint |
-| `literature/canonical/` | One note per paper actually read. | When a paper is read |
-| `literature/_prior-work/` | Frozen provenance. | Never edit |
-| `references/` | Reusable reasoning frames and conventions. | Rarely |
-| `learnings.md` | Durable lessons and corrected mistakes. | When a lesson is learned |
+| `00-charter.md` | Problem and scope |
+| `01-research-landscape.md` | Literature frontier |
+| `02-environment.md` | Compute, data, and run instructions |
+| `03-methodology.md` | Research and authority contract |
+| `04-data-benchmarks.md`, `05-dataset-registry.md` | Dataset facts |
+| `06-theory-grounding.md` | Formal grounding |
+| `status.md` | Current operations |
+| `experiments/` | Evidence records |
+| `hypotheses/` | Falsifiable claims and gates |
+| `literature/canonical/` | Canonical paper notes |
+| `manuscript/extended/` | Live scientific account |
+| `manuscript/public/` | Immutable cuts |
+| `decisions/`, `learnings.md` | Durable history |
+| `timeline/` | Selected consequential session records |
+
+Use `uv run` for Python. Heavy artifacts belong in gitignored `data/` or `outputs/`.

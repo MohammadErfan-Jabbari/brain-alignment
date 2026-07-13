@@ -838,6 +838,44 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Boundary.** This decision does not flip a Q-rung and does not update the extended or public manuscript. It also does not prove that all neural/cognitive privileged targets fail, only that this E016 TRIBE synthetic target did not transfer to the recorded Tuckute endpoint under the current controls. Reopens only on a new predeclared endpoint/dataset or a found evaluator/stat error, not by reinterpreting these artifacts.
 
+## D056 — Usage-evidenced source-of-truth cutover — 2026-07-13 (S100, /meta)
+
+**Decision (Erfan-directed).** Replace the report-plus-three-board operating model with four authorities: E records plus retained artifacts own evidence; the extended manuscript owns current scientific interpretation; [`status.md`](../status.md) owns operational state; decisions, learnings, selected consequential timelines, and Git own history. Public cuts are immutable. Writing goes directly from E records into the extended manuscript. No replacement archive, claim database, dashboard, report system, or generalized cleanup framework will be built.
+
+**Usage evidence.** A streaming audit processed all 757 Claude JSONL files in the six repository project stores and 35 deduplicated repo-related Codex sessions (792 total), 177,782 JSONL records, and 22,869 tool invocations, with zero malformed records. Raw transcripts remained read-only and outside Git. Seventy-four sessions read at least two of `ladder`/`upspeed`/`tasks` merely to reconstruct state; 40 read all three. Of 19 verified direct `/wrap` sessions, 16 rewrote all three boards and 18 wrote a timeline. Those boards accumulated 369 commits. Reports were read in 92 sessions while the extended manuscript was read in 21, demonstrating that the intermediate synthesis layer displaced the deliverable. The writing systems had seven verified `scientific-writing` invocations and five-session fan-out across several `sci-write-v2` judges, but user feedback identified unsatisfactory openings, unclear sentences, overlong prose, and a system that enforced defect removal without producing taste; Erfan explicitly abandoned both pipelines. Science-review agents, in contrast, caught verified issues including the Q1 quality confound and the E004/E006 inference-unit problem.
+
+**Disposition registry.** Historical components already absent at cutover remain absent. Current surfaces are classified below; grouped rows share one owner and fate.
+
+| Components | Disposition | Evidence and migration |
+|---|---|---|
+| `orient`, `wrap` | KEEP, simplify | 42 and 19 verified direct command sessions; rewire to `status.md` and changed-authority-only close |
+| `work`, `interpret`, `write`, `teach`, `scout`, `plan`, `review`, `meta`, `precheck` | KEEP as thin stance entry points | Distinct scientific/interaction purposes; remove report/checkpoint/logging dependencies |
+| `goalsmith` | DELETE | No verified direct invocation; duplicates ordinary goal specification |
+| `stances` | KEEP, simplify | 56 observed sessions and repeated explicit stance use; retain vocabulary, remove old board/report ritual |
+| `firecrawl-research-index` | KEEP | Distinct literature-retrieval capability, outside the redundant writing/state apparatus |
+| `scientific-writing`, `sci-write-v2`, `writing-great-skills` | DELETE | Explicit abandonment; large self-maintenance history; salvage only deterministic manuscript checks |
+| `counter-argument`, `premortem-analyst`, `oracle-reviewer`, `first-principles-grounder`, `socratic-thinker` | KEEP | 26/19/17/17/10 verified invocation sessions; verified scientific catches and distinct review lenses |
+| `anti-confound-designer`, `stat-aggregation-auditor`, `dataset-verifier`, `dataset-scout`, `lit-scout`, `paper-digest` | KEEP | Low-frequency but phase-specific science controls; single-use retention is justified by severity or non-overlapping function |
+| `paper-repo-extractor` | DELETE | No verified invocation and no durable downstream reuse |
+| `sw-*`, `prose-register-auditor` | DELETE | Writing-pipeline fan-out; replaced by one fresh independent manuscript review |
+| `session-logger`, `wrap-auditor` | DELETE | One and six verified invocations; primarily synchronized redundant boards/logs and added close friction |
+| `agent_routing_lint` | KEEP | Small deterministic guard for model routing |
+| `honesty_writecheck`, `prose_writecheck` | KEEP, narrow | Deterministic manuscript provenance/register floors; remove report and retired-pipeline dependencies |
+| `stop_register_gate`, `stop_sw_converge`, `wrap_session_snapshot` | DELETE | Retired writing convergence and compulsory wrap-state machinery; documented false-block risk and high repair burden |
+| E records and load-bearing artifacts | KEEP as evidence authority | Source of recorded numbers, designs, provenance, and verdicts |
+| Extended manuscript and frozen public cuts | KEEP as scientific/public authorities | Direct destination for settled paper-relevant interpretation |
+| `status.md` | CREATE as operational authority | Replaces multi-board reconstruction; capped at 120 lines and five actions |
+| `ladder`, `upspeed`, `tasks` | DELETE after status cutover | 74 multi-read sessions, 37 multi-write sessions, 369 commits; same state copied across owners |
+| `reports/` | DELETE after manuscript migration | 92 read sessions versus 21 for the manuscript; intermediate synthesis became a competing truth layer |
+| `map`, roadmaps, idea tree, litsweep plan, dated top-venue/E016 memos | DELETE after unique-content routing | Planning/status overlap and stale successor chains; current operations move to `status.md`, science to E/manuscript/landscape |
+| checkpoint log and duplicate manuscript archive | DELETE after coverage check | Git, decisions, and selected timelines already own history; public v0.9 becomes a frozen cut |
+| decisions, learnings, consequential timelines, Git | KEEP as history authority | Durable rationale, general lessons, milestones, and recoverability |
+| routine/no-op/monitor/orient/wrap timelines | DELETE in one conservative pass | No durable decision or scientific content; ambiguous logs remain |
+
+**Reverses if:** `status.md` cannot support orientation alone, direct manuscript writing repeatedly loses unique scientific context, or a deleted deterministic guard is shown to have caught a high-severity issue with no surviving equivalent. Recovery is from Git tag `pre-source-truth-cutover-2026-07-13`, not a new archive tree. Supersedes D015, D035, D038, D047, D048, D050, D051, and D053 where they require multiple status boards, reports, checkpoint logs, writing orchestration, or routine wrap swarms; D011’s evidence provenance rule remains and is simplified.
+
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+
+- [`status.md`](../status.md) — operational authority
+- [`03-methodology.md`](../03-methodology.md) — four-authority contract
+- [`../manuscript/extended/main-extended.tex`](../manuscript/extended/main-extended.tex) — scientific authority
