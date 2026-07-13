@@ -1,0 +1,146 @@
+\section{Formal and statistical detail}
+\label{app:formal}
+
+\subsection{Notation and the assumption-bound relationship between conditional information and unique variance}
+\label{sec:cmi-detail}
+
+Let $Y$ denote a scalar brain-response target, $X$ the language-model feature block, and $Z$ the nuisance feature block.
+Conditional mutual information asks how much statistical dependence remains between $X$ and $Y$ after $Z$ is known:
+\begin{equation}
+I(X;Y\mid Z)=H(Y\mid Z)-H(Y\mid X,Z).
+\end{equation}
+This definition is distributional and does not specify a linear estimator.
+Under a population multivariate Gaussian model with correctly specified unregularized conditional means, the reduction in conditional residual variance can be written as
+\begin{equation}
+I(X;Y\mid Z)=-\frac{1}{2}\log\left(1-R^2_{\mathrm{partial}}\right).
+\end{equation}
+Here $R^2_{\mathrm{partial}}$ measures the fraction of the variance left after $Z$ that is explained by adding $X$.
+
+The empirical score used in this thesis is instead semipartial cross-validated unique variance,
+\begin{equation}
+\uniqueR=R^2_{\mathrm{full}}-R^2_{\mathrm{nuisance}}.
+\end{equation}
+Under the same population assumptions, partial and semipartial coefficients are related by
+\begin{equation}
+\uniqueR=(1-R^2_{\mathrm{nuisance}})R^2_{\mathrm{partial}}.
+\end{equation}
+The thesis fits regularized ridge models on finite folds and evaluates them out of sample, so neither equality makes the measured $\uniqueR$ an estimator or lower bound for conditional mutual information.
+The information-theoretic formulation supplies a conceptual target, while the actual estimand is incremental held-out linear prediction beyond the specified nuisance design.
+
+The nuisance set is also necessarily incomplete.
+Length, position, static embeddings, acoustic tiers, and temporal controls block named alternative pathways, but they do not condition on every aspect of stimulus content.
+A positive $\uniqueR$ therefore licenses the statement that contextual features add held-out linear predictive value beyond those controls.
+It does not isolate a neural computation, establish causal equivalence, or distinguish prediction of a shared high-level stimulus component from prediction of participant-specific processing.
+
+\subsection{Regularization, data processing, generalization, and the rate--distortion analogy}
+
+An auxiliary brain term gives an optimization objective of the form
+\begin{equation}
+\widehat\theta=\arg\min_\theta\left\{\mathcal L_{\mathrm{text}}(\theta)+\lambda\mathcal L_{\mathrm{brain}}(\theta)\right\}.
+\end{equation}
+The brain term biases optimization among solutions that also fit the text objective.
+It can be read as a maximum-a-posteriori prior only if $\exp[-\lambda\mathcal L_{\mathrm{brain}}(\theta)]$ is normalizable and independent of the observed text likelihood.
+Without those conditions it is more precise to call it an auxiliary loss or regularizer.
+
+The data-processing inequality states that $I(A;C)\le I(A;B)$ for a justified Markov chain $A\rightarrow B\rightarrow C$.
+If a compressed representation $C$ is literally a fixed post-processing of teacher representation $B$, then its information about a brain variable $A$ cannot exceed the teacher's.
+Ordinary knowledge distillation does not automatically instantiate this chain because both teacher and student receive direct stimulus or corpus information.
+The inequality therefore motivates a preservation question but does not predict the sign of the empirical encoding-score change under training.
+
+For a learning algorithm mapping a sample $Z^n$ to parameters $W$, a sub-Gaussian information-theoretic generalization bound has the form
+\begin{equation}
+\left|\mathbb E[L(W)-\widehat L(W)]\right|\le \sqrt{\frac{2\sigma^2 I(W;Z^n)}{n}}.
+\end{equation}
+The right-hand side grows with algorithm--sample mutual information.
+The bound does not imply that adding a neural signal creates a benefit, that the benefit scales as an added information budget, or that a low-data regime must improve.
+An auxiliary constraint could tighten this bound only if it reduces dependence on the sampled text while preserving empirical fit, which was not measured here.
+Earlier order-of-magnitude information-budget calculations are therefore not part of the thesis argument.
+
+Classical rate--distortion theory defines
+\begin{equation}
+R(D)=\min_{P_{\widehat S\mid S}:\mathbb E[d(S,\widehat S)]\le D}I(S;\widehat S).
+\end{equation}
+The empirical experiments do not identify this object because parameter count or FLOPs are not the mutual-information rate and alignment loss is not established as the source-coding distortion.
+The phrase ``rate--distortion-style trade-off'' is used only for the engineering Pareto relation among model budget, language-model quality, and measured alignment.
+
+\subsection{Inference units and power}
+\label{sec:inference-detail}
+
+An inference unit is the independently varying entity over which an uncertainty statement generalizes.
+Training seeds quantify optimizer variability, contiguous test folds quantify sensitivity to stimulus blocks, voxels quantify spatial measurement breadth, and participants quantify biological population variation.
+These units answer different questions and cannot be substituted by multiplying their counts.
+
+E004 and E005 used three seeds and five rotating folds, producing 15 observed seed--fold cells.
+Because seeds within one fold share the same held-out stimulus block and fold effects dominate the contrast, treating all 15 cells as independent understates uncertainty.
+E004's mean Qwen contrast was \result{e004_qwen_specific}, but the five-fold $t$ interval was \result{e004_qwen_fold_ci}, and leaving out the influential fourth fold reduced the mean to \result{e004_qwen_lofo}. \evd{E004}
+The correct conclusion is no demonstrated fold-level lever, with limited power to exclude a small effect.
+
+E008 instead averaged repeated training variability within each of nine participants and treated participants as the biological inference unit.
+Its mean was \result{e008_mean} with participant-axis $t$ interval \result{e008_ci}. \evd{E008}
+The predeclared effect of $+0.003$ lay well outside that interval, providing high power against the effect size the study was designed to detect while leaving smaller effects possible. \evd{E008}
+
+E006 illustrates a distinct error.
+Bootstrapping 11,442 spatially dependent voxels generated a narrow interval but did not create participant replication.
+The retained evidence is the conditional UTS03 point gap, \result{e006_gpt2_gap} for GPT-2 and \result{e006_qwen_gap} for Qwen, plus positive signs on all five held-out story blocks. \evd{E006}
+Because those blocks share training stories, even the five signs are sensitivity evidence rather than an independent population confidence interval.
+
+Power calculations must use the variance of the future paired contrast at its intended inference unit.
+The retracted E007 calculation used unmatched absolute fold summaries from E006 and therefore did not estimate the variance of a future tuned-minus-control effect.
+No replacement participant count is inferred from it.
+
+\subsection{E005 reanalysis and the lambda sweep}
+\label{sec:e005-detail}
+
+E005 compared real-target brain-guided KD with a block-permuted-target twin while matching the text-training setup and approximately matching perplexity.
+The initial averaged-target estimate was \result{e005_apparent}. \evd{E005}
+Its original bootstrap sampled 15 seed--fold cells independently and excluded zero, but the corrected fold-unit analysis showed that one held-out block carried a disproportionate share of the result and the valid interval included zero.
+The retained description is therefore a small averaged-target trend rather than a confirmed brain-specific improvement.
+
+A later Qwen lambda sweep asked whether stronger auxiliary weighting produced a stable alignment gain without unacceptable language-model degradation.
+Larger weights moved the training endpoint more strongly but also worsened perplexity, and no setting established a free target-specific improvement at matched quality. \evd{E005}
+This supports a trade-off description rather than a favorable frontier shift.
+The sweep is contextual because it reuses the participant-averaged target and does not replace E008's participant-level test.
+
+\subsection{E015 family, band, and partial-correlation sensitivities}
+\label{sec:e015-detail}
+
+E015 scored 22 decoder language models from six named families using tokenizer-independent bits per byte and the same controlled Tuckute alignment endpoint.
+Across the full capability range, the Pearson relationship was approximately $r=-0.78$. \evd{E015}
+Removing near-floor models weakened the association: in the capable band it was approximately $-0.50$, and in the overlapping quality band approximately $-0.48$. \evd{E015}
+The Fisher intervals for these band-restricted correlations included zero because the bands contained only eight to ten models.
+
+A partial correlation controlling for log parameter count was $-0.675$ with Fisher 95\% interval $[-0.857,-0.344]$. \evd{E015}
+This is not a clean decomposition into scale and quality because bits per byte and scale were strongly collinear and the residual variation also encoded family, data, and architecture differences.
+Family-cluster resampling remained negative, but the six families separated into roughly two model generations, limiting the effective independent breadth.
+Participant-level analyses showed the pattern in the one participant with adequate alignment signal and were uninformative in two participants near the measurement floor.
+The durable conclusion is that quality is a serious confound requiring matched-quality controls, not that perplexity deterministically explains brain alignment within the capable regime.
+
+\subsection{E017 intervention sequence and E023 identification gate}
+\label{sec:e017-detail}
+
+E017 tested whether full fine-tuning could reveal movement that low-rank adaptation missed.
+An aggressive configuration caused catastrophic forgetting and failed the language-model-quality requirement.
+A gentler UTS03 pilot showed that the representation could move without the same failure, which cleared a three-participant existence test.
+Across UTS01, UTS02, and UTS03, the real-target arm did not improve over its target-specific controls. \evd{E017}
+The observed subject--seed cells share only three biological units, so the result is reported descriptively as a three-participant mechanism probe rather than with a population confidence claim.
+
+E023 then asked how an objective-specific loss could be separated from the alignment expected at the student's quality.
+Its proposed estimand was the vertical residual of a KD student below a same-lineage alignment--quality frontier, paired against ordinary fine-tuning from the same initialization.
+The analysis-only slope gate found one locally flat lower-quality Pythia pair but no decisive saturated Qwen regime. \evd{E023}
+Because the identifying region was not established, the training comparison was not launched.
+Together E017 and E023 distinguish a tested full-fine-tuning null from an untested larger-scale counterfactual program.
+
+\subsection{Compact notation}
+
+\begin{description}[style=nextline,leftmargin=2.5cm] % notation layout, not a scientific result; \evd{E002}
+\item[$S$] Language stimulus, such as a sentence or story segment.
+\item[$X$] Language-model feature block for the stimulus.
+\item[$Y$] Recorded or synthetic target response.
+\item[$Z$] Specified nuisance feature block.
+\item[$\uniqueR$] Cross-validated semipartial unique $R^2$, the full-model $R^2$ minus nuisance-model $R^2$.
+\item[$\Lbrain$] Auxiliary loss relating a student representation to a neural or cognitive target.
+\item[$\Eys$] Stimulus-predictable conditional mean of a response.
+\item[ROI] Region of interest, a prespecified group or aggregate of voxels.
+\item[BPB] Bits per byte, a tokenizer-independent language-model quality measure on a fixed corpus.
+\item[KD] Knowledge distillation, training a student to match a teacher's softened output distribution.
+\end{description}

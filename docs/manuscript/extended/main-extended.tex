@@ -1,38 +1,30 @@
-% main-extended.tex - skeleton for the INTERNAL extended manuscript (living master).
-%
-% The always-current paper body compresses cleanly to an immutable public cut.
+% Extended manuscript: the always-current scientific interpretation.
 % Keep one sentence per source line and source keyed numbers from numbers.tex.
-% Build: latexmk -pdf main-extended.tex  (config in latexmkrc).
+% Build: latexmk -pdf main-extended.tex (config in latexmkrc).
 \documentclass[11pt]{article}
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage{preamble}
 \addbibresource{references.bib}
 \input{numbers}   % the keyed-number registry
 
-\title{Brain alignment as a usable training signal: the internal extended manuscript}
+\title{From Brain Scores to Brain-Guided Distillation: Testing Brain Alignment as a Training Signal}
 \author{MohammadErfan Jabbari}
 \date{\today}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-For a person and a language model reading the same text, a simple linear map predicts the person's brain activity from the model's middle-layer activations.
-For a decade this correspondence has been used in one direction only: to measure a model's alignment with the brain after it is trained.
-We ask whether it can instead be used during training.
-We test this in the setting of model compression: we distill a language model into a smaller student with brain alignment in the objective, at a matched budget, and ask whether the student preserves or improves that alignment, a question that remains untested.
-An information-budget argument implies that such a signal is far too small to act as a second teacher; at most it is a weak prior.
-Such a prior should help only where the text signal is weakest (small models, scarce data, aggressive compression) and wash out wherever data is abundant.
-Under whole-story splits and a capacity-matched nuisance floor, trained representations exceed untrained controls within one deeply sampled participant, but direct brain-objective tuning shows no reliable gain at the valid fold unit.
-An apparent gain against a participant-averaged response disappears when nine participants become the inference unit; the tested downstream route detects no practical payoff, the gaze privileged-information route fails its preconditions before intervention, and a learnable dense neural proxy does not transfer to improved real-brain alignment.
-The results make brain alignment a useful diagnostic signal under explicit controls, but not a demonstrated training signal in the regimes studied here.
+Brain alignment measures whether a model representation can predict recorded human brain responses to the same language stimuli on held-out examples.
+It is scientifically interesting because successful prediction reveals brain-relevant distinctions that are linearly accessible in the representation, while stopping short of showing that the model implements the brain's mechanism or thinks like a person.
+This thesis asks a stronger question: can a score that measures such correspondence also serve as a useful objective when training a smaller language model by knowledge distillation?
+We test the transition through five gates: controlled measurability, preservation under compression, movement under intervention, generalization across participants, and transfer to practical or independently biological targets.
+Trained language-model features contain measurable signal beyond specified nuisances, and compression produces a quality-entangled retention gradient, but direct brain-guided objectives do not yield a reliable target-specific improvement at valid fold or participant inference units in the tested regimes.
+Participant averaging changes the estimand and can expose an apparent trend that does not generalize to individual participants; stronger capacity, alternative losses, full fine-tuning, external heads, privileged gaze information, and a learnable synthetic neural proxy do not establish the missing biological or practical gain.
+The bounded answer is therefore that brain alignment is measurable but is not demonstrated here to be a reliable training signal.
+The broader methodological implication is that measurement quality, inference unit, target specificity, and downstream validation are separate requirements and must be tested separately.
 \end{abstract}
 \tableofcontents
 
-\input{glossary}
-
-% === PAPER BODY (always-current; this is what compresses into a public cut) ===
-% Each section in its own file under sections/ for clean diffs and clean
-% section-to-section compression.
 \input{sections/01_introduction}
 \input{sections/02_related_work}
 \input{sections/03_methods}
@@ -40,6 +32,11 @@ The results make brain alignment a useful diagnostic signal under explicit contr
 \input{sections/05_discussion}
 \input{sections/06_limitations}
 \input{sections/07_conclusion}
+
+\appendix
+\input{sections/A_experiment_coverage}
+\input{sections/B_secondary_experiments}
+\input{sections/C_formal_statistics}
 
 \printbibliography
 \end{document}

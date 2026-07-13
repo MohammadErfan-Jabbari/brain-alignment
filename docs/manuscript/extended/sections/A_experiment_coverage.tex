@@ -1,0 +1,56 @@
+\section{Experiment coverage and disposition}
+\label{app:coverage}
+
+This appendix accounts for every experiment identifier used by the project, including engineering pilots, unrun designs, failed precondition gates, and intentionally unused identifiers.
+An experiment is classified as scientific evidence only when it produced an interpretable result for a stated estimand; implementation activity alone is not treated as evidence.
+Table~\ref{tab:coverage} gives the complete disposition, while Appendix~\ref{app:secondary} expands the secondary experiments and failed instruments that would interrupt the main causal sequence.
+
+\begin{longtable}{p{0.07\linewidth}p{0.18\linewidth}p{0.13\linewidth}p{0.20\linewidth}p{0.16\linewidth}p{0.18\linewidth}} % \evd{E001--E024}
+\caption{Complete experiment coverage and disposition. ``Main'' identifies the principal body location; ``secondary'' points to Appendix~\ref{app:secondary}; ``formal'' points to Appendix~\ref{app:formal}.}\label{tab:coverage}\\
+\toprule
+ID & Question & Execution state & Scientific status & Location & Boundary or supersession \\
+\midrule
+\endfirsthead
+\toprule
+ID & Question & Execution state & Scientific status & Location & Boundary or supersession \\
+\midrule
+\endhead
+E001 & Can the end-to-end encoding pipeline recover a planted signal? & Implemented synthetic smoke test & Engineering validation only & Appendix~\ref{sec:e001} & No claim about real neural data \\
+E002 & Do trained middle-layer features predict Tuckute language-network responses beyond nuisance and untrained features? & Complete & Controlled ROI measurability pass & Section~\ref{sec:results-measure} & Raw unique $R^2$ is retained; invalid ceiling fractions are retired \\
+E003 & How much alignment is retained under several distillation and initialization regimes? & Complete & Quality-entangled retention gradient & Section~\ref{sec:results-preservation} & Does not identify objective-specific shedding \\
+E004 & Does an MSE brain loss move held-out alignment relative to a block-permuted target? & Complete and reanalysed & No demonstrated lever at the five-fold unit & Section~\ref{sec:results-inference} & The original 15-cell bootstrap is superseded by fold-unit inference \\
+E005 & Does alignment-guided KD beat a matched-perplexity permuted twin on an averaged target? & Complete and reanalysed & Small averaged-target trend & Section~\ref{sec:results-inference}; Appendix~\ref{sec:e005-detail} & The original claim that the confidence interval excluded zero is superseded \\
+E006 & Does controlled measurability extend to naturalistic voxelwise data? & Complete and corrected & Conditional UTS03 measurability pass & Section~\ref{sec:results-measure} & Voxel-bootstrap population inference and the derived E007 MDE are retracted \\
+E007 & Planned power calculation following E006 & Identifier intentionally unused & No experiment record & This table & The invalid E006-derived calculation was never assigned a durable record \\
+E008 & Does the E005 intervention generalize across participants? & Complete & Participant-level null & Section~\ref{sec:results-inference}; Appendix~\ref{sec:inference-detail} & Load-bearing biological inference uses nine participants, not seed--fold cells \\
+E009 & Does a brain-specific representation change improve out-of-domain perplexity? & Complete & Bounded practical null & Section~\ref{sec:results-practical} & The representation fulcrum was weak and unstable, limiting the conclusion \\
+E010 & Does the intervention contrast rise with the number of averaged participants? & Complete, including E010b & Nested trend not supported by random subsets & Section~\ref{sec:results-inference}; Appendix~\ref{sec:e010} & The original clean dose-response interpretation is superseded \\
+E011 & Does higher LoRA capacity rescue the participant-level intervention? & Complete & Capacity-robust null & Section~\ref{sec:results-alternatives} & The capacity that moved representations damaged perplexity \\
+E012 & Would a voxelwise participant-level experiment be adequately powered? & Deferred & Unrun & This table & Three available LeBel participants were insufficient for the planned population claim \\
+E013 & Do contrastive ROI and voxelwise objectives provide a stronger intervention? & Complete for E013b and E013v2 & ROI null and voxelwise manipulation failure & Section~\ref{sec:results-alternatives} & The larger multisubject expansion was not built \\
+E014 & Does participant averaging improve encoding even without intervention? & Complete & Legitimate SNR improvement and estimand shift & Section~\ref{sec:results-inference}; Appendix~\ref{sec:e014} & Does not show that averaging universally creates a false score \\
+E015 & How strongly does model quality predict alignment across modern decoder models? & Complete and corrected & Strong across-range, moderate and uncertain in capable band & Section~\ref{sec:results-preservation}; Appendix~\ref{sec:e015-detail} & The earlier $r\simeq-0.92$ estimate is superseded \\
+E016 & Can a dense synthetic neural target improve training and transfer to real-brain alignment? & Complete with independent review & Synthetic endpoint positive, real-brain transfer negative & Section~\ref{sec:results-synthetic}; Appendix~\ref{sec:e016} & Text control is dimension-matched, not information-matched; one fixed averaged endpoint \\
+E017 & Does full fine-tuning reveal a brain-specific lever missed by LoRA? & Complete & Three-participant existence probe found no specific gain & Section~\ref{sec:results-alternatives}; Appendix~\ref{sec:e017-detail} & Subject--seed cells do not support population inference \\
+E018 & Reserved identifier & Identifier intentionally unused & No experiment record & This table & No scientific content \\
+E019 & Does a faithful-as-feasible Negi-style head reproduce a target-specific gain locally? & Complete & Corroborative local lever failure & Section~\ref{sec:discussion-prior}; Appendix~\ref{sec:e019} & Not a refutation of the published study \\
+E020 & Can an empirical estimate of $\mathbb{E}[Y\mid S]$ expose a residual ceiling? & Complete & Failed ceiling instrument with a bounded controlled residual & Section~\ref{sec:results-synthetic}; Appendix~\ref{sec:e020} & Leakage and reference unreliability prevent closure of the full ceiling question \\
+E021 & Does reading time provide cognition-specific auxiliary structure beyond surprisal? & Complete through final v5 control & Shape-specific, not cognition-specific advantage & Section~\ref{sec:discussion-prior}; Appendix~\ref{sec:e021} & v3 and v4 interpretations are superseded by the phase-randomized shape twin \\
+E022 & Does a reduced Moussa-style speech intervention reproduce the published gain? & Complete pilot & Reduced single-participant non-reproduction & Section~\ref{sec:discussion-prior}; Appendix~\ref{sec:e022} & Not a refutation of the full multisubject study \\
+E023 & Can objective-specific shedding be identified against a quality frontier? & Design complete; analysis-only slope gate run & Identification framework, no training result & Appendix~\ref{sec:e023-detail} & The slope gate did not clear a decisive saturated-regime intervention \\
+E024 & Can gaze act as train-only privileged information for relation learning? & Precondition gates complete; intervention stopped & Substrate failed informativeness and split-validity gates & Section~\ref{sec:results-practical}; Appendix~\ref{sec:e024} & The planned five-arm LUPI experiment was not run \\
+\bottomrule
+\end{longtable}
+
+\subsection{Supersession map}
+
+Five corrections materially change how earlier results are described.
+First, E004 and E005 originally treated seed--fold cells as independent observations; current inference is performed at the fold unit, and E008 supplies the participant-level test.
+Second, E006 originally bootstrapped thousands of spatially dependent voxels as if they were independent biological replicates; the retained result is a conditional one-participant point contrast with five held-out-block sensitivity checks.
+Third, E010's nested participant averages suggested a monotone dose response, but the E010b random-subset analysis showed that subset identity and target construction could explain the pattern.
+Fourth, E015's initial eight-model correlation of approximately $-0.92$ was replaced by a tokenizer-independent 22-model, six-family analysis with a weaker capable-band relationship and an effective-generation limitation.
+Fifth, E021's apparent reading-time advantage survived ordinary learnability controls but disappeared against a content-free control matched for autocorrelation and marginal shape; the final claim concerns signal shape rather than cognition.
+
+The Tuckute noise-ceiling correction is a scale correction rather than a changed experimental result.
+The stored value $0.491$ is a correlation ceiling, whereas unique $R^2$ is on a variance scale, so earlier ratios of unique $R^2$ to $0.491$ are invalid and are not used here. \evd{E002}
+The raw unique-$R^2$ values, trained-minus-untrained contrasts, intervention contrasts, and their substantive verdicts are unchanged.
