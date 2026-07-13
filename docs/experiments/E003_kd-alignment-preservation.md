@@ -154,5 +154,14 @@ A provenance audit (R07 review panel, then a counter-argument / premortem / firs
 The estimator note for both sidecars: single-window, `max_length=64`, no sliding-window stride — matched to the trained arms, so cross-arm ratios and the log-ppl fit are coherent.
 
 
+## Retained load-bearing artifacts
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E003_cold.json` | `a30dceb63832a2fce838907cc9c782b4f6e8297c2a0136f94b5aacc9056edd6e` |
+| `outputs/E003_warm.json` | `6e75770387b0a84866060049d8fb8d3aecda898a95b2ce159ceffc226a5bf387` |
+| `outputs/E003_perplexity.json` | `2385e67ec61b7c64276f01e7b8e717e1d54cb1c1b23023715922e685cab5f97b` |
+| `outputs/E003_dissociation.json` | `b7658aa0d1acf92bd62897aadec663aeda7a662abfa58890ca63eab6db5e5d38` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

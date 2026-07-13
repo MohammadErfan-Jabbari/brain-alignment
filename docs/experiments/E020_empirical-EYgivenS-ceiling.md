@@ -192,5 +192,13 @@ Primary ratio ρ = raw A_resid / raw A_shared (same normalization on both). Also
 statement, arithmetically not just rhetorically).
 
 
+## Retained load-bearing artifacts
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E020_eys/eys_story11_results.json` | `d16d6f94f2f8f389db3178262bb399c93a8f973321684e1246bf1009f063acab` |
+| `outputs/E020_eys/eys_diagnose.json` | `e8fab13e0fed3840a94fb9605d2ca4868ddc6e78d6cc975cede6f7f03b8579b0` |
+| `outputs/E020_eys/eys_diagnose2.json` | `84d268dc4a6211e7775cc5bbeca84e5d64eb52fbd8af963799011014eacb1879` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

@@ -146,5 +146,14 @@ The brain-specific gain collapses from E005's averaged **+0.0081** to a per-subj
 VERDICT RECORDED (NULL, well-powered, panel-adjudicated). **Ladder Q3/F1 flip pending Erfan's confirmation (D015)** — the in-domain F1 downgrades from 🟡 PARTIAL-PASS to a per-subject NULL / averaged-target-only trend. Next: A3 (E009) as the central contribution, gated on Erfan's confirmation of the reframe.
 
 
+## Retained load-bearing artifacts
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E008_g0.json` | `fa2d18629e3818412a493539438d211c60cb8052de13286dd632983642d056cd` |
+| `outputs/E008_g1.json` | `0a60a95009f8bdb2c9aca1ba8f17f9e88f2f1be584a7db13bd35f6c9b51e6b5a` |
+| `outputs/E008_g2.json` | `e51b58d2f4b19fa624ed7b46dd0e4bfe35d5fb5b57104d78aa06a269830aaecf` |
+| `outputs/E008_g3.json` | `70903174700a20b5eaf4b44f685a6e14317daff3f35c14b28d1d4ac645ac5803` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

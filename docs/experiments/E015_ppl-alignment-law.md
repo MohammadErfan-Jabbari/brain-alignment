@@ -137,5 +137,12 @@ Final panel pass against [`06-theory-grounding.md`](../06-theory-grounding.md) +
 **Source actions:** (a) **Antonello & Huth 2023 was undigested** (load-bearing for Q1/Q2) → `paper-digest` dispatched → `docs/literature/canonical/antonello-2023_*.md`. (b) Naming fix: this doc's "Hadidi 2025 'Illusions'" is the repo's canonical **hadidi-2024** ("A Case Against Over-Reliance on Brain Scores"; ≤10.1% unique-R² residual) — citation drift, corrected. **No claim contradicted; verdict stands as corrected. No rung flips.**
 
 
+## Retained load-bearing artifacts
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E015_expand/E015_expand_merged.json` | `0aa4f149c1ae471f3b008ff77707570e2df9c4e3a5df7e61c189aa87f438abad` |
+| `outputs/E015_expand/panel_followup.json` | `6c5d9738e08028636a5bbbf21dfad1acde2da5756edeb3c628dd3f8664a6eefa` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

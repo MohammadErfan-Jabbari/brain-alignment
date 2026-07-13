@@ -36,5 +36,11 @@ The full design as built (`scripts/run_moussa_arms.py`) would reach "the gain sh
 **NON-REPRODUCTION (STOP).** Per-seed brain−pretrained phoneme-F1: +0.93 / +0.30 / +0.33 (mean +0.52, CI [−0.36,+1.40]). Below the predeclared +2 gate, CI includes 0. The fMRI loss did fall (1.00→0.913, LoRA gradients flowing), so brain-tuning *happened* — it just didn't transfer to a downstream phoneme-F1 gain at this scale. **Implications:** (1) the planned matched-quality-twin shrink-test is **vacuous** (you can't show a non-existent gain shrinks) → not built; (2) the synthetic-TR caveat does NOT fire (the gain is too small, not suspiciously large); (3) **honest scope** — this is single-subject (UTS03, 24 stories) on our pipeline with both arms from the pretrain checkpoint, NOT Moussa's full multi-participant setup, so it is non-reproduction-in-a-reduced-setup, a weak data point, NOT a refutation of Moussa. **For Path A:** the external "main-track lift" demonstration is not viable on our data; the Path-A negative paper rests on our OWN evidence (E008/E004/E009/E015/E020 + E021) + this honest non-reproduction note. TIMIT now on disk (`kylelovesllms/timit_asr` mirror); pilot script `scripts/e022_pilot.py` (self-contained). Exploratory; no rung flip.
 
 
+## Retained load-bearing artifact
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/e022/pilot_results.json` | `a95a1e23be864322fce4f26ad215927b8fb74739ae35156c0da0091a0eccd24c` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

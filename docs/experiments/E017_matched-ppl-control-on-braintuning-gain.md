@@ -61,5 +61,11 @@ Ran the feasibility gate, then red-teamed it, then powered it (`outputs/E017_mat
 **Status: COMPLETE (null). Not a Fork-A surprise → no Erfan stop required. No rung flips** (E013/Q3 already ❌; this reinforces it). **I3 stays data-blocked → proceed to I4/TRIBE** (the genuinely novel remaining induction-ceiling program).
 
 
+## Retained load-bearing artifact
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E017_matched_ppl_control/fullft_gentle_3subj.json` | `8f426e7b012f8461208bfb6a0e3e0bf3981eacf2feef91fb95f40638e5ca4e38` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

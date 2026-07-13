@@ -266,5 +266,14 @@ Q4/A3 (practical payoff) stays ❌; this adds the privileged-information / sampl
 detection, normal reading) to the robust null. No rung flips without Erfan.
 
 
+## Retained load-bearing artifacts
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/e024/zuco_nr_reliability.json` | `34f412c1d40177510e2369296a223c00267da1aa3af940514ece47c3e5dfc4e2` |
+| `outputs/e024/positive_control.json` | `acea6d09191cbd1e31062dd4c3ed1963de5ff95387f87f4a8d26b836edaa8e1a` |
+| `outputs/e024/gaze_richness_probe_NR.json` | `b8eb0f32bd16e7eda77f957f23ad329c881ce2f550e9e5f4de0b48bef4ae606e` |
+| `outputs/e024/gaze_richness_probe_TSR.json` | `5d23870ad33f24a52044983446b347e51a9b6ee437c1e3659eaa633e8cc694a8` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

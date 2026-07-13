@@ -28,5 +28,11 @@ The thinking panel (counter-argument + first-principles, fable) rejected the "av
 COMPLETE. **E014 is a legitimate-SNR / estimand-shift effect, NOT a second confound; it does not strengthen the paper and is NOT added to it.** The averaging-confound headline stays on E005-vs-E008 (well-powered per-individual ZERO on the *optimization* side, where the per-individual reality is genuinely null). Recorded in L028; PCA-seed fix in `pilot_lib.py`.
 
 
+## Retained load-bearing artifact
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E014_averaging_encoding.json` | `b8f25449e313b17119b908a98e2c3647ca8749592ab9024b215d233034a22259` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

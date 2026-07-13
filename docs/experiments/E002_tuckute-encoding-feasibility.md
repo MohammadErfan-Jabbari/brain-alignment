@@ -113,5 +113,11 @@ The headline E001 could never produce: on **real** language-network BOLD, a trai
 **What this licenses:** climbing to **Q2** of the R03 ladder (is the signal a *lever* we can move by training — i.e. can we brain-tune a small model and watch unique R² rise?). **What it does NOT license:** any A3 / distillation claim — that preserving the signal *buys* something practical is still untested. **Caveats:** (1) Tuckute is ROI-level (5 dims, coarse); the powered *voxelwise* verdict belongs to LeBel UTS03 (Q3, data now staged, adapter pending). (2) Isolated sentences make this a *lower-bound-friendly* test (no temporal-autocorrelation inflation) — a genuine plus for trusting the positive result.
 
 
+## Retained load-bearing artifact
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E002_tuckute_feasibility.json` | `ce45eb1786514a168e81248c426c472077a44245d8863ee5d0bbf6e4aacab44d` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

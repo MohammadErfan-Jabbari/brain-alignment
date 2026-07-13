@@ -221,5 +221,13 @@ clincher.** The **stale v1 "NON-NEGOTIABLE" framing is RETIRED** (L041/L042): th
 per-individual nulls (E008/E011/E017) + E015, not on E019. **No rung flip. No Fork-A.** Framing = Erfan's call.
 
 
+## Retained load-bearing artifacts
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E019_negi/results.json` | `983805956f37d8e17d81d3172113d46bdfe174c6ccce581ce5d1ae040d165758` |
+| `outputs/E019_negi/probe_strong.json` | `2fed0402fcce0067a81d81330289829c6fd1d6c5128dfb30cccda14f9787664b` |
+| `outputs/E019_negi/eval_posctrl.json` | `c7a9a5f5c07b3802842c73dbde891f6e9185751f3898522dd13c8347c45c214f` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

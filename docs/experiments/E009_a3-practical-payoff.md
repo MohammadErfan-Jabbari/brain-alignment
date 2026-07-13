@@ -167,5 +167,11 @@ pilot green-lights or cheaply kills the full A3. (Deferred to next session per t
 multi-hour harness build is its own unit, not a tail-of-session rush; fully specified above.)
 
 
+## Retained load-bearing artifact
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E009_a3_powered.json` | `1820c097a1a30d3a23bb0956221fbfb5b33c6dc67557e108ac6b79dc56c46afb` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

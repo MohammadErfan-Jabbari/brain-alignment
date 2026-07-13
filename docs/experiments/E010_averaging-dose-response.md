@@ -38,5 +38,12 @@ The socratic capstone flagged that E010's clean monotone curve used **nested** s
 Recorded (E010 nested + E010b random). Earns the manuscript's "averaging inflates/produces apparent brain-specificity" claim ONLY via the E005-vs-E008 contrast — the dose-response itself is hedged as suggestive-but-noisy (the nested curve was partly a design artifact; L018 + L020). Manuscript §4.2b + Fig 1 show both curves; not load-bearing.
 
 
+## Retained load-bearing artifacts
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E010_averaging_doseresponse.json` | `79312a649c3021df1fdc94aa46f3fcaf6c9b57fa30e59bd4fcd2e28db87ba5d0` |
+| `outputs/E010b_random_subsets.json` | `276d19bbf013f4f90d9ccbbd02151926a67fdc5af08dc5787902420d754f1d17` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

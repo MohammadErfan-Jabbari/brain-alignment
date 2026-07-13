@@ -50,5 +50,14 @@ The counter-argument panel (fable) caught that **heavy LoRA did NOT actually mov
 COMPLETE — verdict recorded (capacity-robust null; honest framing). Manuscript §6 + L019 updated. No further per-individual-at-matched-ppl experiment is informative (capacity exhausted, λ breaks the control); the only open direction is a different objective+data regime (future work / new data).
 
 
+## Retained load-bearing artifacts
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E011_g0.json` | `299ca57c7733932d9272a44d06fe3cb6976ec535a887b5ad27072002426ea9e2` |
+| `outputs/E011_g1.json` | `f3963b67cc01e0fae3807de354b613d4e6a3ca6ff8c6e55e1eed6b7c8b719bd3` |
+| `outputs/E011_g2.json` | `136449382dc627d5007df84b248b3c63d8b9bd4e2d1164c7399afbb9b867b4ce` |
+| `outputs/E011_g3.json` | `4da6639f3943c931beab6b7189fd6a03248161c846180a225e0e9c17af5b0745` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

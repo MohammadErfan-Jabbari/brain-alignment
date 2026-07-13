@@ -169,5 +169,12 @@ The v4 below-trend gap is **real but mis-attributed.** A thinking panel (counter
 **Decisive finishing control (both panels):** a pure **log-frequency** aux arm. If it also beats permuted/random (it will, per DPI/mechanism), cognition is definitively excluded. Cheap; verdict-confirming, not verdict-changing. **Status: exploratory** (post-lock metric switch + the bug both forbid "promotable"). **No rung flipped — Erfan adjudicates the strategic use of this negative.**
 
 
+## Retained load-bearing artifacts
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/e021/arms_v5_results.json` | `95c05b8d259d82fb83c84d54c595176198a9ba9cfe50a70941c2cddd24d69b5b` |
+| `outputs/e021/arms_v5_shard_all.json` | `b53bf1c88de36b397a9be753587e0e3846fde107c648eb496250850a1b7314e1` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

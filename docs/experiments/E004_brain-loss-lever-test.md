@@ -189,5 +189,11 @@ lever," and that is consistent with the robust Q3 per-individual null. Ladder Q2
 machinery in `scripts/reanalyze_e005_e006.py`.
 
 
+## Retained load-bearing artifact
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E004_brain_lever_Qwen.json` | `5f5582a651ecd86c25691fe24b6827d49a258c33e95127f630c522563d8dc6d4` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

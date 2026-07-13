@@ -90,5 +90,17 @@ compute goes to the sample-efficiency line (Q4), which hits the *same* root caus
 See **L051** (data-scale is the binding constraint on the remaining brain-alignment doors).
 
 
+## Retained load-bearing artifacts
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E013b_g0.json` | `a98346f08ad41103d1cc7b9c28715dd810927c3fa09c63bf4d1db858ece19976` |
+| `outputs/E013b_g1.json` | `e472ee523b6af62701472bca554f79eed64f319944549349b01d6b54d3b43346` |
+| `outputs/E013b_g2.json` | `f9df4143b2b1cce4e871778f30a0b4f2bb48f561f4847693be0b5a4bd2c03361` |
+| `outputs/E013b_g3.json` | `ae741c2c4e948356841e45b9053686823071365f8cfb9e362018b66213126cad` |
+| `outputs/E013v2_check.json` | `a7ea8adbda9312c55192015f1b704948d13774fc2105937ac6b58d159c6e99de` |
+| `outputs/E013v2_lam3.json` | `35869107e166aade0097ef2e337d133a2ae98b27d7f494c1dc3a7b4b09c6a926` |
+| `outputs/E013v2_lam6.json` | `dcb0ab4a31f21da71cf2aea87bdfdada8a1eb530d2955fa8923eccde57e3421a` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

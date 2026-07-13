@@ -144,5 +144,12 @@ so it is a rate-distortion trade, not a practical free improvement. This is **co
 not new per-individual evidence and not a ladder move.
 
 
+## Retained load-bearing artifacts
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E005_Qwen.json` | `e9b7be5b739370ed224de1bd8c6d4fa34d33881db308d3508e1edba66ddfcf6e` |
+| `outputs/E005_lambda_sweep_avg_Qwen_analysis.json` | `85013e6ff961aa88bd40e9e16dd19aaab3c89656f0dac8cd74c64560469f7938` |
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board
