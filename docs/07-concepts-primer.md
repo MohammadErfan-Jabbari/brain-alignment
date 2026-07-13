@@ -101,8 +101,8 @@ well does the brain predict *itself* across repeats?). **CC_norm** is the specif
 correlation estimator of it used on LeBel.
 
 Because raw R² has no meaning without the ceiling, we report alignment **as a fraction of the ceiling**.
-Example (Tuckute, ceiling R² ≈ 0.353): Qwen's unique R² of 0.036 is not "3.6% of all variance" — it is
-`0.036 / 0.353 ≈ 0.10` = **~10% of the noise ceiling**. In plain words: *of the brain signal that is
+Example (Tuckute, matched five-functional-ROI mean ceiling R² = 0.491): Qwen's unique R² of 0.036 is not "3.6% of all variance" — it is
+`0.036 / 0.491 ≈ 0.074` = **~7% of the noise ceiling**. In plain words: *of the brain signal that is
 even predictable in principle, the LLM's unique contribution captures about a tenth.* That normalized
 number is the honest one; a raw R² of 0.036 against a ceiling of 0.35 is very different from the same
 0.036 against a ceiling of 0.9.

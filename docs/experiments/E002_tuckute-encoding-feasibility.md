@@ -20,12 +20,15 @@ Answer the charter's gating question on **real neural data** for the first time 
 
 > Does an LM's contextual middle-layer representation predict human language-network BOLD **beyond nuisance** (length, position, static embeddings), under the contiguous-split anti-confound protocol — and how large is that *unique* signal relative to an untrained-network control and the noise ceiling?
 
+> [!IMPORTANT]
+> **Ceiling correction (2026-07-13, from E004).** The original E002 run normalized by `0.353`, the anatomical-Glasser language-network ceiling mislabeled by the loader. The ceiling matched to the five functional target ROIs is their mean, `0.491`. Raw unique $R^2$, trained-minus-untrained gaps, and the E002 verdict are unchanged; all fractions below use `0.491`, and the historical `0.353` normalization is superseded.
+
 This is **A2** (measured alignment is not primarily nuisance). If it fails, the thesis premise fails and we reframe to measurement rigor (charter kill condition).
 
 ## Claim tuple
 
 - **Metric:** unique encoding R² = R²([length, position, PCA(static), PCA(context)]) − R²([length, position, PCA(static)]), contiguous 5-fold CV, capacity-fair PCA (rank 50).
-- **Pass:** trained-model unique R² is positive AND materially exceeds the untrained-network control (random init, same architecture, ≥3 seeds). Reported NC-normalised against LangNetw nc ≈ 0.353.
+- **Pass:** trained-model unique R² is positive AND materially exceeds the untrained-network control (random init, same architecture, ≥3 seeds). Report the trained unique $R^2$ relative to the matched five-functional-ROI mean ceiling, $0.491$.
 - **Kill:** trained unique R² ≈ 0, or ≈ untrained control → A2 fails.
 
 ## Design (locked before running)
@@ -55,7 +58,7 @@ flowchart TD
   LEN --> CV
   CV --> UNIQ["unique R² = R²(full) − R²(nuisance)"]
   UNIQ --> ARMS{"trained LM · untrained same-arch (3 seeds)"}
-  ARMS --> GAP["trained − untrained gap<br/>(NC-normalised vs ceiling ≈ 0.353)"]
+  ARMS --> GAP["trained − untrained gap<br/>plus trained unique R² / NC=0.491"]
 ```
 
 **1. One stimulus, two feature streams.** Each sentence becomes two descriptions. The **LM stream** is the thing under test: the middle-layer hidden state, mean-pooled over the sentence's tokens into one vector. The **nuisance stream** is what we refuse to credit the model for — a 2-dimensional scalar block (token length, item position) kept raw, and the static embedding (the mean *input* embedding per sentence, ≈768-d): a "bag of word vectors with no context." If the contextual representation cannot beat that static bag, the alignment is about lexical identity, not language processing.
@@ -66,7 +69,7 @@ flowchart TD
 
 **4. The fit happens twice per fold, and the difference is the honest number.** Cross-validation uses **5 contiguous item blocks** — never shuffled, because shuffling would put near-duplicate items on both sides and leak the answer (L003). On each fold a RidgeCV is fit twice: on the **nuisance design** `[length, position, PCA(static)]`, and on the **full design** with `PCA(LM)` added. The **unique R²** is the difference — the variance context adds on top of everything length, position, and static identity already explain.
 
-**5. Two arms, and the gap is the verdict.** The whole pipeline runs with the trained LM and again with a randomly-initialised same-architecture network (three seeds), through byte-identical nuisance and splits. The reported statistic is the **trained − untrained gap**, NC-normalised against the paper's noise ceiling (≈0.353). The untrained arm isolates what *language training* adds over architecture and nuisance alone.
+**5. Two arms, and the gap is the verdict.** The whole pipeline runs with the trained LM and again with a randomly-initialised same-architecture network (three seeds), through byte-identical nuisance and splits. The verdict statistic is the raw **trained − untrained gap**; the trained unique $R^2$ is also shown relative to the corrected matched ceiling, $0.491$. The untrained arm isolates what *language training* adds over architecture and nuisance alone.
 
 The voxelwise run (E006) is this same machine scaled up: per-word instead of per-sentence features, a continuous-story temporal pipeline, an expanded phone-tier nuisance, a held-out-story noise ceiling, and ~11k voxels instead of 5 ROIs. Its architecture section draws the full version.
 
@@ -89,21 +92,21 @@ uv run python scripts/run_encoding_feasibility.py \
 | gpt2 trained · L9 | +0.0229 | +0.0203 | +0.0389 | +0.0186 ± 0.0068 |
 | gpt2 **untrained** · L7 (3 seeds) | ≈ −0.04 | ≈ −0.004 | ≈ −0.01 | **−0.010 (range −0.005…−0.014)** |
 
-**GPT-2 verdict:** trained unique R² peaks at **+0.020 ± 0.008** (layer 7, mid-network); the untrained control is **negative at every layer and every seed**. Trained − untrained ≈ **+0.030**. NC-normalised: +0.020 / 0.353 ≈ **0.057** of the noise ceiling. The signal is real, mid-layer-peaked, and absent in random features — a clean **A2 pass for GPT-2 on real neural data**.
+**GPT-2 verdict:** trained unique R² peaks at **+0.020 ± 0.008** (layer 7, mid-network); the untrained control is **negative at every layer and every seed**. Trained − untrained ≈ **+0.030**. Corrected NC-normalised trained score: +0.020 / 0.491 ≈ **0.041** of the noise ceiling. The signal is real, mid-layer-peaked, and absent in random features — a clean **A2 pass for GPT-2 on real neural data**.
 
 ## Results — cross-model summary (best mid-layer; trained n=5 folds, untrained n=3 seeds)
 
 | Model (layers) | best layer | trained unique R² | untrained unique R² | **trained − untrained** | NC-normalised |
 |---|---|---|---|---|---|
-| gpt2 (12L) | L7 | +0.0200 ± 0.0084 | −0.0105 | **+0.0304** | 0.056 |
-| gpt2-medium (24L) | L14 | +0.0187 ± 0.0050 | −0.0143 | **+0.0330** | 0.053 |
-| Qwen2.5-0.5B (24L) | L12 | **+0.0362 ± 0.0102** | −0.0136 | **+0.0498** | **0.102** |
+| gpt2 (12L) | L7 | +0.0200 ± 0.0084 | −0.0105 | **+0.0304** | 0.041 |
+| gpt2-medium (24L) | L14 | +0.0187 ± 0.0050 | −0.0143 | **+0.0330** | 0.038 |
+| Qwen2.5-0.5B (24L) | L12 | **+0.0362 ± 0.0102** | −0.0136 | **+0.0498** | **0.074** |
 
-All three: trained unique R² **positive and mid-layer-peaked**; untrained controls **negative at every layer and seed**. Qwen2.5-0.5B (the most capable, most recent model) shows the strongest alignment — ~10% of the LangNetw noise ceiling — a sensible model-quality ordering. Full per-layer numbers in `outputs/E002_tuckute_feasibility.json`.
+All three: trained unique R² **positive and mid-layer-peaked**; untrained controls **negative at every layer and seed**. Qwen2.5-0.5B (the most capable, most recent model) shows the strongest alignment — about 7% of the matched functional-ROI noise ceiling — a sensible model-quality ordering. Full per-layer numbers in `outputs/E002_tuckute_feasibility.json`.
 
 ## Interpretation
 
-The headline E001 could never produce: on **real** language-network BOLD, a trained LM's mid-layer representation carries **positive unique contextual variance** that survives length/position/static-embedding subtraction under contiguous splits, while a same-architecture **untrained** network carries **none** (negative across 3 seeds, all models). This is exactly the Feghhi-style discrimination the protocol was built for, and it lands on the right side for every model. The effect is modest in absolute R² (a few percent) but that is the expected scale at ROI level against a 0.35 noise ceiling — the honest denominator is the NC-normalised number (5–10%), not raw R². The trained−untrained gap (+0.030 to +0.050) is the clean signal: it isolates what *language training* adds over architecture + nuisance.
+The headline E001 could never produce: on **real** language-network BOLD, a trained LM's mid-layer representation carries **positive unique contextual variance** that survives length/position/static-embedding subtraction under contiguous splits, while a same-architecture **untrained** network carries **none** (negative across 3 seeds, all models). This is exactly the Feghhi-style discrimination the protocol was built for, and it lands on the right side for every model. The effect is modest in absolute R²; against the corrected matched ceiling, the trained scores span about 4–7%. The trained−untrained gap (+0.030 to +0.050) is the clean signal: it isolates what *language training* adds over architecture + nuisance.
 
 **A2 verdict: PASS on Tuckute.** The alignment signal is real, not nuisance, on real neural data. The charter's gating kill condition is **not** triggered.
 
