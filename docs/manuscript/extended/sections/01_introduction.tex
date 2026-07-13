@@ -86,7 +86,7 @@ This thesis makes four contributions.
   \item It formulates alignment-guided distillation and an information-budget prediction for when a weak neural prior could matter.
   \item It establishes an artifact-resistant measurement protocol and a conditional within-subject result that survives whole-story splits, a capacity-matched nuisance floor, and an untrained-network control \evd{E006}.
   \item It shows that an averaged-target gain does not generalize to a per-individual effect, and tests that conclusion across adapter-capacity, loss-form, and voxelwise-mechanism variants \evd{E008}\evd{E011}\evd{E013}.
-  \item It bounds practical payoff: no OOD-perplexity benefit is detected when the alignment manipulation is unreliable, while a separate gaze-privileged route fails its informativeness and split-stability gates before training \evd{E009}\evd{E024}.
+  \item It bounds practical payoff and synthetic-proxy transfer: no OOD-perplexity benefit is detected when the alignment manipulation is unreliable, a gaze-privileged route fails its preconditions, and a learnable dense neural proxy does not improve the common real-brain endpoint \evd{E009}\evd{E016}\evd{E024}.
 \end{itemize}
 
 The program asks five questions in sequence, each only if the previous one holds.
@@ -97,4 +97,4 @@ Does any gain survive per individual at matched perplexity?
 And does it improve a downstream task?
 
 The resulting arc is conditional rather than universal.
-The signal survives the recorded controls within UTS03 \evd{E006}; plain distillation leaves alignment headroom but is quality-entangled \evd{E003}; the tested objective does not show a reliable fold-level gain \evd{E004}; its averaged-target positive does not generalize across participants \evd{E008}; and neither tested practical route establishes a payoff \evd{E009}\evd{E024}.
+The signal survives the recorded controls within UTS03 \evd{E006}; plain distillation leaves alignment headroom but is quality-entangled \evd{E003}; the tested objective does not show a reliable fold-level gain \evd{E004}; its averaged-target positive does not generalize across participants \evd{E008}; and neither the tested practical routes nor the dense synthetic proxy establishes real-brain benefit \evd{E009}\evd{E016}\evd{E024}.

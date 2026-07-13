@@ -184,3 +184,18 @@ Its neutral-to-harmful trajectory is a lever failure, not a participant-level nu
 
 Q4 first tests whether a reliable brain-specific representation change exists and then measures downstream change as an out-of-domain perplexity contrast across eight training seeds \evd{E009}.
 A separate privileged-information route is gated before model training: the gaze signal must predict the label without task-induced leakage, and the corpus must support a stable paragraph-disjoint learning-curve split \evd{E024}.
+
+\subsection{Synthetic-target training and real-brain transfer}
+
+E016 tests whether a dense brain-derived synthetic target changes the data constraint.
+GPT-2-medium is distilled into GPT-2 on 95,999 WikiText training sentences, with 1,999 held out, six stochastic seeds, and target weight $\lambda=0.1$ \evd{E016}.
+The TRIBE target is a 20,484-dimensional predicted-cortical-response vector read at student layer 6.
+The comparison target, textfeat, projects a frozen teacher hidden state to the same nominal output width.
+It is dimension-matched but not demonstrated matched-information: its effective rank is at most 1024, its geometry differs from TRIBE, and the KD baseline fits the two endpoints at substantially different levels \evd{E016}.
+Held-out target $R^2$ is therefore interpreted within each target family rather than as a common cross-family scale.
+
+Saved students then pass through a separate real-brain transfer gate on the Tuckute condition-B responses: 1000 sentences, a fixed response averaged over five participants and five left-hemisphere language ROIs, and five contiguous nuisance-subtracted folds \evd{E016}.
+The transfer readout uses student layer 7, explicitly different from the layer-6 synthetic training target.
+For each seed, the primary contrast is the Tuckute gain of TRIBE training over KD minus the corresponding gain of textfeat training over KD.
+The inference unit is six stochastic training seeds over one fixed participant-averaged endpoint, so the exact sign test supports no participant- or population-level inference.
+Corresponding KD weights are byte-identical across target jobs, PCA and scaling are fit on training data, and normalized WikiText-train, WikiText-heldout, and Tuckute sentence sets have zero exact overlap \evd{E016}.

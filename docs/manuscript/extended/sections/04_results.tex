@@ -221,3 +221,19 @@ Under task-directed reading the same probe reaches $0.295$ against $0.100$ chanc
 The 300 natural-reading sentences also come from only seven paragraphs, so paragraph-disjoint test size varies too sharply to define a stable low-data learning curve \evd{E024}.
 The gate therefore stops the five-arm intervention before compute.
 Q4 remains bounded to two observations: no detected OOD-perplexity benefit when the alignment manipulation is unreliable, and no valid privileged-information experiment on the gated gaze substrate.
+
+\subsection{Synthetic target fit does not transfer to real-brain alignment}
+
+On their respective held-out synthetic endpoints, TRIBE-target training improves target $R^2$ over KD by \result{e016_tribe_synth_gain}, while textfeat-target training improves its own target $R^2$ by \result{e016_textfeat_synth_gain} \evd{E016}.
+The maximum relative perplexity deviation across the checked target and control arms is below $0.009221$ \evd{E016}.
+These results establish that the dense TRIBE target can be optimized under nearly unchanged language quality.
+They do not establish brain specificity or generic superiority over non-brain information because the two target families differ in geometry, rank, and baseline difficulty.
+
+The common real-brain endpoint reverses the direction needed for a positive claim.
+The TRIBE-minus-textfeat Tuckute gain relative to KD is \result{e016_transfer_delta}; all six seed margins are negative, giving exact sign $p=0.03125$ \evd{E016}.
+The raw TRIBE-minus-KD Tuckute gain is also negative at $-0.000919$ \evd{E016}.
+The synthetic-target improvement therefore does not transfer to improved Tuckute alignment in this six-seed diagnostic.
+
+This conclusion is deliberately narrower than participant-level biological evidence.
+The endpoint is one fixed average over five participants and five ROIs, synthetic training reads layer 6 while transfer scoring reads layer 7, and textfeat is only a dimension-matched projected-teacher control.
+The imperfect block-permuted comparisons remain non-load-bearing sensitivity checks.
