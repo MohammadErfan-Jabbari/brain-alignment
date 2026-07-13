@@ -81,16 +81,12 @@ The contributions below summarize that standard, and Section~\ref{sec:methods} d
 
 % Contributions list (beat 5) — Round 3 writes the text; scope = through Q2, methodology spine.
 \paragraph{Contributions.}\leavevmode\par\smallskip
-\noindent\textcolor{red}{\textbf{Note.} The contribution list is intentionally granular in this progress draft, so you can see the pieces I am currently tracking. In a later manuscript version I will curate and focus it down to a smaller set of main contributions once the remaining results sections are consolidated.}
-
-This thesis makes the following contributions, scoped to the results it establishes here.
+This thesis makes four contributions.
 \begin{itemize}[noitemsep,topsep=2pt]
-  \item It formulates alignment-guided distillation and locates it as the one combination the recent literature leaves open (Figure~\ref{fig:cells-diagram}).
-  \item It gives an information-budget argument that predicts where a brain prior can and cannot help, turning a vague argument for using brain data into a falsifiable prediction.
-  \item It fixes a measurement protocol that controls for the artifacts that can fake an alignment score: unique variance over a capacity-matched nuisance floor, contiguous splits, a same-architecture untrained control, a held-out noise ceiling, and a permuted-target control for specificity, the controls the alignment-training literature has largely lacked.
-  \item It shows within a deeply sampled participant that the trained-minus-untrained signal survives whole-story splits, a capacity-matched nuisance floor, and held-out voxel selection; participant-level generality remains open \evd{E006}.
-  \item It shows that plain perplexity-only distillation does not preserve alignment by default, while making explicit that the drop cannot yet be separated from the language-model quality the student loses \evd{E003}.
-  \item It shows that the apparent alignment-objective gain is not reliable at the valid fold-level inference unit and remains entangled with language-model quality \evd{E004}.
+  \item It formulates alignment-guided distillation and an information-budget prediction for when a weak neural prior could matter.
+  \item It establishes an artifact-resistant measurement protocol and a conditional within-subject result that survives whole-story splits, a capacity-matched nuisance floor, and an untrained-network control \evd{E006}.
+  \item It shows that an averaged-target gain does not generalize to a per-individual effect, and tests that conclusion across adapter-capacity, loss-form, and voxelwise-mechanism variants \evd{E008}\evd{E011}\evd{E013}.
+  \item It bounds practical payoff: no OOD-perplexity benefit is detected when the alignment manipulation is unreliable, while a separate gaze-privileged route fails its informativeness and split-stability gates before training \evd{E009}\evd{E024}.
 \end{itemize}
 
 The program asks five questions in sequence, each only if the previous one holds.
@@ -100,4 +96,5 @@ Does an alignment objective move it beyond what perplexity already implies?
 Does any gain survive per individual at matched perplexity?
 And does it improve a downstream task?
 
-The first three are settled here: the signal survives the recorded controls within UTS03 \evd{E006}; plain distillation leaves alignment headroom but is quality-entangled \evd{E003}; and the tested alignment objective does not show a reliable fold-level gain \evd{E004}.
+The resulting arc is conditional rather than universal.
+The signal survives the recorded controls within UTS03 \evd{E006}; plain distillation leaves alignment headroom but is quality-entangled \evd{E003}; the tested objective does not show a reliable fold-level gain \evd{E004}; its averaged-target positive does not generalize across participants \evd{E008}; and neither tested practical route establishes a payoff \evd{E009}\evd{E024}.

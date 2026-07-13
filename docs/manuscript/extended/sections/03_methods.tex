@@ -131,8 +131,8 @@ We apply three controls uniformly.
 \emph{(2) A capacity-fair nuisance floor}: the wide contextual block and the wide static-embedding block are each reduced by PCA to the same rank, fit on the training fold only, so the language model does not win merely by carrying more dimensions; the few low-level scalars stay raw \autocite{hadidi2026,jia2026}\evd{E006}.
 \emph{(3) A held-out noise ceiling}: on the voxelwise run only reliable voxels are kept, selected by split-half reliability on a separate story repeated ten times and held entirely out of the cross-validation pool, so the estimate is not inflated by voxels that happen to correlate with the model by chance \autocite{lage2019,lebel2023}\evd{E006}.
 Surprisal is deliberately left out of the nuisance set, since it is itself LM-derived and subtracting it would remove part of the construct under test; log word-frequency, a static lexical scalar, is distinct and is subtracted \evd{E006}.
-The permuted-target null shuffles brain responses across stimuli, breaking the stimulus-response pairing while preserving temporal structure \autocite{pirlot2022,moussa2025}.
-It tests brain-\emph{specificity}, not whether the baseline alignment signal is real, and enters only where the question is whether the signal can be moved.
+The block-permuted-target twin reorders contiguous response blocks and enters only where the question is whether the signal can be moved \autocite{pirlot2022,moussa2025}.
+It is a sensitivity control rather than a complete randomization null: the implementation can leave some rows paired with their original targets, so no conclusion relies on calling it fully permuted or exactly marginal-preserving \evd{E016}.
 
 \subsection{Data and models}
 
@@ -170,3 +170,17 @@ The primary test arm is a randomly initialised student, because any alignment it
 A warm-initialised student and a no-teacher fine-tune are kept as labelled drift controls, and every arm is scored at one fixed layer within a single architecture so no layer choice biases the comparison \evd{E003}.
 Brain \emph{specificity} is tested with a permuted-target twin: the same loss, but against brain targets shuffled across stimuli.
 The arms share corpus, batch size, learning rate, and architecture, but they are not fully compute matched: the from-scratch arm runs about twice the optimizer steps of the warm arms, a caveat carried into the results \evd{E003}.
+
+\subsection{Intervention tests and inference units}
+
+Q2 and Q3 compare a real-target brain-loss arm with its block-permuted twin, always pairing arms within the same stimulus fold and stochastic seed.
+For Q3, the model is trained separately against each participant's response rather than against a response averaged across participants.
+The participant-level estimand is the real-minus-permuted change in held-out unique $R^2$, aggregated within participant over seeds and five shared stimulus folds; inference is reported across nine participants with a separate fold-clustered sensitivity analysis \evd{E008}.
+The effect on a response averaged across participants is a different estimand because unique $R^2$ does not commute with response averaging \evd{E005}\evd{E008}.
+
+Higher-rank LoRA and a contrastive loss test capacity and objective robustness at the same ROI-scale operating point \evd{E011}\evd{E013}.
+The naturalistic voxelwise experiment instead asks whether the MSE distillation manipulation takes hold at all across a fixed weight grid.
+Its neutral-to-harmful trajectory is a lever failure, not a participant-level null or evidence against every possible voxelwise intervention \evd{E013}.
+
+Q4 first tests whether a reliable brain-specific representation change exists and then measures downstream change as an out-of-domain perplexity contrast across eight training seeds \evd{E009}.
+A separate privileged-information route is gated before model training: the gaze signal must predict the label without task-induced leakage, and the corpus must support a stable paragraph-disjoint learning-curve split \evd{E024}.

@@ -27,7 +27,9 @@ We ask whether it can instead be used during training.
 We test this in the setting of model compression: we distill a language model into a smaller student with brain alignment in the objective, at a matched budget, and ask whether the student preserves or improves that alignment, a question that remains untested.
 An information-budget argument implies that such a signal is far too small to act as a second teacher; at most it is a weak prior.
 Such a prior should help only where the text signal is weakest (small models, scarce data, aggressive compression) and wash out wherever data is abundant.
-\gap{Results summary deferred (checkpoint 2): the two established findings (the powered reality result and the no-preservation distillation result) and the downstream arc (per-individual null, averaging artifact, quality law, predictability ceiling, no practical payoff) are summarised here only once R08--R14 are consolidated; close on the payoff line then.}
+Under whole-story splits and a capacity-matched nuisance floor, trained representations exceed untrained controls within one deeply sampled participant, but direct brain-objective tuning shows no reliable gain at the valid fold unit.
+An apparent gain against a participant-averaged response disappears when nine participants become the inference unit, and the tested downstream and privileged-information routes establish no practical payoff.
+The results make brain alignment a useful diagnostic signal under explicit controls, but not a demonstrated training signal in the regimes studied here.
 \end{abstract}
 \tableofcontents
 

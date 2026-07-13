@@ -184,7 +184,40 @@ It does not prove that the true effect is zero, because five folds cannot exclud
 The next question must use independent participants and matched perplexity rather than treating more seeds or voxels as biological replication.
 
 \subsection{No per-individual gain at matched perplexity, and the averaging artifact}
-\gap{Results Q3 awaits finding-reports R09--R13 (sources E005, E008, E011, E013, E017, E019, E020): the per-individual null, the cross-subject-averaging artifact, the method-general failure, the quality law, the stimulus-predictability ceiling, and the external reproduction. The parked draft reports/\_pending-Q3 reclaims R09.}
 
-\subsection{No practical payoff}
-\gap{Results Q4/A3 awaits finding-report R14 (source E009): the bounded OOD-perplexity null and its null-by-construction reading.}
+The group-averaged target in E005 yields an apparent real-minus-permuted gain of \result{e005_apparent}.
+E008 repeats the same comparison separately for nine participants and centers near zero: mean \result{e008_mean}, subject-axis interval \result{e008_ci}, with 5/9 participant effects positive \evd{E005}\evd{E008}.
+The shared-fold sensitivity is also centered near zero, with mean \result{e008_fold_mean} and interval \result{e008_fold_ci}; every leave-one-fold-out check fails to establish a positive effect \evd{E008}.
+The four participants whose responses contributed to the earlier averaged target have mean $-0.00010$ when evaluated individually, while five held-out participants have mean $+0.00026$ with an interval including zero \evd{E008}.
+
+This difference is not a claim that averaging simply recovers the average participant.
+Averaging responses changes the target toward the shared stimulus-evoked component and raises its signal-to-noise ratio; unique $R^2$ is nonlinear in that operation.
+The valid conclusion is that the positive result belongs to the multi-participant-averaged estimand and does not generalize to a mean per-individual effect in this cohort \evd{E005}\evd{E008}.
+
+Two variants do not change that conclusion at ROI scale.
+Increasing LoRA rank and epochs gives mean \result{e011_mean}, interval \result{e011_ci}; one participant supplies 79\% of the summed effect, and leave-one-participant-out returns the estimate to the E008 scale \evd{E011}.
+This is robustness to extra adapter capacity at the same effective operating point, not a stronger manipulation: absolute alignment and perplexity move no more than in E008.
+Replacing MSE with a contrastive objective gives mean \result{e013b_mean}, interval \result{e013b_ci}, with 4/9 participant effects positive \evd{E013}.
+
+The voxelwise naturalistic route fails earlier in the causal chain.
+Across its tested loss weights, real-target distillation on UTS03 is neutral at low weight and increasingly harmful at higher weight; it never improves over the untuned base or its block-permuted twin \evd{E013}.
+Because the manipulation does not create an improving representation, this result is a failure of this distillation mechanism rather than a clean same-substrate population null.
+
+The Q3 result is therefore a cross-participant null in E008, robust to the tested LoRA-capacity and ROI-loss variants, plus a separate voxelwise distillation-lever failure.
+It does not establish that every neural objective, dataset, or optimization regime must fail.
+
+\subsection{No detected practical payoff in the tested regimes}
+
+E009 asks whether alignment-guided KD improves out-of-domain perplexity on Pereira and LeBel text.
+The prerequisite representation change is itself unreliable: across eight seeds the real-minus-permuted alignment contrast has mean \result{e009_fulcrum_mean}, median \result{e009_fulcrum_median}, and 5/8 positive signs, while its measured 80\%-power minimum detectable effect is $0.023$ \evd{E009}.
+Seed 0 contributes $+0.063$; the other seven seeds average approximately $+0.004$ \evd{E009}.
+All downstream contrasts lie inside their measured minimum detectable effects, including comparisons with KD-only, the block-permuted arm, and the text-feature target \evd{E009}.
+This supports no detected brain-specific OOD-perplexity payoff under the all-data, averaged-target setup.
+It is not a universal downstream null because the brain-specific manipulation that should mediate such a payoff never became reliable.
+
+E024 tests a different route, train-only gaze as privileged information, but stops at its binding preconditions rather than executing the planned intervention.
+ZuCo natural-reading gaze has split-half reliability $0.71$, yet its rich gaze features predict five-way relation type at balanced accuracy $0.202$ against $0.200$ chance, permutation $p=0.35$ \evd{E024}.
+Under task-directed reading the same probe reaches $0.295$ against $0.100$ chance, $p=0.003$, showing that apparent informativeness can enter through task instructions rather than a clean train-only signal \evd{E024}.
+The 300 natural-reading sentences also come from only seven paragraphs, so paragraph-disjoint test size varies too sharply to define a stable low-data learning curve \evd{E024}.
+The gate therefore stops the five-arm intervention before compute.
+Q4 remains bounded to two observations: no detected OOD-perplexity benefit when the alignment manipulation is unreliable, and no valid privileged-information experiment on the gated gaze substrate.
