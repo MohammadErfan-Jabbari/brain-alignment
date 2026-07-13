@@ -88,9 +88,9 @@ This thesis makes the following contributions, scoped to the results it establis
   \item It formulates alignment-guided distillation and locates it as the one combination the recent literature leaves open (Figure~\ref{fig:cells-diagram}).
   \item It gives an information-budget argument that predicts where a brain prior can and cannot help, turning a vague argument for using brain data into a falsifiable prediction.
   \item It fixes a measurement protocol that controls for the artifacts that can fake an alignment score: unique variance over a capacity-matched nuisance floor, contiguous splits, a same-architecture untrained control, a held-out noise ceiling, and a permuted-target control for specificity, the controls the alignment-training literature has largely lacked.
-  \item It establishes, at voxel scale and with statistical power, that the alignment signal is real beyond those artifacts \evd{E006}.
+  \item It shows within a deeply sampled participant that the trained-minus-untrained signal survives whole-story splits, a capacity-matched nuisance floor, and held-out voxel selection; participant-level generality remains open \evd{E006}.
   \item It shows that plain perplexity-only distillation does not preserve alignment by default, while making explicit that the drop cannot yet be separated from the language-model quality the student loses \evd{E003}.
-  \item \gap{The alignment-objective contribution is deferred until the R08 finding report consolidates E004; this progress draft does not claim it yet.}
+  \item It shows that the apparent alignment-objective gain is not reliable at the valid fold-level inference unit and remains entangled with language-model quality \evd{E004}.
 \end{itemize}
 
 The program asks five questions in sequence, each only if the previous one holds.
@@ -100,5 +100,4 @@ Does an alignment objective move it beyond what perplexity already implies?
 Does any gain survive per individual at matched perplexity?
 And does it improve a downstream task?
 
-The first two are settled here: the signal is real \evd{E006}, and plain distillation does not preserve it \evd{E003}.
-The third question remains a marked consolidation gap until the E004 finding report is written.
+The first three are settled here: the signal survives the recorded controls within UTS03 \evd{E006}; plain distillation leaves alignment headroom but is quality-entangled \evd{E003}; and the tested alignment objective does not show a reliable fold-level gain \evd{E004}.

@@ -139,7 +139,8 @@ It tests brain-\emph{specificity}, not whether the baseline alignment signal is 
 We use two datasets.
 The Tuckute ROI benchmark uses the 1000 isolated sentences and five left-hemisphere language regions of \textcite{tuckute2024}.
 It averages responses across training participants, so it is coarse, but its isolated-sentence design avoids the temporal-autocorrelation leakage of naturalistic time series; its reported noise ceiling is $r\approx 0.35$ \evd{E002}.
-The powered measurement uses subject UTS03 of the deep-sampled naturalistic story-listening dataset of \textcite{lebel2023}: 20 stories, story-level folds, and \result{e006_reliable_voxels} voxels retained at split-half reliability above $0.5$ on a held-out repeated story \evd{E006}.
+The voxelwise measurement uses subject UTS03 of the deep-sampled naturalistic story-listening dataset of \textcite{lebel2023}: 20 stories, story-level folds, and \result{e006_reliable_voxels} voxels retained at split-half reliability above $0.5$ on a held-out repeated story \evd{E006}.
+Its scientific scope is conditional on this participant and protocol: spatially dependent voxels increase measurement resolution but are not independent replicates, and the five folds share training stories \evd{E006}.
 The models are GPT-2, GPT-2-medium, and Qwen2.5-0.5B, each read at its alignment-peak middle layer, with a same-architecture untrained network as the control in every comparison \evd{E002}\evd{E006}.
 
 \subsection{Distillation and the brain term}

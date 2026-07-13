@@ -13,9 +13,12 @@
 % Seed entries below are the recorded A2 + per-individual-null numbers from the
 % ladder; replace/extend as the manuscript grows.
 
-\DeclareResult{e006_gpt2_gap}{$+0.0207$ [95\% CI $+0.0205$, $+0.0209$]}  % [E006] gpt2 L7 trained-untrained gap
-\DeclareResult{e006_qwen_gap}{$+0.0277$ [95\% CI $+0.0274$, $+0.0280$]}  % [E006] Qwen2.5-0.5B L12
+\DeclareResult{e006_gpt2_gap}{$+0.0207$}                                % [E006] gpt2 L7 trained-untrained gap, conditional on UTS03
+\DeclareResult{e006_qwen_gap}{$+0.0277$}                                % [E006] Qwen2.5-0.5B L12, conditional on UTS03
 \DeclareResult{e006_reliable_voxels}{11{,}442}                           % [E006] NC-reliable voxels
+\DeclareResult{e004_qwen_specific}{$+0.00316$}                           % [E004] Qwen mse-minus-block-permuted mean over five folds
+\DeclareResult{e004_qwen_fold_ci}{[$-0.00227$, $+0.00858$]}             % [E004] t-CI at n=5 fold unit
+\DeclareResult{e004_qwen_lofo}{$+0.0014$}                               % [E004] leave-fold-4-out mean
 \DeclareResult{e008_mean}{$+0.00010$}                                    % [E008] per-individual mean (n=9)
 \DeclareResult{e008_ci}{[$-0.0004$, $+0.0006$]}                          % [E008] 95\% t-CI, fold-clustered
 \DeclareResult{e005_apparent}{$+0.0081$}                                 % [E005] apparent averaged-target gain

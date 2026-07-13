@@ -21,7 +21,7 @@
 
 A trained middle layer predicts held-out language-network activity beyond low-level stimulus features, while a same-architecture untrained network does not.
 The reality check matters because the later intervention questions only make sense if the measured score is not a low-level artifact.
-The Tuckute ROI benchmark shows the effect across three language models, and the LeBel UTS03 run repeats it at voxel scale with much higher power.
+The Tuckute ROI benchmark shows the effect across three language models, and the LeBel UTS03 run repeats it at voxel scale within one deeply sampled participant.
 
 The Tuckute ROI benchmark uses the five left-hemisphere language regions of \textcite{tuckute2024}, 1000 isolated sentences, and five contiguous folds.
 The trained-minus-untrained gap is positive for all three models, while the untrained control is negative at every layer and seed (Table~\ref{tab:roi}).
@@ -44,24 +44,24 @@ The positive signal spans a broad plateau of middle layers and disappears for ra
   \end{tabular}}
 \end{table}
 
-The powered voxelwise run uses subject UTS03 of \textcite{lebel2023}, 20 naturalistic stories, and \result{e006_reliable_voxels} voxels selected at split-half reliability above $0.5$ on a held-out repeated story.
+The voxelwise run uses subject UTS03 of \textcite{lebel2023}, 20 naturalistic stories, and \result{e006_reliable_voxels} voxels selected at split-half reliability above $0.5$ on a held-out repeated story.
 The main readout is the trained-minus-untrained gap: \result{e006_gpt2_gap} for GPT-2 and \result{e006_qwen_gap} for Qwen2.5-0.5B (Table~\ref{tab:vox}).
 The sign is also widespread across voxels: 95\% of reliable GPT-2 voxels and 99\% of reliable Qwen voxels have positive gaps.
 The untrained unique $R^2$ is $-0.017$ in both comparisons \evd{E006}.
-The confidence intervals exclude zero.
-Because each trained model is compared with a same-architecture untrained control on the same stimuli, the gap points to language training rather than architecture or residual temporal structure \evd{E006}.
+For both models the gap is positive on all five held-out story blocks.
+The folds share training stories, and the voxels are spatially dependent measurements from one participant, so these signs are sensitivity evidence rather than independent population replicates \evd{E006}.
 
 \begin{table}[H]
   \centering
   \footnotesize
-  \caption{Powered voxelwise run on LeBel UTS03 (20 stories, story-level folds). The gap is the trained-minus-untrained unique $R^2$; the 95\% CIs quantify uncertainty on the mean gap. The percentage column reports how many reliable voxels have a positive trained-minus-untrained gap.}
+  \caption{Voxelwise run on LeBel UTS03 (20 stories, story-level folds). The gap is the trained-minus-untrained unique $R^2$. The percentage column describes spatial prevalence within UTS03; the final column reports fold-block sensitivity, not independent participant replication.}
   \label{tab:vox}
-  \begin{tabular}{lcccc}
+  \begin{tabular}{lccccc}
     \toprule
-    Model & Layer & Trained\,$-$\,untrained gap [95\% CI] & \% reliable voxels gap\,$>$\,0 & Source \\
+    Model & Layer & Trained\,$-$\,untrained gap & \% reliable voxels gap\,$>$\,0 & Positive story blocks & Source \\
     \midrule
-    GPT-2        & L7  & \result{e006_gpt2_gap} & 95\% & \evd{E006} \\
-    Qwen2.5-0.5B & L12 & \result{e006_qwen_gap} & 99\% & \evd{E006} \\
+    GPT-2        & L7  & \result{e006_gpt2_gap} & 95\% & 5/5 & \evd{E006} \\
+    Qwen2.5-0.5B & L12 & \result{e006_qwen_gap} & 99\% & 5/5 & \evd{E006} \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -72,7 +72,7 @@ The voxelwise run uses naturalistic stimuli but holds out whole stories; test ti
 Voxel selection uses a separate repeated story, preventing the analysis from selecting voxels because they happen to correlate with a model on the evaluation stories \evd{E006}.
 Both trained and untrained scores subtract word and phoneme rate, word duration and length, log word frequency, and a static word-embedding block, the low-level feature set most likely to inflate the score \evd{E006}.
 Surprisal and imageability are deliberately left unsubtracted; the nuisance baseline therefore does not remove every contextual property of the stimulus.
-The same-architecture untrained network supplies the stronger check: on the same stimuli and nuisance baseline, it scores negative at $-0.017$.
+The same-architecture untrained network supplies the stronger check: on the same stimuli and nuisance baseline, it scores negative at $-0.017$ \evd{E006}.
 Architecture, rate, and residual temporal structure therefore cannot explain the positive trained-minus-untrained gap alone \evd{E006}.
 
 \begin{figure}[H]
@@ -82,9 +82,9 @@ Architecture, rate, and residual temporal structure therefore cannot explain the
   \label{fig:a2}
 \end{figure}
 
-Together, the Tuckute ROI benchmark and the powered voxelwise run establish that the alignment score contains a real language-training signal.
-The Tuckute benchmark supplies breadth across models, and the deeply sampled UTS03 run supplies voxel-scale statistical power.
-Because the powered evidence comes from one subject, cross-subject generality remains open.
+Together, the Tuckute ROI benchmark and the voxelwise UTS03 run show that the alignment score contains a language-training signal under the recorded controls.
+The Tuckute benchmark supplies breadth across models, while UTS03 supplies spatially resolved within-subject evidence.
+The original voxel-bootstrap intervals are retracted because they treated spatially dependent voxels as independent units; cross-subject generality remains open \evd{E006}.
 Qwen aligns more strongly than either GPT-2 variant, while the two GPT-2 variants are nearly tied despite a threefold parameter difference.
 The single cross-family contrast alone cannot establish a quality ordering; Section~4.2 takes up the quality question directly \evd{E002}.
 Q0 therefore gives the rest of the program a valid measurement target.
@@ -152,8 +152,8 @@ The quality caveat is important.
 Alignment co-varies with log-perplexity across the same non-teacher arms (Pearson \result{e003_quality_corr}).
 In that fit, warm-init KD lies essentially on the regression line, while conventional GPT-2 is the only arm more aligned than its perplexity predicts.
 Two contrasts would separate objective-specific loss from a quality explanation, and both are marginal.
-Warm-init KD is less aligned than GPT-2 despite lower perplexity, with bootstrap $P(\text{gpt2}\le\text{kd\_warm})=0.092$.
-Among the warm-start controls, the no-teacher finetune beats warm-init KD on both perplexity and alignment, with $P(\text{lmft}\le\text{kd\_warm})=0.085$.
+Warm-init KD is less aligned than GPT-2 despite lower perplexity, with bootstrap $P(\text{gpt2}\le\text{kd\_warm})=0.092$ \evd{E003}.
+Among the warm-start controls, the no-teacher finetune beats warm-init KD on both perplexity and alignment, with $P(\text{lmft}\le\text{kd\_warm})=0.085$ \evd{E003}.
 Both contrasts lean on a single unreplicated point and, under a paired-fold test, on one fold carrying about $44\%$ of the signal \evd{E003}\evd{L011}.
 The cold-init arm also remains under-trained: its held-out perplexity is $477$, far above the converged arms' $44$ to $95$.
 Part of its near-floor alignment may therefore reflect a weaker language model rather than the distillation objective itself.
@@ -165,18 +165,23 @@ Plain perplexity-only distillation therefore leaves genuine headroom below the t
 E003 does not decide whether an alignment-guided objective can recover that headroom beyond what perplexity already predicts.
 The evaluation is an ROI benchmark ($\mathrm{NC}\approx0.35$), not a matched-perplexity or fully optimizer-step-matched causal test.
 The Tuckute ROI benchmark is also underpowered for a $\sim0.005$ objective-specific gap.
-The matched-perplexity question therefore moves to the powered voxelwise substrate \evd{E003}\evd{L011}.
+The matched-perplexity question therefore requires a paired design whose inference unit matches the intended claim \evd{E003}\evd{L011}.
 
 \subsection{An alignment-guided objective has not yet shown a reliable held-out gain}
-% [IN SCOPE this version] Q2 / R08, source E004. The subsection is deferred until its finding report is consolidated.
-\gap{Results Q2 (source E004): this subsection is deferred until its finding report is consolidated. The recorded result is that optimising \Lbrain{} on the strong aligner shows only a small apparent held-out alignment movement; the effect is entangled with perplexity, and at the honest fold-level inference unit the interval includes zero. This supports no demonstrated reliable gain yet, while not proving the gain is zero.}
 
-\begin{figure}[H]
-  \centering
-  \figspec[0.18\textheight]{Planned Q2 result figure}{Source: \evd{E004}. Show held-out unique-$R^2$ change from optimising \Lbrain{} against its \permtwin{} control at the honest fold-level inference unit. The plotted interval should span zero, with the dominant fold marked.}
-  \caption{Planned Q2 result figure. The final version will render the E004 held-out alignment change at the fold-level inference unit and mark the dominant fold. \gap{Render from the E004 record and finalise the caption after the R08 finding report is consolidated.}}
-  \label{fig:q2_gain}
-\end{figure}
+E004 tests whether a co-trained MSE brain term changes held-out alignment beyond an otherwise identical block-permuted-target twin.
+The primary Qwen arm has a mean real-minus-permuted contrast of \result{e004_qwen_specific}, but its five-fold interval is \result{e004_qwen_fold_ci} and includes zero \evd{E004}.
+The earlier positive interval treated three seeds by five folds as 15 independent observations even though seeds reuse the same fold data.
+Averaging seeds within each fold leaves five units; fold 4 contributes 64\% of the summed contrast, and removing it reduces the mean to \result{e004_qwen_lofo} \evd{E004}.
+
+No tuned arm improves reliably over the untuned base.
+The Qwen MSE arm changes held-out unique $R^2$ by $+0.0025$ relative to base with interval $[-0.0011,+0.0067]$, while all GPT-2 brain-loss arms are non-positive relative to base \evd{E004}.
+The recorded unpaired permutation-null check also fails.
+Perplexity roughly doubles under LoRA tuning, so even the small positive paired contrast is entangled with language-model degradation rather than isolated at matched quality \evd{E004}.
+
+The supported Q2 conclusion is therefore narrow: this experiment demonstrates no reliable held-out alignment lever at its valid fold-level inference unit.
+It does not prove that the true effect is zero, because five folds cannot exclude a small effect near the observed mean.
+The next question must use independent participants and matched perplexity rather than treating more seeds or voxels as biological replication.
 
 \subsection{No per-individual gain at matched perplexity, and the averaging artifact}
 \gap{Results Q3 awaits finding-reports R09--R13 (sources E005, E008, E011, E013, E017, E019, E020): the per-individual null, the cross-subject-averaging artifact, the method-general failure, the quality law, the stimulus-predictability ceiling, and the external reproduction. The parked draft reports/\_pending-Q3 reclaims R09.}
