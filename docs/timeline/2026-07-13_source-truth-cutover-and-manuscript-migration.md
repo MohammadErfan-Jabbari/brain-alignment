@@ -14,7 +14,7 @@ The cutover retired both scientific-writing pipelines, report-mode orchestration
 
 Scientific migration corrected E006 to a conditional UTS03 result without voxel-population intervals, independently reviewed E016 before making it load-bearing, and integrated Q2, Q3, Q4, and the scoped E016 proxy-to-transfer failure directly into the extended manuscript. The manuscript now distinguishes an undemonstrated Q2 lever from a zero-effect claim, the averaged-target estimand from participant inference, the E013 mechanism failure from a substrate-wide null, and synthetic target fit from real-brain transfer.
 
-At close of the mechanical cutover, all tracked Markdown links resolved and the unified provenance/number/reference/LaTeX gate passed. The remaining gate was one fresh independent scientific-scope/prose review followed by Erfan’s approval of the load-bearing framing; `share-ready` was therefore not set during migration.
+At close of the mechanical cutover, all tracked Markdown links resolved and the unified provenance/number/reference/LaTeX gate passed. The fresh independent scientific-scope/prose review then caught a stale E002/E003 noise-ceiling normalization, an over-broad E024 abstract clause, and an E003 architecture-control sentence; these were corrected upstream and in the manuscript, and the focused re-review passed. Erfan’s approval of the load-bearing framing remained required, so `share-ready` was not set during migration.
 
 ## Related
 

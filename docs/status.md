@@ -23,18 +23,18 @@ aliases: [current-status]
 
 ## Active work
 
-- Complete the independent manuscript scope/prose review and apply only verified findings.
+- Await Erfan’s approval of the load-bearing framing; no further cleanup work is active.
 
 ## Blockers
 
-- Deterministic provenance, number, link, reference, and LaTeX checks pass; the independent prose/scientific-scope review remains.
-- `share-ready` requires Erfan’s approval of the load-bearing framing after those checks.
+- Deterministic provenance, number, link, reference, and LaTeX checks pass.
+- The fresh independent prose/scientific-scope review passed after its three verified findings were corrected and re-reviewed.
+- `share-ready` now requires only Erfan’s approval of the load-bearing framing.
 
 ## Next actions
 
-1. Complete the fresh independent manuscript prose/scientific-scope review and revise verified findings.
-2. Obtain Erfan’s approval of the load-bearing framing.
-3. Set `share-ready` only after both gates pass.
+1. Obtain Erfan’s approval of the load-bearing framing.
+2. Set `share-ready`, then advance the manuscript rather than the apparatus.
 
 ## Related
 
