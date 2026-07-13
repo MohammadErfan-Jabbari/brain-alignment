@@ -1,1 +1,0 @@
-{"id": "SC-EX-TRIBE-3", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - limitation names the fMRI resolution limit + its mechanism", "raw": "ACK-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "d4a2a60a461b"}

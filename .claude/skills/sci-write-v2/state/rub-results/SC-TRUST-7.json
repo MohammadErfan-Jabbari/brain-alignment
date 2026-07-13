@@ -1,1 +1,0 @@
-{"id": "SC-TRUST-7", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - bounded, CI reported, null named; matches observed tag", "raw": "FIDELITY-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "8fe6da99cfe5"}

@@ -1,1 +1,0 @@
-{"id": "SC-STR-12", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "Results opens with neuro-preprocessing (BOLD/z-score/PCA) as if old; inverted old-to-new for ML reader", "raw": "STRUCTURE-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "79a08e08d188"}

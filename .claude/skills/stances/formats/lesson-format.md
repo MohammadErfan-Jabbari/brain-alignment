@@ -3,7 +3,7 @@
 A **lesson** is the rendered learning surface for one `/teach` session: a markdown file at
 `docs/learning/lessons/YYYY-MM-DD-<subject-slug>.md` carrying the explanation, the math, diagrams, cited
 cross-references, the questions posed, Erfan's attempts, and his mistakes with the correction. It is the
-**learning process made visible**, kept here so it stays out of the reports — the firewall R05's
+**learning process made visible**, kept separate from the manuscript and evidence authorities.
 retirement taught us to build (a learning narrative must never leak into a report).
 
 It is the RAW layer. The curated mastery state lives separately in `docs/learning/records/`
@@ -34,7 +34,7 @@ display `$$…$$` so it also reads in a plain markdown previewer without the ren
 
 > **Learning artifact — not canonical, not a report.** This is the process record of a teaching session.
 > Every number is cited to its source by code; nothing here is a source of truth. When this disagrees
-> with `ladder.md` or a finding-report, they win.
+> with an E record or the extended manuscript, those authorities win.
 
 ## Template
 

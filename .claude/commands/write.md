@@ -1,15 +1,16 @@
 ---
-description: Enter the write stance — turn a settled finding into report or manuscript prose via the sci-write-v2 pipeline.
-argument-hint: <what to write, e.g. "the R08 report" or "tighten the intro">
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Skill
+description: Enter the write stance and draft settled evidence directly into the extended manuscript.
+argument-hint: <claim or manuscript section>
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, Skill
 ---
 
-Enter the **write** stance. Load the `stances` skill, follow `.claude/skills/stances/modes/write.md`,
-and load the `sci-write-v2` skill as the engine, on: $ARGUMENTS
+Enter `/write` on: $ARGUMENTS
 
-- Follow the gated-loop spine: build the claim-lattice + skeleton, gate the whole package as one (F16,
-  via `AskUserQuestion`) *before* any prose, then draft, audit ×N, and revise to convergence.
-- Draft from evidence with `\evd`/`\gap`; run `scripts/run_checks.py` after each stage write; the
-  `stop_sw_converge` Stop-hook holds the turn until every reader is `ready_to_ship`.
-- Reports are verdict-first with a plain-language lead. Never invent a number; a missing one is a `\gap`;
-  a defect the prose can't fix routes upstream via the cross-stance handoff (D050), never papered over.
+1. Read the owning E records and current manuscript section.
+2. State the intended claim, scope, caveats, and evidence before editing.
+3. Draft directly into `docs/manuscript/extended/`; do not create an intermediate report or lattice.
+4. Preserve `\evd{Ennn}` provenance and `numbers.tex`; use `\gap{...}` for genuinely missing evidence.
+5. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/extended`.
+6. Run one fresh independent prose and scientific-scope review, revise, and obtain Erfan’s approval for load-bearing framing.
+
+If prose reveals a scientific contradiction, stop the prose correction, set `manuscript-sync-pending`, and route the issue to `/interpret`.

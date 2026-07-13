@@ -1,1 +1,0 @@
-{"id": "SC-STR-03", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "voxelwise noise ceiling used in Results with no gloss for the ML reader", "raw": "STRUCTURE-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "a77eb5bcb34d"}

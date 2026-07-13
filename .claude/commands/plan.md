@@ -7,7 +7,7 @@ allowed-tools: Read, Glob, Grep, Bash, Task, Skill
 Enter the **plan** stance. Load the `stances` skill and follow `.claude/skills/stances/modes/plan.md`
 on: $ARGUMENTS
 
-- Read the ladder + expansion program; weigh open doors by value and cost; sequence as kill-gated steps,
+- Read `docs/status.md` and the owning E/manuscript sources; weigh open doors by value and cost; sequence as kill-gated steps,
   each with a predeclared kill criterion.
 - A plan rests only on recorded results. Strategic framing calls are Erfan's: surface the options and a
   recommendation, do not decide them unilaterally.

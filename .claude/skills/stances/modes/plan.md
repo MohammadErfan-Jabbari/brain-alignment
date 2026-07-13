@@ -5,7 +5,7 @@ compute; it produces no number and flips no rung.
 
 ## The procedure
 
-Read the ladder (`docs/ladder.md`) and the expansion program; weigh the open doors by value and cost;
+Read `docs/status.md` and the owning E/manuscript sources; weigh the open doors by value and cost;
 sequence them as kill-gated steps, each with a predeclared kill criterion before it earns compute. Use
 the reasoning frame (`docs/references/reasoning-frame.md`): reduce to the real goal and delete false
 constraints, explain the mechanism and where it breaks, prefer the smallest durable change that

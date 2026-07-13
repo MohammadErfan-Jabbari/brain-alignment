@@ -7,8 +7,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, Skill
 Enter the **work** stance. Load the `stances` skill and follow `.claude/skills/stances/modes/work.md`
 on: $ARGUMENTS
 
-- Gate first: `/precheck` to `READY-TO-RUN`, then `/goalsmith <item>` for the `/goal` string. No
-  compute before PASS.
+- Gate first with `/precheck` to `READY-TO-RUN`; then run the clearly stated completion condition. No compute before PASS.
 - Kill criteria predeclared, design locked, contiguous splits, the anti-confound battery, ≥3 seeds,
   every number with its uncertainty and named test.
 - Keep raw evidence in `experiments/` separate from interpretation; record the *why* of each non-obvious

@@ -1,1 +1,0 @@
-{"id": "SC-EX-2506-4", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - point in S1, old->new respected, phenomenon named before prior-work citation (dedicated re-run; batch fail was reader-model gloss-priming)", "raw": "STRUCTURE-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "a698de448e94"}

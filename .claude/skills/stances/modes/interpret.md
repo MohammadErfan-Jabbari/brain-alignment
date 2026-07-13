@@ -7,8 +7,7 @@ not casual reading.
 
 ## The hard line
 
-`/interpret` proposes a verdict; it does not flip a ladder rung. A rung flips only on the user's
-confirmation (D015). And it states only numbers a working session recorded: a needed-but-missing number
+`/interpret` proposes a verdict; it becomes settled only on the user's confirmation. It states only numbers a working session recorded: a needed-but-missing number
 is a `\gap`, never invented.
 
 ## The loop
@@ -34,9 +33,7 @@ is a `\gap`, never invented.
 5. **Score against the manifest.** The landed verdict must match the manifest's claim and clear its
    overturn-if. If the evidence pushed the verdict off the manifest, that is a finding: say the claim
    moved and why, do not quietly keep the old framing.
-6. **Hand off to `/write`.** Once the verdict is clean and confirmed, the finding goes to `/write` for
-   the report (verdict-first, caveats in the claim sentence). `/interpret` produces the adjudicated
-   claim; `/write` produces the prose.
+6. **Hand off to `/write`.** Once the verdict is clean and confirmed, a paper-relevant finding goes directly into the extended manuscript.
 
 ## Fresh-digest vs revision
 
@@ -47,6 +44,5 @@ is a `\gap`, never invented.
 
 ## What this mode does not do
 
-It does not write the report (that is `/write`), does not run a new experiment (that is `/work`), and
-does not flip a rung (that is the user's call). It adjudicates a recorded result into a clean,
+It does not write manuscript prose (that is `/write`) or run a new experiment (that is `/work`). It adjudicates a recorded result into a clean,
 panel-survived, manifest-scored verdict.

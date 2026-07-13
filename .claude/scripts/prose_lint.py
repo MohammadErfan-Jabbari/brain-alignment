@@ -14,7 +14,7 @@ the storytelling/register tells (Class A: an abstraction handed an agency verb, 
 self-narrated rhetorical move, internal-metaphor leakage) and reflex passive
 density (Class B). These are heuristic tripwires, not the gate — they carry no
 banned token and need human/agent judgment, so they print but do NOT affect the
-exit code. The real Class-A catch is the prose-register-auditor agent (review pass).
+exit code. One fresh independent prose review owns the full Class-A judgment.
 
 The goal is clarity and precision, not evading a detector. A finding is a prompt
 to look, not always a defect: a flagged word can be the right word. Read the line.
@@ -44,6 +44,12 @@ JARGON = [
 ROBUST_OK = re.compile(r"robust\s+(estimat|standard error|regression|statistic|covariance|to\s)", re.I)
 ROBUST = re.compile(r"\brobust\b", re.I)
 
+# Tricolon abuse (group C): three IMPACT-verb clauses in a comma series closing on "and". This is a SOFT
+# warning, NOT a hard gate: dual-use verbs make a hard rule false-positive on legitimate Methods/Results triples.
+_IMPACT = (r"(?:unlock|solv|open|enabl|driv|transform|revolutioniz|pav|bridg|advanc|foster|empower|"
+           r"deliver|achiev|establish|redefin|reshap|accelerat|unleash)\w*")
+TRICOLON_RE = re.compile(rf"\b{_IMPACT}\b[^,]*,[^,]*\b{_IMPACT}\b[^,]*,?\s+and\s+[^,]*\b{_IMPACT}\b", re.I)
+
 # Phrases (cliche / throat-clearing / meta-commentary). Matched anywhere in a line.
 PHRASES = {
     "throat-clearing": [
@@ -60,6 +66,13 @@ PHRASES = {
     "cliche": [
         r"plays? an? (crucial|pivotal|key|important|vital) role", r"rich representations?",
         r"a wide (range|array) of", r"sheds? light on",
+    ],
+    # Authority-grab openers (jamditis detox group C, SC-VOICE-08): assert importance instead of showing it.
+    # Anchored to the "X is that <clause>" framing so "the truth is rarely simple" / "the fact is well
+    # established" (legitimate discussion) do NOT trip; the tell is the content-asserting opener, not the words.
+    "authority-grab": [
+        r"^\s*the (reality|truth|fact( of the matter)?) is that\b",
+        r"^\s*what this (really )?means is\b", r"\bmake no mistake\b", r"\blet'?s be clear,",
     ],
 }
 # Wordy phrase -> shorter equivalent.
@@ -180,6 +193,10 @@ def register_warnings(path: Path):
         if METAPHOR_RE.search(text):
             warnings.append((lineno, "register/metaphor",
                              "'ladder'/'rung' is repo scaffolding — name the thing in prose for the reader"))
+        if TRICOLON_RE.search(text):
+            warnings.append((lineno, "register/tricolon",
+                             "three escalating impact-verb clauses (reflexive tricolon) — a lead, not a gate; "
+                             "the auditor judges whether it is hype or a real list (SC-VOICE-06 is RUB)"))
     return warnings
 
 
@@ -208,15 +225,91 @@ def collect_warnings(path: Path):
     return sorted(ws)
 
 
+def _selftest() -> int:
+    """DET voice scenarios (SC-VOICE-06/07/08/09 MUST hard-flag) + precision guards (MUST NOT)."""
+    import tempfile
+    ok = True
+
+    def hard_findings(text: str):
+        with tempfile.NamedTemporaryFile("w", suffix=".tex", delete=False, encoding="utf-8") as fh:
+            fh.write(text)
+            p = Path(fh.name)
+        try:
+            return lint_file(p, max_emdash=0)
+        finally:
+            p.unlink(missing_ok=True)
+
+    def expect(name, text, want_flag, cat=None):
+        nonlocal ok
+        fnd = hard_findings(text)
+        flagged = len(fnd) > 0
+        cat_hit = cat is None or any(c == cat for _, c, _ in fnd)
+        good = (flagged == want_flag) and (cat_hit if want_flag else True)
+        print(("  ok: " if good else "  SELFTEST FAIL: ") + name
+              + ("" if good else f" -> want={want_flag} cat={cat}, got {[(c) for _, c, _ in fnd]}"))
+        ok = ok and good
+
+    def soft_cats(text: str):
+        with tempfile.NamedTemporaryFile("w", suffix=".tex", delete=False, encoding="utf-8") as fh:
+            fh.write(text)
+            p = Path(fh.name)
+        try:
+            return [c for _, c, _ in register_warnings(p)]
+        finally:
+            p.unlink(missing_ok=True)
+
+    # DET voice scenarios that ARE hard — MUST hard-flag.
+    expect("SC-VOICE-07 em-dash join",
+           "The encoding model fits well --- the alignment signal holds across subjects.", True, "em-dash")
+    expect("SC-VOICE-08 authority-grab",
+           "The reality is that linear probing of middle layers captures a non-trivial fraction of variance.",
+           True, "authority-grab")
+    expect("SC-VOICE-09 lexical tells",
+           "This work delves into the nuanced relationship, showcasing a comprehensive framework.", True, "jargon")
+    # SC-VOICE-06 tricolon is SOFT (RUB-owned): MUST NOT hard-flag, but MUST raise a soft lead.
+    voice06 = "A finding that unlocks three downstream applications, solves the calibration bottleneck, and opens a new direction."
+    expect("SC-VOICE-06 tricolon not-hard", voice06, False)
+    tri_soft = "register/tricolon" in soft_cats(voice06)
+    print(("  ok: " if tri_soft else "  SELFTEST FAIL: ") + "SC-VOICE-06 raises a soft tricolon lead"
+          + ("" if tri_soft else f" -> got {soft_cats(voice06)}"))
+    ok = ok and tri_soft
+    # Precision guards — MUST NOT hard-flag.
+    expect("legit adjective triple", "The model is fast, accurate, and interpretable.", False)
+    expect("neutral method sequence",
+           "We trained the probe, evaluated it on held-out folds, and reported the result.", False)
+    expect("two-impact-only (not a tricolon)",
+           "Our method enables faster training and improves accuracy.", False)
+    # SC-VOICE-16: a legitimate Methods triple with dual-use impact verbs MUST NOT hard-flag (the demotion's point).
+    expect("SC-VOICE-16 legit Methods triple",
+           "The probe enables decoding, achieves high accuracy, and establishes a baseline.", False)
+    # SC-VOICE-18: authority-grab FP — "the truth is rarely simple" is not the "is that" opener.
+    expect("SC-VOICE-18 authority-grab FP",
+           "The truth is rarely simple, and our 0-for-5 null reflects that complexity.", False)
+    expect("authority-grab FP 'the fact is well established'",
+           "The fact is well established in prior work that linear maps exist.", False)
+    expect("SC-VOICE-13 target register",
+           "We extracted token representations from the middle layers of Qwen2.5-0.5B using ridge regression.", False)
+    expect("SC-VOICE-12 legit passive",
+           "Voxel responses were recorded while subjects listened to the stories.", False)
+    print("ai_tell_lint selftest: " + ("PASS" if ok else "FAIL"))
+    return 0 if ok else 1
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Anti-AI-tell linter for scientific prose.")
-    ap.add_argument("files", nargs="+", type=Path)
+    ap.add_argument("files", nargs="*", type=Path)
+    ap.add_argument("--selftest", action="store_true", help="run embedded DET voice-scenario asserts")
     ap.add_argument("--max-emdash", type=int, default=0,
                     help="em-dash budget per file (default 0: em-dashes are banned in this repo's prose)")
     ap.add_argument("--quiet", action="store_true", help="only print on findings")
     ap.add_argument("--no-warn", action="store_true",
                     help="suppress the soft register/passive warnings (heuristic, exit-neutral)")
     args = ap.parse_args(argv)
+
+    if args.selftest:
+        return _selftest()
+    if not args.files:
+        ap.error("no files given (or use --selftest)")
 
     total = 0
     warn_total = 0
@@ -235,14 +328,12 @@ def main(argv=None):
         elif not args.quiet and not warnings:
             print(f"{path}: clean")
         if warnings:
-            print(f"\n{path}  ({len(warnings)} soft warning(s) — heuristic; the prose-register-auditor "
-                  f"is the real gate):")
+            print(f"\n{path}  ({len(warnings)} soft warning(s) — heuristic; the fresh reviewer judges these):")
             for lineno, cat, msg in warnings:
                 print(f"  {path}:{lineno}: [{cat}] {msg}")
             warn_total += len(warnings)
     if warn_total:
-        print(f"\nai_tell_lint: {warn_total} soft warning(s) (register/passive). These do not fail the "
-              f"gate; route the draft through the prose-register-auditor.")
+        print(f"\nai_tell_lint: {warn_total} soft warning(s) (register/passive). These do not fail the gate; route the draft through one fresh independent review.")
     if total:
         print(f"\nai_tell_lint: {total} finding(s). Fix silently, then re-run.", file=sys.stderr)
         return 1

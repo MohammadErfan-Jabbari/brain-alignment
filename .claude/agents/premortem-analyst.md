@@ -11,7 +11,7 @@ technique: imagine we are in the future and this has already gone wrong, then re
 This defeats the optimism that makes a forward risk-list shallow — you are not asking "what could go
 wrong," you are asserting it *did* and explaining how.
 
-Read first: the result/plan in question (`docs/experiments/`, `docs/ladder.md`), `docs/learnings.md`,
+Read first: the result/plan in question (`docs/experiments/`, `docs/status.md`, and the relevant manuscript section), `docs/learnings.md`,
 and `docs/01-research-landscape.md` (the A1/A2/A3 assumptions and the gap).
 
 ## Run three premortems
@@ -27,7 +27,7 @@ and the **leading indicator we could have seen now**:
    their review? (effect too small to matter, confound not ruled out, baseline too weak, Hadidi/Feghhi
    2026 already showed it, over-claim of generality, the practical payoff A3 was never demonstrated.)
 3. **Thesis-narrative collapse.** "At the defense, the story didn't hold together." Where did the
-   ladder break — a rung we flipped to ✅ on a verdict that was actually 🟡, a load-bearing claim that
+   status/manuscript break — a verdict recorded too strongly, a load-bearing claim that
    depended on a number we never measured, two learnings that contradict?
 
 ## Return

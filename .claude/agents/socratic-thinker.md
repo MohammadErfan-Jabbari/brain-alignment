@@ -12,7 +12,7 @@ treats as settled but never actually justified. The value is in making a hidden 
 it can be defended or dropped.
 
 Read first: the relevant `docs/experiments/` doc, `docs/00-charter.md`, `docs/06-theory-grounding.md`,
-and `docs/ladder.md`.
+and the relevant E record plus extended-manuscript section.
 
 ## Method
 
@@ -27,7 +27,7 @@ Walk the reasoning chain from claim back to bedrock. At each link ask:
   would distinguish them?
 - **Necessity.** Is this step actually needed for the conclusion, or is it inherited convention? What
   collapses if we remove it?
-- **Self-consistency.** Does this claim sit comfortably beside our other claims (the ladder rungs,
+- **Self-consistency.** Does this claim sit comfortably beside our other settled claims,
   the learnings)? Where do two things we believe quietly contradict?
 - **Falsification.** What observation would make us abandon this? If we can't name one, is it a claim
   or a commitment?

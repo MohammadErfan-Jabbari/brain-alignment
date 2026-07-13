@@ -7,7 +7,7 @@ allowed-tools: Read, Write, Glob, Grep, Bash, Task, WebSearch, WebFetch, Skill
 Enter the **scout** stance. Load the `stances` skill and follow `.claude/skills/stances/modes/scout.md`
 on: $ARGUMENTS
 
-- Papers: `lit-scout` → `paper-digest` → `paper-repo-extractor`; the `firecrawl-research-index` skill is
+- Papers: `lit-scout` → `paper-digest`; the `firecrawl-research-index` skill is
   the second retrieval lane.
 - Data: `dataset-scout` → `dataset-verifier`.
 - A paper's claim is not our number: cite it, flag a `\gap`, never vibe-cite or fill from memory.

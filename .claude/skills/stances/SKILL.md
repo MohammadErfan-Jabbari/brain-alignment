@@ -1,92 +1,46 @@
 ---
 name: stances
 description: >-
-  The operating model for this repo. Work in interaction STANCES, invoked at any moment and switched
-  freely. Eight stances (work, interpret, write, teach, scout, meta, plan, review), each setting a tone,
-  an autonomy level, and a set of procedures over one shared scientific-honesty spine. Auto-activates
-  when intent matches a stance ("teach me X", "walk me through the Qi report", "is this verdict real",
-  "digest this result", "find papers on X", "what should we run next") and STATES which stance it
-  entered so the user can redirect. Explicit /teach /interpret /write /scout /meta /plan /review force a
-  stance; /work is explicit-only and never auto-fires.
+  Lightweight operating vocabulary for this repo: work, interpret, write, teach, scout, plan, review,
+  and meta. Auto-activate on matching intent and state the stance; /work remains explicit-only.
 ---
 
 # Interaction stances
 
-This repo runs by interaction stance, not by session type. There is no "working vs analysis" label
-(that split is retired, D044). At any moment you are in one stance; you may switch as the work turns.
-A stance fixes three things, plus one it does not touch:
+State the active stance in one line and switch when the work changes. Stances set behavior; they do not create separate truth stores or mandatory artifacts.
 
-- **tone and autonomy** (how the agent talks and how far it runs unattended),
-- **the procedures** it auto-arms,
-- **the honesty standard** it is held to,
-- and NOT the fabrication guard: that is armed at write-time, independent of any stance (see below).
-
-## The stances (the operating map)
-
-| Stance | What it does | Autonomy | Touches a number? | Mode file (wraps) |
-|---|---|---|---|---|
-| `/work` | produce evidence: lock a design, run it, judge it, record it | high (long `/goal` runs) | yes, produces | `modes/work.md` (precheck + goalsmith + ritual) |
-| `/interpret` | turn recorded evidence into an adjudicated verdict | medium | yes, adjudicates | `modes/interpret.md` |
-| `/write` | turn settled findings into report or manuscript prose | low-medium | reports them | `modes/write.md` (sci-write-v2) |
-| `/teach` | transfer understanding of any subject (concept, report, file, experiment, paper, question) into the user's head | low, conversational | reads them | `modes/teach.md` |
-| `/scout` | bring external literature and data into the brain | medium | external evidence | `modes/scout.md` (lit-scout / dataset-scout / paper-digest) |
-| `/meta` | build or maintain the apparatus (tooling, methodology, records) | variable | no | `modes/meta.md` |
-| `/plan` | set direction: roadmap, kill-gate triage, what to run next | medium | no | `modes/plan.md` |
-| `/review` | critique a result, claim, or design on demand | medium | no | `modes/review.md` (panel + Codex) |
-
-The vertical seam is whether the stance **touches a science number**. `/work` and `/interpret` are
-truth-producing (the strict standard below applies). `/write`, `/teach`, `/scout` report or consume
-numbers (cite-or-flag applies). `/plan` and `/meta` touch no number.
-
-The human-facing version of this map (how to operate day to day) is `docs/operating-map.md`.
+| Stance | Job | Boundary |
+|---|---|---|
+| `/work` | lock, run, and record evidence | explicit-only; produces numbers in E records |
+| `/interpret` | recompute and adjudicate recorded evidence | proposes a verdict; does not invent data |
+| `/write` | put settled claims directly into the extended manuscript | reports evidence; does not adjudicate it |
+| `/teach` | transfer understanding from repo sources | produces no scientific truth |
+| `/scout` | retrieve external papers or datasets into canonical records | external evidence only |
+| `/plan` | choose direction | no numbers produced or adjudicated |
+| `/review` | stress-test a result, claim, design, or manuscript | read-only judgment by default |
+| `/meta` | build, simplify, or repair apparatus | no science adjudication |
 
 ## Invocation
 
-- **Explicit** `/teach`, `/interpret`, `/write`, `/scout`, `/meta`, `/plan`, `/review` force that stance.
-- **Auto** otherwise: when the user just talks, infer the stance from intent, **state it in one line**
-  ("Entering /teach on R07. Say otherwise to redirect."), then proceed. Never enter a stance silently.
-- **`/work` is explicit-only.** A heavy autonomous run never auto-fires from a passing remark.
-- **Switching mid-session is normal.** When the work turns (a teach session hits a hole that needs a
-  run, a write pass needs a verdict first), state the switch in one line and continue.
+- Explicit `/teach`, `/interpret`, `/write`, `/scout`, `/meta`, `/plan`, and `/review` force the stance.
+- Otherwise infer from intent, state the stance, and proceed.
+- `/work` never auto-fires from a passing remark.
+- Switching mid-session is normal; state the switch.
 
-## The honesty spine (shared, non-negotiable, stance-independent)
+## Honesty spine
 
-The thesis rests on never inventing a result. That guard does not depend on which stance is active:
-
-- **A number is born in a working session and recorded in `docs/`** (`experiments/`, `learnings.md`,
-  `ladder.md`, `decisions/`). No stance may state a result a working session did not record.
-- **A needed-but-missing number is a `\gap`, never a guess.** Flag it; do not estimate, round, or
-  infer it from a stand-in.
-- **The actuator is a write-time hook**, not stance prose. Any write to `docs/reports/` or
-  `docs/manuscript/` (the prose deliverables that use the inline-cite convention) runs the D011 check
-  (the always-on `.claude/hooks/honesty_writecheck.py`); a result-like number with no cite is flagged.
-  The flag fires no matter the stance, so it cannot be skipped by mislabeling the work. The `/wrap`
-  number-provenance audit is the backstop. (The ladder/learnings/experiments docs reference results by
-  bare code and are not checked this way — L052.)
-
-Each truth-producing stance also carries its own **standard** (the threshold it must clear), which is a
-judgment obligation, not the fabrication guard:
-
-- `/work`: kill criteria locked before the run, contiguous splits, nuisance baselines, ≥3 seeds,
-  numbers reported with uncertainty and the named test.
-- `/interpret`: adjudication uses the strict standard, never loose analysis. Re-judging a recorded
-  number is `/work`-grade, not casual reading.
+- Scientific numbers originate in `/work` and are recorded in an owning E record.
+- A missing number is a `\gap`, never a guess or synthetic stand-in.
+- The extended manuscript reports only recorded evidence with `\evd{Ennn}` or keyed `\result{...}` provenance.
+- A contradiction found during writing routes upstream to `/interpret`; set `docs/status.md` to `manuscript-sync-pending` until resolved and synchronized.
+- `/work` locks kill criteria, controls, splits, inference units, and at least three seeds before compute.
+- `/interpret` independently recomputes load-bearing statistics and uses fresh adversarial review before a verdict is settled.
 
 ## Routing
 
-Each stance has a deep mode file in `modes/`. Enter the stance (explicitly, or by stated inference),
-then follow its file:
+Read the matching file under `modes/`:
 
-- `/teach` → `modes/teach.md` · `/interpret` → `modes/interpret.md` · `/write` → `modes/write.md`
-- `/work` → `modes/work.md` · `/scout` → `modes/scout.md` · `/review` → `modes/review.md`
-- `/plan` → `modes/plan.md` · `/meta` → `modes/meta.md`
+- `work.md`, `interpret.md`, `write.md`, `teach.md`
+- `scout.md`, `plan.md`, `review.md`, `meta.md`
 
-The six files other than teach and interpret are thin: each states the stance's standard and routes to
-the existing agents, commands, or skill that do the work.
-
-## References
-
-- `formats/learning-record.md`: the curated mastery-record template (read before writing a record).
-- `formats/lesson-format.md`: the lesson (rendered whiteboard) template + the `render_lesson.py` render command.
-- `docs/operating-map.md`: the human-facing operating picture.
-- `docs/03-methodology.md`: the canonical definition of the stance model and the deliverable layers.
+The authority contract is [`docs/03-methodology.md`](../../../docs/03-methodology.md); current operations are in [`docs/status.md`](../../../docs/status.md).

@@ -1,1 +1,0 @@
-{"id": "SC-EX-2511-6", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - specific numbers, robustness check inline", "raw": "FIDELITY-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "1a911e5b0863"}

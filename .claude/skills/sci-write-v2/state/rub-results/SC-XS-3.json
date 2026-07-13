@@ -1,1 +1,0 @@
-{"id": "SC-XS-3", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "caption says across all benchmarks but figure shows only 2 of 5 (caption>figure)", "raw": "SCOPE-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "a691ea349be4"}

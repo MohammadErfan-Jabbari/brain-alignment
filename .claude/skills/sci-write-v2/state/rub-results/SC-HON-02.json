@@ -1,1 +1,0 @@
-{"id": "SC-HON-02", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "scope>evidence: positive OOD benefit claimed on a powered 0-for-5 null", "raw": "SCOPE-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "6c7496693085"}

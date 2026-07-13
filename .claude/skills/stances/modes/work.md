@@ -13,7 +13,7 @@ with its uncertainty and the named test. (Methodology non-negotiables, `docs/03-
 
 1. **Design → gate.** Run `/precheck`: `anti-confound-designer` assembles the control battery, then
    `oracle-reviewer` gates it to `READY-TO-RUN`. No compute before PASS.
-2. **Goal.** Run `/goalsmith <item>` to build the single-line `/goal` completion condition, then run it.
+2. **Goal.** State a bounded completion condition that points to the owning E record, then run it.
 3. **Run.** Long runs are background processes (`uv run`; `HF_HOME` set; 4x L40S, single node). Keep raw
    evidence in `experiments/*.md` separate from interpretation. Record the *why* of each non-obvious
    design choice at choice-time (D037), so the writing layer can cite it rather than invent it.
@@ -22,5 +22,4 @@ with its uncertainty and the named test. (Methodology non-negotiables, `docs/03-
 
 ## Boundary
 
-Produces and records numbers. It does not adjudicate the rung verdict (that is `/interpret`, and the
-flip is Erfan's) and does not write the report (that is `/write`).
+Produces and records numbers. It does not adjudicate the verdict (that is `/interpret`) or write manuscript prose (that is `/write`).

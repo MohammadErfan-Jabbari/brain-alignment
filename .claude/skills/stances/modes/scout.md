@@ -7,8 +7,7 @@ Design.
 ## The procedure (route to the existing agents)
 
 - **Papers:** `lit-scout` (find and rank a shortlist; sonnet to gather, opus to judge relevance) →
-  `paper-digest` (a canonical note in `docs/literature/canonical/`, opus) → `paper-repo-extractor`
-  (mechanical repo facts, haiku, fan-out). The `firecrawl-research-index` skill is the second retrieval
+  `paper-digest` (a canonical note in `docs/literature/canonical/`, opus). Inspect associated code and checkpoints directly when needed. The `firecrawl-research-index` skill is the second retrieval
   lane (semantic search + citation-graph expansion + in-body verify).
 - **Data:** `dataset-scout` (find and characterize a candidate) → `dataset-verifier` (confirm it is
   actually usable on disk before any run depends on it).

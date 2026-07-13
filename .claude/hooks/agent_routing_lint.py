@@ -15,7 +15,7 @@ OPUS_AGENTS = {
     "stat-aggregation-auditor", "anti-confound-designer", "paper-digest",
 }
 # Exempt (task-dependent / lower tier): lit-scout, dataset-scout (sonnet to gather),
-# dataset-verifier + session-logger (sonnet), paper-repo-extractor (haiku).
+# dataset-verifier (sonnet); use haiku only for truly mechanical extraction.
 
 
 def main() -> int:

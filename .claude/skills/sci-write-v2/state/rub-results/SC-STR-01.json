@@ -1,1 +1,0 @@
-{"id": "SC-STR-01", "result": {"ready_to_ship": false, "findings": 3, "finding_text": "no point sentence; old-new inverted for an ML reader; CCC context+conclusion absent", "raw": "STRUCTURE-VERDICT: {\"ready_to_ship\": false, \"findings\": 3}"}, "input_hash": "2c6291d00514"}

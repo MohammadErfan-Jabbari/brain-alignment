@@ -1,424 +1,119 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working in this repository.
-
 # brain-alignment — MSc thesis research repo
 
-This repo is the execution home for Erfan's master's thesis (ML for Health, UC3M) on **using the
-linear mapping between LLM middle layers and brain activation as a usable signal** — with
-**brain-alignment-guided distillation** as the first concrete use case. It is a single-paper research
-workspace, not a software product.
+This repository is the execution and writing home for Erfan’s thesis on whether the linear mapping between LLM middle layers and human brain activation is a usable signal, with brain-alignment-guided distillation as the main test case. It is a single-paper research workspace, not a software product.
 
-## Interaction stances — invoke one, switch freely
+## Read first
 
-Work in this repo runs by **interaction stance**, not by session type. The old working/analysis split is
-retired (D044, supersedes D011). At any moment you are in one stance; **state the stance you are in** and
-switch as the work turns. Eight stances, each setting a tone, an autonomy level, and the procedures it
-arms, over one shared honesty spine. Mechanics: the `stances` skill (`.claude/skills/stances/`).
-Day-to-day picture: `docs/operating-map.md`.
+1. [`docs/status.md`](docs/status.md): operational state, blockers, and at most five next actions.
+2. Follow only the E-record and extended-manuscript links needed for the active action.
+3. Use [`docs/repo-orientation.md`](docs/repo-orientation.md) when entering cold.
+4. Use [`docs/03-methodology.md`](docs/03-methodology.md) for the authority and evidence contract.
 
-| Stance | Does | Touches a number? |
-|---|---|---|
-| `/work` | produce evidence (Design → Run → Judge); high-autonomy `/goal` runs; **explicit-only** | yes, produces |
-| `/interpret` | turn a recorded result into an adjudicated verdict (claim-manifest + panel) | yes, adjudicates |
-| `/write` | turn a finding into report/manuscript prose (the `sci-write-v2` pipeline) | reports them |
-| `/teach` | transfer understanding of any subject (concept, report, file, experiment, paper, question) into Erfan's head (guided-learning, rendered) | reads them |
-| `/scout` | bring external papers/data in (`lit-scout`/`dataset-scout`/`paper-digest` → canonical notes) | external |
-| `/plan` | set direction: roadmap, kill-gate triage, what to run next | no |
-| `/review` | stress-test a result/claim/design (the thinking panel + Codex on demand) | no |
-| `/meta` | build or maintain the apparatus (tooling, methodology, records) | no |
+## Four authorities
 
-`/work` and `/interpret` are truth-producing and carry the strict standard (kill criteria, contiguous
-splits, ≥3 seeds; strict adjudication). `/write`, `/teach`, `/scout` report or consume numbers under
-cite-or-flag. `/plan`, `/meta` touch none. Auto-activation states the stance so you can redirect; only
-`/work` is explicit-only.
-
-The non-negotiable that binds all of them: **a number is born in a `/work` session and recorded in
-`docs/`; no stance may state a result a working session did not record; a needed-but-missing number is a
-`\gap` to flag, never invented or estimated.** This is armed by a **write-time hook** (D044), not by
-memory: writes to `docs/reports/` and `docs/manuscript/` (the prose deliverables that use the
-inline-cite convention) are checked regardless of stance, and the `/wrap` provenance audit is the
-backstop. Raw evidence stays separate from interpretation.
-
-**The three written deliverable layers (D035).** Written prose lands in one of three layers, not one
-document: **reports** (`docs/reports/*.md`, Markdown) are the *continuous* single-topic synthesis layer
-you write as work happens; the **extended manuscript** (`docs/manuscript/extended/`, LaTeX) is the
-internal master (always-current paper body + append-only checkpoint log); the **public manuscript**
-(`docs/manuscript/public/vN/`, LaTeX) is a frozen submission cut compressed from the extended. Knowledge
-flows down only. **Route all report and manuscript writing through the `sci-write-v2` pipeline (D048, cut
-over from `scientific-writing` at S43/P3), and never auto-update the extended or public manuscript — they
-are rebuilt only at a checkpoint Erfan explicitly calls.** Full spec: `docs/03-methodology.md`
-("Deliverable layers"); skill: `.claude/skills/sci-write-v2/` (the old `scientific-writing/` is tombstoned,
-kept ~1 week as a rollback window).
-
-## Read this first, every session
-
-0. `docs/ladder.md` — **the canonical status board: which rungs are done, with what verdict, and the
-   single next step (impl or analysis). This is the source of truth for project state — when any doc
-   disagrees with it, it wins and the others get fixed.** With no specific task, run `/orient` (it reads
-   the board and briefs you). **The code system and the whole journey-as-a-tree live in `docs/map.md`** —
-   read it if the rung codes or the path lose you: **Q**n = ladder rung / research question (Q0–Q5, in climb
-   order), **E**nnn = experiment (the evidence), **A**1–A3 = the three assumptions, **D**nnn = decision,
-   **L**nnn = learning. Rungs were renamed **L→Q** in execution order on 2026-06-15 (D036); learnings stay
-   **L**, and pre-2026-06-15 timeline logs keep the old L labels (`map.md` has the L↔Q table).
-1. `docs/upspeed.md` — last-session prose: what ran, blockers, key facts.
-2. `docs/tasks.md` — the granular backlog behind and ahead.
-3. `docs/repo-orientation.md` — compact filesystem/evidence map for agents entering the repo from a cold start.
-4. `memories/AGENTS.md` — repo-local mirror of Claude's saved collaboration/prose memories; use these for behavior, not for evidence.
-5. Then the relevant deep doc: `docs/00-charter.md` (idea/scope), `docs/01-research-landscape.md`
-   (literature + the gap), `docs/02-environment.md` (compute/data/how-to-run),
-   `docs/03-methodology.md` (how we work and why).
-
-`docs/` is the persistent research brain — see `docs/AGENTS.md` for the full map. If something
-matters past this session, it goes in `docs/`, not just in chat.
-
-**Folder `AGENTS.md` files are live autoload contracts.** The root `AGENTS.md` is a symlink to this file; subfolder
-`AGENTS.md` files carry the local map, conventions, commands, and traps an agent should load when working there.
-Keep them current continuously: whenever you change a folder's structure, workflow, run commands, evidence rules,
-or recurring gotchas, update the nearest relevant `AGENTS.md` in the same change. Do not create non-root
-`README.md` files; root `README.md` is the only README. During `/wrap`, explicitly check whether any changed folder's
-`AGENTS.md` is now stale, and fix it or record the follow-up.
-
-**`.agents/` is a minimal compatibility layer, not a second apparatus.** See `.agents/AGENTS.md`.
-For now it only exposes `.agents/skills -> .claude/skills` and `.agents/agents -> .claude/agents`.
-If `.claude/skills` or `.claude/agents` changes shape, keep the symlinked `.agents` surface valid in
-the same change. Do not map commands, workflows, hooks, or settings into `.agents/` until Erfan asks
-for that step explicitly.
-
-**Three external sources feed the thesis — use them, don't re-derive from them:** (1) the **papers**
-(`docs/literature/canonical/`, frontier map in `01-research-landscape.md`); (2) the **datasets**
-(`04-data-benchmarks.md`, `05-dataset-registry.md`); (3) Erfan's **master's coursework** in Information
-Theory for ML and Probabilistic ML, mapped to the thesis in **`docs/06-theory-grounding.md`**. The
-coursework is the math grounding: when a claim needs a formal bound/definition/theorem (the MI
-generalization bound, the data-processing inequality, conditional MI = "unique R²", rate-distortion =
-the F1 trade-off curve), cite the course note via `06-theory-grounding.md` instead of re-deriving it.
-Raw notes live under gitignored `data/course-material/` (already preprocessed — **do not re-OCR the
-lecture PDFs**; the `*_study.md`/`*_OCR.md` notes beat any fresh OCR pass).
-
-**Reports (`docs/reports/`) are written full width — one line per paragraph, no hard wrapping.**
-
-## Markdown & Obsidian conventions (the container layer)
-
-This repo is **both a GitHub repo and an Obsidian vault**, and every `.md` file must render in both.
-All Markdown *structure* follows the canonical spec [`docs/references/obsidian-conventions.md`](docs/references/obsidian-conventions.md):
-YAML frontmatter (`title` / controlled-vocab `tags` / `aliases` carrying the `Qn/Ennn/Dnnn` code
-handle), **standard relative Markdown links — never `[[wikilinks]]`** (they break GitHub; standard
-links make the same Obsidian graph edges), hub-note + `## Related`-footer linking, and **only the 5
-GitHub-compatible callouts** (`[!NOTE] [!TIP] [!IMPORTANT] [!WARNING] [!CAUTION]`). Obsidian syntax
-questions route to the `obsidian-*` skill set (`obsidian-markdown`, `obsidian-bases`, `json-canvas`,
-`obsidian-cli`, `defuddle`) — but the spec **overrides** the skill's wikilink default for the reasons
-above.
-
-**The boundary that matters:** this is the *container*. `/write` (`sci-write-v2`) owns the *prose
-body* of reports/manuscript — the argument, the claim↔evidence binding, the `[E0nn]` cites, every
-number. **Structure from the conventions; words from `/write`.** The two never overlap, and the
-`[E0nn]` cites / numbers are never rewritten into links. (`.tex` files are LaTeX — the Obsidian
-conventions do not apply; only `/write` does.)
-
-## How we run code
-
-- **Always `uv run`.** This is a minimal uv project (Python 3.11, `.venv/`, `[tool.uv] package=false`
-  — no `src/` scaffolding). Add libraries with `uv add <pkg>` as the work demands.
-- Set `export HF_HOME=/home/centcom/data/hf-cache` to reuse cached models (Qwen2.5 0.5–7B, GPT-2
-  family, pythia-1b).
-- torch is pinned to the cu128 wheel index (already in `pyproject.toml`). 4× L40S available; single
-  node, no Slurm/Docker/tmux — long runs are background processes.
-- Heavy artifacts go under `data/` and `outputs/` (gitignored), never on the overlay root.
-
-## How we do research (the spine, kept light)
-
-Follow the epistemic path in `docs/03-methodology.md`: Notice → Commit → Map → **Claim** → **Design**
-→ **Run** → **Judge** → Argue → Compound. The non-negotiables:
-
-- Multiple competing hypotheses, not one cherished one. **Kill criteria predeclared.**
-- **Lock the design before running** (baselines at matched budget, controls, seeds, stop rule).
-- Keep raw evidence separate from interpretation.
-- **Specific numbers with uncertainty and the named test.** "Δ = +0.06 ± 0.01, n=3, contiguous
-  split" — never "it worked better." ≥ 3 seeds for stochastic experiments.
-- Anti-confound is mandatory for any brain-alignment number (Feghhi/Oota): contiguous splits,
-  nuisance baselines, gains shown after confound subtraction. See `docs/learnings.md` L003.
-- Root cause, not symptom. Strongest baseline, never a strawman.
-
-Use the repo's **reasoning toolkit** (`docs/references/reasoning-frame.md`) when designing or deciding:
-the **Elon/Feynman/Naval** frame (real goal + delete false constraints; plain mechanism + where it breaks;
-smallest durable change that compounds), and the **estimand-first** lens for any question resting on a
-measurement (name the estimand, the estimator, and the identifying assumption that ties them; ask whether a
-dependence is real or common-cause). **The toolkit is living: when a new way of approaching a problem proves
-itself on real work, record it there as a named lens (name + alternative names, when to reach for it, a
-worked instance from our own work, and where its detailed form lives) — adding one only when it recurs or
-clearly generalizes, and pruning what stops earning its keep.**
-
-## Working with Erfan
-
-- Direct, no ceremony. **Challenge when there are grounds** — don't agree by default; if he's wrong,
-  say so and why. Prompts may have typos; infer intent.
-- Simple/single-step → just do it. Complex/vague/risky → plan first, then go. If we discussed the
-  plan this session, proceed freely.
-- **Stop-hook / autonomous re-fires are not fresh intent (L031).** When an automated hook re-injects a
-  standing "keep going" prompt, treat it as *continuation only until a newer explicit user instruction
-  supersedes it.* Erfan's most recent explicit message wins over the auto-re-fire — on an explicit
-  "wrap up / stop", wrap even if the hook keeps firing. The autonomous mandate is real but bounded by
-  the last direct human instruction.
-
-## Presentation — make answers easy to read
-
-Format for the eye, functionally, scaled to the turn (a one-line answer needs none of this):
-
-- **Whitespace and short paragraphs** over walls of text; break a long uniform run with a short line.
-- **Tone:** plain and direct (the global voice); no decoration, no filler enthusiasm.
-- **Tables** when three or more things are compared across the same dimensions, instead of a list the
-  reader has to assemble mentally.
-
-This is presentation, not voice (the voice rules are global). Formatting earns its place by aiding the
-read, never as ornament.
-
-## Git — commit continuously and atomically
-
-The repo is a git repo on `main`. **Commit every meaningful step as its own scoped, atomic commit**
-with a proper conventional-commit message (`docs:`, `feat(agents):`, `chore:`, …) so the git history
-is a granular, inspectable record of file changes. Don't batch unrelated changes into one commit;
-don't let work pile up uncommitted. (Decision D007.)
-
-This is **in addition to, not a replacement for, the docs record.** Always keep recording decisions
-in `docs/decisions/decisions.md` and writing a `docs/timeline/` log each session — docs carry the
-*why*, git carries the *what/when*.
-
-Rules (unchanged): scoped staging only — never `git add -A`/`.`; stage explicit paths; no `--amend`
-(prefer a new commit); no destructive ops without explicit approval. **At session close, after the
-wrap commit(s) land, push the committed work to `origin` unless Erfan explicitly says not to or the
-push is blocked.**
-
-## Subagents (`.claude/agents/`)
-
-| Agent | Use when |
+| Question | Authority |
 |---|---|
-| `lit-scout` | Search across sources for papers on a topic; return a ranked, deduped shortlist. (sonnet to gather / opus to analyze a specific paper) |
-| `paper-digest` | Read a paper (PDF/arXiv/URL) → a canonical note in `docs/literature/canonical/`. (opus) |
-| `oracle-reviewer` | Adversarially stress-test a hypothesis or design **before** committing compute (PASS/HOLD/KILL). Reproduces the prior HOLD-review value. (opus) |
-| `session-logger` | At session end: write `docs/timeline/…`, REPLACE `docs/upspeed.md`, update `tasks.md`/`learnings.md`. (sonnet) |
-| `wrap-auditor` | One read-only audit scope at session close, fanned out in parallel by `/wrap` on a heavy session; returns structured findings for the orchestrator to verify and apply. Never writes, never flips a rung. (sonnet; `ladder-integrity` scope → opus only when an experiment ran). D038. Now also invocable standalone mid-session with a single scope. |
-| `stat-aggregation-auditor` | AFTER a multi-seed/arm run, re-compute the load-bearing contrast (within-seed vs pooled, bootstrap-unit, P-construction) — the run-then-judge stats check `counter-argument` only names. (opus) |
-| `anti-confound-designer` | BEFORE oracle: assemble the locked control battery (nuisance / splits / matched-ppl / the 5-control battery) from `docs/references/confound-catalog.md`. (opus) |
-| `dataset-verifier` | Mechanical data-readiness — response matrix present? shape? voxel mapper? timestamps? annex pulled? — to prevent mid-run walls. (sonnet) |
-| `dataset-scout` | Find/characterize a new dataset (access / format / pipeline / prior-use); the dataset mirror of `lit-scout`. (sonnet to gather / opus to analyze) |
-| `paper-repo-extractor` | One paper's repo → mechanical data/code/checkpoint/license extraction; built for fan-out. (haiku) |
-| `prose-register-auditor` | Read a draft (report/manuscript) for the scientific-register tells the linter can't catch — anthropomorphized abstractions, self-narrated moves, internal-metaphor leakage, dramatized framing, reflex passive density. **Superseded by `sw-voice-auditor` (F12) in the `sci-write-v2` pipeline (D048/S43); this is the original D046 voice reader, kept while the old flow is tombstoned.** The dedicated voice reader (vs the panel, which attacks the claim). Read-only; never edits. (sonnet; D046/L054) |
+| What was run and what did it produce? | `docs/experiments/ENNN_*.md` plus retained load-bearing artifacts |
+| What does the thesis currently conclude? | `docs/manuscript/extended/` |
+| Where are we and what happens next? | `docs/status.md` |
+| Why did the project change? | decisions, learnings, selected consequential timelines, and Git |
 
-The **`/precheck`** command (anti-confound-designer → oracle-reviewer → READY-TO-RUN) is the pre-compute gate; the full fleet rationale + the §4 thinker-prompt alignment live in `docs/references/agent-fleet-redesign.md`.
+No report layer, alternate status board, claim database, artifact registry, dashboard, or routine timeline is authoritative. Public manuscript cuts are immutable. An interrupted upstream correction sets `manuscript-sync-pending` until the extended manuscript is synchronized.
 
-**The thinking panel** (D017) — four reasoning-methodology agents run *after a step produces a result/
-verdict*, to find holes before the verdict lands in the ladder/docs/manuscript. Distinct from
-`oracle-reviewer` (a *pre-compute* design gate); these are *post-step* analysts. The loop: run the
-panel → verify each objection against the data → address the ones that hold → re-run the panel until no
-hole survives.
+## Interaction stances
 
-| Agent | Lens | Use when |
-|---|---|---|
-| `counter-argument` | Red-team the conclusion — build the strongest case it's an artifact/over-claim. (opus) | A run produced a verdict; before believing it. |
-| `socratic-thinker` | Expose hidden assumptions and undefined terms by asking, not asserting. (opus) | A direction feels settled too quickly; before locking a framing. |
-| `premortem-analyst` | Assume it already failed (didn't replicate / rejected / defense collapsed); trace backward. (opus) | Before building heavily on a result or spending the next compute. |
-| `first-principles-grounder` | Re-derive from mechanism + the math/papers (`06-theory-grounding.md`, canonical notes, course material). (opus) | A claim needs a mechanism, leans on a theorem, or might contradict a source. |
+State the active stance and switch when work changes. The `stances` skill owns details.
 
-Model routing (Erfan's rule, set 2026-06-13; **fable is banned/removed — never select it**):
-**opus** for anything that needs THINKING, ANALYSIS, or DESIGN — the thinking panel (`counter-argument`,
-`socratic-thinker`, `premortem-analyst`, `first-principles-grounder`), `oracle-reviewer`, `stat-aggregation-auditor`, `anti-confound-designer`, and `paper-digest`
-(comprehending + synthesizing a paper is analysis), and any experiment-design subagent. **`lit-scout` and
-`dataset-scout` are TASK-dependent (Erfan, S24): sonnet for gathering / breadth, opus only when judging
-relevance or analyzing a specific paper.** **sonnet** for navigating OUR docs — reviewing the up-to-date status of the docs,
-finding a fact and all its traces, and record-writing (`session-logger`). **haiku** for simpler mechanical
-fan-out (extraction, file-mapping, formatting). When in doubt whether a task "needs thinking" → opus.
-Each agent declares its default **`model:` and `effort:`** in frontmatter (effort: `low|medium|high|xhigh|max`;
-the fleet default is `high`, with `xhigh` for the hardest judges — e.g. the sci-write F4/F5/F11); override per
-call when the task warrants. (Effort adopted into frontmatter fleet-wide 2026-06-23 — was previously prose-only
-and silently inheriting session effort.)
+| Stance | Job |
+|---|---|
+| `/work` | lock, run, and record evidence; explicit-only |
+| `/interpret` | recompute and adjudicate recorded evidence |
+| `/write` | draft settled claims directly into the extended manuscript |
+| `/teach` | transfer understanding from sources |
+| `/scout` | bring external literature/data into canonical records |
+| `/plan` | choose direction without touching numbers |
+| `/review` | stress-test result, claim, design, or manuscript |
+| `/meta` | simplify or maintain apparatus |
 
-## The fleet — what's available, and when it fires by default (self-activation)
+## Evidence rules
 
-Full rationale: `docs/references/agent-fleet-redesign.md`. **Fire these by default at the matching phase — don't wait to be asked; commoditizing the workflow so Erfan never re-explains it is the whole point.**
+- A scientific number is born in `/work` and recorded in an owning E record.
+- Predeclare kill criteria, design, baselines, controls, seeds, stop rules, estimand, estimator, inference unit, and identifying assumptions.
+- Use contiguous splits, nuisance controls, and confound subtraction for brain-alignment claims.
+- Use at least three seeds for stochastic experiments; report specific estimates with uncertainty and the named test.
+- Keep raw artifacts separate from interpretation. Record the reason for each non-obvious design choice when it is made.
+- `/interpret` independently recomputes the load-bearing contrast, then uses adversarial review. Erfan confirms changed scientific verdicts.
+- A missing value is a `\gap`, never a guess. A contradiction discovered outside `/interpret` is routed there rather than silently resolved.
 
-**Commands** (`.claude/commands/`): **`/orient`** (session start — where we are + next step; now also flags uncommitted work + a missed `/wrap`) · **`/precheck`** (pre-compute gate — `anti-confound-designer` assembles the control battery → `oracle-reviewer` gates it → `READY-TO-RUN`) · **`/goalsmith <item>`** (build the ≤4000-char single-line `/goal` condition for a working item, pointing at its PRD) · **`/wrap`** (session close — ritual + parallel `wrap-auditor` swarm). **Skills:** **`sci-write-v2`** (all report/manuscript prose; the gated 4-concern loop + the D011 number rule; D048, cut over from `scientific-writing` at S43/P3); global gbrain/estack skills route via their resolvers.
+The evidence transaction is:
 
-**Agents** (`.claude/agents/`, 14) — grouped by *when* in the loop they run:
-- **Pre-compute (BEFORE a run):** `anti-confound-designer` (assemble the battery) → `oracle-reviewer` (gate it, DESIGN mode).
-- **Post-result (AFTER a run, before the verdict lands):** `stat-aggregation-auditor` (re-compute the contrast) + the thinking panel `counter-argument` · `socratic-thinker` · `premortem-analyst` · `first-principles-grounder` (+ `oracle-reviewer` RESULT mode). Each emits a machine-readable `PANEL-VERDICT:` block; reconcile to `PANEL-CLEAN:YES`.
-- **Data / literature:** `dataset-verifier` (is the data usable) · `dataset-scout` (find/characterize new data) · `lit-scout` (find papers) · `paper-digest` (canonical note) · `paper-repo-extractor` (mechanical repo extraction, fan-out).
-- **Records:** `session-logger` · `wrap-auditor` (now also invocable standalone mid-session, one scope).
+`artifact → E record → extended manuscript if settled and paper-relevant → status if operations changed`
 
-**Self-activation map (the standing default):**
-- **Session start** → `/orient`.
-- **Claim→Design** → `anti-confound-designer` → **`/precheck`**; no compute before PASS.
-- **Goal for the session** → `/goalsmith <item>` → paste into `/goal`.
-- **First use of a dataset** → `dataset-verifier`; **scouting new data/papers** → `dataset-scout` / `lit-scout` (sonnet to gather), `paper-repo-extractor` (haiku) for repo artifacts, `paper-digest` (opus) for a note.
-- **After a multi-seed/arm run, before recording a verdict** → `stat-aggregation-auditor` **then** the panel + Codex; reconcile the `PANEL-VERDICT` blocks to `PANEL-CLEAN:YES` before it lands.
-- **The moment a verdict flips or a number lands** → `wrap-auditor` on the single relevant scope (mid-session), not only at close.
-- **Session close** → `/wrap`.
+Only load-bearing gitignored artifacts cited by the manuscript receive stable paths and SHA-256 values, in their owning E records.
 
-**Auto-firing guardrails (hooks — no model decision needed):** `agent_routing_lint` (PreToolUse on agent spawns: nudges fable-banned + judgment-heavy→opus; `lit-scout`/`dataset-scout` exempt as task-dependent); the SessionStart snapshot that arms `/wrap`; and two PostToolUse write-time guards on `docs/{reports,manuscript}` edits — `honesty_writecheck.py` (D044, unsourced-number flag) and `prose_writecheck.py` (D046, anti-AI-tell linter: hard lexical tells + soft register/passive warnings; a clean run is not a clearance — supervisor-facing prose still owes the `prose-register-auditor`). True OS-level auto-invocation exists only for these hooks; everything else above is the standing default the agent follows by itself.
+## Writing
 
-Add more agents/skills only when a need recurs (adaptive semistructure). We deliberately did **not**
-port the Nexus v2 stage-machine — see `docs/decisions/decisions.md` D001.
+Write directly from E records into `docs/manuscript/extended/`:
 
-## Session close ritual
+1. Read the owning E records and current section.
+2. State the intended claim, scope, caveats, and evidence.
+3. Draft with `\evd{Ennn}` markers and keyed values from `numbers.tex`.
+4. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/extended`.
+5. Run one fresh independent prose/scientific-scope review, revise, and obtain Erfan’s approval for load-bearing framing.
 
-End **every** session — whatever stances ran — by running **`/wrap`** (the close command: it runs the
-`session-logger` ritual *plus* a continuity audit — friction, broken tooling, doc consistency,
-new-artifact check; mirror of the `/orient` start command). The `session-logger` agent or doing it by
-hand are equivalent fallbacks. The ritual: immutable timeline log, refreshed `upspeed.md`, moved tasks,
-any hard-won lesson appended to `docs/learnings.md`, and — **the keystone of the state-tracking process
-(D015)** — an updated `docs/ladder.md`: flip the rung status, record the verdict, and rewrite the
-"Next session" block. Once the wrap changes are committed, push `main` to `origin` by default; report
-any failed or deliberately skipped push in the close summary.
-**The ladder update must be confirmed with Erfan before it lands** (a rung flips to ✅ only on a
-verdict he has agreed); never update the board on a unilateral read. The logger records which
-**stances** ran and frames the close by the dominant one (a `/work` session logs *what ran / what's next
-to run*; an `/interpret` / `/write` / `/teach` session logs *what's now understood / written /
-figured*), and sets the ladder "Next session" tag to the next stance. See "Interaction stances" above
-and `docs/03-methodology.md`.
+Use `--share-ready` only when every gap is resolved and the manuscript is intended to ship. Do not create intermediate reports, claim lattices, convergence state, or checkpoint logs.
 
-## Maintenance
+## Start and close
 
-These instructions, the docs, and the agents are living. When a workflow keeps getting reconstructed,
-or a mistake repeats, update the relevant file. Per Erfan's global rule, propose changes to his
-private/global instructions before editing them — but this repo's own files are ours to keep current.
+- `/orient` reads `status.md`, checks Git, and follows only the links needed for the first next action.
+- `/wrap` updates only authorities that changed. A no-op session makes no documentation changes.
+- Write a timeline only for a result, adjudication, correction, durable decision/learning, manuscript/public milestone, or lasting failure.
+- Update the nearest `AGENTS.md` when a folder’s structure, commands, workflow, or traps change.
 
-## Codex (second-model critic + rescue — subordinate to the docs brain)
+## Agent fleet
 
-We drive **Codex** (OpenAI CLI, `gpt-5.5`) from Claude via the `codex` plugin as an *independent second
-model*. Full procedure + personas + command surface in **`docs/references/codex-usage.md`**. Two jobs only:
+Use agents at load-bearing scientific boundaries, not as a routine fan-out ritual.
 
-1. **A critic that ADDS to the thinking panel.** The panel (`counter-argument`, … sonnet) attacks
-   the *conclusion*; Codex attacks the *code* — the layer the panel doesn't reach. Use
-   `/codex:adversarial-review` for a single pass, or spin up a **Codex persona panel** — 1–4 background,
-   read-only `task` runs via `codex:codex-rescue`, each with a distinct reviewer personality
-   (statistical referee · reviewer-2 skeptic · first-principles re-deriver · reproducibility/leakage
-   auditor) — and collect with `/codex:result`. Code-level analogs of our panel lenses.
-2. **Rescue / second implementation** of a buggy or gnarly analysis script (`codex:codex-rescue`, the
-   one place `--write` is appropriate). A fresh impl that agrees with ours is evidence; one that
-   disagrees is a bug lead.
+| Phase | Agents |
+|---|---|
+| Before compute | `anti-confound-designer` then `oracle-reviewer` via `/precheck` |
+| After aggregated results | `stat-aggregation-auditor` |
+| Result/claim stress test | `counter-argument`, `socratic-thinker`, `premortem-analyst`, `first-principles-grounder`, plus `oracle-reviewer` when warranted |
+| Literature/data | `lit-scout`, `paper-digest`, `dataset-scout`, `dataset-verifier` |
 
-**Model/effort policy (asymmetric: medium worker, xhigh critic).** Global default
-`model_reasoning_effort = "xhigh"` (`~/.codex/config.toml`) → **reviews run xhigh by inheritance** (the
-review commands expose no per-call `--effort`). **Delegated `task` work passes `--effort medium`
-explicitly** to override down — fast worker, slow critic; bump only for a genuinely hard build.
+Use opus for analysis/design/judgment, sonnet for navigation/gathering, and haiku only for genuinely mechanical extraction. Fable is banned. Each agent declares `model:` and `effort:` in frontmatter.
 
-**The hard line.** Codex **never** produces a science number or flips a rung — numbers come only from
-the `docs/` brain, verdicts only from Erfan. Codex reviews code correctness and proposes
-implementations; it does not adjudicate a hypothesis. **Stop-review-gate stays OFF** (it fights the
-docs-first `/wrap` ritual). **Sandbox note:** bwrap can't run in this container, so Codex's OS sandbox
-is **disabled** (`danger-full-access`; the Docker container is the boundary, git catches stray edits) —
-mechanics + the plugin-patch-reapply caveat in `docs/references/codex-usage.md`.
+Codex is an independent code critic or rescue implementation, not a scientific adjudicator. It never produces a thesis number or settles a verdict.
 
-## context-mode — MANDATORY routing rules
+## Repository conventions
 
-context-mode MCP tools available. Rules protect context window from flooding. One unrouted command dumps 56 KB into context.
+- `docs/` is both GitHub Markdown and an Obsidian vault. Follow [`docs/references/obsidian-conventions.md`](docs/references/obsidian-conventions.md): YAML frontmatter, standard relative Markdown links, no wikilinks, compatible callouts, hub links, and `## Related` footers.
+- `.tex` files follow LaTeX conventions. Keep manuscript source search-friendly, with one sentence or paragraph per source line.
+- Root `README.md` is the only README. Folder contracts live in `AGENTS.md`.
+- `.agents/` is only a compatibility symlink surface to `.claude/skills` and `.claude/agents`; keep it valid when those change.
+- Use the three external knowledge owners rather than re-deriving: canonical paper notes, dataset registry, and [`docs/06-theory-grounding.md`](docs/06-theory-grounding.md). Do not re-OCR preprocessed course notes.
 
-### Think in Code — MANDATORY
+## Running code
 
-Analyze/count/filter/compare/search/parse/transform data: **write code** via `ctx_execute(language, code)`, `console.log()` only the answer. Do NOT read raw data into context. PROGRAM the analysis, not COMPUTE it. Pure JavaScript — Node.js built-ins only (`fs`, `path`, `child_process`). `try/catch`, handle `null`/`undefined`. One script replaces ten tool calls.
+- Always use `uv run`; add packages with `uv add`.
+- Set `HF_HOME=/home/centcom/data/hf-cache` to reuse models.
+- Python 3.11, torch cu128, 4× L40S, single node; no Slurm, Docker, or tmux.
+- Heavy artifacts belong under gitignored `data/` and `outputs/`, never the overlay root.
 
-### BLOCKED — do NOT attempt
+## Git
 
-**curl / wget — BLOCKED.** Intercepted and replaced with error. Do NOT retry. Use: `ctx_fetch_and_index(url, source)` or `ctx_execute(language: "javascript", code: "const r = await fetch(...)")`.
+- Commit every meaningful step atomically with a conventional message.
+- Stage explicit paths only; never `git add -A` or `git add .`.
+- Do not amend. Do not use destructive operations without explicit approval.
+- Preserve unrelated user changes in a dirty worktree.
+- At close, push completed commits to `origin` unless Erfan says not to or the push is blocked.
 
-**Inline HTTP — BLOCKED.** `fetch('http`, `requests.get(`, `requests.post(`, `http.get(`, `http.request(` — intercepted. Do NOT retry. Use: `ctx_execute(language, code)` — only stdout enters context.
+## Reasoning
 
-**WebFetch — BLOCKED.** Use: `ctx_fetch_and_index(url, source)` then `ctx_search(queries)`.
+Use [`docs/references/reasoning-frame.md`](docs/references/reasoning-frame.md): delete false constraints (Elon), explain the mechanism and failure boundary plainly (Feynman), prefer the smallest durable change that compounds (Naval), and name the estimand/estimator/identifying assumption before interpreting a measurement.
 
-### REDIRECTED — use sandbox
+## External tools
 
-**Bash (>20 lines output).** Bash ONLY for: `git`, `mkdir`, `rm`, `mv`, `cd`, `ls`, `npm install`, `pip install`. Otherwise: `ctx_batch_execute(commands, queries)` or `ctx_execute(language: "javascript", code: "...")`. Use `language: "shell"` only when code matches the host shell.
-
-**Read (for analysis).** Reading to **Edit** → Read correct. Reading to **analyze/explore/summarize** → `ctx_execute_file(path, language, code)`.
-
-**Grep — may flood context.** Use `ctx_execute(language: "javascript", code: "...")` in sandbox for portable filtering/counting.
-
-### Tool selection
-
-0. **MEMORY**: `ctx_search(sort: "timeline")` — after resume, check prior context before asking user.
-1. **GATHER**: `ctx_batch_execute(commands, queries)` — runs all commands, auto-indexes, returns search. ONE call replaces 30+. Each command: `{label: "header", command: "..."}`.
-2. **FOLLOW-UP**: `ctx_search(queries: ["q1", "q2", ...])` — all questions as array, ONE call (default relevance mode).
-3. **PROCESSING**: `ctx_execute(language, code)` | `ctx_execute_file(path, language, code)` — sandbox, only stdout enters context.
-4. **WEB**: `ctx_fetch_and_index(url, source)` then `ctx_search(queries)` — raw HTML never enters context.
-5. **INDEX**: `ctx_index(content, source)` — store in FTS5 for later search.
-
-### Parallel I/O batches
-
-For multi-URL fetches or multi-API calls, **always** include `concurrency: N` (1-8):
-
-- `ctx_batch_execute(commands: [3+ network commands], concurrency: 5)` — gh, curl, dig, docker inspect, multi-region cloud queries
-- `ctx_fetch_and_index(requests: [{url, source}, ...], concurrency: 5)` — multi-URL batch fetch
-
-**Use concurrency 4-8** for I/O-bound work (network calls, API queries). **Keep concurrency 1** for CPU-bound (npm test, build, lint) or commands sharing state (ports, lock files, same-repo writes). GitHub API rate-limit: cap at 4 for `gh` calls.
-
-### Subagent routing
-
-Routing block auto-injected into subagent prompts. Bash-type subagents upgraded to general-purpose. No manual instruction needed.
-
-### Output
-
-Write artifacts to FILES — never inline. Return: file path + 1-line description. Descriptive source labels for `ctx_search(source: "label")`.
-
-### Session Continuity
-
-Skills, roles, and decisions persist for the entire session. Do not abandon them as the conversation grows.
-
-### Memory
-
-Session history is persistent and searchable. On resume, search BEFORE asking the user:
-
-| Need | Command |
-|------|---------|
-| What were we working on? | `ctx_search(queries: ["summary"], source: "compaction", sort: "timeline")` |
-| What was the first request? | `ctx_search(queries: ["prompt"], source: "user-prompt", sort: "timeline")` |
-| What did we decide? | `ctx_search(queries: ["decision"], source: "decision", sort: "timeline")` |
-| What NOT to repeat? | `ctx_search(queries: ["rejected"], source: "rejected-approach")` |
-| What constraints exist? | `ctx_search(queries: ["constraint"], source: "constraint")` |
-
-DO NOT ask "what were we working on?" — SEARCH FIRST. If search returns 0 results, proceed as a fresh session.
-
-### ctx commands
-
-| Command | Action |
-|---------|--------|
-| `ctx stats` | Call `ctx_stats` MCP tool, display full output verbatim |
-| `ctx doctor` | Call `ctx_doctor` MCP tool, run returned shell command, display as checklist |
-| `ctx upgrade` | Call `ctx_upgrade` MCP tool, run returned shell command, display as checklist |
-| `ctx purge` | Call `ctx_purge` MCP tool with confirm: true. Warns before wiping knowledge base. |
-
-After /clear or /compact: knowledge base and session stats preserved. Use `ctx purge` to start fresh.
-
-## Firecrawl (web-data provider — subordinate to the docs brain)
-
-Firecrawl turns live web pages into clean, LLM-ready markdown and runs a research index over papers
-and code. It is wired in as a **project-scoped MCP server** (`.mcp.json` at repo root, remote transport
-`https://mcp.firecrawl.dev/${FIRECRAWL_API_KEY}/v2/mcp`; key from `~/.config/secrets/env`, never
-hardcoded). **Cloud API only** — the self-hosted stack needs Docker, which this container can't run.
-First use in a session prompts for MCP approval; that's expected. Same authority order as Codex:
-**`docs/ladder.md` and the `docs/` brain win; gbrain is the knowledge layer; Firecrawl just fetches
-external web content.** It never produces a science number and never flips a rung.
-
-The tool surface (`firecrawl_*`), grouped:
-- **Fetch / crawl:** `scrape` (one URL → markdown), `map` (discover a site's URLs), `crawl` +
-  `check_crawl_status` (whole-site → markdown), `batch` (many URLs), `extract` (schema'd structured
-  extraction across pages via LLM), `parse` (a local/non-public doc → clean data).
-- **Search:** `search` (web/news/images with full-page extraction — richer than `WebSearch`).
-- **Research index (thesis-relevant — complements `lit-scout`):** `research_search_papers` (find arXiv
-  papers by topic/method/benchmark), `research_inspect_paper`, `research_related_papers` (citation-graph
-  expansion), `research_read_paper` (the in-body passages that answer one question), `research_search_github`
-  (issue/PR history + READMEs for implementation notes).
-- **Agentic:** `agent` + `agent_status` (FIRE-1 autonomous navigation), `interact` (drive a live browser
-  session after a scrape), `monitor_*` (recurring scrape/crawl with content diffs).
-
-**When to reach for it (and when not).** This repo already has a deep web stack — `WebFetch`/`WebSearch`,
-exa MCP, the `perplexity-research` / `deep-research` skills, `lit-scout`/`dataset-scout`, and academic
-APIs (S2, OpenAlex, CrossRef, Unpaywall, IEEE). **Don't default to Firecrawl for cheap one-off fetches —
-credits are billed (`creditsUsed` per call).** Reach for it when those fail or fall short: a JS-heavy or
-anti-bot page `WebFetch` chokes on, a **whole-site crawl/map** (docs sites, a dataset's pages, a paper's
-repo), **schema'd extraction** across many pages, or the **research index** as a second lane alongside
-`lit-scout`. Cheap path first, Firecrawl when it earns the credit.
-
-**Installed here:** the `firecrawl-research-index` skill (repo-local, `.claude/skills/firecrawl-research-index/`)
-— the paper-retrieval workflow (semantic search → citation-graph expansion via citers/references → in-body
-verify with `read_paper`) that complements `lit-scout`; it drives the `firecrawl_research_*` MCP tools.
-**One command away (not installed):** the Python SDK for scripted/batch scraping inside an experiment
-(`uv add firecrawl-py`). Full capability index: `https://docs.firecrawl.dev/llms.txt`.
+- Firecrawl and other web tools are retrieval providers subordinate to the docs authorities. Use the `firecrawl-research-index` skill for literature retrieval. They do not produce thesis numbers.
+- Prefer context-mode’s indexed/search tools when available for large transcript or repository analysis; do not dump raw large files into model context.
+- Secrets stay in configured environment files and are never committed.

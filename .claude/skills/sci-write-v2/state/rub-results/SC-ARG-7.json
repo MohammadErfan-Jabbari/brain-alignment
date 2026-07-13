@@ -1,1 +1,0 @@
-{"id": "SC-ARG-7", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "missing acknowledgment - single-subject UTS03/specific-ROI scope never named; gap stated as unbounded", "raw": "ACK-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "a5c5594c9e75"}

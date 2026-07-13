@@ -1,1 +1,0 @@
-{"id": "SC-VOICE-13", "result": {"ready_to_ship": true, "findings": 0, "finding_text": "clean - active, named agent+mechanism, no register tells (dedicated voice-only re-run; the batch fail was scope-creep into claim-precision)", "raw": "VOICE-VERDICT: {\"ready_to_ship\": true, \"findings\": 0}"}, "input_hash": "43f52cc23ae2"}

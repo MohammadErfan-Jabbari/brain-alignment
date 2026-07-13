@@ -1,1 +1,0 @@
-{"id": "SC-STR-02", "result": {"ready_to_ship": false, "findings": 2, "finding_text": "old-to-new inverted (result before the encoding-model/voxel definition); no point sentence", "raw": "STRUCTURE-VERDICT: {\"ready_to_ship\": false, \"findings\": 2}"}, "input_hash": "fea4d0ad8b40"}

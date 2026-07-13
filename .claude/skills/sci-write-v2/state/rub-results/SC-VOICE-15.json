@@ -1,1 +1,0 @@
-{"id": "SC-VOICE-15", "result": {"ready_to_ship": false, "findings": 1, "finding_text": "unmotivated passive: the model was trained, agent we trivially available", "raw": "VOICE-VERDICT: {\"ready_to_ship\": false, \"findings\": 1}"}, "input_hash": "1cb14733c468"}

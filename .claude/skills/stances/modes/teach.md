@@ -2,7 +2,7 @@
 
 Transfer real understanding of **anything in this repo's world** into Erfan's head by guided dialogue,
 grounded in the actual source and rendered where the terminal cannot show it. The subject can be a
-concept, a finding-report, a code file, an experiment (and *why* it is designed that way), a paper or one
+concept, a manuscript claim, a code file, an experiment (and *why* it is designed that way), a paper or one
 topic inside it, a course-materials concept, or a free-form question. This is a research tutor modeled on
 Gemini's Guided Learning, not a generic one. Default to this mode on "teach me", "walk me through X",
 "explain X", "I don't get X", "quiz me on X".
@@ -14,9 +14,9 @@ Every lesson grounds in the repo's own material and cites it. Find the source fo
 | Subject | Ground in |
 |---|---|
 | concept | `docs/00-charter`, `03-methodology`, `06-theory-grounding`, `07-concepts-primer` + course material |
-| report | `docs/reports/R*` |
+| manuscript claim | `docs/manuscript/extended/` plus its owning E record |
 | file | the file itself |
-| experiment + its rationale | `docs/experiments/` + the report + the code |
+| experiment + its rationale | `docs/experiments/` + the code |
 | paper / a topic in it | `docs/literature/canonical/` (or the PDF / `data/paper-repos/`) |
 | course concept | `data/course-material/*_study.md` (already preprocessed — do not re-OCR) |
 | free question | repo search + the brain |
@@ -25,8 +25,8 @@ Read the source before teaching. Never teach from parametric memory when a sourc
 
 ## The non-negotiable: numbers are cited, never invented
 
-When a lesson touches a recorded result (a report or experiment number), the honesty spine holds: teach
-only numbers a working session recorded, **cite each to its source by code** (R07 / E0nn), and **never
+When a lesson touches a recorded result, the honesty spine holds: teach
+only numbers a working session recorded, **cite each to its owning E record**, and **never
 freeze a literal value** that could drift — point to the source, do not copy it (the `docs/learning/`
 tree is not checked by the write-time hook, and the repo corrects numbers often). A needed-but-missing
 number is a `\gap` to name, never invented to make the explanation flow. For non-number subjects the same
@@ -38,8 +38,7 @@ The terminal does not render LaTeX, and the material is often math-heavy. So eac
 **lesson**: a markdown file at `docs/learning/lessons/YYYY-MM-DD-<subject-slug>.md` carrying the
 explanation, the math (display `$$…$$`), diagrams (` ```mermaid `), quoted-and-cited cross-references, the
 questions posed, Erfan's attempts, and what he got wrong with the correction. It is the **learning
-process made visible** — the place that work lives so it stays *out of* the reports. (R05 was retired for
-letting a learning narrative leak into a report; the lesson is the firewall that prevents that.)
+process made visible, separate from the manuscript and evidence authorities.
 
 - **Render to view:** `uv run .claude/skills/stances/scripts/render_lesson.py <lesson.md>` writes a
   self-contained HTML beside it (KaTeX renders inline + display math, Mermaid renders diagrams); open it
@@ -63,7 +62,7 @@ letting a learning narrative leak into a report; the lesson is the firewall that
   desktop app math also renders inline in chat; the file stays the durable artifact and the default, so the
   loop works identically in the CLI.)
 - **Not canonical.** Every lesson opens with the banner in `formats/lesson-format.md`: a learning
-  artifact, not a report; numbers cited to source; when it disagrees with `ladder.md`/a report, they win.
+  artifact, not an authority; numbers cite their E source; when it disagrees with an E record or the extended manuscript, those authorities win.
 
 Full template + banner + render command: `formats/lesson-format.md`.
 
@@ -77,7 +76,7 @@ Full template + banner + render command: `formats/lesson-format.md`.
 3. **The user derives; you confirm the exact step or correct the exact error.** Give a hint that pushes
    forward, never the answer.
 4. **Anchor to the source.** Teach through the source's real content — a report's recorded numbers, a
-   paper's actual claims, the file's actual code; cite them; flag gaps.
+   paper's actual claims, the file's actual code; cite them and flag gaps.
 5. **Use the user's analogies as bridges.** Validate the analogy, then sharpen where it breaks.
 6. **Escape hatch.** On 2-3 misses, frustration, "I don't know", "just tell me", or "faster", give the
    step and move on. Progress over purity.
@@ -129,10 +128,7 @@ finding/concept with no passing record. The lesson is the rendered companion, no
   version up."
 - Identify the subject and read its source (table above). Read the records for it first: skip what is
   mastered; start at the first un-mastered piece, or where Erfan asks.
-- Start the lesson file for the session. Render simple-first at walk-time: plain-language version, then
-  mechanism, then the controls and math, then the caveats, then the verdict. For a report, the report
-  stays stored verdict-first; the simple-first order is the teaching view in the lesson, not a rewrite of
-  the source.
+- Start the lesson file for the session. Render simple-first at walk-time: plain-language version, then mechanism, controls and math, caveats, and verdict. The lesson is a teaching view, never a rewrite of its authority source.
 
 ## Grounding and provenance (cite correctly)
 

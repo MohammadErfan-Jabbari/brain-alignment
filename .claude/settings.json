@@ -4,16 +4,6 @@
     "ECC_DISABLED_HOOKS": "pre:edit-write:gateguard-fact-force,pre:bash:gateguard-fact-force,pre:write:doc-file-warning"
   },
   "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/wrap_session_snapshot.py\""
-          }
-        ]
-      }
-    ],
     "PreToolUse": [
       {
         "matcher": "Task|Agent",
@@ -36,16 +26,6 @@
           {
             "type": "command",
             "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/prose_writecheck.py\""
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/stop_sw_converge.py\""
           }
         ]
       }
