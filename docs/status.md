@@ -7,7 +7,7 @@ aliases: [current-status]
 # Project status
 
 **Updated:** 2026-07-13  
-**Manuscript:** `manuscript-sync-pending`  
+**Manuscript:** `share-ready`
 **Latest frozen public cut:** [v0.9 Markdown](manuscript/public/v0.9/paper.md)
 
 ## Research state
@@ -23,18 +23,16 @@ aliases: [current-status]
 
 ## Active work
 
-- Await Erfan’s approval of the load-bearing framing; no further cleanup work is active.
+- The extended manuscript is ready for Erfan and supervisor circulation; no further cleanup work is active.
 
 ## Blockers
 
-- Deterministic provenance, number, link, reference, and LaTeX checks pass.
-- The fresh independent prose/scientific-scope review passed after its three verified findings were corrected and re-reviewed.
-- `share-ready` now requires only Erfan’s approval of the load-bearing framing.
+- None. Deterministic checks and the fresh independent review pass, and Erfan approved the load-bearing framing on 2026-07-13.
 
 ## Next actions
 
-1. Obtain Erfan’s approval of the load-bearing framing.
-2. Set `share-ready`, then advance the manuscript rather than the apparatus.
+1. Review or circulate the compiled extended manuscript.
+2. At an explicit checkpoint, cut the next immutable public version from the extended manuscript.
 
 ## Related
 
