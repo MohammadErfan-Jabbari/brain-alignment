@@ -222,5 +222,4 @@ per-individual nulls (E008/E011/E017) + E015, not on E019. **No rung flip. No Fo
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../status.md) — the canonical status board

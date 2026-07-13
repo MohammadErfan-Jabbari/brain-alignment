@@ -7,7 +7,7 @@ aliases: [E024]
 # Experiment — E024: brain/cognitive signal as train-only PRIVILEGED INFORMATION → sample-efficiency (ZuCo, P1)
 
 **Created:** 2026-06-18 (S25) · **Status:** DESIGN — substrate CONVERGED (S45, 2026-06-29: ZuCo-NR primary, dual-opus-reviewed); pre-/precheck · **Mode:** working (`/work`)
-**Direction:** [`expansion-program.md`](../expansion-program.md) §8 (the S24 privileged-information / sample-efficiency trajectory, P1) — the charter's
+**Direction:** Q4 privileged-information/sample-efficiency test; current interpretation is in the [extended manuscript](../manuscript/extended/main-extended.tex). The charter's
 **F2** returned to with a theory (LUPI), a higher-SNR regime (EEG+gaze), and the 5-control battery it lacked.
 **Theory:** [`06-theory-grounding.md`](../06-theory-grounding.md) §1 (MI bound), §2 (DPI ceiling); Lopez-Paz 2016 / Vapnik LUPI; Provodin 2024 (LUPI
 gains can be artifacts → zeroed-PI mandatory).
@@ -267,5 +267,4 @@ detection, normal reading) to the robust null. No rung flips without Erfan.
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../status.md) — the canonical status board

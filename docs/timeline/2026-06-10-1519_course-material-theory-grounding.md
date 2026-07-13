@@ -27,7 +27,7 @@ Erfan added his MSc coursework (Information Theory for ML + Probabilistic ML, UC
 
 - **New [`docs/06-theory-grounding.md`](../06-theory-grounding.md)** — the curated concept→thesis map (load-bearing vs adjacent), condensed syllabus inventory, gap list, storage/preprocessing decision, file-coverage pointers. The committed source of truth for the coursework.
 - **New `data/course-material/INDEX.md`** (gitignored) — file-level navigation for direct browsing; points at 06.
-- **[`docs/reports/R03_brain-as-training-signal.md`](../reports/R03_brain-as-training-signal.md)** — (a) **fixed line-1 corruption** (a chunk of IT-lecture transcript had been pasted in front of the `# R03` heading in the working tree; HEAD was clean); (b) added **§2 Step 7** grounding the first-principles bounds in the course's exact theorems; (c) §7 note pointing to 06. (Pre-existing uncommitted `$$…$$` multi-line reformatting in the working tree was left intact and is bundled into this commit.)
+- **`docs/reports/R03_brain-as-training-signal.md`** — (a) **fixed line-1 corruption** (a chunk of IT-lecture transcript had been pasted in front of the `# R03` heading in the working tree; HEAD was clean); (b) added **§2 Step 7** grounding the first-principles bounds in the course's exact theorems; (c) §7 note pointing to 06. (Pre-existing uncommitted `$$…$$` multi-line reformatting in the working tree was left intact and is bundled into this commit.)
 - **[`docs/01-research-landscape.md`](../01-research-landscape.md)** §E — added the formal theory tools (MI bound, DPI, conditional MI, rate-distortion) with a pointer to 06.
 - **`CLAUDE.md`** "Read this first" — named the coursework as the third external source (papers / datasets / coursework), with the no-re-OCR rule.
 - **[`docs/AGENTS.md`](../AGENTS.md)** — added 06 to the map.
@@ -44,5 +44,5 @@ No experiment ran; no number was produced or altered. The R03 ladder is unchange
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

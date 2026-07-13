@@ -30,5 +30,4 @@ MohammadErfan
 
 
 ## Related
-- [`ladder.md`](../ladder.md) - the canonical status board
-- [`map.md`](../map.md) - code system (Q/E/A/D/L) and journey map
+- [`status.md`](../status.md) - the canonical status board

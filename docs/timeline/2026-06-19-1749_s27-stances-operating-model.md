@@ -39,7 +39,7 @@ stances, and build a LearnLM/Gemini-style `/teach` stance plus the report→teac
 4. **Built (Pass 1 + Pass 2, 6 commits).** The `stances` skill (`SKILL.md` spine + 8 mode files +
    `formats/learning-record.md`), 8 command doors, the write-time honesty hook
    (`.claude/hooks/honesty_writecheck.py`, tested), the report plain-language-lead amendment to
-   `scientific-writing`, [`docs/operating-map.md`](../operating-map.md), the canonical docs rewritten to stances (`CLAUDE.md`,
+   `scientific-writing`, `docs/operating-map.md`, the canonical docs rewritten to stances (`CLAUDE.md`,
    [`03-methodology.md`](../03-methodology.md), **D044**, `orient`/`wrap`/`session-logger`), and the LearnLM + Bloom canonical
    notes. The learning ledger seeded at `docs/learning/`.
 
@@ -59,7 +59,7 @@ thread is still **Q4 sample-efficiency/LUPI** (re-substrate to higher-N gaze), u
 - **Test `/teach` live** on a real report (Erfan, planned) — the only real proof of the guided loop.
 - The honesty hook is live (fired this session); scoped to reports + manuscript after the ladder false-positived (L052).
 - Science next-step unchanged: **Q4** (E024 re-substrate → synthetic-PI MDE control → build), per
-  [`expansion-program.md`](../expansion-program.md) §8.
+  `expansion-program.md` §8.
 
 ## Friction & improvements
 
@@ -71,7 +71,7 @@ thread is still **Q4 sample-efficiency/LUPI** (re-substrate to higher-N gaze), u
   this session's own commits) rather than the true session start — the SessionStart hook re-fired after
   the long session. `/wrap` should sanity-check `start_sha` against the session's commits; used the
   `dfe5223` fallback here.
-- **Hook-scope fire (caught by the trial):** the first `/wrap` edit to [`docs/ladder.md`](../ladder.md) flagged 41
+- **Hook-scope fire (caught by the trial):** the first `/wrap` edit to `docs/ladder.md` flagged 41
   pre-existing bare numbers — the ladder references results by bare code, not `[E0nn]`. Narrowed the
   hook from 5 paths to `docs/reports/` + `docs/manuscript/` (the prose deliverables); ladder/learnings/
   experiments need a different check (L052).
@@ -83,5 +83,5 @@ thread is still **Q4 sample-efficiency/LUPI** (re-substrate to higher-N gaze), u
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

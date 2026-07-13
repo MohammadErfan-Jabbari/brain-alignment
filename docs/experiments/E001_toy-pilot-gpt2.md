@@ -106,11 +106,10 @@ is *not* trivially a function of teacher features (LeBel `ds003020`).
 **Design lessons for the real run.** (1) The static-embedding nuisance must be PCA-matched to the
 contextual block or it unfairly absorbs the signal — fixed here. (2) On real data, consider a frozen
 teacher-encoding-map loss or a CKA proxy rather than a trainable head, since the head overfits the train
-block (this is the open `L_brain` design decision in [`../tasks.md`](../tasks.md)). (3) Keep λ modest; large λ degrades.
+block (this was the then-open `L_brain` design decision, later resolved by the subsequent E records). (3) Keep λ modest; large λ degrades.
 
 Hypothesis status: **H001 remains untested** (synthetic cannot test it). Learning recorded as L004.
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../status.md) — the canonical status board

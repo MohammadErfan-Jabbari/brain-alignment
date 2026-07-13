@@ -8,7 +8,7 @@ source_memory: "/home/centcom/.claude/projects/-home-centcom-data-brain-alignmen
 
 # Manuscript Prose Taste
 
-Standing prose preferences for `docs/manuscript/` and `docs/reports/`, given in S32 on 2026-06-22 during the extended-manuscript cleanup pass:
+Standing prose preferences for `docs/manuscript/`, given in S32 on 2026-06-22 during the extended-manuscript cleanup pass:
 
 - **"kill-gated" is banned** from every manuscript and report. It is repo scaffolding/jargon, not reader-facing prose. Promote to the `ai_tell_lint` banned-register list as a `/meta` follow-up.
 - **Openings must have taste.** An opening sentence that states a dry technical fact, such as "A reliable linear map predicts...", with no stakes is rejected. Lead with the idea/tension, for this repo often that the LM-to-brain correspondence has only ever been measured, never used.

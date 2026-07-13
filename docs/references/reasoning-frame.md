@@ -66,7 +66,7 @@ Applied here: A2 is exactly this shape, with estimand $I(\text{LM};B\mid\text{nu
 R² from ridge, identifying assumption linearity; and the averaging confound and the stimulus-predictability
 ceiling are both "is the dependence real or common-cause, under a stronger $Z$?". Plain-language anchors:
 operationalization, construct validity, concrete-to-abstract grounding. The full *writing* form lives in
-the `scientific-writing` skill (writing-style §2, "presenting a measured quantity"); this entry is the
+the manuscript's direct writing loop; this entry is the
 *thinking* form.
 
 ## Combined operating rule
@@ -96,10 +96,9 @@ here as a named lens, in the same shape as the others:
 Two guardrails so the toolkit stays sharp instead of sprawling (the D001 "adaptive semistructure" restraint):
 - **Add a lens only when it has recurred or clearly generalizes** beyond the one problem. No lens for a
   one-off.
-- **Split by purpose.** A tool mainly about *writing* lives in the `scientific-writing` skill and is only
+- **Split by purpose.** A tool mainly about manuscript prose belongs in the direct manuscript writing loop and is only
   pointed to here; a tool about *approaching* a problem lives here. **Prune** a lens that stops earning its keep.
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../status.md) — the canonical status board

@@ -4,8 +4,7 @@
 
 1. [`status.md`](status.md) for current state and the next action.
 2. Follow only the E-record and manuscript links required for that action.
-3. Use [`repo-orientation.md`](repo-orientation.md) when the filesystem is unfamiliar.
-4. Use [`03-methodology.md`](03-methodology.md) for evidence and authority rules.
+3. Use [`03-methodology.md`](03-methodology.md) for evidence and authority rules.
 
 ## Authorities
 

@@ -57,7 +57,7 @@ Apparatus-only session. The live science next-step is still **Q4 sample-efficien
 ## Next session
 
 - Science next-step unchanged: **Q4** (E024 re-substrate → synthetic-PI MDE control → build), per
-  [`expansion-program.md`](../expansion-program.md) §8. Stance `/work` (after `/precheck`), or `/teach` to test the fixed tutor live.
+  `expansion-program.md` §8. Stance `/work` (after `/precheck`), or `/teach` to test the fixed tutor live.
 - **Optional `/meta` follow-up:** strengthen the `/teach` "Open" step so entry-point selection is specified
   (partition the report's content / MECE), not left to model luck — the cause of the weak path set Erfan saw.
 
@@ -72,5 +72,5 @@ Apparatus-only session. The live science next-step is still **Q4 sample-efficien
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

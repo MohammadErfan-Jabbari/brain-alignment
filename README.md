@@ -9,8 +9,7 @@ aliases: [brain-alignment, home]
 Master's thesis (ML for Health, UC3M): **using the linear mapping between LLM middle layers and brain
 activation as a usable signal.** Brain-alignment-guided distillation is the first concrete use case.
 
-- **Start here:** [`docs/upspeed.md`](docs/upspeed.md) — current state and next steps.
-- **Agent orientation:** [`docs/repo-orientation.md`](docs/repo-orientation.md) — compact map of the repo structure.
+- **Start here:** [`docs/status.md`](docs/status.md) — current state and next steps.
 - **The idea & scope:** [`docs/00-charter.md`](docs/00-charter.md)
 - **Literature & the gap:** [`docs/01-research-landscape.md`](docs/01-research-landscape.md)
 - **Compute & how to run:** [`docs/02-environment.md`](docs/02-environment.md)

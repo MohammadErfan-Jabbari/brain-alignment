@@ -168,5 +168,4 @@ multi-hour harness build is its own unit, not a tail-of-session rush; fully spec
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../status.md) — the canonical status board

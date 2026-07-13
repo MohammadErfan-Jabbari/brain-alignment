@@ -33,5 +33,4 @@ uv run .claude/skills/stances/scripts/render_lesson.py <file>
 
 ## Related
 
-- `../ladder.md`
-- `../map.md`
+- `../status.md`

@@ -51,6 +51,6 @@ This is a diagnostic, not a final E016 verdict: it is post-hoc, ROI-level Tuckut
 ## Related
 
 - [`../experiments/E016_tribe-synthetic-brain-targets.md`](../experiments/E016_tribe-synthetic-brain-targets.md)
-- [`../top-venue-evidence-ledger-2026-07-03.md`](../top-venue-evidence-ledger-2026-07-03.md)
-- [`../top-venue-paper-plan-2026-07-03.md`](../top-venue-paper-plan-2026-07-03.md)
-- [`../ladder.md`](../ladder.md)
+- `../top-venue-evidence-ledger-2026-07-03.md`
+- `../top-venue-paper-plan-2026-07-03.md`
+- `../ladder.md`

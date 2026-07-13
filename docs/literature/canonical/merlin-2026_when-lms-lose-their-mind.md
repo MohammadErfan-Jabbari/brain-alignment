@@ -98,5 +98,4 @@ Full PDF read page-by-page (all 33 pages, main paper + all appendices D–I with
 
 
 ## Related
-- [`ladder.md`](../../ladder.md) — the canonical status board
-- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../../status.md) — the canonical status board

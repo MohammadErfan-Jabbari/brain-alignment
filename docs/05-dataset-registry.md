@@ -9,7 +9,7 @@ tags: [dataset]
 
 **What this doc is:** a continuously-updated catalogue of *every* dataset that might ever be relevant to this thesis — neural, behavioral, and the NLP corpora used by the distillation baselines. One row per dataset: what it is, its key features, how open it is, and our use-case fit + status. The point is that when we need data in the future, we already know what exists and what it costs to get.
 
-**What this doc is *not*:** it is not the decision (that's [`04-data-benchmarks.md`](04-data-benchmarks.md), the powered survey of the four language-fMRI benchmarks we committed to, with the power analysis behind D008), and it is not paper-by-paper provenance (that's [`reports/R02_datasets-and-code.md`](reports/R02_datasets-and-code.md), which maps which paper used which dataset + the code repos). Where those cover an entry in depth, this doc links to them instead of duplicating.
+**What this doc is *not*:** it is not the benchmark decision; that belongs to [`04-data-benchmarks.md`](04-data-benchmarks.md). Paper-level provenance belongs in the [canonical literature notes](literature/AGENTS.md), and experiment-specific data use belongs in the owning E record.
 
 **Accuracy rule (carried from R02 / L003):** every feature below is stated by the dataset's own page or paper. "NOT STATED" means the source genuinely did not give it — it is never an estimate. Where two sources disagree (subject counts especially), both numbers are shown and the conflict is flagged. Verified 2026-06-09 by direct fetch of dataset pages + papers; the four benchmarks marked → 04 were verified in Session 2.
 
@@ -98,9 +98,8 @@ Noise ceiling **r = 0.56** — the highest of any neuroimaging set in AlKhamissi
 - **No dataset below has been downloaded or had its license confirmed by inspecting the files** — features are from pages/papers. Confirm before depending on one. Specifically unverified: Tuckute OSF data license, Le Petit Prince license, Fedorenko/Blank licenses (none stated).
 - **Recurring subject-count discrepancies** (Fedorenko 4↔5, Blank 5↔22, Reading-Brain 50↔52, Tuckute 5↔14, denizenslab 6↔9) are all real and explained per entry — always state which subset a number refers to.
 - This registry records *availability and fit*, not results. Numbers about model performance stay in the canonical notes / R01.
-- Distillation-side NLP corpora (GLUE, SQuAD, C4, SlimPajama, DCLM, LongBench, …) are catalogued compactly in `reports/R02` §3 — they're standard HF datasets streamed for baseline matching, not profiled here.
+- Standard distillation-side NLP corpora are recorded in the E records that use them rather than duplicated here.
 
 
 ## Related
-- [`ladder.md`](./ladder.md) — the canonical status board
-- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](./status.md) — the canonical status board

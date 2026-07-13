@@ -84,5 +84,4 @@ Full paper read (all 14 OCR'd pages of the gwern.net JSTOR scan: 13 article page
 
 
 ## Related
-- [`ladder.md`](../../ladder.md) — the canonical status board
-- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../../status.md) — the canonical status board

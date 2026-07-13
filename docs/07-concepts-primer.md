@@ -7,15 +7,15 @@ tags: [reference]
 
 **What this is.** A plain-language glossary of the primitives that recur across every experiment doc
 and report. (Naming: **E-numbers** are experiment notebooks under `docs/experiments/` — E002 = the
-Tuckute feasibility test, E006 = the LeBel voxelwise test, etc.; their live status is in [`docs/ladder.md`](ladder.md),
-the canonical board that wins any conflict. **R-numbers** are synthesis reports under `docs/reports/`.
+Tuckute feasibility test, E006 = the LeBel voxelwise test, etc.; their live status is in [`docs/status.md`](status.md),
+while their evidence lives in the owning experiment record and their current interpretation lives in the extended manuscript.
 **L-numbers** are lessons in [`docs/learnings.md`](learnings.md); **D-numbers** are decisions in `docs/decisions/`.) The experiment docs deliberately stay terse and
 assume these terms; this file is where they are defined *once*, clearly, so a reader new to a doc can
 ground the vocabulary here instead of re-deriving it. The math/theory version of several of these
 (MI bound, DPI, conditional-MI = unique R², rate-distortion) lives in [`06-theory-grounding.md`](06-theory-grounding.md); this
 file is the intuition, not the formal treatment.
 
-> If a definition here ever disagrees with [`ladder.md`](ladder.md) or an experiment's recorded numbers, those win.
+> If a definition here disagrees with an experiment's recorded evidence or the extended manuscript's current interpretation, those authorities win.
 > This is a teaching/reference aid, not a source of truth.
 
 ---
@@ -147,9 +147,8 @@ questions, established by three separate rungs:
 - **Useful** (A3 / Q4): does induced alignment buy something practical? (E009 — bounded null.)
 
 A strong PASS on "real" says nothing about "movable" or "useful." Keeping these separate is the spine
-of the whole ladder — see [`ladder.md`](ladder.md).
+of the whole ladder — see [`status.md`](status.md).
 
 
 ## Related
-- [`ladder.md`](./ladder.md) — the canonical status board
-- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](./status.md) — the canonical status board

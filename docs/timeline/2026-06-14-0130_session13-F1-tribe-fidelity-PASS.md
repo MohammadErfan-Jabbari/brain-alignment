@@ -75,5 +75,5 @@ Session cost ~$240. F2/F3/F4 not started (deferred to fresh sessions). No rung f
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

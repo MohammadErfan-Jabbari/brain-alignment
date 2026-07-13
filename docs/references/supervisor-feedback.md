@@ -29,10 +29,9 @@ thesis manuscript draft (the extended-manuscript v0.1), 2026-06-22. Verbatim:
 **Why it's the anchor for the redesign:** this is the ground-truth failure. A draft passed every check we had and
 still read as story-prose to a real supervisor. The redesign's job is to make this class of defect impossible to
 ship — not by listing Claudio's four sentences, but by building the positive model that prevents the whole class.
-Links to [[scientific-writing-methodology]] (the reader-expectation canon), [[writing-skills-ecosystem-audit]]
+These observations are retained as direct human-review evidence for future manuscript revisions.
 (group C — structural AI-tells), and the S33 "immune system, not a notion of health" diagnosis.
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../status.md) — the canonical status board

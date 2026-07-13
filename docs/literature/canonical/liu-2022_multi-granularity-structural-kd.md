@@ -71,5 +71,4 @@ This paper argues that "what to transfer" in KD should be structural and multi-l
 
 
 ## Related
-- [`ladder.md`](../../ladder.md) — the canonical status board
-- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../../status.md) — the canonical status board

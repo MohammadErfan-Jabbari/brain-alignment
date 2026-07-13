@@ -71,9 +71,9 @@ Switch to `/interpret` and audit the comparator: seed-aligned margins, PPL match
 
 ## Related
 
-- [`../ladder.md`](../ladder.md)
-- [`../upspeed.md`](../upspeed.md)
-- [`../tasks.md`](../tasks.md)
+- `../ladder.md`
+- `../upspeed.md`
+- `../tasks.md`
 - [`../experiments/E016_tribe-synthetic-brain-targets.md`](../experiments/E016_tribe-synthetic-brain-targets.md)
-- [`../top-venue-paper-plan-2026-07-03.md`](../top-venue-paper-plan-2026-07-03.md)
-- [`../top-venue-evidence-ledger-2026-07-03.md`](../top-venue-evidence-ledger-2026-07-03.md)
+- `../top-venue-paper-plan-2026-07-03.md`
+- `../top-venue-evidence-ledger-2026-07-03.md`

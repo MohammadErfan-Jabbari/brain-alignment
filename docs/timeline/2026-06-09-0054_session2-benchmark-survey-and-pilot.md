@@ -67,7 +67,7 @@ test — with the anti-confound protocol baked in. Be adaptive about the data de
 - JSON duplicate-key bug (`n_items`) silently capped the first run at 240 sentences — caught and fixed;
   re-ran at 384. Lesson folded into care with config edits.
 
-## Next session (see [`upspeed.md`](../upspeed.md) for the decision points)
+## Next session (see `upspeed.md` for the decision points)
 
 - Source the **real neural responses** (LeBel ds003020 one subject via anonymous S3, or Pereira
   responses from the separate host), then re-run E001 with `--backend pereira`/lebel for the real verdict.
@@ -76,5 +76,5 @@ test — with the anti-confound protocol baked in. Be adaptive about the data de
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

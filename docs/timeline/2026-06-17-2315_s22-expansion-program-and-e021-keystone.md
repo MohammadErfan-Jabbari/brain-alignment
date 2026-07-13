@@ -11,7 +11,7 @@ tags: [timeline]
 Erfan set an autonomous goal: analyze all open ideas, build a conference-paper sweep system, build a hierarchical idea tree, then climb the untested nodes (≤4 parallel on the L40S), questioning assumptions, until the project holds a >75%-shot-at-a-top-10-venue result.
 
 ## What was built / what ran
-- **Program scaffolding (committed):** [`docs/expansion-program.md`](../expansion-program.md) (master tracker + honest two-path strategy + locked top-10 venue list), [`docs/idea-tree.md`](../idea-tree.md) (full possibility space by *solution altitude* + climb queue), [`docs/litsweep-relevance.md`](../litsweep-relevance.md) (sweep taxonomy).
+- **Program scaffolding (committed):** `docs/expansion-program.md` (master tracker + honest two-path strategy + locked top-10 venue list), `docs/idea-tree.md` (full possibility space by *solution altitude* + climb queue), `docs/litsweep-relevance.md` (sweep taxonomy).
 - **Conference-scout tooling (committed, `scripts/litsweep/`):** DBLP TOC + OpenReview + OpenAlex/Crossref/S2 enrichment + arXiv/OpenReview PDF fetch. Live-tested (DBLP 3540 NeurIPS'23, OpenReview 2260 ICLR'24 w/ abstracts+PDFs). Reusable; the climb did NOT block on a full sweep.
 - **Strategy premortem (opus)** re-sequenced the plan: killed the structural-null metric nodes (T4.3/4/5 — fulcrum ~0), demoted the relabeled-regularizer (T2.2 ≈ E004 `frozen`), promoted **T1.3 (non-fMRI cognitive signal)** as the only mechanically-viable main-track bet, and inverted "scaffolding-first" to "run the load-bearing experiment first." Honest venue-bar recalibration: realistic ceiling = strong workshop/Findings + thesis; top-10 main-track conditional on a T1.3 positive.
 - **Two canonical notes (committed):** Deng'24 (gaze supervision) + BabyLM (cognitive-objective findings) — E021 positioning + prior.
@@ -36,5 +36,5 @@ The keystone did **not** deliver a clean main-track positive. It delivered a *na
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

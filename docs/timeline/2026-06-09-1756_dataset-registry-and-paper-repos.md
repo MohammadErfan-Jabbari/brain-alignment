@@ -23,7 +23,7 @@ Catalogued every dataset that might be relevant (neural / behavioral / NLP-basel
 
 Research method: 8 parallel Sonnet subagents did direct page/paper fetches for the 6 datasets not already covered by [`04-data-benchmarks.md`](../04-data-benchmarks.md). Strict accuracy rubric — NOT-STATED for genuinely unknown fields, all sources cited. The 4 committed benchmarks (LeBel, Narratives ds002345, Pereira, Le Petit Prince) cross-reference `04` instead of duplicating its power analysis.
 
-Division of labour now explicit: `04` = decision (powered benchmarks, D008); [`R02`](../reports/R02_datasets-and-code.md) = provenance (which paper used what + repos); `05` = broad availability watchlist. Each file states what it is and isn't.
+Division of labour now explicit: `04` = decision (powered benchmarks, D008); `R02` = provenance (which paper used what + repos); `05` = broad availability watchlist. Each file states what it is and isn't.
 
 Committed: cd79447.
 
@@ -68,5 +68,5 @@ No notable friction this session. The parallel subagent approach for dataset res
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

@@ -71,5 +71,4 @@ The strongest gains come from compact lexical associations, not long sentence in
 
 
 ## Related
-- [`ladder.md`](../../ladder.md) — the canonical status board
-- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../../status.md) — the canonical status board

@@ -20,7 +20,7 @@ tags: [timeline]
 
 4. **Confronted the inversion idea with the literature (2 subagents: lit-scout + paper-digest, sonnet).** Finding: "use fMRI to train an LM" is **already published**, text LMs included (brain-tuning: Moussa/Toneva speech ICLR'25+NeurIPS'25; Bilgin/Wehbe text ICLR'26; Merlin/Toneva causal ICLR'26). Wrote canonical note [`moussa-2025_brain-tuning-speech-lms.md`](../literature/canonical/moussa-2025_brain-tuning-speech-lms.md); updated [`01-research-landscape.md`](../01-research-landscape.md) (rows + tightened gap).
 
-5. **Wrote R03** ([`docs/reports/R03_brain-as-training-signal.md`](../reports/R03_brain-as-training-signal.md)): first-principles interrogation (info-budget bound → brain = weak regularizer, valuable only in low-data/compressed regimes), the scooping map, 3 evolved framings (F1 distillation / F2 low-data / F3 fMRI-free abstraction proxy), and a kill-gated experimental ladder (Layer 0 = E002, done). Recorded learnings L007 (A2 pass) + L008 (idea partly scooped).
+5. **Wrote R03** (`docs/reports/R03_brain-as-training-signal.md`): first-principles interrogation (info-budget bound → brain = weak regularizer, valuable only in low-data/compressed regimes), the scooping map, 3 evolved framings (F1 distillation / F2 low-data / F3 fMRI-free abstraction proxy), and a kill-gated experimental ladder (Layer 0 = E002, done). Recorded learnings L007 (A2 pass) + L008 (idea partly scooped).
 
 ## What's next to run (ordered)
 
@@ -40,5 +40,5 @@ tags: [timeline]
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

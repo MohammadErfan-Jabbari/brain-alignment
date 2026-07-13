@@ -113,7 +113,5 @@ The method also suggests a possible future pivot if E016 is null: neural supervi
 
 ## Related
 
-- [`ladder.md`](../../ladder.md) - the canonical status board
-- [`map.md`](../../map.md) - code system (Q/E/A/D/L) and journey map
+- [`status.md`](../../status.md) - the canonical status board
 - [`01-research-landscape.md`](../../01-research-landscape.md) - literature frontier map
-- [`top-venue-frontier-refresh-2026-07-02.md`](../../top-venue-frontier-refresh-2026-07-02.md) - current top-venue strategy memo

@@ -13,7 +13,7 @@ aliases: [E005]
 **Code:** reuses `scripts/distill.py` (λ_brain), `scripts/brain_loss.py` (co-trained MSE), `scripts/run_kd_alignment.py` (KD harness), `scripts/run_lebel_encoding.py` (powered alignment measurement)
 **Output:** `outputs/E005_tradeoff.json`
 
-> **⚠ READ THE ADDENDUM FIRST (bottom of file).** The §Interpretation below records the *original* "F1 CONFIRMED in-domain" read, which the Session-8 panel showed was **overstated** (pseudo-replication + one outlier fold). The honest verdict — a small brain-specific trend, and a **per-individual NULL** confirmed by E008 — is in the ADDENDUM and [`ladder.md`](../ladder.md) (Q3 = ❌). The §Interpretation is kept only as a record of what we first thought (L014→L015→L016).
+> **⚠ READ THE ADDENDUM FIRST (bottom of file).** The §Interpretation below records the *original* "F1 CONFIRMED in-domain" read, which the Session-8 panel showed was **overstated** (pseudo-replication + one outlier fold). The honest verdict — a small brain-specific trend, and a **per-individual NULL** confirmed by E008 — is in the ADDENDUM and [`status.md`](../status.md) (Q3 = ❌). The §Interpretation is kept only as a record of what we first thought (L014→L015→L016).
 
 ---
 
@@ -69,7 +69,7 @@ Compare alignment **at equal held-out perplexity**, not equal budget. Trace each
 
 ## Interpretation
 
-> **⚠ SUPERSEDED — historical record only.** Everything in this section was the *first* read; it is overstated. See the ADDENDUM and [`ladder.md`](../ladder.md) for the honest verdict (small trend → per-individual NULL, E008/L016). Kept un-edited so the correction is traceable (per the repo's record-don't-rewrite convention).
+> **⚠ SUPERSEDED — historical record only.** Everything in this section was the *first* read; it is overstated. See the ADDENDUM and [`status.md`](../status.md) for the honest verdict (small trend → per-individual NULL, E008/L016). Kept un-edited so the correction is traceable (per the repo's record-don't-rewrite convention).
 
 **F1 CONFIRMED in-domain (Fork A supported).** Alignment-guided KD recovers **brain-specific** alignment **beyond** perplexity-only KD **at matched perplexity** — the dissociation E003 (L011) and E004 could not cleanly establish. The KD-KL anchor + the matched-ppl-by-construction permuted-twin design cleaned up E004's fragility (4/5 folds positive, robust to the fold-4 outlier, and the gain holds despite slightly-worse ppl). This flips the oracle's "Fork B more likely" prior: the in-domain matched-ppl test is positive.
 
@@ -145,5 +145,4 @@ not new per-individual evidence and not a ladder move.
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../status.md) — the canonical status board

@@ -234,7 +234,7 @@ strong baselines and a shared eval suite. The verdict is a near-null: cognitive 
 consistently beat plain training, the controlled curriculum study (CLIMB) found no widespread gains,
 the winning order-policy was *randomization* not cognitive ordering, and performance decoupled from
 psycholinguistic-prediction ability (Steuer). This is precisely the "BabyLM showed cognitive
-aux-objectives ≈ randomized-order nulls" claim in [`idea-tree.md`](../../idea-tree.md) T1.3 — now sourced and quoted.
+aux-objectives ≈ randomized-order nulls" claim used by [E021](../../experiments/E021_surprisal-residualized-cognitive-signal.md) — now sourced and quoted.
 
 **Connection to other canon:**
 - `merlin-2024_beyond-next-word-brain-alignment` / `proietti-2025_brain-llm-alignment-input-attribution`
@@ -263,7 +263,7 @@ matched ppl (E009), so the residual objective has to do what the raw objective c
 means a generic-regularization or curriculum-shaping explanation is the default null to beat; and
 (4) the gain must land on an **axis the eval actually scores** (Steuer's decoupling warns a pure
 cognitive-modeling gain may not show on BLiMP/GLUE — so predeclare which axis E021 claims). Given
-this prior, E021's value is asymmetric and that is by design ([`expansion-program.md`](../../expansion-program.md) §6): a **null
+this prior, E021's value is asymmetric and that is by design: a **null
 is the stronger, generalizable negative** ("cognitive signals don't teach an LM anything its own
 surprisal doesn't already know," now across fMRI + behavioral + EEG), and a **surviving residual arm
 is the new positive** — but the honest base rate, before compute, is the null. Predeclare the kill
@@ -272,7 +272,7 @@ criterion and the permuted-twin control accordingly.
 **What this does NOT change in our design:**
 - E021 still goes (it tests the *residualized* objective BabyLM never tried) — but it goes with a
   null-leaning prior, a predeclared kill criterion, and the randomized-order/permuted twin as the
-  load-bearing control, exactly as `idea-tree.md` T1.3 and the oracle-gate already specify.
+  load-bearing control, exactly as the E021 record and oracle gate specify.
 - No change to E009; this corroborates its framing.
 
 **One-line verdict:** Across three BabyLM iterations and dozens of matched-budget submissions,
@@ -306,5 +306,4 @@ Read date: 2026-06-17
 
 
 ## Related
-- [`ladder.md`](../../ladder.md) — the canonical status board
-- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../../status.md) — the canonical status board

@@ -107,6 +107,4 @@ The answer E016 can support only after results: because the claim is not "PI wor
 
 - [`lopez-paz-2016_unifying-distillation-privileged-information.md`](lopez-paz-2016_unifying-distillation-privileged-information.md)
 - [`wu-2026_pride-privileged-information-distillation-dialogue.md`](wu-2026_pride-privileged-information-distillation-dialogue.md)
-- [`../../top-venue-distillation-adjacency-audit-2026-07-03.md`](../../top-venue-distillation-adjacency-audit-2026-07-03.md)
-- [`../../top-venue-paper-plan-2026-07-03.md`](../../top-venue-paper-plan-2026-07-03.md)
 - [`../../experiments/E016_tribe-synthetic-brain-targets.md`](../../experiments/E016_tribe-synthetic-brain-targets.md)

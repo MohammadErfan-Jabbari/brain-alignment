@@ -7,7 +7,7 @@ aliases: [E021]
 # Experiment E021 — surprisal-residualized cognitive-signal auxiliary training (the keystone, T1.3)
 
 **Created:** 2026-06-17 · **Status:** RESOLVED — **CLEAN NULL on cognition (v5, panel-driven, 2026-06-18).** Surprisal-orthogonality NULL (raw≈residual). The RT edge over learnability-matched controls (the v4 below-trend gap) is REAL but is **signal SHAPE, not cognition**: a phase-randomized twin carrying RT's autocorrelation (lag-1 ~0.62) + heavy-tailed marginal (kurtosis ~13) but ZERO behavioral content TIES the residual (172.1 vs 177.4, +5.3 [−7.9,+18.5]) — a content-free shape twin reproduces the whole advantage. So human reading time carries no cognition-specific trainable structure beyond its statistical shape. Matches H1 + Deng'24 + BabyLM. NO rung flip.**
-**Tree node:** T1.3 (lead Path-B bet) · **Program:** [`../expansion-program.md`](../expansion-program.md) §6b synthesis · **Mode:** promotable
+**Historical program:** Path-B auxiliary-signal test; current state is owned by [`status.md`](../status.md). · **Mode:** promotable
 
 ---
 
@@ -170,5 +170,4 @@ The v4 below-trend gap is **real but mis-attributed.** A thinking panel (counter
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../status.md) — the canonical status board

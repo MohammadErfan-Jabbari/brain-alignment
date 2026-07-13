@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -92,9 +93,15 @@ def compile_latex(target: Path) -> list[str]:
         if len(mains) != 1:
             return [f"{directory}: expected one manuscript main .tex file"]
         main = mains[0]
+    if shutil.which("latexmk"):
+        command = ["latexmk", "-pdf", "-interaction=nonstopmode", main.name]
+    elif shutil.which("tectonic"):
+        command = ["tectonic", "-X", "compile", main.name, "--keep-intermediates"]
+    else:
+        return ["LaTeX build unavailable: install latexmk or tectonic"]
     try:
         proc = subprocess.run(
-            ["latexmk", "-pdf", "-interaction=nonstopmode", main.name],
+            command,
             cwd=directory, text=True, capture_output=True, timeout=180
         )
     except (OSError, subprocess.TimeoutExpired) as exc:

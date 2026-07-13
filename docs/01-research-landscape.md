@@ -5,7 +5,7 @@ tags: [literature, reference]
 
 # Research Landscape — Brain-Alignment-Guided Distillation
 
-**Last updated:** 2026-07-03 (on-policy/context-distillation adjacency refresh)
+**Last updated:** 2026-07-13 (E016 transfer-gate cutover)
 **Stage:** Map (frontier mapping). Literature is strong; this is a digest, not a fresh survey.
 
 > Full provenance: `literature/_prior-work/` holds the 26 KB literature dossier and the 10 KB oracle
@@ -13,17 +13,7 @@ tags: [literature, reference]
 
 ## The gap (one sentence)
 
-The literature *measures* LLM↔brain alignment, and — as of 2025–26 — *also uses fMRI as a training
-signal* (brain-tuning: Moussa/Toneva for speech, Bilgin/Wehbe for text LMs). What no one has done is
-use brain alignment as the objective **in distillation/compression at a matched student budget**, then
-test whether *preserving* it (vs a perplexity-only student) buys anything practical. That untested loop
-is the contribution space — and it must survive one live complication: brain alignment is already fairly
-robust to *post-hoc* compression (arXiv 2602.07547), so the thesis must show distillation differs, or
-that it improves the alignment/utility *trade-off curve* at matched compression. The KD-adjacent frontier is
-also crowded: feature-KD and privileged-information KD for LMs now exist, including a task-specific PI-enhanced
-KD paper for smaller empathetic-dialogue models; context/self-distillation, on-policy teacher supervision, rich-feedback distillation, and gaze/cognitive supervision are active too. The remaining gap is therefore not "PI helps distillation" or "cognitive supervision helps models,"
-but whether a **biological/synthetic-neural privileged target** contributes beyond KD-only, a permuted dense
-target, and a matched-information non-brain privileged target. See R03, [`top-venue-distillation-adjacency-audit-2026-07-03.md`](top-venue-distillation-adjacency-audit-2026-07-03.md), [`top-venue-privileged-signal-adjacency-audit-2026-07-03.md`](top-venue-privileged-signal-adjacency-audit-2026-07-03.md), and [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md).
+The literature measures LLM–brain alignment and now also uses brain data to tune speech and text models. Feature distillation, privileged-information distillation, and on-policy hidden-state supervision are also active, so neither “brain data can guide a model” nor “training-time privileged information can help a smaller LM” remains an available broad novelty claim. The narrow unresolved question is whether a biological or synthetic-neural privileged target transfers useful information to a fixed smaller student beyond strong text-derived controls and then survives evaluation on real brain alignment. E016 directly tests that sequence and finds proxy optimization without real-brain transfer, shifting the contribution from a new positive algorithm to the measurement and transfer controls needed to prevent a proxy success from becoming a biological overclaim.
 
 ## Prior art, organized
 
@@ -73,7 +63,8 @@ target, and a matched-information non-brain privileged target. See R03, [`top-ve
 | [Saadi & Wang 2026](literature/canonical/saadi-2026_task-tangent-feature-distillation-llms.md) | `saadi-2026_task-tangent-feature-distillation-llms` | Flex-KD makes modern feature-level LLM distillation a live baseline family: task-relevant functional subspaces, not raw feature matching. Pressure on E016: a TRIBE gain can be read as generic useful dense-target geometry unless it beats `textfeat`. |
 | [Penaloza et al. 2026](literature/canonical/penaloza-2026_privileged-information-distillation-lms.md) | `penaloza-2026_privileged-information-distillation-lms` | Generic privileged-information distillation for LMs is active in agentic tool-use settings. Closes "first PI distillation for LMs"; does not use brain/neural targets or fixed-budget language KD. |
 | [Wu et al. 2026](literature/canonical/wu-2026_pride-privileged-information-distillation-dialogue.md) (PRIDE) | `wu-2026_pride-privileged-information-distillation-dialogue` | Closest PI-enhanced KD pressure: training-only expert/future-context PI improves smaller empathetic-dialogue students. Closes "training-only PI can improve smaller LMs"; leaves the biological/synthetic-neural target and matched-information-control question open. |
-| 2026 on-policy/context/self-distillation family | [`top-venue-on-policy-context-distillation-audit-2026-07-03.md`](top-venue-on-policy-context-distillation-audit-2026-07-03.md) | OPCD/OPSD/SDPO/HDPO/GATES/OEL-style work makes context, feedback, deployment experience, and ground-truth-conditioned self-distillation active. Pressure on E016: `textfeat` clears a sentence-local frozen-teacher hidden-state target, not long-context or on-policy distillation; a positive branch must either add that comparator, add real-brain evaluation, or narrow the claim. |
+| [OPRD](https://arxiv.org/abs/2606.06021), [PHF](https://arxiv.org/abs/2606.29340), and 2026 on-policy/context self-distillation | Current frontier family | Representation-level and privileged hidden-process distillation are active algorithmic claims. They use model-internal or solution-conditioned teachers rather than neural measurements, but they prevent E016 from claiming novelty for dense hidden targets alone. The relevant distinction is the neural target plus a real-brain transfer gate. |
+| [Rethinking On-Policy Self-Distillation](https://arxiv.org/abs/2607.05184) and [DemoPSD](https://arxiv.org/abs/2607.02502) | Current frontier family | Privileged context can create shortcuts or fail to transfer to the unconditioned student. This makes transfer failure a first-class outcome rather than an afterthought and supports reporting E016 as a controlled proxy-to-endpoint failure. |
 
 ### D. Systems-side constraints
 
@@ -128,5 +119,4 @@ robustness from one benchmark family.
 
 
 ## Related
-- [`ladder.md`](./ladder.md) — the canonical status board
-- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](./status.md) — the canonical status board

@@ -29,7 +29,7 @@ The non-negotiables are competing hypotheses, predeclared kill criteria, a locke
 
 | Question | Authority |
 |---|---|
-| What was run and what did it produce? | The owning [`experiments/`](experiments/AGENTS.md) record plus retained load-bearing artifacts |
+| What was run and what did it produce? | The owning `experiments/ENNN_*.md` record plus retained load-bearing artifacts |
 | What does the thesis currently conclude? | The live body in [`manuscript/extended/`](manuscript/extended/main-extended.tex) |
 | Where are we and what happens next? | [`status.md`](status.md) |
 | Why did the project change? | [`decisions/decisions.md`](decisions/decisions.md), [`learnings.md`](learnings.md), selected durable timelines, and Git |
@@ -101,6 +101,4 @@ Use the Elon/Feynman/Naval frame in [`references/reasoning-frame.md`](references
 ## Related
 
 - [`status.md`](status.md) — current operational state
-- [`repo-orientation.md`](repo-orientation.md) — filesystem and evidence map
-- [`operating-map.md`](operating-map.md) — stance guide
 - [`decisions/decisions.md`](decisions/decisions.md) — durable changes and reversals

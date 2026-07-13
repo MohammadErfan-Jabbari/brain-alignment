@@ -82,6 +82,5 @@ This is the **theoretical foundation for E024** (Q4 / A3 — does the alignment 
 Read the full 10-page PDF page-by-page from disk (text extracted with pypdf; arXiv:1511.03643v3). All numbers, the Eq. 6 SVM+ objective, the Section 4.1 rate decomposition, and the four synthetic-experiment accuracies are transcribed directly from pages 1-8 (the remainder is references). No parse issues; equations rendered cleanly enough to verify the math. Comprehension self-check: passed.
 
 ## Related
-- [`ladder.md`](../../ladder.md) — the canonical status board (Q4 sample-efficiency E024)
-- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../../status.md) — the canonical status board (Q4 sample-efficiency E024)
 - [`jia-2024_adversarial-moment-matching-llm-distillation`](jia-2024_adversarial-moment-matching-llm-distillation.md) — distillation target as value-imitation vs distribution-matching

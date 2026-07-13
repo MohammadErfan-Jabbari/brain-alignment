@@ -6,8 +6,7 @@ This repository is the execution and writing home for Erfan’s thesis on whethe
 
 1. [`docs/status.md`](docs/status.md): operational state, blockers, and at most five next actions.
 2. Follow only the E-record and extended-manuscript links needed for the active action.
-3. Use [`docs/repo-orientation.md`](docs/repo-orientation.md) when entering cold.
-4. Use [`docs/03-methodology.md`](docs/03-methodology.md) for the authority and evidence contract.
+3. Use [`docs/03-methodology.md`](docs/03-methodology.md) for the authority and evidence contract.
 
 ## Four authorities
 

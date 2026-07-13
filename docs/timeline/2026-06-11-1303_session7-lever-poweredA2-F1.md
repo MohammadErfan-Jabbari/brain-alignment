@@ -46,5 +46,5 @@ This session built the keystone (`$\mathcal{L}_{\text{brain}}$`) and climbed thr
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

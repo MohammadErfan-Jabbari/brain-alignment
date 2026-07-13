@@ -17,4 +17,4 @@ When working a task, not just in final answers, never emit a dense paragraph blo
 ## Related
 
 - [Ask Specific, Not Vague Questions](ask-specific-not-vague-questions.md)
-- [Report Writing Style](report-writing-style.md)
+- [Manuscript Prose Taste](manuscript-prose-taste.md)

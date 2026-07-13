@@ -7,7 +7,7 @@ aliases: [E003]
 # Experiment — E003: does perplexity-only knowledge distillation preserve or destroy brain alignment? (R04 Q1 kill-test)
 
 **Created:** 2026-06-10 · **Status:** COMPLETE (ran 2026-06-10) — Q1 PARTIAL: monotone alignment gradient (not preserve-for-free), but alignment co-varies with perplexity (ρ=−0.88), KD-specific shedding only p≈0.1 (L011) · **Mode:** working
-**Direction:** [`../reports/R04_gap-analysis.md`](../reports/R04_gap-analysis.md) §6(a) / §8 (Q1) · [`../reports/R03_brain-as-training-signal.md`](../reports/R03_brain-as-training-signal.md) (ladder)
+**Direction:** Q1 distillation-preservation gate; current interpretation is in the [extended manuscript](../manuscript/extended/main-extended.tex).
 **Theory:** [`../06-theory-grounding.md`](../06-theory-grounding.md) §2 (data-processing inequality) + §4 (rate–distortion = the F1 trade-off curve)
 **Predecessor:** [`E002_tuckute-encoding-feasibility.md`](E002_tuckute-encoding-feasibility.md) (A2 PASS — the encoding signal is real on Tuckute)
 **Code:** `scripts/run_kd_alignment.py` (E003 runner), reuses `scripts/distill.py`, `scripts/pilot_lib.py`, `scripts/data_adapters.py:load_tuckute`
@@ -152,5 +152,4 @@ The estimator note for both sidecars: single-window, `max_length=64`, no sliding
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../status.md) — the canonical status board

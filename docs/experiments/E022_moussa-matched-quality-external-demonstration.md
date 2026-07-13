@@ -7,7 +7,7 @@ aliases: [E022]
 # Experiment E022 — Moussa brain-tuning, matched-quality external demonstration (Path-A)
 
 **Created:** 2026-06-17 (S22) · **Status:** DONE — **PILOT = NON-REPRODUCTION → STOP (full shrink-test vacuous). 2026-06-18.** Brain-tuning gives only +0.52 phoneme-F1 over pretrained (CI [−0.36,+1.40], below the +2 gate, includes 0). The planned matched-twin shrink-test is therefore vacuous and is NOT built. Honest scope: non-reproduction in a REDUCED setup (single-subject UTS03, 24 stories, our pipeline, both arms from `wav2vec2-base` pretrain) — NOT a refutation of Moussa's full multi-participant result. Net for Path A: the external "main-track lift" demonstration is off the table on our data.
-**Tree:** TA.4 (Path-A external demonstration) · **Program:** [`../expansion-program.md`](../expansion-program.md) §6b · **Mode:** promotable (if it clears the gates)
+**Historical program:** Path-A external demonstration; current state is owned by [`status.md`](../status.md). · **Mode:** promotable (if it clears the gates)
 
 ## Objective
 Show that Moussa & Toneva's reported **brain-specific downstream gain** (phoneme-F1 / sentence-type-F1 from fMRI brain-tuning of a speech-LM) shrinks once compared against a **quality-matched non-brain twin** + a **permuted-brain twin**, rather than against the un-tuned pretrained baseline they use — i.e. the literature's brain-guided-training gains are quality-confounded. This is the external "main-track lift" for the Path-A negative paper.
@@ -37,5 +37,4 @@ The full design as built (`scripts/run_moussa_arms.py`) would reach "the gain sh
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../status.md) — the canonical status board

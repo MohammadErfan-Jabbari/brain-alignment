@@ -1,9 +1,7 @@
 % main-extended.tex - skeleton for the INTERNAL extended manuscript (living master).
 %
-% Two parts in one project: an always-current paper body (compresses cleanly to a
-% public cut) and an append-only checkpoint log. Copy this file + preamble.sty +
-% numbers.tex + references.bib into docs/manuscript/extended/, then \input the
-% section files as you write them. Write one sentence per source line.
+% The always-current paper body compresses cleanly to an immutable public cut.
+% Keep one sentence per source line and source keyed numbers from numbers.tex.
 % Build: latexmk -pdf main-extended.tex  (config in latexmkrc).
 \documentclass[11pt]{article}
 \usepackage[a4paper,margin=1in]{geometry}
@@ -18,9 +16,6 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-% PROVISIONAL (checkpoint 2). States the question and the weak-prior hypothesis only.
-% The results summary (the two established findings + the downstream arc) is deferred to the
-% checkpoint that consolidates R08--R14; refill the \gap then and close on a payoff line.
 For a person and a language model reading the same text, a simple linear map predicts the person's brain activity from the model's middle-layer activations.
 For a decade this correspondence has been used in one direction only: to measure a model's alignment with the brain after it is trained.
 We ask whether it can instead be used during training.
@@ -45,12 +40,6 @@ The results make brain alignment a useful diagnostic signal under explicit contr
 \input{sections/05_discussion}
 \input{sections/06_limitations}
 \input{sections/07_conclusion}
-
-% === CHECKPOINT LOG (append-only; the deep interval-by-interval history) ======
-% A new dated segment per checkpoint. Never rewritten; the body holds current
-% truth, the log holds how we got there. The one permitted edit is a
-% \superseded note when a later checkpoint overturns an earlier claim.
-\input{checkpoint-log}
 
 \printbibliography
 \end{document}

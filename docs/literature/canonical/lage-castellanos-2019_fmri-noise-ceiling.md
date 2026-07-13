@@ -114,5 +114,4 @@ Full PDF read, all 25 pages, page-by-page via the Read tool (pages 1–25 in thr
 
 
 ## Related
-- [`ladder.md`](../../ladder.md) — the canonical status board
-- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../../status.md) — the canonical status board

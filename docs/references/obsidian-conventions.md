@@ -9,7 +9,7 @@ aliases: [obsidian-conventions, markdown-conventions, vault-conventions]
 **The canonical spec for how every `.md` file in this repo is *structured*.** The repo is at once a
 **GitHub repo** (remote `origin`) and an **Obsidian vault**; every file must render correctly in
 *both*. This file governs the *container* (naming, frontmatter, links, formatting, layout). The
-*prose body* of reports and manuscripts is owned by `/write` (the `sci-write-v2` pipeline).
+*prose body* of the extended manuscript is drafted directly from the owning experiment records and reviewed under the manuscript workflow.
 
 > **Structure from these conventions; words from `/write`.** The two never overlap. `.tex` files are
 > LaTeX, not Markdown — these conventions do not apply to them (only `/write` does).
@@ -65,7 +65,7 @@ Rules:
 3. **Evidence cites are clickable:** `[E003]` → `[E003](../experiments/E003_*.md)`. The `[E003]` form is preserved (the honesty checker matches it regardless of the trailing `(path)`), so the cite still validates *and* navigates.
 4. **Literature citations link to the canonical note on first mention** in a doc: `[Negi et al., 2025](../literature/canonical/negi-2025_*.md)`. A "Surname YYYY" mention left bare when the canonical note exists is a defect.
 5. **First meaningful mention per doc** gets the link (plus links in tables, lists, and the `## Related` footer). Don't linkify every one of dozens of inline repeats — that is a wall of links. Backticks remain correct for true non-navigable literals (a shell command, a config key, a filename with no page).
-6. **Never link a bare `folder/`** as a navigation target — it's a dead click in Obsidian. Link to the folder's `AGENTS.md` note (`[reports](../reports/AGENTS.md)`) or leave it as plain text if no index exists.
+6. **Never link a bare `folder/`** as a navigation target. Link to the folder's `AGENTS.md` note or leave it as plain text if no index exists.
 7. External URLs are normal Markdown links; never bare URLs.
 
 ## 5. Callouts — the 5 cross-compatible types only
@@ -100,13 +100,12 @@ Allowed and cross-compatible: standard Markdown, GFM tables/task-lists/footnotes
 
 The connected graph comes from this pattern (what centres `awesome-llm-apps`):
 
-- `map.md` is the master hub; `AGENTS.md` is the folder-local agent hub (links down to notable files). The only README is the root `README.md`.
 - Every substantive note ends with a `## Related` footer linking *up* to its hub and *across* to key siblings:
 
   ```markdown
   ## Related
-  - [`ladder.md`](../ladder.md) — status board
-  - [`R06`](R06_alignment-signal-is-real-beyond-confounds.md) — the prior finding
+  - [`status.md`](../status.md) — status board
+  - [`E006`](../experiments/E006_lebel-voxelwise-feasibility.md) — the owning evidence
   ```
 
 ## 11. Exemptions
@@ -134,9 +133,9 @@ Do **not** use Prettier — it re-wraps paragraphs, breaking §3.
 - `.obsidian/` is tracked (shared view config: `app.json` forces standard relative links in-app; `graph.json` colour-groups by tag/path; `appearance.json`, `core-plugins.json`, `themes/`). Only `workspace.json` is gitignored.
 - Obsidian hides dotfolders; after the 2026-07-03 cleanup, the repo no longer exposes `.claude` through root symlinks. Use `.claude/agents`, `.claude/commands`, and `.claude/skills` directly from the filesystem when needed. `.claude/state` and `.claude/worktrees` remain local-only surfaces, not shared vault content.
 
-## 14. Reports & manuscript — container only, body is `/write`'s
+## 14. Manuscript container and prose
 
-For `docs/reports/*.md` and `docs/manuscript/`: the container rules apply (frontmatter, links, hub backlinks, Related footer), but **the prose body, the `[E0nn]` cites' text, and every number are `/write`'s** — change them only in a real `/write` session (they are guarded by the `honesty_writecheck` + `ai_tell_lint` hooks and the signed `sci-write-v2` suite). Making a cite *clickable* (adding the `(path)`) is a container edit and is allowed; rewording or re-citing is not.
+For Markdown under `docs/manuscript/`, the container rules apply. The LaTeX manuscript follows [`manuscript/AGENTS.md`](../manuscript/AGENTS.md): draft directly from E records, preserve `\evd{Ennn}` provenance, and run deterministic checks plus one fresh independent prose/scientific-scope review.
 
 ---
 
@@ -157,5 +156,4 @@ For `docs/reports/*.md` and `docs/manuscript/`: the container rules apply (front
 
 ## Related
 - [`AGENTS.md`](../AGENTS.md) — the docs map
-- [`map.md`](../map.md) — the master hub / code system
 - [`03-methodology.md`](../03-methodology.md) — how we work (deliverable layers)

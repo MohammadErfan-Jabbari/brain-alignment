@@ -97,7 +97,5 @@ For a null E016 branch, this paper helps the argument: if modern task-tangent fe
 
 ## Related
 
-- [`../../top-venue-distillation-adjacency-audit-2026-07-03.md`](../../top-venue-distillation-adjacency-audit-2026-07-03.md)
-- [`../../top-venue-paper-plan-2026-07-03.md`](../../top-venue-paper-plan-2026-07-03.md)
 - [`../../experiments/E016_tribe-synthetic-brain-targets.md`](../../experiments/E016_tribe-synthetic-brain-targets.md)
 - [`../../01-research-landscape.md`](../../01-research-landscape.md)

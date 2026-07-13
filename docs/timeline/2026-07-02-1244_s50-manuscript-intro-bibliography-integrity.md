@@ -61,7 +61,7 @@ The final checks run:
 
 ## Related
 
-- [`../upspeed.md`](../upspeed.md)
-- [`../tasks.md`](../tasks.md)
+- `../upspeed.md`
+- `../tasks.md`
 - [`../manuscript/extended/references.bib`](../manuscript/extended/references.bib)
 - [`../manuscript/extended/main-extended.pdf`](../manuscript/extended/main-extended.pdf)

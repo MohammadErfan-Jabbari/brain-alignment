@@ -141,7 +141,7 @@ The deferred gap-fill ran on 2026-06-10 (6 Sonnet subagents). **Seven new notes 
 
 ## Pointers into the rest of the brain
 
-- [`reports/R03_brain-as-training-signal.md`](reports/R03_brain-as-training-signal.md) §2 — the first-principles bound this file formally grounds (MI bound, DPI, weak-prior selection).
+- [`manuscript/extended/sections/03_methods.tex`](manuscript/extended/sections/03_methods.tex) — the manuscript derivations this file formally grounds (MI bound, DPI, weak-prior selection).
 - [`01-research-landscape.md`](01-research-landscape.md) — the anti-confound protocol (= conditional MI) and the compression trade-off (= rate-distortion / DPI) the course backs.
 - [`learnings.md`](learnings.md) L003 — why every brain-alignment number must be unique variance after nuisance subtraction (the conditional-MI requirement).
 
@@ -163,5 +163,4 @@ not thesis science.
 
 
 ## Related
-- [`ladder.md`](./ladder.md) — the canonical status board
-- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](./status.md) — the canonical status board

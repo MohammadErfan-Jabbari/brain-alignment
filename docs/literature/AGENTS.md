@@ -43,5 +43,4 @@ Use the landscape doc for the authoritative map. The old folder index grouped pa
 ## Related
 
 - `../01-research-landscape.md`
-- `../ladder.md`
-- `../map.md`
+- `../status.md`

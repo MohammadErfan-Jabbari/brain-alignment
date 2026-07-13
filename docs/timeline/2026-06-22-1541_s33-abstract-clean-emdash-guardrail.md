@@ -31,5 +31,5 @@ Continue the manuscript clean: **§1 Introduction ¶1** is teed up (split the wa
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

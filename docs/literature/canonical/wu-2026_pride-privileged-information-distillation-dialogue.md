@@ -110,6 +110,4 @@ The PRIDE comparison also clarifies what a positive E016 would need to prove. Si
 
 - [`penaloza-2026_privileged-information-distillation-lms.md`](penaloza-2026_privileged-information-distillation-lms.md)
 - [`lopez-paz-2016_unifying-distillation-privileged-information.md`](lopez-paz-2016_unifying-distillation-privileged-information.md)
-- [`../../top-venue-distillation-adjacency-audit-2026-07-03.md`](../../top-venue-distillation-adjacency-audit-2026-07-03.md)
-- [`../../top-venue-paper-plan-2026-07-03.md`](../../top-venue-paper-plan-2026-07-03.md)
 - [`../../experiments/E016_tribe-synthetic-brain-targets.md`](../../experiments/E016_tribe-synthetic-brain-targets.md)

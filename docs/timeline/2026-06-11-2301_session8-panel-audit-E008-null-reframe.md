@@ -61,7 +61,7 @@ Artifacts added: `scripts/run_a3_pilot.py`, `scripts/analyze_a3_pilot.py`; `outp
 
 Continued autonomously (Stop hook: don't pause at phase boundaries). Picked option (a) — accept Fork-B + write up — per the panel's recommendation.
 
-- **Drafted the paper** ([`docs/manuscript/00_paper-draft-v0.md`](../manuscript/00_paper-draft-v0.md)), grounded (every number → recorded source). Panel-reviewed it (counter-argument + first-principles, fable):
+- **Drafted the paper** ([`docs/manuscript/00_paper-draft-v0.md`](../manuscript/public/v0.9/paper.md)), grounded (every number → recorded source). Panel-reviewed it (counter-argument + first-principles, fable):
   - first-principles found 2 factual mismatches (n=9 split mis-stated 5/5 → train-4/held-5; "Spearman" → Pearson r=−0.88) + MDE range + explicit 1.7× arithmetic + absolute uR² — all fixed.
   - counter-argument (MAJOR-REVISION): "manufactures" was asserted not shown; Negi-2025's per-participant TR-shuffle-controlled *positive encoding* result unaddressed; positive/null on different substrates. → added the Negi reconciliation, separated the two contributions, substrate-mismatch + strong-regime-open-test limitations, softened verb to "inflates."
 - **E010 — the averaging dose-response** — to EARN the central claim: gap(k) = −0.0002/−0.0001/+0.0023/+0.0194/+0.0071 for k=1/2/3/5/9. **k=1 null; the gap appears only on averaging** → averaging *produces* the apparent brain-specificity (rising limb tracks the noise-ceiling). Honest caveat: not perfectly monotone (k=9<k=5, wide 4-seed bars) → qualitative law, not a precise fit. L018; §4.2b added.
@@ -106,5 +106,5 @@ Session 8 reached ~$890 — far beyond a normal thesis-session budget. Exercisin
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

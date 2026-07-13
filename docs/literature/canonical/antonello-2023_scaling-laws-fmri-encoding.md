@@ -152,5 +152,4 @@ Is the layer-optimal shift (OPT peaks at 3/4 depth; LLaMA peaks early) a consequ
 
 
 ## Related
-- [`ladder.md`](../../ladder.md) — the canonical status board
-- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../../status.md) — the canonical status board

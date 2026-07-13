@@ -17,7 +17,7 @@ the brain. The head is discarded at evaluation; encoding R^2 is re-measured with
 a fresh ridge on a CONTIGUOUS eval block the brain loss never saw (no leakage).
 
 This is deliberately the simplest defensible L_brain. Whether a frozen-encoding-
-map loss or a CKA proxy is better is the next design decision (tasks.md) — this
+map loss or a CKA proxy is better was a later design decision — this
 pilot exists to prove the *pipeline*, not to lock the loss.
 """
 from __future__ import annotations

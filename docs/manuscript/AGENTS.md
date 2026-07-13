@@ -43,4 +43,3 @@ Use `--share-ready` only when no gap remains. A contradiction routes to `/interp
 
 - [Authority contract](../03-methodology.md)
 - [Current status](../status.md)
-- [Experiment records](../experiments/AGENTS.md)

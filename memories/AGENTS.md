@@ -8,7 +8,7 @@ aliases: [memories, claude-memories]
 
 This folder mirrors the saved Claude project memories for `brain-alignment` from `/home/centcom/.claude/projects/-home-centcom-data-brain-alignment/memory/`. The point is portability: agents should not need hidden harness state to remember Erfan's collaboration and writing preferences.
 
-These files are behavior guidance, not evidence. They can shape how an agent asks questions, writes, teaches, or reviews, but they do not authorize numbers, verdicts, or rung flips. For results, use [`docs/experiments/`](../docs/experiments), [`docs/reports/`](../docs/reports), and [`docs/ladder.md`](../docs/ladder.md).
+These files are behavior guidance, not evidence. They can shape how an agent asks questions, writes, teaches, or reviews, but they do not authorize numbers or verdicts. For results, use [`docs/experiments/`](../docs/experiments) and the [extended manuscript](../docs/manuscript/extended/main-extended.tex); for current operations use [`docs/status.md`](../docs/status.md).
 
 Do not add a `README.md` in this folder. Folder-local agent guidance belongs in `AGENTS.md`.
 
@@ -16,7 +16,6 @@ Do not add a `README.md` in this folder. Folder-local agent guidance belongs in 
 
 | Memory | Use it when |
 |---|---|
-| [`report-writing-style.md`](report-writing-style.md) | Writing or editing `docs/reports/`. |
 | [`quiz-style-preference.md`](quiz-style-preference.md) | Teaching or checking Erfan's understanding. |
 | [`continuous-critique-while-writing.md`](continuous-critique-while-writing.md) | Drafting manuscript/report prose. |
 | [`push-harder-and-watch-availability-bias.md`](push-harder-and-watch-availability-bias.md) | Judging whether a capability, search, or workflow is actually needed. |
@@ -29,4 +28,4 @@ Do not add a `README.md` in this folder. Folder-local agent guidance belongs in 
 ## Related
 
 - [`../CLAUDE.md`](../CLAUDE.md)
-- [`../docs/repo-orientation.md`](../docs/repo-orientation.md)
+- [`../docs/status.md`](../docs/status.md)

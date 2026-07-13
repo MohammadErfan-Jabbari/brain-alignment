@@ -107,5 +107,4 @@ This note pairs with [`open-learner-models_2025-review.md`](open-learner-models_
 
 
 ## Related
-- [`ladder.md`](../../ladder.md) — the canonical status board
-- [`map.md`](../../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../../status.md) — the canonical status board

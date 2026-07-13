@@ -17,8 +17,8 @@ from analyze_tribe_phase3 import paired_delta_stats
 POST_TEXTFEAT_POSITIVE_REVIEWER_BURDEN = [
     (
         "TRIBE stronger than textfeat clears a sentence-local frozen-LM hidden-state target, not the full "
-        "context/self-distillation or rich-feedback privileged-signal adjacency raised in "
-        "docs/top-venue-privileged-signal-adjacency-audit-2026-07-03.md."
+        "context/self-distillation or rich-feedback privileged-signal frontier summarized in "
+        "docs/01-research-landscape.md."
     ),
     (
         "A top-tier positive needs /interpret plus stat/code review, and likely extra seeds because n<=3 gives "
@@ -33,7 +33,7 @@ POST_TEXTFEAT_POSITIVE_REVIEWER_BURDEN = [
 POST_TEXTFEAT_POSITIVE_NEXT_ACTIONS = [
     "Switch to /interpret; do not record a verdict from this comparator alone.",
     "Audit seed-aligned TRIBE-minus-textfeat margins, PPL matching, analyzer gates, and code/stat assumptions.",
-    "Read docs/top-venue-privileged-signal-adjacency-audit-2026-07-03.md before choosing the positive paper framing.",
+    "Read docs/01-research-landscape.md and E016 Step 70 before choosing any positive paper framing.",
     "Choose the next evidence burden: extra seeds, stronger non-brain/context comparator, real-brain follow-up, or controlled-scoping of the claim.",
 ]
 

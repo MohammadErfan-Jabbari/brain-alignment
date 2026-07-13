@@ -155,5 +155,5 @@ The "all-night autonomous" frame met reality: Q3/Q4 are multi-day supervised bui
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

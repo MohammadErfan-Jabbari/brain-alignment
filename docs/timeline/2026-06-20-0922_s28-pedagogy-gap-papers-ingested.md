@@ -62,7 +62,7 @@ printed in the paper and is correctly left `\gap`, not invented). The live scien
 ## Next session
 
 - Science next-step unchanged: **Q4** (E024 re-substrate → synthetic-PI MDE control → build), per
-  [`expansion-program.md`](../expansion-program.md) §8. Stance: `/work` (after `/precheck`), or `/teach` to test the tutor live.
+  `expansion-program.md` §8. Stance: `/work` (after `/precheck`), or `/teach` to test the tutor live.
 - Pedagogy literature grounding is now complete; nothing further owed on these papers.
 
 ## Friction & improvements
@@ -92,5 +92,5 @@ notes, no D011 violation.
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- `ladder.md` — the canonical status board
+- `map.md` — code system (Q/E/A/D/L) & journey map

@@ -145,5 +145,4 @@ a benchmark. Their encoding-grade stimulus data is largely the Pereira set.
 
 
 ## Related
-- [`ladder.md`](./ladder.md) — the canonical status board
-- [`map.md`](./map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](./status.md) — the canonical status board
