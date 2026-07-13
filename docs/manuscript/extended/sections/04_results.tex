@@ -1,239 +1,365 @@
 \section{Results}
-% === ROUND 2 --- §4 goals & contents ======================================
-% Section goal: report the established findings in DEPENDENCY ORDER; each subsection
-% is one self-contained claim that gates the next. Numbers appear ONCE here (not in §1).
-% Doctrine: one sentence one job; finding -> mechanism -> caveat across sentences.
-%  4.1 Q0 real [Fig. a2] -- GOAL: the signal is real beyond low-level artifacts (the foundation).
-%      CONTAINS: ROI benchmark (3 models, the gap, untrained negative); powered voxelwise (gap, CI, % positive);
-%      the controls' role; scope (single subject; cross-subject open). Close: real != movable.
-%  4.2 Q1 no-preservation [Fig. kd] -- GOAL: plain KD does not preserve alignment by default,
-%      but the drop is entangled with quality. CONTAINS: the monotone retention gradient (Table); the
-%      cold-init key-arm logic; the quality co-variation (state the r once); under-training/budget
-%      caveats. Close: headroom genuine but quality-entangled -> the matched-ppl question is deferred.
-%  4.3 Q2 weak lever [Fig. lever] -- GOAL: the apparent brain-objective effect is small
-%      and quality-entangled; no lever demonstrated at the honest unit. CONTAINS: the lever on the strong aligner
-%      (E004); the pseudo-replication correction (15-cell -> n=5 folds, interval includes 0); fold-4 dominance;
-%      "undemonstrated, not zero"; tie to the quality law. Close: gates the per-individual question (Q3, out of scope).
-% Q3--Q4 remain stubs (out of scope this version).
-% ===========================================================================
 
-\subsection{The alignment signal is real beyond low-level artifacts}
-
-A trained middle layer predicts held-out language-network activity beyond low-level stimulus features, while a same-architecture untrained network does not.
-The reality check matters because the later intervention questions only make sense if the measured score is not a low-level artifact.
-The Tuckute ROI benchmark shows the effect across three language models, and the LeBel UTS03 run repeats it at voxel scale within one deeply sampled participant.
-
-The Tuckute ROI benchmark uses the five left-hemisphere language regions of \textcite{tuckute2024}, 1000 isolated sentences, and five contiguous folds.
-The trained-minus-untrained gap is positive for all three models, while the untrained control is negative at every layer and seed (Table~\ref{tab:roi}).
-The positive signal spans a broad plateau of middle layers and disappears for random features \evd{E002}.
+The experiments test a sequence of increasingly demanding claims.
+First, an alignment score must detect information that language training adds to a model representation.
+Second, ordinary distillation must leave enough alignment headroom for an additional objective to matter.
+Third, an alignment-guided objective must move held-out alignment beyond matched controls at the correct inference unit.
+Fourth, any movement must generalize across participants or other biologically meaningful units.
+Finally, it must improve an outcome that is not the alignment score itself.
+Table~\ref{tab:results-map} summarizes where the sequence passed, failed, or stopped at a precondition.
 
 \begin{table}[H]
   \centering
   \footnotesize
-  \caption{Tuckute ROI benchmark (five LH language ROIs, five contiguous folds). Unique $R^2$ is the semipartial increment over the nuisance set; the gap is trained minus untrained. NC-norm is the trained unique $R^2$ divided by the matched five-functional-ROI mean ceiling, $r=0.491$ \evd{E004}.}
-  \label{tab:roi}
+  \caption{Overview of the experimental chain. ``Unit'' is the unit that licenses the stated conclusion, not the number of voxels, folds, or repeated optimization runs available in the artifact.}
+  \label{tab:results-map}
   \resizebox{\textwidth}{!}{%
-  \begin{tabular}{lcccccc}
+  \begin{tabular}{p{0.19\textwidth}p{0.13\textwidth}p{0.22\textwidth}p{0.34\textwidth}} % \evd{E002}
     \toprule
-    Model & Best layer & Trained \uniqueR{} (mean\,$\pm$\,SD) & Untrained \uniqueR{} & Gap & NC-norm & Source \\
+    Question & Records & Valid unit & Verdict and scope \\
     \midrule
-    GPT-2 (12L)        & L7  & $+0.020 \pm 0.008$ & $-0.011$ & $+0.030$ & $0.041$ & \evd{E002}\evd{E004} \\
-    GPT-2-medium (24L) & L14 & $+0.019 \pm 0.005$ & $-0.014$ & $+0.033$ & $0.038$ & \evd{E002}\evd{E004} \\
-    Qwen2.5-0.5B (24L) & L12 & $+0.036 \pm 0.010$ & $-0.014$ & $+0.050$ & $0.074$ & \evd{E002}\evd{E004} \\
+    Is alignment measurable beyond recorded nuisance features? & \evd{E002}\evd{E006} & Five contiguous folds on one averaged ROI target; one participant with five held-out stories & Positive trained--untrained gaps on Tuckute and conditional UTS03 evidence; no participant-population claim. \\
+    Does ordinary KD preserve it, and how does quality enter? & \evd{E003}\evd{E015} & Fixed averaged benchmark; family clusters rather than individual models & Partial preservation with genuine headroom; alignment is coupled to language-model quality, but not determined by it. \\
+    Does a brain loss move held-out alignment? & \evd{E004}\evd{E005} & Five fold means after averaging seeds within fold & Small averaged-target trends; no reliable near-rate gain at the valid fold unit. \\
+    Does the effect generalize across people? & \evd{E008}\evd{E010}\evd{E014} & Nine participants; subset curves are sensitivity analyses & No mean per-individual gain; averaging raises SNR and changes the estimand, while the proposed dose response does not identify a causal law. \\
+    Do stronger or different optimization regimes rescue it? & \evd{E011}\evd{E013}\evd{E017} & Nine participants for ROI tests; one- and three-participant feasibility probes for voxelwise tests & Extra LoRA capacity, contrastive loss, voxelwise MSE, and full fine-tuning do not produce a demonstrated brain-specific gain in the tested regimes. \\
+    Does the signal improve a practical learning outcome? & \evd{E009}\evd{E024} & Eight training seeds on fixed OOD sets; seven paragraph clusters for the gaze gate & No detected OOD-perplexity payoff when the manipulation is unreliable; the gaze-LUPI experiment stops because its information and split preconditions fail. \\
+    Does a dense synthetic brain target solve the bottleneck? & \evd{E020}\evd{E016} & One six-participant story diagnostic; six training seeds on one fixed averaged endpoint & The empirical ceiling instrument is too noisy to close the ceiling; synthetic-target fit improves, but the improvement does not transfer to the real-brain endpoint. \\
     \bottomrule
   \end{tabular}}
 \end{table}
 
-The voxelwise run uses subject UTS03 of \textcite{lebel2023}, 20 naturalistic stories, and \result{e006_reliable_voxels} voxels selected at split-half reliability above $0.5$ on a held-out repeated story.
-The main readout is the trained-minus-untrained gap: \result{e006_gpt2_gap} for GPT-2 and \result{e006_qwen_gap} for Qwen2.5-0.5B (Table~\ref{tab:vox}).
-The sign is also widespread across voxels: 95\% of reliable GPT-2 voxels and 99\% of reliable Qwen voxels have positive gaps.
-The untrained unique $R^2$ is $-0.017$ in both comparisons \evd{E006}.
-For both models the gap is positive on all five held-out story blocks.
-The folds share training stories, and the voxels are spatially dependent measurements from one participant, so these signs are sensitivity evidence rather than independent population replicates \evd{E006}.
+\subsection{Controlled measurability on real fMRI}
+\label{sec:results-measure}
+
+The first question is whether a trained language model contains brain-predictive information beyond the recorded low-level properties of the stimulus.
+E002 measures this on the Tuckute sentence benchmark by fitting ridge encoding models from a fixed LM layer to five participant-averaged left-hemisphere language ROIs.
+The nuisance-only model contains sentence length, position, and static-embedding features, and the full model adds the contextual LM representation at matched PCA capacity.
+The estimand is the held-out semipartial increment, or unique $R^2$, under five contiguous stimulus folds.
+A same-architecture untrained network controls for feature dimension and architecture without language training \evd{E002}.
+
+All three trained models have positive unique $R^2$, whereas every untrained seed is negative (Table~\ref{tab:roi}).
+The trained-minus-untrained gaps are $+0.030$ for GPT-2, $+0.033$ for GPT-2-medium, and $+0.050$ for Qwen2.5-0.5B \evd{E002}.
+The corrected mean ceiling coefficient for the five functional ROIs is $0.491$ \evd{E002}\evd{E004}.
+Because that coefficient and unique $R^2$ are not the same statistical quantity, their legacy ratio is not interpreted as a fraction of explainable variance.
+These estimates belong to one participant-averaged target evaluated over five stimulus folds; they establish conditional measurability on this benchmark, not population prevalence.
 
 \begin{table}[H]
   \centering
   \footnotesize
-  \caption{Voxelwise run on LeBel UTS03 (20 stories, story-level folds). The gap is the trained-minus-untrained unique $R^2$. The percentage column describes spatial prevalence within UTS03; the final column reports fold-block sensitivity, not independent participant replication.}
-  \label{tab:vox}
+  \caption{Tuckute ROI benchmark under five contiguous folds. Unique $R^2$ is the held-out semipartial increment over the nuisance set \evd{E002}.}
+  \label{tab:roi}
+  \resizebox{\textwidth}{!}{%
   \begin{tabular}{lccccc}
     \toprule
-    Model & Layer & Trained\,$-$\,untrained gap & \% reliable voxels gap\,$>$\,0 & Positive story blocks & Source \\
+    Model & Layer & Trained \uniqueR{} (mean$\pm$SD) & Untrained \uniqueR{} & Gap & Source \\
     \midrule
-    GPT-2        & L7  & \result{e006_gpt2_gap} & 95\% & 5/5 & \evd{E006} \\
-    Qwen2.5-0.5B & L12 & \result{e006_qwen_gap} & 99\% & 5/5 & \evd{E006} \\
+    GPT-2 & L7 & $+0.020\pm0.008$ & $-0.011$ & $+0.030$ & \evd{E002} \\
+    GPT-2-medium & L14 & $+0.019\pm0.005$ & $-0.014$ & $+0.033$ & \evd{E002} \\
+    Qwen2.5-0.5B & L12 & $+0.036\pm0.010$ & $-0.014$ & $+0.050$ & \evd{E002} \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+E006 asks whether the same trained--untrained contrast survives at voxel resolution in naturalistic data.
+It uses the 20-story LeBel data for participant UTS03 and selects \result{e006_reliable_voxels} voxels using split-half reliability from a separate repeated story.
+The encoding model holds out entire stories and subtracts word and phoneme rate, duration and length, log frequency, and static-embedding nuisance features.
+The primary estimand is again the trained-minus-untrained unique-$R^2$ gap on the fixed UTS03 endpoint \evd{E006}.
+
+The gap is \result{e006_gpt2_gap} for GPT-2 and \result{e006_qwen_gap} for Qwen2.5-0.5B.
+Ninety-five percent and 99\% of selected voxels, respectively, have positive pointwise gaps, and each model has a positive mean gap on all five held-out story blocks \evd{E006}.
+The untrained unique $R^2$ is $-0.017$ in both model comparisons \evd{E006}.
+These spatial and story-block signs show that the result is not confined to a small voxel set or one held-out story.
+They are not independent replicates: all voxels come from one participant, voxels are spatially dependent, and the story folds share training stories.
+The original voxel-bootstrap confidence intervals and the E006-derived E007 minimum-detectable-effect claim are therefore retracted \evd{E006}.
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \caption{Conditional voxelwise result on LeBel UTS03. Spatial prevalence and story-block signs are sensitivity checks within one participant, not population inference \evd{E006}.}
+  \label{tab:vox}
+  \begin{tabular}{lcccc}
+    \toprule
+    Model & Layer & Trained$-$untrained gap & Positive selected voxels & Positive story blocks \\
+    \midrule
+    GPT-2 & L7 & \result{e006_gpt2_gap} & 95\% & 5/5 \\
+    Qwen2.5-0.5B & L12 & \result{e006_qwen_gap} & 99\% & 5/5 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-The controls address different ways a low-level artifact could mimic alignment.
-The Tuckute ROI benchmark uses isolated sentences, which removes temporal autocorrelation from naturalistic time series and makes a positive result harder to obtain \evd{E002}.
-The voxelwise run uses naturalistic stimuli but holds out whole stories; test timepoints are never adjacent to training timepoints.
-Voxel selection uses a separate repeated story, preventing the analysis from selecting voxels because they happen to correlate with a model on the evaluation stories \evd{E006}.
-Both trained and untrained scores subtract word and phoneme rate, word duration and length, log word frequency, and a static word-embedding block, the low-level feature set most likely to inflate the score \evd{E006}.
-Surprisal and imageability are deliberately left unsubtracted; the nuisance baseline therefore does not remove every contextual property of the stimulus.
-The same-architecture untrained network supplies the stronger check: on the same stimuli and nuisance baseline, it scores negative at $-0.017$ \evd{E006}.
-Architecture, rate, and residual temporal structure therefore cannot explain the positive trained-minus-untrained gap alone \evd{E006}.
-
 \begin{figure}[H]
   \centering
   \resizebox{0.82\textwidth}{!}{\input{../figures/fig04_reality_gap.tikz}}
-  \caption{Mean unique-$R^2$ on LeBel UTS03 reliable voxels. Trained GPT-2 L7 and Qwen2.5-0.5B L12 exceed same-architecture untrained controls; arrows show trained-minus-untrained gaps, and group labels report the fraction of reliable voxels with positive gaps \evd{E006}.}
+  \caption{Mean unique $R^2$ on the selected LeBel UTS03 voxels. Arrows show the trained-minus-untrained gaps, and labels report spatial prevalence within UTS03 \evd{E006}.}
   \label{fig:a2}
 \end{figure}
 
-Together, the Tuckute ROI benchmark and the voxelwise UTS03 run show that the alignment score contains a language-training signal under the recorded controls.
-The Tuckute benchmark supplies breadth across models, while UTS03 supplies spatially resolved within-subject evidence.
-The original voxel-bootstrap intervals are retracted because they treated spatially dependent voxels as independent units; cross-subject generality remains open \evd{E006}.
-Qwen aligns more strongly than either GPT-2 variant, while the two GPT-2 variants are nearly tied despite a threefold parameter difference.
-The single cross-family contrast alone cannot establish a quality ordering; Section~4.2 takes up the quality question directly \evd{E002}.
-Q0 therefore gives the rest of the program a valid measurement target.
-The result does not show that the target can be moved during training or that moving it improves a model.
+E002 and E006 therefore establish the first gate: language training adds linearly accessible information that predicts held-out fMRI beyond the recorded nuisance set.
+They do not show that the information can be increased by training, that it generalizes across participants, or that increasing it would improve language modeling.
+The two datasets contribute different parts of that statement.
+Tuckute shows the effect on isolated sentences and a compact participant-averaged language-network target across three model families, while LeBel shows it on continuous stories with temporal controls and a dense response from one deeply sampled participant.
+The common trained-over-untrained direction makes the measurement premise less dependent on a single stimulus format.
+The different biological units prevent their combination into one population effect, so they are treated as complementary existence evidence rather than a meta-analysis.
 
-\subsection{Plain distillation does not preserve alignment by default}
+\subsection{Distillation leaves headroom, but alignment is coupled to model quality}
+\label{sec:results-preservation}
 
-Knowledge distillation (KD) trains a smaller student to match a larger teacher's output distribution.
-E003 asks whether that ordinary perplexity-only objective keeps the teacher's brain alignment.
-The from-scratch logit-KD student lands far below its teacher, with a gap of \result{e003_kd_cold_delta} ($p<0.001$), and retains only \result{e003_kd_cold_retention} of the teacher's alignment above an untrained floor \evd{E003}.
-The cold-init drop rules out automatic preservation and gives the later alignment-guided objective real headroom.
-That same E003 comparison also limits the claim: among the five non-teacher arms, alignment tracks log-perplexity (Pearson \result{e003_quality_corr}), so the retention gradient could reflect language-model quality rather than the distillation objective itself \evd{E003}\evd{L011}.
+E003 asks whether ordinary logit knowledge distillation preserves the teacher's alignment without an explicit brain objective.
+The load-bearing arm initializes a GPT-2 student randomly and trains it from the logits of GPT-2-medium.
+Warm-start KD, ordinary language-model fine-tuning, pretrained GPT-2, distilgpt2, and an untrained network provide reference points.
+All arms are scored at fixed layers on the same participant-averaged Tuckute target and nuisance-controlled contiguous folds \evd{E003}.
 
-The headroom is $\Delta = A_T - A_S$, where $A_T$ is the teacher's alignment and $A_S$ is the student's alignment.
-Both quantities use the same measurement protocol as Q0: unique $R^2$ on the Tuckute ROI benchmark, contiguous folds, and the capacity-fair nuisance baseline.
-KD has to be measured directly because it follows a different path from fixed-function compression.
-For deterministic post-processing of a fixed teacher, such as the quantization and pruning studied by \textcite{oota2026}, the student's features depend on the stimulus through the teacher's features.
-The data-processing inequality then bounds $I(Z_{\mathrm{student}};B)\le I(Y_{\mathrm{teacher}};B)$ along that teacher-to-student path.
-A from-scratch KD student has another route: gradient descent on the teacher's logits still exposes the student to the training text.
-The fixed-function premise no longer holds, so preservation becomes an empirical question \evd{E003}.
-
-The cold-init student is the key test.
-A warm-started student already inherits teacher-level alignment from pretraining, which Q0 measured directly.
-High retention after a few KD epochs would mainly measure fine-tuning drift from that starting point \evd{E003}.
-The cold-init GPT-2 begins from random weights and is trained on the teacher's logits, so any surviving alignment must pass through the distillation run.
-The warm-init KD arm and the no-teacher plain-LM finetune remain as drift controls.
-The warm-KD, plain-LM-finetune, pretrained, and untrained GPT-2 comparisons hold architecture and scoring layer fixed. The cold student's headroom and retention instead use the larger GPT-2-medium teacher as their denominator and are therefore cross-architecture; distilgpt2 is an additional cross-architecture reference \evd{E003}.
+The cold-init student ends \result{e003_kd_cold_delta} below its teacher in unique $R^2$ ($p<0.001$ under the recorded bootstrap) and retains \result{e003_kd_cold_retention} of the teacher--floor interval \evd{E003}.
+This rules out preservation for free in the tested from-scratch run and creates measurable headroom.
+The magnitude is not an objective-specific estimate because the cold student remains under-trained: held-out perplexity is $477$, compared with $74$ for its teacher and $44$--$95$ for the converged warm arms.
+Absolute unique-$R^2$ values also vary with PCA rank, although the retention ordering survives $n_{\mathrm{PCA}}\in\{25,50,100\}$ \evd{E003}.
 
 \begin{table}[H]
   \centering
   \footnotesize
-  \caption{Knowledge-distillation arms on the Tuckute ROI benchmark at each model's fixed alignment layer \evd{E003}. The \uniqueR{} column reports raw unique $R^2$. Floor-anchored retention $\rho' = (A_S-A_0)/(A_T-A_0)$ is $0$ at the untrained floor and $1$ at the teacher; for distilgpt2, $\rho'$ and $\Delta$ use GPT-2, its lineage teacher. $p$(no-drop) is the bootstrap probability of no drop from the teacher.}
+  \caption{Distillation and reference arms on the participant-averaged Tuckute benchmark \evd{E003}. Floor-anchored retention is $\rho'=(A_S-A_0)/(A_T-A_0)$; distilgpt2 uses GPT-2 as its lineage teacher.}
   \label{tab:kd}
   \resizebox{\textwidth}{!}{%
-  \begin{tabular}{llcccccc}
+  \begin{tabular}{llcccc}
     \toprule
-    Arm & Init / objective & \uniqueR{} & $\rho'$ [boot.\ CI] & $\Delta$ vs teacher & $p$(no-drop) & ppl & Source \\
+    Arm & Initialization/objective & \uniqueR{} & $\rho'$ [bootstrap CI] & Held-out ppl & Interpretation \\
     \midrule
-    teacher gpt2-medium & pretrained                & $+0.0188$ & n/a & n/a & n/a & $74$ & \evd{E003} \\
-    gpt2                & pretrained (conventional) & $+0.0195$ & $1.02$ [$0.77$, $1.27$] & $\approx 0$ & $0.57$ & $105$ & \evd{E003} \\
-    lmft\_warm          & warm $+$ plain-LM finetune & $+0.0174$ & $0.95$ [$0.81$, $1.13$] & $+0.0016$ & $0.265$ & $44$ & \evd{E003} \\
-    kd\_warm            & warm $+$ pure logit KD     & $+0.0144$ & $0.84$ [$0.67$, $1.04$] & $+0.0046$ & $0.061$ & $95$ & \evd{E003} \\
-    distilgpt2          & real distillation ($+$hidden-cosine) & $+0.0076$ & $0.60$ [$0.42$, $0.84$] & $+0.0119$ & $0.001$ & $169$ & \evd{E003} \\
-    \textbf{kd\_cold}   & \textbf{random $+$ pure logit KD} & $+0.0005$ & \result{e003_kd_cold_retention} & \result{e003_kd_cold_delta} & $0.000$ & $477$ & \evd{E003} \\
-    untrained           & random (floor)            & $-0.0102$ & $0$ & n/a & n/a & $\sim6\times10^4$ & \evd{E003} \\
+    GPT-2-medium & pretrained teacher & $+0.0188$ & --- & $74$ & teacher reference \evd{E003} \\
+    GPT-2 & pretrained & $+0.0195$ & $1.02$ [$0.77,1.27$] & $105$ & inherited alignment \evd{E003} \\
+    LMFT-warm & warm, language loss & $+0.0174$ & $0.95$ [$0.81,1.13$] & $44$ & drift control \evd{E003} \\
+    KD-warm & warm, logit KD & $+0.0144$ & $0.84$ [$0.67,1.04$] & $95$ & drift under KD \evd{E003} \\
+    distilgpt2 & released distilled model & $+0.0076$ & $0.60$ [$0.42,0.84$] & $169$ & lineage reference \evd{E003} \\
+    KD-cold & random, logit KD & $+0.0005$ & \result{e003_kd_cold_retention} & $477$ & under-trained headroom \\
+    untrained & random floor & $-0.0102$ & $0$ & $\sim6\times10^4$ & floor \evd{E003} \\
     \bottomrule
   \end{tabular}}
 \end{table}
 
+The same run exposes the quality confound.
+Across its five non-teacher trained/reference arms, alignment correlates with log perplexity at Pearson \result{e003_quality_corr} \evd{E003}.
+That correlation uses few heterogeneous points and is not a general law, so E015 repeats the analysis with a tokenizer-independent quality measure across 22 models from six decoder families.
+Its primary full-range association between mid-layer unique $R^2$ and log bits per byte is $r=-0.783$, with family-cluster bootstrap 95\% interval $[-0.911,-0.500]$ \evd{E015}.
+Leave-one-family-out estimates remain between $-0.738$ and $-0.833$ \evd{E015}.
+The 22 models are not 22 independent scientific replicates: the six families form approximately two model generations, and models within scaling families share training recipes.
+
+The coupling weakens where current brain-tuning comparisons operate.
+For models with bits per byte below $1.30$, $r=-0.501$ with Fisher interval $[-0.859,+0.188]$; in the overlap band $[1.13,1.26]$, $r=-0.480$ with interval $[-0.885,+0.340]$ \evd{E015}.
+Those capable-band intervals include zero.
+A scale-adjusted partial correlation remains negative at $-0.675$ with Fisher interval $[-0.857,-0.344]$, but bits per byte and parameter count are highly collinear, so this does not isolate a pure quality mechanism \evd{E015}.
+Family residuals are also not identified because the families lack common quality support; the recorded ANCOVA family test has $p=0.204$ \evd{E015}.
+
+\begin{figure}[t]
+  \centering
+  \safeimage[width=0.82\textwidth]{../figures/fig06_quality_alignment.png}
+  \caption{Tokenizer-independent language-model quality and controlled mid-layer alignment across the 22 E015 models. The fitted line summarizes the full range; the shaded region marks the capable/overlap range in which the association is weaker and individually uncertain. Points share family and generation structure, so they are not 22 independent scientific replications \evd{E015}.}
+  \label{fig:quality-alignment}
+\end{figure}
+
 \begin{figure}[t]
   \centering
   \resizebox{0.98\textwidth}{!}{\input{../figures/fig05_kd_retention.tikz}}
-  \caption{Plain KD leaves alignment headroom, with the loss entangled with model quality. (A) Floor-anchored retention $\rho'$ falls along the rebuild ordering, from teacher-level pretrained references toward the untrained floor; the distilgpt2 retention follows the E003 lineage-teacher denominator. Error bars are bootstrap intervals where recorded. (B) Unique $R^2$ co-varies with held-out perplexity; the teacher is plotted for context, and the line is the recorded fit over the five non-teacher arms with Pearson coefficient \result{e003_quality_corr} \evd{E003}.}
+  \caption{Plain KD leaves alignment headroom, but alignment co-varies with language-model quality in the E003 reference set. The line and coefficient describe the five non-teacher E003 points, not the corrected cross-family E015 law \evd{E003}.}
   \label{fig:kd}
 \end{figure}
 
-The supported finding is the monotone retention gradient (Table~\ref{tab:kd}).
-Conventional GPT-2 sits at the teacher's level ($\rho'\approx1.0$), warm-init KD retains $0.84$, the published distilgpt2 retains $0.60$ relative to GPT-2, the cold-init student retains $0.37$, and the untrained floor is $0$ \evd{E003}.
-The reference arms therefore anchor both ends of the scale: off-the-shelf GPT-2 marks teacher-level alignment, and the random model marks the floor.
-Two runs scoring the same references on different GPUs reproduced the reference scores to about $0.0003$ \evd{E003}.
-The ordering holds at every PCA rank tested ($n_{\mathrm{pca}}\in\{25,50,100\}$).
-The absolute magnitudes are less stable: the two quality-entangled arms change sign in unique $R^2$ across ranks, so the ordering is the durable finding and the loss fractions are rank-dependent \evd{E003}.
+The combined conclusion is narrower than either ``KD destroys brain information'' or ``alignment is just perplexity.''
+Ordinary KD can leave a student below its teacher, but E003 does not distinguish objective-specific shedding from under-training and quality.
+E015 shows that quality is a necessary matching variable across a broad modern-decoder comparison, while its capable-band and architecture-residual analyses show that output quality does not determine the hidden representation.
+The intervention experiments therefore compare real brain targets with matched-regime or matched-perplexity controls rather than a vanilla model alone.
+This distinction also changes the interpretation of ``headroom.''
+The teacher--student gap is an opportunity only if some of it is caused by an internal choice that an auxiliary objective can alter without paying the same cost in perplexity.
+E003 establishes the gap but not that counterfactual.
+E015 makes unequal quality a credible alternative explanation, yet its capable-band uncertainty leaves room for representations of similar output quality to differ in alignment.
+The intervention stage is needed precisely because neither preservation nor cross-model correlation identifies the movable component.
 
-The quality caveat is important.
-Alignment co-varies with log-perplexity across the same non-teacher arms (Pearson \result{e003_quality_corr}).
-In that fit, warm-init KD lies essentially on the regression line, while conventional GPT-2 is the only arm more aligned than its perplexity predicts.
-Two contrasts would separate objective-specific loss from a quality explanation, and both are marginal.
-Warm-init KD is less aligned than GPT-2 despite lower perplexity, with bootstrap $P(\text{gpt2}\le\text{kd\_warm})=0.092$ \evd{E003}.
-Among the warm-start controls, the no-teacher finetune beats warm-init KD on both perplexity and alignment, with $P(\text{lmft}\le\text{kd\_warm})=0.085$ \evd{E003}.
-Both contrasts lean on a single unreplicated point and, under a paired-fold test, on one fold carrying about $44\%$ of the signal \evd{E003}\evd{L011}.
-The cold-init arm also remains under-trained: its held-out perplexity is $477$, far above the converged arms' $44$ to $95$.
-Part of its near-floor alignment may therefore reflect a weaker language model rather than the distillation objective itself.
-E003 predeclared that convergence guard \evd{E003}.
-The arms were matched on corpus, batch size, learning rate, and architecture, but the from-scratch arm ran about twice the optimizer steps of the warm arms.
-The step imbalance deepens the under-training caveat instead of removing it \evd{E003}.
+\subsection{The apparent intervention gain depends on the inference target}
+\label{sec:results-inference}
 
-Plain perplexity-only distillation therefore leaves genuine headroom below the teacher.
-E003 does not decide whether an alignment-guided objective can recover that headroom beyond what perplexity already predicts.
-The evaluation is an ROI benchmark (matched five-functional-ROI mean $\mathrm{NC}=0.491$), not a matched-perplexity or fully optimizer-step-matched causal test \evd{E004}.
-The Tuckute ROI benchmark is also underpowered for a $\sim0.005$ objective-specific gap.
-The matched-perplexity question therefore requires a paired design whose inference unit matches the intended claim \evd{E003}\evd{L011}.
+E004 is the first direct lever test.
+It co-trains a Qwen2.5-0.5B student with an MSE brain term and compares it with an otherwise identical block-permuted-target twin \evd{E004}.
+Stimulus folds, optimization budget, nuisance model, student, teacher, and brain-loss weight are held fixed.
+The estimand is the real-minus-permuted change in held-out unique $R^2$ relative to the same untuned base \evd{E004}.
 
-\subsection{An alignment-guided objective has not yet shown a reliable held-out gain}
+The point estimate is \result{e004_qwen_specific}.
+The original interval treated three seeds by five folds as 15 independent observations and excluded zero.
+After averaging seeds within fold, the valid five-fold $t$ interval is \result{e004_qwen_fold_ci} \evd{E004}.
+Fold 4 supplies 64\% of the summed contrast, and removing it reduces the estimate to \result{e004_qwen_lofo}.
+The run's own unpaired permutation exceedance flag is false.
+E004 therefore provides no inference-unit-valid evidence of a held-out lever, while its five folds cannot exclude a small effect near the observed mean.
 
-E004 tests whether a co-trained MSE brain term changes held-out alignment beyond an otherwise identical block-permuted-target twin.
-The primary Qwen arm has a mean real-minus-permuted contrast of \result{e004_qwen_specific}, but its five-fold interval is \result{e004_qwen_fold_ci} and includes zero \evd{E004}.
-The earlier positive interval treated three seeds by five folds as 15 independent observations even though seeds reuse the same fold data.
-Averaging seeds within each fold leaves five units; fold 4 contributes 64\% of the summed contrast, and removing it reduces the mean to \result{e004_qwen_lofo} \evd{E004}.
+E005 asks the related matched-perplexity question against the five-participant-averaged target.
+At $\lambda=10$, its real-minus-permuted mean is \result{e005_apparent}.
+The flat seed-by-fold bootstrap interval $[+0.0023,+0.0171]$ is pseudo-replicated; the five-fold $t$ interval is $[-0.0030,+0.0193]$, the median is $+0.0034$, and one fold supplies 52\% of the mean \evd{E005}.
+Four of five fold means are positive, so the result is a small averaged-target trend rather than a precise null.
 
-No tuned arm improves reliably over the untuned base.
-The Qwen MSE arm changes held-out unique $R^2$ by $+0.0025$ relative to base with interval $[-0.0011,+0.0067]$, while all GPT-2 brain-loss arms are non-positive relative to base \evd{E004}.
-The recorded unpaired permutation-null check also fails.
-Perplexity roughly doubles under LoRA tuning, so even the small positive paired contrast is entangled with language-model degradation rather than isolated at matched quality \evd{E004}.
+The later $\lambda$ sweep separates a near-rate improvement from a rate--distortion trade.
+At $\lambda=1$, the real-minus-matched-permuted contrast is $+0.0030$ with fold interval $[-0.0025,+0.0085]$ \evd{E005}.
+At $\lambda=3$, it is $+0.0063$ with interval $[-0.0092,+0.0218]$, and at $\lambda=10$ it is $+0.0072$ with interval $[-0.0044,+0.0188]$ \evd{E005}.
+At $\lambda=30$, the contrast is $+0.0060$ $[+0.0002,+0.0119]$, but held-out perplexity worsens from approximately $51.5$ for KD-only to $67.4$ \evd{E005}.
+The only fold-level-positive arm therefore buys alignment by moving to a worse language-model operating point, not by providing a free matched-rate improvement.
 
-The supported Q2 conclusion is therefore narrow: this experiment demonstrates no reliable held-out alignment lever at its valid fold-level inference unit.
-It does not prove that the true effect is zero, because five folds cannot exclude a small effect near the observed mean.
-The next question must use independent participants and matched perplexity rather than treating more seeds or voxels as biological replication.
+E008 changes the biological inference unit.
+It repeats the real-versus-permuted comparison separately for nine participants, using three optimization seeds and five shared folds within each participant.
+The estimand is the across-participant mean of each participant's seed-and-fold-aggregated real-minus-permuted effect.
+The mean is \result{e008_mean}, the nine-participant $t$ interval is \result{e008_ci}, and 5/9 participant effects are positive (two-sided sign $p=0.50$) \evd{E008}.
+The fold-clustered sensitivity estimate is \result{e008_fold_mean} with interval \result{e008_fold_ci}, and every leave-one-fold-out analysis fails to establish a positive effect.
+The observed participant variance gives an 80\%-power minimum detectable effect of approximately $+0.0006$ to $+0.0013$, well below the averaged-target estimate \evd{E008}.
 
-\subsection{No per-individual gain at matched perplexity, and the averaging artifact}
+The four participants used to construct the earlier averaged target have an individual mean of $-0.00010$ \evd{E008}.
+The five held-out participants have mean $+0.00026$, also with an interval containing zero \evd{E008}.
+Thus, the E005 estimate is not an estimate of a mean per-person effect.
+It is an effect on a different, higher-SNR target: the response shared across the averaged participants.
 
-The group-averaged target in E005 yields an apparent real-minus-permuted gain of \result{e005_apparent}.
-E008 repeats the same comparison separately for nine participants and centers near zero: mean \result{e008_mean}, subject-axis interval \result{e008_ci}, with 5/9 participant effects positive \evd{E005}\evd{E008}.
-The shared-fold sensitivity is also centered near zero, with mean \result{e008_fold_mean} and interval \result{e008_fold_ci}; every leave-one-fold-out check fails to establish a positive effect \evd{E008}.
-The four participants whose responses contributed to the earlier averaged target have mean $-0.00010$ when evaluated individually, while five held-out participants have mean $+0.00026$ with an interval including zero \evd{E008}.
+E010 tests whether participant count alone causes a smooth increase in the intervention gap.
+Its initial nested subsets give gaps of $-0.0002$, $+0.0061$, $+0.0187$, $+0.0191$, and $+0.0071$ for $k=1,2,3,5,9$ averaged participants \evd{E010}.
+Because subject identity changes with $k$, this design confounds count with which participants enter the average.
+The random-subset rerun gives $+0.0015$, $-0.0013$, $+0.0088$, and $+0.0094$ for $k=1,3,5,9$, with standard deviations between $0.005$ and $0.015$ \evd{E010}.
+The non-monotone, noisy rerun does not identify a causal dose-response law.
+It remains suggestive corroboration that averaged and individual targets behave differently.
 
-This difference is not a claim that averaging simply recovers the average participant.
-Averaging responses changes the target toward the shared stimulus-evoked component and raises its signal-to-noise ratio; unique $R^2$ is nonlinear in that operation.
-The valid conclusion is that the positive result belongs to the multi-participant-averaged estimand and does not generalize to a mean per-individual effect in this cohort \evd{E005}\evd{E008}.
+E014 isolates the measurement effect without training an LM.
+Using the same Qwen representation, it compares encoding of individual targets with encoding of random participant averages.
+Mean per-participant unique $R^2$ is $+0.0069$, with 7/9 participants positive, whereas the standard five-participant average scores $+0.0357$ \evd{E014}.
+The count sequence for $k=1,2,3,5,9$ is $+0.0039,+0.0162,+0.0324,+0.0444,+0.0702$ \evd{E014}.
+Because individual scores are already positive, this is not evidence that averaging fabricates an otherwise absent encoding signal.
+It shows legitimate SNR improvement and a change from individual-response alignment to alignment with the shared response component.
 
-Two variants do not change that conclusion at ROI scale.
-Increasing LoRA rank and epochs gives mean \result{e011_mean}, interval \result{e011_ci}; one participant supplies 79\% of the summed effect, and leave-one-participant-out returns the estimate to the E008 scale \evd{E011}.
-This is robustness to extra adapter capacity at the same effective operating point, not a stronger manipulation: absolute alignment and perplexity move no more than in E008.
-Replacing MSE with a contrastive objective gives mean \result{e013b_mean}, interval \result{e013b_ci}, with 4/9 participant effects positive \evd{E013}.
+Taken together, E004 and E005 provide small averaged-target trends but no reliable near-rate lever at five-fold inference.
+E008 supplies the load-bearing biological result: no mean per-individual gain in nine participants under the tested matched-regime objective.
+E010 does not convert the averaged-versus-individual contrast into a clean causal dose response, and E014 shows why a larger score on an averaged target can still be a legitimate measurement of a different estimand.
+The apparent contradiction is therefore resolved at the level of the question being estimated.
+E005 asks whether training helps predict one denoised group-average response, and its small positive trend is compatible with an intervention that follows highly shared stimulus structure.
+E008 asks whether the same real-versus-control advantage is positive on average across individual people, and it finds a tightly bounded mean near zero for the predeclared effect size.
+Neither result invalidates the other measurement, but only the latter supports inference to participant variation.
+This is why response averaging is described as an estimand change rather than as a universally invalid artifact.
 
-The voxelwise naturalistic route fails earlier in the causal chain.
-Across its tested loss weights, real-target distillation on UTS03 is neutral at low weight and increasingly harmful at higher weight; it never improves over the untuned base or its block-permuted twin \evd{E013}.
-Because the manipulation does not create an improving representation, this result is a failure of this distillation mechanism rather than a clean same-substrate population null.
+\subsection{Alternative intervention regimes do not rescue the tested lever}
+\label{sec:results-alternatives}
 
-The Q3 result is therefore a cross-participant null in E008, robust to the tested LoRA-capacity and ROI-loss variants, plus a separate voxelwise distillation-lever failure.
-It does not establish that every neural objective, dataset, or optimization regime must fail.
+E011 asks whether the E008 result is caused by insufficient LoRA capacity.
+It increases adapter rank from 16 to 64 and doubles the training duration while holding the target, objective, participant set, and matched-regime control fixed.
+Across the same nine participant units, the mean real-minus-permuted effect is \result{e011_mean} with $t$ interval \result{e011_ci} \evd{E011}.
+Six of nine effects are positive, but one participant contributes 79\% of their sum; leaving that participant out returns the estimate to approximately $+0.00010$ \evd{E011}.
+Absolute alignment and perplexity move about as much as in E008, so this result establishes robustness to extra adapter capacity at the same effective operating point, not robustness to every stronger manipulation.
 
-\subsection{No detected practical payoff in the tested regimes}
+E013b changes the loss geometry from MSE to symmetric contrastive training while keeping the nine-participant ROI design.
+Its mean is \result{e013b_mean} with participant $t$ interval \result{e013b_ci}, 4/9 positive signs, and a matched-perplexity intercept of approximately $-0.0003$ \evd{E013}.
+The contrastive objective therefore does not rescue the ROI result.
+The scope is limited by the five-dimensional ROI target, which is a weaker test of a contrastive objective than a high-dimensional voxel target.
 
-E009 asks whether alignment-guided KD improves out-of-domain perplexity on Pereira and LeBel text.
-The prerequisite representation change is itself unreliable: across eight seeds the real-minus-permuted alignment contrast has mean \result{e009_fulcrum_mean}, median \result{e009_fulcrum_median}, and 5/8 positive signs, while its measured 80\%-power minimum detectable effect is $0.023$ \evd{E009}.
-Seed 0 contributes $+0.063$; the other seven seeds average approximately $+0.004$ \evd{E009}.
-All downstream contrasts lie inside their measured minimum detectable effects, including comparisons with KD-only, the block-permuted arm, and the text-feature target \evd{E009}.
-This supports no detected brain-specific OOD-perplexity payoff under the all-data, averaged-target setup.
-It is not a universal downstream null because the brain-specific manipulation that should mediate such a payoff never became reliable.
+The voxelwise E013 route tests whether the MSE distillation mechanism can first create an improving representation on naturalistic LeBel data.
+Without a KD anchor, real-target tuning reduces held-out alignment below the untuned base in all six subject-by-seed runs, so the first run is a failed manipulation rather than a null effect \evd{E013}.
+With a KD anchor on UTS03, the untuned base is approximately $0.0187$ unique $R^2$ \evd{E013}.
+At $\lambda=1$, real-target tuning reaches $0.0183$ with real-minus-permuted gap $-0.0009$; at $\lambda=3$ and $6$, it falls to $0.0086$ and $0.0130$, with gaps $-0.0049$ and $-0.0039$ \evd{E013}.
+No tested weight improves over the base or beats its permuted twin.
+This is a single-participant mechanism failure for voxelwise MSE distillation, not a population null for every voxelwise objective.
 
-E024 tests a different route, train-only gaze as privileged information, but stops at its binding preconditions rather than executing the planned intervention.
-ZuCo natural-reading gaze has split-half reliability $0.71$, yet its rich gaze features predict five-way relation type at balanced accuracy $0.202$ against $0.200$ chance, permutation $p=0.35$ \evd{E024}.
-Under task-directed reading the same probe reaches $0.295$ against $0.100$ chance, $p=0.003$, showing that apparent informativeness can enter through task instructions rather than a clean train-only signal \evd{E024}.
-The 300 natural-reading sentences also come from only seven paragraphs, so paragraph-disjoint test size varies too sharply to define a stable low-data learning curve \evd{E024}.
-The gate therefore stops the five-arm intervention before compute.
-Q4 remains bounded to two observations: no detected OOD-perplexity benefit when the alignment manipulation is unreliable, and no valid privileged-information experiment on the gated gaze substrate.
+E017 changes the parameterization to full fine-tuning.
+An aggressive configuration produces no manipulation success in three UTS03 seeds and increases perplexity by a factor of $1.63$ \evd{E017}.
+A gentler configuration preserves perplexity more closely and is then run for three seeds on each of UTS01, UTS02, and UTS03.
+Across the nine subject-by-seed cells, the recorded real-minus-permuted mean is $+0.0003$, with descriptive cell-level $t$ interval $[-0.0002,+0.0008]$ and $p=0.274$ \evd{E017}.
+Per-subject means are $+0.0005$, $-0.0001$, and $+0.0006$ \evd{E017}.
+The valid biological unit is the participant, so the nine-cell interval is not population inference; the run is a three-participant feasibility result showing no demonstrated brain-specific gain in this configuration.
 
-\subsection{Synthetic target fit does not transfer to real-brain alignment}
+\begin{figure}[t]
+  \centering
+  \safeimage[width=0.88\textwidth]{../figures/fig07_intervention_forest.png}
+  \caption{Comparable real-target minus target-control intervention contrasts. E004 and E005 use five stimulus folds; E008, E011, and E013b use nine participants. The rows are displayed together to show scale and uncertainty but are not pooled because their estimands and inference units differ \evd{E004,E005,E008,E011,E013}.}
+  \label{fig:intervention-forest}
+\end{figure}
 
-On their respective held-out synthetic endpoints, TRIBE-target training improves target $R^2$ over KD by \result{e016_tribe_synth_gain}, while textfeat-target training improves its own target $R^2$ by \result{e016_textfeat_synth_gain} \evd{E016}.
-The maximum relative perplexity deviation across the checked target and control arms is below $0.009221$ \evd{E016}.
-These results establish that the dense TRIBE target can be optimized under nearly unchanged language quality.
-They do not establish brain specificity or generic superiority over non-brain information because the two target families differ in geometry, rank, and baseline difficulty.
+These variants close specific explanations rather than the entire hypothesis space.
+The ROI result is not rescued by more adapter capacity or a contrastive loss.
+The tested voxelwise MSE mechanism fails to improve the base representation, and the tested full-fine-tuning configurations either damage language quality or remain indistinguishable from their permuted twins.
+Different data, targets, objectives, or substantially larger participant cohorts remain outside these results.
+The sequence nevertheless removes several immediate rescue explanations.
+If the primary null were caused only by insufficient low-rank capacity, E011 should have enlarged the contrast; if squared-error geometry were uniquely unsuitable for ROI targets, E013b should have improved it; if adapters were the bottleneck, the gentle full-fine-tuning regime in E017 should have separated real and control targets.
+None does so under its valid scope.
+The voxelwise branch is even earlier in the causal chain because stronger weights fail the manipulation check itself.
+These results therefore narrow the plausible success regime toward different data or target construction rather than a simple increase of the same optimization knob.
 
-The common real-brain endpoint reverses the direction needed for a positive claim.
-The TRIBE-minus-textfeat Tuckute gain relative to KD is \result{e016_transfer_delta}; all six seed margins are negative, giving exact sign $p=0.03125$ \evd{E016}.
-The raw TRIBE-minus-KD Tuckute gain is also negative at $-0.000919$ \evd{E016}.
-The synthetic-target improvement therefore does not transfer to improved Tuckute alignment in this six-seed diagnostic.
+\subsection{No practical payoff is demonstrated when the prerequisite signal does not move}
+\label{sec:results-practical}
 
-This conclusion is deliberately narrower than participant-level biological evidence.
-The endpoint is one fixed average over five participants and five ROIs, synthetic training reads layer 6 while transfer scoring reads layer 7, and textfeat is only a dimension-matched projected-teacher control.
-The imperfect block-permuted comparisons remain non-load-bearing sensitivity checks.
+E009 asks whether alignment-guided KD improves a non-brain outcome: out-of-domain perplexity on Pereira and LeBel text.
+It compares KD-only, real-brain MSE, block-permuted MSE, and a text-feature auxiliary target over eight training seeds.
+The mediator that would make the downstream test interpretable is the real-minus-permuted alignment change on the in-domain averaged target \evd{E009}.
+
+That mediator has mean \result{e009_fulcrum_mean}, median \result{e009_fulcrum_median}, and 5/8 positive seed signs.
+Its measured 80\%-power minimum detectable effect is $0.023$, and seed 0 contributes $+0.063$ while the remaining seven seeds average approximately $+0.004$ \evd{E009}.
+The representation fulcrum is therefore not reliable.
+Every OOD-perplexity contrast also lies inside its measured minimum detectable effect: real MSE minus KD-only is $+0.009$ on Pereira and $+0.053$ on LeBel, while real MSE minus the permuted twin is $-0.019$ and $-0.068$ \evd{E009}.
+E009 supports no detected brain-specific OOD-perplexity payoff under this all-data, averaged-target setup.
+It is a bounded result because the manipulation whose payoff was being tested did not reliably take hold, and because robustness and sample-efficiency outcomes were not run.
+
+E024 tests whether a cognitive measurement can help through a different channel: privileged information available only during training.
+The planned five-arm ZuCo intervention is gated on two preconditions: natural-reading gaze must contain information about the target label, and paragraph-disjoint splits must support a stable low-sample learning curve.
+The data comprise 300 natural-reading sentences from 12 participants, but only seven source paragraphs \evd{E024}.
+
+The gaze measurement itself is reliable: combined split-half reliability is $0.71$ \evd{E024}.
+It is not informative for the target under natural reading.
+A rich 35-dimensional gaze probe gives binary AUC $0.508$ with permutation $p=0.45$, and five-way relation-type balanced accuracy is $0.202$ against $0.200$ chance, $p=0.35$ \evd{E024}.
+Linear, nonlinear, participant-stacked, and within-participant probes give the same null pattern.
+Under task-directed reading, the relation-type probe reaches $0.295$ against $0.100$ chance, with permutation $p=0.003$ \evd{E024}.
+This contrast shows that gaze contains relation information when readers are instructed to search for the relation, but that channel is task-intent leakage rather than portable natural-reading privileged information \evd{E024}.
+
+The seven-paragraph structure independently fails the split gate.
+Across paragraph-disjoint splits, test size ranges from 8 to 161 sentences and the empirical low-$n$ minimum detectable effect ranges from approximately $0.03$ to $0.08$ or becomes undefined \evd{E024}.
+No stable leakage-free sample-efficiency estimand is available on this substrate.
+The binding gate therefore stops the five-arm intervention before training.
+This is evidence that the chosen privileged signal and dataset fail the required preconditions, not evidence that learning using privileged information is universally ineffective.
+E009 and E024 fail at different locations and should not be collapsed into a single downstream null.
+E009 implements downstream evaluation but lacks a reliable brain-specific mediator, so it cannot reveal what a successful alignment change would do.
+E024 never reaches the intervention because the clean natural-reading privileged signal is neither label-informative nor stably evaluable under paragraph-disjoint splits.
+Together they show why practical claims require a verified chain from target information to representation movement to held-out task performance.
+They do not establish that every neural or cognitive signal lacks practical value.
+
+\subsection{Synthetic-target improvement does not transfer to the common real-brain endpoint}
+\label{sec:results-synthetic}
+
+E020 first asks whether the part of fMRI not shared across participants contains alignment with a common stimulus representation.
+For denizenslab story 11, it estimates the shared response with a leave-one-participant-out mean across six participants and defines each participant's residual relative to that estimate.
+The fixed Qwen2.5-0.5B representation is evaluated with linear ridge encoding on higher-language ROIs \evd{E020}.
+The primary quantities are raw per-vertex correlations with the shared response, total response, and residual, all on one scale \evd{E020}.
+
+The initial correlations are $A_{\mathrm{shared}}=+0.176$, $A_{\mathrm{total}}=+0.108$, and $A_{\mathrm{resid}}=+0.090$ \evd{E020}.
+The residual positive is not a valid non-stimulus signal.
+The leave-one-out reference reliability is only $0.33$, residual split-half reliability is $0.174$, and the residual estimate remains stimulus-contaminated as the reference grows from one to five participants \evd{E020}.
+After gapping folds for hemodynamic autocorrelation and partialling temporally aligned stimulus structure, the trained-minus-untrained residual gap is $-0.018$ \evd{E020}.
+This diagnostic finds no surviving non-stimulus residual alignment on the fixed story, but the noisy shared-response reference cannot quantify a tight ceiling.
+E020 is therefore a failed ceiling instrument with a successful artifact guard: bounded, not closed.
+
+E016 then asks a different question: whether a dense stimulus-derived brain target can be optimized at scale and transfer to measured fMRI alignment.
+TRIBE and a projected teacher-hidden-state control each define their own synthetic target; KD-only and block-permuted variants provide within-target references.
+The two synthetic target spaces are dimension-matched in the training harness but differ in rank, geometry, and baseline difficulty, so their raw target-$R^2$ values are not directly commensurate \evd{E016}.
+
+Across six training seeds, TRIBE-target training improves its held-out synthetic target $R^2$ over KD-only by \result{e016_tribe_synth_gain}.
+The projected text-feature target improves its own endpoint by \result{e016_textfeat_synth_gain} \evd{E016}.
+The maximum relative perplexity deviation across the checked target and control arms is $0.009220$ \evd{E016}.
+The supported synthetic claim is therefore that TRIBE beats this particular sentence-local projected teacher-hidden-state control on their respective endpoints under nearly unchanged language quality.
+It does not establish superiority over matched-information controls, non-stimulus information, or brain specificity.
+
+The saved students are then scored on one common Tuckute endpoint.
+Synthetic training uses layer 6, while the real-brain evaluation uses layer 7 and the same five-participant/five-ROI average for every seed \evd{E016}.
+Relative to KD-only, the TRIBE-minus-text-feature difference is \result{e016_transfer_delta}; all six seed margins are negative, giving exact sign $p=0.03125$.
+The corresponding difference relative to the two block-permuted gains is $-0.001005$, with five of six seed margins negative \evd{E016}.
+The block permutation leaves 0--30\% of rows fixed and duplicates or omits one row in five of six seeds, so that second contrast is a sensitivity analysis rather than a load-bearing exact-null comparison.
+
+The decisive E016 result is a failure of transfer across endpoints.
+The synthetic target is learnable, but its improvement does not produce improved alignment on the fixed real-brain benchmark.
+The inference unit is six stochastic training seeds over one endpoint that already averages five participants and five ROIs.
+It supports neither participant-level nor population-level inference, and it does not show that all synthetic brain targets must fail.
+Together with E020, it locates the remaining bottleneck after measurement: constructing a dense stimulus-derived target is not sufficient unless target-specific training gains survive evaluation on recorded brain responses.
+E020 and E016 also separate two meanings of a ceiling.
+E020 tries to estimate the stimulus-predictable component of recorded fMRI and fails because the empirical reference is too noisy and leakage-sensitive to support a universal residual bound.
+E016 instead creates a target that is dense and learnable by construction, then asks an operational transfer question.
+Its negative common-endpoint margin is stronger than a failure to fit the proxy because the proxy fit succeeds in every seed.
+It remains narrower than a biological ceiling because the transfer endpoint is fixed, participant-averaged, and evaluated at a different student layer.
+
+\begin{figure}[t]
+  \centering
+  \safeimage[width=0.94\textwidth]{../figures/fig08_synthetic_transfer.png}
+  \caption{E016 separates proxy optimization from biological transfer. Panel A shows each seed's gain on its respective synthetic endpoint; the projected text-feature control is dimension-matched but not information-matched. Panel B shows the TRIBE-minus-text-feature margin on one common Tuckute endpoint, with all six margins below zero. The seeds quantify training variability for this fixed averaged target, not participant or population uncertainty \evd{E016}.}
+  \label{fig:synthetic-transfer}
+\end{figure}

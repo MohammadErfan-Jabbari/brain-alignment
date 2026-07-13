@@ -1,8 +1,7 @@
 """Generate the thesis figures from RECORDED evidence (manuscript D011 rule).
 
-Reads outputs/*.json (E006/E009/E010) + the recorded headline numbers (E005/E008,
-cited inline). Renders to outputs/figures/ (gitignored); chosen figures are copied to
-docs/manuscript/figures/ by hand.
+Reads recorded experiment artifacts and renders selected manuscript figures to
+outputs/figures/ (gitignored); selected renders are copied to docs/manuscript/figures/.
 
 Run: uv run python scripts/figures/make_figures.py
 """
@@ -141,9 +140,98 @@ def fig4_a3():
     print("fig4: A3 nulls rendered")
 
 
+def fig6_quality_alignment():
+    """E015 corrected 22-model quality--alignment relationship."""
+    d = json.load(open(ROOT / "outputs/E015_expand/E015_expand_merged.json"))
+    models = d["models"]
+    families = sorted({m["family"] for m in models})
+    cmap = plt.get_cmap("tab10")
+    fig, ax = plt.subplots(figsize=(6.5, 4.4))
+    for i, family in enumerate(families):
+        rows = [m for m in models if m["family"] == family]
+        ax.scatter([m["bpb"] for m in rows], [m["unique_r2_mid"] for m in rows],
+                   s=45, color=cmap(i), label=family, alpha=0.9)
+    x = [m["bpb"] for m in models]
+    y = [m["unique_r2_mid"] for m in models]
+    slope = d["primary_bpb_mid"]["ols_slope"]
+    intercept = mean(y) - slope * mean(x)
+    xx = [min(x), max(x)]
+    ax.plot(xx, [intercept + slope * q for q in xx], color="black", lw=1.5,
+            label=f"all models: r={d['primary_bpb_mid']['pearson_r']:.2f}")
+    ax.axvspan(1.13, 1.30, color="grey", alpha=0.10, label="capable/overlap range")
+    ax.set_xlabel("language-model quality (bits per byte; lower is better)")
+    ax.set_ylabel("raw unique $R^2$ at the prespecified middle layer")
+    ax.set_title("Alignment and language-model quality across 22 models")
+    ax.legend(fontsize=7, ncol=2)
+    fig.tight_layout()
+    fig.savefig(OUT / "fig06_quality_alignment.png", dpi=180)
+    plt.close(fig)
+
+
+def fig7_intervention_forest():
+    """Recorded real-minus-control estimates, grouped by valid inference unit."""
+    rows = [
+        ("E004  averaged target", 0.00316, -0.00227, 0.00858, "5 stimulus folds"),
+        ("E005  averaged target", 0.00810, -0.00300, 0.01930, "5 stimulus folds"),
+        ("E008  participant target", 0.00010, -0.00037, 0.00058, "9 participants"),
+        ("E011  high-capacity LoRA", 0.00043, -0.00050, 0.00130, "9 participants"),
+        ("E013b contrastive ROI", -0.00019, -0.00080, 0.00050, "9 participants"),
+    ]
+    fig, ax = plt.subplots(figsize=(7.2, 4.5))
+    ys = list(range(len(rows)))[::-1]
+    colors = ["C0", "C0", "C2", "C2", "C2"]
+    for yv, (label, est, lo, hi, unit), color in zip(ys, rows, colors):
+        ax.errorbar(est, yv, xerr=[[est - lo], [hi - est]], fmt="o", color=color,
+                    capsize=4, lw=1.8)
+        ax.text(0.0198, yv, unit, va="center", ha="right", fontsize=8, color="dimgray")
+    ax.axvline(0, color="black", lw=0.8, ls=":")
+    ax.set_yticks(ys)
+    ax.set_yticklabels([r[0] for r in rows], fontsize=8)
+    ax.set_xlim(-0.0045, 0.0205)
+    ax.set_xlabel("real-target minus target-control $\Delta$ unique $R^2$ (95% interval)")
+    ax.set_title("Comparable intervention contrasts do not establish a reliable lever")
+    fig.tight_layout()
+    fig.savefig(OUT / "fig07_intervention_forest.png", dpi=180)
+    plt.close(fig)
+
+
+def fig8_synthetic_transfer():
+    """E016 synthetic endpoint gains and the separate real-brain transfer margins."""
+    synth = json.load(open(ROOT / "outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_comparison.interpret_audit.json"))
+    real = json.load(open(ROOT / "outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json"))
+    synth_rows = synth["seed_rows"]
+    real_rows = real["per_seed"]
+    tribe = [r["tribe"]["target_minus_kd"] for r in synth_rows]
+    textfeat = [r["textfeat"]["target_minus_kd"] for r in synth_rows]
+    transfer = [r["tribe_minus_textfeat_gain_vs_kd"] for r in real_rows]
+    fig, axes = plt.subplots(1, 2, figsize=(8.2, 4.0))
+    x = list(range(6))
+    axes[0].plot(x, tribe, "o-", label="TRIBE target", color="C0")
+    axes[0].plot(x, textfeat, "s-", label="projected text feature", color="C1")
+    axes[0].axhline(0, color="black", lw=0.8, ls=":")
+    axes[0].set_xlabel("training seed")
+    axes[0].set_ylabel("synthetic target $R^2$ gain over KD")
+    axes[0].set_title("A. Synthetic endpoint")
+    axes[0].legend(fontsize=8)
+    axes[1].plot(x, transfer, "o", color="C3")
+    axes[1].axhline(0, color="black", lw=0.8, ls=":")
+    axes[1].axhline(mean(transfer), color="C3", lw=1.4, label=f"mean {mean(transfer):+.4f}")
+    axes[1].set_xlabel("training seed")
+    axes[1].set_ylabel("TRIBE minus text-feature gain on Tuckute")
+    axes[1].set_title("B. Fixed real-brain transfer endpoint")
+    axes[1].legend(fontsize=8)
+    fig.suptitle("Learning a synthetic neural proxy does not imply real-brain transfer")
+    fig.tight_layout()
+    fig.savefig(OUT / "fig08_synthetic_transfer.png", dpi=180)
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     fig1_dose_response()
     fig2_collapse()
     fig3_a2()
     fig4_a3()
-    print(f"\nwrote 4 figures to {OUT}")
+    fig6_quality_alignment()
+    fig7_intervention_forest()
+    fig8_synthetic_transfer()
+    print(f"\nwrote 7 figures to {OUT}")
