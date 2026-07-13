@@ -1494,7 +1494,41 @@ Adjudicated claim:
 
 **Status:** E016 goal-level experimental loop closed for this session; no brain-specific clearance and no ladder rung flip.
 
+### Step 70 - Independent code/stat review narrows the manuscript claim (2026-07-13)
+
+An independent review recomputed the six-seed synthetic and Tuckute contrasts from raw rows, inspected the target construction and saved-model evaluation paths, checked corresponding model identity, and audited corpus overlap. **Manuscript verdict: HOLD until the scope below replaces the broader control language.**
+
+**Validated arithmetic and implementation facts:**
+
+- synthetic TRIBE-minus-KD target-R² gain `+0.078298`; TRIBE-minus-permuted gain `+0.074807`;
+- synthetic textfeat-minus-KD gain `+0.000903`; textfeat-minus-permuted gain `+0.002276`;
+- Tuckute TRIBE-minus-textfeat gain versus KD-only `-0.001213`, all six seed margins negative, exact sign `p=0.03125`;
+- Tuckute TRIBE-minus-textfeat gain versus the two permuted-control gains `-0.001005`, five of six margins negative;
+- corresponding KD weights are byte-identical across the TRIBE and textfeat jobs for all six seeds;
+- PCA/scalers are fit on training data, Tuckute folds are contiguous, and normalized WikiText-train, WikiText-heldout, and Tuckute sentence sets have zero exact overlap.
+
+**Required claim limits:**
+
+1. `block_permute` is not a complete derangement. Depending on seed, 0–30% of rows remain paired with their original targets; unequal blocks also create one duplicated and one missing row in five of six seeds. Call it a block-permuted control, never “fully permuted” or exactly marginal-preserving. Rerun it only if that contrast becomes load-bearing.
+2. The textfeat control is dimension-matched, not demonstrated matched-information. Its rank-≤1024 Gaussian-projected teacher representation differs in geometry and endpoint difficulty from the 20,484-dimensional TRIBE target; KD baseline target R² is `0.911687` for textfeat versus `0.595327` for TRIBE. The synthetic claim is therefore only: **TRIBE beats this sentence-local projected teacher-hidden-state control on its respective synthetic-target endpoint.** It does not establish generic non-brain-control superiority or brain specificity.
+3. The Tuckute inference unit is six stochastic training seeds over one fixed endpoint averaging five participants and five ROIs. It supports no participant- or population-level inference. The defensible real-brain conclusion is: **the synthetic-target improvement did not transfer to improved Tuckute alignment in this six-seed diagnostic.**
+4. Tuckute scoring uses layer 7 while synthetic training targets layer 6; this distinction must be explicit in Methods and Results.
+
+**Retained load-bearing artifacts:**
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E016_tribe/phase3/phase3_combined_tribe_gpt2_n95999_s0-5_lam0.1.json` | `9fd5a657bde1d95cfad93a85a3e6513514c33b45d21d7245ef0a0336f7ee9d98` |
+| `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.json` | `793af7beaab54aff1267e44ef16bdffa5b4f5854d8fc99bcfc99a2bbec0d382d` |
+| `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_comparison.interpret_audit.json` | `2716234438f2b0a0519fab9d16bceebaffea2e1c6fc93e9cd6f90a6819df2f5e` |
+| `outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json` | `f7ea1607f48bb6b91c9e9f4087ac691aca527ac4c46ddfecb758fd90554827f7` |
+| `outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json` | `cf5e7805bc5bd5fec4b6bd5df0d652b1b28368741c874d686c19ffa0c37096ac` |
+| `outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json` | `fa94779f2b0a06c748ef9016b9494720d82c9b345ea9fb577bc4bde6ee898024` |
+| `outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.interpret_recompute.json` | `9fe1a4253bc39b1b75ce5d25184332825706b95518a493532af3a276d10f10eb` |
+
+Derived comparator, analysis, and audit files remain reproducible intermediates rather than a global artifact registry. Saved model directories are regenerable and are not manuscript-load-bearing once the raw result rows and independent recomputes are retained.
+
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../status.md) — current project state
+- [`03-methodology.md`](../03-methodology.md) — authority and inference contract

@@ -1,16 +1,16 @@
 ---
-title: "Experiment — E006: LeBel UTS03 voxelwise A2-feasibility (powered substrate validation)"
+title: "Experiment — E006: LeBel UTS03 voxelwise A2-feasibility"
 tags: [experiment]
 aliases: [E006]
 ---
 
-# Experiment — E006: LeBel UTS03 voxelwise A2-feasibility (powered substrate validation)
+# Experiment — E006: LeBel UTS03 voxelwise A2-feasibility
 
-**Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11) — A2 STRONG PASS at voxel scale (powered: trained−untrained gap +0.0207/+0.0277, 95–99% of 11,442 NC-reliable voxels positive); E007 lever-line structurally underpowered (MDE +0.013–0.015 ≫ the +0.003 effect) → E007 NOT built, rerouted to E005 · **Mode:** working
+**Created:** 2026-06-11 · **Status:** COMPLETE, CORRECTED 2026-07-13 — conditional UTS03 result: trained−untrained gap +0.0207/+0.0277, 95–99% of 11,442 selected voxels positive, and positive on all five held-out story blocks. The original voxel-bootstrap intervals and E007 MDE claim are invalid and retracted. · **Mode:** working → interpret
 **Direction:** R03 Q0/A2 at *powered* (voxelwise) resolution — the prerequisite substrate for the LeBel lever re-test (E007) that confirms E004's fragile PARTIAL.
 **Predecessors:** [`E002`](E002_tuckute-encoding-feasibility.md) (A2 PASS on Tuckute, 5 ROIs) · [`E004`](E004_brain-loss-lever-test.md) (Tuckute lever = PARTIAL/fragile — routes here per its predeclared, power-limited rule)
 **Code:** `scripts/lebel_adapter.py` (built, CPU+GPU-validated), `scripts/run_lebel_encoding.py` (TBD after oracle PASS), reuses `data/paper-repos/deep-fMRI-dataset/encoding/ridge_utils`
-**Output:** `outputs/E006_lebel_feasibility.json`
+**Outputs:** `outputs/E006_lebel_gpt2.json`, `outputs/E006_lebel_Qwen.json`
 
 ---
 
@@ -71,7 +71,7 @@ flowchart TD
 
   %% --- two arms → the verdict ---
   UNIQ --> ARMS{"run the whole pipeline twice:<br/>trained LM · untrained same-arch (3 seeds)"}
-  ARMS --> GAP["trained − untrained gap<br/>per voxel; bootstrap CI over voxels;<br/>% voxels with gap &gt; 0"]
+  ARMS --> GAP["trained − untrained gap<br/>point estimate and fold-block sensitivity;<br/>% voxels with gap &gt; 0"]
 ```
 
 **1. One stimulus, two feature streams.** Every story becomes two parallel descriptions of the same word sequence. The **LM stream** is the thing under test: each word's contextual representation, read from the model's middle layer. The **nuisance stream** is everything we want to *not* credit the model for — a 5-dimensional low-level block (how fast words and phonemes arrive, how long and frequent each word is) and the 985-dimensional eng1000 static block (a word's meaning *without context*, a fixed lookup). The intuition: if the LM only "aligns" because longer or rarer words happen to drive both the model and the brain, the nuisance stream already captures that, and the LM gets no credit for it.
@@ -84,7 +84,7 @@ flowchart TD
 
 **5. The fit happens twice per fold, and the difference is the honest number.** Cross-validation holds out *whole stories* (no within-story timepoints leak across the train/test seam). On each fold a per-voxel ridge is fit twice: once on the **nuisance design** `[low, PCA(eng1000)]`, once on the **full design** `[low, PCA(eng1000), PCA(LM)]`. The **unique R²** is the difference — the variance the contextual LM adds *on top of* everything the nuisance already explains. A raw R² would conflate the two; the subtraction is what isolates context.
 
-**6. Two arms, and the gap is the verdict.** The entire pipeline above runs twice: once with the trained LM, once with a randomly-initialised network of the *same architecture* (three seeds). Both arms see byte-identical nuisance, identical splits, identical PCA. The reported statistic is the **trained − untrained gap**, per voxel, with a bootstrap CI over voxels — because on naturalistic time series even an untrained net scores slightly positive (its random features inherit the stimulus's temporal structure), so the untrained arm defines the true zero. The gap is what *language training* buys, and nothing else.
+**6. Two arms, and the gap is the estimand.** The entire pipeline above runs twice: once with the trained LM, once with a randomly-initialised network of the *same architecture* (three seeds). Both arms see byte-identical nuisance, identical splits, identical PCA. The reported statistic is the **trained − untrained gap**. The 2026-07-13 audit established that voxels are spatially dependent and come from one subject, so their count cannot be used as replication. The defensible scope is conditional on UTS03, the fixed stories, and this control pipeline; fold-block signs are sensitivity evidence, not a population confidence interval.
 
 The same six ideas define the apparatus the whole report set reuses; E002 is the simpler, isolated-sentence ancestor of this machine (no temporal pipeline, a coarser nuisance, ROI targets instead of voxels), and its own architecture section draws the reduced version.
 
@@ -115,24 +115,26 @@ CUDA_VISIBLE_DEVICES=3 uv run python scripts/run_lebel_encoding.py --model Qwen/
 
 ## Results (ran 2026-06-11; UTS03, 20 stories, 5 story-folds, 11442 NC-reliable voxels rel>0.5)
 
-| Model · layer | trained unique R² | untrained unique R² | **trained−untrained GAP [95% CI]** | % voxels gap>0 | E007-lever MDE(80%) |
+| Model · layer | trained unique R² | untrained unique R² | **trained−untrained gap** | % voxels gap>0 | held-out story blocks positive |
 |---|---|---|---|---|---|
-| gpt2 · L7 | +0.0038 | −0.0169 | **+0.0207 [+0.0205, +0.0209]** | 95% | +0.0129 |
-| Qwen2.5-0.5B · L12 | +0.0103 | −0.0173 | **+0.0277 [+0.0274, +0.0280]** | 99% | +0.0150 |
+| gpt2 · L7 | +0.0038 | −0.0169 | **+0.0207** | 95% | 5/5 |
+| Qwen2.5-0.5B · L12 | +0.0103 | −0.0173 | **+0.0277** | 99% | 5/5 |
 
 Both ran ~9–10 min. Nuisance = low-level (word-rate, phoneme-rate, word-duration, word-length, log-freq) + eng1000 (985-d static), capacity-fair PCA(100) on LM & eng1000 blocks, low-level raw, FIR(1–4); BOLD aligned (assert passed). Voxels selected on the held-out `wheretheressmoke` 10 repeats (split-half reliability > 0.5) — no double-dipping.
 
-## Interpretation
+## Interpretation (corrected 2026-07-13)
 
-**A2 verdict: STRONG PASS at voxel scale.** A trained LM's mid-layer representation predicts UTS03 BOLD far above an untrained same-arch control after the full anti-confound (gap +0.021–0.028, CIs tight, 95–99% of reliable voxels positive). Qwen > gpt2 (the expected quality ordering). This is the powered confirmation E002's 5-ROI screen could only hint at, and it clears the Hadidi/Feghhi (2026) bar (untrained explains ~0 unique variance; the contextual residual is real). **The LeBel substrate is alive and carries the signal robustly — NOT the "substrate dead" kill.**
+**Conditional result.** For UTS03 and this fixed story/control pipeline, trained models exceeded their untrained controls on all five held-out story blocks. The point gaps are +0.0207 for gpt2 and +0.0277 for Qwen; 95% and 99% of the selected voxels have positive gaps. This establishes a within-subject existence result on this dataset. It does not provide participant- or population-level inference.
 
-**Lever line (E007): hits the predeclared "quiet kill" — structurally underpowered for the +0.003 effect.** The empirical E007-lever MDE(80%) is +0.013 (gpt2) / +0.015 (Qwen) for the mean-over-voxels unique-R² statistic — ~4–5× the +0.003 brain-specific lever E004 found. *Caveat (honest):* this MDE is for the *unpaired* fold statistic; E004's effect surfaced only in the *paired* arm-vs-permuted contrast (common-mode removed), which could be better-powered — but confirming that would BE E007, and it is a gamble against a fragile +0.003.
+**Retracted inference.** The original 95% intervals resampled 11,442 spatially dependent voxels from one subject as if they were independent. They are therefore anti-conservative and must not be cited. The five fold gaps are all positive—gpt2 `[0.0167065, 0.0234877, 0.0171265, 0.0190724, 0.0271819]`; Qwen `[0.0288241, 0.0214104, 0.0172086, 0.0384345, 0.0323849]`—but folds share training stories, so they are sensitivity checks rather than independent replicates.
 
-**The decision (predeclared PARTIAL / lever-line-underpowered branch + the literature):** A2 holds powerfully, but the lever is too small/fragile for the crude statistic to resolve, and the literature (Hadidi/Feghhi 2026: residual ≤10% and "real but small"; our L011/L012: alignment co-varies with perplexity; lit-fork sweep leans B) all point the same way. **The honest, defensible, and arguably more novel contribution is to pivot the headline from "alignment-guided distillation wins" to a rigorous anti-confound characterization of the alignment signal and its rate–distortion trade-off against compression** — which E005 (alignment-guided vs perplexity-only KD at matched perplexity) tests directly and which is robust to the A/B framing (a big brain-term win = A; a small/null = the honest trade-off-curve result = B). **Recommendation: do not build the TR-level E007 lever loop; run E005 as the experiment that empirically settles the framing.** (Thesis-headline framing flagged for Erfan — his call as author.)
+**Retracted E007 power claim.** The reported +0.0129/+0.0150 “MDE” was built from unmatched absolute fold summaries rather than the future paired tuned-versus-permuted contrast. It neither estimates the intended E007 variance nor licenses the statement that E007 was structurally underpowered. The historical decision not to build E007 remains a project decision, but E006 no longer supplies its statistical justification.
+
+**Load-bearing artifacts.** `outputs/E006_lebel_gpt2.json` has SHA-256 `ea424b7d2f8a32dd289e8ef8066c8609749f4edc1b4cdd132373a78bd6b6830b`; `outputs/E006_lebel_Qwen.json` has SHA-256 `09b77b8801e937d8232ce7e7f16435e490f0b9300c78ce4ede23d00bf07d2581`.
 
 ## Status / next
 
-E006 = powered A2 PASS (recorded). Lever line (E007) not built (structurally underpowered + literature pressure). **Next = E005**, the matched-perplexity alignment-guided-vs-perplexity-only KD trade-off-curve experiment (the F1/Q3 headline), which decides the A/B framing on evidence. Ladder: Q0/A2 gains a powered voxelwise confirmation; Q2 stays 🟡 PARTIAL — **pending Erfan's confirmation**.
+E006 = conditional UTS03 A2 evidence, not a powered population PASS. The manuscript must remove the voxel-bootstrap intervals, “powered” language, and E006-derived E007 MDE claim. A population claim would require independent participants; a formal story-level interval would require a dependence-aware design with retained fold/story-level data.
 
 ## Iteration log
 
@@ -141,8 +143,9 @@ E006 = powered A2 PASS (recorded). Lever line (E007) not built (structurally und
 | 2026-06-11 | design | — | adapter validated; design locked pending oracle | scoped A2-only (lever→E007) | oracle review → build runner → run |
 | 2026-06-11 | oracle HOLD→resolved | — | 2 fatal fixes (phone-tier nuisance; held-out CC_norm voxel selection) + E007-MDE deliverable + paired-primary E007 lock | flagged the "quiet kill": lever line may be structurally underpowered if MDE > +0.003 | build runner → run |
 | 2026-06-11 | FULL run | gpt2 + Qwen, 20 stories, 5 folds, rel>0.5 | **A2 STRONG PASS** (gap +0.021/+0.028, 95–99% voxels+); **E007-lever MDE +0.013/+0.015 → can't resolve +0.003** | substrate alive; lever line underpowered → pivot to E005 trade-off curve | design E005 (matched-ppl KD) |
+| 2026-07-13 | inference audit | retained JSON + runner review | point estimates retained; voxel CIs and E007 MDE claim retracted | one subject and spatially dependent voxels cannot support the original inference | synchronize manuscript; retain conditional UTS03 scope |
 
 
 ## Related
-- [`ladder.md`](../ladder.md) — the canonical status board
-- [`map.md`](../map.md) — code system (Q/E/A/D/L) & journey map
+- [`status.md`](../status.md) — current project state
+- [`03-methodology.md`](../03-methodology.md) — authority and inference contract
