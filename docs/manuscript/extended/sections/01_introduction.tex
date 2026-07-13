@@ -1,100 +1,106 @@
 \section{Introduction}
 
-% === ROUND 2 --- §1 goals & contents (Round 3 writes the text to this) ====
-% Section goal: in ~1.5 pages the reader can restate the PROBLEM, the HYPOTHESIS,
-% and the CONTRIBUTIONS, and can picture the setup. Audience = ML readers, not
-% brain experts: gloss neuro terms on first use, assume ML terms.
-% Beat order + per-beat job:
-%  1. Instrument + inversion [Fig. pipeline] -- GOAL: what brain alignment is, and
-%     the move from MEASURING it to USING it. CONTAINS: the linear-map instrument;
-%     that the field only measures; the inversion (alignment as a training term).
-%  2. Problem (boxed) -- GOAL: reader states the problem in one sentence. CONTAINS:
-%     distillation discards the middle-layer structure alignment lives in; can an
-%     alignment-guided objective preserve/improve it at a matched student budget,
-%     and does it buy anything downstream; why it matters (the open 2025-26 case).
-%  3. Hypothesis (labelled) -- GOAL: one falsifiable hypothesis. CONTAINS: the brain
-%     term is a weak prior / regulariser, not a second teacher; prediction = helps
-%     where the text signal is weak (small/compressed/scarce), washes out with data.
-%     One line of intuition; the math lives in §3.3.
-%  4. Positioning [Fig. 2x2] -- GOAL: locate the contribution as the one empty cell.
-%     CONTAINS: the two axes; three filled cells (one cite each); the empty cell.
-%  5. Contributions -- GOAL: a scannable explicit list. CONTAINS: the six items
-%     (problem+positioning; weak-prior theory; artifact-resistant protocol; reality
-%     result; no-preservation result; weak quality-entangled lever). No Q3--Q4 outcomes.
-%  6. Program + established -- GOAL: the dependent-question roadmap and what is
-%     settled so far. CONTAINS: the question sequence; the established results stated
-%     QUALITATIVELY (the numbers live in §4, not here).
-% The text below is the v0.2 draft; Round 3 reworks it into this order + the doctrine.
-% ===========================================================================
+Imagine that a person listens to a story in an fMRI scanner while a language model processes the same words.
+For each part of the story, the scanner provides a vector of measured responses across locations in the brain, while a chosen layer of the model provides a vector of artificial-neuron activations.
+An \emph{encoding model} learns a linear map from the model activations to the brain responses using some of the story, and is then evaluated on parts of the story that were not used to fit the map.
+If the map predicts held-out responses, distinctions that matter for the measured brain signal are linearly accessible in the model representation.
+This predictive correspondence is what this thesis calls \emph{brain alignment}.
 
-Brain alignment has become a way to study what language models and the human language system share \autocite{tuckute2024,oota2023,merlin2024}.
-Linear encoding studies ask how well a model's internal activations predict human brain responses to the same text, and the resulting score has been used to compare architectures, layers, training objectives, scale, and compression \autocite{oota2023,aw2023,gao2024,alkhamissi2025,oota2026}.
-Recent work also shows that the score is fragile: it can reflect linguistic structure, but it can also be inflated by low-level stimulus features, shallow acoustic cues, or weak evaluation splits \autocite{oota2024,hadidi2026,jia2026}.
-Together, this literature has made brain alignment useful as a measurement.
-This thesis asks whether the same signal can be useful as a training signal.
-In particular, we study model compression: during knowledge distillation, can a small student be guided by a brain-alignment objective, and does that guidance preserve anything ordinary text-only compression loses?
+The construction is easier to understand through one concrete example.
+Suppose the person hears ``the child opened the present'' and later hears ``the mechanic repaired the engine.''
+The model produces different activation patterns because the words, syntax, and meanings differ, while the scanner records different patterns across language-responsive locations.
+The encoding map is fitted across many such examples and is required to predict a brain-response pattern for a sentence or story segment it did not see during fitting.
+It succeeds only when the geometry of the model features contains distinctions that a simple linear readout can reuse for the recorded responses.
+The map is therefore a measurement instrument between two representational spaces, not a component that either the model or the brain is assumed to contain.
+
+The phrase ``predict the brain'' also needs calibration.
+An $R^2$ score does not reconstruct thoughts, identify what a participant consciously understood, or imply that every measured voxel is language selective.
+It summarizes how well one predefined response target can be predicted relative to a baseline on held-out stimuli.
+Changing the participant pool, averaging responses before scoring, selecting a different ROI, or using a different split can change both the numerical score and the scientific population it describes.
+For that reason, the experimental design is part of the claim rather than a technical detail hidden behind the score.
+
+Brain alignment is scientifically interesting because it offers a common measurement for two otherwise very different systems.
+Researchers can ask which model layers best predict language-selective brain responses, whether training improves the correspondence, and whether scaling or compressing a model preserves it \autocite{tuckute2024,oota2023,merlin2024,oota2026}.
+The score is nevertheless narrower than its name can suggest.
+Successful held-out prediction does not show that a model thinks like a person, implements the same computation, or contains a generally useful cognitive representation.
+It shows that a specified readout extracts predictive information under a specified dataset, nuisance model, split, and inference unit.
+Low-level stimulus features, temporal leakage, response averaging, and language-model quality can all change the score without establishing the stronger interpretation \autocite{oota2024,hadidi2026,jia2026}.
+
+This thesis tests what happens when the measurement is asked to do more than compare representations.
+In knowledge distillation, a smaller \emph{student} model learns from the output distribution of a larger \emph{teacher} model.
+Distillation can retain much of the teacher's predictive quality while changing the student's internal representation.
+For example, when the teacher assigns nonzero probability to several plausible next words, the student learns from that full probability pattern rather than only from the observed next token.
+This transfers the teacher's output behavior, but it does not require the student's middle layers to organize information in the same way.
+Brain-guided distillation adds a second training signal that rewards agreement with a recorded or predicted neural target at a selected student layer.
+The comparison of interest is not simply whether the resulting student has a higher brain score than an arbitrary baseline.
+It is whether the real neural target improves held-out alignment more than a target-specific control while teacher, student, text data, training budget, and achieved language-model quality are held as comparable as the design permits.
+The central question is therefore whether a linear encoding score can remain scientifically and practically useful when it becomes part of the student's training objective:
+
+\begin{quote}
+\emph{A linear encoding model can detect brain-relevant information in an LLM representation. Does that measurement remain useful when it becomes a training objective?}
+\end{quote}
+
+This question separates three claims that are often compressed into one.
+A signal can be \emph{measurable}: a trained representation predicts held-out brain responses beyond declared nuisance features.
+It can be \emph{movable}: a brain-targeted intervention changes that measurement beyond a matched control.
+It can be \emph{useful}: the change survives the biologically relevant inference unit and improves an external outcome at comparable language-model quality.
+Measurability does not imply movability, and movability does not imply usefulness.
+
+We organize the empirical program as five gates, shown in Figure~\ref{fig:five-gates}.
+The first asks whether the signal survives controls for low-level stimulus structure, temporal leakage, and untrained-network features.
+The second asks how ordinary distillation and language-model quality affect the score before any brain objective is added.
+The third asks whether a real brain target moves the score more than a matched control target.
+The fourth asks whether an apparent gain survives participant-level evaluation and matched-quality comparisons.
+The fifth asks whether the surviving representation change improves a downstream or privileged-information task.
+Failure at a gate narrows what later tests can establish, but it does not erase the evidence accumulated at earlier gates.
+
+The order matters because each gate blocks a common shortcut.
+A positive raw score without nuisance and untrained controls can reflect stimulus structure rather than learned language processing.
+A lower score after compression can reflect a worse language model rather than loss caused by distillation itself.
+A score that moves during training can reflect an easier target, a different perplexity, or a control loss that failed to engage.
+A repeatable seed effect can still disappear when participants become the units over which biological variation is measured.
+Finally, improvement on the same proxy used for training can fail to transfer to recorded fMRI or to a downstream language task.
+The thesis treats these as distinct evidential transitions instead of using one positive number to stand in for all of them.
+
+\begin{figure}[t]
+  \centering
+  \resizebox{0.98\textwidth}{!}{\input{../figures/fig02_five_gates.tikz}}
+  \caption{The cumulative experimental chain. Measurement establishes that a representation contains linearly accessible brain-predictive information; intervention asks whether a brain-targeted objective changes it; biological and practical validation ask whether the change survives the appropriate inference unit, quality controls, and an external endpoint.}
+  \label{fig:five-gates}
+\end{figure}
+
+The motivating hypothesis is deliberately weak.
+A brain objective may act as a regularizer that selects among text-compatible student representations rather than as a second teacher that supplies a new language task.
+This possibility is plausible because next-token objectives constrain output distributions more directly than middle-layer geometry, leaving multiple internal solutions with similar perplexity.
+It is not guaranteed by information theory, and the brain dataset's small and noisy supervision does not by itself establish a useful information budget.
+The hypothesis therefore predicts only a place to look: constrained, compressed, or under-trained regimes in which a targeted inductive bias might choose a better internal solution.
+The experiments, rather than the theory, must determine whether that selection occurs and whether it matters.
+
+The work is positioned between four related literatures.
+Encoding-model studies measure correspondence between artificial and biological representations \autocite{tuckute2024,oota2023,merlin2024}.
+Neural-guided optimization studies use recorded or predicted responses to change learned representations \autocite{moussa2025,moussa2025b,negi2025,bilgin2026}.
+Compression studies ask how pruning, quantization, or distillation changes alignment after training \autocite{oota2026}.
+Validity studies show why nuisance subtraction, reliable splits, matched quality, and the correct biological inference unit are necessary before a score is interpreted \autocite{oota2024,hadidi2026,jia2026}.
+The contribution is not the claim that these areas contain a single empty cell.
+It is a controlled test of alignment-guided distillation at their intersection, with matched controls and participant-aware evaluation used to separate measurement from intervention.
 
 \begin{figure}[t]
   \centering
   \resizebox{0.98\textwidth}{!}{\input{../figures/fig01_pipeline.tikz}}
-  \caption{The measurement instrument and its inversion. A ridge encoding model maps language-model activations to brain responses; held-out accuracy is reported as unique variance over the nuisance floor. The thesis asks whether a corresponding brain-alignment term can guide a distilled student.}
+  \caption{From measurement to intervention. A ridge encoding model maps frozen language-model activations to held-out brain responses after nuisance control. The intervention reverses the direction of use: a brain-derived target contributes an auxiliary loss while a student is distilled. The second step is scientifically stronger than the first and requires its own controls.}
   \label{fig:pipeline}
 \end{figure}
 
-\textbf{Problem.}
-We focus on model compression.
-Knowledge distillation trains a small \emph{student} model to imitate a larger \emph{teacher}, reshaping the student's internal representations while it learns.
-That is where the alignment question becomes sharp: if brain alignment lives in middle-layer structure, can a brain-alignment objective shape the student while it is being distilled \autocite{oota2023,oota2026}?
-We ask whether such a student preserves or improves alignment at a matched compute budget, and whether any gain matters beyond the alignment score itself.
-This case matters because compression is how small, deployable models are built, and recent brain-tuning and compression work has left this training use of brain alignment open \autocite{moussa2025,bilgin2026,merlin2026,oota2026}.
-
-\textbf{Hypothesis.}
-The hypothesis is that brain alignment can act, at most, as a weak prior over text-consistent representations.
-The reason is a severe mismatch in scale.
-A language model learns from on the order of a trillion tokens of text.
-A language-fMRI dataset offers a few thousand noisy recordings, and a low noise ceiling caps the variance any model can explain in them \autocite{tuckute2024,lebel2023,lage2019}.
-Against that imbalance, the brain term is too small to carry new task structure by itself.
-Its plausible role is to bias the student among solutions already compatible with the text objective, the way a weak regularizer does \autocite{xu2017,cover2006,pirlot2022,freteault2025}.
-This gives a falsifiable prediction.
-A brain prior should help most where the text signal is weakest, in small, heavily compressed, or data-starved models, and should wash out wherever text data is abundant.
-Section~\ref{sec:methods} makes the argument precise.
-
-Recent studies have already used fMRI as an optimization signal for speech and text models \autocite{moussa2025,moussa2025b,negi2025,bilgin2026}.
-The case is strengthened by causal evidence: text models pushed to be brain-\emph{misaligned} at matched perplexity perform worse across a broad downstream suite \autocite{merlin2026}.
-Those studies live on the grow-and-optimize side of the field: they fine-tune the model, add adapters, or attach a brain-prediction head.
-Compression work has taken the complementary path.
-It shrinks a language model first, through quantization or pruning, and measures the alignment score afterward \autocite{oota2026}.
-Alignment-guided distillation combines the two: the model is shrunk, and the alignment score enters the training objective.
-That is the open case in Figure~\ref{fig:cells-diagram}, and it is exactly the regime where the weak-prior hypothesis says a brain signal has its best chance to matter.
-
-\begin{figure}[t]
-  \centering
-  \resizebox{0.82\textwidth}{!}{\input{../figures/fig02_positioning.tikz}}
-  \caption{The field on two axes; three cells are occupied and the fourth, where this work sits, is open in language-model compression. Examples and citations are given in Table~\ref{tab:cells}.}
-  \label{fig:cells-diagram}
-\end{figure}
-
-Brain-alignment scores are easy to inflate.
-Shuffled splits leak through the temporal autocorrelation of fMRI, and low-level features such as sentence length carry much of an apparent score, so an untrained network can appear to explain brain data on its own \autocite{hadidi2026,jia2026}.
-We therefore hold every number in this thesis to a fixed standard, set before measuring anything.
-The contributions below summarize that standard, and Section~\ref{sec:methods} defines it \autocite{oota2023,merlin2024,oota2024,hadidi2026,jia2026}.
-
-% Contributions list (beat 5) — Round 3 writes the text; scope = through Q2, methodology spine.
 \paragraph{Contributions.}\leavevmode\par\smallskip
-This thesis makes four contributions.
+This thesis answers the cumulative questions with five contributions.
 \begin{itemize}[noitemsep,topsep=2pt]
-  \item It formulates alignment-guided distillation and an information-budget prediction for when a weak neural prior could matter.
-  \item It establishes an artifact-resistant measurement protocol and a conditional within-subject result that survives whole-story splits, a capacity-matched nuisance floor, and an untrained-network control \evd{E006}.
-  \item It shows that an averaged-target gain does not generalize to a per-individual effect, and tests that conclusion across adapter-capacity, loss-form, and voxelwise-mechanism variants \evd{E008}\evd{E011}\evd{E013}.
-  \item It bounds practical payoff and synthetic-proxy transfer: no OOD-perplexity benefit is detected when the alignment manipulation is unreliable, a gaze-privileged route fails its preconditions, and a learnable dense neural proxy does not improve the common real-brain endpoint \evd{E009}\evd{E016}\evd{E024}.
+  \item It defines an artifact-resistant alignment estimand and verifies a trained-over-untrained signal with contiguous held-out evaluation, fold-only preprocessing, capacity-matched nuisance features, and reliability selection \evd{E002}\evd{E006}.
+  \item It separates preservation from language-model quality, showing both alignment headroom after distillation and substantial quality entanglement across a broader model comparison \evd{E003}\evd{E015}.
+  \item It demonstrates that the apparent intervention answer depends on the response target and inference unit: an averaged-response trend does not become a participant-level effect, and a nested sensitivity pattern does not survive randomized subset construction \evd{E004}\evd{E005}\evd{E008}\evd{E010}\evd{E014}.
+  \item It tests capacity, loss form, voxelwise regression, and full fine-tuning, finding no reliable brain-specific improvement in the tested regimes while preserving a bounded distinction between failure of these mechanisms and a universal impossibility claim \evd{E011}\evd{E013}\evd{E017}.
+  \item It tests downstream, privileged-information, cognitive-target, external-reproduction, and dense synthetic-target routes, identifying failed preconditions and failed transfer rather than treating an easier proxy endpoint as evidence of real-brain benefit \evd{E009}\evd{E016}\evd{E019}\evd{E020}\evd{E021}\evd{E022}\evd{E024}.
 \end{itemize}
 
-The program asks five questions in sequence, each only if the previous one holds.
-Is the signal real, or an artifact?
-Does plain distillation preserve it?
-Does an alignment objective move it beyond what perplexity already implies?
-Does any gain survive per individual at matched perplexity?
-And does it improve a downstream task?
-
-The resulting arc is conditional rather than universal.
-The signal survives the recorded controls within UTS03 \evd{E006}; plain distillation leaves alignment headroom but is quality-entangled \evd{E003}; the tested objective does not show a reliable fold-level gain \evd{E004}; its averaged-target positive does not generalize across participants \evd{E008}; and neither the tested practical routes nor the dense synthetic proxy establishes real-brain benefit \evd{E009}\evd{E016}\evd{E024}.
+The bounded empirical answer is that brain-relevant information is measurable in the tested language-model representations, but brain alignment is not demonstrated to be a reliable training signal in the tested distillation regimes.
+This is not a universal null about neural supervision.
+It is a map of where the tested causal chain holds, where it breaks, and which distinctions must remain separate: encoding quality, language-model quality, target specificity, biological inference, and downstream validation.

@@ -1,201 +1,308 @@
 \section{Methods}
 \label{sec:methods}
-% === ROUND 2 --- §3 goals & contents ======================================
-% Section goal: define WHAT we measure, WHAT it is formally, WHY brain data is only
-% a weak prior, the primary statistic, the CONTROLS, the data, and the training setup.
-% Treatment: FULL REWRITE to the §1 standard (equations/claims kept; text rebuilt;
-% 3.2/3.3 grounded derivations from docs/06-theory-grounding.md; 3.7 written from scratch). Plain titles.
-%  3.1 encoding model + score -- GOAL: define the alignment score (unique R^2) and why
-%      a raw score is not reportable. CONTAINS: ridge encoding; unique-variance def; the nuisance set.
-%  3.2 what it is, formally -- GOAL: ground the score as a conditional-MI lower bound.
-%      CONTAINS: cond-MI def; common-cause -> why condition; linear-Gaussian = semipartial R^2; lower-bound reading.
-%  3.3 why a weak prior -- GOAL: the information-budget argument predicting where to look.
-%      CONTAINS: MAP framing; the supervision-budget asymmetry; DPI; generalisation bound; the low-info prediction.
-%  3.4 primary gap statistic [Fig. uniquevar] -- GOAL: define the trained-untrained gap & why it is the right stat.
-%      CONTAINS: the shared-cause problem; the gap cancels the nuisance term.
-%  3.5 three controls -- GOAL: the fixed standard. CONTAINS: contiguous splits; capacity-fair
-%      nuisance floor; held-out noise ceiling; surprisal held out; the permuted-twin (specificity).
-%  3.6 data and models -- GOAL: the two datasets + the models. CONTAINS: Tuckute ROI benchmark;
-%      LeBel UTS03 voxelwise; the models + same-architecture untrained control.
-%  3.7 distillation setup + brain term [NEW] -- GOAL: define KD, matched budget, the brain term,
-%      the arms. CONTAINS: teacher->student; matched-budget def + step-count caveat; L_brain (co-trained
-%      MSE, D010) + lambda; cold/warm arms + drift controls; permuted-twin reuse; fixed alignment layer.
-% ===========================================================================
 
-\subsection{The alignment score}
+\subsection{Study overview}
 
-We measure alignment with a ridge encoding model that maps a frozen model's per-stimulus middle-layer activations $X$ to recorded brain activity $Y$, fit on training stimuli and scored on held-out ones.
-For activations $X \in \mathbb{R}^{n\times d}$ over $n$ stimuli and a $v$-voxel response $Y$, the fitted map is
+The study follows five gates rather than treating every alignment score as the same kind of evidence.
+Gate~1 validates measurement: a trained language model must predict held-out brain responses beyond low-level nuisance features and a same-architecture untrained network.
+Gate~2 measures preservation and quality: ordinary distillation must be characterized before a brain loss is credited with changing anything.
+Gate~3 tests intervention: training against the real target must outperform an otherwise matched control target.
+Gate~4 tests biological generalization: the contrast must survive the participant, not a voxel or seed--fold cell, as the independent unit.
+Gate~5 tests usefulness: a reliable brain-specific representation change must improve an external endpoint at comparable language-model quality.
+
+The experiment families instantiate these gates at increasing levels of difficulty.
+ROI-scale sentence experiments provide a controlled and inexpensive feasibility setting.
+Voxelwise naturalistic experiments test whether the measurement survives whole-story splits and subject-specific responses.
+Participant-level, alternative-loss, full-fine-tuning, cognitive-target, external-reproduction, and synthetic-target experiments probe distinct failure explanations.
+No single family is treated as a universal test of neural supervision.
+
+\subsection{Brain data and response targets}
+
+Functional magnetic resonance imaging (fMRI) measures changes in blood oxygenation associated with neural activity.
+The result at one spatial location, called a \emph{voxel}, is a noisy time series rather than a direct measurement of individual neurons.
+A \emph{region of interest} (ROI) pools voxels selected for an anatomical or functional role, such as language processing.
+A \emph{participant} is one person whose responses were recorded; voxels within that participant are repeated spatial measurements, not independent biological replicates.
+
+The blood-oxygen response is delayed and blurred relative to the words that elicited it.
+For isolated-sentence data, the released response already summarizes the response associated with each sentence.
+For continuous stories, word-level model features must be aligned to the scanner sampling grid and accompanied by delayed copies or a hemodynamic response model so that the encoding model compares compatible time points.
+This temporal step creates a major leakage risk because adjacent scanner samples and adjacent story segments are correlated.
+Holding out complete contiguous stories or blocks is therefore part of the estimand: it asks whether a mapping learned on one stretch of language predicts a genuinely unseen stretch rather than its temporal neighbors.
+
+An ROI and a voxelwise target answer complementary questions.
+ROI averaging reduces dimensionality and measurement noise, which makes controlled screens feasible, but it can conceal spatially heterogeneous effects and yields only a handful of target dimensions.
+Voxelwise evaluation retains spatial detail and can reveal whether a pattern is widespread, but thousands of voxels from one person remain dependent measurements from that person.
+Neither representation is intrinsically more biologically general.
+Population generalization requires independent participants regardless of the spatial resolution used inside each participant.
+
+We use two principal fMRI resources.
+The Tuckute benchmark contains responses to 1,000 isolated sentences in five left-hemisphere functional language ROIs \autocite{tuckute2024}.
+Its main response is averaged across participants and voxels within each ROI, which improves signal-to-noise ratio but changes the estimand from an individual response to a group-average target.
+The matched mean noise ceiling for these five ROIs is a correlation-scale value of $r_{\mathrm{NC}}=0.491$; it is reported as reliability context and is not used as a denominator for a variance-scale unique-$R^2$ score \evd{E002}\evd{E004}.
+
+Participant averaging is performed on responses before the encoding model is evaluated.
+If $Y_i(S)=g(S)+\epsilon_i(S)$, where $g$ is a stimulus-locked component shared across participants and $\epsilon_i$ contains participant-specific response and measurement noise, averaging suppresses parts of $\epsilon_i$ while retaining $g$.
+The resulting target can be more reliable and easier to predict, but it represents the shared group response rather than the expected response of a randomly sampled individual.
+Because ridge fitting and $R^2$ are nonlinear operations, scoring an averaged response is not equivalent to averaging participant-specific scores.
+E005 and E014 use the former estimand, while E008 uses the latter.
+
+The LeBel resource contains naturalistic story-listening fMRI from deeply sampled individuals \autocite{lebel2023}.
+The primary signal-validation analysis uses participant UTS03, 20 stories, and whole-story-held-out folds.
+Voxels are retained only when their split-half reliability exceeds $0.5$ on a separate story repeated ten times, leaving \result{e006_reliable_voxels} reliable voxels \evd{E006}.
+The inference supported by this experiment is conditional on UTS03 and this acquisition and selection protocol.
+The many retained voxels increase spatial resolution but do not turn one participant into a population sample.
+
+Reliability selection and noise-ceiling normalization are also different operations.
+Selection uses an independently repeated story to exclude response locations whose repeat measurements are too unstable for meaningful evaluation.
+Normalization would rescale a performance metric by an estimated maximum on a compatible scale.
+The thesis performs the former for LeBel and reports the Tuckute correlation ceiling as context, but it does not divide a variance-scale unique $R^2$ by a correlation-scale ceiling.
+This distinction preserves the raw experimental contrasts while preventing an apparently intuitive but dimensionally invalid ``fraction of ceiling'' claim.
+
+The intervention studies use three response constructions.
+An averaged Tuckute target asks whether training helps predict the common response after participant averaging.
+Participant-specific Tuckute targets ask whether the effect generalizes across people, with the participant as the independent unit.
+LeBel voxelwise targets ask whether a dense within-participant regression lever takes hold under naturalistic evaluation.
+Because averaging occurs before the nonlinear encoding score is calculated, the averaged and participant-specific analyses estimate different quantities.
+
+\subsection{Alignment measurement}
+
+The concrete measurement question is whether a frozen model representation predicts brain responses for stimuli that were not used to fit the readout.
+Let $n$ be the number of stimulus observations, let $X\in\mathbb{R}^{n\times d}$ contain $d$ features from one language-model layer, and let $Y\in\mathbb{R}^{n\times v}$ contain responses from $v$ voxels or ROI targets.
+The encoding map is fitted by ridge regression:
 \begin{equation}
-  \hat W = \arg\min_W \; \lVert Y - XW \rVert_F^2 + \lambda \lVert W \rVert_F^2 ,
+  \hat W = \arg\min_W \; \lVert Y-XW\rVert_F^2+\alpha\lVert W\rVert_F^2 .
+  \label{eq:ridge-encoding}
 \end{equation}
-and the score for each voxel is the correlation between its predicted and measured response.
-A raw score of this kind means little on its own, because a model can predict the brain for reasons that have nothing to do with language: utterance length, word position, generic word identity.
-We therefore report not the raw score but the variance the model adds \emph{on top of} a low-level nuisance set $Z_{\mathrm{nuis}}$, the difference of two cross-validated fits,
+Here $W$ maps model features to responses, $\lVert\cdot\rVert_F$ is the Frobenius norm, and $\alpha$ controls shrinkage.
+In plain language, the first term rewards accurate brain prediction and the second prevents a high-dimensional readout from fitting noise.
+The model is linear in the supplied representation, the ridge parameter is selected without using the test fold, and all learned preprocessing is fitted within the training fold.
+Equation~\ref{eq:ridge-encoding} licenses a claim about linearly accessible predictive structure; it does not identify a shared neural mechanism.
+
+A raw encoding score can be positive because the representation carries sentence length, timing, word identity, or other stimulus properties that also affect the brain response.
+The relevant question is therefore how much predictive value the contextual representation adds beyond a declared nuisance set $Z$.
+We estimate this increment with cross-validated semipartial $R^2$:
 \begin{equation}
-  \uniqueR \;=\; R^2\!\big([Z_{\mathrm{nuis}},\,\mathrm{LM}]\big) - R^2\!\big([Z_{\mathrm{nuis}}]\big).
+  \uniqueR = R^2_{\mathrm{cv}}\!\left(Y\,;[Z,X]\right)-R^2_{\mathrm{cv}}\!\left(Y\,;Z\right).
+  \label{eq:unique-r2}
 \end{equation}
-A positive \uniqueR{} says the contextual representation explains brain activity that length, rate, and static word identity cannot \evd{E002}.
+The full model receives nuisance and language-model features, while the reduced model receives the nuisance features alone.
+Positive $\uniqueR$ means that $X$ improves held-out linear prediction beyond this particular $Z$.
+The claim is conditional on the nuisance set and evaluation design: it does not mean that every stimulus-predictable alternative has been removed.
 
-\subsection{What the score measures}
-
-We use the score as a linear lower-bound proxy for an information increment: the information the model's representation carries about brain activity beyond the low-level baseline.
-The underlying estimand is conditional mutual information.
-For three variables $(X,Y,Z)$,
+Naturalistic stimuli create an additional shared-cause problem because even an untrained network can encode tokenization, architecture, and residual stimulus structure.
+We therefore define the trained-over-untrained gap:
 \begin{equation}
-  I(X;Y\mid Z) = H(Y\mid Z) - H(Y\mid X,Z)
+  \Delta_{\mathrm{train}}=\uniqueR_{\mathrm{trained}}-\uniqueR_{\mathrm{untrained}} .
+  \label{eq:trained-gap}
 \end{equation}
-is the dependence between $X$ and $Y$ that remains once $Z$ is known \autocite{cover2006}.
-Conditioning is essential here.
-Plain mutual information cannot distinguish the dependence of interest from a shared driver: if $X$ and $Y$ are both driven by some common $Z$, then $X \perp Y \mid Z$, so the conditional term is zero even when the unconditional term is positive.
-The chain rule splits the dependence into a baseline and the increment over it,
-\begin{equation}
-  I\big(B;[Z_{\mathrm{nuis}},\mathrm{LM}]\big) = I(B;Z_{\mathrm{nuis}}) + I(B;\mathrm{LM}\mid Z_{\mathrm{nuis}}),
-\end{equation}
-with $B$ the brain response, so the information the model's representation adds over the nuisance is exactly the conditional term $I(B;\mathrm{LM}\mid Z_{\mathrm{nuis}})$.
-
-The conditional mutual information is not directly measurable from data, so we estimate it through the unique-variance score, which is its linear-Gaussian surrogate.
-Under joint Gaussianity, conditional mutual information is a monotone function of the squared partial correlation,
-\begin{equation}
-  I(X;Y\mid Z) = -\tfrac{1}{2}\ln\!\big(1-\rho^2_{XY\cdot Z}\big),
-\end{equation}
-so the quantity is positive exactly when the partial correlation is nonzero \autocite[Ch.~8]{cover2006}.
-The reported score is the \emph{semipartial} $R^2$, the raw increment, which differs from the partial $\rho^2$ only by the factor $1/(1-R^2([Z_{\mathrm{nuis}}]))$.
-Both vanish together, so a positive semipartial score is equivalent to a positive conditional mutual information.
-Ridge is linear, so the score captures the linearly decodable part of that information, a population-level lower bound.
-
-The choice of $Z$ fixes what the claim means.
-Conditioning on the low-level nuisance $Z_{\mathrm{nuis}}$ shows the signal is real beyond low-level features, not beyond the stimulus as a whole.
-Conditioning instead on the full stimulus-predictable response $\Eys$ asks a stronger question: not whether the representation explains brain activity beyond low-level features, but whether it explains anything the stimulus itself does not already predict. That is the stimulus-predictability ceiling, and it reuses the same chain rule with $\Eys$ in place of $Z_{\mathrm{nuis}}$ as the larger conditioning set.
-
-\subsection{Why a brain signal is only a weak prior}
-
-A brain term in a language objective is, up to constants, a maximum-a-posteriori estimate.
-Training chooses parameters $\theta$ that minimise a loss, and adding a brain term to the usual language-model loss gives
-\begin{equation}
-  \hat{\theta} \;=\; \arg\min_{\theta}\; \underbrace{\Big[\textstyle -\sum_{t=1}^{N}\log p_\theta(x_t \mid x_{<t})\Big]}_{-\log p(\mathcal{D}_{\text{text}}\mid\theta)} \;+\; \lambda\,\underbrace{\Lbrain(\theta)}_{-\log p(\theta)}.
-\end{equation}
-The first term is the negative log-likelihood of the text: next-token prediction is maximum likelihood, and minimising it maximises $p(\mathcal{D}_{\text{text}}\mid\theta)$.
-The second term is the negative log-prior: any regulariser that penalises a property of $\theta$ corresponds, up to a normalisation constant, to a prior $p(\theta)\propto\exp\!\big(\!-\lambda\Lbrain(\theta)\big)$ over parameters that favour that property, with $\lambda$ setting its strength.
-Minimising their sum is therefore
-\begin{equation}
-  \hat\theta_{\mathrm{MAP}} \;=\; \arg\max_{\theta}\;\big[\log p(\mathcal{D}_{\text{text}}\mid\theta) + \log p(\theta)\big],
-\end{equation}
-a MAP estimate in which the text is the likelihood and the brain term is the log-prior. But how far can a prior that small move a posterior dominated by the text?
-
-A training corpus carries on the order of $10^{12}$ to $10^{13}$ bits of supervision.
-The brain side offers a few thousand noisy stimuli, and the information each voxel can carry is capped by its noise ceiling, a channel capacity
-\begin{equation}
-  I \le \tfrac{1}{2}\log_2(1+\mathrm{SNR}), \qquad \mathrm{SNR} = \frac{r_{\max}^2}{1-r_{\max}^2},
-\end{equation}
-which puts the usable brain budget, as an order of magnitude, around $10^4$ to $10^6$ bits \autocite{cover2006}.
-The data-processing inequality shrinks it further.
-Let $S$ be the stimulus and $B$ its noisy brain response.
-Under the modelling assumption that $B$ is generated from $S$, the chain $\theta^\star \to S \to B$ gives
-\begin{equation}
-  I(\theta^\star; B) \le I(\theta^\star; S).
-\end{equation}
-The brain response cannot contain more information about the target parameters than the stimulus that elicited it.
-Such a small prior cannot teach new task structure the text does not already contain.
-It can only select among the many near-equivalent solutions an overparameterized model admits, which defines the role of the brain term as a regularizer rather than a source of new information.
-
-A generalization bound can show quantitatively how and where such a weak prior can help.
-Modelling training as a channel from the data $Z^n$ to the learned parameters $\theta$, the expected generalization gap is bounded by the mutual information between them,
-\begin{equation}
-  \overline{\mathrm{gen}} \;\le\; \sqrt{\frac{2\sigma^2\, I(\theta;Z^n)}{n}},
-\end{equation}
-for $\sigma$-sub-Gaussian loss \autocite{xu2017}.
-If the brain prior adds $\Delta I$ bits to $I(\theta;Z^n)$, its benefit to generalization is at most $O(\sqrt{\Delta I / n})$, and it shrinks as the task data $n$ grows.
-A weak but well-targeted brain prior should therefore help most where the text signal is weakest, in small, under-trained, or aggressively compressed models, and fade where text data already dominates.
-Distillation is the regime where that prediction is most testable.
-
-\subsection{The trained\textendash untrained gap}
-
-We report the \emph{gap} between a trained model and a same-architecture untrained network, both fit with the same nuisance set and the same splits, rather than the trained model's absolute score.
-An absolute score is insufficient on naturalistic data, because even an untrained network can score slightly positive.
-The stimulus drives both the brain response and the untrained features; if the nuisance set captures only part of the stimulus, residual shared-cause dependence can remain.
-Subtracting the untrained arm subtracts an estimate of the component shared by architecture, tokenisation, and residual temporal structure.
-The gap therefore estimates what \emph{language training} adds over random initialisation \evd{E006}.
+Both arms use the same architecture, nuisance features, preprocessing, and folds.
+The subtraction asks what language training adds over random initialization under that matched design \evd{E006}.
+It removes neither every architectural confound nor every possible common cause, so the licensed conclusion remains a trained-over-untrained predictive difference rather than a mechanistic identity.
 
 \begin{figure}[t]
   \centering
   \resizebox{0.98\textwidth}{!}{\input{../figures/fig03_unique_variance.tikz}}
-  \caption{Schematic of the two computed quantities. Unique variance is the held-out $R^2$ increment from adding LM features to the nuisance model. The reported gap is $\uniqueR_{\mathrm{trained}}-\uniqueR_{\mathrm{untrained}}$, with both arms scored using the same nuisance set and splits. Bar lengths are illustrative.}
+  \caption{The two alignment contrasts. Unique variance is the held-out $R^2$ increment obtained by adding language-model features to a nuisance model. The trained-over-untrained gap subtracts the same quantity measured with a randomly initialized network of the same architecture. Bar lengths are illustrative.}
   \label{fig:uniquevar}
 \end{figure}
 
-\subsection{The controls}
+Noise ceilings quantify response reliability rather than model performance.
+A correlation ceiling $r_{\mathrm{NC}}$ and a variance ceiling $r_{\mathrm{NC}}^2$ are different quantities and cannot be interchanged.
+We use reliability ceilings to define or contextualize measurable targets, but we do not divide semipartial $R^2$ by a correlation-scale ceiling.
 
-We apply three controls uniformly.
-\emph{(1) Contiguous splits}: train and test are divided in blocks (block cross-validation on the ROI benchmark, whole-story-held-out cross-validation on the voxelwise run), because shuffling time-adjacent fMRI samples leaks near-duplicate timepoints across the split and inflates the score \autocite{hadidi2026}\evd{E002}\evd{E006}.
-\emph{(2) A capacity-fair nuisance floor}: the wide contextual block and the wide static-embedding block are each reduced by PCA to the same rank, fit on the training fold only, so the language model does not win merely by carrying more dimensions; the few low-level scalars stay raw \autocite{hadidi2026,jia2026}\evd{E006}.
-\emph{(3) A held-out noise ceiling}: on the voxelwise run only reliable voxels are kept, selected by split-half reliability on a separate story repeated ten times and held entirely out of the cross-validation pool, so the estimate is not inflated by voxels that happen to correlate with the model by chance \autocite{lage2019,lebel2023}\evd{E006}.
-Surprisal is deliberately left out of the nuisance set, since it is itself LM-derived and subtracting it would remove part of the construct under test; log word-frequency, a static lexical scalar, is distinct and is subtracted \evd{E006}.
-The block-permuted-target twin reorders contiguous response blocks and enters only where the question is whether the signal can be moved \autocite{pirlot2022,moussa2025}.
-It is a sensitivity control rather than a complete randomization null: the implementation can leave some rows paired with their original targets, so no conclusion relies on calling it fully permuted or exactly marginal-preserving \evd{E016}.
+\subsection{Controls, uncertainty, and inference units}
 
-\subsection{Data and models}
+All time-series analyses use contiguous held-out units.
+The ROI benchmark uses contiguous sentence blocks, and the naturalistic analysis holds out complete stories.
+Randomly shuffling neighboring fMRI time points across train and test would allow temporally autocorrelated observations to leak across the split, so such splits are not used for scientific claims \autocite{hadidi2026}.
 
-We use two datasets.
-The Tuckute ROI benchmark uses the 1000 isolated sentences and five left-hemisphere language regions of \textcite{tuckute2024}.
-It averages responses across training participants, so it is coarse, but its isolated-sentence design avoids the temporal-autocorrelation leakage of naturalistic time series; the mean ceiling matched to the five functional target ROIs is $r=0.491$ \evd{E002}\evd{E004}.
-The voxelwise measurement uses subject UTS03 of the deep-sampled naturalistic story-listening dataset of \textcite{lebel2023}: 20 stories, story-level folds, and \result{e006_reliable_voxels} voxels retained at split-half reliability above $0.5$ on a held-out repeated story \evd{E006}.
-Its scientific scope is conditional on this participant and protocol: spatially dependent voxels increase measurement resolution but are not independent replicates, and the five folds share training stories \evd{E006}.
-The models are GPT-2, GPT-2-medium, and Qwen2.5-0.5B, each read at its alignment-peak middle layer, with a same-architecture untrained network as the control in every comparison \evd{E002}\evd{E006}.
+Nuisance capacity is matched where wide contextual and static feature blocks compete.
+Principal components are learned on each training fold and reduce those blocks to the same rank, while low-dimensional scalar nuisances remain unprojected.
+This prevents the contextual block from winning solely because it provides more columns \evd{E006}.
+Surprisal is not included as a nuisance because it is itself derived from a language model and would remove part of the construct being tested; static lexical frequency remains a nuisance.
 
-\subsection{Distillation and the brain term}
+Reliability selection is independent of the evaluated stories.
+The voxelwise analysis uses a separately repeated story to select reliable voxels before cross-validation \autocite{lage2019,lebel2023}.
+This design avoids choosing voxels because they happened to correlate with the evaluated model.
+It does not establish generalization to other participants or scanners.
 
-The compression setting is knowledge distillation: a smaller \emph{student} learns to reproduce a larger \emph{teacher}'s next-token distribution, rather than learning from text directly.
-Perplexity gives the output-quality control.
-Per-token cross-entropy is code length, maximum-likelihood training minimizes the KL divergence from the data distribution to the model's, and perplexity is the exponential of that cross-entropy \autocite{cover2006}.
-Both objectives are KL objectives with different references: plain language-model training projects the student onto the empirical data, while distillation projects it onto the teacher's softened distribution.
-Matching \emph{held-out perplexity} across arms holds output quality fixed while the objective varies; matching compute does not.
+Intervention experiments compare a real target with a control target under matched training settings.
+The block-permuted twin reorders contiguous response blocks while preserving the loss shape and most optimization conditions.
+It is a specificity control, not a perfect randomization null, because some implemented permutations can leave observations paired with their original targets \evd{E016}.
+Conclusions therefore use the observed real-minus-control contrast and do not describe the twin as exactly marginal-preserving.
 
-The distillation objective does not by itself imply preserved alignment, for two reasons.
-First, it constrains the \emph{output} distribution, whereas alignment is a property of the \emph{internal} representation, and the readout from representation to logits is many-to-one,
+The estimand, estimator, and independent unit are stated separately.
+For participant-specific intervention, the estimand is the expected participant-level real-minus-control change in held-out $\uniqueR$.
+The estimator first averages paired seed and fold contrasts within each participant and then compares participants.
+The nine participants are the biological inference units; the 15 seed--fold cells within one target are repeated computational evaluations and cannot be counted as 15 independent people \evd{E005}\evd{E008}.
+
+Confidence intervals and tests follow the independent unit available to each experiment.
+Participant-level tests use participants, multi-seed engineering tests use seeds, and story-level signal validation uses held-out story folds while explicitly retaining the shared-training-data dependence caveat.
+Power and minimum detectable effect calculations are interpreted on the same scale and unit as the corresponding test.
+They describe what the design could detect; they do not convert a nonsignificant estimate into proof of zero effect.
+
+Three examples make the distinction operational.
+In E004, three training seeds are evaluated on each of five held-out sentence folds; the five folds determine uncertainty about stimulus-block sensitivity because seeds within a fold share its test data.
+In E008, seed and fold contrasts are summarized within each person before the nine participants determine biological uncertainty.
+In E016, six training seeds are evaluated on the same participant-averaged Tuckute endpoint, so the sign test measures repeatability over optimizer randomness for that endpoint and says nothing about variation across people.
+Reporting the largest available count in each case would answer a different and usually easier question than the scientific claim.
+
+\subsection{Knowledge distillation and intervention objectives}
+
+Knowledge distillation asks a student to match the teacher's softened next-token distribution.
+Let $p_T^{\tau}$ and $q_S^{\tau}$ denote teacher and student token distributions at temperature $\tau$.
+The standard distillation loss is
 \begin{equation}
-  D\big(p_T \,\Vert\, q_S\big)\to 0 \;\not\Rightarrow\; Z_S \approx Y_{\mathrm{teacher}} \;\not\Rightarrow\; I(Z_S;B\mid Z_{\mathrm{nuis}}) = I(Y_{\mathrm{teacher}};B\mid Z_{\mathrm{nuis}}),
+  \mathcal{L}_{\mathrm{KD}}=\tau^2 D_{\mathrm{KL}}\!\left(p_T^{\tau}\,\Vert\,q_S^{\tau}\right).
+  \label{eq:kd-loss}
 \end{equation}
-so matching the teacher's output need not match its representation.
-Second, a from-scratch student also fits the stimulus through the raw next-token targets, a route the teacher's features do not mediate.
-That route breaks the Markov chain behind the data-processing bound, so the teacher's alignment no longer upper-bounds the student's.
-Whether distillation preserves alignment is therefore an empirical question, not a corollary.
+The KL divergence penalizes token distributions that differ from the teacher, and $\tau$ exposes relative probabilities beyond the most likely token.
+Equation~\ref{eq:kd-loss} constrains the student's output distribution.
+It does not uniquely determine the student's middle-layer geometry because many internal representations can produce similar logits.
 
-The brain term enters the objective as a co-trained regression loss,
+Perplexity is the exponential of held-out mean token cross-entropy.
+On a shared evaluation corpus, lower perplexity means a better next-token distribution under this metric.
+Matched compute compares arms at the same nominal training budget, whereas matched perplexity compares them at similar achieved language-model quality.
+Both are reported because equal steps need not produce equal quality, and an alignment difference caused by under-training is not an objective-specific brain effect.
+
+The primary intervention adds a brain-target regression term:
 \begin{equation}
-  \mathcal{L} = \mathcal{L}_{\mathrm{KD}} + \lambda\,\Lbrain,
+  \mathcal{L}_{\mathrm{total}}=\mathcal{L}_{\mathrm{KD}}+\lambda_{B}\mathcal{L}_{B} .
+  \label{eq:brain-objective}
 \end{equation}
-with mixing weight $\lambda$.
-The primary test arm is a randomly initialised student, because any alignment it retains must be learned during distillation rather than inherited from pretraining.
-A warm-initialised student and a no-teacher fine-tune are kept as labelled drift controls. Each model is scored at its fixed predeclared alignment layer; the GPT-2 student controls are same-architecture comparisons, whereas cold-student headroom and retention are measured against the larger GPT-2-medium teacher and remain cross-architecture \evd{E003}.
-Brain \emph{specificity} is tested with a permuted-target twin: the same loss, but against brain targets shuffled across stimuli.
-The GPT-2 student controls share corpus, batch size, learning rate, and architecture, but they are not fully compute matched: the from-scratch arm runs about twice the optimizer steps of the warm arms, a caveat carried into the results \evd{E003}.
+Here $\mathcal{L}_{B}$ is either mean-squared error to a recorded or predicted brain target or a declared contrastive alternative, and $\lambda_B$ is its weight.
+The equation asks whether the auxiliary target selects a student representation that ordinary distillation would not select.
+It assumes only that the two losses can be optimized jointly.
+It does not imply that $\mathcal{L}_{B}$ measures cognition, that increasing $\lambda_B$ increases alignment, or that an easier target transfers to real brain responses.
 
-\subsection{Intervention tests and inference units}
+Cold-start students are initialized randomly, so any retained alignment must be learned during training.
+Warm-start students begin from pretrained weights and measure drift under further optimization.
+LoRA interventions restrict updates to low-rank adapters, while full fine-tuning permits all model parameters to change.
+The experiments vary adapter rank, brain-loss weight, loss form, and initialization to distinguish insufficient optimization capacity from absence of a specific effect.
 
-Q2 and Q3 compare a real-target brain-loss arm with its block-permuted twin, always pairing arms within the same stimulus fold and stochastic seed.
-For Q3, the model is trained separately against each participant's response rather than against a response averaged across participants.
-The participant-level estimand is the real-minus-permuted change in held-out unique $R^2$, aggregated within participant over seeds and five shared stimulus folds; inference is reported across nine participants with a separate fold-clustered sensitivity analysis \evd{E008}.
-The effect on a response averaged across participants is a different estimand because unique $R^2$ does not commute with response averaging \evd{E005}\evd{E008}.
+Teacher, student, corpus, batch construction, and evaluation are held fixed within each paired real-versus-control contrast.
+The alignment layer is declared before scoring.
+The early preservation study includes a known compute caveat: the cold arm receives about twice the optimizer steps of the warm arms, so its cross-arm result is interpreted together with held-out perplexity rather than as a pure initialization effect \evd{E003}.
 
-Higher-rank LoRA and a contrastive loss test capacity and objective robustness at the same ROI-scale operating point \evd{E011}\evd{E013}.
-The naturalistic voxelwise experiment instead asks whether the MSE distillation manipulation takes hold at all across a fixed weight grid.
-Its neutral-to-harmful trajectory is a lever failure, not a participant-level null or evidence against every possible voxelwise intervention \evd{E013}.
+\subsection{Formal interpretation and its limits}
 
-Q4 first tests whether a reliable brain-specific representation change exists and then measures downstream change as an out-of-domain perplexity contrast across eight training seeds \evd{E009}.
-A separate privileged-information route is gated before model training: the gaze signal must predict the label without task-induced leakage, and the corpus must support a stable paragraph-disjoint learning-curve split \evd{E024}.
+\subsubsection{Conditional dependence and unique variance}
 
-\subsection{Synthetic-target training and real-brain transfer}
+The formal question is what dependence remains between representation $X$ and response $Y$ after nuisance variable $Z$ is known.
+Conditional mutual information defines that population quantity:
+\begin{equation}
+  I(X;Y\mid Z)=H(Y\mid Z)-H(Y\mid X,Z).
+  \label{eq:cmi}
+\end{equation}
+$H(Y\mid Z)$ is the uncertainty in the response after knowing the nuisance, and $H(Y\mid X,Z)$ is the remaining uncertainty after also knowing the representation \autocite{cover2006}.
+Thus Equation~\ref{eq:cmi} is zero when $X$ adds no conditional dependence beyond $Z$.
+It licenses a statement about a fully specified joint distribution, not automatically about a finite cross-validation estimator.
 
-E016 tests whether a dense brain-derived synthetic target changes the data constraint.
-GPT-2-medium is distilled into GPT-2 on 95,999 WikiText training sentences, with 1,999 held out, six stochastic seeds, and target weight $\lambda=0.1$ \evd{E016}.
-The TRIBE target is a 20,484-dimensional predicted-cortical-response vector read at student layer 6.
-The comparison target, textfeat, projects a frozen teacher hidden state to the same nominal output width.
-It is dimension-matched but not demonstrated matched-information: its effective rank is at most 1024, its geometry differs from TRIBE, and the KD baseline fits the two endpoints at substantially different levels \evd{E016}.
-Held-out target $R^2$ is therefore interpreted within each target family rather than as a common cross-family scale.
+Under a population linear-Gaussian model with correctly specified, unregularized conditional means, conditional mutual information is related to partial $R^2$ by
+\begin{equation}
+  I(X;Y\mid Z)=-\tfrac{1}{2}\log\!\left(1-R^2_{\mathrm{partial}}\right),
+  \qquad
+  \Delta R^2_{\mathrm{semi}}=\left(1-R^2_{\mathrm{reduced}}\right)R^2_{\mathrm{partial}} .
+  \label{eq:cmi-r2}
+\end{equation}
+$R^2_{\mathrm{partial}}$ rescales the improvement by variance left unexplained by the reduced model, whereas $\Delta R^2_{\mathrm{semi}}$ is the raw improvement in total variance explained.
+The equations show why both quantities express incremental dependence under the stated population assumptions.
+Our estimator in Equation~\ref{eq:unique-r2} is instead finite-sample, cross-validated, and ridge-regularized.
+It is therefore an operational measure of incremental linear predictive value, not an estimator or lower bound for conditional mutual information.
 
-Saved students then pass through a separate real-brain transfer gate on the Tuckute condition-B responses: 1000 sentences, a fixed response averaged over five participants and five left-hemisphere language ROIs, and five contiguous nuisance-subtracted folds \evd{E016}.
-The transfer readout uses student layer 7, explicitly different from the layer-6 synthetic training target.
-For each seed, the primary contrast is the Tuckute gain of TRIBE training over KD minus the corresponding gain of textfeat training over KD.
-The inference unit is six stochastic training seeds over one fixed participant-averaged endpoint, so the exact sign test supports no participant- or population-level inference.
-Corresponding KD weights are byte-identical across target jobs, PCA and scaling are fit on training data, and normalized WikiText-train, WikiText-heldout, and Tuckute sentence sets have zero exact overlap \evd{E016}.
+\subsubsection{Regularization and a conditional MAP reading}
+
+The intervention objective can sometimes be read as regularized maximum likelihood.
+If $\exp[-\lambda_B\mathcal{L}_B(\theta)]$ is normalizable over parameters and does not depend on the observed text sample, then it defines a prior
+\begin{equation}
+  p_B(\theta)=\frac{1}{C}\exp\!\left[-\lambda_B\mathcal{L}_B(\theta)\right],
+  \label{eq:brain-prior}
+\end{equation}
+where $C$ is the normalization constant and $\theta$ denotes student parameters.
+Under those assumptions, minimizing text negative log-likelihood plus the penalty is equivalent to a maximum-a-posteriori estimate.
+The plain-language interpretation is that the penalty prefers some parameter settings among those that fit the text.
+In the implemented co-trained-target experiments, however, the brain target and readout are data-dependent, so ``auxiliary loss'' or ``regularizer'' is the primary description.
+Equation~\ref{eq:brain-prior} does not prove that the preference is biologically correct or beneficial.
+
+\subsubsection{Data processing}
+
+The data-processing inequality answers a narrow preservation question when the required Markov chain is valid.
+If a student representation $C$ is constructed only by post-processing a teacher representation $T$, and brain response $B$ has no other path to $C$ once $T$ is known, then $B\rightarrow T\rightarrow C$ implies
+\begin{equation}
+  I(B;C)\leq I(B;T).
+  \label{eq:dpi}
+\end{equation}
+The inequality says that deterministic or stochastic post-processing cannot create information about $B$ that was absent from $T$ \autocite{cover2006}.
+Ordinary distillation does not automatically satisfy this chain because teacher and student both receive stimulus or corpus information through side paths.
+Likewise, a chain such as $\theta^\star\rightarrow S\rightarrow B$ is an explicit conditional-independence model, not proof that brain responses contain no information beyond text.
+Equation~\ref{eq:dpi} motivates an empirical preservation test but neither orders teacher and student alignment scores in ordinary distillation nor supplies a supervision budget.
+
+\subsubsection{Generalization information bound}
+
+The information-theoretic generalization bound asks how strongly learned parameters depend on the particular training sample.
+For a learning algorithm viewed as a channel from $Z^n$ to learned parameters $W$, and a $\sigma$-sub-Gaussian loss, the expected generalization gap obeys
+\begin{equation}
+  \overline{\operatorname{gen}}\leq\sqrt{\frac{2\sigma^2 I(W;Z^n)}{n}} .
+  \label{eq:mi-generalization}
+\end{equation}
+$n$ is the sample size and $I(W;Z^n)$ measures dependence between the output of training and the sampled dataset \autocite{xu2017}.
+The right-hand side increases, rather than decreases, with this mutual information.
+The bound therefore does not show that adding brain information improves generalization and does not predict a benefit of order $\sqrt{\Delta I/n}$.
+A brain regularizer could tighten the bound only if it reduces dependence on sampled text while retaining empirical fit, which is an empirical possibility rather than a theorem.
+
+\subsubsection{Rate--distortion-style trade-offs}
+
+Shannon's rate--distortion function asks for the minimum information rate needed to represent a source within an expected distortion limit:
+\begin{equation}
+  R(D)=\min_{P_{\hat S\mid S}:\,\mathbb{E}[d(S,\hat S)]\leq D} I(S;\hat S) .
+  \label{eq:rate-distortion}
+\end{equation}
+$S$ is the source, $\hat S$ its reconstruction, $d$ a declared distortion measure, and $D$ the allowed expected distortion \autocite{cover2006}.
+The thesis does not identify model parameters or FLOPs with $I(S;\hat S)$, and it does not establish brain loss as a Shannon distortion.
+We use ``rate--distortion-style'' only as an engineering analogy for the empirical Pareto frontier among model budget, perplexity, and alignment.
+Equation~\ref{eq:rate-distortion} organizes the trade-off but does not predict a favorable frontier shift.
+
+\subsection{Experiment families}
+
+\paragraph{Signal validation.}
+The ROI feasibility study compares trained and untrained GPT-2-family and Qwen representations under contiguous sentence folds \evd{E002}.
+The conditional voxelwise confirmation uses UTS03, whole-story-held-out folds, fold-only feature reduction, a capacity-matched nuisance set, and independently selected reliable voxels \evd{E006}.
+The first establishes inexpensive feasibility; the second is the load-bearing within-participant signal test.
+
+\paragraph{Quality and preservation.}
+Cold and warm distillation arms measure whether ordinary compression leaves alignment headroom and how alignment covaries with held-out perplexity \evd{E003}.
+A separate comparison across 22 models from six families uses bits per byte as a tokenizer-robust quality measure and tests the global association, a capable-model band, and family-cluster sensitivities \evd{E015}.
+These designs distinguish a broad quality relationship from an objective-specific preservation effect.
+
+\paragraph{Intervention and participant generalization.}
+The first intervention compares real and block-permuted averaged ROI targets across paired seeds and contiguous folds \evd{E004}\evd{E005}.
+The participant-specific extension trains and evaluates targets separately for nine participants, making participant the primary inference unit \evd{E008}.
+Nested and randomized participant-subset analyses test whether apparent improvement with response averaging is explained by increasing sample size or by the identities of included participants \evd{E010}.
+A separate encoding-average analysis measures legitimate signal-to-noise improvement from averaging without treating that endpoint as individual-level generalization \evd{E014}.
+
+\paragraph{Alternative parameterizations.}
+Higher-rank LoRA tests whether the primary intervention was limited by adapter capacity \evd{E011}.
+Contrastive ROI losses test whether the mean-squared-error target was the wrong geometry \evd{E013}.
+A naturalistic voxelwise weight sweep tests whether the regression lever takes hold at dense spatial resolution, while gentle full fine-tuning tests whether updating all parameters changes the conclusion \evd{E013}\evd{E017}.
+Each experiment addresses one mechanism boundary; none alone licenses a universal substrate null.
+
+\paragraph{Practical and privileged-information routes.}
+The downstream test requires a reliable brain-specific representation fulcrum before estimating out-of-domain perplexity over eight training seeds \evd{E009}.
+The learning-using-privileged-information route uses gaze-derived training-only information, but gates the intervention on label predictiveness without leakage and stable paragraph-disjoint learning curves \evd{E024}.
+A gate failure stops the proposed intervention rather than being reported as a completed negative training experiment.
+
+\paragraph{Stimulus-predictable and cognitive targets.}
+A stimulus-predictability analysis conditions on estimated response predictable from the text to ask whether a residual alignment score remains \evd{E020}.
+Because the reference predictor is itself estimated and can leak or be unreliable, this experiment diagnoses a candidate ceiling rather than identifying a universal ceiling.
+Reading-time targets test whether a reported cognitive advantage depends on meaningful target content or can be reproduced by content-free signal shape \evd{E021}.
+Reduced external reproductions of text and speech interventions are treated as corroboration or bounded non-reproduction under the implemented design, not as faithful refutations of the original studies \evd{E019}\evd{E022}.
+
+\paragraph{Synthetic targets and real-brain transfer.}
+The dense-target experiment distills GPT-2-medium into GPT-2 using 95,999 WikiText training sentences and 1,999 held-out sentences across six seeds \evd{E016}.
+The TRIBE endpoint is a 20,484-dimensional predicted cortical-response vector read from student layer~6, while the textfeat control projects a frozen teacher representation to the same nominal width.
+Dimension matching controls output width but not effective rank, geometry, or information, so held-out target $R^2$ is interpreted within target family rather than compared as a shared scale.
+
+Saved students pass through a separate transfer gate on 1,000 Tuckute sentences using five contiguous nuisance-subtracted folds and student layer~7 \evd{E016}.
+For each seed, the primary contrast subtracts the textfeat-over-KD real-brain gain from the TRIBE-over-KD real-brain gain.
+The inference unit is six training seeds evaluated on one fixed participant-averaged endpoint.
+The exact sign test therefore supports a statement about repeatability across training seeds for that endpoint, not participant- or population-level biological generalization.
