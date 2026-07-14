@@ -2,24 +2,17 @@
   font=\small,
   >=Latex,
   node distance=3.5mm,
-  gate/.style={font=\footnotesize, draw=black!55, rounded corners=3pt, fill=gray!7, minimum height=1.8cm, text width=2.5cm, align=center, inner xsep=4pt, inner ysep=5pt, execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
+  gate/.style={font=\footnotesize, draw=black!55, rounded corners=3pt, fill=gray!7, minimum height=2.75cm, text width=2.5cm, align=center, inner xsep=4pt, inner ysep=5pt, execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
   last/.style={gate, draw=orange!75!black, fill=orange!13, line width=0.8pt},
   arrow/.style={-{Latex[length=2mm]}, line width=0.65pt, draw=black!60},
-  question/.style={font=\scriptsize, text=black!82, draw=black!12, fill=gray!4, rounded corners=2pt, line width=0.35pt, minimum height=1.05cm, text width=2.5cm, align=center, inner xsep=4pt, inner ysep=3pt, execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
-  last question/.style={question, draw=orange!25!black, fill=orange!6},
 ]
-  \node[gate] (g1) {\textbf{1. Measurable}\\beyond nuisance\\and untrained\\features};
-  \node[gate, right=of g1] (g2) {\textbf{2. Preserved}\\under ordinary\\distillation};
-  \node[gate, right=of g2] (g3) {\textbf{3. Movable}\\by the real target\\beyond controls};
-  \node[gate, right=of g3] (g4) {\textbf{4. General}\\across participants\\and stimuli};
-  \node[last, right=of g4] (g5) {\textbf{5. Useful}\\for transfer or\\downstream behavior};
+  \node[gate] (g1) {\textbf{1. Measurable}\\[3pt]{\scriptsize\color{black!78}Does the score\\detect a controlled\\signal beyond\\nuisance and\\untrained features?}};
+  \node[gate, right=of g1] (g2) {\textbf{2. Preserved}\\[3pt]{\scriptsize\color{black!78}Does ordinary\\distillation leave\\recoverable\\alignment\\headroom?}};
+  \node[gate, right=of g2] (g3) {\textbf{3. Movable}\\[3pt]{\scriptsize\color{black!78}Does the real\\target change\\held-out alignment\\beyond\\controls?}};
+  \node[gate, right=of g3] (g4) {\textbf{4. General}\\[3pt]{\scriptsize\color{black!78}Across which\\participants and\\stimuli does the\\effect\\generalize?}};
+  \node[last, right=of g4] (g5) {\textbf{5. Useful}\\[3pt]{\scriptsize\color{black!78}Does the change\\transfer beyond\\its training proxy\\to downstream\\behavior?}};
   \draw[arrow] (g1) -- (g2);
   \draw[arrow] (g2) -- (g3);
   \draw[arrow] (g3) -- (g4);
   \draw[arrow] (g4) -- (g5);
-  \node[question, below=5mm of g1] {Does the score\\detect a controlled\\signal?};
-  \node[question, below=5mm of g2] {Does compression\\leave recoverable\\headroom?};
-  \node[question, below=5mm of g3] {Does intervention\\change held-out\\alignment?};
-  \node[question, below=5mm of g4] {What population\\does the effect\\describe?};
-  \node[last question, below=5mm of g5] {Does the change\\matter outside its\\training proxy?};
 \end{tikzpicture}
