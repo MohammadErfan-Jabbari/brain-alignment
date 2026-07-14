@@ -38,7 +38,7 @@ Use the landscape doc for the authoritative map. The old folder index grouped pa
 ## Fresh-Search Gaps
 
 - Language-fMRI datasets and their power: Pereira, Narratives, LeBel, Fedorenko.
-- Any 2026 brain-alignment-for-compression work; verify the gap is still open before making novelty claims.
+- Any controlled brain-guided distillation or compression-at-fixed-quality work after [Oota et al. 2026](canonical/oota-2026_brain-encoding-scale-compression.md); Oota tests post-hoc quantization and pruning, not brain-supervised KD.
 
 ## Related
 

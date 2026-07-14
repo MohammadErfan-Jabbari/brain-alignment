@@ -8,111 +8,120 @@ aliases: [oota-2026_brain-encoding-scale-compression]
 
 **Authors:** Subba Reddy Oota; Vijay Rowtula; Satya Sai Srinath Namburi; Khushbu Pahwa; Anant Khandelwal; Manish Gupta; Tanmoy Chakraborty; Bapi S. Raju
 **Year:** 2026
-**Venue:** arXiv preprint (q-bio.NC), submitted 7 Feb 2026
-**DOI/arXiv:** arXiv:2602.07547
+**Venue:** arXiv preprint, under review
+**DOI/arXiv:** 10.48550/arXiv.2602.07547; arXiv:2602.07547v1
 **Canonical ID:** oota-2026_brain-encoding-scale-compression
 
-**Tags:** #literature #canonical
-
----
-
-## Read Method [REQUIRED]
+## Read method
 
 - [x] Full PDF read (page-by-page comprehension)
-- [ ] Full PDF scanned (search + targeted read)
-- [ ] Extracted text only
+- [x] Appendices A-O inspected
+- [x] Tables and internal numerical consistency audited
 
-PDF verified: 2026-06-10 — full 20-page PDF plus appendices A–O read directly from disk (pages 1–20). All core results, tables, and figures confirmed from the PDF. Comprehension self-check passed: Y
+The 40-page arXiv v1 PDF was read in full on 2026-07-14. It is retained at `data/papers/2602.07547.pdf`, SHA-256 `e32b85107a52e20e9ded010098d657d11f96dd4ee2bb85e014c8faec3e797779`.
 
----
+Comprehension self-check passed: Y.
 
-## Comprehension Summary [REQUIRED]
+## Comprehension summary
 
-1. Problem solved: How much model capacity is actually required for brain alignment, and does post-training compression (quantization, pruning) destroy or preserve the brain-relevant representational geometry that emerges with scale?
-2. Core insight: Brain alignment saturates at ~3B parameters across three model families; ~1–1.5B remains consistently under the threshold; most quantization methods (AWQ, SmoothQuant) and moderate pruning (≤25%) preserve brain alignment near the uncompressed baseline, with GPTQ as the consistent exception; a dissociation is observed between linguistic benchmark performance and brain predictivity under compression.
-3. If-wrong breakage: If the encoding pipeline uses shuffled rather than temporally contiguous train/test splits, autocorrelation inflates all scores and the saturation/compression claims collapse; the paper does not specify split type explicitly, which is a validity risk flagged below.
+1. **Problem:** How do model scale and post-training compression affect fMRI encoding scores and probe-accessible linguistic information?
+2. **Direct result:** On nine participants and one fixed held-out Moth story, selected 3B checkpoints have ceiling-normalized encoding scores similar to selected larger checkpoints, while the smallest 1B to 1.5B checkpoints are usually lower. Several AWQ and SmoothQuant conditions remain near the corresponding FP16 score, GPTQ is often lower, and Qwen-1.5B drops sharply at 50 percent pruning.
+3. **Required calibration:** These are selected-checkpoint, best-layer, no-equivalence results. Model training data and architecture are uncontrolled, layer selection is ambiguous, train and test sets are standardized separately, the endpoint lacks nuisance subtraction, and several tables conflict with prose. “Brain alignment saturates at 3B” is an interpretation, not a causal capacity threshold.
+4. **Role here:** The paper shows that raw encoding scores need not collapse under every post-hoc compression method. It does not test brain-guided training, matched knowledge distillation, synthetic neural supervision, participant-specific transfer, or compression at matched language-model quality.
 
----
+## Source grounding
 
-## Source Grounding
+**Dataset.** The main analysis uses the public Subset-Moth-Radio-Hour fMRI data from nine participants listening to 11 stories. Ten stories provide 3,737 training TRs and one fixed story provides 291 test TRs. Features are downsampled with a three-lobed Lanczos filter and concatenated across four FIR delays. A reading-condition replication uses the same nine participants and dataset family, not an independent population.
 
-**Dataset.** Publicly available Subset-Moth-Radio-Hour fMRI dataset (Deniz et al. 2019). Nine participants listened to 11 naturalistic stories (10–15 min each) from The Moth Radio Hour. 3,737 training TRs, 291 test TRs (one held-out story). Stimuli aligned to transcripts via force alignment; word representations downsampled to TR rate (2.0045 s) with a 3-lobed Lanczos filter. HRF modeled with a finite-impulse-response filter per voxel, 4 temporal delays (≈8 s). 180 ROIs per hemisphere (Glasser Atlas multi-modal parcellation). Language ROIs include AG, ATL, PTL, IFG, IFGOrb, MFG, PCC, dmPFC. A supplementary reading fMRI condition (same participants, same dataset, different task) is used for generalization checks.
+**Models.** The paper evaluates Qwen2.5, LLaMA, and DeepSeek families around 1B to 14B parameters. Exact checkpoint reporting is inconsistent: Table 1 omits 14B configurations later used in figures, LLaMA naming alternates among versions, and the smallest DeepSeek is called both 1B and 1.5B. Appendix N says the DeepSeek-R1-Distill family is distilled, although the main text characterizes the compared checkpoints as base models. These off-the-shelf family differences are not controlled scale interventions.
 
-**Models.** Three families: Qwen2.5 (1.5B, 3B, 7B, 14B), LLaMA-3.2 (1B, 3B, 7B, 14B), DeepSeek-R1 (1B, 3B, 7B, 14B). All are base (non-instruction-tuned) checkpoints. Representations extracted from all transformer layers; best-performing layer per model used for reporting.
+**Representations and encoding.** Each word is encoded with up to 20 preceding words. Hidden states from all layers are downsampled to fMRI TRs, delayed, and fit with bootstrap ridge regression. The ridge penalty from 10 to 1,000 is chosen using a randomly selected 10 percent of the training set. The paper says train and test features, and train and test fMRI, are z-scored separately, using held-out-distribution statistics.
 
-**Compression methods tested.**
-- Post-training quantization: AWQ (activation-aware weight quantization, INT4/INT8), GPTQ (gradient-guided weight quantization, INT4/INT8), SmoothQuant (joint weight-activation quantization).
-- Unstructured magnitude pruning: 10%, 25%, 50% sparsity (L1-norm smallest weights removed from all linear layers, no retraining).
-- Knowledge distillation is NOT tested. The paper explicitly lists KD as a gap in its limitations section ("A broader comparison with other compression strategies, such as structured pruning or knowledge distillation, would further clarify how different efficiency interventions affect neural representations").
+**Endpoint.** Normalized alignment is voxelwise Pearson correlation divided by an estimated cross-subject prediction-accuracy ceiling, then averaged after restricting to voxels with ceiling at least .05. The ceiling estimator and its uncertainty are not fully specified, and normalized ratios can exceed one in ROI tables.
 
-**Alignment metric.** Bootstrap ridge regression (Tikhonov regularization, λ ∈ [10, 1000], chosen by cross-validation on a 10% random subset of the training split). Normalized brain alignment = Pearson r(predicted voxel activity, observed voxel activity) divided by estimated cross-subject prediction accuracy ceiling (noise ceiling). Restricted to voxels with ceiling ≥ 0.05. Statistical significance via block permutation test (blocks of 10 contiguous TRs, 5000 permutations) and Wilcoxon signed-rank test across subjects.
+**Inference.** Chance is evaluated with 5,000 permutations of 10-TR blocks, followed by Wilcoxon tests on participant means. Model-size and quantization contrasts instead use paired t-tests across nine participants. A multiplicity procedure is not specified even where the prose says results survive correction.
 
-**Split methodology.** The paper uses 10 stories for training and 1 held-out story for testing (temporal contiguity preserved within each story). The block permutation test explicitly uses contiguous TR blocks, indicating awareness of autocorrelation. However, the 10% hyperparameter-tuning subset is drawn randomly from the training split rather than being held out contiguously — a minor but non-zero risk.
+**Layer selection.** The source is internally unclear. Figure captions sometimes describe averaging over layers, tables use each participant/model's maximum across layers, and Appendix K describes one model-specific layer chosen from mean language-ROI performance. No validation-only layer-selection protocol is clearly stated.
 
-**Linguistic probing.** FlashHolmes benchmark (Waldis et al. 2024): 66 linguistic tasks across morphology (19), syntax (75 subtasks collapsed), semantics (67), discourse (28), and reasoning (19). Linear classifier probing applied to hidden states from all tested models and compressed variants.
+## Compression actually tested
 
----
+- **AWQ, GPTQ, and SmoothQuant:** post-training quantization. The precise bit width, calibration data, and configuration are not consistently given across checkpoints. The method section mentions INT4 and INT8 generically; some appendix tables explicitly identify INT4.
+- **Unstructured magnitude pruning:** 10, 25, and 50 percent sparsity without retraining. This is a preliminary Qwen2.5-3B and Qwen2.5-1.5B analysis, not a three-family pruning study.
+- **Knowledge distillation:** no controlled KD experiment is run. DeepSeek-R1-Distill is an off-the-shelf model family, not a matched intervention, and the paper explicitly leaves structured pruning and knowledge distillation to future work.
 
-## Core Claims
+No condition optimizes brain alignment during compression. The paper is shrink-then-measure, not shrink-with-neural-supervision.
 
-- `C1`: Brain alignment saturates at ~3B parameters. 3B SLMs match 7B–14B LLMs in normalized brain predictivity across whole brain and all major language ROIs. Paired t-test (Qwen2.5, n=9 subjects): 3B vs 14B: Δ = 0.000, t(8) = −0.03, p = 1.0 (no difference). 3B vs 1.5B: Δ = 0.07, t(8) = 4.89, p = 0.004 (clear, significant). 1.5B is reliably below the saturation regime.
-- `C2`: Post-training compression mostly preserves brain alignment for 3B+ models. Qwen2.5-3B normalized alignment (IFG, Table 5): FP16 baseline 0.924 ± 0.033; AWQ 0.933 ± 0.035; GPTQ 0.910 ± 0.037; SmoothQuant 0.930 ± 0.035. AWQ and SmoothQuant do not differ significantly from FP16 (p > 0.05 after correction); GPTQ is significantly worse (Δ = −0.020 vs 7B baseline, t(8) = 6.20, p < 0.001; Table 4). For 1B–1.5B models, all quantization methods yield significant alignment drops (p < 0.01).
-- `C3`: Unstructured pruning preserves brain alignment at moderate sparsity. Qwen2.5-3B at 10% sparsity: 0.910 ± 0.032; 25%: 0.908 ± 0.033; 50%: 0.907 ± 0.043 — all within error of FP16 baseline. Degradation becomes marked only at 50% for smaller (1B–1.5B) models.
-- `C4`: Linguistic competence and brain alignment dissociate under compression. GPTQ degrades discourse, reasoning, and morphology probing scores AND reduces brain alignment. AWQ/SmoothQuant degrade discourse/syntax FlashHolmes scores but do not reduce brain alignment. 1B–1.5B models maintain FlashHolmes task performance yet show marked brain alignment deficits, showing the dissociation runs in both directions.
+## Core findings with calibrated scope
 
----
+### Selected 3B checkpoints often match selected larger checkpoints
 
-## Evidence Pointers
+For Qwen best-layer participant means, the paper reports approximately $.850$ for 1.5B, $.923$ for 3B, roughly $.886$ to $.896$ for 7B depending on the table, and $.930$ for 14B. Table 2 reports no 3B-versus-14B difference, while both exceed 1.5B. LLaMA and DeepSeek appendix tables also place selected 3B checkpoints near selected 14B checkpoints and the smallest models lower.
 
-- `C1` evidence: Fig. 2 (p. 6) whole-brain and IFG normalized alignment bar charts across all three model families; Table 2 (p. 7) pairwise paired t-test statistics for Qwen2.5; Tables 9–10 in Appendix I for LLaMA-3.2 and DeepSeek-R1 showing same qualitative pattern; reading fMRI replication in Appendix L.
-- `C2` evidence: Fig. 3 (p. 8) Qwen2.5 IFG quantization comparison; Table 4 (p. 7) pairwise quantization significance tests for Qwen2.5-7B and 3B; Table 5 (p. 9) full quantization+pruning numbers for Qwen2.5-3B; Fig. 4 (p. 9) voxelwise percentage-change maps.
-- `C3` evidence: Table 5 (p. 9) pruning rows; Appendix N (pruning effect for 1.5B models).
-- `C4` evidence: Fig. 5 (p. 10) scatter of FlashHolmes task score vs normalized brain alignment across compression methods and scale; Tables 7–8 (Appendix H) linguistic probing breakdown by category.
-- Decoding evidence: Table 3 (p. 7) brain-to-text reconstruction metrics for LLaMA-3.2 models: LLaMA-3.2-3B achieves BLEU-1 = 0.120, WER = 4.22, METEOR = 0.110, BERT-F1 = 0.825; LLaMA-3.2-8B: BLEU-1 = 0.070, WER = 5.78, METEOR = 0.055, BERT-F1 = 0.811; LLaMA-3.2-1B: BLEU-1 = 0.110, WER = 4.49, METEOR = 0.099, BERT-F1 = 0.824.
+This is a local empirical pattern, not an equivalence or noninferiority result. No equivalence margin is predeclared; absence of a significant difference with nine participants does not establish equality. The scale pattern is nonmonotonic, with 7B sometimes below 3B and 14B, and architecture, pretraining data, and checkpoint identity are not held fixed.
 
----
+The Qwen text is internally contradictory: the main and appendix prose call 3B and 14B significantly better than 7B, while Table 2 reports the corresponding contrasts as nonsignificant. The source or code would need adjudication before citing that comparison.
 
-## Assumptions and Limits
+### Quantization effects depend on family and size
 
-No knowledge distillation is tested. All compression is post-hoc (no retraining, no fine-tuning after compression). The paper does not test alignment-guided compression at any level — alignment is always the dependent variable, never the training objective. The paper never constructs a matched-compute or matched-budget comparison between distilled SLMs and quantized SLMs; it compares families and sizes as they exist off the shelf.
+For Qwen-3B, Table 5 reports normalized alignment of $.924\pm.033$ for FP16, $.933\pm.035$ for AWQ, $.910\pm.037$ for GPTQ, and $.930\pm.035$ for SmoothQuant. At Qwen-7B, AWQ and SmoothQuant exceed FP16 in the reported paired tests and GPTQ is lower. At Qwen-3B, none of the quantized variants differs significantly from FP16, although AWQ and SmoothQuant exceed GPTQ. At Qwen-1.5B, AWQ improves over FP16 while GPTQ and SmoothQuant do not differ reliably.
 
-The 10% hyperparameter-tuning subset is drawn randomly from the training stories rather than held out contiguously, introducing a mild autocorrelation risk for the regularization selection step, though the main train/test split respects temporal continuity at the story level.
+The LLaMA pattern is different. GPTQ is generally lower, but some large numerical AWQ or SmoothQuant differences from FP16 are nonsignificant with nine participants. The paper has no equivalence margin, so “preserved” should mean descriptively near baseline in the reported endpoint, not statistically proven equivalence.
 
-Only text-based fMRI (listening and reading) from nine English-speaking participants is used; results may not generalize to other languages, populations, or non-narrative stimuli. The paper caps model size at 14B; whether the saturation claim holds against 70B+ models is explicitly listed as future work. All compression methods are standard post-training variants; structured pruning and KD are absent.
+Therefore, the earlier claim that quantization preserves alignment only above 3B or that every small-model quantization degrades alignment is false. The supported conclusion is method-, checkpoint-, family-, and size-specific.
 
-Linguistic probing uses linear classifiers, capturing accessible but not necessarily causally relevant features. The FlashHolmes benchmark measures model behavior, not internal representations directly, which can mask representational changes that do not affect task accuracy.
+### Pruning is preliminary and size dependent
 
----
+For Qwen-3B, Table 5 reports $.910$, $.908$, and $.907$ at 10, 25, and 50 percent sparsity, compared with $.924$ for FP16. No pruning equivalence test is shown. For Qwen-1.5B, 10 and 25 percent remain near the original score, while 50 percent drops from approximately $.830$ to $.608$.
 
-## Interpretation Notes
+This supports a descriptive claim that aggressive pruning harms the smaller checkpoint while the measured Qwen-3B score is comparatively stable. It does not establish preservation across model families.
 
-This paper is the primary counter-evidence candidate for framing F1 (alignment-guided distillation at matched budget). The relevant question is precise: does it show that alignment is preserved by KD (knowledge distillation), or only by quantization/pruning?
+### Task-alignment dissociation is descriptive
 
-The answer is clear: the paper tests only post-hoc quantization (AWQ, GPTQ, SmoothQuant) and unstructured pruning. Knowledge distillation is explicitly absent, and the authors call it out themselves as a limitation. This is the decisive gap for the thesis.
+FlashHolmes probes nearly 200 datasets grouped into morphology, syntax, semantics, discourse, and reasoning. Figure 5 and representative appendix tables show that probe changes and brain-score changes do not always move together. However, the paper reports no formal correlation, uncertainty, or statistical test for the claimed dissociation. The safe statement is that selected conditions exhibit different descriptive patterns across the two endpoint families.
 
-The threat to F1 runs as follows: if brain alignment is robust to compression by default (as this paper shows for most quantization methods), then "protecting alignment during compression" is solving a problem that doesn't exist — at least for the quantization-and-pruning regime. The strongest version of this threat is: 3B SLMs already sit on the saturation plateau; compressing a 3B model with AWQ barely moves alignment; so the alignment you would be "protecting" was never in danger.
+### Decoding is exploratory and under-specified
 
-However, F1 is not refuted. The paper leaves the following room open:
+The paper reports text-reconstruction metrics for 784 segments per model, including the best BERT-F1 for the 3B LLaMA condition. It does not give enough decoder architecture and training detail, participant-level inference, uncertainty, or shuffled/no-brain controls to support a strong semantic-decoding conclusion. The examples are qualitative and sometimes generic. Decoding should not carry the paper's role in this repository.
 
-1. KD is not tested. A student trained by logit/attention imitation from a 7B+ teacher might not land at the same representational geometry as the 7B compressed via quantization. The saturation plateau is a scale fact, not a distillation fact.
-2. The paper never asks whether using alignment as a distillation objective improves utility (NLP task performance, downstream accuracy) at a matched parameter count. It measures alignment as a readout, never as a signal. The trade-off curve between alignment and utility during distillation — which is the specific object F1 proposes to optimize — is simply not addressed.
-3. The GPTQ exception shows alignment is not universally preserved: a commonly used quantization method meaningfully degrades semantic region alignment. Under distillation, where the loss surface is shaped by imitation objectives that may not preserve representational geometry, similar or larger degradation is plausible.
-4. The dissociation result (C4) cuts both ways for F1: it shows that linguistic competence and brain alignment can come apart, which means optimizing task performance during distillation does not guarantee alignment preservation — precisely the motivation for monitoring alignment explicitly.
+## Validity and reproducibility limits
 
-Verdict on R03's claim: OVERSTATED. R03 says "post-hoc compression already preserves alignment by default, so 'protect alignment during compression' may be solving a non-problem." This is overstated because (a) the paper covers only quantization and magnitude pruning, not KD, and the authors say so explicitly; (b) GPTQ shows non-trivial degradation, proving the "by default" qualifier is method-dependent; (c) for small models (1B–1.5B), nearly all compression methods hurt alignment. The claim is accurate for the specific regime of AWQ/SmoothQuant applied to ≥3B models, but that regime is not the same as distillation at matched budget. R03 should qualify: "post-hoc quantization (AWQ, SmoothQuant) of ≥3B models largely preserves alignment by default; this does not extend to KD, to smaller scales, or to GPTQ."
+- One fixed story is the final test set. The reading check reuses the same participants and dataset family.
+- Train and test distributions are standardized separately.
+- Best-layer selection is ambiguous and may use held-out performance.
+- Raw normalized alignment is not residualized for word rate, acoustic features, position, static embeddings, surprisal, or an untrained-model baseline.
+- Compression ratios, calibration data, bit widths, checkpoint IDs, seeds, and code are incompletely specified.
+- No equivalence or noninferiority test supports “preservation” or “3B equals 14B.”
+- Multiplicity handling is unclear, and some table values, p-values, and prose conclusions conflict.
+- Ceiling-estimation uncertainty is not propagated into the normalized endpoint.
+- Probe-alignment dissociation and decoding receive no load-bearing inference.
 
----
+These limitations do not erase the descriptive patterns. They narrow the conclusion to this paper's raw encoding endpoint and reported checkpoints.
 
-## Open Questions
+## Relevance to this project
 
-The decisive open question for the thesis: does a student trained by standard KD (logit imitation + attention transfer) from a 7–14B teacher land at a different point on the alignment–utility plane than a 3B model quantized with AWQ to comparable inference cost? If KD-trained students inherit the teacher's representational geometry, the thesis framing is partially pre-empted. If they do not — which is likely given that distillation reshapes hidden states via imitation losses not designed to preserve brain-relevant structure — the trade-off curve is real and alignment-guided distillation is meaningful.
+The paper constrains any motivation claiming that compression generally destroys alignment. Several post-hoc AWQ and SmoothQuant checkpoints, and some pruning conditions, retain similar raw predictive scores. Compression effects should therefore be described as method and scale dependent.
 
----
+It is not a direct competitor to [E008](../../experiments/E008_per-participant-f1-solidification.md). E008 studies a 1.5B-to-0.5B KD intervention below Oota et al.'s proposed local plateau and uses matched-quality, permuted-target, nuisance, participant, and fold controls. Oota et al. cannot predict whether E008's student should benefit from brain guidance.
 
-## Read Date
+It does not answer [E016](../../experiments/E016_tribe-synthetic-brain-targets.md). Oota et al. measure pretrained or post-hoc-compressed representations; E016 tests whether a synthetic target is learnable and whether that training transfers to a fixed real-brain diagnostic.
 
-2026-06-10
+The narrow unresolved frontier remains controlled distillation or compression at fixed student budget and quality, with brain-derived supervision compared against permutation and a learnability-matched non-brain target, followed by transfer to genuine individual brain endpoints.
 
+## Open questions
+
+1. Do the 3B-versus-larger patterns survive validation-only layer selection, training-set-only standardization, and equivalence testing?
+2. Do compression effects survive nuisance subtraction and an untrained-model control?
+3. Which exact quantization configurations, calibration data, and checkpoint IDs generated each table?
+4. Is the task-alignment dissociation significant after participant-level uncertainty and multiple testing are included?
+5. Does controlled KD, rather than an off-the-shelf distilled checkpoint, preserve or alter unique brain-predictive information?
+6. Can any compression result generalize to a new story and new participants?
+
+## Read date
+
+2026-07-14
 
 ## Related
-- [`status.md`](../../status.md) — the canonical status board
+
+- [`01-research-landscape.md`](../../01-research-landscape.md) - literature frontier map
+- [`E008`](../../experiments/E008_per-participant-f1-solidification.md) - controlled brain-loss lever test
+- [`E016`](../../experiments/E016_tribe-synthetic-brain-targets.md) - synthetic target and biological transfer gate

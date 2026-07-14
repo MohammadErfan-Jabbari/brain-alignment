@@ -22,9 +22,7 @@ aliases: [negi-2025_brain-informed-finetuning-multilingual]
 - [ ] Full PDF scanned (search + targeted read)
 - [ ] Extracted text only
 
-PDF verified: 2026-06-11 — full 30-page NeurIPS 2025 submission PDF (main text pp. 1–10 + NeurIPS
-checklist pp. 13–20 + appendices A–H pp. 21–30) read page-by-page. All figures (1–6) and all tables
-(1–11) inspected directly. No parse failures.
+PDF reverified: 2026-07-14. The full 30-page NeurIPS 2025 conference version, which also carries the bioRxiv DOI and an October 27, 2025 posting footer, was read page by page, including all figures and tables. The retained source is `data/papers/negi-2025_brain-informed-finetuning-multilingual.pdf`, SHA-256 `cb5252a88aba4c13cf1fb4577542b2011540300fb99cd72a9f12962cef178345`.
 
 Comprehension self-check passed: Y
 
@@ -37,13 +35,12 @@ Comprehension self-check passed: Y
    multilingual and cross-linguistic downstream NLP improvements that monolingual brain-tuning cannot
    produce.
 
-2. Core insight: Bilingual individuals share semantic representations across languages in higher-level
-   cortical regions; fine-tuning LMs against bilingual fMRI responses injects this shared structure
-   into the model, producing modest but consistent gains on downstream NLP benchmarks not only in the
-   fine-tuned language but also in the participant's other language and in entirely unseen languages
-   (zero-shot). A TR-shuffled fMRI control and an mBERT-representations-as-target control both fail
-   to reproduce the effect on higher-level semantic voxels, confirming brain specificity of the
-   encoding gains (though the downstream task comparison is not repeated against TR-shuffled targets).
+2. Core insight: Fine-tuning LMs against bilingual fMRI responses produces descriptive downstream
+   gains in the tuned language, the participants' other language, and several unseen languages. A
+   TR-shuffled target and an mBERT-representation target perform poorly on the encoding endpoint,
+   but neither is evaluated downstream and neither is target-geometry or optimization matched. The
+   regional cross-participant maps are favorable while the reported aggregate transfer difference is
+   essentially zero.
 
 3. If-wrong breakage: The downstream gains are small (typically +0.5–1.5 pp on individual GLUE/CLUE
    tasks) and are reported as averages across six participants; statistical significance tests on
@@ -66,9 +63,9 @@ English as L2; 3 male, 3 female) from Chen et al. (2024b). BOLD recorded on a 3T
 scanner, 32-channel volume coil, gradient-echo EPI (TR = 2.0045 s, TE = 35 ms, flip angle = 74°,
 voxel = 2.24 × 2.24 × 4.1 mm, 30 interleaved axial slices). Participants read 11 narrative stories
 from The Moth Radio Hour (Huth et al. 2016) word-by-word, presented in separate scanning sessions
-for English and Chinese. Total coverage: 2756 TRs across 11 stories. Split: 7 stories for
-brain-informed fine-tuning (1117 TRs used for VEM validation), 3 stories for VEM training, 1 held-out
-story for VEM test (291 TRs). The same story set is used for both languages.
+for English and Chinese. Seven stories, 2,756 TRs, are used for brain-informed fine-tuning; three
+stories, 1,117 TRs, train and validate the VEM; one story, 291 TRs, is the held-out VEM test. The
+same story set is used for both languages.
 
 **fMRI dataset (monolingual, control).** Three English-monolingual participants: two from LeBel et
 al. (2023) [UTS07, male age 25; UTS08, male age 24] and one from Deniz et al. (2019). Participants
@@ -114,7 +111,7 @@ participant. Hardware: NVIDIA TITAN RTX (24 GB) and RTX A6000 (40 GB).
 **Voxelwise encoding model (VEM) evaluation.** Representations extracted from layer 7 (selected by
 validation performance) of each model variant, z-scored per voxel per story, downsampled with
 Lanczos, delayed with 4-delay FIR, ridge-regressed onto BOLD (MSE loss, L2 regularization λ ∈
-[10^-10, 10^-10], 1000 λ values, batch 1000). 5-fold cross-validation for λ selection on the 3
+[10^-10, 10^10], 20 λ values per target batch, target batch size 1000). 5-fold cross-validation for λ selection on the 3
 training stories; test performance on the 1 held-out story. Metric: Pearson r between predicted and
 recorded BOLD per voxel, per participant, per model variant. Visual cortex voxels are excluded from
 the semantically-selective ROI analysis (two-stage regression removes low-level features including
@@ -152,16 +149,17 @@ visual motion energy).
   best-performing fine-tuned variant explains more variance in a majority of voxels (76–84% of
   well-predicted voxels, r > 0.1) relative to the vanilla baseline. The improvement is consistent
   across all 6 participants (Fig. 5, Appendix F.2). Maximum encoding gain reported: Δr ≈ 0.15
-  (main text, p. 7). Cross-participant transfer: fine-tuning on Participant 1's data and evaluating
-  on Participants 2–6 yields small consistent encoding improvements (Δr ≈ 0.03–0.05) in high-level
-  semantic areas (Appendix F.3).
+  (main text, p. 7). Cross-participant transfer is mixed in presentation: the main text describes selected
+  high-level semantic regions with local gains around Δr ≈ 0.03–0.05, but Appendix F.3 reports
+  Δr_vanilla−transfer = -0.00055 ± 0.00029 and explicitly says there is no overall encoding difference.
 
 - `C2` (brain specificity of encoding): TR-shuffled fMRI fine-tuning (blocks of 10 contiguous TRs)
   and mBERT-representations fine-tuning both fail to produce systematic improvements in higher-level
-  semantic areas; VEM encoding advantage for BERT-en relative to those baselines is
-  Δr_vanilla−TRshuffle = 0.133, Δr_vanilla−mBERT = 0.136 (Appendix F.1). This confirms the
-  encoding gains are driven by meaningful stimulus-response alignment, not temporal autocorrelation
-  artifacts.
+  semantic areas; the reported contrasts are Δr_vanilla−TRshuffle = 0.133 and
+  Δr_vanilla−mBERT = 0.136 (Appendix F.1). These controls show that the two alternative tuning
+  procedures perform substantially below vanilla on the encoding endpoint. They do not by themselves
+  prove that the positive brain-tuning gain is biologically specific, and neither control is run on the
+  downstream NLP outcomes.
 
 - `C3` (downstream NLP — same language): Brain-informed fine-tuned BERT-en (English brain data)
   outperforms vanilla BERT-en on 7/9 GLUE tasks, average gain +0.80 pp, max gain +3.57 (WNLI).
@@ -177,15 +175,17 @@ visual motion energy).
   (Table 1b, semantically-selective ROI fine-tuning.)
 
 - `C5` (zero-shot transfer to unseen languages): mBERT-ft-en evaluated on XGLUE improves 3/3 tasks
-  in German, French, Spanish (avg +0.85, +2.06, +0.14 pp) and 1/3 in Japanese, Korean (+0.14, +0.33
+  in German, French, Spanish (avg +0.85, +2.06, +2.11 pp) and 1/3 in Japanese, Korean (+0.14, +0.33
   pp). On XTREME, improves 2/3 in German, French, Spanish, Japanese and 1/3 Korean (avg +0.24,
   +0.81, +0.36, +0.99, +0.04 pp). (Table 1c, semantically-selective ROI.)
 
-- `C6` (bilingual > monolingual brain data for cross-linguistic gains): On GLUE (within-language),
+- `C6` (reported bilingual > monolingual contrast): On GLUE (within-language),
   monolingual brain data fine-tuning improves across several tasks, but bilingual brain-informed
   fine-tuning outperforms monolingual on 7/9 GLUE tasks — specifically on all inference-related
   tasks (MNLI, QNLI, WNLI). On CLUE (cross-language), bilingual brain-informed fine-tuning leads to
-  higher performance on 5/7 tasks than monolingual. (Table 2, Section 4.3.)
+  higher performance on 5/7 tasks than monolingual. (Table 2, Section 4.3.) This is descriptive and
+  does not isolate bilingualism because the bilingual and monolingual groups come from different
+  datasets and presentation modalities, have different sample sizes, and receive no between-group test.
 
 ---
 
@@ -228,12 +228,18 @@ unusual framing — the 6 replicates are participants in the VEM experiment, not
 fine-tuned models. Downstream fine-tuning is done once per participant, so the SD in Table 1
 captures participant-level variation, not seed-level stability.
 
+**The 76–84 percent voxel argmax statistic has a three-versus-one selection problem.** Each voxel chooses among one vanilla model and three fine-tuned variants. Under an exchangeable equal-performance null, some fine-tuned variant would be the argmax about 75 percent of the time. The observed 76–84 percent is therefore weak without a selection-adjusted null or paired participant-level effect distribution. Likewise, the maximum Δr ≈ 0.15 is a selected maximum over many voxels, participants, and variants, not a typical effect.
+
+**Cross-participant aggregate transfer is null.** The paper's main text highlights local semantic-region improvements of roughly 0.03–0.05, but Appendix F.3 reports an overall vanilla-minus-transfer difference of -0.00055 ± 0.00029 and states that there is no overall difference. This supports, at most, localized qualitative preservation or improvement, not a robust cross-participant average gain.
+
 **No sample-size calculation.** Explicitly acknowledged (Section B.2, p. 22): "No sample size
 calculations were performed, as each participant serves as a full replication of the results."
 
-**Only two fine-tuning languages (English and Chinese).** Cross-linguistic generalization is claimed
-from the fMRI of two typologically close-ish high-resource languages; whether bilingual brain data
-from, e.g., English + Korean would generalise differently is untested.
+**Only two fine-tuning languages (English and Chinese).** Cross-linguistic generalization is claimed from one English-Mandarin bilingual sample; whether other language pairs generalize similarly is untested.
+
+**Bilingual versus monolingual is not a controlled bilingualism contrast.** Six bilingual participants read the stories, while three all-male monolingual participants listened in different source datasets. Sample size, acquisition cohort, presentation modality, and participant characteristics differ, and no between-group inference is reported. Table 2 cannot establish that bilingualism causes the downstream contrast.
+
+**Monolingual cross-language weight transfer is underexplained.** The paper says weights from an English BERT tuned on English are transferred to Chinese BERT, and vice versa, but does not explain how incompatible vocabularies and token embeddings are handled.
 
 **Anti-confound rigor relative to Hadidi/Feghhi:** The paper does not use contiguous train-test
 splits in the Hadidi/Feghhi sense for the fMRI regression used in fine-tuning target construction.
@@ -247,8 +253,11 @@ contiguous TRs — coarser than the within-passage shuffle that Hadidi/Feghhi sh
 The Hadidi/Feghhi five-point protocol (contiguous splits, OASM, SP+SL, static word embeddings,
 untrained control) is not fully implemented.
 
-**Gains are modest.** Average downstream gains are typically +0.5–1.6 pp across tasks; individual
-task maxima reach +3.57 pp (WNLI, notoriously unstable). These are real but small.
+**Gains are modest and descriptive.** Average downstream gains are typically +0.5–1.6 pp across tasks; individual task maxima reach +3.57 pp on WNLI, a notably unstable small benchmark. Without model-training seeds or participant-population inference, these should be treated as observed differences rather than established population effects.
+
+**Some tables are internally inconsistent.** Table 8 omits SDs and does not reproduce all participant-average values in Table 1 despite similar framing. Table 2 lists the CLUE IFLYTEK vanilla mBERT baseline as 46.79 while Table 1 uses 56.52, so the corresponding apparent improvement is ambiguous.
+
+**An anatomical visual-cortex exclusion is not clearly documented.** The semantic-selection procedure residualizes seven low-level sensory features, but the methods do not clearly specify a separate anatomical exclusion mask. The note therefore treats the result as feature residualization, not proof that every visual contribution was removed.
 
 **XLM-R, XGLM, LLaMA-3.2 results referenced but not fully tabulated.** Main paper and appendices
 note "Results for other multilingual language models (XLM-R, XGLM, and LLaMA) are also reported in
@@ -275,9 +284,8 @@ missing.
 - The multilingual and zero-shot transfer result is a new A3-relevant finding: the semantic
   structure encoded by bilingual fMRI generalises beyond the fine-tuning languages, which is
   consistent with the shared-semantics hypothesis.
-- The monolingual vs. bilingual comparison (C6 / Table 2) is directly useful: it shows the
-  cross-linguistic gains require specifically bilingual brain data, not generic fine-tuning on any
-  brain data — a partial brain-specificity argument for the downstream effects.
+- The monolingual versus bilingual comparison (C6 / Table 2) suggests a bilingual advantage, but
+  it is hypothesis-generating because cohort, modality, source dataset, and sample size are confounded.
 - The TR-shuffled and mBERT-representations controls on encoding (not downstream) establish that
   brain-specificity controls are feasible in this design.
 
@@ -308,9 +316,10 @@ BERT/mBERT-class models, dropout p = 0.2) is directly reusable for our E009 brai
 training hyperparameters (LR 1e-4, AdamW, 30 epochs, batch 32) provide a starting point.
 
 **How strongly we can lean on it as A3 prior:** Lean on it as *encouraging positive prior art that
-motivates E009* — it establishes that brain-tuning a text LM can produce downstream gains and that
-those gains generalise cross-linguistically. Do not lean on it as *evidence that the gains are
-brain-specific* for downstream tasks — that claim is unsupported by the existing controls. Our
+motivates E009*. It reports downstream differences after brain-tuning a text LM across several
+cross-linguistic evaluations. Do not lean on it as *evidence that the gains are reliably population-level
+or brain-specific* for downstream tasks. Those claims are unsupported by the existing controls and
+inference. Our
 contribution is exactly the matched-ppl + permuted-brain downstream evaluation that would settle the
 question.
 
@@ -327,13 +336,12 @@ confirmed. Suggested addition to the table in Section A:
 
 ## Verified
 
-Full 30-page NeurIPS 2025 submission PDF (bioRxiv 10.1101/2025.07.07.662360, downloaded from
-OpenReview attachment JPogehP8By) read page-by-page in two calls (pp. 1–10, pp. 11–20, pp. 21–30).
+Full 30-page NeurIPS 2025 conference PDF (bioRxiv 10.1101/2025.07.07.662360) read page by page.
 All tables (1–11) and all figures (1–6 main + Appendix Fig. 3–6) inspected. Key numbers confirmed
 directly from Tables 1, 2, 8–11 and from the text of Sections 3.3, 3.4, 4.1, 4.2, 4.3, and
 Appendix F.1. The supplementary zip (sections 2–3, XLM-R / XGLM / LLaMA results) was not
 separately accessible; those model results are flagged above as not read.
-Read date: 2026-06-11
+Read date: 2026-07-14
 
 
 ## Related

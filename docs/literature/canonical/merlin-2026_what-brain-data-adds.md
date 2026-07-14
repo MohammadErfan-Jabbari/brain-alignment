@@ -8,117 +8,119 @@ aliases: [merlin-2026_what-brain-data-adds]
 
 **Authors:** Gabriele Merlin; Omer Moussa; Mariya Toneva
 **Year:** 2026
-**Venue:** CoNLL 2026
-**DOI/arXiv:** ACL Anthology 2026.conll-main.12, DOI 10.18653/v1/2026.conll-main.12
+**Venue:** CoNLL 2026, pp. 178-212
+**DOI/Anthology:** 10.18653/v1/2026.conll-main.12; ACL Anthology 2026.conll-main.12
 **Canonical ID:** merlin-2026_what-brain-data-adds
 **Code:** https://github.com/bridge-ai-neuro/lm-brain-tuning
 
-**Tags:** #literature #canonical
+## Read method
 
----
+- [x] Full PDF read (page-by-page comprehension)
+- [x] Appendix figures and captions inspected
+- [x] Extracted text cross-checked
 
-## Read Method [REQUIRED]
+The full 35-page CoNLL proceedings PDF was read on 2026-07-14. The retained source is `data/papers/merlin-2026_what-brain-data-adds.pdf`, SHA-256 `f78aa727af4b861f13e2009a64f1b15782d78840d7b8bf95498a2be0c5af5611`.
 
-- [ ] Full PDF read (page-by-page comprehension)
-- [x] Full PDF scanned (search + targeted read)
-- [x] Extracted text only
+Comprehension self-check passed: Y.
 
-PDF verified: 2026-07-02. The ACL Anthology page and PDF were accessed live; the 35-page PDF was extracted locally with PyMuPDF into `outputs/lit_scout_tmp/merlin-2026_what-brain-data-adds.txt`. Targeted read covered abstract, introduction, methodology, training setup, evaluation, main results, limitations, and appendices B, C, E, F, H, and I. This is a scout-grade canonical note, not a page-by-page `paper-digest` pass.
+## Comprehension summary
 
-Comprehension self-check passed: Y, for frontier positioning and experiment-design implications.
+1. **Problem:** Previous brain-tuning work did not cleanly compare fMRI supervision with additional exposure to the same stimulus text. This paper compares brain-prediction, stimulus language-modeling, and joint objectives on BERT and GPT-2, then measures fMRI encoding and linearly accessible linguistic information.
+2. **Core result:** Under the paper's thresholded Holmes win-rate metric, Brain-Tuned models outperform Stimulus-Tuned models in all four architecture-dataset plots, while Jointly-Tuned models have the highest aggregate win rate and beat pretrained models in three of four combinations.
+3. **Critical boundary:** Brain and Stimulus arms are matched on input text, LoRA rank, learning rate, and broad duration, but not on target dimensionality, covariance, loss geometry, predictability, information, checkpoint criterion, or optimization difficulty. The result shows an advantage for the implemented fMRI-prediction objective over the implemented LM objective, not proof that brain recordings contain unique statistical information unavailable in text.
+4. **Role here:** This is important positive prior art for brain-targeted text-LM training. It narrows novelty but does not close the controlled, fixed-budget, participant-transfer, or compression question addressed by [E008](../../experiments/E008_per-participant-f1-solidification.md) and [E016](../../experiments/E016_tribe-synthetic-brain-targets.md).
 
----
+## Source grounding
 
-## Comprehension Summary [REQUIRED]
+**Models.** The paper LoRA-tunes `bert-base-cased` and `gpt2-small`. There is no smaller student, compression ratio, or deployment-budget comparison.
 
-1. Problem solved: Prior brain-tuning papers could not cleanly separate the effect of neural data from the effect of extra exposure to the same stimulus text. This paper asks what brain data adds beyond text-only stimulus tuning, and whether benefits generalize across a broad downstream linguistic benchmark.
-2. Core insight: The paper compares three fine-tuned model classes: Brain-Tuned models trained on fMRI prediction, Stimulus-Tuned models trained only on the corresponding stimulus text with an LM objective, and Jointly-Tuned models trained on both LM and brain-alignment losses. Jointly-Tuned models outperform pretrained baselines on the Holmes benchmark; Brain-Tuned models outperform Stimulus-Tuned controls, supporting a brain-specific training signal beyond stimulus exposure.
-3. If-wrong breakage: This is a strong closure of the broad "does brain data add beyond text?" question, but it is not a compression or distillation paper. It uses LoRA on pretrained BERT and GPT-2, not a smaller student; it reports win rates on frozen-probe linguistic tasks, not matched-perplexity generation; and it has no permuted-brain, shuffled-brain, KD-only, or matched-information privileged-teacher control.
-4. Main result locations: Abstract and contribution list for the problem and claims; Sec. 3.3 for the three-arm design; Sec. 3.4 for consecutive CV and evaluation; Fig. 3 and Fig. 4 for Holmes win-rate results; Sec. 5 and 6 for the interpretation; Appendix B and C for brain head and training details; Appendix E for Holmes details; Appendix F-I for per-dataset/model figures.
+**Datasets.** Harry Potter contains eight participants reading one chapter, 1,211 brain images per participant, and four runs. The Moth Radio Hour reading condition contains six participants and 4,028 fMRI images. Brain models are trained separately for each participant.
 
----
+**Training arms.** Brain-Tuned models optimize a participant-specific fMRI prediction objective. Stimulus-Tuned models optimize ordinary language modeling on the same text. Jointly-Tuned models combine the two losses. Brain and Stimulus use LoRA rank 4 and learning rate $5\times10^{-5}$; Joint uses rank 8 and learning rate $5\times10^{-4}$ with $\omega_{lm}=0.1$ and $\omega_{ba}=10$.
 
-## Source Grounding
+**Splits.** Training examples span five TRs. Four consecutive segments enable participant-specific cross-validation. Brain alignment is evaluated with ridge mappings on held-out segments, so transfer is to held-out stimuli within the same participant, not to unseen participants.
 
-**Models.** The paper uses `bert-base-cased` and `gpt2-small` from Transformers. These are pretrained text LMs that are fine-tuned with LoRA. There is no student model and no compression setting.
+**Downstream diagnostic.** FlashHolmes contains more than 200 frozen-representation probing datasets across syntax, semantics, morphology, discourse, and reasoning. Each probe is run with six seeds for classifier initialization and data order. Those are probe seeds, not independent brain-tuned model-training seeds.
 
-**Datasets.** Two public fMRI datasets are used. The Harry Potter dataset has 8 participants reading chapter 9 word-by-word, with 1211 brain images per participant across 4 runs. The Moth Radio Hour dataset has 6 participants and 4028 fMRI images for reading/listening stories; the paper uses the reading data.
+## Reported results
 
-**Training arms.** Brain-Tuned models optimize a brain-prediction objective for a single participant. Stimulus-Tuned models optimize only a language-modeling objective on the same text sequences the participant saw. Jointly-Tuned models optimize a weighted combination of language modeling and brain alignment:
+### Holmes win rates
 
-$$L = \omega_{\mathrm{lm}} L_{\mathrm{lm}} + \omega_{\mathrm{ba}} L_{\mathrm{ba}}.$$
+The main Figure 3 visually gives approximate aggregate win rates of $.27$ to $.28$ for Jointly-Tuned, $.18$ for Brain-Tuned, $.10$ for Stimulus-Tuned, and $.22$ to $.23$ for pretrained. Exact values are not tabulated. The caption reports Jointly-Tuned above Brain and Stimulus, and Brain above Stimulus, with Wilcoxon significance; Joint's strongest subfield advantages are syntax, morphology, and discourse.
 
-The brain loss is mean Pearson correlation between predicted and actual voxel responses across each batch. Appendix C states that Jointly-Tuned models use LoRA rank 8, learning rate `5e-4`, `omega_lm = 0.1`, and `omega_ba = 10`; Brain-Tuned and Stimulus-Tuned models use LoRA rank 4 and learning rate `5e-5`.
+The four model-dataset plots are heterogeneous:
 
-**Splits and evaluation.** Training samples span 5 TRs. The fMRI data are partitioned into 4 consecutive segments for cross-validation across story sections. For brain alignment, the paper trains ridge encoding models from final-layer representations to held-out voxel responses, with nested cross-validation for ridge regularization. For downstream linguistic competence, it uses the Holmes benchmark, specifically FlashHolmes, covering more than 200 probing tasks across syntax, semantics, morphology, discourse, and reasoning. Each probing task is run with 6 random seeds.
+| Dataset and model | Joint | Brain | Stimulus | Pretrained | Direct reading |
+|---|---:|---:|---:|---:|---|
+| Harry Potter, BERT | ~.30 | ~.30 | ~.12 | ~.40 | Joint does not beat pretrained |
+| Harry Potter, GPT-2 | ~.145 | ~.075 | ~.05 | ~.09 | Joint beats pretrained; Brain beats Stimulus |
+| Moth, BERT | ~.43 | ~.23 | ~.18 | ~.34 | Joint beats pretrained; Brain beats Stimulus |
+| Moth, GPT-2 | ~.28 | ~.10 | ~.055 | ~.09 | Joint beats pretrained; Brain beats Stimulus |
 
-**Statistical reporting.** Downstream comparisons are reported as filtered win rates: a model gets a win on a task only when it significantly outperforms alternatives at `p < 0.05`, then win rates are aggregated across folds, participants, and datasets. Some main figures use Wilcoxon signed-rank tests with Holm-Bonferroni correction.
+These values are visual approximations from Figures 10, 15, 20, and 25 because the PDF supplies no exact numeric table. The aggregate subfield plot also appears to place Joint slightly below pretrained on reasoning, so “better in every subfield” is too strong.
 
----
+### Brain-alignment changes
 
-## Core Claims
+The appendix reports percentage changes relative to pretrained:
 
-- `C1`: Jointly-Tuned models outperform pretrained models on average Holmes win rate across model and dataset combinations, with stronger effects in syntax, morphology, and discourse.
-- `C2`: Brain-Tuned models outperform Stimulus-Tuned models, so the observed gain is not reducible to extra training on the stimulus text alone.
-- `C3`: Brain-Tuned and Stimulus-Tuned models are generally worse than the pretrained model, while Jointly-Tuned models are the arm that consistently improves over pretrained. The brain-only signal is useful relative to stimulus-only, but text and brain signals complement each other.
-- `C4`: Brain alignment improves in language-sensitive regions for Brain-Tuned versus Stimulus-Tuned models, and Jointly-Tuned models improve over pretrained models, especially on the Moth Radio Hour dataset. Harry Potter is more mixed, plausibly because it is smaller.
-- `C5`: The broad training-signal question is now substantially closed for text LMs: brain data can add downstream linguistic value beyond stimulus text exposure. The narrower compression/distillation question remains open.
+| Dataset and model | Brain | Stimulus | Joint | Source |
+|---|---:|---:|---:|---|
+| Harry Potter, BERT | +12.4% | -5.7% | -45.3% | Figure 9 |
+| Harry Potter, GPT-2 | +4.8% | +5.1% | -7.2% | Figure 14 |
+| Moth, BERT | +2.7% | -16.0% | +5.7% | Figure 19 |
+| Moth, GPT-2 | +1.2% | -1.5% | +6.8% | Figure 24 |
 
----
+Brain exceeds Stimulus on Holmes even for Harry Potter GPT-2, where its reported encoding change is slightly smaller. Encoding improvement and Holmes improvement are therefore not monotonically coupled in these four conditions.
 
-## Evidence Pointers
+## Statistical audit
 
-- `C1`: Fig. 3 and Fig. 4; Sec. 4.2; conclusion lines describing Holmes coverage and Jointly-Tuned gains.
-- `C2`: Fig. 3A and appendix figures 10, 15, 20, and 25; Sec. 4.2; discussion comparing Brain-Tuned and Stimulus-Tuned models.
-- `C3`: Sec. 4.2 and Sec. 5; the paper explicitly notes that Brain-Tuned and Stimulus-Tuned models are generally worse than pretrained, except for morphology for Brain-Tuned.
-- `C4`: Fig. 2 and appendix figures 7-9, 12-14, 17-19, and 22-24.
-- Training and evaluation details: Sec. 3.2-3.4; Appendix B, C, and E.
+For each Holmes dataset, six probe seeds feed two-sample t-tests. A model receives a binary win only when it significantly beats another at $p<.05$. Win rates then aggregate across tasks, folds, participants, models, and datasets. This procedure discards effect magnitude and makes win probability depend on probe variance.
 
----
+The observational unit for the reported Wilcoxon tests is not specified. Figure 3 says its standard error spans four model-dataset combinations, but an ordinary exact two-sided Wilcoxon test on four pairs cannot yield $p<.05$, so a lower-level unit must have been used without being named. Initial per-task pairwise tests do not have a clearly described multiplicity correction.
 
-## Assumptions and Limits
+No independent model-training seeds are reported. Stimulus and pretrained controls carry no participant-specific supervision, so treating repeated participant pairings as independent would risk pseudoreplication unless those control models were independently trained and the dependence handled. The paper does not explain this sufficiently.
 
-No compression or distillation is tested. The paper fine-tunes pretrained BERT and GPT-2 with LoRA. It does not train a smaller student, does not compare against KD-only, and does not hold parameter count or inference cost fixed against a compression baseline.
+Figure 4's caption refers to significance asterisks that are not visible in the supplied figure, and the comparator for “significant improvement” is ambiguous.
 
-No matched-perplexity or matched-generation-quality control is reported. Stimulus-Tuned models are a useful text-exposure control, but they are not the same as a perplexity-matched KD student or matched-utility twin.
+## Matchedness and controls
 
-No permuted-brain, shuffled-brain, or matched-information non-brain privileged target control appears in the paper text. The Brain-Tuned versus Stimulus-Tuned comparison isolates neural signal from text exposure, but does not test whether neural-like target statistics, target dimensionality, or nuisance variables could produce part of the effect.
+Brain and Stimulus arms are matched on the stimulus input, LoRA rank, learning rate, and broad training duration. They are not matched on target dimension, covariance, smoothness, entropy, loss geometry, gradient scale, predictability, sample complexity, checkpoint criterion, or information content.
 
-The downstream benchmark is broad but probe-based. Holmes uses classifiers on frozen model representations, so it tests accessible linguistic information rather than generation quality, OOD perplexity, or task performance under the same deployment objective.
+Accordingly, Brain above Stimulus establishes that the fMRI-prediction objective yields more Holmes wins than the selected language-modeling objective under this protocol. It does not distinguish neural information from dense-target regularization, target geometry, nuisance structure, or an optimization shortcut.
 
-The fMRI datasets are small in participants and stimulus variety: Harry Potter has 8 participants and one chapter; the Moth reading condition has 6 participants. The authors acknowledge dataset and benchmark coverage as limitations.
+Joint above pretrained is less isolated because Joint also changes objective count, LoRA rank, learning rate, compute, and additional exposure. There is no text-plus-matched-nonbrain auxiliary arm.
 
-The paper's three-arm comparison is the strongest closure of the "brain data beyond stimulus text" question so far, but it does not implement this repo's strict anti-confound compression battery.
+The paper also lacks a shuffled or permuted brain target, a target-geometry-matched non-brain target, a matched-perplexity or quality twin, and participant-held-out transfer.
 
----
+## What the paper establishes and does not establish
 
-## Interpretation Notes
+**Established within the reported protocol:** Brain-Tuned models win more Holmes probe comparisons than Stimulus-Tuned models; Joint has the best aggregate Holmes win rate; positive patterns appear across two architectures and two fMRI datasets; brain and text objectives can be complementary under LoRA fine-tuning.
 
-This paper narrows our novelty more than the abstract-level scan did. The broad claim "brain data adds value beyond the stimulus text" is no longer ours: CoNLL 2026 tests exactly that contrast on BERT/GPT-2 with two fMRI datasets and a large Holmes evaluation.
+**Not established:** unique statistical information in fMRI beyond text; survival under target-geometry, permutation, quality, or compute matching; transfer to a new participant; generation, OOD, or deployment utility; compression value; a clean causal relationship between increased encoding alignment and increased linguistic competence.
 
-The top-venue opening survives because the paper's object is **fine-tuning upward or sideways**, not **distillation downward**. It asks whether brain data helps a pretrained model when the model receives additional training. It does not ask whether brain-alignment guidance changes the alignment/utility frontier for a smaller student at fixed student budget, fixed compute, matched perplexity, and matched information controls.
+## Relevance to this project
 
-The immediate implication for E016 is sharper: E016 cannot be framed as "first to show brain data helps language-model training." It must be framed as a compression-frontier test. A positive E016 would say that dense synthetic neural targets can alter a KD student under strict matched controls. A null E016 would say that even after the field has shown brain-tuning can help full-size text LMs, the signal may still fail to transfer into student-budget distillation.
+The broad novelty claim “brain-target training can outperform one stimulus-only LM objective on broad frozen probes” is now prior art. The stronger statement “brain data adds unique information unavailable from text” remains unresolved because information and optimization are not matched.
 
-The paper also adds pressure to our controls. Their Stimulus-Tuned arm is a good control for extra text exposure. Our next experiments should keep that idea but go further: KD-only, brain-guided KD, permuted target, and a matched non-brain privileged-information target should all be present before a claim lands.
+The paper does not close [E008](../../experiments/E008_per-participant-f1-solidification.md), which tests a fixed-budget brain-specific lever with matched quality and participant/fold inference. It strongly motivates [E016](../../experiments/E016_tribe-synthetic-brain-targets.md)'s separation of proxy learnability from real-brain transfer and the need for target-comparability diagnostics.
 
----
+In the five-gate view, measurement is partial, manipulation passes, incremental brain specificity is suggestive but not isolated, biological transfer is within-participant only, downstream utility is frozen-probe utility, and compression is absent.
 
-## Open Questions
+## Open questions
 
-1. Does the CoNLL brain-over-stimulus advantage survive when the target model is a compressed student rather than the same pretrained BERT/GPT-2 with LoRA?
-2. Does brain data still add value when the comparison is a perplexity-matched KD-only student, not a stimulus-text-only fine-tune?
-3. Can a non-brain privileged-information target matched for dimensionality, target smoothness, and text-derived semantics reproduce the Brain-Tuned over Stimulus-Tuned gap?
-4. Does the Holmes win-rate gain translate to generation quality, OOD perplexity, or task utility at fixed student budget?
-5. Is the useful part of the brain signal closer to language-network semantics, nuisance stimulus structure, or target-regularization geometry?
+1. Does Brain above Stimulus survive a non-brain auxiliary target matched on dimension, rank, covariance, predictability, and gradient scale?
+2. Does the result survive a permuted-brain target and matched perplexity or generation quality?
+3. What is the correct inference unit for the thresholded win-rate comparison?
+4. Do effects survive independent model-training seeds?
+5. Does any benefit transfer to new participants, new stories, generation, OOD tasks, or smaller students?
+6. Why are encoding and Holmes changes nonmonotonic across the four architecture-dataset conditions?
 
----
+## Read date
 
-## Read Date
-
-2026-07-02
+2026-07-14
 
 ## Related
 
-- [`status.md`](../../status.md) - the canonical status board
 - [`01-research-landscape.md`](../../01-research-landscape.md) - literature frontier map
+- [`E008`](../../experiments/E008_per-participant-f1-solidification.md) - controlled individual-participant lever test
+- [`E016`](../../experiments/E016_tribe-synthetic-brain-targets.md) - synthetic-target and real-brain transfer gate

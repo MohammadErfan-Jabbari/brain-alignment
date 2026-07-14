@@ -8,117 +8,102 @@ aliases: [zhang-2026_temporal-precision-ecog-tuning]
 
 **Authors:** Zhejun Zhang; Wenqing Zhou; Haozhe Xu; Lin Zhang; Lei Li
 **Year:** 2026
-**Venue:** ACL 2026 Long Papers
-**DOI/arXiv:** ACL Anthology 2026.acl-long.1911
+**Venue:** ACL 2026 Long Papers, pp. 41208-41226
+**DOI/Anthology:** 10.18653/v1/2026.acl-long.1911; ACL Anthology 2026.acl-long.1911
 **Canonical ID:** zhang-2026_temporal-precision-ecog-tuning
 **Code:** https://github.com/Mochizuki-BUPT/ECoG-Tuning-main
 
-**Tags:** #literature #canonical
+## Read method
 
----
+- [x] Full PDF read (page-by-page comprehension)
+- [ ] Full PDF scanned (search + targeted read)
+- [x] Extracted text cross-checked
 
-## Read Method [REQUIRED]
+The final 19-page ACL proceedings PDF was read in full on 2026-07-14, including the appendices and Figures 2, 4, 6, and 8. The retained source is `data/papers/zhang-2026_temporal-precision-ecog-tuning.pdf`, SHA-256 `4adfe10c198751b8e545540251eadb3350a329f886d7e52144846455e8b7ca11`.
 
-- [ ] Full PDF read (page-by-page comprehension)
-- [x] Full PDF scanned (search + targeted read)
-- [ ] Extracted text only
+Comprehension self-check passed: Y.
 
-PDF verified: 2026-07-02. Targeted scan of the ACL 2026 PDF covered abstract, introduction, related work, methods, controls, main results, downstream evaluation, modality comparison, and appendices D.1 to D.8. Code repo and preprocessing README files inspected. This is a manual scout note, not a full `paper-digest` agent note.
+## Comprehension summary
 
-Comprehension self-check passed: Y, for positioning and experiment-design relevance. Full page-by-page digest remains useful if this becomes a primary thesis branch.
+1. **Problem:** Prior brain-tuning work relies mainly on fMRI, whose second-scale hemodynamic samples collapse fast acoustic and language dynamics. The paper asks whether millisecond ECoG responses can directly supervise speech encoders and whether the temporal structure itself matters.
+2. **Core result:** Speech encoders trained to predict full word-aligned, electrode-by-time high-gamma targets improve held-out same-dataset ECoG alignment relative to pretrained, permuted-ECoG, temporal-mean, temporally shuffled, larger-speech-model, and text-LLM target conditions. External speech-probe scores are generally maintained or improved.
+3. **Critical boundary:** The result is not participant-held-out, story-held-out, text-LM, compression, or matched-quality evidence. The outer train/validation/test split is underdescribed, no training seeds are reported, and the paper does not identify the statistical inference unit behind its confidence intervals, effect sizes, and p-values.
+4. **Role here:** This is evidence for a plausible high-temporal-resolution exception to the fMRI boundary, not evidence that the individual-transfer null in [E008](../../experiments/E008_per-participant-f1-solidification.md) is wrong or that the proxy-transfer failure in [E016](../../experiments/E016_tribe-synthetic-brain-targets.md) has been solved.
 
----
+## Source grounding
 
-## Comprehension Summary [REQUIRED]
+**Models.** The paper fine-tunes Wav2Vec 2.0 Base, HuBERT Base, and the Whisper-small encoder, approximately 95M to 102M parameters each. Wav2Vec 2.0 and HuBERT feature extractors are frozen; the transformer encoder and a linear neural projection head are trained. Whisper's decoder remains frozen.
 
-1. Problem solved: Existing brain-tuning work mostly uses fMRI, whose second-scale BOLD samples blend acoustic, lexical, and language processing stages. This paper asks whether ECoG's millisecond temporal precision can be used directly as a training signal for speech language models and whether temporally targeted neural windows improve both brain alignment and downstream speech tasks.
-2. Core insight: Word-aligned ECoG lets the authors train on two 200 ms windows anchored to word onset: a speech window from -50 ms to +150 ms and a language window from +150 ms to +350 ms. The model predicts the full electrode-by-time high-gamma response matrix, not a time average. The full spatiotemporal target beats time-averaged supervision, and the language window helps higher-order language regions more than the speech window.
-3. If-wrong breakage: The paper is a strong positive for electrophysiology as neural supervision, but it is not text-LM compression. The models are speech encoders; the dataset is one podcast with 9 clinical ECoG participants; and the training setup fine-tunes encoders plus a projection head rather than distilling to a smaller text student at matched perplexity or matched utility.
-4. Main result locations: Abstract and Sec. 4 for the 7 to 17 percent temporal-precision gain; Sec. 3.4 for controls; Sec. 4.1 for brain alignment gains over pretrained, permuted-ECoG, BigSLM-tuned, and LLM-tuned baselines; Sec. 4.2 to 4.4 for temporal dynamics, region specificity, and downstream tasks; Appendix D.7 for cross-participant validation; Appendix D.8 for ECoG-vs-fMRI context.
+**Dataset.** The public Podcast ECoG dataset contains nine clinical participants listening to one 30-minute podcast, 5,137 timestamped words, and 1,268 electrodes after quality control, with 72 to 235 electrodes per participant. The code preprocessing described in the earlier repository inspection retains 5,060 usable words after excluding early onsets, so 5,137 is the source count and 5,060 is the processed count.
 
----
+**Neural target.** High-gamma amplitude in the 70 to 200 Hz band is sampled at 512 Hz. Each word has a 200 ms electrode-by-time target with 102 samples. The speech window spans word onset minus 50 ms to plus 150 ms; the language window spans plus 150 ms to plus 350 ms.
 
-## Source Grounding
+**Training.** Each word is represented by a 30-second audio context ending at onset plus 200 ms. The final ten frames from each of 12 encoder layers are mean-pooled and concatenated into a 9,216-dimensional vector. A linear head predicts the full electrode-by-time matrix, and the encoder and head are optimized with MSE. Main models are trained separately for each participant using an 80/10/10 split and early stopping. The PDF reports no repeated training seeds.
 
-**Models.** Three pretrained speech language models are evaluated: Wav2Vec 2.0-base, HuBERT-base, and Whisper-small encoder. The fine-tuned portions are roughly comparable in size, around 95M to 102M parameters, with 12 transformer layers and 768-dimensional hidden states. CNN feature extractors are frozen for Wav2Vec 2.0 and HuBERT; the Whisper encoder is fine-tuned while its decoder stays frozen.
+**Evaluation.** The brain-alignment diagnostic does not predict the full temporal target. It fits ridge models from frozen layer representations to each electrode's time-averaged response, using temporally contiguous folds within the held-out partition, and reports Pearson correlation. Downstream evaluation uses linear probes and macro F1 on TIMIT phoneme presence, TIMIT sentence-construction category, and CREMA-D emotion recognition.
 
-**Dataset.** The paper uses the public Podcast ECoG dataset (Zada et al., 2025): 9 participants listened to a 30-minute podcast with 5,137 word-level timestamps. After quality control, 1,268 electrodes remain. The code README points to OpenNeuro `ds005574`. The preprocessing README says words whose onset is earlier than 30 s are excluded, leaving 5,060 words; each word has a 30 s audio window ending at onset + 0.2 s, and an ECoG high-gamma target with shape `(n_electrodes, 102)` for a 200 ms window sampled at 512 Hz.
+## Controls
 
-**Neural target.** The target is high-gamma power in the 70 to 200 Hz band. For each word, the model predicts a full spatiotemporal response matrix `E_w` with shape electrodes by time points. The paper defines two windows: `Wspeech = [word onset - 50 ms, word onset + 150 ms]` and `Wlang = [word onset + 150 ms, word onset + 350 ms]`.
+- **Permuted-ECoG:** block-permuted neural responses intended to break audio-neural correspondence, but the PDF does not state the exact block size or full permutation procedure.
+- **Temporal-Mean:** replaces the full temporal target with one value per electrode. This changes temporal information, target dimensionality, supervision count, and projection-head size at once.
+- **Temporal-Shuffled:** preserves the electrode-by-time dimensions but permutes time points within each electrode. It is reported only for the speech window and also changes smoothness, autocorrelation, spectrum, and learnability.
+- **BigSLM-Tuned:** uses representations from approximately 1B-parameter speech models as targets.
+- **LLM-Tuned:** uses Mistral-7B text representations as targets.
 
-**Training objective.** For each word, a 30 s audio context is encoded. The final 10 frames, corresponding to 200 ms at 50 Hz, are mean-pooled for each encoder layer; all 12 layer pools are concatenated; a linear projection maps the concatenated vector to the electrode-by-time target. The loss is MSE over the full spatiotemporal matrix. Appendix D.3 reports that MSE beats correlation and cosine-plus-MSE alternatives across the tested metrics.
+The BigSLM and LLM controls are useful but underdescribed. Their target layer, geometry, predictability, information content, projection capacity, and optimization difficulty are not shown to match ECoG, so they rule out the specific implemented controls rather than model-derived supervision in general.
 
-**Controls.** The paper includes four main controls. Permuted-ECoG block-permutes neural responses to break stimulus alignment while preserving neural-like statistics. Temporal-Mean replaces the spatiotemporal target with its temporal average to test whether millisecond dynamics matter. Temporal-Shuffled keeps the full target dimension but shuffles time points within electrodes. BigSLM-Tuned uses representations from larger speech models, around 1B parameters, as targets. LLM-Tuned uses Mistral-7B text representations as a semantic non-neural target.
+## Core claims and exact scope
 
-**Evaluation.** Brain alignment is measured by fitting ridge encoding models from frozen model representations to held-out ECoG responses and reporting Pearson correlation across electrodes and regions. Downstream tasks use linear probes on frozen layer representations, reporting macro F1 on TIMIT phoneme prediction, TIMIT phonetic sentence type prediction, and CREMA-D emotion recognition.
+- `C1`: ECoG-tuning improves same-participant, held-out-sample alignment over pretrained encoders. Section 4.1 and Figure 2 report Whisper's largest gain as $\Delta r=+0.062$, Cohen's $d=0.72$, $p<0.001$; HuBERT and Wav2Vec 2.0 gains are approximately $+0.04$ to $+0.06$, with $p<0.05$.
+- `C2`: ECoG-tuned models outperform the reported Permuted-ECoG, BigSLM-Tuned, and LLM-Tuned conditions. This supports stimulus-aligned neural supervision relative to those implementations, not a general claim that neural information exceeds teacher information or scale.
+- `C3`: Full temporal targets outperform Temporal-Mean. From Table 7, the difference between the two methods' relative-improvement scores is 16.7 and 16.8 percentage points for Whisper, 8.4 and 7.4 for Wav2Vec 2.0, and 6.8 and 8.9 for HuBERT across the language and speech windows. The paper's phrase “7-17% higher alignment” is therefore best read as a 6.8 to 16.8 percentage-point gap between improvement ratios, not a raw-correlation increase of 7 to 17 percent.
+- `C4`: Intact temporal targets beat same-dimensional Temporal-Shuffled targets for the speech window: Whisper $d=0.30$, $p=.003$; Wav2Vec 2.0 $d=0.28$, $p=.005$; HuBERT $d=0.46$, $p<.001$. This supports useful temporal ordering but does not isolate temporal resolution from every correlated target property.
+- `C5`: Language-window tuning gives numerically larger language-region alignment gains than speech-window tuning: Whisper $.054$ versus $.043$, HuBERT $.058$ versus $.033$, and Wav2Vec 2.0 $.045$ versus $.021$. The asterisks test improvement against baseline, not the direct between-window contrast, so significant language-window superiority is not established.
+- `C6`: External speech-probe scores are generally preserved or improved, but exact baseline values are primarily plotted and no clear downstream significance analysis is reported. The TIMIT sentence-type task distinguishes SA, SX, and SI sentence-construction categories; calling it a strong test of higher-order understanding is too strong.
 
----
+## Validity audit
 
-## Core Claims
+**Inference is under-specified.** The PDF reports 95% intervals, Cohen's $d$, and p-values without identifying the test, resampling procedure, clustering, multiplicity correction, or whether the unit is participant, electrode, layer, word, or a combination. Some error bars aggregate across layers and participants even though layers are correlated. Directional effects are visible, but population-level inferential strength cannot be independently evaluated.
 
-- `C1`: ECoG-tuning improves brain alignment over pretrained speech models across Whisper, Wav2Vec 2.0, and HuBERT. The main text reports Whisper's largest gain as `Delta r = +0.062`, Cohen's `d = 0.72`, `p < 0.001`, with HuBERT and Wav2Vec showing `Delta r` around +0.04 to +0.06 and `p < 0.05`.
-- `C2`: ECoG-tuning outperforms both neural-statistics and distillation controls. It beats Permuted-ECoG, indicating stimulus-aligned neural responses matter, and it beats BigSLM-Tuned and LLM-Tuned, indicating direct neural supervision is not trivially replaced by bigger speech-model targets or text-derived semantic targets.
-- `C3`: Millisecond temporal structure matters. Full spatiotemporal ECoG supervision yields 7 to 17 percent higher alignment than time-averaged supervision across models, and Temporal-Shuffled controls support that this is not just target dimensionality.
-- `C4`: Temporally targeted windows are functionally meaningful. Language-window tuning gives larger gains in higher-order language-responsive regions, while speech-window tuning tends to help lower-level acoustic/prosodic tasks more.
-- `C5`: Downstream utility is preserved or improved. The paper reports consistent improvements or maintenance on the three speech understanding tasks, with Appendix Table 8 showing window-specific differences: Wlang slightly better for sentence type in all three models, Wspeech slightly better for phoneme and emotion in most models.
-- `C6`: Cross-participant training is feasible but secondary. Appendix D.7 pools all nine participants by concatenating electrodes into a unified target space for Whisper and reports brain-alignment improvements of 5 to 13 percent and downstream gains, including a large sentence-type improvement.
+**The outer split may permit overlapping-context leakage.** The 80/10/10 model-training split is not described as temporally contiguous. Adjacent word examples share almost the same 30-second audio context. Contiguous folds inside the later ridge diagnostic do not prove that fine-tuning's outer split is safe. This is an unresolved risk requiring code inspection, not evidence that leakage occurred.
 
----
+**Temporal-Mean is not capacity matched.** The full target has 102 outputs per electrode, so its projection head has approximately 102 times as many outputs and parameters as the Temporal-Mean head. Temporal-Shuffled improves this comparison by matching dimensionality, but replaces the natural target with one having different temporal statistics.
 
-## Evidence Pointers
+**Input timing differs across windows.** Audio ends at onset plus 200 ms. The speech input therefore includes 50 ms occurring after its neural target ends, while the language target extends 150 ms beyond the available input. This does not invalidate offline prediction, but it makes the speech-versus-language comparison asymmetric.
 
-- C1 and C2: Sec. 4.1, Fig. 2, and the main text around the overall alignment and distillation-comparison paragraphs.
-- C3: Abstract, contribution list, Appendix D.2, and Table 7 for layer-wise improvement ratios.
-- C4: Sec. 4.3 and Appendix D.6 / Table 8.
-- C5: Sec. 4.4 plus Appendix C.2 and Table 8.
-- C6: Appendix D.7 / Fig. 8.
-- Dataset/code feasibility: code repository README, `preprocessed/audio/README.txt`, `preprocessed/ecog/README.txt`, and `src/ecog_trainer.py`.
+**Biological transfer is limited.** Alignment is tested on held-out words from the same podcast and same participant whose ECoG supplied training supervision. It is not transfer to a new participant, story, or dataset.
 
----
+**The “cross-participant” appendix is pool-all-participants training.** Appendix D.7 concatenates all nine participants' electrodes into a 1,268-electrode target and trains Whisper on that joint target. It reports 5 to 13 percent alignment gains, 4 to 7 percent phoneme/emotion gains, and a 31 percent sentence-category gain, but no participant is held out. This demonstrates a pooled training configuration, not cross-participant generalization.
 
-## Assumptions and Limits
+## What the paper establishes and does not establish
 
-**Speech models only.** The work fine-tunes speech encoders on audio windows. It does not test text-only LMs, causal language modeling, next-token perplexity, or text downstream tasks.
+**Supported, subject to the unresolved split and inference questions:** full spatiotemporal ECoG supervision can outperform a time-average and same-dimensional temporal shuffle on held-out samples from the same participant and podcast; the reported fine-tuned encoders also outperform the paper's particular neural-permutation and model-target controls; later-window supervision produces numerically larger gains in selected language regions; speech-probe utility is not obviously destroyed.
 
-**Not a compression or student-budget study.** BigSLM-Tuned and LLM-Tuned are target controls, not compression baselines. There is no KD-only student, no smaller student at matched compute, and no matched-perplexity or matched-utility compression frontier.
+**Not established:** temporal precision alone causes the gain; the language window significantly beats the speech window; transfer to unseen participants, stories, or datasets; incremental value over a target matched on dimension, rank, spectrum, predictability, and optimization difficulty; improvement at matched model quality or student budget; causation of downstream gains by the ECoG-specific information.
 
-**Dataset diversity is limited.** The paper's fMRI comparison table explicitly contrasts fMRI's broader non-invasive recruitment and longer stimulus set with ECoG's invasive clinical constraint. The Podcast dataset is, to the authors' knowledge, the only public resource suitable for this style of ECoG-tuning, and it contains one podcast rather than many narratives.
+## Relevance to this project
 
-**Participant geometry is clinical.** ECoG electrodes are placed for clinical needs, yielding uneven coverage and participant-specific electrode counts. The main training is per-participant; cross-participant pooling is an appendix validation, not the primary design.
+The paper does not contradict [E008](../../experiments/E008_per-participant-f1-solidification.md). E008 tests a brain-specific KD lever across individual fMRI participants with explicit participant and fold inference. Zhang et al. directly fine-tune speech encoders with higher-SNR ECoG, reuse the supervised participants at evaluation, do not establish participant-held-out inference, and do not match language-model quality.
 
-**Downstream scope is speech classification.** The downstream tests are phoneme prediction, phonetic sentence type, and emotion recognition. This supports speech-representation quality, not broad NLP utility or language-generation utility.
+The paper is a positive counterpart to [E016](../../experiments/E016_tribe-synthetic-brain-targets.md) only at the broadest level. It uses measured neural targets and finds same-dataset transfer, whereas E016 finds that a deterministic participant-averaged synthetic proxy is learnable without transferring to a fixed real-brain diagnostic. Zhang et al. still do not show new-individual biological transfer or a target matched to the ECoG geometry and learnability.
 
-**Control battery is stronger than much prior brain-tuning work, but still not our battery.** The permuted-ECoG, temporal-mean, temporal-shuffled, BigSLM, and LLM controls are valuable. However, they do not include our matched-information non-brain privileged teacher, matched-perplexity text student, or compression-specific permuted twin.
+The most useful borrowed design is the four-way separation among intact temporal targets, temporal averages, temporal shuffles, and stimulus-alignment permutations. A thesis-native high-SNR study would additionally require contiguous outer splits with context buffers, at least three training seeds, participant-held-out and story-held-out evaluation, a matched non-brain target, quality or student-budget matching, a target rank/spectrum/smoothness audit, and a declared inference unit.
 
----
+## Open questions
 
-## Interpretation Notes
+1. Is the outer 80/10/10 split temporally contiguous and buffered against overlap among 30-second contexts?
+2. What observations generated the published p-values, effect sizes, and confidence intervals?
+3. Do the effects survive repeated training seeds?
+4. Does any gain transfer to a held-out participant or a new story?
+5. Does ECoG beat a non-neural target matched on dimension, effective rank, temporal spectrum, predictability, and optimization difficulty?
+6. Can the result survive fixed student-budget compression rather than full speech-encoder fine-tuning?
 
-This paper is a genuine positive branch for the broader field: temporally precise neural supervision can be a useful training signal, and not just an encoding metric. It also raises the standard for any fMRI-only story, because it shows that the temporal structure fMRI collapses may carry trainable information.
+## Read date
 
-For this thesis, the paper does **not** close the main contribution gap. It strengthens the claim that neural supervision can be actionable, but leaves open the question we now care about: at a fixed student budget, does brain-alignment guidance change the alignment/utility frontier compared with KD-only, permuted, and matched-information controls?
-
-The paper does suggest a high-upside pivot if E016 is null: use Podcast ECoG as a temporally precise privileged-information source, but redesign around this repo's strict controls. The natural thesis-native variant would not merely rerun their speech task; it would ask whether ECoG-derived temporal targets can improve sample efficiency or compression behavior under a matched non-brain teacher and a permuted/temporal-shuffled control.
-
-The strongest caution is domain mismatch. ECoG-tuning may work because speech encoders, audio windows, and high-gamma responses are tightly time-locked. That does not imply a text LM student trained on token sequences can use the same signal, especially when the repo's fMRI and gaze/reading-time variants have already produced controlled nulls.
-
----
-
-## Open Questions
-
-1. Does temporal precision help only speech encoders, or can a text LM benefit from ECoG-derived language-window targets at matched student budget?
-2. Would the ECoG gain survive a matched-information non-brain privileged teacher, such as acoustic envelope plus transcript-derived LLM features, under the same probe and training budget?
-3. Can the language-window signal improve low-data or compressed students rather than full fine-tuned encoders?
-4. Does the cross-participant pooling appendix survive participant-held-out evaluation with electrodes mapped to a shared functional or representational space rather than concatenated electrode targets?
-5. If E016's synthetic fMRI KD is null, is ECoG's high temporal resolution the most plausible next biological-signal exception, or does the single-podcast dataset make it too narrow for a top-venue text-LM paper?
-
----
-
-## Read Date
-
-2026-07-02
+2026-07-14
 
 ## Related
 
-- [`status.md`](../../status.md) - the canonical status board
 - [`01-research-landscape.md`](../../01-research-landscape.md) - literature frontier map
+- [`E008`](../../experiments/E008_per-participant-f1-solidification.md) - individual-participant brain-loss test
+- [`E016`](../../experiments/E016_tribe-synthetic-brain-targets.md) - synthetic-target learnability and transfer gate
