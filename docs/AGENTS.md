@@ -43,6 +43,7 @@ Do not create a report, roadmap, dashboard, readiness matrix, audit memo, routin
 | `experiments/` | Evidence records |
 | `hypotheses/` | Falsifiable claims and gates |
 | `literature/canonical/` | Canonical paper notes |
+| `external-reviews/` | Verbatim, non-authoritative external-review provenance |
 | `manuscript/extended/` | Live scientific account |
 | `manuscript/public/` | Immutable cuts |
 | `decisions/`, `learnings.md` | Durable history |

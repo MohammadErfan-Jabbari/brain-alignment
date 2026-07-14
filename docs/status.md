@@ -6,8 +6,10 @@ aliases: [current-status]
 
 # Project status
 
-**Updated:** 2026-07-13  
+**Updated:** 2026-07-14
+
 **Manuscript:** `share-ready`
+
 **Latest frozen public cut:** [v0.9 Markdown](manuscript/public/v0.9/paper.md)
 
 ## Research state
@@ -23,18 +25,22 @@ aliases: [current-status]
 
 ## Active work
 
-- The extended manuscript is reconstructed as a standalone MSc thesis with complete implemented-experiment coverage, ground-up conceptual framing, and self-contained appendices.
+- The extended manuscript remains a share-ready MSc thesis baseline; supervisor circulation continues independently of any conference extension.
+- Conference-extension work has resumed. The working route is a focused methodological/falsification paper built around the intervention-to-biological-transfer boundary. A theory-first route remains conditional on deriving a nontrivial finite-sample result; the tested positive-mechanism route remains closed.
+- Two external ChatGPT Pro audits are retained as non-authoritative provenance in [`external-reviews/chatgpt-pro/`](external-reviews/chatgpt-pro/). Their proposals do not change a scientific verdict until they pass the repository evidence transaction.
 
 ## Blockers
 
 - None for supervisor circulation. Public-version metadata remains a separate checkpoint decision.
+- A top-AI-conference claim is not currently supported. It requires stronger biological scope and target identification, then either a prospective external demonstration or a genuinely new theoretical result.
 
 ## Next actions
 
 1. Read and circulate the extended-manuscript PDF to supervisors.
-2. Collect supervisor comments against this share-ready baseline.
-3. Confirm UC3M title-page rules and institutional supervisor metadata separately.
-4. Create a new immutable public cut only after Erfan explicitly calls that checkpoint.
+2. In `/work`, precheck and lock E025: extend the saved-student evaluator without retraining, exclude incomplete UID 853 as in E008, score the nine complete participants for all six seeds, use layer 7 as primary and layer 6 as a mechanistic sensitivity, and retain participant and fold inference without flattening participant-by-seed cells.
+3. In `/work`, precheck and lock E026: run a no-training TRIBE-versus-text-feature target-comparability audit focused on effective rank and spectrum, scale, baseline/head learnability, loss and gradient scale if retained, and representation movement.
+4. Use the E025/E026 gates to choose exactly one branch: train one geometry- and learnability-matched non-brain control if the comparison is identifiable, otherwise close the E016 positive branch without another local sweep.
+5. Finish the novelty synthesis from the canonical full-text notes, then choose the conference package: Package A by default, Package B only with a nontrivial theorem, and no high-cost biological or faithful-reproduction study until the cheap gates justify it.
 
 ## Related
 
