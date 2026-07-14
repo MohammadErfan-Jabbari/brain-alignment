@@ -6,16 +6,19 @@ tags: [charter]
 # Project Charter — Brain-Alignment-Guided Methods for LLMs
 
 **Owner:** MohammadErfan Jabbari
-**Program:** MSc, Machine Learning for Health — Universidad Carlos III de Madrid (UC3M). Erfan is a
-pre-PhD student finishing this master; the thesis is the deliverable. (NeurIPS track is dropped.)
+**Program:** MSc, Machine Learning for Health at Universidad Carlos III de Madrid (UC3M). Erfan is a pre-PhD student finishing this master; the thesis remains the primary deliverable. The original deadline-driven NeurIPS track was dropped, and a separate post-thesis conference extension reopened on 2026-07-14.
 **Repo:** `/home/centcom/data/brain-alignment` (single-node, centcom)
-**Status:** **Write-up phase** — the experimental program is closed; see [`status.md`](status.md).
-for the live verdict (A2 real & powered; per-individual F1 = null; thesis is Fork B = a measurement-validity
-result + well-powered nulls). This charter records the *original* framing/scope; the ladder is current state.
+**Status:** **Thesis share-ready; conference extension active.** The original thesis experiment program is closed, while the extension follows the three kill-gated packages in [D057](decisions/decisions.md). See [`status.md`](status.md) for the live verdict and next actions. This charter records the original framing plus the extension boundary; status remains the operational authority.
 **Deadline:** ~end of August 2026 (tentative — exact date TBD, confirm).
 **Created:** 2026-06-08 · **Scope locked:** 2026-06-08 (see [`decisions/decisions.md`](decisions/decisions.md) D006).
 
 ---
+
+## Conference-extension addendum
+
+The extension preserves the share-ready thesis as its baseline and investigates three alternative paper identities: Package A, a methodological/falsification protocol; Package B, a conditional theoretical boundary; and Package C, a positive brain-guided mechanism. Their accepted definitions, activation gates, kill criteria, and execution order are recorded in [D057](decisions/decisions.md). The package idea originated in the [initial ChatGPT Pro audit](external-reviews/chatgpt-pro/2026-07-14-01-initial-manuscript-strategy-audit.md) and was corrected and expanded in the [second audit](external-reviews/chatgpt-pro/2026-07-14-02-corrected-research-audit.md); both are idea provenance only, not evidence authorities.
+
+The corrected naming is canonical: A is methodological/falsification, B is theory, and C is the positive mechanism. The initial audit used a conflicting letter order. Future sessions may plan each package separately, but scientific compute remains conditional on the package-specific gates in D057.
 
 ## The core idea (Erfan's framing)
 
@@ -109,3 +112,4 @@ the whole thesis. *"This is where this thesis will live or die."*
 
 ## Related
 - [`status.md`](./status.md) — the canonical status board
+- [D057 conference package decision](decisions/decisions.md): package definitions, gates, and provenance

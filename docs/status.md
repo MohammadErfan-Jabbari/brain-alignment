@@ -27,7 +27,15 @@ aliases: [current-status]
 
 - The extended manuscript remains a share-ready MSc thesis baseline; supervisor circulation continues independently of any conference extension.
 - Conference-extension work has resumed. The working route is a focused methodological/falsification paper built around the intervention-to-biological-transfer boundary. A theory-first route remains conditional on deriving a nontrivial finite-sample result; the tested positive-mechanism route remains closed.
-- Two external ChatGPT Pro audits are retained as non-authoritative provenance in [`external-reviews/chatgpt-pro/`](external-reviews/chatgpt-pro/). Their proposals do not change a scientific verdict until they pass the repository evidence transaction.
+- The package strategy is recorded in [D057](decisions/decisions.md) and traces to the non-authoritative [initial Pro audit](external-reviews/chatgpt-pro/2026-07-14-01-initial-manuscript-strategy-audit.md) and [corrected Pro audit](external-reviews/chatgpt-pro/2026-07-14-02-corrected-research-audit.md).
+
+## Conference packages
+
+| Package | Identity | State | Next gate |
+|---|---|---|---|
+| A | Methodological/falsification protocol | **Default active route** | E025, E026, novelty boundary, then an external prospective application or faithful reproduction |
+| B | Conditional theoretical boundary | **Conditional** | Derive a nontrivial finite-sample result with observable terms and success/failure regime predictions |
+| C | Positive brain-guided mechanism | **Closed for tested regimes** | Reopens only if E025 is participant-positive and E026 licenses one learning-matched control |
 
 ## Blockers
 
@@ -39,11 +47,11 @@ aliases: [current-status]
 1. Read and circulate the extended-manuscript PDF to supervisors.
 2. In `/work`, precheck and lock E025: extend the saved-student evaluator without retraining, exclude incomplete UID 853 as in E008, score the nine complete participants for all six seeds, use layer 7 as primary and layer 6 as a mechanistic sensitivity, and retain participant and fold inference without flattening participant-by-seed cells.
 3. In `/work`, precheck and lock E026: run a no-training TRIBE-versus-text-feature target-comparability audit focused on effective rank and spectrum, scale, baseline/head learnability, loss and gradient scale if retained, and representation movement.
-4. Use the E025/E026 gates to choose exactly one branch: train one geometry- and learnability-matched non-brain control if the comparison is identifiable, otherwise close the E016 positive branch without another local sweep.
-5. Finish the novelty synthesis from the canonical full-text notes, then choose the conference package: Package A by default, Package B only with a nontrivial theorem, and no high-cost biological or faithful-reproduction study until the cheap gates justify it.
+4. After E025/E026, hold separate `/plan` sessions for Package A’s external test, Package B’s theorem feasibility, and Package C’s activation audit, using D057’s burdens and kill criteria.
+5. Authorize only the evidence-producing continuation whose gate passes: Package A external validation, Package B theorem development, or Package C’s single matched-control E027; do not treat the packages as coequal positive claims.
 
 ## Related
 
 - [Methodology and authority contract](03-methodology.md)
 - [Extended manuscript](manuscript/extended/main-extended.tex)
-- [Decisions](decisions/decisions.md)
+- [D057 conference package decision](decisions/decisions.md)
