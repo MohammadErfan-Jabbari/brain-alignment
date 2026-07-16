@@ -15,6 +15,7 @@ The value of the evidence lies in locating those failures rather than combining 
 
 The result also changes what should count as success in this area.
 An intervention should not be credited merely because its optimized target rises, because an auxiliary task can become easier through generic regularization or target geometry.
+Nor should a larger gain over a different target be treated as content-specific without first auditing baseline predictability, headroom, covariance geometry, nuisance predictability, and induced optimization scale under a declared identification protocol.
 It should not be credited merely because a confidence interval over seeds excludes zero, because optimizer repeatability is not biological generalization.
 It should not be credited merely because perplexity remains acceptable, because similar output quality can coexist with different hidden representations.
 The complete success condition is a target-specific movement at the correct inference unit that transfers to an endpoint independent of the training proxy.
@@ -33,7 +34,8 @@ They do not rule out objectives with different targets, architectures, temporal 
 
 The second break is between optimizing a proxy and transferring to biology.
 E016 shows that a dense brain-derived synthetic target can become substantially easier for a student to predict under nearly unchanged language quality, while the same students do not improve on a common real-brain endpoint \evd{E016}.
-E025 makes that break participant-resolved: all manipulation gates pass, yet the participant-level upper bound is below the predeclared meaningful effect and TRIBE has no direct mean gain over KD \evd{E025}.
+E026 locates an earlier identification break: the saved projected text-feature control differs materially in target spectrum, effective rank, KD predictability, remaining headroom, nuisance predictability, and induced movement, so the between-target proxy-gain difference cannot isolate brain-derived content \evd{E026}.
+E025 makes that break participant-resolved: all manipulation gates pass, yet the primary TRIBE-minus-textfeat upper bound is below the predeclared meaningful effect and the direct TRIBE-minus-KD estimate is near zero, with its interval also below that threshold \evd{E025}.
 Synthetic learnability is therefore evidence that an optimization channel exists, not evidence that the optimized geometry is brain-specific or biologically transferable.
 A training claim requires both a target-specific control and an independent real-brain transfer test.
 
@@ -68,7 +70,7 @@ In E022, a reduced single-participant speech experiment does not reproduce the p
 
 The evidence implies a stricter sequence for future intervention claims.
 First, the alignment metric must survive leakage controls, a capacity-fair nuisance model, reliability selection independent of the test set, and an untrained-model comparison.
-Second, the training manipulation must beat a target-specific twin while preserving or explicitly matching language quality.
+Second, this engineering identification protocol audits or calibrates the target-specific twin before training on covariance spectrum, effective rank, baseline predictability, remaining headroom, nuisance predictability, initial auxiliary loss, and gradient norm; after training it also checks parameter and representation movement while preserving or explicitly matching language quality.
 Third, the effect must be evaluated at the inference unit named by the claim, with participants required for biological generalization.
 Fourth, a synthetic or averaged target must transfer to a separately measured real-brain endpoint.
 Only after these gates hold is a downstream comparison interpretable as the payoff of alignment rather than as generic regularization, language-quality change, or target learnability.
@@ -80,7 +82,7 @@ More participants can improve both reliability and the scope of inference, but a
 These are identification requirements, not preferences about model architecture.
 
 The sequence suggests an efficient future workflow as well as a stricter one.
-Before expensive training, a candidate neural or cognitive target should pass reliability, label-relevance, leakage, and split-stability gates.
+Before expensive training, a candidate neural or cognitive target should pass reliability, label-relevance, leakage, split-stability, and target-control comparability gates.
 During training, manipulation success should be evaluated separately from outcome success, so a failed objective is not mistaken for evidence that a useful representation change has no consequence.
 After training, the real target and its control should be scored on a common endpoint with stable model identity and matched preprocessing.
 This ordering prevents compute from being spent on a downstream claim whose mediator or inference unit was never established.

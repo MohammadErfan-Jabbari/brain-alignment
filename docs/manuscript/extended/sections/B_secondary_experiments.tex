@@ -53,7 +53,7 @@ The ceiling analysis is therefore a failed instrument rather than evidence that 
 
 The training comparison used six stochastic seeds and the same KD backbone across target arms.
 On their respective synthetic endpoints, the TRIBE-guided arm improved target $R^2$ over KD by \result{e016_tribe_synth_gain}, whereas the sentence-local projected teacher-feature control improved by \result{e016_textfeat_synth_gain}. \evd{E016}
-The text-feature target matched output dimension but not information content, geometry, baseline difficulty, or effective rank, so the comparison licenses only the statement that TRIBE outperformed this particular dimension-matched control on its own synthetic endpoint.
+E016 established only output-dimension matching for the text-feature target; it did not itself establish information, geometry, baseline-difficulty, or effective-rank matching.
 The block-permuted control also retained some fixed points and is described as block-permuted rather than fully deranged.
 
 The independent transfer gate scored saved students on the fixed Tuckute target averaged over five participants and five functional ROIs.
@@ -63,6 +63,20 @@ The corresponding comparison against permuted-control gains was also negative, a
 Synthetic training used layer 6 while the Tuckute diagnostic read layer 7, which further bounds mechanistic interpretation.
 The conclusion is a transfer failure in this fixed diagnostic, not a population-level null and not a universal upper bound on synthetic neural supervision.
 E016's role is decisive for the thesis logic: learnability of a neural-looking target does not establish usefulness for an independently measured biological endpoint.
+
+\subsection{E026: retrospective target-control identification audit}
+\label{sec:e026}
+
+E026 audits the existing E016 targets and students without retraining and without using Tuckute participant outcomes \evd{E026}.
+Two disjoint deterministic 4,096-item samples provide fixed geometry checks, while the six existing seeds quantify only variability of the frozen training procedure.
+The mechanical conjunction has 55 required measured-axis checks: 30 fail, 24 pass, and the lag-1024 order check is unresolved because there are no valid within-document pairs.
+Mean KD-only target $R^2$ is \result{e026_kd_targets} for TRIBE and textfeat, respectively, leaving a TRIBE-to-textfeat remaining-headroom ratio of \result{e026_headroom_ratio}.
+Normalized spectrum log-RMS differences are \result{e026_spectrum_rms} across the two samples; TRIBE versus textfeat stable ranks are descriptively \result{e026_stable_ranks}, with absolute log-ratios \result{e026_stable_rank_log_gaps}; and low-level nuisance-predictability gaps are \result{e026_lowlevel_gaps}. The spectrum differences, stable-rank log-ratios, and nuisance gaps each exceed their frozen engineering margins.
+All six global parameter-update ratios and all six layer-6 centered-Frobenius movement ratios also fail, whereas four of six centered-CKA distance checks pass.
+Standardized global scale, most valid temporal-order checks, binned power shape, and static-unique nuisance predictability pass.
+Initial-gradient comparability is unknown because the gradients were not retained.
+The result shows that the saved comparator fails the predeclared measured-axis conjunction; it does not prove information inequivalence, assign causality to any mismatch, establish brain-specific TRIBE content, or explain E025's near-zero direct TRIBE-minus-KD contrast.
+Consequently, the larger cross-target synthetic gain cannot carry a specificity claim, while the within-TRIBE learning gain remains valid.
 
 \subsection{E019: external Negi-style objective under local controls}
 \label{sec:e019}

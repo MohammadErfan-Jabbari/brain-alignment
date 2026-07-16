@@ -36,6 +36,14 @@
 \DeclareResult{e025_participant_ci}{[$-0.000505$, $+0.000777$]}        % [E025] participant t-CI95, n=9
 \DeclareResult{e025_participant_ucb}{$+0.000653$}                      % [E025] one-sided participant upper 95%, below +0.002 SESOI
 \DeclareResult{e025_tribe_kd}{$-0.000014$}                             % [E025] direct TRIBE-minus-KD participant mean
+\DeclareResult{e025_tribe_kd_ci}{[$-0.000739$, $+0.000711$]}           % [E025] direct TRIBE-minus-KD participant t-CI95, n=9
+\DeclareResult{e026_check_split}{$30/55$}                              % [E026] failed measured-axis checks / all frozen checks
+\DeclareResult{e026_kd_targets}{$0.595327$ versus $0.911687$}          % [E026] mean KD target R2, TRIBE versus textfeat
+\DeclareResult{e026_headroom_ratio}{$4.582$}                           % [E026] mean remaining headroom, TRIBE / textfeat
+\DeclareResult{e026_spectrum_rms}{$5.524$ and $5.535$}                 % [E026] normalized spectrum log-RMS difference, samples A/B
+\DeclareResult{e026_stable_ranks}{$2.658$ versus $1.410$; $2.637$ versus $1.424$} % [E026] TRIBE versus textfeat, samples A/B
+\DeclareResult{e026_stable_rank_log_gaps}{$0.634$ and $0.616$}         % [E026] absolute stable-rank log ratios, samples A/B
+\DeclareResult{e026_lowlevel_gaps}{$0.192$ and $0.183$}                % [E026] low-level nuisance heldout R2 gap, coordinate samples A/B
 \DeclareResult{e003_kd_cold_delta}{$+0.0181$}                           % [E003] cold-init KD gap vs teacher (p<0.001); 4-dp matches the E003 table
 \DeclareResult{e003_kd_cold_retention}{$0.37$ [$0.14$, $0.58$]}         % [E003] cold-init floor-anchored retention rho' + bootstrap CI
 \DeclareResult{e003_quality_corr}{$-0.88$}                              % [E003] Pearson r, alignment vs log-perplexity across arms (L011)

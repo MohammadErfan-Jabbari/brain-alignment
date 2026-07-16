@@ -226,6 +226,129 @@ def fig8_synthetic_transfer():
     plt.close(fig)
 
 
+def fig9_identification_chain():
+    """E026 control identification audit plus E025 participant transfer."""
+    e026 = json.load(open(ROOT / "outputs/E026/e026_audit.json"))
+    e025 = json.load(open(ROOT / "outputs/E025/analysis.json"))
+    trained = e026["trained"]
+    geometry = e026["geometry"]
+
+    families = ("tribe", "textfeat")
+    labels = ("TRIBE", "projected\ntext feature")
+    colors = ("C0", "C1")
+    kd_r2 = [mean([r["kd_target_r2"] for r in trained["target_learning_and_loss"][f]["seed_rows"]])
+             for f in families]
+    gains = [trained["target_learning_and_loss"][f]["target_minus_kd_delta_r2"]["mean"]
+             for f in families]
+
+    fig, axes = plt.subplots(2, 2, figsize=(10.2, 7.2))
+    ax = axes[0, 0]
+    x = list(range(2))
+    ax.bar(x, kd_r2, color=colors, alpha=0.72, label="KD baseline target $R^2$")
+    ax.bar(x, gains, bottom=kd_r2, color=colors, edgecolor="black", hatch="//",
+           label="target-training gain")
+    final_r2 = [base + gain for base, gain in zip(kd_r2, gains)]
+    ax.bar(x, [1 - value for value in final_r2], bottom=final_r2, color="0.92",
+           edgecolor="0.75", label="headroom after target training")
+    ax.bar(x, [1 - value for value in kd_r2], bottom=kd_r2, fill=False,
+           edgecolor="black", linestyle="--", linewidth=1.0,
+           label="KD headroom (audit estimand)")
+    for i, (base, gain) in enumerate(zip(kd_r2, gains)):
+        ax.text(i, base / 2, f"KD {base:.3f}", ha="center", va="center", fontsize=8)
+        ax.text(i, min(0.985, base + gain + 0.018), f"gain {gain:+.4f}", ha="center", fontsize=8)
+        ax.text(i, base + 0.78 * (1 - base), f"KD headroom {1 - base:.3f}",
+                ha="center", va="center", fontsize=7)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.set_ylim(0, 1.02)
+    ax.set_ylabel("held-out target $R^2$")
+    ax.set_title("A. Baseline difficulty and headroom")
+    ax.legend(fontsize=7, loc="lower right")
+
+    ax = axes[0, 1]
+    cuts = [1, 8, 32, 128, 512]
+    for family, label, color in zip(families, labels, colors):
+        sample_curves = []
+        for sample in ("A", "B"):
+            mass = geometry["families"][family]["samples"][sample][
+                "training_standardized_primary"
+            ]["svd"]["variance_mass"]
+            sample_curves.append([mass[str(cut)] for cut in cuts])
+        average = [mean([curve[i] for curve in sample_curves]) for i in range(len(cuts))]
+        lower = [min(curve[i] for curve in sample_curves) for i in range(len(cuts))]
+        upper = [max(curve[i] for curve in sample_curves) for i in range(len(cuts))]
+        ax.plot(cuts, average, "o-", color=color, lw=2, label=label.replace("\n", " "))
+        ax.fill_between(cuts, lower, upper, color=color, alpha=0.18)
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(cuts)
+    ax.set_xticklabels([str(cut) for cut in cuts])
+    ax.set_ylim(0.3, 1.02)
+    ax.set_xlabel("number of components")
+    ax.set_ylabel("cumulative standardized variance mass")
+    ax.set_title("B. Target covariance geometry")
+    ax.legend(fontsize=8)
+
+    ax = axes[1, 0]
+    parameter_rows = trained["parameter_update_comparison"]["blocks"]["global"]["seed_rows"]
+    representation_rows = trained["representation_movement_comparison"]["seed_rows"]
+    ratios = {
+        "parameter\nupdate": [
+            row["tribe_relative_update_l2"] / row["textfeat_relative_update_l2"]
+            for row in parameter_rows
+        ],
+        "layer-6 activation\nmovement": [
+            row["tribe"]["centered_relative_frobenius"]
+            / row["textfeat"]["centered_relative_frobenius"]
+            for row in representation_rows
+        ],
+    }
+    for i, values in enumerate(ratios.values()):
+        jitter = [(seed - 2.5) * 0.025 for seed in range(len(values))]
+        ax.scatter([i + value for value in jitter], values, s=30, color="C3", alpha=0.8)
+        ax.hlines(mean(values), i - 0.23, i + 0.23, color="black", lw=2)
+    movement_margin = 0.10
+    ax.axhspan(math.exp(-movement_margin), math.exp(movement_margin), color="0.75",
+               alpha=0.35, zorder=0, label=r"frozen $|\log r|\leq0.10$ band")
+    ax.axhline(1, color="black", lw=0.8, ls=":")
+    ax.set_xticks(list(range(len(ratios))))
+    ax.set_xticklabels(list(ratios.keys()), fontsize=8)
+    ax.set_ylabel("TRIBE / text-feature movement ratio")
+    ax.set_title("C. Parameter/Frobenius movement differs")
+    ax.legend(fontsize=7, loc="upper left")
+
+    ax = axes[1, 1]
+    participant = e025["analyses"]["layer7:primary"]["tribe_minus_textfeat"]["participant"]
+    by_uid = sorted(participant["by_uid"].items(), key=lambda item: int(item[0]))
+    px = list(range(len(by_uid)))
+    values = [value for _, value in by_uid]
+    ax.scatter(px, values, color=["C2" if value > 0 else "C3" for value in values], s=36)
+    mean_x = len(by_uid) + 0.35
+    ci = participant["ci95"]
+    ax.errorbar(
+        [mean_x],
+        [participant["mean"]],
+        yerr=[[participant["mean"] - ci[0]], [ci[1] - participant["mean"]]],
+        fmt="D",
+        color="black",
+        capsize=4,
+        label="participant mean and 95% CI",
+    )
+    ax.axhline(0, color="black", lw=0.8, ls=":")
+    sesoi = e025["design"]["sesoi_unique_r2"]
+    ax.axhline(sesoi, color="C4", lw=1.2, ls="--",
+               label=f"predeclared SESOI {sesoi:+.3f}")
+    ax.set_xticks(px + [mean_x])
+    ax.set_xticklabels([uid for uid, _ in by_uid] + ["mean"], rotation=45, fontsize=7)
+    ax.set_ylabel("participant TRIBE − text-feature $\Delta$ unique $R^2$")
+    ax.set_title("D. Primary relative contrast falls below SESOI")
+    ax.legend(fontsize=7, loc="upper right")
+
+    fig.suptitle("Proxy learnability, control matching, model movement, and transfer are distinct gates")
+    fig.tight_layout()
+    fig.savefig(OUT / "fig09_identification_chain.png", dpi=180)
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     fig1_dose_response()
     fig2_collapse()
@@ -234,4 +357,5 @@ if __name__ == "__main__":
     fig6_quality_alignment()
     fig7_intervention_forest()
     fig8_synthetic_transfer()
-    print(f"\nwrote 7 figures to {OUT}")
+    fig9_identification_chain()
+    print(f"\nwrote 8 figures to {OUT}")

@@ -21,10 +21,10 @@ Table~\ref{tab:results-map} summarizes where the sequence passed, failed, or sto
     Is alignment measurable beyond recorded nuisance features? & \evd{E002}\evd{E006} & Five contiguous folds on one averaged ROI target; one participant with 20 stories arranged into five held-out-story folds & Positive trained--untrained gaps on Tuckute and conditional UTS03 evidence; no participant-population claim. \\
     Does ordinary KD preserve it, and how does quality enter? & \evd{E003}\evd{E015} & Fixed averaged benchmark; family clusters rather than individual models & Partial preservation with genuine headroom; alignment is coupled to language-model quality, but not determined by it. \\
     Does a brain loss move held-out alignment? & \evd{E004}\evd{E005} & Five fold means after averaging seeds within fold & Small averaged-target trends; no reliable near-rate gain at the valid fold unit. \\
-    Does the effect generalize across people? & \evd{E008}\evd{E010}\evd{E014}\evd{E025} & Nine participants; subset curves and technical seeds are sensitivity axes & No mean per-individual gain for either recorded or synthetic-target interventions; averaging raises SNR and changes the estimand, while the proposed dose response does not identify a causal law. \\
+    Does the effect generalize across people? & \evd{E008}\evd{E010}\evd{E014}\evd{E025} & Nine participants; subset curves and technical seeds are sensitivity axes & No predeclared-meaningful cohort-mean gain for either recorded or synthetic-target interventions; averaging raises SNR and changes the estimand, while the proposed dose response does not identify a causal law. \\
     Do stronger or different optimization regimes rescue it? & \evd{E011}\evd{E013}\evd{E017} & Nine participants for ROI tests; one- and three-participant feasibility probes for voxelwise tests & Extra LoRA capacity, contrastive loss, voxelwise mean-squared error, and full fine-tuning do not produce a demonstrated brain-specific gain in the tested regimes. \\
     Does the signal improve a practical learning outcome? & \evd{E009}\evd{E024} & Eight training seeds on fixed out-of-domain sets; seven paragraph clusters for the gaze gate & No detected out-of-domain-perplexity payoff when the manipulation is unreliable; the privileged-information experiment stops because its information and split preconditions fail. \\
-    Does a dense synthetic brain target solve the bottleneck? & \evd{E020}\evd{E016}\evd{E025} & One six-participant story diagnostic; six training seeds on a fixed averaged endpoint; nine participant units on the follow-up & The empirical ceiling instrument is too noisy to close the ceiling; target fit and model movement succeed, but a $+0.002$ participant-mean biological transfer is excluded for the tested Tuckute cohort. \\
+    Does a dense synthetic brain target solve the bottleneck? & \evd{E020}\evd{E016}\evd{E025}\evd{E026} & One six-participant story diagnostic; six training seeds on a fixed averaged endpoint; nine participant units on the follow-up; two deterministic target samples & Target fit and movement succeed, but the saved control fails measured-axis comparability; the primary relative upper bound excludes $+0.002$, while direct TRIBE-minus-KD is near zero with CI below that threshold for the tested cohort. \\
     \bottomrule
   \end{tabular}}
 \end{table}
@@ -315,7 +315,7 @@ E024 never reaches the intervention because the clean natural-reading privileged
 Together they show why practical claims require a verified chain from target information to representation movement to held-out task performance.
 They do not establish that every neural or cognitive signal lacks practical value.
 
-\subsection{Synthetic-target improvement does not transfer to the common real-brain endpoint}
+\subsection{Separating synthetic-target learnability, control identification, and biological transfer}
 \label{sec:results-synthetic}
 
 E020 first asks whether the part of fMRI not shared across participants contains alignment with a common stimulus representation.
@@ -334,13 +334,13 @@ E016 then asks a different question: whether a dense stimulus-derived brain targ
 TRIBE v2 is a pretrained multimodal model that predicts high-resolution cortical fMRI responses for new stimuli \autocite{dascoli2026}.
 E016 uses its 20,484 predicted cortical values per text stimulus as a synthetic neural target, not as newly recorded fMRI.
 TRIBE and a projected teacher-hidden-state control each define their own synthetic target; KD-only and block-permuted variants provide within-target references.
-The two synthetic target spaces are dimension-matched in the training harness but differ in rank, geometry, and baseline difficulty, so their raw target-$R^2$ values are not directly commensurate \evd{E016}.
+The two synthetic target spaces are dimension-matched in the training harness, but E016 did not establish that they were matched in information, geometry, baseline difficulty, or optimization \evd{E016}.
 
 Across six training seeds, TRIBE-target training improves its held-out synthetic target $R^2$ over KD-only by \result{e016_tribe_synth_gain}.
 The projected text-feature target improves its own endpoint by \result{e016_textfeat_synth_gain} \evd{E016}.
 The maximum relative perplexity deviation across the checked target and control arms is $0.009220$ \evd{E016}.
-The supported synthetic claim is therefore that TRIBE beats this particular sentence-local projected teacher-hidden-state control on their respective endpoints under nearly unchanged language quality.
-It does not establish superiority over matched-information controls, non-stimulus information, or brain specificity.
+The supported within-target claim is therefore that TRIBE training improves prediction of its own target under nearly unchanged language quality.
+The larger TRIBE gain than the sentence-local projected teacher-hidden-state gain is a numerical cross-target contrast whose content-specific interpretation requires a comparable control.
 
 The saved students are then scored on one common Tuckute endpoint.
 Synthetic training uses layer 6, while the real-brain evaluation uses layer 7 and the same five-participant/five-ROI average for every seed \evd{E016}.
@@ -366,12 +366,33 @@ That upper bound is below the predeclared $+0.002$ minimally meaningful effect, 
 Only four of nine participants are positive, the median is $-0.000023$, and removing the highest-baseline participant changes the mean to $-0.000131$ \evd{E025}.
 TRIBE-minus-KD itself is \result{e025_tribe_kd}, so the small positive relative contrast is not a direct biological-alignment gain from TRIBE.
 Imageability adjustment remains near zero, while the broader nuisance stress test and layer-6 sensitivity are negative.
-Thus successful proxy learning, detectable student movement, and matched language quality do not produce participant-general biological transfer on this fixed cohort and sentence/ROI substrate.
-The result excludes the predeclared effect size for this cohort rather than establishing an exact zero or a universal impossibility.
+Thus successful proxy learning, detectable student movement, and matched language quality do not demonstrate predeclared-meaningful participant-general transfer on this fixed cohort and sentence/ROI substrate.
+The primary relative result excludes the predeclared effect size for this cohort rather than establishing an exact zero or a universal impossibility.
 
 \begin{figure}[t]
   \centering
   \safeimage[width=0.94\textwidth]{../figures/fig08_synthetic_transfer.png}
-  \caption{E016 separates proxy optimization from biological transfer. Panel A shows each seed's gain on its respective synthetic endpoint; the projected text-feature control is dimension-matched but not information-matched. Panel B shows the TRIBE-minus-text-feature margin on one common Tuckute endpoint, with all six margins below zero. E025 separately supplies participant-level inference by rescoring nine individual Tuckute participants; those results are reported in the text because this figure retains the frozen E016 seed-level estimand \evd{E016}\evd{E025}.}
+  \caption{E016 separates proxy optimization from biological transfer. Panel A shows each seed's gain on its respective synthetic endpoint; the projected text-feature control is dimension-matched but was not demonstrated to be information- or optimization-matched. Panel B shows the TRIBE-minus-text-feature margin on one common Tuckute endpoint, with all six margins below zero. E025 separately supplies participant-level inference, and E026 measures the comparator mismatch; this figure retains the frozen E016 seed-level estimand \evd{E016}\evd{E025}\evd{E026}.}
   \label{fig:synthetic-transfer}
+\end{figure}
+
+E026 tests the missing control-identification condition without retraining and without loading or consuming participant-outcome data \evd{E026}.
+Under the frozen conjunction, \result{e026_check_split} measured-axis checks fail, with one additional check unresolved.
+The mismatch begins before intervention: mean KD-only target $R^2$ is \result{e026_kd_targets} for TRIBE and textfeat, respectively, leaving \result{e026_headroom_ratio} times as much mean headroom for TRIBE.
+Across two disjoint target samples, normalized covariance-spectrum log-RMS differences are \result{e026_spectrum_rms}, and absolute stable-rank log-ratios are \result{e026_stable_rank_log_gaps}; all exceed their predeclared margins.
+Low-level nuisance predictability differs by \result{e026_lowlevel_gaps} held-out $R^2$ across the two coordinate samples.
+After training, all six global relative-parameter-update ratios and all six layer-6 centered relative-Frobenius movement ratios fail their margins.
+This is not total non-parity: standardized global scale, most valid within-document autocorrelation checks, power-spectrum shape, and static-unique target predictability pass their margins, while four of six CKA-distance checks pass.
+Initial-gradient comparability is unknown because the required values were not retained, and lag 1024 is unresolved because no valid within-document pairs exist.
+
+The audit therefore shows that the saved text-feature arm fails the predeclared measured-axis comparability conjunction; it does not establish universal or information-theoretic incomparability.
+Because textfeat is a Gaussian projection of the same GPT-2-medium teacher representation used for KD, its high KD baseline and low remaining headroom are consistent with same-teacher redundancy; this is a mechanism hypothesis rather than a causal result.
+E026 does not identify which mismatch produced the cross-target gain, show that TRIBE contains unique biological information, or explain E025's transfer failure.
+It removes the raw TRIBE-minus-textfeat proxy-gain difference as evidence of brain specificity while leaving E016's within-target learnability result and E025's near-zero direct TRIBE-minus-KD contrast intact.
+
+\begin{figure}[H]
+  \centering
+  \safeimage[width=0.98\textwidth]{../figures/fig09_identification_chain.png}
+  \caption{The dense-proxy intervention separates four evidential gates. Panel A distinguishes KD baseline headroom (dashed outline) from target-training gain and post-training residual headroom. Panel B shows cumulative standardized covariance mass on two fixed samples. Panel C shows six-seed global-parameter and layer-6 centered-Frobenius movement ratios against the frozen $|\log r|\leq0.10$ band; CKA comparability is mixed and reported in text. Panel D shows E025's primary participant-first TRIBE-minus-textfeat contrast and predeclared $+0.002$ threshold. That relative contrast remains numerically valid but cannot identify target content after E026; the separate direct TRIBE-minus-KD mean is \result{e025_tribe_kd}, CI95 \result{e025_tribe_kd_ci} \evd{E025}\evd{E026}.}
+  \label{fig:identification-chain}
 \end{figure}

@@ -2,10 +2,11 @@
 
 This thesis tested a transition that brain-alignment research often leaves implicit: from using a linear encoding score to describe a trained model to using the same kind of signal to shape a smaller model during knowledge distillation.
 The transition requires more than a positive brain score.
-The score must survive controls for nuisance structure and leakage, ordinary distillation must leave meaningful headroom, a neural objective must move held-out alignment beyond a target-specific control at comparable language quality, the effect must generalize at the intended biological inference unit, and the resulting change must transfer to an independent neural or practical endpoint.
+The score must survive controls for nuisance structure and leakage, ordinary distillation must leave meaningful headroom, a neural objective and its control must be comparable before their target gains are interpreted, the intervention must move held-out alignment at comparable language quality, the effect must generalize at the intended biological inference unit, and the resulting change must transfer to an independent neural or practical endpoint.
 The experimental program evaluated those requirements in sequence rather than treating them as one claim.
 
 The resulting answer is bounded and consistent.
+In the dense-proxy branch, target learning and student movement succeed, but the saved control fails measured-axis comparability; the primary TRIBE-minus-textfeat upper bound excludes its predeclared $+0.002$ activation effect, while direct TRIBE-minus-KD is \result{e025_tribe_kd}, CI95 \result{e025_tribe_kd_ci}, for the tested cohort \evd{E025}\evd{E026}.
 Middle-layer representations carry a measurable language-training signal under the recorded controls, but plain distillation's alignment loss remains entangled with language quality; the tested alignment objectives do not establish a reliable participant-level gain; capacity, loss-form, voxelwise, and full-fine-tuning variants do not rescue the intervention; and neither the tested downstream routes nor the dense synthetic proxy demonstrates real-brain benefit \evd{E002} \evd{E003} \evd{E006} \evd{E008} \evd{E009} \evd{E011} \evd{E013} \evd{E016} \evd{E017} \evd{E024} \evd{E025}.
 These findings do not imply that neural supervision is universally ineffective.
 They show that brain alignment is a valid diagnostic under explicit controls but is not a demonstrated reliable training signal in the compression regimes studied here.

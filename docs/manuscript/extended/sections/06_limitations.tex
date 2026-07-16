@@ -38,7 +38,7 @@ E004 has five valid seed-averaged fold units, and its corrected interval cannot 
 Several sensitivity analyses reuse folds, stories, or participants and are therefore not independent replications.
 The block-permutation implementation can leave some target rows fixed, so it is treated as a sensitivity control rather than an exact marginal-preserving randomization null \evd{E016}.
 Minimum-detectable-effect calculations bound the tested contrasts but do not convert a null into evidence of exact zero.
-E008 excludes its predeclared $+0.003$ effect, and E025 excludes a $+0.002$ synthetic-target transfer effect for the same nine-participant substrate under their respective participant-level intervals \evd{E008}\evd{E025}.
+E008 excludes its predeclared $+0.003$ effect, while E025's primary TRIBE-minus-textfeat interval excludes its $+0.002$ activation effect for the same nine-participant substrate; the separate direct TRIBE-minus-KD interval also lies below $+0.002$ \evd{E008}\evd{E025}.
 Smaller effects and effects in other regimes remain possible.
 Other nulls are correspondingly narrower when their valid unit count is smaller or when the intervention itself fails to move the representation.
 
@@ -50,11 +50,12 @@ These experiments test whether the reported mechanisms transfer into the availab
 
 \subsection{Synthetic-target comparability}
 
-TRIBE and textfeat have the same nominal output width but different rank, geometry, and baseline difficulty.
-Their held-out target $R^2$ values are therefore meaningful within target family, not as a shared cross-family scale \evd{E016}.
+TRIBE and textfeat have the same nominal output width, but E026 finds that the saved targets fail predeclared comparability criteria for covariance geometry, effective rank, KD baseline predictability and headroom, low-level nuisance predictability, global parameter displacement, and centered-Frobenius representation movement \evd{E026}.
+Their held-out target $R^2$ values are therefore meaningful within target family, not as a content-identifying shared cross-family scale.
+Some measured properties do match, including standardized global scale, most tested order and power summaries, and static-unique predictability; initial-gradient matching remains unknown, and the audit never tests information equivalence.
 E016's original transfer endpoint averages five participants and five ROIs, and its synthetic objective and transfer readout use different student layers.
 E025 rescoring supplies participant-level inference for nine complete participants, but all participants share one isolated-sentence corpus and the same five language ROIs \evd{E025}.
-The text-feature arm is still only dimension-matched, and the defective permutation cannot identify brain-specific content.
+The measured-axis failure settles that the saved text-feature arm cannot identify brain-specific content in the cross-target gain comparison, while the defective permutation remains unsuitable as an exact target-specific null.
 
 \subsection{Downstream-task coverage}
 

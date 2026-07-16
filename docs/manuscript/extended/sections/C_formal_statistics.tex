@@ -70,6 +70,10 @@ An inference unit is the independently varying entity over which an uncertainty 
 Training seeds quantify optimizer variability, contiguous test folds quantify sensitivity to stimulus blocks, voxels quantify spatial measurement breadth, and participants quantify biological population variation.
 These units answer different questions and cannot be substituted by multiplying their counts.
 
+E026 uses two disjoint deterministic item samples to test the stability of fixed target-geometry summaries; they are not population replicates and receive no confidence intervals or $p$ values \evd{E026}.
+Its six paired seeds are technical realizations of the frozen training procedure.
+Reported seed intervals are descriptive $t$ intervals, and the exact $2^6$ magnitude-preserving sign-flip test relies on exchangeability of paired seed-contrast signs under the sharp null; neither device licenses biological or target-population inference.
+
 E004 and E005 used three seeds and five rotating folds, producing 15 observed seed--fold cells.
 Because seeds within one fold share the same held-out stimulus block and fold effects dominate the contrast, treating all 15 cells as independent understates uncertainty.
 E004's mean Qwen contrast was \result{e004_qwen_specific}, but the five-fold $t$ interval was \result{e004_qwen_fold_ci}, and leaving out the influential fourth fold reduced the mean to \result{e004_qwen_lofo}. \evd{E004}
