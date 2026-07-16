@@ -32,6 +32,10 @@
 \DeclareResult{e016_tribe_synth_gain}{$+0.078298$}                      % [E016] TRIBE-target R2 gain over KD, six seeds
 \DeclareResult{e016_textfeat_synth_gain}{$+0.000903$}                   % [E016] textfeat-target R2 gain over KD, six seeds
 \DeclareResult{e016_transfer_delta}{$-0.001213$}                        % [E016] TRIBE-minus-textfeat Tuckute gain relative to KD
+\DeclareResult{e025_participant_delta}{$+0.000136$}                    % [E025] participant-first TRIBE-minus-textfeat mean, n=9
+\DeclareResult{e025_participant_ci}{[$-0.000505$, $+0.000777$]}        % [E025] participant t-CI95, n=9
+\DeclareResult{e025_participant_ucb}{$+0.000653$}                      % [E025] one-sided participant upper 95%, below +0.002 SESOI
+\DeclareResult{e025_tribe_kd}{$-0.000014$}                             % [E025] direct TRIBE-minus-KD participant mean
 \DeclareResult{e003_kd_cold_delta}{$+0.0181$}                           % [E003] cold-init KD gap vs teacher (p<0.001); 4-dp matches the E003 table
 \DeclareResult{e003_kd_cold_retention}{$0.37$ [$0.14$, $0.58$]}         % [E003] cold-init floor-anchored retention rho' + bootstrap CI
 \DeclareResult{e003_quality_corr}{$-0.88$}                              % [E003] Pearson r, alignment vs log-perplexity across arms (L011)

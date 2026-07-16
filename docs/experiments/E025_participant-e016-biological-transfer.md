@@ -6,7 +6,7 @@ aliases: [E025]
 
 # Experiment — E025: participant-level E016 biological transfer
 
-**Created:** 2026-07-16 · **Status:** DESIGN LOCKED — no E025 endpoint has been scored; `/precheck` passed · **Mode:** working
+**Created:** 2026-07-16 · **Status:** RESULT COMPLETE — result oracle PASS; participant-positive Package C branch KILLED · **Mode:** working
 **Direction:** Conference-extension prerequisite shared by Packages A and C in [D057](../decisions/decisions.md). This resolves the participant-scope limitation in [E016](E016_tribe-synthetic-brain-targets.md) without retraining.
 **Predecessors:** [E008](E008_per-participant-f1-solidification.md) for participant/fold inference and UID exclusion; [E016](E016_tribe-synthetic-brain-targets.md) for the six saved TRIBE and text-feature branches.
 
@@ -118,7 +118,58 @@ No retraining. Process 30 expected unique GPT-2 students (six shared KD, 12 TRIB
 
 ## Results
 
-`\gap` — not run.
+### Claim-intent-manifest
+
+- **Claim under test:** the learnable, quality-matched TRIBE intervention transfers participant-generally to individual recorded brains beyond the saved dimension-matched text-feature intervention.
+- **Decision intent:** determine whether E016 licenses Package C's prospective matched-control construction, or instead supplies Package A with a manipulation-success/biological-transfer-failure case. It cannot decide brain specificity.
+- **Frozen evidence:** metadata manifest `2729c0c97b2f845ccf8f58a13e01ecf87f44029564ca615269230437de46698d`; extraction/gates `b49c2795c55961cae161084afa1d3409dd662b893f9a40fa6a4e9373bc2c84c5`; raw 9,720-row fold grid `a5cd356b637472fd76ac31ccccbebc249459ea14f52e355007e06a3ff469dad2`; preregistered analysis `9a43410bfafced8130d286faa8c011c6e2097707979d476b5ce01d9ec44f106c`.
+- **Would overturn:** all locked quality/manipulation gates plus the `+0.002` participant-CI, sign, seed, participant/block LOO, heldout, direct TRIBE-minus-KD, drop-highest-baseline, and imageability criteria; or a stable predeclared train-four/held-out-five subgroup.
+- **SCR prediction before independent recomputation:** E016's prior real-brain transfer result made a negative or near-zero participant contrast more likely than a hidden stable positive. The observed mean was slightly positive, but its median, direct TRIBE gain, participant distribution, and SESOI interval reconcile it with the predicted near-zero failure rather than with Package C activation.
+
+### Pre-scoring gates
+
+All three gates passed, so the biological endpoint is interpretable rather than a failed-manipulation null.
+
+| Gate | Result |
+|---|---:|
+| language-quality equivalence | PASS; all 18 direct bpb comparisons within `0.005`; maximum absolute difference `0.002579`; all retained perplexities reproduced |
+| target-directed learning | PASS; TRIBE mean target-R2 gain `+0.078298`, CI95 `[+0.077198,+0.079398]`; text-feature `+0.000903`, CI95 `[+0.000649,+0.001157]`; all six seeds positive in both families |
+| WikiText layer-6 representation movement | PASS; all 12 target-arm/seed rows pass; seed-0 deterministic duplicate noise is exactly zero |
+
+TRIBE nevertheless moved farther in centered Frobenius distance than text-feature supervision in all six seeds (means `0.2151` versus `0.1348`), while mean CKA distances were similar (`0.00513` versus `0.00543`). These are manipulation diagnostics, not biological replicates.
+
+### Primary participant result
+
+At fixed layer 7 and the primary nuisance set, participant-first TRIBE-minus-text-feature transfer was:
+
+| Estimand | Result |
+|---|---:|
+| participant mean | `+0.00013634` unique-R2 |
+| two-sided t-CI95 | `[-0.00050461,+0.00077730]` |
+| one-sided 95% upper bound | `+0.00065320`, below the `+0.002` SESOI |
+| participant median | `-0.00002346` |
+| signs | `4/9` positive; exact sign `p=1.0` |
+| Wilcoxon | `p=0.5703` |
+| observed SD / 80% MDE | `0.00083385` / `0.00088969` |
+| power at `+0.002` | `0.999988` |
+
+Participant effects were UID 797 `-0.00023801`, 837 `+0.00227168`, 841 `+0.00000452`, 848 `-0.00002346`, 856 `-0.00022167`, 865 `-0.00064994`, 875 `+0.00009116`, 876 `-0.00013023`, and 880 `+0.00012305`. UID 837 was both the highest-KD-alignment participant and the only clear positive. Dropping it changed the cohort mean to `-0.00013057`. The train-four mean was `-0.00017812`, CI95 `[-0.00069890,+0.00034266]`; the held-out-five mean was `+0.00038791`, CI95 `[-0.00093332,+0.00170915]`. Neither subgroup met its stability rule.
+
+Five seed aggregates were positive but seed 0 was negative. Four of five shared stimulus-block means were positive; every leave-one-block-out mean remained positive, so no single block explains the failure. The participant criterion failed: removing UID 837 reverses the estimate, only 4/9 participants are positive, and TRIBE-minus-KD itself is `-0.00001376`, CI95 `[-0.00073864,+0.00071112]`. The small positive relative contrast partly arises because text-feature-minus-KD is negative (`-0.00015010`).
+
+### Locked sensitivities and supplemental defective control
+
+Imageability adjustment remained near zero: `+0.00012941`, CI95 `[-0.00050061,+0.00075942]`. The non-primary full-covariate stress test was `-0.00007648`, CI95 `[-0.00074842,+0.00059547]`. Layer 6 was `-0.00006419`, CI95 `[-0.00072599,+0.00059762]`; there is no layer-displacement rescue.
+
+The frozen analyzer omitted the explicitly predeclared defective-permutation sensitivity. An independent supplemental recomputation of `[TRIBE MSE - TRIBE perm] - [text-feature MSE - text-feature perm]` gave `+0.00011589`, CI95 `[-0.00045539,+0.00068717]`, median `-0.00001304`, and `4/9` positives. It agrees with the primary pattern but remains descriptive and non-load-bearing because E016's permutation duplicated/omitted rows and left up to 30% in place.
+
+### Independent audit and result verdict
+
+The `stat-aggregation-auditor` independently reconstructed the exact grid, cache chain, KD aliases, participant-first contrasts, uncertainty, power, nuisance/layer sensitivities, and classification without consulting `analysis.json` until its numbers were fixed. It matched all 1,807 analysis leaves with zero substantive mismatches (maximum numerical difference `1.73e-18`). Result-oracle verdict: **PASS**; positive-branch verdict: **KILL**; `PANEL-CLEAN: YES`.
+
+**Mechanical classification:** `practically_meaningful_positive_excluded_for_tested_cohort`. Under the predeclared participant-level t interval, a mean effect of `+0.002` unique-R2 is excluded for these nine Tuckute participants and this fixed sentence/ROI substrate. This is not evidence that the true effect is exactly zero, that every participant fails, or that brain supervision can never help.
+
+**Package consequence:** E025 does not activate Package C or license E027. It strengthens Package A with a clean separation: the auxiliary target was learned, the model moved, and language quality was matched, but participant-general biological value did not transfer. E026 remains useful for diagnosing why the existing text-feature comparison is not an identified brain-specificity control; no prospective matched-control training is authorized from E025.
 
 ## Related
 

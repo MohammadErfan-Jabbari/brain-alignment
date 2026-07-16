@@ -21,10 +21,10 @@ Table~\ref{tab:results-map} summarizes where the sequence passed, failed, or sto
     Is alignment measurable beyond recorded nuisance features? & \evd{E002}\evd{E006} & Five contiguous folds on one averaged ROI target; one participant with 20 stories arranged into five held-out-story folds & Positive trained--untrained gaps on Tuckute and conditional UTS03 evidence; no participant-population claim. \\
     Does ordinary KD preserve it, and how does quality enter? & \evd{E003}\evd{E015} & Fixed averaged benchmark; family clusters rather than individual models & Partial preservation with genuine headroom; alignment is coupled to language-model quality, but not determined by it. \\
     Does a brain loss move held-out alignment? & \evd{E004}\evd{E005} & Five fold means after averaging seeds within fold & Small averaged-target trends; no reliable near-rate gain at the valid fold unit. \\
-    Does the effect generalize across people? & \evd{E008}\evd{E010}\evd{E014} & Nine participants; subset curves are sensitivity analyses & No mean per-individual gain; averaging raises SNR and changes the estimand, while the proposed dose response does not identify a causal law. \\
+    Does the effect generalize across people? & \evd{E008}\evd{E010}\evd{E014}\evd{E025} & Nine participants; subset curves and technical seeds are sensitivity axes & No mean per-individual gain for either recorded or synthetic-target interventions; averaging raises SNR and changes the estimand, while the proposed dose response does not identify a causal law. \\
     Do stronger or different optimization regimes rescue it? & \evd{E011}\evd{E013}\evd{E017} & Nine participants for ROI tests; one- and three-participant feasibility probes for voxelwise tests & Extra LoRA capacity, contrastive loss, voxelwise mean-squared error, and full fine-tuning do not produce a demonstrated brain-specific gain in the tested regimes. \\
     Does the signal improve a practical learning outcome? & \evd{E009}\evd{E024} & Eight training seeds on fixed out-of-domain sets; seven paragraph clusters for the gaze gate & No detected out-of-domain-perplexity payoff when the manipulation is unreliable; the privileged-information experiment stops because its information and split preconditions fail. \\
-    Does a dense synthetic brain target solve the bottleneck? & \evd{E020}\evd{E016} & One six-participant story diagnostic; six training seeds on one fixed averaged endpoint & The empirical ceiling instrument is too noisy to close the ceiling; synthetic-target fit improves, but the improvement does not transfer to the real-brain endpoint. \\
+    Does a dense synthetic brain target solve the bottleneck? & \evd{E020}\evd{E016}\evd{E025} & One six-participant story diagnostic; six training seeds on a fixed averaged endpoint; nine participant units on the follow-up & The empirical ceiling instrument is too noisy to close the ceiling; target fit and model movement succeed, but a $+0.002$ participant-mean biological transfer is excluded for the tested Tuckute cohort. \\
     \bottomrule
   \end{tabular}}
 \end{table}
@@ -359,9 +359,19 @@ E016 instead creates a target that is dense and learnable by construction, then 
 Its negative common-endpoint margin is stronger than a failure to fit the proxy because the proxy fit succeeds in every seed.
 It remains narrower than a biological ceiling because the transfer endpoint is fixed, participant-averaged, and evaluated at a different student layer.
 
+E025 removes the participant-averaging limitation by rescoring the same saved students separately for the nine complete Tuckute participants \evd{E025}.
+The language-quality, target-directed-learning, and representation-movement gates all pass: TRIBE target-$R^2$ increases by \result{e016_tribe_synth_gain}, every seed moves detectably from its KD initialization, and the largest direct target/KD or between-target language-quality difference is $0.002579$ bits per byte \evd{E025}.
+The participant-first TRIBE-minus-text-feature mean is \result{e025_participant_delta}, with CI95 \result{e025_participant_ci} and a one-sided upper bound of \result{e025_participant_ucb} \evd{E025}.
+That upper bound is below the predeclared $+0.002$ minimally meaningful effect, while the observed 80\% MDE is $0.000890$ \evd{E025}.
+Only four of nine participants are positive, the median is $-0.000023$, and removing the highest-baseline participant changes the mean to $-0.000131$ \evd{E025}.
+TRIBE-minus-KD itself is \result{e025_tribe_kd}, so the small positive relative contrast is not a direct biological-alignment gain from TRIBE.
+Imageability adjustment remains near zero, while the broader nuisance stress test and layer-6 sensitivity are negative.
+Thus successful proxy learning, detectable student movement, and matched language quality do not produce participant-general biological transfer on this fixed cohort and sentence/ROI substrate.
+The result excludes the predeclared effect size for this cohort rather than establishing an exact zero or a universal impossibility.
+
 \begin{figure}[t]
   \centering
   \safeimage[width=0.94\textwidth]{../figures/fig08_synthetic_transfer.png}
-  \caption{E016 separates proxy optimization from biological transfer. Panel A shows each seed's gain on its respective synthetic endpoint; the projected text-feature control is dimension-matched but not information-matched. Panel B shows the TRIBE-minus-text-feature margin on one common Tuckute endpoint, with all six margins below zero. The seeds quantify training variability for this fixed averaged target, not participant or population uncertainty \evd{E016}.}
+  \caption{E016 separates proxy optimization from biological transfer. Panel A shows each seed's gain on its respective synthetic endpoint; the projected text-feature control is dimension-matched but not information-matched. Panel B shows the TRIBE-minus-text-feature margin on one common Tuckute endpoint, with all six margins below zero. E025 separately supplies participant-level inference by rescoring nine individual Tuckute participants; those results are reported in the text because this figure retains the frozen E016 seed-level estimand \evd{E016}\evd{E025}.}
   \label{fig:synthetic-transfer}
 \end{figure}

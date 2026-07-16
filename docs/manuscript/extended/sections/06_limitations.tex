@@ -4,7 +4,7 @@
 
 The voxelwise measurability result is conditional on one deeply sampled participant, UTS03.
 Spatially dependent voxels increase resolution but do not provide population replication, and the five story folds share training stories \evd{E006}.
-The primary intervention generalization test includes nine participants exposed to the same 1000 sentences, so participant diversity and stimulus diversity are both limited \evd{E008}.
+The primary intervention generalization tests include nine participants exposed to the same 1000 sentences, so participant diversity and stimulus diversity are both limited \evd{E008}\evd{E025}.
 The three-participant LeBel intervention variants are existence probes rather than population estimates \evd{E013} \evd{E017} \evd{E019}.
 These limitations are asymmetric: a controlled within-participant positive can establish that a signal exists under that participant's measurement process, while a within-participant null cannot establish absence across the population.
 A decisive population claim would require more independently sampled people, prespecified participant-level aggregation, and an effect large enough to survive between-person heterogeneity.
@@ -38,7 +38,8 @@ E004 has five valid seed-averaged fold units, and its corrected interval cannot 
 Several sensitivity analyses reuse folds, stories, or participants and are therefore not independent replications.
 The block-permutation implementation can leave some target rows fixed, so it is treated as a sensitivity control rather than an exact marginal-preserving randomization null \evd{E016}.
 Minimum-detectable-effect calculations bound the tested contrasts but do not convert a null into evidence of exact zero.
-The strongest null in the thesis is E008 because its participant-level interval excludes the predeclared $+0.003$ effect under the tested ROI regime; smaller effects and effects in other regimes remain possible \evd{E008}.
+E008 excludes its predeclared $+0.003$ effect, and E025 excludes a $+0.002$ synthetic-target transfer effect for the same nine-participant substrate under their respective participant-level intervals \evd{E008}\evd{E025}.
+Smaller effects and effects in other regimes remain possible.
 Other nulls are correspondingly narrower when their valid unit count is smaller or when the intervention itself fails to move the representation.
 
 \subsection{External reproduction}
@@ -51,8 +52,9 @@ These experiments test whether the reported mechanisms transfer into the availab
 
 TRIBE and textfeat have the same nominal output width but different rank, geometry, and baseline difficulty.
 Their held-out target $R^2$ values are therefore meaningful within target family, not as a shared cross-family scale \evd{E016}.
-The transfer endpoint averages five participants and five ROIs, and the synthetic objective and transfer readout use different student layers.
-Six stochastic seeds over this one fixed endpoint support a training-seed diagnostic, not participant- or population-level inference.
+E016's original transfer endpoint averages five participants and five ROIs, and its synthetic objective and transfer readout use different student layers.
+E025 rescoring supplies participant-level inference for nine complete participants, but all participants share one isolated-sentence corpus and the same five language ROIs \evd{E025}.
+The text-feature arm is still only dimension-matched, and the defective permutation cannot identify brain-specific content.
 
 \subsection{Downstream-task coverage}
 

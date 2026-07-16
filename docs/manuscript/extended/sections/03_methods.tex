@@ -312,3 +312,9 @@ Saved students pass through a separate transfer gate on 1,000 Tuckute sentences 
 For each seed, the primary contrast subtracts the textfeat-over-KD real-brain gain from the TRIBE-over-KD real-brain gain.
 The inference unit is six training seeds evaluated on one fixed participant-averaged endpoint.
 The exact sign test therefore supports a statement about repeatability across training seeds for that endpoint, not participant- or population-level biological generalization.
+
+E025 reuses the saved E016 students without retraining and replaces the participant-averaged transfer endpoint with the nine complete Tuckute participants, excluding UID 853 under the established incomplete-ROI rule \evd{E025}.
+Layer 7 is primary and layer 6 is a mechanistic sensitivity; each participant, model, and seed is scored with the same five contiguous folds, rank-50 fold-fitted nuisance/static/contextual decomposition, and fixed language ROIs \evd{E025}.
+Seeds are crossed technical realizations and are averaged before participant inference, leaving the participant as the sole biological inference unit.
+The predeclared activation threshold is $+0.002$ unique $R^2$, with participant, seed, participant- and block-leave-one-out, held-out-subgroup, direct TRIBE-over-KD, baseline-leverage, and imageability conditions evaluated conjunctively \evd{E025}.
+Direct bits per byte, retained target learning, and deterministic representation movement are checked before participant inference; failure of any manipulation gate makes the endpoint descriptive rather than evidential.

@@ -902,6 +902,18 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Reverses if:** E025/E026 overturn the current E016 scope, a genuinely new theorem makes Package B clearly dominant, a participant-general positive reopens Package C, or a full novelty audit shows Package A is fully subsumed by prior work.
 
+## D058: E025 kills the participant-positive continuation and sharpens Package A (2026-07-16, /work + /interpret)
+
+**Decision.** Do not construct or train E027. E025 passed its language-quality, target-directed-learning, and representation-movement gates, but failed the participant-general biological-transfer gate: TRIBE-minus-text-feature was `+0.000136` unique-R2 across nine Tuckute participants, CI95 `[-0.000505,+0.000777]`, with a one-sided upper bound of `+0.000653` below the predeclared `+0.002` SESOI. Only 4/9 participants were positive; UID 837 supplied the sole clear positive and dropping it reversed the mean. TRIBE-minus-KD itself was `-0.000014`. Observed 80% MDE was `0.000890`, so this is not a power-limited failure to activate. Independent aggregation reproduced every reported statistic and the result oracle returned PASS / positive-branch KILL / `PANEL-CLEAN: YES`.
+
+**Scientific scope.** This excludes a mean `+0.002` participant-level effect only for the fixed nine-participant Tuckute sentence/ROI substrate under the predeclared t-interval. It does not establish an exact zero, universal impossibility, or brain specificity. The existing text-feature control remains dimension-matched rather than geometry-, information-, or learnability-matched; the saved permutation remains defective.
+
+**Package consequence.** Package C remains closed and its E025-dependent E027 activation route is killed. Package A is strengthened because E025 provides a clean intervention-chain separation: auxiliary-target learning succeeds, the student moves, language quality is matched, yet participant-general biological value does not transfer. Continue E026 only as a retrospective target-comparability/identification audit for Package A, not as a license to train a matched control. Package B remains on HOLD pending a genuinely observable certificate with prospective failure/success predictions.
+
+**External consequence.** Make the strongest current positive collision the next Package A test: preregister a corrected, participant-level falsification of Vaidya et al.'s cross-person, cross-stimulus fMRI-to-ECoG transfer. Begin with artifact access and faithful reproduction/corrected reanalysis; phase-randomized and optimization/geometry-matched interventions remain conditional on the corrected participant result surviving.
+
+**Reverses if:** a new predeclared independent substrate shows stable participant-general transfer beyond a learning/geometry-matched nonbrain control at matched quality, or E025's frozen artifacts/statistical reconstruction are invalidated. A positive in one participant, target learnability alone, or model movement alone does not reverse this decision.
+
 ## Related
 
 - [`status.md`](../status.md) — operational authority
