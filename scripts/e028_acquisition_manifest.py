@@ -1,15 +1,22 @@
 #!/usr/bin/env python3
-"""Build a metadata-only acquisition manifest for E028.
+"""Build the metadata-only acquisition manifest for E028.
 
-This script reads remote object listings and small descriptive metadata. It does
-not download neural time series, audio, model weights, checkpoints, or result
-tables, and it does not inspect any endpoint value.
+The program is deliberately incapable of acquiring an E028 endpoint payload. It
+reads OpenNeuro object-listing metadata, a small allowlist of descriptive files,
+GitHub commit metadata, and local filenames/file sizes. It does not download
+audio, neural arrays, model weights, checkpoints, or paper result tables; it
+does not open any neural value; and it does not train or score a model.
+
+The access declarations in the resulting manifest describe this invocation of
+this script only. They make no claim about activity by another process or user.
 """
 
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
+import io
 import json
 import re
 import subprocess
@@ -26,31 +33,58 @@ DEFAULT_OUTPUT = ROOT / "outputs" / "E028" / "acquisition_manifest.json"
 OPENNEURO_BUCKET = "https://s3.amazonaws.com/openneuro.org"
 ECOG_DATASET = "ds005574"
 FMRI_DATASET = "ds003020"
+EXPECTED_ECOG_SNAPSHOT = "1.0.2"
 EXPECTED_ECOG_DOI = "doi:10.18112/openneuro.ds005574.v1.0.2"
 EXPECTED_ECOG_LICENSE = "CC0"
-EXPECTED_ECOG_PARTICIPANTS = 9
-EXPECTED_ECOG_HIGHGAMMA_FILES = 9
+EXPECTED_ECOG_SUBJECTS = tuple(f"sub-{index:02d}" for index in range(1, 10))
 
-HIGHGAMMA_RE = re.compile(
-    r"^ds005574/derivatives/ecogprep/sub-\d{2}/ieeg/"
-    r"sub-\d{2}_task-podcast_desc-highgamma_ieeg\.fif$"
-)
-SUBJECT_METADATA_RE = re.compile(
-    r"^ds005574/sub-\d{2}/ieeg/sub-\d{2}_(?:"
-    r"task-podcast_channels\.tsv|task-podcast_ieeg\.json|"
-    r"space-MNI152NLin2009aSym_electrodes\.tsv|"
-    r"space-MNI152NLin2009aSym_coordsystem\.json)$"
-)
-SMALL_DATASET_KEYS = {
+GLOBAL_REQUIRED_KEYS = (
     "ds005574/CHANGES",
     "ds005574/README",
     "ds005574/dataset_description.json",
     "ds005574/environment.yml",
     "ds005574/participants.json",
     "ds005574/participants.tsv",
+    "ds005574/stimuli/podcast.wav",
     "ds005574/stimuli/podcast_transcript.csv",
-}
-PODCAST_AUDIO_KEY = "ds005574/stimuli/podcast.wav"
+)
+
+HIGHGAMMA_LAYOUT_RE = re.compile(
+    r"^ds005574/derivatives/ecogprep/(?P<directory>sub-\d{2})/ieeg/"
+    r"(?P<filename>sub-\d{2})_task-podcast_desc-highgamma_ieeg\.fif$"
+)
+SUBJECT_METADATA_LAYOUT_RE = re.compile(
+    r"^ds005574/(?P<directory>sub-\d{2})/ieeg/"
+    r"(?P<filename>sub-\d{2})_(?P<role>"
+    r"task-podcast_channels\.tsv|task-podcast_ieeg\.json|"
+    r"space-MNI152NLin2009aSym_electrodes\.tsv|"
+    r"space-MNI152NLin2009aSym_coordsystem\.json)$"
+)
+
+
+def subject_required_keys(subject: str) -> dict[str, str]:
+    """Return the five endpoint/accompanying objects required for one patient."""
+
+    return {
+        "highgamma": (
+            f"ds005574/derivatives/ecogprep/{subject}/ieeg/"
+            f"{subject}_task-podcast_desc-highgamma_ieeg.fif"
+        ),
+        "channels": (
+            f"ds005574/{subject}/ieeg/{subject}_task-podcast_channels.tsv"
+        ),
+        "ieeg_json": (
+            f"ds005574/{subject}/ieeg/{subject}_task-podcast_ieeg.json"
+        ),
+        "electrodes": (
+            f"ds005574/{subject}/ieeg/"
+            f"{subject}_space-MNI152NLin2009aSym_electrodes.tsv"
+        ),
+        "coordsystem": (
+            f"ds005574/{subject}/ieeg/"
+            f"{subject}_space-MNI152NLin2009aSym_coordsystem.json"
+        ),
+    }
 
 
 def sha256_bytes(payload: bytes) -> str:
@@ -65,10 +99,20 @@ def sha256_path(path: Path) -> str:
     return digest.hexdigest()
 
 
+def canonical_sha256(value: Any) -> str:
+    payload = json.dumps(
+        value,
+        ensure_ascii=True,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return sha256_bytes(payload)
+
+
 def fetch_bytes(url: str, timeout: int = 30) -> bytes:
     request = urllib.request.Request(
         url,
-        headers={"User-Agent": "brain-alignment-e028-metadata-audit/1.0"},
+        headers={"User-Agent": "brain-alignment-e028-metadata-audit/2.0"},
     )
     with urllib.request.urlopen(request, timeout=timeout) as response:
         return response.read()
@@ -79,6 +123,8 @@ def fetch_json(url: str) -> dict[str, Any]:
 
 
 def s3_listing(dataset: str) -> list[dict[str, Any]]:
+    """Read one dataset's object metadata; reject rather than hide pagination."""
+
     query = urllib.parse.urlencode(
         {"list-type": "2", "prefix": f"{dataset}/", "max-keys": "1000"}
     )
@@ -88,7 +134,7 @@ def s3_listing(dataset: str) -> list[dict[str, Any]]:
     truncated = root.findtext("s3:IsTruncated", namespaces=namespace)
     if truncated != "false":
         raise RuntimeError(
-            f"{dataset} listing is truncated; pagination must be implemented before use"
+            f"{dataset} listing is truncated; implement pagination before use"
         )
 
     objects: list[dict[str, Any]] = []
@@ -103,26 +149,62 @@ def s3_listing(dataset: str) -> list[dict[str, Any]]:
             {
                 "key": key,
                 "size_bytes": int(size),
+                # Multipart ETags are not content SHA-256 values.
                 "remote_etag_not_sha256": etag.strip('"') if etag else None,
                 "last_modified": modified,
-                "sha256_after_acquisition": None,
+                "sha256_after_future_acquisition": None,
             }
         )
-    return objects
+
+    keys = [item["key"] for item in objects]
+    if len(keys) != len(set(keys)):
+        raise RuntimeError(f"{dataset} listing contains duplicate object keys")
+    return sorted(objects, key=lambda item: item["key"])
 
 
-def remote_small_metadata(dataset: str, names: list[str]) -> dict[str, Any]:
+def listing_identity(objects: list[dict[str, Any]]) -> dict[str, Any]:
+    """Hash exact listing fields, independently of manifest timestamps."""
+
+    rows = [
+        {
+            "key": item["key"],
+            "size_bytes": item["size_bytes"],
+            "remote_etag_not_sha256": item["remote_etag_not_sha256"],
+            "last_modified": item["last_modified"],
+        }
+        for item in objects
+    ]
+    return {
+        "canonical_fields": [
+            "key",
+            "last_modified",
+            "remote_etag_not_sha256",
+            "size_bytes",
+        ],
+        "object_count": len(rows),
+        "canonical_listing_sha256": canonical_sha256(rows),
+    }
+
+
+def remote_small_metadata(
+    dataset: str, names: tuple[str, ...]
+) -> tuple[dict[str, Any], dict[str, bytes]]:
+    """Fetch only explicitly allowed descriptive metadata files."""
+
     result: dict[str, Any] = {}
+    bodies: dict[str, bytes] = {}
     for name in names:
-        payload = fetch_bytes(f"{OPENNEURO_BUCKET}/{dataset}/{name}")
+        url = f"{OPENNEURO_BUCKET}/{dataset}/{name}"
+        payload = fetch_bytes(url)
+        bodies[name] = payload
         result[name] = {
-            "url": f"{OPENNEURO_BUCKET}/{dataset}/{name}",
+            "url": url,
             "size_bytes": len(payload),
             "sha256": sha256_bytes(payload),
         }
         if name == "dataset_description.json":
             result[name]["parsed"] = json.loads(payload.decode("utf-8"))
-    return result
+    return result, bodies
 
 
 def github_head(repository: str) -> dict[str, Any]:
@@ -132,7 +214,7 @@ def github_head(repository: str) -> dict[str, Any]:
         "repository": f"https://github.com/{repository}",
         "commit": data["sha"],
         "committed_at": data["commit"]["committer"]["date"],
-        "archive_sha256_after_acquisition": None,
+        "archive_sha256_after_future_acquisition": None,
     }
 
 
@@ -149,10 +231,13 @@ def git_head(path: Path) -> str | None:
 
 
 def local_lebel_coverage() -> dict[str, Any]:
+    """Inventory names and stat metadata only; never open an hf5 or WAV body."""
+
     root = ROOT / "data" / "lebel_ds003020"
     coverage: dict[str, Any] = {
         "root": str(root),
-        "neural_values_opened": False,
+        "access_scope": "filenames and filesystem stat metadata only",
+        "neural_value_files_opened_by_this_script_run": [],
         "subjects": {},
     }
     for subject in ("UTS01", "UTS02", "UTS03"):
@@ -173,75 +258,216 @@ def local_lebel_coverage() -> dict[str, Any]:
     return coverage
 
 
+def parse_participant_ids(payload: bytes) -> list[str]:
+    reader = csv.DictReader(io.StringIO(payload.decode("utf-8")), delimiter="\t")
+    if reader.fieldnames is None or "participant_id" not in reader.fieldnames:
+        raise RuntimeError("participants.tsv has no participant_id column")
+    ids = [row["participant_id"].strip() for row in reader if row["participant_id"]]
+    if len(ids) != len(set(ids)):
+        raise RuntimeError("participants.tsv contains duplicate participant_id values")
+    return ids
+
+
+def validate_ecog_layout(
+    objects: list[dict[str, Any]], participant_payload: bytes
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Validate exact subjects, required keys, and subject/path agreement."""
+
+    by_key = {item["key"]: item for item in objects}
+    participant_ids = parse_participant_ids(participant_payload)
+    expected_ids = list(EXPECTED_ECOG_SUBJECTS)
+    if participant_ids != expected_ids:
+        raise RuntimeError(
+            "participants.tsv IDs/order differ from exact expected IDs: "
+            f"observed={participant_ids} expected={expected_ids}"
+        )
+
+    missing_global = [key for key in GLOBAL_REQUIRED_KEYS if key not in by_key]
+    if missing_global:
+        raise RuntimeError(f"Missing required global ECoG objects: {missing_global}")
+
+    patient_matrix: dict[str, Any] = {}
+    expected_highgamma: set[str] = set()
+    expected_metadata: set[str] = set()
+    selected_keys: set[str] = set(GLOBAL_REQUIRED_KEYS)
+    for subject in EXPECTED_ECOG_SUBJECTS:
+        roles = subject_required_keys(subject)
+        missing = [role for role, key in roles.items() if key not in by_key]
+        if missing:
+            raise RuntimeError(f"{subject} is missing required roles: {missing}")
+
+        highgamma_match = HIGHGAMMA_LAYOUT_RE.fullmatch(roles["highgamma"])
+        if highgamma_match is None or {
+            highgamma_match.group("directory"),
+            highgamma_match.group("filename"),
+        } != {subject}:
+            raise RuntimeError(f"High-gamma path/filename mismatch for {subject}")
+
+        for role in ("channels", "ieeg_json", "electrodes", "coordsystem"):
+            match = SUBJECT_METADATA_LAYOUT_RE.fullmatch(roles[role])
+            if match is None or {
+                match.group("directory"),
+                match.group("filename"),
+            } != {subject}:
+                raise RuntimeError(
+                    f"Metadata path/filename mismatch for {subject} role={role}"
+                )
+
+        expected_highgamma.add(roles["highgamma"])
+        expected_metadata.update(
+            roles[role]
+            for role in ("channels", "ieeg_json", "electrodes", "coordsystem")
+        )
+        selected_keys.update(roles.values())
+        patient_matrix[subject] = {
+            "highgamma_object_count": 1,
+            "metadata_object_count": 4,
+            "objects_by_role": roles,
+            "path_filename_subject_agreement": True,
+        }
+
+    observed_highgamma = {
+        item["key"] for item in objects if HIGHGAMMA_LAYOUT_RE.fullmatch(item["key"])
+    }
+    observed_metadata = {
+        item["key"]
+        for item in objects
+        if SUBJECT_METADATA_LAYOUT_RE.fullmatch(item["key"])
+    }
+    if observed_highgamma != expected_highgamma:
+        raise RuntimeError(
+            "High-gamma object set differs from the exact one-per-patient set: "
+            f"extra={sorted(observed_highgamma - expected_highgamma)} "
+            f"missing={sorted(expected_highgamma - observed_highgamma)}"
+        )
+    if observed_metadata != expected_metadata:
+        raise RuntimeError(
+            "Patient metadata object set differs from exact four-per-patient set: "
+            f"extra={sorted(observed_metadata - expected_metadata)} "
+            f"missing={sorted(expected_metadata - observed_metadata)}"
+        )
+
+    selected_objects = [by_key[key] for key in sorted(selected_keys)]
+    layout = {
+        "participant_ids_from_tsv": participant_ids,
+        "expected_participant_ids": expected_ids,
+        "required_global_keys": list(GLOBAL_REQUIRED_KEYS),
+        "required_global_key_count": len(GLOBAL_REQUIRED_KEYS),
+        "patient_object_matrix": patient_matrix,
+        "highgamma_object_count": len(observed_highgamma),
+        "patient_metadata_object_count": len(observed_metadata),
+        "all_exact_paths_present": True,
+        "all_path_filename_subjects_agree": True,
+        "one_highgamma_and_four_metadata_objects_per_patient": True,
+    }
+    return layout, selected_objects
+
+
 def build_manifest() -> dict[str, Any]:
     ecog_objects = s3_listing(ECOG_DATASET)
-    ecog_metadata = remote_small_metadata(
+    ecog_metadata, ecog_bodies = remote_small_metadata(
         ECOG_DATASET,
-        ["dataset_description.json", "README", "participants.tsv", "CHANGES"],
+        ("dataset_description.json", "README", "participants.tsv", "CHANGES"),
     )
-    fmri_metadata = remote_small_metadata(
+    fmri_metadata, _ = remote_small_metadata(
         FMRI_DATASET,
-        ["dataset_description.json", "CHANGES"],
+        ("dataset_description.json", "CHANGES"),
     )
 
     description = ecog_metadata["dataset_description.json"]["parsed"]
-    participants = fetch_bytes(
-        f"{OPENNEURO_BUCKET}/{ECOG_DATASET}/participants.tsv"
-    ).decode("utf-8")
-    participant_rows = [
-        line for line in participants.splitlines()[1:] if line.strip()
-    ]
-
-    highgamma = [item for item in ecog_objects if HIGHGAMMA_RE.match(item["key"])]
-    acquisition_objects = [
-        item
-        for item in ecog_objects
-        if (
-            item["key"] in SMALL_DATASET_KEYS
-            or item["key"] == PODCAST_AUDIO_KEY
-            or HIGHGAMMA_RE.match(item["key"])
-            or SUBJECT_METADATA_RE.match(item["key"])
-        )
-    ]
-    acquisition_objects.sort(key=lambda item: item["key"])
+    layout, acquisition_objects = validate_ecog_layout(
+        ecog_objects, ecog_bodies["participants.tsv"]
+    )
+    ecog_listing_identity = listing_identity(ecog_objects)
+    acquisition_identity = listing_identity(acquisition_objects)
 
     checks = {
         "ecog_listing_not_truncated": True,
-        "ecog_dataset_doi_matches": description.get("DatasetDOI")
-        == EXPECTED_ECOG_DOI,
-        "ecog_license_matches": description.get("License")
-        == EXPECTED_ECOG_LICENSE,
-        "ecog_participant_count_matches": len(participant_rows)
-        == EXPECTED_ECOG_PARTICIPANTS,
-        "ecog_highgamma_file_count_matches": len(highgamma)
-        == EXPECTED_ECOG_HIGHGAMMA_FILES,
-        "ecog_audio_present": any(
-            item["key"] == PODCAST_AUDIO_KEY for item in ecog_objects
+        "ecog_dataset_doi_matches_v1_0_2": (
+            description.get("DatasetDOI") == EXPECTED_ECOG_DOI
         ),
-        "endpoint_bytes_downloaded": False,
-        "endpoint_values_opened": False,
+        "ecog_license_matches": description.get("License") == EXPECTED_ECOG_LICENSE,
+        "ecog_exact_subject_ids_and_order_match": (
+            layout["participant_ids_from_tsv"] == list(EXPECTED_ECOG_SUBJECTS)
+        ),
+        "ecog_all_required_keys_present": layout["all_exact_paths_present"],
+        "ecog_path_filename_subject_agreement": (
+            layout["all_path_filename_subjects_agree"]
+        ),
+        "ecog_one_highgamma_and_four_metadata_per_patient": (
+            layout["one_highgamma_and_four_metadata_objects_per_patient"]
+        ),
+        "this_script_run_endpoint_payload_objects_downloaded": False,
+        "this_script_run_neural_value_files_opened": False,
+        "this_script_run_training_or_scoring_performed": False,
+        "this_script_run_author_communications_performed": False,
     }
-    if not all(
-        value
+    structural_checks = {
+        key: value
         for key, value in checks.items()
-        if key not in {"endpoint_bytes_downloaded", "endpoint_values_opened"}
-    ):
+        if not key.startswith("this_script_run_")
+    }
+    if not all(structural_checks.values()):
         raise RuntimeError(f"E028 metadata preflight failed: {checks}")
 
-    remote_code = []
-    for repository in (
-        "hassonlab/podcast-ecog-paper",
-        "hassonlab/podcast-ecog-tutorials",
-    ):
-        remote_code.append(github_head(repository))
+    remote_code = [
+        github_head(repository)
+        for repository in (
+            "hassonlab/podcast-ecog-paper",
+            "hassonlab/podcast-ecog-tutorials",
+        )
+    ]
+
+    paper_artifacts = {
+        # These arrays remain empty until author-supplied items are acquired and hashed.
+        "paper_specific_code_archives": [],
+        "environment_locks": [],
+        "base_model_files": [],
+        "training_and_validation_manifests": [],
+        "principal_lora_checkpoints": [],
+        "epoch_selection_records": [],
+        "ecog_masks_and_fold_lag_manifests": [],
+        "ecog_result_tables_or_prediction_pointers": [],
+    }
 
     manifest = {
-        "schema": "brain-alignment.e028.acquisition-manifest.v1",
+        "schema": "brain-alignment.e028.acquisition-manifest.v2",
         "created_utc": datetime.now(timezone.utc).isoformat(),
-        "metadata_only": True,
+        "manifest_scope": (
+            "metadata-only preflight; not an endpoint artifact and not evidence of "
+            "design readiness"
+        ),
         "script": {
             "path": str(Path(__file__).resolve()),
             "sha256": sha256_path(Path(__file__).resolve()),
+        },
+        "this_script_run_access": {
+            "scope": (
+                "Only actions performed by this invocation of "
+                "scripts/e028_acquisition_manifest.py"
+            ),
+            "remote_object_listing_metadata_read": [ECOG_DATASET],
+            "remote_descriptive_metadata_files_read": {
+                ECOG_DATASET: sorted(ecog_metadata),
+                FMRI_DATASET: sorted(fmri_metadata),
+            },
+            "remote_git_commit_metadata_read": [
+                item["repository"] for item in remote_code
+            ],
+            "local_file_contents_read": [str(Path(__file__).resolve())],
+            "local_git_commit_metadata_read": [
+                str(ROOT / "data" / "paper-repos" / "multi-brain-tuning"),
+                str(ROOT / "data" / "paper-repos" / "brain-tuning"),
+            ],
+            "local_paths_names_and_stat_metadata_read": [
+                str(ROOT / "data" / "lebel_ds003020"),
+                str(ROOT / "data" / "stimuli_wav"),
+            ],
+            "local_files_written": [],
+            "endpoint_payload_objects_downloaded": [],
+            "neural_value_files_opened": [],
+            "model_training_or_scoring_runs": [],
+            "author_communications": [],
         },
         "paper": {
             "title": (
@@ -250,19 +476,26 @@ def build_manifest() -> dict[str, Any]:
             ),
             "arxiv": "2605.19224v1",
             "url": "https://arxiv.org/abs/2605.19224",
-            "paper_specific_code": None,
-            "paper_specific_checkpoint_sha256": None,
-            "paper_specific_result_table_sha256": None,
+            "paper_specific_artifacts": paper_artifacts,
         },
         "ecog": {
             "dataset": ECOG_DATASET,
-            "expected_snapshot": "1.0.2",
+            "expected_snapshot": EXPECTED_ECOG_SNAPSHOT,
             "expected_doi": EXPECTED_ECOG_DOI,
             "metadata": ecog_metadata,
+            "snapshot_listing_identity": {
+                "binding": (
+                    "This digest is accepted only with the simultaneously verified "
+                    f"DatasetDOI {EXPECTED_ECOG_DOI}"
+                ),
+                **ecog_listing_identity,
+            },
             "remote_object_count": len(ecog_objects),
             "remote_total_size_bytes": sum(
                 item["size_bytes"] for item in ecog_objects
             ),
+            "validated_layout": layout,
+            "minimal_acquisition_listing_identity": acquisition_identity,
             "minimal_acquisition_object_count": len(acquisition_objects),
             "minimal_acquisition_size_bytes": sum(
                 item["size_bytes"] for item in acquisition_objects
@@ -279,7 +512,7 @@ def build_manifest() -> dict[str, Any]:
             "local_coverage": local_lebel_coverage(),
         },
         "code": {
-            "remote_metadata_heads": remote_code,
+            "dataset_owner_remote_metadata_heads": remote_code,
             "local_reusable_repositories": [
                 {
                     "path": str(
@@ -305,7 +538,9 @@ def build_manifest() -> dict[str, Any]:
                 },
             ],
         },
-        "required_before_download": [
+        "required_before_payload_acquisition": [
+            "Independent precheck DESIGN PASS and READY-TO-RUN: YES",
+            "Frozen runner/analyzer/config hashes and dimension-scale synthetic benchmark",
             "Author confirmation of the exact ds003020 snapshot and story list",
             "Exact WavLM Base+ model identifier, revision, and file SHA-256",
             "Paper-specific code commit and environment lock",
@@ -324,15 +559,25 @@ def main() -> None:
 
     manifest = build_manifest()
     args.output.parent.mkdir(parents=True, exist_ok=True)
+    manifest["this_script_run_access"]["local_files_written"] = [
+        str(args.output.resolve())
+    ]
     payload = json.dumps(manifest, indent=2, sort_keys=True).encode("utf-8") + b"\n"
     args.output.write_bytes(payload)
     print(f"wrote={args.output}")
     print(f"sha256={sha256_bytes(payload)}")
     print(
+        "snapshot_listing_sha256="
+        f"{manifest['ecog']['snapshot_listing_identity']['canonical_listing_sha256']}"
+    )
+    print(
         "minimal_ecog_bytes="
         f"{manifest['ecog']['minimal_acquisition_size_bytes']}"
     )
-    print("metadata_only=true endpoint_values_opened=false")
+    print(
+        "scope=this_script_run metadata_only=true "
+        "endpoint_payload_objects_downloaded=0 neural_value_files_opened=0"
+    )
 
 
 if __name__ == "__main__":
