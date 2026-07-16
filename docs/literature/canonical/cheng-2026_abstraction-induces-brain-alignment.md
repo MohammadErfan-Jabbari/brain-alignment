@@ -11,6 +11,7 @@ aliases: [cheng-2026_abstraction-induces-brain-alignment]
 **Venue:** Preprint (arXiv, submitted February 2026)
 **DOI/arXiv:** 10.48550/arXiv.2602.04081
 **Canonical ID:** cheng-2026_abstraction-induces-brain-alignment
+**Primary sources:** [arXiv abstract](https://arxiv.org/abs/2602.04081), [HTML paper](https://arxiv.org/html/2602.04081), [PDF](https://arxiv.org/pdf/2602.04081), [OpenReview forum](https://openreview.net/forum?id=n5Ds4qbtjM)
 
 **Tags:** #literature #canonical
 
@@ -52,6 +53,12 @@ Comprehension self-check passed: Y
 
 **Brain-tuning intervention.** WavLM-base-plus layer 9 was directly fine-tuned on voxelwise fMRI responses (Vattikonda et al. 2025 protocol, extended context from 2 s to 4 s audio) for subjects UTS02 and UTS03 separately. The model is described in Appendix F; no other architectural changes. After fine-tuning, encoding performance, semantic probe $R^2$, and $I_d$ at all 12 layers are compared to the original checkpoint.
 
+**Data, code, and compute.** The neural sources are public: [LeBel natural-language fMRI, OpenNeuro ds003020 v2.0.0](https://openneuro.org/datasets/ds003020/versions/2.0.0) and [Podcast ECoG, OpenNeuro ds005574](https://openneuro.org/datasets/ds005574). Appendix A says the paper-specific GitHub link will be added after deanonymization, but no paper-specific code or brain-tuned checkpoint is linked in the verified version. The paper reports approximately 1,000 CPU node-hours for ridge models, 300 GPU node-hours for feature extraction, and roughly 40 days of total parallelized runtime including preliminary and failed runs.
+
+## Intervention controls
+
+The random Fourier feature experiment is a useful geometry control for the frozen encoding analysis because it shows that high $I_d$ alone is insufficient for strong neural prediction. It is not a control for the brain-tuning intervention. The intervention compares the fMRI-tuned WavLM checkpoint only with its original pretrained checkpoint; it does not include shuffled fMRI, stimulus-derived supervision, a language-model target, or an auxiliary target matched on spectrum, effective rank, $I_d$, scale, head learnability, gradient magnitude, and update norm. No independent fine-tuning seeds are reported. UTS02 and UTS03 are separate biological targets, not optimizer-seed replications.
+
 ---
 
 ## Core Claims
@@ -76,7 +83,7 @@ Comprehension self-check passed: Y
 
 ## Assumptions and Limits
 
-Only two fMRI subjects (UTS02, UTS03 from LeBel et al. 2023) and 9 ECoG subjects are used; the correlation results have not been replicated across the wider population of brain-tuning subjects. All LLMs are causal mid-scale models (OPT and Pythia families, 125m–13b); instruction-tuned, RLHF-aligned, or encoder-only models are absent. The causal intervention (§4.3 / C4) is performed on a single speech model (WavLM-base-plus), a single layer (9), and two subjects; no text-LLM brain-tuning intervention is performed. The paper does not show that maximizing $I_d$ as a training objective would yield alignment gains — only that the correlation holds and that an fMRI-tuning intervention moves $I_d$ in the expected direction. There is no distillation experiment; no matched-budget comparison. Brain regions are analyzed globally (full cortical surface), not decomposed into language ROI vs. non-language ROI as done in Moussa et al. (2025); the auditory cortex is noted as an exception where speech models have high EP driven by low-level features but $I_d$ does not track it (§6, p. 6). Linear dimensionality (PCA-99, PR) also correlates with encoding performance (Table C.2: PCA-$d$ correlation 0.91–0.96 for OPT models) but the authors treat it as a supporting check rather than a primary measure, partly because absolute PR values are $\approx 1$–2.
+Only two fMRI subjects (UTS02, UTS03 from LeBel et al. 2023) and 9 ECoG subjects are used; the correlation results have not been replicated across the wider population of brain-tuning subjects. All LLMs are causal mid-scale models (OPT and Pythia families, 125m–13b); instruction-tuned, RLHF-aligned, or encoder-only models are absent. The intervention (§4.3 / C4) is performed on a single speech model (WavLM-base-plus), a single layer (9), and two subjects; no text-LLM brain-tuning intervention is performed. Without a shuffled-neural or learning-matched auxiliary intervention, the experiment shows that this fMRI-tuning procedure moves $I_d$ and semantic content, but it does not establish that neural content rather than generic auxiliary optimization caused those changes. Model-training seeds and a participant-level intervention inference hierarchy are not reported. The paper does not show that maximizing $I_d$ as a training objective would yield alignment gains; it shows that the correlation holds and that an fMRI-tuning intervention moves $I_d$ in the expected direction. There is no distillation experiment or matched-budget comparison. Brain regions are analyzed globally (full cortical surface), not decomposed into language ROI vs. non-language ROI as done in Moussa et al. (2025); the auditory cortex is noted as an exception where speech models have high EP driven by low-level features but $I_d$ does not track it (§6, p. 6). Linear dimensionality (PCA-99, PR) also correlates with encoding performance (Table C.2: PCA-$d$ correlation 0.91–0.96 for OPT models) but the authors treat it as a supporting check rather than a primary measure, partly because absolute PR values are $\approx 1$–2.
 
 ---
 
@@ -92,6 +99,8 @@ Only two fMRI subjects (UTS02, UTS03 from LeBel et al. 2023) and 9 ECoG subjects
 - A2 (alignment is not pure nuisance): C2 rules out surprisal/next-token prediction as the driver; C5 rules out $I_d$ alone (requires learned linguistic structure). Together they argue the alignment signal carries something specific that static or random features do not.
 - A3 (alignment gains translate to utility): Not directly tested here; the paper is agnostic about downstream task performance.
 - F3 (fMRI-free differentiable abstraction proxy): This paper is the strongest theoretical motivation for F3. If $I_d$ is the proximate correlate of brain alignment, and $I_d$ can be computed from model activations alone (no fMRI needed), then a loss that maximizes $I_d$ at the student's best-performing layer is a candidate fMRI-free surrogate. However, C5 is a hard warning: RFF spaces with high $I_d$ do not brain-predict well; the $I_d$ must arise from learned linguistic structure, not imposed geometrically. A distillation loss that simply maximizes $I_d$ without preserving the semantic content that underlies it may fail. The correct F3 design implied by this paper is: maximize $I_d$ while aligning the student's representation to a linguistically rich teacher's layer — not maximize $I_d$ as a standalone geometric objective. This is a design guardrail.
+
+**Exact Package A relevance.** The paper closes the broad novelty claim that representation geometry has not been connected to brain alignment or moved by a brain-tuning intervention. It does not close the intervention-specific gap because its fine-tuning comparison lacks neural-content controls, training seeds, participant-held-out intervention transfer, and a practical endpoint. For [E026](../../experiments/E026_tribe-textfeat-target-comparability.md), matching target dimension or linear rank alone is inadequate: the audit should compare covariance spectrum, effective rank, nonlinear $I_d$, scale, held-out head learnability, gradient norm, update norm, and resulting generic model quality. C5 also prevents the converse overclaim: matching or increasing $I_d$ alone cannot establish a brain-specific mechanism.
 
 **Verdict on R03 claim:** "a layer's local intrinsic dimension predicts its brain-predictivity; brain-tuning causally raises intrinsic dimension and semantic content together."
 
@@ -112,3 +121,5 @@ If $I_d$ is the right surrogate, there is a precise distillation design question
 
 ## Related
 - [`status.md`](../../status.md) — the canonical status board
+- [`01-research-landscape.md`](../../01-research-landscape.md) - authoritative literature frontier map
+- [Vaidya et al., 2026](vaidya-2026_slow-fmri-fast-ecog-transfer.md) - independent fMRI-to-ECoG biological transfer
