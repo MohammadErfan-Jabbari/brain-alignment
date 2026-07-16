@@ -87,7 +87,7 @@ The independent unit is the generated dataset replicate, not minibatch, seed, ex
 
 ## Stage 2: retrospective feasibility anchor
 
-Use E016 and E025 only to determine whether the required gradients, optimizer state, common checkpoints, fixed readouts, nuisance residuals, and Jacobian-vector products can be reconstructed. Any certificate computed here is explicitly retrospective because the E025 endpoint is already known. It may diagnose why transfer failed and set memory or numerical tolerances, but it cannot satisfy C3, select a target, tune a threshold, or count as prospective evidence.
+Use E016 and E025 only to determine whether the required gradients, optimizer state, common checkpoints, fixed readouts, nuisance residuals, and Jacobian-vector products can be reconstructed. E026 is a retrospective diagnostic showing that the saved TRIBE and text-feature targets are non-comparable on measured geometry, headroom, nuisance-predictability, and trained-movement axes; those mismatched arms cannot satisfy Stage 1's matched-diagnostic C2 test. Any certificate computed here is explicitly retrospective because the E025 endpoint is already known. It may diagnose why transfer failed and set memory or numerical tolerances, but it cannot satisfy C3, select a target, tune a threshold, or count as prospective evidence.
 
 If the required pre-update checkpoint or optimizer state does not exist, do not approximate it from final weights. Either reproduce the frozen intervention from a newly declared common checkpoint under a separate prechecked run or mark Stage 2 unavailable.
 

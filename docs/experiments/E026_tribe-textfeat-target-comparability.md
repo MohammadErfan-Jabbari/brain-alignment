@@ -6,7 +6,7 @@ aliases: [E026]
 
 # Experiment — E026: TRIBE versus text-feature target comparability
 
-**Created:** 2026-07-16 · **Status:** DESIGN PASS — preliminary oracle cleared; READY-TO-FREEZE-MANIFEST: YES; READY-TO-RUN pending exact-manifest review; no E026 audit result exists · **Mode:** working
+**Created:** 2026-07-16 · **Status:** COMPLETE — exact-manifest run and independent result audit PASS; saved text-feature comparator fails the frozen measured-axis conjunction; no prospective control construction or training licensed · **Mode:** working
 **Direction:** Retrospective mechanism audit for Package A in [D057](../decisions/decisions.md). E025 did not satisfy its participant-positive `+0.002` activation prerequisite, so E027 construction is not licensed; E026 remains useful for identifying why the E016 proxy endpoints differed.
 **Predecessor:** [E016](E016_tribe-synthetic-brain-targets.md), especially the Step 70 scope correction that the existing text-feature target is dimension-matched but not demonstrated information-, geometry-, or learnability-matched.
 
@@ -99,11 +99,45 @@ No student training and no candidate construction. Before target values, `--stag
 
 ## Precheck
 
-The first hostile DESIGN review returned **HOLD / READY-TO-RUN: NO** for an incorrect `ddof=1` reconstruction, uncentered and unnormalized spectrum, uncertified entropy-bound language, absent SVD failure gates, missing nuisance learnability, a sign test mislabeled as sign-flip, uncentered movement, incomplete equivalence arithmetic, and a non-frozen execution manifest. A second independent code audit retained **HOLD** because same-shape mutable derived arrays could be reused, row/static chunking was not frozen, `--stage all` could rebuild its own manifest, generator-sidecar semantics were not asserted, and E025 duplicate-noise fields silently defaulted to zero. Smoke preflight then found that the local GPT-2-medium model snapshot lacked tokenizer files, and focused review found that an output-path alias could still overwrite the reviewed manifest. The implementation and design now prohibit all derived-cache reuse, test same-shape tamper recovery, lock all execution chunks, validate exact generator fields and finite nonnegative duplicate-noise measurements, freeze separate model/tokenizer snapshots, make `all` consume-only, and reject manifest/output path aliasing. The focused preliminary oracle then returned **DESIGN PASS / READY-TO-FREEZE-MANIFEST: YES** on script `c1e5bf0f…` and the pre-status-update record `8fcb74cf…`, with 13/13 synthetic tests and real model/tokenizer/static-feature smoke checks passing. Geometry and trained stages remain blocked until a fresh full manifest bound to the final record hash receives an independent exact-hash review.
+The first hostile DESIGN review returned **HOLD / READY-TO-RUN: NO** for an incorrect `ddof=1` reconstruction, uncentered and unnormalized spectrum, uncertified entropy-bound language, absent SVD failure gates, missing nuisance learnability, a sign test mislabeled as sign-flip, uncentered movement, incomplete equivalence arithmetic, and a non-frozen execution manifest. A second independent code audit retained **HOLD** because same-shape mutable derived arrays could be reused, row/static chunking was not frozen, `--stage all` could rebuild its own manifest, generator-sidecar semantics were not asserted, and E025 duplicate-noise fields silently defaulted to zero. Smoke preflight then found that the local GPT-2-medium model snapshot lacked tokenizer files, and focused review found that an output-path alias could still overwrite the reviewed manifest. The implementation and design now prohibit all derived-cache reuse, test same-shape tamper recovery, lock all execution chunks, validate exact generator fields and finite nonnegative duplicate-noise measurements, freeze separate model/tokenizer snapshots, make `all` consume-only, and reject manifest/output path aliasing. The focused preliminary oracle then returned **DESIGN PASS / READY-TO-FREEZE-MANIFEST: YES** on script `c1e5bf0f…` and the pre-status-update record `8fcb74cf…`, with 13/13 synthetic tests and real model/tokenizer/static-feature smoke checks passing.
+
+The final full manifest received an independent exact-hash **DESIGN PASS / READY-TO-RUN: YES** on the immutable triple: runner `c1e5bf0faf4a1fe942e7c0e5062279db388d0fa475157ba79d1bd440debd88ce`, pre-result E-record `9d422f8ddfc1de81f44ecc4f4afc94218284097c9eb0a1d139d4db3f22ece3fa`, and manifest `a2bbf93f839b8e787716e325b198062e159dd7089e5725249647d806f425ad1f`. The pre-result runner and E-record remain recoverable exactly at Git commit `5b2a251`; the current E-record necessarily changes when this result is appended. The manifest verifies four full target caches, the exact 36-row seed/arm grid and 30 distinct weights, the complete E025 extraction chain, separate frozen GPT-2-medium model and GPT-2 tokenizer snapshots, row and coordinate samples, generator semantics, execution chunks, and all parity and integrity gates.
 
 ## Results
 
-`\gap` — not run.
+### Execution and provenance
+
+The authorized evidence command was:
+
+```bash
+CUDA_VISIBLE_DEVICES=3 uv run python scripts/e026_audit_target_comparability.py --stage all --device cuda --manifest-in outputs/E026/e026_manifest.json --out outputs/E026/e026_audit.json --keep-extracted
+```
+
+It consumed the reviewed manifest without modifying it, passed all stop gates, and produced `outputs/E026/e026_audit.json` with SHA-256 `dfac7498d89d488483f129ebd30f36013d98778a8304f0d3d97d9e0a8c1932ad`. The frozen runner, pre-result record, and manifest hashes remained unchanged.
+
+An independent checker, `scripts/e026_independent_result_audit.py` (SHA-256 `cf701aa8bab3016701ac7a6575ea58c36d9153ae048dae5e4fb3dd6580635f26`), does not import the main runner. It reconstructed all 35 geometry and 20 trained-model check states from lower-level fields, verified the reported summaries and conjunctions, and rehashed 128 bound dependencies totaling 34,958,676,977 bytes. Its retained output, `outputs/E026/e026_independent_result_audit.json` (SHA-256 `b2dca54c87efeca60c78a0de8287b4571991dcf3e653ce17dacc60583d2fda9f`), returned **PASS**, zero arithmetic mismatches, and zero dependency-hash failures.
+
+### Mechanical outcome
+
+The frozen engineering conjunction is **FAIL / `AT_LEAST_ONE_MEASURED_AXIS_FAILS`**: 30 of 55 checks fail, 24 pass, and one is unresolved. Geometry contributes 14 failures, 20 passes, and the single unresolved lag; trained-model checks contribute 16 failures and four passes. This arithmetic is a measured-axis classification, not a population-equivalence test or scientific verdict by itself.
+
+The load-bearing failures are large and reproduce across the two fixed samples or all six seeds:
+
+- **Baseline difficulty and headroom:** mean KD-only target $R^2$ is `0.595327` for TRIBE and `0.911687` for textfeat, an absolute paired-mean gap of `0.316360` against margin `0.02`. The mean remaining-headroom ratio is `4.582` against permitted interval `[0.90,1.10]`. TRIBE target training gains `+0.078298` (descriptive CI95 `[+0.077198,+0.079398]`), whereas textfeat gains `+0.000903` (`[+0.000649,+0.001157]`).
+- **Covariance geometry:** normalized top-512 spectrum log-RMS differences are `5.524` and `5.535` against margin `0.10`. TRIBE versus textfeat sample stable ranks are `2.657587` versus `1.410062` and `2.636620` versus `1.423594`, giving absolute log-ratios `0.634` and `0.616` against margin `0.10`. Cumulative variance-mass differences fail at components 1, 8, 32, and 128 on both samples and pass at 512; PC1 alone carries approximately `0.376/0.379` of TRIBE variance versus `0.709/0.702` for textfeat.
+- **Nuisance predictability:** low-level-only held-out $R^2$ is `0.233/0.217` for TRIBE versus `0.425/0.399` for textfeat, giving gaps `0.192/0.183` against margin `0.02`. Static-unique delta-$R^2$ gaps are `0.0077/0.0126` and pass. The frozen ridge selection chose alpha `1000`, the upper edge of its candidate grid, which is retained as a caveat rather than retuned.
+- **Parameter movement:** mean global relative displacement from the common KD checkpoints is `0.017222` for TRIBE and `0.014223` for textfeat. The paired mean difference is `+0.002999`, and every seed's absolute log-ratio (`0.148`--`0.210`) exceeds margin `0.10`; the descriptive sign-flip value is `p=0.03125`.
+- **Representation movement:** on primary WikiText-heldout layer 6, centered relative-Frobenius movement is `0.215076` for TRIBE and `0.134836` for textfeat. The paired difference is `+0.080240`, descriptive CI95 `[+0.070328,+0.090151]`, with every seed's absolute log-ratio (`0.300`--`0.612`) exceeding margin `0.10`. Centered-CKA distance is not directionally different overall: four of six seed margins pass, paired mean difference `-0.000299`, sign-flip `p=0.78125`. Any statement that TRIBE “moves more” is therefore metric-specific.
+
+Important passes prevent a blanket non-parity claim. Training-standardized global mean and scale pass on both samples, autocorrelation differences pass every lag with valid pairs through 512, both power-spectrum Jensen--Shannon checks pass, static-unique nuisance predictability passes, and four CKA-distance checks pass. Lag 1024 is **UNRESOLVED** because no valid within-document pairs exist. Initial standardized auxiliary-loss and gradient comparability is **UNKNOWN** because those quantities were not retained.
+
+### Scientific adjudication
+
+The saved projected text-feature arm is **non-comparable on the frozen measured pretraining and trained-movement axes**. E016 therefore remains valid as a within-TRIBE target-learnability result, but its larger TRIBE-versus-textfeat synthetic gain cannot isolate brain-derived content. The most plausible recorded mechanism hypothesis is same-teacher redundancy: textfeat is a Gaussian projection of the GPT-2-medium teacher representation already used for KD, consistent with its `0.912` KD baseline and little remaining headroom. E026 does not establish that this redundancy, covariance geometry, or any other measured mismatch caused the gain.
+
+E026 also does not establish information inequivalence, show that TRIBE contains unique biological information, explain E025's transfer failure, or generalize beyond the frozen E016 targets and students. E025's direct TRIBE-minus-KD biological contrast remains the cleaner endpoint result and is near zero. E027 remains unauthorized because E025 failed its prospective participant-positive activation gate; the audit cannot reopen it retrospectively.
+
+**Publication consequence:** the internally defensible finding is a dissociation among target learnability, retained-student movement, control identifiability, and participant-general biological transfer. The first two pass, the saved control fails identification, and the participant transfer gate fails for the tested cohort. Package A is strengthened as a methodological/falsification case; Package B remains HOLD because no prospective directional certificate exists; Package C remains closed. E028 is the binding prospective external gate.
 
 ## Related
 
