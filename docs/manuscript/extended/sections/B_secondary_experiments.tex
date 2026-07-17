@@ -93,7 +93,7 @@ Consequently, the larger cross-target synthetic gain cannot carry a specificity 
 E019 asked whether a faithful-as-feasible implementation of a published Negi-style brain-tuning head would first reproduce a local gain and then survive matched-quality and target-specificity controls.
 The implementation combined the available naturalistic LeBel substrate with a differentiable temporal head and tested learning-rate, probe, and positive-control variants before the final comparison.
 The relevant estimand was held-out alignment change for the real target relative to a permuted target under the same training and evaluation path.
-The head did not produce a stable target-specific lever on the local substrate, so the planned matched-quality collapse of a reproduced positive could not be performed. \evd{E019}
+The head did not produce a stable target-specific improvement on the local substrate, so the planned matched-quality analysis of a reproduced positive could not be performed. \evd{E019}
 Across three participants and three training seeds, gentle tuning changed encoding correlation by $-0.0006\pm0.0027$ and unique $R^2$ by $-0.0001\pm0.0010$ relative to the base model, where the terms after $\pm$ are descriptive standard deviations across the nine participant--seed cells. \evd{E019}
 The real-minus-permuted specificity contrast was $-0.0004\pm0.0018$, and the real-minus-intended-quality-control contrast was $-0.0010\pm0.0018$ on the same descriptive cell scale. \evd{E019}
 The intended quality control did not achieve a match: the real-target arm had perplexity about $51.1$--$51.7$, while the control was about $40.1$--$40.3$, so the latter contrast is not a matched-quality estimate. \evd{E019}
@@ -163,6 +163,6 @@ E023 formalized a counterfactual question left open by E003 and E015: whether a 
 It proposed a same-lineage quality frontier, a matched-quality KD-versus-ordinary-fine-tuning comparison, and operation in a regime where the frontier is sufficiently flat to separate objective effects from ordinary quality loss.
 The only executed component was an analysis-only slope and knee gate using already measured Pythia and Qwen models.
 The Pythia 1B-to-410M pair met the local flatness screen with slope $+0.015$, alignment change $+0.0007$, and quality change $0.066$ bits per byte. \evd{E023}
-The three checked Qwen pair slopes were $+0.334$, $-0.217$, and $+0.076$, so none cleared the decisive saturated-regime requirement. \evd{E023}
-The analysis-only gate marked a lower-quality pilot as feasible but did not clear a decisive training comparison; no inferential unit or hypothesis test was claimed for this descriptive screen.
+The three checked Qwen pair slopes were $+0.334$, $-0.217$, and $+0.076$, so none met the predeclared saturated-regime requirement \evd{E023}.
+The analysis-only gate marked a lower-quality pilot as feasible but did not clear the planned training comparison; no inferential unit or hypothesis test was claimed for this descriptive screen.
 No KD-versus-fine-tuning intervention was run, so E023 contributes an identification framework rather than a scientific result about objective-specific shedding.

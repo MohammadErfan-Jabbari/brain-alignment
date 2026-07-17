@@ -61,7 +61,7 @@ This distinction preserves the raw experimental contrasts while preventing an ap
 The intervention studies use three response constructions.
 An averaged Tuckute target asks whether training helps predict the common response after participant averaging.
 Participant-specific Tuckute targets ask whether the effect generalizes across people, with the participant as the independent unit.
-LeBel voxelwise targets ask whether a dense within-participant regression lever takes hold under naturalistic evaluation.
+LeBel voxelwise targets ask whether a dense within-participant regression objective improves held-out alignment under naturalistic evaluation.
 Because averaging occurs before the nonlinear encoding score is calculated, the averaged and participant-specific analyses estimate different quantities.
 
 \subsection{Alignment measurement}
@@ -270,11 +270,11 @@ Equation~\ref{eq:rate-distortion} organizes the trade-off but does not predict a
 \paragraph{Signal validation.}
 The ROI feasibility study compares trained and untrained GPT-2-family and Qwen representations under contiguous sentence folds \evd{E002}.
 The conditional voxelwise confirmation uses UTS03, whole-story-held-out folds, fold-only feature reduction, a capacity-matched nuisance set, and independently selected reliable voxels \evd{E006}.
-The first establishes inexpensive feasibility; the second is the load-bearing within-participant signal test.
+The first establishes inexpensive feasibility; the second is the primary within-participant signal test.
 
 \paragraph{Quality and preservation.}
 Cold and warm distillation arms measure whether ordinary compression leaves alignment headroom and how alignment covaries with held-out perplexity \evd{E003}.
-A separate comparison across 22 models from six families uses bits per byte as a tokenizer-robust quality measure and tests the global association, a capable-model band, and family-cluster sensitivities \evd{E015}.
+A separate comparison across 22 models from six families uses bits per byte as a tokenizer-comparable quality measure and tests the global association, a capable-model band, and family-cluster sensitivities \evd{E015}.
 These designs distinguish a broad quality relationship from an objective-specific preservation effect.
 
 \paragraph{Intervention and participant generalization.}
@@ -286,7 +286,7 @@ A separate encoding-average analysis measures legitimate signal-to-noise improve
 \paragraph{Alternative parameterizations.}
 Higher-rank LoRA tests whether the primary intervention was limited by adapter capacity \evd{E011}.
 Contrastive ROI losses test whether the mean-squared-error target was the wrong geometry \evd{E013}.
-A naturalistic voxelwise weight sweep tests whether the regression lever takes hold at dense spatial resolution, while gentle full fine-tuning tests whether updating all parameters changes the conclusion \evd{E013}\evd{E017}.
+A naturalistic voxelwise weight sweep tests whether the regression objective improves held-out alignment at dense spatial resolution, while gentle full fine-tuning tests whether updating all parameters changes the conclusion \evd{E013}\evd{E017}.
 Each experiment addresses one mechanism boundary; none alone licenses a universal substrate null.
 
 \paragraph{Practical and privileged-information routes.}
@@ -316,7 +316,10 @@ The exact sign test therefore supports a statement about repeatability across tr
 E025 reuses the saved E016 students without retraining and replaces the participant-averaged transfer endpoint with the nine complete Tuckute participants, excluding UID 853 under the established incomplete-ROI rule \evd{E025}.
 Layer 7 is primary and layer 6 is a mechanistic sensitivity; each participant, model, and seed is scored with the same five contiguous folds, rank-50 fold-fitted nuisance/static/contextual decomposition, and fixed language ROIs \evd{E025}.
 Seeds are crossed technical realizations and are averaged before participant inference, leaving the participant as the sole biological inference unit.
-The predeclared activation threshold is $+0.002$ unique $R^2$, with participant, seed, participant- and block-leave-one-out, held-out-subgroup, direct TRIBE-over-KD, baseline-leverage, and imageability conditions evaluated conjunctively \evd{E025}.
+The predeclared internal continuation threshold is $+0.002$ unique $R^2$ \evd{E025}.
+It determines whether the positive-mechanism program continues and is not treated as a universal minimum biological effect.
+The activation rule is conjunctive.
+It checks participant and seed signs; leave-one-participant and leave-one-block stability; held-out-subgroup behavior; direct TRIBE-over-KD; the result after dropping the participant with the highest KD alignment; and sensitivity to adding imageability to the nuisance set \evd{E025}.
 Direct bits per byte, retained target learning, and deterministic representation movement are checked before participant inference; failure of any manipulation gate makes the endpoint descriptive rather than evidential.
 
 E026 retrospectively audits whether the saved TRIBE and projected text-feature targets support a content-specific cross-target comparison \evd{E026}.

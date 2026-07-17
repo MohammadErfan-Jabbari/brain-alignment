@@ -77,11 +77,11 @@ Reported seed intervals are descriptive $t$ intervals, and the exact $2^6$ magni
 E004 and E005 used three seeds and five rotating folds, producing 15 observed seed--fold cells.
 Because seeds within one fold share the same held-out stimulus block and fold effects dominate the contrast, treating all 15 cells as independent understates uncertainty.
 E004's mean Qwen contrast was \result{e004_qwen_specific}, but the five-fold $t$ interval was \result{e004_qwen_fold_ci}, and leaving out the influential fourth fold reduced the mean to \result{e004_qwen_lofo}. \evd{E004}
-The correct conclusion is no demonstrated fold-level lever, with limited power to exclude a small effect.
+The correct conclusion is no demonstrated fold-level intervention effect, with limited power to exclude a small effect.
 
 E008 instead averaged repeated training variability within each of nine participants and treated participants as the biological inference unit.
 Its mean was \result{e008_mean} with participant-axis $t$ interval \result{e008_ci}. \evd{E008}
-The predeclared effect of $+0.003$ lay well outside that interval, providing high power against the effect size the study was designed to detect while leaving smaller effects possible. \evd{E008}
+A $+0.003$ reference effect lay well outside that interval, and the post-run calculation reported power 1.0 at that effect size while leaving smaller effects possible. \evd{E008}
 
 E006 illustrates a distinct error.
 Bootstrapping 11,442 spatially dependent voxels generated a narrow interval but did not create participant replication.
@@ -117,20 +117,20 @@ A partial correlation controlling for log parameter count was $-0.675$ with Fish
 This is not a clean decomposition into scale and quality because bits per byte and scale were strongly collinear and the residual variation also encoded family, data, and architecture differences.
 Family-cluster resampling remained negative, but the six families separated into roughly two model generations, limiting the effective independent breadth.
 Participant-level analyses showed the pattern in the one participant with adequate alignment signal and were uninformative in two participants near the measurement floor.
-The durable conclusion is that quality is a serious confound requiring matched-quality controls, not that perplexity deterministically explains brain alignment within the capable regime.
+The supported conclusion is that quality is a serious confound requiring matched-quality controls, not that perplexity deterministically explains brain alignment within the capable regime.
 
 \subsection{E017 intervention sequence and E023 identification gate}
 \label{sec:e017-detail}
 
 E017 tested whether full fine-tuning could reveal movement that low-rank adaptation missed.
-An aggressive configuration caused catastrophic forgetting and failed the language-model-quality requirement.
+An aggressive configuration substantially worsened held-out language quality and failed the quality requirement.
 A gentler UTS03 pilot showed that the representation could move without the same failure, which cleared a three-participant existence test.
 Across UTS01, UTS02, and UTS03, the real-target arm did not improve over its target-specific controls. \evd{E017}
 The observed subject--seed cells share only three biological units, so the result is reported descriptively as a three-participant mechanism probe rather than with a population confidence claim.
 
 E023 then asked how an objective-specific loss could be separated from the alignment expected at the student's quality.
 Its proposed estimand was the vertical residual of a KD student below a same-lineage alignment--quality frontier, paired against ordinary fine-tuning from the same initialization.
-The analysis-only slope gate found one locally flat lower-quality Pythia pair but no decisive saturated Qwen regime. \evd{E023}
+The analysis-only slope gate found one locally flat lower-quality Pythia pair, but no Qwen pair met the predeclared saturated-regime requirement \evd{E023}.
 Because the identifying region was not established, the training comparison was not launched.
 Together E017 and E023 distinguish a tested full-fine-tuning null from an untested larger-scale counterfactual program.
 

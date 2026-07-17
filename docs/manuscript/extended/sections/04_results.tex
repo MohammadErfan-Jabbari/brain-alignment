@@ -9,7 +9,7 @@ Finally, it must improve an outcome that was not optimized during training.
 
 The measurements in this sequence do not share an inference unit.
 For compactness, let $A$ denote held-out nuisance-subtracted unique $R^2$, and let $u$, $s$, and $k$ index participant, training seed, and held-out stimulus block.
-Table~\ref{tab:results-map} states the load-bearing estimand and the order of aggregation for each claim.
+Table~\ref{tab:results-map} states the primary estimand and the order of aggregation for each claim.
 
 \begin{table}[H]
   \centering
@@ -107,7 +107,7 @@ The different biological units prevent their combination into one population eff
 \label{sec:results-preservation}
 
 E003 asks whether ordinary logit knowledge distillation preserves the teacher's alignment without an explicit brain objective.
-The load-bearing arm initializes a GPT-2 student randomly and trains it from the logits of GPT-2-medium.
+The primary arm initializes a GPT-2 student randomly and trains it from the logits of GPT-2-medium.
 Warm-start KD, ordinary language-model fine-tuning, pretrained GPT-2, distilgpt2, and an untrained network provide reference points.
 All arms are scored at fixed layers on the same participant-averaged Tuckute target and nuisance-controlled contiguous folds \evd{E003}.
 
@@ -126,7 +126,7 @@ Absolute unique-$R^2$ values also vary with PCA rank, although the retention ord
     \toprule
     Arm & Initialization/objective & \uniqueR{} & $\rho'$ [bootstrap CI] & Held-out ppl & Interpretation \\
     \midrule
-    GPT-2-medium & pretrained teacher & $+0.0188$ & --- & $74$ & teacher reference \evd{E003} \\
+    GPT-2-medium & pretrained teacher & $+0.0188$ & not defined & $74$ & teacher reference \evd{E003} \\
     GPT-2 & pretrained & $+0.0195$ & $1.02$ [$0.77,1.27$] & $105$ & inherited alignment \evd{E003} \\
     LMFT-warm & warm, language loss & $+0.0174$ & $0.95$ [$0.81,1.13$] & $44$ & drift control \evd{E003} \\
     KD-warm & warm, logit KD & $+0.0144$ & $0.84$ [$0.67,1.04$] & $95$ & drift under KD \evd{E003} \\
@@ -167,7 +167,7 @@ Family residuals are also not identified because the families lack common qualit
 The combined conclusion is narrower than either ``KD destroys brain information'' or ``alignment is just perplexity.''
 Ordinary KD can leave a student below its teacher, but E003 does not distinguish objective-specific shedding from under-training and quality.
 E015 shows that quality is a necessary matching variable across a broad modern-decoder comparison, while its capable-band and architecture-residual analyses show that output quality does not determine the hidden representation.
-The intervention experiments therefore compare real brain targets with matched-regime or matched-perplexity controls rather than a vanilla model alone.
+The intervention experiments therefore compare real brain targets with controls matched on training procedure or perplexity rather than with a vanilla model alone.
 This distinction also changes the interpretation of ``headroom.''
 The teacher--student gap is an opportunity only if some of it is caused by an internal choice that an auxiliary objective can alter without paying the same cost in perplexity.
 E003 establishes the gap but not that counterfactual.
@@ -177,7 +177,7 @@ The intervention stage is needed precisely because neither preservation nor cros
 \subsection{The apparent intervention gain depends on the inference target}
 \label{sec:results-inference}
 
-E004 is the first direct lever test.
+E004 is the first direct intervention test.
 It co-trains a Qwen2.5-0.5B student with an MSE brain term and compares it with an otherwise identical block-permuted-target twin \evd{E004}.
 Stimulus folds, optimization budget, nuisance model, student, teacher, and brain-loss weight are held fixed.
 The estimand is the real-minus-permuted change in held-out unique $R^2$ relative to the same untuned base \evd{E004}.
@@ -187,18 +187,18 @@ The original interval treated three seeds by five folds as 15 independent observ
 After averaging seeds within fold, the valid five-fold $t$ interval is \result{e004_qwen_fold_ci} \evd{E004}.
 Fold 4 supplies 64\% of the summed contrast, and removing it reduces the estimate to \result{e004_qwen_lofo}.
 The run's own unpaired permutation exceedance flag is false.
-E004 therefore provides no inference-unit-valid evidence of a held-out lever, while its five folds cannot exclude a small effect near the observed mean.
+E004 therefore provides no inference-unit-valid evidence that the objective improves held-out alignment, while its five folds cannot exclude a small effect near the observed mean.
 
 E005 asks the related matched-perplexity question against the five-participant-averaged target.
 At $\lambda=10$, its real-minus-permuted mean is \result{e005_apparent}.
 The flat seed-by-fold bootstrap interval $[+0.0023,+0.0171]$ is pseudo-replicated; the five-fold $t$ interval is $[-0.0030,+0.0193]$, the median is $+0.0034$, and one fold supplies 52\% of the mean \evd{E005}.
 Four of five fold means are positive, so the result is a small averaged-target trend rather than a precise null.
 
-The later $\lambda$ sweep separates a near-rate improvement from a rate--distortion trade.
+The later $\lambda$ sweep asks whether alignment can improve without worsening language quality or whether any gain requires a language-quality cost.
 At $\lambda=1$, the real-minus-matched-permuted contrast is $+0.0030$ with fold interval $[-0.0025,+0.0085]$ \evd{E005}.
 At $\lambda=3$, it is $+0.0063$ with interval $[-0.0092,+0.0218]$, and at $\lambda=10$ it is $+0.0072$ with interval $[-0.0044,+0.0188]$ \evd{E005}.
 At $\lambda=30$, the contrast is $+0.0060$ $[+0.0002,+0.0119]$, but held-out perplexity worsens from approximately $51.5$ for KD-only to $67.4$ \evd{E005}.
-The only fold-level-positive arm therefore buys alignment by moving to a worse language-model operating point, not by providing a free matched-rate improvement.
+The only fold-level-positive arm therefore buys alignment by moving to a worse language-model operating point, not by improving alignment without a language-quality cost.
 
 E008 changes the biological inference unit.
 It repeats the real-versus-permuted comparison separately for nine participants, using three optimization seeds and five shared folds within each participant.
@@ -226,20 +226,20 @@ The count sequence for $k=1,2,3,5,9$ is $+0.0039,+0.0162,+0.0324,+0.0444,+0.0702
 Because individual scores are already positive, this is not evidence that averaging fabricates an otherwise absent encoding signal.
 It shows legitimate SNR improvement and a change from individual-response alignment to alignment with the shared response component.
 
-Taken together, E004 and E005 provide small averaged-target trends but no reliable near-rate lever at five-fold inference.
-E008 supplies the load-bearing biological result: no mean per-individual gain in nine participants under the tested matched-regime objective.
+Taken together, E004 and E005 provide small averaged-target trends but no reliable intervention effect at comparable language quality under five-fold inference.
+E008 supplies the primary biological result: no demonstrated mean per-individual gain in nine participants under the tested participant-specific objective and its same-procedure control.
 E010 does not convert the averaged-versus-individual contrast into a clean causal dose response, and E014 shows why a larger score on an averaged target can still be a legitimate measurement of a different estimand.
 The apparent contradiction is therefore resolved at the level of the question being estimated.
 E005 asks whether training helps predict one denoised group-average response, and its small positive trend is compatible with an intervention that follows highly shared stimulus structure.
-E008 asks whether the same real-versus-control advantage is positive on average across individual people, and it finds a tightly bounded mean near zero for the predeclared effect size.
+E008 asks whether the same real-versus-control advantage is positive on average across individual people, and it finds a tightly bounded mean near zero.
 Neither result invalidates the other measurement, but only the latter supports inference to participant variation.
 This is why response averaging is described as an estimand change rather than as a universally invalid artifact.
 
-\subsection{Alternative intervention regimes do not rescue the tested lever}
+\subsection{Alternative intervention regimes do not establish a reliable gain}
 \label{sec:results-alternatives}
 
 E011 asks whether the E008 result is caused by insufficient low-rank adaptation (LoRA) capacity.
-It increases adapter rank from 16 to 64 and doubles the training duration while holding the target, objective, participant set, and matched-regime control fixed.
+It increases adapter rank from 16 to 64 and doubles the training duration while holding the target, objective, participant set, and same-procedure control fixed.
 Across the same nine participant units, the mean real-minus-permuted effect is \result{e011_mean} with $t$ interval \result{e011_ci} \evd{E011}.
 Six of nine effects are positive, but one participant contributes 79\% of their sum; leaving that participant out returns the estimate to approximately $+0.00010$ \evd{E011}.
 Absolute alignment and perplexity move about as much as in E008, so this result establishes robustness to extra adapter capacity at the same effective operating point, not robustness to every stronger manipulation.

@@ -4,10 +4,10 @@
 
 The voxelwise measurability result is conditional on one deeply sampled participant, UTS03.
 Spatially dependent voxels increase resolution but do not provide population replication, and the five story folds share training stories \evd{E006}.
-The primary intervention generalization tests include nine participants exposed to the same 1000 sentences, so participant diversity and stimulus diversity are both limited \evd{E008}\evd{E025}.
+The primary intervention generalization tests include nine participants exposed to the same 1,000 sentences, so participant diversity and stimulus diversity are both limited \evd{E008}\evd{E025}.
 The three-participant LeBel intervention variants are existence probes rather than population estimates \evd{E013} \evd{E017} \evd{E019}.
 These limitations are asymmetric: a controlled within-participant positive can establish that a signal exists under that participant's measurement process, while a within-participant null cannot establish absence across the population.
-A decisive population claim would require more independently sampled people, prespecified participant-level aggregation, and an effect large enough to survive between-person heterogeneity.
+A broader population estimate would require more independently sampled people, prespecified participant-level aggregation, and enough precision to resolve between-person heterogeneity.
 
 \subsection{Stimulus and target coverage}
 
@@ -20,7 +20,7 @@ The gaze experiment uses only 300 natural-reading sentences from seven highly un
 \subsection{Construct validity}
 
 Unique $R^2$ is conditional on the nuisance variables actually included.
-The pipeline subtracts rate, duration, frequency, and static lexical or semantic features, but it deliberately leaves surprisal and imageability outside the nuisance set; “beyond nuisance” therefore does not mean beyond all stimulus-predictable content \evd{E006}.
+The pipeline subtracts rate, duration, frequency, and static lexical or semantic features, but it deliberately leaves surprisal and imageability outside the primary nuisance set; ``beyond nuisance'' therefore does not mean beyond all stimulus-predictable content \evd{E006}\evd{E025}.
 The trained-minus-untrained gap identifies what language training adds over a random network under those controls, not shared cognitive mechanism or representational identity.
 E020 further shows that estimating a stimulus-predictability ceiling is limited by the reliability of the empirical reference \evd{E020}.
 
@@ -29,7 +29,7 @@ E020 further shows that estimating a stimulus-predictability ceiling is limited 
 The tested objectives cover MSE, a contrastive ROI loss, LoRA capacity changes, full fine-tuning, behavioral auxiliary targets, and one dense synthetic target, but they do not span all possible neural objectives or optimization schedules.
 In E011, additional adapter capacity does not produce a materially stronger representation change, while E013 and E017 show that more aggressive intervention can instead damage the model \evd{E011} \evd{E013} \evd{E017}.
 A failed manipulation cannot identify the consequence of a successful one.
-Conversely, a manipulation that strongly fits its training target can still change the wrong internal degrees of freedom, as the synthetic-to-real transfer gate demonstrates.
+Conversely, a manipulation that strongly fits its training target can still fail to improve an independent biological endpoint, as the synthetic-to-real transfer gate demonstrates.
 Future objectives need both a manipulation check on the optimized target and an independent biological endpoint that was not used to construct that target.
 
 \subsection{Inference and power}
@@ -38,7 +38,10 @@ E004 has five valid seed-averaged fold units, and its corrected interval cannot 
 Several sensitivity analyses reuse folds, stories, or participants and are therefore not independent replications.
 The block-permutation implementation can leave some target rows fixed, so it is treated as a sensitivity control rather than an exact marginal-preserving randomization null \evd{E016}.
 Minimum-detectable-effect calculations bound the tested contrasts but do not convert a null into evidence of exact zero.
-E008 excludes its predeclared $+0.003$ effect, while E025's primary TRIBE-minus-textfeat interval excludes its $+0.002$ activation effect for the same nine-participant substrate; the separate direct TRIBE-minus-KD interval also lies below $+0.002$ \evd{E008}\evd{E025}.
+E008's participant-level 95\% interval excludes a $+0.003$ unique $R^2$ effect, and its post-run calculation reports power 1.0 at that reference effect size \evd{E008}.
+For E025, the preregistered relative one-sided upper bound is below the internal $+0.002$ continuation threshold.
+The direct TRIBE-minus-KD 95\% interval also lies entirely below $+0.002$, although that threshold did not define the direct contrast \evd{E025}.
+That threshold decided whether to continue the positive-mechanism program; it is not a universal minimum biological effect.
 Smaller effects and effects in other regimes remain possible.
 Other nulls are correspondingly narrower when their valid unit count is smaller or when the intervention itself fails to move the representation.
 
@@ -56,6 +59,7 @@ Some measured properties do match, including standardized global scale, most tes
 E016's original transfer endpoint averages five participants and five ROIs, and its synthetic objective and transfer readout use different student layers.
 E025 rescoring supplies participant-level inference for nine complete participants, but all participants share one isolated-sentence corpus and the same five language ROIs \evd{E025}.
 The measured-axis failure settles that the saved text-feature arm cannot identify brain-specific content in the cross-target gain comparison, while the defective permutation remains unsuitable as an exact target-specific null.
+The direct TRIBE-minus-KD contrast remains interpretable as the net effect of the saved TRIBE-training arm on the recorded endpoint, but it does not isolate brain-derived content from other properties of that target.
 
 \subsection{Downstream-task coverage}
 

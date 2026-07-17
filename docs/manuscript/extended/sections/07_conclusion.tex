@@ -1,17 +1,20 @@
 \section{Conclusion}
 
-This thesis tested a transition that brain-alignment research often leaves implicit: from using a linear encoding score to describe a trained model to using the same kind of signal to shape a smaller model during knowledge distillation.
-The transition requires more than a positive brain score.
-The score must survive controls for nuisance structure and leakage, ordinary distillation must leave meaningful headroom, a neural objective and its control must be comparable before their target gains are interpreted, the intervention must move held-out alignment at comparable language quality, the effect must generalize at the intended biological inference unit, and the resulting change must transfer to an independent neural or practical endpoint.
-The experimental program evaluated those requirements in sequence rather than treating them as one claim.
+This thesis asked whether nuisance-controlled linear brain alignment can do more than describe a trained language model: can it guide the training of a smaller student?
+The measurement premise holds in the tested settings.
+Trained middle layers predict held-out fMRI beyond the recorded nuisance variables and untrained-network controls \evd{E002}\evd{E006}.
+Plain distillation also leaves measurable alignment headroom, although the amount attributable to distillation rather than language-model quality remains unresolved \evd{E003}\evd{E015}.
 
-The resulting answer is bounded and consistent.
-In the dense-proxy branch, target learning and student movement succeed, but the saved control fails measured-axis comparability; the primary TRIBE-minus-textfeat upper bound excludes its predeclared $+0.002$ activation effect, while direct TRIBE-minus-KD is \result{e025_tribe_kd}, CI95 \result{e025_tribe_kd_ci}, for the tested cohort \evd{E025}\evd{E026}.
-Middle-layer representations carry a measurable language-training signal under the recorded controls, but plain distillation's alignment loss remains entangled with language quality; the tested alignment objectives do not establish a reliable participant-level gain; capacity, loss-form, voxelwise, and full-fine-tuning variants do not rescue the intervention; and neither the tested downstream routes nor the dense synthetic proxy demonstrates real-brain benefit \evd{E002} \evd{E003} \evd{E006} \evd{E008} \evd{E009} \evd{E011} \evd{E013} \evd{E016} \evd{E017} \evd{E024} \evd{E025}.
-These findings do not imply that neural supervision is universally ineffective.
-They show that brain alignment is a valid diagnostic under explicit controls but is not a demonstrated reliable training signal in the compression regimes studied here.
+The intervention premise was not supported in the tested regimes.
+Recorded-target objectives do not establish a reliable participant-level gain, and changing adapter capacity, loss form, target resolution, or trainable parameter count does not rescue the result \evd{E008}\evd{E011}\evd{E013}\evd{E017}.
+The dense-proxy experiment passes target-uptake, student-movement, and language-quality gates, but its saved cross-target comparator fails measured-axis identification \evd{E016}\evd{E025}\evd{E026}.
+On recorded fMRI, direct participant-level TRIBE-minus-KD is \result{e025_tribe_kd}, with 95\% CI \result{e025_tribe_kd_ci}.
+The preregistered relative comparison has a one-sided 95\% upper bound of \result{e025_participant_ucb}, below the internal $+0.002$ continuation threshold, but E026 prevents that comparison from identifying neural target content \evd{E025}\evd{E026}.
 
-The durable contribution is a validation standard for future brain-guided training.
-Language quality, target specificity, inference unit, and downstream transfer must be separated because each can produce an apparently positive result without establishing the next link in the argument.
-A model that fits a neural target better has not necessarily become more aligned with measured brains; a model that scores higher on an averaged response has not necessarily improved across individuals; and a model with a changed representation has not necessarily become more useful.
-Treating measurement, intervention, biological generalization, and payoff as distinct estimands turns brain alignment from an attractive scalar score into a testable scientific claim.
+These results are limited to the models, objectives, participants, stimuli, and endpoints studied here.
+They do not show that neural supervision is universally ineffective.
+They show that a positive encoding score, successful proxy fit, or repeated optimization effect is not enough to establish a useful brain-guided intervention.
+
+Future claims should separate measurement, target uptake, comparator assessment, biological transfer, and downstream utility, and define the estimand for each quantitative stage.
+Language quality must be controlled, technical repetitions must not replace biological units, and synthetic or averaged targets must transfer to independently recorded responses.
+Under those requirements, brain alignment remains a measurable readout under the stated controls in this study, but not a demonstrated reliable training signal for the tested compression regimes.
