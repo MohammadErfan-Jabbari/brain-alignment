@@ -327,8 +327,13 @@
       \verb 10.48550/arXiv.2410.09230
       \endverb
     \endentry
-    \entry{moussa2025b}{inproceedings}{}
-      \name{author}{2}{}{%
+    \entry{merlinData2026}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=57d19c6ed59de589afcf21e58b23f18a}{%
+           family={Merlin},
+           familyi={M\bibinitperiod},
+           given={Gabriele},
+           giveni={G\bibinitperiod}}}%
         {{hash=c2d7d8fb5b262ddf66235820b1015e46}{%
            family={Moussa},
            familyi={M\bibinitperiod},
@@ -340,104 +345,128 @@
            given={Mariya},
            giveni={M\bibinitperiod}}}%
       }
-      \strng{namehash}{60bb12df873b02267c6d38e0b52d1a48}
-      \strng{fullhash}{60bb12df873b02267c6d38e0b52d1a48}
-      \strng{bibnamehash}{60bb12df873b02267c6d38e0b52d1a48}
-      \strng{authorbibnamehash}{60bb12df873b02267c6d38e0b52d1a48}
-      \strng{authornamehash}{60bb12df873b02267c6d38e0b52d1a48}
-      \strng{authorfullhash}{60bb12df873b02267c6d38e0b52d1a48}
+      \strng{namehash}{17b5caba01a157ffa04d88a5f78e9d4a}
+      \strng{fullhash}{17b5caba01a157ffa04d88a5f78e9d4a}
+      \strng{bibnamehash}{17b5caba01a157ffa04d88a5f78e9d4a}
+      \strng{authorbibnamehash}{17b5caba01a157ffa04d88a5f78e9d4a}
+      \strng{authornamehash}{17b5caba01a157ffa04d88a5f78e9d4a}
+      \strng{authorfullhash}{17b5caba01a157ffa04d88a5f78e9d4a}
       \field{sortinit}{4}
       \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{annotation}{per-participant LoRA, 3 training participants; see canonical/moussa-2025b}
-      \field{booktitle}{NeurIPS}
-      \field{title}{Brain-tuning Improves Generalizability and Efficiency of Brain Alignment in Speech Models}
-      \field{year}{2025}
+      \field{annotation}{brain, stimulus, and joint LoRA tuning on BERT and GPT-2; see canonical/merlin-2026_what-brain-data-adds}
+      \field{booktitle}{CoNLL}
+      \field{title}{What Brain Data Adds to Language Model Training}
+      \field{year}{2026}
+      \field{pages}{178\bibrangedash 212}
+      \range{pages}{35}
       \verb{doi}
-      \verb 10.48550/arXiv.2510.21520
+      \verb 10.18653/v1/2026.conll-main.12
       \endverb
     \endentry
-    \entry{negi2025}{inproceedings}{}
-      \name{author}{5}{}{%
-        {{hash=a0582f3237c8b90e75007ea9f1d42bdb}{%
-           family={Negi},
-           familyi={N\bibinitperiod},
-           given={Anuja},
-           giveni={A\bibinitperiod}}}%
-        {{hash=d2302142768cf205bdcffe4b585c049d}{%
-           family={Oota},
-           familyi={O\bibinitperiod},
-           given={Subba\bibnamedelima Reddy},
-           giveni={S\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
-        {{hash=9f6543b7881d1807423f2b6d9eb303ad}{%
-           family={Nunez-Elizalde},
-           familyi={N\bibinithyphendelim E\bibinitperiod},
-           given={Anwar\bibnamedelima O.},
-           giveni={A\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
-        {{hash=54f33c59e83e31fcee419f8f0c258ca4}{%
-           family={Gupta},
-           familyi={G\bibinitperiod},
-           given={Manish},
-           giveni={M\bibinitperiod}}}%
-        {{hash=782dd8c41d40fc441446fb601cbd076a}{%
-           family={Deniz},
-           familyi={D\bibinitperiod},
-           given={Fatma},
-           giveni={F\bibinitperiod}}}%
+    \entry{vaidya2026}{article}{}
+      \name{author}{3}{}{%
+        {{hash=7d474168ce7d43ff80f5a6d5c246d41e}{%
+           family={Vaidya},
+           familyi={V\bibinitperiod},
+           given={Aditya\bibnamedelima R.},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=a05a5b4dbd2478ae87876fff91185c75}{%
+           family={Antonello},
+           familyi={A\bibinitperiod},
+           given={Richard\bibnamedelima J.},
+           giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=05d42f05e1c1b0db4e4636f235e44891}{%
+           family={Huth},
+           familyi={H\bibinitperiod},
+           given={Alexander\bibnamedelima G.},
+           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
       }
-      \strng{namehash}{57b986460475fb2398d81b80692aa806}
-      \strng{fullhash}{0df3796f834399bf29dfe9d58d22068b}
-      \strng{bibnamehash}{57b986460475fb2398d81b80692aa806}
-      \strng{authorbibnamehash}{57b986460475fb2398d81b80692aa806}
-      \strng{authornamehash}{57b986460475fb2398d81b80692aa806}
-      \strng{authorfullhash}{0df3796f834399bf29dfe9d58d22068b}
+      \strng{namehash}{dc3ed915b74d96751c918553ad4bc117}
+      \strng{fullhash}{dc3ed915b74d96751c918553ad4bc117}
+      \strng{bibnamehash}{dc3ed915b74d96751c918553ad4bc117}
+      \strng{authorbibnamehash}{dc3ed915b74d96751c918553ad4bc117}
+      \strng{authornamehash}{dc3ed915b74d96751c918553ad4bc117}
+      \strng{authorfullhash}{dc3ed915b74d96751c918553ad4bc117}
       \field{sortinit}{4}
       \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{annotation}{reproduction target; baseline not perplexity-matched; see canonical/negi-2025}
-      \field{booktitle}{NeurIPS}
-      \field{title}{Brain-Informed Fine-Tuning for Improved Multilingual Understanding in Language Models}
-      \field{year}{2025}
-    \endentry
-    \entry{bilgin2026}{inproceedings}{}
-      \name{author}{4}{}{%
-        {{hash=830e53ff1f3d3d6169abe89cca4c48f1}{%
-           family={Bilgin},
-           familyi={B\bibinitperiod},
-           given={Isil\bibnamedelima Poyraz},
-           giveni={I\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
-        {{hash=b60fb36c9eff43343fd1eafbeb614c83}{%
-           family={St-Laurent},
-           familyi={S\bibinithyphendelim L\bibinitperiod},
-           given={Marie},
-           giveni={M\bibinitperiod}}}%
-        {{hash=1cb5f32b2d41b6fd761bf7a52c27a4de}{%
-           family={Bellec},
-           familyi={B\bibinitperiod},
-           given={Pierre},
-           giveni={P\bibinitperiod}}}%
-        {{hash=1bc4010bc6635d09fd71f9336a78043a}{%
-           family={Wehbe},
-           familyi={W\bibinitperiod},
-           given={Leila},
-           giveni={L\bibinitperiod}}}%
-      }
-      \strng{namehash}{eff9cafab79148a0143dfbc3ae79f52c}
-      \strng{fullhash}{e732dc7e355c1cf48151f09ea46c8667}
-      \strng{bibnamehash}{eff9cafab79148a0143dfbc3ae79f52c}
-      \strng{authorbibnamehash}{eff9cafab79148a0143dfbc3ae79f52c}
-      \strng{authornamehash}{eff9cafab79148a0143dfbc3ae79f52c}
-      \strng{authorfullhash}{e732dc7e355c1cf48151f09ea46c8667}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{annotation}{GPT-2 124M + LLaMA-2 7B, cosine brain loss, random-shuffle splits; see canonical/bilgin-2026}
-      \field{booktitle}{ICLR}
-      \field{title}{Brain-Informed Language Model Training Enables Scalable and Generalizable Alignment with Human Brain Activity}
+      \field{annotation}{fMRI-to-ECoG transfer across participants, stimulus, and modality; see canonical/vaidya-2026_slow-fmri-fast-ecog-transfer}
+      \field{journaltitle}{Preprint (arXiv:2605.19224)}
+      \field{title}{Fine-tuning Language Encoding Models on Slow {fMRI} Improves Prediction for Fast {ECoG}}
       \field{year}{2026}
+      \verb{doi}
+      \verb 10.48550/arXiv.2605.19224
+      \endverb
+    \endentry
+    \entry{saadi2025}{article}{}
+      \name{author}{2}{}{%
+        {{hash=cdd51a202f2eba0a23d89925cc9b2478}{%
+           family={Saadi},
+           familyi={S\bibinitperiod},
+           given={Khouloud},
+           giveni={K\bibinitperiod}}}%
+        {{hash=ae66067c3dea21e00e9c5b777faa1a4e}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Di},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{a064670e18788eefc0e9ca150508fd90}
+      \strng{fullhash}{a064670e18788eefc0e9ca150508fd90}
+      \strng{bibnamehash}{a064670e18788eefc0e9ca150508fd90}
+      \strng{authorbibnamehash}{a064670e18788eefc0e9ca150508fd90}
+      \strng{authornamehash}{a064670e18788eefc0e9ca150508fd90}
+      \strng{authorfullhash}{a064670e18788eefc0e9ca150508fd90}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{functional subspace rather than raw hidden-state matching; see canonical/saadi-2026_task-tangent-feature-distillation-llms}
+      \field{journaltitle}{Preprint (arXiv:2507.10155)}
+      \field{title}{What Should Feature Distillation Transfer in {LLMs}? A Task-Tangent Geometry View}
+      \field{year}{2025}
+      \verb{doi}
+      \verb 10.48550/arXiv.2507.10155
+      \endverb
+    \endentry
+    \entry{wu2026}{article}{}
+      \name{author}{3}{}{%
+        {{hash=e380f5d0582411a7a3101e6b260f1b03}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Jiaqiang},
+           giveni={J\bibinitperiod}}}%
+        {{hash=73a1c3d51d97e3aa262e2f0785666392}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Zhouan},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=adeb02264d76f2742882200f9cb10154}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Shangfei},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{b67753c7acfffc3d47f17f2cac7f185e}
+      \strng{fullhash}{b67753c7acfffc3d47f17f2cac7f185e}
+      \strng{bibnamehash}{b67753c7acfffc3d47f17f2cac7f185e}
+      \strng{authorbibnamehash}{b67753c7acfffc3d47f17f2cac7f185e}
+      \strng{authornamehash}{b67753c7acfffc3d47f17f2cac7f185e}
+      \strng{authorfullhash}{b67753c7acfffc3d47f17f2cac7f185e}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{training-only expert and future-context information for smaller dialogue models; see canonical/wu-2026_pride-privileged-information-distillation-dialogue}
+      \field{journaltitle}{Preprint (arXiv:2606.23124)}
+      \field{title}{{PRIDE}: Privileged Information-Enhanced Distillation for Empathetic Dialogue Generation}
+      \field{year}{2026}
+      \verb{doi}
+      \verb 10.48550/arXiv.2606.23124
+      \endverb
     \endentry
     \entry{gao2024}{article}{}
       \name{author}{6}{}{%
@@ -478,8 +507,8 @@
       \strng{authorbibnamehash}{afdb714403bd1b5332537395209c8986}
       \strng{authornamehash}{afdb714403bd1b5332537395209c8986}
       \strng{authorfullhash}{b1f3d15d8a6c70d63a78e501106a1c84}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{use a base teacher, not instruct; see canonical/gao-2024}
@@ -529,8 +558,8 @@
       \strng{authorbibnamehash}{f6964ada44364cdd3b1e0f8947107e6c}
       \strng{authornamehash}{f6964ada44364cdd3b1e0f8947107e6c}
       \strng{authorfullhash}{febd7a316339dbf3670a9a6e110af34b}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{alignment tracks formal competence, can reverse at scale; see canonical/alkhamissi-2025}
@@ -540,6 +569,202 @@
       \verb{doi}
       \verb 10.18653/v1/2025.emnlp-main.1237
       \endverb
+    \endentry
+    \entry{xiao2026}{article}{}
+      \name{author}{3}{}{%
+        {{hash=1978a4eb6c090d25ee52180899fc9716}{%
+           family={Xiao},
+           familyi={X\bibinitperiod},
+           given={Mingqing},
+           giveni={M\bibinitperiod}}}%
+        {{hash=52bf2c6ebcb233a4d7c1df8476b09e63}{%
+           family={Du},
+           familyi={D\bibinitperiod},
+           given={Kai},
+           giveni={K\bibinitperiod}}}%
+        {{hash=d08dc1d35b0b9ca9dee8f69661ecd33c}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Zhouchen},
+           giveni={Z\bibinitperiod}}}%
+      }
+      \strng{namehash}{7230ebcdc3ba515605710f17ac624a02}
+      \strng{fullhash}{7230ebcdc3ba515605710f17ac624a02}
+      \strng{bibnamehash}{7230ebcdc3ba515605710f17ac624a02}
+      \strng{authorbibnamehash}{7230ebcdc3ba515605710f17ac624a02}
+      \strng{authornamehash}{7230ebcdc3ba515605710f17ac624a02}
+      \strng{authorfullhash}{7230ebcdc3ba515605710f17ac624a02}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{task-fMRI-derived representation intervention and fine-tuning; see canonical/xiao-2026_brain-guided-llm-reasoning}
+      \field{journaltitle}{Preprint (arXiv:2606.11893)}
+      \field{title}{Beyond Representational Alignment with Brain-Guided Language Models for Robust Reasoning}
+      \field{year}{2026}
+      \verb{doi}
+      \verb 10.48550/arXiv.2606.11893
+      \endverb
+    \endentry
+    \entry{moussa2025b}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=c2d7d8fb5b262ddf66235820b1015e46}{%
+           family={Moussa},
+           familyi={M\bibinitperiod},
+           given={Omer},
+           giveni={O\bibinitperiod}}}%
+        {{hash=1710543a010127602134a3bf71dd8c67}{%
+           family={Toneva},
+           familyi={T\bibinitperiod},
+           given={Mariya},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{60bb12df873b02267c6d38e0b52d1a48}
+      \strng{fullhash}{60bb12df873b02267c6d38e0b52d1a48}
+      \strng{bibnamehash}{60bb12df873b02267c6d38e0b52d1a48}
+      \strng{authorbibnamehash}{60bb12df873b02267c6d38e0b52d1a48}
+      \strng{authornamehash}{60bb12df873b02267c6d38e0b52d1a48}
+      \strng{authorfullhash}{60bb12df873b02267c6d38e0b52d1a48}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{per-participant LoRA, 3 training participants; see canonical/moussa-2025b}
+      \field{booktitle}{NeurIPS}
+      \field{title}{Brain-tuning Improves Generalizability and Efficiency of Brain Alignment in Speech Models}
+      \field{year}{2025}
+      \verb{doi}
+      \verb 10.48550/arXiv.2510.21520
+      \endverb
+    \endentry
+    \entry{zhang2026}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{hash=d858f45b3e0ef28121886d634338b7db}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Zhejun},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=793205fcb91d01bc7787052f3f74b3a1}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Wenqing},
+           giveni={W\bibinitperiod}}}%
+        {{hash=7fe3ff3f30e75b7eee2492a0253500f7}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Haozhe},
+           giveni={H\bibinitperiod}}}%
+        {{hash=3a1f1a0016bb4e33e52e9bd0f48cfd33}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Lin},
+           giveni={L\bibinitperiod}}}%
+        {{hash=ad7517ebe80619f75e6261e4aae4f0e1}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Lei},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{268f43ec90dc014f806b0866f04fe63f}
+      \strng{fullhash}{9ddd3e45eb7bcf0cdb92ad3dfe26bb8b}
+      \strng{bibnamehash}{268f43ec90dc014f806b0866f04fe63f}
+      \strng{authorbibnamehash}{268f43ec90dc014f806b0866f04fe63f}
+      \strng{authornamehash}{268f43ec90dc014f806b0866f04fe63f}
+      \strng{authorfullhash}{9ddd3e45eb7bcf0cdb92ad3dfe26bb8b}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{word-aligned ECoG tuning of speech encoders; see canonical/zhang-2026_temporal-precision-ecog-tuning}
+      \field{booktitle}{ACL}
+      \field{title}{Temporal Precision Matters: Brain-Tuning Speech Language Models with Millisecond-Resolution Neural Signals}
+      \field{year}{2026}
+      \field{pages}{41208\bibrangedash 41226}
+      \range{pages}{19}
+      \verb{doi}
+      \verb 10.18653/v1/2026.acl-long.1911
+      \endverb
+    \endentry
+    \entry{negi2025}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{hash=a0582f3237c8b90e75007ea9f1d42bdb}{%
+           family={Negi},
+           familyi={N\bibinitperiod},
+           given={Anuja},
+           giveni={A\bibinitperiod}}}%
+        {{hash=d2302142768cf205bdcffe4b585c049d}{%
+           family={Oota},
+           familyi={O\bibinitperiod},
+           given={Subba\bibnamedelima Reddy},
+           giveni={S\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=9f6543b7881d1807423f2b6d9eb303ad}{%
+           family={Nunez-Elizalde},
+           familyi={N\bibinithyphendelim E\bibinitperiod},
+           given={Anwar\bibnamedelima O.},
+           giveni={A\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
+        {{hash=54f33c59e83e31fcee419f8f0c258ca4}{%
+           family={Gupta},
+           familyi={G\bibinitperiod},
+           given={Manish},
+           giveni={M\bibinitperiod}}}%
+        {{hash=782dd8c41d40fc441446fb601cbd076a}{%
+           family={Deniz},
+           familyi={D\bibinitperiod},
+           given={Fatma},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{57b986460475fb2398d81b80692aa806}
+      \strng{fullhash}{0df3796f834399bf29dfe9d58d22068b}
+      \strng{bibnamehash}{57b986460475fb2398d81b80692aa806}
+      \strng{authorbibnamehash}{57b986460475fb2398d81b80692aa806}
+      \strng{authornamehash}{57b986460475fb2398d81b80692aa806}
+      \strng{authorfullhash}{0df3796f834399bf29dfe9d58d22068b}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{reproduction target; baseline not perplexity-matched; see canonical/negi-2025}
+      \field{booktitle}{NeurIPS}
+      \field{title}{Brain-Informed Fine-Tuning for Improved Multilingual Understanding in Language Models}
+      \field{year}{2025}
+    \endentry
+    \entry{bilgin2026}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=830e53ff1f3d3d6169abe89cca4c48f1}{%
+           family={Bilgin},
+           familyi={B\bibinitperiod},
+           given={Isil\bibnamedelima Poyraz},
+           giveni={I\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=b60fb36c9eff43343fd1eafbeb614c83}{%
+           family={St-Laurent},
+           familyi={S\bibinithyphendelim L\bibinitperiod},
+           given={Marie},
+           giveni={M\bibinitperiod}}}%
+        {{hash=1cb5f32b2d41b6fd761bf7a52c27a4de}{%
+           family={Bellec},
+           familyi={B\bibinitperiod},
+           given={Pierre},
+           giveni={P\bibinitperiod}}}%
+        {{hash=1bc4010bc6635d09fd71f9336a78043a}{%
+           family={Wehbe},
+           familyi={W\bibinitperiod},
+           given={Leila},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{eff9cafab79148a0143dfbc3ae79f52c}
+      \strng{fullhash}{e732dc7e355c1cf48151f09ea46c8667}
+      \strng{bibnamehash}{eff9cafab79148a0143dfbc3ae79f52c}
+      \strng{authorbibnamehash}{eff9cafab79148a0143dfbc3ae79f52c}
+      \strng{authornamehash}{eff9cafab79148a0143dfbc3ae79f52c}
+      \strng{authorfullhash}{e732dc7e355c1cf48151f09ea46c8667}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{GPT-2 124M + LLaMA-2 7B, cosine brain loss, random-shuffle splits; see canonical/bilgin-2026}
+      \field{booktitle}{ICLR}
+      \field{title}{Brain-Informed Language Model Training Enables Scalable and Generalizable Alignment with Human Brain Activity}
+      \field{year}{2026}
     \endentry
     \entry{merlin2026}{inproceedings}{}
       \name{author}{2}{}{%
@@ -561,8 +786,8 @@
       \strng{authornamehash}{14596cf0e4f055b53cafc5d2629281d1}
       \strng{authorfullhash}{14596cf0e4f055b53cafc5d2629281d1}
       \field{extraname}{2}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{gradient-reversal de-alignment hurts 200+ tasks; see canonical/merlin-2026}
@@ -607,8 +832,8 @@
       \strng{authorbibnamehash}{dbd4bef26d157fa8bee89e4b7475ad9b}
       \strng{authornamehash}{dbd4bef26d157fa8bee89e4b7475ad9b}
       \strng{authorfullhash}{527166f0f820fb563d4a828ba6769a96}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{accuracy gain survives a shuffled-label control; only robustness needs neural data; see canonical/pirlot-2022}
@@ -653,8 +878,8 @@
       \strng{authorbibnamehash}{0e6242deaa763dd798d3406ac6a7a60d}
       \strng{authornamehash}{0e6242deaa763dd798d3406ac6a7a60d}
       \strng{authorfullhash}{99e816526cefd40f1b271ee7e1beac75}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{12/19 HEAR tasks; low-data advantage uncontrolled; see canonical/freteault-2025}
@@ -663,6 +888,47 @@
       \field{year}{2025}
       \verb{doi}
       \verb 10.1162/imag_a_00525
+      \endverb
+    \endentry
+    \entry{lopezpaz2016}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=47d681c0cbae75196012a538c46ccc06}{%
+           family={Lopez-Paz},
+           familyi={L\bibinithyphendelim P\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=ac762f2592005edf6bad58f566967c6c}{%
+           family={Bottou},
+           familyi={B\bibinitperiod},
+           given={Léon},
+           giveni={L\bibinitperiod}}}%
+        {{hash=ca31cc11ec9370460148c3a9c48fce45}{%
+           family={Schölkopf},
+           familyi={S\bibinitperiod},
+           given={Bernhard},
+           giveni={B\bibinitperiod}}}%
+        {{hash=c2b3e05872463585b4be6aab10d10d63}{%
+           family={Vapnik},
+           familyi={V\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{22f1ca51975a580e6bc7d843f8056fca}
+      \strng{fullhash}{8fba7ffbffa8e695855f41afb1cd6acb}
+      \strng{bibnamehash}{22f1ca51975a580e6bc7d843f8056fca}
+      \strng{authorbibnamehash}{22f1ca51975a580e6bc7d843f8056fca}
+      \strng{authornamehash}{22f1ca51975a580e6bc7d843f8056fca}
+      \strng{authorfullhash}{8fba7ffbffa8e695855f41afb1cd6acb}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{generalized distillation and its capacity and approximation conditions; see canonical/lopez-paz-2016_unifying-distillation-privileged-information}
+      \field{booktitle}{ICLR}
+      \field{title}{Unifying Distillation and Privileged Information}
+      \field{year}{2016}
+      \verb{doi}
+      \verb 10.48550/arXiv.1511.03643
       \endverb
     \endentry
     \entry{lebel2023}{article}{}
@@ -681,8 +947,8 @@
       \strng{authorbibnamehash}{0a792207c50070e8660e4f7416bf3a82}
       \strng{authornamehash}{0a792207c50070e8660e4f7416bf3a82}
       \strng{authorfullhash}{0a792207c50070e8660e4f7416bf3a82}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{ds003020; UTS01-03 deep-sampled; CC\_norm ceiling; see canonical + 05-dataset-registry}
@@ -722,8 +988,8 @@
       \strng{authorbibnamehash}{da3d3a7ee2693dc47f5be9a56cb90630}
       \strng{authornamehash}{da3d3a7ee2693dc47f5be9a56cb90630}
       \strng{authorfullhash}{bd22413a2553b731f9d3403975ea115e}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{formal fMRI noise-ceiling estimator; see canonical/lage-castellanos-2019}
@@ -756,8 +1022,8 @@
       \strng{authorbibnamehash}{e427ba6c0eda5292558c30c786236c01}
       \strng{authornamehash}{e427ba6c0eda5292558c30c786236c01}
       \strng{authorfullhash}{e427ba6c0eda5292558c30c786236c01}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{DPI, conditional MI, Gaussian closed form, rate-distortion; mapped in 06-theory-grounding}
@@ -784,8 +1050,8 @@
       \strng{authorbibnamehash}{c87c42a0e1ba5004a3fe120b8a88b171}
       \strng{authornamehash}{c87c42a0e1ba5004a3fe120b8a88b171}
       \strng{authorfullhash}{c87c42a0e1ba5004a3fe120b8a88b171}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{arXiv:1705.07809, Thm 1: gen bound scales as sqrt(2 sigma2 I(W;Sn)/n); the lecture-26 MI bound}
@@ -845,8 +1111,8 @@
       \strng{authorbibnamehash}{6ccea6e72f141c9aa4702a942712b4d5}
       \strng{authornamehash}{6ccea6e72f141c9aa4702a942712b4d5}
       \strng{authorfullhash}{7243c597356ec164c3fb217bd81a9e13}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{TRIBE v2 source and model description}

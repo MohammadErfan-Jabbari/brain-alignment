@@ -1,22 +1,23 @@
 \section{Related work}
 
-The literature relevant to this thesis has developed along two distinct axes: whether brain alignment is measured or optimized, and whether the model's parameter budget is preserved or reduced.
-Table~\ref{tab:cells} organizes these lines of work without treating adjacency as equivalence: measuring alignment after compression does not establish that alignment can guide compression, and optimizing alignment during ordinary fine-tuning does not establish that the same signal remains effective in a smaller student.
+The literature relevant to this thesis differs along two main axes: whether brain alignment is measured or optimized, and whether the deployed model is retained or compressed.
+Table~\ref{tab:cells} locates work that directly uses a brain-alignment quantity.
+Non-neural feature and privileged-information distillation provide adjacent precedents \autocite{saadi2025,wu2026}, so the table is a scope map rather than a novelty claim.
+The narrower question here is whether a neural target contributes target-specific value to a fixed-budget student and transfers to recorded brain responses that were not optimized during training.
 
 \begin{table}[H]
   \centering
   \footnotesize
-  \caption{A taxonomy of prior work by parameter-budget intervention and treatment of brain alignment. Alignment-guided distillation is the focus of this thesis.}
+  \caption{Selected direct brain-alignment work by deployed-model intervention and treatment of alignment.}
   \label{tab:cells}
-  \resizebox{\textwidth}{!}{%
-  \begin{tabular}{lll}
+  \begin{tabular}{@{}p{.24\textwidth}p{.29\textwidth}p{.36\textwidth}@{}}
     \toprule
                        & Alignment measured & Alignment optimized \\
     \midrule
-    Parameter budget preserved or increased & frozen-model encoding studies \autocite{oota2023,gao2024,alkhamissi2025} & brain-guided fine-tuning and adaptation \autocite{moussa2025,bilgin2026,merlin2026} \\
-    Parameter budget reduced & post-compression measurement \autocite{oota2026} & \textbf{alignment-guided distillation (this thesis)} \\
+    \raggedright Base model retained or adapted & \raggedright frozen-model encoding studies \autocite{oota2023,gao2024,alkhamissi2025} & \raggedright brain-guided fine-tuning and adaptation \autocite{moussa2025,merlinData2026,vaidya2026,xiao2026} \tabularnewline
+    \raggedright Model compressed or replaced by a smaller student & \raggedright post-compression measurement \autocite{oota2026} & \raggedright \textbf{alignment-guided distillation (this thesis)} \tabularnewline
     \bottomrule
-  \end{tabular}}
+  \end{tabular}
 \end{table}
 
 \subsection{Measuring brain alignment}
@@ -40,31 +41,48 @@ Accordingly, language quality is treated as a control variable rather than as ev
 
 \subsection{Optimizing neural alignment}
 
-A smaller literature moves from measurement to intervention by adding neural prediction or similarity terms during model training.
-In speech, voxelwise objectives have been used to adapt compact encoders, with reported improvements in neural prediction and downstream speech tasks; multi-participant variants report additional data-efficiency gains \autocite{moussa2025,moussa2025b}.
-In text, brain-guided objectives have been applied through fine-tuning, adapters, and auxiliary prediction heads, with mixed gains across models and evaluation settings \autocite{negi2025,bilgin2026}.
-Matched-quality interventions also provide evidence that deliberately increasing or decreasing alignment can change downstream behavior \autocite{merlin2026}.
+Intervention studies add neural-prediction or representation terms during model training.
+In speech, fMRI objectives have been used to adapt compact encoders, with reported improvements in neural prediction and downstream speech tasks; multi-participant variants report additional data-efficiency gains \autocite{moussa2025,moussa2025b}.
+Word-aligned ECoG targets provide a higher-temporal-resolution variant that improves held-out same-participant neural prediction relative to pretrained, target-permuted, temporal-mean, and temporally shuffled controls \autocite{zhang2026}.
+An external biological-transfer test adapts WavLM on deeply sampled fMRI from three people and reports improved ECoG prediction in nine different patients hearing different material \autocite{vaidya2026}.
+That result crosses participants, stimulus, and measurement modality, but it fits a fresh ECoG readout and compares primarily with the pretrained model rather than with a target-matched nonbrain intervention.
 
-The positive studies differ substantially in modality, target construction, trainable component, and downstream endpoint.
-Some optimize a direct voxel-prediction loss, some use representational similarity, and others train a small head while leaving most of the language model fixed.
-A reported improvement can therefore establish that one neural objective worked under its own design without identifying a general property of ``brain guidance.''
+In text, brain-guided objectives have been applied through full fine-tuning, adapters, auxiliary prediction heads, and representation interventions \autocite{negi2025,bilgin2026,merlinData2026,xiao2026}.
+\textcite{merlinData2026} compare brain-prediction tuning with language-model tuning on the same stimulus text and report a larger share of probes on which brain-tuned models significantly outperform stimulus-tuned models; joint tuning has the highest aggregate win rate.
+The brain and stimulus arms share the input text, LoRA rank, learning rate, and broad training duration, but are not matched on target geometry, predictability, loss scale, or optimization difficulty.
+\textcite{xiao2026} report that task-fMRI-derived representation directions can improve reasoning through intervention or fine-tuning, but do not train a smaller student or test a matched-quality compression frontier.
+Matched-quality adversarial interventions also provide evidence that deliberately reducing alignment can impair downstream behavior \autocite{merlin2026}.
+
+These positive studies differ substantially in modality, target construction, trainable component, controls, inference unit, and downstream endpoint.
+A reported improvement can establish that one neural objective worked under its own design without identifying a general property of ``brain guidance.''
 This thesis uses reduced external reproductions only as bounded checks of local mechanism transfer.
 Failure to reproduce a gain on one participant, a smaller corpus, or a different implementation is not treated as a refutation of a full multisubject result.
 
-These studies establish that neural data can participate in an optimization objective, but they do not settle the compression question addressed here.
-Most preserve the base model's parameter budget and begin from a pretrained representation that is already aligned.
-Their positive results can therefore combine inherited alignment, fine-tuning drift, language-quality change, target learnability, and brain-specific structure.
-The present design separates those possibilities with cold- and warm-initialization controls, matched-quality comparisons, target-permuted twins, participant-level inference, and a downstream gate that is interpreted only after a reliable representation change is established.
+Most brain-guided training studies preserve the base model's parameter budget and begin from a pretrained representation that is already aligned.
+Their positive results can therefore combine inherited alignment, fine-tuning drift, language-quality change, target learnability, target geometry, and brain-specific structure.
+The present experiments probe these explanations with initialization controls, quality matching, target-permuted twins, participant-level inference, a recorded-brain endpoint not optimized during training, and a separate comparator-validity audit.
 
 Related neural-regularization studies in vision and audio illustrate why matched controls matter.
 Neural supervision can improve performance or robustness, but shuffled-label or non-neural objectives may reproduce part of the benefit \autocite{pirlot2022,freteault2025}.
 Such results do not make the neural objective uninformative; they show that a gain over an untuned baseline is insufficient to identify which part of the training signal caused it.
 
+\subsection{Privileged targets and feature distillation}
+
+A neural target in this thesis serves as training-only side information and a dense auxiliary target.
+This is adjacent to, but not identical with, generalized distillation: the present method directly regresses a neural target through an auxiliary head, whereas generalized distillation has a teacher trained on privileged features produce labels for a student.
+Its analysis makes any advantage conditional on the teacher and student function classes, their approximation errors, and the ease of student imitation \autocite{lopezpaz2016}.
+
+\textcite{wu2026} use expert annotations or future context as training-only privileged information for smaller dialogue students.
+\textcite{saadi2025} prioritize teacher directions that affect task output rather than every hidden coordinate.
+These examples show why target uptake is only a manipulation check: a predictable target can change a student without improving recorded-brain prediction.
+Neural-content attribution requires a sufficiently matched nonbrain target, followed by evaluation on an endpoint not optimized during training.
+
 \subsection{Alignment under compression}
 
 Compression studies ask a complementary question: how much alignment remains after a model is made smaller.
-\textcite{oota2026} measure alignment after quantization and pruning and find that preservation depends on model size and compression method.
-This is evidence about robustness of a fixed trained representation under post-training transformation, not about using neural data to train a student.
+\textcite{oota2026} report that several selected post-training quantization and pruning conditions retain similar raw encoding scores, while other methods and smaller checkpoints degrade.
+The comparisons do not use an equivalence design, nuisance-subtracted endpoint, or controlled knowledge-distillation intervention.
+They are evidence about a fixed representation after post-training transformation, not about using neural data to train a student.
 
 Knowledge distillation changes the problem because it constrains a student's outputs while leaving substantial freedom in its internal representation.
 A student can match a teacher's next-token distribution without reproducing the teacher's middle-layer geometry, and a student trained from scratch also learns from the stimulus corpus along a path not mediated by fixed teacher features.
@@ -82,15 +100,20 @@ They isolate transmission through the teacher channel, drift from a pretrained s
 Brain scores are sensitive to evaluation design.
 Temporal autocorrelation can leak information across shuffled splits, low-level stimulus properties can support apparently positive prediction, and flexible feature spaces can exceed weaker nuisance baselines without isolating the construct of interest \autocite{hadidi2026,jia2026}.
 The same scalar score may also arise from different linguistic or acoustic features across models \autocite{oota2024}.
-For these reasons, held-out prediction is informative only relative to explicit splits, nuisance variables, model controls, reliability criteria, and an identified inference unit.
+For these reasons, a held-out score is interpretable only with explicit splits, nuisance variables, controls, reliability criteria, and an identified inference unit.
 
-Three distinctions are load-bearing for the present thesis.
+Three distinctions govern the interpretation in this thesis.
 First, contiguous sentence blocks or whole stories prevent adjacent naturalistic samples from appearing on both sides of evaluation.
 Second, a same-architecture untrained model and a target-permuted training twin answer different questions: the former tests what language training adds to measurement, whereas the latter tests whether an intervention depends on the correspondence between stimulus and neural target.
 Third, repeated folds, seeds, voxels, and participants are not interchangeable replicates.
 Inference over five shared stimulus folds cannot be converted into population evidence by adding seeds, spatially dependent voxels do not create independent participants, and a response averaged across people defines a different estimand from the mean effect across individuals \evd{E004} \evd{E006} \evd{E008} \evd{E014}.
 
+An intervention control must also support the attribution being made.
+A target-permuted twin tests whether stimulus-target correspondence matters, but it does not show that a neural target is better than another structured auxiliary target.
+Equal output width does not match covariance geometry, effective rank, baseline predictability, nuisance predictability, loss scale, or the amount of induced student change.
+Matching these properties would not prove information equivalence, but large mismatches can invalidate a content-specific comparison \evd{E026}.
+
 Quality matching completes this validity framework.
 Because alignment co-varies with language-model quality over the broad model range, a neural intervention must be compared with a non-neural alternative at comparable held-out quality whenever the claim is objective-specific \evd{E015}.
 Matching quality still does not identify the content of an internal representation, but it removes a major alternative explanation for a higher alignment score.
-The contribution of the present work is therefore not the bare proposal to optimize a brain score; it is the controlled test of whether that optimization remains specific, participant-general, and useful when the model is compressed.
+The present work tests whether neural-target supervision improves participant-level alignment in a compressed student and audits whether the available nonbrain comparator supports target-specific attribution.
