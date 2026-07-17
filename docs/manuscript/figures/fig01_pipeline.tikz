@@ -1,34 +1,54 @@
 \begin{tikzpicture}[
-  font=\small,
+  font=\footnotesize,
   >=Latex,
-  node distance=0.85cm and 0.9cm,
-  stage/.style={draw=black!55, rounded corners=3pt, fill=gray!6, minimum height=1.05cm, align=center, inner sep=6pt},
-  object/.style={draw=black!55, rounded corners=3pt, fill=white, minimum height=0.78cm, align=center, inner sep=5pt},
-  signal/.style={draw=black!45, rounded corners=2pt, fill=blue!6, minimum height=0.66cm, align=center, inner sep=4pt},
-  loss/.style={draw=black!50, rounded corners=2pt, fill=orange!10, minimum height=0.66cm, align=center, inner sep=4pt},
+  stage/.style={draw=black!55, rounded corners=3pt, fill=gray!6, minimum height=0.84cm, align=center, inner sep=5pt},
+  object/.style={draw=black!55, rounded corners=3pt, fill=white, minimum height=0.72cm, align=center, inner sep=4pt},
+  signal/.style={draw=black!45, rounded corners=2pt, fill=blue!6, minimum height=0.68cm, align=center, inner sep=4pt},
+  loss/.style={draw=black!50, rounded corners=2pt, fill=orange!10, minimum height=0.68cm, align=center, inner sep=4pt},
   arrow/.style={->, line width=0.55pt, draw=black!70},
-  softarrow/.style={->, line width=0.5pt, draw=black!45},
+  compare/.style={->, line width=0.5pt, draw=blue!55!black},
 ]
-  \node[stage, text width=2.55cm] (stim) at (-5.0,0) {\textbf{Shared text}\\same story or sentence};
-  \node[object, text width=3.05cm] (human) at (-0.55,1.05) {brain response\\to same text\\fMRI $Y$};
-  \node[object, text width=3.05cm] (lm) at (-0.55,-1.05) {LM activations\\for same text\\middle layer $X$};
+  % Intervention
+  \node[signal, text width=1.55cm] (traintext) at (-6.25,1.25) {training\\text};
+  \node[stage, text width=1.65cm] (student) at (-4.15,1.25) {\textbf{student}};
+  \node[object, text width=1.75cm] (tokenpred) at (-1.75,2.15) {student token\\prediction};
+  \node[object, text width=1.75cm] (activation) at (-1.75,0.35) {selected student\\activation};
+  \node[signal, text width=1.75cm] (teacher) at (0.55,3.55) {teacher token\\distribution};
+  \node[loss, text width=1.60cm] (kdloss) at (0.55,2.15) {KD loss\\$\mathcal{L}_{\mathrm{KD}}$};
+  \node[object, text width=1.75cm] (auxhead) at (0.55,0.35) {auxiliary\\neural head};
+  \node[signal, text width=1.90cm] (target) at (3.05,-0.95) {recorded or predicted\\neural target};
+  \node[loss, text width=1.65cm] (neurloss) at (3.05,0.35) {auxiliary loss\\$\mathcal{L}_{B}$};
+  \node[stage, text width=1.95cm] (update) at (5.35,1.25) {\textbf{joint update}\\permitted student\\parameters and head};
+  \node[object, text width=1.75cm] (retain) at (7.65,1.25) {retain student\\discard auxiliary head};
 
-  \node[stage, text width=2.85cm] (measure) at (3.85,0.85) {\textbf{Measure alignment}\\fit ridge map\\$X\hat W \to Y$};
-  \node[signal, text width=3.05cm] (score) at (3.85,-1.05) {alignment score\\unique $R^2$\\beyond nuisance};
+  \draw[arrow] (traintext) -- (student);
+  \draw[compare, dashed] (traintext.north) |- (teacher.west);
+  \draw[compare, dashed] (traintext.south) |- (target.west);
+  \draw[arrow] (student.east) to[out=12,in=180] (tokenpred.west);
+  \draw[arrow] (student.east) to[out=-12,in=180] (activation.west);
+  \draw[arrow] (tokenpred) -- (kdloss);
+  \draw[compare] (teacher) -- (kdloss);
+  \draw[arrow] (activation) -- (auxhead);
+  \draw[arrow] (auxhead) -- (neurloss);
+  \draw[compare] (target) -- (neurloss);
+  \draw[arrow] (kdloss.east) to[out=0,in=145] (update.west);
+  \draw[arrow] (neurloss.east) to[out=0,in=215] (update.west);
+  \draw[arrow] (update) -- (retain);
 
-  \node[stage, text width=2.95cm] (use) at (8.65,0.85) {\textbf{Use alignment}\\distill teacher\\to student};
-  \node[loss, text width=2.85cm] (brainloss) at (8.65,-1.05) {$\mathcal{L}_{\mathrm{KD}} + \lambda\Lbrain$\\student budget};
+  % Evaluation
+  \node[signal, text width=1.70cm] (heldout) at (-5.80,-3.25) {held-out\\text};
+  \node[stage, text width=1.90cm] (frozen) at (-3.35,-3.25) {\textbf{frozen retained}\\\textbf{student}};
+  \node[object, text width=1.75cm] (features) at (-0.85,-3.25) {selected-layer\\activations};
+  \node[stage, text width=2.15cm] (ridge) at (2.10,-3.25) {\textbf{fresh ridge map}\\fit against recorded\\responses};
+  \node[signal, text width=2.00cm] (score) at (5.25,-3.25) {held-out\\unique $R^2$};
 
-  \draw[arrow] ([yshift=7pt]stim.east) to[out=0,in=180] (human.west);
-  \draw[arrow] ([yshift=-7pt]stim.east) to[out=0,in=180] (lm.west);
-  \draw[arrow] (human.east) to[out=0,in=180,looseness=1.15] (measure.west);
-  \draw[arrow] (lm.east) to[out=0,in=195] ([yshift=-6pt]measure.west);
-  \draw[arrow] (measure) -- (score);
-  \draw[arrow] (measure.east) -- (use.west);
-  \draw[arrow] (use) -- (brainloss);
-  \draw[softarrow] (score.east) -- (brainloss.west);
+  \draw[arrow] (heldout) -- (frozen);
+  \draw[arrow] (frozen) -- (features);
+  \draw[arrow] (features) -- (ridge);
+  \draw[arrow] (ridge) -- (score);
 
-  \node[draw=black!35, rounded corners=3pt, fit=(stim)(human)(lm), inner sep=7pt, label={[font=\footnotesize]above:input}] {};
-  \node[draw=black!35, rounded corners=3pt, fit=(measure)(score), inner sep=7pt, label={[font=\footnotesize]above:measurement}] {};
-  \node[draw=black!35, rounded corners=3pt, fit=(use)(brainloss), inner sep=7pt, label={[font=\footnotesize]above:intervention}] {};
+  \node[font=\footnotesize\bfseries, anchor=west] at (-6.95,4.65) {Intervention};
+  \draw[black!35, line width=0.45pt] (-6.95,4.45) -- (8.65,4.45);
+  \node[font=\footnotesize\bfseries, anchor=west] at (-6.95,-1.85) {Evaluation with retained student weights};
+  \draw[black!35, line width=0.45pt] (-6.95,-2.05) -- (8.65,-2.05);
 \end{tikzpicture}

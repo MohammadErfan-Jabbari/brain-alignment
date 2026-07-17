@@ -15,14 +15,20 @@
 \maketitle
 \begin{abstract}
 Brain alignment measures whether a model representation can predict recorded human brain responses to the same language stimuli on held-out examples.
-It is scientifically interesting because successful prediction reveals brain-relevant distinctions that are linearly accessible in the representation, while stopping short of showing that the model implements the brain's mechanism or thinks like a person.
-This thesis asks a stronger question: can a score that measures such correspondence also serve as a useful objective when training a smaller language model by knowledge distillation?
-We test the transition through five gates: controlled measurability, preservation under compression, movement under intervention, generalization across participants, and transfer to practical or independently biological targets.
-Trained language-model features contain measurable signal beyond specified nuisances, and compression produces a quality-entangled retention gradient, but direct brain-guided objectives do not yield a reliable target-specific improvement at valid fold or participant inference units while preserving comparable language-model quality in the tested regimes.
-Participant averaging changes the estimand and can expose an apparent trend that does not generalize to individual participants; stronger capacity, alternative losses, full fine-tuning, external heads, privileged gaze information, and a learnable synthetic neural proxy do not establish the missing biological or practical gain.
-For the dense-proxy comparison, a retrospective audit further shows that the saved dimension-matched nonbrain control fails predeclared covariance, headroom, nuisance-predictability, and trained-movement criteria, so its smaller proxy gain cannot identify brain-specific content.
-The bounded answer is therefore that brain alignment is measurable but is not demonstrated here to be a reliable training signal.
-The broader methodological implication is that measurement quality, inference unit, target specificity, and downstream validation are separate requirements and must be tested separately.
+Successful prediction establishes linearly accessible brain-relevant information under a specified readout and control set, but it does not establish a shared biological mechanism.
+This thesis asks whether recorded or predicted neural responses can also provide useful auxiliary supervision when training a smaller language model by knowledge distillation.
+The experiments optimize neural-target losses rather than the encoding score itself, then evaluate the retained students with held-out, nuisance-controlled brain encoding.
+Trained language-model features contain measurable signal beyond the specified nuisances, but the tested objectives based directly on recorded fMRI do not establish a participant-level benefit at comparable language-model quality.
+With a fresh ridge readout fitted after training, TRIBE-supervised students achieved held-out synthetic-target $R^2$ \result{e016_tribe_synth_gain} higher than seed-matched KD students \evd{E016}\evd{E026}.
+Their retained parameters and representations also changed while language quality remained within the predeclared envelope \evd{E025}\evd{E026}.
+The saved text-feature target was not a valid control for attributing that difference to neural target content.
+TRIBE's KD baseline left \result{e026_headroom_ratio} times as much remaining headroom as the text-feature KD baseline.
+The targets differed in covariance geometry and nuisance predictability, and the trained arms differed in parameter displacement and centered-Frobenius representation change \evd{E026}.
+Across nine participants, the mean direct contrast in held-out unique $R^2$, TRIBE minus KD, was \result{e025_tribe_kd}, with a 95\% CI of \result{e025_tribe_kd_ci} \evd{E025}.
+The predeclared primary mean contrast, TRIBE minus textfeat, was \result{e025_participant_delta} unique $R^2$, with a 95\% CI of \result{e025_participant_ci}.
+Its one-sided 95\% upper confidence bound was \result{e025_participant_ucb}, below the internal $+0.002$ continuation threshold \evd{E025}.
+Because the comparator was not valid for target-content attribution, this relative contrast cannot isolate an effect of neural target content \evd{E026}.
+These results separate target uptake, retained-model movement, comparator identification, and participant-level biological transfer, and they do not demonstrate a reliable brain-guided training benefit in the tested distillation regimes.
 \end{abstract}
 \tableofcontents
 

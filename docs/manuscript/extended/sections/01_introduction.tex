@@ -26,54 +26,42 @@ Successful held-out prediction does not show that a model thinks like a person, 
 It shows that a specified readout extracts predictive information under a specified dataset, nuisance model, split, and inference unit.
 Low-level stimulus features, temporal leakage, response averaging, and language-model quality can all change the score without establishing the stronger interpretation \autocite{oota2024,hadidi2026,jia2026}.
 
-This thesis tests what happens when the measurement is asked to do more than compare representations.
+This thesis tests whether neural response targets can improve a smaller language model.
 In knowledge distillation, a smaller \emph{student} model learns from the output distribution of a larger \emph{teacher} model.
 Distillation can retain much of the teacher's predictive quality while changing the student's internal representation.
 For example, when the teacher assigns nonzero probability to several plausible next words, the student learns from that full probability pattern rather than only from the observed next token.
 This transfers the teacher's output behavior, but it does not require the student's middle layers to organize information in the same way.
 Brain-guided distillation adds a second training signal that rewards agreement with a recorded or predicted neural target at a selected student layer.
+The training objective is a neural-target loss, such as mean-squared error, not the held-out encoding score used to evaluate the retained student.
 The comparison of interest is not simply whether the resulting student has a higher brain score than an arbitrary baseline.
-It is whether the real neural target improves held-out alignment more than a target-specific control while teacher, student, text data, training budget, and achieved language-model quality are held as comparable as the design permits.
-The central question is therefore whether a linear encoding score can remain scientifically and practically useful when it becomes part of the student's training objective:
-
-\begin{quote}
-\emph{A linear encoding model can detect brain-relevant information in an LLM representation. Does that measurement remain useful when it becomes a training objective?}
-\end{quote}
+It is whether neural-target supervision improves held-out alignment relative to an appropriate nonbrain control while teacher, student, text data, training budget, and achieved language-model quality are held as comparable as the design permits.
+The central question is whether a recorded or predicted neural target improves a smaller student and whether that change transfers to held-out recorded brain responses.
 
 \begin{figure}[t]
   \centering
   \resizebox{0.98\textwidth}{!}{\input{../figures/fig01_pipeline.tikz}}
-  \caption{From measurement to intervention. A ridge encoding model maps frozen language-model activations to held-out brain responses after nuisance control. The intervention reverses the direction of use: a brain-derived target contributes an auxiliary loss while a student is distilled. The second step is scientifically stronger than the first and requires its own controls.}
+  \caption{Training and evaluation use different quantities. For the same training text, the KD loss compares the student's token prediction with the teacher distribution. The auxiliary loss compares the neural head's prediction with the recorded or predicted neural target. Both losses update permitted student parameters; only the auxiliary loss updates the neural head. That head is discarded after training. We then freeze the retained student, fit a fresh nuisance-controlled ridge encoding map, and report held-out unique $R^2$.}
   \label{fig:pipeline}
 \end{figure}
 
-This question separates three claims that are often compressed into one.
-A signal can be \emph{measurable}: a trained representation predicts held-out brain responses beyond declared nuisance features.
-It can be \emph{movable}: a brain-targeted intervention changes that measurement beyond a matched control.
-It can be \emph{useful}: the change survives the biologically relevant inference unit and improves an external outcome at comparable language-model quality.
-Measurability does not imply movability, and movability does not imply usefulness.
+Figure~\ref{fig:five-gates} organizes the experiments into five requirements for progressively stronger claims: controlled measurement, preservation and quality, an identified intervention, biological transfer, and external utility.
+Gate~3 expands the intervention check into target uptake, retained-student change, language-quality preservation, and comparator validity.
+The ordering governs interpretation, but a later diagnostic can still locate a failure boundary after an earlier condition fails.
+The checklist organizes the experiments; staged validation itself is not a claimed contribution.
 
-We organize the empirical program as five gates, shown in Figure~\ref{fig:five-gates}.
-The first asks whether the signal survives controls for low-level stimulus structure, temporal leakage, and untrained-network features.
-The second asks how ordinary distillation and language-model quality affect the score before any brain objective is added.
-The third asks whether a real brain target moves the score more than a matched control target.
-The fourth asks whether an apparent gain survives participant-level evaluation and matched-quality comparisons.
-The fifth asks whether the surviving representation change improves a downstream or privileged-information task.
-Failure at a gate narrows what later tests can establish, but it does not erase the evidence accumulated at earlier gates.
-
-The order matters because each gate blocks a common shortcut.
-A positive raw score without nuisance and untrained controls can reflect stimulus structure rather than learned language processing.
+A positive raw score without nuisance and untrained-network controls can reflect stimulus structure rather than learned language processing.
 A lower score after compression can reflect a worse language model rather than loss caused by distillation itself.
-A score that moves during training can reflect an easier target, a different perplexity, or a control loss that failed to engage.
-A repeatable seed effect can still disappear when participants become the units over which biological variation is measured.
+A student representation can become more predictive of its auxiliary target without gaining structure that transfers to recorded brain responses.
+Two arms can also pass separate manipulation checks while differing in baseline target difficulty, loss scale, or the amount of model change.
+Agreement across training seeds does not establish consistency across participants because seeds and participants index different sources of variation.
 Finally, improvement on the same proxy used for training can fail to transfer to recorded fMRI or to a downstream language task.
-The thesis treats these as distinct evidential transitions instead of using one positive number to stand in for all of them.
+The analyses therefore report these conditions separately.
 
 \enlargethispage{\baselineskip}
 \begin{figure}[H]
   \centering
   \input{../figures/fig02_five_gates.tikz}
-  \caption{The cumulative experimental chain. Measurement establishes that a representation contains linearly accessible brain-predictive information; intervention asks whether a brain-targeted objective changes it; biological and practical validation ask whether the change survives the appropriate inference unit, quality controls, and an external endpoint.}
+  \caption{The five stages used to organize the experimental program. The intervention stage includes target uptake, retained-student movement, language-quality preservation, and comparator validity. Biological transfer then requires evaluation on recorded responses at the participant inference unit before any external utility claim is made.}
   \label{fig:five-gates}
 \end{figure}
 
@@ -81,8 +69,8 @@ The motivating hypothesis is deliberately weak.
 A brain objective may act as a regularizer that selects among text-compatible student representations rather than as a second teacher that supplies a new language task.
 This possibility is plausible because next-token objectives constrain output distributions more directly than middle-layer geometry, leaving multiple internal solutions with similar perplexity.
 It is not guaranteed by information theory, and the brain dataset's small and noisy supervision does not by itself establish a useful information budget.
-The hypothesis therefore predicts only a place to look: constrained, compressed, or under-trained regimes in which a targeted inductive bias might choose a better internal solution.
-The experiments, rather than the theory, must determine whether that selection occurs and whether it matters.
+The hypothesis applies most plausibly to constrained, compressed, or under-trained regimes in which an auxiliary objective could select among text-compatible solutions.
+The experiments test whether such selection occurs and whether it transfers beyond the optimized target.
 
 The work is positioned between four related literatures.
 Encoding-model studies measure correspondence between artificial and biological representations \autocite{tuckute2024,oota2023,merlin2024}.
@@ -93,15 +81,14 @@ The contribution is not the claim that these areas contain a single empty cell.
 It is a controlled test of alignment-guided distillation at their intersection, with matched controls and participant-aware evaluation used to separate measurement from intervention.
 
 \paragraph{Contributions.}\leavevmode\par\smallskip
-This thesis answers the cumulative questions with five contributions.
+This thesis makes three empirical contributions.
 \begin{itemize}[noitemsep,topsep=2pt]
-  \item It defines an artifact-resistant alignment estimand and verifies a trained-over-untrained signal with contiguous held-out evaluation, fold-only preprocessing, capacity-matched nuisance features, and reliability selection \evd{E002}\evd{E006}.
-  \item It separates preservation from language-model quality, showing both alignment headroom after distillation and substantial quality entanglement across a broader model comparison \evd{E003}\evd{E015}.
-  \item It demonstrates that the apparent intervention answer depends on the response target and inference unit: an averaged-response trend does not become a participant-level effect, and a nested sensitivity pattern does not survive randomized subset construction \evd{E004}\evd{E005}\evd{E008}\evd{E010}\evd{E014}.
-  \item It tests capacity, loss form, voxelwise regression, and full fine-tuning, finding no reliable brain-specific improvement in the tested regimes while preserving a bounded distinction between failure of these mechanisms and a universal impossibility claim \evd{E011}\evd{E013}\evd{E017}.
-  \item It tests downstream, privileged-information, cognitive-target, external-reproduction, and dense synthetic-target routes, identifying failed preconditions, a proxy control that fails the predeclared measured-axis comparability conjunction, and failed participant-transfer gates rather than treating an easier proxy endpoint as evidence of real-brain benefit \evd{E009} \evd{E016} \evd{E019} \evd{E020} \evd{E021} \evd{E022} \evd{E024} \evd{E025} \evd{E026}.
+  \item It establishes controlled measurability and quantifies how ordinary distillation and language-model quality constrain the interpretation of alignment changes \evd{E002}\evd{E003}\evd{E006}\evd{E015}.
+  \item It shows that participant averaging and the choice of inference unit alter the supported intervention claim: an averaged-target trend does not establish a mean participant-level benefit \evd{E004}\evd{E005}\evd{E008}\evd{E010}\evd{E014}.
+  \item It separates four outcomes in dense-proxy distillation.
+  Students learn to predict the TRIBE target, and their retained parameters and representations change while language quality remains comparable.
+  However, the saved text-feature target cannot isolate target content, and the mean participant-level TRIBE-minus-KD estimate on recorded fMRI is near zero \evd{E016}\evd{E025}\evd{E026}.
 \end{itemize}
 
-The bounded empirical answer is that brain-relevant information is measurable in the tested language-model representations, but brain alignment is not demonstrated to be a reliable training signal in the tested distillation regimes.
-This is not a universal null about neural supervision.
-It is a map of where the tested causal chain holds, where it breaks, and which distinctions must remain separate: encoding quality, language-model quality, target specificity, biological inference, and downstream validation.
+Brain-relevant information is measurable in the tested language-model representations, but the tested distillation regimes do not demonstrate a reliable benefit from neural-target supervision.
+This conclusion is restricted to the recorded objectives, models, datasets, controls, and biological endpoints.

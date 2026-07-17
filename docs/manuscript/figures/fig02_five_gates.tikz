@@ -6,11 +6,11 @@
   last/.style={gate, draw=orange!75!black, fill=orange!13, line width=0.8pt},
   arrow/.style={-{Latex[length=2mm]}, line width=0.65pt, draw=black!60},
 ]
-  \node[gate] (g1) {\textbf{1. Measurable}\\[3pt]{\scriptsize\color{black!78}Does the score\\detect a controlled\\signal beyond\\nuisance and\\untrained features?}};
-  \node[gate, right=of g1] (g2) {\textbf{2. Preserved}\\[3pt]{\scriptsize\color{black!78}Does ordinary\\distillation leave\\recoverable\\alignment\\headroom?}};
-  \node[gate, right=of g2] (g3) {\textbf{3. Movable}\\[3pt]{\scriptsize\color{black!78}Does the real\\target change\\held-out alignment\\beyond\\controls?}};
-  \node[gate, right=of g3] (g4) {\textbf{4. General}\\[3pt]{\scriptsize\color{black!78}Across which\\participants and\\stimuli does the\\effect\\generalize?}};
-  \node[last, right=of g4] (g5) {\textbf{5. Useful}\\[3pt]{\scriptsize\color{black!78}Does the change\\transfer beyond\\its training proxy\\to downstream\\behavior?}};
+  \node[gate] (g1) {\textbf{1. Controlled measurement}\\[3pt]{\scriptsize\color{black!78}Do held-out\\responses remain\\predictable beyond\\nuisance and\\untrained-network\\features?}};
+  \node[gate, right=of g1] (g2) {\textbf{2. Preservation and quality}\\[3pt]{\scriptsize\color{black!78}Does ordinary\\distillation leave\\room for alignment\\improvement at\\comparable quality?}};
+  \node[gate, right=of g2] (g3) {\textbf{3. Identified intervention}\\[3pt]{\scriptsize\color{black!78}Does target fit improve,\\does the student change,\\and are quality and\\the comparator\\adequate?}};
+  \node[gate, right=of g3] (g4) {\textbf{4. Biological transfer}\\[3pt]{\scriptsize\color{black!78}Does held-out\\alignment improve\\when participants are\\the inference units?}};
+  \node[last, right=of g4] (g5) {\textbf{5. External utility}\\[3pt]{\scriptsize\color{black!78}Does the change\\improve a task or\\transfer to an\\external setting?}};
   \draw[arrow] (g1) -- (g2);
   \draw[arrow] (g2) -- (g3);
   \draw[arrow] (g3) -- (g4);
