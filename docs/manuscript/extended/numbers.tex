@@ -31,12 +31,17 @@
 \DeclareResult{e009_fulcrum_median}{$+0.0042$}                          % [E009] mse-minus-permuted median over seeds
 \DeclareResult{e016_tribe_synth_gain}{$+0.078298$}                      % [E016] TRIBE-target R2 gain over KD, six seeds
 \DeclareResult{e016_textfeat_synth_gain}{$+0.000903$}                   % [E016] textfeat-target R2 gain over KD, six seeds
+\DeclareResult{e016_direct_transfer}{$-0.000919$}                       % [E016] direct TRIBE-minus-KD mean on common Tuckute endpoint, six seeds
 \DeclareResult{e016_transfer_delta}{$-0.001213$}                        % [E016] TRIBE-minus-textfeat Tuckute gain relative to KD
 \DeclareResult{e025_participant_delta}{$+0.000136$}                    % [E025] participant-first TRIBE-minus-textfeat mean, n=9
 \DeclareResult{e025_participant_ci}{[$-0.000505$, $+0.000777$]}        % [E025] participant t-CI95, n=9
 \DeclareResult{e025_participant_ucb}{$+0.000653$}                      % [E025] one-sided participant upper 95%, below internal +0.002 continuation threshold
+\DeclareResult{e025_participant_mde}{$0.000890$}                       % [E025] observed-variance 80% MDE, n=9
+\DeclareResult{e025_participant_median}{$-0.000023$}                   % [E025] participant-first TRIBE-minus-textfeat median
+\DeclareResult{e025_drop_highest}{$-0.000131$}                         % [E025] participant mean after excluding highest-KD-alignment UID 837
 \DeclareResult{e025_tribe_kd}{$-0.000014$}                             % [E025] direct TRIBE-minus-KD participant mean
 \DeclareResult{e025_tribe_kd_ci}{[$-0.000739$, $+0.000711$]}           % [E025] direct TRIBE-minus-KD participant t-CI95, n=9
+\DeclareResult{e025_textfeat_kd}{$-0.000150$}                          % [E025] direct textfeat-minus-KD participant mean
 \DeclareResult{e026_check_split}{$30/55$}                              % [E026] failed measured-axis checks / all frozen checks
 \DeclareResult{e026_kd_targets}{$0.595327$ versus $0.911687$}          % [E026] mean KD target R2, TRIBE versus textfeat
 \DeclareResult{e026_headroom_ratio}{$4.582$}                           % [E026] mean remaining headroom, TRIBE / textfeat

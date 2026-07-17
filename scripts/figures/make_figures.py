@@ -46,9 +46,9 @@ def fig1_dose_response():
     fig, ax = plt.subplots(figsize=(6.5, 4))
     ax.axhline(0, color="grey", lw=0.8, ls=":")
     ax.plot(ksn, nested, marker="o", color="C7", ls="--", lw=1.5, alpha=0.7,
-            label="nested subsets (E010) — clean-looking but confounded")
+            label="nested subsets (E010; confounded)")
     ax.errorbar(ksr, rm, yerr=re_, marker="s", color="C3", capsize=4, lw=2,
-                label="random subsets (E010b) ± SD — the honest, noisy reality")
+                label="random subsets (E010b; mean ± SD)")
     ax.set_xlabel("k  (subjects averaged into the fMRI target)")
     ax.set_ylabel("held-out brain-specific gap  Δ unique R²")
     ax.set_xticks(sorted(set(ksn) | set(ksr)))
@@ -196,7 +196,7 @@ def fig7_intervention_forest():
 
 
 def fig8_synthetic_transfer():
-    """E016 synthetic endpoint gains and the separate real-brain transfer margins."""
+    """Frozen E016 seed-level proxy uptake and fixed-endpoint diagnostic."""
     synth = json.load(open(ROOT / "outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_comparison.interpret_audit.json"))
     real = json.load(open(ROOT / "outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment_analysis.json"))
     synth_rows = synth["seed_rows"]
@@ -211,16 +211,16 @@ def fig8_synthetic_transfer():
     axes[0].axhline(0, color="black", lw=0.8, ls=":")
     axes[0].set_xlabel("training seed")
     axes[0].set_ylabel("synthetic target $R^2$ gain over KD")
-    axes[0].set_title("A. Synthetic endpoint")
-    axes[0].legend(fontsize=8)
+    axes[0].set_title("A. Arm-specific synthetic endpoints\n(not a common content scale)")
+    axes[0].legend(fontsize=9)
     axes[1].plot(x, transfer, "o", color="C3")
     axes[1].axhline(0, color="black", lw=0.8, ls=":")
     axes[1].axhline(mean(transfer), color="C3", lw=1.4, label=f"mean {mean(transfer):+.4f}")
     axes[1].set_xlabel("training seed")
-    axes[1].set_ylabel("TRIBE minus text-feature gain on Tuckute")
-    axes[1].set_title("B. Fixed real-brain transfer endpoint")
-    axes[1].legend(fontsize=8)
-    fig.suptitle("Learning a synthetic neural proxy does not imply real-brain transfer")
+    axes[1].set_ylabel("relative Tuckute change (descriptive)")
+    axes[1].set_title("B. Relative transfer diagnostic\n(comparator fails E026 audit)")
+    axes[1].legend(fontsize=9)
+    fig.suptitle("E016 measures proxy uptake and fixed-endpoint transfer separately")
     fig.tight_layout()
     fig.savefig(OUT / "fig08_synthetic_transfer.png", dpi=180)
     plt.close(fig)
@@ -241,7 +241,7 @@ def fig9_identification_chain():
     gains = [trained["target_learning_and_loss"][f]["target_minus_kd_delta_r2"]["mean"]
              for f in families]
 
-    fig, axes = plt.subplots(2, 2, figsize=(10.2, 7.2))
+    fig, axes = plt.subplots(2, 2, figsize=(8.2, 6.8))
     ax = axes[0, 0]
     x = list(range(2))
     ax.bar(x, kd_r2, color=colors, alpha=0.72, label="KD baseline target $R^2$")
@@ -250,20 +250,15 @@ def fig9_identification_chain():
     final_r2 = [base + gain for base, gain in zip(kd_r2, gains)]
     ax.bar(x, [1 - value for value in final_r2], bottom=final_r2, color="0.92",
            edgecolor="0.75", label="headroom after target training")
-    ax.bar(x, [1 - value for value in kd_r2], bottom=kd_r2, fill=False,
-           edgecolor="black", linestyle="--", linewidth=1.0,
-           label="KD headroom (audit estimand)")
     for i, (base, gain) in enumerate(zip(kd_r2, gains)):
-        ax.text(i, base / 2, f"KD {base:.3f}", ha="center", va="center", fontsize=8)
-        ax.text(i, min(0.985, base + gain + 0.018), f"gain {gain:+.4f}", ha="center", fontsize=8)
-        ax.text(i, base + 0.78 * (1 - base), f"KD headroom {1 - base:.3f}",
-                ha="center", va="center", fontsize=7)
+        ax.text(i, base / 2, f"KD {base:.3f}", ha="center", va="center", fontsize=9)
+        ax.text(i, min(0.985, base + gain + 0.018), f"gain {gain:+.4f}", ha="center", fontsize=9)
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
     ax.set_ylim(0, 1.02)
     ax.set_ylabel("held-out target $R^2$")
     ax.set_title("A. Baseline difficulty and headroom")
-    ax.legend(fontsize=7, loc="lower right")
+    ax.legend(fontsize=9, loc="upper center", bbox_to_anchor=(0.5, -0.18), ncol=2)
 
     ax = axes[0, 1]
     cuts = [1, 8, 32, 128, 512]
@@ -286,7 +281,7 @@ def fig9_identification_chain():
     ax.set_xlabel("number of components")
     ax.set_ylabel("cumulative standardized variance mass")
     ax.set_title("B. Target covariance geometry")
-    ax.legend(fontsize=8)
+    ax.legend(fontsize=9)
 
     ax = axes[1, 0]
     parameter_rows = trained["parameter_update_comparison"]["blocks"]["global"]["seed_rows"]
@@ -311,40 +306,53 @@ def fig9_identification_chain():
                alpha=0.35, zorder=0, label=r"frozen $|\log r|\leq0.10$ band")
     ax.axhline(1, color="black", lw=0.8, ls=":")
     ax.set_xticks(list(range(len(ratios))))
-    ax.set_xticklabels(list(ratios.keys()), fontsize=8)
-    ax.set_ylabel("TRIBE / text-feature movement ratio")
-    ax.set_title("C. Parameter/Frobenius movement differs")
-    ax.legend(fontsize=7, loc="upper left")
+    ax.set_xticklabels(list(ratios.keys()), fontsize=9)
+    ax.set_ylabel("TRIBE / text-feature ratio")
+    ax.set_title("C. Movement magnitudes are not matched")
+    ax.legend(fontsize=9, loc="upper left")
 
     ax = axes[1, 1]
-    participant = e025["analyses"]["layer7:primary"]["tribe_minus_textfeat"]["participant"]
-    by_uid = sorted(participant["by_uid"].items(), key=lambda item: int(item[0]))
-    px = list(range(len(by_uid)))
-    values = [value for _, value in by_uid]
-    ax.scatter(px, values, color=["C2" if value > 0 else "C3" for value in values], s=36)
-    mean_x = len(by_uid) + 0.35
-    ci = participant["ci95"]
-    ax.errorbar(
-        [mean_x],
-        [participant["mean"]],
-        yerr=[[participant["mean"] - ci[0]], [ci[1] - participant["mean"]]],
-        fmt="D",
-        color="black",
-        capsize=4,
-        label="participant mean and 95% CI",
-    )
-    ax.axhline(0, color="black", lw=0.8, ls=":")
+    analyses = e025["analyses"]["layer7:primary"]
+    contrasts = [
+        ("Direct: TRIBE $-$ KD", analyses["tribe_minus_kd"]["participant"], "C0"),
+        ("Relative diagnostic:\nTRIBE $-$ text feature\n(not content-identified)",
+         analyses["tribe_minus_textfeat"]["participant"], "0.45"),
+    ]
+    for row, (label, participant, color) in enumerate(contrasts):
+        y = 1 - row
+        values = list(participant["by_uid"].values())
+        jitter = [(i - 4) * 0.018 for i in range(len(values))]
+        ax.scatter(values, [y + value for value in jitter], color=color, s=22, alpha=0.62)
+        ci = participant["ci95"]
+        ax.errorbar(
+            [participant["mean"]],
+            [y],
+            xerr=[[participant["mean"] - ci[0]], [ci[1] - participant["mean"]]],
+            fmt="D",
+            color=color,
+            markeredgecolor="black",
+            markersize=6,
+            capsize=4,
+            lw=1.5,
+        )
+    ax.axvline(0, color="black", lw=0.8, ls=":")
     sesoi = e025["design"]["sesoi_unique_r2"]
-    ax.axhline(sesoi, color="C4", lw=1.2, ls="--",
-               label=f"predeclared SESOI {sesoi:+.3f}")
-    ax.set_xticks(px + [mean_x])
-    ax.set_xticklabels([uid for uid, _ in by_uid] + ["mean"], rotation=45, fontsize=7)
-    ax.set_ylabel("participant TRIBE − text-feature $\Delta$ unique $R^2$")
-    ax.set_title("D. Primary relative contrast falls below SESOI")
-    ax.legend(fontsize=7, loc="upper right")
+    ax.vlines(sesoi, -0.23, 0.23, color="C4", lw=1.5, linestyles="--")
+    ax.text(sesoi - 0.00003, 0.27, "+0.002 continuation\nthreshold",
+            color="C4", ha="right", va="bottom", fontsize=9)
+    ax.set_yticks([1, 0])
+    ax.set_yticklabels([label for label, _, _ in contrasts], fontsize=9)
+    ax.set_ylim(-0.35, 1.35)
+    ax.set_xlim(-0.0013, 0.00245)
+    ax.set_xticks([-0.001, 0.0, 0.001, 0.002])
+    ax.set_xticklabels(["-0.001", "0", "+0.001", "+0.002"], fontsize=9)
+    ax.set_xlabel("participant-level change in unique $R^2$")
+    ax.set_title("D. Participant-level transfer (n=9)")
 
     fig.suptitle("Proxy learnability, control matching, model movement, and transfer are distinct gates")
-    fig.tight_layout()
+    for ax in axes.flat:
+        ax.tick_params(labelsize=9)
+    fig.tight_layout(h_pad=3.0, rect=[0, 0, 1, 0.97])
     fig.savefig(OUT / "fig09_identification_chain.png", dpi=180)
     plt.close(fig)
 
