@@ -93,10 +93,10 @@ def compile_latex(target: Path) -> list[str]:
         if len(mains) != 1:
             return [f"{directory}: expected one manuscript main .tex file"]
         main = mains[0]
-    if shutil.which("latexmk"):
-        command = ["latexmk", "-pdf", "-interaction=nonstopmode", main.name]
-    elif shutil.which("tectonic"):
+    if shutil.which("tectonic"):
         command = ["tectonic", "-X", "compile", main.name, "--keep-intermediates"]
+    elif shutil.which("latexmk"):
+        command = ["latexmk", "-pdf", "-interaction=nonstopmode", main.name]
     else:
         return ["LaTeX build unavailable: install latexmk or tectonic"]
     try:
