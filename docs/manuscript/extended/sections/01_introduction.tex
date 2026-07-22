@@ -45,7 +45,7 @@ The central question is whether a recorded or predicted neural target improves a
 \end{figure}
 
 Figure~\ref{fig:five-gates} organizes the experiments into five requirements for progressively stronger claims: controlled measurement, preservation and quality, an identified intervention, biological transfer, and external utility.
-Gate~3 expands the intervention check into target uptake, retained-student change, language-quality preservation, and comparator validity.
+Gate~3 expands the intervention check into exact-substrate target measurability, target uptake, retained-student change, language-quality preservation, and comparator validity.
 The ordering governs interpretation, but a later diagnostic can still locate a failure boundary after an earlier condition fails.
 The checklist organizes the experiments; staged validation itself is not a claimed contribution.
 
@@ -61,7 +61,7 @@ The analyses therefore report these conditions separately.
 \begin{figure}[H]
   \centering
   \input{../figures/fig02_five_gates.tikz}
-  \caption{The five stages used to organize the experimental program. The intervention stage includes target uptake, retained-student movement, language-quality preservation, and comparator validity. Biological transfer then requires evaluation on recorded responses at the participant inference unit before any external utility claim is made.}
+  \caption{The five stages used to organize the experimental program. The intervention stage includes exact-substrate target measurability, target uptake, retained-student movement, language-quality preservation, and comparator validity. Biological transfer then requires evaluation on recorded responses at the participant inference unit before any external utility claim is made.}
   \label{fig:five-gates}
 \end{figure}
 
@@ -85,9 +85,9 @@ This thesis makes three empirical contributions.
 \begin{itemize}[noitemsep,topsep=2pt]
   \item It establishes controlled measurability and quantifies how ordinary distillation and language-model quality constrain the interpretation of alignment changes \evd{E002}\evd{E003}\evd{E006}\evd{E015}.
   \item It shows that participant averaging and the choice of inference unit alter the supported intervention claim: an averaged-target trend does not establish a mean participant-level benefit \evd{E004}\evd{E005}\evd{E008}\evd{E010}\evd{E014}.
-  \item It separates four outcomes in dense-proxy distillation.
-  Students learn to predict the TRIBE target, and their retained parameters and representations change while language quality remains comparable.
-  However, the saved text-feature target cannot isolate target content, and the mean participant-level TRIBE-minus-KD estimate on recorded fMRI is near zero \evd{E016}\evd{E025}\evd{E026}.
+  \item It separates exact-substrate target measurability, target uptake, retained-student movement, comparator identification, and participant-level biological transfer in dense-proxy distillation.
+  The PCA-50 TRIBE target does not pass the frozen $+0.002$ participant-mean unique-linear-measurability rule, although target uptake and student movement occur at comparable language quality \evd{E030}.
+  The saved text-feature target cannot isolate target content, and direct participant-level TRIBE-minus-KD on recorded fMRI is near zero \evd{E016}\evd{E025}\evd{E026}\evd{E030}.
 \end{itemize}
 
 Brain-relevant information is measurable in the tested language-model representations, but the tested distillation regimes do not demonstrate a reliable benefit from neural-target supervision.

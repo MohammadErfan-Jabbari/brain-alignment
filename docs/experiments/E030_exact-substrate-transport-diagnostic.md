@@ -256,7 +256,7 @@ An independent `/interpret` recomputation from the raw rows matched all `748` lo
 
 **Mechanical classification:** `NO PRACTICALLY RELEVANT LINEAR MEASURABILITY`. Read only within the frozen scope, this means that the PCA-50 text-only TRIBE target did not add a participant-mean unique linear predictivity increment of at least `+0.002` beyond the specified nuisance model on these 1,000 sentences, nine participants, and five ROIs. It does not exclude total or nuisance-redundant target predictivity, information outside the top 50 target PCs, nonlinear readouts, other endpoints, other cohorts, or a row-specific aligned-versus-twin advantage. `Q` remains unresolved.
 
-**Provisional project consequence:** E030 localizes the first observed failure before student-to-brain overlap: the target is strongly recoverable from TRIBE students, but its unique recorded-fMRI measurability fails the frozen C1 practical-exclusion rule. This does not change the thesis verdict that the tested distillation regimes show no reliable brain-guided benefit, and it does not causally explain E025. Load-bearing manuscript framing remains pending Erfan confirmation.
+**Author-confirmed project consequence:** E030 localizes the first observed failure before student-to-brain overlap: the target is strongly recoverable from TRIBE students, but its unique recorded-fMRI measurability fails the frozen C1 practical-exclusion rule. This does not change the thesis verdict that the tested distillation regimes show no reliable brain-guided benefit, and it does not causally explain E025. Erfan confirmed this scoped framing on 2026-07-22 for synchronization into the extended manuscript.
 
 ## Related
 

@@ -22,6 +22,7 @@ Table~\ref{tab:results-map} states the primary estimand and the order of aggrega
     \midrule
     \raggedright Controlled measurement & \raggedright Mean held-out $A(\mathrm{trained})-A(\mathrm{untrained})$ across fixed contiguous blocks. & \raggedright Held-out blocks within each fixed target; fitting folds share training items, and no population inference is made. & \raggedright Positive on both recorded-fMRI substrates \evd{E002}\evd{E006}. \tabularnewline
     \raggedright Recorded-target intervention & \raggedright Average $A(\mathrm{real})-A(\mathrm{control})$ over seeds and folds within each participant, then average participants. & \raggedright Nine participants after seed and fold aggregation. & \raggedright No supported participant-level benefit in the tested regimes \evd{E008}\evd{E011}\evd{E013}. \tabularnewline
+    \raggedright Dense-proxy target measurability & \raggedright Participant-mean held-out unique $R^2$ of the aligned PCA-50 target above nuisance; aligned-minus-fixed-twin retained separately. & \raggedright Nine participants on the fixed 1,000 sentences and five ROIs. & \raggedright Simultaneous upper endpoint below the inherited $+0.002$ reference; twin contrast unresolved \evd{E030}. \tabularnewline
     \raggedright Dense-proxy uptake & \raggedright Seed-paired target-$R^2$ gain over KD, plus parameter and representation change from KD. & \raggedright Six technical training seeds for one fixed procedure; no biological or target-population inference. & \raggedright Target fit and student movement pass \evd{E016}\evd{E025}. \tabularnewline
     \raggedright Comparator identification & \raggedright Frozen conjunction over target geometry, baseline predictability, and seed-paired student movement. & \raggedright Two deterministic item samples for geometry and six technical seeds for movement; no population inference. & \raggedright Saved text-feature comparator fails measured-axis comparability \evd{E026}. \tabularnewline
     \raggedright Biological transfer & \raggedright Average TRIBE-minus-KD within each participant after seed and fold aggregation; retain the preregistered difference-in-differences as a separate relative comparison. & \raggedright Nine participants after seed and fold aggregation. & \raggedright Direct mean is near zero; the relative upper bound is below the continuation threshold but cannot identify target content after E026 \evd{E025}\evd{E026}. \tabularnewline
@@ -316,7 +317,7 @@ E024 never reaches the intervention because the clean natural-reading privileged
 Together they show why practical claims require a verified chain from target information to representation movement to held-out task performance.
 They do not establish that every neural or cognitive signal lacks practical value.
 
-\subsection{Separating synthetic-target learnability, control identification, and biological transfer}
+\subsection{Separating target measurability, learnability, control identification, and biological transfer}
 \label{sec:results-synthetic}
 
 E020 addressed a separate ceiling question by subtracting a leave-one-participant-out estimate of the shared response.
@@ -343,8 +344,8 @@ Because E026 later shows that the text-feature arm fails measured-axis comparabi
 The corresponding difference relative to the two block-permuted gains is $-0.001005$, with five of six seed margins negative \evd{E016}.
 The block permutation leaves 0--30\% of rows fixed and duplicates or omits one row in five of six seeds, so that contrast is a sensitivity analysis rather than an exact-null comparison.
 
-The direct E016 result is a fixed-endpoint transfer failure.
-The synthetic target is learnable, but its improvement does not improve alignment on this fixed real-brain diagnostic.
+The direct E016 result is a fixed-endpoint non-improvement.
+It does not by itself show that a measurably valid target signal was lost during student training.
 The inference unit is six stochastic training seeds over one endpoint that already averages five participants and five ROIs.
 It supports neither participant-level nor population-level inference, and it does not show that all synthetic brain targets must fail.
 This is stronger than a failure to fit the proxy because target fit succeeds in every seed.
@@ -367,7 +368,7 @@ It removes the raw TRIBE-minus-textfeat proxy-gain difference as evidence of bra
 E025 then removes the participant-averaging limitation by rescoring the same saved students separately for the nine complete Tuckute participants \evd{E025}.
 Before opening the participant result, it verifies language quality, target uptake, and retained-student movement.
 All three gates pass: every target-learning seed is positive, every target-trained student moves detectably from its KD initialization, and the largest direct target/KD or between-target quality difference is $0.002579$ bits per byte \evd{E025}.
-The endpoint is therefore interpretable as a transfer result rather than a failed manipulation.
+The endpoint is therefore interpretable as a net intervention result rather than a failed manipulation, but not as demonstrated transfer of measurably valid brain content.
 
 At fixed layer 7, the predeclared participant-first TRIBE-minus-text-feature mean is \result{e025_participant_delta}, with 95\% CI \result{e025_participant_ci} and a one-sided 95\% upper bound of \result{e025_participant_ucb} \evd{E025}.
 That upper bound is below the internal $+0.002$ continuation threshold, and the observed 80\% minimum detectable effect is \result{e025_participant_mde} \evd{E025}.
@@ -380,15 +381,42 @@ Its mean is \result{e025_tribe_kd}, with 95\% CI \result{e025_tribe_kd_ci}; seve
 The small positive relative mean partly reflects a negative text-feature-minus-KD mean of \result{e025_textfeat_kd} rather than a positive direct TRIBE gain \evd{E025}.
 Imageability adjustment remains near zero, while the broader nuisance stress test and the layer-6 sensitivity are negative \evd{E025}.
 
+E030 then tests the exact text-only TRIBE target itself on the same 1,000 Tuckute sentences before interpreting student-to-brain overlap.
+Under the frozen PCA-50 linear assay, the participant-mean aligned-target increment above nuisance is \result{e030_target_unique}, with Bonferroni family-95\% interval \result{e030_target_unique_ci}; its upper endpoint is below the inherited $+0.002$ reference \evd{E030}.
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \caption{E030 exact-substrate diagnostic. C1 and C3 intervals use nine participant units. C2 intervals summarize six paired technical training seeds and do not support population inference. Intervals are Bonferroni family-95\% two-sided $t$ intervals within each stage \evd{E030}.}
+  \label{tab:e030-diagnostic}
+  \begin{tabular}{@{}llll@{}}
+    \toprule
+    Stage and estimand & Mean & Family-95\% interval & Frozen status \\
+    \midrule
+    C1: aligned above nuisance ($A$) & \result{e030_target_unique} & \result{e030_target_unique_ci} & Nonpass; upper endpoint $<+0.002$ \\
+    C1: aligned minus twin ($Q$) & \result{e030_target_twin} & \result{e030_target_twin_ci} & Unresolved \\
+    C2: absolute extractability ($M$) & \result{e030_target_extract} & \result{e030_target_extract_ci} & Positive interval \\
+    C2: TRIBE minus KD ($B$) & \result{e030_retention_delta} & \result{e030_retention_delta_ci} & Unresolved \\
+    C3: absolute overlap ($O$) & \result{e030_overlap_abs} & \result{e030_overlap_abs_ci} & Unresolved; upstream-gated \\
+    C3: TRIBE minus KD ($D$) & \result{e030_overlap_delta} & \result{e030_overlap_delta_ci} & Unresolved; upstream-gated \\
+    C3: aligned-minus-twin increment ($J$) & \result{e030_overlap_twin} & \result{e030_overlap_twin_ci} & Unresolved; upstream-gated \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The aligned-minus-frozen-twin contrast remains unresolved, so this result neither establishes nor excludes a row-specific target advantage.
+Across the six paired technical seeds, absolute target extractability from TRIBE-trained representations has a positive interval, but incremental retention over KD remains unresolved; this is technical stability, not biological or model-population replication.
+All participant-level bridge contrasts remain unresolved.
+Because target measurability fails first, those downstream diagnostics receive no ordered failure label \evd{E030}.
+E030 therefore localizes the first observed dense-proxy break at unique linear target measurability on this substrate, before student-to-brain overlap; it does not causally explain E025.
+
 \begin{figure}[H]
   \centering
   \safeimage[width=0.98\textwidth]{../figures/fig09_identification_chain.png}
-  \caption{The dense-proxy intervention separates four evidential gates. Panel A distinguishes KD baseline target fit, target-training gain, and remaining headroom. Panel B plots mean cumulative variance mass across the two fixed deterministic samples; shading spans their two values and is not a confidence interval. Panel C shows six-seed global-parameter and layer-6 centered-Frobenius movement ratios against the frozen $|\log r|\leq0.10$ band; centered-CKA comparability is mixed and reported in the text. In Panel D, dots are participants, diamonds are participant means, and horizontal bars are participant-level mean 95\% $t$ confidence intervals. The purple segment marks the internal $+0.002$ continuation threshold for the relative contrast only. The relative estimate cannot identify target content after E026, while the direct estimate remains interpretable as the net TRIBE-training-versus-KD endpoint rather than a content-specific effect \evd{E016}\evd{E025}\evd{E026}.}
+  \caption{The dense-proxy intervention separates four evidential gates. Panel A distinguishes KD baseline target fit, target-training gain, and remaining headroom. Panel B plots mean cumulative variance mass across the two fixed deterministic samples; shading spans their two values and is not a confidence interval. Panel C shows six-seed global-parameter and layer-6 centered-Frobenius movement ratios against the frozen $|\log r|\leq0.10$ band; centered-CKA comparability is mixed and reported in the text. In Panel D, dots are participants, diamonds are participant means, and horizontal bars are participant-level mean 95\% $t$ confidence intervals. The purple segment marks the internal $+0.002$ continuation threshold for the relative contrast only. The relative estimate cannot identify target content after E026, while the direct estimate remains interpretable as the net TRIBE-training-versus-KD endpoint rather than a content-specific effect \evd{E016}\evd{E025}\evd{E026}. The later E030 exact-substrate target-measurability diagnostic is reported in the text and is not shown in this four-panel figure \evd{E030}.}
   \label{fig:identification-chain}
 \end{figure}
 
-The four gates support a more specific conclusion than either ``the proxy worked'' or ``brain guidance failed.''
-Proxy fit and retained-student movement pass.
-The saved cross-target comparator fails identification.
-The predeclared relative estimate has a one-sided 95\% upper bound below the internal continuation threshold, while the direct participant-level TRIBE-minus-KD estimate is near zero \evd{E025}\evd{E026}.
+The four displayed gates, together with E030's exact-substrate diagnostic, support a more specific conclusion than either ``the proxy worked'' or ``brain guidance failed.''
+Proxy fit and retained-student movement pass, but the exact target does not pass the frozen practical linear-measurability rule, the saved cross-target comparator fails identification, and the direct participant-level TRIBE-minus-KD endpoint is near zero \evd{E025}\evd{E026}\evd{E030}.
 This dissociation is restricted to the saved students, fixed layer and nuisance design, nine-participant Tuckute cohort, and recorded sentence/ROI endpoint.

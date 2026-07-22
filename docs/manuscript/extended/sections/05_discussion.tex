@@ -7,7 +7,7 @@ Under the recorded controls, trained middle-layer representations predict held-o
 Plain distillation leaves a student below its teacher on the alignment measure, but that gap remains confounded with language-model quality \evd{E003}\evd{E015}.
 These findings establish a usable readout and measurable headroom, not a training benefit.
 
-The dense-proxy branch separates four stages in one saved-student design: target uptake, student movement, comparator validity, and transfer to recorded fMRI.
+The dense-proxy branch separates five distinctions in one saved-student design: exact-substrate target measurability, target uptake, student movement, comparator validity, and transfer to recorded fMRI.
 TRIBE-target prediction improves over KD by \result{e016_tribe_synth_gain}, the retained students move, and language quality remains within the declared tolerance \evd{E016}\evd{E025}.
 The saved text-feature comparator then fails \result{e026_check_split} frozen checks, so the cross-target proxy advantage cannot identify neural target content \evd{E026}.
 On recorded fMRI, direct participant-level TRIBE-minus-KD is \result{e025_tribe_kd}, with 95\% CI \result{e025_tribe_kd_ci}.
@@ -15,7 +15,7 @@ The preregistered relative estimate has a one-sided 95\% upper bound of \result{
 
 The recorded-target experiments reach the same practical boundary by other routes.
 The tested MSE, contrastive, higher-capacity, voxelwise, and full-fine-tuning variants do not establish a participant-level benefit, and the downstream experiments do not establish a practical payoff \evd{E004}\evd{E008}\evd{E009}\evd{E011}\evd{E013}\evd{E017}.
-In these models and datasets, linear brain alignment is measurable, but the tested alignment objectives do not provide a reliable training signal for the studied compression regimes.
+In these models and datasets, trained middle-layer brain alignment is measurable, but the tested alignment objectives do not provide a reliable training signal for the studied compression regimes.
 This does not imply that neural supervision is ineffective in every model, modality, dataset, or optimization setting.
 
 The experiments also show why target fit alone is insufficient.
@@ -26,7 +26,7 @@ A training claim needs an appropriate target control, inference at the biologica
 
 \subsection{Where the evidence chain breaks}
 
-The first break is between measurement and intervention.
+For objectives trained directly on recorded responses, the first break is between controlled measurement and a reliable intervention effect.
 A linear readout can predict recorded responses from a frozen representation even when the tested auxiliary objectives fail to produce a stable held-out gain.
 The results are consistent with competition from the language objective, low-sample noisy targets, and language-quality damage under stronger updates, but they do not identify which mechanism caused the failure.
 The fold-level E004 result, the participant-level E008 result, and the neutral-to-harmful voxelwise trajectory in E013 each locate a failure at this intervention stage under a different readout or inference unit \evd{E004} \evd{E008} \evd{E013}.
@@ -36,12 +36,9 @@ Higher-rank LoRA changes capacity without producing a stronger effective manipul
 These results implicate the tested induction mechanisms rather than one adapter rank or one loss parameterization.
 They do not rule out objectives with different targets, architectures, temporal models, or optimization regimes.
 
-The second break is between optimizing a proxy and transferring to biology.
-E016 shows that a dense brain-derived synthetic target can become substantially easier for a student to predict under nearly unchanged language quality, while the same students do not improve on a common real-brain endpoint \evd{E016}.
-E026 locates an earlier identification break: the saved projected text-feature control differs materially in target spectrum, effective rank, KD predictability, remaining headroom, nuisance predictability, and induced movement, so the between-target proxy-gain difference cannot isolate brain-derived content \evd{E026}.
-E025 resolves the endpoint at the participant level: all manipulation gates pass, yet direct TRIBE-minus-KD is near zero and the preregistered relative upper bound is below its internal continuation threshold \evd{E025}.
-The direct contrast estimates the net TRIBE-training effect against KD, not brain-derived content in isolation.
-Together, these results show that the proxy was learnable and changed the student, but do not show target-content specificity or biological transfer.
+For the dense proxy, E030 identifies an earlier scoped break: the exact PCA-50 target does not pass the participant-mean unique-linear-measurability rule on the endpoint substrate \evd{E030}.
+E016 and E025 still establish target uptake, student movement, comparable language quality, and a valid net TRIBE-versus-KD endpoint, but they do not show that a measurably valid target signal was lost during transport.
+E026 separately prevents the cross-target gain from identifying brain-derived content \evd{E016}\evd{E025}\evd{E026}.
 
 \subsection{Inference unit and response averaging}
 
@@ -87,6 +84,8 @@ They do not establish that the change reflects neural content.
 That claim requires an adequately matched control and a common recorded-brain endpoint.
 If the claim concerns people, seeds and folds must be aggregated within each participant before population inference.
 
+A synthetic target should first be tested for held-out predictivity on the intended recorded-brain substrate under the declared nuisance and control model.
+Student-side target extractability is not a substitute for that source-target validity check \evd{E030}.
 A synthetic or averaged target also needs transfer beyond the target used to train it.
 A direct target-trained-versus-KD contrast can test the net intervention effect even when a cross-target comparator fails, but it cannot by itself isolate which target property caused the effect.
 Downstream utility should be tested only after the biological mediator is established.
