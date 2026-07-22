@@ -44,13 +44,13 @@ aliases: [current-status]
 ## Blockers
 
 - None for circulation of the E030-synchronized thesis. Public-version metadata remains a separate checkpoint decision.
-- E028's exact lane remains blocked by author-controlled code, checkpoints, masks/folds, dataset facts, and result-regeneration artifacts. Outcome-blind review also found four local protocol-definition blockers that must be repaired and prechecked before the synthetic Stage-1 slice can honestly claim executable scope.
+- E028's exact lane remains blocked by author-controlled code, checkpoints, masks/folds, dataset facts, and result-regeneration artifacts. Its four local protocol-definition blockers are repaired: anti-confound review and an oracle recheck returned `PANEL-CLEAN` and `READY-TO-IMPLEMENT: YES` for a synthetic-only Stage-1 slice, but `ENDPOINT-READY: NO`.
 - A top-AI-conference claim is not currently supported. It requires a non-inconclusive prospective external adjudication and a reusable intervention-audit implementation; the unchanged thesis should not consume a top-tier main-track cycle.
 
 ## Next actions
 
 1. Circulate the E030-synchronized extended-manuscript PDF now as publication insurance. Do not create a new public cut without explicit request.
-2. Resolve E028's four outcome-blind protocol-definition blockers, then pass anti-confound and oracle precheck before implementing only the fail-closed synthetic Stage-1 corrected-evaluator slice. Open no neural endpoint or author result.
+2. Implement and test only E028's oracle-cleared, fail-closed synthetic Stage-1 corrected-evaluator slice. Open no neural endpoint or author result.
 3. Benchmark the exact Stage-1 evaluator bottleneck at production shape and keep readiness false unless the implementation, cost, hash chain, and author facts all clear their frozen gates.
 4. Freeze the smallest-setting Xiao reproduction and matched-control feasibility design in parallel, without opening its result before its own precheck.
 5. Inspect the E028 response state on 2026-08-05 and send one concise follow-up if needed. On 2026-08-12, run E028 Stage 1 only if complete hashable artifacts and final readiness exist; otherwise close the exact lane as unavailable and move the main allocation to Xiao. Full E028 Stages 2/3 remain forbidden unless corrected Stage 1 passes.

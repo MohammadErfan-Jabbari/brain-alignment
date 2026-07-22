@@ -940,6 +940,18 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Reverses if:** E030's artifact chain or independent recomputation is invalidated; an independent, prospectively fixed substrate establishes source-target validity and participant-general transfer; complete E028 artifacts make its exact lane immediately dominant; or a genuinely estimable theoretical certificate prospectively separates positive, null, and harmful regimes at lower total cost.
 
+## D061: Lock the outcome-blind E028 development boundary before code (2026-07-22, /review + /work)
+
+**Decision.** Accept Erfan's explicit authorization to send the E028 author-artifact request, synchronize the confirmed E030 framing, and implement only an outcome-blind synthetic Stage-1 E028 slice. The author request was sent on 2026-07-22. No neural payload, author-result value, endpoint score, model training, or readiness claim is authorized by this decision.
+
+**Design correction.** Two independent outcome-blind reviews found that the first E028 record was not executable as sealed. Exact fold arrays depended on unopened finite-response support; the all-contiguous rule made one bad bin fatal; movement and aggregation metrics were underspecified; the proposed audio arm was inaccurately called nonbrain despite using aggregate fMRI geometry; and the first adjusted max-T repair broke the common-sign randomization orbit. The locked correction uses an append-only `C0`--`C8` fact/result chain, absolute 50 ms ticks with recorded gaps and simultaneous outer/inner embargo roles, fail-closed cell semantics, gauge-invariant effective LoRA movement, exact CKA/RMS/TIMIT definitions, no-refit pooled-SSE/SST leave-one-block recomputation, and Bonferroni singleton studentized sign-flip inversions with exact enumeration. Stage 3 is now an itemwise-audio target calibrated to training-fMRI aggregate geometry, not a brain-free control.
+
+**Gate.** The anti-confound review and corrected oracle recheck both remained outcome-blind. The oracle returned `PANEL-CLEAN: YES` and `READY-TO-IMPLEMENT: YES` only for the synthetic Stage-1 development slice, with `ENDPOINT-READY: NO`. Implementation must expose no endpoint, training, download, unseal, score, or readiness command; missing author facts remain explicit nulls, and every development artifact must say it is synthetic and not ready.
+
+**Why this is the bottleneck.** The conference route does not currently wait on another internal model variant. It waits on whether E028 can become a faithful, computationally credible external adjudication. The smallest useful test is therefore the sufficient-statistics Stage-1 evaluator plus its synthetic analyzer and production-shape benchmark. A passing synthetic slice removes an implementation uncertainty; it does not substitute for author artifacts, full bundle review, or biological evidence.
+
+**Reverses if:** the synthetic implementation cannot reproduce its locked fixtures or fit the compute ceiling; an outcome-blind review finds another design defect; author artifacts contradict a corrected-lane choice and force a retained new `C0`; or Erfan withdraws authorization before endpoint access.
+
 ## Related
 
 - [`status.md`](../status.md) — operational authority
