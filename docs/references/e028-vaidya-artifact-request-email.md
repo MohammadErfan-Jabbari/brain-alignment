@@ -6,7 +6,9 @@ aliases: [e028-vaidya-artifact-request-email]
 
 # E028 Vaidya artifact-request email
 
-**Status:** Unsent local draft. Sending this message requires Erfan's explicit external-communication approval.
+**Status:** Sent 2026-07-22 from the connected Gmail account to corresponding author Aditya R. Vaidya (`avaidya@utexas.edu`), with Richard J. Antonello (`rja2163@columbia.edu`) and Alexander G. Huth (`alex.huth@berkeley.edu`) copied, after Erfan's explicit approval. Gmail message/thread ID: `19f88eb5e4dffa8a`.
+
+**Response checkpoints:** Inspect the thread on 2026-08-05, ten business days after sending. If there is no substantive response, send one concise follow-up in the same thread. On 2026-08-12, fifteen business days after sending, choose explicitly between a labeled independent reimplementation and closing the exact lane as unavailable; silence is never recorded as reproduction failure.
 
 ## Subject
 
