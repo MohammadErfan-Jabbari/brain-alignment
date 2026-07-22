@@ -11,6 +11,7 @@ aliases: [manuscript-agents]
 | Path | Purpose |
 |---|---|
 | `extended/` | Live LaTeX master and authority for current scientific interpretation |
+| `rewrite/` | Independently buildable claim-led candidate; non-authoritative until Erfan explicitly approves replacement |
 | `public/vN/` | Immutable sharing/submission cuts derived from the extended master |
 | `figures/` | Selected committed figures; generation code lives in `scripts/figures/` |
 
@@ -25,6 +26,8 @@ aliases: [manuscript-agents]
 7. Run one fresh independent question-chain, prose, and scientific-scope review and obtain Erfan’s approval for load-bearing framing.
 
 Use `--share-ready` only when no gap remains. A contradiction routes to `/interpret` and sets `docs/status.md` to `manuscript-sync-pending`.
+
+The user-authorized `rewrite/` candidate follows its own maintained question tree and review contract in [`rewrite/AGENTS.md`](rewrite/AGENTS.md). Work there must not modify `extended/`, and its prose does not become the current scientific authority merely by compiling or passing review.
 
 ## Maintained manuscript question map
 
@@ -74,7 +77,7 @@ Treat this as a maintained reverse outline. Every main-text paragraph must answe
 
 ## Rules
 
-- Do not create a manuscript report, claim lattice, checkpoint log, convergence store, or alternate draft tree.
+- Do not create a manuscript report, claim lattice, checkpoint log, convergence store, or any additional alternate draft tree beyond the explicitly authorized `rewrite/` candidate.
 - Public cuts are frozen. A new milestone creates a new version.
 - Every scientific number and figure value traces to an owning E record; only load-bearing artifacts receive recorded paths and SHA-256 values.
 - Use the correct inference unit, uncertainty, and named test.
