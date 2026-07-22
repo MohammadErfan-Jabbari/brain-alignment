@@ -1,24 +1,107 @@
 \section{From a Brain Score to a Valid Training Claim}
 \label{sec:valid-claim}
 
-\gap{Write the bridge from prior fields to the unresolved controlled claim.}
+Brain encoding, neural-guided optimization, privileged-information learning, and model compression each study a different link between a representation and an outcome.
+Their results cannot be treated as interchangeable: predicting a neural measurement, changing a trained model, attributing that change to neural content, transferring it to new biological data, and improving a useful endpoint are different claims with different controls.
+This section connects those links and states the evidence needed for the stronger claim tested here.
 
 \subsection{What a controlled brain score establishes}
 \label{sec:controlled-score}
 
-\gap{Answer Section 2.1 questions in AGENTS.md.}
+A controlled brain score establishes that information useful for predicting a declared neural response is accessible from a frozen model representation under a specified assay.
+An encoding model learns a map from representations to responses on training stimuli and is scored on held-out stimuli, so the scientific object is out-of-sample prediction rather than similarity on the fitted data \autocite{oota2023,merlin2024}.
+For a linear encoding model, a positive controlled score means that a linear combination of representation dimensions predicts some response variation left after the declared controls.
+It does not imply that either system implements the fitted map.
+
+Controls determine which part of that predictive success can be credited to learned language representations.
+A nuisance-only model measures what low-level stimulus properties, such as position, length, or static lexical features, can predict without the tested representation; comparing it with a full model asks what the representation adds.
+An architecture-matched untrained network tests whether the apparent advantage requires learned parameters rather than tokenization, dimensionality, or architectural structure.
+Contiguous or blocked splits preserve local dependence and prevent nearby samples from being scattered across train and test sets, a failure that can inflate scores and reorder model rankings \autocite{hadidi2026}.
+
+Even after those controls, the interpretation remains bounded by the assay.
+A linear readout tests linear accessibility, not all information in the representation; participant-specific and averaged responses answer different population questions; and stimulus distribution, target construction, response reliability, and region selection determine what can be predicted \autocite{lage2019}.
+The inference unit determines where uncertainty applies: many voxels or repeated folds from one person do not create many independent participants.
+Accordingly, controlled brain predictivity supports an assay-bounded existence claim, not a shared biological mechanism, causal equivalence, or general cognitive competence \autocite{jia2026}.
 
 \subsection{Why a neural target might help a student}
 \label{sec:target-rationale}
 
-\gap{Answer Section 2.2 questions in AGENTS.md.}
+A neural target might help because it can act as privileged information available during training but unnecessary at deployment.
+The auxiliary objective can favor student representations that preserve response-relevant distinctions while the ordinary language objective preserves predictive behavior, much as generalized distillation uses a training-only teacher to guide a student that later operates without privileged inputs \autocite{lopezpaz2016}.
+A recorded response supplies observed biological supervision; a predicted neural target instead packages structure learned by a fixed generator.
+If that predicted target is a deterministic function of the stimulus and fixed generator, it cannot introduce example information not already determined by them, although it may expose generator-learned structure in a form that is easier for the student to learn or access \autocite{cover2006}.
+
+This selection is possible because matching a teacher's output distribution does not uniquely determine a student's internal geometry.
+The output objective constrains token probabilities, while different middle-layer bases, subspaces, and feature organizations can support similar outputs.
+An auxiliary target can therefore change an internal representation without necessarily improving or degrading the language objective.
+Feature-distillation research sharpens the point: useful transfer depends on which subspace is emphasized and on how teacher and student capacities are matched, not merely on copying a large dense vector \autocite{kornblith2019,saadi2025}.
+
+Evidence that this auxiliary intervention operated is still not evidence that its endpoint succeeded.
+Falling training loss shows only that the auxiliary objective and its temporary head engaged.
+Target uptake instead requires improved held-out recovery of the target from frozen retained-student representations by a fresh post-training readout, relative to the appropriate pre-intervention or ordinary-distillation baseline.
+Parameter displacement or changed hidden states after the temporary head is removed separately establish retained-student movement.
+These checks rule out different implementation failures, but they do not establish neural-content attribution, biological transfer, or practical utility.
 
 \subsection{What prior neural-guided training leaves unresolved}
 \label{sec:prior-gap}
 
-\gap{Answer Section 2.3 questions in AGENTS.md.}
+Prior neural-guided optimization establishes that neural supervision can alter representations and measured outcomes, but the supported outcome differs across designs.
+In speech models, \ac{fmri}-guided adaptation has been associated with higher brain-encoding scores and improvements on selected speech or semantic probes, including tests across held-out participants or datasets \autocite{moussa2025,moussa2025b}.
+For text models, training with \ac{fmri}-derived targets has produced descriptive gains on multilingual tasks or broad linguistic probes, while task-\ac{fmri} guidance has been used to alter reasoning representations \autocite{negi2025,merlinData2026,xiao2026}.
+Temporally resolved neural targets provide another intervention: electrocorticography-guided speech adaptation has improved neural prediction within the studied substrate, and separately, models adapted to slow \ac{fmri} have transferred to neural prediction in new electrocorticography participants and stimuli \autocite{zhang2026,vaidya2026}.
+Together, these studies make neural-guided optimization empirically plausible rather than merely speculative.
+
+They do not, however, estimate one common effect.
+Some adapt a full language or speech encoder, whereas the present question concerns the incremental value of an auxiliary target for a fixed smaller student already trained by \ac{kd}.
+Some endpoints reuse the supervised modality or participants; others transfer across a dataset, participant group, or modality; still others measure language or reasoning tasks rather than recorded responses.
+Temporal resolution, participant personalization, training budget, baseline model, downstream selection, and biological inference unit also differ.
+Several studies include meaningful permutation, representation, or transfer controls, so their positive results should not be dismissed; those controls simply do not by themselves identify value beyond ordinary distillation at comparable language-model quality with participant-level uncertainty.
+
+Privileged-information and feature-distillation work also supplies a generic-target alternative: dense supervision can help by emphasizing an easier or task-relevant subspace, so a gain may follow from target geometry, predictability, or optimization pressure rather than neural origin \autocite{lopezpaz2016,saadi2025}.
+Compression studies, meanwhile, measure alignment after pruning or quantization and do not test the value of neural supervision during compression \autocite{oota2026}.
+The unresolved pre-results question is therefore narrow: for a fixed compressed student, does a recorded or predicted neural target add value beyond non-neural training under adequate pairing, comparator, language-quality, transfer, and inference controls?
 
 \subsection{Evidence standard}
 \label{sec:evidence-standard}
 
-\gap{Answer Section 2.4 questions and include the conceptual evidence-chain figure.}
+Figure~\ref{fig:evidence-chain} orders the distinct claims that must be supported, while marking exact-target measurability as an additional prerequisite for predicted rather than recorded neural targets.
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[
+    stage/.style={draw, rounded corners, align=center, text width=0.205\textwidth, minimum height=1.25cm, inner sep=4pt, font=\small},
+    link/.style={-{Latex[length=2mm]}, thick}
+  ]
+    \node[stage] (measure) {\textbf{1. Controlled measurability}\\[-1mm]\footnotesize Assay accesses recorded responses};
+    \node[stage, right=0.28cm of measure] (headroom) {\textbf{2. Quality-aware headroom}\\[-1mm]\footnotesize A fair intervention opportunity exists};
+    \node[stage, right=0.28cm of headroom] (target) {\textbf{3. Exact-target measurability}\\[-1mm]\footnotesize Predicted-target path only: target relates to recorded responses};
+    \node[stage, right=0.28cm of target] (uptake) {\textbf{4. Target uptake}\\[-1mm]\footnotesize Fresh held-out recovery improves beyond baseline};
+    \node[stage, below=0.45cm of uptake] (movement) {\textbf{5. Retained movement}\\[-1mm]\footnotesize Change survives head removal and preserves quality};
+    \node[stage, left=0.28cm of movement] (attribute) {\textbf{6. Matched comparator}\\[-1mm]\footnotesize Neural-content attribution becomes testable};
+    \node[stage, left=0.28cm of attribute] (transfer) {\textbf{7. Biological transfer}\\[-1mm]\footnotesize Independent recorded responses improve};
+    \node[stage, left=0.28cm of transfer] (utility) {\textbf{8. Additional utility}\\[-1mm]\footnotesize A practical endpoint improves};
+    \draw[link] (measure) -- (headroom);
+    \draw[link] (headroom) -- (target);
+    \draw[link] (target) -- (uptake);
+    \draw[link,dashed] (headroom.north) to[bend left=28] node[above,font=\scriptsize,fill=white,inner sep=1pt] {recorded-target bypass} (uptake.north);
+    \draw[link] (uptake) -- (movement);
+    \draw[link] (movement) -- (attribute);
+    \draw[link] (attribute) -- (transfer);
+    \draw[link,dashed] (transfer) -- (utility);
+  \end{tikzpicture}
+  \caption{Conceptual evidence chain. Each stage states the additional claim licensed by passing it. Section~\ref{sec:framework} later maps the stages to estimands and experiments; the Results report their verdicts.}
+  \label{fig:evidence-chain}
+\end{figure}
+
+No single comparator can answer every stage.
+An architecture-matched untrained network tests whether controlled measurability depends on learned parameters, and an ordinary-distillation arm tests the incremental effect of adding a neural objective to the same student-training regime.
+Comparable language-model quality prevents a change in generic model quality from silently deciding an alignment contrast.
+A permuted target tests whether correct stimulus--target pairing matters while largely preserving the target's marginal structure.
+An adequately matched nonbrain target makes neural-content attribution testable by controlling geometry, scale, baseline predictability and learnability, and optimization pressure; attribution additionally requires the observed neural-target contrast to favor that arm.
+Finally, a freshly fitted readout on independent recorded responses tests biological transfer; success on the optimized target itself cannot substitute for that endpoint.
+
+The chain through biological transfer is conjunctive for a brain-specific biological advantage; external utility is an additional requirement only for a practical-utility claim.
+When a prerequisite fails, later target recovery or movement may still describe what the intervention did, yet it cannot restore the stronger attribution or transfer claim.
+An unresolved comparison should remain unresolved rather than being converted into a null, and a failed test under one readout, cohort, or target should not be universalized beyond its scope.
+This stopping rule keeps a large downstream score from compensating for an unidentified mechanism earlier in the chain and makes clear which redesign would be needed next.
+Section~\ref{sec:framework} maps each gate to its data and training arms, estimand, comparator, endpoint, and inference unit.
