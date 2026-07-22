@@ -6,7 +6,7 @@ aliases: [E030]
 
 # Experiment - E030: exact-substrate TRIBE transport diagnostic
 
-**Created:** 2026-07-21 · **Status:** DESIGN PASS; outcome sealed; execution controlled by the live readiness seal · **Mode:** prospective
+**Created:** 2026-07-21 · **Status:** RESULT MECHANICALLY VERIFIED; scientific framing awaits Erfan confirmation · **Mode:** working
 **Direction:** Cheap mechanism-localization gate for the methodological/falsification conference route in [D057](../decisions/decisions.md). It does not reopen Package C.
 **Predecessors:** [E016](E016_tribe-synthetic-brain-targets.md) for the text-only TRIBE target and saved students, [E025](E025_participant-e016-biological-transfer.md) for the exact Tuckute endpoint and participant-first null, and [E026](E026_tribe-textfeat-target-comparability.md) for the failed cross-target identification control.
 
@@ -208,13 +208,55 @@ Completed outcome-blind gates:
 
 The earlier oracle candidate and final approvals were panel-clean but are superseded because the runner interface correction changes the executable bundle hash. No scientific design setting changed.
 
-Mechanical gate: the runner requires exact oracle approval of the current semantic bundle and a current readiness seal before target acquisition. The live readiness artifact, rather than prose in this record, determines whether that gate is open. No Tuckute-specific TRIBE target, participant score, bridge score, or target geometry has been generated.
+Mechanical gate: the runner requires exact oracle approval of the current semantic bundle and a current readiness seal before target acquisition. The live readiness artifact, rather than prose in this record, determines whether that gate is open. At prospective bundle freeze, no Tuckute-specific TRIBE target, participant score, bridge score, or target geometry had been generated.
 
 The first post-seal acquisition attempt stopped at batch `0:32` before publishing any target because the isolated worker omitted the bound generator's `quiet` argument. No canonical target, target manifest, acquisition manifest, participant score, or target geometry was created. The correction adds only the missing interface flag; it changes no scientific setting, target input, estimator, or claim. All runner-bound prechecks, bundle hashes, oracle approval, and readiness must be regenerated before retry.
 
 ## Results
 
-`\gap`, not run. No E030 target-response, student-to-target, or bridge score has been generated or opened.
+### Evidence identity and validity
+
+The corrected prospective bundle had semantic SHA-256 `2666505f679f5737f3d5c723fd791304b3965435ee4b6e91bdb05d431f40bf71` and file SHA-256 `624fc21368f71c6272bebc94c4cf7b2865fe79745481895ee94c77d6da0b2167`. The exact oracle report SHA-256 was `4db7efb9ff675c53fadc313d59c7a41a58a91dfb9f67881d8f1cb75a2eab0158`; readiness v2 passed every pre-result gate at SHA-256 `119eb3d2e92f51ac858f56b17feb94ac5c670b343b2e57e835477a62e92ac4a3`.
+
+The successful retry generated the finite float32 target at frozen shape `1000 x 20484`. The target SHA-256 was `a1fb8667e5c27a7e9bde35cb5f3a4f24622ad13c3b79e91a884c119ef3b65233`, the target-manifest SHA-256 was `c17784f13ca9675c5696703986d5f645b4f6966b02ccffa79626d4a0f4377f08`, and the acquisition-manifest SHA-256 was `c594c0d3f3e5478253054d229bc2fe664f71af231e63b1e61d810ba2e8fc8c17`. Target generation used `551.892` process-CPU seconds, `385.204` worker wall seconds, and peak RSS `9,372,592` KiB.
+
+The one-shot scorer produced exactly `270` C1, `360` C2, and `6,480` C3 fold rows. Raw-score SHA-256 was `cebea58cd7f7d82908b26a25714a1d256ab674a7b08d9a18d94835b0f7fcb6e4`; frozen-analysis SHA-256 was `43a4f3b01641072345149e651cdd0b1ae0c903bb74366db2006f31b89d8dd818`. Every hash, source, grid, finite-value, coordinate-floor, participant-grid, inherited-gate, target-PCA-reuse, and student-PCA-reuse validity check passed. Scoring used `2,667.244` process-CPU seconds, `371.145` wall seconds, and peak RSS `1,366,092` KiB, within every frozen limit.
+
+### C1 primary biological-measurability result
+
+Under layer-independent target PCA-50, the imageability-complete nuisance model, five fixed ROIs, and participant inference at `n=9`, the aligned target's unique increment above nuisance was:
+
+| Estimand | Mean | Bonferroni family-95% two-sided t interval | Signs and exact test | Status |
+|---|---:|---:|---:|---|
+| `A`, aligned above nuisance | `-0.00449438` | `[-0.01069542,+0.00170665]` | `3/9` positive; exact sign `p=0.5078` | nonpass; simultaneous upper bound `+0.00170665 < +0.002` |
+| `Q`, aligned minus frozen twin | `+0.00175820` | `[-0.00357480,+0.00709120]` | `5/9` positive; exact sign `p=1.0` | unresolved |
+
+Every leave-one-block and leave-one-participant mean for `A` was negative. The train-four mean was `-0.00046685`; the prospectively held-out-five mean was `-0.00771641`. The inherited `+0.002` reference is an internal continuation threshold carried from E025, not an externally established practical-importance threshold for this different estimand.
+
+### C2 target retention and C3 bridge diagnostics
+
+The TRIBE-trained students retained the exact target absolutely, but did not show a reliable incremental retention advantage over KD:
+
+| Estimand | Mean | Bonferroni family-95% two-sided t interval | Stability evidence | Status |
+|---|---:|---:|---:|---|
+| `M`, absolute TRIBE target extractability | `+0.04072547` | `[+0.03905273,+0.04239820]` | `6/6` positive; exact sign `p=0.03125` | supported positive interval |
+| `B`, TRIBE minus KD retention | `-0.00085451` | `[-0.00224613,+0.00053712]` | `2/6` positive; exact magnitude-preserving sign-flip `p=0.1875` | unresolved |
+
+The bridge quantities were all unresolved under participant inference and cannot generate a downstream ordered failure label because C1 failed first:
+
+| Estimand | Mean | Bonferroni family-95% two-sided t interval | Stability evidence |
+|---|---:|---:|---|
+| `O`, absolute aligned predictive overlap | `+0.00124221` | `[-0.00040020,+0.00288463]` | `7/9` positive; exact sign `p=0.1797` |
+| `D`, TRIBE minus KD bridge | `+0.00003100` | `[-0.00008049,+0.00014248]` | `5/9` positive; seed sign-flip `p=0.375` |
+| `J`, aligned-minus-twin increment | `+0.00002937` | `[-0.00007777,+0.00013650]` | `5/9` positive; seed sign-flip `p=0.375` |
+
+### Independent recomputation and scoped mechanical verdict
+
+An independent `/interpret` recomputation from the raw rows matched all `748` load-bearing leaves, pass gates, diagnostics, simultaneous bounds, seed sensitivities, and the ordered classification with zero exact or tolerance-only mismatches. A separate provenance audit rehashed all `40` referenced files, covering `14,707,003,958` bytes, and found the readiness-to-analysis chain, schemas, grids, semantic hashes, one-shot guards, atomic writes, and resource limits panel-clean. The adversarial interpretation review agreed with the mechanical trigger and required narrower prose.
+
+**Mechanical classification:** `NO PRACTICALLY RELEVANT LINEAR MEASURABILITY`. Read only within the frozen scope, this means that the PCA-50 text-only TRIBE target did not add a participant-mean unique linear predictivity increment of at least `+0.002` beyond the specified nuisance model on these 1,000 sentences, nine participants, and five ROIs. It does not exclude total or nuisance-redundant target predictivity, information outside the top 50 target PCs, nonlinear readouts, other endpoints, other cohorts, or a row-specific aligned-versus-twin advantage. `Q` remains unresolved.
+
+**Provisional project consequence:** E030 localizes the first observed failure before student-to-brain overlap: the target is strongly recoverable from TRIBE students, but its unique recorded-fMRI measurability fails the frozen C1 practical-exclusion rule. This does not change the thesis verdict that the tested distillation regimes show no reliable brain-guided benefit, and it does not causally explain E025. Load-bearing manuscript framing remains pending Erfan confirmation.
 
 ## Related
 
