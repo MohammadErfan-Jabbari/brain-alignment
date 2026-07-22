@@ -5,7 +5,7 @@ Turn a settled, paper-relevant finding directly into the extended manuscript.
 ## Loop
 
 1. Read the owning E records and current manuscript section.
-2. Apply [`question-led-writing`](../../question-led-writing/SKILL.md): state the manuscript, section, and paragraph-level reader questions needed for the active scope.
+2. Apply [`question-led-writing`](../../question-led-writing/SKILL.md) and complete its question tree for the active scope.
 3. State the intended answer, claim, scope, caveats, and evidence.
 4. Draft directly into `docs/manuscript/extended/`; do not create a report, lattice, convergence store, or checkpoint log.
 5. Keep `\evd{Ennn}` evidence markers and keyed values in `numbers.tex`. A missing value is a `\gap`.

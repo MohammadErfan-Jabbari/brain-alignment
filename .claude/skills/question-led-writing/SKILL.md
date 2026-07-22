@@ -1,57 +1,42 @@
 ---
 name: question-led-writing
-description: Structure or revise essays, papers, manuscripts, reports, and other explanatory prose as a hierarchy of reader questions. Use when planning a document, designing sections or paragraphs, drafting prose, diagnosing unclear organization, deciding whether technical detail belongs, or revising text for accuracy, coherence, clarity, and academic style.
+description: Question-tree writing for planning, drafting, and revising explanatory prose. Use when defining an argument, deciding what a section or paragraph must answer, diagnosing unclear or misplaced material, or when another writing workflow needs a reader-question structure.
 ---
 
 # Question-led writing
 
-Treat prose as answers to a dependency-ordered hierarchy of questions, not as a sequence of topics to mention.
+Build a **question tree**: the document question is the root, section and optional subsection questions are branches, and paragraph questions are leaves. Every leaf answer must flow upward into the root answer.
 
-## Build the question hierarchy
+## 1. Frame the root
 
-1. State the document's governing question in semantic terms. Keep it as high-level as the real objective permits; make it technical only when the objective itself is technical.
-2. Give every section a governing reader question. Require its answer to contribute directly to the document question.
-3. Split a section into subsections only when distinct clusters of child questions improve navigation. Do not create subsections by default.
-4. Give every paragraph one primary reader question. Use secondary questions only when they are subordinate parts of the same answer.
-5. Order questions by dependency: establish concepts, motivation, measurement, evidence, interpretation, and implications only when the later answer requires the earlier one.
+Name the intended reader and their assumed knowledge. State one governing question from that reader's perspective. Keep it logical and semantic unless the document's real objective is technical.
 
-Keep the hierarchy proportional to the task. Stop decomposing when a paragraph question is specific enough to answer directly.
+**Complete when:** the reader, assumed knowledge, and one answerable governing question are explicit.
 
-## Write from the reader's position
+## 2. Build the branches
 
-- Declare the intended reader and what they may reasonably know. Assume no unstated project-specific knowledge.
-- Phrase questions as what the reader needs to understand, not what the author wants to mention. Prefer “What does this score establish?” over “Discuss the score.”
-- Ask logical and semantic questions before implementation questions. Introduce a technical term, symbol, or derivation only when it is needed to answer the current question.
-- Make each transition resolve a reader dependency: why the next question now follows from the previous answer.
+Choose the branch that matches the task:
 
-## Answer each paragraph question
+- **Plan:** derive section questions from the root, then paragraph questions from each section question.
+- **Draft:** use the existing question tree and add only questions required by the developing answer.
+- **Revise:** reverse-outline the existing prose by assigning one primary reader question to each paragraph, then rebuild the tree it actually needs.
 
-1. Answer the question directly, normally in the first sentence.
-2. Supply only the reasoning, evidence, definition, or example needed to support that answer.
-3. State the relevant scope or caveat where omitting it would change the claim.
-4. Remove sentences that answer no necessary question. Move valid details to the question they actually answer.
+Create a subsection when grouping distinct child questions improves navigation. Order every child after its conceptual prerequisites. Phrase questions as reader needs, such as “What does this score establish?”, rather than author topics such as “Discuss the score.”
 
-Questions organize the argument; they do not create truth. Preserve the governing evidence contract, citations, estimand, inference unit, uncertainty, and identifying assumptions.
+**Complete when:** every planned or retained paragraph has one primary question; the child questions jointly answer their parent; every child contributes to the root; and all prerequisites appear before the questions that depend on them.
 
-## Apply the minimal prose rules
+## 3. Answer the leaves
 
-- Define prerequisites before use.
-- Prefer one stable term per concept.
-- Put the answer before elaboration.
-- Match technical detail to the reader question, not to what is available.
-- Keep claims no stronger than their evidence.
-- Delete repetition unless it serves a new reader question.
+Open each paragraph with its direct answer. Add only the reasoning, evidence, definition, example, or scope needed to support that answer. Introduce a technical term, symbol, or derivation when the current question requires it; otherwise place it under the question it answers. Use one stable term for each concept.
 
-## Revise existing prose by reverse outlining
+For a research manuscript, validate the answer against its owning evidence, estimand, inference unit, uncertainty, and identifying assumptions. Represent a required but unsupported answer as a gap and route it to the evidence owner.
 
-For each paragraph, write the single question it currently answers.
+**Complete when:** every sentence supplies the answer, support, necessary scope, or a dependency-bearing transition for its paragraph question.
 
-- If no clear question exists, delete, relocate, or rewrite the paragraph.
-- If it answers unrelated questions, split it.
-- If several paragraphs answer the same question without distinct roles, merge or differentiate them.
-- If a required child question has no answer, record the gap rather than hiding it with fluent prose.
-- If the answer introduces an undefined prerequisite, reorder the questions or replace the premature technical detail with a semantic explanation.
+## 4. Audit upward
 
-Then verify upward: every paragraph answers its subsection or section question, every subsection answers its section question, and every section advances the document question.
+Trace every leaf answer through its branch to the root. Split a paragraph whose sentences answer unrelated questions. Merge paragraphs that duplicate one answer without distinct roles. Relocate an answer under the question it serves. Remove material that serves no necessary question. Make each transition show why the next reader question follows now.
 
-For research manuscripts, keep the question map as working structure rather than a competing scientific authority. Evidence still flows from the owning records into the manuscript.
+Treat the question tree as working structure, while the document and its evidence owners remain authoritative.
+
+**Complete when:** every retained sentence has one inspectable role, every leaf answer is supported, every branch answers its parent, and the combined branches answer the root without an undefined prerequisite.

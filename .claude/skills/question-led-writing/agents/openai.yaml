@@ -1,4 +1,4 @@
 interface:
   display_name: "Question-Led Writing"
-  short_description: "Structure prose as a hierarchy of reader questions"
-  default_prompt: "Use $question-led-writing to plan or revise this text around the questions a reader needs answered."
+  short_description: "Build prose from a reader-question tree"
+  default_prompt: "Use $question-led-writing to build a reader-question tree for this text, then draft or revise from it."

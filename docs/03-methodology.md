@@ -71,9 +71,9 @@ Strict independent review remains at the two load-bearing boundaries: before a d
 ## Direct manuscript loop
 
 1. Read the owning E records and current manuscript section.
-2. Map the document question to the active section and paragraph-level reader questions; create subsections only when distinct child questions aid navigation.
+2. Complete the [question-led writing](../.claude/skills/question-led-writing/SKILL.md) question tree for the active scope.
 3. State the intended answer, claim, scope, caveats, and evidence.
-4. Draft directly into the extended manuscript, defining prerequisites before use and removing material that answers no necessary question.
+4. Draft directly into the extended manuscript.
 5. Run the deterministic manuscript provenance and build checks.
 6. Run one fresh independent question-chain, prose, and scientific-scope review.
 7. Revise; obtain Erfan’s approval for load-bearing framing before marking the manuscript share-ready.
