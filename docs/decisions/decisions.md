@@ -926,6 +926,20 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Reverses if:** the frozen E026 audit or its dependency bindings are invalidated, or a prospectively fixed comparator matches the required axes, including initial gradients, and then survives participant-level independent biological transfer. Matching output width or obtaining target learnability alone does not reverse this decision.
 
+## D060: E030 localizes the exact-substrate failure and gates the external conference portfolio (2026-07-21, /work + /interpret + /plan)
+
+**Mechanical evidence.** E030 passed its full validity chain and independent result audit. The aligned text-only TRIBE target's participant-mean unique linear increment above the frozen nuisance model was `-0.004494`, with a Bonferroni family-95% two-sided t interval of `[-0.010695,+0.001707]`; the simultaneous upper bound was below the inherited `+0.002` continuation reference. All participant- and block-leave-out means were negative. The aligned-minus-frozen-twin contrast was unresolved. Absolute target extractability from TRIBE students was positive and stable at `+0.040725`, interval `[+0.039053,+0.042398]`, but TRIBE-minus-KD retention and all bridge increments were unresolved. An independent recomputation matched all `748` load-bearing analysis leaves with zero differences, and a separate provenance audit returned `PANEL-CLEAN: YES`.
+
+**Scientific boundary.** The frozen mechanical label is `NO PRACTICALLY RELEVANT LINEAR MEASURABILITY`, but its defensible prose scope is narrower: the PCA-50 TRIBE target did not add a participant-mean unique linear increment of at least `+0.002` beyond the specified nuisance model on this fixed sentence, participant, and ROI substrate. This does not exclude nuisance-redundant or total predictivity, lower-variance target directions, nonlinear readouts, other endpoints, other cohorts, or row-specific advantage over the one frozen twin. The `+0.002` reference is internally predeclared rather than externally validated for C1. Erfan confirmation remains required before this framing enters the manuscript.
+
+**Research decision.** Stop E030 without layer, target, nuisance, seed, threshold, or readout rescue. It does not reopen Package C and does not change the existing thesis verdict that the tested distillation regimes show no reliable brain-guided benefit. It sharpens Package A by locating a source-target validity failure before student-to-brain overlap.
+
+**Conference allocation.** Keep E028 as Package A's primary prospective external gate, but do not commit its approximately `1,120` GPU-hour full matrix before corrected Stage 1 passes. Run a 10-business-day outcome-blind feasibility window with two parallel lanes: pursue E028 author artifacts plus its parameterized Stage-1 executable boundary, and freeze a smallest-setting controlled reproduction design for Xiao et al. 2026 as the lower-dependency backup. If complete hashable E028 artifacts arrive, E028 Stage 1 runs first. If the exact lane remains unavailable at the checkpoint, label it unavailable rather than failed and move the main allocation to Xiao unless Erfan explicitly authorizes an independent E028 reimplementation. Preserve the share-ready thesis through E026 as circulation and publication insurance.
+
+**External-action boundary.** The prepared E028 author request and any follow-up require Erfan's explicit communication approval. Outcome-blind local implementation does not authorize endpoint acquisition, result opening, or evidence-producing compute. A Xiao run likewise requires its own prospective E record, reproduction tolerance, matched-control design, precheck, and `/work` authorization.
+
+**Reverses if:** E030's artifact chain or independent recomputation is invalidated; an independent, prospectively fixed substrate establishes source-target validity and participant-general transfer; complete E028 artifacts make its exact lane immediately dominant; or a genuinely estimable theoretical certificate prospectively separates positive, null, and harmful regimes at lower total cost.
+
 ## Related
 
 - [`status.md`](../status.md) — operational authority
