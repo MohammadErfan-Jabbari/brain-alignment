@@ -1,0 +1,369 @@
+{
+  "experiment": "E030",
+  "protocol_version": "e030-exact-substrate-transport.v2",
+  "protocol_state": "prospective-frozen",
+  "substrate": {
+    "condition": "B",
+    "n_items": 1000,
+    "item_id_start": 1,
+    "item_id_stop_exclusive": 1001,
+    "ordered_item_sha256": "0de41d33d8e41ee4a69e898bcbcc42f7c9e65f7cdce1239a00def95ef7dd206b",
+    "ordered_text_sha256": "6766e068a2b4f4ad84fad525cdb1f41f60524f1c206139741e9fc22ef1cb5702",
+    "valid_uids": [
+      797,
+      837,
+      841,
+      848,
+      856,
+      865,
+      875,
+      876,
+      880
+    ],
+    "train_uids": [
+      848,
+      865,
+      875,
+      876
+    ],
+    "heldout_uids": [
+      797,
+      837,
+      841,
+      856,
+      880
+    ],
+    "excluded_uid": 853,
+    "rois": [
+      "lang_LH_AntTemp",
+      "lang_LH_IFG",
+      "lang_LH_IFGorb",
+      "lang_LH_MFG",
+      "lang_LH_PostTemp"
+    ]
+  },
+  "sources": {
+    "tuckute_csv": {
+      "path": "data/tuckute2024/data/brain-lang-data_participant_20230728.csv",
+      "sha256": "a990474e5ecd9bdbbf07c0df81be6f724fc377fe888d07432097a7f7b115cee4"
+    },
+    "e025_manifest": {
+      "path": "outputs/E025/manifest.json",
+      "sha256": "2729c0c97b2f845ccf8f58a13e01ecf87f44029564ca615269230437de46698d"
+    },
+    "e025_extraction": {
+      "path": "outputs/E025/extraction.json",
+      "sha256": "b49c2795c55961cae161084afa1d3409dd662b893f9a40fa6a4e9373bc2c84c5"
+    },
+    "e025_analysis": {
+      "path": "outputs/E025/analysis.json",
+      "sha256": "9a43410bfafced8130d286faa8c011c6e2097707979d476b5ce01d9ec44f106c"
+    },
+    "e025_nuisance": {
+      "path": "outputs/E025/nuisance_tuckute.npz",
+      "sha256": "9ef56279506dbd3e45bf8f83d95d5bab2f789c56152866336d1f1e122232eb0a"
+    },
+    "e025_participant_loader": {
+      "path": "scripts/e025_participant_transfer.py",
+      "sha256": "2357bae93d80457d7971c1ed368a30b15da6341171cb30036f3d2e2b360f1b1f"
+    },
+    "e016_train_target": {
+      "path": "outputs/E016_tribe/kd_targets/text/train_start0_n95999_full.npz",
+      "sha256": "de2f18d4d6ae61659e0f2a9220476a9e8ed23ab10c63d8be2794610d4d7ef7d1",
+      "shape": [
+        95999,
+        20484
+      ]
+    },
+    "e016_heldout_target": {
+      "path": "outputs/E016_tribe/kd_targets/text/heldout_start0_n1999_full.npz",
+      "sha256": "fd8c77a9b815ce8f15079800dad09fb2c739c6fe221fa71b9c1cf467bc757b9f",
+      "vertex_index_sha256": "bdb970e9ca6de4bc6a2c64b629d2b27a79a3b9d0d4f3afd8b98aac9587d3fa5b"
+    },
+    "target_generator": {
+      "path": "scripts/tribe_predict_kd_corpus.py",
+      "sha256": "847d22a13cdb2431d054bd2b2edaa7917645aaf17afa50eab1dbaf1d0b6bfbd2"
+    }
+  },
+  "runtime": {
+    "tribe_checkout": "data/paper-repos/tribev2",
+    "tribe_git_head": "38b3db073a7fa5bfbfc7fdd894b1a3536e4553e3",
+    "tribe_tracked_diff_sha256": "0014008bc6037883912254625eaa366658fc7fe838dc9ab6adec188b0fdd1b22",
+    "tribe_status_sha256": "54c5dfb6f249594d45df01ac2a2833497755026cebe226ab7c137b6e47d024f3",
+    "python": "data/paper-repos/tribev2/.venv-tribe/bin/python",
+    "python_version": "3.11.15",
+    "sorted_pip_freeze_command": [
+      "-m",
+      "pip",
+      "freeze",
+      "--all"
+    ],
+    "sorted_pip_freeze_canonicalization": "strip nonempty lines, lexicographic sort, LF join, final LF",
+    "sorted_pip_freeze_sha256": "43ca50c15dec1bb11141414efee1eb35acbfaed599d15c0b3e541d854928ebbf",
+    "sorted_pip_freeze_line_count": 127,
+    "hf_home": "/home/centcom/data/hf-cache",
+    "tribe_snapshot": "f894e783020944dcd96e5568550afe2aa9743f9f",
+    "tribe_checkpoint": {
+      "path": "/home/centcom/data/hf-cache/hub/models--facebook--tribev2/snapshots/f894e783020944dcd96e5568550afe2aa9743f9f/best.ckpt",
+      "sha256": "9c79ffff6b642b7b0c71d558c935fb3fa33f2788bfb509feead94fafbba2f321"
+    },
+    "llama_snapshot": "d4446454d87d51aa42e1fb174f25acc5f8762331",
+    "llama_shards": [
+      {
+        "path": "/home/centcom/data/hf-cache/hub/models--unsloth--Llama-3.2-3B/snapshots/d4446454d87d51aa42e1fb174f25acc5f8762331/model-00001-of-00002.safetensors",
+        "sha256": "584d8d3e3f82f7964955174dfe5e3b1cf117a9d859f022cfdf7fcb884856e002"
+      },
+      {
+        "path": "/home/centcom/data/hf-cache/hub/models--unsloth--Llama-3.2-3B/snapshots/d4446454d87d51aa42e1fb174f25acc5f8762331/model-00002-of-00002.safetensors",
+        "sha256": "4719a04514ec2f060240711b7c33ab21187cac730ecaba3040b7a0fd95a9cefb"
+      }
+    ]
+  },
+  "scoring_runtime": {
+    "launcher": "uv run python",
+    "python_version": "3.11.15",
+    "numpy_version": "2.4.6",
+    "scipy_version": "1.17.1",
+    "scikit_learn_version": "1.9.0",
+    "pyproject": {
+      "path": "pyproject.toml",
+      "sha256": "47c21e25f644c9c07080b598fc3e39ff3667139310d4e067a79151caf950f967"
+    },
+    "uv_lock": {
+      "path": "uv.lock",
+      "sha256": "055a43b88d7d9d545005af1221cb7b95546eb5e85ec01cb2e68c4e78f72e95b9"
+    }
+  },
+  "smoke_replay": {
+    "reference_npz": {
+      "path": "outputs/E016_tribe/kd_targets/text/heldout_start0_n2_d16_smoke.npz",
+      "sha256": "cba45474a1215afb11680a6b778a94d5753b71d71d1a49e199b525823087ac3c"
+    },
+    "reference_sidecar": {
+      "path": "outputs/E016_tribe/kd_targets/text/heldout_start0_n2_d16_smoke.json",
+      "sha256": "138f5fbb33051c04832946123144085af3b23e47dc655b3976929b2a5a0237eb"
+    },
+    "corpus": {
+      "path": "data/kd_corpus/wikitext103_sentences_heldout.txt",
+      "sha256": "d327c96e204accae6a09bbf760d382f2efa1650a648917f03d207b86a5cc3de2"
+    },
+    "semantic_sha256": {
+      "targets": "676e965093751260d9e25a04d76d4a527ef91bfa669bf5c9ceb4b9b3f4b39a92",
+      "texts": "7991b488df471c6e956d47f8ceaa850c262c801079700d191a771914b7a7bf02",
+      "item_indices": "9d34149fbd1fe777eb238799054c8cbfbce372255f219f8740838def9bfd02db",
+      "vertex_index": "ea812a3e25d37750ed297c116f1479becbe5ff74c874f5867813f5f7eee2d73d",
+      "segment_counts": "b39a43477aca068d0cd2854d986d7c01d11f8ed8594f75208b22421d1b62546d"
+    },
+    "n_items": 2,
+    "batch_items": 2,
+    "target_dim": 16
+  },
+  "target": {
+    "features": [
+      "text"
+    ],
+    "text_model": "unsloth/Llama-3.2-3B",
+    "event_mode": "synthetic-text",
+    "word_duration": 0.35,
+    "word_gap": 0.05,
+    "min_duration": 1.0,
+    "tr": 1.0,
+    "batch_items": 32,
+    "target_dim": 20484,
+    "standardization": {
+      "reference": "e016_train_target",
+      "population_ddof": 0,
+      "epsilon": 1e-06,
+      "algorithm": "numpy-float32-full-v1"
+    }
+  },
+  "folds": {
+    "method": "contiguous",
+    "count": 5,
+    "test_blocks": [
+      [
+        0,
+        200
+      ],
+      [
+        200,
+        400
+      ],
+      [
+        400,
+        600
+      ],
+      [
+        600,
+        800
+      ],
+      [
+        800,
+        1000
+      ]
+    ]
+  },
+  "twin": {
+    "algorithm": "sattolo-pcg64-v1",
+    "key": "E030|tuckute-condition-B|within-block-sattolo|v1"
+  },
+  "estimator": {
+    "pca_rank": 50,
+    "pca_random_state": 0,
+    "pca_svd_solver": "auto",
+    "pca_whiten": false,
+    "standard_scaler_with_mean": true,
+    "standard_scaler_with_std": true,
+    "ridge_alphas": [
+      1.0,
+      10.0,
+      100.0,
+      1000.0,
+      10000.0
+    ],
+    "ridge_cv": null,
+    "ridge_scoring": null,
+    "ridge_gcv_mode": "svd",
+    "ridge_fit_intercept": true,
+    "ridge_alpha_per_target": false,
+    "target_cache_dtype": "float32",
+    "standardization_statistics_dtype": "float32",
+    "standardized_target_dtype": "float32",
+    "scoring_input_dtype": "float32",
+    "c1_metric_semantics": "E025 float32 per-ROI SSE/SST",
+    "c2_metric_accumulator_dtype": "float64",
+    "coordinate_sst_floor": 1e-08,
+    "primary_layer": 6,
+    "sensitivity_layer": 7,
+    "arms": [
+      "kd_only",
+      "tribe_mse"
+    ],
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "nuisance_variants": {
+      "base_continuity": "base_scalar",
+      "imageability_primary": "base_scalar+imageability",
+      "full_cov_stress": "base_scalar+full_cov_extra"
+    },
+    "primary_nuisance": "imageability_primary"
+  },
+  "bridge": {
+    "target_pca_rank": 50,
+    "student_pca_rank": 50,
+    "target_pca_basis": "fit once on canonical aligned outer-train rows and reuse unchanged for aligned and frozen-twin transforms",
+    "student_pca_basis": "fit once per seed, arm, layer, and outer fold and reuse unchanged across aligned and frozen-twin target arms",
+    "static_pca_basis": "fit once per outer fold and reuse unchanged across all participants, seeds, layers, nuisances, and target arms",
+    "alignments": [
+      "aligned",
+      "twin"
+    ],
+    "absolute_arm": "tribe_mse",
+    "comparator_arm": "kd_only",
+    "metrics": [
+      "O",
+      "D",
+      "J"
+    ],
+    "response_model": "outer-train C1 full response ridge on nuisance plus exact-target PCs",
+    "target_model": "outer-train shared-alpha ridge from nuisance plus student PCs to exact-target PCs",
+    "composition": "student-PC-only target-PC contribution divided by the C1 target-feature scale and multiplied by the C1 standardized target coefficient block",
+    "score": "mean ROI R2 increment of C1 nuisance-only prediction plus composed contribution over the same nuisance-only prediction",
+    "claim_boundary": "cross-validated predictive path product, not causal mediation"
+  },
+  "inference": {
+    "alpha": 0.05,
+    "participant_min_positive": 8,
+    "seed_min_positive": 6,
+    "practical_reference_unique_r2": 0.002,
+    "significance_test": "two-sided",
+    "sign_flip_enumeration": 64,
+    "c3_seed_stability_metrics": [
+      "D",
+      "J"
+    ],
+    "c3_seed_stability_rule": "all six paired-seed grand contrasts positive and exact 2^6 magnitude-preserving two-sided sign-flip p<=0.05",
+    "terminal_endpoint_order": [
+      "A",
+      "Q",
+      "M",
+      "B",
+      "O",
+      "D",
+      "J"
+    ],
+    "terminal_family_sizes": {
+      "C1": 2,
+      "C2": 2,
+      "C3": 3
+    },
+    "terminal_exclusion_rule": "one-sided family-95% Bonferroni upper bound; marginal bounds are descriptive only"
+  },
+  "compute_ceiling": {
+    "target_gpu": "one L40S",
+    "target_gpu_hours": 4,
+    "scoring_cpu_hours": 24,
+    "scoring_ram_gb": 64,
+    "analysis_cpu_hours": 24,
+    "analysis_ram_gb": 64,
+    "retained_storage_gb": 10,
+    "blas_threads": 8,
+    "target_timeout_rule": "target_gpu_hours * 3600 wall-clock seconds",
+    "cpu_limit_mechanism": "POSIX RLIMIT_CPU",
+    "memory_limit_mechanism": "Linux /proc/self/status RSS watchdog plus POSIX RLIMIT_AS",
+    "rss_watchdog_poll_seconds": 0.25,
+    "retained_storage_scope": "recursive regular-file bytes below paths.output_dir"
+  },
+  "benchmark": {
+    "claim": "exact v2 factor-grid enumeration plus category-specific conservative production-shape CPU and wall projections; not a timed full-grid production run",
+    "n_items": 100,
+    "target_dim": 512,
+    "n_participants": 9,
+    "n_seeds": 6,
+    "seed": 30030,
+    "composition_repetitions": 512,
+    "exact_v2_grid": {
+      "c1_rows": 270,
+      "c2_rows": 360,
+      "c3_rows": 6480,
+      "c1_model_fits": 405,
+      "c2_model_fits": 375,
+      "c3_retention_fits": 720,
+      "c3_composition_scores": 6480,
+      "pca_fits": 130
+    },
+    "full_shape_single_fit": {
+      "n_items": 1000,
+      "target_dim": 20484,
+      "predictor_dim": 103
+    }
+  },
+  "paths": {
+    "output_dir": "outputs/E030",
+    "design_manifest": "outputs/E030/design_manifest.json",
+    "acquisition_manifest": "outputs/E030/acquisition_manifest.json",
+    "corpus": "outputs/E030/tuckute_condition-b_n1000.txt",
+    "folds": "outputs/E030/folds.npz",
+    "twin_permutation": "outputs/E030/twin_permutation.npy",
+    "standardization": "outputs/E030/e016_train_standardization.npz",
+    "standardization_manifest": "outputs/E030/e016_train_standardization.json",
+    "smoke_replay": "outputs/E030/precheck/heldout_start0_n2_d16_replay.npz",
+    "smoke_report": "outputs/E030/precheck/smoke_replay.json",
+    "selftest_report": "outputs/E030/precheck/selftest.json",
+    "benchmark_report": "outputs/E030/precheck/benchmark.json",
+    "bundle_manifest": "outputs/E030/precheck/bundle.json",
+    "oracle_report": "outputs/E030/precheck/oracle_review.json",
+    "readiness": "outputs/E030/readiness.json",
+    "target": "outputs/E030/tribe_tuckute_condition-b_n1000_full.npz",
+    "target_manifest": "outputs/E030/target_manifest.json",
+    "raw_scores": "outputs/E030/raw_scores.json",
+    "analysis": "outputs/E030/analysis.json",
+    "audit": "outputs/E030/audit.json"
+  }
+}
