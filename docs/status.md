@@ -50,9 +50,9 @@ aliases: [current-status]
 
 ## Next actions
 
-1. Circulate the E030-synchronized extended-manuscript PDF now as publication insurance. Do not create a new public cut without explicit request.
-2. Resolve E028's outcome-blind factual slots and exact-versus-reimplementation lane from the author response/public metadata; acquire no neural endpoint or author result before a production C1 lock.
-3. Build and benchmark the exact production Stage-1 provider only after its factual dimensions are hash-locked. Keep readiness false unless implementation, cost, RFC 8785 chain, and fresh endpoint-bundle review all clear.
+1. At the next manuscript-working session, before further prose revision, run a source-grounded `/teach` then `/review` audit of the dual-head training and evaluation design: trace the permanent language-model head, temporary neural head, both losses, gradient paths, retained and discarded parameters, recorded and predicted target construction, data splits, matched controls, and fresh ridge evaluation. Treat the current concern as a hypothesis; if a real contradiction is found, route it to `/interpret` and set `manuscript-sync-pending` before changing the claim.
+2. Circulate the E030-synchronized extended-manuscript PDF now as publication insurance. Do not create a new public cut without explicit request.
+3. Resolve E028's outcome-blind factual slots and exact-versus-reimplementation lane from the author response/public metadata; acquire no neural endpoint or author result before a production C1 lock. Build and benchmark the exact production Stage-1 provider only after its factual dimensions are hash-locked, and keep readiness false unless implementation, cost, RFC 8785 chain, and fresh endpoint-bundle review all clear.
 4. Freeze the smallest-setting Xiao reproduction and matched-control feasibility design in parallel, without opening its result before its own precheck.
 5. Inspect the E028 response state on 2026-08-05 and send one concise follow-up if needed. On 2026-08-12, run E028 Stage 1 only if complete hashable artifacts and final readiness exist; otherwise close the exact lane as unavailable and move the main allocation to Xiao. Full E028 Stages 2/3 remain forbidden unless corrected Stage 1 passes.
 
