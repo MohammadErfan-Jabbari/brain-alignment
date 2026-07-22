@@ -71,11 +71,12 @@ Strict independent review remains at the two load-bearing boundaries: before a d
 ## Direct manuscript loop
 
 1. Read the owning E records and current manuscript section.
-2. State the intended claim, scope, caveats, and evidence.
-3. Draft directly into the extended manuscript.
-4. Run the deterministic manuscript provenance and build checks.
-5. Run one fresh independent prose and scientific-scope review.
-6. Revise; obtain Erfan’s approval for load-bearing framing before marking the manuscript share-ready.
+2. Map the document question to the active section and paragraph-level reader questions; create subsections only when distinct child questions aid navigation.
+3. State the intended answer, claim, scope, caveats, and evidence.
+4. Draft directly into the extended manuscript, defining prerequisites before use and removing material that answers no necessary question.
+5. Run the deterministic manuscript provenance and build checks.
+6. Run one fresh independent question-chain, prose, and scientific-scope review.
+7. Revise; obtain Erfan’s approval for load-bearing framing before marking the manuscript share-ready.
 
 Public versions are cut only for a named sharing or submission milestone and are never edited afterward.
 

@@ -952,6 +952,16 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Reverses if:** the synthetic implementation cannot reproduce its locked fixtures or fit the compute ceiling; an outcome-blind review finds another design defect; author artifacts contradict a corrected-lane choice and force a retained new `C0`; or Erfan withdraws authorization before endpoint access.
 
+## D062: Adopt question-led writing as the manuscript composition method (2026-07-22, /plan + /meta)
+
+**Decision.** Plan and revise explanatory prose as a hierarchy of reader questions: one governing document question, section questions that directly advance it, optional subsection questions only when they improve navigation, and one primary question per paragraph. Order questions by conceptual dependency and write each paragraph as a direct answer supported by only the necessary reasoning, evidence, and scope. The reusable procedure lives in [`.claude/skills/question-led-writing/SKILL.md`](../../.claude/skills/question-led-writing/SKILL.md) and is part of `/write`.
+
+**Rationale.** Topic-led drafting makes it easy to include locally relevant technical material before the reader needs it and difficult to detect missing prerequisites or paragraphs with no argumentative role. A reader-question hierarchy makes those failures inspectable. The triggering example was the introduction's unexplained use of $R^2$: the paragraph's actual question is what “predict the brain” licenses, so naming the metric there adds a prerequisite without helping answer that question. The narrower claim is supported: this method improves argument visibility and exposes likely gaps; it does not by itself guarantee truth, completeness, or readable prose.
+
+**Safeguards.** Questions are working structure, not a new scientific authority. Evidence provenance, estimands, inference units, uncertainty, citations, and identifying assumptions remain mandatory. Use a declared reader model, define prerequisites before use, answer before elaborating, keep one stable term per concept, match technical detail to the current question, and delete material that answers no necessary question. Stop decomposing when the paragraph question is directly answerable so the method does not become bureaucracy.
+
+**Reverses if:** repeated use produces forced fragmentation, hides cross-cutting arguments, or costs more attention than it saves. In that case retain reverse outlining as a diagnostic and relax the drafting hierarchy.
+
 ## Related
 
 - [`status.md`](../status.md) — operational authority

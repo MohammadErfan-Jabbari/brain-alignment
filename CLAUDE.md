@@ -55,10 +55,11 @@ Only load-bearing gitignored artifacts cited by the manuscript receive stable pa
 Write directly from E records into `docs/manuscript/extended/`:
 
 1. Read the owning E records and current section.
-2. State the intended claim, scope, caveats, and evidence.
-3. Draft with `\evd{Ennn}` markers and keyed values from `numbers.tex`.
-4. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/extended`.
-5. Run one fresh independent prose/scientific-scope review, revise, and obtain Erfan’s approval for load-bearing framing.
+2. Apply [question-led writing](.claude/skills/question-led-writing/SKILL.md): map the document question to section and paragraph-level reader questions, with subsections only when useful.
+3. State the intended answer, claim, scope, caveats, and evidence.
+4. Draft with `\evd{Ennn}` markers and keyed values from `numbers.tex`.
+5. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/extended`.
+6. Run one fresh independent question-chain, prose, and scientific-scope review, revise, and obtain Erfan’s approval for load-bearing framing.
 
 Use `--share-ready` only when every gap is resolved and the manuscript is intended to ship. Do not create intermediate reports, claim lattices, convergence state, or checkpoint logs.
 
