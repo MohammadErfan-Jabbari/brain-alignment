@@ -1,0 +1,43 @@
+% Claim-led manuscript rewrite candidate.
+% This candidate is independent of, and does not replace, ../extended/.
+% Keep one sentence or paragraph per source line and source keyed numbers from numbers.tex.
+% Validate: uv run python .claude/scripts/manuscript_check.py docs/manuscript/rewrite
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{preamble}
+\addbibresource{references.bib}
+\input{numbers}
+\input{acronyms}
+
+\title{From Brain Scores to Training Signals: A Controlled Test of Neural-Guided Distillation}
+\author{MohammadErfan Jabbari}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\gap{Draft the abstract after the complete manuscript has converged.}
+\end{abstract}
+\acresetall
+
+\tableofcontents
+
+\input{sections/01_introduction}
+\input{sections/02_valid_training_claim}
+\input{sections/03_experimental_framework}
+\input{sections/04_results}
+\input{sections/05_discussion}
+\input{sections/06_limitations}
+\input{sections/07_conclusion}
+
+\appendix
+\input{sections/A_evidence_provenance}
+\input{sections/B_data_targets_preprocessing}
+\input{sections/C_training_architecture}
+\input{sections/D_estimators_inference}
+\input{sections/E_secondary_experiments}
+\input{sections/F_sensitivities_tables}
+
+\printbibliography
+\end{document}
