@@ -15,6 +15,7 @@ This folder holds experiment runners, data adapters, analysis scripts, literatur
 - Use `HF_HOME=/home/centcom/data/hf-cache` when loading cached Hugging Face models.
 - Before changing or running an experiment script, read the matching `docs/experiments/E*.md` and current status in `docs/status.md`.
 - Put heavy outputs in gitignored `outputs/` or `data/`, not in tracked source directories.
+- E028 is a narrow exception: its synthetic-development runner and analyzer intentionally reject repository `outputs/` and `data/`. Write their ephemeral, non-load-bearing artifacts to a fresh safe temporary directory outside the repository.
 - Preserve anti-artifact controls: contiguous splits, nuisance baselines, matched budget/perplexity where the design requires them, capacity-fair feature comparisons, and explicit seed handling.
 - A synthetic run validates plumbing only. Do not present synthetic numbers as science.
 
@@ -26,6 +27,8 @@ This folder holds experiment runners, data adapters, analysis scripts, literatur
 | `data_adapters.py` / `lebel_adapter.py` | Dataset loading and normalization. |
 | `run_*.py` | Experiment runners. |
 | `analyze_*.py` / `reanalyze_*.py` | Post-run analysis and robustness checks. |
+| `e028_vaidya_crossmodal_falsification.py` | Outcome-blind E028 synthetic Stage-1 runner. Its only commands are `manifest`, `synthetic-replay`, `selftest`, `benchmark`, and `bundle`; every output remains explicitly not endpoint-ready. |
+| `e028_analyze_vaidya_stage1.py` | Fail-closed analyzer for the E028 synthetic Stage-1 schema and exact patient-level sign-flip gate. It never licenses Stage 2 or accepts a neural endpoint. |
 | `build_text_feature_target_cache.py` | E016 matched-information control target builder: frozen LM text features projected into the Phase-3 target-cache schema; pair with `run_tribe_phase3.py --target-label textfeat`. |
 | `run_tribe_phase3.py` | E016 matched-budget runner for KD-only / target-MSE / target-permuted arms. Use optional `--save-model-dir` on future post-positive/control runs when trained students may be needed for real-brain or probe follow-up; saved artifacts are gitignored and are not verdicts. |
 | `e016_eval_saved_student_alignment.py` | Post-hoc E016 helper that loads saved `model_artifact_dir` students and scores them on the real Tuckute alignment endpoint with the E003 contiguous-CV nuisance-subtracted protocol. Use only after artifacts exist; outputs are diagnostics for `/interpret`, not verdicts. |

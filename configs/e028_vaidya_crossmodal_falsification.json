@@ -1,0 +1,333 @@
+{
+  "schema_version": "e028-outcome-blind-development-v1",
+  "experiment_id": "E028",
+  "protocol_state": "outcome-blind-development",
+  "development_scope": "synthetic Stage-1 corrected-evaluator slice only",
+  "synthetic_only": true,
+  "author_facts_complete": false,
+  "exact_lane": null,
+  "production_provider": null,
+  "ready_for_endpoint_access": false,
+  "readiness_label": "NOT READY",
+  "endpoint_access_authorized": false,
+  "author_result_access_authorized": false,
+  "training_authorized": false,
+  "network_access_authorized": false,
+  "development_canonicalization": {
+    "profile": "e028-development-canonical-json-v1",
+    "encoding": "UTF-8",
+    "object_keys": "lexicographic",
+    "separators": "comma-and-colon-without-whitespace",
+    "nonfinite_numbers": "forbidden",
+    "production_rfc8785_chain_satisfied": false
+  },
+  "command_allowlists": {
+    "runner": [
+      "manifest",
+      "synthetic-replay",
+      "selftest",
+      "benchmark",
+      "bundle"
+    ],
+    "analyzer": [
+      "selftest",
+      "analyze-synthetic"
+    ]
+  },
+  "author_facts": {
+    "wavlm": {
+      "repository": null,
+      "revision": null,
+      "files_sha256": null,
+      "processor": null,
+      "layer_indexing": null,
+      "lora_module_names": null,
+      "checkpoint_serialization": null
+    },
+    "fmri_source": {
+      "ds003020_snapshot": null,
+      "source_ids": null,
+      "story_lists": null,
+      "audio_to_tr_offsets": null,
+      "voxel_masks": null,
+      "response_normalization": null,
+      "paper_split": null
+    },
+    "ecog_endpoint": {
+      "ds005574_snapshot": null,
+      "paper_electrode_roi_mask": null,
+      "faithful_fold_boundaries": null,
+      "preprocessing": null,
+      "lag_convention": null,
+      "ridge_grid": null,
+      "published_aggregation": null
+    },
+    "execution": {
+      "launch_commands": null,
+      "dependency_lock": null,
+      "random_states": null,
+      "principal_checkpoints": null,
+      "selected_epochs": null,
+      "published_results_or_predictions": null
+    }
+  },
+  "chain": {
+    "chain_version": "E028-chain-v1",
+    "chain_id": "E028-outcome-sealed-main",
+    "domain_separator": "E028-chain-v1\u0000",
+    "genesis_parent_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "transitions": {
+      "C0_PROTOCOL": [
+        "C1_INPUTS"
+      ],
+      "C1_INPUTS": [
+        "C2_SUPPORT",
+        "STOP"
+      ],
+      "C2_SUPPORT": [
+        "C3_STAGE1_RESULT",
+        "STOP"
+      ],
+      "C3_STAGE1_RESULT": [
+        "C4_STAGE2_AUTHORIZATION",
+        "STOP"
+      ],
+      "C4_STAGE2_AUTHORIZATION": [
+        "C5_STAGE2_RESULT"
+      ],
+      "C5_STAGE2_RESULT": [
+        "C6_STAGE3_AUTHORIZATION",
+        "STOP"
+      ],
+      "C6_STAGE3_AUTHORIZATION": [
+        "C7_STAGE3_RESULT"
+      ],
+      "C7_STAGE3_RESULT": [
+        "C8_FINAL_VERDICT",
+        "STOP"
+      ],
+      "C8_FINAL_VERDICT": [],
+      "STOP": []
+    },
+    "development_manifest_files": [
+      "configs/e028_vaidya_crossmodal_falsification.json",
+      "scripts/e028_vaidya_crossmodal_falsification.py",
+      "scripts/e028_analyze_vaidya_stage1.py",
+      "scripts/e028_acquisition_manifest.py",
+      "docs/experiments/E028_vaidya-crossmodal-intervention-falsification.md",
+      "docs/decisions/decisions.md",
+      "pyproject.toml",
+      "uv.lock"
+    ]
+  },
+  "stage1": {
+    "tick_seconds": 0.05,
+    "response_origin_seconds": 4.0,
+    "lag_ticks": {
+      "minimum": -40,
+      "maximum": 40,
+      "step": 1
+    },
+    "outer_blocks": 4,
+    "embargo_ticks": 120,
+    "minimum_role_rows": 2,
+    "standardization_ddof": 0,
+    "drop_sd_below": 1e-08,
+    "solver_residual_tolerance": 1e-10,
+    "ridge_alpha": [
+      1e-06,
+      1e-05,
+      0.0001,
+      0.001,
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0,
+      1000.0,
+      10000.0,
+      100000.0,
+      1000000.0,
+      10000000.0,
+      100000000.0
+    ],
+    "representation_penalty_ratio": [
+      0.0001,
+      0.01,
+      1.0,
+      100.0,
+      10000.0
+    ],
+    "tie_tolerance": 1e-12,
+    "sign_patterns": 512,
+    "sign_tie_tolerance": 1e-12,
+    "sign_denominator_floor": 1e-12,
+    "family_alpha": 0.05,
+    "boundary_width_max": 1e-10,
+    "patient_ids": [
+      "synthetic-p01",
+      "synthetic-p02",
+      "synthetic-p03",
+      "synthetic-p04",
+      "synthetic-p05",
+      "synthetic-p06",
+      "synthetic-p07",
+      "synthetic-p08",
+      "synthetic-p09"
+    ],
+    "source_ids": [
+      "synthetic-q01",
+      "synthetic-q02",
+      "synthetic-q03"
+    ]
+  },
+  "synthetic": {
+    "provider_id": "E028-synthetic-stage1-v1",
+    "rng_domain": "E028-rng-v1\u0000",
+    "ticks_per_contiguous_run": 420,
+    "gap_ticks": [
+      17,
+      260
+    ],
+    "electrodes_per_patient": 2,
+    "nuisance_features": 4,
+    "representation_features": 6,
+    "development_lag_ticks": [
+      -2,
+      0,
+      2
+    ],
+    "development_ridge_alpha": [
+      0.01,
+      1.0,
+      100.0
+    ],
+    "development_representation_penalty_ratio": [
+      0.01,
+      1.0,
+      100.0
+    ],
+    "benchmark": {
+      "rows": 512,
+      "nuisance_features": 24,
+      "representation_features": 64,
+      "targets": 8,
+      "repetitions": 3
+    }
+  },
+  "raw_result_schema": {
+    "schema_version": "e028-stage1-synthetic-raw-v1",
+    "top_level_required": [
+      "schema_version",
+      "experiment_id",
+      "protocol_state",
+      "synthetic_only",
+      "ready_for_endpoint_access",
+      "readiness_label",
+      "provider",
+      "support",
+      "cells",
+      "sentinels",
+      "content_sha256"
+    ],
+    "cell_required": [
+      "patient_id",
+      "electrode_id",
+      "source_id",
+      "arm",
+      "selected_lag_tick",
+      "selected_alpha",
+      "selected_rho",
+      "selected_nuisance_alpha",
+      "selected_x_only_alpha",
+      "x_only_pearson_r",
+      "fold_accumulators"
+    ],
+    "provider_required": [
+      "provider_id",
+      "identity_sha256",
+      "rng_domain",
+      "parameters"
+    ],
+    "provider_parameters_required": [
+      "ticks_per_contiguous_run",
+      "gap_ticks",
+      "electrodes_per_patient",
+      "nuisance_features",
+      "representation_features",
+      "development_lag_ticks",
+      "development_ridge_alpha",
+      "development_representation_penalty_ratio",
+      "patient_ids",
+      "source_ids"
+    ],
+    "support_required": [
+      "response_ticks",
+      "lag_source_ticks",
+      "segments",
+      "outer_folds",
+      "support_sha256"
+    ],
+    "segment_required": [
+      "segment_id",
+      "start_tick",
+      "end_tick",
+      "n_ticks"
+    ],
+    "outer_fold_required": [
+      "outer_block",
+      "pre_embargo",
+      "post_embargo",
+      "boundaries",
+      "inner_rotations"
+    ],
+    "inner_rotation_required": [
+      "inner_validation_block",
+      "pre_embargo",
+      "post_embargo",
+      "boundaries"
+    ],
+    "sentinels_required": [
+      "path_network_sentinel_active",
+      "forbidden_access_attempts",
+      "network_attempts",
+      "forbidden_roots",
+      "status"
+    ],
+    "arms": [
+      "F",
+      "B_1"
+    ],
+    "cell_cardinality": "patient_ids x electrodes_per_patient x source_ids x arms; F is evaluated once per patient/electrode and its numerical payload is copied byte-identically across sources while source_id changes",
+    "selected_hyperparameter_contract": "selected_lag_tick, selected_alpha, selected_rho, selected_nuisance_alpha, and selected_x_only_alpha are four-element arrays in outer-block order; selected_lag_tick and selected_nuisance_alpha are shared across F and B_1 for a patient/electrode/fold",
+    "fold_accumulator_required": [
+      "block",
+      "sse_full",
+      "sse_nuisance",
+      "sst",
+      "n_test"
+    ]
+  },
+  "development_gaps": [
+    "author factual slots are null",
+    "no neural payload has been acquired or opened",
+    "Stage 1A exact reproduction is unavailable",
+    "Stages 2 and 3 are not implemented in this slice",
+    "the production dependency lock is unresolved",
+    "the completed local regression-kernel benchmark is not production-shape evidence",
+    "the production RFC 8785 chain, production endpoint replay, and fresh endpoint-bundle reviews are incomplete"
+  ],
+  "forbidden_path_components": [
+    "data",
+    "outputs",
+    "hf-cache",
+    "huggingface",
+    "transformers",
+    "author-results",
+    "author_results",
+    "neural-payload",
+    "neural_payload",
+    "endpoint-payload",
+    "endpoint_payload"
+  ]
+}
