@@ -4,14 +4,89 @@
 \subsection{What failed and what remains possible}
 \label{sec:discussion-failure}
 
-\gap{Answer Section 5.1 questions in AGENTS.md.}
+The evidence chain did not fail at a single common point.
+Controlled brain predictivity passed in both recorded-response assays \evd{E002}\evd{E006}.
+Compression left observed alignment headroom, although language-model quality remained a competing explanation for that headroom \evd{E003}\evd{E015}.
+The recorded-target branch then lost support at the intervention gate: none of the valid inference units established a participant-general advantage from correct stimulus--response pairing \evd{E008}\evd{E011}\evd{E013}\evd{E017}.
+In the predicted-target branch, the exact target failed the frozen practical measurability rule, while target specificity against the frozen twin remained unresolved \evd{E030}.
+Target uptake and retained-student movement passed in the saved WikiText continuity assay at acceptable language quality \evd{E016}\evd{E025}.
+Fresh Tuckute incremental retention remained unresolved \evd{E030}.
+The saved nonbrain comparator was non-identifying \evd{E026}.
+Participant-general biological transfer was not supported \evd{E025}\evd{E030}.
+No tested route subsequently established a brain-specific neural-target utility claim \evd{E009}.
+This pattern separates a measurable signal and a successful manipulation from an identified biological training benefit.
+
+For recorded neural targets, the participant-first result weakens the interpretation that positive trends for an averaged response generalize to people.
+Response averaging remains useful for measuring a shared, higher-signal component, but it changes the estimand and does not create participant replicates \evd{E005}\evd{E010}\evd{E014}.
+The intervention variants narrow the failure further without making it objective- or capacity-invariant.
+Increasing adapter rank at a fixed loss weight did not induce greater effective movement, so it tests added adapter capacity under the same optimization pressure rather than a stronger manipulation.
+The contrastive result is limited to the tested five-\ac{roi} objective, while the voxelwise and full-parameter results close only their tested naturalistic data, loss, and optimization regimes.
+They weaken those specific rescue explanations, not the broader possibility that another recorded target or induction regime could work \evd{E008}\evd{E011}\evd{E013}\evd{E017}.
+
+For predicted neural targets, the exact target did not meet the frozen practical criterion for unique linear predictivity of the intended recorded-response substrate, and its row-specific advantage over the frozen twin remained unresolved \evd{E030}.
+In the saved WikiText continuity assay, target uptake and retained-student movement passed after the temporary head was removed, and the direct comparisons preserved language-model quality, making a simple implementation failure less plausible \evd{E016}\evd{E025}.
+Fresh Tuckute incremental retention nevertheless remained unresolved \evd{E030}.
+The saved nonbrain target also differed in baseline predictability, remaining headroom, covariance geometry, nuisance predictability, and induced movement, so the larger target-learning gain could not be attributed to neural target content \evd{E026}.
+The near-zero direct participant endpoint then supplied no participant-general transfer evidence \evd{E025}.
+The first defensible failure is therefore before biological transfer, but neither the measurability result nor the comparator audit explains the later endpoint causally.
+
+Several explanations are consequently weakened, whereas others remain live.
+The nuisance and untrained-network controls weaken the claim that no controlled neural signal was available to the declared linear readouts \evd{E002}\evd{E006}.
+The target uptake, retained-student movement, and quality checks weaken no-op training and gross language-quality damage as explanations for the saved predicted-target result \evd{E016}\evd{E025}.
+They do not distinguish insufficient target information from unfavorable target geometry, a mismatch between slow or averaged \ac{fmri} targets and the representations being trained, inadequate temporal precision, poorly directed optimization pressure, limited model or data scale, information accessible only through a nonlinear map, or heterogeneous participant effects.
+These are hypotheses suggested by where support was lost, not findings about why it was lost.
+The conclusion is therefore a scoped localization over the tested targets, transforms, objectives, models, participants, controls, linear assays, and endpoints, not a universal null for neural supervision.
 
 \subsection{Compatibility with positive prior studies}
 \label{sec:discussion-prior}
 
-\gap{Answer Section 5.2 questions without repeating the literature map.}
+The local negative result is compatible with positive neural-guided studies because the interventions and estimands are not interchangeable.
+As Section~\ref{sec:prior-gap} details, the literature spans speech and text models, slow \ac{fmri} and temporally resolved recordings, participant-specific and pooled supervision, adaptation and compression, and biological and behavioral endpoints.
+A high-temporal-resolution target can constrain token- or word-scale representations differently from a sentence-level or hemodynamically blurred target.
+Personalized training can exploit stable within-person structure that an across-participant claim must treat as heterogeneity.
+Likewise, a larger retained encoder, a more deeply sampled participant, or a larger training budget can make a target learnable under conditions that need not hold for a fixed smaller student.
+These differences change the intervention being tested rather than merely changing its implementation details.
+
+The claim licensed by a positive contrast also depends on its comparison and analysis.
+A gain over a pretrained model answers a different question from an incremental gain over ordinary \ac{kd} at comparable language-model quality.
+A gain over a valid, marginal-preserving same-target permutation supports correct stimulus--target pairing but does not distinguish neural target content from other correctly paired, learnable stimulus-derived targets.
+The defective saved block permutation does not meet that condition and therefore cannot support clean pairing attribution \evd{E016}.
+Repeated training seeds establish procedural stability, whereas participant-level uncertainty is required for a claim about people; folds and neural measurement units answer still different sampling questions.
+Endpoint choice matters in the same way: improvement on the optimized neural target is target uptake, improvement on newly recorded responses is biological transfer, and improvement on a task is utility.
+A positive result can be valid for any one of these estimands without satisfying all later gates.
+
+The present study therefore does not refute positive results obtained with different modalities, participant designs, model budgets, baselines, or endpoints.
+It adds a narrower compatibility judgment: controlled brain predictivity can coexist with an unsupported training advantage, and successful target uptake can coexist with a non-identifying comparator and absent participant-general transfer.
+Its contribution is to keep those claims separate and to show which controls and inference units are needed when moving from one to the next.
+Whether a positive prior result would survive every additional gate is an open empirical question, not a conclusion licensed by the present experiments.
 
 \subsection{Design lessons from the observed failures}
 \label{sec:discussion-design}
 
-\gap{Answer Section 5.3 questions without repeating the ex ante evidence standard.}
+The comparator failure makes target matching a design problem that must be solved before attribution to neural target content.
+A nonbrain target should match the neural target's accessible stimulus information as closely as the scientific question permits, along with dimensional scale, covariance geometry, nuisance predictability, baseline predictability, remaining headroom, held-out learnability, and the optimization pressure applied to the student.
+Initial auxiliary losses and gradient scales should be retained so that pressure can be audited rather than inferred after training.
+Equal output width or a common training schedule is insufficient when one target is already easy for the \ac{kd} student or induces substantially different movement.
+This recommendation follows from the observed non-comparability; it does not imply that one fixed matching recipe will identify neural target content in every setting \evd{E026}.
+
+The exact-target failure also changes the order of work for predicted neural targets.
+Before student training, the exact transformed target should be tested on the intended recorded-response substrate using held-out data, the planned nuisance model and readout, an appropriate frozen target control, participant-level inference when the claim concerns people, and a predeclared threshold large enough to matter for the downstream study.
+The precheck should require both practically measurable unique signal beyond nuisance and adjudicated target specificity relative to that control.
+In the present assay, the unique increment failed the frozen practical rule and aligned-versus-twin specificity remained unresolved \evd{E030}.
+Failure at either part should trigger a target, transform, modality, control, or assay redesign before expensive optimization.
+Passing both would not guarantee transfer, but it would establish under that assay a specific measurable signal that the later biological transfer test could in principle preserve.
+The observed failure supports this ordering for diagnostic efficiency, not a universal claim that linear measurability is necessary for every possible nonlinear intervention.
+
+For predicted neural targets, the decision rule is conjunctive: exact-target measurability must pass; target uptake and retained-student movement must then pass at acceptable language quality; comparator validity must be established, including matched trained-model learnability and movement; and biological transfer must be supported on an independent recorded endpoint at participant level \evd{E016}\evd{E025}\evd{E026}\evd{E030}.
+After target uptake and retained-student movement pass, evaluation must move away from the optimized target.
+The direct target-trained-versus-\ac{kd} contrast should be measured on independently recorded responses, with technical seeds and stimulus folds aggregated within each participant before population inference.
+A valid matched comparator is additionally required to attribute any transfer to neural target content rather than generic auxiliary supervision.
+Reporting target uptake, retained-student movement, language quality, and participant-level transfer as separate outcomes makes the failure location visible: a manipulation can be reliable even when its biological endpoint is not.
+Only after every prerequisite passes does a downstream utility test estimate the payoff of an identified biological intervention \evd{E025}.
+
+The gate location should determine whether a study continues, redesigns, or stops.
+When target uptake and retained-student movement pass but participant-level transfer remains unresolved, strengthening or repeating the transfer test is justified only if added participants, a better independent endpoint, or a more informative assay could change the decision.
+When a practically meaningful effect is excluded or an upstream gate fails, the warranted choices are to stop or redesign the target, control, or assay rather than accumulate more target-fitting evidence.
+Utility testing should wait in either case.
+This decision rule avoids spending downstream compute to interpret an upstream failure and avoids treating every nonpass as the same kind of null.
+It is a recommendation derived from the diagnostic pattern in this study, not an experimentally proven universal recipe for brain-guided training.
