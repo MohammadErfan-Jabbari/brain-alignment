@@ -73,7 +73,7 @@ two axes (subjects AND stimulus-folds), and the verdict must survive BOTH.
 
 ## Claim tuple / decision rule (PREDECLARED, before running)
 
-- **Metric:** across-participant mean of the per-participant paired effect `e_u = mean_{fold,seed}(Δ_mse − Δ_mse_perm)`, unique-R² units; n=10 participants the inference unit.
+- **Metric:** across-participant mean of the per-participant paired effect `e_u = median_{fold,seed}(Δ_mse − Δ_mse_perm)`, unique-R² units; n=10 participants the inference unit.
 - **F1 in-domain CONFIRMED (cross-subject):** the **conservative (fold-clustered) CI excludes 0** AND it **survives leave-one-fold-out** (no single shared stimulus fold carries it) AND **≥ 8/10 participants positive** (sign test one-sided p≈0.055) survives leave-one-participant-out AND the **held-out-5 UIDs also show mean(e_u)>0** AND it is not an SNR artifact. → in-domain F1 generalizes across individuals and stimulus folds; *then* transfer/curve work is licensed.
 - **F1 in-domain WEAK/AVERAGE-ONLY (the L015-honest null):** the fold-clustered CI includes 0, OR LOO-fold flips it, OR **≤ 7/10** positive, OR held-out-5 null while train-5 positive (data reuse), OR e_u tracks SNR. → an average-only/fold-limited trend, not a cross-subject result; do **not** claim in-domain generalization; report honestly (Fork-B-consistent) and pivot effort to **A3** (does any of this buy something practical — the escape from the stimulus-fold power ceiling).
 - **KILL the in-domain F1 line** if ≥2 of: LOO-fold collapses the conservative CI to include 0 (one shared fold carries it, like E005); held-out-5 null while train-5 positive; e_u rank-correlates with SNR and collapses when top-SNR subjects removed.
