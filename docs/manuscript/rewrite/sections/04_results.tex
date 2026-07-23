@@ -2,7 +2,7 @@
 \label{sec:results}
 
 The evidence chain separates a measured signal from a successful intervention.
-Table~\ref{tab:results-status} uses \emph{supported} when the declared gate passes, \emph{not demonstrated} when the tested contrast does not support its target claim, \emph{unresolved} when the evidence cannot decide, and \emph{non-identifying comparator} when the available control cannot attribute a difference to neural target content.
+Table~\ref{tab:results-status} uses \emph{supported} when the declared gate passes, \emph{not demonstrated} when the tested contrast does not support its target claim, \emph{unresolved} when the evidence cannot decide, and \emph{non-identifying comparator} when the available control cannot support attribution to neural target content.
 These labels are scoped to the estimand, assay, and inference unit stated in Sections~\ref{sec:framework}--\ref{sec:estimands}.
 
 \begin{table}[t]
@@ -19,11 +19,11 @@ These labels are scoped to the estimand, assay, and inference unit stated in Sec
     Controlled measurability & \textbf{Supported} & Trained representations exceed architecture-matched untrained controls on both recorded-\ac{fmri} substrates; naturalistic gaps are \result{e006_gpt2_gap} and \result{e006_qwen_gap} \evd{E002}\evd{E006}. & Controlled signal exists under the tested linear assays; no intervention or population claim follows. \\
     Quality-aware headroom & \textbf{Supported}; source \textbf{unresolved} & Cold-start \ac{kd} leaves a teacher gap of \result{e003_kd_cold_delta} and floor-anchored retention of \result{e003_kd_cold_retention} \evd{E003}. & There is observed room to intervene, but language quality competes with an objective-specific explanation \evd{E015}. \\
     Recorded-target pairing & \textbf{Not demonstrated} & Participant-first mean \result{e008_mean}, with participant $t$ interval \result{e008_ci} \evd{E008}. & The averaged-target trend does not become a participant-general advantage. \\
-    Exact-target measurability & \textbf{Not demonstrated}; twin \textbf{unresolved} & Aligned-target increment \result{e030_target_unique}, simultaneous interval \result{e030_target_unique_ci}; aligned-minus-twin contrast remains uncertain \evd{E030}. & The predicted-target branch misses its first frozen biological prerequisite. \\
-    Target uptake and movement & \textbf{Supported} & Fresh-readout TRIBE-target gain over \ac{kd}: \result{e016_tribe_synth_gain} across the saved training seeds \evd{E016}\evd{E025}. & The intervention changes retained target information; this is a manipulation check, not transfer. \\
-    Comparator validity & \textbf{Non-identifying comparator} & The saved text-feature control fails \result{e026_check_split} frozen measured-axis checks \evd{E026}. & Its contrast with TRIBE cannot isolate neural target content. \\
-    Biological transfer & \textbf{Not demonstrated} & Direct participant-first TRIBE-minus-\ac{kd} mean \result{e025_tribe_kd}, interval \result{e025_tribe_kd_ci} \evd{E025}. & No participant-general improvement is supported in the tested cohort. \\
-    External utility & \textbf{Not demonstrated} & Tested routes either lack their prerequisite intervention signal or stop at a precondition \evd{E009}\evd{E024}. & No payoff claim is licensed; untested routes remain open. \\
+    Exact-target measurability & \textbf{Not demonstrated}; twin \textbf{unresolved} & Aligned-target increment \result{e030_target_unique}, simultaneous 95\% interval \result{e030_target_unique_ci}; aligned-minus-twin contrast remains uncertain \evd{E030}. & The predicted-target branch misses its first frozen biological prerequisite. \\
+    Target uptake and retained-student movement & \textbf{Supported} on WikiText continuity; fresh Tuckute incremental retention \textbf{unresolved} & TRIBE-target gain \result{e016_tribe_synth_gain}, two-sided 95\% seed-axis $t$ interval \result{e016_tribe_synth_gain_ci}; mean retained-student movement \result{e025_tribe_movement_mean} \evd{E016}\evd{E025}\evd{E030}. & Target uptake and retained-student movement occur within the frozen quality margin; they establish neither attribution to neural target content nor transfer. \\
+    Comparator validity & \textbf{Non-identifying comparator} & The saved text-feature control fails \result{e026_check_split} frozen measured-axis checks \evd{E026}. & Its contrast with TRIBE cannot support attribution to neural target content. \\
+    Biological transfer & \textbf{Not demonstrated} & Direct participant-first TRIBE-minus-\ac{kd} mean \result{e025_tribe_kd}, 95\% interval \result{e025_tribe_kd_ci} \evd{E025}. & No participant-general improvement is supported in the tested cohort. \\
+    External utility & \textbf{Not demonstrated} & Tested routes either lack their prerequisite intervention signal or stop at a precondition \evd{E009}\evd{E024}. & No brain-specific neural-target payoff claim is licensed; untested routes remain open. \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -81,7 +81,7 @@ The averaged-target paired run shows the same distinction between a positive tre
 Its apparent paired gain is \result{e005_apparent}, with a valid five-fold $t$ interval of \result{e005_fold_ci}; one fold contributes most of the mean \evd{E005}.
 The valid unit is again the shared stimulus fold after aggregating seed repetitions; treating seeds as independent would pseudo-replicate the training procedure.
 Moreover, the optimized response is the cellwise five-participant average: it estimates alignment with the shared stimulus-locked target, not the mean effect in a population of participants.
-The block permutation tests whether the correct sentence--response pairing matters under that averaged target; it does not by itself identify neural content against a geometry-matched nonbrain target.
+The block permutation tests whether the correct sentence--response pairing matters under that averaged target; it does not by itself support attribution to neural target content against a geometry-matched nonbrain target.
 On the fixed WikiText probe, the real and permuted arms have perplexities \result{e005_real_ppl} and \result{e005_permuted_ppl}, respectively \evd{E005}.
 Their proximity is a paired quality check showing no gross imbalance, not a declared quality match.
 Comparisons with ordinary \ac{kd} remain descriptive unless checkpoints or curves are matched at a common perplexity.
@@ -136,14 +136,66 @@ With controlled signal and headroom established but the recorded-target interven
 \subsection{Predicted-target branch I: Measurability, uptake, and attribution}
 \label{sec:results-predicted-identification}
 
-\gap{Answer Section 4.4 questions in AGENTS.md.}
+The predicted-target branch misses its first biological prerequisite: the exact target fails the frozen practical linear-measurability rule.
+With train-fold \ac{pca}-50 and participant as the inference unit (\result{e030_participant_n}), the estimator is the participant mean of the aligned TRIBE target's held-out unique $R^2$ increment beyond the imageability-complete nuisance model.
+That increment is \result{e030_target_unique}, with Bonferroni family-95\% two-sided $t$ interval \result{e030_target_unique_ci}; the simultaneous upper endpoint is below the frozen \result{e030_practical_threshold} continuation threshold \evd{E030}.
+This result excludes a practically relevant unique linear increment only under the fixed target transform, nuisance model, sentence set, cohort, and readout.
+It does not exclude total or nuisance-redundant target predictivity, nonlinear access, or another target transform or cohort.
+The aligned-minus-frozen-row-twin contrast is \result{e030_target_twin}, with family-95\% interval \result{e030_target_twin_ci}, so row-specific target advantage remains unresolved \evd{E030}.
+
+Target uptake and retained-student movement are supported in the saved WikiText continuity assay, not as fresh Tuckute incremental retention.
+Using the saved technical training seeds (\result{e016_seed_n}), the fresh-readout TRIBE-target gain over seed-matched \ac{kd} is \result{e016_tribe_synth_gain} target $R^2$, with two-sided 95\% seed-axis $t$ interval \result{e016_tribe_synth_gain_ci} \evd{E016}\evd{E025}.
+Mean centered relative-Frobenius retained-student movement from \ac{kd} is \result{e025_tribe_movement_mean}, and every saved technical seed passes the movement gate.
+The maximum absolute language-quality difference is \result{e025_quality_max_gap} bits per byte, below the frozen \result{e025_quality_margin} margin, and every direct comparison passes \evd{E025}.
+Parameter and representation details are deferred to Appendix~\ref{app:sensitivities}.
+In the fresh Tuckute \ac{pca}-50 assay, absolute target extractability from TRIBE-trained representations is \result{e030_target_extract}, with Bonferroni family-95\% interval \result{e030_target_extract_ci}, whereas the incremental TRIBE-minus-\ac{kd} retention estimate is \result{e030_retention_delta}, with Bonferroni family-95\% interval \result{e030_retention_delta_ci} \evd{E030}.
+Thus absolute recovery is stable across the technical seed unit (\result{e030_seed_n}), but fresh Tuckute incremental retention remains unresolved.
+Training seeds assess the stability of the saved procedure; they are not biological or model-population replicates.
+The saved block-permutation arm is only a sensitivity analysis because its permutation duplicates or omits rows, so it cannot supply an exact-null attribution claim \evd{E016}.
+
+The passed manipulation checks do not establish attribution to neural target content because the saved nonbrain comparator is non-identifying.
+The projected text-feature arm fails \result{e026_check_split} frozen measured-axis checks \evd{E026}.
+Before intervention, mean \ac{kd}-only target $R^2$ is \result{e026_kd_targets} for TRIBE and text features, respectively, leaving \result{e026_headroom_ratio} times as much mean headroom for TRIBE.
+Frozen margins also fail for covariance geometry, low-level nuisance predictability, global parameter displacement, and centered-Frobenius retained-student movement.
+Initial auxiliary-loss and gradient comparability remains unresolved because those values were not retained.
+Same-teacher redundancy is consistent with the text-feature arm's high baseline fit, but the audit does not identify that or any other mismatch as the cause.
+The larger TRIBE-target gain therefore remains a valid within-target learnability result and a numerical cross-target difference, not evidence for attribution of the change to neural target content \evd{E016}\evd{E026}.
 
 \subsection{Predicted-target branch II: Biological transfer}
 \label{sec:results-predicted-transfer}
 
-\gap{Answer Section 4.5 questions in AGENTS.md.}
+After failed or unresolved identification prerequisites, the later biological endpoints describe the saved interventions but cannot establish biological transfer attributable to neural target content.
+The cleaner direct endpoint compares TRIBE training with ordinary \ac{kd} separately for each complete participant (\result{e025_participant_n}).
+Its participant-mean unique-$R^2$ difference is \result{e025_tribe_kd}, with two-sided 95\% participant $t$ interval \result{e025_tribe_kd_ci} \evd{E025}.
+This near-zero estimate does not support participant-general improvement in the tested cohort, but it neither proves an exactly zero effect nor generalizes beyond the fixed target, model, layer, nuisance design, and sentence/\ac{roi} endpoint.
+
+The TRIBE-minus-text-feature contrast is numerically positive but does not support attribution to neural target content.
+Its participant mean is \result{e025_participant_delta}, with two-sided 95\% participant $t$ interval \result{e025_participant_ci}; the text-feature-minus-\ac{kd} mean is itself \result{e025_textfeat_kd} \evd{E025}.
+The positive relative mean therefore does not represent a positive direct TRIBE effect, and the comparator mismatches in Section~\ref{sec:results-predicted-identification} prevent attribution to neural target content \evd{E026}.
+
+The frozen participant-level bridge diagnostics also do not establish transfer: every family-95\% interval spans zero.
+At the participant inference unit (\result{e030_participant_n}), the direct TRIBE-minus-\ac{kd} bridge estimate is \result{e030_overlap_delta}, with Bonferroni family-95\% interval \result{e030_overlap_delta_ci}; absolute-overlap and aligned-minus-twin bridge values are deferred to Appendix~\ref{app:sensitivities} \evd{E030}.
+Because exact-target measurability fails first and twin specificity remains unresolved, these overlap quantities remain downstream descriptive diagnostics rather than independent evidence of transfer.
+
+The first defensible predictive failure is therefore localized at exact-target practical linear measurability, before student-to-brain overlap.
+That ordering does not make the measurability result a causal explanation of the near-zero participant transfer: the assay does not test every accessible form of target information, and it does not identify which mechanism produced the later endpoint \evd{E025}\evd{E030}.
 
 \subsection{External utility and secondary routes}
 \label{sec:results-utility}
 
-\gap{Answer Section 4.6 questions in AGENTS.md.}
+No completed route establishes a brain-specific neural-target utility claim, but the routes fail at different prerequisites.
+The quality-controlled averaged-target test estimates the paired out-of-domain to in-domain perplexity ratio on Pereira text~\autocite{pereira2018} and LeBel text~\autocite{lebel2023}, not raw out-of-domain perplexity.
+Its mediator is the paired real-minus-block-permuted change in in-domain controlled brain alignment.
+Across the technical training seeds (\result{e009_seed_n}), that mediator has mean \result{e009_fulcrum_mean}, median \result{e009_fulcrum_median}, and an 80\%-power minimum detectable effect of \result{e009_fulcrum_mde}; it is therefore unresolved, and no downstream ratio contrast exceeds its measured minimum detectable effect \evd{E009}.
+The utility result is consequently bounded to these corpora and this student--teacher pair rather than informative about a successful intervention.
+
+Reduced reproductions, cognitive-target probes, and privileged-information routes provide scoped diagnostics rather than a common utility test.
+The reduced Negi-style adaptation \autocite{negi2025} and single-participant Moussa-style setup \autocite{moussa2025,moussa2025b} do not yield their target benefits; the former is a scoped local lever diagnostic, while the latter is a weak reduced non-reproduction, neither corroboration nor refutation of the original multi-participant result \evd{E019}\evd{E022}.
+A content-free shape-matched control preserves the supported generic target-shape regularization finding while removing cognition-specific attribution \evd{E021}.
+The shared-response ceiling and natural-reading privileged-target routes stop at failed instruments or preconditions \evd{E020}\evd{E024}.
+Route-specific designs and failure details are deferred to Appendix~\ref{app:secondary}.
+
+Unexecuted prospective designs contribute no evidence to this conclusion.
+The completed evidence therefore supports no brain-specific neural-target utility claim under the tested models, targets, controls, and endpoints, but it does not establish a universal utility null.
+Controlled neural signal, target uptake, and retained-student movement are observable; the tested chain loses identifying support before participant-general biological transfer and external benefit.
+Section~\ref{sec:discussion} examines what that ordered failure localizes and how the control design should change.

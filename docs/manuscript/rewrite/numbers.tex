@@ -32,12 +32,17 @@
 \DeclareResult{e011_ci}{[$-0.0005$, $+0.0013$]}                         % [E011] subject-axis t-CI, n=9
 \DeclareResult{e013b_mean}{$-0.00019$}                                  % [E013b] contrastive per-individual mean
 \DeclareResult{e013b_ci}{[$-0.0008$, $+0.0005$]}                        % [E013b] subject-axis t-CI, n=9
+\DeclareResult{e009_seed_n}{$n=8$}                                     % [E009] powered-run technical training-seed count
 \DeclareResult{e009_fulcrum_mean}{$+0.011$}                             % [E009] mse-minus-permuted mean over seeds
 \DeclareResult{e009_fulcrum_median}{$+0.0042$}                          % [E009] mse-minus-permuted median over seeds
+\DeclareResult{e009_fulcrum_mde}{$0.023$}                              % [E009] observed 80%-power MDE for mse-minus-permuted mediator, n=8 seeds
+\DeclareResult{e016_seed_n}{$n=6$}                                     % [E016] saved technical training-seed count
 \DeclareResult{e016_tribe_synth_gain}{$+0.078298$}                      % [E016] TRIBE-target R2 gain over KD, six seeds
+\DeclareResult{e016_tribe_synth_gain_ci}{[$+0.077198$, $+0.079398$]}   % [E016] two-sided seed-axis t-CI95 for WikiText-continuity TRIBE-target gain, n=6 technical seeds
 \DeclareResult{e016_textfeat_synth_gain}{$+0.000903$}                   % [E016] textfeat-target R2 gain over KD, six seeds
 \DeclareResult{e016_direct_transfer}{$-0.000919$}                       % [E016] direct TRIBE-minus-KD mean on common Tuckute endpoint, six seeds
 \DeclareResult{e016_transfer_delta}{$-0.001213$}                        % [E016] TRIBE-minus-textfeat Tuckute gain relative to KD
+\DeclareResult{e025_participant_n}{$n=9$}                              % [E025] complete-participant inference-unit count
 \DeclareResult{e025_participant_delta}{$+0.000136$}                    % [E025] participant-first TRIBE-minus-textfeat mean, n=9
 \DeclareResult{e025_participant_ci}{[$-0.000505$, $+0.000777$]}        % [E025] participant t-CI95, n=9
 \DeclareResult{e025_participant_ucb}{$+0.000653$}                      % [E025] one-sided participant upper 95%, below internal +0.002 continuation threshold
@@ -47,6 +52,9 @@
 \DeclareResult{e025_tribe_kd}{$-0.000014$}                             % [E025] direct TRIBE-minus-KD participant mean
 \DeclareResult{e025_tribe_kd_ci}{[$-0.000739$, $+0.000711$]}           % [E025] direct TRIBE-minus-KD participant t-CI95, n=9
 \DeclareResult{e025_textfeat_kd}{$-0.000150$}                          % [E025] direct textfeat-minus-KD participant mean
+\DeclareResult{e025_tribe_movement_mean}{$0.2151$}                     % [E025] mean WikiText layer-6 centered relative-Frobenius movement from KD, TRIBE arm
+\DeclareResult{e025_quality_max_gap}{$0.002579$}                       % [E025] maximum absolute direct bits-per-byte difference across saved arms
+\DeclareResult{e025_quality_margin}{$0.005$}                           % [E025] frozen absolute bits-per-byte equivalence margin
 \DeclareResult{e026_check_split}{$30/55$}                              % [E026] failed measured-axis checks / all frozen checks
 \DeclareResult{e026_kd_targets}{$0.595327$ versus $0.911687$}          % [E026] mean KD target R2, TRIBE versus textfeat
 \DeclareResult{e026_headroom_ratio}{$4.582$}                           % [E026] mean remaining headroom, TRIBE / textfeat
@@ -54,6 +62,9 @@
 \DeclareResult{e026_stable_ranks}{$2.658$ versus $1.410$; $2.637$ versus $1.424$} % [E026] TRIBE versus textfeat, samples A/B
 \DeclareResult{e026_stable_rank_log_gaps}{$0.634$ and $0.616$}         % [E026] absolute stable-rank log ratios, samples A/B
 \DeclareResult{e026_lowlevel_gaps}{$0.192$ and $0.183$}                % [E026] low-level nuisance heldout R2 gap, coordinate samples A/B
+\DeclareResult{e030_participant_n}{$n=9$}                              % [E030] participant inference-unit count for C1 and C3
+\DeclareResult{e030_seed_n}{$n=6$}                                     % [E030] paired technical training-seed count for C2
+\DeclareResult{e030_practical_threshold}{$+0.002$}                     % [E030] inherited internal continuation threshold for C1 practical exclusion
 \DeclareResult{e030_target_unique}{$-0.004494$}                        % [E030] participant-mean PCA-50 aligned-target unique increment above nuisance, n=9
 \DeclareResult{e030_target_unique_ci}{[$-0.010695$, $+0.001707$]}      % [E030] Bonferroni family-95% two-sided t interval
 \DeclareResult{e030_target_twin}{$+0.001758$}                          % [E030] participant-mean aligned-minus-frozen-twin contrast, n=9

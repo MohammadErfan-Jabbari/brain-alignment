@@ -2,7 +2,7 @@
 \label{sec:valid-claim}
 
 Brain encoding, neural-guided optimization, privileged-information learning, and model compression each study a different link between a representation and an outcome.
-Their results cannot be treated as interchangeable: predicting a neural measurement, changing a trained model, attributing that change to neural content, transferring it to new biological data, and improving a useful endpoint are different claims with different controls.
+Their results cannot be treated as interchangeable: predicting a neural measurement, changing a trained model, establishing attribution to neural target content, transferring the change to new biological data, and improving a useful endpoint are different claims with different controls.
 This section connects those links and states the evidence needed for the stronger claim tested here.
 
 \subsection{What a controlled brain score establishes}
@@ -40,7 +40,7 @@ Evidence that this auxiliary intervention operated is still not evidence that it
 Falling training loss shows only that the auxiliary objective and its temporary head engaged.
 Target uptake instead requires improved held-out recovery of the target from frozen retained-student representations by a fresh post-training readout, relative to the appropriate pre-intervention or ordinary-distillation baseline.
 Parameter displacement or changed hidden states after the temporary head is removed separately establish retained-student movement.
-These checks rule out different implementation failures, but they do not establish neural-content attribution, biological transfer, or practical utility.
+Together, target uptake and retained-student movement rule out different implementation failures, but they do not establish attribution to neural target content, biological transfer, or practical utility.
 
 \subsection{What prior neural-guided training leaves unresolved}
 \label{sec:prior-gap}
@@ -76,8 +76,8 @@ Figure~\ref{fig:evidence-chain} orders the distinct claims that must be supporte
     \node[stage, right=3mm of measure] (headroom) {\textbf{2. Quality-aware headroom}\\[-1mm]\footnotesize A fair intervention opportunity exists};
     \node[stage, right=3mm of headroom] (target) {\textbf{3. Exact-target measurability}\\[-1mm]\footnotesize Predicted-target path only: target relates to recorded responses};
     \node[stage, right=3mm of target] (uptake) {\textbf{4. Target uptake}\\[-1mm]\footnotesize Fresh held-out recovery improves beyond baseline};
-    \node[stage, below=5mm of uptake] (movement) {\textbf{5. Retained movement}\\[-1mm]\footnotesize Change survives head removal and preserves quality};
-    \node[stage, left=3mm of movement] (attribute) {\textbf{6. Comparator validity}\\[-1mm]\footnotesize Neural-content attribution becomes testable};
+    \node[stage, below=5mm of uptake] (movement) {\textbf{5. Retained-student movement}\\[-1mm]\footnotesize Change survives head removal and preserves quality};
+    \node[stage, left=3mm of movement] (attribute) {\textbf{6. Comparator validity}\\[-1mm]\footnotesize Attribution to neural target content becomes testable};
     \node[stage, left=3mm of attribute] (transfer) {\textbf{7. Biological transfer}\\[-1mm]\footnotesize Independent recorded responses improve};
     \node[stage, left=3mm of transfer] (utility) {\textbf{8. Additional utility}\\[-1mm]\footnotesize A practical endpoint improves};
     \draw[link] (measure) -- (headroom);
@@ -97,11 +97,11 @@ No single comparator can answer every stage.
 An architecture-matched untrained network tests whether controlled measurability depends on learned parameters, and an ordinary-distillation arm tests the incremental effect of adding a neural objective to the same student-training regime.
 Comparable language-model quality prevents a change in generic model quality from silently deciding an alignment contrast.
 A permuted target tests whether correct stimulus--target pairing matters while largely preserving the target's marginal structure.
-An adequately matched nonbrain target makes neural-content attribution testable by controlling geometry, scale, baseline predictability and learnability, and optimization pressure; attribution additionally requires the observed neural-target contrast to favor that arm.
+An adequately matched nonbrain target makes attribution to neural target content testable by controlling geometry, scale, baseline predictability and learnability, and optimization pressure; attribution additionally requires the observed neural-target contrast to favor that arm.
 Finally, a freshly fitted readout on independent recorded responses tests biological transfer; success on the optimized target itself cannot substitute for that endpoint.
 
 The chain through biological transfer is conjunctive for a brain-specific biological advantage; external utility is an additional requirement only for a practical-utility claim.
-When a prerequisite fails, later target recovery or movement may still describe what the intervention did, yet it cannot restore the stronger attribution or transfer claim.
+When a prerequisite fails, later target uptake or retained-student movement may still describe what the intervention did, yet it cannot restore the stronger attribution or transfer claim.
 An unresolved comparison should remain unresolved rather than being converted into a null, and a failed test under one readout, cohort, or target should not be universalized beyond its scope.
 This stopping rule keeps a large downstream score from compensating for an unidentified mechanism earlier in the chain and makes clear which redesign would be needed next.
 Section~\ref{sec:framework} maps each gate to its data and training arms, estimand, comparator, endpoint, and inference unit.
