@@ -5,7 +5,7 @@
 
 $pdf_mode = 1;                 # produce PDF via pdflatex
 $bibtex_use = 2;               # run the bibliography tool as needed
-$biber = '/usr/bin/biber %O %S'; # pin the distro biber matched to the installed biblatex
+$biber = '/usr/bin/biber %O %S'; # pin biber matched to this tree's biblatex BCF format
 $pdflatex = 'pdflatex -interaction=nonstopmode -file-line-error -synctex=1 %O %S';
 
 # keep build artifacts out of the way; clean removes the biber intermediates too

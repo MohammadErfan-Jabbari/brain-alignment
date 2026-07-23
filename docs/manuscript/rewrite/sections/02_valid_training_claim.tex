@@ -69,17 +69,17 @@ Figure~\ref{fig:evidence-chain} orders the distinct claims that must be supporte
 \begin{figure}[t]
   \centering
   \begin{tikzpicture}[
-    stage/.style={draw, rounded corners, align=center, text width=0.205\textwidth, minimum height=1.25cm, inner sep=4pt, font=\small},
+    stage/.style={draw, rounded corners, align=center, text width=33mm, minimum height=13mm, inner sep=4pt, font=\small},
     link/.style={-{Latex[length=2mm]}, thick}
   ]
     \node[stage] (measure) {\textbf{1. Controlled measurability}\\[-1mm]\footnotesize Assay accesses recorded responses};
-    \node[stage, right=0.28cm of measure] (headroom) {\textbf{2. Quality-aware headroom}\\[-1mm]\footnotesize A fair intervention opportunity exists};
-    \node[stage, right=0.28cm of headroom] (target) {\textbf{3. Exact-target measurability}\\[-1mm]\footnotesize Predicted-target path only: target relates to recorded responses};
-    \node[stage, right=0.28cm of target] (uptake) {\textbf{4. Target uptake}\\[-1mm]\footnotesize Fresh held-out recovery improves beyond baseline};
-    \node[stage, below=0.45cm of uptake] (movement) {\textbf{5. Retained movement}\\[-1mm]\footnotesize Change survives head removal and preserves quality};
-    \node[stage, left=0.28cm of movement] (attribute) {\textbf{6. Matched comparator}\\[-1mm]\footnotesize Neural-content attribution becomes testable};
-    \node[stage, left=0.28cm of attribute] (transfer) {\textbf{7. Biological transfer}\\[-1mm]\footnotesize Independent recorded responses improve};
-    \node[stage, left=0.28cm of transfer] (utility) {\textbf{8. Additional utility}\\[-1mm]\footnotesize A practical endpoint improves};
+    \node[stage, right=3mm of measure] (headroom) {\textbf{2. Quality-aware headroom}\\[-1mm]\footnotesize A fair intervention opportunity exists};
+    \node[stage, right=3mm of headroom] (target) {\textbf{3. Exact-target measurability}\\[-1mm]\footnotesize Predicted-target path only: target relates to recorded responses};
+    \node[stage, right=3mm of target] (uptake) {\textbf{4. Target uptake}\\[-1mm]\footnotesize Fresh held-out recovery improves beyond baseline};
+    \node[stage, below=5mm of uptake] (movement) {\textbf{5. Retained movement}\\[-1mm]\footnotesize Change survives head removal and preserves quality};
+    \node[stage, left=3mm of movement] (attribute) {\textbf{6. Comparator validity}\\[-1mm]\footnotesize Neural-content attribution becomes testable};
+    \node[stage, left=3mm of attribute] (transfer) {\textbf{7. Biological transfer}\\[-1mm]\footnotesize Independent recorded responses improve};
+    \node[stage, left=3mm of transfer] (utility) {\textbf{8. Additional utility}\\[-1mm]\footnotesize A practical endpoint improves};
     \draw[link] (measure) -- (headroom);
     \draw[link] (headroom) -- (target);
     \draw[link] (target) -- (uptake);
