@@ -12,6 +12,8 @@
 %
 % Entries below are the recorded headline values promoted into the manuscript.
 
+\DeclareResult{e002_qwen_unique}{$+0.036 \pm 0.010$}                    % [E002] Qwen2.5-0.5B L12 controlled unique R2, mean +/- SD over five folds
+\DeclareResult{e002_qwen_gap}{$+0.050$}                                 % [E002] Qwen2.5-0.5B L12 trained-minus-untrained controlled unique R2
 \DeclareResult{e006_gpt2_gap}{$+0.0207$}                                % [E006] gpt2 L7 trained-untrained gap, conditional on UTS03
 \DeclareResult{e006_qwen_gap}{$+0.0277$}                                % [E006] Qwen2.5-0.5B L12, conditional on UTS03
 \DeclareResult{e006_reliable_voxels}{11{,}442}                           % [E006] NC-reliable voxels
@@ -23,6 +25,9 @@
 \DeclareResult{e008_fold_mean}{$+0.00026$}                               % [E008] fold-clustered mean, n=5
 \DeclareResult{e008_fold_ci}{[$-0.0004$, $+0.0009$]}                    % [E008] fold-clustered t-CI, n=5
 \DeclareResult{e005_apparent}{$+0.0081$}                                 % [E005] apparent averaged-target gain
+\DeclareResult{e005_fold_ci}{[$-0.0030$, $+0.0193$]}                    % [E005] valid five-fold t-CI after averaging seeds within fold
+\DeclareResult{e005_real_ppl}{$55.4$}                                   % [E005] fixed WikiText probe perplexity, real-target arm
+\DeclareResult{e005_permuted_ppl}{$55.3$}                               % [E005] fixed WikiText probe perplexity, permuted-target arm
 \DeclareResult{e011_mean}{$+0.00043$}                                   % [E011] heavy-LoRA per-individual mean
 \DeclareResult{e011_ci}{[$-0.0005$, $+0.0013$]}                         % [E011] subject-axis t-CI, n=9
 \DeclareResult{e013b_mean}{$-0.00019$}                                  % [E013b] contrastive per-individual mean
@@ -66,3 +71,10 @@
 \DeclareResult{e003_kd_cold_delta}{$+0.0181$}                           % [E003] cold-init KD gap vs teacher (p<0.001); 4-dp matches the E003 table
 \DeclareResult{e003_kd_cold_retention}{$0.37$ [$0.14$, $0.58$]}         % [E003] cold-init floor-anchored retention rho' + bootstrap CI
 \DeclareResult{e003_quality_corr}{$-0.88$}                              % [E003] Pearson r, alignment vs log-perplexity across arms (L011)
+\DeclareResult{e015_full_corr}{$-0.783$}                                % [E015] full-range Pearson correlation, alignment vs log bits per byte
+\DeclareResult{e015_full_ci}{[$-0.911$, $-0.500$]}                      % [E015] six-family cluster-bootstrap 95% CI for alignment vs log bits per byte
+\DeclareResult{e015_capable_corr}{$-0.501$}                             % [E015] capable-model-band Pearson correlation, alignment vs log bits per byte
+\DeclareResult{e015_capable_ci}{[$-0.859$, $+0.188$]}                   % [E015] capable-model-band Fisher 95% CI for alignment vs log bits per byte
+\DeclareResult{e015_capable_n}{$n=10$}                                 % [E015] capable-model-band model count
+\DeclareResult{e015_partial_corr}{$-0.675$}                             % [E015] partial correlation, alignment vs log bits per byte controlling log parameter count
+\DeclareResult{e015_partial_ci}{[$-0.857$, $-0.344$]}                   % [E015] Fisher 95% CI for partial correlation controlling log parameter count

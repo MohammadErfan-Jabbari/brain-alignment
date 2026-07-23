@@ -1,22 +1,137 @@
 \section{Results}
 \label{sec:results}
 
-\gap{Introduce the verdict table and its status vocabulary.}
+The evidence chain separates a measured signal from a successful intervention.
+Table~\ref{tab:results-status} uses \emph{supported} when the declared gate passes, \emph{not demonstrated} when the tested contrast does not support its target claim, \emph{unresolved} when the evidence cannot decide, and \emph{non-identifying comparator} when the available control cannot attribute a difference to neural target content.
+These labels are scoped to the estimand, assay, and inference unit stated in Sections~\ref{sec:framework}--\ref{sec:estimands}.
 
-\subsection{Controlled neural signal}
+\begin{table}[t]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{1}
+  \caption{Verdict-first status of the evidence chain. The table reports the strongest evidence and its licensed interpretation, not the experiment chronology.}
+  \label{tab:results-status}
+  \begin{tabular}{p{26mm} p{26mm} p{50mm} p{43mm}}
+    \toprule
+    Gate & Status & Strongest evidence & Interpretation \\
+    \midrule
+    Controlled measurability & \textbf{Supported} & Trained representations exceed architecture-matched untrained controls on both recorded-\ac{fmri} substrates; naturalistic gaps are \result{e006_gpt2_gap} and \result{e006_qwen_gap} \evd{E002}\evd{E006}. & Controlled signal exists under the tested linear assays; no intervention or population claim follows. \\
+    Quality-aware headroom & \textbf{Supported}; source \textbf{unresolved} & Cold-start \ac{kd} leaves a teacher gap of \result{e003_kd_cold_delta} and floor-anchored retention of \result{e003_kd_cold_retention} \evd{E003}. & There is observed room to intervene, but language quality competes with an objective-specific explanation \evd{E015}. \\
+    Recorded-target pairing & \textbf{Not demonstrated} & Participant-first mean \result{e008_mean}, with participant $t$ interval \result{e008_ci} \evd{E008}. & The averaged-target trend does not become a participant-general advantage. \\
+    Exact-target measurability & \textbf{Not demonstrated}; twin \textbf{unresolved} & Aligned-target increment \result{e030_target_unique}, simultaneous interval \result{e030_target_unique_ci}; aligned-minus-twin contrast remains uncertain \evd{E030}. & The predicted-target branch misses its first frozen biological prerequisite. \\
+    Target uptake and movement & \textbf{Supported} & Fresh-readout TRIBE-target gain over \ac{kd}: \result{e016_tribe_synth_gain} across the saved training seeds \evd{E016}\evd{E025}. & The intervention changes retained target information; this is a manipulation check, not transfer. \\
+    Comparator validity & \textbf{Non-identifying comparator} & The saved text-feature control fails \result{e026_check_split} frozen measured-axis checks \evd{E026}. & Its contrast with TRIBE cannot isolate neural target content. \\
+    Biological transfer & \textbf{Not demonstrated} & Direct participant-first TRIBE-minus-\ac{kd} mean \result{e025_tribe_kd}, interval \result{e025_tribe_kd_ci} \evd{E025}. & No participant-general improvement is supported in the tested cohort. \\
+    External utility & \textbf{Not demonstrated} & Tested routes either lack their prerequisite intervention signal or stop at a precondition \evd{E009}\evd{E024}. & No payoff claim is licensed; untested routes remain open. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Is controlled neural signal present?}
 \label{sec:results-signal}
 
-\gap{Answer Section 4.1 questions in AGENTS.md.}
+Controlled neural signal is present under both recorded-response assays.
+On the Tuckute sentence benchmark, the declared middle layers of every trained model family yield positive nuisance-subtracted held-out predictivity, whereas architecture-matched untrained controls are negative across their seeds and evaluated layers \evd{E002}.
+For the primary Qwen2.5-0.5B layer-12 assay, controlled unique $R^2$ is \result{e002_qwen_unique} (mean $\pm$ SD across five contiguous folds), and the architecture-matched trained-minus-untrained contrast is \result{e002_qwen_gap} \evd{E002}.
+The five contiguous stimulus folds are the valid partitions for this fixed five-participant-average target; they support a controlled existence result, not participant-level inference.
 
-\subsection{Alignment headroom and language-model quality}
+The signal also survives the naturalistic assay.
+For UTS03, GPT-2 and Qwen2.5-0.5B exceed their untrained controls by \result{e006_gpt2_gap} and \result{e006_qwen_gap}, respectively, over \result{e006_reliable_voxels} independently selected voxels; every held-out-story block has the same trained-over-untrained direction \evd{E006}.
+Spatially dependent voxels from one participant and story folds with shared training stories are sensitivity dimensions, not independent population replicates; a voxel-resampling interval would pseudo-replicate the biological unit.
+The supported claim is therefore within-person predictivity under the fixed story, nuisance, reliability, and readout protocol, not a population effect.
+
+Together, the sentence and story results pass the measurement gate without being pooled into one estimate.
+They show that language training adds linearly accessible information about held-out recorded responses across two stimulus formats and target resolutions.
+They do not show that the signal can be increased by neural-guided training, that an increase would generalize across people, or that it would improve language behavior.
+
+\subsection{Does compression leave interpretable alignment headroom?}
 \label{sec:results-headroom}
 
-\gap{Answer Section 4.2 questions and hand off from measurement to intervention.}
+Compression leaves observed alignment headroom in the from-scratch distillation assay.
+At the fixed Tuckute layers, the cold-start GPT-2 student finishes \result{e003_kd_cold_delta} below GPT-2-medium in controlled brain predictivity and retains \result{e003_kd_cold_retention} of the teacher-to-untrained interval under the recorded bootstrap \evd{E003}.
+The random network and pretrained student supply floor and inherited-alignment references, respectively; the cold-start run asks how much of the teacher-to-floor interval \ac{kd} transmits without inherited student features.
+This ordering rules out preservation for free in that cold-start run, but it does not isolate why the gap arose.
 
-\subsection{Recorded-target branch: Participant-general advantage}
+Language quality is the main competing explanation.
+Within the same assay, alignment and log perplexity correlate at Pearson \result{e003_quality_corr} across the heterogeneous trained and reference arms \evd{E003}.
+The cold checkpoint also remains substantially worse on held-out language quality than the teacher and warm-start arms, while its absolute alignment estimate changes with the declared \ac{pca} rank.
+Cold and warm arms also differ in initialization and optimizer-step count, so their ordering is not a paired causal contrast \evd{E003}.
+The teacher gap is therefore observed headroom, not an identified effect of the distillation objective.
+
+The cross-family analysis strengthens the need for quality control without turning quality into a cause.
+Across the full range, Pearson $r$ between alignment and tokenizer-comparable log bits per byte is \result{e015_full_corr}, with a six-family cluster-bootstrap 95\% interval of \result{e015_full_ci} \evd{E015}.
+Models within a family are not independent, and the six families largely separate into roughly two model generations; the family-cluster interval is therefore not six independent cross-generation confirmations.
+Within the capable-model band (\result{e015_capable_n}), Pearson $r$ between alignment and log bits per byte is \result{e015_capable_corr}, with Fisher 95\% interval \result{e015_capable_ci}, which includes zero \evd{E015}.
+After conditioning on log parameter count, the partial $r$ between alignment and log bits per byte remains negative at \result{e015_partial_corr}, with Fisher 95\% interval \result{e015_partial_ci}; however, parameter count and language quality are highly collinear, and model families lack common quality support for an identified family residual \evd{E015}.
+These tests support quality coupling as a design threat, not a universal law or a causal mechanism.
+
+Controlled predictivity and observed headroom therefore license an intervention test, but only at comparable language quality.
+The next branch must compare paired interventions at matched checkpoints or operating points; neither the teacher gap nor a quality correlation can substitute for that contrast.
+
+\subsection{Recorded-target branch: Is there a participant-general advantage?}
 \label{sec:results-recorded}
 
-\gap{Answer Section 4.3 questions in AGENTS.md.}
+Recorded-target training produces positive point estimates against a block-permuted target when the response is averaged across participants, but the valid fold analysis does not establish a pairing effect.
+For Qwen2.5-0.5B at layer 12, the real-minus-permuted point estimate is \result{e004_qwen_specific}; the valid analysis averages seeds within each of five shared stimulus folds before computing the $t$ interval \result{e004_qwen_fold_ci} \evd{E004}.
+Treating seed-by-fold cells as independent would pseudo-replicate technical repetitions and shared stimuli; removing the dominant fold reduces the mean to \result{e004_qwen_lofo}.
+This supports neither a reliable fold-level effect nor a zero-effect claim, because the interval remains compatible with a small change.
+
+The averaged-target paired run shows the same distinction between a positive trend and an identified advantage.
+Its apparent paired gain is \result{e005_apparent}, with a valid five-fold $t$ interval of \result{e005_fold_ci}; one fold contributes most of the mean \evd{E005}.
+The valid unit is again the shared stimulus fold after aggregating seed repetitions; treating seeds as independent would pseudo-replicate the training procedure.
+Moreover, the optimized response is the cellwise five-participant average: it estimates alignment with the shared stimulus-locked target, not the mean effect in a population of participants.
+The block permutation tests whether the correct sentence--response pairing matters under that averaged target; it does not by itself identify neural content against a geometry-matched nonbrain target.
+On the fixed WikiText probe, the real and permuted arms have perplexities \result{e005_real_ppl} and \result{e005_permuted_ppl}, respectively \evd{E005}.
+Their proximity is a paired quality check showing no gross imbalance, not a declared quality match.
+Comparisons with ordinary \ac{kd} remain descriptive unless checkpoints or curves are matched at a common perplexity.
+
+Participant-first evaluation removes that inferential ambiguity and does not support an advantage.
+After aggregating seeds and folds within each valid participant, the mean real-minus-permuted effect is \result{e008_mean}, with participant $t$ interval \result{e008_ci} \evd{E008}.
+The shared-fold summary is likewise centered near zero at \result{e008_fold_mean}, with five-fold $t$ interval \result{e008_fold_ci}; the exact participant sign test and leave-one-fold checks do not reject the null \evd{E008}.
+The participant analysis had sensitivity below the apparent averaged-target effect, so its result is not explained by merely replacing a large effect with an obviously uninformative assay.
+It remains a scoped null for this target, model, objective, cohort, and readout rather than proof that recorded responses can never help training.
+Crucially, each participant effect is formed only after aggregating that person's seeds and stimulus folds.
+Seed consistency describes the stochastic training procedure, and the shared-fold analysis checks stimulus concentration; neither creates additional biological units.
+
+Averaging diagnostics explain why the two estimands can diverge without invalidating brain encoding as a measurement.
+Varying the number and identity of participants in the optimization target does not yield a stable monotone intervention curve once random subsets replace the confounded nested sequence \evd{E010}.
+With the encoder frozen and no intervention, however, averaging responses raises controlled encoding predictivity by improving signal-to-noise and emphasizing the shared response component; individual targets already retain positive signal \evd{E014}.
+Thus averaging neither creates independent biological replicates nor fabricates an absent encoding signal.
+It changes the target and can strengthen measurement, but it cannot turn an averaged-target training trend into participant-general evidence.
+The dose diagnostic remains descriptive because its participant subsets overlap and target size changes together with participant identity.
+The frozen-encoder diagnostic avoids that intervention ambiguity: any score increase there comes from response construction and the changed estimand, not student optimization.
+
+Changing capacity, loss, substrate, or trainable parameter set does not rescue the tested recorded-target branch (Table~\ref{tab:recorded-variants}).
+The table gives only the inferentially relevant disposition; objectives, schedules, and full sensitivity grids are deferred to Appendix~\ref{app:secondary}.
+
+\begin{table}[t]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{1}
+  \caption{Recorded-target intervention variants. A nonpass is scoped to the named manipulation and valid inference unit.}
+  \label{tab:recorded-variants}
+  \begin{tabular}{p{29mm} p{32mm} p{46mm} p{40mm}}
+    \toprule
+    Variant & Target and unit & Strongest valid read & Disposition \\
+    \midrule
+    Higher-capacity \ac{lora} & Tuckute participant targets; participant unit & Mean \result{e011_mean}, participant $t$ interval \result{e011_ci} \evd{E011}. & More adapter capacity at the fixed loss weight does not rescue the participant effect; this is not a test of a stronger manipulation. \\
+    Contrastive objective & Tuckute participant targets; participant unit & Mean \result{e013b_mean}, participant $t$ interval \result{e013b_ci} \evd{E013}. & Changing the loss does not rescue the effect at five-\ac{roi} granularity. \\
+    Naturalistic voxelwise \ac{lora} & LeBel story responses; within-person probes & The required real-over-permuted manipulation check fails in the tested cells \evd{E013}. & Non-identifying lever failure, not a naturalistic population null. \\
+    Full fine-tuning & LeBel story responses; three participants & Gentle quality-preserving training shows no reliable real-over-permuted gain; aggressive training also incurs forgetting \evd{E017}. & The tested full-parameter route does not rescue the effect; no nine-participant inference is implied. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Across these variants, no valid inference unit supports a participant-general pairing advantage.
+The capacity and contrastive tests remain scoped to fixed-weight adapter capacity and a five-\ac{roi} loss substitution; the voxelwise \ac{lora} route fails its manipulation check, and full fine-tuning shows no reliable real-over-permuted gain across only three participants, with seeds remaining technical repetitions.
+These results exclude the named rescue mechanisms, not all stronger objectives or a larger independently sampled naturalistic study \evd{E011}\evd{E013}\evd{E017}.
+
+The narrow conclusion is that none of the tested recorded-response objectives demonstrates a participant-general advantage attributable to correct stimulus--response pairing.
+The variants rule out specific explanations---insufficient adapter rank at a fixed weight, one five-\ac{roi} loss form, and the tested naturalistic or full-parameter routes---without closing all recorded-target designs.
+The averaging diagnostic also prevents a broader overcorrection: stronger prediction of an averaged response remains a valid measurement of the shared component, even though it cannot support a claim about mean participant benefit.
+With controlled signal and headroom established but the recorded-target intervention unsupported, the predicted-target branch must begin again at exact-target measurability before target uptake can matter.
 
 \subsection{Predicted-target branch I: Measurability, uptake, and attribution}
 \label{sec:results-predicted-identification}
