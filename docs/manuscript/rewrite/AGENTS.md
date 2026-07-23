@@ -16,9 +16,9 @@ The current scientific authority remains [`../extended/`](../extended/) until Er
 
 **Intended reader.** An ML/NLP reviewer or thesis examiner who understands basic machine learning and statistical evaluation but does not know fMRI encoding, this project's datasets, targets, controls, inference units, or experiment history.
 
-**Governing question.** Under what conditions can recorded or predicted neural responses provide a reliable, brain-specific training advantage to a compressed language model, and where does the tested evidence chain first fail?
+**Governing question.** Under what conditions can recorded fMRI responses or synthetic brain responses generated from text provide a reliable, brain-specific training advantage to a compressed language model, and where does the tested evidence chain first fail?
 
-**Provisional answer.** Trained language-model representations contain controlled, linearly accessible signal about held-out fMRI. The tested distilled student lies below its teacher on alignment, leaving observed headroom, although language-model quality remains a competing explanation. The tested recorded-response objectives do not demonstrate a reliable participant-general advantage. Dense predicted-neural targets are learnable and move retained student representations without unacceptable language-quality loss, but the saved nonbrain comparator cannot identify neural content, direct participant transfer is near zero, and the exact target does not pass the frozen practical linear-measurability criterion. The evidence supports a failure-localization and evaluation framework, not a positive brain-guided distillation algorithm.
+**Provisional answer.** Trained language-model representations contain controlled, linearly accessible signal about held-out fMRI. The tested distilled student lies below its teacher on alignment, leaving observed headroom, although language-model quality remains a competing explanation. The tested recorded-response objectives do not demonstrate a reliable benefit across participants. Synthetic brain responses generated from text are learnable and move retained student representations without unacceptable language-quality loss, but the saved nonbrain comparator cannot identify brain-response content, direct participant transfer is near zero, and the exact target does not pass the frozen practical linear-measurability criterion. The evidence supports a failure-localization and evaluation framework, not a positive brain-guided distillation algorithm.
 
 **Scope.** The answer is limited to the tested models, English stimuli, datasets, participants, targets, objectives, optimization regimes, nuisance and intervention controls, linear readouts, comparators, inference units, and endpoints.
 
@@ -45,10 +45,13 @@ Give the three evidence-chain artifacts different jobs. The Section 2 figure def
 
 | Term | Meaning |
 |---|---|
+| Brain activity or brain responses | The general biological phenomenon. Avoid unqualified *neural* when it could refer to either the brain or a neural network. |
+| Recorded fMRI responses | The actual biological measurements used in this work. fMRI does not directly record neuronal firing. |
+| Model representations or model activations | Internal quantities of a language model or other neural network. |
 | Brain alignment | Held-out predictivity of recorded responses from model representations under a declared readout and controls. |
 | Controlled brain predictivity | Brain alignment after the specified nuisance, split, and control-model checks. |
-| Recorded neural target | An observed fMRI response used during training. |
-| Predicted neural target | A stimulus-derived model prediction of neural responses, such as TRIBE. Use *neural proxy* only as a local shorthand after definition. |
+| Recorded brain-response target | A recorded fMRI response when its role as a training target must be explicit. Otherwise write *recorded fMRI response*. |
+| Synthetic brain responses generated from text | TRIBE outputs used in this work. Write *synthetic brain-response target* only when their role in a training objective must be explicit. |
 | Target uptake | Recoverability of the optimized target from retained student representations by a fresh post-training readout. |
 | Retained-student movement | Parameter or representation change that remains after the temporary training head is discarded. |
 | Exact-target measurability | Whether the exact training target adds controlled, practically relevant predictivity of recorded responses on the intended biological substrate under the frozen assay. |

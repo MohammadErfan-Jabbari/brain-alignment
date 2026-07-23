@@ -29,19 +29,33 @@ Use `--share-ready` only when no gap remains. A contradiction routes to `/interp
 
 The user-authorized `rewrite/` candidate follows its own maintained question tree and review contract in [`rewrite/AGENTS.md`](rewrite/AGENTS.md). Work there must not modify `extended/`, and its prose does not become the current scientific authority merely by compiling or passing review.
 
+## Manuscript-wide terminology
+
+Use the following terms throughout manuscript prose, including abstracts, captions, appendices, and future public cuts:
+
+| Referent | Fixed term |
+|---|---|
+| General biological phenomenon | **brain activity** or **brain responses** |
+| Actual measurements | **recorded fMRI responses** |
+| Language-model internals | **model representations** or **model activations** |
+| TRIBE outputs used in this work | **synthetic brain responses generated from text** |
+| Training question | **whether brain responses can help train a smaller model** |
+
+Avoid unqualified *neural activity*, *neural representation*, *neural response*, and *neural target* when they could refer either to the biological brain or to a neural network. fMRI records a hemodynamic response associated with brain activity, not neuronal firing directly. Use *target* only when the sentence needs to state the object's role in a training objective; in that case, write *recorded brain-response target* or *synthetic brain-response target* after first identifying its source. Precision comes from naming the source, measurement, and role of the object, not from the adjective *neural*.
+
 ## Maintained manuscript question map
 
 This map states the reader questions that the extended manuscript must answer. It is a writing and review contract, not a scientific authority: E records still own experimental evidence, and the extended manuscript still owns the current scientific interpretation.
 
-The map was produced on 2026-07-22 with the Plan branch of [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md). The complete manuscript and appendices were inspected, then four independent reviews applied the global decision skills `test-claims`, `remove-bottlenecks`, `allocate-for-compounding`, and `coordinate-strategy`. The reconciled map separates the quantity used to evaluate a frozen student, brain alignment, from the recorded or predicted neural-response targets used during training.
+The map was produced on 2026-07-22 with the Plan branch of [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md). The complete manuscript and appendices were inspected, then four independent reviews applied the global decision skills `test-claims`, `remove-bottlenecks`, `allocate-for-compounding`, and `coordinate-strategy`. The reconciled map separates the quantity used to evaluate a frozen student, brain alignment, from the recorded fMRI responses or synthetic brain responses generated from text that are used during training.
 
 ### Reader and governing question
 
 **Intended reader.** An ML/NLP reviewer or thesis examiner who understands basic machine learning and statistical evaluation but does not know fMRI encoding, this project's datasets, targets, controls, inference units, or experiment history.
 
-**Governing question.** Can supervision from recorded or predicted neural responses give a distilled student a reliable, brain-specific advantage over matched non-neural training?
+**Governing question.** Can recorded fMRI responses or synthetic brain responses generated from text help train a distilled student and provide a reliable, brain-specific advantage over matched nonbrain training?
 
-**Provisional answer.** In the tested settings, trained language-model representations contain linearly accessible information that predicts held-out fMRI beyond the specified controls. However, the tested recorded- and predicted-neural-target objectives do not demonstrate a reliable, brain-specific benefit for distilled students at comparable language-model quality.
+**Provisional answer.** In the tested settings, trained language-model representations contain linearly accessible information that predicts held-out fMRI beyond the specified controls. However, objectives based on recorded fMRI responses or synthetic brain responses generated from text do not demonstrate a reliable, brain-specific benefit for distilled students at comparable language-model quality.
 
 **Scope.** This answer is limited to the tested models, English stimuli, datasets, participants, recorded and predicted targets, objectives and optimization regimes, nuisance and intervention controls, linear readouts, comparators, inference units, and evaluation endpoints.
 
