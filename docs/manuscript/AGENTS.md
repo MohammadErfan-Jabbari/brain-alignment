@@ -43,6 +43,8 @@ Use the following terms throughout manuscript prose, including abstracts, captio
 
 Avoid unqualified *neural activity*, *neural representation*, *neural response*, and *neural target* when they could refer either to the biological brain or to a neural network. fMRI records a hemodynamic response associated with brain activity, not neuronal firing directly. Use *target* only when the sentence needs to state the object's role in a training objective; in that case, write *recorded brain-response target* or *synthetic brain-response target* after first identifying its source. Precision comes from naming the source, measurement, and role of the object, not from the adjective *neural*.
 
+In LaTeX sources, define each recurring acronym once in the manuscript's acronym registry and use `\ac{key}` or its plural/forced variants in prose. Do not manually write either `full term (SHORT)` or a raw registered short form. Reset acronym state after the abstract with `\acresetall` so the abstract and main text each expand their first use independently.
+
 ## Maintained manuscript question map
 
 This map states the reader questions that the extended manuscript must answer. It is a writing and review contract, not a scientific authority: E records still own experimental evidence, and the extended manuscript still owns the current scientific interpretation.
