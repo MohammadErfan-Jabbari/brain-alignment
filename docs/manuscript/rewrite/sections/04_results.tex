@@ -103,7 +103,8 @@ The dose diagnostic remains descriptive because its participant subsets overlap 
 The frozen-encoder diagnostic avoids that intervention ambiguity: any score increase there comes from response construction and the changed estimand, not student optimization.
 
 Changing capacity, loss, substrate, or trainable parameter set does not rescue the tested recorded-target branch (Table~\ref{tab:recorded-variants}).
-The table gives only the inferentially relevant disposition; objectives, schedules, and full sensitivity grids are deferred to Appendix~\ref{app:secondary}.
+The table gives only the inferentially relevant disposition.
+Objectives and schedules are documented in Appendix~\ref{app:training}, secondary-variant dispositions in Appendix~\ref{app:secondary}, and claim-relevant sensitivities and full numerical tables in Appendix~\ref{app:sensitivities}.
 
 \begin{table}[t]
   \centering
@@ -147,7 +148,7 @@ Target uptake and retained-student movement are supported in the saved WikiText 
 Using the saved technical training seeds (\result{e016_seed_n}), the fresh-readout TRIBE-target gain over seed-matched \ac{kd} is \result{e016_tribe_synth_gain} target $R^2$, with two-sided 95\% seed-axis $t$ interval \result{e016_tribe_synth_gain_ci} \evd{E016}\evd{E025}.
 Mean centered relative-Frobenius retained-student movement from \ac{kd} is \result{e025_tribe_movement_mean}, and every saved technical seed passes the movement gate.
 The maximum absolute language-quality difference is \result{e025_quality_max_gap} bits per byte, below the frozen \result{e025_quality_margin} margin, and every direct comparison passes \evd{E025}.
-Parameter and representation details are deferred to Appendix~\ref{app:sensitivities}.
+Training parameters are documented in Appendix~\ref{app:training}, while claim-relevant representation sensitivities appear in Appendix~\ref{app:sensitivities}.
 In the fresh Tuckute \ac{pca}-50 assay, absolute target extractability from TRIBE-trained representations is \result{e030_target_extract}, with Bonferroni family-95\% interval \result{e030_target_extract_ci}, whereas the incremental TRIBE-minus-\ac{kd} retention estimate is \result{e030_retention_delta}, with Bonferroni family-95\% interval \result{e030_retention_delta_ci} \evd{E030}.
 Thus absolute recovery is stable across the technical seed unit (\result{e030_seed_n}), but fresh Tuckute incremental retention remains unresolved.
 Training seeds assess the stability of the saved procedure; they are not biological or model-population replicates.
@@ -173,8 +174,8 @@ The TRIBE-minus-text-feature contrast is numerically positive but does not suppo
 Its participant mean is \result{e025_participant_delta}, with two-sided 95\% participant $t$ interval \result{e025_participant_ci}; the text-feature-minus-\ac{kd} mean is itself \result{e025_textfeat_kd} \evd{E025}.
 The positive relative mean therefore does not represent a positive direct TRIBE effect, and the comparator mismatches in Section~\ref{sec:results-predicted-identification} prevent attribution to neural target content \evd{E026}.
 
-The frozen participant-level bridge diagnostics also do not establish transfer: every family-95\% interval spans zero.
-At the participant inference unit (\result{e030_participant_n}), the direct TRIBE-minus-\ac{kd} bridge estimate is \result{e030_overlap_delta}, with Bonferroni family-95\% interval \result{e030_overlap_delta_ci}; absolute-overlap and aligned-minus-twin bridge values are deferred to Appendix~\ref{app:sensitivities} \evd{E030}.
+The frozen participant-level composed student-to-target-to-response route also does not establish transfer: every family-95\% interval spans zero.
+Within this route, at the participant inference unit (\result{e030_participant_n}), the TRIBE-minus-\ac{kd} overlap increment is \result{e030_overlap_delta}, with Bonferroni family-95\% interval \result{e030_overlap_delta_ci}; absolute overlap and the aligned-minus-frozen-twin overlap increment are deferred to Appendix~\ref{app:sensitivities} \evd{E030}.
 Because exact-target measurability fails first and twin specificity remains unresolved, these overlap quantities remain downstream descriptive diagnostics rather than independent evidence of transfer.
 
 The first defensible predictive failure is therefore localized at exact-target practical linear measurability, before student-to-brain overlap.

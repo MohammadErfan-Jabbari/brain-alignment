@@ -1,4 +1,183 @@
 \section{Sensitivities and Full Numerical Tables}
 \label{app:sensitivities}
 
-\gap{Answer Appendix F questions with only claim-relevant sensitivities and verification tables.}
+This appendix separates sensitivities that changed the interpretation from complete participant and saved-student seed values that permit aggregation checks.
+The tables do not create new inference units: participants support biological generalization, whereas blocks and optimization seeds diagnose stimulus and training-procedure stability.
+All row values come from the hash-bound retained artifacts listed in Appendix~\ref{app:evidence-provenance}. \evd{E008}\evd{E025}\evd{E030}
+
+\subsection{Sensitivity hierarchy}
+
+Table~\ref{tab:sensitivity-hierarchy} reports only axes capable of changing a main claim.
+The full layer screens, training grids, and diagnostic leaves remain in their owning E records.
+
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1}
+\begin{longtable}{@{}p{25mm} p{63mm} p{65mm}@{}}
+  \caption{Claim-relevant sensitivity hierarchy. ``Changed'' means that the sensitivity narrowed or reversed an earlier interpretation; ``confirmatory'' means that it left the scoped main disposition unchanged.}
+  \label{tab:sensitivity-hierarchy}\\
+  \toprule
+  Axis & What was varied & Effect on the claim \\
+  \midrule
+  \endfirsthead
+  \multicolumn{3}{c}{\tablename~\thetable{} (continued)} \\
+  \toprule
+  Axis & What was varied & Effect on the claim \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{3}{r}{Continued on next page} \\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+    Representation rank &
+    The headroom screen repeated its fixed-layer assay over the declared \ac{pca} ranks. &
+    \textbf{Changed scope.} The ordering of the model arms survived, but absolute magnitudes and some signs did not; headroom is rank-conditional and cannot be quoted as an invariant amount. \evd{E003} \\
+    Auxiliary weight and language quality &
+    E005 paired each target-loss weight with its own permuted-target arm and fixed quality probe. &
+    \textbf{Changed scope.} Near-quality-matched weights remained fold-uncertain; the clearest fold-positive setting paid a substantial language-quality cost. The result is a trade-off on an averaged target, not a free frontier shift. \evd{E005} \\
+    Quality band and model family &
+    E015 compared the full-range association, \result{e015_full_corr}, with the capable-band estimate, \result{e015_capable_corr}, whose interval is \result{e015_capable_ci}. &
+    \textbf{Changed scope.} Removing near-floor models attenuated the association and made the capable-band estimate uncertain. Language quality remains a mandatory control, not a deterministic explanation within the operative band. \evd{E015} \\
+    Layer, nuisance set, and aggregation &
+    E025 locked a later biological layer as primary and the trained layer as non-rescuing; it added imageability and a broader contextual stress set. E030 crossed its primary and adjacent layers with base, imageability-complete, and broader nuisance sets, and compared variance-weighted with equal-coordinate target aggregation. &
+    \textbf{Confirmatory.} No E025 variant produced a participant rescue. E030 retained positive absolute target extractability, unresolved incremental retention and composed student-to-target-to-response quantities, and failure of the exact-target practical measurability rule; alternative nuisance and aggregation choices had no rescue authority. \evd{E025}\evd{E030} \\
+    Participant and subgroup &
+    E008 replaced a response average with participant-first inference. E025 retained the predeclared training and held-out subgroups and removed the highest-baseline participant as a sensitivity. E030 reported every participant and leave-one-participant-out mean. &
+    \textbf{Changed the main claim.} E008 removed support for a participant-general recorded-target gain. In E025, dropping the influential participant gives \result{e025_drop_highest}; in E030, every leave-one-participant-out aligned-above-nuisance mean remains negative. \evd{E008}\evd{E025}\evd{E030} \\
+    Held-out block &
+    E006 reported story-block signs within one participant; E008, E025, and E030 reported shared sentence-block values and leave-one-block-out means. &
+    \textbf{Changed or bounded scope.} E008's block-axis mean is \result{e008_fold_mean} with interval \result{e008_fold_ci}, and no leave-one-block result establishes a positive effect. E025 is not driven by one block, but still fails across participants. E030's measurability failure is stable to every block deletion. \evd{E006}\evd{E008}\evd{E025}\evd{E030} \\
+    Utility-mediator seed &
+    E009 repeated the target arm versus matched permuted-target arm representation contrast over \result{e009_seed_n} technical seeds. &
+    \textbf{Changed scope.} Only \result{e009_positive_seed_signs} signs were positive. Seed~0 contributed \result{e009_seed0_gap}, whereas the other seven averaged approximately \result{e009_other_seven_mean}. The utility analysis therefore tests whether value survives a weak, seed-unstable mediator, not whether a reliably induced target-specific change improves utility. \evd{E009} \\
+    Saved-student optimization seed &
+    Recorded-target and saved-student analyses repeated the fixed procedures over technical seeds; target uptake, movement, transfer, retention, and composed student-to-target-to-response contrasts were kept separate. &
+    \textbf{Confirmatory only.} Seed agreement can establish reproducible optimization or manipulation, but it cannot substitute for participant agreement. Complete E025/E030 saved-student seed values appear in Table~\ref{tab:seed-values}. \evd{E008}\evd{E016}\evd{E025}\evd{E030} \\
+    Checkpoint and control construction &
+    Sentence interventions retained final-step students rather than an intermediate quality frontier. The saved predicted-target block permutation and text-feature comparator were audited after training. &
+    \textbf{Limitation and correction.} No post hoc checkpoint can identify an objective-only frontier. The block permutation is defective, and the text-feature target fails measured-axis comparability, so neither can carry a neural-content attribution claim. \evd{E005}\evd{E016}\evd{E026} \\
+\end{longtable}
+\endgroup
+
+Representation rank, auxiliary weight and language quality, quality band and model family, participant and subgroup, held-out block, and E009 utility-mediator seed heterogeneity changed or bounded what could be claimed.
+The locked E025/E030 layer, nuisance, and aggregation grids and the saved-student seed checks are confirmatory: they show that the scoped disposition is not an artifact of one nearby analysis or unstable optimization.
+The checkpoint and control-construction row records a limitation and a correction.
+None authorizes replacing a prospective primary estimator with a more favorable variant.
+
+\subsection{Participant-level values}
+
+For E008, let \(d_{uks}\) be the real-target score minus the mean of its matched permuted draws for participant \(u\), held-out block \(k\), and seed \(s\).
+The participant effect \(e_u=\operatorname{median}_{k,s}d_{uks}\) is the median over \result{e008_cells_per_participant} paired seed-by-outer-fold cells, and the cohort estimate is the mean of the \result{e008_participant_count} participant medians.
+
+For E025, let \(T\), \(X\), and \(K\) denote the TRIBE-target, text-feature-target, and ordinary-\ac{kd} scores.
+Each displayed participant tuple is ordered as \((T-X,\;T-K,\;X-K)\) after averaging seeds and outer folds within participant.
+At artifact precision, the identity \(T-X=(T-K)-(X-K)\) makes clear when a relative contrast is positive because the comparator moved downward; the displayed entries are rounded independently.
+
+\begin{table}[H]
+  \centering
+  \small
+  \setlength{\tabcolsep}{7pt}
+  \renewcommand{\arraystretch}{1}
+  \caption{Complete E008 and E025 participant values in unique-\(R^2\) units. E008 and E025 have different targets and within-participant aggregators and are not pooled. \evd{E008}\evd{E025}}
+  \label{tab:recorded-participant-values}
+  \begin{tabular}{rcc}
+    \toprule
+    \ac{uid} & E008 \(e_u\) & E025 \((T-X,\;T-K,\;X-K)\) \\
+    \midrule
+    797 & \result{e008_uid797} & \result{e025_uid797_row} \\
+    837 & \result{e008_uid837} & \result{e025_uid837_row} \\
+    841 & \result{e008_uid841} & \result{e025_uid841_row} \\
+    848 & \result{e008_uid848} & \result{e025_uid848_row} \\
+    856 & \result{e008_uid856} & \result{e025_uid856_row} \\
+    865 & \result{e008_uid865} & \result{e025_uid865_row} \\
+    875 & \result{e008_uid875} & \result{e025_uid875_row} \\
+    876 & \result{e008_uid876} & \result{e025_uid876_row} \\
+    880 & \result{e008_uid880} & \result{e025_uid880_row} \\
+    \midrule
+    Mean & \result{e008_mean} &
+    (\result{e025_participant_delta}, \result{e025_tribe_kd}, \result{e025_textfeat_kd}) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The E008 signs are mixed around a small cohort mean.
+E025 is also heterogeneous: the relative mean is small and positive, but the direct TRIBE-minus-\ac{kd} mean is \result{e025_tribe_kd}, and removal of the most influential participant reverses the relative point estimate.
+The table therefore supports the participant-level conclusion rather than a claim that every participant has exactly zero effect. \evd{E008}\evd{E025}
+
+E030 uses the same participant identifiers but answers different mechanism-localization questions.
+Under the primary imageability-complete analysis, each row reports five quantities in order: exact-target unique signal above nuisance; aligned-minus-frozen-twin specificity; absolute composed student-to-target-to-response overlap; the TRIBE-minus-\ac{kd} student-to-target-to-response overlap increment; and the aligned-minus-frozen-twin overlap increment.
+The first two quantities average outer folds within participant, while the three composed student-to-target-to-response quantities average seeds and outer folds within participant.
+
+\begin{table}[H]
+  \centering
+  \small
+  \setlength{\tabcolsep}{7pt}
+  \renewcommand{\arraystretch}{1}
+  \caption{Complete E030 participant values in unique-\(R^2\) units, ordered as exact-target unique signal, aligned-minus-frozen-twin specificity, absolute composed student-to-target-to-response overlap, TRIBE-minus-\ac{kd} overlap increment, and aligned-minus-frozen-twin overlap increment. \evd{E030}}
+  \label{tab:e030-participant-values}
+  \begin{tabular}{rc}
+    \toprule
+    \ac{uid} & E030 quantities in caption order \\
+    \midrule
+    797 & \result{e030_uid797_row} \\
+    837 & \result{e030_uid837_row} \\
+    841 & \result{e030_uid841_row} \\
+    848 & \result{e030_uid848_row} \\
+    856 & \result{e030_uid856_row} \\
+    865 & \result{e030_uid865_row} \\
+    875 & \result{e030_uid875_row} \\
+    876 & \result{e030_uid876_row} \\
+    880 & \result{e030_uid880_row} \\
+    \midrule
+    Mean &
+    (\result{e030_target_unique}, \result{e030_target_twin}, \result{e030_overlap_abs}, \result{e030_overlap_delta}, \result{e030_overlap_twin}) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The participant rows show why the two exact-target conclusions differ.
+The exact-target unique signal misses its frozen practical rule and is negative under every participant deletion, whereas aligned-minus-frozen-twin specificity contains substantial effects of both signs and remains unresolved.
+Absolute composed student-to-target-to-response overlap also remains unresolved.
+The TRIBE-minus-\ac{kd} and aligned-minus-frozen-twin overlap increments are much smaller and mixed; neither repairs the earlier exact-target measurability failure or identifies its cause. \evd{E030}
+
+\subsection{Technical-seed values}
+
+E025 seed rows report, in order, TRIBE minus text-feature target, TRIBE minus ordinary \ac{kd}, and text-feature target minus ordinary \ac{kd}; each averages participants and outer folds within a saved seed.
+E030 seed rows report absolute target extractability, incremental TRIBE-minus-\ac{kd} retention, the TRIBE-minus-\ac{kd} student-to-target-to-response overlap increment, and the aligned-minus-frozen-twin overlap increment.
+Target extractability and incremental retention aggregate held-out target recovery within each seed, while the two composed student-to-target-to-response overlap increments average participants and outer folds within each seed.
+
+\begin{table}[H]
+  \centering
+  \small
+  \setlength{\tabcolsep}{6pt}
+  \renewcommand{\arraystretch}{1}
+  \caption{Complete technical-seed values for the E025 and E030 endpoints only. E025 order: TRIBE minus text-feature target, TRIBE minus ordinary \ac{kd}, and text-feature target minus ordinary \ac{kd}. E030 order: absolute target extractability, incremental TRIBE-minus-\ac{kd} retention, TRIBE-minus-\ac{kd} student-to-target-to-response overlap increment, and aligned-minus-frozen-twin overlap increment. Seeds diagnose fixed training procedures, not biological or model-population replicates. \evd{E025}\evd{E030}}
+  \label{tab:seed-values}
+  \begin{tabular}{rcc}
+    \toprule
+    Seed & E025 quantities in caption order & E030 quantities in caption order \\
+    \midrule
+    0 & \result{e025_seed0_row} & \result{e030_seed0_row} \\
+    1 & \result{e025_seed1_row} & \result{e030_seed1_row} \\
+    2 & \result{e025_seed2_row} & \result{e030_seed2_row} \\
+    3 & \result{e025_seed3_row} & \result{e030_seed3_row} \\
+    4 & \result{e025_seed4_row} & \result{e030_seed4_row} \\
+    5 & \result{e025_seed5_row} & \result{e030_seed5_row} \\
+    \midrule
+    Mean &
+    (\result{e025_participant_delta}, \result{e025_tribe_kd}, \result{e025_textfeat_kd}) &
+    (\result{e030_target_extract}, \result{e030_retention_delta}, \result{e030_overlap_delta}, \result{e030_overlap_twin}) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Before the E025 participant endpoint was interpreted, all target-learning and retained-student movement gates passed, and the largest saved-arm language-quality difference, \result{e025_quality_max_gap}, remained within the frozen \result{e025_quality_margin} margin.
+The manipulation therefore succeeded even though the direct biological contrast did not.
+In E030, absolute target extractability is consistently positive, whereas incremental retention and both student-to-target-to-response overlap increments have mixed signs and intervals containing zero.
+This separates absolute target extractability from incremental retention or transfer along the composed student-to-target-to-response route. \evd{E016}\evd{E025}\evd{E030}
+
+E008 has no corresponding seed table because its primary participant statistic is a median over the crossed seed--block cells; a seed-only vector does not reconstruct that nonlinear participant aggregate.
+Its seed variability remains part of each participant value, while the separately reported shared-block summary tests the other crossed axis.
+This omission prevents a technical summary from being mistaken for another biological analysis. \evd{E008}
