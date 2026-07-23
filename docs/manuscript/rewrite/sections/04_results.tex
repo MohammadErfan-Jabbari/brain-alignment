@@ -3,7 +3,7 @@
 
 The evidence chain separates a measured signal from a successful intervention.
 Table~\ref{tab:results-status} uses \emph{supported} when the declared gate passes, \emph{not demonstrated} when the tested contrast does not support its target claim, \emph{unresolved} when the evidence cannot decide, and \emph{non-identifying comparator} when the available control cannot support attribution to neural target content.
-These labels are scoped to the estimand, assay, and inference unit stated in Sections~\ref{sec:framework}--\ref{sec:estimands}.
+These labels are scoped to the estimand, assay, and inference unit stated in Sections~\ref{sec:data-targets}--\ref{sec:estimands}.
 
 \begin{table}[H]
   \centering
@@ -18,7 +18,7 @@ These labels are scoped to the estimand, assay, and inference unit stated in Sec
     \midrule
     Controlled measurability & \textbf{Supported} & Trained representations exceed architecture-matched untrained controls on both recorded-\ac{fmri} substrates; naturalistic gaps are \result{e006_gpt2_gap} and \result{e006_qwen_gap} \evd{E002}\evd{E006}. & Controlled signal exists under the tested linear assays; no intervention or population claim follows. \\
     Quality-aware headroom & \textbf{Supported}; source \textbf{unresolved} & Cold-start \ac{kd} leaves a teacher gap of \result{e003_kd_cold_delta} and floor-anchored retention of \result{e003_kd_cold_retention} \evd{E003}. & There is observed room to intervene, but language quality competes with an objective-specific explanation \evd{E015}. \\
-    Recorded-target pairing & \textbf{Not demonstrated} & Participant-first mean \result{e008_mean}, with participant $t$ interval \result{e008_ci} \evd{E008}. & The averaged-target trend does not become a participant-general advantage. \\
+    Recorded-target pairing & \textbf{Not demonstrated} & Mean of nine participant medians \result{e008_mean}, with participant $t$ interval \result{e008_ci} \evd{E008}. & The averaged-target trend does not become a participant-general advantage. \\
     Exact-target measurability & \textbf{Not demonstrated}; twin \textbf{unresolved} & Aligned-target increment \result{e030_target_unique}, simultaneous 95\% interval \result{e030_target_unique_ci}; aligned-minus-twin contrast remains uncertain \evd{E030}. & The predicted-target branch misses its first frozen biological prerequisite. \\
     Target uptake and retained-student movement & \textbf{Supported} on WikiText continuity; fresh Tuckute incremental retention \textbf{unresolved} & TRIBE-target gain \result{e016_tribe_synth_gain}, two-sided 95\% seed-axis $t$ interval \result{e016_tribe_synth_gain_ci}; mean retained-student movement \result{e025_tribe_movement_mean} \evd{E016}\evd{E025}\evd{E030}. & Target uptake and retained-student movement occur within the frozen quality margin; they establish neither attribution to neural target content nor transfer. \\
     Comparator validity & \textbf{Non-identifying comparator} & The saved text-feature control fails \result{e026_check_split} frozen measured-axis checks \evd{E026}. & Its contrast with TRIBE cannot support attribution to neural target content. \\

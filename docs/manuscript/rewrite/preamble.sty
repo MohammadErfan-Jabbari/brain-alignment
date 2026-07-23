@@ -39,20 +39,34 @@
     \g@addto@macro\ac@resetlist{\global\expandafter\let\csname ac@used@#1\endcsname\@undefined}%
   }
   \def\ac@defplain#1#2{\ac@defopt{#1}[#1]{#2}}
+  \newcommand{\acrodefplural}[1]{\@ifnextchar[{\ac@defpluralopt{#1}}{\ac@defpluralplain{#1}}}
+  \def\ac@defpluralopt#1[#2]#3{%
+    \expandafter\gdef\csname ac@shortplural@#1\endcsname{#2}%
+    \expandafter\gdef\csname ac@longplural@#1\endcsname{#3}%
+  }
+  \def\ac@defpluralplain#1#2{\ac@defpluralopt{#1}[\acs{#1}s]{#2}}
   \newcommand{\acs}[1]{\@ifundefined{ac@short@#1}{\textbf{[UNDEFINED ACRONYM: #1]}}{\csname ac@short@#1\endcsname}}
   \newcommand{\acl}[1]{\@ifundefined{ac@long@#1}{\textbf{[UNDEFINED ACRONYM: #1]}}{\csname ac@long@#1\endcsname}}
+  \newcommand{\acsp}[1]{\@ifundefined{ac@shortplural@#1}{\acs{#1}s}{\csname ac@shortplural@#1\endcsname}}
+  \newcommand{\aclp}[1]{\@ifundefined{ac@longplural@#1}{\acl{#1}s}{\csname ac@longplural@#1\endcsname}}
   \newcommand{\ac}[1]{%
     \@ifundefined{ac@long@#1}{\textbf{[UNDEFINED ACRONYM: #1]}}{%
       \@ifundefined{ac@used@#1}{\acl{#1} (\acs{#1})\global\expandafter\def\csname ac@used@#1\endcsname{1}}{\acs{#1}}%
     }%
   }
-  \newcommand{\acp}[1]{\ac{#1}s}
+  \newcommand{\acp}[1]{%
+    \@ifundefined{ac@long@#1}{\textbf{[UNDEFINED ACRONYM: #1]}}{%
+      \@ifundefined{ac@used@#1}{\aclp{#1} (\acsp{#1})\global\expandafter\def\csname ac@used@#1\endcsname{1}}{\acsp{#1}}%
+    }%
+  }
   \newcommand{\acresetall}{\ac@resetlist}
   \makeatother
 }
 
 % --- bibliography (pinned to biber in latexmkrc) -------------------------
 \RequirePackage[backend=biber,style=numeric-comp,sorting=none]{biblatex}
+% Keep URL breakpoints from stretching into visible spaces in justified DOI strings.
+\AtBeginBibliography{\raggedright}
 
 % --- semantic macros: the recurring objects, kept small + greppable -------
 % Repeat the same handle for the same concept everywhere (one term per concept).

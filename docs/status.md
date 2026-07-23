@@ -6,9 +6,9 @@ aliases: [current-status]
 
 # Project status
 
-**Updated:** 2026-07-22
+**Updated:** 2026-07-23
 
-**Manuscript:** `share-ready through E030`; the extended manuscript carries the author-confirmed scoped E030 framing and has passed the strict checker, PDF rebuild, and fresh independent review. The frozen public v0.9 cut remains unchanged.
+**Manuscript:** `rewrite candidate share-ready; manuscript-sync-pending`. The new claim-led candidate in `docs/manuscript/rewrite/` is complete through E030, passes the strict share-ready checker and clean PDF build, and has received converged whole-manuscript review plus a 47-page visual audit. The extended manuscript and frozen public v0.9 cut remain unchanged by explicit instruction. E008's owning record now correctly names the participant median over seed--fold cells; the extended manuscript still describes within-person averaging, so it remains sync-pending even though no value or verdict changed.
 
 **Latest frozen public cut:** [v0.9 Markdown](manuscript/public/v0.9/paper.md)
 
@@ -25,7 +25,8 @@ aliases: [current-status]
 
 ## Active work
 
-- The extended manuscript is share-ready through E030 after author confirmation, the 12-source manuscript checker, a successful Tectonic PDF rebuild, and a fresh independent scientific-scope review. It reports every E030 primary diagnostic and its inference unit. The frozen public v0.9 cut remains unchanged.
+- The new claim-led rewrite candidate is complete from abstract through Appendix F. It separates recorded and predicted targets, orders the argument by evidential gates, adds participant-level evidence and explicit estimator/training/provenance appendices, and preserves the scoped E001--E030 verdict. Four-skill structure and whole-paper review rounds converged; the senior-writer revision loop converged; the 16-source share-ready checker, clean 47-page build, and page-by-page visual inspection pass.
+- The extended manuscript remains the current authority until Erfan approves a promotion or synchronization step. It was intentionally left untouched. Its scientific values and verdict remain unchanged, but its E008 within-person aggregation wording is stale relative to the corrected owning record and the rewrite candidate, so `manuscript-sync-pending` is active. The frozen public v0.9 cut also remains unchanged.
 - E025 is complete and result-oracle clean. All language-quality, target-learning, and representation-movement gates passed. The direct TRIBE-minus-KD mean is `-0.000014`, CI95 `[-0.000739,+0.000711]`. The preregistered participant-first relative contrast is `+0.000136`, CI95 `[-0.000505,+0.000777]`, with one-sided UCB `+0.000653 < +0.002`; this relative estimand does not identify content after E026. UID 837 carries the sole clear participant positive in both views.
 - E026 is complete and independently audited. The saved text-feature arm fails the frozen measured-axis conjunction: 30/55 checks fail, 24 pass, and one is unresolved. The principal mismatches are KD baseline/headroom, covariance spectrum/effective rank, low-level nuisance predictability, global parameter displacement, and layer-6 centered-Frobenius movement. This invalidates the raw cross-target proxy-gain difference as brain-specificity evidence without invalidating TRIBE's within-target learnability.
 - E030 is complete, author-confirmed, independently recomputed, and synchronized into the extended manuscript. All `270/360/6,480` C1/C2/C3 rows, `748` independently recomputed load-bearing leaves, and the full provenance chain are panel-clean. The target is strongly extractable from TRIBE students (`M=+0.040725`, family-95% CI `[+0.039053,+0.042398]`), but its aligned unique participant predictivity above nuisances fails first. The frozen-twin contrast, incremental retention over KD, and all bridge contrasts remain unresolved. No post-outcome E030 variant is licensed.
@@ -44,14 +45,14 @@ aliases: [current-status]
 
 ## Blockers
 
-- None for circulation of the E030-synchronized thesis. Public-version metadata remains a separate checkpoint decision.
+- No writing or validation blocker remains for the rewrite candidate. Authority promotion, synchronization of the preserved extended manuscript, and any new public cut require Erfan's approval. Until then, the extended manuscript remains `manuscript-sync-pending` for the E008 estimator wording only; the numerical result and scientific verdict are unchanged.
 - E028's exact lane remains blocked by author-controlled code, checkpoints, masks/folds, dataset facts, and result-regeneration artifacts. Its synthetic Stage-1 development slice is implemented, tested, and independently `PANEL-CLEAN`, but the production provider/chain/dimension benchmark and sealed endpoint-bundle review are absent; `ENDPOINT-READY: NO` remains unchanged.
 - A top-AI-conference claim is not currently supported. It requires a non-inconclusive prospective external adjudication and a reusable intervention-audit implementation; the unchanged thesis should not consume a top-tier main-track cycle.
 
 ## Next actions
 
-1. At the next manuscript-working session, before further prose revision, run a source-grounded `/teach` then `/review` audit of the dual-head training and evaluation design: trace the permanent language-model head, temporary neural head, both losses, gradient paths, retained and discarded parameters, recorded and predicted target construction, data splits, matched controls, and fresh ridge evaluation. Treat the current concern as a hypothesis; if a real contradiction is found, route it to `/interpret` and set `manuscript-sync-pending` before changing the claim.
-2. Circulate the E030-synchronized extended-manuscript PDF now as publication insurance. Do not create a new public cut without explicit request.
+1. Erfan reviews the [claim-led rewrite PDF](manuscript/rewrite/main-rewrite.pdf) and decides whether to promote it as the thesis manuscript, request bounded revisions, or retain it as a candidate.
+2. If promotion is approved, synchronize the manuscript authority deliberately and decide separately whether to create a new immutable public cut. Until that decision, do not overwrite the preserved extended manuscript.
 3. Resolve E028's outcome-blind factual slots and exact-versus-reimplementation lane from the author response/public metadata; acquire no neural endpoint or author result before a production C1 lock. Build and benchmark the exact production Stage-1 provider only after its factual dimensions are hash-locked, and keep readiness false unless implementation, cost, RFC 8785 chain, and fresh endpoint-bundle review all clear.
 4. Freeze the smallest-setting Xiao reproduction and matched-control feasibility design in parallel, without opening its result before its own precheck.
 5. Inspect the E028 response state on 2026-08-05 and send one concise follow-up if needed. On 2026-08-12, run E028 Stage 1 only if complete hashable artifacts and final readiness exist; otherwise close the exact lane as unavailable and move the main allocation to Xiao. Full E028 Stages 2/3 remain forbidden unless corrected Stage 1 passes.
@@ -60,4 +61,5 @@ aliases: [current-status]
 
 - [Methodology and authority contract](03-methodology.md)
 - [Extended manuscript](manuscript/extended/main-extended.tex)
+- [Claim-led rewrite candidate](manuscript/rewrite/main-rewrite.tex)
 - [D057 conference package decision](decisions/decisions.md)
