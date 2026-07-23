@@ -32,6 +32,8 @@ Expose the tree when Plan or Review is the requested output. Use it as an intern
 
 For Draft and Revise, open each paragraph with its direct answer. Add only the reasoning, evidence, definition, example, or scope needed to support that answer. Introduce a technical term, symbol, or derivation when the current question requires it; otherwise place it under the question it answers. Use one stable term for each concept.
 
+Draft first in the intended reader's conceptual language, then reconcile the wording against the evidence and necessary technical distinctions. Precision means preserving the claim's meaning, scope, comparison, and uncertainty, not preserving the source's labels. When compressing, remove secondary detail without removing the relationship that makes the answer intelligible. If the intended reader would need to unpack an unstated method, comparison, or causal link, state that relationship plainly before shortening it.
+
 Represent a required but unsupported answer as a gap and route it to the governing evidence owner.
 
 **Complete when:** every sentence supplies the answer, support, necessary scope, or a dependency-bearing transition for its paragraph question.
