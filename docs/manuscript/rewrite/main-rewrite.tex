@@ -17,7 +17,24 @@
 \maketitle
 
 \begin{abstract}
-Linear mappings from language-model representations to brain activity reveal decodable neural signal but not whether it is useful for training. We ask one governing question: can this signal produce a participant-general, brain-specific benefit when used to guide language-model distillation? Our design separates training on recorded functional magnetic resonance imaging responses from training on dense neural proxies predicted from text. Middle-layer representations predicted recorded responses after nuisance controls. Compression left a teacher-to-student predictivity gap, but the student also had worse language quality, so the source of that intervention opportunity remained unresolved. The recorded-target branch did not support a participant-general gain. In the predicted-target branch, the exact target first failed a fixed practical test: it did not add enough linear prediction of recorded responses beyond nuisance features. A saved training run nevertheless showed that the proxy became easier to recover from the student and that the student's deployed representations changed without unacceptable language-quality loss. A fresh assay did not establish that the trained student retained more of the target than ordinary distillation. The available nonbrain target was not matched well enough to isolate neural content, and direct biological transfer across nine participants remained near zero. Taken together, the results show measurable neural signal and successful manipulation, but no demonstrated participant-general, brain-specific training benefit in the tested systems. This localizes where the evidence chain failed rather than proving a universal null.
+Internal representations of a language model can help predict how the human brain responds to the same language.
+This measurable correspondence is often called brain alignment.
+But showing that brain alignment exists does not show that it can improve how a language model is trained.
+This thesis asks whether brain responses can help when compressing a language model: can they guide a smaller student, trained from a larger teacher, toward internal representations that remain effective for language and more predictive of brain activity?
+
+We test two approaches.
+The first trains the student using recorded functional magnetic resonance imaging (fMRI) responses.
+The second uses a separate model to predict brain responses from text, creating neural targets for far more training examples.
+We first confirmed that activations from the middle layers of pretrained language models help predict fMRI responses to new sentences, even after accounting for simpler features that could otherwise explain those responses.
+After ordinary distillation, the student was less brain-predictive than the teacher.
+However, it was also a worse language model, so the gap could reflect weaker language modeling rather than a specific loss of brain-related information.
+
+Training with recorded responses did not reliably improve brain prediction across participants.
+Training with predicted neural targets changed the student's internal representations and made those targets easier to recover, while language quality remained within our prespecified tolerance.
+When evaluated separately, however, the student did not clearly retain more target information than one trained by ordinary distillation.
+The nonbrain control was not comparable enough to show that the changes were specific to neural information, and the direct improvement over ordinary distillation on independently recorded responses was near zero across nine participants.
+Brain-related information was therefore measurable and could steer training, but the tested methods did not demonstrate a reliable, brain-specific training benefit across participants.
+These results show what is still missing between measuring brain alignment and using it as a training signal; they do not show that brain-guided training is universally ineffective.
 \end{abstract}
 \acresetall
 
