@@ -34,8 +34,8 @@ It is a design map, not a result summary: manipulation, transfer, and utility me
 \label{sec:data-targets}
 
 The controlled sentence substrate contains 1,000 ordered English sentences, responses from 10 Tuckute participants, and five fixed left-hemisphere language \acp{roi} \autocite{tuckute2024}.
-The participant-averaged sentence target used by the controlled-measurement and initial recorded-target families is the cellwise mean over UIDs 848, 853, 865, 875, and 876: the pandas group mean skips a missing contributor, but the completed sentence-by-\ac{roi} target is required to contain no missing values \evd{E002}\evd{E004}\evd{E005}.
-Participant-first analyses instead preserve one target per person and exclude UID~853 for incomplete \ac{roi} coverage, leaving $n=9$ \evd{E008}\evd{E025}.
+The participant-averaged sentence target used by the controlled-measurement and initial recorded-target families is the cellwise mean over \acp{uid} 848, 853, 865, 875, and 876: the pandas group mean skips a missing contributor, but the completed sentence-by-\ac{roi} target is required to contain no missing values \evd{E002}\evd{E004}\evd{E005}.
+Participant-first analyses instead preserve one target per person and exclude \ac{uid}~853 for incomplete \ac{roi} coverage, leaving $n=9$ \evd{E008}\evd{E025}.
 All sentence analyses align item identifiers before splitting the fixed order into five contiguous stimulus folds, so folds test held-out items but are not independent people \evd{E002}\evd{E008}\evd{E025}.
 
 Response averaging can improve the reliability of the stimulus-locked target, but it changes the estimand rather than creating more participants.
@@ -52,13 +52,14 @@ The averaged and participant-specific targets share this machinery but answer di
 
 The predicted-target regime distils \texttt{gpt2-medium} into \texttt{gpt2} on 95,999 WikiText-103 training sentences, with 1,999 sentences held out, attention-mask mean pooling at layer~6, and a 20,484-coordinate target.
 TRIBE~\autocite{dascoli2026} supplies the fixed text-derived target; the nonbrain arm mean-pools frozen GPT-2-medium features and applies a seeded Gaussian projection to the same dimension.
-A frozen row twin or block permutation tests stimulus--target pairing, but dimension and marginal preservation alone do not match covariance, learnability, or optimization pressure \evd{E016}\evd{E026}\evd{E030}.
+The frozen Sattolo row twin is the valid stimulus--target pairing test; the saved block permutation is retained only as a defective sensitivity because it leaves fixed points and can duplicate and omit rows.
+Neither control establishes covariance or learnability matching to a nonbrain target, and initial-gradient comparability remains unknown because the initial gradients were not retained \evd{E016}\evd{E026}\evd{E030}.
 Training uses every standardized target coordinate, whereas the exact-target brain assay applies train-fold \ac{pca}-50 to the fixed target before predicting the five recorded \ac{roi} responses \evd{E030}.
 Thus target dimension, readout capacity, and biological inference unit remain separate design choices.
 
 The saved-student participant-transfer analysis introduces no further student training.
 It evaluates six seeds per saved arm on the nine valid Tuckute participants, with layer~7 primary, layer~6 a locked sensitivity, and the same five contiguous folds \evd{E025}.
-Dataset hashes, target construction, secondary cohorts, and preprocessing variants belong to Appendix~\ref{app:data-targets}.
+E-record dispositions and retained path--hash pairs are reported in Appendix~\ref{app:evidence-provenance}; inclusion rules, response and target construction, and preprocessing are reported in Appendix~\ref{app:data-targets}.
 
 \subsection{Student training and retained components}
 \label{sec:training}

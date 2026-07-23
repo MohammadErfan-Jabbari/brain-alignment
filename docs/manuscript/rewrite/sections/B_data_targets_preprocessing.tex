@@ -3,12 +3,104 @@
 
 \subsection{Data inclusion and response construction}
 
-\gap{Answer Appendix B.1 questions in AGENTS.md.}
+The Tuckute resource was acquired during silent sentence reading with 3-T \ac{fmri}, a 2.0-second \ac{tr}, and 2-mm isotropic voxels \autocite{tuckute2024}. \evd{E002}
+The controlled substrate is condition~B: 1,000 English sentences ordered by \texttt{item\_id}, with released \ac{bold} responses indexed by participant, sentence, and five left-hemisphere language \acp{roi} (\texttt{AntTemp}, \texttt{IFG}, \texttt{IFGorb}, \texttt{MFG}, and \texttt{PostTemp}).
+This repository does not reconstruct Tuckute voxel time series or refit the functional localizers.
+It inherits the released \texttt{response\_target}, for which each voxel was z-scored within scanning session before voxel responses were averaged inside an \ac{roi}; transformations here begin with condition selection, deterministic row ordering, and participant aggregation. \evd{E002}
+The controlled-measurement and first intervention experiments use a cellwise participant average over the original training \acp{uid} 848, 853, 865, 875, and 876.
+The group operation skips a missing contributor, but the resulting sentence-by-\ac{roi} matrix must be complete before it is scored.
+Participant-first analyses instead retain one response matrix per person.
+\ac{uid}~853 is excluded because 60 entries are missing and the five-\ac{roi} grid is incomplete; the valid units are \acp{uid} 797, 837, 841, 848, 856, 865, 875, 876, and 880.
+The inherited training-participant subgroup is therefore \{848, 865, 875, 876\}, and the held-out-participant subgroup is \{797, 837, 841, 856, 880\}.
+All analyses retain the same 1,000 rows and fixed \acp{roi}; neither participant nor sentence inclusion is selected from an intervention outcome. \evd{E002}\evd{E008}\evd{E025}
+
+The participant average is formed before ridge fitting and before the nonlinear held-out $R^2$ calculation.
+It estimates predictivity of the shared response of that fixed group, not the expected response of a randomly sampled person.
+Participant-first estimators instead average folds and technical seeds within a person and use the nine people as the biological inference units.
+These targets can therefore differ in signal-to-noise ratio and in scientific meaning even when they use identical sentences and features.
+The Tuckute value $r_{\mathrm{NC}}=0.491$ is a correlation-scale reliability reference for the five-\ac{roi} average; it is not a denominator for variance-scale unique $R^2$. \evd{E002}\evd{E005}\evd{E014}
+
+The naturalistic assay uses participant UTS03 from the LeBel story-listening resource, acquired during auditory narratives and released as preprocessed storywise matrices sampled every 2.0045 seconds \autocite{lebel2023}. \evd{E006}
+Each HDF5 \texttt{data} matrix contains one row per scanner sample and 95,556 cortical-voxel columns; this work inherits that released imaging representation rather than rerunning reconstruction, motion correction, or cortical registration. \evd{E006}
+Transformations performed here begin after loading those matrices: the response columns are z-scored within story, aligned to the transformed stimulus rows, and filtered by an independent reliability screen.
+The exact 20-story order is retained in \path{outputs/E006_lebel_gpt2.json}, and the frozen contiguous splitter forms these held-out folds:
+\begin{itemize}[nosep,leftmargin=*]
+  \item Fold one: \texttt{adollshouse}, \texttt{adventuresinsayingyes},\newline \texttt{afatherscover}, \texttt{againstthewind}.
+  \item Fold two: \texttt{alternateithicatom}, \texttt{avatar},\newline \texttt{backsideofthestorm}, \texttt{becomingindian}.
+  \item Fold three: \texttt{beneaththemushroomcloud}, \texttt{birthofanation},\newline \texttt{bluehope}, \texttt{breakingupintheageofgoogle}.
+  \item Fold four: \texttt{buck}, \texttt{catfishingstrangerstofindmyself},\newline \texttt{cautioneating}, \texttt{christmas1940}.
+  \item Fold five: \texttt{cocoonoflove}, \texttt{comingofageondeathrow},\newline \texttt{exorcism}, \texttt{eyespy}.
+\end{itemize}
+The fold membership follows the recorded story order and the executable's contiguous four-story partition; \texttt{wheretheressmoke} is excluded from this pool. \evd{E006}
+Voxel inclusion is determined independently from its released \texttt{individual\_repeats} array: ten repetitions, 291 scanner samples, and 95,556 voxels.
+Split-half reliability is Spearman--Brown corrected, and only voxels above $0.5$ are retained, leaving \result{e006_reliable_voxels} voxels.
+The repeated story is used for reliability selection, not for fitting or evaluating the language-model readout.
+This construction supports a conditional within-UTS03 result; many voxels do not create additional biological replicates. \evd{E006}
 
 \subsection{Stimulus and nuisance features}
 
-\gap{Answer Appendix B.2 questions in AGENTS.md.}
+For the isolated-sentence assays, a contextual feature is the attention-mask mean of the declared language-model layer.
+The base nuisance design contains sentence token length, normalized item position, and a mean noncontextual input-embedding vector.
+The participant-transfer implementation freezes the static block to GPT-2-medium so that every student arm receives the same nuisance representation.
+The exact-substrate primary design adds the released imageability covariate; the byte-identical base design without imageability is retained as a continuity sensitivity.
+GPT-2XL and probabilistic context-free grammar (PCFG) surprisal form a nonterminal stress test, not the primary nuisance set, because model-derived surprisal overlaps the contextual construct whose incremental value is being tested. \evd{E002}\evd{E025}\evd{E030}
+
+Each outer split is one of five contiguous 200-sentence blocks.
+Within every split, stimulus-domain scaling, \ac{pca}, nuisance regression, ridge selection, and fresh readouts are fitted on the other 800 sentences and then applied unchanged to the held-out block.
+The exact-substrate target is the explicit exception: it inherits the externally frozen E016 target standardization rather than refitting those moments on each 800-sentence outer-training set; any subsequent fold-specific target \ac{pca} is still fitted on outer-training rows only. \evd{E030}
+Contextual and static blocks are reduced separately to rank~50, while scalar nuisances remain unprojected.
+Using equal ranks prevents a wider contextual matrix from receiving more readout capacity by construction.
+Sentence order is never randomized across train and test, and ranks, nuisance tiers, and participant subsets are fixed before held-out scoring.
+E002 reports the peak over its fixed layer grid, whereas the intervention assays lock their primary and sensitivity layers before their own outcomes. \evd{E002}\evd{E025}\evd{E030}
+
+For LeBel, the transformations performed here use TextGrid word and phone tiers to define word identities, word onset times, and phoneme events.
+Word duration is approximated by clipped successive word-onset differences from 0 to 3 seconds, with a 0.3-second terminal-word proxy. \evd{E006}
+Contextual word features are extracted in overlapping 256-token windows with stride~128, assigning each word the hidden state at its final subtoken under the maximum available left context.
+The low-level nuisance block contains word rate, phoneme rate, mean word duration, word length, and log word frequency; a 985-dimensional \texttt{english1000} lexical-semantic vector supplies the static block.
+Word length, word frequency, and word duration are Lanczos-resampled with window~3 to the 2.0045-second \ac{fmri} grid, as is the \texttt{english1000} stream; word and phoneme rates are instead direct counts in \ac{tr}-centered histogram windows. \evd{E006}
+The language-model word features are Lanczos-resampled separately with the same window.
+After these stream-specific constructions, the language-model, low-level, and static streams share the fixed slice \texttt{[10:-5]}, within-story z-scoring, and finite-impulse-response copies at delays one through four \acp{tr}. \evd{E006}
+The inherited \ac{bold} matrix is z-scored voxelwise within story but receives no finite-impulse-response expansion; feature and response rows are then truncated to their common aligned length.
+The contextual and static blocks receive train-fold \ac{pca} to rank~100, while the low-dimensional nuisance variables remain unprojected.
+Within each fold, the \ac{pca} bases are learned from training stories, and a predictor \texttt{StandardScaler} supplies additional train-fitted z-scoring to each assembled design; the response mean, shared ridge hyperparameter, and fitted readout are also learned from training stories.
+The earlier within-story z-scoring, trimming, and finite-impulse-response expansion are fixed preprocessing.
+Complete stories, rather than neighboring \acp{tr}, are held out, so temporally autocorrelated samples cannot cross the evaluation boundary.
+The same story folds, nuisance arrays, temporal transforms, and response rows are used for trained and architecture-matched untrained networks. \evd{E006}
 
 \subsection{Predicted and nonbrain targets}
 
-\gap{Answer Appendix B.3 questions in AGENTS.md.}
+TRIBE~v2 maps stimulus events to predicted \ac{fmri} activity on a standardized 20,484-location cortical surface \autocite{dascoli2026}.
+It is therefore a predicted neural target, not a neural recording.
+The continuity target builder loads the \path{facebook/tribev2} checkpoint, sets \path{data.text_feature.model_name} to \path{unsloth/Llama-3.2-3B}, and sets \path{data.features_to_use} to \texttt{[text]} through the operative runtime override; it does not rely on the superseded local defaults-file patch. \evd{E016}
+Its \texttt{synthetic-text} configuration assigns each token a 0.35-second event followed by a 0.05-second gap, extends timelines shorter than 1.0 second, uses a 1.0-second \ac{tr}, retains all 20,484 fsaverage5 vertices, and processes 32 items per batch. \evd{E016}\evd{E030}
+Each sentence has a private timeline, and all retained one-second predictions on that timeline are averaged coordinatewise to obtain one target vector.
+The resulting caches contain 95,999 training sentences and 1,999 untouched held-out sentences.
+The exact-substrate cache applies the same checkpoint, override, vertex order, and event-timing configuration to Tuckute item IDs 1--1,000, bound to generator indices 0--999 by \texttt{item\_id=item\_index+1}. \evd{E016}\evd{E030}
+Training-standardized coordinates use
+\[
+  \widetilde Y_j=\frac{Y_j-\mu_{j,\mathrm{train}}}
+                       {\sigma_{j,\mathrm{train}}+10^{-6}},
+\]
+with moments computed from float32 targets without a dtype override, stored as float32, and applied in float32.
+The student layer-6 sentence representation is connected to all standardized target coordinates by a jointly trained linear head; no \ac{pca} is used in this auxiliary training loss. \evd{E016}\evd{E026}
+
+The \texttt{textfeat} arm is a nonbrain target built from mean-pooled GPT-2-medium layer-12 features after tokenization to at most 64 positions.
+Its projection implementation draws one float32 matrix with \texttt{numpy.random.default\_rng(0).standard\_normal((1024,20484))}, multiplies it by $1/\sqrt{1024}=0.03125$, and right-multiplies the float32 1,024-dimensional source matrix. \evd{E016}\evd{E026}
+The resulting 20,484 columns then pass through the same standardization, head, corpus, optimizer, and six-seed training path. \evd{E016}\evd{E026}
+This matches row identity, output width, and much of the training machinery.
+It does not demonstrate matched accessible stimulus information: the projected source has centered algebraic rank at most 1,024, and equal marginal scale does not equalize covariance spectrum, effective rank, baseline predictability, or remaining headroom.
+
+The comparator audit examines the two saved targets rather than assuming that dimension matching is sufficient for attribution to neural target content.
+On two disjoint deterministic samples of 4,096 training rows it reconstructs the training standardization and compares centered covariance spectra, stable rank, cumulative variance mass, within-document order structure, low-level and static-feature predictability, \ac{kd}-baseline target recovery, and remaining headroom.
+Across the six trained seeds it also compares parameter displacement and held-out layer-6 representation movement from byte-identical \ac{kd} checkpoints.
+The observed mismatches in rank, covariance geometry, \ac{kd}-baseline predictability, and remaining headroom show that the saved comparison cannot support attribution to neural target content.
+Initial-gradient comparability remains unknown because the initial gradients were not retained; the audit does not classify those gradients as unequal.
+Thirty of 55 frozen measured-axis checks fail and one is unresolved, while \texttt{textfeat} remains usable as a descriptive nonbrain arm. \evd{E026}
+
+Two different row controls must not be conflated.
+The saved block-permutation sensitivity permutes contiguous target blocks, but it is not a derangement: depending on seed, 0--30\% of rows remain correctly paired, and unequal blocks duplicate one row and omit one row in five of six seeds.
+It is retained only as a defective-control sensitivity.
+The frozen Sattolo twin instead applies one hash-keyed derangement separately inside each 200-item outer block before target values or participant scores are read.
+That twin has no fixed points and preserves the exact row multiset within each block.
+For each outer fold, aligned TRIBE rows determine one train-only target \ac{pca}-50 basis, and the same basis is applied to the twin; nuisance models, representation \ac{pca}-50 transforms, ridge choices, and composed readouts are also fitted only on outer-training rows.
+The twin therefore controls row identity at matched target capacity, but one frozen twin cannot establish population-level invariance or a causal neural mechanism. \evd{E016}\evd{E030}
