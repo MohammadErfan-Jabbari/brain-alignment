@@ -37,7 +37,7 @@ The current scientific authority remains [`../extended/`](../extended/) until Er
 
 Target 9,000 to 10,000 main-text words, or roughly 21 to 23 A4 pages excluding references: about 2 pages for the Introduction, 3 for Section 2, 4 to 4.5 for Section 3, 7 to 8 for Results, 2.5 for Discussion, 1 to 1.5 for Limitations, and 0.5 for the Conclusion. Keep Section 2.3 within about 700 to 900 words and Sections 4.3 and 4.5 within about 1,000 to 1,200 words each. Preserve Results as the largest allocation.
 
-Cap the appendices at roughly 12 to 16 pages. Completeness means that every experiment and load-bearing claim is accounted for, not that every stored numerical row or machine-level artifact listing is reproduced. Leave exhaustive grids and artifact metadata in the owning E records and retained artifacts.
+Treat roughly 20 to 24 appendix pages as a planning band, not a compression target. Completeness means that every experiment and load-bearing claim is accounted for, not that every stored numerical row or machine-level artifact listing is reproduced. Leave exhaustive grids and artifact metadata in the owning E records and retained artifacts.
 
 Give the three evidence-chain artifacts different jobs. The Section 2 figure defines the conceptual stages and claim meanings. The Section 3 table maps each stage to its estimand, comparator, experiment family, endpoint, inference unit, and E owner. The Results table reports only the verdict and strongest evidence. Do not restate the full chain in the prose around all three.
 
@@ -112,7 +112,7 @@ The answer is predictive accessibility under the declared assay, not a shared bi
 2. Why does matching a teacher's output distribution leave multiple compatible internal geometries?
 3. Why are target predictability, target-loss reduction, and retained-student movement manipulation checks rather than endpoint success?
 
-Keep only decision-relevant theory: output objectives do not identify internal geometry. A deterministic target cannot convey row-specific information independent of the stimulus and fixed generator, although it may convey generator-learned structure and reorganize what the student makes accessible. Put full mutual-information, Donsker-Varadhan, ridge/MAP, and rate-distortion derivations in Appendix D.
+Keep only decision-relevant theory: output objectives do not identify internal geometry. A deterministic target cannot convey row-specific information independent of the stimulus and fixed generator, although it may convey generator-learned structure and reorganize what the student makes accessible. Put full mutual-information, ridge/MAP, and rate-distortion derivations in Appendix D.
 
 #### 2.3 What does prior neural-guided training leave unresolved?
 
@@ -149,7 +149,7 @@ Do not mix dataset description with result interpretation. Evidence owners: E002
 #### 3.2 How are students trained, and what survives deployment?
 
 1. Which teacher, student, ordinary distillation objective, and initialization are shared across arms?
-2. Where is the temporary neural head attached, which loss reaches which part of the student, and which parameters are trainable in each main regime?
+2. Where is the temporary target head attached, which loss reaches which part of the student, and which parameters are trainable in each main regime?
 3. Which heads and parameters are retained, frozen, merged, or discarded before evaluation?
 4. How do recorded-target, permuted-target, ordinary-distillation, text-feature, and TRIBE arms differ while preserving the intended comparison?
 

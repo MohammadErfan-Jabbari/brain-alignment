@@ -1,18 +1,256 @@
 \section{Estimators, Inference, and Formal Scope}
 \label{app:inference}
 
+This appendix separates three questions that are easy to conflate: what each encoding score predicts, which observations support its uncertainty statement, and which formal analogies apply.
+The empirical quantities are cross-validated predictive contrasts.
+They are neither causal effects nor direct estimates of information-theoretic objects.
+
 \subsection{Encoding estimators}
 
-\gap{Answer Appendix D.1 questions in AGENTS.md.}
+Let \(Y_j\) be one response or target coordinate, \(N\) the declared nuisance block, and \(X\) the contextual feature block under test.
+For an outer test set \(\mathcal T\), a model \(M\) fitted without those responses receives the ordinary held-out score
+\begin{equation}
+R_j^2(M)
+=
+1-
+\frac{\sum_{i\in\mathcal T}(y_{ij}-\widehat y_{ij}^{\,M})^2}
+{\sum_{i\in\mathcal T}(y_{ij}-\bar y_{\mathcal Tj})^2}.
+\label{eq:heldout-r2}
+\end{equation}
+The numerator is the held-out sum of squared errors, \(\mathrm{SSE}_j(M)\), and the denominator is the held-out total sum of squares, \(\mathrm{SST}_j\), both over \(\mathcal T\).
+The denominator uses the test-fold mean.
+Negative values are retained and mean that the fitted prediction is worse than this test-mean reference.
+
+The nuisance-only and full fits are
+\[
+R_{N,j}^2=R_j^2(N),
+\qquad
+R_{F,j}^2=R_j^2([N,X]).
+\]
+Their primary increment is the cross-validated semipartial, or unique, score
+\begin{equation}
+\Delta R_j^2
+=R_{F,j}^2-R_{N,j}^2.
+\label{eq:semipartial-r2}
+\end{equation}
+It measures the change in held-out linear predictive value when \(X\) is added to the specified nuisance design.
+Because the reduced and full ridge estimators are separately regularized and evaluated out of sample, \(\Delta R_j^2\) can be negative.
+It is not a nonnegative variance decomposition. \evd{E002}\evd{E006}
+
+For comparison, let \(\mathcal R_{N,j}^2\) and \(\mathcal R_{F,j}^2\) denote the population coefficients of determination for the nested, unregularized linear projections on \(N\) and \([N,X]\).
+The corresponding partial coefficient is
+\begin{equation}
+R_{\mathrm{partial},j}^2
+=
+\frac{\mathcal R_{F,j}^2-\mathcal R_{N,j}^2}{1-\mathcal R_{N,j}^2}
+=
+1-
+\frac{\operatorname{Var}(Y_j-\Pi_{[N,X]}Y_j)}
+{\operatorname{Var}(Y_j-\Pi_NY_j)},
+\label{eq:partial-r2}
+\end{equation}
+where \(\Pi\) denotes the corresponding population linear projection and \(\mathcal R_{N,j}^2<1\).
+In a common-sample least-squares fit, the variance ratio is replaced by \(\mathrm{SSE}_{F,j}/\mathrm{SSE}_{N,j}\).
+Equation~\ref{eq:partial-r2} asks what fraction of the variance left by \(N\) is removed by \(X\); Equation~\ref{eq:semipartial-r2} asks how much total outcome variance is gained.
+The thesis reports Equation~\ref{eq:semipartial-r2}, not a transformed cross-validated partial coefficient.
+
+Most recorded-response assays first compute Equation~\ref{eq:heldout-r2} per \ac{roi} or voxel, subtract reduced from full within that coordinate and fold, and then average the declared coordinates and folds equally.
+The continuity target-recovery assay also averages coordinatewise target \(R^2\).
+The exact-substrate target-recovery assay is the exception: it sums \(\mathrm{SSE}_j\) and \(\mathrm{SST}_j\) across all 20,484 fixed target coordinates before taking \(1-\mathrm{SSE}/\mathrm{SST}\).
+That estimator weights coordinates by held-out variance and prevents near-constant coordinates from receiving the same weight as variable coordinates.
+Neither aggregation treats coordinates as independent repetitions. \evd{E016}\evd{E030}
+
+Ridge regression supplies the fitted conditional mean.
+After train-fold centering and predictor standardization, suppose
+\[
+y=X\beta+\varepsilon,\qquad
+\varepsilon\sim\mathcal N(0,\sigma^2 I),
+\qquad
+\beta\sim\mathcal N(0,\tau_\beta^2 I).
+\]
+The posterior mode minimizes
+\[
+\|y-X\beta\|_2^2+\lambda\|\beta\|_2^2,
+\qquad
+\lambda=\sigma^2/\tau_\beta^2.
+\]
+This is a maximum-a-posteriori estimator only under that Gaussian likelihood, an isotropic zero-mean coefficient prior, and the stated scaling convention.
+The implementations choose \(\lambda\) from a finite grid using training data, which is better understood operationally as predictive regularization than as a fixed scientific prior.
+The held-out \(R^2\) then evaluates a predictive algorithm.
+Neither the Gaussian derivation nor a positive score makes the fitted coefficients causal, identifies a neural mechanism, or implies that model and brain implement the same computation.
 
 \subsection{Cross-validation and inference units}
 
-\gap{Answer Appendix D.2 questions in AGENTS.md.}
+Every learned operation that can use stimulus-domain information is fitted on the relevant training complement.
+For each complete naturalistic story, fixed feature resampling and edge slicing, within-story feature and \ac{bold} z-scoring, and finite-impulse-response feature-delay copies are constructed separately before cross-validation.
+Only train-complement \ac{pca}, assembled-design scaling, response centering, ridge selection, and readout fitting are learned for that assay.
+The sole declared exception is the training-target standardization reused as a frozen external object in the exact-substrate diagnostic; subsequent target \ac{pca} remains fold-local.
+Table~\ref{tab:cv-nesting} gives the load-bearing nesting order.
 
+\begin{table}[h!]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{1}
+  \caption{Load-bearing cross-validation nesting and final inference units. Secondary layer, rank, and nuisance sensitivities are deferred to Appendices~E--F and the owning records.}
+  \label{tab:cv-nesting}
+  \begin{tabular}{p{29mm} p{71mm} p{52mm}}
+    \toprule
+    Assay & Readout nesting & Aggregation and inference \\
+    \midrule
+    Baseline sentence measurement and headroom &
+    Five contiguous 800/200 folds. Centering, scaling, \ac{pca}, and \texttt{RidgeCV} use the 800-sentence readout-training complement; one selected penalty is shared across outputs and applied to the 200-sentence test block. &
+    Average declared \acp{roi} and folds. The fixed sentence set supports an existence claim; stochastic headroom arms add technical-seed stability, not participant inference. \evd{E002}\evd{E003} \\
+    Recorded-target sentence intervention &
+    Train the student on 800 outer-fold items and exclude the other 200 from model training. Within that 200-item block, fit transforms, select regularization, and evaluate a fresh readout over five contiguous inner subfolds. &
+    Averaged-target claims use the five outer-fold means after seed aggregation. Participant variants first aggregate seed--fold cells within person and report the shared-fold axis separately. \evd{E004}\evd{E005}\evd{E008}\evd{E011}\evd{E013} \\
+    Naturalistic story assays &
+    Construct fixed feature resampling and edge slicing, within-story feature and \ac{bold} z-scoring, and finite-impulse-response feature-delay copies separately for each complete story before cross-validation. On the remaining readout-training stories, learn only \ac{pca}, assembled-design scaling, response centering, one shared multi-output ridge penalty, and the readout. Reliability selection uses a separate repeated story. &
+    Story blocks and voxels support within-person robustness only. The three-person intervention is a descriptive mechanism probe, not population inference. \evd{E006}\evd{E013}\evd{E017} \\
+    Predicted-target uptake &
+    Train on 95,999 WikiText sentences; select the fresh target-readout penalty on training data and evaluate once on 1,999 fixed held-out sentences. &
+    Compare target-trained and ordinary-\ac{kd} arms within matched seed, then summarize six technical seeds; coordinates are not repetitions. \evd{E016} \\
+    Saved-student biological transfer &
+    No retraining. In each of five contiguous Tuckute 800/200 folds, fit all transforms and fresh response readouts on the 800-item complement and apply them to the 200-item test block. &
+    Aggregate six seeds and five folds within each of nine participants; participants are the biological units. \evd{E025} \\
+    Exact-substrate diagnostic &
+    Five outer folds reuse one train-only target-\ac{pca} basis for aligned rows and the frozen Sattolo row twin. Each multi-output ridge readout selects one scalar penalty on its own training complement; the test block is then touched once, and both paths in the composed student-to-target-to-response readout remain train-only. &
+    Target-to-response and composed student-to-target-to-response assays aggregate to nine participants. Target recovery aggregates total \(\mathrm{SSE}/\mathrm{SST}\) and uses six technical seeds. \evd{E030} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Regularization selection is nested inside each fitting set.
+The baseline sentence and naturalistic story assays run \texttt{RidgeCV} on the relevant complement for readout training and share one selected penalty across outputs.
+Recorded-target fresh readouts repeat that selection inside each inner training subfold.
+The exact-substrate diagnostic likewise forbids per-coordinate penalty selection: each aligned or twin multi-output readout selects one scalar penalty on its own training complement, while the paired paths reuse the train-fold target-\ac{pca} basis.
+Candidate layer grids, nuisance tiers, \ac{pca} ranks, reliability thresholds, participants, and \acp{roi} are declared before scoring.
+The baseline screen reports best layers descriptively within its fixed grid; later recorded-response assays prospectively reuse those screen choices.
+The exact-substrate target-retention and composed student-to-target-to-response assays fix the trained layer~6 as primary and layer~7 as a locked, non-rescuing sensitivity. \evd{E002}\evd{E006}\evd{E025}\evd{E030}
+
+The nesting order determines what can generalize.
+Repeated seeds vary optimizer randomness under one fixed procedure.
+Stimulus folds vary held-out blocks but share observations and have overlapping training complements.
+Voxels share one brain, spatial dependence, preprocessing, and stimuli.
+Target coordinates share the same generated target and student.
+None can replace a participant when the claim concerns people.
+Conversely, participants viewed through one fixed 1,000-sentence set do not by themselves establish stimulus-population generalization.
+The participant recorded-target assay therefore reports both participant and shared-fold robustness; saved-student transfer and exact-substrate response assays aggregate folds and seeds before participant inference; the naturalistic measurement retracts its voxel-bootstrap interval and keeps its within-person point contrast and story-block signs. \evd{E006}\evd{E008}\evd{E025}\evd{E030}
+
+\FloatBarrier
 \subsection{Uncertainty, power, and decision thresholds}
 
-\gap{Answer Appendix D.3 questions in AGENTS.md.}
+Uncertainty follows the estimand rather than the largest available count.
+Table~\ref{tab:inference-map} maps the load-bearing result families to their intervals, tests, and decision rules.
+Unless stated otherwise, intervals are two-sided 95\% intervals.
+
+\begin{table}[h!]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{1}
+  \caption{Inferential distinctions and decision rules for the load-bearing estimands. Secondary sensitivity inventories are reported in Appendices~E--F and the owning records.}
+  \label{tab:inference-map}
+  \begin{tabular}{p{31mm} p{61mm} p{61mm}}
+    \toprule
+    Estimand family & Unit and uncertainty & Multiplicity and decision rule \\
+    \midrule
+    Controlled measurability &
+    Sentence assays report fold dispersion and trained--untrained controls. The naturalistic assay retains a within-person gap and five story-block signs; its voxel-bootstrap interval is retracted. &
+    Layer and nuisance grids are fixed; selected voxels and model--substrate estimates are not repetitions. The gate is assay-bounded existence, not population evidence. \evd{E002}\evd{E006} \\
+    Headroom and averaged-target pairing &
+    Headroom uses a fold--seed bootstrap conditional on convergence and family-cluster bootstrap with Fisher intervals for cross-family quality. Averaged-target pairing averages seeds within outer fold before a five-fold \(t\) interval. &
+    Flat seed--fold intervals are superseded. The \(0.33/0.80\) retention bands and planned \(+0.006\) 80\%-power \ac{mde} diagnose the design, not the objective. \evd{E003}\evd{E004}\evd{E005}\evd{E015} \\
+    Participant recorded-target assays &
+    Sentence effects are participant medians over seed--outer-fold cells, with a participant \(t\) interval and exact one-sided sign test; a shared-fold \(t\) interval and cluster bootstrap address stimulus dependence. Naturalistic seeds are technical repeats in three descriptive participant probes. &
+    Participant and shared-fold readings must agree for a population claim; observed-variance \acp{mde} bound only scoped nulls. Failed manipulation or quality gates stop the branch. \evd{E008}\evd{E011}\evd{E013}\evd{E017} \\
+    Predicted-target uptake and comparator validity &
+    Six matched-seed gains use descriptive intervals and declared exact magnitude-preserving sign flips. Comparator checks use fixed samples and frozen margins, without coordinate-level \(p\) values. &
+    A 5\% relative-perplexity gate and later \(\lvert\Delta\mathrm{bpb}\rvert\leq0.005\) gate quality. Uptake and movement provide no biological replication and cannot repair an invalid comparator. \evd{E016}\evd{E025}\evd{E026} \\
+    Participant biological transfer &
+    Nine participant effects receive a \(t\) interval, one-sided upper bound, exact sign test, and Wilcoxon test; seeds and blocks are descriptive. &
+    The \ac{mde} and upper bound are compared with the inherited \result{e030_practical_threshold} unique-\(R^2\) threshold, distinguishing power limitation from practical exclusion only for this cohort and assay. \evd{E025} \\
+    Exact-substrate diagnostic &
+    Target-to-response and composed student-to-target-to-response quantities use participant \(t\) intervals and exact signs. Target recovery uses descriptive seed intervals and an exact \(2^6\) sign flip for the paired target-trained-minus-\ac{kd} contrast. &
+    Bonferroni family-95\% intervals and one-sided simultaneous bounds are separate for target measurability, target recovery, and student-to-target-to-response families. The \result{e030_practical_threshold} rule applies only to this fixed linear route. \evd{E030} \\
+    External utility &
+    Eight technical seeds support paired arm contrasts and an observed-variance 80\%-power \ac{mde} for prerequisite representation change and out-of-domain perplexity ratios. &
+    Controls are matched as declared; task families are not biological repetitions, and downstream nulls remain bounded to the tested corpora and student--teacher pair. \evd{E009} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\FloatBarrier
+Power is always computed for the future contrast at its intended unit.
+The original naturalistic follow-up calculation used unmatched absolute fold variability and is retracted.
+The participant recorded-target and saved-student transfer assays instead use between-participant variability for participant claims; external utility uses seed variability for a fixed technical procedure.
+An \ac{mde} says what a design could reliably resolve under its variance model.
+It does not say that smaller effects are zero or that larger effects matter biologically. \evd{E006}\evd{E008}\evd{E009}\evd{E025}
+
+The \result{e030_practical_threshold} rule illustrates this boundary. \evd{E025}\evd{E030}
+It was inherited prospectively to decide whether the participant-positive branch merited a new matched-control build, then reused as a frozen reference in the exact-substrate diagnostic.
+It supports statements such as ``the simultaneous upper bound misses the continuation rule on this fixed assay.''
+It does not support ``effects below \result{e030_practical_threshold} are biologically irrelevant,'' conversion to another target scale, or retrospective selection of a friendlier nuisance model, layer, or subgroup. \evd{E025}\evd{E030}
 
 \subsection{What information theory does and does not imply}
 
-\gap{Answer Appendix D.4 questions in AGENTS.md.}
+\paragraph{Conditional information and partial variance.}
+For scalar \(Y\), jointly Gaussian \((X,Y,Z)\), correctly specified population-linear conditional means, and unregularized population residual variances,
+\begin{equation}
+I(X;Y\mid Z)
+=
+-\frac12\log\!\left(1-R_{\mathrm{partial}}^2\right),
+\qquad
+\Delta \mathcal R_{\mathrm{semi}}^2
+=
+(1-\mathcal R_N^2)R_{\mathrm{partial}}^2.
+\label{eq:gaussian-cmi-r2}
+\end{equation}
+The multivariate analogue replaces the scalar residual-variance ratio with a log-determinant ratio.
+These are distributional identities under the stated Gaussian model; the thesis instead estimates finite-sample, cross-validated semipartial differences from separately regularized ridge fits \autocite{cover2006}.
+Those differences may be negative and depend on the nuisance design, rank, penalty, and held-out substrate; they are operational incremental-prediction estimates, not estimates or lower bounds of \(I(X;Y\mid Z)\).
+
+\paragraph{Data processing.}
+The data-processing inequality would let a predicted target \(T\) upper-bound what a trained state \(H\) retains about a recorded response \(B\) only under \(B\to T\to H\), equivalently \(B\perp H\mid T\), which implies \(I(B;H)\leq I(B;T)\).
+Direct teacher compression analogously requires \(B\to H_T\to H_S\).
+Neither chain follows from the objective: TRIBE, the teacher, and the student share text-derived information, and the student has a direct stimulus/corpus path not mediated by the target or teacher state.
+Conditioning on the stimulus does not restore the chain when the target is a deterministic or nearly deterministic function of that stimulus.
+Data processing therefore motivates a preservation test only after conditional independence is defended; it does not predict the sign of a cross-validated encoding contrast \autocite{cover2006}. \evd{E003}\evd{E016}\evd{E030}
+
+\paragraph{Generalization and rate--distortion.}
+Let \(Z^n\) be an i.i.d. sample and let a learning algorithm map it, possibly randomly, to parameters \(W\).
+If the loss \(\ell(w,Z)\) is \(\sigma\)-sub-Gaussian under the population distribution for every fixed \(w\), and \(L(W)\) and \(\widehat L(W)\) denote population and empirical risk, then expectation over the sample and algorithm randomness gives
+\[
+\left|\mathbb E[L(W)-\widehat L(W)]\right|
+\leq
+\sqrt{\frac{2\sigma^2 I(W;Z^n)}{n}}
+\]
+This information-theoretic generalization bound \autocite{xu2017} grows with algorithm--sample information, which this experiment does not estimate.
+The bound is therefore an organizing constraint, not an explanation of an observed result: it neither guarantees that a neural target improves generalization nor makes the benefit scale with a ``brain-information budget.''
+
+Classical rate--distortion theory defines
+\[
+R(D)
+=
+\min_{P_{\widehat S\mid S}:\,\mathbb E[d(S,\widehat S)]\leq D}
+I(S;\widehat S)
+\]
+In this classical object \autocite{cover2006}, parameter count, optimizer steps, and perplexity are not the mutual-information rate, and the target loss is not established as a source-coding distortion.
+The manuscript therefore uses ``rate--distortion-style'' only for the empirical Pareto relation among model budget, language quality, and controlled predictivity.
+No theorem about \(R(D)\) guarantees that neural supervision moves that frontier favorably.
+
+\paragraph{Output matching and internal alignment.}
+Equation~\ref{eq:implemented-kd} constrains the student's output distribution, not internal-state geometry, because many parameterizations realize the same next-token distribution:
+\[
+D_{\mathrm{KL}}\!\left(p_T^\tau\|q_S^\tau\right)\to0
+\;\not\Rightarrow\;
+H_S\approx H_T
+\;\not\Rightarrow\;
+\Delta R^2(H_S\to B)=\Delta R^2(H_T\to B).
+\]
+The first non-implication is architectural; the second also depends on the evaluation target, nuisance model, and readout.
+Language quality must therefore be measured, but a matched output score cannot itself certify biological alignment. \evd{E003}\evd{E015}
+
+Low auxiliary target loss is no stronger: a temporary head may absorb it, or a nuisance-predictable target may be learned without a participant-general incremental relation to recorded responses.
+Held-out target uptake and retained-student movement show learning and change, not neural-content attribution or biological transfer without a valid comparator and participant endpoint.
+In canonical gate order, exact-target practical linear measurability fails its continuation rule; target uptake and retained-student movement pass; comparator validity fails; and biological transfer is near zero under the tested assay. \evd{E030}\evd{E016}\evd{E026}\evd{E025}

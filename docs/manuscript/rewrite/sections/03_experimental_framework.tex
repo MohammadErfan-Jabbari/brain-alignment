@@ -19,8 +19,8 @@ It is a design map, not a result summary: manipulation, transfer, and utility me
     Sentence measurement & Trained contextual features versus nuisance and architecture-matched untrained features; held-out ordinary and unique $R^2$ & Five contiguous stimulus folds; fixed sentence set \\
     Naturalistic measurement & Trained versus untrained features beyond nuisance; held-out-story voxelwise unique $R^2$ & Story block within one deeply sampled participant \\
     Quality-aware headroom & Declared-layer alignment before and after ordinary \ac{kd}, interpreted with held-out language quality & Model condition; training seed for stochastic arms \\
-    Averaged-target pairing effect & Recorded-target versus block-permuted-target training; fresh averaged-response unique $R^2$ & Shared stimulus fold; seeds are technical repetitions \\
-    Participant-target pairing effect & Recorded-target versus block-permuted-target training; fresh participant-response unique $R^2$ & Participant after fold and seed aggregation \\
+    Averaged-target pairing effect & Recorded-target versus matched permuted-target training; fresh averaged-response unique $R^2$ & Shared stimulus fold; seeds are technical repetitions \\
+    Participant-target pairing effect & Recorded-target versus matched permuted-target training; fresh participant-response unique $R^2$ & Participant after fold and seed aggregation \\
     Exact-target measurability & Predicted target versus nuisance and a frozen row twin; held-out recorded-response unique $R^2$ & Participant on a fixed sentence set \\
     Target uptake and retained-student movement & Target-trained versus \ac{kd} and target permutations; fresh target recovery and retained-student movement & Training seed; fixed target sample for geometry \\
     Comparator validity & Predicted target versus dimension-matched text-feature target; geometry, learnability, and induced movement & Seed for trained models; fixed target sample otherwise \\
@@ -45,6 +45,8 @@ The naturalistic assay uses UTS03 from the LeBel corpus \autocite{lebel2023}.
 It fixes 20 stories in five held-out-story folds and scores 11,442 voxels selected for split-half reliability on a separate repeated story, independent of the encoding folds.
 This supplies a deeply sampled within-person test, not population inference from stories or voxels \evd{E006}.
 Whole-story holdout preserves temporal dependence, while independent reliability selection prevents the response used for scoring from choosing favorable voxels.
+For each complete story separately, the fixed pipeline resamples word features to the scanner grid, applies the fixed feature-edge slice, z-scores every feature and \ac{bold} coordinate within that story, and constructs finite-impulse-response feature-delay copies before cross-validation.
+Only train-complement \ac{pca}, scaling of the assembled design, response centering, ridge selection, and readout fitting are learned. \evd{E006}
 
 The primary recorded-target regime distils Qwen2.5-1.5B into Qwen2.5-0.5B while training on the 800 Tuckute tuning sentences in each outer fold \evd{E005}\evd{E008}.
 It uses attention-mask mean pooling at layer~12, five-dimensional \ac{roi} targets, three training seeds, and the same five outer folds; language quality is measured on held-out WikiText rather than on the neural evaluation items.
@@ -53,8 +55,11 @@ The averaged and participant-specific targets share this machinery but answer di
 The predicted-target regime distils \texttt{gpt2-medium} into \texttt{gpt2} on 95,999 WikiText-103 training sentences, with 1,999 sentences held out, attention-mask mean pooling at layer~6, and a 20,484-coordinate target.
 TRIBE~\autocite{dascoli2026} supplies the fixed text-derived target; the nonbrain arm mean-pools frozen GPT-2-medium features and applies a seeded Gaussian projection to the same dimension.
 The frozen Sattolo row twin is the valid stimulus--target pairing test; the saved block permutation is retained only as a defective sensitivity because it leaves fixed points and can duplicate and omit rows.
-Neither control establishes covariance or learnability matching to a nonbrain target, and initial-gradient comparability remains unknown because the initial gradients were not retained \evd{E016}\evd{E026}\evd{E030}.
-Training uses every standardized target coordinate, whereas the exact-target brain assay applies train-fold \ac{pca}-50 to the fixed target before predicting the five recorded \ac{roi} responses \evd{E030}.
+The projected nonbrain target matches dimension, corpus, model lineage, loss form, and schedule, but measured audits show mismatches in covariance geometry, baseline headroom, nuisance predictability, parameter displacement, and retained-representation movement.
+Initial-loss and gradient-scale comparability is unknown because those quantities were not retained.
+The comparison therefore cannot support attribution to neural target content \evd{E016}\evd{E026}\evd{E030}.
+Training uses every target coordinate after the frozen predicted-target training-corpus standardization.
+The exact-substrate diagnostic reuses that external standardization and fits the subsequent target \ac{pca}-50 only on each outer-training fold before predicting the five recorded \ac{roi} responses \evd{E016}\evd{E030}.
 Thus target dimension, readout capacity, and biological inference unit remain separate design choices.
 
 The saved-student participant-transfer analysis introduces no further student training.
@@ -66,14 +71,15 @@ E-record dispositions and retained path--hash pairs are reported in Appendix~\re
 
 The teacher is frozen and evaluated outside gradient computation.
 On nonpadding token positions, logits are softened as $p_T^\tau=\operatorname{softmax}(z_T/\tau)$ and $q_S^\tau=\operatorname{softmax}(z_S/\tau)$.
-The implemented objective is the attention-mask average of $\lambda_{\mathrm{KD}}\tau^2D_{\mathrm{KL}}(p_T^\tau\Vert q_S^\tau)$ plus $\lambda_{\mathrm{neural}}\operatorname{MSE}(W\bar h_k,y)$, where $\bar h_k$ is the attention-mask mean of the selected student state and $W$ is a temporary linear head.
+The optimized objective is \(\mathcal L=\lambda_{\mathrm{text}}\mathcal L_{\mathrm{text}}+\lambda_{\mathrm{target}}\mathcal L_{\mathrm{target}}\), with \(\lambda_{\mathrm{text}}=1\).
+For distillation arms, \(\mathcal L_{\mathrm{text}}\) is the attention-mask average of \(\tau^2D_{\mathrm{KL}}(p_T^\tau\Vert q_S^\tau)\); for squared-error target variants, \(\mathcal L_{\mathrm{target}}=\operatorname{MSE}(W\bar h_k,y)\), where \(\bar h_k\) is the attention-mask mean of the selected student state and \(W\) is a temporary linear head.
 The \ac{kl} direction is therefore teacher to student; exact temperatures, weights, schedules, and early cross-entropy variants are reported in Appendix~\ref{app:training} \evd{E003}\evd{E004}\evd{E005}\evd{E016}.
 Masking removes padded positions from both the token loss and the pooled state, and the $\tau^2$ factor retains the implemented temperature scaling.
-The neural \ac{mse} is averaged over batch and target coordinates; it is a training signal, not the estimator used for the reported endpoint.
+The squared-error target loss is averaged over batch and target coordinates; it is a training signal, not the estimator used for the reported endpoint.
 
 The text loss traverses the permanent \ac{lm} path.
-The neural loss branches at $h_k$ and updates the temporary head plus every trainable parameter that produces that state, including embeddings in full-parameter TRIBE runs; it supplies no gradient through later blocks or the output head along this branch.
-Those later components can still move through the text loss.
+The target loss branches at $h_k$ and updates the temporary head plus every trainable parameter that produces that state, including the tied embedding/output tensor through its input-embedding role in full-parameter TRIBE runs; it supplies no gradient through later blocks or the output-projection operation along this branch.
+Those later blocks move only through the text loss, while the tied tensor also receives text-loss gradient through its output role.
 Figure~\ref{fig:training-architecture} separates the two paths.
 
 \begin{figure}[t]
@@ -105,17 +111,18 @@ Figure~\ref{fig:training-architecture} separates the two paths.
     \draw[forward] (text.north) |- (teacher.west);
     \draw[forward] (teacher)--(kd);
     \draw[forward] (output)--(kd);
-    \draw[grad] (kd.north) -- ++(0,4mm) -| node[midway,above,font=\scriptsize,text=red!70!black] {text-loss gradient through all trainable output-path parameters} (embed.north);
+    \draw[grad] (kd.north) -- ++(0,4mm) -| (embed.north);
 
-    \node[temp,below=11mm of state] (nhead) {temporary neural head\\discarded after training};
-    \node[loss,right=5mm of nhead] (nloss) {$\mathcal{L}_{\mathrm{neural}}$\\recorded or predicted target};
+    \node[temp,below=11mm of state] (nhead) {temporary target head\\discarded after training};
+    \node[loss,right=5mm of nhead] (nloss) {$\mathcal{L}_{\mathrm{target}}$\\recorded or predicted target};
     \draw[forward] (state)--(nhead);
     \draw[forward] (nhead)--(nloss);
-    \draw[grad] (nloss.south) -- ++(0,-4mm) -| node[midway,below,font=\scriptsize,text=red!70!black] {neural gradient: head and every trainable producer of $h_k$} (embed.south);
+    \draw[grad] (nloss.south) -- ++(0,-4mm) -| (embed.south);
 
-    \node[panel,fit=(text)(embed)(early)(state)(late)(output)(teacher)(kd)(nhead)(nloss),label={[font=\bfseries]above left:Training}] {};
+    \node[font=\bfseries,anchor=west] (training-title) at ($(text.north west)+(0,7mm)$) {Training};
+    \node[panel,fit=(text)(embed)(early)(state)(late)(output)(teacher)(kd)(nhead)(nloss)(training-title)] {};
 
-    \node[datum,below=35mm of text] (etext) {held-out text};
+    \node[datum,below=58mm of text] (etext) {held-out text};
     \node[block,right=5mm of etext,text width=30mm] (frozen) {frozen retained student\\temporary head absent};
     \node[datum,right=5mm of frozen,fill=blue!5] (estate) {retained state $h_k$};
     \node[block,right=5mm of estate,text width=25mm,fill=green!7] (ridge) {fresh ridge readout\\fit inside evaluation folds};
@@ -124,9 +131,10 @@ Figure~\ref{fig:training-architecture} separates the two paths.
     \draw[forward] (frozen)--(estate);
     \draw[forward] (estate)--(ridge);
     \draw[forward] (ridge)--(score);
-    \node[panel,fit=(etext)(frozen)(estate)(ridge)(score),label={[font=\bfseries]above left:Evaluation}] {};
+    \node[font=\bfseries,anchor=west] (evaluation-title) at ($(etext.north west)+(0,7mm)$) {Evaluation};
+    \node[panel,fit=(etext)(frozen)(estate)(ridge)(score)(evaluation-title)] {};
   \end{tikzpicture}}
-  \caption{Training and evaluation use different heads. Solid arrows show forward computation; red dashed arrows show gradient reach. The neural branch reaches the temporary head and every trainable producer of the selected state, including embeddings when they are trainable, but not later blocks through that branch. Frozen parameters receive no updates. Evaluation freezes the retained student, discards the temporary head, and fits a new ridge readout.}
+  \caption{Training and evaluation use different heads. Solid arrows show forward computation; red dashed arrows show gradient reach. The target branch reaches the temporary head and every trainable producer of the selected state, including embeddings when they are trainable, but not later blocks through that branch. Frozen parameters receive no updates. Evaluation freezes the retained student, discards the temporary head, and fits a new ridge readout.}
   \label{fig:training-architecture}
 \end{figure}
 
@@ -144,7 +152,9 @@ Full schedules and secondary parameter settings are confined to Appendix~\ref{ap
 After training, the temporary head is discarded and the retained student is frozen.
 Every held-out target or \ac{fmri} endpoint uses a newly fitted ridge readout \evd{E016}.
 The participant-transfer and exact-substrate diagnostics load saved students or fixed targets without retraining \evd{E025}\evd{E030}.
-The readout is fitted inside the evaluation folds, so performance of the temporary training head cannot enter a reported score and test responses cannot influence readout fitting.
+For recorded-target sentence interventions, student training holds out one 200-sentence outer block; the fresh response readout is then fitted and evaluated wholly within that block using five contiguous inner subfolds.
+For the baseline sentence and naturalistic-story assays, \texttt{RidgeCV} selects one penalty shared across all response coordinates from the relevant readout-training complement.
+In every case, regularization and transforms are nested inside the fitting set, so the temporary training head and held-out responses cannot enter a reported score.
 
 \subsection{Measuring brain predictivity}
 \label{sec:measurement}
@@ -165,14 +175,16 @@ R^2_{\mathrm{unique}}=R^2_{\mathrm{full}}-R^2_{\mathrm{nuisance}}.
 This predictive difference is not a causal allocation of biological variance \evd{E002}\evd{E006}.
 
 The Tuckute and LeBel brain assays compute coordinatewise $R_j^2$ and then average the declared \acp{roi} or voxels and folds; the continuity target-recovery score uses the same equal-coordinate convention \evd{E016}.
-The exact-substrate 20,484-coordinate C2 target-recovery assay instead computes $1-\mathrm{total\ SSE}/\mathrm{total\ SST}$ within each fold, which weights coordinates by held-out variance; its recorded-response C1/C3 assays remain coordinatewise \evd{E030}.
+The exact-substrate 20,484-coordinate target-recovery assay instead pools the held-out sum of squared errors (\(\mathrm{SSE}\)) and held-out total sum of squares (\(\mathrm{SST}\)) over all coordinates before computing \(1-\mathrm{SSE}/\mathrm{SST}\) within each fold, which weights coordinates by held-out variance; its target-to-response and composed student-to-target-to-response assays remain coordinatewise \evd{E030}.
 Coordinates, folds, and seeds are never promoted to biological replicates \evd{E016}\evd{E030}.
 
 Every encoding endpoint fits a fresh ridge estimator on frozen features.
-Regularization, standardization, centering, and any \ac{pca} are fitted only on the training portion before application to the held-out block; sentence analyses preserve contiguous item blocks and naturalistic analyses hold out whole stories.
-Layers and reliability filters are fixed independently of evaluation outcomes.
+Every learned operation is fitted only on the relevant readout-training complement before application to its held-out block.
+Sentence analyses preserve contiguous item blocks; naturalistic analyses hold out whole stories and learn only \ac{pca}, assembled-design scaling, response centering, ridge selection, and the readout after the fixed per-story pipeline described above.
+The baseline screen reports best layers descriptively within a fixed grid; later recorded-response assays prospectively reuse those choices, while the exact-substrate retention and student-to-target-to-response assays lock layer~6 as primary and layer~7 as non-rescuing sensitivity.
+Reliability filters are fixed independently of evaluation outcomes.
 The core sentence nuisance design contains token length, normalized item position, and a fixed static embedding; the exact-substrate primary design also includes imageability \evd{E030}.
-The naturalistic design contains word and phoneme rate, duration, length, log frequency, and a static embedding, with the same temporal resampling and hemodynamic delays applied across compared arms.
+The naturalistic design contains word and phoneme rate, duration, length, log frequency, and a static embedding; every compared arm reuses the same fixed per-story temporal arrays.
 Contextual and high-dimensional static blocks enter at a declared capacity-matched rank.
 These nuisance arrays are held identical within a contrast, so a training arm cannot gain merely from a wider readout or a different low-level timing model.
 Appendices~\ref{app:data-targets} and~\ref{app:inference} specify nuisance blocks, ranks, temporal transforms, and secondary estimators \evd{E001}\evd{E002}\evd{E006}\evd{E025}\evd{E030}.
@@ -184,8 +196,8 @@ Quality-aware headroom is measured before the intervention claims.
 At the declared layers, the \texttt{gpt2-medium} teacher at layer~14 is compared with random and pretrained \texttt{gpt2} students at layer~7, before and after ordinary \ac{kd}; alignment is interpreted jointly with held-out perplexity rather than as an objective-only effect \evd{E003}.
 The cross-tokenizer quality analysis uses tokenizer-comparable bits per byte \evd{E015}.
 
-The recorded-target pairing effect is the fresh held-out response-predictivity difference between correctly paired and block-permuted targets.
-The paired real and permuted arms use $\lambda_{\mathrm{neural}}=10$, the same seed, checkpoint schedule, optimizer-step budget, and fixed WikiText quality probe, and report held-out perplexity for each arm.
+The recorded-target pairing effect is the fresh held-out response-predictivity difference between the recorded-target arm and its matched permuted-target arm.
+Both arms use \(\lambda_{\mathrm{target}}=10\), the same seed, checkpoint schedule, optimizer-step budget, and fixed WikiText quality probe, and report held-out perplexity.
 Comparisons with ordinary \ac{kd} require checkpoint or curve matching on perplexity; without that match they remain descriptive.
 The averaged-response analysis remains a fixed-stimulus, fold-level estimand, whereas participant analyses aggregate folds and seeds within person before population inference \evd{E004}\evd{E005}\evd{E008}\evd{E017}.
 

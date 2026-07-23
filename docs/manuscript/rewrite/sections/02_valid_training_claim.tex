@@ -35,6 +35,7 @@ This selection is possible because matching a teacher's output distribution does
 The output objective constrains token probabilities, while different middle-layer bases, subspaces, and feature organizations can support similar outputs.
 An auxiliary target can therefore change an internal representation without necessarily improving or degrading the language objective.
 Feature-distillation research sharpens the point: useful transfer depends on which subspace is emphasized and on how teacher and student capacities are matched, not merely on copying a large dense vector \autocite{kornblith2019,saadi2025}.
+Appendix~\ref{app:inference} states the narrow assumptions under which information-theoretic quantities relate to these predictive scores and explains why data processing, generalization bounds, and rate--distortion theory do not by themselves license a training benefit.
 
 Evidence that this auxiliary intervention operated is still not evidence that its endpoint succeeded.
 Falling training loss shows only that the auxiliary objective and its temporary head engaged.
