@@ -17,24 +17,21 @@
 \maketitle
 
 \begin{abstract}
-Internal representations of a language model can help predict how the human brain responds to the same language.
-This measurable correspondence is often called brain alignment.
-But showing that brain alignment exists does not show that it can improve how a language model is trained.
-This thesis asks whether brain responses can help when compressing a language model: can they guide a smaller student, trained from a larger teacher, toward internal representations that remain effective for language and more predictive of brain activity?
 
-We test two approaches.
-The first trains the student using recorded functional magnetic resonance imaging (fMRI) responses.
-The second uses a separate model to predict brain responses from text, creating neural targets for far more training examples.
-We first confirmed that activations from the middle layers of pretrained language models help predict fMRI responses to new sentences, even after accounting for simpler features that could otherwise explain those responses.
-After ordinary distillation, the student was less brain-predictive than the teacher.
-However, it was also a worse language model, so the gap could reflect weaker language modeling rather than a specific loss of brain-related information.
+Model representations of an \ac{lm} can predict human brain responses to language, a measurable correspondence called brain alignment.
+Observing this alignment does not show that brain responses can improve model training.
+This thesis tests whether brain responses can improve \ac{lm} compression by guiding a distilled student toward representations that remain effective for language and become more predictive of brain responses.
+We test two distillation approaches: one using recorded \ac{fmri} responses and another using a separate model to generate synthetic brain responses from text.
+We confirmed that middle-layer activations from pretrained \acp{lm} help predict \ac{fmri} responses to new sentences, even after accounting for simpler linguistic features of those sentences.
+After ordinary distillation, the student's middle-layer activations were less predictive of brain responses than the teacher's.
+Because the student was also a worse \ac{lm}, the source of this gap remained unclear.
+Training with recorded responses did not reliably improve the student's ability to predict brain responses across participants.
+Training with synthetic brain responses changed the student's model representations while keeping language quality within our prespecified tolerance, and made the synthetic responses easier to recover from those representations.
+Yet a separate post-hoc linear-readout retention test did not establish that the synthetic-target student retained more information about the synthetic responses than a student trained by ordinary \ac{kd}.
+Because the alternative target differed too much from the synthetic brain-response target, we could not determine whether the changes were specific to synthetic brain responses.
+Direct improvement over ordinary distillation on independently recorded \ac{fmri} responses was near zero across nine participants.
+Thus, the tested methods did not demonstrate a reliable, brain-specific training benefit across participants, but they do not show that brain-guided training is universally ineffective.
 
-Training with recorded responses did not reliably improve brain prediction across participants.
-Training with predicted neural targets changed the student's internal representations and made those targets easier to recover, while language quality remained within our prespecified tolerance.
-When evaluated separately, however, the student did not clearly retain more target information than one trained by ordinary distillation.
-The nonbrain control was not comparable enough to show that the changes were specific to neural information, and the direct improvement over ordinary distillation on independently recorded responses was near zero across nine participants.
-Brain-related information was therefore measurable and could steer training, but the tested methods did not demonstrate a reliable, brain-specific training benefit across participants.
-These results show what is still missing between measuring brain alignment and using it as a training signal; they do not show that brain-guided training is universally ineffective.
 \end{abstract}
 \acresetall
 

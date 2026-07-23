@@ -18,7 +18,7 @@ The current scientific authority remains [`../extended/`](../extended/) until Er
 
 **Governing question.** Under what conditions can recorded fMRI responses or synthetic brain responses generated from text provide a reliable, brain-specific training advantage to a compressed language model, and where does the tested evidence chain first fail?
 
-**Provisional answer.** Trained language-model representations contain controlled, linearly accessible signal about held-out fMRI. The tested distilled student lies below its teacher on alignment, leaving observed headroom, although language-model quality remains a competing explanation. The tested recorded-response objectives do not demonstrate a reliable benefit across participants. Synthetic brain responses generated from text are learnable and move retained student representations without unacceptable language-quality loss, but the saved nonbrain comparator cannot identify brain-response content, direct participant transfer is near zero, and the exact target does not pass the frozen practical linear-measurability criterion. The evidence supports a failure-localization and evaluation framework, not a positive brain-guided distillation algorithm.
+**Provisional answer.** Trained language-model representations contain information useful for predicting held-out recorded fMRI responses beyond the specified controls. The tested distilled student is less brain-predictive than its teacher, although language-model quality remains a competing explanation. The tested recorded-response objectives do not demonstrate a reliable participant-level benefit. Synthetic brain responses generated from text are learnable and change retained student representations without unacceptable language-quality loss, but incremental retention remains unresolved, the saved text-derived comparator cannot identify brain-response content, the direct participant-level contrast on recorded fMRI responses is near zero, and the exact target does not pass the prespecified practical linear-measurability rule. The evidence supports a failure-localization and evaluation framework, not a successful brain-response-guided distillation method.
 
 **Scope.** The answer is limited to the tested models, English stimuli, datasets, participants, targets, objectives, optimization regimes, nuisance and intervention controls, linear readouts, comparators, inference units, and endpoints.
 
@@ -26,6 +26,7 @@ The current scientific authority remains [`../extended/`](../extended/) until Er
 
 - Organize the argument by claims and evidence gates, not experiment order.
 - Keep E identifiers as `\evd{Ennn}` provenance markers and appendix navigation, not reader-facing vocabulary.
+- Use formal academic prose: state the claim or procedure directly, and remove meta-commentary about framing or writing unless that framing is itself the claim.
 - A subsection normally owns three to five related paragraph questions. A two-paragraph subsection is allowed only when it marks a real conceptual boundary. Merge a one-paragraph subsection into its parent.
 - Split a subsection if it exceeds about 1,000 to 1,200 words, contains more than six or seven substantive paragraphs, or answers more than one parent question.
 - Main-text theory must change the interpretation of an estimand or control. Put non-decisive derivations and analogies in Appendix D.
@@ -55,9 +56,9 @@ Give the three evidence-chain artifacts different jobs. The Section 2 figure def
 | Target uptake | Recoverability of the optimized target from retained student representations by a fresh post-training readout. |
 | Retained-student movement | Parameter or representation change that remains after the temporary training head is discarded. |
 | Exact-target measurability | Whether the exact training target adds controlled, practically relevant predictivity of recorded responses on the intended biological substrate under the frozen assay. |
-| Comparator validity | Whether a nonbrain target permits attribution to neural target content rather than geometry, scale, learnability, or optimization pressure. |
+| Comparator validity | Whether a text-derived auxiliary target permits attribution to brain-response content rather than geometry, scale, learnability, or optimization pressure. |
 | Biological transfer | Improvement on independently recorded responses that were not optimized as the training endpoint. |
-| Brain-specific advantage | Incremental benefit beyond an appropriate nonbrain or permuted control, at comparable language-model quality and the correct biological inference unit. Reserve this term for identified contrasts. |
+| Brain-specific advantage | Incremental benefit beyond an appropriate text-derived or permuted control, at comparable language-model quality and the correct biological inference unit. Reserve this term for identified contrasts. |
 
 Use the acronym definitions in `acronyms.tex`; never define the same acronym manually in prose. Use one term per concept unless the table above marks an intentional distinction.
 
@@ -71,9 +72,9 @@ Every prose paragraph must answer one leaf question below. A paragraph may answe
 
 One paragraph, in this order:
 
-1. Why is using neural responses to train a compressed model different from measuring brain alignment?
+1. Why is using brain responses to train a smaller model different from measuring brain alignment?
 2. What counted as a reliable, brain-specific advantage?
-3. Which recorded- and predicted-target branches were tested?
+3. Which recorded-fMRI-response and synthetic-brain-response training branches were tested?
 4. Which measurement and manipulation checks passed?
 5. Where did attribution or participant-level transfer fail?
 6. What does the result establish, and what does it leave open?
@@ -82,22 +83,23 @@ Use at most one or two estimates if they are necessary to distinguish a passed m
 
 ### 1. Introduction
 
-**Section question.** Why is measurable brain alignment a plausible but insufficient basis for neural-target distillation, and what exact claim does this study test?
+**Section question.** Why is measurable brain alignment a plausible but insufficient basis for training a smaller model with brain responses, and what exact claim does this study test?
 
-No subsections. Six paragraphs:
+No subsections. Seven paragraphs:
 
-1. Why might neural responses select among language-compatible internal representations in a compressed model?
+1. Why might brain responses select among language-compatible model representations in a smaller model?
 2. What is brain alignment operationally, and which parts of that definition are assay-dependent?
-3. Why does a positive alignment score not establish trainability, neural specificity, biological transfer, or utility?
-4. What remains unresolved after prior encoding, neural-guided optimization, privileged-information, and compression work?
+3. Why does a positive brain-alignment score not establish that brain responses can help train a smaller model, a brain-specific advantage, biological transfer, or utility?
+4. What remains unresolved after prior encoding, brain-response-guided optimization, privileged-information, and compression work?
 5. Which ordered evidence gates would justify a brain-specific training advantage at comparable language-model quality?
-6. What scoped answer and three contributions does this study provide?
+6. What scoped answer does this study provide, and where is support lost or unresolved?
+7. What three contributions does the study make, and what limits the conclusion?
 
-The three contributions are controlled measurement with quality-aware interpretation, participant-level tests of recorded-target interventions, and localization of the predicted-target branch across uptake, movement, comparator validity, exact-target measurability, and biological transfer. Do not use internal rung names, experiment history, or E identifiers here.
+The three contributions are controlled measurement with quality-aware interpretation, participant-level tests of training with recorded fMRI responses, and localization of the synthetic brain-response training branch across uptake, movement, comparator validity, exact-target measurability, and biological transfer. Do not use internal rung names, experiment history, or E identifiers here.
 
 ### 2. From a Brain Score to a Valid Training Claim
 
-**Section question.** What must be true before neural-response supervision can be credited with a brain-specific advantage?
+**Section question.** What must be true before training with brain responses can be credited with a brain-specific advantage?
 
 Open with one bridge paragraph: Which links in the measurement-to-intervention chain have prior fields studied, and why must they be connected rather than treated as interchangeable?
 
@@ -109,27 +111,27 @@ Open with one bridge paragraph: Which links in the measurement-to-intervention c
 
 The answer is predictive accessibility under the declared assay, not a shared biological mechanism or causal equivalence.
 
-#### 2.2 Why might a neural target help a student, and why might it not?
+#### 2.2 Why might a brain-response target help a student, and why might it not?
 
-1. How can a neural target act as training-only privileged information or as a representational regularizer?
+1. How can a brain-response target act as training-only privileged information or as a representational regularizer?
 2. Why does matching a teacher's output distribution leave multiple compatible internal geometries?
 3. Why are target predictability, target-loss reduction, and retained-student movement manipulation checks rather than endpoint success?
 
 Keep only decision-relevant theory: output objectives do not identify internal geometry. A deterministic target cannot convey row-specific information independent of the stimulus and fixed generator, although it may convey generator-learned structure and reorganize what the student makes accessible. Put full mutual-information, ridge/MAP, and rate-distortion derivations in Appendix D.
 
-#### 2.3 What does prior neural-guided training leave unresolved?
+#### 2.3 What does prior brain-response-guided training leave unresolved?
 
-1. What positive evidence shows that neural supervision can alter representations or task performance?
+1. What positive evidence shows that training with brain responses can alter model representations or task performance?
 2. Which differences in modality, temporal resolution, personalization, model budget, endpoints, controls, seeds, and inference units prevent those results from settling compressed-student value?
 3. What do privileged-information and feature-distillation studies establish about dense training-only targets, and what generic-target alternative do they create?
 4. What do validity and compression studies require concerning nuisance control, split design, language-quality matching, and post-hoc versus training-time alignment?
 
-Compare estimands and designs. Do not claim that positive prior studies are invalid or that they all lack neural controls.
+Compare estimands and designs. Do not claim that positive prior studies are invalid or that they all lack controls for brain-response content.
 
 #### 2.4 What evidence standard does this manuscript use?
 
 1. Which stages must pass from controlled measurability and language-quality headroom through exact-target measurability, target uptake, retained-student movement, comparator validity, biological transfer, and utility, and what does each stage establish?
-2. Which comparator belongs to each stage, including untrained networks, ordinary distillation, permuted targets, matched nonbrain targets, matched language quality, and independent recorded-brain endpoints?
+2. Which comparator belongs to each stage, including untrained networks, ordinary distillation, permuted targets, matched text-derived auxiliary targets, matched language quality, and independent recorded-brain endpoints?
 3. Which failed prerequisites stop a branch from supporting a brain-specific advantage, and which later descriptive results may still be reported without reviving the claim?
 
 Place the evidence-chain figure here. Do not repeat a second full version in the Introduction or Methods.
@@ -154,7 +156,7 @@ Do not mix dataset description with result interpretation. Evidence owners: E002
 1. Which teacher, student, ordinary distillation objective, and initialization are shared across arms?
 2. Where is the temporary target head attached, which loss reaches which part of the student, and which parameters are trainable in each main regime?
 3. Which heads and parameters are retained, frozen, merged, or discarded before evaluation?
-4. How do recorded-target, permuted-target, ordinary-distillation, text-feature, and TRIBE arms differ while preserving the intended comparison?
+4. How do recorded-brain-response, permuted-target, ordinary-distillation, text-derived-target, and TRIBE arms differ while preserving the intended comparison?
 
 Use one architecture diagram to show both losses, gradient paths, and deployment-time components. State implementation variants in Appendix C rather than pretending all experiment families share one exact parameterization. Evidence owners: E003-E005, E008, E011, E013, E016-E017, and E025-E026, verified against source code.
 
@@ -169,8 +171,8 @@ Introduce ordinary \(R^2\) before unique \(R^2\). Keep the two defining equation
 
 #### 3.4 What are the estimands, controls, and inference units?
 
-1. Which contrast tests recorded-target specificity, and what independent unit supports its uncertainty statement?
-2. Which distinct contrasts test predicted-target uptake, retained-student movement, comparator identification, exact-target validity, and biological transfer?
+1. Which contrast tests recorded-brain-response-target specificity, and what independent unit supports its uncertainty statement?
+2. Which distinct contrasts test synthetic-brain-response-target uptake, retained-student movement, comparator identification, exact-target validity, and biological transfer?
 3. Why are participants biological inference units while folds, voxels, seeds, layers, and checkpoints usually quantify technical variation or robustness?
 4. How is comparable language-model quality defined, measured, and enforced for each intervention contrast, and when does a mismatch make the comparison descriptive rather than identified?
 5. How are confidence intervals, named tests, multiplicity, minimum detectable effects, practical thresholds, and prospective stop rules used without turning internal thresholds into universal biological constants?
@@ -183,7 +185,7 @@ End with one transition paragraph explaining that Results follow the evidence ch
 
 Open with one compact status table: What is the verdict, strongest evidence, and interpretation at each stage? Use *supported*, *not demonstrated*, *unresolved*, and *non-identifying comparator* consistently.
 
-#### 4.1 Is controlled neural signal present?
+#### 4.1 Is controlled brain predictivity present?
 
 1. Do trained middle layers predict held-out sentence-level fMRI beyond the specified nuisance features and architecture-matched untrained controls?
 2. Does controlled predictivity survive held-out-story evaluation in the naturalistic voxelwise substrate?
@@ -201,7 +203,7 @@ Evidence owners: E003 and E015.
 
 End with an explicit branch handoff: controlled predictivity passes and observed headroom motivates intervention, but quality coupling requires matched intervention tests.
 
-#### 4.3 Recorded-target branch: Do recorded neural targets create a participant-general advantage?
+#### 4.3 Recorded-response branch: Does training with recorded fMRI responses create a participant-level advantage?
 
 1. What apparent averaged-target positive trend appeared, and what estimand did that design actually support?
 2. Why did valid-fold and participant-level reanalysis weaken the original positive interpretation?
@@ -211,20 +213,20 @@ End with an explicit branch handoff: controlled predictivity passes and observed
 
 Evidence owners: E004-E005, E008, E010-E011, E013-E014, and E017. Summarize intervention variants in one table and move their full detail to Appendix E.
 
-#### 4.4 Predicted-target branch I: Is the target measurable, learnable, and attributable?
+#### 4.4 Synthetic-response branch I: Is the target measurable, learnable, and attributable?
 
 1. Does the exact PCA-50 TRIBE target add controlled, practically relevant linear predictivity beyond the frozen nuisance model on the intended recorded-brain substrate, and does it beat the frozen row twin?
 2. Can a fresh readout recover the target from retained student representations beyond seed-matched ordinary distillation and target permutations?
 3. Do target retention, parameter displacement, representation movement, and language-quality checks show that the intervention changed the retained student without unacceptable quality loss?
-4. Is the saved text-feature target sufficiently matched to attribute the larger TRIBE proxy gain to neural target content?
+4. Is the saved text-derived auxiliary target sufficiently matched to attribute the larger TRIBE proxy gain to brain-response content?
 
 Evidence owners: E016, E025-E026, and E030. Exact-target measurability misses the frozen practical rule, while twin specificity remains unresolved. The later manipulation checks pass descriptively, but they cannot revive the brain-specific claim after the earlier prerequisite fails. Content attribution is not identified because the saved comparator differs on measured baseline headroom, covariance geometry, nuisance predictability, parameter displacement, and retained representation movement; initial-gradient comparability remains unresolved.
 
-#### 4.5 Predicted-target branch II: Does target uptake transfer to recorded brain responses?
+#### 4.5 Synthetic-response branch II: Does target uptake transfer to recorded fMRI responses?
 
 1. Given the earlier failed or unresolved prerequisites, what can later biological-transfer results still establish descriptively?
 2. What does the direct participant-level TRIBE-minus-ordinary-distillation contrast show?
-3. What does the TRIBE-minus-text-feature contrast show numerically, and why can it not identify neural content?
+3. What does the TRIBE-minus-text-derived-target contrast show numerically, and why can it not identify brain-response content?
 4. Does student-predictable target structure overlap with independently recorded responses under the frozen bridge test?
 5. Where is the first defensible predictive failure localized, and why does that localization not causally explain the later near-zero transfer result?
 
@@ -232,7 +234,7 @@ Evidence owners: E025, E026, and E030. State that direct transfer is near zero i
 
 #### 4.6 Does any tested route establish external utility?
 
-1. Does the recorded-target intervention improve the selected out-of-domain language endpoint when its prerequisite brain-specific representation change is absent?
+1. Does training with recorded fMRI responses improve the selected out-of-domain language endpoint when its prerequisite brain-specific representation change is absent?
 2. Do reduced external reproductions or cognitive and privileged-target branches establish a positive result under their declared controls?
 3. What does stopping at failed prerequisites license us to conclude, and why does it not establish a universal utility null?
 
@@ -244,7 +246,7 @@ Evidence owners: E009, E019-E022, and E024. Keep only E009 and a compact synthes
 
 #### 5.1 What exactly failed?
 
-1. Which links passed, failed, or remained unresolved in the recorded- and predicted-target branches?
+1. Which links passed, failed, or remained unresolved in the recorded-response and synthetic-response branches?
 2. Which explanations are weakened by the measurement controls and intervention variants?
 3. Which explanations remain viable, including target information, target geometry, modality, temporal precision, optimization, model scale, nonlinear transfer, and participant heterogeneity?
 4. Why is this a scoped failure localization rather than a universal null or a causal explanation of failure?
@@ -311,7 +313,7 @@ Use one ledger rather than one prose subsection per experiment.
 1. Which low-level, static, and model-derived nuisance features are used in each analysis?
 2. Which transforms are fitted inside folds, and which checks prevent leakage or repeated-stimulus contamination?
 
-#### B.3 Predicted and nonbrain targets
+#### B.3 Synthetic brain responses and text-derived auxiliary targets
 
 1. How are the exact TRIBE target, PCA representation, frozen row twin, text-feature target, and permutations generated?
 2. How are dimensions, scaling, covariance, baseline headroom, and learnability compared, and where does matching remain inadequate?
@@ -323,12 +325,12 @@ Use one ledger rather than one prose subsection per experiment.
 1. What output loss, temperature, weighting, data, initialization, schedule, and quality criteria define ordinary distillation?
 2. Which checkpoints and seed-matched comparisons are used across intervention arms?
 
-#### C.2 Recorded-target interventions
+#### C.2 Recorded-brain-response interventions
 
-1. What forward path, target head, loss, trainable parameter set, and retained component define each recorded-target regime?
+1. What forward path, target head, loss, trainable parameter set, and retained component define each recorded-brain-response-target regime?
 2. How do MSE, contrastive, adapter-capacity, voxelwise, and full-fine-tuning variants depart from the common design?
 
-#### C.3 Predicted-target interventions
+#### C.3 Synthetic-brain-response interventions
 
 1. What forward and gradient paths connect the middle-layer representation, temporary target head, KD loss, target loss, later student blocks, and tied output components?
 2. Which parameters and heads are saved or discarded, and how are matched ordinary-distillation, text-feature, and permuted controls constructed?
