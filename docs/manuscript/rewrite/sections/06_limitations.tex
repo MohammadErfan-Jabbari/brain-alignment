@@ -1,4 +1,36 @@
 \section{Limitations}
 \label{sec:limitations}
 
-\gap{Answer the six ordered Limitations questions in AGENTS.md without subsection headings.}
+The biological coverage is limited to English-language \ac{fmri} responses from the studied cohorts.
+The sentence experiments summarize responses within fixed left-hemisphere language \acp{roi}, while the naturalistic assay uses reliability-selected voxels from a few deeply sampled story listeners.
+Some training targets average responses across participants to emphasize a shared stimulus-locked component; the participant-first analyses instead retain one effect per person.
+The conclusion therefore concerns these isolated-sentence and spoken-story response summaries, not language processing across the brain or population at large \evd{E002}\evd{E006}\evd{E008}\evd{E025}.
+
+The experiments do not cover neural modalities with finer temporal resolution, populations that differ in language background or clinical and developmental status, non-English or nonlinguistic stimuli, or a broader range of reading, listening, and interactive contexts.
+They also do not test whether information unavailable to the declared linear ridge readouts is accessible through nonlinear maps or at different temporal scales.
+Because modality, temporal precision, population, and stimulus structure can change both the target and the intervention, the local failures do not extend to those untested regimes \evd{E006}\evd{E030}.
+
+Identification is conditional on the declared nuisance sets, controls, and dependence structure.
+Unique predictivity is only beyond the included nuisance features, not beyond all stimulus-derived information, and the trained-versus-untrained contrast establishes learned predictive access rather than a shared mechanism \evd{E002}\evd{E006}\evd{E025}.
+The saved nonbrain comparator mismatches target predictability, geometry, learnability, and induced movement, so its cross-target contrast cannot identify neural target content \evd{E026}.
+Exact-target measurability is further restricted to the \ac{pca}-50 linear assay, and specificity against the frozen twin remains unresolved \evd{E030}.
+Shared folds, stories, voxels, and training seeds are dependent measurements rather than population replicates; consequently, participant-general claims remain limited to analyses that aggregate them within person.
+
+The participant intervals disfavor effects at the declared continuation scales in the tested cohorts, but they do not establish exact zero.
+For recorded-target pairing, the participant interval is \result{e008_ci}, far below the earlier averaged-response trend while still including zero \evd{E008}.
+For the predicted-target comparison, the preregistered relative upper bound is \result{e025_participant_ucb}, below the internal \result{e030_practical_threshold} continuation scale, although the comparator prevents attribution to neural target content; the direct target-trained-versus-\ac{kd} interval is \result{e025_tribe_kd_ci} \evd{E025}\evd{E026}.
+The exact-target unique-increment interval is \result{e030_target_unique_ci}, whose simultaneous upper endpoint is also below that inherited scale \evd{E030}.
+These bounds disfavor participant-average intervention effects and target-measurability increments of the prespecified size under the tested assays, while remaining compatible with smaller effects, mixed participant responses, and effects in other cohorts.
+
+The intervention search was diagnostic rather than exhaustive.
+It did not jointly explore a broad range of student scales and architectures, objective families, loss weights, schedules, data volumes, target constructions, or participant-personalization strategies.
+Increasing adapter capacity at a fixed loss weight did not create a stronger effective manipulation, and the contrastive, voxelwise, and full-parameter variants close only their tested parameterizations and data regimes \evd{E011}\evd{E013}\evd{E017}.
+The conclusion therefore localizes failure within the executed search rather than claiming that a different scale, target, personalized objective, or optimization schedule cannot succeed.
+
+Practical utility was also sampled through a narrow set of endpoints.
+Perplexity served both as a language-quality control and as the primary out-of-domain utility measure, so the experiments do not exhaust task accuracy, calibration, robustness, sample efficiency, or deployment-specific value \evd{E009}.
+The Negi-style experiment is a scoped lever diagnostic because protocol and substrate differences prevent a faithful reproduction of the source study \autocite{negi2025}\evd{E019}.
+The reduced Moussa-style experiment is a weak single-participant non-reproduction of only the local setup \autocite{moussa2025,moussa2025b}\evd{E022}.
+Neither result refutes its source study.
+The gaze route stops before its planned intervention, and the shared-response route stops at a failed instrument \evd{E020}\evd{E024}.
+Accordingly, the evidence licenses no brain-specific neural-target utility claim for the completed routes, but it does not establish that every practical endpoint would be unchanged after a successfully identified biological intervention.

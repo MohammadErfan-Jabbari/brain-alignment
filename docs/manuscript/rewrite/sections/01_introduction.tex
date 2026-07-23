@@ -14,7 +14,7 @@ The score is consequently a property of an assay, not of the model alone: it dep
 In this manuscript, \emph{controlled brain predictivity} refers to brain alignment after the specified nuisance, split, and control-model checks.
 
 A positive alignment score establishes predictive access under that assay, but it does not establish the stronger training claim.
-It does not show that a neural target can be optimized strongly enough to alter the retained student, that any alteration is specific to neural content rather than generic target geometry or optimization pressure, or that the alteration transfers to independently recorded responses.
+It does not show that a neural target can be optimized strongly enough to alter the retained student, that any alteration is specific to neural target content rather than generic target geometry or optimization pressure, or that the alteration transfers to independently recorded responses.
 It also does not show that a transferred change improves a language task or another practical endpoint.
 These distinctions matter because non-robust splits, simple stimulus features, and analysis choices can create or reorder apparent model--brain correspondences \autocite{hadidi2026,jia2026}.
 An encoding map should therefore be read as a measurement instrument between two spaces, not as a component presumed to exist in either the model or the brain.
@@ -30,7 +30,7 @@ We therefore treat a brain-specific training advantage as the endpoint of an ord
 The relevant representations must first show controlled brain predictivity, and compression must leave interpretable headroom without language-model quality silently deciding the comparison.
 The exact training target must then have a controlled relationship to recorded responses; the student must take up that target; and the intervention must move the retained student without unacceptable loss of language-model quality.
 Correct stimulus--target pairing must matter relative to a permuted target that preserves the target's structure.
-Attribution to neural content requires a separate nonbrain target matched on geometry, scale, baseline predictability and learnability, and optimization pressure; the two controls are not interchangeable, and neither can do the other's job.
+Attribution to neural target content requires a separate nonbrain target matched on geometry, scale, baseline predictability and learnability, and optimization pressure; the two controls are not interchangeable, and neither can do the other's job.
 Finally, the change must transfer to independently recorded responses at the participant inference unit before it can support a biological claim, and it must improve an external endpoint before it can support a utility claim.
 A failed prerequisite does not erase later manipulation evidence, but it limits what that evidence can establish.
 
@@ -38,7 +38,7 @@ For the tested systems, the answer is negative but informative about where suppo
 Trained language-model representations contain controlled, linearly accessible signal about held-out \ac{fmri}, and the tested distilled student lies below its teacher on alignment, leaving observed headroom for intervention; language-model quality, however, remains a competing explanation for that gap.
 Recorded-response objectives do not demonstrate a reliable brain-specific advantage across participants.
 For the predicted-target branch, under the specified linear assay, the exact target did not meet the study's practical threshold for added prediction of recorded responses beyond nuisance controls.
-The target was nevertheless learnable and moved retained student representations without unacceptable loss of language-model quality; however, the available nonbrain target was not sufficiently matched to identify neural content, and participant-level evaluation found direct biological transfer near zero.
+The target was nevertheless learnable and moved retained student representations without unacceptable loss of language-model quality; however, the available nonbrain target was not sufficiently matched to identify neural target content, and participant-level evaluation found direct biological transfer near zero.
 This study contributes, first, controlled measurement with a quality-aware interpretation of compression headroom; second, participant-level tests of recorded-target interventions; and third, a localization of the predicted-target branch across exact-target measurability, target uptake, retained-student movement, comparator validity, and biological transfer.
 The conclusion is restricted to the tested models, English stimuli, datasets, participants, targets, objectives, optimization regimes, controls, linear readouts, comparators, inference units, and endpoints.
 It supports an evaluation framework for locating failure, not a positive brain-guided distillation algorithm or a universal claim that neural supervision cannot help.
