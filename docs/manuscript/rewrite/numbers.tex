@@ -20,7 +20,7 @@
 \DeclareResult{e004_qwen_specific}{$+0.00316$}                           % [E004] Qwen mse-minus-block-permuted mean over five folds
 \DeclareResult{e004_qwen_fold_ci}{[$-0.00227$, $+0.00858$]}             % [E004] t-CI at n=5 fold unit
 \DeclareResult{e004_qwen_lofo}{$+0.0014$}                               % [E004] leave-fold-4-out mean
-\DeclareResult{e008_mean}{$+0.00010$}                                    % [E008] per-individual mean (n=9)
+\DeclareResult{e008_mean}{$+0.00010$}                                    % [E008] cohort mean over nine participant medians
 \DeclareResult{e008_ci}{[$-0.00037$, $+0.00058$]}                        % [E008] 95\% subject-axis t-CI, n=9
 \DeclareResult{e008_fold_mean}{$+0.00026$}                               % [E008] fold-clustered mean, n=5
 \DeclareResult{e008_fold_ci}{[$-0.0004$, $+0.0009$]}                    % [E008] fold-clustered t-CI, n=5
@@ -35,6 +35,18 @@
 \DeclareResult{e008_uid875}{$+0.00070575$}                              % [E008] UID 875 median over paired seed-fold cells
 \DeclareResult{e008_uid876}{$+0.00011067$}                              % [E008] UID 876 median over paired seed-fold cells
 \DeclareResult{e008_uid880}{$+0.00083826$}                              % [E008] UID 880 median over paired seed-fold cells
+\DeclareResult{e008_plot_uid797}{0.00002885}                            % [E008] plot coordinate, UID 797 median over paired seed-fold cells
+\DeclareResult{e008_plot_uid837}{0.00100412}                            % [E008] plot coordinate, UID 837 median over paired seed-fold cells
+\DeclareResult{e008_plot_uid841}{-0.00018259}                           % [E008] plot coordinate, UID 841 median over paired seed-fold cells
+\DeclareResult{e008_plot_uid848}{-0.00063374}                           % [E008] plot coordinate, UID 848 median over paired seed-fold cells
+\DeclareResult{e008_plot_uid856}{-0.00037809}                           % [E008] plot coordinate, UID 856 median over paired seed-fold cells
+\DeclareResult{e008_plot_uid865}{-0.00058994}                           % [E008] plot coordinate, UID 865 median over paired seed-fold cells
+\DeclareResult{e008_plot_uid875}{0.00070575}                            % [E008] plot coordinate, UID 875 median over paired seed-fold cells
+\DeclareResult{e008_plot_uid876}{0.00011067}                            % [E008] plot coordinate, UID 876 median over paired seed-fold cells
+\DeclareResult{e008_plot_uid880}{0.00083826}                            % [E008] plot coordinate, UID 880 median over paired seed-fold cells
+\DeclareResult{e008_plot_mean}{0.00010}                                % [E008] plot coordinate, cohort mean over nine participant medians
+\DeclareResult{e008_plot_ci_low}{-0.00037}                             % [E008] plot coordinate, participant t-CI95 lower endpoint
+\DeclareResult{e008_plot_ci_high}{0.00058}                             % [E008] plot coordinate, participant t-CI95 upper endpoint
 \DeclareResult{e005_apparent}{$+0.0081$}                                 % [E005] apparent averaged-target gain
 \DeclareResult{e005_fold_ci}{[$-0.0030$, $+0.0193$]}                    % [E005] valid five-fold t-CI after averaging seeds within fold
 \DeclareResult{e005_real_ppl}{$55.4$}                                   % [E005] fixed WikiText probe perplexity, real-target arm
@@ -78,6 +90,18 @@
 \DeclareResult{e025_uid875_row}{$+0.00009116,\;-0.00006339,\;-0.00015455$} % [E025] UID 875: TRIBE-textfeat, TRIBE-KD, textfeat-KD
 \DeclareResult{e025_uid876_row}{$-0.00013023,\;-0.00014342,\;-0.00001319$} % [E025] UID 876: TRIBE-textfeat, TRIBE-KD, textfeat-KD
 \DeclareResult{e025_uid880_row}{$+0.00012305,\;+0.00013517,\;+0.00001212$} % [E025] UID 880: TRIBE-textfeat, TRIBE-KD, textfeat-KD
+\DeclareResult{e025_plot_uid797}{-0.00005311}                           % [E025] plot coordinate, UID 797 direct TRIBE-minus-KD
+\DeclareResult{e025_plot_uid837}{0.00226591}                            % [E025] plot coordinate, UID 837 direct TRIBE-minus-KD
+\DeclareResult{e025_plot_uid841}{-0.00078813}                           % [E025] plot coordinate, UID 841 direct TRIBE-minus-KD
+\DeclareResult{e025_plot_uid848}{-0.00002667}                           % [E025] plot coordinate, UID 848 direct TRIBE-minus-KD
+\DeclareResult{e025_plot_uid856}{-0.00036255}                           % [E025] plot coordinate, UID 856 direct TRIBE-minus-KD
+\DeclareResult{e025_plot_uid865}{-0.00108762}                           % [E025] plot coordinate, UID 865 direct TRIBE-minus-KD
+\DeclareResult{e025_plot_uid875}{-0.00006339}                           % [E025] plot coordinate, UID 875 direct TRIBE-minus-KD
+\DeclareResult{e025_plot_uid876}{-0.00014342}                           % [E025] plot coordinate, UID 876 direct TRIBE-minus-KD
+\DeclareResult{e025_plot_uid880}{0.00013517}                            % [E025] plot coordinate, UID 880 direct TRIBE-minus-KD
+\DeclareResult{e025_plot_mean}{-0.000014}                              % [E025] plot coordinate, direct TRIBE-minus-KD mean
+\DeclareResult{e025_plot_ci_low}{-0.000739}                            % [E025] plot coordinate, participant t-CI95 lower endpoint
+\DeclareResult{e025_plot_ci_high}{0.000711}                            % [E025] plot coordinate, participant t-CI95 upper endpoint
 \DeclareResult{e025_seed0_row}{$-0.00015727,\;-0.00035769,\;-0.00020042$} % [E025] seed 0: TRIBE-textfeat, TRIBE-KD, textfeat-KD
 \DeclareResult{e025_seed1_row}{$+0.00032614,\;+0.00003556,\;-0.00029058$} % [E025] seed 1: TRIBE-textfeat, TRIBE-KD, textfeat-KD
 \DeclareResult{e025_seed2_row}{$+0.00004025,\;+0.00000892,\;-0.00003133$} % [E025] seed 2: TRIBE-textfeat, TRIBE-KD, textfeat-KD
@@ -93,7 +117,7 @@
 \DeclareResult{e026_lowlevel_gaps}{$0.192$ and $0.183$}                % [E026] low-level nuisance heldout R2 gap, coordinate samples A/B
 \DeclareResult{e030_participant_n}{$n=9$}                              % [E030] participant inference-unit count for C1 and C3
 \DeclareResult{e030_seed_n}{$n=6$}                                     % [E030] paired technical training-seed count for C2
-\DeclareResult{e030_practical_threshold}{$+0.002$}                     % [E030] inherited internal continuation threshold for C1 practical exclusion
+\DeclareResult{e030_practical_threshold}{$+0.002$}                     % [E025/E030] E025-origin internal continuation threshold inherited by E030 for exact-target practical exclusion
 \DeclareResult{e030_target_unique}{$-0.004494$}                        % [E030] participant-mean PCA-50 aligned-target unique increment above nuisance, n=9
 \DeclareResult{e030_target_unique_ci}{[$-0.010695$, $+0.001707$]}      % [E030] Bonferroni family-95% two-sided t interval
 \DeclareResult{e030_target_twin}{$+0.001758$}                          % [E030] participant-mean aligned-minus-frozen-twin contrast, n=9
@@ -117,6 +141,31 @@
 \DeclareResult{e030_uid875_row}{$+0.00266981,\;+0.01519279,\;+0.00447180,\;-0.00018830,\;-0.00019123$} % [E030] UID 875: A, Q, O, D, J
 \DeclareResult{e030_uid876_row}{$-0.00660269,\;-0.00590127,\;-0.00126093,\;+0.00008691,\;+0.00008438$} % [E030] UID 876: A, Q, O, D, J
 \DeclareResult{e030_uid880_row}{$+0.00293994,\;+0.00106256,\;+0.00043030,\;+0.00003540,\;+0.00003336$} % [E030] UID 880: A, Q, O, D, J
+\DeclareResult{e030_plot_uid797}{-0.00266759}                           % [E030] plot coordinate, UID 797 exact-target unique signal
+\DeclareResult{e030_plot_uid837}{-0.00448823}                           % [E030] plot coordinate, UID 837 exact-target unique signal
+\DeclareResult{e030_plot_uid841}{-0.02042083}                           % [E030] plot coordinate, UID 841 exact-target unique signal
+\DeclareResult{e030_plot_uid848}{-0.00001541}                           % [E030] plot coordinate, UID 848 exact-target unique signal
+\DeclareResult{e030_plot_uid856}{-0.01394534}                           % [E030] plot coordinate, UID 856 exact-target unique signal
+\DeclareResult{e030_plot_uid865}{0.00208088}                            % [E030] plot coordinate, UID 865 exact-target unique signal
+\DeclareResult{e030_plot_uid875}{0.00266981}                            % [E030] plot coordinate, UID 875 exact-target unique signal
+\DeclareResult{e030_plot_uid876}{-0.00660269}                           % [E030] plot coordinate, UID 876 exact-target unique signal
+\DeclareResult{e030_plot_uid880}{0.00293994}                            % [E030] plot coordinate, UID 880 exact-target unique signal
+\DeclareResult{e030_plot_mean}{-0.004494}                              % [E030] plot coordinate, participant-mean exact-target unique signal
+\DeclareResult{e030_plot_ci_low}{-0.010695}                            % [E030] plot coordinate, Bonferroni family-95% lower endpoint
+\DeclareResult{e030_plot_ci_high}{0.001707}                            % [E030] plot coordinate, Bonferroni family-95% upper endpoint
+\DeclareResult{e030_plot_threshold}{0.002}                             % [E025/E030] plot coordinate, inherited internal continuation reference
+\DeclareResult{e030_plot_twin_uid797}{-0.00031777}                     % [E030] plot coordinate, UID 797 aligned-minus-frozen-twin contrast
+\DeclareResult{e030_plot_twin_uid837}{-0.00785204}                     % [E030] plot coordinate, UID 837 aligned-minus-frozen-twin contrast
+\DeclareResult{e030_plot_twin_uid841}{0.00588154}                      % [E030] plot coordinate, UID 841 aligned-minus-frozen-twin contrast
+\DeclareResult{e030_plot_twin_uid848}{0.00158126}                      % [E030] plot coordinate, UID 848 aligned-minus-frozen-twin contrast
+\DeclareResult{e030_plot_twin_uid856}{-0.00066703}                     % [E030] plot coordinate, UID 856 aligned-minus-frozen-twin contrast
+\DeclareResult{e030_plot_twin_uid865}{0.00684375}                      % [E030] plot coordinate, UID 865 aligned-minus-frozen-twin contrast
+\DeclareResult{e030_plot_twin_uid875}{0.01519279}                      % [E030] plot coordinate, UID 875 aligned-minus-frozen-twin contrast
+\DeclareResult{e030_plot_twin_uid876}{-0.00590127}                     % [E030] plot coordinate, UID 876 aligned-minus-frozen-twin contrast
+\DeclareResult{e030_plot_twin_uid880}{0.00106256}                      % [E030] plot coordinate, UID 880 aligned-minus-frozen-twin contrast
+\DeclareResult{e030_plot_twin_mean}{0.001758}                          % [E030] plot coordinate, participant-mean aligned-minus-frozen-twin contrast
+\DeclareResult{e030_plot_twin_ci_low}{-0.003575}                       % [E030] plot coordinate, Bonferroni family-95% lower endpoint
+\DeclareResult{e030_plot_twin_ci_high}{0.007091}                       % [E030] plot coordinate, Bonferroni family-95% upper endpoint
 \DeclareResult{e030_seed0_row}{$+0.03965524,\;+0.00013878,\;-0.00003781,\;-0.00004017$} % [E030] seed 0: M, B, D, J
 \DeclareResult{e030_seed1_row}{$+0.04096723,\;+0.00103098,\;-0.00004152,\;-0.00004668$} % [E030] seed 1: M, B, D, J
 \DeclareResult{e030_seed2_row}{$+0.03932328,\;-0.00159873,\;-0.00001666,\;-0.00001488$} % [E030] seed 2: M, B, D, J

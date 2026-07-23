@@ -4,8 +4,9 @@
 The experiments instantiate the evidence chain with separate estimands rather than treating every change in brain predictivity as the same outcome.
 Table~\ref{tab:evidence-map} assigns each gate one primary comparison, endpoint, and inference unit.
 It is a design map, not a result summary: manipulation, transfer, and utility measurements answer different questions even when they reuse one trained student.
+Bracketed E-codes identify the owning experiment records summarized in Appendix~\ref{app:evidence-provenance}; they are provenance markers, not literature citations.
 
-\begin{table}[t]
+\begin{table}[H]
   \centering
   \footnotesize
   \setlength{\tabcolsep}{4pt}
@@ -53,7 +54,7 @@ It uses attention-mask mean pooling at layer~12, five-dimensional \ac{roi} targe
 The averaged and participant-specific targets share this machinery but answer different questions \evd{E005}\evd{E008}.
 
 The predicted-target regime distils \texttt{gpt2-medium} into \texttt{gpt2} on 95,999 WikiText-103 training sentences, with 1,999 sentences held out, attention-mask mean pooling at layer~6, and a 20,484-coordinate target.
-TRIBE~\autocite{dascoli2026} supplies the fixed text-derived target; the nonbrain arm mean-pools frozen GPT-2-medium features and applies a seeded Gaussian projection to the same dimension.
+Text-only TRIBE v2 maps stimulus events to predicted \ac{fmri} activity on the standardized 20,484-location cortical surface and supplies the fixed predicted-neural target \autocite{dascoli2026}; the nonbrain arm mean-pools frozen GPT-2-medium features and applies a seeded Gaussian projection to the same dimension.
 The frozen Sattolo row twin is the valid stimulus--target pairing test; the saved block permutation is retained only as a defective sensitivity because it leaves fixed points and can duplicate and omit rows.
 The projected nonbrain target matches dimension, corpus, model lineage, loss form, and schedule, but measured audits show mismatches in covariance geometry, baseline headroom, nuisance predictability, parameter displacement, and retained-representation movement.
 Initial-loss and gradient-scale comparability is unknown because those quantities were not retained.
@@ -139,7 +140,7 @@ Figure~\ref{fig:training-architecture} separates the two paths.
 \end{figure}
 
 The trainable subset is part of each intervention.
-Primary recorded-target runs train \ac{lora} adapters and the temporary head while the base model and tied embedding/output matrix remain frozen; the naturalistic full-fine-tuning variant instead trains transformer weights and the temporary head while retaining that tied-matrix freeze \evd{E017}.
+Primary recorded-target runs train \ac{lora} adapters \autocite{hu2022} and the temporary head while the base model and tied embedding/output matrix remain frozen; the naturalistic full-fine-tuning variant instead trains transformer weights and the temporary head while retaining that tied-matrix freeze \evd{E017}.
 TRIBE trains all GPT-2 student parameters, including the tied embedding/output weights, plus the temporary head.
 These are distinct parameterizations, so absolute scores across recorded and predicted families are not intervention contrasts \evd{E004}\evd{E008}\evd{E016}\evd{E017}.
 Here ``retained'' means that a component survives deployment; it does not imply that the component was trainable in every regime.
@@ -156,6 +157,7 @@ For recorded-target sentence interventions, student training holds out one 200-s
 For the baseline sentence and naturalistic-story assays, \texttt{RidgeCV} selects one penalty shared across all response coordinates from the relevant readout-training complement.
 In every case, regularization and transforms are nested inside the fitting set, so the temporary training head and held-out responses cannot enter a reported score.
 
+\FloatBarrier
 \subsection{Measuring brain predictivity}
 \label{sec:measurement}
 

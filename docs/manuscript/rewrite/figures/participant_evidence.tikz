@@ -1,0 +1,112 @@
+\begin{tikzpicture}[
+  participant/.style={circle,fill=gray!55,draw=gray!75,inner sep=1.5pt},
+  meanmark/.style={rectangle,fill=black,draw=black,minimum size=4pt,inner sep=0pt},
+  axis/.style={gray!70,thin},
+  interval/.style={black,very thick},
+  zeroline/.style={gray!75,densely dotted},
+  threshold/.style={red!70!black,dashed,thick}
+]
+  \newcommand{\plotresult}[1]{\csname result@#1\endcsname}
+  \node[anchor=west,font=\scriptsize] at (3.4,7.8) {\tikz{\node[participant] {};}\ participant};
+  \node[anchor=west,font=\scriptsize] at (6.0,7.8) {\tikz{\node[meanmark] {};}\ mean with 95\% interval};
+  \draw[threshold] (10.4,7.8)--(11.0,7.8);
+  \node[anchor=west,font=\scriptsize] at (11.1,7.8) {internal continuation reference};
+
+  \begin{scope}[yshift=5.6cm]
+    \def\xmin{-0.0013}
+    \def\xmax{0.0025}
+    \draw[axis] (3.4,0)--(12.0,0);
+    \pgfmathsetmacro{\xzero}{3.4+8.6*(0-\xmin)/(\xmax-\xmin)}
+    \draw[zeroline] (\xzero,-0.08)--(\xzero,0.92);
+    \node[font=\scriptsize,anchor=north] at (\xzero,-0.08) {0};
+    \node[anchor=west,align=left,text width=30mm,font=\small] at (0,0.55) {\textbf{a}\quad Recorded-target\\pairing};
+    \foreach \key/\jy in {
+      e008_plot_uid797/0.10,e008_plot_uid837/0.24,e008_plot_uid841/0.38,
+      e008_plot_uid848/0.10,e008_plot_uid856/0.24,e008_plot_uid865/0.38,
+      e008_plot_uid875/0.10,e008_plot_uid876/0.24,e008_plot_uid880/0.38} {
+      \pgfmathsetmacro{\px}{3.4+8.6*(\plotresult{\key}-\xmin)/(\xmax-\xmin)}
+      \node[participant] at (\px,\jy) {};
+    }
+    \pgfmathsetmacro{\xlo}{3.4+8.6*(\result{e008_plot_ci_low}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xhi}{3.4+8.6*(\result{e008_plot_ci_high}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xmean}{3.4+8.6*(\result{e008_plot_mean}-\xmin)/(\xmax-\xmin)}
+    \draw[interval] (\xlo,0.72)--(\xhi,0.72);
+    \draw[interval] (\xlo,0.64)--(\xlo,0.80);
+    \draw[interval] (\xhi,0.64)--(\xhi,0.80);
+    \node[meanmark] at (\xmean,0.72) {};
+    \node[anchor=west,align=left,text width=34mm,font=\scriptsize] at (12.25,0.64) {mean \result{e008_mean}\\95\% CI \result{e008_ci}};
+    \node[anchor=north,font=\scriptsize] at (7.7,-0.38) {participant-level unique-\(R^2\) contrast};
+  \end{scope}
+
+  \begin{scope}[yshift=2.5cm]
+    \def\xmin{-0.022}
+    \def\xmax{0.017}
+    \draw[axis] (3.4,1.08)--(12.0,1.08);
+    \draw[axis] (3.4,0)--(12.0,0);
+    \pgfmathsetmacro{\xzero}{3.4+8.6*(0-\xmin)/(\xmax-\xmin)}
+    \draw[zeroline] (\xzero,-0.08)--(\xzero,1.92);
+    \node[font=\scriptsize,anchor=north] at (\xzero,-0.08) {0};
+    \pgfmathsetmacro{\xthreshold}{3.4+8.6*(\result{e030_plot_threshold}-\xmin)/(\xmax-\xmin)}
+    \draw[threshold] (\xthreshold,1.00)--(\xthreshold,1.92);
+    \node[anchor=west,align=left,text width=30mm,font=\small] at (0,0.95) {\textbf{b}\quad Exact predicted\\target};
+    \node[anchor=west,font=\scriptsize] at (3.4,1.88) {above nuisance};
+    \node[anchor=west,font=\scriptsize] at (3.4,0.80) {minus frozen twin};
+    \foreach \key/\jy in {
+      e030_plot_uid797/1.16,e030_plot_uid837/1.28,e030_plot_uid841/1.40,
+      e030_plot_uid848/1.16,e030_plot_uid856/1.28,e030_plot_uid865/1.40,
+      e030_plot_uid875/1.16,e030_plot_uid876/1.28,e030_plot_uid880/1.40} {
+      \pgfmathsetmacro{\px}{3.4+8.6*(\plotresult{\key}-\xmin)/(\xmax-\xmin)}
+      \node[participant] at (\px,\jy) {};
+    }
+    \pgfmathsetmacro{\xlo}{3.4+8.6*(\result{e030_plot_ci_low}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xhi}{3.4+8.6*(\result{e030_plot_ci_high}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xmean}{3.4+8.6*(\result{e030_plot_mean}-\xmin)/(\xmax-\xmin)}
+    \draw[interval] (\xlo,1.62)--(\xhi,1.62);
+    \draw[interval] (\xlo,1.54)--(\xlo,1.70);
+    \draw[interval] (\xhi,1.54)--(\xhi,1.70);
+    \node[meanmark] at (\xmean,1.62) {};
+    \node[anchor=west,align=left,text width=34mm,font=\scriptsize] at (12.25,1.54) {mean \result{e030_target_unique}\\family-95\% CI \result{e030_target_unique_ci}};
+    \foreach \key/\jy in {
+      e030_plot_twin_uid797/0.08,e030_plot_twin_uid837/0.20,e030_plot_twin_uid841/0.32,
+      e030_plot_twin_uid848/0.08,e030_plot_twin_uid856/0.20,e030_plot_twin_uid865/0.32,
+      e030_plot_twin_uid875/0.08,e030_plot_twin_uid876/0.20,e030_plot_twin_uid880/0.32} {
+      \pgfmathsetmacro{\px}{3.4+8.6*(\plotresult{\key}-\xmin)/(\xmax-\xmin)}
+      \node[participant] at (\px,\jy) {};
+    }
+    \pgfmathsetmacro{\xlo}{3.4+8.6*(\result{e030_plot_twin_ci_low}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xhi}{3.4+8.6*(\result{e030_plot_twin_ci_high}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xmean}{3.4+8.6*(\result{e030_plot_twin_mean}-\xmin)/(\xmax-\xmin)}
+    \draw[interval] (\xlo,0.54)--(\xhi,0.54);
+    \draw[interval] (\xlo,0.46)--(\xlo,0.62);
+    \draw[interval] (\xhi,0.46)--(\xhi,0.62);
+    \node[meanmark] at (\xmean,0.54) {};
+    \node[anchor=west,align=left,text width=34mm,font=\scriptsize] at (12.25,0.46) {mean \result{e030_target_twin}\\family-95\% CI \result{e030_target_twin_ci}};
+    \node[anchor=north,font=\scriptsize] at (7.7,-0.38) {participant-level unique-\(R^2\) increment};
+  \end{scope}
+
+  \begin{scope}
+    \def\xmin{-0.0013}
+    \def\xmax{0.0025}
+    \draw[axis] (3.4,0)--(12.0,0);
+    \pgfmathsetmacro{\xzero}{3.4+8.6*(0-\xmin)/(\xmax-\xmin)}
+    \draw[zeroline] (\xzero,-0.08)--(\xzero,0.92);
+    \node[font=\scriptsize,anchor=north] at (\xzero,-0.08) {0};
+    \node[anchor=west,align=left,text width=30mm,font=\small] at (0,0.55) {\textbf{c}\quad Direct biological\\transfer};
+    \foreach \key/\jy in {
+      e025_plot_uid797/0.10,e025_plot_uid837/0.24,e025_plot_uid841/0.38,
+      e025_plot_uid848/0.10,e025_plot_uid856/0.24,e025_plot_uid865/0.38,
+      e025_plot_uid875/0.10,e025_plot_uid876/0.24,e025_plot_uid880/0.38} {
+      \pgfmathsetmacro{\px}{3.4+8.6*(\plotresult{\key}-\xmin)/(\xmax-\xmin)}
+      \node[participant] at (\px,\jy) {};
+    }
+    \pgfmathsetmacro{\xlo}{3.4+8.6*(\result{e025_plot_ci_low}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xhi}{3.4+8.6*(\result{e025_plot_ci_high}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xmean}{3.4+8.6*(\result{e025_plot_mean}-\xmin)/(\xmax-\xmin)}
+    \draw[interval] (\xlo,0.72)--(\xhi,0.72);
+    \draw[interval] (\xlo,0.64)--(\xlo,0.80);
+    \draw[interval] (\xhi,0.64)--(\xhi,0.80);
+    \node[meanmark] at (\xmean,0.72) {};
+    \node[anchor=west,align=left,text width=34mm,font=\scriptsize] at (12.25,0.64) {mean \result{e025_tribe_kd}\\95\% CI \result{e025_tribe_kd_ci}};
+    \node[anchor=north,font=\scriptsize] at (7.7,-0.38) {participant-level unique-\(R^2\) contrast};
+  \end{scope}
+\end{tikzpicture}

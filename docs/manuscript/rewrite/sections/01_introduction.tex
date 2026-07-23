@@ -2,7 +2,7 @@
 \label{sec:introduction}
 
 Neural responses could help a compressed language model by selecting among internal representations that are similarly effective for predicting text.
-In \ac{kd}, a smaller student learns to reproduce the output distribution of a larger teacher, but comparable output behavior does not require the two models to organize information identically in their middle layers.
+In \ac{kd}, a smaller student learns to reproduce the output distribution of a larger teacher, but comparable output behavior does not require the two models to organize information identically in their middle layers \autocite{hinton2015}.
 A recorded or predicted neural response can therefore serve as training-only privileged information: an auxiliary objective may favor one language-compatible representation over another without changing what the deployed model receives as input.
 Feature-distillation and privileged-information research makes this possibility credible, while also showing that a dense auxiliary target can help for reasons unrelated to its scientific origin \autocite{lopezpaz2016,saadi2025}.
 Neural supervision is thus best treated as a candidate representational regularizer, not as evidence that the student has acquired a human cognitive mechanism.
@@ -28,10 +28,7 @@ Differences in modality, temporal resolution, personalization, model budget, end
 
 We therefore treat a brain-specific training advantage as the endpoint of an ordered evidence chain.
 The relevant representations must first show controlled brain predictivity, and compression must leave interpretable headroom without language-model quality silently deciding the comparison.
-The exact training target must then have a controlled relationship to recorded responses; the student must take up that target; and the intervention must move the retained student without unacceptable loss of language-model quality.
-Correct stimulus--target pairing must matter relative to a permuted target that preserves the target's structure.
-Attribution to neural target content requires a separate nonbrain target matched on geometry, scale, baseline predictability and learnability, and optimization pressure; the two controls are not interchangeable, and neither can do the other's job.
-Finally, the change must transfer to independently recorded responses at the participant inference unit before it can support a biological claim, and it must improve an external endpoint before it can support a utility claim.
+For predicted targets, exact-target measurability precedes target uptake and retained-student movement; comparator validity, participant-level biological transfer, and an external endpoint then govern attribution and utility.
 A failed prerequisite does not erase later manipulation evidence, but it limits what that evidence can establish.
 
 For the tested systems, the answer is negative but informative about where support is lost.

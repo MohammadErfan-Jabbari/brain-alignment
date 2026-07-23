@@ -5,7 +5,7 @@ The evidence chain separates a measured signal from a successful intervention.
 Table~\ref{tab:results-status} uses \emph{supported} when the declared gate passes, \emph{not demonstrated} when the tested contrast does not support its target claim, \emph{unresolved} when the evidence cannot decide, and \emph{non-identifying comparator} when the available control cannot support attribution to neural target content.
 These labels are scoped to the estimand, assay, and inference unit stated in Sections~\ref{sec:framework}--\ref{sec:estimands}.
 
-\begin{table}[t]
+\begin{table}[H]
   \centering
   \footnotesize
   \setlength{\tabcolsep}{3pt}
@@ -87,7 +87,7 @@ Their proximity is a paired quality check showing no gross imbalance, not a decl
 Comparisons with ordinary \ac{kd} remain descriptive unless checkpoints or curves are matched at a common perplexity.
 
 Participant-first evaluation removes that inferential ambiguity and does not support an advantage.
-After aggregating seeds and folds within each valid participant, the mean real-minus-permuted effect is \result{e008_mean}, with participant $t$ interval \result{e008_ci} \evd{E008}.
+After taking the median over \result{e008_cells_per_participant} paired seed--fold cells within each valid participant, the cohort mean real-minus-permuted effect is \result{e008_mean}, with participant $t$ interval \result{e008_ci} \evd{E008}.
 The shared-fold summary is likewise centered near zero at \result{e008_fold_mean}, with five-fold $t$ interval \result{e008_fold_ci}; the exact participant sign test and leave-one-fold checks do not reject the null \evd{E008}.
 The participant analysis had sensitivity below the apparent averaged-target effect, so its result is not explained by merely replacing a large effect with an obviously uninformative assay.
 It remains a scoped null for this target, model, objective, cohort, and readout rather than proof that recorded responses can never help training.
@@ -124,10 +124,6 @@ Objectives and schedules are documented in Appendix~\ref{app:training}, secondar
     \bottomrule
   \end{tabular}
 \end{table}
-
-Across these variants, no valid inference unit supports a participant-general pairing advantage.
-The capacity and contrastive tests remain scoped to fixed-weight adapter capacity and a five-\ac{roi} loss substitution; the voxelwise \ac{lora} route fails its manipulation check, and full fine-tuning shows no reliable real-over-permuted gain across only three participants, with seeds remaining technical repetitions.
-These results exclude the named rescue mechanisms, not all stronger objectives or a larger independently sampled naturalistic study \evd{E011}\evd{E013}\evd{E017}.
 
 The narrow conclusion is that none of the tested recorded-response objectives demonstrates a participant-general advantage attributable to correct stimulus--response pairing.
 The variants rule out specific explanations---insufficient adapter rank at a fixed weight, one five-\ac{roi} loss form, and the tested naturalistic or full-parameter routes---without closing all recorded-target designs.
@@ -181,6 +177,16 @@ Because exact-target measurability fails first and twin specificity remains unre
 The first defensible predictive failure is therefore localized at exact-target practical linear measurability, before student-to-brain overlap.
 That ordering does not make the measurability result a causal explanation of the near-zero participant transfer: the assay does not test every accessible form of target information, and it does not identify which mechanism produced the later endpoint \evd{E025}\evd{E030}.
 
+Figure~\ref{fig:participant-evidence} aligns the participant-level contrasts at the recorded-target pairing, exact-target measurability, and direct-transfer gates without pooling their estimands or scales.
+
+\begin{figure}[t]
+  \centering
+  \input{figures/participant_evidence.tikz}
+  \caption{Participant evidence at three gates. Grey points are the same nine participants; in panel~a each point is the participant median over \result{e008_cells_per_participant} paired seed--fold cells, and the black square is the cohort mean over those nine medians. Black squares and bars otherwise show participant means and the stated 95\% intervals. Panel~a compares recorded-target with matched permuted-target training (\result{e008_mean}, \result{e008_ci}). Panel~b uses its own scale: its top row is the exact predicted target's increment above nuisance (\result{e030_target_unique}, \result{e030_target_unique_ci}), and its bottom row is aligned target minus frozen row twin (\result{e030_target_twin}, \result{e030_target_twin_ci}). Panel~c compares predicted-target training with ordinary \ac{kd} (\result{e025_tribe_kd}, \result{e025_tribe_kd_ci}) on the same scale as panel~a. The red line applies only to panel~b's top row; it is the inherited internal continuation reference \result{e030_practical_threshold}, not an external importance threshold. All four intervals span zero; additionally, panel~b's top-row simultaneous upper endpoint falls below its internal reference under the fixed assay. The intervals treat participants as the population unit after any nested seed and fold aggregation. These results localize nonpasses under the named assays; they neither prove universal nulls nor attribute a contrast to neural target content. \evd{E008}\evd{E025}\evd{E030}}
+  \label{fig:participant-evidence}
+\end{figure}
+\FloatBarrier
+
 \subsection{External utility and secondary routes}
 \label{sec:results-utility}
 
@@ -188,6 +194,7 @@ No completed route establishes a brain-specific neural-target utility claim, but
 The quality-controlled averaged-target test estimates the paired out-of-domain to in-domain perplexity ratio on Pereira text~\autocite{pereira2018} and LeBel text~\autocite{lebel2023}, not raw out-of-domain perplexity.
 Its mediator is the paired real-minus-block-permuted change in in-domain controlled brain alignment.
 Across the technical training seeds (\result{e009_seed_n}), that mediator has mean \result{e009_fulcrum_mean}, median \result{e009_fulcrum_median}, and an 80\%-power minimum detectable effect of \result{e009_fulcrum_mde}; it is therefore unresolved, and no downstream ratio contrast exceeds its measured minimum detectable effect \evd{E009}.
+\result{e009_positive_seed_signs} seed contrasts are positive; seed~0 contributes \result{e009_seed0_gap}, whereas the other seven average approximately \result{e009_other_seven_mean}.
 The utility result is consequently bounded to these corpora and this student--teacher pair rather than informative about a successful intervention.
 
 Reduced reproductions, cognitive-target probes, and privileged-information routes provide scoped diagnostics rather than a common utility test.
