@@ -222,6 +222,8 @@ The successful retry generated the finite float32 target at frozen shape `1000 x
 
 The one-shot scorer produced exactly `270` C1, `360` C2, and `6,480` C3 fold rows. Raw-score SHA-256 was `cebea58cd7f7d82908b26a25714a1d256ab674a7b08d9a18d94835b0f7fcb6e4`; frozen-analysis SHA-256 was `43a4f3b01641072345149e651cdd0b1ae0c903bb74366db2006f31b89d8dd818`. Every hash, source, grid, finite-value, coordinate-floor, participant-grid, inherited-gate, target-PCA-reuse, and student-PCA-reuse validity check passed. Scoring used `2,667.244` process-CPU seconds, `371.145` wall seconds, and peak RSS `1,366,092` KiB, within every frozen limit.
 
+The canonical result paths are `outputs/E030/raw_scores.json`, SHA-256 `cebea58cd7f7d82908b26a25714a1d256ab674a7b08d9a18d94835b0f7fcb6e4`, and `outputs/E030/analysis.json`, SHA-256 `43a4f3b01641072345149e651cdd0b1ae0c903bb74366db2006f31b89d8dd818`. This sentence is a mechanical path binding; it changes no result or verdict.
+
 ### C1 primary biological-measurability result
 
 Under layer-independent target PCA-50, the imageability-complete nuisance model, five fixed ROIs, and participant inference at `n=9`, the aligned target's unique increment above nuisance was:

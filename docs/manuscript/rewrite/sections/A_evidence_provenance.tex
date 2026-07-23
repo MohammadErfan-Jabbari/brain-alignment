@@ -221,6 +221,11 @@ E024 &
 \textsc{sha-256}: \texttt{b8eb0f32bd16e7eda77f957f23ad329c881ce2f550e9e5f4de0b48bef4ae606e}\par\smallskip
 \path{outputs/e024/gaze_richness_probe_TSR.json}\newline
 \textsc{sha-256}: \texttt{5d23870ad33f24a52044983446b347e51a9b6ee437c1e3659eaa633e8cc694a8} \\
+E025 &
+\path{outputs/E025/extraction.json}\newline
+\textsc{sha-256}: \texttt{b49c2795c55961cae161084afa1d3409dd662b893f9a40fa6a4e9373bc2c84c5}\par\smallskip
+\path{outputs/E025/analysis.json}\newline
+\textsc{sha-256}: \texttt{9a43410bfafced8130d286faa8c011c6e2097707979d476b5ce01d9ec44f106c} \\
 E026 &
 \path{outputs/E026/e026_audit.json}\newline
 \textsc{sha-256}: \texttt{dfac7498d89d488483f129ebd30f36013d98778a8304f0d3d97d9e0a8c1932ad}\par\smallskip
@@ -228,11 +233,14 @@ E026 &
 \textsc{sha-256}: \texttt{b2dca54c87efeca60c78a0de8287b4571991dcf3e653ce17dacc60583d2fda9f} \\
 E030 &
 \path{outputs/E030/tribe_tuckute_condition-b_n1000_full.npz}\newline
-\textsc{sha-256}: \texttt{a1fb8667e5c27a7e9bde35cb5f3a4f24622ad13c3b79e91a884c119ef3b65233} \\
+\textsc{sha-256}: \texttt{a1fb8667e5c27a7e9bde35cb5f3a4f24622ad13c3b79e91a884c119ef3b65233}\par\smallskip
+\path{outputs/E030/raw_scores.json}\newline
+\textsc{sha-256}: \texttt{cebea58cd7f7d82908b26a25714a1d256ab674a7b08d9a18d94835b0f7fcb6e4}\par\smallskip
+\path{outputs/E030/analysis.json}\newline
+\textsc{sha-256}: \texttt{43a4f3b01641072345149e651cdd0b1ae0c903bb74366db2006f31b89d8dd818} \\
 \end{longtable}
 \endgroup
 
-E025 result provenance is incomplete: its record gives hashes for the frozen manifest, extraction/gates, raw fold grid, and analysis but does not bind those result hashes to exact filenames, so this appendix does not guess the paths.
-The additional E030 result provenance is also incomplete: its record gives several bundle and result hashes without exact filename bindings, so only its explicitly paired canonical target appears above.
-These omissions are why the 55 verified pairs above must not be read as exhausting the central result artifacts.
+The owning records now bind the E025 extraction and analysis paths and the E030 raw-score and analysis paths used by the numerical appendices.
+E025's raw fold-grid hash and several E030 bundle or manifest hashes remain unbound to exact filenames, so the 59 verified pairs above remain a curated subset rather than an exhaustive artifact registry.
 E028 and E029 artifacts are omitted because they document outcome-blind design or engineering checks rather than experimental evidence.
