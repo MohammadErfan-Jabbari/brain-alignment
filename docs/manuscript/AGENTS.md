@@ -40,10 +40,28 @@ Use the following terms throughout manuscript prose, including abstracts, captio
 | Language-model internals | **model representations** or **model activations** |
 | TRIBE outputs used in this work | **synthetic brain responses generated from text** |
 | Training question | **whether brain responses can help train a smaller model** |
+| Brain alignment | Held-out predictivity of recorded fMRI responses from model representations under a declared readout and controls |
+| Controlled brain predictivity | Brain alignment after the specified nuisance, split, and control-model checks |
+| Recorded brain-response target | A recorded fMRI response when it is used in a training objective |
+| Synthetic brain-response target | A synthetic brain response generated from text when it is used in a training objective |
+| Target uptake | Recoverability of an optimized training target from retained student representations by a fresh post-training readout |
+| Retained-student movement | Parameter or representation change that remains after the temporary training head is discarded |
+| Exact-target measurability | Whether the exact training target adds controlled, practically relevant predictivity of recorded fMRI responses on the intended biological substrate under the frozen assay |
+| Comparator validity | Whether a text-derived control permits attribution to brain-response content rather than geometry, scale, learnability, or optimization pressure |
+| Biological transfer | Improvement on independently recorded fMRI responses that were not optimized as the training endpoint |
+| Brain-specific advantage | Incremental benefit beyond an appropriate text-derived or permuted control, at comparable language-model quality and the correct biological inference unit |
 
-Avoid unqualified *neural activity*, *neural representation*, *neural response*, and *neural target* when they could refer either to the biological brain or to a neural network. fMRI records a hemodynamic response associated with brain activity, not neuronal firing directly. Use *target* only when the sentence needs to state the object's role in a training objective; in that case, write *recorded brain-response target* or *synthetic brain-response target* after first identifying its source. Precision comes from naming the source, measurement, and role of the object, not from the adjective *neural*.
+Avoid unqualified *neural activity*, *neural representation*, *neural response*, and *neural target* when they could refer either to the biological brain or to a neural network. fMRI records a hemodynamic response associated with brain activity, not neuronal firing directly. Use *response* for what is measured, predicted, or evaluated. Reserve *target* for a response used in a training objective; write *recorded brain-response target* or *synthetic brain-response target* only after identifying its source. Do not write the generic phrase *response target*. Name a control by its construction and the alternative explanation it tests: use *text-feature control*, *text-derived control*, or *matched auxiliary target derived from language-model features*, not *nonbrain control*. Precision comes from naming the source, measurement, role, and comparison of an object, not from the adjective *neural* or a negation such as *nonbrain*.
 
 In LaTeX sources, define each recurring acronym once in the manuscript's acronym registry and use `\ac{key}` or its plural/forced variants in prose. Do not manually write either `full term (SHORT)` or a raw registered short form. Reset acronym state after the abstract with `\acresetall` so the abstract and main text each expand their first use independently.
+
+## Reader-first prose
+
+Precision comes from making the relationship among the claim, comparison, evidence, and scope explicit, not from compressing them into technical labels. Open each paragraph with its answer in language available to the intended reader, then add only nonredundant support. When one sentence carries several independent claims, use parallel grammar or separate sentences so that conjunctions and inference boundaries are unmistakable.
+
+Define a technical object locally far enough for the reader to understand its role. If its exact construction or estimator belongs in Methods, add a concise forward reference rather than either duplicating the procedure or leaving the term unexplained. Describe a comparator by what both arms share and the single component that differs; this makes the alternative explanation being tested visible.
+
+After changing prose, recheck the whole active section against the terminology and acronym contracts rather than validating only the edited sentence. Split a paragraph when it serves distinct reader questions, such as reporting findings and stating contributions, and synchronize the maintained question map when that changes the argument's structure.
 
 ## Maintained manuscript question map
 
@@ -55,7 +73,7 @@ The map was produced on 2026-07-22 with the Plan branch of [`question-led-writin
 
 **Intended reader.** An ML/NLP reviewer or thesis examiner who understands basic machine learning and statistical evaluation but does not know fMRI encoding, this project's datasets, targets, controls, inference units, or experiment history.
 
-**Governing question.** Can recorded fMRI responses or synthetic brain responses generated from text help train a distilled student and provide a reliable, brain-specific advantage over matched nonbrain training?
+**Governing question.** Can recorded fMRI responses or synthetic brain responses generated from text help train a distilled student and provide a reliable, brain-specific advantage over a matched text-derived control?
 
 **Provisional answer.** In the tested settings, trained language-model representations contain linearly accessible information that predicts held-out fMRI beyond the specified controls. However, objectives based on recorded fMRI responses or synthetic brain responses generated from text do not demonstrate a reliable, brain-specific benefit for distilled students at comparable language-model quality.
 
