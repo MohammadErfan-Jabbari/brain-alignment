@@ -2,7 +2,7 @@
 \label{sec:framework}
 
 The experiments instantiate the evidence chain with separate estimands rather than treating every change in brain predictivity as the same outcome.
-Table~\ref{tab:evidence-map} assigns each gate one primary comparison, endpoint, and inference unit.
+Table~\ref{tab:evidence-map} assigns each stage one primary comparison, endpoint, and inference unit.
 It is a design map, not a result summary: manipulation, transfer, and utility measurements answer different questions even when they reuse one trained student.
 Bracketed E-codes identify the owning experiment records summarized in Appendix~\ref{app:evidence-provenance}; they are provenance markers, not literature citations.
 
@@ -11,11 +11,11 @@ Bracketed E-codes identify the owning experiment records summarized in Appendix~
   \footnotesize
   \setlength{\tabcolsep}{4pt}
   \renewcommand{\arraystretch}{1}
-  \caption{Evidence map. Each row specifies the primary measurement at a gate without reporting its verdict.}
+\caption{Evidence map. Each row specifies the primary measurement at a stage without reporting its verdict.}
   \label{tab:evidence-map}
   \begin{tabular}{p{25mm} p{88mm} p{25mm}}
     \toprule
-    Gate & Primary comparison and endpoint & Inference unit \\
+Stage & Primary comparison and endpoint & Inference unit \\
     \midrule
     Sentence measurement & Trained contextual features versus nuisance and architecture-matched untrained features; held-out ordinary and unique $R^2$ & Five contiguous stimulus folds; fixed sentence set \\
     Naturalistic measurement & Trained versus untrained features beyond nuisance; held-out-story voxelwise unique $R^2$ & Story block within one deeply sampled participant \\
@@ -24,9 +24,9 @@ Bracketed E-codes identify the owning experiment records summarized in Appendix~
     Participant-target pairing effect & Recorded-target versus matched permuted-target training; fresh participant-response unique $R^2$ & Participant after fold and seed aggregation \\
     Exact-target measurability & Predicted target versus nuisance and a frozen row twin; held-out recorded-response unique $R^2$ & Participant on a fixed sentence set \\
     Target uptake and retained-student movement & Target-trained versus \ac{kd} and target permutations; fresh target recovery and retained-student movement & Training seed; fixed target sample for geometry \\
-    Comparator validity & Predicted target versus dimension-matched text-feature target; geometry, learnability, and induced movement & Seed for trained models; fixed target sample otherwise \\
-    Biological transfer & Target-trained versus \ac{kd} and the declared nonbrain arm; fresh participant-response unique $R^2$ & Participant \\
-    External utility & Neural-target versus quality-matched non-neural training; held-out language or task endpoint & Seed and task example, as declared \\
+    Synthetic-response attribution & Synthetic brain-response target versus dimension-matched text-derived auxiliary target; geometry, learnability, induced movement, and the claimed outcome & Seed for trained models; fixed target sample otherwise \\
+    Biological transfer & Target-trained versus \ac{kd} and the declared text-derived auxiliary-target arm; fresh participant-response unique $R^2$ & Participant \\
+    External utility & Brain-response-target training versus the route-appropriate quality-matched control; held-out language or task endpoint & Seed and task example, as declared \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -206,16 +206,17 @@ The averaged-response analysis remains a fixed-stimulus, fold-level estimand, wh
 The predicted branch follows claim order.
 First, exact-target measurability asks whether the fixed TRIBE target predicts recorded responses beyond nuisance and its frozen row twin.
 Second, target uptake and retained-student movement compare fresh held-out target recovery and post-training model change with seed-matched \ac{kd} and target-permutation arms.
-Third, comparator validity asks whether TRIBE and projected text features are adequately matched in geometry, learnability, and induced movement, which would make attribution to neural target content testable; adequacy alone would not identify that attribution.
+Third, synthetic-response attribution asks whether TRIBE and projected text features are adequately matched in geometry, learnability, and induced movement and whether the brain-response-target arm outperforms that control on the claimed outcome.
+Matching makes attribution to brain-response content testable; adequacy alone does not identify that attribution.
 Only then does biological transfer compare saved target-trained students on participant-specific recorded responses; none of the earlier endpoints substitutes for this one \evd{E016}\evd{E025}\evd{E026}\evd{E030}.
 
-Quality gates are endpoint-specific.
+Quality criteria are endpoint-specific.
 The scaled predicted-target family measures perplexity on its exact 1,999-sentence held-out corpus and requires each target arm to remain within 5\% relative perplexity of its seed-matched \ac{kd} arm \evd{E016}.
 The saved-student participant-transfer analysis rescored the same sentences as tokenizer-comparable bits per byte and requires $|\Delta\mathrm{bpb}|\leq0.005$ within seed \evd{E025}.
 Perplexity is used only within a shared tokenizer and scoring protocol; cross-family quality comparisons use bits per byte.
-If a required quality or manipulation gate fails, downstream scores are descriptive rather than claim-bearing \evd{E005}\evd{E016}\evd{E025}.
+If a required quality criterion or manipulation check fails, downstream scores are descriptive rather than claim-bearing \evd{E005}\evd{E016}\evd{E025}.
 
 Participants are the sole population units for claims about people; story blocks, stimulus folds, voxels, coordinates, and seeds remain nested or technical measurements.
 Uncertainty is therefore aligned to the stated unit, multiplicity is controlled across declared primary contrasts, and study-specific thresholds govern continuation without becoming universal biological cutoffs.
 An external utility claim requires its own quality-matched task endpoint; a branch stopped at a precondition supplies no utility evidence.
-The Results therefore follow the canonical evidence order: controlled measurability, quality-aware headroom, recorded-target pairing, exact-target measurability, target uptake and retained-student movement, comparator validity, biological transfer, and external utility.
+The Results therefore follow the canonical evidence order: controlled brain predictivity, quality-aware headroom, recorded-target pairing, exact-target measurability, target uptake and retained-student movement, brain-response-specific attribution, biological transfer, and external utility.

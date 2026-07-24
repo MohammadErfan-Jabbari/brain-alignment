@@ -521,37 +521,6 @@
       \verb 10.1371/journal.pcbi.1006397
       \endverb
     \endentry
-    \entry{cover2006}{book}{}
-      \name{author}{2}{}{%
-        {{hash=fe5b7bbda12c7502f55ddb9eeded8622}{%
-           family={Cover},
-           familyi={C\bibinitperiod},
-           given={Thomas\bibnamedelima M.},
-           giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-        {{hash=e6518a9e085a3ee5221c27f5d8f826dc}{%
-           family={Thomas},
-           familyi={T\bibinitperiod},
-           given={Joy\bibnamedelima A.},
-           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Wiley-Interscience}%
-      }
-      \strng{namehash}{e427ba6c0eda5292558c30c786236c01}
-      \strng{fullhash}{e427ba6c0eda5292558c30c786236c01}
-      \strng{bibnamehash}{e427ba6c0eda5292558c30c786236c01}
-      \strng{authorbibnamehash}{e427ba6c0eda5292558c30c786236c01}
-      \strng{authornamehash}{e427ba6c0eda5292558c30c786236c01}
-      \strng{authorfullhash}{e427ba6c0eda5292558c30c786236c01}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{annotation}{DPI, conditional MI, Gaussian closed form, rate-distortion; mapped in 06-theory-grounding}
-      \field{edition}{2}
-      \field{title}{Elements of Information Theory}
-      \field{year}{2006}
-    \endentry
     \entry{aw2023}{article}{}
       \name{author}{2}{}{%
         {{hash=0b2d055e70f7e83b22ec9bb601ba9218}{%
@@ -1162,6 +1131,37 @@
       \verb{url}
       \verb https://doi.org/10.1038/s41467-018-03068-4
       \endverb
+    \endentry
+    \entry{cover2006}{book}{}
+      \name{author}{2}{}{%
+        {{hash=fe5b7bbda12c7502f55ddb9eeded8622}{%
+           family={Cover},
+           familyi={C\bibinitperiod},
+           given={Thomas\bibnamedelima M.},
+           giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=e6518a9e085a3ee5221c27f5d8f826dc}{%
+           family={Thomas},
+           familyi={T\bibinitperiod},
+           given={Joy\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley-Interscience}%
+      }
+      \strng{namehash}{e427ba6c0eda5292558c30c786236c01}
+      \strng{fullhash}{e427ba6c0eda5292558c30c786236c01}
+      \strng{bibnamehash}{e427ba6c0eda5292558c30c786236c01}
+      \strng{authorbibnamehash}{e427ba6c0eda5292558c30c786236c01}
+      \strng{authornamehash}{e427ba6c0eda5292558c30c786236c01}
+      \strng{authorfullhash}{e427ba6c0eda5292558c30c786236c01}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{DPI, conditional MI, Gaussian closed form, rate-distortion; mapped in 06-theory-grounding}
+      \field{edition}{2}
+      \field{title}{Elements of Information Theory}
+      \field{year}{2006}
     \endentry
     \entry{xu2017}{inproceedings}{}
       \name{author}{2}{}{%

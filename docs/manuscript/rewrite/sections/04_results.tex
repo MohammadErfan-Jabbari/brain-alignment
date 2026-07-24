@@ -2,7 +2,7 @@
 \label{sec:results}
 
 The evidence chain separates a measured signal from a successful intervention.
-Table~\ref{tab:results-status} uses \emph{supported} when the declared gate passes, \emph{not demonstrated} when the tested contrast does not support its target claim, \emph{unresolved} when the evidence cannot decide, and \emph{non-identifying comparator} when the available control cannot support attribution to neural target content.
+Table~\ref{tab:results-status} uses \emph{supported} when the declared stage passes, \emph{not demonstrated} when the tested contrast does not support its target claim, \emph{unresolved} when the evidence cannot decide, and \emph{non-identifying comparator} when the available control cannot support attribution to brain-response content.
 These labels are scoped to the estimand, assay, and inference unit stated in Sections~\ref{sec:data-targets}--\ref{sec:estimands}.
 
 \begin{table}[H]
@@ -14,14 +14,14 @@ These labels are scoped to the estimand, assay, and inference unit stated in Sec
   \label{tab:results-status}
   \begin{tabular}{p{26mm} p{26mm} p{50mm} p{43mm}}
     \toprule
-    Gate & Status & Strongest evidence & Interpretation \\
+Stage & Status & Strongest evidence & Interpretation \\
     \midrule
-    Controlled measurability & \textbf{Supported} & Trained representations exceed architecture-matched untrained controls on both recorded-\ac{fmri} substrates; naturalistic gaps are \result{e006_gpt2_gap} and \result{e006_qwen_gap} \evd{E002}\evd{E006}. & Controlled signal exists under the tested linear assays; no intervention or population claim follows. \\
+    Controlled brain predictivity & \textbf{Supported} & Trained representations exceed architecture-matched untrained controls on both recorded-\ac{fmri} substrates; naturalistic gaps are \result{e006_gpt2_gap} and \result{e006_qwen_gap} \evd{E002}\evd{E006}. & Controlled predictivity exists under the tested linear assays; no intervention or population claim follows. \\
     Quality-aware headroom & \textbf{Supported}; source \textbf{unresolved} & Cold-start \ac{kd} leaves a teacher gap of \result{e003_kd_cold_delta} and floor-anchored retention of \result{e003_kd_cold_retention} \evd{E003}. & There is observed room to intervene, but language quality competes with an objective-specific explanation \evd{E015}. \\
     Recorded-target pairing & \textbf{Not demonstrated} & Mean of nine participant medians \result{e008_mean}, with participant $t$ interval \result{e008_ci} \evd{E008}. & The averaged-target trend does not become a participant-general advantage. \\
     Exact-target measurability & \textbf{Not demonstrated}; twin \textbf{unresolved} & Aligned-target increment \result{e030_target_unique}, simultaneous 95\% interval \result{e030_target_unique_ci}; aligned-minus-twin contrast remains uncertain \evd{E030}. & The predicted-target branch misses its first frozen biological prerequisite. \\
     Target uptake and retained-student movement & \textbf{Supported} on WikiText continuity; fresh Tuckute incremental retention \textbf{unresolved} & TRIBE-target gain \result{e016_tribe_synth_gain}, two-sided 95\% seed-axis $t$ interval \result{e016_tribe_synth_gain_ci}; mean retained-student movement \result{e025_tribe_movement_mean} \evd{E016}\evd{E025}\evd{E030}. & Target uptake and retained-student movement occur within the frozen quality margin; they establish neither attribution to neural target content nor transfer. \\
-    Comparator validity & \textbf{Non-identifying comparator} & The saved text-feature control fails \result{e026_check_split} frozen measured-axis checks \evd{E026}. & Its contrast with TRIBE cannot support attribution to neural target content. \\
+    Brain-response-specific attribution & \textbf{Non-identifying comparator} & The saved text-feature control fails \result{e026_check_split} frozen measured-axis checks \evd{E026}. & Its contrast with TRIBE cannot support attribution to brain-response content. \\
     Biological transfer & \textbf{Not demonstrated} & Direct participant-first TRIBE-minus-\ac{kd} mean \result{e025_tribe_kd}, 95\% interval \result{e025_tribe_kd_ci} \evd{E025}. & No participant-general improvement is supported in the tested cohort. \\
     External utility & \textbf{Not demonstrated} & Tested routes either lack their prerequisite intervention signal or stop at a precondition \evd{E009}\evd{E024}. & No brain-specific neural-target payoff claim is licensed; untested routes remain open. \\
     \bottomrule
@@ -41,7 +41,7 @@ For UTS03, GPT-2 and Qwen2.5-0.5B exceed their untrained controls by \result{e00
 Spatially dependent voxels from one participant and story folds with shared training stories are sensitivity dimensions, not independent population replicates; a voxel-resampling interval would pseudo-replicate the biological unit.
 The supported claim is therefore within-person predictivity under the fixed story, nuisance, reliability, and readout protocol, not a population effect.
 
-Together, the sentence and story results pass the measurement gate without being pooled into one estimate.
+Together, the sentence and story results pass the measurement stage without being pooled into one estimate.
 They show that language training adds linearly accessible information about held-out recorded responses across two stimulus formats and target resolutions.
 They do not show that the signal can be increased by neural-guided training, that an increase would generalize across people, or that it would improve language behavior.
 
@@ -142,7 +142,7 @@ The aligned-minus-frozen-row-twin contrast is \result{e030_target_twin}, with fa
 
 Target uptake and retained-student movement are supported in the saved WikiText continuity assay, not as fresh Tuckute incremental retention.
 Using the saved technical training seeds (\result{e016_seed_n}), the fresh-readout TRIBE-target gain over seed-matched \ac{kd} is \result{e016_tribe_synth_gain} target $R^2$, with two-sided 95\% seed-axis $t$ interval \result{e016_tribe_synth_gain_ci} \evd{E016}\evd{E025}.
-Mean centered relative-Frobenius retained-student movement from \ac{kd} is \result{e025_tribe_movement_mean}, and every saved technical seed passes the movement gate.
+Mean centered relative-Frobenius retained-student movement from \ac{kd} is \result{e025_tribe_movement_mean}, and every saved technical seed passes the movement check.
 The maximum absolute language-quality difference is \result{e025_quality_max_gap} bits per byte, below the frozen \result{e025_quality_margin} margin, and every direct comparison passes \evd{E025}.
 Training parameters are documented in Appendix~\ref{app:training}, while claim-relevant representation sensitivities appear in Appendix~\ref{app:sensitivities}.
 In the fresh Tuckute \ac{pca}-50 assay, absolute target extractability from TRIBE-trained representations is \result{e030_target_extract}, with Bonferroni family-95\% interval \result{e030_target_extract_ci}, whereas the incremental TRIBE-minus-\ac{kd} retention estimate is \result{e030_retention_delta}, with Bonferroni family-95\% interval \result{e030_retention_delta_ci} \evd{E030}.
@@ -177,12 +177,12 @@ Because exact-target measurability fails first and twin specificity remains unre
 The first defensible predictive failure is therefore localized at exact-target practical linear measurability, before student-to-brain overlap.
 That ordering does not make the measurability result a causal explanation of the near-zero participant transfer: the assay does not test every accessible form of target information, and it does not identify which mechanism produced the later endpoint \evd{E025}\evd{E030}.
 
-Figure~\ref{fig:participant-evidence} aligns the participant-level contrasts at the recorded-target pairing, exact-target measurability, and direct-transfer gates without pooling their estimands or scales.
+Figure~\ref{fig:participant-evidence} aligns the participant-level contrasts at the recorded-target pairing, exact-target measurability, and direct-transfer stages without pooling their estimands or scales.
 
 \begin{figure}[t]
   \centering
   \input{figures/participant_evidence.tikz}
-  \caption{Participant evidence at three gates. Grey points are the same nine participants; in panel~a each point is the participant median over \result{e008_cells_per_participant} paired seed--fold cells, and the black square is the cohort mean over those nine medians. Black squares and bars otherwise show participant means and the stated 95\% intervals. Panel~a compares recorded-target with matched permuted-target training (\result{e008_mean}, \result{e008_ci}). Panel~b uses its own scale: its top row is the exact predicted target's increment above nuisance (\result{e030_target_unique}, \result{e030_target_unique_ci}), and its bottom row is aligned target minus frozen row twin (\result{e030_target_twin}, \result{e030_target_twin_ci}). Panel~c compares predicted-target training with ordinary \ac{kd} (\result{e025_tribe_kd}, \result{e025_tribe_kd_ci}) on the same scale as panel~a. The red line applies only to panel~b's top row; it is the inherited internal continuation reference \result{e030_practical_threshold}, not an external importance threshold. All four intervals span zero; additionally, panel~b's top-row simultaneous upper endpoint falls below its internal reference under the fixed assay. The intervals treat participants as the population unit after any nested seed and fold aggregation. These results localize nonpasses under the named assays; they neither prove universal nulls nor attribute a contrast to neural target content. \evd{E008}\evd{E025}\evd{E030}}
+\caption{Participant evidence at three stages. Grey points are the same nine participants; in panel~a each point is the participant median over \result{e008_cells_per_participant} paired seed--fold cells, and the black square is the cohort mean over those nine medians. Black squares and bars otherwise show participant means and the stated 95\% intervals. Panel~a compares recorded-target with matched permuted-target training (\result{e008_mean}, \result{e008_ci}). Panel~b uses its own scale: its top row is the exact predicted target's increment above nuisance (\result{e030_target_unique}, \result{e030_target_unique_ci}), and its bottom row is aligned target minus frozen row twin (\result{e030_target_twin}, \result{e030_target_twin_ci}). Panel~c compares predicted-target training with ordinary \ac{kd} (\result{e025_tribe_kd}, \result{e025_tribe_kd_ci}) on the same scale as panel~a. The red line applies only to panel~b's top row; it is the inherited internal continuation reference \result{e030_practical_threshold}, not an external importance threshold. All four intervals span zero; additionally, panel~b's top-row simultaneous upper endpoint falls below its internal reference under the fixed assay. The intervals treat participants as the population unit after any nested seed and fold aggregation. These results localize nonpasses under the named assays; they neither prove universal nulls nor attribute a contrast to brain-response content. \evd{E008}\evd{E025}\evd{E030}}
   \label{fig:participant-evidence}
 \end{figure}
 \FloatBarrier

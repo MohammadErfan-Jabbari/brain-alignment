@@ -24,7 +24,7 @@ The current scientific authority remains [`../extended/`](../extended/) until Er
 
 ## Structural rules
 
-- Organize the argument by claims and evidence gates, not experiment order.
+- Organize the argument by claims and evidence-chain stages, not experiment order. Use *stage* for the conceptual chain and *criterion*, *threshold*, or *check* for operational continuation rules; do not use *gate* for both.
 - Keep E identifiers as `\evd{Ennn}` provenance markers and appendix navigation, not reader-facing vocabulary.
 - Use formal academic prose: state the claim or procedure directly, and remove meta-commentary about framing or writing unless that framing is itself the claim.
 - A subsection normally owns three to five related paragraph questions. A two-paragraph subsection is allowed only when it marks a real conceptual boundary. Merge a one-paragraph subsection into its parent.
@@ -34,6 +34,9 @@ The current scientific authority remains [`../extended/`](../extended/) until Er
 - Do not present reserved, unexecuted, or precondition-stopped experiments as results.
 - Use tables for experiment disposition, many-to-many evidence mappings, and repeated variant results.
 - Keep table and figure captions to one rendered line whenever possible. Use the caption to identify the object; place interpretation, caveats, and reading instructions in the surrounding prose.
+- In process figures, use equal-sized boxes based on the longest required item. Give parallel box labels that name the claim and the test that supports it; shorten wording before shrinking type or accepting distracting line breaks.
+- When color groups related stages in a figure, repeat the grouping with visible text labels and use light fills that preserve contrast; color must reinforce structure rather than carry it alone.
+- When prose introduces a multi-part figure, explicitly map the figure's groups or stages to the surrounding paragraph questions. Do not make the reader infer whether the figure illustrates one paragraph or the whole subsection.
 
 ## Attention budget
 
@@ -55,13 +58,15 @@ Give the three evidence-chain artifacts different jobs. The Section 2 figure def
 | Recorded brain-response target | A recorded fMRI response when its role as a training target must be explicit. Otherwise write *recorded fMRI response*. |
 | Synthetic brain responses generated from text | TRIBE outputs used in this work. Write *synthetic brain-response target* only when their role in a training objective must be explicit. |
 | Target uptake | Recoverability of the optimized target from retained student representations by a fresh post-training readout. |
-| Retained-student movement | Parameter or representation change that remains after the temporary training head is discarded. |
-| Exact-target measurability | Whether the exact training target adds controlled, practically relevant predictivity of recorded responses on the intended biological substrate under the frozen assay. |
-| Comparator validity | Whether a text-derived auxiliary target permits attribution to brain-response content rather than geometry, scale, learnability, or optimization pressure. |
+| Retained-student movement | Parameter or representation difference from the declared training baseline that remains after temporary training components are discarded. |
+| Exact-target measurability | Whether the exact synthetic training target adds controlled, practically relevant predictivity of recorded responses beyond the declared nuisance and frozen-generator controls. |
+| Brain-response-specific attribution | Whether the brain-response-target arm outperforms its route-appropriate control on the outcome being claimed: correctly paired versus permuted responses for the recorded-response route, or synthetic brain responses versus a matched text-derived target for the synthetic-response route. |
 | Biological transfer | Improvement on independently recorded responses that were not optimized as the training endpoint. |
 | Brain-specific advantage | Incremental benefit beyond an appropriate text-derived or permuted control, at comparable language-model quality and the correct biological inference unit. Reserve this term for identified contrasts. |
 
 Use the acronym definitions in `acronyms.tex`; never define the same acronym manually in prose. Use one term per concept unless the table above marks an intentional distinction.
+
+Match each citation to the mechanism or empirical claim it actually supports. Do not use a general theoretical citation as evidence for easier optimization or learnability unless it studies that relationship; label an untested mechanism as a hypothesis and cite the closest relevant methodological or empirical work. Describe a permutation by its actual invariants: target permutation preserves target values and their marginal distribution while destroying stimulus--target pairing and joint structure.
 
 ## Complete main-text question tree
 
@@ -92,7 +97,7 @@ No subsections. Seven paragraphs:
 2. What is brain alignment operationally, and which parts of that definition are assay-dependent?
 3. Why does a positive brain-alignment score not establish that brain responses can help train a smaller model, a brain-specific advantage, biological transfer, or utility?
 4. What remains unresolved after prior encoding, brain-response-guided optimization, privileged-information, and compression work?
-5. Which ordered evidence gates would justify a brain-specific training advantage at comparable language-model quality?
+5. Which ordered evidence-chain stages would justify a brain-specific training advantage at comparable language-model quality?
 6. What scoped answer does this study provide, and where is support lost or unresolved?
 7. What three contributions does the study make, and what limits the conclusion?
 
@@ -131,11 +136,12 @@ This subsection owns the factual pre-results literature comparison and the unres
 
 #### 2.4 What evidence standard supports a brain-specific training advantage?
 
-1. Which stages must pass from controlled measurability and language-quality headroom through exact-target measurability, target uptake, retained-student movement, comparator validity, biological transfer, and utility, and what does each stage establish?
-2. Which comparator belongs to each stage, including untrained networks, ordinary distillation, permuted targets, matched text-derived auxiliary targets, matched language quality, and independent recorded-brain endpoints?
-3. Which failed prerequisites stop a branch from supporting a brain-specific advantage, and which later descriptive results may still be reported without reviving the claim?
+1. Which prerequisites establish a valid opportunity for intervention, including controlled brain predictivity, quality-aware headroom, and, for synthetic brain responses, exact-target measurability?
+2. What do target uptake and retained-student movement each establish about whether the intervention affected the retained student?
+3. Which comparisons are required to establish brain-response-specific attribution, transfer to independently recorded \ac{fmri} responses, and external utility?
+4. Why is the evidence chain conjunctive, and how should later results be interpreted when an earlier prerequisite fails or remains unresolved?
 
-Section 2.2 explains why target uptake, reduced target loss, and retained-student movement are manipulation checks. This subsection must state the additional comparators and transfer endpoints required to move from those checks to a brain-specific advantage. Place the evidence-chain figure here. Do not repeat a second full version in the Introduction or Methods.
+Keep four roles distinct: opportunity prerequisites, manipulation checks, attribution, and endpoint evidence. Section 2.2 explains why target uptake, reduced target loss, and retained-student movement are manipulation checks; this subsection must state why they do not establish brain-specific attribution, biological transfer, or utility. Name the comparator needed for each claim, including untrained networks, ordinary distillation, permuted targets, matched text-derived auxiliary targets, matched language quality, and independent recorded-brain endpoints. Place the evidence-chain figure here. The Introduction may preview the chain, Section 3 must map each stage to its estimand and comparison, Section 4 must report each stage separately, Section 5.3 may derive design recommendations from observed failure locations, and Appendix D must formalize the corresponding estimators and decision rules. Do not repeat a second full version of the chain elsewhere.
 
 ### 3. Experimental Framework
 
@@ -172,13 +178,14 @@ This subsection owns the estimator and implemented readout protocol, not the gen
 
 #### 3.4 What are the estimands, controls, and inference units?
 
-1. Which contrast tests recorded-brain-response-target specificity, and what independent unit supports its uncertainty statement?
-2. Which distinct contrasts test synthetic-brain-response-target uptake, retained-student movement, comparator identification, exact-target validity, and biological transfer?
-3. Why are participants biological inference units while folds, voxels, seeds, layers, and checkpoints usually quantify technical variation or robustness?
-4. How is comparable language-model quality defined, measured, and enforced for each intervention contrast, and when does a mismatch make the comparison descriptive rather than identified?
-5. How are confidence intervals, named tests, multiplicity, minimum detectable effects, practical thresholds, and prospective stop rules used without turning internal thresholds into universal biological constants?
+1. Which estimands and contrasts operationalize the opportunity prerequisites in Section 2.4: controlled brain predictivity, quality-aware headroom, and exact-target measurability?
+2. Which distinct estimands and contrasts test target uptake and retained-student movement without treating either manipulation check as evidence of brain-response-specific attribution?
+3. Which contrasts test brain-response-specific attribution, biological transfer to independently recorded \ac{fmri} responses, and external utility?
+4. Why are participants biological inference units while folds, voxels, seeds, layers, and checkpoints usually quantify technical variation or robustness?
+5. How is comparable language-model quality defined, measured, and enforced for each intervention contrast, and when does a mismatch make the comparison descriptive rather than identified?
+6. How are confidence intervals, named tests, multiplicity, minimum detectable effects, practical thresholds, and prospective stop rules used without turning internal thresholds into universal biological constants?
 
-Section 2.1 explains why the inference unit bounds a brain-predictivity claim; this subsection must name the estimand, comparator, aggregation order, and independent unit for each actual contrast. End with one transition paragraph explaining that Results follow the evidence chain rather than experiment number or execution date. Evidence owners: E003-E006, E008, E015-E017, E025-E026, and E030.
+Section 2.1 explains why the inference unit bounds a brain-predictivity claim; this subsection must name the estimand, comparator, aggregation order, and independent unit for each actual contrast. Preserve the distinction among opportunity prerequisites, manipulation checks, attribution, and endpoints. End with one transition paragraph explaining that Results follow the evidence chain rather than experiment number or execution date. Evidence owners: E003-E006, E008, E015-E017, E025-E026, and E030.
 
 ### 4. Results
 
@@ -218,14 +225,14 @@ Evidence owners: E004-E005, E008, E010-E011, E013-E014, and E017. Summarize inte
 
 1. Does the exact PCA-50 TRIBE target add controlled, practically relevant linear predictivity beyond the frozen nuisance model on the intended recorded-brain substrate, and does it beat the frozen row twin?
 2. Can a fresh post-training readout recover the target from retained student representations beyond seed-matched ordinary distillation and target permutations, thereby testing target uptake as defined in Section 2.2?
-3. Do target retention, parameter displacement, retained-student movement, and language-quality checks show only that the intervention changed the retained student without unacceptable quality loss, or do they license any stronger claim?
+3. Do target retention, parameter displacement, retained-student movement, and language-quality checks show only that the intervention changed the retained student without unacceptable quality loss, and why do these manipulation checks not establish attribution or transfer?
 4. Is the saved text-derived auxiliary target sufficiently matched to attribute the larger TRIBE proxy gain to brain-response content?
 
 Apply the distinction established in Section 2.2: target uptake and retained-student movement are manipulation checks, while attribution requires a valid comparator and transfer requires independent recorded responses. Evidence owners: E016, E025-E026, and E030. Exact-target measurability misses the frozen practical rule, while twin specificity remains unresolved. The later manipulation checks pass descriptively, but they cannot revive the brain-specific claim after the earlier prerequisite fails. Content attribution is not identified because the saved comparator differs on measured baseline headroom, covariance geometry, nuisance predictability, parameter displacement, and retained representation movement; initial-gradient comparability remains unresolved.
 
 #### 4.5 Synthetic-response branch II: Does target uptake transfer to recorded fMRI responses?
 
-1. Given the earlier failed or unresolved prerequisites, what can later biological-transfer results still establish descriptively?
+1. Given any earlier failed or unresolved opportunity, manipulation, or attribution stage, what can later biological-transfer results still establish descriptively without reviving the stronger claim?
 2. What does the direct participant-level TRIBE-minus-ordinary-distillation contrast show?
 3. What does the TRIBE-minus-text-derived-target contrast show numerically, and why can it not identify brain-response content?
 4. Does student-predictable target structure overlap with independently recorded responses under the frozen bridge test?
@@ -355,8 +362,8 @@ Use one ledger rather than one prose subsection per experiment.
 
 #### D.3 Uncertainty, power, and decision thresholds
 
-1. Which confidence intervals, tests, multiplicity corrections, sensitivities, minimum detectable effects, and practical thresholds answer each estimand?
-2. Which thresholds were prospective continuation rules, and why must they not be universalized as biological importance criteria?
+1. Which confidence intervals, tests, multiplicity corrections, sensitivities, minimum detectable effects, and practical thresholds answer each opportunity, manipulation, attribution, transfer, and utility estimand?
+2. Which thresholds were prospective continuation rules for a particular stage, and why must they not be promoted into evidence for a later stage or universalized as biological importance criteria?
 
 #### D.4 What information theory does and does not imply
 
@@ -421,7 +428,7 @@ This appendix formalizes the limits introduced conceptually in Section 2.2; it m
 - **Introduction:** A reader can state the exact tested claim, the evidence chain, and the scoped answer without knowing an E identifier.
 - **Section 2:** A reader can distinguish measurement, manipulation, attribution, transfer, and utility, and can name the comparator required for each.
 - **Section 3:** A reader can say what is optimized, where gradients flow, what is retained, how alignment is freshly measured, which language-quality endpoint and matching rule apply to each intervention contrast, and which unit supports each inference.
-- **Section 4:** Every result answers one declared gate, carries the correct evidence status, and avoids causal or universal claims unsupported by the E record.
+- **Section 4:** Every result answers one declared stage, carries the correct evidence status, and avoids causal or universal claims unsupported by the E record.
 - **Section 5:** The discussion explains the pattern without replaying Results or turning failure localization into a causal explanation.
 - **Section 6:** Limitations bound the conclusion without inventing a new results narrative or repeating all caveats.
 - **Section 7:** The conclusion answers the governing question directly and contains no new evidence.

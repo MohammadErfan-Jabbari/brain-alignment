@@ -45,11 +45,12 @@ Use the following terms throughout manuscript prose, including abstracts, captio
 | Recorded brain-response target | A recorded fMRI response when it is used in a training objective |
 | Synthetic brain-response target | A synthetic brain response generated from text when it is used in a training objective |
 | Target uptake | Recoverability of an optimized training target from retained student representations by a fresh post-training readout |
-| Retained-student movement | Parameter or representation change that remains after the temporary training head is discarded |
-| Exact-target measurability | Whether the exact training target adds controlled, practically relevant predictivity of recorded fMRI responses on the intended biological substrate under the frozen assay |
-| Comparator validity | Whether a text-derived control permits attribution to brain-response content rather than geometry, scale, learnability, or optimization pressure |
+| Retained-student movement | Parameter or representation difference from the declared training baseline that remains after temporary training components are discarded |
+| Exact-target measurability | Whether the exact synthetic training target adds controlled, practically relevant predictivity of recorded fMRI responses beyond the declared nuisance and frozen-generator controls |
+| Brain-response-specific attribution | Whether the brain-response-target arm outperforms its route-appropriate control on the outcome being claimed: correctly paired versus permuted responses for the recorded-response route, or synthetic brain responses versus a matched text-derived target for the synthetic-response route |
 | Biological transfer | Improvement on independently recorded fMRI responses that were not optimized as the training endpoint |
 | Brain-specific advantage | Incremental benefit beyond an appropriate text-derived or permuted control, at comparable language-model quality and the correct biological inference unit |
+| Evidence-chain stage | One claim-bearing step in the conceptual evidence chain. Use *stage* for this structure; use *criterion*, *threshold*, or *check* for an operational continuation rule, never *gate* for both |
 
 Avoid unqualified *neural activity*, *neural representation*, *neural response*, and *neural target* when they could refer either to the biological brain or to a neural network. fMRI records a hemodynamic response associated with brain activity, not neuronal firing directly. Use *response* for what is measured, predicted, or evaluated. Reserve *target* for a response used in a training objective; write *recorded brain-response target* or *synthetic brain-response target* only after identifying its source. Do not write the generic phrase *response target*. Name a control by its construction and the alternative explanation it tests: use *text-feature control*, *text-derived control*, or *matched auxiliary target derived from language-model features*, not *nonbrain control*. Precision comes from naming the source, measurement, role, and comparison of an object, not from the adjective *neural* or a negation such as *nonbrain*.
 
@@ -60,6 +61,8 @@ In LaTeX sources, define each recurring acronym once in the manuscript's acronym
 Precision comes from making the relationship among the claim, comparison, evidence, and scope explicit, not from compressing them into technical labels. Open each paragraph with its answer in language available to the intended reader, then add only nonredundant support. When one sentence carries several independent claims, use parallel grammar or separate sentences so that conjunctions and inference boundaries are unmistakable.
 
 Define a technical object locally far enough for the reader to understand its role. If its exact construction or estimator belongs in Methods, add a concise forward reference rather than either duplicating the procedure or leaving the term unexplained. Describe a comparator by what both arms share and the single component that differs; this makes the alternative explanation being tested visible.
+
+Match each citation to the claim it actually supports. A general theoretical source does not support an optimization or learnability claim unless it analyzes that mechanism; present an untested mechanism as a hypothesis and cite the closest empirical or methodological literature. Describe permutations by their actual invariants: target permutation preserves target values and their marginal distribution while destroying stimulus--target pairing and joint structure.
 
 After changing prose, recheck the whole active section against the terminology and acronym contracts rather than validating only the edited sentence. Split a paragraph when it serves distinct reader questions, such as reporting findings and stating contributions, and synchronize the maintained question map when that changes the argument's structure.
 
@@ -83,9 +86,9 @@ The map was produced on 2026-07-22 with the Plan branch of [`question-led-writin
 
 **Abstract.** What problem was tested, how was the measurement-to-intervention chain evaluated, which parts passed, failed, or remained unresolved, and what scoped answer follows?
 
-**Introduction.** What is brain alignment, how does measuring it differ from using neural responses as training targets, why test neural-response supervision in knowledge distillation, and what evidence would justify a reliable, brain-specific advantage?
+**Introduction.** What is brain alignment, how does measuring it differ from using brain responses as training targets, why test brain-response supervision in knowledge distillation, and what evidence would justify a reliable, brain-specific advantage?
 
-**Related work.** Why does prior work on measuring alignment, neural-guided optimization, privileged supervision, and compression leave the value of neural targets for controlled distillation unresolved?
+**Related work.** Why does prior work on measuring alignment, brain-response-guided optimization, privileged supervision, and compression leave the value of brain-response targets for controlled distillation unresolved?
 
 **Methods.** How does the study separately test controlled measurability, language-quality preservation, target uptake, retained-student movement, comparator validity, participant-level transfer, and downstream utility using appropriate estimands, controls, and inference units?
 
