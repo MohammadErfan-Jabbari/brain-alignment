@@ -33,6 +33,7 @@ The current scientific authority remains [`../extended/`](../extended/) until Er
 - Introduce each concept once, operationalize it once, and report its result once. Later sections should synthesize rather than restate.
 - Do not present reserved, unexecuted, or precondition-stopped experiments as results.
 - Use tables for experiment disposition, many-to-many evidence mappings, and repeated variant results.
+- Keep table and figure captions to one rendered line whenever possible. Use the caption to identify the object; place interpretation, caveats, and reading instructions in the surrounding prose.
 
 ## Attention budget
 
@@ -121,12 +122,12 @@ This subsection owns the conceptual mechanism and its limits: output objectives 
 
 #### 2.3 What does prior brain-response-guided training leave unresolved?
 
-1. What positive evidence shows that training with brain responses can alter model representations or task performance?
-2. Which differences in modality, temporal resolution, personalization, model budget, endpoints, controls, seeds, and inference units prevent those results from settling compressed-student value?
-3. What do privileged-information and feature-distillation studies establish about dense training-only targets, and what generic-target alternative do they create?
-4. What do validity and compression studies require concerning nuisance control, split design, language-quality matching, and post-hoc versus training-time alignment?
+1. What evidence shows that training with recorded fMRI responses or synthetic brain responses generated from text can change model representations or task performance, and what claim does each result support?
+2. Why do differences in modality, temporal resolution, personalization, model budget, endpoint, comparator, training seeds, and inference unit prevent those studies from establishing an incremental benefit for a fixed smaller student at comparable language-model quality?
+3. Why do privileged-information and feature-distillation studies create the alternative explanation that any benefit may come from adding a dense, learnable auxiliary target rather than from brain-response content?
+4. Which requirements from measurement-validity and compression research must an intervention study satisfy, including nuisance controls, leakage-resistant splits, language-quality matching, and separation of training-time objectives from post-training brain-predictivity evaluation?
 
-Compare estimands and designs. Do not claim that positive prior studies are invalid or that they all lack controls for brain-response content.
+This subsection owns the factual pre-results literature comparison and the unresolved intervention gap. Compare estimands and designs, use the table to support Questions 1 and 2 rather than create another argumentative branch, and do not claim that positive prior studies are invalid or that they all lack controls for brain-response content. Section 2.4 converts the gap into this manuscript's evidence standard, Section 3 implements that standard, and Section 5.2 owns only the post-results compatibility judgment.
 
 #### 2.4 What evidence standard supports a brain-specific training advantage?
 

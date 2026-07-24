@@ -54,13 +54,14 @@ They do not establish that the changes arose specifically from brain-response co
 \subsection{What prior brain-response-guided training leaves unresolved}
 \label{sec:prior-gap}
 
-Two adjacent literatures bear on the governing question, but they assign neural data different roles.
-Post-hoc encoding studies use brain responses to evaluate representations after a model has been changed for another reason.
-Narrative-summarization tuning can raise \ac{fmri} encoding scores without using neural supervision, and scaling can raise naturalistic brain alignment while matched-size instruction tuning does not under the studied assay \autocite{aw2023,gao2024}.
-These results show that an alignment score responds to non-neural objective and capacity choices; they do not estimate the value of neural data as a training target.
-Neural-guided studies instead place recorded or predicted neural responses inside the optimization loop.
-Their positive findings establish that such targets can change representations, encoding scores, or selected task endpoints, but the estimand depends on the model intervention, comparator, transfer boundary, and inference unit.
-Table~\ref{tab:related-designs} compares designs along those axes rather than treating every positive brain score as the same claim.
+Prior work assigns brain responses two distinct roles: post-training evaluation and training supervision.
+Post-training encoding studies use recorded \ac{fmri} responses to evaluate model representations after the model has been changed for another reason.
+Narrative-summarization tuning can increase brain-predictivity scores without using brain responses during training, while model scaling can increase naturalistic brain alignment even when matched-size instruction tuning does not under the studied assay \autocite{aw2023,gao2024}.
+These findings show that brain predictivity can change because of the training objective or model scale alone; they do not estimate the value of brain responses as training targets.
+Brain-response-guided studies instead use recorded brain responses or model-generated brain-response predictions during training \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}.
+Their positive findings show that these objectives can change model representations, brain-predictivity scores, or selected task outcomes.
+However, the claim supported by each result depends on its comparator, evaluation data, and inference unit.
+Table~\ref{tab:related-designs} compares those designs without treating every positive brain-predictivity result as evidence for the same claim.
 
 \begin{table}[H]
   \centering
@@ -68,63 +69,65 @@ Table~\ref{tab:related-designs} compares designs along those axes rather than tr
   \setlength{\tabcolsep}{3pt}
   \newcommand{\relatedarraystretch}{1.08}
   \renewcommand{\arraystretch}{\relatedarraystretch}
-  \caption{Design comparison for work closest to the governing question. ``Neural data role'' distinguishes post-hoc evaluation from a training target. The final column states the remaining gap, not a defect in the cited study's own claim.}
+  \caption{Prior designs linking model interventions to brain predictivity.}
   \label{tab:related-designs}
-  \begin{tabular}{@{}p{24mm} p{38mm} p{48mm} p{42mm}@{}}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{27mm} >{\raggedright\arraybackslash}p{66mm} >{\raggedright\arraybackslash}p{59mm}@{}}
     \toprule
-    Design & Neural data role and model change & Strongest relevant comparison or endpoint & Gap relative to this study's question \\
+    Study & Intervention and relevant result & Why it does not settle this study's question \\
     \midrule
     \textcite{aw2023}; \textcite{gao2024} &
-    Post-hoc evaluation after summarization tuning, scaling, or instruction tuning. &
-    Base--tuned or matched-size model comparisons show that non-neural training choices can change measured alignment. &
-    No neural training target, compressed student, or neural-versus-nonneural intervention contrast. \\
+    Post-training evaluation after summarization tuning, scaling, or instruction tuning shows that brain predictivity can change without brain-response training. &
+    No brain-response target, smaller student, or brain-response-versus-control intervention. \\
     \textcite{bilgin2026} &
-    Participant-\ac{fmri} cosine loss plus token loss updates upper-layer adapters in pretrained text models. &
-    Held-out-season and cross-stimulus encoding, new-participant readouts, and a model-specific external-task gain. &
-    No shuffled or matched nonbrain target, smaller student, or ordinary-distillation comparator. \\
+    Participant-\ac{fmri} cosine loss and token loss update upper-layer adapters; held-out encoding, new-participant readouts, and a model-specific external task improve. &
+    No shuffled or matched text-derived target, smaller student, or ordinary-\ac{kd} comparator. \\
     \textcite{merlinData2026} &
-    Participant-\ac{fmri}, stimulus-language, or joint objectives update adapters in BERT and GPT-2. &
-    Same stimulus text and broad tuning budget; brain tuning wins more linguistic-probe comparisons than stimulus tuning. &
+    Participant-\ac{fmri}, stimulus-language, or joint objectives update adapters; brain-response training wins more linguistic-probe comparisons than stimulus tuning. &
     Target geometry and difficulty are unmatched; no participant-held-out transfer or compression comparison. \\
     \textcite{merlin2026} &
-    Gradient reversal removes brain-predictive information; complementary tuning increases it. &
-    A permuted-\ac{fmri} control and matched language-model loss accompany changes in broad linguistic probes. &
-    No compressed student; the manipulated readout may contain linguistic variance not specific to neural content. \\
+    Complementary objectives add or remove brain-predictive information; a permuted-\ac{fmri} control and matched \ac{lm} loss accompany changes in linguistic probes. &
+    No smaller student; the manipulated readout may contain linguistic variance not specific to brain-response content. \\
     \textcite{freteault2025} &
-    Individual or group \ac{fmri} fine-tunes selected layers of an auditory network. &
-    Held-out-season brain encoding and multiple external auditory tasks improve. &
-    No matched nonbrain or shuffled-target fine-tuning arm; the model and modality differ from text distillation. \\
+    Individual or group \ac{fmri} responses fine-tune selected auditory-network layers; held-out brain predictivity and external auditory tasks improve. &
+    No matched text-derived or shuffled-target arm; the model and modality differ from text distillation. \\
     \textcite{pirlot2022} &
-    A neural regularizer aligns a vision network with monkey V1 during classification training. &
-    Shuffled neural labels reproduce the clean-accuracy gain, whereas moderate-attack robustness favors real targets. &
-    The clean-task gain is generic regularization; only the robustness endpoint separates neural content in that design. \\
+    A monkey-V1-response regularizer trains a vision model; shuffled targets reproduce the clean-accuracy gain, while real targets improve moderate-attack robustness. &
+    The clean-task gain is generic regularization; only the robustness endpoint distinguishes brain-response content in that design. \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-The broader positive literature spans language, speech, and vision rather than one common treatment effect.
-\ac{fmri}-guided speech adaptation has improved encoding and selected semantic or auditory tasks, including transfer across data or participant settings \autocite{moussa2025,moussa2025b,freteault2025}.
-Text-model interventions report multilingual, linguistic-probe, visual-commonsense, or reasoning changes after neural guidance \autocite{negi2025,bilgin2026,merlinData2026,xiao2026}.
-Temporally precise electrocorticography targets have improved neural prediction within a speech substrate, while slow-\ac{fmri} tuning has transferred to fast electrocorticography prediction for new participants and stimuli after fitting the required readout \autocite{zhang2026,vaidya2026}.
-These results make neural-guided optimization empirically plausible.
-They do not imply one shared endpoint: some adapt a full encoder or adapters rather than a smaller student, some fit participant-specific targets, and some transfer across stimuli, datasets, participants, or modalities with different amounts of target-participant data.
+Positive studies span language, speech, and vision and do not estimate a common intervention effect.
+Speech models adapted with recorded \ac{fmri} responses have improved brain-response prediction and selected semantic or auditory tasks, including transfer across datasets or participants \autocite{moussa2025,moussa2025b,freteault2025}.
+Text-model interventions report changes in multilingual performance, linguistic probes, visual commonsense, or reasoning after training with brain-response targets \autocite{negi2025,bilgin2026,merlinData2026,xiao2026}.
+Training with temporally precise electrocorticography responses has improved prediction within a speech substrate, while training with slower \ac{fmri} responses has transferred to prediction in that faster modality for new participants and stimuli after fitting the required readout \autocite{zhang2026,vaidya2026}.
+Together, these studies show that brain-response-guided objectives can alter model representations or selected task outcomes.
+However, they test different models, training targets, endpoints, and transfer settings.
+Some adapt a full encoder or adapters rather than a smaller student, some use participant-specific targets, and some require different amounts of target-participant data.
+Their positive results therefore do not establish one common effect or the incremental value of brain responses for a fixed smaller student.
 
-Controls also answer different alternatives.
-A structure-preserving permutation asks whether correct stimulus--target pairing matters.
-A task-only or stimulus-language arm asks whether additional exposure or a conventional objective suffices.
-A held-out participant or dataset tests a transfer boundary, often after fitting a new readout.
-None automatically supplies a nonbrain target matched on dimensionality, covariance, baseline predictability, learnability, loss geometry, and optimization pressure.
-The shuffled-label result in vision is especially instructive: a clean-accuracy gain can survive destruction of item-specific neural content even when another endpoint distinguishes the real target \autocite{pirlot2022}.
-Positive neural-guidance results should therefore be retained as positive within their designs, while attribution is limited to the controls each design actually includes.
+Different controls rule out different explanations for a positive result.
+A structure-preserving permutation changes the pairing between stimuli and targets while preserving the target distribution, testing whether the correct pairing matters.
+A task-only or stimulus-language condition tests whether additional training or a conventional objective is sufficient.
+Evaluation on a held-out participant or dataset tests whether the change transfers beyond the training setting, often after fitting a new readout.
+None of these controls replaces a text-derived auxiliary target matched to the brain-response target in dimensionality, covariance, baseline predictability, learnability, and optimization pressure.
+The vision result is instructive: shuffled targets reproduce the clean-accuracy improvement, while only the robustness endpoint distinguishes the real brain-response target \autocite{pirlot2022}.
+Positive results should therefore be retained within the claims supported by their designs, while attribution to brain-response content must be limited to the alternative explanations that their controls rule out.
 
-Privileged-information and feature-distillation work supplies the generic-target alternative directly.
-Dense training-only supervision can help by exposing a useful subspace or easing optimization, and its value depends on teacher information, student capacity, and the chosen representation rather than the target's scientific origin \autocite{lopezpaz2016,saadi2025}.
-Measurement-validity work separately requires blocked splits, nuisance controls, and honest inference units before an encoding score is interpreted \autocite{hadidi2026,lage2019,jia2026}.
-Compression studies that measure alignment after pruning or quantization show that shrinkage method and scale can change the score, but they do not test neural supervision during compression \autocite{oota2026}.
+Privileged-information and feature-distillation studies provide a competing explanation for any benefit from training with brain responses.
+A dense training-only target can help by emphasizing distinctions useful to the student or by making optimization easier, regardless of whether the target contains brain-response content.
+Its value depends on the information carried by the target, the student's capacity, and how the teacher and student representations are matched \autocite{lopezpaz2016,saadi2025}.
+An improvement from a brain-response target therefore requires comparison with a similarly learnable text-derived auxiliary target under the same \ac{lm} objective before it can be attributed specifically to brain-response content.
 
-The unresolved pre-results question is therefore narrower than whether neural-guided training can ever change a model.
-For a fixed smaller student already trained by ordinary \ac{kd}, does a recorded or predicted neural target add value beyond matched non-neural training at comparable language-model quality?
-Answering it requires target uptake and retained-student movement, correct-pairing and matched-target controls, participant-level biological transfer, and a separate external endpoint before a brain-specific utility claim is warranted.
+Measurement-validity research supplies separate requirements for evaluating the student after training.
+Post-training brain predictivity must be measured with leakage-resistant splits, nuisance controls, and an inference unit appropriate to the claim \autocite{hadidi2026,lage2019,jia2026}.
+Reduced auxiliary loss during training cannot replace this fresh evaluation.
+Compression studies further show that pruning or quantization method and model scale can change brain predictivity without brain-response training \autocite{oota2026}.
+An intervention comparison must therefore separate the effect of the brain-response objective from changes in \ac{lm} quality and must evaluate the retained student rather than reuse its training objective.
+
+The unresolved pre-results question is therefore narrower than whether training with brain responses can change a model.
+For a fixed smaller student trained by ordinary \ac{kd}, do recorded \ac{fmri} responses or synthetic brain responses generated from text provide an incremental, brain-specific advantage over the appropriate permuted or text-derived control at comparable \ac{lm} quality?
+The next subsection states the evidence required to support that claim.
 
 \subsection{Evidence standard for a brain-specific training advantage}
 \label{sec:evidence-standard}
