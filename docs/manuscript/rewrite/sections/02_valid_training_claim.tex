@@ -32,22 +32,24 @@ Controlled brain predictivity therefore supports a bounded claim about held-out 
 \subsection{Why brain-response targets might help a student}
 \label{sec:target-rationale}
 
-A neural target might help because it can act as privileged information available during training but unnecessary at deployment.
-The auxiliary objective can favor student representations that preserve response-relevant distinctions while the ordinary language objective preserves predictive behavior, much as generalized distillation uses a training-only teacher to guide a student that later operates without privileged inputs \autocite{lopezpaz2016}.
-A recorded response supplies observed biological supervision; a predicted neural target instead packages structure learned by a fixed generator.
-If that predicted target is a deterministic function of the stimulus and fixed generator, it cannot introduce example information not already determined by them, although it may expose generator-learned structure in a form that is easier for the student to learn or access \autocite{cover2006}.
+Ordinary \ac{kd} trains a student to reproduce the teacher's output distribution, but this objective does not uniquely determine how the student organizes information in its middle layers.
+Different bases, subspaces, and feature organizations can support similar token predictions.
+Two students can therefore show similar language behavior while retaining different information in their model representations.
+This leaves room for an auxiliary training target to favor one representation over another without necessarily improving or degrading the language objective.
+Feature-distillation research further shows that the value of such guidance depends on which information is emphasized and how teacher and student capacities are matched, rather than simply on copying a large dense vector \autocite{saadi2025}.
 
-This selection is possible because matching a teacher's output distribution does not uniquely determine a student's internal geometry.
-The output objective constrains token probabilities, while different middle-layer bases, subspaces, and feature organizations can support similar outputs.
-An auxiliary target can therefore change an internal representation without necessarily improving or degrading the language objective.
-Feature-distillation research sharpens the point: useful transfer depends on which subspace is emphasized and on how teacher and student capacities are matched, not merely on copying a large dense vector \autocite{saadi2025}.
-Appendix~\ref{app:inference} states the narrow assumptions under which information-theoretic quantities relate to these predictive scores and explains why data processing, generalization bounds, and rate--distortion theory do not by themselves license a training benefit.
+Brain-response targets can exploit this flexibility as privileged information available during training but unnecessary at deployment \autocite{lopezpaz2016}.
+The student retains the same \ac{lm} objective, while an auxiliary objective favors representations from which the training target can be predicted.
+Recorded \ac{fmri} responses provide observed biological measurements, whereas synthetic brain responses generated from text package structure learned by a fixed generator.
+Because each synthetic response is determined by the text and generator, it cannot provide example-specific information that varies independently of them.
+It may nevertheless present generator-learned structure in a form that is easier for the student to learn or recover \autocite{cover2006}.
 
-Evidence that this auxiliary intervention operated is still not evidence that its endpoint succeeded.
-Falling training loss shows only that the auxiliary objective and its temporary head engaged.
-Target uptake instead requires improved held-out recovery of the target from frozen retained-student representations by a fresh post-training readout, relative to the appropriate pre-intervention or ordinary-distillation baseline.
-Parameter displacement or changed hidden states after the temporary head is removed separately establish retained-student movement.
-Together, target uptake and retained-student movement rule out different implementation failures, but they do not establish attribution to neural target content, biological transfer, or practical utility.
+Evidence that the auxiliary objective affected training does not establish a brain-specific benefit.
+Reduced target loss may show only that the model learned to predict the auxiliary target during training, without demonstrating a lasting change in the student.
+Target uptake instead requires a new prediction model fitted after training to recover the target from frozen retained-student representations relative to the declared baseline.
+Retained-student movement separately requires parameter or representation changes that remain in the student after training.
+These checks show, respectively, that target information became recoverable and that the intervention changed the retained student.
+They do not establish that the changes arose specifically from brain-response content, transferred to independently recorded \ac{fmri} responses, or improved a practical endpoint.
 
 \subsection{What prior brain-response-guided training leaves unresolved}
 \label{sec:prior-gap}

@@ -113,11 +113,11 @@ This subsection owns the conceptual interpretation: what the score licenses, why
 
 #### 2.2 Why might a brain-response target help a student, and why might it not?
 
-1. How can a brain-response target act as training-only privileged information or as a representational regularizer?
-2. Why does matching a teacher's output distribution leave multiple compatible internal geometries?
-3. Why are target predictability, target-loss reduction, and retained-student movement manipulation checks rather than endpoint success?
+1. Why can ordinary knowledge distillation preserve output behavior while leaving multiple possible internal model representations?
+2. How can recorded fMRI responses or synthetic brain responses generated from text act as training-only targets that select among those representations, and what information can a deterministic synthetic target provide?
+3. Why do target predictability, reduced target loss, and retained-student movement show only that the intervention operated, rather than that it produced a brain-specific training advantage?
 
-Keep only decision-relevant theory: output objectives do not identify internal geometry. A deterministic target cannot convey row-specific information independent of the stimulus and fixed generator, although it may convey generator-learned structure and reorganize what the student makes accessible. Put full mutual-information, ridge/MAP, and rate-distortion derivations in Appendix D.
+This subsection owns the conceptual mechanism and its limits: output objectives do not identify internal geometry; training-only targets may select among compatible representations; and manipulation evidence does not identify brain-specific benefit. A deterministic target cannot convey row-specific information independent of the stimulus and fixed generator, although it may convey generator-learned structure and reorganize what the student makes accessible. Leave exact target construction to Section 3.1 and Appendix B, loss and gradient paths to Section 3.2 and Appendix C, the full evidence standard to Section 2.4, formal information-theoretic arguments to Appendix D.4, and empirical verdicts to Sections 4.4--4.5.
 
 #### 2.3 What does prior brain-response-guided training leave unresolved?
 
@@ -134,7 +134,7 @@ Compare estimands and designs. Do not claim that positive prior studies are inva
 2. Which comparator belongs to each stage, including untrained networks, ordinary distillation, permuted targets, matched text-derived auxiliary targets, matched language quality, and independent recorded-brain endpoints?
 3. Which failed prerequisites stop a branch from supporting a brain-specific advantage, and which later descriptive results may still be reported without reviving the claim?
 
-Place the evidence-chain figure here. Do not repeat a second full version in the Introduction or Methods.
+Section 2.2 explains why target uptake, reduced target loss, and retained-student movement are manipulation checks. This subsection must state the additional comparators and transfer endpoints required to move from those checks to a brain-specific advantage. Place the evidence-chain figure here. Do not repeat a second full version in the Introduction or Methods.
 
 ### 3. Experimental Framework
 
@@ -147,18 +147,18 @@ Open with one compact evidence map: Which estimand, experiment family, comparato
 1. What do the Tuckute sentence-level fMRI data contribute, and which participants, stimuli, regions, response constructions, and reliability rules instantiate the assay described conceptually in Section 2.1?
 2. What does the LeBel naturalistic-story substrate contribute, and why can its deeply sampled participants not support a broad population claim?
 3. How do participant-specific, participant-averaged, ROI-level, and voxelwise recorded fMRI responses differ, and how does using each as a training target or evaluation endpoint change the estimand?
-4. How are the exact TRIBE target, its frozen row twin, the projected text-feature target, and permuted controls constructed, and which properties are or are not matched?
+4. How are the exact TRIBE target, its frozen row twin, the projected text-derived auxiliary target, and permuted controls constructed; what information source does each contain; and which properties are or are not matched?
 
 This subsection owns the concrete data and response choices whose interpretive importance Section 2.1 establishes. Do not repeat the general validity argument or mix dataset description with result interpretation. Evidence owners: E002, E006, E008, E014, E016, E025-E026, and E030.
 
 #### 3.2 How are students trained, and what survives deployment?
 
-1. Which teacher, student, ordinary distillation objective, and initialization are shared across arms?
+1. Which teacher, student, ordinary-distillation objective, and initialization are shared across arms, and which auxiliary objective differs?
 2. Where is the temporary target head attached, which loss reaches which part of the student, and which parameters are trainable in each main regime?
 3. Which heads and parameters are retained, frozen, merged, or discarded before evaluation?
 4. How do recorded-brain-response, permuted-target, ordinary-distillation, text-derived-target, and TRIBE arms differ while preserving the intended comparison?
 
-Use one architecture diagram to show both losses, gradient paths, and deployment-time components. State implementation variants in Appendix C rather than pretending all experiment families share one exact parameterization. Evidence owners: E003-E005, E008, E011, E013, E016-E017, and E025-E026, verified against source code.
+This subsection operationalizes the conceptual mechanism in Section 2.2: identify the shared language objective, the changing auxiliary target, the gradient path, and what remains after the temporary head is removed. Do not repeat the theoretical argument that output matching leaves multiple compatible representations. Use one architecture diagram to show both losses, gradient paths, and deployment-time components. State implementation variants in Appendix C rather than pretending all experiment families share one exact parameterization. Evidence owners: E003-E005, E008, E011, E013, E016-E017, and E025-E026, verified against source code.
 
 #### 3.3 How is brain predictivity measured?
 
@@ -216,11 +216,11 @@ Evidence owners: E004-E005, E008, E010-E011, E013-E014, and E017. Summarize inte
 #### 4.4 Synthetic-response branch I: Is the target measurable, learnable, and attributable?
 
 1. Does the exact PCA-50 TRIBE target add controlled, practically relevant linear predictivity beyond the frozen nuisance model on the intended recorded-brain substrate, and does it beat the frozen row twin?
-2. Can a fresh readout recover the target from retained student representations beyond seed-matched ordinary distillation and target permutations?
-3. Do target retention, parameter displacement, representation movement, and language-quality checks show that the intervention changed the retained student without unacceptable quality loss?
+2. Can a fresh post-training readout recover the target from retained student representations beyond seed-matched ordinary distillation and target permutations, thereby testing target uptake as defined in Section 2.2?
+3. Do target retention, parameter displacement, retained-student movement, and language-quality checks show only that the intervention changed the retained student without unacceptable quality loss, or do they license any stronger claim?
 4. Is the saved text-derived auxiliary target sufficiently matched to attribute the larger TRIBE proxy gain to brain-response content?
 
-Evidence owners: E016, E025-E026, and E030. Exact-target measurability misses the frozen practical rule, while twin specificity remains unresolved. The later manipulation checks pass descriptively, but they cannot revive the brain-specific claim after the earlier prerequisite fails. Content attribution is not identified because the saved comparator differs on measured baseline headroom, covariance geometry, nuisance predictability, parameter displacement, and retained representation movement; initial-gradient comparability remains unresolved.
+Apply the distinction established in Section 2.2: target uptake and retained-student movement are manipulation checks, while attribution requires a valid comparator and transfer requires independent recorded responses. Evidence owners: E016, E025-E026, and E030. Exact-target measurability misses the frozen practical rule, while twin specificity remains unresolved. The later manipulation checks pass descriptively, but they cannot revive the brain-specific claim after the earlier prerequisite fails. Content attribution is not identified because the saved comparator differs on measured baseline headroom, covariance geometry, nuisance predictability, parameter displacement, and retained representation movement; initial-gradient comparability remains unresolved.
 
 #### 4.5 Synthetic-response branch II: Does target uptake transfer to recorded fMRI responses?
 
@@ -360,9 +360,11 @@ Use one ledger rather than one prose subsection per experiment.
 #### D.4 What information theory does and does not imply
 
 1. Under which population linear-Gaussian assumptions can partial \(R^2\) be related to conditional mutual information, and why is cross-validated ridge unique \(R^2\) not itself an MI estimate?
-2. Which Markov chain would be required for a data-processing claim about predicted targets?
+2. Which Markov chain would be required for a data-processing claim about synthetic brain responses generated deterministically from text?
 3. Why are mutual-information generalization bounds and rate-distortion arguments organizing constraints rather than guarantees or explanations of the empirical result?
-4. Why do neither output KL matching nor low target loss determine internal biological alignment?
+4. Why do neither output KL matching nor low target loss determine retained-student movement, brain-response attribution, biological transfer, or internal biological alignment?
+
+This appendix formalizes the limits introduced conceptually in Section 2.2; it must not convert those organizing constraints into empirical explanations or repeat the intervention results.
 
 ### Appendix E. Secondary experiments and failed instruments
 
