@@ -738,8 +738,8 @@
       \strng{authorbibnamehash}{0e6242deaa763dd798d3406ac6a7a60d}
       \strng{authornamehash}{0e6242deaa763dd798d3406ac6a7a60d}
       \strng{authorfullhash}{99e816526cefd40f1b271ee7e1beac75}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{12/19 HEAR tasks; low-data advantage uncontrolled; see canonical/freteault-2025}
@@ -784,8 +784,8 @@
       \strng{authorbibnamehash}{dbd4bef26d157fa8bee89e4b7475ad9b}
       \strng{authornamehash}{dbd4bef26d157fa8bee89e4b7475ad9b}
       \strng{authorfullhash}{527166f0f820fb563d4a828ba6769a96}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{accuracy gain survives a shuffled-label control; only robustness needs neural data; see canonical/pirlot-2022}
@@ -927,8 +927,8 @@
       \strng{authorbibnamehash}{cc3450e5b9366586e953ca651ecdd71c}
       \strng{authornamehash}{cc3450e5b9366586e953ca651ecdd71c}
       \strng{authorfullhash}{cc3450e5b9366586e953ca651ecdd71c}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{1000 isolated sentences, 5 LH language ROIs; see 05-dataset-registry}
@@ -955,8 +955,8 @@
       \strng{authorbibnamehash}{0a792207c50070e8660e4f7416bf3a82}
       \strng{authornamehash}{0a792207c50070e8660e4f7416bf3a82}
       \strng{authorfullhash}{0a792207c50070e8660e4f7416bf3a82}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{ds003020; UTS01-03 deep-sampled; CC\_norm ceiling; see canonical + 05-dataset-registry}
@@ -1016,8 +1016,8 @@
       \strng{authorbibnamehash}{6ccea6e72f141c9aa4702a942712b4d5}
       \strng{authornamehash}{6ccea6e72f141c9aa4702a942712b4d5}
       \strng{authorfullhash}{7243c597356ec164c3fb217bd81a9e13}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{TRIBE v2 source and model description}

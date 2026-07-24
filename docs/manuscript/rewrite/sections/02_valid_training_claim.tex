@@ -1,29 +1,35 @@
-\section{From a Brain Score to a Valid Training Claim}
+\section{Evidence Required for a Brain-Specific Training Advantage}
 \label{sec:valid-claim}
 
-Brain encoding, neural-guided optimization, privileged-information learning, and model compression each study a different link between a representation and an outcome.
-Their results cannot be treated as interchangeable: predicting a neural measurement, changing a trained model, establishing attribution to neural target content, transferring the change to new biological data, and improving a useful endpoint are different claims with different controls.
-This section connects those links and states the evidence needed for the stronger claim tested here.
+Brain-encoding \autocite{oota2023,merlin2024}, brain-response-guided optimization \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}, privileged-information and feature-distillation \autocite{lopezpaz2016,saadi2025}, and model-compression \autocite{oota2026} studies address different questions.
+Predicting recorded brain responses does not establish that training with those responses changes a student model.
+A change in the student also does not establish that it arises specifically from brain-response content, transfers to independently recorded \ac{fmri} responses, or improves a useful endpoint at comparable \ac{lm} quality.
+This section connects these claims and defines the evidence required to support a brain-specific training advantage.
 
-\subsection{What a controlled brain score establishes}
+\subsection{What controlled brain predictivity establishes}
 \label{sec:controlled-score}
 
-A controlled brain score establishes that information useful for predicting a declared neural response is accessible from a frozen model representation under a specified assay.
-An encoding model learns a map from representations to responses on training stimuli and is scored on held-out stimuli, so the scientific object is out-of-sample prediction rather than similarity on the fitted data \autocite{oota2023,merlin2024}.
-For a linear encoding model, a positive controlled score means that a linear combination of representation dimensions predicts some response variation left after the declared controls.
-It does not imply that either system implements the fitted map.
+Controlled brain predictivity tests whether representations extracted from a frozen \ac{lm} contain information useful for predicting recorded \ac{fmri} responses to held-out stimuli.
+An encoding model is fitted to predict responses from those representations on one set of stimuli and evaluated on a separate set.
+This held-out evaluation tests whether prediction generalizes beyond the fitting stimuli rather than merely reflecting overfitting to them \autocite{oota2023,merlin2024}.
+Under a linear readout, a positive controlled score means that a linear combination of \ac{lm} representation dimensions improves prediction beyond the declared controls.
 
-Controls determine which part of that predictive success can be credited to learned language representations.
-A nuisance-only model measures what low-level stimulus properties, such as position, length, or static lexical features, can predict without the tested representation; comparing it with a full model asks what the representation adds.
-An architecture-matched untrained network tests whether the apparent advantage requires learned parameters rather than tokenization, dimensionality, or architectural structure.
-Contiguous or blocked splits preserve local dependence and prevent nearby samples from being scattered across train and test sets, a failure that can inflate scores and reorder model rankings \autocite{hadidi2026}.
+Three controls are required to determine whether predictive performance is associated with learned \ac{lm} representations rather than simpler alternatives.
+First, a nuisance-only model predicts recorded \ac{fmri} responses from stimulus properties such as position, length, and static lexical features.
+Comparing it with a full model that also includes the tested representations measures what those representations add.
+Second, an architecture-matched untrained \ac{lm} retains the tokenizer, dimensionality, and architecture of the trained model but lacks its learned parameters.
+This comparison tests whether predictive performance depends on learned representations rather than the model's fixed structure.
+Third, contiguous or blocked splits keep locally related samples from being scattered across fitting and evaluation sets, reducing inflated scores caused by dependence or leakage between them \autocite{hadidi2026}.
+Together, these controls narrow the observed effect to held-out predictive value added by learned \ac{lm} representations under the declared assay.
 
-Even after those controls, the interpretation remains bounded by the assay.
-A linear readout tests linear accessibility, not all information in the representation; participant-specific and averaged responses answer different population questions; and stimulus distribution, target construction, response reliability, and region selection determine what can be predicted \autocite{lage2019}.
-The inference unit determines where uncertainty applies: many voxels or repeated folds from one person do not create many independent participants.
-Accordingly, controlled brain predictivity supports an assay-bounded existence claim, not a shared biological mechanism, causal equivalence, or general cognitive competence \autocite{jia2026}.
+Even with these controls, controlled brain predictivity remains bounded by the declared assay.
+A linear readout tests whether recorded responses can be predicted from a linear combination of \ac{lm} representation dimensions; it does not test every form of information that might be present.
+Participant-specific responses measure predictivity for an individual, whereas averaged responses measure predictivity of a group-level response summary.
+The stimulus distribution, response definition and aggregation, response reliability, and selected brain regions further determine what can be predicted \autocite{lage2019}.
+The inference unit determines the scope of uncertainty: many voxels or repeated folds from one participant do not provide evidence about many independent participants.
+Controlled brain predictivity therefore supports a bounded claim about held-out prediction under the specified assay, not a shared biological mechanism, causal equivalence, or general cognitive competence \autocite{jia2026}.
 
-\subsection{Why a neural target might help a student}
+\subsection{Why brain-response targets might help a student}
 \label{sec:target-rationale}
 
 A neural target might help because it can act as privileged information available during training but unnecessary at deployment.
@@ -43,7 +49,7 @@ Target uptake instead requires improved held-out recovery of the target from fro
 Parameter displacement or changed hidden states after the temporary head is removed separately establish retained-student movement.
 Together, target uptake and retained-student movement rule out different implementation failures, but they do not establish attribution to neural target content, biological transfer, or practical utility.
 
-\subsection{What prior neural-guided training leaves unresolved}
+\subsection{What prior brain-response-guided training leaves unresolved}
 \label{sec:prior-gap}
 
 Two adjacent literatures bear on the governing question, but they assign neural data different roles.
@@ -118,7 +124,7 @@ The unresolved pre-results question is therefore narrower than whether neural-gu
 For a fixed smaller student already trained by ordinary \ac{kd}, does a recorded or predicted neural target add value beyond matched non-neural training at comparable language-model quality?
 Answering it requires target uptake and retained-student movement, correct-pairing and matched-target controls, participant-level biological transfer, and a separate external endpoint before a brain-specific utility claim is warranted.
 
-\subsection{Evidence standard}
+\subsection{Evidence standard for a brain-specific training advantage}
 \label{sec:evidence-standard}
 
 Figure~\ref{fig:evidence-chain} orders the distinct claims that must be supported, while marking exact-target measurability as an additional prerequisite for predicted rather than recorded neural targets.

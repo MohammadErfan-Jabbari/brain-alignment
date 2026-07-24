@@ -103,13 +103,13 @@ The three contributions are controlled measurement with quality-aware interpreta
 
 Open with one bridge paragraph: Which links in the measurement-to-intervention chain have prior fields studied, and why must they be connected rather than treated as interchangeable?
 
-#### 2.1 What does a controlled brain score establish?
+#### 2.1 What does controlled brain predictivity establish?
 
-1. How does an encoding model turn a frozen representation into a held-out prediction of recorded responses?
-2. Why are low-level nuisance features, architecture-matched untrained controls, and contiguous splits needed for the claim made here?
-3. Why do the readout class, target construction, stimulus distribution, response reliability, and inference unit bound the interpretation?
+1. How does held-out encoding test whether frozen model representations contain information useful for predicting recorded responses, and what does a positive score establish?
+2. Why are nuisance features, architecture-matched untrained-model controls, and contiguous splits required for controlled brain predictivity?
+3. Which properties of the assay bound the resulting claim, and why does controlled brain predictivity not establish a shared biological mechanism or causal equivalence?
 
-The answer is predictive accessibility under the declared assay, not a shared biological mechanism or causal equivalence.
+This subsection owns the conceptual interpretation: what the score licenses, why the controls are necessary, and why the claim remains assay-bounded. Name the readout class, response construction and aggregation, participants, stimulus distribution, response reliability, region selection, and inference unit as bounding properties, but leave their dataset-specific implementation and formulas to Sections 3.1, 3.3, and 3.4 and Appendices B and D.
 
 #### 2.2 Why might a brain-response target help a student, and why might it not?
 
@@ -128,7 +128,7 @@ Keep only decision-relevant theory: output objectives do not identify internal g
 
 Compare estimands and designs. Do not claim that positive prior studies are invalid or that they all lack controls for brain-response content.
 
-#### 2.4 What evidence standard does this manuscript use?
+#### 2.4 What evidence standard supports a brain-specific training advantage?
 
 1. Which stages must pass from controlled measurability and language-quality headroom through exact-target measurability, target uptake, retained-student movement, comparator validity, biological transfer, and utility, and what does each stage establish?
 2. Which comparator belongs to each stage, including untrained networks, ordinary distillation, permuted targets, matched text-derived auxiliary targets, matched language quality, and independent recorded-brain endpoints?
@@ -144,12 +144,12 @@ Open with one compact evidence map: Which estimand, experiment family, comparato
 
 #### 3.1 Which data and targets instantiate the claim?
 
-1. What do the Tuckute sentence-level fMRI data contribute, and how are participants, stimuli, regions, and reliability handled?
+1. What do the Tuckute sentence-level fMRI data contribute, and which participants, stimuli, regions, response constructions, and reliability rules instantiate the assay described conceptually in Section 2.1?
 2. What does the LeBel naturalistic-story substrate contribute, and why can its deeply sampled participants not support a broad population claim?
-3. How do participant-specific, participant-averaged, ROI-level, and voxelwise recorded targets differ in signal and estimand?
+3. How do participant-specific, participant-averaged, ROI-level, and voxelwise recorded fMRI responses differ, and how does using each as a training target or evaluation endpoint change the estimand?
 4. How are the exact TRIBE target, its frozen row twin, the projected text-feature target, and permuted controls constructed, and which properties are or are not matched?
 
-Do not mix dataset description with result interpretation. Evidence owners: E002, E006, E008, E014, E016, E025-E026, and E030.
+This subsection owns the concrete data and response choices whose interpretive importance Section 2.1 establishes. Do not repeat the general validity argument or mix dataset description with result interpretation. Evidence owners: E002, E006, E008, E014, E016, E025-E026, and E030.
 
 #### 3.2 How are students trained, and what survives deployment?
 
@@ -162,12 +162,12 @@ Use one architecture diagram to show both losses, gradient paths, and deployment
 
 #### 3.3 How is brain predictivity measured?
 
-1. What does ordinary held-out \(R^2\) measure, why can it be negative, and which denominator and test targets are used?
-2. How are nuisance-only and full models compared to obtain semipartial unique \(R^2\)?
+1. What does ordinary held-out \(R^2\) measure, why can it be negative, and which denominator and held-out recorded responses are used?
+2. How do nuisance-only and full models operationalize the controlled-predictivity comparison introduced in Section 2.1 to obtain semipartial unique \(R^2\)?
 3. Why is a fresh ridge readout fitted to frozen retained-student representations instead of reusing the temporary training head?
-4. How are layers, contiguous folds, fold-only transformations, ridge regularization, participant averaging, and reliability filtering handled without leakage?
+4. How are layers, contiguous folds, fold-only transformations, ridge regularization, response aggregation, and reliability filtering implemented without leakage?
 
-Introduce ordinary \(R^2\) before unique \(R^2\). Keep the two defining equations in the main text and move derivations to Appendix D. Evidence owners: E001-E006, E008, E014-E016, E025, and E030.
+This subsection owns the estimator and implemented readout protocol, not the general argument that assay choices bound interpretation. Introduce ordinary \(R^2\) before unique \(R^2\), state which response aggregation each endpoint uses, and connect each implementation choice to the corresponding conceptual requirement in Section 2.1. Keep the two defining equations in the main text and move derivations to Appendix D. Evidence owners: E001-E006, E008, E014-E016, E025, and E030.
 
 #### 3.4 What are the estimands, controls, and inference units?
 
@@ -177,7 +177,7 @@ Introduce ordinary \(R^2\) before unique \(R^2\). Keep the two defining equation
 4. How is comparable language-model quality defined, measured, and enforced for each intervention contrast, and when does a mismatch make the comparison descriptive rather than identified?
 5. How are confidence intervals, named tests, multiplicity, minimum detectable effects, practical thresholds, and prospective stop rules used without turning internal thresholds into universal biological constants?
 
-End with one transition paragraph explaining that Results follow the evidence chain rather than experiment number or execution date. Evidence owners: E003-E006, E008, E015-E017, E025-E026, and E030.
+Section 2.1 explains why the inference unit bounds a brain-predictivity claim; this subsection must name the estimand, comparator, aggregation order, and independent unit for each actual contrast. End with one transition paragraph explaining that Results follow the evidence chain rather than experiment number or execution date. Evidence owners: E003-E006, E008, E015-E017, E025-E026, and E030.
 
 ### 4. Results
 
@@ -187,11 +187,11 @@ Open with one compact status table: What is the verdict, strongest evidence, and
 
 #### 4.1 Is controlled brain predictivity present?
 
-1. Do trained middle layers predict held-out sentence-level fMRI beyond the specified nuisance features and architecture-matched untrained controls?
+1. Do trained middle layers satisfy the Section 2.1 standard by predicting held-out sentence-level fMRI beyond the specified nuisance features and architecture-matched untrained controls?
 2. Does controlled predictivity survive held-out-story evaluation in the naturalistic voxelwise substrate?
 3. What does this pass license, and why is it only an existence result under the tested participants, responses, controls, and linear readout?
 
-Evidence owners: E002 and scoped E006.
+Report whether the declared assays satisfy the conceptual standard from Section 2.1; do not redefine that standard or generalize beyond the implemented choices in Sections 3.1, 3.3, and 3.4. Evidence owners: E002 and scoped E006.
 
 #### 4.2 Does compression leave interpretable alignment headroom?
 
@@ -305,13 +305,13 @@ Use one ledger rather than one prose subsection per experiment.
 
 #### B.1 Data inclusion and response construction
 
-1. What acquisition, inclusion, exclusion, alignment, region, voxel, and reliability rules apply to each substrate?
-2. How are participant-level and averaged responses constructed, and how does averaging change the estimand?
+1. What exact acquisition, inclusion, exclusion, alignment, region, voxel, and reliability rules implement the bounding assay choices introduced in Section 2.1 and summarized in Section 3.1?
+2. How are participant-level and averaged responses constructed, and which estimand changes when responses are aggregated?
 
 #### B.2 Stimulus and nuisance features
 
-1. Which low-level, static, and model-derived nuisance features are used in each analysis?
-2. Which transforms are fitted inside folds, and which checks prevent leakage or repeated-stimulus contamination?
+1. Which exact low-level, static, and model-derived nuisance features instantiate the control rationale from Section 2.1 in each analysis?
+2. Which transforms are fitted inside folds, and which implementation checks realize the contiguous-split and leakage requirements specified in Sections 2.1 and 3.3?
 
 #### B.3 Synthetic brain responses and text-derived auxiliary targets
 
@@ -344,13 +344,13 @@ Use one ledger rather than one prose subsection per experiment.
 
 #### D.1 Encoding estimators
 
-1. How are ordinary, nuisance-only, full, semipartial, and partial \(R^2\) related?
+1. How are the ordinary, nuisance-only, full, semipartial, and partial \(R^2\) quantities used in Section 3.3 formally related?
 2. How does ridge regression correspond to a MAP estimator under its assumptions, and why does that interpretation not make the empirical score a causal or mechanistic quantity?
 
 #### D.2 Cross-validation and inference units
 
-1. How are folds, regularization, layers, transforms, repeated technical measurements, seeds, voxels, regions, and participants ordered and aggregated?
-2. Why are spatial voxels, shared folds, seeds, and participants not interchangeable independent units?
+1. How are folds, regularization, layers, transforms, repeated technical measurements, seeds, voxels, regions, and participants ordered and aggregated for the estimands named in Section 3.4?
+2. Why are spatial voxels, shared folds, seeds, and participants not interchangeable independent units, and how does that formal distinction enforce the interpretive boundary introduced in Section 2.1?
 
 #### D.3 Uncertainty, power, and decision thresholds
 
