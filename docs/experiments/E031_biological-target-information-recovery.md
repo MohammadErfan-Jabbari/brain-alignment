@@ -6,7 +6,7 @@ aliases: [E031]
 
 # Experiment - E031: biological-target information recovery
 
-**Created:** 2026-07-28 · **Status:** DESIGN HOLD - no E031 endpoint compute; anti-confound reviewed, remaining freezes and oracle review required · **Mode:** working
+**Created:** 2026-07-28 · **Status:** DESIGN HOLD - outcome-blind preflight and oracle passed; no E031 endpoint compute; C2 allocation acceptance and explicit `/work` required · **Mode:** working
 **Hypothesis:** [`H002`](../hypotheses/H002_repeat-stable-biological-supervision.md)
 **Direction:** Test whether existing fMRI measurements contain recoverable, repeat-stable and participant-preserving target information before changing the LM loss or opening a new modality.
 
@@ -43,7 +43,7 @@ The source-consensus candidate must also exceed:
 
 1. an otherwise byte-identical uniformly weighted residual mean;
 2. its own capacity- and structure-matched block-shifted twin; and
-3. a matched text-derived target before any brain-specific interpretation.
+3. positive information conditional on the frozen contextual-text family before any source-response-specific interpretation.
 
 ### C2: fixed-content repeat-information response
 
@@ -105,7 +105,7 @@ C1 cannot alter C2's split, voxel scope, nuisance model, repeat-count grid, or d
 - Participant `UTS03`, story `wheretheressmoke`.
 - `individual_repeats` has verified shape `(10, 291, 95556)` in [`E006`](E006_lebel-voxelwise-feasibility.md).
 - Reuse the official TextGrid, word sequence, Lanczos, FIR, low-level covariate, and `eng1000` stimulus-feature path through `scripts/lebel_adapter.py`.
-- The primary C2 voxel scope must be selected from builder repeats only, without access to evaluation repeats. All finite cortical voxels and the prior E006 mask are named sensitivities. The E006 mask cannot be primary because it was estimated from these same ten repeats.
+- The primary C2 voxel scope is the fixed released cortical column space intersected only with builder-side finite and nonzero-variance checks before evaluation access. No response-reliability mask is run in E031 v1.
 - C2 generalizes only to this participant, story, acquisition, and preprocessing path.
 
 Every source path, ordered stimulus identifier, participant or repeat index, response array, covariate array, and executable dependency must be hash-bound in the E031 manifest.
@@ -125,11 +125,40 @@ Every source path, ordered stimulus identifier, participant or repeat index, res
 
 1. **`source_mean_raw`:** unweighted mean of the four source-participant response vectors in common ROI coordinates. This is descriptive only.
 2. **`uniform_residual`:** fit the locked centering, scaling, and nuisance model separately to each source participant on the outer training fold, average the fold-residual response vectors with weights exactly `0.25`, then center and scale each ROI target coordinate from the outer training fold only.
-3. **`consensus_weighted`:** use byte-identical transforms and output normalization to `uniform_residual`, changing only the source-participant weights. For each outer fold, participant, and ROI, the four existing outer-training blocks become four inner validation folds. In each inner fold, fit transforms on the other three blocks and compute Pearson agreement between that participant's residual and the uniform mean of the other three participants. Clip correlations to `[-0.999999, 0.999999]`, Fisher-transform them, average the four values with equal fold weights, transform back, and set negative values to zero. If the four non-negative participant scores sum above `1e-6`, normalize them and shrink halfway to uniform, `w = 0.5 * w_normalized + 0.5 * 0.25`; otherwise use four weights of `0.25`. Apply the frozen participant-by-ROI weights to the outer-train and held-out source residuals. This is a source-consensus estimator, not a measurement-reliability estimator.
-4. **`text_matched`:** a five-dimensional contextual text target constructed without evaluation-participant responses. Its exact source encoder, train-only projection, covariance and local-order matching, nuisance-only predictability, fixed-reference learnability, tolerances, and failure rule remain a blocking precheck freeze. A target-only version of the [`E026`](E026_tribe-textfeat-target-comparability.md) measured-axis battery must pass before C1 can support a biology-specific label.
-5. **`block_shifted`:** after fully constructing each biological target arm, circularly rotate it by `floor(L / 2)` rows separately inside every contiguous outer-train and outer-test segment of length \(L\). Never rotate across a fold boundary. Apply the identical target normalization, dimension, calibration, and ridge-selection path to the aligned and shifted arms. The manifest records every segment boundary, offset, and resulting row-map hash.
+3. **`consensus_weighted`:** use byte-identical transforms and output normalization to `uniform_residual`, changing only the source-participant weights. For each outer fold, participant, and ROI, the four existing outer-training blocks become four inner validation folds. In each inner fold, fit transforms on the other three blocks and compute Pearson agreement between that participant's residual and the uniform mean of the other three participants. If either validation vector has variance at most `1e-12`, set that fold agreement to zero. Otherwise clip the correlation to `[-0.999999, 0.999999]`, Fisher-transform it, average the four values with equal fold weights, transform back, and set negative values to zero. If the four non-negative participant scores sum above `1e-6`, normalize them and shrink halfway to uniform, `w = 0.5 * w_normalized + 0.5 * 0.25`; otherwise use four weights of `0.25`. Apply the frozen participant-by-ROI weights to the outer-train and held-out source residuals. This is a source-consensus estimator, not a measurement-reliability estimator.
+4. **`text_surrogate_geometry_matched`:** a five-dimensional contextual text predictor constructed without evaluation-participant responses or rowwise fitting to source responses. Use the six E025 `kd_only` Tuckute representation caches, average the six seed representations separately at layers 6 and 7, concatenate the two seed means, and preserve the frozen 1,000-sentence order. Inside each outer fold, residualize every text coordinate against the locked nuisance block using outer-training rows, standardize from outer-training rows, fit PCA rank 5 on outer-training rows, and apply the transform to held-out rows. Whiten the five outer-training text scores with a leading-eigenvalue-relative floor of `1e-8`, then recolor them with the symmetric positive-semidefinite square root of the centered covariance of the outer-training `consensus_weighted` target. Stop if either rank is below 5. This matches dimension, centered train covariance, and fold-local scale. It does not claim matched headroom, content capacity, or held-out learnability.
+5. **`text_to_consensus_crossfit`:** the confirmatory text-conditional control. Begin from the same seed-averaged layer-6-plus-layer-7 features. For each outer-training block held out in turn, fit nuisance residualization, float64 standardization, and PCA rank 50 only on the other three blocks, then fit a no-intercept multivariate ridge with fixed alpha `100` from those text scores to the five `consensus_weighted` coordinates. Predict the held-out training block and concatenate the four inner out-of-fold predictions. Refit the same pipeline on the full outer-training complement and predict the outer-test block. The evaluation-participant outcome baseline is `nuisance + text_to_consensus_crossfit`; the full model adds the aligned `consensus_weighted` target. This cross-fitting prevents an in-sample text-to-target fit from creating artificial specificity.
+6. **`block_shifted`:** after fully constructing each biological target arm, circularly rotate it by `floor(L / 2)` rows separately inside every contiguous outer-train and outer-test segment of length \(L\). Never rotate across a fold boundary. Apply the identical target normalization, dimension, calibration, and ridge-selection path to the aligned and shifted arms. The manifest records every segment boundary, offset, and resulting row-map hash.
 
 The target builders receive no evaluation-participant response at target-construction time. The evaluation-participant response may be used only as the outcome inside its outer training and held-out content folds.
+
+The cache map is `outputs/E025/extraction.json`, SHA-256 `b49c2795c55961cae161084afa1d3409dd662b893f9a40fa6a4e9373bc2c84c5`, under E025 manifest SHA-256 `2729c0c97b2f845ccf8f58a13e01ecf87f44029564ca615269230437de46698d`. The six frozen nonbrain cache identities are:
+
+| Seed | Cache SHA-256 |
+|---:|---|
+| 0 | `f18da48f50717f999398a194a945056f062b64ec86b38cde822891616474066b` |
+| 1 | `83046f62d6e0e482a05f59d6b3b89bfe8905fbf8e226b27ed9b43d46d79c1181` |
+| 2 | `33b6ee55b7ecf11588ec5986cfc31f9aeb621c55daef4a4d943a5f5f44977ea5` |
+| 3 | `164f7db4d1faf9f5f637165e0da77cdb74aa662e77ee1b68c7a1253099cf8b4e` |
+| 4 | `c5106533509dc3e7842e8f0a58f22472831bc228910de5650f0a5cbb55628be6` |
+| 5 | `dc8736e0030b6c2470436130f89d8928d0099054ea6bd3d72676f86cb227c417` |
+
+Every cache must contain float32 `tuckute_layer_6` and `tuckute_layer_7` arrays of shape `1000 x 768`, metadata pooling `attention-mask mean`, layers `[6, 7]`, and ordered-text SHA-256 `6766e068a2b4f4ad84fad525cdb1f41f60524f1c206139741e9fc22ef1cb5702`. The extraction alias must map the cache only to `kd_only` at its named seed. Cast each array to float64, average in seed order `0,1,2,3,4,5` separately by layer, then concatenate layer 6 before layer 7.
+
+All PCA uses centered float64 `numpy.linalg.svd(..., full_matrices=False)`. Resolve each component sign by making its largest-absolute loading positive. Covariance uses denominator `n_train - 1`. Whitening and recoloring use `numpy.linalg.eigh` with eigenpairs ordered descending. Stop on an eigenvalue below `-1e-10`; clamp smaller negative roundoff to zero. The whitening floor is `1e-8` times the leading eigenvalue. The symmetric square root is \(V\operatorname{diag}(\sqrt{\lambda})V^\top\).
+
+The geometry-control gate requires exact dimension 5, finite rank 5, centered-covariance relative Frobenius error
+\(\lVert C_{\mathrm{text}}-C_{\mathrm{cw}}\rVert_F/\max(\lVert C_{\mathrm{cw}}\rVert_F,10^{-12})\)
+at most `1e-6`, maximum eigenvalue error divided by the leading biological eigenvalue at most `1e-6`, and outer-training mean absolute error at most `1e-7`. Failure makes the standalone text comparison unavailable rather than activating a replacement text model.
+
+### C1 fixed numerical constants
+
+- Preserve the E025 condition-B row order and split the 1,000 rows into five contiguous 200-row outer blocks.
+- Center and scale every predictor with outer-training population moments (`ddof=0`) and floor standard deviations at `1e-8`. Fit the fixed GPT-2-medium static-embedding nuisance PCA at rank 50 by the SVD convention above on each outer-training complement. Apply the identical training-only transform to its held-out block.
+- For source-response residualization, fit the centered nuisance design separately to every source-participant-by-ROI response with float64 `numpy.linalg.lstsq(..., rcond=None)` and no intercept. Apply each outer-training coefficient vector to its held-out source response. Center and scale the resulting target coordinates from outer-training rows with `ddof=0` and floor `1e-8`.
+- Use ridge alphas `[1, 10, 100, 1000, 10000]` for every evaluation-participant nuisance-only and nuisance-plus-target model. Standardize predictors and each evaluation ROI from outer-training rows, fit float64 `sklearn.linear_model.Ridge(solver="svd", fit_intercept=False)`, and choose one alpha shared across the five ROIs by mean inner-block validation MSE. The four non-test outer blocks serve in turn as inner validation blocks. Ties within `1e-12` choose the larger alpha.
+- Apply the same evaluation-outcome model-selection path to `uniform_residual`, `consensus_weighted`, `text_surrogate_geometry_matched`, `text_to_consensus_crossfit`, and `block_shifted`. No arm receives a separate outcome-model alpha search or response transform.
+- For `block_shifted`, rotate each 200-row outer block by exactly 100 rows and record the five row-map hashes.
 
 ### C1 estimands
 
@@ -184,8 +213,23 @@ U_{u,\mathrm{cw\_shifted}}
 \right).
 \]
 
-The matched-text contrast is
+The primary text-conditional specificity estimand is
 
+\[
+B_{\mathrm{cw\mid text}}
+=
+\frac{1}{5}\sum_u
+\frac{1}{5}\sum_{r=1}^{5}
+\frac{
+\mathrm{SSE}^{\mathrm{nuis+text}}_{u,r}
+-
+\mathrm{SSE}^{\mathrm{nuis+text+cw}}_{u,r}
+}{
+\mathrm{SST}_{u,r}
+}.
+\]
+
+Also report the standalone descriptive contrast
 \[
 T_{\mathrm{cw-text}}
 =
@@ -193,20 +237,19 @@ T_{\mathrm{cw-text}}
 \left(
 U_{u,\mathrm{consensus\_weighted}}
 -
-U_{u,\mathrm{text\_matched}}
+U_{u,\mathrm{text\_surrogate\_geometry\_matched}}
 \right).
 \]
 
-`source_mean_raw` is descriptive. A shared-linear or nonlinear latent is deferred from E031 v1. No winner-selected target replaces `consensus_weighted` after outcomes are opened.
+`source_mean_raw` and \(T_{\mathrm{cw-text}}\) are descriptive. A shared-linear or nonlinear latent is deferred from E031 v1. No winner-selected target replaces `consensus_weighted` after outcomes are opened.
 
 ### C1 uncertainty
 
 - Report all five evaluation-participant values.
 - The scope is the five named evaluation participants conditional on the four named source participants. No population-participant claim is permitted.
 - Report participant mean with two-sided t-CI95, participant median, one-sided exact sign test where defined, and leave-one-participant-out estimates. Sign tests and leave-one-participant-out values are stability diagnostics, not significance gates.
-- The confirmatory family is \(A_{\mathrm{cw}}\), \(D_{\mathrm{cw-uniform}}\), \(S_{\mathrm{cw}}\), and \(T_{\mathrm{cw-text}}\). The fixed-cohort gate requires the mean of every contrast to clear its threshold and at least four of five participant contrasts to have the expected sign.
+- The confirmatory family is \(A_{\mathrm{cw}}\), \(D_{\mathrm{cw-uniform}}\), \(S_{\mathrm{cw}}\), and \(B_{\mathrm{cw\mid text}}\). At full precision, the fixed-cohort gate requires mean \(A_{\mathrm{cw}}\) and \(D_{\mathrm{cw-uniform}}\) to be at least `+0.002`, mean \(S_{\mathrm{cw}}\) and \(B_{\mathrm{cw\mid text}}\) to be strictly positive, and at least four of five participant values for every contrast to be strictly positive. Equality at `+0.002` passes the mean practical threshold; an individual value of exactly zero never counts toward the four-positive rule.
 - Also report one-sided participant-\(t\) lower bounds with Bonferroni familywise alpha `0.05`; each bound therefore uses one-sided alpha `0.0125`. These model-based bounds calibrate stability in the fixed cohort and do not create a participant-population claim.
-- \(A_{\mathrm{cw}}\) and \(D_{\mathrm{cw-uniform}}\) must each clear `+0.002` unique-\(R^2\). \(S_{\mathrm{cw}}\) and \(T_{\mathrm{cw-text}}\) must each clear zero.
 - Report fold values descriptively. Do not flatten participant-by-fold cells.
 - The four source participants, inner folds, ROIs, target dimensions, and optimizer initializations are not biological replication units.
 - A prospective power and minimum-detectable-effect calculation for the weakest conjunct at the participant unit must use the recorded E030 participant-level variance without opening any E031 candidate outcome. If the design cannot distinguish its threshold, C1 remains a fixed-cohort engineering gate and cannot support a participant-population claim.
@@ -239,8 +282,10 @@ These are historical variance proxies, not E031 outcomes or estimates of E031 ar
 - The evaluation-repeat mean is sealed until every builder target and nuisance prediction is complete.
 - Builder targets use repeat counts \(k \in \{1,2,3,4,5\}\).
 - For each \(k\), enumerate every size-\(k\) subset of the five builder repeats. Subset estimates are overlapping descriptive measurements, not independent replications.
-- The primary voxel scope is every finite cortical voxel shared by all ten repeats. No response-derived voxel selection enters the primary curve.
-- A fold-local builder-only reliability mask fixed across \(k\) and the prior E006 reliability mask are named sensitivities. Neither may replace the all-finite primary scope.
+- The primary voxel base is the full 95,556-column cortical response space in the released UTS03 HDF array. The little-endian int64 index vector `arange(95556)` has SHA-256 `cff6598c131bdf725894c953341e389d1a3f5a3fb2acfc68b42adb0612bb487d`. Before evaluation-repeat access, intersect this base only with voxels that are finite and have variance above `1e-12` across builder repeats and retained builder time rows. Seal that builder-side mask and its hash. Any nonfinite evaluation value inside the sealed mask triggers a stop; it never causes retrospective voxel exclusion.
+- No response-reliability mask or voxel-selected sensitivity is run in E031 v1.
+- Before evaluation-repeat access, estimate a builder cross-repeat reference \(R_{\mathrm{builder}}\). Enumerate the 10 unordered `2-versus-3` partitions of the five builder repeats and both directions for exactly 20 directed comparisons. For each direction, use the same outer time folds, nuisances, calibration, fixed shift twin, and sealed primary voxel mask as C2. Subtract shifted from aligned inside voxel, take the median across the sealed voxel mask, then take the equal mean across the 20 full-precision directed values. If unrounded \(R_{\mathrm{builder}} < 0.01\) unique-\(R^2\), classify `INSTRUMENT FLOOR` and do not open evaluation repeats; equality continues. Otherwise seal the conditional C2 response floor as \(\delta_{\mathrm{C2}} = 0.10 R_{\mathrm{builder}}\).
+- The builder seal must contain \(R_{\mathrm{builder}}\), \(\delta_{\mathrm{C2}}\), all 10 partition identities and 20 directions, folds, shift maps, primary-mask hash, aggregation constants, and data, configuration, and executable hashes. `c2-score` must refuse evaluation-repeat access on any builder-seal hash mismatch.
 
 ### C2 preprocessing and target construction
 
@@ -248,11 +293,25 @@ These are historical variance proxies, not E031 outcomes or estimates of E031 ar
 - Standardize each voxel from the builder-side outer training time blocks only.
 - Construct the response target as the arithmetic mean of the selected builder repeats. No learned denoiser is fit in C2.
 - Fit the E006 low-level and `eng1000` nuisance path inside each contiguous outer time fold.
-- Add an outcome-independent acoustic block from the released story audio: eight log-mel energy bands spanning `80-7600 Hz`, computed with a `25 ms` Hann window and `10 ms` hop, plus their first temporal differences. Resample to the TR grid and apply the same FIR delays `1-4 TR` as the recorded E006 path. The exact audio identity, sample rate, resampling, edge trimming, and feature hashes must be frozen in the manifest.
+- Add an outcome-independent acoustic block from the released story audio: eight log-mel energy bands spanning `80-7600 Hz`, plus their first temporal differences. The stereo 44,100 Hz int16 WAV is converted to float64 by division by `32768` and averaged across channels. Use a periodic Hann window of 1,103 samples, hop 441, FFT size 2,048, `center=False`, power spectrum, and 10 equally spaced edges under the HTK map \(2595\log_{10}(1+f/700)\) to form eight unit-area triangular filters. Take \(\log(\max(\mathrm{energy},10^{-10}))\), prepend zeros for first differences, place frames at window-center times, Lanczos-resample to the story TR grid with `window=3`, trim rows `[10:-5]`, and apply FIR delays `1-4 TR`. Stop unless the result has exactly 291 rows.
 - Purge the FIR support around every outer-fold boundary so lagged regressors cannot share response support across train and held-out time blocks.
 - Add the same-voxel builder target as the biological predictor of the disjoint evaluation-repeat mean.
-- Standardize builder targets and the evaluation-repeat mean separately using their own outer-training moments only. Fit the builder-to-evaluation ridge calibration on outer training time blocks, choose regularization by inner contiguous training folds, and score held-out time blocks. The ridge grid, variance weighting, fold aggregation, and exact four-TR boundary purge remain blocking manifest freezes.
-- Build temporal twins separately within every contiguous outer-train and outer-test segment. In each outer fold, estimate a builder-only autocorrelation horizon on training segments as the first lag after which the median absolute residual autocorrelation stays below `0.1` for five lags. Let the minimum shift be one plus the larger of that horizon and the four-TR FIR support. Use both positive and negative shifts and average their scores. If the minimum shift is not smaller than half of every affected segment, stop. Exact shifts and hashes must be sealed before evaluation-repeat access.
+- Standardize builder targets and the evaluation-repeat mean separately using their own outer-training moments only. Fit the builder-to-evaluation ridge calibration on outer training time blocks, choose regularization by inner contiguous training folds, and score held-out time blocks.
+- Build temporal twins separately within every retained contiguous outer-train and outer-test segment. Circularly rotate the fully constructed builder target by `floor(L / 2)` rows inside a segment of length \(L\), using the same offset for every \(k\). Never rotate across a fold or purged boundary. Stop if any offset is at most seven TRs. Seal every offset and row-map hash before evaluation-repeat access.
+
+### C2 fixed numerical constants
+
+- Response HDF: `data/lebel_ds003020/preprocessed_data/UTS03/wheretheressmoke.hf5`, 2,447,000,216 bytes, SHA-256 `e172a8bc0a325146e94acd083bdc47b09e758330116c2705db16cf8f14c24c8d`.
+- TextGrid: `data/lebel_ds003020/derivatives/TextGrids/wheretheressmoke.TextGrid`, 998,492 bytes, SHA-256 `abf315ed25d8811dd2b76256b6cb8c4dc2bcde079a7c1d0b9957fe5242828613`.
+- Audio: `data/stimuli_wav/wheretheressmoke.wav`, 106,181,968 bytes, SHA-256 `eb18af15cf390064f410f5d5f3e2b9c6c5068c9ec9af302e4ebee743a72bddc5`; two channels, int16, 44,100 Hz, 26,545,481 frames.
+- `eng1000`: `data/lebel_ds003020/derivatives/english1000sm.hf5`, 82,673,264 bytes, SHA-256 `6eea5f79821fb77dc600abdfe4058284961e4e53521136212415163ed6df848d`.
+- Recorded nuisance adapter: `scripts/lebel_adapter.py`, SHA-256 `f6d15750c977a573dfb38495a84ada34d0f7d0d2b3bc547474d8f9b201784061`.
+- The manifest must reproduce response shape `10 x 291 x 95,556` for UTS03 `wheretheressmoke`.
+- Create five outer time blocks with `numpy.array_split(arange(291), 5)`, yielding one block of 59 rows followed by four blocks of 58 rows.
+- Purge seven TRs on each side of every train/test boundary: three TRs for Lanczos `window=3` interpolation support plus four TRs for FIR delays `1-4`. Assert mechanically that no raw feature or delayed feature support crosses a retained boundary.
+- Use ridge alphas `[1, 10, 100, 1000, 10000]`. Standardize every predictor and each voxel outcome on the relevant outer-training rows with `ddof=0`; a training standard deviation at most `1e-12` excludes that builder-side voxel before the mask is sealed. Fit float64 `sklearn.linear_model.Ridge(solver="svd", fit_intercept=False)` and choose one alpha shared across sealed voxels by the mean inner-block validation MSE. The four non-test outer blocks serve in turn as inner validation blocks. Ties within `1e-12` choose the larger alpha.
+- For each voxel, concatenate outer-fold held-out predictions in original time order and compute unique \(R^2 = (\mathrm{SSE}_{\mathrm{nuis}}-\mathrm{SSE}_{\mathrm{full}})/\mathrm{SST}\), where \(\mathrm{SST}\) is around that voxel's concatenated observed evaluation-response grand mean. Stop if evaluation \(\mathrm{SST}\le 10^{-12}\) inside the sealed mask. Preserve negative values. Never average fold \(R^2\) values.
+- Average builder subsets inside voxel first, subtract the matched shift inside voxel second, and take the median over the all-finite cortical scope last.
 
 C2 intentionally changes only repeat count. Participant, story, stimulus content, voxel coordinates, nuisance features, folds, and evaluation target remain fixed.
 
@@ -263,12 +322,11 @@ For voxel \(v\), repeat count \(k\), and builder subset \(B\), let \(Q_{v,k,B}\)
 Report:
 
 1. the primary median aligned-minus-mean-shifted curve over all finite cortical voxels;
-2. the variance-weighted mean and unadjusted aligned \(Q_{v,k,B}\) summaries as sensitivities;
+2. the arithmetic voxel mean and unadjusted aligned \(Q_{v,k,B}\) summaries as sensitivities;
 3. the fraction of voxels with positive aligned-minus-shifted contrast;
 4. the \(k=5\) minus \(k=1\) primary contrast and all five curve points;
-5. the same summaries in the frozen E006 reliability-mask sensitivity.
 
-Strict observed monotonicity is not a gate because overlapping subset averages make adjacent points dependent and sampling variation can reverse them. Let \(\Delta Q_k\) be the primary aligned-minus-shifted curve. The primary response condition is \(T = \Delta Q_5 - \Delta Q_1\) clearing a predeclared conditional practical threshold, together with a positive fixed least-squares slope of \(\Delta Q_k\) against \(1-1/k\), the expected averaging scale under independent noise. The numeric threshold must be justified from the minimum improvement needed for the later LeBel gradient assay and frozen before `READY-TO-RUN: YES`; it is not estimated from evaluation repeats. The Tuckute `+0.002` threshold is not transplanted to this voxelwise single-story diagnostic.
+Strict observed monotonicity is not a gate because overlapping subset averages make adjacent points dependent and sampling variation can reverse them. Let \(\Delta Q_k\) be the primary aligned-minus-shifted curve. The primary response condition is \(T = \Delta Q_5 - \Delta Q_1 \ge \delta_{\mathrm{C2}}\), together with a positive unweighted least-squares slope with intercept of \(\Delta Q_k\) against \(1-1/k\), the expected averaging scale under independent noise. A slope of exactly zero fails. The `0.01` builder floor and `10%` reference fraction are prospective allocation preferences: a later LeBel gradient assay is not worth running unless repeat averaging recovers at least one tenth of a builder-demonstrable signal that itself reaches one percent unique predictivity. Neither constant is estimated from evaluation repeats, and the Tuckute `+0.002` threshold is not transplanted. Erfan must explicitly accept these two allocation preferences before `READY-TO-RUN: YES`.
 
 ### C2 uncertainty and scope
 
@@ -281,16 +339,16 @@ Strict observed monotonicity is not a gate because overlapping subset averages m
 
 ## Terminal classifications
 
-1. **`CONSENSUS-TRANSFER PASS`:** C1 consensus-weighted target clears the absolute and incremental practical thresholds, beats its shifted twin, and is not reproduced by the matched text target.
-2. **`UNIFORM-RESIDUAL SUFFICIENT`:** the uniform residual mean passes target validity and specificity, but consensus weighting does not improve it.
-3. **`SHARED-SEMANTICS FAILURE`:** a candidate appears predictive, but the text-matched or shifted control reproduces the gain.
-4. **`PARTICIPANT-TRANSFER FAILURE`:** source-view fit is adequate, but the candidate does not predict target-construction-held-out evaluation participants.
-5. **`FIXED-CONTENT REPEAT-INFORMATION RESPONSE`:** C2's \(k=5\) minus \(k=1\) primary contrast crosses its conditional practical threshold and its fixed \(1-1/k\) slope is positive.
+1. **`CONSENSUS-TRANSFER PASS`:** C1 consensus-weighted target clears the absolute and incremental practical thresholds, beats its shifted twin, and adds positive information conditional on the frozen contextual-text surrogate.
+2. **`NO CONSENSUS INCREMENT`:** the consensus target has absolute fixed-cohort predictivity, but \(D_{\mathrm{cw-uniform}}\) misses `+0.002` or its four-positive rule. This issues no specificity or intervention license.
+3. **`SHARED-SEMANTICS FAILURE`:** \(A_{\mathrm{cw}}\) and \(D_{\mathrm{cw-uniform}}\) pass, but the shifted contrast or text-conditional contrast fails.
+4. **`FIXED-COHORT TARGET FAILURE`:** \(A_{\mathrm{cw}}\) misses `+0.002` or its four-positive rule in the five named evaluation participants.
+5. **`FIXED-CONTENT REPEAT-INFORMATION RESPONSE`:** C2's \(k=5\) minus \(k=1\) primary contrast crosses its conditional response floor and its fixed \(1-1/k\) slope is positive.
 6. **`REPEAT-INFORMATION INADEQUATE`:** raw repeat agreement rises, but content-specific unique predictivity does not clear the C2 response gate.
-7. **`INSTRUMENT FLOOR`:** C1 reference variance, C2 conditional threshold, or prospective power cannot distinguish the continuation threshold; no mechanism label is issued.
+7. **`BUILDER INSTRUMENT FLOOR`:** \(R_{\mathrm{builder}} < 0.01\); evaluation repeats remain sealed and no C2 mechanism label is issued.
 8. **`UNRESOLVED`:** validity or provenance failures prevent a scoped classification.
 
-Classification 1 or 2 can justify a Tuckute target-gradient gate. Classification 5 can separately justify repeat-aware LeBel target work. Their conjunction is convergent evidence only, not a pooled estimate or an identified common noise mechanism. E031 never licenses student training directly.
+Only classification 1 can justify a Tuckute target-gradient gate. Classification 5 can separately justify repeat-aware LeBel target work. Their conjunction is convergent evidence only, not a pooled estimate or an identified common noise mechanism. E031 never licenses student training directly.
 
 ## Confound and control battery
 
@@ -300,8 +358,8 @@ Classification 1 or 2 can justify a Tuckute target-gradient gate. Classification
 - Locked participant and repeat membership.
 - Unweighted mean baseline.
 - Per-kind content-destroyed twin.
-- Matched text-derived target for biology-specific interpretation.
-- Dimension, covariance spectrum, scale, headroom, and baseline-predictability audit.
+- Frozen geometry-matched contextual-text benchmark plus cross-fitted text-to-consensus conditional control.
+- Dimension, centered covariance spectrum, and fold-local scale audit for the standalone geometry benchmark. Headroom, content capacity, and held-out learnability are not claimed to be matched.
 - Participant-first or story-scoped uncertainty; no seed, fold, ROI, voxel, or repeat-subset pseudo-replication.
 - No outcome-driven nonlinear model, layer, loss, target family, nuisance set, repeat split, or voxel mask.
 - No student checkpoint, LM quality outcome, E028 endpoint, or external author result is opened.
@@ -356,17 +414,41 @@ This revision:
 - defines the C2 subset estimand, all-finite primary voxel scope, segment-local shift rule, acoustic control, and \(k=5\) minus \(k=1\) response; and
 - narrows the continuation claim to two scoped gates.
 
-The remaining blockers are the exact executable text-control construction and tolerances, C1 power from the frozen E030 variance source, the C2 conditional practical threshold, remaining manifest constants named above, and an outcome-blind implementation review.
+The text-control construction and tolerances are now frozen above, the C1 historical-variance calibration is independently audited, and the builder-only C2 threshold rule is frozen without opening evaluation repeats. A fresh anti-confound review returned `PASS` for synthetic-only implementation and metadata-manifest stages after the cross-fitted text-conditional gate, builder seal, primary-mask correction, and numerical constants were added. This does not authorize endpoint computation.
 
 ### Oracle reviewer
 
-Pending. The oracle may review only after every remaining blocker is numeric or hash-bound and the synthetic-only implementation passes.
+**Verdict: PASS for the outcome-blind preflight.** The independent re-audit verified that:
+
+- the consensus estimator performs foldwise `atanh`, equal averaging, and `tanh` before nonnegative normalization and halfway shrinkage to uniform;
+- the C1 manifest binds the Tuckute response CSV, nuisance cache, E025 manifest, loader, participant/ROI identities, covariates, array shapes, and hashes;
+- the synthetic C2 builder seal requires all frozen fields, 10 partition identities, 20 direction identities, folds, shift maps, aggregation constants, and data, configuration, and executable hashes; and
+- `c1`, `c2-build`, `c2-score`, and `analyze` each fail closed with exit code `2`, `BLOCKED_BY_DESIGN_HOLD`, and `endpoint_values_accessed=false`.
+
+The reviewed outcome-blind artifacts are:
+
+| Artifact | SHA-256 |
+|---|---|
+| `configs/e031_biological_target_information_recovery.json` | `ca598159920820fc5956bcaa145dd8866d39173c5ddb2f1a66ad46dcfa3217f2` |
+| `scripts/e031_biological_target_recovery.py` | `f780d2c2f8b31ef74f4b6b6c64aa6091163c6a10cd918ffc65eaecbf15393b5f` |
+| `outputs/E031/preflight_manifest.json` | `2b05fa6f87f541484c5ed559a020be2763c818c6f505db7b28ccf70aa59bafce` |
+| Canonical manifest payload | `c3da5fcf07d63f4c44cf8693298d10254b28ba60ce7cea407d3930595a36c8b4` |
+
+The exact preflight commands were:
+
+```bash
+uv run python -m py_compile scripts/e031_biological_target_recovery.py
+uv run python scripts/e031_biological_target_recovery.py --stage selftest
+uv run python scripts/e031_biological_target_recovery.py --stage manifest
+```
+
+Compilation passed, all nine synthetic tests passed, and the metadata-only manifest passed with `endpoint_values_accessed=false`. This oracle verdict licenses no endpoint computation. The outcome-producing stage bodies remain blocked until Erfan explicitly accepts or changes `R_builder < 0.01` as the builder instrument floor and `delta_C2 = 0.10 R_builder` as the conditional response floor, then explicitly authorizes `/work E031`.
 
 `READY-TO-RUN: NO`
 
 ## Results
 
-Not run.
+Not run. Only synthetic mechanics and metadata identities have been checked. No E031 endpoint has been computed.
 
 ## Related
 

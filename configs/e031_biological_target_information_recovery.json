@@ -1,0 +1,223 @@
+{
+  "schema_version": "1.0",
+  "experiment": "E031",
+  "science_status": "DESIGN_HOLD",
+  "authorization": {
+    "endpoint_compute_allowed": false,
+    "requires_explicit_work": "/work E031",
+    "requires_c2_allocation_acceptance": true,
+    "c2_builder_floor": 0.01,
+    "c2_response_fraction": 0.1
+  },
+  "c1": {
+    "source_participants": [848, 865, 875, 876],
+    "evaluation_participants": [797, 837, 841, 856, 880],
+    "excluded_participant": 853,
+    "rows": 1000,
+    "outer_folds": [
+      [0, 200],
+      [200, 400],
+      [400, 600],
+      [600, 800],
+      [800, 1000]
+    ],
+    "roi_count": 5,
+    "target_dimension": 5,
+    "uniform_weights": [0.25, 0.25, 0.25, 0.25],
+    "consensus": {
+      "correlation_clip": 0.999999,
+      "minimum_weight_sum": 1e-06,
+      "shrinkage_to_uniform": 0.5
+    },
+    "text_control": {
+      "layers": [6, 7],
+      "feature_pca_rank": 50,
+      "fixed_crossfit_ridge_alpha": 100,
+      "geometry_rank": 5,
+      "covariance_relative_frobenius_tolerance": 1e-06,
+      "eigenvalue_relative_tolerance": 1e-06,
+      "mean_absolute_tolerance": 1e-07,
+      "whitening_relative_floor": 1e-08
+    },
+    "nuisance_pca_rank": 50,
+    "ridge_alphas": [1, 10, 100, 1000, 10000],
+    "standard_deviation_floor": 1e-08,
+    "ridge_tie_tolerance": 1e-12,
+    "block_shift": 100,
+    "fixed_cohort_gate": {
+      "absolute_minimum": 0.002,
+      "increment_minimum": 0.002,
+      "specificity_strictly_positive": true,
+      "text_conditional_strictly_positive": true,
+      "minimum_positive_participants": 4
+    },
+    "ordered_text_sha256": "6766e068a2b4f4ad84fad525cdb1f41f60524f1c206139741e9fc22ef1cb5702",
+    "biological_inputs": {
+      "e025_manifest": {
+        "path": "outputs/E025/manifest.json",
+        "bytes": 131674,
+        "sha256": "2729c0c97b2f845ccf8f58a13e01ecf87f44029564ca615269230437de46698d"
+      },
+      "response_csv": {
+        "path": "data/tuckute2024/data/brain-lang-data_participant_20230728.csv",
+        "bytes": 28502131,
+        "sha256": "a990474e5ecd9bdbbf07c0df81be6f724fc377fe888d07432097a7f7b115cee4"
+      },
+      "nuisance_cache": {
+        "path": "outputs/E025/nuisance_tuckute.npz",
+        "bytes": 4124558,
+        "sha256": "9ef56279506dbd3e45bf8f83d95d5bab2f789c56152866336d1f1e122232eb0a"
+      },
+      "loader": {
+        "path": "scripts/e025_participant_transfer.py",
+        "bytes": 86088,
+        "sha256": "2357bae93d80457d7971c1ed368a30b15da6341171cb30036f3d2e2b360f1b1f"
+      },
+      "condition": "B",
+      "ordered_item_count": 1000,
+      "ordered_item_id_sha256": "0de41d33d8e41ee4a69e898bcbcc42f7c9e65f7cdce1239a00def95ef7dd206b",
+      "rois": [
+        "lang_LH_AntTemp",
+        "lang_LH_IFG",
+        "lang_LH_IFGorb",
+        "lang_LH_MFG",
+        "lang_LH_PostTemp"
+      ],
+      "valid_participants": [797, 837, 841, 848, 856, 865, 875, 876, 880],
+      "covariate_columns": [
+        "rating_imageability_mean",
+        "log-prob-gpt2-xl_mean",
+        "log-prob-pcfg_mean"
+      ],
+      "nuisance_arrays": {
+        "base_scalar": {
+          "shape": [1000, 2],
+          "dtype": "float32",
+          "sha256": "ae1f6152cf4b4a1e437738c1a0141cabd43131437bfd8f2b38d76d7f38ed366c"
+        },
+        "static_embedding": {
+          "shape": [1000, 1024],
+          "dtype": "float32",
+          "sha256": "f90f6cbcd8f0fc4e0ba9cef05c3af8206aeed394f0641ebe2ac962f17dd13422"
+        },
+        "imageability": {
+          "shape": [1000, 1],
+          "dtype": "float32",
+          "sha256": "30171e708947d387fc4d0a2b717d75fd3b99935784cbfa6cac5a9dd8631d0104"
+        },
+        "full_cov_extra": {
+          "shape": [1000, 3],
+          "dtype": "float32",
+          "sha256": "b36043e9427e5367a04ff627c744e27a922a922b106ca53e7d28023132f30442"
+        }
+      }
+    },
+    "extraction": {
+      "path": "outputs/E025/extraction.json",
+      "sha256": "b49c2795c55961cae161084afa1d3409dd662b893f9a40fa6a4e9373bc2c84c5",
+      "manifest_sha256": "2729c0c97b2f845ccf8f58a13e01ecf87f44029564ca615269230437de46698d"
+    },
+    "representation_caches": [
+      {
+        "seed": 0,
+        "path": "outputs/E025/reps/ckpt_fa20c88e795dfe2794391f99.npz",
+        "sha256": "f18da48f50717f999398a194a945056f062b64ec86b38cde822891616474066b"
+      },
+      {
+        "seed": 1,
+        "path": "outputs/E025/reps/ckpt_cf8b3b0442b8b9fb2c9b0f6b.npz",
+        "sha256": "83046f62d6e0e482a05f59d6b3b89bfe8905fbf8e226b27ed9b43d46d79c1181"
+      },
+      {
+        "seed": 2,
+        "path": "outputs/E025/reps/ckpt_771005611d74d52bdea08a3d.npz",
+        "sha256": "33b6ee55b7ecf11588ec5986cfc31f9aeb621c55daef4a4d943a5f5f44977ea5"
+      },
+      {
+        "seed": 3,
+        "path": "outputs/E025/reps/ckpt_697a840111cbff847e8abaec.npz",
+        "sha256": "164f7db4d1faf9f5f637165e0da77cdb74aa662e77ee1b68c7a1253099cf8b4e"
+      },
+      {
+        "seed": 4,
+        "path": "outputs/E025/reps/ckpt_6b3ffa9f615f79afd6f0d904.npz",
+        "sha256": "c5106533509dc3e7842e8f0a58f22472831bc228910de5650f0a5cbb55628be6"
+      },
+      {
+        "seed": 5,
+        "path": "outputs/E025/reps/ckpt_218c4b6bef75aa2fa54f4d69.npz",
+        "sha256": "dc8736e0030b6c2470436130f89d8928d0099054ea6bd3d72676f86cb227c417"
+      }
+    ]
+  },
+  "c2": {
+    "builder_repeats": [0, 2, 4, 6, 8],
+    "evaluation_repeats": [1, 3, 5, 7, 9],
+    "repeat_counts": [1, 2, 3, 4, 5],
+    "time_rows": 291,
+    "voxel_count": 95556,
+    "voxel_index_sha256": "cff6598c131bdf725894c953341e389d1a3f5a3fb2acfc68b42adb0612bb487d",
+    "outer_block_lengths": [59, 58, 58, 58, 58],
+    "boundary_purge_trs": 7,
+    "builder_variance_floor": 1e-12,
+    "evaluation_sst_floor": 1e-12,
+    "ridge_alphas": [1, 10, 100, 1000, 10000],
+    "ridge_tie_tolerance": 1e-12,
+    "builder_floor": 0.01,
+    "response_fraction": 0.1,
+    "acoustic": {
+      "sample_rate_hz": 44100,
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "frames": 26545481,
+      "scale_divisor": 32768,
+      "window_samples": 1103,
+      "hop_samples": 441,
+      "fft_size": 2048,
+      "mel_edges": 10,
+      "mel_bands": 8,
+      "minimum_hz": 80,
+      "maximum_hz": 7600,
+      "energy_floor": 1e-10,
+      "lanczos_window": 3,
+      "trim_start": 10,
+      "trim_stop_from_end": 5,
+      "fir_delays": [1, 2, 3, 4]
+    },
+    "files": {
+      "response_hdf": {
+        "path": "data/lebel_ds003020/preprocessed_data/UTS03/wheretheressmoke.hf5",
+        "bytes": 2447000216,
+        "sha256": "e172a8bc0a325146e94acd083bdc47b09e758330116c2705db16cf8f14c24c8d",
+        "datasets": {
+          "data": [291, 95556],
+          "individual_repeats": [10, 291, 95556]
+        }
+      },
+      "textgrid": {
+        "path": "data/lebel_ds003020/derivatives/TextGrids/wheretheressmoke.TextGrid",
+        "bytes": 998492,
+        "sha256": "abf315ed25d8811dd2b76256b6cb8c4dc2bcde079a7c1d0b9957fe5242828613"
+      },
+      "audio": {
+        "path": "data/stimuli_wav/wheretheressmoke.wav",
+        "bytes": 106181968,
+        "sha256": "eb18af15cf390064f410f5d5f3e2b9c6c5068c9ec9af302e4ebee743a72bddc5"
+      },
+      "eng1000": {
+        "path": "data/lebel_ds003020/derivatives/english1000sm.hf5",
+        "bytes": 82673264,
+        "sha256": "6eea5f79821fb77dc600abdfe4058284961e4e53521136212415163ed6df848d"
+      },
+      "adapter": {
+        "path": "scripts/lebel_adapter.py",
+        "sha256": "f6d15750c977a573dfb38495a84ada34d0f7d0d2b3bc547474d8f9b201784061"
+      }
+    }
+  },
+  "outputs": {
+    "directory": "outputs/E031",
+    "preflight_manifest": "outputs/E031/preflight_manifest.json",
+    "builder_seal": "outputs/E031/c2_builder_seal.json"
+  }
+}
