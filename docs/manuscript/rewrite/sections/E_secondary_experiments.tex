@@ -1,13 +1,13 @@
-\section{Secondary Experiments and Failed Instruments}
+\section{Supporting Analyses, Failed Instruments, and Future Designs}
 \label{app:secondary}
 
 The experiments below answer narrower questions than the main result chain.
 Some validate an implementation, some test a proposed rescue mechanism, and some stop because a measurement or design prerequisite fails.
 A stopped route is not converted into a negative intervention result, and an unexecuted design contributes no empirical evidence.
 
-\subsection{Measurement and apparatus checks}
+\subsection{Pipeline validation and apparatus checks}
 
-\paragraph{E001: synthetic end-to-end validation.}
+\paragraph{Synthetic end-to-end pipeline validation.}
 E001 combined real Pereira sentences \autocite{pereira2018} with a synthetic response constructed from teacher features, named nuisance variables, and noise.
 It exercised the entire initial path: ordinary and target-guided \ac{kd}, the temporary target head, middle-layer extraction, contiguous held-out splitting, fold-local ridge fitting, matched-rank static and contextual feature blocks, nuisance subtraction, and paired aggregation over multiple optimization seeds.
 The expected teacher--student ordering, small nuisance contribution, stable raw-versus-unique behavior, and deterioration under excessive target weight all behaved coherently. \evd{E001}
@@ -18,7 +18,7 @@ The run therefore cannot show that an \ac{lm} predicts recorded activity, that t
 Its lasting contribution is narrower: it exposed a duplicate configuration key, verified that the evaluation tail was excluded from target-guided training, and showed that the analysis did not automatically reward the target arm.
 E002, which substituted recorded responses and trained--untrained controls, begins the scientific evidence.
 
-\subsection{Averaging and intervention variants}
+\subsection{Response averaging and intervention robustness}
 
 \paragraph{Response averaging changes both reliability and the estimand.}
 E010 initially varied the number of participants contributing to a nested average and appeared to show a rising intervention contrast.
@@ -46,7 +46,7 @@ They do not show that all stronger objectives fail, and none supplies a valid po
 
 \subsection{External and cross-modal probes}
 
-\paragraph{E019: a local Negi-style lever diagnostic.}
+\paragraph{Local Negi-style intervention diagnostic.}
 E019 implemented a faithful-as-feasible version of the differentiable temporal prediction head and target-specificity logic used by Negi et al. \autocite{negi2025}.
 On the available LeBel data \autocite{lebel2023} and decoder student, gentle tuning produced no stable real-target advantage, the intended quality control was not in fact quality matched, and stronger schedules degraded encoding or language quality.
 The result is useful corroboration that failure was not confined to the thesis's original five-\ac{roi} \ac{mse} objective. \evd{E019}
@@ -56,7 +56,7 @@ The local test changes the participant pool, stimulus and response substrate, en
 It also never obtained the positive local lever needed for the planned matched-quality analysis.
 The supported conclusion is only that this Negi-style route did not provide a target-specific rescue under the tested local controls.
 
-\paragraph{E022: a reduced Moussa-style speech pilot.}
+\paragraph{Reduced Moussa-style speech pilot.}
 E022 started the pretrained and brain-tuned arms from the same Wav2Vec2-base checkpoint and asked whether brain tuning first produced a reliable phoneme-classification gain before constructing a matched-quality shrink test.
 The reduced, single-participant LeBel setup did not cross its prospective phoneme-gain criterion, although the \ac{fmri} target loss fell, confirming that adaptation ran.
 The downstream matched-quality specificity test was therefore correctly left unbuilt: without a reproduced positive, there was no gain whose specificity could be tested. \evd{E022}
@@ -67,42 +67,42 @@ E019 and E022 together show that the local apparatus did not furnish an external
 
 \subsection{Cognitive and privileged-target routes}
 
-\paragraph{E020: the shared-response reference was not a usable ceiling.}
+\paragraph{The shared-response reference was not a usable ceiling.}
 E020 asked whether a leave-one-participant-out response average could approximate \(\Eys\), so that residual predictivity would isolate structure beyond the shared stimulus-predictable response.
 The reference was too unreliable, and temporal leakage and autocorrelation preserved apparent residual signal.
 With the cleanest gapped and semantically controlled construction, the trained--untrained residual advantage disappeared.
 This is a reference-reliability and attribution failure: it invalidates this empirical ceiling instrument but neither proves participant-specific residual structure nor establishes a universal ceiling. \evd{E020}
 Adding more stories would not repair the small participant reference or identify the latent conditional mean, so the broader build was stopped.
 
-\paragraph{E021: reading-time content was not separated from target shape.}
+\paragraph{Reading-time content was not separated from target shape.}
 Raw and surprisal-residualized reading time initially appeared to yield similar frozen-probe learning advantages over simple shuffled or random controls.
 Those controls did not match the residual target's autocorrelation and marginal shape.
 The final phase-randomized control preserved those statistical properties while removing behavioral content and tied the reading-time residual.
 The supported result is therefore a generic signal-shape or regularization advantage, not a cognition-specific benefit.
 The sequence also replaced an early downstream metric that failed its positive control with a validated frozen probe, so the final failure is attributional rather than a claim that reading time contains no reliable signal. \evd{E021}
 
-\paragraph{E024: the gaze-first route failed its preconditions.}
+\paragraph{The gaze-first route failed its preconditions.}
 The planned \ac{lupi} intervention required a natural-reading gaze summary that was reliable, informative about relation labels, and evaluable with a leakage-free grouped split.
 Natural-reading gaze was reliable enough to measure but largely tracked sentence structure and remained uninformative about the label across linear, nonlinear, pooled-participant, and within-participant probes.
 Task-directed gaze was predictive, but that contrast was consistent with label or task-intent leakage rather than portable privileged information.
 The corpus also contained too few independent paragraph groups for a stable paragraph-disjoint learning curve.
 Because both signal informativeness and evaluation substrate failed before intervention, the multi-arm student build was correctly stopped and the untested \ac{eeg} branch received no verdict. \evd{E024}
 
-\subsection{Prospective but unexecuted programs}
+\subsection{Unexecuted future designs}
 
-\paragraph{E023: objective-specific shedding.}
+\paragraph{Objective-specific shedding design.}
 E023 defines the quantity that the headroom screen could not identify: a \ac{kd} student's vertical residual below a same-lineage alignment--quality frontier, paired with ordinary fine-tuning from the same initialization.
 An analysis-only slope and knee screen found one lower-quality pilot region but did not establish the intended high-quality, locally flat regime.
 No paired training intervention was authorized.
 E023 therefore contributes a design for separating objective-specific loss from ordinary quality loss, not evidence that \ac{kd} has such an effect. \evd{E023}
 
-\paragraph{E027: a reserved matched nonbrain target.}
+\paragraph{Reserved matched auxiliary-target design.}
 E027 was a reserved identifier for asking whether the neural proxy outperformed a geometry- and learnability-matched nonbrain target.
 It has no owning experiment record or authorized design.
 Had the branch activated, E026 implies that a valid comparator would also have needed to match optimization difficulty, initial gradients, and student movement without copying itemwise neural-proxy coordinates.
 E025 missed the participant-positive activation rule, and E026 showed why the saved text-feature target could not substitute for the missing control, so no E027 target was constructed or student trained. \evd{E025}\evd{E026}
 
-\paragraph{E028 and E029: outcome-blind external designs.}
+\paragraph{Outcome-blind external-transfer designs.}
 E028 would test whether supervision from real training \ac{fmri} outperforms a phase-randomized shape twin and a geometry-calibrated nonbrain target on an independently measured cross-modal endpoint, following the external transfer setting of Vaidya et al. \autocite{vaidya2026}.
 Only protocol metadata and outcome-blind synthetic development tests were completed.
 The E028 development run opened no neural endpoint values, trained no target student, and scored no biological endpoint; the synthetic values validate plumbing only. \evd{E028}

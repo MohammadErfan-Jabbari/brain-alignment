@@ -1,71 +1,110 @@
-\section{Experimental Framework}
+\section{Experimental Design and Evaluation}
 \label{sec:framework}
 
-The experiments instantiate the evidence chain with separate estimands rather than treating every change in brain predictivity as the same outcome.
-Table~\ref{tab:evidence-map} assigns each stage one primary comparison, endpoint, and inference unit.
-It is a design map, not a result summary: manipulation, transfer, and utility measurements answer different questions even when they reuse one trained student.
-Bracketed E-codes identify the owning experiment records summarized in Appendix~\ref{app:evidence-provenance}; they are provenance markers, not literature citations.
+Section~\ref{sec:evidence-standard} defines the evidence required to convert controlled brain predictivity into a brain-specific training claim.
+This section instantiates that evidence standard using distinct data, interventions, assays, comparators, endpoints, and inference units.
+An estimand is the specific quantity or effect that an analysis is designed to estimate.
+Table~\ref{tab:evidence-map} maps each conceptual stage to its thesis-facing scientific role and corresponding design tuple.
+A stage may appear in more than one row when different datasets, response constructions, or population units define different estimands.
+This section specifies the study design; Section~\ref{sec:results} reports the verdict for each role.
 
 \begin{table}[H]
   \centering
   \footnotesize
   \setlength{\tabcolsep}{4pt}
-  \renewcommand{\arraystretch}{1}
-\caption{Evidence map. Each row specifies the primary measurement at a stage without reporting its verdict.}
+  \renewcommand{\arraystretch}{1.08}
+\caption{Scientific roles within the evidence chain.}
   \label{tab:evidence-map}
-  \begin{tabular}{p{25mm} p{88mm} p{25mm}}
+  \begin{tabularx}{\textwidth}{
+    @{}
+    >{\raggedright\arraybackslash}p{9mm}
+    >{\raggedright\arraybackslash}p{32mm}
+    >{\raggedright\arraybackslash}X
+    >{\raggedright\arraybackslash}p{31mm}
+    @{}
+  }
     \toprule
-Stage & Primary comparison and endpoint & Inference unit \\
+    Stage & Scientific role & Primary comparison and endpoint & Inference unit \\
     \midrule
-    Sentence measurement & Trained contextual features versus nuisance and architecture-matched untrained features; held-out ordinary and unique $R^2$ & Five contiguous stimulus folds; fixed sentence set \\
-    Naturalistic measurement & Trained versus untrained features beyond nuisance; held-out-story voxelwise unique $R^2$ & Story block within one deeply sampled participant \\
-    Quality-aware headroom & Declared-layer alignment before and after ordinary \ac{kd}, interpreted with held-out language quality & Model condition; training seed for stochastic arms \\
-    Averaged-target pairing effect & Recorded-target versus matched permuted-target training; fresh averaged-response unique $R^2$ & Shared stimulus fold; seeds are technical repetitions \\
-    Participant-target pairing effect & Recorded-target versus matched permuted-target training; fresh participant-response unique $R^2$ & Participant after fold and seed aggregation \\
-    Exact-target measurability & Predicted target versus nuisance and a frozen row twin; held-out recorded-response unique $R^2$ & Participant on a fixed sentence set \\
-    Target uptake and retained-student movement & Target-trained versus \ac{kd} and target permutations; fresh target recovery and retained-student movement & Training seed; fixed target sample for geometry \\
-    Synthetic-response attribution & Synthetic brain-response target versus dimension-matched text-derived auxiliary target; geometry, learnability, induced movement, and the claimed outcome & Seed for trained models; fixed target sample otherwise \\
-    Biological transfer & Target-trained versus \ac{kd} and the declared text-derived auxiliary-target arm; fresh participant-response unique $R^2$ & Participant \\
-    External utility & Brain-response-target training versus the route-appropriate quality-matched control; held-out language or task endpoint & Seed and task example, as declared \\
+    1 & Controlled regional predictivity assay & Trained representations versus nuisance and architecture-matched untrained \ac{lm}; held-out ordinary and unique $R^2$ & Fixed sentence set; five contiguous folds \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
+    1 & Controlled naturalistic voxelwise predictivity assay & Trained versus untrained representations beyond nuisance; held-out-story voxelwise unique $R^2$ & Story blocks within one deeply sampled participant \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
+    2 & Quality-aware distillation-headroom analysis & Declared-layer brain predictivity before and after ordinary \ac{kd}, interpreted with held-out \ac{lm} quality & Model condition; training seed for stochastic arms \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
+    3 & Exact synthetic-target measurability assay & Synthetic target versus nuisance and frozen row twin; held-out recorded-response unique $R^2$ & Participant on a fixed sentence set \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
+    4 & Synthetic-target recovery assay & Target-trained versus \ac{kd} and target permutations; fresh held-out target recovery & Training seed \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
+    5 & Retained-student movement audit & Target-trained versus \ac{kd}; retained parameter or representation change at comparable \ac{lm} quality & Training seed; fixed target sample for geometry \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
+    6 & Recorded-response intervention, participant-averaged estimand & Correctly paired versus permuted response targets; fresh averaged-response unique $R^2$ & Shared stimulus fold; seeds are technical repetitions \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
+    6 & Recorded-response intervention, participant-specific estimand & Correctly paired versus permuted response targets; fresh participant-response unique $R^2$ & Participant after fold and seed aggregation \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
+    6 & Comparator-adequacy audit and attribution assessment & Synthetic brain-response versus text-derived auxiliary-control arm; matching checks and claimed outcome & Seed for trained models; fixed target sample for matching checks \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
+    7 & Saved-student biological-transfer assay & Target-trained versus \ac{kd} and text-derived auxiliary-control arm; fresh participant-response unique $R^2$ & Participant \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
+    8 & Bounded practical-utility evaluation & Brain-response-target arm versus route-appropriate quality-matched control; held-out language or task endpoint & Seed and task example, as declared \\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
 
-\subsection{Data and targets}
+\subsection{Study Design, Datasets, and Data Partitioning}
 \label{sec:data-targets}
 
-The controlled sentence substrate contains 1,000 ordered English sentences, responses from 10 Tuckute participants, and five fixed left-hemisphere language \acp{roi} \autocite{tuckute2024}.
-The participant-averaged sentence target used by the controlled-measurement and initial recorded-target families is the cellwise mean over \acp{uid} 848, 853, 865, 875, and 876: the pandas group mean skips a missing contributor, but the completed sentence-by-\ac{roi} target is required to contain no missing values \evd{E002}\evd{E004}\evd{E005}.
-Participant-first analyses instead preserve one target per person and exclude \ac{uid}~853 for incomplete \ac{roi} coverage, leaving $n=9$ \evd{E008}\evd{E025}.
-All sentence analyses align item identifiers before splitting the fixed order into five contiguous stimulus folds, so folds test held-out items but are not independent people \evd{E002}\evd{E008}\evd{E025}.
+The Tuckute condition-B data provide the fixed sentence-level dataset used for controlled brain predictivity, recorded-response training, and saved-student biological-transfer evaluation \autocite{tuckute2024}.
+The dataset contains 1,000 isolated English sentences ordered by item identifier, recorded \ac{fmri} responses from 10 participants, and five fixed left-hemisphere language \acp{roi} (\texttt{AntTemp}, \texttt{IFG}, \texttt{IFGorb}, \texttt{MFG}, and \texttt{PostTemp}).
+The participant-averaged assay uses \acp{uid} 848, 853, 865, 875, and 876.
+Available responses are averaged cellwise, and inclusion requires a complete sentence-by-\ac{roi} matrix.
+Participant-specific analyses exclude \ac{uid}~853 because of incomplete \ac{roi} coverage, leaving nine participants.
+All Tuckute sentence analyses preserve item order and use five contiguous folds, each holding out 200 sentences while fitting on the remaining 800.
+The released five-\ac{roi} reliability value, \(r_{\mathrm{NC}}=0.491\), provides descriptive correlation-scale context; raw variance-scale \(R^2\) remains the evaluation quantity \evd{E002}\evd{E004}\evd{E005}\evd{E008}\evd{E025}.
 
-Response averaging can improve the reliability of the stimulus-locked target, but it changes the estimand rather than creating more participants.
-Accordingly, an averaged-target analysis supports a claim about that shared-response estimate only; participant-target analyses retain one effect per valid person and aggregate all technical repetitions within that person.
+The LeBel corpus provides a naturalistic, voxelwise complement to the isolated-sentence, \ac{roi}-level Tuckute assay \autocite{lebel2023}.
+The analysis uses participant UTS03, 20 stories divided into five held-out-story folds, and 11,442 voxels whose corrected split-half reliability exceeds 0.5 on a separate repeated story.
+Holding out complete stories preserves within-story temporal dependence and tests prediction on unseen narratives, while the separate reliability story keeps evaluation responses outside voxel selection.
+The resulting estimand concerns held-out-story prediction within one deeply sampled participant.
+Stories and voxels provide nested measurements of that participant; population inference across people requires multiple independent participants.
+Appendix~\ref{app:data-targets} specifies stimulus alignment, temporal resampling, response preprocessing, and delay construction, while Section~\ref{sec:measurement} describes the held-out readout protocol \evd{E006}.
 
-The naturalistic assay uses UTS03 from the LeBel corpus \autocite{lebel2023}.
-It fixes 20 stories in five held-out-story folds and scores 11,442 voxels selected for split-half reliability on a separate repeated story, independent of the encoding folds.
-This supplies a deeply sampled within-person test, not population inference from stories or voxels \evd{E006}.
-Whole-story holdout preserves temporal dependence, while independent reliability selection prevents the response used for scoring from choosing favorable voxels.
-For each complete story separately, the fixed pipeline resamples word features to the scanner grid, applies the fixed feature-edge slice, z-scores every feature and \ac{bold} coordinate within that story, and constructs finite-impulse-response feature-delay copies before cross-validation.
-Only train-complement \ac{pca}, scaling of the assembled design, response centering, ridge selection, and readout fitting are learned. \evd{E006}
+Response construction determines the quantity being estimated.
+Participant averaging can increase reliability by emphasizing the stimulus-locked response shared across selected participants, producing one group-level sentence-by-\ac{roi} matrix.
+Scores against this matrix estimate predictivity of that shared response; population replication still depends on independent participants.
+Participant-specific construction instead preserves one response matrix and one intervention effect for each valid participant, with folds and seeds aggregated within that person before population inference.
+At the spatial level, each \ac{roi} coordinate summarizes activity across a predefined language region, whereas each voxel coordinate retains a finer-grained response measurement.
+The Tuckute assays therefore estimate sentence-level predictivity over five regional summaries, while the LeBel assay estimates held-out-story predictivity over reliable voxels within one participant.
+A response construction becomes a training target when it enters the auxiliary objective and an evaluation endpoint when a fresh held-out readout predicts it.
+Section~\ref{sec:estimands} pairs each construction and role with its corresponding estimand and inference unit \evd{E002}\evd{E006}\evd{E008}\evd{E014}\evd{E017}\evd{E025}.
 
-The primary recorded-target regime distils Qwen2.5-1.5B into Qwen2.5-0.5B while training on the 800 Tuckute tuning sentences in each outer fold \evd{E005}\evd{E008}.
-It uses attention-mask mean pooling at layer~12, five-dimensional \ac{roi} targets, three training seeds, and the same five outer folds; language quality is measured on held-out WikiText rather than on the neural evaluation items.
-The averaged and participant-specific targets share this machinery but answer different questions \evd{E005}\evd{E008}.
+Each dataset has a fixed role in the evidence chain.
+The recorded-response training family uses the five outer folds of the 1,000 Tuckute sentences: each arm trains on 800 sentences, and the remaining 200 provide the fresh recorded-response endpoint.
+A separate held-out WikiText set measures \ac{lm} quality.
+The synthetic-response family trains on 95,999 WikiText-103 sentences with fixed text-derived targets; its separate 1,999-sentence split supplies language-quality and held-out target-recovery endpoints.
+The trained students are subsequently frozen before evaluation on the Tuckute responses used for exact-target measurability and biological transfer.
+The LeBel stories remain confined to the independent naturalistic controlled-predictivity assay.
+Fold-dependent transformations are fitted only on the corresponding training portion.
+These assignments keep student-training examples, language-quality items, target-recovery items, and recorded-response endpoints distinct.
+Appendix~\ref{app:data-targets} reports the exact inclusion and split definitions \evd{E005}\evd{E006}\evd{E008}\evd{E016}\evd{E025}\evd{E030}.
 
-The predicted-target regime distils \texttt{gpt2-medium} into \texttt{gpt2} on 95,999 WikiText-103 training sentences, with 1,999 sentences held out, attention-mask mean pooling at layer~6, and a 20,484-coordinate target.
-Text-only TRIBE v2 maps stimulus events to predicted \ac{fmri} activity on the standardized 20,484-location cortical surface and supplies the fixed predicted-neural target \autocite{dascoli2026}; the nonbrain arm mean-pools frozen GPT-2-medium features and applies a seeded Gaussian projection to the same dimension.
-The frozen Sattolo row twin is the valid stimulus--target pairing test; the saved block permutation is retained only as a defective sensitivity because it leaves fixed points and can duplicate and omit rows.
-The projected nonbrain target matches dimension, corpus, model lineage, loss form, and schedule, but measured audits show mismatches in covariance geometry, baseline headroom, nuisance predictability, parameter displacement, and retained-representation movement.
-Initial-loss and gradient-scale comparability is unknown because those quantities were not retained.
-The comparison therefore cannot support attribution to neural target content \evd{E016}\evd{E026}\evd{E030}.
-Training uses every target coordinate after the frozen predicted-target training-corpus standardization.
-The exact-substrate diagnostic reuses that external standardization and fits the subsequent target \ac{pca}-50 only on each outer-training fold before predicting the five recorded \ac{roi} responses \evd{E016}\evd{E030}.
-Thus target dimension, readout capacity, and biological inference unit remain separate design choices.
+The training targets and controls differ in both information source and comparison role.
+In the recorded-response route, the target contains observed Tuckute \ac{fmri} responses, while the permuted control preserves the response values and their marginal distribution but changes their pairing with the sentences.
+In the synthetic-response route, the exact TRIBE target is produced by a fixed text-to-\ac{fmri} generator and contains 20,484 cortical-surface coordinates \autocite{dascoli2026}.
+Its frozen row twin applies one fixed Sattolo permutation to complete target rows, eliminating unchanged stimulus--target pairs while preserving the target values and covariance structure.
+The saved block permutation provides only a sensitivity analysis because its construction leaves fixed points and can duplicate or omit rows.
+The text-derived auxiliary target instead mean-pools representations from a frozen \ac{lm} and applies a seeded Gaussian projection to the same 20,484 dimensions.
+By construction, it matches the TRIBE target in corpus, dimension, model lineage, loss form, and training schedule.
+Covariance geometry, nuisance predictability, learnability, optimization pressure, and retained-student movement require separate empirical checks, while initial-loss and gradient-scale comparability cannot be reconstructed from the retained artifacts.
+Appendix~\ref{app:data-targets} specifies the exact generation, permutation, standardization, and dimensionality-reduction procedures \evd{E008}\evd{E016}\evd{E026}\evd{E030}.
 
-The saved-student participant-transfer analysis introduces no further student training.
-It evaluates six seeds per saved arm on the nine valid Tuckute participants, with layer~7 primary, layer~6 a locked sensitivity, and the same five contiguous folds \evd{E025}.
-E-record dispositions and retained path--hash pairs are reported in Appendix~\ref{app:evidence-provenance}; inclusion rules, response and target construction, and preprocessing are reported in Appendix~\ref{app:data-targets}.
+The saved-student transfer analysis evaluates biological generalization after synthetic-response training.
+Six saved students per training arm remain frozen throughout this analysis.
+For each of the nine valid Tuckute participants, a fresh ridge readout is fitted within each of the same five contiguous folds, using 800 sentences for fitting and 200 for evaluation.
+Layer~7 is the primary representation layer, and layer~6 provides a prespecified sensitivity analysis.
+Student training and target-recovery evaluation use WikiText-derived examples, while the recorded Tuckute responses enter only the fold-specific evaluation readout.
+This separation keeps the biological endpoint independent of student optimization and excludes reuse of the temporary training head.
+Appendix~\ref{app:evidence-provenance} identifies the retained student artifacts, and Appendix~\ref{app:data-targets} specifies participant inclusion and response preprocessing \evd{E025}.
 
 \subsection{Student training and retained components}
 \label{sec:training}
@@ -139,6 +178,10 @@ Figure~\ref{fig:training-architecture} separates the two paths.
   \label{fig:training-architecture}
 \end{figure}
 
+The primary recorded-target regime distils Qwen2.5-1.5B into Qwen2.5-0.5B while training on the 800 Tuckute tuning sentences in each outer fold \evd{E005}\evd{E008}.
+It uses attention-mask mean pooling at layer~12, five-dimensional \ac{roi} targets, three training seeds, and the same five outer folds; language quality is measured on held-out WikiText rather than on the neural evaluation items.
+The averaged and participant-specific targets share this machinery but answer different questions \evd{E005}\evd{E008}.
+
 The trainable subset is part of each intervention.
 Primary recorded-target runs train \ac{lora} adapters \autocite{hu2022} and the temporary head while the base model and tied embedding/output matrix remain frozen; the naturalistic full-fine-tuning variant instead trains transformer weights and the temporary head while retaining that tied-matrix freeze \evd{E017}.
 TRIBE trains all GPT-2 student parameters, including the tied embedding/output weights, plus the temporary head.
@@ -158,7 +201,7 @@ For the baseline sentence and naturalistic-story assays, \texttt{RidgeCV} select
 In every case, regularization and transforms are nested inside the fitting set, so the temporary training head and held-out responses cannot enter a reported score.
 
 \FloatBarrier
-\subsection{Measuring brain predictivity}
+\subsection{Measuring brain predictivity and target recovery}
 \label{sec:measurement}
 
 Ordinary held-out $R^2$ compares prediction error with variation around each coordinate's test-fold mean.
@@ -191,7 +234,7 @@ Contextual and high-dimensional static blocks enter at a declared capacity-match
 These nuisance arrays are held identical within a contrast, so a training arm cannot gain merely from a wider readout or a different low-level timing model.
 Appendices~\ref{app:data-targets} and~\ref{app:inference} specify nuisance blocks, ranks, temporal transforms, and secondary estimators \evd{E001}\evd{E002}\evd{E006}\evd{E025}\evd{E030}.
 
-\subsection{Estimands, controls, quality, and inference}
+\subsection{Estimands, controls, quality criteria, and inference}
 \label{sec:estimands}
 
 Quality-aware headroom is measured before the intervention claims.

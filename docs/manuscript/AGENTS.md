@@ -21,7 +21,7 @@ aliases: [manuscript-agents]
 2. Read the maintained question map below and apply [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md) to the active scope.
 3. State the intended answer, claim, scope, caveats, and evidence.
 4. Edit the extended manuscript directly. Update this question map in the same change when the manuscript's argument changes.
-5. Preserve `\evd{Ennn}` and keyed values in `numbers.tex`; a missing value is a `\gap`.
+5. Preserve `\evd{Ennn}` as source-level evidence provenance and keyed values in `numbers.tex`; a missing value is a `\gap`. Evidence identifiers are hidden in the thesis build and may be displayed only for internal review.
 6. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/extended`.
 7. Run one fresh independent question-chain, prose, and scientific-scope review and obtain Erfan’s approval for load-bearing framing.
 
@@ -54,6 +54,26 @@ Use the following terms throughout manuscript prose, including abstracts, captio
 
 Avoid unqualified *neural activity*, *neural representation*, *neural response*, and *neural target* when they could refer either to the biological brain or to a neural network. fMRI records a hemodynamic response associated with brain activity, not neuronal firing directly. Use *response* for what is measured, predicted, or evaluated. Reserve *target* for a response used in a training objective; write *recorded brain-response target* or *synthetic brain-response target* only after identifying its source. Do not write the generic phrase *response target*. Name a control by its construction and the alternative explanation it tests: use *text-feature control*, *text-derived control*, or *matched auxiliary target derived from language-model features*, not *nonbrain control*. Precision comes from naming the source, measurement, role, and comparison of an object, not from the adjective *neural* or a negation such as *nonbrain*.
 
+### Thesis-facing experimental vocabulary
+
+The manuscript rewrite is the thesis content. Organize it by the scientific role that a procedure plays in the argument, never by execution date or evidence-record number.
+
+| Level | Meaning | Canonical terms |
+|---|---|---|
+| Route | Major source of training supervision | **recorded-response route**, **synthetic-response route** |
+| Intervention | Paired training family defined by the manipulated supervision | **recorded-response intervention**, **synthetic-response intervention** |
+| Arm or control | Condition within an intervention or assay | **ordinary-distillation arm**, **permuted-response control**, **frozen row-twin control**, **text-derived auxiliary-control arm** |
+| Assay | Protocol that measures a declared quantity | **controlled regional predictivity assay**, **controlled naturalistic voxelwise predictivity assay**, **exact synthetic-target measurability assay**, **synthetic-target recovery assay**, **saved-student biological-transfer assay** |
+| Analysis or audit | Contrast, diagnostic, or validity examination | **quality-aware distillation-headroom analysis**, **retained-student movement audit**, **comparator-adequacy audit and attribution assessment**, **response-averaging analysis** |
+| Evaluation | Recurring external endpoint | **language-quality evaluation**, **practical-utility evaluation** |
+| Evidence record | Internal provenance owner | `E###` appears only in source provenance, an internal-review build, or the provenance appendix |
+
+Use the shortest canonical term after its first definition. Dataset, model, layer, target dimension, and response construction are qualifiers used only when they distinguish variants. Participant-specific and participant-averaged identify response construction or inference level, not standalone experiments. TRIBE identifies the generator. A text-derived auxiliary target, frozen row twin, or permutation is a control within its owning comparison.
+
+The main thesis argument proceeds through controlled regional and naturalistic predictivity, quality-aware distillation headroom, exact synthetic-target measurability where applicable, intervention, retained manipulation, comparator adequacy and attribution, biological transfer, and practical utility. Supporting robustness analyses remain subordinate to their owning role. Pipeline validation, failed instruments, stopped pilots, and unexecuted designs belong in descriptively titled appendix or future-work categories.
+
+Do not expose evidence-record identifiers in ordinary thesis prose, headings, captions, tables, or result statements. Preserve `\evd{E###}` in source and suppress it in the thesis build. A single provenance appendix may map descriptive scientific roles to evidence records, artifacts, and status.
+
 In LaTeX sources, define each recurring acronym once in the manuscript's acronym registry and use `\ac{key}` or its plural/forced variants in prose. Do not manually write either `full term (SHORT)` or a raw registered short form. Reset acronym state after the abstract with `\acresetall` so the abstract and main text each expand their first use independently.
 
 ## Reader-first prose
@@ -61,6 +81,8 @@ In LaTeX sources, define each recurring acronym once in the manuscript's acronym
 Precision comes from making the relationship among the claim, comparison, evidence, and scope explicit, not from compressing them into technical labels. Open each paragraph with its answer in language available to the intended reader, then add only nonredundant support. When one sentence carries several independent claims, use parallel grammar or separate sentences so that conjunctions and inference boundaries are unmistakable.
 
 Define a technical object locally far enough for the reader to understand its role. If its exact construction or estimator belongs in Methods, add a concise forward reference rather than either duplicating the procedure or leaving the term unexplained. Describe a comparator by what both arms share and the single component that differs; this makes the alternative explanation being tested visible.
+
+Define an object's role positively and assign adjacent roles to their actual section or evidence owner. Avoid repeated “X rather than Y” or “X is not Y” constructions when two direct statements communicate the distinction more clearly.
 
 Match each citation to the claim it actually supports. A general theoretical source does not support an optimization or learnability claim unless it analyzes that mechanism; present an untested mechanism as a hypothesis and cite the closest empirical or methodological literature. Describe permutations by their actual invariants: target permutation preserves target values and their marginal distribution while destroying stimulus--target pairing and joint structure.
 
@@ -90,9 +112,9 @@ The map was produced on 2026-07-22 with the Plan branch of [`question-led-writin
 
 **Related work.** Why does prior work on measuring alignment, brain-response-guided optimization, privileged supervision, and compression leave the value of brain-response targets for controlled distillation unresolved?
 
-**Methods.** How does the study separately test controlled measurability, language-quality preservation, target uptake, retained-student movement, comparator validity, participant-level transfer, and downstream utility using appropriate estimands, controls, and inference units?
+**Methods.** How does the study instantiate each scientific role with one study-specific design tuple comprising its data or response construction, intervention or assay, comparator, estimand, endpoint, and inference unit?
 
-**Results.** For each part of the evidence chain, what did the experiments establish, fail to establish, or leave unresolved at its declared inference unit?
+**Results.** For each scientific role in the evidence chain, what did the corresponding intervention, assay, or analysis establish, fail to establish, or leave unresolved at its declared inference unit?
 
 **Discussion.** Where does the evidence chain break, which explanations are ruled out or remain possible, and what must future brain-guided training studies demonstrate?
 
@@ -102,9 +124,9 @@ The map was produced on 2026-07-22 with the Plan branch of [`question-led-writin
 
 ### Appendices
 
-**Appendix A.** Which experiments support the manuscript, and which earlier interpretations were superseded?
+**Appendix A.** Which evidence records and artifacts support each thesis-facing scientific role, and which earlier interpretations were superseded?
 
-**Appendix B.** What do secondary experiments, diagnostics, and failed instruments contribute to the main evidence chain?
+**Appendix B.** What do supporting analyses, diagnostics, failed instruments, stopped routes, and future designs contribute to the main evidence chain?
 
 **Appendix C.** Which formal assumptions, estimators, inference units, and sensitivity analyses are required to interpret the main claims?
 
@@ -120,6 +142,7 @@ Treat this as a maintained reverse outline. Every main-text paragraph must answe
 - Use the correct inference unit, uncertainty, and named test.
 - Keep internal provenance in non-printing BibLaTeX fields such as `annotation`, not printable `note` fields.
 - Keep source search-friendly: one sentence or paragraph per line, minimal custom macros, and no deep content nesting.
+- For dense mapping tables, separate compact identifiers from descriptive labels, give the flexible-width column to the substantive comparison, and use the full text width before reducing font size. Keep conceptually distinct evidence stages in separate rows.
 - Do not create a README; folder guidance belongs here.
 
 ## Figure path

@@ -15,7 +15,7 @@
 \RequirePackage{subcaption}
 \RequirePackage{float}
 \RequirePackage{placeins}
-\RequirePackage{booktabs,longtable,array}
+\RequirePackage{booktabs,longtable,array,tabularx}
 \RequirePackage{xcolor}
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{enumitem}
@@ -95,10 +95,14 @@
       \textbf{[DIAGRAM PLACEHOLDER: #2]}\\[4pt]
       \textcolor{blue!45!black}{\itshape #3}}}}
 
-% --- provenance: \evd (D011 cite) and \gap (open slot) --------------------
-% \evd default (extended/draft): a light grey inline tag so the source is visible
-% while writing. main-public.tex redefines it to feed an evidence-map appendix.
-\newcommand{\evd}[1]{{\footnotesize\textcolor{gray}{[#1]}}}
+% --- provenance: \evd (evidence record) and \gap (open slot) --------------
+% Evidence-record identifiers belong to the audit layer, not thesis prose.
+% The thesis build hides them by default. Set \showevidenceidstrue after loading
+% this package to produce an internal-review PDF with light-grey inline tags.
+\newif\ifshowevidenceids
+\showevidenceidsfalse
+\newcommand{\evd}[1]{%
+  \ifshowevidenceids{\footnotesize\textcolor{gray}{[#1]}}\fi}
 % \gap: a loud marker. It is allowed in the extended manuscript; check_gap_survival
 % blocks it from a public cut. Never write a guessed number; write the gap.
 \newcommand{\gap}[1]{{\textcolor{red}{\textbf{[GAP: #1]}}}}

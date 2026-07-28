@@ -1,4 +1,4 @@
-\section{Data, Targets, and Preprocessing}
+\section{Data, Responses, Targets, and Controls}
 \label{app:data-targets}
 
 \subsection{Data inclusion and response construction}
@@ -68,7 +68,7 @@ The earlier within-story z-scoring, trimming, and finite-impulse-response expans
 Complete stories, rather than neighboring \acp{tr}, are held out, so temporally autocorrelated samples cannot cross the evaluation boundary.
 The same story folds, nuisance arrays, temporal transforms, and response rows are used for trained and architecture-matched untrained networks. \evd{E006}
 
-\subsection{Predicted and nonbrain targets}
+\subsection{Synthetic brain-response and text-derived control targets}
 
 TRIBE~v2 maps stimulus events to predicted \ac{fmri} activity on a standardized 20,484-location cortical surface \autocite{dascoli2026}.
 It is therefore a predicted neural target, not a neural recording.

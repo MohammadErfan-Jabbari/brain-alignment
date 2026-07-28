@@ -28,7 +28,7 @@ Stage & Status & Strongest evidence & Interpretation \\
   \end{tabular}
 \end{table}
 
-\subsection{Is controlled neural signal present?}
+\subsection{Controlled regional and naturalistic predictivity}
 \label{sec:results-signal}
 
 Controlled neural signal is present under both recorded-response assays.
@@ -45,7 +45,7 @@ Together, the sentence and story results pass the measurement stage without bein
 They show that language training adds linearly accessible information about held-out recorded responses across two stimulus formats and target resolutions.
 They do not show that the signal can be increased by neural-guided training, that an increase would generalize across people, or that it would improve language behavior.
 
-\subsection{Does compression leave interpretable alignment headroom?}
+\subsection{Quality-aware distillation headroom}
 \label{sec:results-headroom}
 
 Compression leaves observed alignment headroom in the from-scratch distillation assay.
@@ -69,7 +69,7 @@ These tests support quality coupling as a design threat, not a universal law or 
 Controlled predictivity and observed headroom therefore license an intervention test, but only at comparable language quality.
 The next branch must compare paired interventions at matched checkpoints or operating points; neither the teacher gap nor a quality correlation can substitute for that contrast.
 
-\subsection{Recorded-target branch: Is there a participant-general advantage?}
+\subsection{Recorded-response intervention}
 \label{sec:results-recorded}
 
 Recorded-target training produces positive point estimates against a block-permuted target when the response is averaged across participants, but the valid fold analysis does not establish a pairing effect.
@@ -130,7 +130,7 @@ The variants rule out specific explanations---insufficient adapter rank at a fix
 The averaging diagnostic also prevents a broader overcorrection: stronger prediction of an averaged response remains a valid measurement of the shared component, even though it cannot support a claim about mean participant benefit.
 With controlled signal and headroom established but the recorded-target intervention unsupported, the predicted-target branch must begin again at exact-target measurability before target uptake can matter.
 
-\subsection{Predicted-target branch I: Measurability, uptake, and attribution}
+\subsection{Exact synthetic-target measurability}
 \label{sec:results-predicted-identification}
 
 The predicted-target branch misses its first biological prerequisite: the exact target fails the frozen practical linear-measurability rule.
@@ -139,6 +139,9 @@ That increment is \result{e030_target_unique}, with Bonferroni family-95\% two-s
 This result excludes a practically relevant unique linear increment only under the fixed target transform, nuisance model, sentence set, cohort, and readout.
 It does not exclude total or nuisance-redundant target predictivity, nonlinear access, or another target transform or cohort.
 The aligned-minus-frozen-row-twin contrast is \result{e030_target_twin}, with family-95\% interval \result{e030_target_twin_ci}, so row-specific target advantage remains unresolved \evd{E030}.
+
+\subsection{Synthetic-response manipulation and attribution status}
+\label{sec:results-synthetic-manipulation}
 
 Target uptake and retained-student movement are supported in the saved WikiText continuity assay, not as fresh Tuckute incremental retention.
 Using the saved technical training seeds (\result{e016_seed_n}), the fresh-readout TRIBE-target gain over seed-matched \ac{kd} is \result{e016_tribe_synth_gain} target $R^2$, with two-sided 95\% seed-axis $t$ interval \result{e016_tribe_synth_gain_ci} \evd{E016}\evd{E025}.
@@ -158,7 +161,7 @@ Initial auxiliary-loss and gradient comparability remains unresolved because tho
 Same-teacher redundancy is consistent with the text-feature arm's high baseline fit, but the audit does not identify that or any other mismatch as the cause.
 The larger TRIBE-target gain therefore remains a valid within-target learnability result and a numerical cross-target difference, not evidence for attribution of the change to neural target content \evd{E016}\evd{E026}.
 
-\subsection{Predicted-target branch II: Biological transfer}
+\subsection{Saved-student biological transfer}
 \label{sec:results-predicted-transfer}
 
 After failed or unresolved identification prerequisites, the later biological endpoints describe the saved interventions but cannot establish biological transfer attributable to neural target content.
@@ -187,7 +190,7 @@ Figure~\ref{fig:participant-evidence} aligns the participant-level contrasts at 
 \end{figure}
 \FloatBarrier
 
-\subsection{External utility and secondary routes}
+\subsection{Bounded practical-utility evaluation}
 \label{sec:results-utility}
 
 No completed route establishes a brain-specific neural-target utility claim, but the routes fail at different prerequisites.

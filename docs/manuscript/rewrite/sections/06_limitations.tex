@@ -1,6 +1,8 @@
 \section{Limitations}
 \label{sec:limitations}
 
+\subsection{Population, data, and measurement scope}
+
 The biological coverage is limited to English-language \ac{fmri} responses from the studied cohorts.
 The sentence experiments summarize responses within fixed left-hemisphere language \acp{roi}, while the naturalistic assay uses reliability-selected voxels from a few deeply sampled story listeners.
 Some training targets average responses across participants to emphasize a shared stimulus-locked component; the participant-first analyses instead retain one effect per person.
@@ -11,6 +13,8 @@ They also do not test whether information unavailable to the declared linear rid
 Because modality, temporal precision, population, and stimulus structure can change both the target and the intervention, the local failures do not extend to those untested regimes \evd{E006}\evd{E030}.
 
 Identification is conditional on the declared nuisance sets, controls, and dependence structure.
+\subsection{Identification and inference limitations}
+
 Unique predictivity is only beyond the included nuisance features, not beyond all stimulus-derived information, and the trained-versus-untrained contrast establishes learned predictive access rather than a shared mechanism \evd{E002}\evd{E006}\evd{E025}.
 The saved nonbrain comparator mismatches target predictability, geometry, learnability, and induced movement, so its cross-target contrast cannot identify neural target content \evd{E026}.
 Exact-target measurability is further restricted to the \ac{pca}-50 linear assay, and specificity against the frozen twin remains unresolved \evd{E030}.
@@ -23,6 +27,8 @@ The exact-target unique-increment interval is \result{e030_target_unique_ci}, wh
 These bounds disfavor participant-average intervention effects and target-measurability increments of the prespecified size under the tested assays, while remaining compatible with smaller effects, mixed participant responses, and effects in other cohorts.
 
 The intervention search was diagnostic rather than exhaustive.
+\subsection{Intervention and utility scope}
+
 It did not jointly explore a broad range of student scales and architectures, objective families, loss weights, schedules, data volumes, target constructions, or participant-personalization strategies.
 Increasing adapter capacity at a fixed loss weight did not create a stronger effective manipulation, and the contrastive, voxelwise, and full-parameter variants close only their tested parameterizations and data regimes \evd{E011}\evd{E013}\evd{E017}.
 The conclusion therefore localizes failure within the executed search rather than claiming that a different scale, target, personalized objective, or optimization schedule cannot succeed.
