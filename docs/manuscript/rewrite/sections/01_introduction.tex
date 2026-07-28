@@ -11,7 +11,7 @@ Brain alignment is assessed by fitting an encoding model that predicts recorded 
 Successful prediction indicates that the representations contain information useful for predicting recorded \ac{fmri} responses to the same stimuli \autocite{oota2023,merlin2024}.
 The resulting score characterizes the complete assay rather than the \ac{lm} alone: it depends on the participants and response aggregation, stimulus distribution, data split, nuisance features, response reliability, readout class, and inference unit.
 In this manuscript, \emph{controlled brain predictivity} refers to brain alignment after the specified nuisance, split, and control-model checks.
-Section~\ref{sec:measurement} defines the main held-out scores and summarizes the readout protocol; Appendix~\ref{app:data-targets} specifies the nuisance features and preprocessing, and Appendix~\ref{app:inference} formalizes the estimators and inference.
+Section~\ref{sec:measurement-prerequisites} defines the main held-out scores and summarizes the readout protocol; Appendix~\ref{app:data-targets} specifies the nuisance features and preprocessing, and Appendix~\ref{app:inference} formalizes the estimators and inference.
 
 A positive brain-alignment score shows that model representations contain information useful for predicting recorded \ac{fmri} responses under the specified assay.
 It does not establish that training with brain responses can alter the student's retained representations.

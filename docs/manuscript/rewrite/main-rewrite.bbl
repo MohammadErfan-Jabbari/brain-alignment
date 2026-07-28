@@ -1096,8 +1096,8 @@
       \strng{authorbibnamehash}{6ccea6e72f141c9aa4702a942712b4d5}
       \strng{authornamehash}{6ccea6e72f141c9aa4702a942712b4d5}
       \strng{authorfullhash}{7243c597356ec164c3fb217bd81a9e13}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{TRIBE v2 source and model description}
@@ -1107,69 +1107,6 @@
       \field{year}{2026}
       \verb{eprint}
       \verb 2605.04326
-      \endverb
-    \endentry
-    \entry{hu2022}{inproceedings}{}
-      \name{author}{8}{}{%
-        {{hash=e6a95d07b8ae7f14e4eb777c6980a059}{%
-           family={Hu},
-           familyi={H\bibinitperiod},
-           given={Edward\bibnamedelima J.},
-           giveni={E\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
-        {{hash=1701c0f05662e92cf52cfc8c16437496}{%
-           family={Shen},
-           familyi={S\bibinitperiod},
-           given={Yelong},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=ab0fdbc1586103dda7ac5e0852e5b2c3}{%
-           family={Wallis},
-           familyi={W\bibinitperiod},
-           given={Phillip},
-           giveni={P\bibinitperiod}}}%
-        {{hash=eaa5cc98b7f19b4ce07c832213a13b9d}{%
-           family={Allen-Zhu},
-           familyi={A\bibinithyphendelim Z\bibinitperiod},
-           given={Zeyuan},
-           giveni={Z\bibinitperiod}}}%
-        {{hash=0d2c91b24f885b22d373a892a768abc8}{%
-           family={Li},
-           familyi={L\bibinitperiod},
-           given={Yuanzhi},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=b654b88ecd4c3ff1ea29da275bce701c}{%
-           family={Wang},
-           familyi={W\bibinitperiod},
-           given={Shean},
-           giveni={S\bibinitperiod}}}%
-        {{hash=55f210233ac686af68eba11a97bd84e2}{%
-           family={Wang},
-           familyi={W\bibinitperiod},
-           given={Lu},
-           giveni={L\bibinitperiod}}}%
-        {{hash=05d71a9c5e7ac79222e01a55af0ccb93}{%
-           family={Chen},
-           familyi={C\bibinitperiod},
-           given={Weizhu},
-           giveni={W\bibinitperiod}}}%
-      }
-      \strng{namehash}{d775178c34083951ab1e07df578582c3}
-      \strng{fullhash}{08f4b49735d5d145be00bc9c07f38975}
-      \strng{bibnamehash}{d775178c34083951ab1e07df578582c3}
-      \strng{authorbibnamehash}{d775178c34083951ab1e07df578582c3}
-      \strng{authornamehash}{d775178c34083951ab1e07df578582c3}
-      \strng{authorfullhash}{08f4b49735d5d145be00bc9c07f38975}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{International Conference on Learning Representations}
-      \field{title}{{LoRA}: Low-Rank Adaptation of Large Language Models}
-      \field{year}{2022}
-      \verb{urlraw}
-      \verb https://openreview.net/forum?id=nZeVKeeFYf9
-      \endverb
-      \verb{url}
-      \verb https://openreview.net/forum?id=nZeVKeeFYf9
       \endverb
     \endentry
     \entry{cover2006}{book}{}

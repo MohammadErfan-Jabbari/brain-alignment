@@ -33,6 +33,7 @@ The current scientific authority remains [`../extended/`](../extended/) until Er
 - A subsection normally owns three to five related paragraph questions. A two-paragraph subsection is allowed only when it marks a real conceptual boundary. Merge a one-paragraph subsection into its parent.
 - Split a subsection if it exceeds about 1,000 to 1,200 words, contains more than six or seven substantive paragraphs, or answers more than one parent question.
 - Main-text theory must change the interpretation of an estimand or control. Put non-decisive derivations and analogies in Appendix D.
+- Introduce every symbol before its equation. Unless the meaning is already unmistakable, follow each claim-bearing equation with one or two plain-language sentences that explain what it computes and why that quantity answers the current reader question.
 - Introduce each concept once, operationalize it once, and report its result once. Later sections should synthesize rather than restate.
 - Do not present reserved, unexecuted, or precondition-stopped experiments as results.
 - Use tables for analysis or evidence-record disposition, many-to-many evidence mappings, and repeated variant results.
@@ -211,7 +212,7 @@ This subsection owns the study map and the interpretively necessary dataset and 
 3. How does the exact synthetic-target measurability assay compare the target with the nuisance model and frozen row-twin control on recorded responses?
 4. How do ordinary and unique \(R^2\), reliability context, fresh ridge readouts, and leakage-safe transformations apply across these prerequisites?
 
-This subsection owns summary-level assay design. Section 2 owns what each prerequisite licenses, Appendix B owns exact inputs and preprocessing, and Appendix D owns estimator formulas and aggregation. Evidence owners: E002-E003, E006, E015, and E030.
+This subsection owns summary-level assay design and the compact formulas for its main estimands. Section 2 owns what each prerequisite licenses, Appendix B owns exact inputs and preprocessing, and Appendix D owns estimator derivations, variants, aggregation, tests, and inference. Evidence owners: E002-E003, E006, E015, and E030.
 
 #### 3.3 How is the recorded-response intervention instantiated?
 
@@ -225,13 +226,13 @@ This subsection owns the common intervention design and its study-specific varia
 
 #### 3.4 How is the synthetic-response intervention connected to manipulation, attribution, transfer, and utility assays?
 
-1. Which components are shared by the synthetic-response, ordinary-distillation, row-permuted, and text-derived auxiliary-control arms, and what changes between them?
+1. Which components are shared by the synthetic-response, ordinary-distillation, and text-derived auxiliary-control arms, what changes between them, and why are the saved block-permuted arms sensitivity checks rather than peer claim-identifying arms?
 2. How do the synthetic-target recovery assay and retained-student movement audit test whether training affected the retained student?
 3. How does the comparator-adequacy audit determine whether the available contrast can identify brain-response-specific attribution?
 4. How does the saved-student biological-transfer assay reuse frozen students and independently recorded participant responses without further student training?
-5. Which language-quality and practical-utility endpoints apply, and what prerequisite status limits their interpretation?
+5. Which language-quality checks qualify the synthetic-response contrasts, which practical-utility evaluation belongs to the separate recorded-response route, and what prerequisite status limits each interpretation?
 
-This subsection owns the intervention-to-endpoint design chain. Target recovery and retained-student movement are manipulation checks, not peer interventions. Appendix B owns target and control construction, Appendix C owns training and retained components, and Appendices D and F own estimators and sensitivities. Evidence owners: E009, E016, E025-E026, and E030.
+This subsection is titled ``Synthetic-Response Intervention and Downstream Assays'' and owns the intervention-to-endpoint design chain. Target recovery and retained-student movement are manipulation checks, not peer interventions. Saved block-permuted arms are sensitivities because their construction does not guarantee an exact row derangement. Appendix B owns target and control construction, Appendix C owns training and retained components, and Appendices D and F own estimators and sensitivities. Evidence owners: E009, E016, E025-E026, and E030.
 
 #### 3.5 What cross-cutting estimands, quality rules, and inference procedures govern the comparisons?
 
@@ -241,7 +242,7 @@ This subsection owns the intervention-to-endpoint design chain. Target recovery 
 4. Which uncertainty procedures, named tests, multiplicity corrections, and practical or detectable-effect bounds answer each estimand?
 5. Which stages were unmeasured, unresolved, or non-identifying, and how does that status constrain later results?
 
-End with one transition paragraph stating that Results follow these scientific roles rather than evidence-record number or execution date. Appendix D owns exact formulas and tests. Evidence owners: E003-E006, E008-E009, E015-E017, E025-E026, and E030.
+End with one transition paragraph stating that Results follow these scientific roles rather than evidence-record number or execution date. Appendix D owns estimator derivations, variants, aggregation, and tests. Evidence owners: E003-E006, E008-E009, E015-E017, E025-E026, and E030.
 
 ### 4. Results
 

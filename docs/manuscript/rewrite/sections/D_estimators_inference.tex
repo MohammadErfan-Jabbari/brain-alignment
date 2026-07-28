@@ -7,35 +7,11 @@ They are neither causal effects nor direct estimates of information-theoretic ob
 
 \subsection{Encoding estimators}
 
-Let \(Y_j\) be one response or target coordinate, \(N\) the declared nuisance block, and \(X\) the contextual feature block under test.
-For an outer test set \(\mathcal T\), a model \(M\) fitted without those responses receives the ordinary held-out score
-\begin{equation}
-R_j^2(M)
-=
-1-
-\frac{\sum_{i\in\mathcal T}(y_{ij}-\widehat y_{ij}^{\,M})^2}
-{\sum_{i\in\mathcal T}(y_{ij}-\bar y_{\mathcal Tj})^2}.
-\label{eq:heldout-r2}
-\end{equation}
-The numerator is the held-out sum of squared errors, \(\mathrm{SSE}_j(M)\), and the denominator is the held-out total sum of squares, \(\mathrm{SST}_j\), both over \(\mathcal T\).
-The denominator uses the test-fold mean.
-Negative values are retained and mean that the fitted prediction is worse than this test-mean reference.
-
-The nuisance-only and full fits are
-\[
-R_{N,j}^2=R_j^2(N),
-\qquad
-R_{F,j}^2=R_j^2([N,X]).
-\]
-Their primary increment is the cross-validated semipartial, or unique, score
-\begin{equation}
-\Delta R_j^2
-=R_{F,j}^2-R_{N,j}^2.
-\label{eq:semipartial-r2}
-\end{equation}
-It measures the change in held-out linear predictive value when \(X\) is added to the specified nuisance design.
-Because the reduced and full ridge estimators are separately regularized and evaluated out of sample, \(\Delta R_j^2\) can be negative.
-It is not a nonnegative variance decomposition. \evd{E002}\evd{E006}
+Section~\ref{sec:measurement-prerequisites} defines ordinary held-out \(R^2\) and the cross-validated semipartial increment in Equations~\ref{eq:heldout-r2} and~\ref{eq:semipartial-r2}.
+The numerator of Equation~\ref{eq:heldout-r2} is the held-out sum of squared errors, \(\mathrm{SSE}_j(M)\), and its denominator is the held-out total sum of squares, \(\mathrm{SST}_j\).
+Equation~\ref{eq:semipartial-r2} measures the change in held-out linear predictive value when \(X\) is added to the specified nuisance design.
+Because the nuisance-only and full ridge estimators are separately regularized and evaluated out of sample, the difference can be negative.
+It is not a nonnegative variance decomposition.\evd{E002}\evd{E006}
 
 For comparison, let \(\mathcal R_{N,j}^2\) and \(\mathcal R_{F,j}^2\) denote the population coefficients of determination for the nested, unregularized linear projections on \(N\) and \([N,X]\).
 The corresponding partial coefficient is

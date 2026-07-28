@@ -54,90 +54,237 @@ This section specifies the study design; Section~\ref{sec:results} reports the v
 \subsection{Study Design, Datasets, and Data Partitioning}
 \label{sec:data-targets}
 
-The Tuckute condition-B dataset provides the sentence-level substrate for the controlled regional predictivity assay, quality-aware distillation-headroom analysis, recorded-response intervention, exact synthetic-target measurability assay, and saved-student biological-transfer assay \autocite{tuckute2024}.
-It contains 1,000 isolated English sentences, recorded \ac{fmri} responses from 10 participants, and five fixed left-hemisphere language \acp{roi}\evd{E002}\evd{E003}\evd{E004}\evd{E005}\evd{E008}\evd{E015}\evd{E025}\evd{E030}.
-The LeBel corpus provides the naturalistic voxelwise substrate for the controlled naturalistic voxelwise predictivity assay \autocite{lebel2023}.
+Two datasets provide the recorded \ac{fmri} responses used in this study.
+The Tuckute condition-B dataset provides the sentence-level substrate \autocite{tuckute2024}.
+It contains 1,000 isolated English sentences, responses from 10 participants, and five fixed left-hemisphere language \acp{roi}.
+The dataset supports the controlled regional predictivity assay and the quality-aware distillation-headroom analysis.
+The same sentence-level substrate later supports the recorded-response route and the Tuckute endpoints for exact synthetic-target measurability and saved-student biological transfer.\evd{E002}\evd{E003}\evd{E004}\evd{E005}\evd{E008}\evd{E015}\evd{E025}\evd{E030}
+The LeBel corpus provides the naturalistic substrate for the controlled naturalistic voxelwise predictivity assay \autocite{lebel2023}.
 That assay uses participant UTS03 and 20 stories divided into five held-out-story folds.
-Reliability-selected voxels are defined using a separate repeated story.
+A separate repeated story determines which voxels meet the reliability criterion.
 Holding out complete stories prevents temporally dependent samples from the same story from crossing the evaluation boundary.
-The resulting estimand concerns prediction on unseen stories within one deeply sampled participant and does not support population inference across people\evd{E006}.
+The resulting estimand concerns held-out-story prediction within UTS03 and does not support population inference across people.\evd{E006}
 
-Response construction determines the population quantity and spatial scale being estimated.
-Participant averaging combines the five selected Tuckute participants into one sentence-by-\ac{roi} matrix.
-Scores against that matrix estimate predictivity of the shared stimulus-locked response and do not create participant-level replication.
-Participant-specific construction retains a separate response matrix for each of the nine valid participants, permitting participant-level intervention contrasts and population inference over the tested participants.
-Each \ac{roi} coordinate summarizes responses within a predefined language region, whereas each voxel coordinate preserves a finer spatial measurement.
-Section~\ref{sec:estimands} pairs these constructions with their estimands and inference units \evd{E002}\evd{E006}\evd{E008}\evd{E014}\evd{E025}.
+The Tuckute responses can be constructed at two response-aggregation levels.
+Participant averaging combines the five selected participants into one sentence-by-\ac{roi} matrix.
+This matrix describes the shared stimulus-locked response, but it cannot support participant-level inference.
+Participant-specific construction begins from the 10 recorded participants.
+One participant is excluded because the required five-\ac{roi} response matrix of the participant is incomplete, leaving nine valid participants.
+Each remaining participant retains a separate response matrix.
+Contrasts can therefore be aggregated within participant before inference across the nine tested participants.
+Spatial resolution is a separate distinction.
+An \ac{roi} coordinate summarizes responses within a predefined language region, whereas a voxel coordinate preserves a finer spatial measurement.
+Section~\ref{sec:estimands} pairs these constructions with their estimands and inference units.\evd{E002}\evd{E006}\evd{E008}\evd{E014}\evd{E025}
 
-Each corpus and observation set has a fixed role.
-The recorded-response intervention uses Tuckute sentences and recorded responses during training.
-The synthetic-response intervention instead trains on 95,999 WikiText-103 sentences, while a separate 1,999-sentence split supports language-quality evaluation and synthetic-target recovery \autocite{merity2017}.
-The synthetic target for the Tuckute sentences is generated without using their recorded responses before exact synthetic-target measurability is evaluated.
-Saved students remain frozen while fresh readouts evaluate biological transfer to those responses.
-Pereira sentences and LeBel transcripts provide the out-of-domain language-quality endpoints used in the bounded practical-utility evaluation \autocite{pereira2018,lebel2023}.
-LeBel recorded \ac{fmri} responses are not used by the principal sentence-level or WikiText training routes; they support the controlled naturalistic assay and the supporting intervention diagnostics reported in Appendix~\ref{app:secondary} \evd{E006}\evd{E009}\evd{E013}\evd{E016}\evd{E017}\evd{E025}\evd{E030}.
+Each training and evaluation role draws on a declared text and response source.
+The recorded-response intervention trains on Tuckute sentences and their recorded responses.
+The synthetic-response intervention instead trains on 95,999 WikiText-103 sentences \autocite{merity2017}.
+A separate 1,999-sentence WikiText split supports language-quality evaluation and synthetic-target recovery.
+For the exact synthetic-target measurability assay, the fixed target is generated solely from the Tuckute sentence text.
+Recorded \ac{fmri} responses enter only its held-out evaluation.
+Saved students then remain frozen while fresh readouts evaluate biological transfer to those responses.
+Pereira sentences and LeBel story transcripts provide out-of-domain language-quality endpoints for the bounded practical-utility evaluation \autocite{pereira2018,lebel2023}.
+Recorded LeBel \ac{fmri} responses are confined to the controlled naturalistic voxelwise predictivity assay.\evd{E006}\evd{E009}\evd{E013}\evd{E016}\evd{E017}\evd{E025}\evd{E030}
 
-The data partitions keep these roles separate.
-The Tuckute analyses use five contiguous outer partitions, each holding out 200 sentences and using the other 800.
-The controlled regional predictivity, exact synthetic-target measurability, and saved-student biological-transfer assays fit fresh readouts within these partitions; only the recorded-response intervention uses the 800-sentence training portion to optimize the student.
-Synthetic-response student training and target-recovery evaluation remain within their separate WikiText partitions, and the recorded Tuckute responses enter only the later measurability and biological-transfer assays.
-Fold-dependent transformations are fitted only on the corresponding training portion; the exact-substrate assay instead applies the externally frozen synthetic-target standardization.
-Appendix~\ref{app:data-targets} reports the exact inclusion, preprocessing, and partition definitions \evd{E002}\evd{E005}\evd{E008}\evd{E016}\evd{E025}\evd{E030}.
+The data partitions preserve these separate roles.
+The principal Tuckute roles use five contiguous outer partitions.
+Each partition holds out 200 sentences and leaves the other 800 as its training complement.
+For the controlled regional predictivity assay, quality-aware distillation-headroom analysis, exact synthetic-target measurability assay, and saved-student biological-transfer assay, this boundary separates fresh-readout fitting from evaluation.
+The recorded-response intervention uses the outer boundary differently.
+It optimizes the student on the 800-sentence training portion, which excludes the held-out 200 sentences.
+Within that held-out block, five inner folds separate fresh-readout fitting from readout evaluation.
+The synthetic-response route uses its two WikiText partitions for student training and target-recovery evaluation.
+Within that route, recorded Tuckute responses enter only the later exact synthetic-target measurability and saved-student biological-transfer assays.
+Fold-dependent transformations are fitted on the corresponding training portion.
+The exact synthetic-target measurability assay has one declared exception: it reuses target-standardization moments fixed externally during target construction.
+Its subsequent target \ac{pca} and all readout transformations remain fold-local.
+Appendices~\ref{app:data-targets} and~\ref{app:inference} report the exact inclusion, preprocessing, partition, and nesting definitions.\evd{E002}\evd{E003}\evd{E005}\evd{E008}\evd{E015}\evd{E016}\evd{E025}\evd{E030}
 
-\subsection{Measurement prerequisites}
+\subsection{Measurement Prerequisites}
 \label{sec:measurement-prerequisites}
 
-The controlled regional predictivity assay and controlled naturalistic voxelwise predictivity assay measure whether frozen \ac{lm} representations predict held-out brain responses beyond fixed nuisance variables.
-Both compare trained \acp{lm} with architecture-matched untrained controls, which distinguish effects of learned representations from effects of architecture alone.
-For Tuckute, the nuisance design contains sentence length, item position, and static embeddings, while the full design adds a capacity-matched contextual representation and preserves contiguous sentence folds.
-For LeBel, the corresponding designs contain fixed lexical, acoustic, phonetic, and timing covariates and hold out complete stories.
-The released Tuckute reliability estimates provide descriptive context, whereas LeBel voxel eligibility is determined from a separate repeated story \evd{E002}\evd{E006}.
+Both controlled predictivity assays begin with the same question: does a contextual \ac{lm} representation improve held-out prediction of recorded \ac{fmri} responses beyond specified nuisance features?
+Each assay first fits a nuisance-only readout containing its declared low-level and static features.
+The full readout adds a contextual representation block.
+The contextual and static blocks are reduced to the same \ac{pca} rank, which matches their individual widths.
+Let \(Y_j\) denote response coordinate \(j\), \(N\) the nuisance block, \(X\) the contextual block, and \(\mathcal T\) one held-out fold.
+For any readout design \(M\), ordinary held-out \(R^2\) is
+\begin{equation}
+R_j^2(M)
+=
+1-
+\frac{\sum_{i\in\mathcal T}(y_{ij}-\widehat y_{ij}^{\,M})^2}
+{\sum_{i\in\mathcal T}(y_{ij}-\bar y_{\mathcal Tj})^2}.
+\label{eq:heldout-r2}
+\end{equation}
+Equation~\ref{eq:heldout-r2} expresses held-out performance as the fraction of response variation explained beyond a prediction that always uses the held-out mean.
+A value of one denotes perfect prediction, zero matches that mean baseline, and a negative value means that the fitted readout predicts worse than the baseline.
+The nuisance-only and full scores are \(R_j^2(N)\) and \(R_j^2([N,X])\).
+Their cross-validated semipartial, or unique, score is
+\begin{equation}
+\Delta R_j^2(X)
+=
+R_j^2([N,X])-R_j^2(N).
+\label{eq:semipartial-r2}
+\end{equation}
+Equation~\ref{eq:semipartial-r2} measures the change in held-out predictive value when the contextual block is added to the declared nuisance design.
+A positive value therefore means that the contextual \ac{lm} representation improves held-out response prediction beyond those nuisance features.
+The test-fold mean \(\bar y_{\mathcal Tj}\) supplies the reference prediction in Equation~\ref{eq:heldout-r2}.
+Both \(R_j^2(M)\) and \(\Delta R_j^2(X)\) can be negative.
+Because the full readout receives an additional feature block, the assay also compares trained contextual representations with an architecture-matched untrained \ac{lm} block of the same rank.
+The design therefore reports the contextual-versus-nuisance and trained-versus-untrained contrasts separately.
+For Tuckute, these readouts use contiguous sentence folds, and released reliability estimates provide descriptive context.
+For LeBel, they hold out complete stories, and a separate repeated story determines voxel eligibility.\evd{E002}\evd{E006}
 
-The quality-aware distillation-headroom analysis measures how much controlled brain predictivity differs among the teacher, initialized students, and ordinarily distilled students while treating \ac{lm} quality as a competing explanation.
-At the declared layers, the pretrained \texttt{gpt2-medium} teacher is compared with an untrained \texttt{gpt2} floor, an off-the-shelf pretrained \texttt{gpt2}, and \texttt{gpt2} students initialized either randomly or from pretrained weights before ordinary \ac{kd}.
-Held-out perplexity measures language quality within this shared-tokenizer comparison.
-A separate cross-family analysis compares controlled predictivity across pretrained models using tokenizer-comparable bits per byte.
-These analyses quantify headroom under the tested models and training conditions; they do not isolate model size, architecture, initialization, training history, or language quality as its cause \evd{E003}\evd{E015}.
+The controlled assays define the measurement prerequisite, but they do not show how much brain predictivity ordinary \ac{kd} leaves available to recover.
+The quality-aware distillation-headroom analysis addresses that next question by applying the same Tuckute assay at the declared layers.
+Its reference models are the pretrained \texttt{gpt2-medium} teacher, an architecture-matched untrained \texttt{gpt2}, and an off-the-shelf pretrained \texttt{gpt2}.
+The analysis also evaluates two \texttt{gpt2} students after ordinary \ac{kd}.
+One student begins from random initialization.
+The other begins from pretrained weights.
+Let \(\overline{\Delta R^2}(m,s)\) denote the declared-\ac{roi} and fold average of Equation~\ref{eq:semipartial-r2} for model \(m\) and technical seed \(s\).
+For teacher \(m_T\), the seed-specific headroom is
+\begin{equation}
+\mathcal H(m,s)
+=
+\overline{\Delta R^2}(m_T)
+-
+\overline{\Delta R^2}(m,s).
+\label{eq:headroom}
+\end{equation}
+Equation~\ref{eq:headroom} measures the teacher predictivity that the tested student has not recovered.
+Positive headroom means that the teacher retains a predictivity advantage, while zero headroom means that their averaged scores are equal under this assay.
+The seed index is omitted for deterministic reference models.
+Each brain-predictivity score is interpreted with held-out \ac{lm} quality because quality may explain part of the difference.
+Perplexity provides this comparison within the shared-tokenizer study.
+A separate cross-family analysis uses tokenizer-comparable bits per byte.
+That cross-family analysis relates \(\overline{\Delta R^2}(m)\) directly to model quality; it does not define teacher-relative headroom across unrelated model families.
+The analysis measures headroom under the tested conditions.
+It does not identify model size, architecture, initialization, training history, distillation, or language quality as the cause of that headroom.\evd{E003}\evd{E015}
 
-The exact synthetic-target measurability assay tests whether the fixed text-derived TRIBE synthetic brain-response target contains a participant-general linear signal for recorded Tuckute responses on the same 1,000 sentences.
-For each participant, the assay fits three otherwise identical response readouts: nuisance only, nuisance plus the aligned synthetic target, and nuisance plus its frozen row twin.
-It reports the aligned target's unique \(R^2\) above nuisance and the aligned-minus-row-twin difference in unique \(R^2\).
-The first contrast tests measurability beyond the declared nuisance design.
-The second tests sentence-specific alignment against a control that preserves the exact target-row multiset within each fixed block.
-These contrasts assess predictive measurability on this fixed stimulus set; they do not establish causal mediation, brain specificity, or stimulus-population generality \evd{E030}.
+The exact synthetic-target measurability assay asks whether the fixed synthetic brain-response target generated by TRIBE from text predicts recorded Tuckute responses on the same 1,000 sentences.
+For each participant, the assay fits three otherwise matched response readouts.
+The first contains nuisance features only.
+The second adds the aligned synthetic target.
+The third adds its frozen row-twin control.
+This control applies one fixed permutation to complete target rows within each outer block and has no fixed points.
+It preserves the exact target-row multiset within that block but breaks sentence--target pairing.
+Let \(T\) denote the aligned target block and \(T^\pi\) its frozen row twin.
+Both use the same train-fold target-\ac{pca} basis and the same nuisance and readout procedure.
+Write \(R_{u,f,j}^2(M)\) for Equation~\ref{eq:heldout-r2} applied to participant \(u\), fold \(f\), and response coordinate \(j\).
+For the \(J\) declared response coordinates, define
+\begin{equation}
+\begin{aligned}
+U_{\mathrm{aligned}}(u,f)
+&=
+\frac{1}{J}\sum_{j=1}^{J}
+\left[R_{u,f,j}^2([N,T])-R_{u,f,j}^2(N)\right],
+\\
+U_{\mathrm{twin}}(u,f)
+&=
+\frac{1}{J}\sum_{j=1}^{J}
+\left[R_{u,f,j}^2([N,T^\pi])-R_{u,f,j}^2(N)\right].
+\end{aligned}
+\label{eq:target-fold-contrasts}
+\end{equation}
+These two quantities apply the same nuisance subtraction to the correctly paired target and its row-twin control.
+Their difference can therefore test whether correct sentence--target pairing adds predictive value beyond the information retained by the target rows after permutation.
+Let \(A(u)\) denote participant-level measurability beyond nuisance.
+Let \(Q(u)\) denote the additional predictive value of correct sentence--target pairing.
+The two participant-level estimands are
+\begin{equation}
+\begin{aligned}
+A(u)
+&=
+\frac{1}{K}\sum_{f=1}^{K}U_{\mathrm{aligned}}(u,f),
+\\
+Q(u)
+&=
+\frac{1}{K}\sum_{f=1}^{K}
+\left[U_{\mathrm{aligned}}(u,f)-U_{\mathrm{twin}}(u,f)\right],
+\qquad K=5.
+\end{aligned}
+\label{eq:target-participant-estimands}
+\end{equation}
+Equation~\ref{eq:target-participant-estimands} first averages the aligned target's unique predictivity across folds and then averages the aligned-minus-twin pairing contrast across those same folds.
+Computing both quantities separately for each participant makes the participant, rather than a fold or response coordinate, the biological inference unit.
+The nine pairs \(\{A(u),Q(u)\}\) enter participant-level inference.
+The assay therefore tests participant-level predictive measurability on this fixed stimulus set.
+It does not establish causal mediation, brain-response-specific attribution, or stimulus-population generality.\evd{E030}
 
-These prerequisites use held-out \(R^2\) from fresh ridge readouts fitted to frozen features.
-Ordinary \(R^2\) retains negative values, and unique \(R^2\) is the full-model score minus the corresponding nuisance-model score.
-This difference measures incremental prediction rather than a causal allocation of biological variance.
-Learned transformations, response centering, regularization selection, and readout fitting use only the relevant training partition, except where target standardization was fixed upstream as part of target construction.
-Reliability supplies descriptive context for Tuckute and independently determined voxel eligibility for LeBel.
-Appendices~\ref{app:data-targets} and~\ref{app:inference} specify the exact preprocessing, estimators, aggregation, and inference procedures \evd{E002}\evd{E003}\evd{E006}\evd{E015}\evd{E030}.
+All measurement prerequisites use the same general held-out readout discipline.
+A fresh ridge readout is fitted to frozen features for every evaluated model or target.
+Ordinary \(R^2\) compares prediction error with variation in the held-out responses.
+Negative values are retained when predictions are worse than the held-out-mean baseline.
+Equations~\ref{eq:heldout-r2} and~\ref{eq:semipartial-r2} apply across the prerequisite assays.
+All learned preprocessing, response centering, regularization selection, and readout fitting follow the training-partition rule in Section~\ref{sec:data-targets}.
+Appendix~\ref{app:data-targets} specifies the exact inputs, preprocessing, and declared standardization exception.
+Appendix~\ref{app:inference} specifies the formulas, aggregation, and inference procedures.\evd{E002}\evd{E003}\evd{E006}\evd{E015}\evd{E030}
 
-\subsection{Student training and retained components}
-\label{sec:training}
+\subsection{Recorded-Response Intervention}
+\label{sec:recorded-intervention}
 
-The training targets and controls differ in both information source and comparison role.
-In the recorded-response route, the target contains observed Tuckute \ac{fmri} responses, while the permuted control preserves the response values and their marginal distribution but changes their pairing with the sentences.
-In the synthetic-response route, the exact TRIBE target is produced by a fixed text-to-\ac{fmri} generator and contains 20,484 cortical-surface coordinates \autocite{dascoli2026}.
-Its frozen row twin applies one fixed Sattolo permutation to complete target rows, eliminating unchanged stimulus--target pairs while preserving the target values and covariance structure.
-The saved block permutation provides only a sensitivity analysis because its construction leaves fixed points and can duplicate or omit rows.
-The text-derived auxiliary target instead mean-pools representations from a frozen \ac{lm} and applies a seeded Gaussian projection to the same 20,484 dimensions.
-By construction, it matches the TRIBE target in corpus, dimension, model lineage, loss form, and training schedule.
-Covariance geometry, nuisance predictability, learnability, optimization pressure, and retained-student movement require separate empirical checks, while initial-loss and gradient-scale comparability cannot be reconstructed from the retained artifacts.
-Appendix~\ref{app:data-targets} specifies the exact generation, permutation, standardization, and dimensionality-reduction procedures \evd{E008}\evd{E016}\evd{E026}\evd{E030}.
+Within each outer fold and technical seed, the recorded-response and permuted-response arms start from the same student state, use the same sentences, ordinary-\ac{kd} objective, optimizer schedule, loss weight, and training budget, and differ only in whether recorded-response rows remain paired with their sentences.
+Both arms distil a Qwen2.5-1.5B teacher into a Qwen2.5-0.5B student using \ac{lora}.\evd{E005}\evd{E008}
+The teacher remains frozen.
+Using the partitions defined in Section~\ref{sec:data-targets}, each run trains on 800 Tuckute sentences and leaves the same contiguous block of 200 sentences untouched.
+Five outer folds and three technical seeds repeat this paired design.\evd{E005}\evd{E008}
 
-The teacher is frozen and evaluated outside gradient computation.
-On nonpadding token positions, logits are softened as $p_T^\tau=\operatorname{softmax}(z_T/\tau)$ and $q_S^\tau=\operatorname{softmax}(z_S/\tau)$.
-The optimized objective is \(\mathcal L=\lambda_{\mathrm{text}}\mathcal L_{\mathrm{text}}+\lambda_{\mathrm{target}}\mathcal L_{\mathrm{target}}\), with \(\lambda_{\mathrm{text}}=1\).
-For distillation arms, \(\mathcal L_{\mathrm{text}}\) is the attention-mask average of \(\tau^2D_{\mathrm{KL}}(p_T^\tau\Vert q_S^\tau)\); for squared-error target variants, \(\mathcal L_{\mathrm{target}}=\operatorname{MSE}(W\bar h_k,y)\), where \(\bar h_k\) is the attention-mask mean of the selected student state and \(W\) is a temporary linear head.
-The \ac{kl} direction is therefore teacher to student; exact temperatures, weights, schedules, and early cross-entropy variants are reported in Appendix~\ref{app:training} \evd{E003}\evd{E004}\evd{E005}\evd{E016}.
-Masking removes padded positions from both the token loss and the pooled state, and the $\tau^2$ factor retains the implemented temperature scaling.
-The squared-error target loss is averaged over batch and target coordinates; it is a training signal, not the estimator used for the reported endpoint.
+Ordinary \ac{kd} provides the shared language-preservation objective.
+Let \(\mathcal L_{\mathrm{KD}}\) denote the implemented temperature-scaled, teacher-to-student \ac{kl} divergence over all nonpadding tokens.
+Let \(\mathcal L_{\mathrm{R}}^{(a)}\) denote the auxiliary response loss for arm \(a\).
+The complete training objective is
+\begin{equation}
+\mathcal L_{\mathrm{train}}^{(a)}
+=
+\mathcal L_{\mathrm{KD}}
++
+\lambda_{\mathrm{R}}\mathcal L_{\mathrm{R}}^{(a)},
+\qquad
+a\in\{\mathrm{recorded},\mathrm{permuted}\}.
+\label{eq:recorded-training-objective}
+\end{equation}
+Equation~\ref{eq:recorded-training-objective} says that both paired arms are anchored by the same teacher-defined language objective while receiving an additional response-based training signal.
+The arm identity changes the response pairing, not the language objective or the strength assigned to the response loss.
+For a minibatch \(\mathcal B\), let \(\bar h_i^{(12)}\) be the masked-mean layer-12 student state, \(W\) a temporary linear map, \(d=5\) the number of response coordinates, and \(y_i^{(a)}\) the target for sentence \(i\).
+The auxiliary loss is
+\begin{equation}
+\mathcal L_{\mathrm{R}}^{(a)}
+=
+\frac{1}{|\mathcal B|d}
+\sum_{i\in\mathcal B}
+\left\|
+W\bar h_i^{(12)}-y_i^{(a)}
+\right\|_2^2.
+\label{eq:recorded-response-loss}
+\end{equation}
+Equation~\ref{eq:recorded-response-loss} measures how far the temporary head's prediction from the student's layer-12 representation is from the assigned response target.
+Minimizing it can change the retained student only when its gradient reaches trainable parameters that produce that representation.
+The primary intervention uses \(\lambda_{\mathrm{R}}=10\).
+The ordinary-\ac{kd} reference sets \(\lambda_{\mathrm{R}}=0\), but it remains secondary because its language quality need not match that of the response-target arms.
+Appendix~\ref{app:training} specifies the exact temperature, masking reduction, optimizer, schedule, and parameter states.\evd{E004}\evd{E005}\evd{E008}
 
-The text loss traverses the permanent \ac{lm} path.
-The target loss branches at $h_k$ and updates the temporary head plus every trainable parameter that produces that state, including the tied embedding/output tensor through its input-embedding role in full-parameter TRIBE runs; it supplies no gradient through later blocks or the output-projection operation along this branch.
-Those later blocks move only through the text loss, while the tied tensor also receives text-loss gradient through its output role.
-Figure~\ref{fig:training-architecture} separates the two paths.
+The recorded-response arm uses the response vector paired with each sentence.
+The control applies the same loss to block-permuted response rows.
+This permutation preserves the response values, their marginal distribution, and their within-block structure while disrupting the sentence--response correspondence.
+Because a random block permutation can leave some blocks in their original positions, it is a matched permutation control rather than an exact derangement.
+The participant-specific assay repeats this control with five permutation draws and averages their evaluated scores when forming the paired contrast.
+Appendix~\ref{app:data-targets} gives the exact permutation construction.\evd{E004}\evd{E008}
+
+Participant-averaged and participant-specific responses instantiate the same paired intervention but answer different questions.
+In the participant-averaged regime, each fold--seed run uses the fixed cellwise participant-averaged response construction defined in Section~\ref{sec:data-targets}.
+Its contrast describes the effect of correct pairing for that shared stimulus-locked target.
+The participant-specific regime instead trains separate paired arms for each of the nine participants with complete five-\ac{roi} response matrices.
+Its contrast supports inference about variation across the tested participants.
+Averaging responses before training is not equivalent to averaging participant effects after training.
+The participant-averaged trend therefore cannot be interpreted as the cohort-mean intervention effect.\evd{E005}\evd{E008}
+
+The auxiliary branch attaches to the masked-mean layer-12 student state through the temporary head \(W\).
+In the primary \ac{lora} regime, the pretrained base model and tied input/output embedding remain frozen, while \(W\) and the adapters are optimized.
+The auxiliary gradient can reach \(W\) and trainable adapters that produce the layer-12 state.
+It cannot reach later adapters through this branch, although those adapters can still receive gradients from \(\mathcal L_{\mathrm{KD}}\).
+After training, the temporary head and teacher are discarded, the adapters are merged into the retained student, and that student is frozen for evaluation.
+Figure~\ref{fig:training-architecture} separates the shared training and evaluation paths.\evd{E004}\evd{E008}
 
 \begin{figure}[t]
   \centering
@@ -171,7 +318,7 @@ Figure~\ref{fig:training-architecture} separates the two paths.
     \draw[grad] (kd.north) -- ++(0,4mm) -| (embed.north);
 
     \node[temp,below=11mm of state] (nhead) {temporary target head\\discarded after training};
-    \node[loss,right=5mm of nhead] (nloss) {$\mathcal{L}_{\mathrm{target}}$\\recorded or predicted target};
+    \node[loss,right=5mm of nhead] (nloss) {$\mathcal{L}_{\mathrm{target}}$\\recorded or synthetic\\brain-response target};
     \draw[forward] (state)--(nhead);
     \draw[forward] (nhead)--(nloss);
     \draw[grad] (nloss.south) -- ++(0,-4mm) -| (embed.south);
@@ -191,43 +338,146 @@ Figure~\ref{fig:training-architecture} separates the two paths.
     \node[font=\bfseries,anchor=west] (evaluation-title) at ($(etext.north west)+(0,7mm)$) {Evaluation};
     \node[panel,fit=(etext)(frozen)(estate)(ridge)(score)(evaluation-title)] {};
   \end{tikzpicture}}
-  \caption{Training and evaluation use different heads. Solid arrows show forward computation; red dashed arrows show gradient reach. The target branch reaches the temporary head and every trainable producer of the selected state, including embeddings when they are trainable, but not later blocks through that branch. Frozen parameters receive no updates. Evaluation freezes the retained student, discards the temporary head, and fits a new ridge readout.}
+  \caption{Shared auxiliary-training and post-training evaluation paths.}
   \label{fig:training-architecture}
 \end{figure}
+\FloatBarrier
 
-The primary recorded-target regime distils Qwen2.5-1.5B into Qwen2.5-0.5B while training on the 800 Tuckute tuning sentences in each outer fold \evd{E005}\evd{E008}.
-It uses attention-mask mean pooling at layer~12, five-dimensional \ac{roi} targets, three training seeds, and the same five outer folds; language quality is measured on held-out WikiText rather than on the neural evaluation items.
-The averaged and participant-specific targets share this machinery but answer different questions \evd{E005}\evd{E008}.
+After each run, evaluation uses only the untouched 200-sentence block.
+A fresh ridge readout is fitted and tested within that block using five contiguous inner subfolds.
+Its endpoint is the \ac{roi}-averaged unique \(R^2\) defined by Equation~\ref{eq:semipartial-r2}.
+Let \(U_{ufs}^{(a)}\) denote this score for participant \(u\), outer fold \(f\), technical seed \(s\), and arm \(a\).
+With \(P=5\) permutation draws, the paired cell contrast and participant aggregate are
+\begin{equation}
+\begin{aligned}
+d_{ufs}
+&=
+U_{ufs}^{(\mathrm{recorded})}
+-
+\frac{1}{P}
+\sum_{p=1}^{P}
+U_{ufsp}^{(\mathrm{permuted})},
+\\
+e_u
+&=
+\operatorname{median}_{f,s}d_{ufs}.
+\end{aligned}
+\label{eq:recorded-participant-contrast}
+\end{equation}
+Equation~\ref{eq:recorded-participant-contrast} first compares the recorded-response student with the average of its five matched permutation controls within each fold--seed cell.
+It then summarizes those technical repetitions within each participant, so one unusually large fold or seed cannot by itself define that participant's effect.
+The participant-level point estimate is
+\begin{equation}
+\widehat{\delta}_{\mathrm{participant}}
+=
+\frac{1}{9}
+\sum_{u=1}^{9}e_u.
+\label{eq:recorded-participant-estimand}
+\end{equation}
+Equation~\ref{eq:recorded-participant-estimand} averages the nine participant effects to estimate the intervention contrast in the tested cohort.
+The nine values \(e_u\), rather than the underlying seeds or folds, provide the biological inference values.
+A separate aggregation across the five shared outer folds checks whether the contrast is concentrated in particular stimuli.
+The participant-averaged analysis instead aggregates seeds within each shared fold and remains descriptive of its fixed response target.
+A held-out WikiText probe checks language-quality balance between arms.
+Appendix~\ref{app:inference} specifies the intervals, tests, shared-fold checks, and sensitivity analyses.\evd{E005}\evd{E008}
 
-The trainable subset is part of each intervention.
-Primary recorded-target runs train \ac{lora} adapters \autocite{hu2022} and the temporary head while the base model and tied embedding/output matrix remain frozen; the naturalistic full-fine-tuning variant instead trains transformer weights and the temporary head while retaining that tied-matrix freeze \evd{E017}.
-TRIBE trains all GPT-2 student parameters, including the tied embedding/output weights, plus the temporary head.
-These are distinct parameterizations, so absolute scores across recorded and predicted families are not intervention contrasts \evd{E004}\evd{E008}\evd{E016}\evd{E017}.
-Here ``retained'' means that a component survives deployment; it does not imply that the component was trainable in every regime.
-
-Same-initialization, same-data, and same-budget statements apply only within a declared paired intervention family.
-There, aligned, permuted, and ordinary-\ac{kd} arms share the seed, initialized student, text, optimizer schedule, and step budget while the intended supervision changes.
-The cold-versus-warm headroom screen is an explicit exception rather than a paired intervention: its cold arm was randomly initialized and ran two epochs, whereas its pretrained warm arms ran one, so they differ in both initialization and optimizer-step count \evd{E003}.
-Full schedules and secondary parameter settings are confined to Appendix~\ref{app:training}.
-
-After training, the temporary head is discarded and the retained student is frozen.
-Every held-out target or \ac{fmri} endpoint uses a newly fitted ridge readout \evd{E016}.
-The participant-transfer and exact-substrate diagnostics load saved students or fixed targets without retraining \evd{E025}\evd{E030}.
-For recorded-target sentence interventions, student training holds out one 200-sentence outer block; the fresh response readout is then fitted and evaluated wholly within that block using five contiguous inner subfolds.
-For the baseline sentence and naturalistic-story assays, \texttt{RidgeCV} selects one penalty shared across all response coordinates from the relevant readout-training complement.
-In every case, regularization and transforms are nested inside the fitting set, so the temporary training head and held-out responses cannot enter a reported score.
+The frozen auxiliary-head, increased-\ac{lora}-capacity, contrastive-objective, naturalistic voxelwise, and full-fine-tuning studies retain the paired recorded-versus-permuted comparison while changing the target, target loss, language anchor, trainable subset, or evaluation scope.
+Appendix~\ref{app:training} defines these variants, and their study-specific outcomes are reported in the Results.
+None replaces the primary nine-participant contrast.\evd{E004}\evd{E011}\evd{E013}\evd{E017}
 
 \FloatBarrier
-\subsection{Measuring brain predictivity and target recovery}
-\label{sec:measurement}
+\subsection{Synthetic-Response Intervention and Downstream Assays}
+\label{sec:synthetic-intervention}
 
-The saved-student transfer analysis evaluates biological generalization after synthetic-response training.
-Six saved students per training arm remain frozen throughout this analysis.
-For each of the nine valid Tuckute participants, a fresh ridge readout is fitted within each of the same five contiguous folds, using 800 sentences for fitting and 200 for evaluation.
-Layer~7 is the primary representation layer, and layer~6 provides a prespecified sensitivity analysis.
-Student training and target-recovery evaluation use WikiText-derived examples, while the recorded Tuckute responses enter only the fold-specific evaluation readout.
-This separation keeps the biological endpoint independent of student optimization and excludes reuse of the temporary training head.
-Appendix~\ref{app:evidence-provenance} identifies the retained student artifacts, and Appendix~\ref{app:data-targets} specifies participant inclusion and response preprocessing \evd{E025}.
+The synthetic-response intervention asks whether fixed, text-generated brain-response targets change a retained student beyond ordinary \ac{kd}.
+Across six technical seeds, a frozen GPT-2 Medium teacher supervises a GPT-2 student in the synthetic-response, ordinary-distillation, and text-derived auxiliary-control arms.
+These arms share the initialized student, training text and order, tokenizer, ordinary-\ac{kd} objective, optimizer schedule, and training budget.
+The synthetic-response arm adds a fixed text-only TRIBE target, whereas the text-derived auxiliary-control arm mean-pools frozen teacher states and maps them through a fixed Gaussian projection.
+Both auxiliary targets are standardized to 20,484 coordinates and predicted from the student's layer-6 representation with a mean-squared-error loss.
+Training updates the student and a temporary prediction head; the head is then discarded and the retained student is frozen.
+Saved block-permuted variants provide sensitivity checks rather than peer claim-identifying arms.
+Appendices~\ref{app:data-targets} and~\ref{app:training} specify the target construction and exact training procedure, while Figure~\ref{fig:training-architecture} shows the shared auxiliary-training path.\evd{E016}
+
+Two manipulation checks ask whether the intervention affected the retained student before any downstream claim is considered.
+First, the synthetic-target recovery assay fits a fresh readout to frozen student representations on held-out WikiText examples and averages target-coordinate \(R^2\) with equal weight across coordinates.
+Recovery above the ordinary-distillation reference shows that the retained representation makes more of the training target linearly accessible after the temporary head has been removed.
+Second, the movement audit compares each trained student with its ordinary-distillation counterpart through parameter displacement, centered relative-Frobenius distance, and layer-6 \ac{cka}.
+These measurements establish retained change, but they do not identify which property of the auxiliary target caused it.
+The six seeds quantify technical variation rather than biological uncertainty.\evd{E016}\evd{E026}
+This WikiText recovery assay is distinct from the Tuckute target-retention analysis described below, which uses nuisance-controlled, variance-weighted response-space scoring.\evd{E030}
+
+Brain-response-specific attribution additionally requires an adequate text-derived comparator.
+The comparator audit tests parity of training conditions, target scale, covariance and effective rank, row order, nuisance predictability, ordinary-distillation recovery and headroom, parameter movement, representation movement, and the initial auxiliary-loss and gradient scales.
+Passing every required axis is necessary but not sufficient for attributing an effect to brain-response content.
+Failure on any required axis makes the contrast non-identifying; if no required axis fails but a required measurement is missing, attribution remains unresolved.
+The available block-permuted targets are also non-identifying because their construction can retain aligned rows and can duplicate or omit a row.
+A frozen Sattolo row twin therefore supplies an exact target-only sensitivity, although no student was trained against that twin.\evd{E026}\evd{E030}
+
+The saved-student biological-transfer assay then asks whether the synthetic-response intervention improves prediction of independently recorded responses.
+The preregistered primary contrast was synthetic response minus text-derived control, obtained from two contrasts against a byte-identical ordinary-distillation baseline.
+Because comparator adequacy limits its attributional interpretation, the thesis presents the secondary synthetic-response-minus-ordinary-distillation contrast first as the cleaner direct biological endpoint.
+Let \(U_{ufs}^{(a)}\) be the nuisance-controlled, \ac{roi}-averaged unique \(R^2\) for participant \(u\), contiguous fold \(f\), technical seed \(s\), and training arm \(a\).
+With \(F=5\) folds and \(S=6\) seeds, define
+\begin{equation}
+\begin{aligned}
+d_{ufs}^{\mathrm{direct}}
+&=
+U_{ufs}^{(\mathrm{synthetic})}
+-
+U_{ufs}^{(\mathrm{KD})},
+\\
+e_u^{\mathrm{direct}}
+&=
+\frac{1}{FS}
+\sum_{f=1}^{F}
+\sum_{s=1}^{S}
+d_{ufs}^{\mathrm{direct}},
+\\
+\widehat{\delta}_{\mathrm{direct}}
+&=
+\frac{1}{9}
+\sum_{u=1}^{9}
+e_u^{\mathrm{direct}}.
+\end{aligned}
+\label{eq:synthetic-direct-transfer}
+\end{equation}
+Equation~\ref{eq:synthetic-direct-transfer} first compares paired synthetic-response and ordinary-distillation students within each fold--seed cell, then averages technical repetitions within each participant.
+The final mean therefore describes biological transfer across the nine tested participants, with participants rather than folds or seeds as the biological inference units.
+All saved students remain frozen while fresh ridge readouts are fitted within the five contiguous folds over the 1,000 Tuckute sentences; layer~7 is primary and layer~6 is a prespecified sensitivity analysis.
+The direct contrast answers whether the synthetic intervention improves recorded-response predictivity relative to ordinary distillation, without attributing any difference to brain-response content.\evd{E025}\evd{E026}
+
+The same saved students support a second, mechanism-localizing analysis.
+Let \(A_{H\rightarrow T\mid N}\) denote the representation-specific coefficient contribution in the train-fold model that predicts the synthetic target from nuisance features \(N\) and a frozen student representation \(H\).
+Let \(A_{T\rightarrow Y\mid N}\) denote the target-specific coefficient contribution in the train-fold model that predicts recorded responses \(Y\) from \(N\) and the target \(T\), and let \(\widehat{Y}_{N}\) be the nuisance-only response prediction.
+The composed prediction is
+\begin{equation}
+\widehat{Y}_{\mathrm{comp}}
+=
+\widehat{Y}_{N}
++
+A_{T\rightarrow Y\mid N}
+\!\left(
+A_{H\rightarrow T\mid N}(H_{\mathrm{test}})
+\right),
+\label{eq:synthetic-composed-path}
+\end{equation}
+Both conditional coefficient contributions and all fold-dependent preprocessing transforms are estimated from training-fold data only.
+The externally fixed moments from the synthetic-target construction first standardize the generated target.
+Before response mapping, this contribution is converted with the train-fold target scale retained from the target-to-response model.
+Equation~\ref{eq:synthetic-composed-path} asks how much held-out recorded-response predictivity can pass through the specific synthetic-target subspace recovered from a frozen student.
+Comparing aligned and Sattolo-row-twin targets tests whether sentence-level target pairing matters, while comparing synthetic-response and ordinary-distillation students tests whether training changed access to that path.
+This composed score measures predictive overlap; it does not establish causal mediation.
+The direct saved-student endpoint remains the primary biological-transfer endpoint.\evd{E030}
+
+Language-quality checks qualify the synthetic-response contrasts but do not themselves establish practical benefit.
+Perplexity and bits per byte test whether the compared students remain within the declared quality margin.
+Passing the \(0.005\) bits-per-byte margin only excludes discrepancies larger than that margin on this metric; it does not prove the absence of language-quality confounding.\evd{E025}
+A separate practical-utility evaluation belongs to the recorded-response route.
+It compares approximately quality-matched recorded-response and permuted-response students through out-of-domain to in-domain perplexity ratios on Pereira sentences and LeBel story text.
+Ordinary-distillation and text-derived-control arms remain descriptive references when their language quality is unmatched.
+This utility contrast is interpretable only if the recorded-minus-permuted alignment mediator is reliable relative to its measured minimum detectable effect.
+Its seeds quantify technical variation, not independent biological evidence.
+Section~\ref{sec:estimands} states the formal aggregation and decision rules.\evd{E009}
 
 \subsection{Estimands, controls, quality criteria, and inference}
 \label{sec:estimands}

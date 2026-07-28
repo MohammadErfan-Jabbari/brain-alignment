@@ -67,6 +67,8 @@ Keep one principal conceptual move per sentence. Split a sentence when it asks t
 
 When compressing, remove secondary detail without removing the relationship that makes the answer intelligible. If the intended reader would need to unpack an unstated method, comparison, or causal link, state that relationship plainly before shortening it. End at the narrowest conclusion the path supports, then name only the limitation or next question needed for the following paragraph.
 
+Use mathematical notation when it makes an estimand, comparison, aggregation, constraint, or dependency easier to verify. Introduce every symbol in prose before its equation. Unless the meaning is already unmistakable, follow each claim-bearing display with one or two plain-language sentences that state what the formula computes and why that quantity answers the current question. Keep compact claim-bearing formulas near the question they answer; route standard machinery, derivations, and implementation detail to their technical owner. Do not add decorative mathematics or one-off symbols that increase reader effort.
+
 Route a required but unsupported claim to its governing evidence owner and do not draft it as supported. In this repository, use `\gap` only for a required missing manuscript value.
 
 **Complete when:** every sentence makes one inspectable contribution to the answer or inference path, and the paragraph prepares the reader for the next question.
@@ -81,6 +83,7 @@ Then read the prose as a skeptical first-time reader:
 - Is every distinction introduced before it changes the interpretation?
 - Does every method or result arrive after the reader understands why it matters?
 - Does any sentence contain more conceptual work than its neighbors prepare the reader to absorb?
+- Would a compact equation make an important relationship easier to verify, and is every retained equation introduced and interpreted?
 - Could the reader explain why each paragraph is present and why the next one follows?
 - Does the conclusion state exactly what the evidence establishes, weakens, leaves unresolved, or does not test?
 
