@@ -1,4 +1,4 @@
 interface:
-  display_name: "Question-Led Writing"
-  short_description: "Build prose from a reader-question tree"
-  default_prompt: "Use $question-led-writing to plan, draft, review, or revise this text through a reader-question tree."
+  display_name: "Question-Led Guided Writing"
+  short_description: "Guide readers through supported inference paths"
+  default_prompt: "Use $question-led-writing to organize this prose by reader questions and guide each answer through a continuous supported inference path."

@@ -18,7 +18,7 @@ The current scientific authority remains [`../extended/`](../extended/) until Er
 
 **Governing question.** Under what conditions can recorded fMRI responses or synthetic brain responses generated from text provide a reliable, brain-specific training advantage to a compressed language model, and where does the tested evidence chain first fail?
 
-**Provisional answer.** Trained language-model representations contain information useful for predicting held-out recorded fMRI responses beyond the specified controls. The tested distilled student is less brain-predictive than its teacher, although language-model quality remains a competing explanation. The tested recorded-response objectives do not demonstrate a reliable participant-level benefit. Synthetic brain responses generated from text are learnable and change retained student representations without unacceptable language-quality loss, but incremental retention remains unresolved, the saved text-derived comparator cannot identify brain-response content, the direct participant-level contrast on recorded fMRI responses is near zero, and the exact target does not pass the prespecified practical linear-measurability rule. The evidence supports a failure-localization and evaluation framework, not a successful brain-response-guided distillation method.
+**Provisional answer.** Trained language-model representations contain information useful for predicting held-out recorded fMRI responses beyond the specified controls. The tested distilled student is less brain-predictive than its teacher, although language-model quality remains a competing explanation. The tested recorded-response objectives do not demonstrate a reliable participant-level benefit. Synthetic brain responses generated from text are learnable and change retained student representations without unacceptable language-quality loss, but incremental target uptake beyond ordinary distillation remains unresolved, the text-derived auxiliary-control arm cannot identify brain-response content, the direct participant-level contrast on recorded fMRI responses is near zero, and the exact synthetic-target measurability criterion is not met. The evidence supports a failure-localization and evaluation framework, not a successful brain-response-guided distillation method.
 
 **Scope.** The answer is limited to the tested models, English stimuli, datasets, participants, targets, objectives, optimization regimes, nuisance and intervention controls, linear readouts, comparators, inference units, and endpoints.
 
@@ -27,13 +27,15 @@ The current scientific authority remains [`../extended/`](../extended/) until Er
 - Organize the argument by claims and evidence-chain stages, not experiment order. Use *stage* for the conceptual chain and *criterion*, *threshold*, or *check* for operational continuation rules; do not use *gate* for both.
 - Keep E identifiers as nonprinting `\evd{Ennn}` source provenance and provenance-appendix navigation, not reader-facing vocabulary. An internal-review build may display them.
 - Use formal academic prose: state the claim or procedure directly, and remove meta-commentary about framing or writing unless that framing is itself the claim.
+- Apply the unified question-tree and guided-inference method in `question-led-writing`: the tree maps what the reader must understand, and the inference path guides the reader there from shared ground one necessary distinction at a time.
+- Guide rather than announce. Keep one principal conceptual move per sentence, explain why a mechanism or comparison matters before relying on it, provide local bridges for required premises, and make each paragraph prepare the next.
 - Define an object's role positively and assign adjacent roles to their actual section or evidence owner. Avoid repeated “X rather than Y” or “X is not Y” constructions when two direct statements communicate the distinction more clearly.
 - A subsection normally owns three to five related paragraph questions. A two-paragraph subsection is allowed only when it marks a real conceptual boundary. Merge a one-paragraph subsection into its parent.
 - Split a subsection if it exceeds about 1,000 to 1,200 words, contains more than six or seven substantive paragraphs, or answers more than one parent question.
 - Main-text theory must change the interpretation of an estimand or control. Put non-decisive derivations and analogies in Appendix D.
 - Introduce each concept once, operationalize it once, and report its result once. Later sections should synthesize rather than restate.
 - Do not present reserved, unexecuted, or precondition-stopped experiments as results.
-- Use tables for experiment disposition, many-to-many evidence mappings, and repeated variant results.
+- Use tables for analysis or evidence-record disposition, many-to-many evidence mappings, and repeated variant results.
 - For dense mapping tables, separate compact identifiers such as stage numbers from descriptive labels, allocate the flexible-width column to the substantive comparison, and use the full text width before reducing font size. Split conceptually distinct stages into separate rows even when they share an intervention, assay, or analysis.
 - Keep table and figure captions to one rendered line whenever possible. Use the caption to identify the object; place interpretation, caveats, and reading instructions in the surrounding prose.
 - In process figures, use equal-sized boxes based on the longest required item. Give parallel box labels that name the claim and the test that supports it; shorten wording before shrinking type or accepting distracting line breaks.
@@ -53,7 +55,7 @@ This rewrite is the thesis content. Organize the narrative by the role a procedu
 | Evaluation | Recurring external endpoint | **language-quality evaluation**, **practical-utility evaluation** |
 | Evidence record | Internal provenance owner | `E###` appears only in source provenance, an internal-review build, or the provenance appendix |
 
-Use the shortest fixed term after first definition. Dataset, model, layer, target dimension, and response construction are qualifiers used only when they distinguish variants. Participant-specific and participant-averaged identify response construction or inference level, not standalone experiments. TRIBE identifies the generator. The text-derived auxiliary target, frozen row twin, and permutations are controls within their owning comparisons.
+Use the shortest fixed term after first definition. Dataset, model, layer, target dimension, and response construction are qualifiers used only when they distinguish variants. Participant-specific and participant-averaged identify response construction or inference level, not standalone experiments. TRIBE identifies the generator. The text-derived auxiliary target, frozen row-twin control, and permutations are controls within their owning comparisons.
 
 The main argument order is controlled predictivity, quality-aware headroom, exact synthetic-target measurability where applicable, intervention, retained manipulation, comparator adequacy and attribution, biological transfer, and practical utility. Target recovery and retained-student movement are manipulation checks within the synthetic-response intervention. Comparator adequacy may leave attribution non-identifying; do not name an unresolved attribution assessment as if attribution succeeded.
 
@@ -86,7 +88,7 @@ Language-quality evaluation is a cross-cutting endpoint and criterion. Section 3
 
 Target 9,000 to 10,000 main-text words, or roughly 21 to 23 A4 pages excluding references: about 2 pages for the Introduction, 3 for Section 2, 4 to 4.5 for Section 3, 7 to 8 for Results, 2.5 for Discussion, 1 to 1.5 for Limitations, and 0.5 for the Conclusion. Keep Section 2.3 within about 700 to 900 words and Sections 4.3 and 4.5 within about 1,000 to 1,200 words each. Preserve Results as the largest allocation.
 
-Treat roughly 20 to 24 appendix pages as a planning band, not a compression target. Completeness means that every experiment and load-bearing claim is accounted for, not that every stored numerical row or machine-level artifact listing is reproduced. Leave exhaustive grids and artifact metadata in the owning E records and retained artifacts.
+Treat roughly 20 to 24 appendix pages as a planning band, not a compression target. Completeness means that every scientific role, supporting analysis, evidence record, and load-bearing claim is accounted for, not that every stored numerical row or machine-level artifact listing is reproduced. Leave exhaustive grids and artifact metadata in the owning E records and retained artifacts.
 
 Give the three evidence-chain artifacts different jobs. The Section 2 figure defines the conceptual stages and claim meanings. The Section 3 table maps each stage to its canonical scientific role, estimand, comparator, endpoint, inference unit, and evidence owner. The Results table reports only the verdict and strongest evidence. Do not restate the full chain in the prose around all three.
 
@@ -167,7 +169,7 @@ This subsection owns the conceptual interpretation: what the score licenses, why
 2. How can recorded fMRI responses or synthetic brain responses generated from text act as training-only targets that select among those representations, and what information can a deterministic synthetic target provide?
 3. Why do target predictability, reduced target loss, and retained-student movement show only that the intervention operated, rather than that it produced a brain-specific training advantage?
 
-This subsection owns the conceptual mechanism and its limits: output objectives do not identify internal geometry; training-only targets may select among compatible representations; and manipulation evidence does not identify brain-specific benefit. A deterministic target cannot convey row-specific information independent of the stimulus and fixed generator, although it may convey generator-learned structure and reorganize what the student makes accessible. Leave exact target construction to Section 3.1 and Appendix B, loss and gradient paths to Section 3.2 and Appendix C, the full evidence standard to Section 2.4, formal information-theoretic arguments to Appendix D.4, and empirical verdicts to Sections 4.4--4.5.
+This subsection owns the conceptual mechanism and its limits: output objectives do not identify internal geometry; training-only targets may select among compatible representations; and manipulation evidence does not identify brain-specific benefit. A deterministic target cannot convey row-specific information independent of the stimulus and fixed generator, although it may convey generator-learned structure and reorganize what the student makes accessible. Leave exact target and control construction to Appendix B, summary-level prerequisite assay design to Section 3.2, recorded-response loss and gradient paths to Section 3.3, synthetic-response paths to Section 3.4, exact implementations to Appendix C, the full evidence standard to Section 2.4, formal information-theoretic arguments to Appendix D.4, and empirical verdicts to Sections 4.4--4.5.
 
 #### 2.3 What does prior brain-response-guided training leave unresolved?
 
@@ -394,7 +396,7 @@ Use one compact scientific-role-to-evidence-record ledger rather than one prose 
 
 #### B.3 Synthetic brain responses and text-derived auxiliary targets
 
-1. How are the exact TRIBE target, PCA representation, frozen row twin, text-feature target, and permutations generated?
+1. How are the exact TRIBE target, PCA representation, frozen row-twin control, text-derived auxiliary target, and permutations generated?
 2. How are dimensions, scaling, covariance, baseline headroom, and learnability compared, and where does matching remain inadequate?
 
 ### Appendix C. Training interventions and reproduction
@@ -481,21 +483,22 @@ This appendix formalizes the limits introduced conceptually in Section 2.2; it m
 ## Drafting and review protocol
 
 1. Read the active leaf questions, their parent question, the owning evidence records, and the relevant canonical literature notes.
-2. State the intended answer, claim type, scope, caveat, and evidence before drafting.
-3. Locate every existing paragraph that answers the active leaf, then draft one complete answer. Replace or move overlapping prose instead of appending a duplicate.
+2. Apply `question-led-writing` to state the reader's starting understanding, the intended answer and scope, and the shortest supported inference path for each active leaf.
+3. Locate every existing paragraph that answers the active leaf, then draft one complete proposed replacement. Propose moving overlapping prose instead of appending a duplicate.
 4. Draft adjacent leaf questions together only when they form one natural argumentative unit. Do not draft across a section boundary.
 5. Use `\evd{Ennn}` as nonprinting source provenance and keyed values from `numbers.tex`. A missing value is a `\gap`, never a reconstruction or guess.
-6. Run four independent reviews after each substantive drafting unit:
+6. Use the smallest applicable review set during ordinary paragraph work. Run all four independent reviews at load-bearing subsection or section boundaries, or when framing, scope, ownership, or attention allocation changes materially:
    - claim support and scope using `test-claims`;
    - reader and argument bottlenecks using `remove-bottlenecks`;
    - attention, length, and opportunity cost using `allocate-for-compounding`;
    - terminology, handoffs, ownership, and whole-manuscript fit using `coordinate-strategy`.
-7. Reconcile the four reviews into one actionable brief. The drafting agent must either apply each accepted item or explain concretely why it conflicts with evidence or a higher-level question.
-8. Erfan approves load-bearing wording and verdict framing. Apply only the accepted version.
-9. At subsection close, reverse-outline the prose: every leaf is answered once, every paragraph has one owner, and every transition names the relation between scientific roles.
-10. Repeat for at most four rounds, stopping earlier when no reviewer identifies a material claim, structure, prose, citation, terminology, or handoff defect.
-11. After all units are complete, run the same four reviews over the whole manuscript and revise until the remaining findings are non-material.
-12. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/rewrite`, build the PDF, and inspect every rendered page before calling the candidate complete.
+7. When multiple reviews run, reconcile them into one proposed revision. Address each accepted item or explain concretely why it conflicts with evidence or a higher-level question.
+8. Erfan approves load-bearing wording and verdict framing. Edit manuscript source only after approval.
+9. At subsection close, reverse-outline both structures: every leaf is answered once, every paragraph has one owner, every inference is supported before use, and every transition prepares the next reader question.
+10. Apply the skeptical-reader test: the prose must be understandable sentence by sentence without an unsupported jump, an unexplained result, or dependence on project history.
+11. Repeat for at most four rounds, stopping earlier when no reviewer identifies a material claim, structure, prose, citation, terminology, density, or handoff defect.
+12. After all units are complete, run the same four reviews over the whole manuscript and revise until the remaining findings are non-material.
+13. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/rewrite`, build the PDF, and inspect every rendered page before calling the candidate complete.
 
 ## Section acceptance checks
 
