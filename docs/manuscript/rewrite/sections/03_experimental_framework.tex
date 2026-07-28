@@ -54,39 +54,67 @@ This section specifies the study design; Section~\ref{sec:results} reports the v
 \subsection{Study Design, Datasets, and Data Partitioning}
 \label{sec:data-targets}
 
-The Tuckute condition-B data provide the fixed sentence-level dataset used for controlled brain predictivity, recorded-response training, and saved-student biological-transfer evaluation \autocite{tuckute2024}.
-The dataset contains 1,000 isolated English sentences ordered by item identifier, recorded \ac{fmri} responses from 10 participants, and five fixed left-hemisphere language \acp{roi} (\texttt{AntTemp}, \texttt{IFG}, \texttt{IFGorb}, \texttt{MFG}, and \texttt{PostTemp}).
-The participant-averaged assay uses \acp{uid} 848, 853, 865, 875, and 876.
-Available responses are averaged cellwise, and inclusion requires a complete sentence-by-\ac{roi} matrix.
-Participant-specific analyses exclude \ac{uid}~853 because of incomplete \ac{roi} coverage, leaving nine participants.
-All Tuckute sentence analyses preserve item order and use five contiguous folds, each holding out 200 sentences while fitting on the remaining 800.
-The released five-\ac{roi} reliability value, \(r_{\mathrm{NC}}=0.491\), provides descriptive correlation-scale context; raw variance-scale \(R^2\) remains the evaluation quantity \evd{E002}\evd{E004}\evd{E005}\evd{E008}\evd{E025}.
+The Tuckute condition-B dataset provides the sentence-level substrate for the controlled regional predictivity assay, quality-aware distillation-headroom analysis, recorded-response intervention, exact synthetic-target measurability assay, and saved-student biological-transfer assay \autocite{tuckute2024}.
+It contains 1,000 isolated English sentences, recorded \ac{fmri} responses from 10 participants, and five fixed left-hemisphere language \acp{roi}\evd{E002}\evd{E003}\evd{E004}\evd{E005}\evd{E008}\evd{E015}\evd{E025}\evd{E030}.
+The LeBel corpus provides the naturalistic voxelwise substrate for the controlled naturalistic voxelwise predictivity assay \autocite{lebel2023}.
+That assay uses participant UTS03 and 20 stories divided into five held-out-story folds.
+Reliability-selected voxels are defined using a separate repeated story.
+Holding out complete stories prevents temporally dependent samples from the same story from crossing the evaluation boundary.
+The resulting estimand concerns prediction on unseen stories within one deeply sampled participant and does not support population inference across people\evd{E006}.
 
-The LeBel corpus provides a naturalistic, voxelwise complement to the isolated-sentence, \ac{roi}-level Tuckute assay \autocite{lebel2023}.
-The analysis uses participant UTS03, 20 stories divided into five held-out-story folds, and 11,442 voxels whose corrected split-half reliability exceeds 0.5 on a separate repeated story.
-Holding out complete stories preserves within-story temporal dependence and tests prediction on unseen narratives, while the separate reliability story keeps evaluation responses outside voxel selection.
-The resulting estimand concerns held-out-story prediction within one deeply sampled participant.
-Stories and voxels provide nested measurements of that participant; population inference across people requires multiple independent participants.
-Appendix~\ref{app:data-targets} specifies stimulus alignment, temporal resampling, response preprocessing, and delay construction, while Section~\ref{sec:measurement} describes the held-out readout protocol \evd{E006}.
+Response construction determines the population quantity and spatial scale being estimated.
+Participant averaging combines the five selected Tuckute participants into one sentence-by-\ac{roi} matrix.
+Scores against that matrix estimate predictivity of the shared stimulus-locked response and do not create participant-level replication.
+Participant-specific construction retains a separate response matrix for each of the nine valid participants, permitting participant-level intervention contrasts and population inference over the tested participants.
+Each \ac{roi} coordinate summarizes responses within a predefined language region, whereas each voxel coordinate preserves a finer spatial measurement.
+Section~\ref{sec:estimands} pairs these constructions with their estimands and inference units \evd{E002}\evd{E006}\evd{E008}\evd{E014}\evd{E025}.
 
-Response construction determines the quantity being estimated.
-Participant averaging can increase reliability by emphasizing the stimulus-locked response shared across selected participants, producing one group-level sentence-by-\ac{roi} matrix.
-Scores against this matrix estimate predictivity of that shared response; population replication still depends on independent participants.
-Participant-specific construction instead preserves one response matrix and one intervention effect for each valid participant, with folds and seeds aggregated within that person before population inference.
-At the spatial level, each \ac{roi} coordinate summarizes activity across a predefined language region, whereas each voxel coordinate retains a finer-grained response measurement.
-The Tuckute assays therefore estimate sentence-level predictivity over five regional summaries, while the LeBel assay estimates held-out-story predictivity over reliable voxels within one participant.
-A response construction becomes a training target when it enters the auxiliary objective and an evaluation endpoint when a fresh held-out readout predicts it.
-Section~\ref{sec:estimands} pairs each construction and role with its corresponding estimand and inference unit \evd{E002}\evd{E006}\evd{E008}\evd{E014}\evd{E017}\evd{E025}.
+Each corpus and observation set has a fixed role.
+The recorded-response intervention uses Tuckute sentences and recorded responses during training.
+The synthetic-response intervention instead trains on 95,999 WikiText-103 sentences, while a separate 1,999-sentence split supports language-quality evaluation and synthetic-target recovery \autocite{merity2017}.
+The synthetic target for the Tuckute sentences is generated without using their recorded responses before exact synthetic-target measurability is evaluated.
+Saved students remain frozen while fresh readouts evaluate biological transfer to those responses.
+Pereira sentences and LeBel transcripts provide the out-of-domain language-quality endpoints used in the bounded practical-utility evaluation \autocite{pereira2018,lebel2023}.
+LeBel recorded \ac{fmri} responses are not used by the principal sentence-level or WikiText training routes; they support the controlled naturalistic assay and the supporting intervention diagnostics reported in Appendix~\ref{app:secondary} \evd{E006}\evd{E009}\evd{E013}\evd{E016}\evd{E017}\evd{E025}\evd{E030}.
 
-Each dataset has a fixed role in the evidence chain.
-The recorded-response training family uses the five outer folds of the 1,000 Tuckute sentences: each arm trains on 800 sentences, and the remaining 200 provide the fresh recorded-response endpoint.
-A separate held-out WikiText set measures \ac{lm} quality.
-The synthetic-response family trains on 95,999 WikiText-103 sentences with fixed text-derived targets; its separate 1,999-sentence split supplies language-quality and held-out target-recovery endpoints.
-The trained students are subsequently frozen before evaluation on the Tuckute responses used for exact-target measurability and biological transfer.
-The LeBel stories remain confined to the independent naturalistic controlled-predictivity assay.
-Fold-dependent transformations are fitted only on the corresponding training portion.
-These assignments keep student-training examples, language-quality items, target-recovery items, and recorded-response endpoints distinct.
-Appendix~\ref{app:data-targets} reports the exact inclusion and split definitions \evd{E005}\evd{E006}\evd{E008}\evd{E016}\evd{E025}\evd{E030}.
+The data partitions keep these roles separate.
+The Tuckute analyses use five contiguous outer partitions, each holding out 200 sentences and using the other 800.
+The controlled regional predictivity, exact synthetic-target measurability, and saved-student biological-transfer assays fit fresh readouts within these partitions; only the recorded-response intervention uses the 800-sentence training portion to optimize the student.
+Synthetic-response student training and target-recovery evaluation remain within their separate WikiText partitions, and the recorded Tuckute responses enter only the later measurability and biological-transfer assays.
+Fold-dependent transformations are fitted only on the corresponding training portion; the exact-substrate assay instead applies the externally frozen synthetic-target standardization.
+Appendix~\ref{app:data-targets} reports the exact inclusion, preprocessing, and partition definitions \evd{E002}\evd{E005}\evd{E008}\evd{E016}\evd{E025}\evd{E030}.
+
+\subsection{Measurement prerequisites}
+\label{sec:measurement-prerequisites}
+
+The controlled regional predictivity assay and controlled naturalistic voxelwise predictivity assay measure whether frozen \ac{lm} representations predict held-out brain responses beyond fixed nuisance variables.
+Both compare trained \acp{lm} with architecture-matched untrained controls, which distinguish effects of learned representations from effects of architecture alone.
+For Tuckute, the nuisance design contains sentence length, item position, and static embeddings, while the full design adds a capacity-matched contextual representation and preserves contiguous sentence folds.
+For LeBel, the corresponding designs contain fixed lexical, acoustic, phonetic, and timing covariates and hold out complete stories.
+The released Tuckute reliability estimates provide descriptive context, whereas LeBel voxel eligibility is determined from a separate repeated story \evd{E002}\evd{E006}.
+
+The quality-aware distillation-headroom analysis measures how much controlled brain predictivity differs among the teacher, initialized students, and ordinarily distilled students while treating \ac{lm} quality as a competing explanation.
+At the declared layers, the pretrained \texttt{gpt2-medium} teacher is compared with an untrained \texttt{gpt2} floor, an off-the-shelf pretrained \texttt{gpt2}, and \texttt{gpt2} students initialized either randomly or from pretrained weights before ordinary \ac{kd}.
+Held-out perplexity measures language quality within this shared-tokenizer comparison.
+A separate cross-family analysis compares controlled predictivity across pretrained models using tokenizer-comparable bits per byte.
+These analyses quantify headroom under the tested models and training conditions; they do not isolate model size, architecture, initialization, training history, or language quality as its cause \evd{E003}\evd{E015}.
+
+The exact synthetic-target measurability assay tests whether the fixed text-derived TRIBE synthetic brain-response target contains a participant-general linear signal for recorded Tuckute responses on the same 1,000 sentences.
+For each participant, the assay fits three otherwise identical response readouts: nuisance only, nuisance plus the aligned synthetic target, and nuisance plus its frozen row twin.
+It reports the aligned target's unique \(R^2\) above nuisance and the aligned-minus-row-twin difference in unique \(R^2\).
+The first contrast tests measurability beyond the declared nuisance design.
+The second tests sentence-specific alignment against a control that preserves the exact target-row multiset within each fixed block.
+These contrasts assess predictive measurability on this fixed stimulus set; they do not establish causal mediation, brain specificity, or stimulus-population generality \evd{E030}.
+
+These prerequisites use held-out \(R^2\) from fresh ridge readouts fitted to frozen features.
+Ordinary \(R^2\) retains negative values, and unique \(R^2\) is the full-model score minus the corresponding nuisance-model score.
+This difference measures incremental prediction rather than a causal allocation of biological variance.
+Learned transformations, response centering, regularization selection, and readout fitting use only the relevant training partition, except where target standardization was fixed upstream as part of target construction.
+Reliability supplies descriptive context for Tuckute and independently determined voxel eligibility for LeBel.
+Appendices~\ref{app:data-targets} and~\ref{app:inference} specify the exact preprocessing, estimators, aggregation, and inference procedures \evd{E002}\evd{E003}\evd{E006}\evd{E015}\evd{E030}.
+
+\subsection{Student training and retained components}
+\label{sec:training}
 
 The training targets and controls differ in both information source and comparison role.
 In the recorded-response route, the target contains observed Tuckute \ac{fmri} responses, while the permuted control preserves the response values and their marginal distribution but changes their pairing with the sentences.
@@ -97,17 +125,6 @@ The text-derived auxiliary target instead mean-pools representations from a froz
 By construction, it matches the TRIBE target in corpus, dimension, model lineage, loss form, and training schedule.
 Covariance geometry, nuisance predictability, learnability, optimization pressure, and retained-student movement require separate empirical checks, while initial-loss and gradient-scale comparability cannot be reconstructed from the retained artifacts.
 Appendix~\ref{app:data-targets} specifies the exact generation, permutation, standardization, and dimensionality-reduction procedures \evd{E008}\evd{E016}\evd{E026}\evd{E030}.
-
-The saved-student transfer analysis evaluates biological generalization after synthetic-response training.
-Six saved students per training arm remain frozen throughout this analysis.
-For each of the nine valid Tuckute participants, a fresh ridge readout is fitted within each of the same five contiguous folds, using 800 sentences for fitting and 200 for evaluation.
-Layer~7 is the primary representation layer, and layer~6 provides a prespecified sensitivity analysis.
-Student training and target-recovery evaluation use WikiText-derived examples, while the recorded Tuckute responses enter only the fold-specific evaluation readout.
-This separation keeps the biological endpoint independent of student optimization and excludes reuse of the temporary training head.
-Appendix~\ref{app:evidence-provenance} identifies the retained student artifacts, and Appendix~\ref{app:data-targets} specifies participant inclusion and response preprocessing \evd{E025}.
-
-\subsection{Student training and retained components}
-\label{sec:training}
 
 The teacher is frozen and evaluated outside gradient computation.
 On nonpadding token positions, logits are softened as $p_T^\tau=\operatorname{softmax}(z_T/\tau)$ and $q_S^\tau=\operatorname{softmax}(z_S/\tau)$.
@@ -204,35 +221,13 @@ In every case, regularization and transforms are nested inside the fitting set, 
 \subsection{Measuring brain predictivity and target recovery}
 \label{sec:measurement}
 
-Ordinary held-out $R^2$ compares prediction error with variation around each coordinate's test-fold mean.
-For target coordinate $j$ and test indices $\mathcal{T}$,
-\[
-R_j^2=1-\frac{\sum_{i\in\mathcal{T}}(y_{ij}-\widehat{y}_{ij})^2}
-{\sum_{i\in\mathcal{T}}(y_{ij}-\bar{y}_{\mathcal{T}j})^2}.
-\]
-Negative scores are retained: they indicate predictions worse than the test-mean baseline, not missing values.
-
-Controlled brain predictivity is the semipartial increment from contextual features beyond a frozen nuisance design of low-level and static language variables.
-Under identical fold preprocessing and ridge selection, the reported quantity is
-\[
-R^2_{\mathrm{unique}}=R^2_{\mathrm{full}}-R^2_{\mathrm{nuisance}}.
-\]
-This predictive difference is not a causal allocation of biological variance \evd{E002}\evd{E006}.
-
-The Tuckute and LeBel brain assays compute coordinatewise $R_j^2$ and then average the declared \acp{roi} or voxels and folds; the continuity target-recovery score uses the same equal-coordinate convention \evd{E016}.
-The exact-substrate 20,484-coordinate target-recovery assay instead pools the held-out sum of squared errors (\(\mathrm{SSE}\)) and held-out total sum of squares (\(\mathrm{SST}\)) over all coordinates before computing \(1-\mathrm{SSE}/\mathrm{SST}\) within each fold, which weights coordinates by held-out variance; its target-to-response and composed student-to-target-to-response assays remain coordinatewise \evd{E030}.
-Coordinates, folds, and seeds are never promoted to biological replicates \evd{E016}\evd{E030}.
-
-Every encoding endpoint fits a fresh ridge estimator on frozen features.
-Every learned operation is fitted only on the relevant readout-training complement before application to its held-out block.
-Sentence analyses preserve contiguous item blocks; naturalistic analyses hold out whole stories and learn only \ac{pca}, assembled-design scaling, response centering, ridge selection, and the readout after the fixed per-story pipeline described above.
-The baseline screen reports best layers descriptively within a fixed grid; later recorded-response assays prospectively reuse those choices, while the exact-substrate retention and student-to-target-to-response assays lock layer~6 as primary and layer~7 as non-rescuing sensitivity.
-Reliability filters are fixed independently of evaluation outcomes.
-The core sentence nuisance design contains token length, normalized item position, and a fixed static embedding; the exact-substrate primary design also includes imageability \evd{E030}.
-The naturalistic design contains word and phoneme rate, duration, length, log frequency, and a static embedding; every compared arm reuses the same fixed per-story temporal arrays.
-Contextual and high-dimensional static blocks enter at a declared capacity-matched rank.
-These nuisance arrays are held identical within a contrast, so a training arm cannot gain merely from a wider readout or a different low-level timing model.
-Appendices~\ref{app:data-targets} and~\ref{app:inference} specify nuisance blocks, ranks, temporal transforms, and secondary estimators \evd{E001}\evd{E002}\evd{E006}\evd{E025}\evd{E030}.
+The saved-student transfer analysis evaluates biological generalization after synthetic-response training.
+Six saved students per training arm remain frozen throughout this analysis.
+For each of the nine valid Tuckute participants, a fresh ridge readout is fitted within each of the same five contiguous folds, using 800 sentences for fitting and 200 for evaluation.
+Layer~7 is the primary representation layer, and layer~6 provides a prespecified sensitivity analysis.
+Student training and target-recovery evaluation use WikiText-derived examples, while the recorded Tuckute responses enter only the fold-specific evaluation readout.
+This separation keeps the biological endpoint independent of student optimization and excludes reuse of the temporary training head.
+Appendix~\ref{app:evidence-provenance} identifies the retained student artifacts, and Appendix~\ref{app:data-targets} specifies participant inclusion and response preprocessing \evd{E025}.
 
 \subsection{Estimands, controls, quality criteria, and inference}
 \label{sec:estimands}
