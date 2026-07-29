@@ -7,8 +7,8 @@ tags: [hypothesis]
 
 **ID:** H002
 **Created:** 2026-07-28
-**Status:** proposed
-**Charter:** [`../00-charter.md`](../00-charter.md) · **Experiment:** [`E031`](../experiments/E031_biological-target-information-recovery.md)
+**Status:** partially tested
+**Charter:** [`../00-charter.md`](../00-charter.md) · **Experiments:** [`E031`](../experiments/E031_biological-target-information-recovery.md), [`E032`](../experiments/E032_kymata-cross-run-repeat-recovery.md)
 
 ---
 
@@ -16,7 +16,7 @@ tags: [hypothesis]
 
 Can the biological auxiliary signal become useful if the target preserves repeat-stable, participant-general information instead of asking the model to fit raw or participant-averaged neural coordinates?
 
-**Provisional answer:** possibly, but denoising is useful only if it increases information about an untouched biological view, retains content that is not reproduced by text and nuisance controls, and sends a content-specific gradient into the model. A smoother or more predictable training target is not sufficient.
+**Provisional answer:** the broad hypothesis remains open, but two simple current-data routes did not earn continuation. E031 found modest held-out-participant information in a residualized source aggregate, while consensus weighting improved over uniform averaging by only `+0.000936`, below the frozen `+0.002` gate. Its whole-cortex repeat instrument had \(R_{\mathrm{builder}}=0.000116\), below the `0.01` floor, so the independent repeats stayed sealed. These results reject those implementations, not denoising in general. E032 now asks the narrower next question: can a repeat-optimized common spatial filter recover a stable cross-run MEG or EEG direction before any target or loss is constructed?
 
 ## Claim (falsifiable)
 
@@ -26,7 +26,7 @@ The claim receives prospective support only if the candidate target:
 
 1. improves held-out-participant or held-out-repeat biological predictivity beyond the locked nuisance model;
 2. beats its byte-identical uniform residual baseline by the inherited `+0.002` unique-\(R^2\) smallest effect of interest in the Tuckute consensus test;
-3. clears a separate prospective conditional threshold and the expected \(1-1/k\) slope in the LeBel repeat test;
+3. clears its substrate-specific prospective reliability and method-increment thresholds on independent runs or repeats;
 4. beats a capacity-, covariance-, and autocorrelation-matched content-destroyed twin;
 5. respects the named participant and contiguous-stimulus inference limits; and
 6. later produces a biological-content-specific trunk gradient before any student-outcome comparison is opened.
@@ -87,7 +87,8 @@ The first target family is deliberately linear and auditable:
 1. **Uniform residual biological mean:** the strongest simple cross-participant baseline, with fold-only nuisance residualization and target normalization.
 2. **Consensus-weighted shrinkage:** estimate source-to-other-source agreement inside the outer training fold and shrink source-participant dimensions toward uniform weights. This targets shared transfer, not measurement reliability.
 3. **Shared latent or functional alignment:** estimate \(Z_s\) with participant-specific maps and explicit view-specific noise. Subject-specific independent components are one auditable candidate, but component estimation and selection must remain inside builder folds.
-4. **Repeat-crossvalidated representational geometry:** when independent repeats exist, estimate crossnobis or whitened unbiased distances rather than fitting raw coordinates.
+4. **Repeat-optimized common spatial filtering:** for time-resolved repeated measurements, fit one shrinkage-regularized CorrCA direction on builder exposures, then apply the fixed filter to cross-run evaluation exposures. Reliability is the objective; PCA and content-destroyed temporal shifts remain required controls.
+5. **Repeat-crossvalidated representational geometry:** when independent repeats exist, estimate crossnobis or whitened unbiased distances rather than fitting raw coordinates.
 
 A nonlinear denoiser is not the first move. It becomes eligible only if repeat reliability is adequate, the linear target fails, and nested participant-by-stimulus evaluation can distinguish additional signal from nuisance learning.
 
@@ -126,12 +127,14 @@ The next layer decision must be nested and small:
 
 The LM output logits are not a neural measurement space. A "head" test means a projection from the final hidden state, while the language head remains governed by CE or KD. A broad all-layer sweep would create a winner's-curse search and is forbidden.
 
+A later placement gate must also separate layer suitability from raw gradient scale. On builder data, each candidate receives a separately prefit, then frozen biological projection. Its auxiliary-loss weight is normalized once against the median trunk-gradient norm of the CE or KD objective and then frozen. Report projection-only gradient, trunk-gradient norm, aligned-versus-twin trunk-gradient difference, and cosine with the language-objective gradient. Applying losses independently at several layers is a different intervention because it adds correlated gradients and more total auxiliary energy. It is eligible only after a single-layer or builder-fit convex-mixture choice passes, and only under matched total trunk-gradient norm.
+
 ## What each modality can contribute
 
-- **Repeated fMRI:** the best first substrate for identifying a reliability curve because independent repeats permit fixed-content target and evaluation averages. [`E006`](../experiments/E006_lebel-voxelwise-feasibility.md) records ten repeats of the LeBel UTS03 story `wheretheressmoke`.
+- **Repeated fMRI:** independent repeats permit fixed-content target and evaluation averages. [`E031`](../experiments/E031_biological-target-information-recovery.md) tested the available whole-cortex-median linear LeBel instrument, which stopped at its builder floor. That does not rule out localized, nonlinear, or differently regularized fMRI denoising, but it licenses no post-result variant.
 - **Multi-participant fMRI:** the best first substrate for testing whether shared latent alignment retains information that participant averaging loses. Tuckute provides common sentences and individual participant responses.
 - **ECoG:** the strongest later temporal-precision test when enough aligned language data and independent participants are available. [`E028`](../experiments/E028_vaidya-crossmodal-intervention-falsification.md) remains the controlled external route but is blocked on author artifacts.
-- **MEG:** a non-invasive high-temporal-resolution candidate for representational and layer-time alignment. It is a separate measurement test, not automatic denoising.
+- **MEG:** the current external measurement test because Kymata combines repeated naturalistic stimulation with simultaneous high-temporal-resolution measurement. E032 tests cross-run CorrCA against PCA and shifted controls. A stable component is not automatically linguistic or useful for model training.
 - **EEG:** scalable and temporally precise, but high artifact burden and cross-subject shift mean that alignment, reliability, and content controls must pass before intervention training. [`E024`](../experiments/E024_zuco-lupi-sample-efficiency.md) tested ZuCo gaze rather than establishing an EEG route.
 - **fNIRS:** hemodynamic and portable, but it does not currently offer a clearer language-matched, participant-general test than the registered fMRI and electrophysiology substrates.
 
@@ -139,29 +142,31 @@ Multimodal fusion is licensed only when modalities share stimuli at a defensible
 
 The outcome-blind substrate order is:
 
-1. use the already-local LeBel fixed-content repeats and Tuckute participant views to identify whether repeat stability or participant preservation recovers independent biological information;
-2. if the fixed-content mechanism passes, validate the denoiser on [Kymata Soto](https://osf.io/qdzgh/), where the same short conversation was repeated four times in Russian and eight times in English during simultaneous EEG and MEG, then replicate at greater language breadth on [MEG-MASC](https://www.nature.com/articles/s41597-023-02752-5); the paper reports 22 paired participants, but the current public OSF tree exposes only ten paired participants and one single-session participant;
-3. freeze the estimator before transferring it to fMRI: use CNeuroMod-THINGS only as non-language calibration, then test [Caption Scene Dataset](https://www.nature.com/articles/s41597-026-07248-6) with its two trial repetitions under explicit visual, decision, and caption nuisance controls; do not use the released GLMsingle betas as an independent repeat split because their fitting groups mix both presentations, and instead rebuild repeat-isolated response estimates;
-4. if a participant-preserving latent passes, test fMRI-MEG fusion on [SMN4Lang](https://www.nature.com/articles/s41597-022-01708-5), where the same 12 people heard the same 60 stories in both modalities;
-5. use [Brain Treebank](https://braintreebank.dev/) or [Podcast ECoG](https://www.nature.com/articles/s41597-025-05462-2) as disjoint high-temporal-resolution endpoints rather than first training substrates; and
-6. defer a new EEG intervention on non-repeated corpora until a dataset provides adequate participant transfer, artifact controls, and either fixed-content repeats or a clean independent endpoint.
+1. treat E031 as terminal for its frozen Tuckute consensus-weighting and whole-cortex LeBel instruments; neither earned a gradient or repeat-aware follow-on;
+2. run [`E032`](../experiments/E032_kymata-cross-run-repeat-recovery.md) on Kymata E2 only after raw-header, trigger, complete-window, channel, and calibration integrity pass. Learn one common CorrCA filter on runs 1 and 3, evaluate it only across runs 2 and 4, keep MEG primary and EEG secondary, and compare with PCA-1 and shifted controls;
+3. if E032 passes, freeze the estimator and seek participant and language breadth on [MEG-MASC](https://www.nature.com/articles/s41597-023-02752-5); the current public paired subset remains smaller than the paper's full cohort and must be reverified before use;
+4. transfer a frozen estimator to fMRI only with a valid repeat split: use CNeuroMod-THINGS as non-language calibration, then test [Caption Scene Dataset](https://www.nature.com/articles/s41597-026-07248-6) after rebuilding repeat-isolated responses because its released GLMsingle fitting groups mix both presentations;
+5. if a participant-preserving latent passes, test fMRI-MEG fusion on [SMN4Lang](https://www.nature.com/articles/s41597-022-01708-5), where the same participants heard the same stories in both modalities;
+6. use [Brain Treebank](https://braintreebank.dev/) or [Podcast ECoG](https://www.nature.com/articles/s41597-025-05462-2) as disjoint high-temporal-resolution endpoints rather than first training substrates; and
+7. defer an intervention on non-repeated EEG corpora until a dataset provides adequate participant transfer, artifact controls, and either fixed-content repeats or a clean independent endpoint.
 
 This order tests a mechanism before paying the acquisition, preprocessing, and multiple-comparison cost of a new modality. Repeats identify denoising; cross-modal agreement supplies a prior but does not by itself separate signal from noise. The order does not imply that fMRI is intrinsically superior to electrophysiology.
 
 ## Measurement bet
 
-- **Primary metric:** participant-first held-out unique \(R^2\) beyond the locked stimulus and nuisance model.
-- **Specificity metric:** aligned target minus capacity- and structure-matched content-destroyed twin.
-- **Independent-view metric:** prediction of a target-construction-held-out participant or disjoint repeat average.
-- **Threshold:** inherited `+0.002` unique-\(R^2\) smallest effect of interest for Tuckute participant-level biological measurability. The LeBel voxelwise single-story diagnostic requires a separate substrate-appropriate threshold in the [`E031`](../experiments/E031_biological-target-information-recovery.md) prospective power gate.
-- **Baseline:** uniform residual biological mean, raw response where available, nuisance-only model, and matched nonbiological target.
-- **Inference units:** participant for Tuckute; repeat and contiguous time block for the single-subject LeBel mechanism diagnostic, without population generalization.
-- **Condition/domain:** Tuckute condition B and LeBel UTS03 `wheretheressmoke` first. No new dataset is needed for the first gate.
+- **Completed current-data tests:** E031's participant-first unique-\(R^2\) consensus increment missed its frozen threshold, and its fixed-content repeat test stopped at the builder instrument floor.
+- **E032 primary metric:** average Fisher-\(z\) correlation of the fixed CorrCA component over the four run-2-versus-run-4 exposure pairs after the locked nuisance model.
+- **E032 method metric:** CorrCA minus same-capacity PCA-1.
+- **E032 specificity metrics:** CorrCA minus the maximum shifted-filter twin and maximum shifted-template twin.
+- **E032 thresholds:** aligned \(r \ge 0.10\), every method and specificity increment at least `0.05` Fisher-\(z\), every evaluation exposure positive on average, and conservative paired moving-block-bootstrap lower endpoints above zero.
+- **Inference unit:** one fixed participant-story pair. Runs, exposures, and time blocks are repeated measurements, not population units.
+- **Condition/domain:** Kymata English participant E2, builder runs 1 and 3, evaluation runs 2 and 4. The acquisition-integrity gate precedes every neural score.
 
 ## Kill criteria
 
-- Kill the current-data shared-target route if its reference information remains below the preregistered instrument floor, it fails to beat the uniform residual mean, or its apparent gain is reproduced by the content-destroyed or matched text-only target.
-- Reject "measurement noise is the binding bottleneck" if increasing fixed-content repeat count substantially improves target reconstruction but does not improve independent content-specific biological predictivity by the preregistered practical amount.
+- The current E031 shared-target and whole-cortex repeat routes are closed under their frozen estimators. Do not tune their masks, ridge grids, or thresholds after observing the results.
+- Kill E032's repeat-optimizer route if raw timing or calibration integrity fails, builder cross-run stability is inadequate, CorrCA fails to beat PCA-1 by `0.05` Fisher-\(z\), or shifted controls reproduce the apparent gain.
+- Reject the claim that E032 found a usable biological target if it recovers only repeat stability. Content specificity, participant transfer, a nonabsorbed trunk gradient, and downstream utility remain separate gates.
 - Do not proceed to student training if correctly paired and matched-twin targets produce indistinguishable trunk gradients or if the projection head absorbs the loss.
 - Stop after the uniform residual and consensus-weighted target families unless adequate independent-view information plus linear failure prospectively activates one shared-latent or nonlinear family.
 - Treat a participant-average-only result, a training-participant-only result, or a language-quality regression as a kill, not a weak positive.
@@ -177,6 +182,8 @@ This order tests a mechanism before paying the acquisition, preprocessing, and m
 - [`E025`](../experiments/E025_participant-e016-biological-transfer.md): target uptake and representation movement did not yield participant-general transfer.
 - [`E026`](../experiments/E026_tribe-textfeat-target-comparability.md): target geometry, headroom, nuisance predictability, and induced movement must be matched.
 - [`E030`](../experiments/E030_exact-substrate-transport-diagnostic.md): unique recorded-fMRI measurability failed before student-to-brain overlap under the frozen linear PCA-50 assay.
+- [`E031`](../experiments/E031_biological-target-information-recovery.md): residualized source aggregation retained modest held-out-participant information, but consensus weighting missed its practical increment and the whole-cortex repeat assay stopped at its builder instrument floor.
+- [`E032`](../experiments/E032_kymata-cross-run-repeat-recovery.md): prospective cross-run CorrCA information-recovery assay; no participant neural endpoint has been opened.
 
 ### From literature
 
@@ -189,6 +196,8 @@ This order tests a mechanism before paying the acquisition, preprocessing, and m
 - [Hari et al. 2026](../literature/canonical/hari-2026_independent-component-encoding-models.md): subject-specific ICA provides a plausible lower-dimensional story-encoding target, but stimulus-predictive components are not automatically brain-specific and any component ranking must be nested inside target-builder folds.
 - [Diedrichsen et al. 2020](../literature/canonical/diedrichsen-2020_whitened-unbiased-rdm-similarity.md): crossvalidated distances remove positive noise bias, while whitening accounts for correlated distance errors; this motivates a later repeat-crossvalidated geometry target when independent partitions exist.
 - [Schütt et al. 2021](../literature/canonical/schutt-2021_statistical-inference-representational-geometries.md): subject and condition generalization require separate factors, and flexible representational models must be fit inside crossvalidation.
+- [Koskinen and Seppä 2014](../literature/canonical/koskinen-2014_task-optimized-meg.md): a shared SimCCA filter learned from repeated MEG trials transferred to held-out repetitions and nonrepeated stories in a much richer calibration regime.
+- [Parra et al. 2019](../literature/canonical/parra-2019_correlated-components-analysis.md): CorrCA supplies an auditable common-filter reliability objective, shrinkage path, and held-out-repeat evaluation logic.
 
 ## Alternative explanations
 
@@ -201,11 +210,11 @@ This order tests a mechanism before paying the acquisition, preprocessing, and m
 
 ## Staged decision
 
-1. [`E031`](../experiments/E031_biological-target-information-recovery.md) separately tests Tuckute source-consensus transfer and the LeBel fixed-content repeat-information response without student training.
-2. A Tuckute target-gradient record is licensed by the C1 gate; repeat-aware LeBel work is licensed separately by C2. Their conjunction is not a common-mechanism claim.
-3. A small layer-placement training factorial is licensed only if one layer carries a stable aligned-versus-twin trunk-gradient advantage.
-4. Participant-specific shared-head intervention training is licensed only after the target and gradient gates pass.
-5. An external modality validates the mechanism only after the same controls and inference units are available.
+1. [`E031`](../experiments/E031_biological-target-information-recovery.md) is complete. Neither Tuckute consensus weighting nor the whole-cortex LeBel repeat instrument licensed its follow-on.
+2. [`E032`](../experiments/E032_kymata-cross-run-repeat-recovery.md) now tests only whether a common CorrCA filter recovers fixed-E2, fixed-story stability across recording blocks beyond PCA and shifted controls.
+3. An E032 pass licenses a separate content-specific assay, not a target, loss, layer choice, or student.
+4. A small layer-placement training factorial is licensed only after a frozen target produces a stable aligned-versus-twin trunk-gradient advantage.
+5. Participant-specific intervention training is licensed only after the target and gradient gates pass.
 
 ## Log
 
@@ -215,6 +224,8 @@ This order tests a mechanism before paying the acquisition, preprocessing, and m
 | 2026-07-28 | Anti-confound review separated Tuckute source consensus from LeBel repeat reliability. The recorded E030 variance calibration also restricted Tuckute C1 to a fixed-cohort engineering gate because five-person simultaneous inference cannot resolve an effect near the `+0.002` threshold. |
 | 2026-07-29 | Recent-dataset scout separated repeat-identifying substrates from cross-modal priors and independent endpoints. Kymata Soto and MEG-MASC are the first external repeat tests; CSD is the repeat-rich fMRI transfer; SMN4Lang and intracranial corpora remain conditional follow-ups. |
 | 2026-07-29 | Metadata/code gates passed Kymata, restricted MEG-MASC to its current ten-person paired public subset, and rejected CSD's released GLMsingle betas as an independent repeat endpoint because all fitted run groups mix the two presentations. |
+| 2026-07-29 | E031 returned `NO CONSENSUS INCREMENT` and `BUILDER INSTRUMENT FLOOR`; the independent evaluation repeats stayed sealed and neither target-gradient nor repeat-aware LeBel work was licensed. |
+| 2026-07-29 | E032 froze a cross-run, one-component CorrCA assay on Kymata E2 with MEG primary, EEG secondary, PCA-1 and shifted controls, builder-only decisions, and an acquisition-integrity stop before neural scoring. |
 
 ## Related
 
@@ -222,3 +233,4 @@ This order tests a mechanism before paying the acquisition, preprocessing, and m
 - [`01-research-landscape.md`](../01-research-landscape.md) - external frontier map
 - [`06-theory-grounding.md`](../06-theory-grounding.md) - information-theoretic and probabilistic-ML grounding
 - [`E031`](../experiments/E031_biological-target-information-recovery.md) - first target-information experiment
+- [`E032`](../experiments/E032_kymata-cross-run-repeat-recovery.md) - prospective cross-run repeat-recovery experiment

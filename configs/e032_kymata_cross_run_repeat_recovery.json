@@ -1,0 +1,379 @@
+{
+  "schema_version": "1.0",
+  "experiment": "E032",
+  "authorization": {
+    "work_e032_authorized": false,
+    "participant_raw_access_allowed": false
+  },
+  "paths": {
+    "data_root": "data/kymata_soto/english",
+    "output_root": "outputs/E032"
+  },
+  "dataset": {
+    "name": "Kymata Soto",
+    "doi": "10.1038/s41597-026-06579-8",
+    "osf_node": "qdzgh",
+    "license_policy": "CC BY 4.0",
+    "subset": "english-native-english-conversation",
+    "subject": "E2",
+    "builder_runs": [
+      1,
+      3
+    ],
+    "evaluation_runs": [
+      2,
+      4
+    ],
+    "exposures_per_run": 2,
+    "event_code": 3,
+    "sampling_frequency_hz": 1000,
+    "stimulus_duration_seconds": 401.5281667,
+    "expected_channels": {
+      "MEGMAG": 102,
+      "MEGGRADAXIAL": 204,
+      "EEG": 64,
+      "EOG": 2,
+      "ECG": 1,
+      "TRIG": 17,
+      "MISC": 8,
+      "total": 398
+    }
+  },
+  "files": {
+    "run1_channels": {
+      "stage": "builder",
+      "path": "sub-E2/meg/sub-E2_task-en_run-1_channels.tsv",
+      "url": "https://osf.io/download/zyn3s/",
+      "bytes": 26812,
+      "sha256": "fcd08a6eb89da6890a3f12deeeb22810459a9c755bf3cdc0cd403e3350006f1d"
+    },
+    "run1_events": {
+      "stage": "builder",
+      "path": "sub-E2/meg/sub-E2_task-en_run-1_events.tsv",
+      "url": "https://osf.io/download/67bd70d4f367aaaec62e9151/",
+      "bytes": 9789,
+      "sha256": "b6691e695d60c97117e9a2ef1ac3f7b9e2ece3c41c72364d55ba25856798372b"
+    },
+    "run1_sidecar": {
+      "stage": "builder",
+      "path": "sub-E2/meg/sub-E2_task-en_run-1_meg.json",
+      "url": "https://osf.io/download/46ctr/",
+      "bytes": 763,
+      "sha256": "cb3f1a8ec8d39fbabbcee4770acf7d782397a91626184e790bdae757d45ade33"
+    },
+    "run1_fif": {
+      "stage": "builder",
+      "path": "sub-E2/meg/sub-E2_task-en_run-1_meg.fif",
+      "url": "https://osf.io/download/ynrfv/",
+      "bytes": 1552184639,
+      "sha256": "b3903a2161c61836fce95b0ce4fd3b14ad2e9e3d7ab493dca013fc5ff50c4c44"
+    },
+    "run2_channels": {
+      "stage": "evaluation",
+      "path": "sub-E2/meg/sub-E2_task-en_run-2_channels.tsv",
+      "url": "https://osf.io/download/n6vde/",
+      "bytes": 26812,
+      "sha256": "fcd08a6eb89da6890a3f12deeeb22810459a9c755bf3cdc0cd403e3350006f1d"
+    },
+    "run2_events": {
+      "stage": "evaluation",
+      "path": "sub-E2/meg/sub-E2_task-en_run-2_events.tsv",
+      "url": "https://osf.io/download/fd4ck/",
+      "bytes": 9562,
+      "sha256": "4af8755d6420d79e542b30d5655a8960d938c2f6b6eafa8421adf861fb9a67f7"
+    },
+    "run2_sidecar": {
+      "stage": "evaluation",
+      "path": "sub-E2/meg/sub-E2_task-en_run-2_meg.json",
+      "url": "https://osf.io/download/k28xd/",
+      "bytes": 763,
+      "sha256": "3156342f12f3f7bba0fa62b2533b419e45c906aa96a85548191a8c0873d0b618"
+    },
+    "run2_fif": {
+      "stage": "evaluation",
+      "path": "sub-E2/meg/sub-E2_task-en_run-2_meg.fif",
+      "url": "https://osf.io/download/67bd71496eb4b49d239fb1ff/",
+      "bytes": 1450292707,
+      "sha256": "7e858fe76be29ecd8dfbe55d2bcf9f6c893c77cd7688c1e8f8a8300b028f35bb"
+    },
+    "run3_channels": {
+      "stage": "builder",
+      "path": "sub-E2/meg/sub-E2_task-en_run-3_channels.tsv",
+      "url": "https://osf.io/download/67bd7143d89418dfa580631e/",
+      "bytes": 26812,
+      "sha256": "fcd08a6eb89da6890a3f12deeeb22810459a9c755bf3cdc0cd403e3350006f1d"
+    },
+    "run3_events": {
+      "stage": "builder",
+      "path": "sub-E2/meg/sub-E2_task-en_run-3_events.tsv",
+      "url": "https://osf.io/download/67bd7146162a37cc6fbd5916/",
+      "bytes": 9569,
+      "sha256": "379fca0339dbeb5fd9f87823fae6192104b2f64e3a1543d00f6d0fdeefe9e9e8"
+    },
+    "run3_sidecar": {
+      "stage": "builder",
+      "path": "sub-E2/meg/sub-E2_task-en_run-3_meg.json",
+      "url": "https://osf.io/download/67bd714dd89418dfa5806323/",
+      "bytes": 763,
+      "sha256": "542df009dd3d618194c3289c9fffc5170a027540ec2d0dfbb9aa719967a7cbf3"
+    },
+    "run3_fif": {
+      "stage": "builder",
+      "path": "sub-E2/meg/sub-E2_task-en_run-3_meg.fif",
+      "url": "https://osf.io/download/srbk8/",
+      "bytes": 1447108623,
+      "sha256": "070dce614597024275ce51a2d8c0ed28f86cb631167069416fc0adda600c2c93"
+    },
+    "run4_channels": {
+      "stage": "evaluation",
+      "path": "sub-E2/meg/sub-E2_task-en_run-4_channels.tsv",
+      "url": "https://osf.io/download/67bd7150baebfe5dc9806179/",
+      "bytes": 26812,
+      "sha256": "fcd08a6eb89da6890a3f12deeeb22810459a9c755bf3cdc0cd403e3350006f1d"
+    },
+    "run4_events": {
+      "stage": "evaluation",
+      "path": "sub-E2/meg/sub-E2_task-en_run-4_events.tsv",
+      "url": "https://osf.io/download/67bd7153962c59cd04bd59f1/",
+      "bytes": 9558,
+      "sha256": "99bfbfa08eee8cfb51d75c041f5e311942db66816ee8dc41bca2d58c24b0aa57"
+    },
+    "run4_sidecar": {
+      "stage": "evaluation",
+      "path": "sub-E2/meg/sub-E2_task-en_run-4_meg.json",
+      "url": "https://osf.io/download/67bd71822b6db8bfaf80620e/",
+      "bytes": 763,
+      "sha256": "455352231ad6bf4919a087da35a2b7bcaefb5729b8fc086256cbdc0d5927143d"
+    },
+    "run4_fif": {
+      "stage": "evaluation",
+      "path": "sub-E2/meg/sub-E2_task-en_run-4_meg.fif",
+      "url": "https://osf.io/download/8me6j/",
+      "bytes": 1445516595,
+      "sha256": "bdf65d34e9e61b7f29d96e0905f23b61eae2e0015a5257ddf6d102d6eb5c6afe"
+    },
+    "coordsystem": {
+      "stage": "shared",
+      "path": "sub-E2/meg/sub-E2_coordsystem.json",
+      "url": "https://osf.io/download/agp8h/",
+      "bytes": 1779,
+      "sha256": "f47d9a5a8a2616a063ecfae90408eebe054dc142853746b6686361d023ae3a4a"
+    },
+    "fine_calibration": {
+      "stage": "shared",
+      "path": "sss_cal_triux.dat",
+      "url": "https://osf.io/download/anefc/",
+      "bytes": 39770,
+      "sha256": "1c97bf7076ebda4a9d8dc996b67ce1fe74358a194aa52e2195b0dc631a45eb86"
+    },
+    "crosstalk": {
+      "stage": "shared",
+      "path": "ct_sparse_triux.fif",
+      "url": "https://osf.io/download/9ujc2/",
+      "bytes": 26124,
+      "sha256": "293f18b7428a25ade8de2db74a2310bc33b64716a0bac3970ee58ea925b6e7b5"
+    },
+    "stimulus_wav": {
+      "stage": "shared",
+      "path": "stimuli/audio/stimulus.wav",
+      "url": "https://osf.io/download/y9en6/",
+      "bytes": 154197892,
+      "sha256": "996e9930e24930bb40602651616412b436964d59d6dc765dbb6c3996ef813972"
+    },
+    "word_tokens": {
+      "stage": "shared",
+      "path": "stimuli/audio/mfa_word.txt",
+      "url": "https://osf.io/download/rzx8s/",
+      "bytes": 8760,
+      "sha256": "c89266afbbd0f3322340635ebd654089ecab4932f24b903d05d1493234b2c141"
+    },
+    "word_times": {
+      "stage": "shared",
+      "path": "stimuli/audio/mfa_word_stime.txt",
+      "url": "https://osf.io/download/p72e4/",
+      "bytes": 11675,
+      "sha256": "fccd1b963b174190751519e11c674d5a4c028c311f8aaef43b0f1a4346365a33"
+    },
+    "phoneme_tokens": {
+      "stage": "shared",
+      "path": "stimuli/audio/mfa_phoneme.txt",
+      "url": "https://osf.io/download/2zdmv/",
+      "bytes": 15129,
+      "sha256": "61179b40a92630909f4915d01eaeccda8f55fa1f7fd5a6742d6487348b360064"
+    },
+    "phoneme_times": {
+      "stage": "shared",
+      "path": "stimuli/audio/mfa_phoneme_stime.txt",
+      "url": "https://osf.io/download/824ar/",
+      "bytes": 35823,
+      "sha256": "53db6ed7d2eda653b0c5f463fad0dd71007bcc3a8b0013866344c5c4d4dbaf91"
+    },
+    "visual_frames": {
+      "stage": "shared",
+      "path": "stimuli/visual/frames.zip",
+      "url": "https://osf.io/download/3gh2j/",
+      "bytes": 2713442247,
+      "sha256": "93b17643b80fed3dd0a14c5152baa7cc83e927aa9b4c430be7003707abbdcb19"
+    }
+  },
+  "integrity": {
+    "event_alignment_tolerance_samples": 1,
+    "allowed_time_conventions": [
+      "raw_relative",
+      "raw_relative_plus_first_sample"
+    ],
+    "require_complete_stimulus_window": true,
+    "require_calibration_compatibility": true
+  },
+  "preprocessing": {
+    "maxwell_filter": true,
+    "destination_run": 1,
+    "meg_primary_type": "grad",
+    "meg_primary_channels": 204,
+    "eeg_channels": 64,
+    "eeg_reference": "average",
+    "l_freq_hz": 0.5,
+    "h_freq_hz": 20.0,
+    "resample_hz": 100,
+    "trim_seconds_each_edge": 10.0,
+    "artifact_window_seconds": 1.0,
+    "artifact_threshold_builder_mad": 10.0,
+    "minimum_usable_fraction": 0.8,
+    "maximum_builder_run_usable_fraction_difference": 0.1,
+    "scale_reference": "builder_residual_channel_mad",
+    "minimum_median_channel_scale_ratio": 0.5,
+    "maximum_median_channel_scale_ratio": 2.0,
+    "extreme_channel_scale_ratio_lower": 0.25,
+    "extreme_channel_scale_ratio_upper": 4.0,
+    "maximum_extreme_channel_fraction": 0.05
+  },
+  "nuisance": {
+    "audio_log_mel_bands": 32,
+    "include_envelope": true,
+    "include_envelope_derivative": true,
+    "include_pitch": true,
+    "include_voicing": true,
+    "include_word_onsets": true,
+    "include_phoneme_onsets": true,
+    "visual_downsample_height": 24,
+    "visual_downsample_width": 32,
+    "visual_image_pcs": 16,
+    "visual_motion_pcs": 16,
+    "include_visual_luminance": true,
+    "include_visual_contrast": true,
+    "include_visual_frame_change": true,
+    "include_eog_ecg": true,
+    "include_exposure_intercept": true,
+    "include_linear_drift": true,
+    "temporal_basis_count": 8,
+    "temporal_basis_start_ms": 0,
+    "temporal_basis_end_ms": 800,
+    "ridge_alphas": [
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0,
+      1000.0
+    ],
+    "validation_block_seconds": 38.0,
+    "validation_guard_seconds": 5.0
+  },
+  "corrca": {
+    "components": 1,
+    "shrinkage_grid": [
+      0.0,
+      0.01,
+      0.05,
+      0.1,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      0.95
+    ],
+    "tie_tolerance": 1e-06,
+    "tie_rule": "larger_shrinkage",
+    "normalize": "regularized_within_covariance",
+    "sign_rule": "largest_absolute_builder_sensor_positive",
+    "dss_principal_angle_tolerance_radians": 1e-06,
+    "dss_score_tolerance": 1e-08
+  },
+  "split": {
+    "builder_fold_a": {
+      "train": [
+        "run1_exposure1",
+        "run3_exposure1"
+      ],
+      "test": [
+        "run1_exposure2",
+        "run3_exposure2"
+      ]
+    },
+    "builder_fold_b": {
+      "train": [
+        "run1_exposure2",
+        "run3_exposure2"
+      ],
+      "test": [
+        "run1_exposure1",
+        "run3_exposure1"
+      ]
+    },
+    "evaluation_cross_run_pairs": [
+      [
+        "run2_exposure1",
+        "run4_exposure1"
+      ],
+      [
+        "run2_exposure1",
+        "run4_exposure2"
+      ],
+      [
+        "run2_exposure2",
+        "run4_exposure1"
+      ],
+      [
+        "run2_exposure2",
+        "run4_exposure2"
+      ]
+    ]
+  },
+  "controls": {
+    "shift_seconds": [
+      41,
+      53,
+      67,
+      79,
+      89,
+      101,
+      113,
+      137
+    ],
+    "shifted_filter_multipliers": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_aggregation": "maximum"
+  },
+  "gates": {
+    "minimum_correlation": 0.1,
+    "minimum_fisher_z_increment": 0.05,
+    "require_positive_each_builder_fold": true,
+    "require_positive_each_evaluation_exposure": true,
+    "require_all_bootstrap_lower_bounds_positive": true
+  },
+  "bootstrap": {
+    "block_seconds": 20.0,
+    "resamples": 10000,
+    "confidence": 0.95,
+    "seeds": [
+      3201,
+      3202,
+      3203
+    ],
+    "gate_endpoint": "minimum_lower_bound"
+  }
+}
