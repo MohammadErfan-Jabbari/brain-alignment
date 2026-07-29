@@ -86,7 +86,7 @@ The first target family is deliberately linear and auditable:
 
 1. **Uniform residual biological mean:** the strongest simple cross-participant baseline, with fold-only nuisance residualization and target normalization.
 2. **Consensus-weighted shrinkage:** estimate source-to-other-source agreement inside the outer training fold and shrink source-participant dimensions toward uniform weights. This targets shared transfer, not measurement reliability.
-3. **Shared latent or functional alignment:** estimate \(Z_s\) with participant-specific maps and explicit view-specific noise.
+3. **Shared latent or functional alignment:** estimate \(Z_s\) with participant-specific maps and explicit view-specific noise. Subject-specific independent components are one auditable candidate, but component estimation and selection must remain inside builder folds.
 4. **Repeat-crossvalidated representational geometry:** when independent repeats exist, estimate crossnobis or whitened unbiased distances rather than fitting raw coordinates.
 
 A nonlinear denoiser is not the first move. It becomes eligible only if repeat reliability is adequate, the linear target fails, and nested participant-by-stimulus evaluation can distinguish additional signal from nuisance learning.
@@ -140,12 +140,13 @@ Multimodal fusion is licensed only when modalities share stimuli at a defensible
 The outcome-blind substrate order is:
 
 1. use the already-local LeBel fixed-content repeats and Tuckute participant views to identify whether repeat stability or participant preservation recovers independent biological information;
-2. if the fixed-content mechanism passes, replicate it on [MEG-MASC](https://www.nature.com/articles/s41597-023-02752-5), where 22 participants have two sessions with the same four stories;
-3. if a participant-preserving latent passes, test fMRI-MEG fusion on [SMN4Lang](https://www.nature.com/articles/s41597-022-01708-5), where the same 12 people heard the same 60 stories in both modalities;
-4. use [Podcast ECoG](https://www.nature.com/articles/s41597-025-05462-2) as a disjoint high-temporal-resolution endpoint rather than as the first training substrate; and
-5. defer a new EEG intervention until a dataset provides adequate participant transfer, artifact controls, and either fixed-content repeats or a clean independent endpoint.
+2. if the fixed-content mechanism passes, validate the denoiser on [Kymata Soto](https://osf.io/qdzgh/), where the same short conversation was repeated four times in Russian and eight times in English during simultaneous EEG and MEG, then replicate at greater language breadth on [MEG-MASC](https://www.nature.com/articles/s41597-023-02752-5); the paper reports 22 paired participants, but the current public OSF tree exposes only ten paired participants and one single-session participant;
+3. freeze the estimator before transferring it to fMRI: use CNeuroMod-THINGS only as non-language calibration, then test [Caption Scene Dataset](https://www.nature.com/articles/s41597-026-07248-6) with its two trial repetitions under explicit visual, decision, and caption nuisance controls; do not use the released GLMsingle betas as an independent repeat split because their fitting groups mix both presentations, and instead rebuild repeat-isolated response estimates;
+4. if a participant-preserving latent passes, test fMRI-MEG fusion on [SMN4Lang](https://www.nature.com/articles/s41597-022-01708-5), where the same 12 people heard the same 60 stories in both modalities;
+5. use [Brain Treebank](https://braintreebank.dev/) or [Podcast ECoG](https://www.nature.com/articles/s41597-025-05462-2) as disjoint high-temporal-resolution endpoints rather than first training substrates; and
+6. defer a new EEG intervention on non-repeated corpora until a dataset provides adequate participant transfer, artifact controls, and either fixed-content repeats or a clean independent endpoint.
 
-This order tests a mechanism before paying the acquisition, preprocessing, and multiple-comparison cost of a new modality. It does not imply that fMRI is intrinsically superior to electrophysiology.
+This order tests a mechanism before paying the acquisition, preprocessing, and multiple-comparison cost of a new modality. Repeats identify denoising; cross-modal agreement supplies a prior but does not by itself separate signal from noise. The order does not imply that fMRI is intrinsically superior to electrophysiology.
 
 ## Measurement bet
 
@@ -185,6 +186,7 @@ This order tests a mechanism before paying the acquisition, preprocessing, and m
 - [Zhang et al. 2026](../literature/canonical/zhang-2026_temporal-precision-ecog-tuning.md): full spatiotemporal ECoG targets are a plausible temporal-precision exception, but participant and split questions remain.
 - [Prince et al. 2022](../literature/canonical/prince-2022_glmsingle.md): cross-validated HRF, nuisance, and ridge modeling can improve single-trial fMRI estimates.
 - [Li et al. 2019](../literature/canonical/li-2019_learning-brains-regularize-machines.md): a learned neural system-identification model can serve as a denoiser before constructing a neural representational target; the raw neural similarity target did not reproduce the same result.
+- [Hari et al. 2026](../literature/canonical/hari-2026_independent-component-encoding-models.md): subject-specific ICA provides a plausible lower-dimensional story-encoding target, but stimulus-predictive components are not automatically brain-specific and any component ranking must be nested inside target-builder folds.
 - [Diedrichsen et al. 2020](../literature/canonical/diedrichsen-2020_whitened-unbiased-rdm-similarity.md): crossvalidated distances remove positive noise bias, while whitening accounts for correlated distance errors; this motivates a later repeat-crossvalidated geometry target when independent partitions exist.
 - [Schütt et al. 2021](../literature/canonical/schutt-2021_statistical-inference-representational-geometries.md): subject and condition generalization require separate factors, and flexible representational models must be fit inside crossvalidation.
 
@@ -211,6 +213,8 @@ This order tests a mechanism before paying the acquisition, preprocessing, and m
 |---|---|
 | 2026-07-28 | Created from the repository failure localization, four independent grounding passes, and a verified literature-family scout. |
 | 2026-07-28 | Anti-confound review separated Tuckute source consensus from LeBel repeat reliability. The recorded E030 variance calibration also restricted Tuckute C1 to a fixed-cohort engineering gate because five-person simultaneous inference cannot resolve an effect near the `+0.002` threshold. |
+| 2026-07-29 | Recent-dataset scout separated repeat-identifying substrates from cross-modal priors and independent endpoints. Kymata Soto and MEG-MASC are the first external repeat tests; CSD is the repeat-rich fMRI transfer; SMN4Lang and intracranial corpora remain conditional follow-ups. |
+| 2026-07-29 | Metadata/code gates passed Kymata, restricted MEG-MASC to its current ten-person paired public subset, and rejected CSD's released GLMsingle betas as an independent repeat endpoint because all fitted run groups mix the two presentations. |
 
 ## Related
 
