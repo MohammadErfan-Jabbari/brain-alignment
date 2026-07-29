@@ -479,32 +479,94 @@ This utility contrast is interpretable only if the recorded-minus-permuted align
 Its seeds quantify technical variation, not independent biological evidence.
 Section~\ref{sec:estimands} states the formal aggregation and decision rules.\evd{E009}
 
-\subsection{Estimands, controls, quality criteria, and inference}
+\subsection{Cross-Cutting Estimands and Decision Rules}
 \label{sec:estimands}
 
-Quality-aware headroom is measured before the intervention claims.
-At the declared layers, the \texttt{gpt2-medium} teacher at layer~14 is compared with random and pretrained \texttt{gpt2} students at layer~7, before and after ordinary \ac{kd}; alignment is interpreted jointly with held-out perplexity rather than as an objective-only effect \evd{E003}.
-The cross-tokenizer quality analysis uses tokenizer-comparable bits per byte \evd{E015}.
+Table~\ref{tab:evidence-map} binds each scientific role to its estimand, comparator, endpoint, and inference unit.
+The focal and comparator conditions are first evaluated on the same endpoint within the smallest matched analysis cell.
+Measurement roles compare representation-based predictions with nuisance or untrained controls.
+Intervention roles compare paired targets or training arms.
+Transfer and utility roles require an independently evaluated biological or language endpoint.
+A numerical difference changes meaning when its comparator, endpoint, or inference unit changes, even if the same scoring function is used.\evd{E003}\evd{E005}\evd{E008}\evd{E016}\evd{E025}\evd{E030}
 
-The recorded-target pairing effect is the fresh held-out response-predictivity difference between the recorded-target arm and its matched permuted-target arm.
-Both arms use \(\lambda_{\mathrm{target}}=10\), the same seed, checkpoint schedule, optimizer-step budget, and fixed WikiText quality probe, and report held-out perplexity.
-Comparisons with ordinary \ac{kd} require checkpoint or curve matching on perplexity; without that match they remain descriptive.
-The averaged-response analysis remains a fixed-stimulus, fold-level estimand, whereas participant analyses aggregate folds and seeds within person before population inference \evd{E004}\evd{E005}\evd{E008}\evd{E017}.
+A training contrast becomes eligible for interpretation only under its declared \ac{lm}-quality rule.
+Perplexity is used when the compared models share a tokenizer and scoring protocol.
+Cross-tokenizer or cross-family comparisons instead use bits per byte.
+Let \(\mathrm{PPL}_{a,s}\) be the held-out perplexity of target arm \(a\) in seed \(s\), and let \(L_{a,s}\) and \(B_{a,s}\) be its total negative log-likelihood in bits and the number of decoded UTF-8 bytes in the same scored span.
+Let \(\epsilon_{\mathrm{ppl}}=0.05\) and \(\epsilon_{\mathrm{bpb}}=0.005\) be the declared relative-perplexity and bits-per-byte tolerances, respectively.\evd{E016}\evd{E025}
+The two principal quality criteria are
+\begin{equation}
+\begin{aligned}
+q_{\mathrm{ppl}}(a,s)
+&=
+\frac{
+\left|
+\mathrm{PPL}_{a,s}
+-
+\mathrm{PPL}_{\mathrm{KD},s}
+\right|
+}{
+\mathrm{PPL}_{\mathrm{KD},s}
+}
+\leq \epsilon_{\mathrm{ppl}},
+\\
+q_{\mathrm{bpb}}(a,b,s)
+&=
+\left|
+\frac{L_{a,s}}{B_{a,s}}
+-
+\frac{L_{b,s}}{B_{b,s}}
+\right|
+\leq \epsilon_{\mathrm{bpb}}.
+\end{aligned}
+\label{eq:quality-eligibility}
+\end{equation}
+The first rule requires each scaled synthetic-target arm to remain within \(5\%\) of its seed-matched ordinary-\ac{kd} reference on the fixed WikiText quality probe.\evd{E016}
+The second requires the saved-student comparisons to remain within \(0.005\) bits per byte in every seed.\evd{E025}
+Passing a rule makes the contrast eligible under that metric and tolerance; it does not prove identical language behavior or remove possible differences inside the accepted margin.
+Recorded-response comparisons with ordinary \ac{kd} likewise require checkpoint or curve matching on perplexity.
+Without the required match, the corresponding biological contrast remains descriptive.\evd{E015}\evd{E016}\evd{E017}\evd{E025}
 
-The predicted branch follows claim order.
-First, exact-target measurability asks whether the fixed TRIBE target predicts recorded responses beyond nuisance and its frozen row twin.
-Second, target uptake and retained-student movement compare fresh held-out target recovery and post-training model change with seed-matched \ac{kd} and target-permutation arms.
-Third, synthetic-response attribution asks whether TRIBE and projected text features are adequately matched in geometry, learnability, and induced movement and whether the brain-response-target arm outperforms that control on the claimed outcome.
-Matching makes attribution to brain-response content testable; adequacy alone does not identify that attribution.
-Only then does biological transfer compare saved target-trained students on participant-specific recorded responses; none of the earlier endpoints substitutes for this one \evd{E016}\evd{E025}\evd{E026}\evd{E030}.
+Aggregation follows the claim rather than the largest available number of observations.
+Scores are first computed within the declared fold and response coordinates, and matched contrasts are formed before technical repetitions are combined.
+The participant-averaged recorded-response estimand averages seeds within each outer fold and treats the five shared folds as its fixed-stimulus inference values.
+The participant-specific recorded-response estimand instead aggregates seed--fold cells within each person before inference across participants.
+It uses the declared within-participant median.
+Saved-student biological transfer and the participant-level exact-substrate assays average folds and seeds within each participant before inference across the nine participants.
+Synthetic-target recovery uses six matched technical-seed gains and does not provide biological replication.
+The WikiText recovery assay averages coordinate-level \(R^2\) equally, whereas the Tuckute target-retention diagnostic pools \(\mathrm{SSE}/\mathrm{SST}\) across coordinates.
+These two aggregations therefore answer different target-recovery questions.\evd{E005}\evd{E008}\evd{E016}\evd{E025}\evd{E030}
 
-Quality criteria are endpoint-specific.
-The scaled predicted-target family measures perplexity on its exact 1,999-sentence held-out corpus and requires each target arm to remain within 5\% relative perplexity of its seed-matched \ac{kd} arm \evd{E016}.
-The saved-student participant-transfer analysis rescored the same sentences as tokenizer-comparable bits per byte and requires $|\Delta\mathrm{bpb}|\leq0.005$ within seed \evd{E025}.
-Perplexity is used only within a shared tokenizer and scoring protocol; cross-family quality comparisons use bits per byte.
-If a required quality criterion or manipulation check fails, downstream scores are descriptive rather than claim-bearing \evd{E005}\evd{E016}\evd{E025}.
+The inference unit also fixes the scope of uncertainty.
+The controlled sentence assays report held-out-fold dispersion on a fixed sentence set.
+The naturalistic assay retains a within-participant trained-minus-untrained contrast and the signs of its five held-out story-block differences.
+Its earlier voxel-bootstrap interval is excluded because spatially dependent voxels from one participant are not independent population observations.
+Quality-aware headroom uses a fold--seed bootstrap conditional on convergence, while cross-family quality relations use family-cluster bootstrap estimates with Fisher intervals.
+The participant-averaged recorded-response intervention uses a five-fold \(t\) interval after technical seeds have been aggregated within fold.
+Synthetic-target uptake uses paired gains over six technical seeds, descriptive seed intervals, and the declared exact magnitude-preserving sign-flip test.
+Coordinates, voxels, folds, and seeds remain assay or technical measurements rather than substitutes for participants.\evd{E003}\evd{E004}\evd{E005}\evd{E006}\evd{E015}\evd{E016}
 
-Participants are the sole population units for claims about people; story blocks, stimulus folds, voxels, coordinates, and seeds remain nested or technical measurements.
-Uncertainty is therefore aligned to the stated unit, multiplicity is controlled across declared primary contrasts, and study-specific thresholds govern continuation without becoming universal biological cutoffs.
-An external utility claim requires its own quality-matched task endpoint; a branch stopped at a precondition supplies no utility evidence.
-The Results therefore follow the canonical evidence order: controlled brain predictivity, quality-aware headroom, recorded-target pairing, exact-target measurability, target uptake and retained-student movement, brain-response-specific attribution, biological transfer, and external utility.
+Participant claims use participant-level uncertainty after all technical aggregation.
+The participant-specific recorded-response analysis reports a participant \(t\) interval and an exact one-sided sign test.
+A separate shared-fold \(t\) interval and cluster bootstrap assess whether its direction is stable across stimulus blocks; both participant and shared-fold readings must support a population claim.
+The saved-student biological-transfer assay reports a participant \(t\) interval, a one-sided upper bound, an exact sign test, and a Wilcoxon signed-rank sensitivity, while its seed and block summaries remain descriptive.
+The exact-substrate diagnostic uses participant intervals and exact signs, with separate Bonferroni family-\(95\%\) intervals and simultaneous bounds for target measurability, target recovery, and the composed student-to-target-to-response path.
+The practical-utility evaluation instead uses eight technical seeds for paired arm contrasts and therefore remains bounded to its fixed models, corpora, and procedure.
+Appendix~\ref{app:inference} gives the exact estimators, nesting, tests, and sensitivity variants.\evd{E008}\evd{E009}\evd{E017}\evd{E025}\evd{E030}
+
+Detectable-effect and continuation bounds answer narrower questions than statistical intervals.
+An \ac{mde} describes the effect size that an assay could reliably resolve under its stated variance model.
+It does not imply that smaller effects are zero or biologically irrelevant.
+The previous naturalistic follow-up calculation is excluded because it used unmatched absolute fold variability rather than the intended paired contrast.
+The participant analyses calculate detectable-effect bounds from between-participant variation, whereas the practical-utility analysis uses variation across technical seeds.
+The inherited \result{e030_practical_threshold} unique-\(R^2\) reference is a fixed continuation rule for the declared participant assay.
+It is not a universal biological-importance threshold and cannot be transferred to another response scale, nuisance model, layer, or population.\evd{E006}\evd{E008}\evd{E009}\evd{E025}\evd{E030}
+
+Evidence status follows the prerequisite chain.
+A passed manipulation check establishes target uptake or retained-student movement, but it does not establish brain-response-specific attribution, biological transfer, or practical utility.
+Failure of a required manipulation or quality criterion stops the downstream contrast from carrying its intended claim.
+Comparator adequacy is a necessary conjunction: failure on any required axis makes the attribution contrast non-identifying.
+An unmeasured required axis leaves adequacy unresolved only when no measured required axis has already failed.
+An unmeasured stage supplies no evidence and is not a null result.
+The label \emph{not demonstrated} is reserved for an identifying, adequately measured contrast that does not pass its decision rule.
+The Results apply these statuses in scientific-role order rather than experiment number or execution date.\evd{E005}\evd{E016}\evd{E025}\evd{E026}\evd{E030}

@@ -240,9 +240,9 @@ This subsection is titled ``Synthetic-Response Intervention and Downstream Assay
 2. How is acceptable and comparable \ac{lm} quality defined for each route, and when does mismatch make a contrast descriptive rather than identified?
 3. How are folds, coordinates, regions, voxels, seeds, and participants ordered and aggregated?
 4. Which uncertainty procedures, named tests, multiplicity corrections, and practical or detectable-effect bounds answer each estimand?
-5. Which stages were unmeasured, unresolved, or non-identifying, and how does that status constrain later results?
+5. How do unmeasured, unresolved, and non-identifying statuses constrain the claims reported later in the Results?
 
-End with one transition paragraph stating that Results follow these scientific roles rather than evidence-record number or execution date. Appendix D owns estimator derivations, variants, aggregation, and tests. Evidence owners: E003-E006, E008-E009, E015-E017, E025-E026, and E030.
+This subsection is titled ``Cross-Cutting Estimands and Decision Rules.'' End with one transition paragraph stating that Results follow these scientific roles rather than evidence-record number or execution date. Appendix D owns estimator derivations, variants, aggregation, and tests. Evidence owners: E003-E006, E008-E009, E015-E017, E025-E026, and E030.
 
 ### 4. Results
 
