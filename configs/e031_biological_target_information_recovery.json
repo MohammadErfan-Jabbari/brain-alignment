@@ -1,11 +1,14 @@
 {
   "schema_version": "1.0",
   "experiment": "E031",
-  "science_status": "DESIGN_HOLD",
+  "science_status": "READY_TO_RUN",
   "authorization": {
-    "endpoint_compute_allowed": false,
+    "endpoint_compute_allowed": true,
     "requires_explicit_work": "/work E031",
-    "requires_c2_allocation_acceptance": true,
+    "explicit_work_accepted": true,
+    "requires_c2_allocation_acceptance": false,
+    "c2_allocation_accepted": true,
+    "accepted_at_utc": "2026-07-29",
     "c2_builder_floor": 0.01,
     "c2_response_fraction": 0.1
   },
@@ -163,6 +166,7 @@
     "evaluation_sst_floor": 1e-12,
     "ridge_alphas": [1, 10, 100, 1000, 10000],
     "ridge_tie_tolerance": 1e-12,
+    "eng1000_pca_rank": 100,
     "builder_floor": 0.01,
     "response_fraction": 0.1,
     "acoustic": {
@@ -218,6 +222,13 @@
   "outputs": {
     "directory": "outputs/E031",
     "preflight_manifest": "outputs/E031/preflight_manifest.json",
-    "builder_seal": "outputs/E031/c2_builder_seal.json"
+    "c1_result": "outputs/E031/c1_result.json",
+    "c1_arrays": "outputs/E031/c1_arrays.npz",
+    "builder_seal": "outputs/E031/c2_builder_seal.json",
+    "builder_arrays": "outputs/E031/c2_builder_arrays.npz",
+    "c2_nuisance": "outputs/E031/c2_nuisance.npz",
+    "c2_result": "outputs/E031/c2_result.json",
+    "c2_arrays": "outputs/E031/c2_arrays.npz",
+    "analysis": "outputs/E031/analysis.json"
   }
 }

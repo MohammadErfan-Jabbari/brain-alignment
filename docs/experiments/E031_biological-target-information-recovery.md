@@ -1,12 +1,12 @@
 ---
 title: "Experiment - E031: biological-target information recovery"
-tags: [experiment, active]
+tags: [experiment, complete]
 aliases: [E031]
 ---
 
 # Experiment - E031: biological-target information recovery
 
-**Created:** 2026-07-28 · **Status:** DESIGN HOLD - outcome-blind preflight and oracle passed; no E031 endpoint compute; C2 allocation acceptance and explicit `/work` required · **Mode:** working
+**Created:** 2026-07-28 · **Status:** COMPLETE - independently audited; author confirmation of the scoped classifications is pending · **Mode:** interpreted
 **Hypothesis:** [`H002`](../hypotheses/H002_repeat-stable-biological-supervision.md)
 **Direction:** Test whether existing fMRI measurements contain recoverable, repeat-stable and participant-preserving target information before changing the LM loss or opening a new modality.
 
@@ -20,7 +20,7 @@ Cross-participant consensus is not measurement reliability. It mixes measurement
 
 E031 does not train or score a student, select a loss layer, establish biological specificity unless its matched controls pass, compare downstream utility, or change the thesis verdict.
 
-`READY-TO-RUN: NO`
+`READY-TO-RUN: YES`
 
 ## Why this experiment comes first
 
@@ -292,7 +292,7 @@ These are historical variance proxies, not E031 outcomes or estimates of E031 ar
 - Apply only the recorded preprocessing already present in the verified LeBel response arrays.
 - Standardize each voxel from the builder-side outer training time blocks only.
 - Construct the response target as the arithmetic mean of the selected builder repeats. No learned denoiser is fit in C2.
-- Fit the E006 low-level and `eng1000` nuisance path inside each contiguous outer time fold.
+- Fit the E006 low-level and `eng1000` nuisance path inside each contiguous outer time fold: FIR delays `1-4` for both blocks, with the delayed `eng1000` block reduced by the frozen E006 rank-100 train-fold PCA and the delayed five-column low-level block kept unreduced.
 - Add an outcome-independent acoustic block from the released story audio: eight log-mel energy bands spanning `80-7600 Hz`, plus their first temporal differences. The stereo 44,100 Hz int16 WAV is converted to float64 by division by `32768` and averaged across channels. Use a periodic Hann window of 1,103 samples, hop 441, FFT size 2,048, `center=False`, power spectrum, and 10 equally spaced edges under the HTK map \(2595\log_{10}(1+f/700)\) to form eight unit-area triangular filters. Take \(\log(\max(\mathrm{energy},10^{-10}))\), prepend zeros for first differences, place frames at window-center times, Lanczos-resample to the story TR grid with `window=3`, trim rows `[10:-5]`, and apply FIR delays `1-4 TR`. Stop unless the result has exactly 291 rows.
 - Purge the FIR support around every outer-fold boundary so lagged regressors cannot share response support across train and held-out time blocks.
 - Add the same-voxel builder target as the biological predictor of the disjoint evaluation-repeat mean.
@@ -434,7 +434,7 @@ The reviewed outcome-blind artifacts are:
 | `outputs/E031/preflight_manifest.json` | `2b05fa6f87f541484c5ed559a020be2763c818c6f505db7b28ccf70aa59bafce` |
 | Canonical manifest payload | `c3da5fcf07d63f4c44cf8693298d10254b28ba60ce7cea407d3930595a36c8b4` |
 
-The exact preflight commands were:
+The exact design-stage preflight commands were:
 
 ```bash
 uv run python -m py_compile scripts/e031_biological_target_recovery.py
@@ -442,13 +442,76 @@ uv run python scripts/e031_biological_target_recovery.py --stage selftest
 uv run python scripts/e031_biological_target_recovery.py --stage manifest
 ```
 
-Compilation passed, all nine synthetic tests passed, and the metadata-only manifest passed with `endpoint_values_accessed=false`. This oracle verdict licenses no endpoint computation. The outcome-producing stage bodies remain blocked until Erfan explicitly accepts or changes `R_builder < 0.01` as the builder instrument floor and `delta_C2 = 0.10 R_builder` as the conditional response floor, then explicitly authorizes `/work E031`.
+Compilation passed, all nine synthetic tests passed, and the metadata-only manifest passed with `endpoint_values_accessed=false`. This oracle verdict licensed no endpoint computation.
 
-`READY-TO-RUN: NO`
+On 2026-07-29, immediately after the exact handoff `/work E031; accept R_builder < 0.01 and delta_C2 = 0.10 R_builder`, Erfan instructed the agent to proceed with the suggested plan. This is recorded as acceptance of the two frozen allocation constants and explicit authorization of `/work E031`.
+
+The implemented stages then underwent a fresh outcome-blind precheck. The first anti-confound pass returned `HOLD` on four provenance defects: stale C1 admission to C2, under-bound nuisance cache identity, insufficient builder-seal arithmetic/array validation, and stale result admission to analysis. All four were repaired. The fresh anti-confound re-review returned `PASS` with no endpoint access. An independent oracle then reviewed the outcome-blind candidate, independently ran compilation, the 13-test synthetic battery, the metadata manifest, and all four locked endpoint invocations, and returned `PASS` with `endpoint_values_accessed=false`. The oracle authorized changing only the configuration's status and endpoint-authorization fields, regenerating the metadata manifest, and then running C1.
+
+After activation, the first C1 invocation failed before loading biological values because the standalone executable could not resolve the local `scripts` package. The repair added the repository root to `sys.path` and made the manifest report the activated authorization boolean instead of a hard-coded false value. A narrow anti-confound re-review and a narrow independent oracle re-review both returned `PASS` on the exact final candidate: config SHA-256 `b44b59c13d96a1d8349d6d02fb7814136108b06166f4630203185fc4f7a88b90`, executable SHA-256 `c0adcf221919115b9241ff5603b8e5cb2c1886b7b05998a7e4b0555caca3818f`, and preflight-manifest SHA-256 `96c0d49b246759a23a011d5c3e7dd8297c8c760e025d75e7d7c261f013a6474b`. Compilation, all 13 synthetic tests, the metadata manifest, and a target-free loader smoke test passed. No biological response value was accessed by the failed invocation.
+
+`READY-TO-RUN: TERMINAL`
 
 ## Results
 
-Not run. Only synthetic mechanics and metadata identities have been checked. No E031 endpoint has been computed.
+### Retained artifacts
+
+The load-bearing gitignored artifacts are:
+
+| Artifact | SHA-256 |
+|---|---|
+| `outputs/E031/preflight_manifest.json` | `96c0d49b246759a23a011d5c3e7dd8297c8c760e025d75e7d7c261f013a6474b` |
+| `outputs/E031/c1_result.json` | `6401bcc09c12a985b34ad991957bbe4f08daef79ad1a276669abefeca04fc70e` |
+| `outputs/E031/c1_arrays.npz` | `b2381acaff4fb9dc7fc123752834fd15b1756e2add645aab4fab93b4c3fe152c` |
+| `outputs/E031/c2_nuisance.npz` | `dc6140cb8b2c9d3cb88a8b22e6d45d5370cfd8b87a119d94b12d7a3e4488babb` |
+| `outputs/E031/c2_builder_result.json` | `86fd18a09dd239f0e3b312dabd38e9808e607444ecfb39f80cf355c8b7833eac` |
+| `outputs/E031/c2_builder_arrays.npz` | `1b32981ccae214f417a73569efdb7bf0eae11c3ac16700f5df4113c6e48be0b4` |
+| `outputs/E031/c2_builder_seal.json` | `53478a41bc2080025adedaf79be49cd6f701c9b9fa24dc2d4a13dd304c9459af` |
+| `outputs/E031/analysis.json` | `d3d005a820c207915221b3761f02fa801857cac2409e44666d6eddb1b87f5cf6` |
+
+### C1: source-consensus transfer
+
+Independent recomputation from the sealed arrays matched every stored participant value, summary, leave-one-participant-out estimate, and gate with maximum numerical discrepancy `0.0`.
+
+| Confirmatory contrast | Mean unique \(R^2\) | t-CI95 | Positive participants | Gate |
+|---|---:|---:|---:|---|
+| \(A_{\mathrm{cw}}\) | `+0.004379456` | `[-0.002901670,+0.011660581]` | `4/5` | pass |
+| \(D_{\mathrm{cw-uniform}}\) | `+0.000936178` | `[+0.000054798,+0.001817559]` | `5/5` | **fail: mean below `+0.002`** |
+| \(S_{\mathrm{cw}}\) | `+0.004862842` | `[-0.002953532,+0.012679216]` | `4/5` | pass |
+| \(B_{\mathrm{cw\mid text}}\) | `+0.004577917` | `[-0.002497510,+0.011653345]` | `4/5` | pass |
+
+The exact terminal classification is **`NO CONSENSUS INCREMENT`**. The consensus-weighted target has absolute fixed-cohort predictivity under the primary nuisance model, beats its block-shifted twin, and adds information conditional on the frozen contextual-text control. Consensus weighting also improves over uniform residual averaging in all five named evaluation participants, but the mean increment is less than half the frozen `+0.002` practical threshold. This is a failure of the continuation magnitude gate, not evidence of zero increment.
+
+The predeclared sensitivities do not rescue the gate. Expanded imageability raises \(D_{\mathrm{cw-uniform}}\) to `+0.001589820`, still below threshold, while its text-conditional contrast is positive in only `3/5` participants. Under the full-covariate stress, \(A_{\mathrm{cw}}=+0.000985228\) and the text-conditional contrast is positive in only `3/5`. The primary result therefore permits no broad biological-specificity or nuisance-invariance claim.
+
+C1 supports only this fixed-cohort statement: a residualized source-participant aggregate contains modest content-aligned information about the five named held-out participants, but the frozen consensus-weighting procedure does not improve enough over uniform averaging to license a target-gradient gate. It does not identify measurement-noise removal, because source agreement also contains shared stimulus structure and participant-common biology. It supports no participant-population claim.
+
+### C2: fixed-content repeat information
+
+The C2 builder used only repeats `[0,2,4,6,8]`. Its 20 directed two-versus-three repeat comparisons gave
+
+\[
+R_{\mathrm{builder}}=0.00011644860666361512,
+\qquad
+\delta_{\mathrm{C2}}=0.10R_{\mathrm{builder}}
+=0.000011644860666361512.
+\]
+
+Independent recomputation matched both values exactly. All 20 aligned-minus-shifted direction medians were positive, but they ranged only from `+0.000077687` to `+0.000142091`. The frozen builder floor was `0.01`, so the exact terminal classification is **`BUILDER INSTRUMENT FLOOR`**. The independent evaluation repeats `[1,3,5,7,9]` remained sealed, no `c2-score` artifact exists, and no repeat-count response or repeat-information mechanism label is issued.
+
+This is a failure of the predeclared even-repeat, whole-cortex-median linear instrument. It is not evidence that repeat averaging, localized auditory/language responses, nonlinear calibration, or fMRI denoising generally fail. A post-result reviewer noted that the builder mask spans all `95,556` fixed voxels and every one of the `300` nuisance/aligned/shifted fold fits chose the maximum ridge alpha `10000`. Together with the positive but tiny direction medians, this makes spatial dilution and cortex-wide over-shrinkage the strongest alternative explanation. That observation is exploratory and cannot rescue E031.
+
+### Audit and licenses
+
+The post-result statistical audit returned `PASS`. It independently recomputed the four C1 confirmatory contrasts, all stored C1 summaries and diagnostics, the 20 C2 builder direction values, \(R_{\mathrm{builder}}\), \(\delta_{\mathrm{C2}}\), mask identity, artifact hashes, and provenance links with maximum discrepancy `0.0`. Counter-argument and first-principles reviews accepted the mechanical classifications and held any stronger conclusion that denoising failed or that biological supervision cannot work.
+
+The terminal licenses remain:
+
+- Tuckute target-gradient gate: **false**
+- repeat-aware LeBel target work under E031: **false**
+- student training: **false**
+
+Erfan's confirmation of the two scoped classifications remains required before they are synchronized into the extended manuscript. A separate prospectively frozen spatial-scope diagnostic may test the instrument-mismatch alternative while the C2 evaluation repeats remain sealed.
 
 ## Related
 
