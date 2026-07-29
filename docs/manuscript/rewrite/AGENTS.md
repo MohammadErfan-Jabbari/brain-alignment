@@ -52,7 +52,7 @@ This rewrite is the thesis content. Organize the narrative by the role a procedu
 | Intervention | Paired training family defined by the manipulated supervision | **recorded-response intervention**, **synthetic-response intervention** |
 | Arm or control | Condition inside an intervention or assay | **ordinary-distillation arm**, **permuted-response control**, **frozen row-twin control**, **text-derived auxiliary-control arm** |
 | Assay | Protocol measuring a declared quantity | **controlled regional predictivity assay**, **controlled naturalistic voxelwise predictivity assay**, **exact synthetic-target measurability assay**, **synthetic-target recovery assay**, **saved-student biological-transfer assay** |
-| Analysis or audit | Contrast, diagnostic, or validity examination | **quality-aware distillation-headroom analysis**, **retained-student movement audit**, **comparator-adequacy audit and attribution assessment**, **response-averaging analysis** |
+| Analysis or audit | Contrast, diagnostic, or validity examination | **quality-aware distillation-headroom analysis**, **retained-student movement audit**, **comparator-adequacy audit and attribution assessment**, **saved-student target-retention analysis**, **composed-path diagnostic**, **response-averaging analysis** |
 | Evaluation | Recurring external endpoint | **language-quality evaluation**, **practical-utility evaluation** |
 | Evidence record | Internal provenance owner | `E###` appears only in source provenance, an internal-review build, or the provenance appendix |
 
@@ -221,6 +221,7 @@ This subsection owns summary-level assay design and the compact formulas for its
 3. How do participant-averaged and participant-specific response constructions define descriptive and primary estimands within the same intervention?
 4. Where does the auxiliary loss attach, which retained parameters receive its gradient, and what components survive evaluation?
 5. Which endpoint and inference unit test the participant-general intervention claim?
+6. Which study-specific variants retain the paired recorded-versus-permuted design, and which target, loss, language anchor, trainable subset, or evaluation scope does each variant change?
 
 This subsection owns the common intervention design and its study-specific variants. Appendix C owns exact loss paths, schedules, parameter states, and robustness implementations; Appendix D owns formal inference. Evidence owners: E004-E005, E008, E011, E013, and E017.
 
@@ -229,7 +230,7 @@ This subsection owns the common intervention design and its study-specific varia
 1. Which components are shared by the synthetic-response, ordinary-distillation, and text-derived auxiliary-control arms, what changes between them, and why are the saved block-permuted arms sensitivity checks rather than peer claim-identifying arms?
 2. How do the synthetic-target recovery assay and retained-student movement audit test whether training affected the retained student?
 3. How does the comparator-adequacy audit determine whether the available contrast can identify brain-response-specific attribution?
-4. How does the saved-student biological-transfer assay reuse frozen students and independently recorded participant responses without further student training?
+4. How do the saved-student target-retention analysis, direct saved-student biological-transfer assay, and composed-path diagnostic reuse frozen students, synthetic targets, or independently recorded participant responses, and what distinct question does each answer?
 5. Which language-quality checks qualify the synthetic-response contrasts, which practical-utility evaluation belongs to the separate recorded-response route, and what prerequisite status limits each interpretation?
 
 This subsection is titled ``Synthetic-Response Intervention and Downstream Assays'' and owns the intervention-to-endpoint design chain. Target recovery and retained-student movement are manipulation checks, not peer interventions. Saved block-permuted arms are sensitivities because their construction does not guarantee an exact row derangement. Appendix B owns target and control construction, Appendix C owns training and retained components, and Appendices D and F own estimators and sensitivities. Evidence owners: E009, E016, E025-E026, and E030.
@@ -249,6 +250,10 @@ This subsection is titled ``Cross-Cutting Estimands and Decision Rules.'' End wi
 **Section question.** Which scientific roles in the evidence chain are supported, not demonstrated, unresolved, or non-identifying at their declared inference units?
 
 Open with one compact status table keyed to the exact canonical role names and Section 3 design tuples. Use *supported*, *not demonstrated*, *unresolved*, and *non-identifying comparator* consistently.
+
+Synchronize Results prose with the Section 3 role and arm vocabulary during the Results rewrite.
+Use **synthetic-response arm**, **text-derived auxiliary-control arm**, **ordinary-distillation arm**, and **frozen row-twin control** rather than prose variants such as *TRIBE-minus-text-feature*, *TRIBE-minus-KD*, or *frozen twin*; retain compact symbols only inside equations and numerical contrasts.
+Give every Section 3 scientific role one clearly named Results verdict location.
 
 #### 4.1 Controlled regional and naturalistic predictivity
 
@@ -426,12 +431,12 @@ Use one compact scientific-role-to-evidence-record ledger rather than one prose 
 
 #### D.1 Encoding estimators
 
-1. How are the ordinary, nuisance-only, full, semipartial, and partial \(R^2\) quantities used in Section 3.3 formally related?
+1. How are the ordinary, nuisance-only, full, semipartial, and partial \(R^2\) quantities used in Section 3.2 formally related?
 2. How does ridge regression correspond to a MAP estimator under its assumptions, and why does that interpretation not make the empirical score a causal or mechanistic quantity?
 
 #### D.2 Cross-validation and inference units
 
-1. How are folds, regularization, layers, transforms, repeated technical measurements, seeds, voxels, regions, and participants ordered and aggregated for the estimands named in Section 3.4?
+1. How are folds, regularization, layers, transforms, repeated technical measurements, seeds, voxels, regions, and participants ordered and aggregated for the intervention-specific estimands introduced in Sections 3.3--3.4 and the cross-cutting rules in Section 3.5?
 2. Why are spatial voxels, shared folds, seeds, and participants not interchangeable independent units, and how does that formal distinction enforce the interpretive boundary introduced in Section 2.1?
 
 #### D.3 Uncertainty, power, and decision thresholds
