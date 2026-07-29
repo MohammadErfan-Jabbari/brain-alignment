@@ -41,6 +41,8 @@ The current scientific authority remains [`../extended/`](../extended/) until Er
 - Keep table and figure captions to one rendered line whenever possible. Use the caption to identify the object; place interpretation, caveats, and reading instructions in the surrounding prose.
 - In process figures, use equal-sized boxes based on the longest required item. Give parallel box labels that name the claim and the test that supports it; shorten wording before shrinking type or accepting distracting line breaks.
 - When color groups related stages in a figure, repeat the grouping with visible text labels and use light fills that preserve contrast; color must reinforce structure rather than carry it alone.
+- Treat every arrow as a scientific statement: make its relation explicit through a readable arrow label, adjacent text, or column heading, and never let geometry alone imply causation, mediation, successful attribution, or population generalization.
+- Give each figure one relationship to explain. In Section 3, data routing, competing readouts, intervention mechanics, and inference-unit aggregation have separate owners; do not redraw the Section 2 evidence chain or the Results verdict table inside them.
 
 ## Thesis-facing scientific-role contract
 

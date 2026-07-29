@@ -1,0 +1,57 @@
+\begin{tikzpicture}[
+  readoutbox/.style={draw,rounded corners,align=center,text width=28mm,minimum height=16mm,inner sep=2pt,font=\footnotesize},
+  input/.style={readoutbox,fill=gray!8},
+  fitted/.style={readoutbox,fill=blue!8},
+  score/.style={readoutbox,fill=green!9},
+  compare/.style={readoutbox,fill=violet!9},
+  arrow/.style={-{Latex[length=2mm]},thick},
+  rowlabel/.style={font=\footnotesize\bfseries,anchor=east,align=right},
+  header/.style={font=\footnotesize\bfseries,align=center}
+]
+  \node[header] at (0,11mm) {Added block};
+  \node[header] at (37mm,11mm) {Train-fold fit};
+  \node[header] at (74mm,11mm) {Held-out score};
+  \node[header] at (111mm,11mm) {Declared comparison};
+
+  \node[rowlabel] at (-20mm,0) {Nuisance\\reference};
+  \node[input] (n) at (0,0) {Declared nuisance\\features \(N\)};
+  \node[fitted] (nfit) at (37mm,0) {Nuisance-only\\ridge readout};
+  \node[score] (nscore) at (74mm,0) {\(R^2(N)\)};
+  \draw[arrow] (n) -- (nfit);
+  \draw[arrow] (nfit) -- (nscore);
+
+  \node[rowlabel] at (-20mm,-21mm) {Contextual\\representation};
+  \node[input] (x) at (0,-21mm) {Trained contextual\\block \(X\)};
+  \node[fitted] (xfit) at (37mm,-21mm) {Full readout\\from \([N,X]\)};
+  \node[score] (xscore) at (74mm,-21mm) {\(R^2([N,X])\)};
+  \node[compare] (xcompare) at (111mm,-21mm) {\(\Delta R^2(X)\)\\contextual gain\\over nuisance};
+  \draw[arrow] (x) -- (xfit);
+  \draw[arrow] (xfit) -- (xscore);
+  \draw[arrow] (xscore) -- (xcompare);
+
+  \node[rowlabel] at (-20mm,-42mm) {Architecture\\control};
+  \node[input] (xzero) at (0,-42mm) {Architecture-matched\\untrained \ac{lm} block \(X_0\)};
+  \node[fitted] (xzerofit) at (37mm,-42mm) {Control readout\\from \([N,X_0]\)};
+  \node[score] (xzeroscore) at (74mm,-42mm) {\(\Delta R^2(X_0)\)};
+  \node[compare] (xzerocompare) at (111mm,-42mm)
+    {\(\Delta R^2(X)-\Delta R^2(X_0)\)\\trained gain minus\\untrained gain};
+  \draw[arrow] (xzero) -- (xzerofit);
+  \draw[arrow] (xzerofit) -- (xzeroscore);
+  \draw[arrow] (xzeroscore) -- (xzerocompare);
+  \draw[arrow] (xcompare.south) -- (xzerocompare.north);
+
+  \node[rowlabel] at (-20mm,-63mm) {Exact-target\\control};
+  \node[input] (target) at (0,-63mm) {Aligned target \(T\)\\or frozen row twin \(T^\pi\)};
+  \node[fitted] (targetfit) at (37mm,-63mm) {Matched readouts\\from \([N,T]\), \([N,T^\pi]\)};
+  \node[score] (targetscore) at (74mm,-63mm) {\(U_{\mathrm{aligned}}\)\\and \(U_{\mathrm{twin}}\)};
+  \node[compare] (targetcompare) at (111mm,-63mm) {Correct-pairing gain\\\(U_{\mathrm{aligned}}-U_{\mathrm{twin}}\)};
+  \draw[arrow] (target) -- (targetfit);
+  \draw[arrow] (targetfit) -- (targetscore);
+  \draw[arrow] (targetscore) -- (targetcompare);
+
+  \draw[arrow] (nscore.east) -- ++(4mm,0) |- (xcompare.north);
+
+  \node[draw=gray!55,rounded corners,fill=gray!5,align=center,font=\scriptsize,
+        text width=141mm,minimum height=7mm] at (55mm,-80mm)
+        {All transformations and readout parameters are fitted on training-fold data; held-out features and responses only generate and score held-out predictions.};
+\end{tikzpicture}

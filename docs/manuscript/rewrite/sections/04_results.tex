@@ -169,23 +169,27 @@ The cleaner direct endpoint compares TRIBE training with ordinary \ac{kd} separa
 Its participant-mean unique-$R^2$ difference is \result{e025_tribe_kd}, with two-sided 95\% participant $t$ interval \result{e025_tribe_kd_ci} \evd{E025}.
 This near-zero estimate does not support participant-general improvement in the tested cohort, but it neither proves an exactly zero effect nor generalizes beyond the fixed target, model, layer, nuisance design, and sentence/\ac{roi} endpoint.
 
-The TRIBE-minus-text-feature contrast is numerically positive but does not support attribution to neural target content.
-Its participant mean is \result{e025_participant_delta}, with two-sided 95\% participant $t$ interval \result{e025_participant_ci}; the text-feature-minus-\ac{kd} mean is itself \result{e025_textfeat_kd} \evd{E025}.
-The positive relative mean therefore does not represent a positive direct TRIBE effect, and the comparator mismatches in Section~\ref{sec:results-predicted-identification} prevent attribution to neural target content \evd{E026}.
+The synthetic-response minus text-derived auxiliary-control contrast is numerically positive but does not support attribution to brain-response content.
+Its participant mean is \result{e025_participant_delta}, with two-sided 95\% participant $t$ interval \result{e025_participant_ci}; the text-derived auxiliary-control minus ordinary-distillation mean is itself \result{e025_textfeat_kd} \evd{E025}.
+The positive relative mean therefore does not represent a positive direct synthetic-response effect, and the comparator mismatches in Section~\ref{sec:results-predicted-identification} prevent attribution to brain-response content \evd{E026}.
 
 The frozen participant-level composed student-to-target-to-response route also does not establish transfer: every family-95\% interval spans zero.
-Within this route, at the participant inference unit (\result{e030_participant_n}), the TRIBE-minus-\ac{kd} overlap increment is \result{e030_overlap_delta}, with Bonferroni family-95\% interval \result{e030_overlap_delta_ci}; absolute overlap and the aligned-minus-frozen-twin overlap increment are deferred to Appendix~\ref{app:sensitivities} \evd{E030}.
+Within this route, at the participant inference unit (\result{e030_participant_n}), the synthetic-response minus ordinary-distillation overlap increment is \result{e030_overlap_delta}, with Bonferroni family-95\% interval \result{e030_overlap_delta_ci}; absolute overlap and the aligned-minus-frozen-row-twin overlap increment are deferred to Appendix~\ref{app:sensitivities} \evd{E030}.
 Because exact-target measurability fails first and twin specificity remains unresolved, these overlap quantities remain downstream descriptive diagnostics rather than independent evidence of transfer.
 
 The first defensible predictive failure is therefore localized at exact-target practical linear measurability, before student-to-brain overlap.
 That ordering does not make the measurability result a causal explanation of the near-zero participant transfer: the assay does not test every accessible form of target information, and it does not identify which mechanism produced the later endpoint \evd{E025}\evd{E030}.
 
-Figure~\ref{fig:participant-evidence} aligns the participant-level contrasts at the recorded-target pairing, exact-target measurability, and direct-transfer stages without pooling their estimands or scales.
+Figure~\ref{fig:participant-evidence} aligns participant-level evidence from the recorded-response intervention, exact synthetic-target measurability assay, and saved-student biological-transfer assay without pooling their estimands or scales.
+In panel~a, grey points are participant medians over paired seed--fold cells for recorded brain-response target minus permuted-response control, and the square is their cohort mean.
+Panel~b uses its own scale: the top row shows the aligned target's increment above nuisance, the bottom row shows aligned target minus frozen row-twin control, and the red line marks only the inherited internal continuation reference.
+Panel~c compares the synthetic-response and ordinary-distillation arms on the same scale as panel~a.
+Black squares and bars show participant means and the stated \(95\%\) intervals.
 
 \begin{figure}[t]
   \centering
   \input{figures/participant_evidence.tikz}
-\caption{Participant evidence at three stages. Grey points are the same nine participants; in panel~a each point is the participant median over \result{e008_cells_per_participant} paired seed--fold cells, and the black square is the cohort mean over those nine medians. Black squares and bars otherwise show participant means and the stated 95\% intervals. Panel~a compares recorded-target with matched permuted-target training (\result{e008_mean}, \result{e008_ci}). Panel~b uses its own scale: its top row is the exact predicted target's increment above nuisance (\result{e030_target_unique}, \result{e030_target_unique_ci}), and its bottom row is aligned target minus frozen row twin (\result{e030_target_twin}, \result{e030_target_twin_ci}). Panel~c compares predicted-target training with ordinary \ac{kd} (\result{e025_tribe_kd}, \result{e025_tribe_kd_ci}) on the same scale as panel~a. The red line applies only to panel~b's top row; it is the inherited internal continuation reference \result{e030_practical_threshold}, not an external importance threshold. All four intervals span zero; additionally, panel~b's top-row simultaneous upper endpoint falls below its internal reference under the fixed assay. The intervals treat participants as the population unit after any nested seed and fold aggregation. These results localize nonpasses under the named assays; they neither prove universal nulls nor attribute a contrast to brain-response content. \evd{E008}\evd{E025}\evd{E030}}
+\caption{Participant-level evidence at three stages. \evd{E008}\evd{E025}\evd{E030}}
   \label{fig:participant-evidence}
 \end{figure}
 \FloatBarrier

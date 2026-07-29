@@ -19,7 +19,7 @@
     \pgfmathsetmacro{\xzero}{3.4+8.6*(0-\xmin)/(\xmax-\xmin)}
     \draw[zeroline] (\xzero,-0.08)--(\xzero,0.92);
     \node[font=\scriptsize,anchor=north] at (\xzero,-0.08) {0};
-    \node[anchor=west,align=left,text width=30mm,font=\small] at (0,0.55) {\textbf{a}\quad Recorded-target\\pairing};
+    \node[anchor=west,align=left,text width=30mm,font=\small] at (0,0.55) {\textbf{a}\quad Recorded-response\\intervention};
     \foreach \key/\jy in {
       e008_plot_uid797/0.10,e008_plot_uid837/0.24,e008_plot_uid841/0.38,
       e008_plot_uid848/0.10,e008_plot_uid856/0.24,e008_plot_uid865/0.38,
@@ -48,9 +48,9 @@
     \node[font=\scriptsize,anchor=north] at (\xzero,-0.08) {0};
     \pgfmathsetmacro{\xthreshold}{3.4+8.6*(\result{e030_plot_threshold}-\xmin)/(\xmax-\xmin)}
     \draw[threshold] (\xthreshold,1.00)--(\xthreshold,1.92);
-    \node[anchor=west,align=left,text width=30mm,font=\small] at (0,0.95) {\textbf{b}\quad Exact predicted\\target};
+    \node[anchor=west,align=left,text width=30mm,font=\small] at (0,0.95) {\textbf{b}\quad Exact-target\\measurability};
     \node[anchor=west,font=\scriptsize] at (3.4,1.88) {above nuisance};
-    \node[anchor=west,font=\scriptsize] at (3.4,0.80) {minus frozen twin};
+    \node[anchor=west,font=\scriptsize] at (3.4,0.80) {minus frozen row-twin control};
     \foreach \key/\jy in {
       e030_plot_uid797/1.16,e030_plot_uid837/1.28,e030_plot_uid841/1.40,
       e030_plot_uid848/1.16,e030_plot_uid856/1.28,e030_plot_uid865/1.40,
@@ -91,7 +91,7 @@
     \pgfmathsetmacro{\xzero}{3.4+8.6*(0-\xmin)/(\xmax-\xmin)}
     \draw[zeroline] (\xzero,-0.08)--(\xzero,0.92);
     \node[font=\scriptsize,anchor=north] at (\xzero,-0.08) {0};
-    \node[anchor=west,align=left,text width=30mm,font=\small] at (0,0.55) {\textbf{c}\quad Direct biological\\transfer};
+    \node[anchor=west,align=left,text width=30mm,font=\small] at (0,0.55) {\textbf{c}\quad Saved-student\\biological transfer};
     \foreach \key/\jy in {
       e025_plot_uid797/0.10,e025_plot_uid837/0.24,e025_plot_uid841/0.38,
       e025_plot_uid848/0.10,e025_plot_uid856/0.24,e025_plot_uid865/0.38,

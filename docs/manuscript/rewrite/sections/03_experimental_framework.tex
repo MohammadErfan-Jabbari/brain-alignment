@@ -104,6 +104,19 @@ The exact synthetic-target measurability assay has one declared exception: it re
 Its subsequent target \ac{pca} and all readout transformations remain fold-local.
 Appendices~\ref{app:data-targets} and~\ref{app:inference} report the exact inclusion, preprocessing, partition, and nesting definitions.\evd{E002}\evd{E003}\evd{E005}\evd{E008}\evd{E015}\evd{E016}\evd{E025}\evd{E030}
 
+Figure~\ref{fig:data-partition-routes} condenses these assignments into three routes.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{\textwidth}{!}{\input{figures/data_partition_routes.tikz}}
+  \caption{Data and partition routes used by the Section 3 designs.}
+  \label{fig:data-partition-routes}
+\end{figure}
+\FloatBarrier
+
+The measurement lane fits readouts without changing an \ac{lm}; the two intervention lanes first produce a retained student and then evaluate it on a held-out target.
+The arrows denote data use, training, or evaluation rather than causal influence.
+
 \subsection{Measurement Prerequisites}
 \label{sec:measurement-prerequisites}
 
@@ -134,10 +147,22 @@ R_j^2([N,X])-R_j^2(N).
 Equation~\ref{eq:semipartial-r2} measures the change in held-out predictive value when the contextual block is added to the declared nuisance design.
 A positive value therefore means that the contextual \ac{lm} representation improves held-out response prediction beyond those nuisance features.
 
+Figure~\ref{fig:measurement-readouts} separates this nuisance comparison from the two additional controls.
+One control uses an untrained \ac{lm} with the same architecture and rank.
+It tests whether learned parameters matter.
+The frozen row twin instead tests whether correct sentence--target pairing matters.
+Repeating the contextual comparison across the teacher and students supplies the scores used by the quality-aware headroom analysis.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{\textwidth}{!}{\input{figures/measurement_readouts.tikz}}
+  \caption{Fold-local readout comparisons used by the measurement assays.}
+  \label{fig:measurement-readouts}
+\end{figure}
+\FloatBarrier
+
 The test-fold mean \(\bar y_{\mathcal Tj}\) supplies the reference prediction in Equation~\ref{eq:heldout-r2}.
 Both \(R_j^2(M)\) and \(\Delta R_j^2(X)\) can be negative.
-Because the full readout receives an additional feature block, the assay also compares trained contextual representations with an architecture-matched untrained \ac{lm} block of the same rank.
-The design therefore reports the contextual-versus-nuisance and trained-versus-untrained contrasts separately.
 For Tuckute, these readouts use contiguous sentence folds, and released reliability estimates provide descriptive context.
 For LeBel, they hold out complete stories, and a separate repeated story determines voxel eligibility.\evd{E002}\evd{E006}
 
@@ -292,61 +317,14 @@ In the primary \ac{lora} regime, the pretrained base model and tied input/output
 The auxiliary gradient can reach \(W\) and trainable adapters that produce the layer-12 state.
 It cannot reach later adapters through this branch, although those adapters can still receive gradients from \(\mathcal L_{\mathrm{KD}}\).
 After training, the temporary head and teacher are discarded, the adapters are merged into the retained student, and that student is frozen for evaluation.
-Figure~\ref{fig:training-architecture} separates the shared training and evaluation paths.\evd{E004}\evd{E008}
+Figure~\ref{fig:training-architecture} separates the shared training core from frozen-student evaluation.
+Panel~a shows where the ordinary-\ac{kd} and route-specific auxiliary objectives attach.
+Panel~b shows that every post-training endpoint uses the retained student rather than the temporary target head.\evd{E004}\evd{E008}
 
-\begin{figure}[t]
+\begin{figure}[H]
   \centering
-  \resizebox{\textwidth}{!}{%
-  \begin{tikzpicture}[
-    block/.style={draw,rounded corners,align=center,minimum height=8mm,text width=20mm,fill=blue!5},
-    datum/.style={draw,rounded corners,align=center,minimum height=7mm,text width=15mm,fill=gray!8},
-    loss/.style={draw,rounded corners,align=center,minimum height=8mm,text width=26mm,fill=purple!8},
-    temp/.style={draw,dashed,rounded corners,align=center,minimum height=8mm,text width=21mm,fill=orange!10},
-    forward/.style={-{Latex[length=2mm]},thick},
-    grad/.style={-{Latex[length=2mm]},thick,dashed,red!70!black},
-    panel/.style={draw=gray!60,rounded corners,inner sep=7pt}
-  ]
-    \node[datum] (text) {training text};
-    \node[block,right=3mm of text] (embed) {retained input embedding};
-    \node[block,right=3mm of embed] (early) {retained blocks $1{:}k$\\trainable or frozen by regime};
-    \node[datum,right=3mm of early,fill=blue!5] (state) {middle state $h_k$};
-    \node[block,right=3mm of state] (late) {retained blocks $k{+}1{:}L$};
-    \node[block,right=3mm of late] (output) {retained tied \ac{lm} output $q_{\mathrm{student}}$};
-    \draw[forward] (text)--(embed);
-    \draw[forward] (embed)--(early);
-    \draw[forward] (early)--(state);
-    \draw[forward] (state)--(late);
-    \draw[forward] (late)--(output);
-
-    \node[datum,above=11mm of late] (teacher) {frozen teacher $p_{\mathrm{teacher}}$};
-    \node[loss,above=11mm of output] (kd) {$\mathcal{L}_{\mathrm{KD}}$\\$\tau^2D_{\mathrm{KL}}(p_T^\tau\Vert q_S^\tau)$};
-    \draw[forward] (text.north) |- (teacher.west);
-    \draw[forward] (teacher)--(kd);
-    \draw[forward] (output)--(kd);
-    \draw[grad] (kd.north) -- ++(0,4mm) -| (embed.north);
-
-    \node[temp,below=11mm of state] (nhead) {temporary target head\\discarded after training};
-    \node[loss,right=5mm of nhead] (nloss) {$\mathcal{L}_{\mathrm{target}}$\\recorded or synthetic\\brain-response target};
-    \draw[forward] (state)--(nhead);
-    \draw[forward] (nhead)--(nloss);
-    \draw[grad] (nloss.south) -- ++(0,-4mm) -| (embed.south);
-
-    \node[font=\bfseries,anchor=west] (training-title) at ($(text.north west)+(0,7mm)$) {Training};
-    \node[panel,fit=(text)(embed)(early)(state)(late)(output)(teacher)(kd)(nhead)(nloss)(training-title)] {};
-
-    \node[datum,below=58mm of text] (etext) {held-out text};
-    \node[block,right=5mm of etext,text width=30mm] (frozen) {frozen retained student\\temporary head absent};
-    \node[datum,right=5mm of frozen,fill=blue!5] (estate) {retained state $h_k$};
-    \node[block,right=5mm of estate,text width=25mm,fill=green!7] (ridge) {fresh ridge readout\\fit inside evaluation folds};
-    \node[datum,right=5mm of ridge,text width=22mm] (score) {held-out target\\$R^2$ or unique $R^2$};
-    \draw[forward] (etext)--(frozen);
-    \draw[forward] (frozen)--(estate);
-    \draw[forward] (estate)--(ridge);
-    \draw[forward] (ridge)--(score);
-    \node[font=\bfseries,anchor=west] (evaluation-title) at ($(etext.north west)+(0,7mm)$) {Evaluation};
-    \node[panel,fit=(etext)(frozen)(estate)(ridge)(score)(evaluation-title)] {};
-  \end{tikzpicture}}
-  \caption{Shared auxiliary-training and post-training evaluation paths.}
+  \resizebox{\textwidth}{!}{\input{figures/training_architecture.tikz}}
+  \caption{Shared intervention training and frozen-student evaluation paths.}
   \label{fig:training-architecture}
 \end{figure}
 \FloatBarrier
@@ -404,7 +382,9 @@ The synthetic-response arm adds a fixed text-only TRIBE target, whereas the text
 Both auxiliary targets are standardized to 20,484 coordinates and predicted from the student's layer-6 representation with a mean-squared-error loss.
 Training updates the student and a temporary prediction head; the head is then discarded and the retained student is frozen.
 Saved block-permuted variants provide sensitivity checks rather than peer claim-identifying arms.
-Appendices~\ref{app:data-targets} and~\ref{app:training} specify the target construction and exact training procedure, while Figure~\ref{fig:training-architecture} shows the shared auxiliary-training path.\evd{E016}
+In Figure~\ref{fig:training-architecture}, panel~a locates the synthetic target and text-derived auxiliary control within the shared training core.
+Panel~b separates target recovery, retained movement, biological transfer, composed predictive overlap, and language evaluation after the temporary head has been removed.
+Appendices~\ref{app:data-targets} and~\ref{app:training} specify the target construction and exact training procedure.\evd{E016}
 
 Two manipulation checks ask whether the intervention affected the retained student before any downstream claim is considered.
 First, the synthetic-target recovery assay fits a fresh readout to frozen student representations on held-out WikiText examples and averages target-coordinate \(R^2\) with equal weight across coordinates.
@@ -530,6 +510,18 @@ Intervention roles compare paired targets or training arms.
 Transfer and utility roles require an independently evaluated biological or language endpoint.
 A numerical difference changes meaning when its comparator, endpoint, or inference unit changes, even if the same scoring function is used.\evd{E003}\evd{E005}\evd{E008}\evd{E016}\evd{E025}\evd{E030}
 
+Figure~\ref{fig:aggregation-paths} shows the common order from a matched analysis cell to the declared inference unit.
+Its three tracks separate biological inference across participants, fixed-stimulus inference across shared folds or stories, and technical inference across seeds.
+The eligibility check qualifies interpretation but neither changes the inference unit nor demonstrates an endpoint.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{\textwidth}{!}{\input{figures/aggregation_paths.tikz}}
+  \caption{Aggregation paths for participant, fixed-stimulus, and technical claims.}
+  \label{fig:aggregation-paths}
+\end{figure}
+\FloatBarrier
+
 A training contrast becomes eligible for interpretation only under its declared \ac{lm}-quality rule.
 The quality metric follows the declared assay.
 The scaled synthetic-target family and recorded-response probes use perplexity under a shared tokenizer and scoring protocol.
@@ -572,7 +564,6 @@ Recorded-response comparisons with ordinary \ac{kd} additionally require checkpo
 Without the required match, the corresponding biological contrast remains descriptive.\evd{E005}\evd{E008}\evd{E015}\evd{E016}\evd{E017}\evd{E025}
 
 Aggregation follows the claim rather than the largest available number of observations.
-Scores are first computed within the declared fold and response coordinates, and matched contrasts are formed before technical repetitions are combined.
 The participant-averaged recorded-response estimand averages seeds within each outer fold and treats the five shared folds as its fixed-stimulus inference values.
 The participant-specific recorded-response estimand instead aggregates seed--fold cells within each person before inference across participants.
 It uses the declared within-participant median.
