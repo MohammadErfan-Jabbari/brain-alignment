@@ -4,14 +4,11 @@
   loss/.style={draw,rounded corners,align=center,text width=27mm,minimum height=13mm,inner sep=2pt,font=\footnotesize,fill=violet!9},
   temporary/.style={draw,dashed,rounded corners,align=center,text width=33mm,minimum height=13mm,inner sep=2pt,font=\footnotesize,fill=orange!10},
   route/.style={draw,rounded corners,align=center,text width=50mm,minimum height=21mm,inner sep=2pt,font=\footnotesize,fill=gray!5},
-  endpoint/.style={draw,rounded corners,align=center,text width=58mm,minimum height=18mm,inner sep=2pt,font=\footnotesize,fill=green!9},
   note/.style={draw=gray!55,rounded corners,fill=gray!5,align=center,font=\scriptsize,minimum height=8mm},
   arrow/.style={-{Latex[length=2mm]},thick},
   verb/.style={font=\scriptsize,fill=white,inner sep=0.4pt},
-  panel/.style={draw=gray!60,rounded corners,inner sep=6pt},
-  title/.style={font=\footnotesize\bfseries,anchor=west}
+  panel/.style={draw=gray!60,rounded corners,inner sep=6pt}
 ]
-  \node[title] (train-title) at (-6mm,19mm) {(a) Shared training core};
   \node[datum] (text) at (0,0) {training text};
   \node[core] (early) at (36mm,0) {student blocks \(1{:}k\)};
   \node[core] (state) at (72mm,0) {attachment state \(h_k\)\\[-1mm]\scriptsize \(k=12\): recorded; \(k=6\): synthetic};
@@ -43,22 +40,5 @@
     {Ordinary distillation sets \(\lambda=0\). Otherwise
      \(\mathcal L_{\mathrm{train}}=\mathcal L_{\mathrm{KD}}+\lambda\mathcal L_{\mathrm{target}}\).
      The auxiliary gradient updates the temporary head and only regime-permitted parameters that produce \(h_k\).};
-  \node[panel,fit=(train-title)(text)(teacher)(kd)(training-note)(routetarget)] {};
-
-  \node[title] (eval-title) at (-6mm,-90mm) {(b) Frozen-student evaluation};
-  \node[datum] (discard) at (0,-122mm) {discard teacher and\\temporary head};
-  \node[core] (retained) at (39mm,-122mm) {finalize trained parameters\\retain and freeze student};
-  \draw[arrow] (discard) -- node[verb] {retains} (retained);
-
-  \node[endpoint] (readouts) at (111mm,-100mm)
-    {\textbf{Fresh fold-local readouts}\\synthetic-target recovery assay\\saved-student target-retention analysis\\saved-student biological-transfer assay};
-  \node[endpoint] (diagnostics) at (111mm,-126mm)
-    {\textbf{Paired diagnostic analyses}\\retained-student movement audit\\composed-path diagnostic};
-  \node[endpoint] (quality) at (111mm,-152mm)
-    {\textbf{Held-out language endpoints}\\language-quality evaluation\\practical-utility evaluation};
-
-  \draw[arrow] (retained.north east) -- node[verb,sloped] {supplies} (readouts.west);
-  \draw[arrow] (retained.east) -- node[verb] {supplies} (diagnostics.west);
-  \draw[arrow] (retained.south east) -- node[verb,sloped] {supplies} (quality.west);
-  \node[panel,fit=(eval-title)(discard)(retained)(readouts)(diagnostics)(quality)] {};
+  \node[panel,fit=(text)(teacher)(kd)(training-note)(routetarget)] {};
 \end{tikzpicture}

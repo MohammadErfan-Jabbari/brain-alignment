@@ -1,0 +1,64 @@
+\begin{tikzpicture}[
+  foldscreen/.style={circle,fill=blue!30,draw=blue!60!black,minimum size=5pt,inner sep=0pt},
+  foldkd/.style={circle,fill=orange!40,draw=orange!75!black,minimum size=5pt,inner sep=0pt},
+  meanscreen/.style={rectangle,fill=blue!75!black,draw=blue!85!black,minimum size=6pt,inner sep=0pt},
+  meankd/.style={rectangle,fill=orange!88!black,draw=orange!75!black,minimum size=6pt,inner sep=0pt},
+  screeninterval/.style={blue!75!black,line width=1.25pt},
+  kdinterval/.style={orange!82!black,line width=1.25pt},
+  axis/.style={gray!70,thin},
+  zeroline/.style={gray!75,densely dotted}
+]
+  \newcommand{\plotresult}[1]{\csname result@#1\endcsname}
+  \path[use as bounding box] (-0.35,-0.90) rectangle (15.4,3.55);
+  \def\xmin{-0.006}
+  \def\xmax{0.026}
+  \def\xleft{4.15}
+  \def\xwidth{10.55}
+
+  \pgfmathsetmacro{\xzero}{\xleft+\xwidth*(0-\xmin)/(\xmax-\xmin)}
+  \draw[zeroline] (\xzero,0.18)--(\xzero,2.88);
+
+  \foreach \tick/\lab in {-0.005/\(-0.005\),0/\(0\),0.01/\(+0.010\),0.02/\(+0.020\)} {
+    \pgfmathsetmacro{\xt}{\xleft+\xwidth*(\tick-\xmin)/(\xmax-\xmin)}
+    \draw[axis] (\xt,0.18)--(\xt,0.10);
+    \node[anchor=north,font=\scriptsize] at (\xt,0.08) {\lab};
+  }
+  \draw[axis] (\xleft,0.18)--({\xleft+\xwidth},0.18);
+\node[anchor=north,font=\scriptsize] at ({\xleft+0.5*\xwidth},-0.42) {recorded-response minus permuted-response controlled unique \(R^2\)};
+
+  \node[foldscreen] at (5.35,3.25) {};
+  \node[anchor=west,font=\scriptsize] at (5.48,3.25) {shared-fold estimate};
+  \node[meanscreen] at (8.70,3.25) {};
+  \draw[screeninterval] (8.90,3.25)--(9.65,3.25);
+  \node[anchor=west,font=\scriptsize] at (9.77,3.25) {mean with 95\% fold \(t\) interval};
+
+  \node[anchor=east,font=\scriptsize] at (3.92,2.35) {Initial loss-form screen};
+  \foreach \key/\jy in {
+    e004_plot_fold0/2.18,e004_plot_fold1/2.27,e004_plot_fold2/2.35,
+    e004_plot_fold3/2.43,e004_plot_fold4/2.52} {
+    \pgfmathsetmacro{\xp}{\xleft+\xwidth*(\plotresult{\key}-\xmin)/(\xmax-\xmin)}
+    \node[foldscreen] at (\xp,\jy) {};
+  }
+  \pgfmathsetmacro{\xlo}{\xleft+\xwidth*(\plotresult{e004_plot_ci_low}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xhi}{\xleft+\xwidth*(\plotresult{e004_plot_ci_high}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xmean}{\xleft+\xwidth*(\plotresult{e004_plot_mean}-\xmin)/(\xmax-\xmin)}
+  \draw[screeninterval] (\xlo,2.76)--(\xhi,2.76);
+  \draw[screeninterval] (\xlo,2.68)--(\xlo,2.84);
+  \draw[screeninterval] (\xhi,2.68)--(\xhi,2.84);
+  \node[meanscreen] at (\xmean,2.76) {};
+
+  \node[anchor=east,font=\scriptsize] at (3.92,1.05) {\acs{kd}-anchored paired intervention};
+  \foreach \key/\jy in {
+    e005_plot_fold0/0.88,e005_plot_fold1/0.97,e005_plot_fold2/1.05,
+    e005_plot_fold3/1.13,e005_plot_fold4/1.22} {
+    \pgfmathsetmacro{\xp}{\xleft+\xwidth*(\plotresult{\key}-\xmin)/(\xmax-\xmin)}
+    \node[foldkd] at (\xp,\jy) {};
+  }
+  \pgfmathsetmacro{\xlo}{\xleft+\xwidth*(\plotresult{e005_plot_ci_low}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xhi}{\xleft+\xwidth*(\plotresult{e005_plot_ci_high}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xmean}{\xleft+\xwidth*(\plotresult{e005_plot_mean}-\xmin)/(\xmax-\xmin)}
+  \draw[kdinterval] (\xlo,1.48)--(\xhi,1.48);
+  \draw[kdinterval] (\xlo,1.40)--(\xlo,1.56);
+  \draw[kdinterval] (\xhi,1.40)--(\xhi,1.56);
+  \node[meankd] at (\xmean,1.48) {};
+\end{tikzpicture}

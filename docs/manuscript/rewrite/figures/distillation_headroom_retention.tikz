@@ -1,0 +1,63 @@
+\begin{tikzpicture}[
+  estimate/.style={circle,fill=blue!68!black,draw=blue!85!black,minimum size=5.5pt,inner sep=0pt},
+  cold/.style={circle,fill=orange!88!black,draw=orange!70!black,minimum size=6.5pt,inner sep=0pt},
+  anchorpoint/.style={rectangle,fill=black,draw=black,minimum size=5.5pt,inner sep=0pt},
+  interval/.style={blue!68!black,line width=1.15pt},
+  coldinterval/.style={orange!82!black,line width=1.35pt},
+  axis/.style={gray!70,thin},
+  reference/.style={gray!65,densely dotted}
+]
+  \newcommand{\plotresult}[1]{\csname result@#1\endcsname}
+  % Include the long left-hand labels and the x-axis title in the declared
+  % canvas so full-width resizing cannot push visible content into the margins.
+  \path[use as bounding box] (-1.40,-0.90) rectangle (15.4,3.60);
+  \def\xmin{-0.10}
+  \def\xmax{1.32}
+  \def\xleft{4.10}
+  \def\xwidth{10.65}
+
+  \foreach \ref/\lab in {0/floor,1/teacher} {
+    \pgfmathsetmacro{\xr}{\xleft+\xwidth*(\ref-\xmin)/(\xmax-\xmin)}
+    \draw[reference] (\xr,-0.05)--(\xr,3.18);
+    \node[anchor=south,font=\scriptsize,text=gray!70!black] at (\xr,3.20) {\lab};
+  }
+
+  \foreach \tick/\lab in {0/\(0\),0.5/\(0.5\),1/\(1.0\)} {
+    \pgfmathsetmacro{\xt}{\xleft+\xwidth*(\tick-\xmin)/(\xmax-\xmin)}
+    \draw[axis] (\xt,-0.05)--(\xt,-0.13);
+    \node[anchor=north,font=\scriptsize] at (\xt,-0.15) {\lab};
+  }
+  \draw[axis] (\xleft,-0.05)--({\xleft+\xwidth},-0.05);
+  \node[anchor=north,font=\scriptsize] at ({\xleft+0.5*\xwidth},-0.53) {floor-anchored retention \(\rho'\)};
+
+  \foreach \label/\key/\lo/\hi/\yy in {
+    {Off-the-shelf pretrained GPT-2 Small}/e003_plot_pretrained_retention/e003_plot_pretrained_retention_low/e003_plot_pretrained_retention_high/2.75,
+    {Plain-\acs{lm} fine-tuned control}/e003_plot_lmft_retention/e003_plot_lmft_retention_low/e003_plot_lmft_retention_high/2.15,
+    {Pretrained-initialized logit-KD student}/e003_plot_warm_retention/e003_plot_warm_retention_low/e003_plot_warm_retention_high/1.55
+  } {
+    \pgfmathsetmacro{\xp}{\xleft+\xwidth*(\plotresult{\key}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xl}{\xleft+\xwidth*(\plotresult{\lo}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xh}{\xleft+\xwidth*(\plotresult{\hi}-\xmin)/(\xmax-\xmin)}
+    \node[anchor=east,font=\scriptsize] at (3.92,\yy) {\label};
+    \draw[interval] (\xl,\yy)--(\xh,\yy);
+    \draw[interval] (\xl,{\yy-0.08})--(\xl,{\yy+0.08});
+    \draw[interval] (\xh,{\yy-0.08})--(\xh,{\yy+0.08});
+    \node[estimate] at (\xp,\yy) {};
+  }
+
+  \pgfmathsetmacro{\xcold}{\xleft+\xwidth*(\plotresult{e003_plot_cold_retention}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xcoldlo}{\xleft+\xwidth*(\plotresult{e003_plot_cold_retention_low}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xcoldhi}{\xleft+\xwidth*(\plotresult{e003_plot_cold_retention_high}-\xmin)/(\xmax-\xmin)}
+  \node[anchor=east,font=\scriptsize,text=orange!70!black] at (3.92,0.95) {Randomly initialized logit-KD student};
+  \draw[coldinterval] (\xcoldlo,0.95)--(\xcoldhi,0.95);
+  \draw[coldinterval] (\xcoldlo,0.86)--(\xcoldlo,1.04);
+  \draw[coldinterval] (\xcoldhi,0.86)--(\xcoldhi,1.04);
+  \node[cold] at (\xcold,0.95) {};
+  \node[anchor=south,font=\scriptsize,text=orange!70!black] at (\xcold,1.07) {\(\rho'\) \result{e003_kd_cold_retention_point}, 95\% \acs{ci} \result{e003_kd_cold_retention_ci}};
+
+  \pgfmathsetmacro{\xfloor}{\xleft+\xwidth*(\plotresult{e003_plot_floor_retention}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xteacher}{\xleft+\xwidth*(\plotresult{e003_plot_teacher_retention}-\xmin)/(\xmax-\xmin)}
+  \node[anchor=east,font=\scriptsize] at (3.92,0.35) {Untrained floor and teacher anchors};
+  \node[anchorpoint] at (\xfloor,0.35) {};
+  \node[anchorpoint] at (\xteacher,0.35) {};
+\end{tikzpicture}

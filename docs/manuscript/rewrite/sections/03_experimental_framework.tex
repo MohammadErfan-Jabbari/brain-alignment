@@ -168,8 +168,8 @@ For LeBel, they hold out complete stories, and a separate repeated story determi
 
 The controlled assays define the measurement prerequisite, but they do not show how much brain predictivity ordinary \ac{kd} leaves available to recover.
 The quality-aware distillation-headroom analysis addresses that next question by applying the same Tuckute assay at the declared layers.
-Its reference models are the pretrained \texttt{gpt2-medium} teacher, an architecture-matched untrained \texttt{gpt2}, and an off-the-shelf pretrained \texttt{gpt2}.
-The analysis also evaluates two \texttt{gpt2} students after ordinary \ac{kd}.
+Its reference models are a pretrained GPT-2 Medium (\texttt{gpt2-medium}) teacher, an architecture-matched untrained GPT-2 Small (\texttt{gpt2}), and an off-the-shelf pretrained GPT-2 Small (\texttt{gpt2}).
+The analysis also evaluates two GPT-2 Small students after ordinary \ac{kd}.
 One student begins from random initialization.
 The other begins from pretrained weights.
 Let \(\overline{\Delta R^2}(m,s)\) denote the declared-\ac{roi} and fold average of Equation~\ref{eq:semipartial-r2} for model \(m\) and technical seed \(s\).
@@ -318,12 +318,26 @@ The auxiliary gradient can reach \(W\) and trainable adapters that produce the l
 It cannot reach later adapters through this branch, although those adapters can still receive gradients from \(\mathcal L_{\mathrm{KD}}\).
 After training, the temporary head and teacher are discarded, the adapters are merged into the retained student, and that student is frozen for evaluation.
 Figure~\ref{fig:training-architecture} separates the shared training core from frozen-student evaluation.
-Panel~a shows where the ordinary-\ac{kd} and route-specific auxiliary objectives attach.
-Panel~b shows that every post-training endpoint uses the retained student rather than the temporary target head.\evd{E004}\evd{E008}
+Figure~\ref{fig:training-architecture-training} shows where the ordinary-\ac{kd} and route-specific auxiliary objectives attach.
+Figure~\ref{fig:training-architecture-evaluation} shows that every post-training endpoint uses the retained student rather than the temporary target head.\evd{E004}\evd{E008}
 
 \begin{figure}[H]
   \centering
-  \resizebox{\textwidth}{!}{\input{figures/training_architecture.tikz}}
+  \begin{subfigure}{\textwidth}
+    \centering
+    \resizebox{\linewidth}{!}{\input{figures/training_architecture_shared.tikz}}
+    \caption{Shared training core.}
+    \label{fig:training-architecture-training}
+  \end{subfigure}
+
+  \vspace{2mm}
+
+  \begin{subfigure}{\textwidth}
+    \centering
+    \resizebox{\linewidth}{!}{\input{figures/training_architecture_evaluation.tikz}}
+    \caption{Frozen-student evaluation.}
+    \label{fig:training-architecture-evaluation}
+  \end{subfigure}
   \caption{Shared intervention training and frozen-student evaluation paths.}
   \label{fig:training-architecture}
 \end{figure}
@@ -376,14 +390,14 @@ None replaces the primary nine-participant contrast.\evd{E004}\evd{E011}\evd{E01
 \label{sec:synthetic-intervention}
 
 The synthetic-response intervention asks whether fixed, text-generated brain-response targets change a retained student beyond ordinary \ac{kd}.
-Across six technical seeds, a frozen GPT-2 Medium teacher supervises a GPT-2 student in the synthetic-response, ordinary-distillation, and text-derived auxiliary-control arms.
+Across six technical seeds, a frozen GPT-2 Medium teacher supervises a GPT-2 Small student in the synthetic-response, ordinary-distillation, and text-derived auxiliary-control arms.
 These arms share the initialized student, training text and order, tokenizer, ordinary-\ac{kd} objective, optimizer schedule, and training budget.
 The synthetic-response arm adds a fixed text-only TRIBE target, whereas the text-derived auxiliary-control arm mean-pools frozen teacher states and maps them through a fixed Gaussian projection.
 Both auxiliary targets are standardized to 20,484 coordinates and predicted from the student's layer-6 representation with a mean-squared-error loss.
 Training updates the student and a temporary prediction head; the head is then discarded and the retained student is frozen.
 Saved block-permuted variants provide sensitivity checks rather than peer claim-identifying arms.
-In Figure~\ref{fig:training-architecture}, panel~a locates the synthetic target and text-derived auxiliary control within the shared training core.
-Panel~b separates target recovery, retained movement, biological transfer, composed predictive overlap, and language evaluation after the temporary head has been removed.
+Figure~\ref{fig:training-architecture-training} locates the synthetic target and text-derived auxiliary control within the shared training core.
+Figure~\ref{fig:training-architecture-evaluation} separates target recovery, retained movement, biological transfer, composed predictive overlap, and language evaluation after the temporary head has been removed.
 Appendices~\ref{app:data-targets} and~\ref{app:training} specify the target construction and exact training procedure.\evd{E016}
 
 Two manipulation checks ask whether the intervention affected the retained student before any downstream claim is considered.
@@ -495,8 +509,38 @@ Perplexity and bits per byte test whether the compared students remain within th
 Passing the \(0.005\) bits-per-byte margin only excludes discrepancies larger than that margin on this metric; it does not prove the absence of language-quality confounding.\evd{E025}
 A separate practical-utility evaluation belongs to the recorded-response route.
 It compares approximately quality-matched recorded-response and permuted-response students through out-of-domain to in-domain perplexity ratios on Pereira sentences and LeBel story text.
+For corpus \(d\), arm \(a\), and technical seed \(s\), define
+\begin{equation}
+R_{d,a,s}
+=
+\frac{
+\mathrm{PPL}^{\mathrm{OOD}}_{d,a,s}
+}{
+\mathrm{PPL}^{\mathrm{ID}}_{a,s}
+},
+\qquad
+\Delta R_{d,s}
+=
+R_{d,\mathrm{recorded},s}
+-
+R_{d,\mathrm{permuted},s}.
+\label{eq:practical-utility-ratio}
+\end{equation}
+The ratio measures out-of-domain perplexity relative to the same student's in-domain perplexity.
+A negative \(\Delta R_{d,s}\) favors the recorded-response arm.
+The prerequisite alignment contrast is
+\begin{equation}
+A_s
+=
+U_s^{\mathrm{recorded}}
+-
+U_s^{\mathrm{permuted}},
+\label{eq:practical-utility-prerequisite}
+\end{equation}
+where \(U_s\) is held-out controlled brain predictivity.
+This contrast tests whether the recorded-response arm produced the representational change whose downstream value the utility comparison is intended to assess.
 Ordinary-distillation and text-derived-control arms remain descriptive references when their language quality is unmatched.
-This utility contrast is interpretable only if the recorded-minus-permuted alignment mediator is reliable relative to its measured minimum detectable effect.
+This utility contrast is interpretable only if the prerequisite alignment contrast is reliable relative to its measured minimum detectable effect.
 Its seeds quantify technical variation, not independent biological evidence.
 Section~\ref{sec:estimands} states the formal aggregation and decision rules.\evd{E009}
 

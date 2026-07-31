@@ -1,0 +1,53 @@
+\begin{tikzpicture}[
+  meanmark/.style={rectangle,fill=violet!58!black,draw=violet!58!black,minimum size=4.5pt,inner sep=0pt},
+  interval/.style={violet!58!black,very thick},
+  axis/.style={gray!70,thin},
+  zeroline/.style={gray!72,densely dotted}
+]
+  \def\xmin{-0.00065}
+  \def\xmax{0.00315}
+  \def\xleft{5.15}
+  \def\xwidth{7.35}
+  \path[use as bounding box] (0,-0.62) rectangle (16.35,3.60);
+
+  \fill[violet!3] (0.05,0.38) rectangle (16.25,3.30);
+  \node[anchor=west,font=\scriptsize] at (6.40,3.45)
+    {\tikz{\node[meanmark] {};}\ participant mean with family-adjusted 95\% interval};
+
+  \draw[axis] (\xleft,0.30)--({\xleft+\xwidth},0.30);
+  \foreach \value/\label in {-0.0005/{\(-0.0005\)},0/{\(0\)},0.001/{\(+0.001\)},0.002/{\(+0.002\)},0.003/{\(+0.003\)}} {
+    \pgfmathsetmacro{\xtick}{\xleft+\xwidth*(\value-\xmin)/(\xmax-\xmin)}
+    \draw[axis] (\xtick,0.30)--(\xtick,0.20);
+    \node[anchor=north,font=\scriptsize] at (\xtick,0.17) {\label};
+  }
+  \node[anchor=north,font=\scriptsize] at ({\xleft+0.5*\xwidth},-0.28)
+    {participant-level predictive-overlap quantity};
+
+  \pgfmathsetmacro{\xzero}{\xleft+\xwidth*(0-\xmin)/(\xmax-\xmin)}
+  \draw[zeroline] (\xzero,0.30)--(\xzero,3.30);
+
+  \newcommand{\diagnosticrow}[5]{%
+    \node[anchor=west,align=left,text width=47mm,font=\small] at (0.25,#1) {#2};
+    \pgfmathsetmacro{\xlo}{\xleft+\xwidth*(\result{#3}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xmean}{\xleft+\xwidth*(\result{#4}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xhi}{\xleft+\xwidth*(\result{#5}-\xmin)/(\xmax-\xmin)}
+    \draw[interval] (\xlo,#1)--(\xhi,#1);
+    \draw[interval] (\xlo,{#1-0.09})--(\xlo,{#1+0.09});
+    \draw[interval] (\xhi,{#1-0.09})--(\xhi,{#1+0.09});
+    \node[meanmark] at (\xmean,#1) {};
+  }
+
+  \diagnosticrow{2.65}{\textbf{Absolute aligned overlap} \(O\)}
+    {e030_plot_overlap_abs_ci_low}{e030_plot_overlap_abs_mean}{e030_plot_overlap_abs_ci_high}
+  \diagnosticrow{1.80}{\textbf{Increment over ordinary distillation} \(D\)}
+    {e030_plot_overlap_delta_ci_low}{e030_plot_overlap_delta_mean}{e030_plot_overlap_delta_ci_high}
+  \diagnosticrow{0.95}{\textbf{Aligned-minus-row-twin increment} \(J\)}
+    {e030_plot_overlap_twin_ci_low}{e030_plot_overlap_twin_mean}{e030_plot_overlap_twin_ci_high}
+
+  \node[anchor=west,align=left,text width=34mm,font=\scriptsize] at (12.72,2.56)
+    {\result{e030_overlap_abs}\\\result{e030_overlap_abs_ci}};
+  \node[anchor=west,align=left,text width=34mm,font=\scriptsize] at (12.72,1.71)
+    {\result{e030_overlap_delta}\\\result{e030_overlap_delta_ci}};
+  \node[anchor=west,align=left,text width=34mm,font=\scriptsize] at (12.72,0.86)
+    {\result{e030_overlap_twin}\\\result{e030_overlap_twin_ci}};
+\end{tikzpicture}

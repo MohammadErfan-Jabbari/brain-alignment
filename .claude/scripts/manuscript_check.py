@@ -24,6 +24,9 @@ WHITELIST = re.compile(
 DECLARE = re.compile(r"\\DeclareResult\{([^}]+)\}\{(.*)\}\s*(?:%.*)?$")
 USE = re.compile(r"\\result\{([^}]+)\}")
 GAP = re.compile(r"\\gap\{")
+FORMAT_ONLY = re.compile(
+    r"^\s*\\(?:specialrule|vspace|par\\vspace|renewcommand\{\\arraystretch\})"
+)
 
 
 def repo_root(start: Path) -> Path:
@@ -76,6 +79,8 @@ def check_sources(files: list[Path], root: Path, share_ready: bool) -> list[str]
             if share_ready and GAP.search(line):
                 findings.append(f"{path}:{lineno}: unresolved \\gap")
             if path.name == "numbers.tex" or "\\newcommand" in line or "\\DeclareResult" in line:
+                continue
+            if FORMAT_ONLY.search(line):
                 continue
             if RESULT.search(line) and not ANY_SOURCE.search(line) and not WHITELIST.search(line):
                 findings.append(f"{path}:{lineno}: result-like number lacks \\evd or \\result")

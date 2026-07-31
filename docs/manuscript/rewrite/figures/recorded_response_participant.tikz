@@ -1,0 +1,49 @@
+\begin{tikzpicture}[
+  participant/.style={circle,fill=gray!55,draw=gray!75,minimum size=5pt,inner sep=0pt},
+  meanmark/.style={rectangle,fill=black,draw=black,minimum size=6pt,inner sep=0pt},
+  interval/.style={black,line width=1.35pt},
+  axis/.style={gray!70,thin},
+  zeroline/.style={gray!75,densely dotted}
+]
+  \newcommand{\plotresult}[1]{\csname result@#1\endcsname}
+  \path[use as bounding box] (-0.35,-0.90) rectangle (15.4,3.25);
+  \def\xmin{-0.0012}
+  \def\xmax{0.0012}
+  \def\xleft{4.15}
+  \def\xwidth{10.55}
+
+  \pgfmathsetmacro{\xzero}{\xleft+\xwidth*(0-\xmin)/(\xmax-\xmin)}
+  \draw[zeroline] (\xzero,0.18)--(\xzero,2.60);
+
+  \foreach \tick/\lab in {-0.001/\(-0.001\),-0.0005/\(-0.0005\),0/\(0\),0.0005/\(+0.0005\),0.001/\(+0.001\)} {
+    \pgfmathsetmacro{\xt}{\xleft+\xwidth*(\tick-\xmin)/(\xmax-\xmin)}
+    \draw[axis] (\xt,0.18)--(\xt,0.10);
+    \node[anchor=north,font=\scriptsize] at (\xt,0.08) {\lab};
+  }
+  \draw[axis] (\xleft,0.18)--({\xleft+\xwidth},0.18);
+\node[anchor=north,font=\scriptsize] at ({\xleft+0.5*\xwidth},-0.42) {recorded-response minus permuted-response controlled unique \(R^2\)};
+
+  \node[participant] at (6.05,2.92) {};
+  \node[anchor=west,font=\scriptsize] at (6.18,2.92) {participant effect};
+  \node[meanmark] at (9.05,2.92) {};
+  \draw[interval] (9.25,2.92)--(10.00,2.92);
+  \node[anchor=west,font=\scriptsize] at (10.12,2.92) {cohort mean with 95\% participant \(t\) interval};
+
+  \node[anchor=east,font=\scriptsize] at (3.92,1.08) {Nine participant effects};
+  \foreach \key/\jy in {
+    e008_plot_uid797/0.82,e008_plot_uid837/0.91,e008_plot_uid841/1.00,
+    e008_plot_uid848/1.09,e008_plot_uid856/1.18,e008_plot_uid865/1.27,
+    e008_plot_uid875/1.36,e008_plot_uid876/1.45,e008_plot_uid880/1.54} {
+    \pgfmathsetmacro{\xp}{\xleft+\xwidth*(\plotresult{\key}-\xmin)/(\xmax-\xmin)}
+    \node[participant] at (\xp,\jy) {};
+  }
+
+  \node[anchor=east,font=\scriptsize] at (3.92,2.13) {Cohort mean};
+  \pgfmathsetmacro{\xlo}{\xleft+\xwidth*(\plotresult{e008_plot_ci_low}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xhi}{\xleft+\xwidth*(\plotresult{e008_plot_ci_high}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xmean}{\xleft+\xwidth*(\plotresult{e008_plot_mean}-\xmin)/(\xmax-\xmin)}
+  \draw[interval] (\xlo,2.13)--(\xhi,2.13);
+  \draw[interval] (\xlo,2.05)--(\xlo,2.21);
+  \draw[interval] (\xhi,2.05)--(\xhi,2.21);
+  \node[meanmark] at (\xmean,2.13) {};
+\end{tikzpicture}

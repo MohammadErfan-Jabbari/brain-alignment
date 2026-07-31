@@ -94,12 +94,12 @@ a benchmark. Their encoding-grade stimulus data is largely the Pereira set.
 
 ## Comparison table
 
-| Benchmark | License | Login/DUA | Smallest slice | N (regime) | Noise ceiling | Modality / TR | +0.05 R² power | Role |
-|---|---|---|---|---|---|---|---|---|
-| **LeBel ds003020** | CC0/CC-BY | none | ~few GB (1 subj) | 3 deep + 5 (within-subj) | CC_norm (yes) | fMRI 2.0 s, stories | **Strong** | **Primary** |
-| Narratives ds002345 | CC0 | none | ~GB (1 subj) | 345 (across-subj) | ISC | fMRI 1.0–1.5 s, stories | Yes (group) | Generalisation |
-| Pereira crwz7 | CC-BY | none | <300 MB (stimuli only) | 9 / 6 (sentence) | in-paper | sentence-avg, 4 s | Marginal | Plumbing test |
-| Petit Prince ds003643 | CC0-class | none | ~GB (1 subj) | 49/35/28 | — | multi-echo fMRI | Moderate | Multilingual bonus |
+| Benchmark             | License   | Login/DUA | Smallest slice         | N (regime)               | Noise ceiling | Modality / TR           | +0.05 R² power | Role               |
+| --------------------- | --------- | --------- | ---------------------- | ------------------------ | ------------- | ----------------------- | -------------- | ------------------ |
+| **LeBel ds003020**    | CC0/CC-BY | none      | ~few GB (1 subj)       | 3 deep + 5 (within-subj) | CC_norm (yes) | fMRI 2.0 s, stories     | **Strong**     | **Primary**        |
+| Narratives ds002345   | CC0       | none      | ~GB (1 subj)           | 345 (across-subj)        | ISC           | fMRI 1.0–1.5 s, stories | Yes (group)    | Generalisation     |
+| Pereira crwz7         | CC-BY     | none      | <300 MB (stimuli only) | 9 / 6 (sentence)         | in-paper      | sentence-avg, 4 s       | Marginal       | Plumbing test      |
+| Petit Prince ds003643 | CC0-class | none      | ~GB (1 subj)           | 49/35/28                 | —             | multi-echo fMRI         | Moderate       | Multilingual bonus |
 
 ## Recommendation
 

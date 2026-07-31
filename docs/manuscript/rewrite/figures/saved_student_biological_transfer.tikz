@@ -1,0 +1,51 @@
+\begin{tikzpicture}[
+  participant/.style={circle,fill=green!24,draw=green!52!black,inner sep=1.7pt},
+  meanmark/.style={rectangle,fill=green!45!black,draw=green!45!black,minimum size=4.5pt,inner sep=0pt},
+  interval/.style={green!45!black,very thick},
+  axis/.style={gray!70,thin},
+  zeroline/.style={gray!72,densely dotted}
+]
+  \newcommand{\plotresult}[1]{\csname result@#1\endcsname}
+  \def\xmin{-0.0013}
+  \def\xmax{0.0025}
+  \def\xleft{4.15}
+  \def\xwidth{8.35}
+  \path[use as bounding box] (0,-0.62) rectangle (16.35,2.78);
+
+  \fill[green!3] (0.05,0.38) rectangle (16.25,2.18);
+  \node[anchor=west,font=\scriptsize] at (5.00,2.52)
+    {\tikz{\node[participant] {};}\ participant effect};
+  \node[anchor=west,font=\scriptsize] at (8.10,2.52)
+    {\tikz{\node[meanmark] {};}\ mean with 95\% participant interval};
+
+  \draw[axis] (\xleft,0.30)--({\xleft+\xwidth},0.30);
+  \foreach \value/\label in {-0.001/{\(-0.001\)},0/{\(0\)},0.001/{\(+0.001\)},0.002/{\(+0.002\)}} {
+    \pgfmathsetmacro{\xtick}{\xleft+\xwidth*(\value-\xmin)/(\xmax-\xmin)}
+    \draw[axis] (\xtick,0.30)--(\xtick,0.20);
+    \node[anchor=north,font=\scriptsize] at (\xtick,0.17) {\label};
+  }
+  \node[anchor=north,font=\scriptsize] at ({\xleft+0.5*\xwidth},-0.28)
+    {participant-level unique-\(R^2\) contrast};
+
+  \pgfmathsetmacro{\xzero}{\xleft+\xwidth*(0-\xmin)/(\xmax-\xmin)}
+  \draw[zeroline] (\xzero,0.30)--(\xzero,2.18);
+  \node[anchor=west,align=left,text width=38mm,font=\small] at (0.25,1.28)
+    {\textbf{Synthetic-response minus \acs{kd}}\\direct transfer contrast};
+
+  \foreach \key/\jy in {
+    e025_plot_uid797/0.72,e025_plot_uid837/0.88,e025_plot_uid841/1.04,
+    e025_plot_uid848/0.72,e025_plot_uid856/0.88,e025_plot_uid865/1.04,
+    e025_plot_uid875/0.72,e025_plot_uid876/0.88,e025_plot_uid880/1.04} {
+    \pgfmathsetmacro{\px}{\xleft+\xwidth*(\plotresult{\key}-\xmin)/(\xmax-\xmin)}
+    \node[participant] at (\px,\jy) {};
+  }
+  \pgfmathsetmacro{\xlo}{\xleft+\xwidth*(\result{e025_plot_ci_low}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xhi}{\xleft+\xwidth*(\result{e025_plot_ci_high}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xmean}{\xleft+\xwidth*(\result{e025_plot_mean}-\xmin)/(\xmax-\xmin)}
+  \draw[interval] (\xlo,1.55)--(\xhi,1.55);
+  \draw[interval] (\xlo,1.46)--(\xlo,1.64);
+  \draw[interval] (\xhi,1.46)--(\xhi,1.64);
+  \node[meanmark] at (\xmean,1.55) {};
+  \node[anchor=west,align=left,text width=35mm,font=\scriptsize] at (12.72,1.47)
+    {mean \result{e025_tribe_kd}\\95\% interval \result{e025_tribe_kd_ci}};
+\end{tikzpicture}

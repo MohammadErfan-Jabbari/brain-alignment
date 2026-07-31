@@ -247,109 +247,119 @@ This subsection is titled ``Synthetic-Response Intervention and Downstream Assay
 
 This subsection is titled ``Cross-Cutting Estimands and Decision Rules.'' End with one transition paragraph stating that Results follow these scientific roles rather than evidence-record number or execution date. Appendix D owns estimator derivations, variants, aggregation, and tests. Evidence owners: E003-E006, E008-E009, E015-E017, E025-E026, and E030.
 
-### 4. Results
+### 4. Results Across the Evidence Chain
 
-**Section question.** Which scientific roles in the evidence chain are supported, not demonstrated, unresolved, or non-identifying at their declared inference units?
+**Section question.** Where does each scientific role pass, fail, remain unresolved, or become non-identifying at its declared inference unit, and what narrow claim does each result license?
 
-Open with one compact status table keyed to the exact canonical role names and Section 3 design tuples. Use *supported*, *not demonstrated*, *unresolved*, and *non-identifying comparator* consistently.
+Open with one compact three-column status table keyed to the exact canonical role names and Section 3 design tuples: **scientific role**, **status**, and **decisive observation**. Use *supported*, *not demonstrated*, *unresolved*, and *non-identifying comparator* consistently. Give every Section 3 scientific role one clearly named Results verdict location.
 
-Synchronize Results prose with the Section 3 role and arm vocabulary during the Results rewrite.
-Use **synthetic-response arm**, **text-derived auxiliary-control arm**, **ordinary-distillation arm**, and **frozen row-twin control** rather than prose variants such as *TRIBE-minus-text-feature*, *TRIBE-minus-KD*, or *frozen twin*; retain compact symbols only inside equations and numerical contrasts.
-Give every Section 3 scientific role one clearly named Results verdict location.
+Each result path follows the same order: **observation**, **uncertainty at the declared inference unit**, **canonical verdict**, and **narrow licensed claim**. Retain only the comparator or inference-unit reminder needed to interpret a result. Section 3 owns the design tuple, Section 5 owns cross-stage synthesis and causal interpretation, and Appendices B--F own construction, training detail, formal inference, supporting analyses, and full sensitivities.
 
-#### 4.1 Controlled regional and naturalistic predictivity
+Use **synthetic-response arm**, **text-derived auxiliary-control arm**, **ordinary-distillation arm**, and **frozen row-twin control** consistently. Compact contrast notation may appear inside equations, tables, and plot labels when it is defined locally. Evidence-record identifiers remain nonprinting source provenance and never organize the rendered Results.
 
-1. Do trained middle layers satisfy the Section 2.1 standard by predicting held-out sentence-level fMRI beyond the specified nuisance features and architecture-matched untrained controls?
-2. Does controlled predictivity survive held-out-story evaluation in the naturalistic voxelwise substrate?
-3. What does this pass license, and why is it only an existence result under the tested participants, responses, controls, and linear readout?
+The route order must remain explicit. Sections 4.1--4.2 report prerequisites shared by both intervention routes, Section 4.3 reports the recorded-response intervention, Sections 4.4--4.6 report the synthetic-response route, and Section 4.7 returns to the recorded-response route for the only completed practical-utility evaluation.
 
-Receive the two predictivity assay designs from Section 3.2, report their estimates and uncertainty, and state the narrow claim licensed without restarting the method. Evidence owners: E002 and scoped E006.
+#### 4.1 Controlled brain predictivity under regional and naturalistic assays
 
-#### 4.2 Quality-aware distillation headroom
+1. Do trained representations outperform the specified nuisance features and architecture-matched untrained controls in the controlled regional predictivity assay?
+2. Does controlled predictivity survive held-out-story evaluation in the controlled naturalistic voxelwise predictivity assay?
+3. What common controlled-predictivity claim do the two assays support without pooling their estimates?
+4. Which population, intervention, and mechanistic claims remain unsupported?
 
-1. How do the teacher, initialized student, and distilled student differ in controlled brain alignment?
-2. How does alignment covary with tokenizer-comparable language-model quality across model families and in the operative quality band?
-3. Why does the observed headroom motivate quality matching without identifying quality as the cause of alignment or distillation as the cause of the gap?
+Receive both assay designs from Section 3.2. Report their estimates and uncertainty, state the shared narrow claim, and keep their scales and inference units separate. Evidence owners: E002 and scoped E006.
 
-Evidence owners: E003 and E015.
+#### 4.2 Observed distillation headroom under language-quality coupling
 
-End with an explicit route handoff: controlled predictivity passes and observed headroom motivates intervention, but quality coupling requires matched intervention tests.
+1. How much controlled brain predictivity separates the teacher, initialized students, and distilled students?
+2. How does controlled brain predictivity vary with tokenizer-comparable \ac{lm} quality across model families?
+3. What relationship remains within the capable-model range?
+4. What headroom is supported, and why does its cause remain unresolved?
 
-#### 4.3 Recorded-response intervention
+Evidence owners: E003 and E015. End with the requirement that intervention comparisons be made at comparable \ac{lm} quality; broader causal interpretation belongs in Section 5.
 
-1. What apparent averaged-target positive trend appeared, and what estimand did that design actually support?
-2. Why did valid-fold and participant-level reanalysis weaken the original positive interpretation?
-3. What happens when participant responses are targets and participants are the inference units?
-4. Do alternative losses, increased adapter capacity, voxelwise objectives, or full fine-tuning rescue a reliable effect?
-5. What narrow conclusion survives, and what does the averaging diagnostic prevent us from claiming about encoding measurements generally?
+#### 4.3 Recorded-response intervention at valid inference units
 
-Participant averaging and participant-specific analysis are estimand and inference choices within one intervention, not peer experiments. Evidence owners: E004-E005, E008, E010-E011, E013-E014, and E017. Summarize robustness variants in one table and move their full detail to Appendix E.
+1. What positive trend appears when participant-averaged recorded responses are used during training?
+2. Which estimand does that averaged-response design support, and why does averaging not create participant-level evidence?
+3. What happens when participant-specific responses are used and participants become the inference units?
+4. Do the tested loss, adapter-capacity, naturalistic, or full-fine-tuning variants change the verdict?
+5. What participant-general claim survives?
 
-#### 4.4 Exact synthetic-target measurability
+Participant averaging and participant-specific analysis are estimand and inference choices within one intervention, not peer experiments. Evidence owners: E004-E005, E008, E010-E011, E013-E014, and E017. Keep the averaging interpretation concise, summarize robustness variants in one compact table, and move their full detail to Appendix E. End with a handoff to the separate synthetic-response route rather than implying that one intervention follows causally from the other.
 
-1. Does the exact PCA-50 TRIBE target add controlled, practically relevant linear predictivity beyond the frozen nuisance model on the intended recorded-response substrate?
-2. Does the exact target outperform the frozen row-twin control?
-3. Which part of the practical measurability criterion fails, which specificity question remains unresolved, and what narrow prerequisite verdict follows?
+#### 4.4 Exact synthetic-target measurability on recorded responses
 
-Keep this prerequisite separate from post-training manipulation. Evidence owner: E030.
+1. Does the exact synthetic target add controlled linear predictivity of recorded responses beyond the frozen nuisance model?
+2. Does its increment exceed the inherited internal continuation threshold?
+3. Does the aligned target outperform the frozen row-twin control?
+4. Which prerequisite is not demonstrated, and which specificity question remains unresolved?
 
-#### 4.5 Synthetic-response manipulation and attribution status
+Keep this prerequisite separate from post-training manipulation. Describe the inherited continuation threshold as an internal decision rule, not as an externally justified practical-importance threshold. Evidence owner: E030.
 
-1. Can a fresh post-training readout recover the synthetic target beyond seed-matched ordinary distillation and target permutations?
-2. Do target retention, parameter displacement, and retained-student movement show that the intervention changed the retained student?
-3. Did these manipulation checks pass at acceptable \ac{lm} quality?
+#### 4.5 Synthetic-response manipulation checks and attribution status
+
+1. Can a fresh post-training readout recover the synthetic target from the saved student on held-out WikiText examples relative to seed-matched ordinary distillation?
+2. Did the retained student move while \ac{lm} quality remained acceptable?
+3. Is fresh Tuckute incremental target retention supported?
 4. Is the text-derived auxiliary-control arm sufficiently matched to identify brain-response-specific attribution?
-5. Which attribution questions therefore remain non-identifying or unresolved?
+5. What is supported about manipulation, and why does attribution remain non-identifying?
 
-Target recovery and retained-student movement are manipulation checks within the synthetic-response intervention. The comparator-adequacy audit assesses whether attribution is identified; it is not itself a successful attribution result. Evidence owners: E016, E025-E026, and E030.
+Give the synthetic-target recovery assay, retained-student movement audit, saved-student target-retention analysis, and comparator-adequacy audit distinct verdict paragraphs. Saved block-permuted arms are sensitivity checks rather than peer attribution controls. Evidence owners: E016, E025-E026, and E030.
 
-#### 4.6 Saved-student biological transfer
+#### 4.6 Saved-student biological-transfer assays
 
-1. Given the failed or unresolved earlier stages, what can later biological-transfer results still establish descriptively?
-2. What does the direct participant-level synthetic-response-minus-ordinary-distillation contrast show?
-3. What does the synthetic-response-minus-text-derived-control contrast show, and why can it not identify brain-response content?
-4. Does student-predictable target structure overlap with independently recorded responses under the frozen bridge test?
-5. Where is the first defensible predictive failure localized, and why does that localization not causally explain the later near-zero transfer result?
+1. What does the direct participant-level synthetic-response-versus-ordinary-distillation contrast show?
+2. What does the synthetic-response-versus-text-derived-control contrast show, and why is it non-identifying?
+3. What does the frozen composed-path diagnostic observe?
+4. What biological-transfer claim is licensed at the participant inference unit?
 
-Evidence owners: E025-E026 and E030.
+Separate the direct saved-student biological-transfer assay from the composed-path diagnostic, and report each observation with its uncertainty and verdict. Failure localization and causal explanations belong in Section 5. Evidence owners: E025-E026 and E030.
 
 #### 4.7 Bounded practical-utility evaluation
 
-1. Does the completed out-of-domain evaluation establish a practical benefit when its prerequisite brain-specific representation change is absent?
-2. How does the unreliable mediator limit interpretation of the bounded null?
-3. What does the result leave open about other tasks, modalities, and successfully identified interventions?
+1. Which recorded-response comparison completed the bounded practical-utility evaluation, and what did it observe?
+2. Was the prerequisite alignment contrast demonstrated, and how do the downstream contrasts compare with their measured sensitivity?
+3. What bounded utility claim follows for the tested endpoint?
 
-Evidence owner: E009. Supporting reproductions, failed instruments, stopped routes, and prospective designs remain in Appendix E and enter the Discussion only when they change interpretation.
+Classify the prerequisite alignment contrast as *not demonstrated under the measured minimum detectable effect*, not as absent. Evidence owner: E009. Supporting reproductions, failed instruments, stopped routes, and prospective designs remain in Appendix E.
 
 ### 5. Discussion
 
-**Section question.** What do the results change about how brain alignment should be used as a training signal?
+**Section question.** What does the combined evidence establish about the gap between controlled brain predictivity and a reliable, brain-specific training advantage in the tested systems?
 
-#### 5.1 Failure localization across the evidence chain
+Open Section 5 with one compact synthesis paragraph answering:
 
-1. Which links passed, failed, or remained unresolved in the recorded-response and synthetic-response branches?
-2. Which explanations are weakened by the measurement controls and intervention variants?
-3. Which explanations remain viable, including target information, target geometry, modality, temporal precision, optimization, model scale, nonlinear transfer, and participant heterogeneity?
-4. Why is this a scoped failure localization rather than a universal null or a causal explanation of failure?
+1. How can controlled brain predictivity and successful student manipulation coexist with a brain-specific training benefit that is not demonstrated?
 
-Do not treat the variant studies as objective- or capacity-invariant failures. E011 did not induce greater effective movement, and E013/E017 close only the tested loss, data, and parameterization regimes.
+The opener owns the thesis-level interpretation and previews localization, compatibility, and design consequences. Do not repeat estimates or enumerate the rows of Table~3.
 
-#### 5.2 Relation to positive prior studies
+#### 5.1 Where support is lost across the two intervention routes
 
-1. How do modality, temporal resolution, personalization, model budget, and endpoint choice change the intervention being tested?
-2. How do language-quality matching, baseline choice, training seeds, controls, and inference units change the claim supported by a positive contrast?
-3. What does this study add without claiming to refute materially different positive results?
+1. Where does the recorded-response route first lose support, and how do response averaging, participant-level inference, and the tested variants affect that interpretation?
+2. Where does the synthetic-response route first lose support, and why do later target uptake and retained-student movement not change the measurability, attribution, and transfer verdicts?
+3. Which explanations are weakened, which remain viable, and why does this pattern support scoped failure localization rather than a causal explanation or universal null?
 
-Section 2.3 owns the factual literature map and unresolved pre-results gap. This subsection owns only the post-results compatibility judgment and must cross-reference, not resummarize, the earlier studies.
+Treat the two routes separately because they first lose support at different transitions. Do not treat the variant studies as objective- or capacity-invariant failures: E011 did not induce greater effective movement, and E013/E017 close only the tested loss, data, and parameterization regimes. Results Table~4 owns their individual dispositions. Section 6 owns the exhaustive list of untested mechanisms and intervention spaces.
 
-#### 5.3 Implications for future brain-guided training
+#### 5.2 Compatibility with positive prior studies
 
-1. How does the comparator failure imply a design that matches information, geometry, scale, learnability, and optimization pressure before content attribution?
-2. How does the exact-target measurability failure change the order of checks before expensive student training?
-3. How does the gap between uptake and transfer change the required participant-level and independent-endpoint evidence after successful manipulation?
-4. How should the observed failure location determine whether a program continues, redesigns its target or control, or stops downstream testing?
+1. Why do the intervention and evaluation differences documented in Section 2.3 prevent the present results from directly adjudicating materially different positive studies?
+2. How do baseline choice, comparable \ac{lm} quality, comparator validity, endpoint choice, training seeds, and inference unit change what a positive contrast establishes?
+3. What does this thesis add without reinterpreting or claiming to refute those prior results?
+
+Section 2.3 owns the factual literature map and unresolved pre-results gap. This subsection owns only the post-results compatibility judgment and must cross-reference, not resummarize, the earlier studies. Design differences establish non-equivalence; do not claim that they caused the different outcomes.
+
+#### 5.3 Design implications for future brain-guided training
+
+1. For recorded-response training, how must response construction and the inference unit match the intended participant or population claim?
+2. For synthetic targets evaluated through the planned linear assay, what measurability, specificity, and comparator checks should precede training, which diagnostics must be retained, and what would passing these checks still not guarantee?
+3. After manipulation succeeds, what matched-control and independent participant-level evidence is required for attribution and biological transfer, and when does a utility test become interpretable within its route?
+4. How should supported, not-demonstrated, unresolved, and non-identifying outcomes determine whether a study continues, redesigns its target, control, or assay, or stops downstream testing?
 
 Section 2.4 owns the ex ante evidence standard and comparator catalog. This subsection owns only design changes newly justified by the observed failure locations. Frame them as recommendations supported by the diagnostic logic, not as an experimentally proven universal recipe.
+Do not universalize the PCA-50 linear measurability screen as a necessary condition for every nonlinear intervention, present comparator matching as sufficient for attribution, or let the recorded-route utility evaluation stand in for an unperformed synthetic-route utility test.
+
+Target one opening paragraph followed by a 3/3/4 paragraph structure across Sections 5.1--5.3, for approximately 1,200--1,300 words in total. Add no new figure unless prose cannot express a genuinely new relationship: Figure~1 already owns the evidence chain and Table~3 owns the role-specific verdicts.
 
 ### 6. Limitations
 

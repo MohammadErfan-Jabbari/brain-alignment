@@ -1,0 +1,89 @@
+\begin{tikzpicture}[
+  axis/.style={gray!65,thin},
+  zeroline/.style={gray!70,densely dotted},
+  uptake/.style={blue!75!black,very thick},
+  extract/.style={teal!70!black,very thick},
+  unresolved/.style={orange!85!black,very thick},
+  uptakemark/.style={rectangle,fill=blue!75!black,draw=blue!75!black,minimum size=4.5pt,inner sep=0pt},
+  extractmark/.style={rectangle,fill=teal!70!black,draw=teal!70!black,minimum size=4.5pt,inner sep=0pt},
+  unresolvedmark/.style={rectangle,fill=orange!85!black,draw=orange!85!black,minimum size=4.5pt,inner sep=0pt}
+]
+  \newcommand{\plotresult}[1]{\csname result@#1\endcsname}
+  \path[use as bounding box] (0,-0.25) rectangle (16.2,6.55);
+  \def\xleft{5.00}
+  \def\xwidth{6.15}
+
+  \node[anchor=west,font=\scriptsize] at (5.00,6.28)
+    {\tikz{\node[uptakemark] {};}\ mean};
+  \draw[uptake] (6.25,6.28)--(6.90,6.28);
+  \node[anchor=west,font=\scriptsize] at (7.00,6.28) {95\% interval};
+  \draw[zeroline] (9.30,6.10)--(9.30,6.46);
+  \node[anchor=west,font=\scriptsize] at (9.45,6.28) {zero reference};
+  \node[anchor=west,font=\scriptsize,text=blue!75!black] at (11.80,6.28) {supported};
+  \node[anchor=west,font=\scriptsize,text=orange!85!black] at (13.30,6.28) {unresolved};
+
+  % WikiText target uptake
+  \fill[blue!3] (0.05,4.38) rectangle (16.10,5.92);
+  \node[anchor=west,align=left,text width=39mm,font=\small] at (0.25,5.18)
+    {\textbf{WikiText target uptake}\\synthetic-response minus \acs{kd}};
+  \def\xmin{0}
+  \def\xmax{0.085}
+  \draw[axis] (\xleft,4.70)--({\xleft+\xwidth},4.70);
+  \draw[zeroline] (\xleft,4.58)--(\xleft,5.62);
+  \node[anchor=north,font=\scriptsize] at (\xleft,4.64) {\(0\)};
+  \node[anchor=north,font=\scriptsize] at ({\xleft+\xwidth},4.64) {\(+0.085\)};
+  \pgfmathsetmacro{\xlo}{\xleft+\xwidth*(\result{e016_plot_gain_ci_low}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xhi}{\xleft+\xwidth*(\result{e016_plot_gain_ci_high}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xmean}{\xleft+\xwidth*(\result{e016_plot_gain_mean}-\xmin)/(\xmax-\xmin)}
+  \draw[uptake] (\xlo,5.25)--(\xhi,5.25);
+  \draw[uptake] (\xlo,5.15)--(\xlo,5.35);
+  \draw[uptake] (\xhi,5.15)--(\xhi,5.35);
+  \node[uptakemark] at (\xmean,5.25) {};
+  \node[anchor=west,align=left,text width=45mm,font=\scriptsize] at (11.48,5.25)
+    {mean \result{e016_tribe_synth_gain}\\95\% interval \result{e016_tribe_synth_gain_ci}\\\textcolor{blue!75!black}{target uptake supported}};
+
+  % Absolute Tuckute target recovery
+  \fill[teal!3] (0.05,2.62) rectangle (16.10,4.16);
+  \node[anchor=west,align=left,text width=39mm,font=\small] at (0.25,3.42)
+    {\textbf{Tuckute target recovery}\\absolute recoverability};
+  \def\xmin{0}
+  \def\xmax{0.045}
+  \draw[axis] (\xleft,2.94)--({\xleft+\xwidth},2.94);
+  \draw[zeroline] (\xleft,2.82)--(\xleft,3.86);
+  \node[anchor=north,font=\scriptsize] at (\xleft,2.88) {\(0\)};
+  \node[anchor=north,font=\scriptsize] at ({\xleft+\xwidth},2.88) {\(+0.045\)};
+  \pgfmathsetmacro{\xlo}{\xleft+\xwidth*(\result{e030_plot_extract_ci_low}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xhi}{\xleft+\xwidth*(\result{e030_plot_extract_ci_high}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xmean}{\xleft+\xwidth*(\result{e030_plot_extract_mean}-\xmin)/(\xmax-\xmin)}
+  \draw[extract] (\xlo,3.49)--(\xhi,3.49);
+  \draw[extract] (\xlo,3.39)--(\xlo,3.59);
+  \draw[extract] (\xhi,3.39)--(\xhi,3.59);
+  \node[extractmark] at (\xmean,3.49) {};
+  \node[anchor=west,align=left,text width=45mm,font=\scriptsize] at (11.48,3.49)
+    {mean \result{e030_target_extract}\\family-95\% interval \result{e030_target_extract_ci}\\\textcolor{teal!70!black}{absolute recovery supported}};
+
+  % Incremental Tuckute retention
+  \fill[orange!4] (0.05,0.86) rectangle (16.10,2.40);
+  \node[anchor=west,align=left,text width=39mm,font=\small] at (0.25,1.66)
+    {\textbf{Tuckute incremental retention}\\synthetic-response minus \acs{kd}};
+  \def\xmin{-0.003}
+  \def\xmax{0.001}
+  \draw[axis] (\xleft,1.18)--({\xleft+\xwidth},1.18);
+  \pgfmathsetmacro{\xzero}{\xleft+\xwidth*(0-\xmin)/(\xmax-\xmin)}
+  \draw[zeroline] (\xzero,1.06)--(\xzero,2.10);
+  \node[anchor=north,font=\scriptsize] at (\xleft,1.12) {\(-0.003\)};
+  \node[anchor=north,font=\scriptsize] at (\xzero,1.12) {\(0\)};
+  \node[anchor=north,font=\scriptsize] at ({\xleft+\xwidth},1.12) {\(+0.001\)};
+  \pgfmathsetmacro{\xlo}{\xleft+\xwidth*(\result{e030_plot_retention_ci_low}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xhi}{\xleft+\xwidth*(\result{e030_plot_retention_ci_high}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xmean}{\xleft+\xwidth*(\result{e030_plot_retention_mean}-\xmin)/(\xmax-\xmin)}
+  \draw[unresolved] (\xlo,1.73)--(\xhi,1.73);
+  \draw[unresolved] (\xlo,1.63)--(\xlo,1.83);
+  \draw[unresolved] (\xhi,1.63)--(\xhi,1.83);
+  \node[unresolvedmark] at (\xmean,1.73) {};
+  \node[anchor=west,align=left,text width=45mm,font=\scriptsize] at (11.48,1.73)
+    {mean \result{e030_retention_delta}\\family-95\% interval \result{e030_retention_delta_ci}\\\textcolor{orange!85!black}{increment unresolved}};
+
+  \node[anchor=north,font=\scriptsize] at (8.10,0.50)
+    {Each row uses its own \(R^2\) scale; magnitudes should not be compared across assays.};
+\end{tikzpicture}

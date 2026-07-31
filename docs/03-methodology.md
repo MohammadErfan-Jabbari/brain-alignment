@@ -11,28 +11,28 @@ tags: [methodology]
 
 ## Epistemic path
 
-| Phase | Converts | Owner |
-|---|---|---|
-| Notice | signal → question | working note |
-| Commit | question → bounded problem | [`00-charter.md`](00-charter.md) |
-| Map | unknown landscape → frontier | [`01-research-landscape.md`](01-research-landscape.md) |
-| Claim | uncertainty → falsifiable hypotheses | `hypotheses/HNNN_*.md` |
-| Design | claim → locked fair test | `experiments/ENNN_*.md` |
-| Run | protocol → raw evidence | artifacts plus the owning E record |
-| Judge | evidence → adjudicated verdict | owning E record, decision, or learning |
-| Argue | settled verdicts → paper | extended manuscript |
-| Compound | finished work → reusable lesson | [`learnings.md`](learnings.md) and Git |
+| Phase    | Converts                             | Owner                                                  |
+| -------- | ------------------------------------ | ------------------------------------------------------ |
+| Notice   | signal → question                    | working note                                           |
+| Commit   | question → bounded problem           | [`00-charter.md`](00-charter.md)                       |
+| Map      | unknown landscape → frontier         | [`01-research-landscape.md`](01-research-landscape.md) |
+| Claim    | uncertainty → falsifiable hypotheses | `hypotheses/HNNN_*.md`                                 |
+| Design   | claim → locked fair test             | `experiments/ENNN_*.md`                                |
+| Run      | protocol → raw evidence              | artifacts plus the owning E record                     |
+| Judge    | evidence → adjudicated verdict       | owning E record, decision, or learning                 |
+| Argue    | settled verdicts → paper             | extended manuscript                                    |
+| Compound | finished work → reusable lesson      | [`learnings.md`](learnings.md) and Git                 |
 
 The non-negotiables are competing hypotheses, predeclared kill criteria, a locked design, raw evidence separated from interpretation, at least three seeds for stochastic experiments, contiguous splits and nuisance controls for brain-alignment claims, and uncertainty reported at the correct inference unit.
 
 ## Four authorities
 
-| Question | Authority |
-|---|---|
-| What was run and what did it produce? | The owning `experiments/ENNN_*.md` record plus retained load-bearing artifacts |
-| What does the thesis currently conclude? | The live body in [`manuscript/extended/`](manuscript/extended/main-extended.tex) |
-| Where are we and what happens next? | [`status.md`](status.md) |
-| Why did the project change? | [`decisions/decisions.md`](decisions/decisions.md), [`learnings.md`](learnings.md), selected durable timelines, and Git |
+| Question                                 | Authority                                                                                                               |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| What was run and what did it produce?    | The owning `experiments/ENNN_*.md` record plus retained load-bearing artifacts                                          |
+| What does the thesis currently conclude? | The live body in [`manuscript/extended/`](manuscript/extended/main-extended.tex)                                        |
+| Where are we and what happens next?      | [`status.md`](status.md)                                                                                                |
+| Why did the project change?              | [`decisions/decisions.md`](decisions/decisions.md), [`learnings.md`](learnings.md), selected durable timelines, and Git |
 
 No other document may compete with these owners. Public manuscript cuts are immutable. Q/E handles remain the project’s identifiers; there is no separate claim database or global artifact registry.
 

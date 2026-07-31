@@ -116,7 +116,7 @@ The map was produced on 2026-07-22 with the Plan branch of [`question-led-writin
 
 **Methods.** How does the study instantiate each scientific role with one study-specific design tuple comprising its data or response construction, intervention or assay, comparator, estimand, endpoint, and inference unit?
 
-**Results.** For each scientific role in the evidence chain, what did the corresponding intervention, assay, or analysis establish, fail to establish, or leave unresolved at its declared inference unit?
+**Results Across the Evidence Chain.** Where does each scientific role pass, fail, remain unresolved, or become non-identifying at its declared inference unit, and what narrow claim does each result license?
 
 **Discussion.** Where does the evidence chain break, which explanations are ruled out or remain possible, and what must future brain-guided training studies demonstrate?
 
