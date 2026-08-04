@@ -55,12 +55,12 @@ This rewrite is the thesis content. Organize the narrative by the role a procedu
 | Arm or control | Condition inside an intervention or assay | **ordinary-distillation arm**, **permuted-response control**, **frozen row-twin control**, **text-derived auxiliary-control arm** |
 | Assay | Protocol measuring a declared quantity | **controlled regional predictivity assay**, **controlled naturalistic voxelwise predictivity assay**, **exact synthetic-target measurability assay**, **synthetic-target recovery assay**, **saved-student biological-transfer assay** |
 | Analysis or audit | Contrast, diagnostic, or validity examination | **quality-aware distillation-headroom analysis**, **retained-student movement audit**, **comparator-adequacy audit and attribution assessment**, **saved-student target-retention analysis**, **composed-path diagnostic**, **response-averaging analysis** |
-| Evaluation | Recurring external endpoint | **language-quality evaluation**, **practical-utility evaluation** |
+| Evaluation | Recurring external endpoint | **language-quality evaluation**, **bounded practical-utility evaluation** |
 | Evidence record | Internal provenance owner | `E###` appears only in source provenance, an internal-review build, or the provenance appendix |
 
 Use the shortest fixed term after first definition. Dataset, model, layer, target dimension, and response construction are qualifiers used only when they distinguish variants. Participant-specific and participant-averaged identify response construction or inference level, not standalone experiments. TRIBE identifies the generator. The text-derived auxiliary target, frozen row-twin control, and permutations are controls within their owning comparisons.
 
-The main argument order is controlled predictivity, quality-aware headroom, exact synthetic-target measurability where applicable, intervention, retained manipulation, comparator adequacy and attribution, biological transfer, and practical utility. Target recovery and retained-student movement are manipulation checks within the synthetic-response intervention. Comparator adequacy may leave attribution non-identifying; do not name an unresolved attribution assessment as if attribution succeeded.
+The main argument order is controlled brain predictivity, quality-aware headroom, exact synthetic-target measurability where applicable, intervention, retained manipulation, comparator adequacy and attribution, biological transfer, and practical utility. Target recovery and retained-student movement are manipulation checks within the synthetic-response intervention. Comparator adequacy may leave attribution non-identifying; do not name an unresolved attribution assessment as if attribution succeeded.
 
 Supporting robustness analyses remain subordinate to the owning intervention or assay. Pipeline validation, failed instruments, reduced reproductions, stopped feasibility routes, and unexecuted designs belong in descriptively titled appendix or future-work categories. Never present them as completed headline experiments.
 
@@ -108,7 +108,7 @@ Give the three evidence-chain artifacts different jobs. The Section 2 figure def
 | Synthetic brain responses generated from text | TRIBE outputs used in this work. Write *synthetic brain-response target* only when their role in a training objective must be explicit. |
 | Target uptake | Recoverability of the optimized target from retained student representations by a fresh post-training readout. |
 | Retained-student movement | Parameter or representation difference from the declared training baseline that remains after temporary training components are discarded. |
-| Exact-target measurability | Whether the exact synthetic training target adds controlled, practically relevant predictivity of recorded responses beyond the declared nuisance and frozen-generator controls. |
+| Exact-target measurability | Whether the exact synthetic training target adds controlled, practically relevant predictivity of recorded responses beyond the declared nuisance and frozen row-twin controls. |
 | Brain-response-specific attribution | Whether the brain-response-target arm outperforms its route-appropriate control on the outcome being claimed: correctly paired versus permuted responses for the recorded-response route, or synthetic brain responses versus a matched text-derived target for the synthetic-response route. |
 | Biological transfer | Improvement on independently recorded responses that were not optimized as the training endpoint. |
 | Brain-specific advantage | Incremental benefit beyond an appropriate text-derived or permuted control, at comparable language-model quality and the correct biological inference unit. Reserve this term for identified contrasts. |
@@ -131,7 +131,7 @@ One paragraph, in this order:
 2. What counted as a reliable, brain-specific advantage?
 3. Which recorded-fMRI-response and synthetic-brain-response training branches were tested?
 4. Which measurement and manipulation checks passed?
-5. Where did attribution or participant-level transfer fail?
+5. Where did the two intervention routes first lose support, and what happened to attribution, participant-level transfer, and utility?
 6. What does the result establish, and what does it leave open?
 
 Use at most one or two estimates if they are necessary to distinguish a passed manipulation check from a failed endpoint. Do not turn the abstract into a numerical ledger.
@@ -152,7 +152,7 @@ No subsections. Seven paragraphs:
 
 The three contributions are controlled measurement with quality-aware interpretation, participant-level tests of training with recorded fMRI responses, and localization of the synthetic brain-response training branch across uptake, movement, comparator validity, exact-target measurability, and biological transfer. Do not use internal rung names, experiment history, or E identifiers here.
 
-### 2. From a Brain Score to a Valid Training Claim
+### 2. Evidence Required for a Brain-Specific Training Advantage
 
 **Section question.** What must be true before training with brain responses can be credited with a brain-specific advantage?
 
@@ -205,7 +205,7 @@ Open with one compact evidence map using the exact canonical role names used in 
 3. Which corpora and held-out observations support target construction, student training, language-quality evaluation, target recovery, biological transfer, and practical utility?
 4. Which role-separated split boundaries prevent target or endpoint leakage?
 
-This subsection owns the study map and the interpretively necessary dataset and split summary. Appendix B owns acquisition, inclusion, response construction, preprocessing, target construction, and exact split definitions. Evidence owners: E002, E006, E008, E014, E016, E025-E026, and E030.
+This subsection owns the study map and the interpretively necessary dataset and split summary. Appendix B owns acquisition, inclusion, response construction, preprocessing, target construction, and exact split definitions. Evidence owners: E002--E006, E008--E009, E013--E017, E025, and E030.
 
 #### 3.2 How are the measurement prerequisites instantiated?
 
@@ -233,7 +233,7 @@ This subsection owns the common intervention design and its study-specific varia
 2. How do the synthetic-target recovery assay and retained-student movement audit test whether training affected the retained student?
 3. How does the comparator-adequacy audit determine whether the available contrast can identify brain-response-specific attribution?
 4. How do the saved-student target-retention analysis, direct saved-student biological-transfer assay, and composed-path diagnostic reuse frozen students, synthetic targets, or independently recorded participant responses, and what distinct question does each answer?
-5. Which language-quality checks qualify the synthetic-response contrasts, which practical-utility evaluation belongs to the separate recorded-response route, and what prerequisite status limits each interpretation?
+5. Which language-quality checks qualify the synthetic-response contrasts, which bounded practical-utility evaluation belongs to the separate recorded-response route, and what prerequisite status limits each interpretation?
 
 This subsection is titled ``Synthetic-Response Intervention and Downstream Assays'' and owns the intervention-to-endpoint design chain. Target recovery and retained-student movement are manipulation checks, not peer interventions. Saved block-permuted arms are sensitivities because their construction does not guarantee an exact row derangement. Appendix B owns target and control construction, Appendix C owns training and retained components, and Appendices D and F own estimators and sensitivities. Evidence owners: E009, E016, E025-E026, and E030.
 
@@ -257,13 +257,13 @@ Each result path follows the same order: **observation**, **uncertainty at the d
 
 Use **synthetic-response arm**, **text-derived auxiliary-control arm**, **ordinary-distillation arm**, and **frozen row-twin control** consistently. Compact contrast notation may appear inside equations, tables, and plot labels when it is defined locally. Evidence-record identifiers remain nonprinting source provenance and never organize the rendered Results.
 
-The route order must remain explicit. Sections 4.1--4.2 report prerequisites shared by both intervention routes, Section 4.3 reports the recorded-response intervention, Sections 4.4--4.6 report the synthetic-response route, and Section 4.7 returns to the recorded-response route for the only completed practical-utility evaluation.
+The route order must remain explicit. Sections 4.1--4.2 report prerequisites shared by both intervention routes, Section 4.3 reports the recorded-response intervention, Sections 4.4--4.6 report the synthetic-response route, and Section 4.7 returns to the recorded-response route for the only completed bounded practical-utility evaluation.
 
 #### 4.1 Controlled brain predictivity under regional and naturalistic assays
 
 1. Do trained representations outperform the specified nuisance features and architecture-matched untrained controls in the controlled regional predictivity assay?
-2. Does controlled predictivity survive held-out-story evaluation in the controlled naturalistic voxelwise predictivity assay?
-3. What common controlled-predictivity claim do the two assays support without pooling their estimates?
+2. Does controlled brain predictivity survive held-out-story evaluation in the controlled naturalistic voxelwise predictivity assay?
+3. What common controlled brain predictivity claim do the two assays support without pooling their estimates?
 4. Which population, intervention, and mechanistic claims remain unsupported?
 
 Receive both assay designs from Section 3.2. Report their estimates and uncertainty, state the shared narrow claim, and keep their scales and inference units separate. Evidence owners: E002 and scoped E006.
@@ -309,7 +309,7 @@ Give the synthetic-target recovery assay, retained-student movement audit, saved
 #### 4.6 Saved-student biological-transfer assays
 
 1. What does the direct participant-level synthetic-response-versus-ordinary-distillation contrast show?
-2. What does the synthetic-response-versus-text-derived-control contrast show, and why is it non-identifying?
+2. What does the synthetic-response-versus-text-derived auxiliary-control contrast show, and why is it non-identifying?
 3. What does the frozen composed-path diagnostic observe?
 4. What biological-transfer claim is licensed at the participant inference unit?
 
@@ -318,10 +318,10 @@ Separate the direct saved-student biological-transfer assay from the composed-pa
 #### 4.7 Bounded practical-utility evaluation
 
 1. Which recorded-response comparison completed the bounded practical-utility evaluation, and what did it observe?
-2. Was the prerequisite alignment contrast demonstrated, and how do the downstream contrasts compare with their measured sensitivity?
+2. Was the prerequisite contrast in controlled brain predictivity demonstrated, and how do the downstream contrasts compare with their measured sensitivity?
 3. What bounded utility claim follows for the tested endpoint?
 
-Classify the prerequisite alignment contrast as *not demonstrated under the measured minimum detectable effect*, not as absent. Evidence owner: E009. Supporting reproductions, failed instruments, stopped routes, and prospective designs remain in Appendix E.
+Classify the prerequisite contrast in controlled brain predictivity as *not demonstrated under the measured minimum detectable effect*, not as absent. Evidence owner: E009. Supporting reproductions, failed instruments, stopped routes, and prospective designs remain in Appendix E.
 
 ### 5. Discussion
 
@@ -349,7 +349,7 @@ Treat the two routes separately because they first lose support at different tra
 
 Section 2.3 owns the factual literature map and unresolved pre-results gap. This subsection owns only the post-results compatibility judgment and must cross-reference, not resummarize, the earlier studies. Design differences establish non-equivalence; do not claim that they caused the different outcomes.
 
-#### 5.3 Design implications for future brain-guided training
+#### 5.3 Design implications for future brain-response-guided training
 
 1. For recorded-response training, how must response construction and the inference unit match the intended participant or population claim?
 2. For synthetic targets evaluated through the planned linear assay, what measurability, specificity, and comparator checks should precede training, which diagnostics must be retained, and what would passing these checks still not guarantee?
@@ -357,13 +357,19 @@ Section 2.3 owns the factual literature map and unresolved pre-results gap. This
 4. How should supported, not-demonstrated, unresolved, and non-identifying outcomes determine whether a study continues, redesigns its target, control, or assay, or stops downstream testing?
 
 Section 2.4 owns the ex ante evidence standard and comparator catalog. This subsection owns only design changes newly justified by the observed failure locations. Frame them as recommendations supported by the diagnostic logic, not as an experimentally proven universal recipe.
-Do not universalize the PCA-50 linear measurability screen as a necessary condition for every nonlinear intervention, present comparator matching as sufficient for attribution, or let the recorded-route utility evaluation stand in for an unperformed synthetic-route utility test.
+Do not universalize the 50-component \ac{pca} linear measurability screen as a necessary condition for every nonlinear intervention, present comparator matching as sufficient for attribution, or let the recorded-route utility evaluation stand in for an unperformed synthetic-route utility test.
 
 Target one opening paragraph followed by a 3/3/4 paragraph structure across Sections 5.1--5.3, for approximately 1,200--1,300 words in total. Add no new figure unless prose cannot express a genuinely new relationship: Figure~1 already owns the evidence chain and Table~3 owns the role-specific verdicts.
 
 ### 6. Limitations
 
 **Section question.** Which populations, constructs, comparisons, and intervention spaces bound the conclusion?
+
+Open with one compact paragraph answering:
+
+1. Why do the route-specific conclusions remain conditional, and which three classes of limitation bound their reach?
+
+The opener must bridge from Section 5 and preview population and measurement coverage, identification and inference, and the intervention and utility space searched. It must not replay results or introduce a new limitation.
 
 #### 6.1 Population, data, and measurement scope
 
@@ -372,13 +378,17 @@ Target one opening paragraph followed by a 3/3/4 paragraph structure across Sect
 
 #### 6.2 Identification and inference limitations
 
-1. How do the specified nuisance sets, comparator mismatch, restricted linear readout, PCA-50 target assay, unresolved twin contrast, and dependence structures bound identification?
-2. Which effects at the declared continuation thresholds are disfavored, and which small effects or individual differences remain compatible with the data?
+1. How do the specified nuisance sets, comparator mismatch, restricted linear readout, 50-component \ac{pca} target assay, unresolved twin contrast, and dependence structures bound identification?
+2. Which tested participant-level contrasts and target-measurability increments are disfavored at the internal continuation scales, and which smaller effects, heterogeneous participant effects, or effects in other cohorts remain compatible with the data?
+
+Section 4 owns the exact estimates and intervals. This subsection must cross-reference the relevant Results subsections and state only the scope those bounds support. Appendix D owns estimator and dependence details.
 
 #### 6.3 Intervention and utility scope
 
-1. Which student scales, architectures, objectives, schedules, data scales, target constructions, and personalization strategies were not searched?
-2. Why do language-quality evaluation, reduced reproductions, failed prerequisites, and limited downstream endpoints not exhaust practical utility?
+1. Relative to the executed model and objective search, which student scales, architectures, objectives, schedules, data scales, target constructions, and personalization strategies remain untested?
+2. Why do limited language-quality and downstream endpoints, narrow supporting reproductions, and routes that did not satisfy the requirements for an interpretable utility test leave broader practical utility unresolved?
+
+Keep the recorded-response and synthetic-response utility boundaries separate. Section 4 owns the completed utility and prerequisite verdicts, while Appendix E owns named supporting reproductions and stopped-study details. Section 6 may summarize why those limits leave broader utility unresolved but must not create a second results narrative.
 
 ### 7. Conclusion
 
@@ -391,9 +401,11 @@ Two paragraphs:
 
 ## Complete appendix question tree
 
-### Appendix A. Evidence provenance and analysis disposition
+### Appendix A. Evidence records and provenance
 
-Use one compact scientific-role-to-evidence-record ledger rather than one prose subsection per record.
+Use a compact disposition index, an argument-ordered scientific-role ledger, a supersession table, and a verified artifact table rather than one prose subsection per record.
+Evidence records remain the authority for execution, verdicts, and path--hash bindings; Appendix A provides the reader-facing crosswalk.
+Appendix C owns training settings, Appendix D owns estimators and inference, and Appendix F owns complete numerical and sensitivity tables.
 
 1. Which evidence records were executed, unexecuted, precondition-stopped, superseded, or used only for engineering?
 2. Which final evidence-record verdict owns each main-text scientific role and claim?
@@ -407,7 +419,7 @@ Use one compact scientific-role-to-evidence-record ledger rather than one prose 
 1. What exact acquisition, inclusion, exclusion, alignment, region, voxel, and reliability rules implement the bounding assay choices introduced in Section 2.1 and summarized in Section 3.1?
 2. How are participant-level and averaged responses constructed, and which estimand changes when responses are aggregated?
 
-#### B.2 Stimulus and nuisance features
+#### B.2 Stimulus, nuisance, and fold-local preprocessing
 
 1. Which exact low-level, static, and model-derived nuisance features instantiate the control rationale from Section 2.1 in each analysis?
 2. Which transforms are fitted inside folds, and which implementation checks realize the contiguous-split and leakage requirements specified in Sections 2.1 and 3.3?
@@ -415,88 +427,118 @@ Use one compact scientific-role-to-evidence-record ledger rather than one prose 
 #### B.3 Synthetic brain responses and text-derived auxiliary targets
 
 1. How are the exact TRIBE target, PCA representation, frozen row-twin control, text-derived auxiliary target, and permutations generated?
-2. How are dimensions, scaling, covariance, baseline headroom, and learnability compared, and where does matching remain inadequate?
+2. Which construction properties does each control preserve or break, and which attribution question can it answer?
 
 ### Appendix C. Training interventions and reproduction
 
-#### C.1 Ordinary distillation and language-quality control
+#### C.1 Ordinary distillation and language-quality rules
 
-1. What output loss, temperature, weighting, data, initialization, schedule, and quality criteria define ordinary distillation?
-2. Which checkpoints and seed-matched comparisons are used across intervention arms?
+1. What output-distillation loss, masking, temperature, weighting, data, initialization, schedule, and tokenizer-compatible quality evaluation define the shared language objective?
+2. Which model pairs, seeds, saved students, and quality rules are shared or differ across the intervention arms?
 
 #### C.2 Recorded-response intervention
 
-1. What forward path, target head, loss, trainable parameter set, and retained component define each recorded-brain-response-target regime?
-2. How do MSE, contrastive, adapter-capacity, voxelwise, and full-fine-tuning variants depart from the common design?
+1. What forward and gradient paths, target head, loss, trainable parameter set, and retained student define the common recorded-response intervention?
+2. Which implementation element changes in the frozen-readout, contrastive, increased-capacity, naturalistic voxelwise, and full-parameter variants, and which components remain fixed?
 
 #### C.3 Synthetic-response intervention
 
 1. What forward and gradient paths connect the middle-layer representation, temporary target head, KD loss, target loss, later student blocks, and tied output components?
-2. Which parameters and heads are saved or discarded, and how are matched ordinary-distillation, text-feature, and permuted controls constructed?
+2. What initialization, corpus, schedule, target-loss implementation, and saved-student handling are shared by the synthetic-response, ordinary-distillation, and text-derived auxiliary-control arms?
+3. Which saved block-permuted arm is retained only as a sensitivity, and which frozen row twin is evaluation-only rather than a trained arm?
 
-#### C.4 Reproducibility
+#### C.4 Replay scope and provenance handoff
 
-1. Which hyperparameters, seeds, software versions, checkpoints, artifacts, and hashes reproduce every load-bearing result?
-2. Which artifacts are diagnostic only, and which receive stable manuscript-cited paths?
+1. Which hyperparameters, seeds, checkpoints, scripts, and software pins are retained for replaying each load-bearing training family?
+2. Which missing revision pins, checkpoints, or historical environment manifests limit exact replay, and where are verified artifact paths, hashes, and evidence dispositions recorded?
 
-### Appendix D. Estimators, inference, and formal scope
+### Appendix D. Estimators, aggregation, and inferential scope
 
-#### D.1 Encoding estimators
+#### D.1 Predictive estimands and ridge estimation
 
-1. How are the ordinary, nuisance-only, full, semipartial, and partial \(R^2\) quantities used in Section 3.2 formally related?
-2. How does ridge regression correspond to a MAP estimator under its assumptions, and why does that interpretation not make the empirical score a causal or mechanistic quantity?
+1. How are ordinary, nuisance-only, full, semipartial, and population partial \(R^2\) related?
+2. How do equal-coordinate averaging and pooled \(\mathrm{SSE}/\mathrm{SST}\) answer different recovery questions?
+3. Under which assumptions is ridge a maximum a posteriori estimator, and why is it still only a predictive estimator?
 
-#### D.2 Cross-validation and inference units
+#### D.2 Cross-validation, aggregation, and inference units
 
-1. How are folds, regularization, layers, transforms, repeated technical measurements, seeds, voxels, regions, and participants ordered and aggregated for the intervention-specific estimands introduced in Sections 3.3--3.4 and the cross-cutting rules in Section 3.5?
-2. Why are spatial voxels, shared folds, seeds, and participants not interchangeable independent units, and how does that formal distinction enforce the interpretive boundary introduced in Section 2.1?
+1. Which operations are fixed beforehand, and which data-adaptive operations must be learned within each training complement?
+2. In what order are coordinates, seeds, folds, stories, and participants aggregated for each scientific role?
+3. Why can seeds, folds, voxels, regions, or target coordinates not replace participants as biological inference units?
 
-#### D.3 Uncertainty, power, and decision thresholds
+#### D.3 Uncertainty, multiplicity, and decision rules
 
-1. Which confidence intervals, tests, multiplicity corrections, sensitivities, minimum detectable effects, and practical thresholds answer each opportunity, manipulation, attribution, transfer, and utility estimand?
-2. Which thresholds were prospective continuation rules for a particular stage, and why must they not be promoted into evidence for a later stage or universalized as biological importance criteria?
+1. Which interval, bootstrap, exact test, or sensitivity belongs to each estimand, and what assumptions support it?
+2. How are inference units, multiplicity families, and conservative conjunctive decision rules kept distinct?
+3. How do minimum detectable effects, language-quality criteria, and prospective continuation thresholds differ, and why can none be promoted into a universal biological-importance criterion?
 
-#### D.4 What information theory does and does not imply
+#### D.4 Information-theoretic boundaries
 
-1. Under which population linear-Gaussian assumptions can partial \(R^2\) be related to conditional mutual information, and why is cross-validated ridge unique \(R^2\) not itself an MI estimate?
-2. Which Markov chain would be required for a data-processing claim about synthetic brain responses generated deterministically from text?
-3. Why are mutual-information generalization bounds and rate-distortion arguments organizing constraints rather than guarantees or explanations of the empirical result?
-4. Why do neither output KL matching nor low target loss determine retained-student movement, brain-response attribution, biological transfer, or internal biological alignment?
+1. Under which population linear-Gaussian assumptions can partial \(R^2\) be related to conditional mutual information, and why is cross-validated ridge semipartial \(R^2\) not itself a mutual-information estimate?
+2. Which conditional-independence relation would be required for a data-processing claim when a synthetic brain-response target is generated deterministically from text?
+3. Why do neither output \(\ac{kl}\) matching nor low auxiliary loss determine retained-student movement, brain-response attribution, or biological transfer?
 
-This appendix formalizes the limits introduced conceptually in Section 2.2; it must not convert those organizing constraints into empirical explanations or repeat the intervention results.
+This appendix formalizes the limits introduced conceptually in Section 2.2; it must not turn those limits into empirical explanations or repeat the intervention results.
 
-### Appendix E. Supporting analyses, failed instruments, and future designs
+### Appendix E. Supporting analyses and stopped routes
 
-#### E.1 Pipeline validation and apparatus checks
+#### E.1 Pipeline validation and scientific scope
 
-1. What did the synthetic pipeline validation establish without producing a thesis result?
-2. Which diagnostics checked plumbing, split integrity, target stability, and analysis behavior?
+1. Which pipeline components worked when the expected signal was known?
+2. Which implementation failures did the diagnostics rule out?
+3. Why does synthetic validation establish plumbing rather than scientific evidence?
 
-#### E.2 Response averaging and intervention robustness
+#### E.2 Response averaging and recorded-response robustness
 
-1. What do the response-averaging analyses establish, and what do they not establish?
-2. Which mechanism objection did each recorded-response robustness analysis test, and why did none change the participant-level conclusion?
+1. Why do intervention-target averaging and fixed-representation response averaging answer different questions?
+2. Which objection did each recorded-response robustness analysis test?
+3. What remains supported or open after each test?
 
-#### E.3 External and cross-modal probes
+#### E.3 Reduced external and cross-modal probes
 
-1. What did the external brain-tuning and reduced speech-transfer probes reproduce locally?
-2. Why are their outcomes reduced reproductions, corroborations, or non-reproductions rather than faithful refutations of the source papers?
+1. What did each local external-protocol probe test?
+2. Which population, substrate, architecture, language, training-scale, or control differences limit comparison with its source study?
+3. What is the narrowest supported local conclusion?
 
-#### E.4 Cognitive and privileged-target routes
+#### E.4 Failed instruments and precondition-stopped routes
 
-1. What failed in the shared-response, reading-time, and gaze-first routes: signal, control, reference reliability, attribution, or substrate precondition?
-2. Why were downstream builds or interpretations correctly stopped?
+1. Which prerequisite failed for the shared-response, reading-time, and gaze routes?
+2. Was the failure about signal, reference reliability, attribution, leakage, or evaluation substrate?
+3. Why did the failure require stopping before intervention or interpretation, and what remains untested?
 
-#### E.5 Unexecuted future designs
+#### E.5 Prospective designs without empirical evidence
 
-1. What would the objective-specific shedding, matched-target, cross-modal falsification, and directional-certificate designs have identified if authorized and executed?
-2. Why do reserved, outcome-blind development, or unexecuted designs provide no manuscript evidence?
+1. What identifying question would each proposed design answer?
+2. Which activation, data, or review prerequisite prevented execution?
+3. Why do analysis-only screens, validators, reserved designs, and outcome-blind development contribute no empirical evidence?
 
-### Appendix F. Sensitivity analyses and full numerical tables
+### Appendix F. Claim-relevant sensitivities and verification tables
 
-1. Which layer, lambda, quality-band, nuisance-set, participant, block, seed, and checkpoint sensitivities could change a main claim?
-2. Which complete participant and seed tables let a reader verify aggregation and heterogeneity?
-3. Which sensitivity results are claim-changing and belong in prose, and which are confirmatory detail suited to tables?
+#### F.1 Claim-relevant analysis choices
+
+1. Which analyses changed an interpretation or inference unit?
+2. Which sensitivities bounded the scope of a main claim?
+3. Which checks confirmed local stability or exposed a design limitation?
+4. Why can no favorable sensitivity replace a failed frozen primary decision rule?
+
+#### F.2 Participant-level intervention contrasts
+
+1. How is each participant estimand calculated?
+2. Why must the recorded-response and biological-transfer assays remain separate?
+3. What do mixed signs and participant-deletion checks establish?
+
+#### F.3 Participant-level mechanism diagnostics
+
+1. Which target-measurability and composed-path quantities are reported?
+2. Which prerequisite fails first, and which later quantities remain unresolved?
+3. What do participant patterns verify without supplying a causal explanation?
+
+#### F.4 Technical-seed diagnostics
+
+1. What does each seed summary measure and aggregate?
+2. Which manipulations are stable, and which incremental quantities have mixed signs?
+3. Why are seeds not biological inference units?
+4. Why is no seed-only table valid for the nonlinear participant-first estimator?
 
 ## Drafting and review protocol
 

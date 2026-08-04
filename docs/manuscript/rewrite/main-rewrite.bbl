@@ -468,8 +468,8 @@
       \strng{authorbibnamehash}{afb4606d0f17a9de8269851c7ba7c9db}
       \strng{authornamehash}{afb4606d0f17a9de8269851c7ba7c9db}
       \strng{authorfullhash}{c7f162f1681cae7ecc6b5d24a2a1d018}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{AWQ/SmoothQuant preserve on >=3B; GPTQ/pruning degrade; KD untested; see canonical/oota-2026}
@@ -540,8 +540,8 @@
       \strng{authorbibnamehash}{e9792286c597a9de83c7211b493ff34f}
       \strng{authornamehash}{e9792286c597a9de83c7211b493ff34f}
       \strng{authorfullhash}{e9792286c597a9de83c7211b493ff34f}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{objective shapes alignment, not just LM loss; see canonical/aw-2023}
@@ -591,8 +591,8 @@
       \strng{authorbibnamehash}{afdb714403bd1b5332537395209c8986}
       \strng{authornamehash}{afdb714403bd1b5332537395209c8986}
       \strng{authorfullhash}{b1f3d15d8a6c70d63a78e501106a1c84}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{use a base teacher, not instruct; see canonical/gao-2024}
@@ -661,8 +661,8 @@
       \strng{authornamehash}{14596cf0e4f055b53cafc5d2629281d1}
       \strng{authorfullhash}{14596cf0e4f055b53cafc5d2629281d1}
       \field{extraname}{2}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{gradient-reversal de-alignment hurts 200+ tasks; see canonical/merlin-2026}
@@ -878,6 +878,40 @@
       \range{pages}{19}
       \verb{doi}
       \verb 10.18653/v1/2026.acl-long.1911
+      \endverb
+    \endentry
+    \entry{lazic2010}{article}{}
+      \name{author}{1}{}{%
+        {{hash=68ae677d9ccca05643f42e39ea7890ea}{%
+           family={Lazic},
+           familyi={L\bibinitperiod},
+           given={Stanley\bibnamedelima E.},
+           giveni={S\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \strng{namehash}{68ae677d9ccca05643f42e39ea7890ea}
+      \strng{fullhash}{68ae677d9ccca05643f42e39ea7890ea}
+      \strng{bibnamehash}{68ae677d9ccca05643f42e39ea7890ea}
+      \strng{authorbibnamehash}{68ae677d9ccca05643f42e39ea7890ea}
+      \strng{authornamehash}{68ae677d9ccca05643f42e39ea7890ea}
+      \strng{authorfullhash}{68ae677d9ccca05643f42e39ea7890ea}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{BMC Neuroscience}
+      \field{title}{The problem of pseudoreplication in neuroscientific studies: is it affecting your analysis?}
+      \field{volume}{11}
+      \field{year}{2010}
+      \field{pages}{5}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1186/1471-2202-11-5
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1186/1471-2202-11-5
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1186/1471-2202-11-5
       \endverb
     \endentry
     \entry{tuckute2024}{article}{}
@@ -1139,37 +1173,6 @@
       \field{edition}{2}
       \field{title}{Elements of Information Theory}
       \field{year}{2006}
-    \endentry
-    \entry{xu2017}{inproceedings}{}
-      \name{author}{2}{}{%
-        {{hash=f5e9d696722c2dc2422fc28cf1f9d33d}{%
-           family={Xu},
-           familyi={X\bibinitperiod},
-           given={Aolin},
-           giveni={A\bibinitperiod}}}%
-        {{hash=1762c6d4ace229f7656ee9fa9eff446a}{%
-           family={Raginsky},
-           familyi={R\bibinitperiod},
-           given={Maxim},
-           giveni={M\bibinitperiod}}}%
-      }
-      \strng{namehash}{c87c42a0e1ba5004a3fe120b8a88b171}
-      \strng{fullhash}{c87c42a0e1ba5004a3fe120b8a88b171}
-      \strng{bibnamehash}{c87c42a0e1ba5004a3fe120b8a88b171}
-      \strng{authorbibnamehash}{c87c42a0e1ba5004a3fe120b8a88b171}
-      \strng{authornamehash}{c87c42a0e1ba5004a3fe120b8a88b171}
-      \strng{authorfullhash}{c87c42a0e1ba5004a3fe120b8a88b171}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{annotation}{arXiv:1705.07809, Thm 1: gen bound scales as sqrt(2 sigma2 I(W;Sn)/n); the lecture-26 MI bound}
-      \field{booktitle}{NeurIPS}
-      \field{title}{Information-theoretic analysis of generalization capability of learning algorithms}
-      \field{year}{2017}
-      \verb{doi}
-      \verb 10.48550/arXiv.1705.07809
-      \endverb
     \endentry
   \enddatalist
 \endrefsection

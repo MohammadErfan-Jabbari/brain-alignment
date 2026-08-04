@@ -1,26 +1,25 @@
 \section{Discussion}
 \label{sec:discussion}
 
-Considered together, the role-specific verdicts in Table~\ref{tab:results-status} expose a separation that a positive controlled brain-predictivity score cannot resolve.
+The combined results separate controlled brain predictivity and successful student manipulation from a brain-specific training benefit.
 Controlled brain predictivity establishes that trained \ac{lm} representations contain information useful for predicting recorded \ac{fmri} responses.\evd{E002}\evd{E006}
 Supported target uptake and retained-student movement establish that the synthetic-response objective altered the saved student.\evd{E016}\evd{E025}
 These results do not by themselves establish brain-response-specific attribution, biological transfer, or practical utility.
 The recorded-response and synthetic-response routes lose support at different transitions before a participant-general training benefit is established.
-This section interprets those route-specific losses, examines their compatibility with positive prior studies, and derives bounded recommendations for the order of future evidence.
 
 \subsection{Where support is lost across the two intervention routes}
 \label{sec:discussion-failure}
 
-After controlled predictivity and observed teacher--student headroom establish an opportunity, the recorded-response route first loses support at the intervention stage.
+After controlled brain predictivity and observed teacher--student headroom establish an opportunity, the recorded-response route first loses support at the intervention stage.
 Training with participant-averaged responses produced positive trends for a fixed shared target, but those comparisons did not demonstrate a reliable pairing advantage at the shared-fold inference unit.
 Averaging can strengthen measurement of shared response structure, but it changes the estimand and does not create participant replicates.
 When responses and technical repetitions were aggregated within participants, correct stimulus--response pairing did not demonstrate a participant-general advantage.
-The tested variants narrow only specific rescue explanations: greater adapter rank did not induce stronger movement, and the contrastive, naturalistic, and full-parameter analyses bound only their tested loss, data, and optimization regimes.
+The tested variants narrow only specific alternative explanations: greater adapter rank did not induce stronger movement, and the contrastive, naturalistic, and full-parameter analyses bound only their tested loss, data, and optimization regimes.
 They do not establish that every recorded target or training procedure would fail.
-The later utility evaluation also lacked a demonstrated prerequisite alignment change, so it could not estimate the payoff of a reliably induced brain-response-specific change.\evd{E003}\evd{E005}\evd{E008}\evd{E009}\evd{E011}\evd{E013}\evd{E014}\evd{E015}\evd{E017}
+The later utility evaluation also lacked a demonstrated prerequisite change in controlled brain predictivity, so it could not estimate the payoff of a reliably induced brain-response-specific change.\evd{E003}\evd{E005}\evd{E008}\evd{E009}\evd{E011}\evd{E013}\evd{E014}\evd{E015}\evd{E017}
 
 The synthetic-response route first loses support at its exact-target prerequisite.
-The unique linear predictivity of the PCA-50 target representation did not meet the inherited internal continuation rule, while its advantage over the frozen row-twin control remained unresolved.\evd{E030}
+The unique linear predictivity of the 50-component \ac{pca} target representation did not meet the inherited internal continuation rule, while its advantage over the frozen row-twin control remained unresolved.\evd{E030}
 Later target uptake and retained-student movement show that training altered the saved student while measured \ac{lm} quality remained within the declared margin.\evd{E016}\evd{E025}
 These manipulation results answer whether training changed the student.
 They do not change the earlier measurability verdict or establish that brain-response content caused the retained change.
@@ -59,22 +58,23 @@ Its contribution is to keep measurement and manipulation distinct from attributi
 Whether materially different prior results would pass those additional stages remains an open empirical question.
 Section~\ref{sec:discussion-design} next turns this claim boundary into design recommendations for future brain-response-guided training.
 
-\subsection{Design implications for future brain-guided training}
+\subsection{Design implications for future brain-response-guided training}
 \label{sec:discussion-design}
 
-The route-specific losses point to route-specific design changes.
+The recorded-response and synthetic-response losses require different design changes.
 For recorded-response training, response construction and inference must match the intended claim.
-Targets averaged across participants answer a fixed shared-target question.
-Participant-general claims instead require participant-specific effects after folds, seeds, and other technical repetitions are aggregated within each person.
+A target averaged across participants estimates the shared response.
+Participant-general claims instead require effects calculated separately for each participant after folds, seeds, and other technical repetitions are aggregated within that person.
 The two estimands are complementary, not interchangeable.\evd{E005}\evd{E008}\evd{E014}
 
 For synthetic-response training, the observed losses justify moving several checks before expensive optimization.
-The exact transformed target should first be evaluated on the intended recorded-response substrate using held-out data, the planned nuisance model and readout, a frozen row-twin control, the inference unit required by the claim, and a predeclared assay-specific continuation criterion.
+The exact transformed target should first be evaluated on held-out data from the intended recorded-response substrate.
+That assay should use the planned nuisance model and readout, a frozen row-twin control, the inference unit required by the claim, and a predeclared assay-specific continuation criterion.
 The frozen control tests sentence--target pairing; content attribution requires a separately trained text-derived auxiliary-control arm.
 Before training, that auxiliary target should be checked for comparable scale, covariance geometry, nuisance predictability, baseline recoverability, remaining headroom, and held-out learnability.
 Initial auxiliary losses and gradient scales should also be retained so that optimization pressure can be audited directly.\evd{E026}\evd{E030}
 Passing these checks would establish a better-controlled opportunity under the declared assay, not attribution or transfer.
-Not meeting the PCA-50 linear criterion would still not rule out every nonlinear intervention.
+Not meeting the 50-component \ac{pca} linear criterion would still not rule out every nonlinear intervention.
 
 Once target uptake and retained-student movement are supported at acceptable \ac{lm} quality, evaluation must move beyond the optimized target.
 Attribution requires comparison with the text-derived auxiliary-control arm together with audits of post-training learnability and movement.

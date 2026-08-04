@@ -18,19 +18,17 @@
 
 \begin{abstract}
 
-Model representations of an \ac{lm} can predict human brain responses to language, a measurable correspondence called brain alignment.
-Observing this alignment does not show that brain responses can improve model training.
-This thesis tests whether brain responses can improve \ac{lm} compression by guiding a distilled student toward representations that remain effective for language and become more predictive of brain responses.
-We test two distillation approaches: one using recorded \ac{fmri} responses and another using a separate model to generate synthetic brain responses from text.
-We confirmed that middle-layer activations from pretrained \acp{lm} help predict \ac{fmri} responses to new sentences, even after accounting for simpler linguistic features of those sentences.
-After ordinary distillation, the student's middle-layer activations were less predictive of brain responses than the teacher's.
-Because the student was also a worse \ac{lm}, the source of this gap remained unclear.
-Training with recorded responses did not reliably improve the student's ability to predict brain responses across participants.
-Training with synthetic brain responses changed the student's model representations while keeping language quality within our prespecified tolerance, and made the synthetic responses easier to recover from those representations.
-Yet a separate post-hoc linear-readout retention test did not establish that the synthetic-target student retained more information about the synthetic responses than a student trained by ordinary \ac{kd}.
-Because the alternative target differed too much from the synthetic brain-response target, we could not determine whether the changes were specific to synthetic brain responses.
-Direct improvement over ordinary distillation on independently recorded \ac{fmri} responses was near zero across nine participants.
-Thus, the tested methods did not demonstrate a reliable, brain-specific training benefit across participants, but they do not show that brain-guided training is universally ineffective.
+Language-model representations can predict recorded \ac{fmri} responses to language, but this brain alignment does not show that brain responses can improve model training.
+This thesis tested whether recorded \ac{fmri} responses or synthetic brain responses generated from text could give a distilled student a reliable, brain-specific advantage.
+The evidence standard required controlled brain predictivity and quality-aware headroom, evidence that training changed the retained student at acceptable \ac{lm} quality, improvement over a route-appropriate control, and biological transfer to independently recorded responses with participants as the inference units.
+Synthetic targets also had to satisfy exact-target measurability.
+Controlled regional and naturalistic assays supported controlled brain predictivity, and ordinary distillation left observed teacher--student headroom, although \ac{lm} quality remained a competing explanation.
+Recorded-response training did not reliably improve participant-level controlled brain predictivity over permuted-response training.
+Synthetic-response training produced target uptake and retained-student movement within the prespecified \ac{lm}-quality tolerance, but the exact target did not satisfy the declared linear measurability criterion.
+The available text-derived auxiliary-control arm could not identify brain-response-specific attribution, and direct participant-level biological transfer over ordinary distillation was not demonstrated.
+The completed bounded practical-utility evaluation in the recorded-response route also did not support a brain-specific utility claim.
+The tested routes therefore did not establish a reliable, brain-specific training advantage.
+They instead localize where each evidence chain first loses support and define the evidence needed for stronger tests; they do not show that brain-response-guided training is universally ineffective.
 
 \end{abstract}
 \acresetall

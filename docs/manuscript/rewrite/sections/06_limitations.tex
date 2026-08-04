@@ -1,42 +1,51 @@
 \section{Limitations}
 \label{sec:limitations}
 
+Section~\ref{sec:discussion} localized where support stopped in the recorded-response and synthetic-response routes.
+The reach of those conclusions is bounded by population and measurement coverage, identification and inference, and the intervention and utility space searched.
+
 \subsection{Population, data, and measurement scope}
 
-The biological coverage is limited to English-language \ac{fmri} responses from the studied cohorts.
-The sentence experiments summarize responses within fixed left-hemisphere language \acp{roi}, while the naturalistic assay uses reliability-selected voxels from a few deeply sampled story listeners.
-Some training targets average responses across participants to emphasize a shared stimulus-locked component; the participant-first analyses instead retain one effect per person.
-The conclusion therefore concerns these isolated-sentence and spoken-story response summaries, not language processing across the brain or population at large.\evd{E002}\evd{E006}\evd{E008}\evd{E025}
+The biological evidence is limited to \ac{fmri} responses to English-language stimuli from the studied cohorts.
+The sentence-level assays summarize responses within fixed left-hemisphere language \acp{roi}, while the naturalistic voxelwise predictivity assay uses reliability-selected voxels from one deeply sampled story listener.
+Some recorded-response targets average responses across participants to emphasize a shared stimulus-locked component; the participant-level analyses instead retain one aggregated effect per person.
+The conclusions therefore concern these isolated-sentence and spoken-story response summaries, not language processing across the whole brain or population at large.\evd{E002}\evd{E006}\evd{E008}\evd{E025}
 
-The experiments do not cover neural modalities with finer temporal resolution, populations that differ in language background or clinical and developmental status, non-English or nonlinguistic stimuli, or a broader range of reading, listening, and interactive contexts.
-They also do not test whether information unavailable to the declared linear ridge readouts is accessible through nonlinear maps or at different temporal scales.
-Because modality, temporal precision, population, and stimulus structure can change both the target and the intervention, the local failures do not extend to those untested regimes.\evd{E006}\evd{E030}
+The study does not cover other brain-recording modalities, including those with finer temporal resolution, populations that differ in language background or clinical and developmental status, non-English or nonlinguistic stimuli, or broader reading, listening, and interactive contexts.
+It also does not test whether information unavailable to the declared linear ridge readouts is accessible through nonlinear mappings or at different temporal scales.
+These untested settings may change what brain information is measured and how that information can enter training.
+The route-specific conclusions therefore do not extend to these settings.\evd{E006}\evd{E030}
 
 \subsection{Identification and inference limitations}
 
-Identification is conditional on the declared nuisance sets, controls, and dependence structure.
-Unique predictivity is only beyond the included nuisance features, not beyond all stimulus-derived information, and the trained-versus-untrained contrast establishes learned predictive access rather than a shared mechanism.\evd{E002}\evd{E006}\evd{E025}
-The text-derived auxiliary-control arm mismatches target predictability, geometry, learnability, and induced movement, so its cross-target contrast cannot identify brain-response content.\evd{E026}
-Exact-target measurability is further restricted to the \ac{pca}-50 linear assay, and specificity against the frozen row-twin control remains unresolved.\evd{E030}
-Shared folds, stories, voxels, and training seeds are dependent measurements rather than population replicates; consequently, participant-general claims remain limited to analyses that aggregate them within person.
+What each result identifies depends on the nuisance set, comparator, readout, and inference unit.
+Unique predictivity excludes only the included nuisance features, while the trained-versus-untrained contrast establishes learned predictive access rather than a shared biological or computational mechanism.\evd{E002}\evd{E006}
+The text-derived auxiliary-control arm differs from the synthetic target in predictability, geometry, learnability, and induced movement, so its cross-target contrast cannot identify the contribution of brain-response content.\evd{E026}
+Exact-target measurability is restricted to the 50-component \ac{pca} linear assay, and specificity against the frozen row-twin control remains unresolved.\evd{E030}
+Folds, stories, voxels, and training seeds are dependent technical measurements that must be aggregated within each participant before population inference.\evd{E008}\evd{E025}
+Even after this aggregation, the fixed or shared stimulus sets do not support generalization to all language stimuli.
+Appendix~\ref{app:inference} formalizes these identification and dependence boundaries.
 
-The participant intervals disfavor effects at the declared continuation scales in the tested cohorts, but they do not establish exact zero.
-For recorded-response pairing, the participant interval is \result{e008_ci}, far below the earlier averaged-response trend while still including zero.\evd{E008}
-For the synthetic-response comparison, the preregistered relative upper bound is \result{e025_participant_ucb}, below the internal \result{e030_practical_threshold} continuation scale, although the comparator prevents attribution to brain-response content; the direct target-trained-versus-\ac{kd} interval is \result{e025_tribe_kd_ci}.\evd{E025}\evd{E026}
-The exact-target unique-increment interval is \result{e030_target_unique_ci}, whose simultaneous upper endpoint is also below that inherited scale.\evd{E030}
-These bounds disfavor participant-average intervention effects and target-measurability increments of the prespecified size under the tested assays, while remaining compatible with smaller effects, mixed participant responses, and effects in other cohorts.
+Within those design bounds, the participant-level and exact-target intervals reported in Sections~\ref{sec:results-recorded}, \ref{sec:results-predicted-identification}, and \ref{sec:results-predicted-transfer} disfavor the tested pairing, transfer, and target-measurability contrasts at the relevant internal continuation scales.
+They do not establish that the corresponding effects are exactly zero.
+The synthetic-response transfer contrast remains conditional on the non-identifying auxiliary comparator, while exact-target specificity against the frozen row-twin control remains unresolved.
+Smaller average contrasts across participants, heterogeneous participant effects, and effects in other cohorts remain compatible with the evidence.\evd{E008}\evd{E025}\evd{E026}\evd{E030}
 
 \subsection{Intervention and utility scope}
 
 The intervention search was diagnostic rather than exhaustive.
-It did not jointly explore a broad range of student scales and architectures, objective families, loss weights, schedules, data volumes, target constructions, or participant-personalization strategies.
-Increasing adapter capacity at a fixed loss weight did not create a stronger effective manipulation, and the contrastive, voxelwise, and full-parameter variants close only their tested parameterizations and data regimes.\evd{E011}\evd{E013}\evd{E017}
-The conclusion therefore localizes failure within the executed search rather than claiming that a different scale, target, personalized objective, or optimization schedule cannot succeed.
+The central synthetic-response route tested a GPT-2 Small student paired with a GPT-2 Medium teacher, representing one teacher--student scale pairing within one architecture family.\evd{E016}
+Across both routes, the study did not jointly explore broader student architectures, objective families, loss weights, schedules, data volumes, target constructions, or participant-personalization strategies.
+The executed adapter-capacity, contrastive, voxelwise, and full-parameter variants inform only their tested parameterizations and data regimes.\evd{E011}\evd{E013}\evd{E017}
+Section~\ref{sec:results-recorded} and Appendix~\ref{app:secondary} report the individual variant designs and dispositions.
+Different model scales, targets, objectives, architectures, and optimization procedures remain open.
 
-Practical utility was also sampled through a narrow set of endpoints.
-Perplexity served both as a language-quality control and as the primary out-of-domain utility measure, so the experiments do not exhaust task accuracy, calibration, robustness, sample efficiency, or deployment-specific value.\evd{E009}
-The Negi-style experiment is a scoped lever diagnostic because protocol and substrate differences prevent a faithful reproduction of the source study \autocite{negi2025}\evd{E019}.
-The reduced Moussa-style experiment is a weak single-participant non-reproduction of only the local setup \autocite{moussa2025,moussa2025b}\evd{E022}.
-Neither result refutes its source study.
-The gaze route stops before its planned intervention, and the shared-response route stops at a failed instrument.\evd{E020}\evd{E024}
-Accordingly, the evidence licenses no brain-specific practical-utility claim for the completed routes, but it does not establish that every practical endpoint would be unchanged after a successfully identified biological intervention.
+Section~\ref{sec:results-utility} evaluates practical utility through a narrow set of endpoints.
+Perplexity served both as a language-quality control and as the primary out-of-domain utility measure, so the study does not exhaust task accuracy, calibration, robustness, sample efficiency, or deployment-specific value.
+The recorded-response route did not demonstrate the change in controlled brain predictivity required to interpret its completed perplexity comparison as brain-specific utility.\evd{E009}
+No synthetic-response utility test was run.
+Sections~\ref{sec:results-predicted-identification} and \ref{sec:results-predicted-transfer} report that exact-target measurability did not meet its internal continuation criterion and that participant-level biological transfer was not demonstrated.\evd{E025}\evd{E030}
+The supporting studies summarized in Appendix~\ref{app:secondary} tested narrow design levers, stopped before intervention, or stopped because the planned measurement was unusable.\evd{E019}\evd{E020}\evd{E022}\evd{E024}
+They therefore do not broaden the set of completed endpoints that identify brain-specific utility.
+No completed route supports a brain-specific practical-utility claim under the tested procedures.
+Practical effects at untested endpoints after a successfully identified biological intervention remain open.

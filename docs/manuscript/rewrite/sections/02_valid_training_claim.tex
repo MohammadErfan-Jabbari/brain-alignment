@@ -117,18 +117,18 @@ The vision result is instructive: shuffled targets reproduce the clean-accuracy 
 Positive results should therefore be retained within the claims supported by their designs, while attribution to brain-response content must be limited to the alternative explanations that their controls rule out.
 
 Privileged-information and feature-distillation studies provide a competing explanation for any benefit from training with brain responses.
-A dense training-only target can help by emphasizing distinctions useful to the student or by making optimization easier, regardless of whether the target contains brain-response content.
+A dense training-only target may help by emphasizing distinctions useful to the student or, as an intervention hypothesis, by making optimization easier, regardless of whether the target contains brain-response content.
 Its value depends on the information carried by the target, the student's capacity, and how the teacher and student representations are matched \autocite{lopezpaz2016,saadi2025}.
 An improvement from a brain-response target therefore requires comparison with a similarly learnable text-derived auxiliary target under the same \ac{lm} objective before it can be attributed specifically to brain-response content.
 
 Measurement-validity research supplies separate requirements for evaluating the student after training.
-Post-training brain predictivity must be measured with leakage-resistant splits, nuisance controls, and an inference unit appropriate to the claim \autocite{hadidi2026,lage2019,jia2026}.
+Post-training brain predictivity must be measured with leakage-resistant splits, nuisance controls, and an inference unit appropriate to the claim \autocite{hadidi2026,lage2019,jia2026,lazic2010}.
 Reduced auxiliary loss during training cannot replace this fresh evaluation.
 Compression studies further show that pruning or quantization method and model scale can change brain predictivity without brain-response training \autocite{oota2026}.
 An intervention comparison must therefore separate the effect of the brain-response objective from changes in \ac{lm} quality and must evaluate the retained student rather than reuse its training objective.
 
 The unresolved pre-results question is therefore narrower than whether training with brain responses can change a model.
-For a fixed smaller student trained by ordinary \ac{kd}, do recorded \ac{fmri} responses or synthetic brain responses generated from text provide an incremental, brain-specific advantage over the appropriate permuted or text-derived control at comparable \ac{lm} quality?
+For a fixed smaller student trained by ordinary \ac{kd}, do recorded \ac{fmri} responses or synthetic brain responses generated from text provide an incremental, brain-specific advantage over the appropriate permuted-response or text-derived auxiliary control at comparable \ac{lm} quality?
 The next subsection states the evidence required to support that claim.
 
 \subsection{Evidence standard for a brain-specific training advantage}
@@ -137,7 +137,7 @@ The next subsection states the evidence required to support that claim.
 Figure~\ref{fig:evidence-chain} separates four roles in the evidence chain: opportunity prerequisites, manipulation checks, brain-response-specific attribution, and endpoint evidence.
 In the figure, stages 1--3 are opportunity prerequisites, stages 4--5 are manipulation checks, stage 6 tests brain-response-specific attribution, and stages 7--8 test biological transfer and external utility.
 All intervention routes first require controlled brain predictivity and quality-aware headroom.
-Routes using synthetic brain responses require one additional prerequisite: the exact synthetic target must predict independently recorded \ac{fmri} responses beyond nuisance features and the declared frozen-generator control; routes using recorded \ac{fmri} responses as training targets bypass this check.
+Routes using synthetic brain responses require one additional prerequisite: the exact synthetic target must predict independently recorded \ac{fmri} responses beyond nuisance features and the declared frozen row-twin control; routes using recorded \ac{fmri} responses as training targets bypass this check.
 
 \begin{figure}[H]
   \centering
@@ -152,7 +152,7 @@ Routes using synthetic brain responses require one additional prerequisite: the 
   ]
     \node[opportunity] (measure) {\textbf{1. Controlled brain predictivity}\\[-1mm]\footnotesize Recorded responses are predicted beyond controls};
     \node[opportunity, right=3mm of measure] (headroom) {\textbf{2. Quality-aware headroom}\\[-1mm]\footnotesize A brain-predictivity gap remains at comparable \ac{lm} quality};
-    \node[opportunity, right=3mm of headroom] (target) {\textbf{3. Exact-target measurability}\\[-1mm]\footnotesize Synthetic target exceeds nuisance and frozen-generator controls};
+    \node[opportunity, right=3mm of headroom] (target) {\textbf{3. Exact-target measurability}\\[-1mm]\footnotesize Synthetic target exceeds nuisance and frozen row-twin controls};
     \node[manipulation, right=3mm of target] (uptake) {\textbf{4. Target uptake}\\[-1mm]\footnotesize A fresh readout recovers the target beyond ordinary \ac{kd}};
     \node[manipulation, below=5mm of uptake] (movement) {\textbf{5. Retained-student movement}\\[-1mm]\footnotesize Retained change exceeds ordinary \ac{kd} at comparable \ac{lm} quality};
     \node[attribution, left=3mm of movement] (attribute) {\textbf{6. Brain-response attribution}\\[-1mm]\footnotesize Effect exceeds the route-appropriate control};

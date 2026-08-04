@@ -6,7 +6,7 @@ aliases: [E030]
 
 # Experiment - E030: exact-substrate TRIBE transport diagnostic
 
-**Created:** 2026-07-21 · **Status:** RESULT MECHANICALLY VERIFIED; scientific framing awaits Erfan confirmation · **Mode:** working
+**Created:** 2026-07-21 · **Status:** COMPLETE; mechanically verified and author-confirmed on 2026-07-22 · **Mode:** working
 **Direction:** Cheap mechanism-localization gate for the methodological/falsification conference route in [D057](../decisions/decisions.md). It does not reopen Package C.
 **Predecessors:** [E016](E016_tribe-synthetic-brain-targets.md) for the text-only TRIBE target and saved students, [E025](E025_participant-e016-biological-transfer.md) for the exact Tuckute endpoint and participant-first null, and [E026](E026_tribe-textfeat-target-comparability.md) for the failed cross-target identification control.
 
@@ -218,7 +218,7 @@ The first post-seal acquisition attempt stopped at batch `0:32` before publishin
 
 The corrected prospective bundle had semantic SHA-256 `2666505f679f5737f3d5c723fd791304b3965435ee4b6e91bdb05d431f40bf71` and file SHA-256 `624fc21368f71c6272bebc94c4cf7b2865fe79745481895ee94c77d6da0b2167`. The exact oracle report SHA-256 was `4db7efb9ff675c53fadc313d59c7a41a58a91dfb9f67881d8f1cb75a2eab0158`; readiness v2 passed every pre-result gate at SHA-256 `119eb3d2e92f51ac858f56b17feb94ac5c670b343b2e57e835477a62e92ac4a3`.
 
-The successful retry generated the finite float32 target at frozen shape `1000 x 20484`. The target SHA-256 was `a1fb8667e5c27a7e9bde35cb5f3a4f24622ad13c3b79e91a884c119ef3b65233`, the target-manifest SHA-256 was `c17784f13ca9675c5696703986d5f645b4f6966b02ccffa79626d4a0f4377f08`, and the acquisition-manifest SHA-256 was `c594c0d3f3e5478253054d229bc2fe664f71af231e63b1e61d810ba2e8fc8c17`. Target generation used `551.892` process-CPU seconds, `385.204` worker wall seconds, and peak RSS `9,372,592` KiB.
+The successful retry generated the finite float32 target at frozen shape `1000 x 20484`. The canonical target path is `outputs/E030/tribe_tuckute_condition-b_n1000_full.npz`, with SHA-256 `a1fb8667e5c27a7e9bde35cb5f3a4f24622ad13c3b79e91a884c119ef3b65233`. The target-manifest SHA-256 was `c17784f13ca9675c5696703986d5f645b4f6966b02ccffa79626d4a0f4377f08`, and the acquisition-manifest SHA-256 was `c594c0d3f3e5478253054d229bc2fe664f71af231e63b1e61d810ba2e8fc8c17`. Target generation used `551.892` process-CPU seconds, `385.204` worker wall seconds, and peak RSS `9,372,592` KiB.
 
 The one-shot scorer produced exactly `270` C1, `360` C2, and `6,480` C3 fold rows. Raw-score SHA-256 was `cebea58cd7f7d82908b26a25714a1d256ab674a7b08d9a18d94835b0f7fcb6e4`; frozen-analysis SHA-256 was `43a4f3b01641072345149e651cdd0b1ae0c903bb74366db2006f31b89d8dd818`. Every hash, source, grid, finite-value, coordinate-floor, participant-grid, inherited-gate, target-PCA-reuse, and student-PCA-reuse validity check passed. Scoring used `2,667.244` process-CPU seconds, `371.145` wall seconds, and peak RSS `1,366,092` KiB, within every frozen limit.
 

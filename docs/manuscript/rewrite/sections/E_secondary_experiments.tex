@@ -1,113 +1,229 @@
-\section{Supporting Analyses, Failed Instruments, and Future Designs}
+\section{Supporting Analyses and Stopped Routes}
 \label{app:secondary}
 
-The experiments below answer narrower questions than the main result chain.
-Some validate an implementation, some test a proposed rescue mechanism, and some stop because a measurement or design prerequisite fails.
-A stopped route is not converted into a negative intervention result, and an unexecuted design contributes no empirical evidence.
+This appendix separates secondary evidence from work that did not reach an interpretable scientific test.
+The distinction matters because a working pipeline, a restricted local diagnostic, and a stopped route answer different questions.
+Only executed analyses can bear on the thesis claims, and even then only within the scope of the design that produced them.
+Table~\ref{tab:secondary-status} states the status language used below.
+Appendix~\ref{app:evidence-provenance} provides the corresponding provenance records, while Appendix~\ref{app:sensitivities} reports the full numerical results and sensitivity analyses.
+The headline empirical verdicts remain in Section~\ref{sec:results}.
 
-\subsection{Pipeline validation and apparatus checks}
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.04}
+  \caption{Evidence-status categories used in this appendix.}
+  \label{tab:secondary-status}
+  \begin{tabularx}{\textwidth}{
+    @{}
+    >{\raggedright\arraybackslash}p{27mm}
+    >{\raggedright\arraybackslash}p{35mm}
+    >{\raggedright\arraybackslash}X
+    >{\raggedright\arraybackslash}p{38mm}
+    @{}
+  }
+    \toprule
+    Category & Reader question & Permitted contribution & Excluded claim \\
+    \midrule
 
-\paragraph{Synthetic end-to-end pipeline validation.}
-E001 combined real Pereira sentences \autocite{pereira2018} with a synthetic response constructed from teacher features, named nuisance variables, and noise.
-It exercised the entire initial path: ordinary and target-guided \ac{kd}, the temporary target head, middle-layer extraction, contiguous held-out splitting, fold-local ridge fitting, matched-rank static and contextual feature blocks, nuisance subtraction, and paired aggregation over multiple optimization seeds.
-The expected teacher--student ordering, small nuisance contribution, stable raw-versus-unique behavior, and deterioration under excessive target weight all behaved coherently. \evd{E001}
+    Pipeline validation
+    & Did the pipeline behave correctly when the expected signal was known?
+    & Supports implementation and analysis checks.
+    & No claim about recorded brain responses or training benefit. \\
 
-Those observations validate plumbing rather than a scientific hypothesis.
-The response was synthetic and partly generated from the same teacher features that ordinary \ac{kd} already encourages the student to preserve.
-The run therefore cannot show that an \ac{lm} predicts recorded activity, that the chosen nuisances suffice on real stimuli, or that a target loss improves a student.
-Its lasting contribution is narrower: it exposed a duplicate configuration key, verified that the evaluation tail was excluded from target-guided training, and showed that the analysis did not automatically reward the target arm.
-E002, which substituted recorded responses and trained--untrained controls, begins the scientific evidence.
+    \specialrule{0.15pt}{0.3ex}{0.3ex}
 
-\subsection{Response averaging and intervention robustness}
+    Supporting analysis
+    & Does an alternative specification change a settled interpretation?
+    & Tests a named objection within its recorded design.
+    & No broader claim beyond the tested specification. \\
 
-\paragraph{Response averaging changes both reliability and the estimand.}
-E010 initially varied the number of participants contributing to a nested average and appeared to show a rising intervention contrast.
-Because every larger average contained the smaller one, participant identity, response reliability, and target construction changed together.
-The corrected random-subset analysis within E010 replaced that sequence with random participant subsets; their overlapping distributions did not preserve a stable monotone relation between participant count and the intervention contrast.
-The nested curve therefore does not identify a causal averaging dose. \evd{E010}
+    \specialrule{0.15pt}{0.3ex}{0.3ex}
 
-E014 held the frozen representation and encoding procedure fixed while averaging increasing numbers of response targets.
-Controlled predictivity rose, as expected when idiosyncratic and measurement noise is suppressed and the shared stimulus-evoked component is emphasized.
-This is a legitimate signal-to-noise benefit for a group-response estimand, not evidence that averaging manufactures a false score.
-It also cannot supply participant replication or rescue the individual-response intervention tested by E008. \evd{E014}
+    Restricted local diagnostic
+    & Does a reduced local implementation recover a reported effect?
+    & Reports whether the effect appears under the available local conditions.
+    & No reproduction, refutation, or cross-study equivalence claim. \\
 
-\paragraph{The tested intervention rescues do not overturn the participant result.}
-E005 varied auxiliary-loss strength against the participant-averaged target.
-Near-quality-matched settings retained only a fold-sensitive trend; the setting with the clearest fold-level increase materially degraded language quality.
-It therefore describes a quality--alignment trade-off on a group-average endpoint, not a participant-general gain. \evd{E005}
+    \specialrule{0.15pt}{0.3ex}{0.3ex}
 
-E011 tested the insufficient-adapter-capacity objection by increasing \ac{lora} rank and training duration.
-The effective representation movement did not become stronger, and the participant estimate remained centered near zero; this closes the tested capacity repetition, not every higher-capacity intervention.
-E013 changed the loss geometry to a symmetric contrastive objective at the five-\ac{roi} target and separately tried a naturalistic voxelwise target.
-The contrastive participant estimate remained null, while the voxelwise path failed its real-over-base manipulation check and its comparison with the matched permuted-target arm, so the latter is a lever failure rather than a biological null.
-E017 then replaced adapters with full-parameter tuning: an aggressive schedule caused forgetting, and a gentler quality-preserving three-participant probe did not establish a target-specific gain.
-Together these experiments weaken the specific rescue hypotheses tied to the tested adapter-capacity setting and loss form, the attempted voxelwise induction route, and adapter-only parameterization.
-They do not show that all stronger objectives fail, and none supplies a valid positive participant-level contrast that would change E008. \evd{E008}\evd{E011}\evd{E013}\evd{E017}
+    Failed instrument
+    & Could the proposed measurement support the intended inference?
+    & Identifies why the instrument was not interpretable.
+    & No biological null from a measurement failure. \\
 
-\subsection{External and cross-modal probes}
+    \specialrule{0.15pt}{0.3ex}{0.3ex}
 
-\paragraph{Local Negi-style intervention diagnostic.}
-E019 implemented a faithful-as-feasible version of the differentiable temporal prediction head and target-specificity logic used by Negi et al. \autocite{negi2025}.
-On the available LeBel data \autocite{lebel2023} and decoder student, gentle tuning produced no stable real-target advantage, the intended quality control was not in fact quality matched, and stronger schedules degraded encoding or language quality.
-The result is useful corroboration that failure was not confined to the thesis's original five-\ac{roi} \ac{mse} objective. \evd{E019}
+    Precondition-stopped route
+    & Did the design satisfy the prerequisite required before intervention?
+    & Records why stopping prevented an uninterpretable downstream attribution claim.
+    & No result for the intervention that was not run. \\
 
-It is not a reproduction or refutation of the source study.
-The local test changes the participant pool, stimulus and response substrate, encoder-versus-decoder architecture, language setting, training scale, and parts of the temporal implementation.
-It also never obtained the positive local lever needed for the planned matched-quality analysis.
-The supported conclusion is only that this Negi-style route did not provide a target-specific rescue under the tested local controls.
+    \specialrule{0.15pt}{0.3ex}{0.3ex}
 
-\paragraph{Reduced Moussa-style speech pilot.}
-E022 started the pretrained and brain-tuned arms from the same Wav2Vec2-base checkpoint and asked whether brain tuning first produced a reliable phoneme-classification gain before constructing a matched-quality shrink test.
-The reduced, single-participant LeBel setup did not cross its prospective phoneme-gain criterion, although the \ac{fmri} target loss fell, confirming that adaptation ran.
-The downstream matched-quality specificity test was therefore correctly left unbuilt: without a reproduced positive, there was no gain whose specificity could be tested. \evd{E022}
+    Analysis-only or prospective design
+    & Was a future test screened or specified without opening its outcome?
+    & Clarifies the intended identifying question and activation criterion.
+    & No empirical evidence for the proposed mechanism. \\
 
-The source study used a larger multi-participant speech protocol, more neural data, different timing and training details, and several speech-model families \autocite{moussa2025}.
-E022 is consequently a weak local non-reproduction, not evidence against the published result.
-E019 and E022 together show that the local apparatus did not furnish an external positive demonstration; they do not settle the broader literature.
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
-\subsection{Cognitive and privileged-target routes}
+\subsection{Pipeline validation and scientific scope}
 
-\paragraph{The shared-response reference was not a usable ceiling.}
-E020 asked whether a leave-one-participant-out response average could approximate \(\Eys\), so that residual predictivity would isolate structure beyond the shared stimulus-predictable response.
-The reference was too unreliable, and temporal leakage and autocorrelation preserved apparent residual signal.
-With the cleanest gapped and semantically controlled construction, the trained--untrained residual advantage disappeared.
-This is a reference-reliability and attribution failure: it invalidates this empirical ceiling instrument but neither proves participant-specific residual structure nor establishes a universal ceiling. \evd{E020}
-Adding more stories would not repair the small participant reference or identify the latent conditional mean, so the broader build was stopped.
+The end-to-end pipeline was first tested in a setting where the expected signal was known.
+Real Pereira sentences \autocite{pereira2018} were paired with synthetic responses generated from teacher features, named nuisance variables, and noise.
+The test exercised ordinary and target-guided \ac{kd}, the temporary target head, middle-layer extraction, the contiguous held-out split, fold-local ridge fitting, nuisance subtraction, and aggregation across optimization seeds.
+The expected teacher--student ordering appeared, the nuisance component remained small, and excessive target weight degraded the result rather than receiving an automatic advantage. \evd{E001}
 
-\paragraph{Reading-time content was not separated from target shape.}
-Raw and surprisal-residualized reading time initially appeared to yield similar frozen-probe learning advantages over simple shuffled or random controls.
-Those controls did not match the residual target's autocorrelation and marginal shape.
-The final phase-randomized control preserved those statistical properties while removing behavioral content and tied the reading-time residual.
-The supported result is therefore a generic signal-shape or regularization advantage, not a cognition-specific benefit.
-The sequence also replaced an early downstream metric that failed its positive control with a validated frozen probe, so the final failure is attributional rather than a claim that reading time contains no reliable signal. \evd{E021}
+These observations rule out several basic implementation failures.
+They show that the held-out evaluation tail was not used for target-guided training, that the scoring pipeline could recover a planted feature--response relation, and that the analysis did not reward every target-guided run by construction.
+They do not establish that an \ac{lm} predicts recorded brain responses, that the nuisance set is sufficient for real stimuli, or that a brain-response objective improves a student.
+The synthetic test therefore validates the end-to-end implementation, not the scientific claim.
 
-\paragraph{The gaze-first route failed its preconditions.}
-The planned \ac{lupi} intervention required a natural-reading gaze summary that was reliable, informative about relation labels, and evaluable with a leakage-free grouped split.
-Natural-reading gaze was reliable enough to measure but largely tracked sentence structure and remained uninformative about the label across linear, nonlinear, pooled-participant, and within-participant probes.
-Task-directed gaze was predictive, but that contrast was consistent with label or task-intent leakage rather than portable privileged information.
-The corpus also contained too few independent paragraph groups for a stable paragraph-disjoint learning curve.
-Because both signal informativeness and evaluation substrate failed before intervention, the multi-arm student build was correctly stopped and the untested \ac{eeg} branch received no verdict. \evd{E024}
+\subsection{Response averaging and recorded-response robustness}
 
-\subsection{Unexecuted future designs}
+Two averaging analyses addressed different questions.
+The first changed how many participants contributed to the intervention target.
+Because each target was rebuilt from a different participant subset, increasing the subset size also changed participant identity, response reliability, and target construction.
+After correcting the subset analysis, the apparent improvement did not form a stable monotonic dose--response curve.
+The result therefore does not identify a causal benefit of adding more participants to the training target. \evd{E010}
 
-\paragraph{Objective-specific shedding design.}
-E023 defines the quantity that the headroom screen could not identify: a \ac{kd} student's vertical residual below a same-lineage alignment--quality frontier, paired with ordinary fine-tuning from the same initialization.
-An analysis-only slope and knee screen found one lower-quality pilot region but did not establish the intended high-quality, locally flat regime.
-No paired training intervention was authorized.
-E023 therefore contributes a design for separating objective-specific loss from ordinary quality loss, not evidence that \ac{kd} has such an effect. \evd{E023}
+The second analysis held the frozen representation and encoding procedure fixed while averaging increasing numbers of recorded responses.
+Controlled brain predictivity increased as averaging suppressed idiosyncratic and measurement noise and emphasized the shared stimulus-evoked component.
+This is a valid signal-to-noise gain for a group-response estimand.
+It changes what is being predicted, however, and does not supply participant replication or rescue the individual-response intervention. \evd{E014}
 
-\paragraph{Reserved matched auxiliary-target design.}
-E027 was a reserved identifier for asking whether the neural proxy outperformed a geometry- and learnability-matched nonbrain target.
-It has no owning experiment record or authorized design.
-Had the branch activated, E026 implies that a valid comparator would also have needed to match optimization difficulty, initial gradients, and student movement without copying itemwise neural-proxy coordinates.
-E025 missed the participant-positive activation rule, and E026 showed why the saved text-feature target could not substitute for the missing control, so no E027 target was constructed or student trained. \evd{E025}\evd{E026}
+The remaining analyses tested whether specific design choices concealed a recorded-response benefit.
+Table~\ref{tab:recorded-robustness} maps each change to its objection and scope.
 
-\paragraph{Outcome-blind external-transfer designs.}
-E028 would test whether supervision from real training \ac{fmri} outperforms a phase-randomized shape twin and a geometry-calibrated nonbrain target on an independently measured cross-modal endpoint, following the external transfer setting of Vaidya et al. \autocite{vaidya2026}.
-Only protocol metadata and outcome-blind synthetic development tests were completed.
-The E028 development run opened no neural endpoint values, trained no target student, and scored no biological endpoint; the synthetic values validate plumbing only. \evd{E028}
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.04}
+  \caption{Recorded-response robustness analyses and their scope.}
+  \label{tab:recorded-robustness}
+  \begin{tabularx}{\textwidth}{
+    @{}
+    >{\raggedright\arraybackslash}p{29mm}
+    >{\raggedright\arraybackslash}p{38mm}
+    >{\raggedright\arraybackslash}X
+    >{\raggedright\arraybackslash}p{39mm}
+    @{}
+  }
+    \toprule
+    Objection & Design change & Supported disposition & Remaining open \\
+    \midrule
 
-E029 would ask whether a prospectively computed directional certificate predicts the sign and ordering of auxiliary-target transfer before biological outcomes are opened.
-It remains a design draft that has not received independent pre-execution review and is conditional on an informative E028 regime.
-Its deterministic algebra validator is not a result. \evd{E029}
-Reserved labels, outcome-blind development, and prospective designs matter for provenance and stopping discipline, but none enters the empirical verdict.
+    Auxiliary weight was poorly chosen.
+    & Repeated the recorded-response intervention over the tested weight range.
+    & No stable target-specific gain appeared within that range.\evd{E005}
+    & Other objectives or schedules could behave differently. \\
+
+    \specialrule{0.15pt}{0.3ex}{0.3ex}
+
+    Adapter capacity was too limited.
+    & Increased the tested low-rank adaptation capacity.
+    & The tested capacity increase did not recover the effect.\evd{E011}
+    & This does not test every stronger manipulation. \\
+
+    \specialrule{0.15pt}{0.3ex}{0.3ex}
+
+    Pointwise regression was the wrong loss.
+    & Replaced it with a contrastive response objective.
+    & The alternative loss did not produce a reliable target-specific benefit.\evd{E013}
+    & Other response objectives remain possible. \\
+
+    \specialrule{0.15pt}{0.3ex}{0.3ex}
+
+    Regional targets hid a voxelwise effect.
+    & Tested the available naturalistic voxelwise training procedure.
+    & The procedure did not establish the required manipulation.\evd{E013}
+    & The broader multi-participant full-parameter route was not built. \\
+
+    \specialrule{0.15pt}{0.3ex}{0.3ex}
+
+    Parameter-efficient tuning was too restrictive.
+    & Tested full-parameter tuning, including a gentler three-participant probe.
+    & Aggressive tuning caused forgetting; the gentler probe showed no reliable target-specific gain.\evd{E017}
+    & Three participants do not support population inference. \\
+
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+These analyses weaken the listed specific alternative explanations.
+They do not establish that every recorded-response objective must fail.
+Section~\ref{sec:results-recorded} owns the participant-level intervention verdict, and Appendix~\ref{app:sensitivities} reports the numerical variants.
+
+\subsection{Reduced external and cross-modal probes}
+
+External protocols were used as local diagnostics only when their decisive ingredients could be approximated with the available data and models.
+The standard is therefore narrower than reproduction: the question is whether a reported effect appears under the local conditions, not whether a reduced mismatch can confirm or refute the source study.
+
+The first diagnostic adapted the differentiable temporal-head and target-specificity logic of Negi et al. \autocite{negi2025} to the available LeBel responses \autocite{lebel2023} and decoder-only \acp{lm}.
+Under the gentle schedule, the retained representations changed little; stronger schedules caused severe language degradation.
+The local runs therefore did not establish a target-specific manipulation over their controls.
+The comparison nevertheless differs from the source study in population, response substrate, model family, language, training scale, and control construction.
+It is therefore a restricted local failure to establish the target-specific manipulation, not a reproduction or refutation of the published result. \evd{E019}
+
+The second diagnostic adapted a speech-based protocol from Moussa et al. \autocite{moussa2025}.
+Starting from the same Wav2Vec2-base model family, the design required a positive phoneme-prediction gain before constructing a matched-quality specificity test.
+In the reduced single-participant setup, target loss decreased but the phoneme-gain criterion was not met, so the downstream specificity comparison was not built.
+The source study used a larger, multi-participant setting with different timing and model choices.
+The result is thus a reduced local non-reproduction of the prerequisite effect, not evidence against the published claim. \evd{E022}
+
+Neither diagnostic supplied an external positive control for the present intervention pipeline.
+They narrow what the local pipeline recovered while leaving the external literature open under its original conditions.
+
+\subsection{Failed instruments and precondition-stopped routes}
+
+Three routes stopped because an upstream measurement or attribution condition failed.
+In each case, continuing to intervention would have produced a number without a defensible interpretation.
+
+The shared-response route asked whether the predictable group response could serve as a ceiling for participant-specific intervention effects.
+In principle, this reference estimates the expected response shared across participants for the same stimulus, $m(S)=\mathbb{E}[Y\mid S]$.
+In practice, the leave-one-participant reference was not reliable enough, while temporally adjacent samples preserved apparent residual predictivity through leakage and autocorrelation.
+Once a clean temporal gap was imposed, the controlled residual was bounded but could not close the ceiling question.
+The ceiling instrument therefore failed; the analysis does not show that participant-specific structure is absent or that a universal biological ceiling has been reached. \evd{E020}
+
+The reading-time route asked whether a cognitive target could provide a simpler intervention signal than \ac{fmri}.
+Raw and residual reading-time targets initially produced similar frozen-probe learning advantages over simple controls.
+A phase-randomized control preserved the target's marginal distribution and temporal structure, however, and matched those advantages.
+The design therefore did not isolate cognition-specific content from target shape.
+This attribution failure does not imply that reading time contains no useful signal; it means that the available contrast could not identify that signal. \evd{E021}
+
+The gaze route required three conditions before privileged-information training: a measurable target, evidence that it added information beyond text, and enough independent groups for leakage-resistant evaluation.
+Natural-reading gaze was measurable but not informative under the tested assay.
+Task-directed gaze was more predictable, but the signal could reflect task intent or label leakage, and the number of independent paragraph groups was too small for a reliable group split.
+The intervention therefore stopped at its preconditions.
+No corresponding claim was tested for \ac{eeg}. \evd{E024}
+
+Stopping at these failed prerequisites prevents later results from being interpreted as identified intervention effects.
+They identify why the proposed instruments could not answer their questions, but they do not turn measurement failure into a biological null.
+
+\subsection{Prospective designs without empirical evidence}
+
+The remaining routes specify questions that would be useful only after their activation conditions are met.
+They have no weight in the empirical verdicts of this thesis.
+
+The same-lineage alignment--quality design would compare models from one lineage along an alignment--quality frontier, then test paired ordinary fine-tuning where alignment changes while language quality remains approximately stable.
+An analysis-only slope-and-knee screen did not identify a high-quality flat regime that justified the intervention.
+No paired training test was authorized, so the screen contributes no evidence for or against objective-specific shedding. \evd{E023}
+
+The matched auxiliary-control design would ask whether any intervention benefit came from brain-response content rather than generic target geometry, learnability, optimization pressure, or retained-student movement.
+The planned control would match those properties while removing brain-response content.
+Its activation criterion was not met, and the saved text-derived auxiliary control was not valid for that role.
+No target or student from this branch supports a scientific comparison. \evd{E025}\evd{E026}
+
+The cross-modal falsification design would compare real training \ac{fmri}, a phase-randomized response control, and a geometry-matched control on an independent biological endpoint.
+The route remains on design hold because the exact external protocol depends on unavailable author artifacts; proceeding would require explicit authorization of a clearly labeled reimplementation.
+Only outcome-blind metadata and pipeline development were completed: no endpoint data were inspected, no student was trained, and no biological score was computed. \evd{E028}
+The planned analysis was intended to predict the sign and ordering of those outcomes before inspection.
+It remained contingent on an informative cross-modal regime; only its algebraic consistency check was completed, without independent review or execution. \evd{E029}
+
+These designs clarify what stronger tests would need to identify.
+They remain prospective and do not alter the thesis conclusions.

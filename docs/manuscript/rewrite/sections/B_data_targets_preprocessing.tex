@@ -1,107 +1,205 @@
 \section{Data, Responses, Targets, and Controls}
 \label{app:data-targets}
 
+This appendix specifies the data and target constructions behind the assays in Sections~\ref{sec:framework} and~\ref{sec:results}.
+It moves from recorded-response inclusion and aggregation, through nuisance features and fold-local preprocessing, to synthetic and text-derived targets and their controls.
+
 \subsection{Data inclusion and response construction}
 
-The Tuckute resource was acquired during silent sentence reading with 3-T \ac{fmri}, a 2.0-second \ac{tr}, and 2-mm isotropic voxels \autocite{tuckute2024}. \evd{E002}
-The controlled substrate is condition~B: 1,000 English sentences ordered by \texttt{item\_id}, with released \ac{bold} responses indexed by participant, sentence, and five left-hemisphere language \acp{roi} (\texttt{AntTemp}, \texttt{IFG}, \texttt{IFGorb}, \texttt{MFG}, and \texttt{PostTemp}).
-This repository does not reconstruct Tuckute voxel time series or refit the functional localizers.
-It inherits the released \texttt{response\_target}, for which each voxel was z-scored within scanning session before voxel responses were averaged inside an \ac{roi}; transformations here begin with condition selection, deterministic row ordering, and participant aggregation. \evd{E002}
-The controlled-measurement and first intervention experiments use a cellwise participant average over the original training \acp{uid} 848, 853, 865, 875, and 876.
-The group operation skips a missing contributor, but the resulting sentence-by-\ac{roi} matrix must be complete before it is scored.
-Participant-first analyses instead retain one response matrix per person.
-\ac{uid}~853 is excluded because 60 entries are missing and the five-\ac{roi} grid is incomplete; the valid units are \acp{uid} 797, 837, 841, 848, 856, 865, 875, 876, and 880.
-The inherited training-participant subgroup is therefore \{848, 865, 875, 876\}, and the held-out-participant subgroup is \{797, 837, 841, 856, 880\}.
-All analyses retain the same 1,000 rows and fixed \acp{roi}; neither participant nor sentence inclusion is selected from an intervention outcome. \evd{E002}\evd{E008}\evd{E025}
+The recorded-response analyses use two complementary datasets.
+The Tuckute resource provides isolated sentences and regional responses from multiple participants, whereas the LeBel resource provides continuous stories and voxelwise responses from one deeply sampled participant.
+Table~\ref{tab:appendix-data-partitions} records the exact substrate and held-out partitions used by the two assay families.
 
-The participant average is formed before ridge fitting and before the nonlinear held-out $R^2$ calculation.
-It estimates predictivity of the shared response of that fixed group, not the expected response of a randomly sampled person.
-Participant-first estimators instead summarize folds and technical seeds within a person using the declared estimator and use the nine people as the biological inference units.
-These targets can therefore differ in signal-to-noise ratio and in scientific meaning even when they use identical sentences and features.
-The Tuckute value $r_{\mathrm{NC}}=0.491$ is a correlation-scale reliability reference for the five-\ac{roi} average; it is not a denominator for variance-scale unique $R^2$. \evd{E002}\evd{E005}\evd{E014}
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Included recorded-response material and held-out story folds.}
+  \label{tab:appendix-data-partitions}
+  \evd{E002}\evd{E006}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    Source or partition & Included material \\
+    \midrule
+    Tuckute condition B & 1,000 English sentences ordered by \texttt{item\_id}; five left-hemisphere language \acp{roi}: \texttt{AntTemp}, \texttt{IFG}, \texttt{IFGorb}, \texttt{MFG}, and \texttt{PostTemp} \\
+    \midrule
+    LeBel fold 1 & \texttt{adollshouse}, \texttt{adventuresinsayingyes}, \texttt{afatherscover}, \texttt{againstthewind} \evd{E006} \\
+    \midrule
+    LeBel fold 2 & \texttt{alternateithicatom}, \texttt{avatar}, \texttt{backsideofthestorm}, \texttt{becomingindian} \\
+    \midrule
+    LeBel fold 3 & \texttt{beneaththemushroomcloud}, \texttt{birthofanation}, \texttt{bluehope}, \texttt{breakingupintheageofgoogle} \\
+    \midrule
+    LeBel fold 4 & \texttt{buck}, \texttt{catfishingstrangerstofindmyself}, \texttt{cautioneating}, \texttt{christmas1940} \\
+    \midrule
+    LeBel fold 5 & \texttt{cocoonoflove}, \texttt{comingofageondeathrow}, \texttt{exorcism}, \texttt{eyespy} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
-The naturalistic assay uses participant UTS03 from the LeBel story-listening resource, acquired during auditory narratives and released as preprocessed storywise matrices sampled every 2.0045 seconds \autocite{lebel2023}. \evd{E006}
-Each HDF5 \texttt{data} matrix contains one row per scanner sample and 95,556 cortical-voxel columns; this work inherits that released imaging representation rather than rerunning reconstruction, motion correction, or cortical registration. \evd{E006}
-Transformations performed here begin after loading those matrices: the response columns are z-scored within story, aligned to the transformed stimulus rows, and filtered by an independent reliability screen.
-The exact 20-story order is retained in \path{outputs/E006_lebel_gpt2.json}, and the frozen contiguous splitter forms these held-out folds:
-\begin{itemize}[nosep,leftmargin=*]
-  \item Fold one: \texttt{adollshouse}, \texttt{adventuresinsayingyes},\newline \texttt{afatherscover}, \texttt{againstthewind}.
-  \item Fold two: \texttt{alternateithicatom}, \texttt{avatar},\newline \texttt{backsideofthestorm}, \texttt{becomingindian}.
-  \item Fold three: \texttt{beneaththemushroomcloud}, \texttt{birthofanation},\newline \texttt{bluehope}, \texttt{breakingupintheageofgoogle}.
-  \item Fold four: \texttt{buck}, \texttt{catfishingstrangerstofindmyself},\newline \texttt{cautioneating}, \texttt{christmas1940}.
-  \item Fold five: \texttt{cocoonoflove}, \texttt{comingofageondeathrow},\newline \texttt{exorcism}, \texttt{eyespy}.
-\end{itemize}
-The fold membership follows the recorded story order and the executable's contiguous four-story partition; \texttt{wheretheressmoke} is excluded from this pool. \evd{E006}
-Voxel inclusion is determined independently from its released \texttt{individual\_repeats} array: ten repetitions, 291 scanner samples, and 95,556 voxels.
-Split-half reliability is Spearman--Brown corrected, and only voxels above $0.5$ are retained, leaving \result{e006_reliable_voxels} voxels.
-The repeated story is used for reliability selection, not for fitting or evaluating the language-model readout.
-This construction supports a conditional within-UTS03 result; many voxels do not create additional biological replicates. \evd{E006}
+The Tuckute resource was acquired during silent sentence reading with 3-T \ac{fmri}, a 2.0-s \ac{tr}, and 2-mm isotropic voxels \autocite{tuckute2024}. \evd{E002}
+This work inherits the released \texttt{response\_target}; it does not reconstruct voxel time series or refit the functional localizers.
+In the released target, voxel responses were z-scored within scanning session and then averaged within each \ac{roi}.
+The remaining operations select condition B, order rows by \texttt{item\_id}, and construct either an averaged or participant-specific response matrix. \evd{E002}
 
-\subsection{Stimulus and nuisance features}
+The participant-averaged construction combines the original training \acp{uid} 848, 853, 865, 875, and 876 cell by cell.
+A missing contributor is skipped, but the resulting sentence-by-\ac{roi} matrix must be complete before analysis.
+This response is used by the controlled regional assay and the participant-averaged recorded-response intervention.
+It estimates predictivity for the shared response of this fixed group because averaging occurs before readout fitting and before held-out $R^2$ is calculated.
 
-For the isolated-sentence assays, a contextual feature is the attention-mask mean of the declared language-model layer.
-The base nuisance design contains sentence token length, normalized item position, and a mean noncontextual input-embedding vector.
-The participant-transfer implementation freezes the static block to GPT-2-medium so that every student arm receives the same nuisance representation.
-The exact-substrate primary design adds the released imageability covariate; the byte-identical base design without imageability is retained as a continuity sensitivity.
-GPT-2XL and probabilistic context-free grammar (PCFG) surprisal form a nonterminal stress test, not the primary nuisance set, because model-derived surprisal overlaps the contextual construct whose incremental value is being tested. \evd{E002}\evd{E025}\evd{E030}
+Participant-specific construction retains one complete sentence-by-\ac{roi} matrix per person.
+\ac{uid}~853 is excluded because 60 entries are missing and the five-\ac{roi} grid is incomplete.
+The remaining participants are \acp{uid} 797, 837, 841, 848, 856, 865, 875, 876, and 880.
+Within this set, \{848, 865, 875, 876\} form the inherited training-participant subgroup and \{797, 837, 841, 856, 880\} form the held-out-participant subgroup.
+Appendix~\ref{app:inference} specifies the fold and seed aggregation; the nine retained participants are the biological inference units.
+Thus participant averaging changes both the signal-to-noise ratio and the estimand; it does not create additional independent participants. \evd{E002}\evd{E008}\evd{E025}
 
-Each outer split is one of five contiguous 200-sentence blocks.
-Within every split, stimulus-domain scaling, \ac{pca}, nuisance regression, ridge selection, and fresh readouts are fitted on the other 800 sentences and then applied unchanged to the held-out block.
-The exact-substrate target is the explicit exception: it inherits the externally frozen E016 target standardization rather than refitting those moments on each 800-sentence outer-training set; any subsequent fold-specific target \ac{pca} is still fitted on outer-training rows only. \evd{E030}
-Contextual and static blocks are reduced separately to rank~50, while scalar nuisances remain unprojected.
-Using equal ranks prevents a wider contextual matrix from receiving more readout capacity by construction.
-Sentence order is never randomized across train and test, and ranks, nuisance tiers, and participant subsets are fixed before held-out scoring.
-E002 reports the peak over its fixed layer grid, whereas the intervention assays lock their primary and sensitivity layers before their own outcomes. \evd{E002}\evd{E025}\evd{E030}
+The naturalistic assay uses participant UTS03 from the LeBel story-listening resource \autocite{lebel2023}.
+The responses were acquired at a nominal \ac{tr} of 2.0~s. \evd{E006}
+The present implementation places the stimulus features and released response matrices on the 2.0045-s grid used by the dataset adapter. \evd{E006}
+Each released HDF5 \texttt{data} matrix contains one row per scanner sample and 95,556 cortical-voxel columns.
+This work begins from those matrices and does not rerun reconstruction, motion correction, or cortical registration. \evd{E006}
 
-For LeBel, the transformations performed here use TextGrid word and phone tiers to define word identities, word onset times, and phoneme events.
-Word duration is approximated by clipped successive word-onset differences from 0 to 3 seconds, with a 0.3-second terminal-word proxy. \evd{E006}
-Contextual word features are extracted in overlapping 256-token windows with stride~128, assigning each word the hidden state at its final subtoken under the maximum available left context.
-The low-level nuisance block contains word rate, phoneme rate, mean word duration, word length, and log word frequency; a 985-dimensional \texttt{english1000} lexical-semantic vector supplies the static block.
-Word length, word frequency, and word duration are Lanczos-resampled with window~3 to the 2.0045-second \ac{fmri} grid, as is the \texttt{english1000} stream; word and phoneme rates are instead direct counts in \ac{tr}-centered histogram windows. \evd{E006}
-The language-model word features are Lanczos-resampled separately with the same window.
-After these stream-specific constructions, the language-model, low-level, and static streams share the fixed slice \texttt{[10:-5]}, within-story z-scoring, and finite-impulse-response copies at delays one through four \acp{tr}. \evd{E006}
+The 20 assay stories follow their recorded order and are divided into the five contiguous four-story folds in Table~\ref{tab:appendix-data-partitions}.
+Complete stories are held out, which prevents temporally dependent samples from the same story from crossing the evaluation boundary.
+The separate story \texttt{wheretheressmoke} is excluded from model fitting and scoring and is used only for voxel reliability selection. \evd{E006}
 
-The inherited \ac{bold} matrix is z-scored voxelwise within story but receives no finite-impulse-response expansion; feature and response rows are then truncated to their common aligned length.
-The contextual and static blocks receive train-fold \ac{pca} to rank~100, while the low-dimensional nuisance variables remain unprojected.
-Within each fold, the \ac{pca} bases are learned from training stories, and a predictor \texttt{StandardScaler} supplies additional train-fitted z-scoring to each assembled design; the response mean, shared ridge hyperparameter, and fitted readout are also learned from training stories.
-The earlier within-story z-scoring, trimming, and finite-impulse-response expansion are fixed preprocessing.
-Complete stories, rather than neighboring \acp{tr}, are held out, so temporally autocorrelated samples cannot cross the evaluation boundary.
-The same story folds, nuisance arrays, temporal transforms, and response rows are used for trained and architecture-matched untrained networks. \evd{E006}
+Reliability is estimated from the ten released repeats of \texttt{wheretheressmoke}.
+With random seed 0, each of 50 random splits assigns five repeats to each half.
+Responses are averaged within each half, correlated voxelwise across the 291 scanner samples, and corrected with the Spearman--Brown formula.
+The mean corrected correlation across the 50 splits is the voxel's reliability estimate.
+Voxels with reliability strictly greater than 0.5 are retained, leaving \result{e006_reliable_voxels} voxels.
+Because the repeated story is independent of the 20 assay stories, this screen does not select voxels from an evaluation outcome.
+The resulting estimand remains held-out-story prediction within UTS03; the retained voxels are spatial measurements, not independent biological replicates. \evd{E006}
 
-\subsection{Synthetic brain-response and text-derived control targets}
+\subsection{Stimulus, nuisance, and fold-local preprocessing}
 
-TRIBE~v2 maps stimulus events to predicted \ac{fmri} activity on a standardized 20,484-location cortical surface \autocite{dascoli2026}.
-It is therefore a predicted neural target, not a neural recording.
-The continuity target builder loads the \path{facebook/tribev2} checkpoint, sets \path{data.text_feature.model_name} to \path{unsloth/Llama-3.2-3B}, and sets \path{data.features_to_use} to \texttt{[text]} through the operative runtime override. \evd{E016}
-Its \texttt{synthetic-text} configuration assigns each token a 0.35-second event followed by a 0.05-second gap, extends timelines shorter than 1.0 second, uses a 1.0-second \ac{tr}, retains all 20,484 fsaverage5 vertices, and processes 32 items per batch. \evd{E016}\evd{E030}
-Each sentence has a private timeline, and all retained one-second predictions on that timeline are averaged coordinatewise to obtain one target vector.
-The resulting caches contain 95,999 training sentences and 1,999 untouched held-out sentences.
-The exact-substrate cache applies the same checkpoint, override, vertex order, and event-timing configuration to Tuckute item IDs 1--1,000, bound to generator indices 0--999 by \texttt{item\_id=item\_index+1}. \evd{E016}\evd{E030}
-Training-standardized coordinates use
+Each assay separates the contextual model feature from lower-level or static stimulus features that could explain recorded responses without the contextual representation under study.
+Table~\ref{tab:appendix-feature-blocks} summarizes these blocks before the fold-specific transformations are applied.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Contextual and nuisance feature blocks by assay.}
+  \label{tab:appendix-feature-blocks}
+  \evd{E002}\evd{E006}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.14\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    Assay & Contextual block & Low-level nuisance block & Static or additional block \\
+    \midrule
+    Tuckute & Mean-pooled activations of the declared \ac{lm} layer over non-padding token positions & Sentence token length and normalized item position & Mean noncontextual input embedding; released imageability in the exact-substrate primary design \\
+    \midrule
+    LeBel & Final-subtoken hidden state for each word under its available left context & Word rate, phoneme rate, mean word duration, word length, and log word frequency & 985-dimensional \texttt{english1000} lexical-semantic features \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The saved-student biological-transfer assay fixes the static block to GPT-2 Medium so that every student arm is evaluated against the same nuisance representation.
+The exact synthetic-target measurability assay adds the released imageability covariate in its primary design; Appendix~\ref{app:sensitivities} reports the design without imageability as a continuity sensitivity.
+GPT-2 XL surprisal and probabilistic context-free-grammar surprisal provide a secondary stress test because both contain model-derived contextual information that overlaps the construct being measured. \evd{E002}\evd{E025}\evd{E030}
+
+The Tuckute analyses use five contiguous outer folds of 200 sentences.
+For each fold, stimulus-domain scaling and contextual and static \ac{pca} are fitted on the other 800 sentences and applied unchanged to the held-out block.
+Contextual and static feature blocks are each reduced to rank 50, equalizing their nominal dimensions before readout fitting, while the scalar nuisances remain unprojected.
+The synthetic brain-response target has one fixed exception: its coordinate standardization is learned once from the external WikiText training corpus, as described below.
+Any target \ac{pca} used in a Tuckute assay is still fitted only on the corresponding 800 outer-training rows. \evd{E002}\evd{E025}\evd{E030}
+
+The LeBel preprocessing begins with the time-aligned word and phone annotations in the TextGrid files.
+Word duration is the successive word-onset difference clipped to 0--3~s, with 0.3~s assigned to the terminal word. \evd{E006}
+Contextual word features are extracted in overlapping 256-token windows with stride 128; each word receives the hidden state of its final subtoken under the maximum available left context.
+Word length, log word frequency, word duration, and \texttt{english1000} features are Lanczos-resampled with window 3 to the 2.0045-s grid. \evd{E006}
+Word and phoneme rates are direct counts in \ac{tr}-centered histogram windows. \evd{E006}
+
+After these stream-specific operations, the first 10 and final 5 samples of each story are removed with the fixed slice \texttt{[10:-5]}.
+The contextual, low-level, and static feature streams then receive within-story z-scoring and finite-impulse-response copies at delays one through four \acp{tr}.
+The recorded \ac{bold} responses are z-scored voxelwise within story but receive no finite-impulse-response expansion.
+Feature and response rows are then truncated to their common aligned length.
+Within each outer fold, the contextual and static blocks receive train-story \ac{pca} to rank 100, while the low-dimensional nuisances remain unprojected.
+A predictor scaler fitted on the training stories then z-scores the assembled design.
+The same folds, nuisance arrays, temporal transforms, and response rows are used for trained and architecture-matched untrained \acp{lm}. \evd{E006}
+Appendix~\ref{app:inference} specifies response centering, ridge selection, fresh-readout fitting, aggregation, and statistical inference.
+
+\subsection{Synthetic brain responses and text-derived auxiliary targets}
+
+\noindent\textbf{Target construction.}
+The synthetic-response route uses a fixed WikiText-103 corpus that is disjoint from the Tuckute sentences.
+The corpus builder reads the training split of \texttt{Salesforce/wikitext}, configuration \texttt{wikitext-103-raw-v1}, in dataset order.
+It removes blank lines and document headers, splits each remaining line after sentence-final punctuation, retains sentences of 4--45 whitespace-delimited words, and removes case-insensitive duplicates and exact case-insensitive matches to Tuckute sentences.
+The first retained sentences form the fixed training file and the following sentences form the untouched held-out file.
+The synthetic-target caches used here contain 95,999 training sentences and 1,999 held-out sentences. \evd{E003}\evd{E016}
+
+TRIBE~v2 maps each sentence to synthetic brain responses on a standardized cortical surface with 20,484 fsaverage5 locations \autocite{dascoli2026}.
+The target builder loads \path{facebook/tribev2}, sets \path{data.text_feature.model_name} to \path{unsloth/Llama-3.2-3B}, and sets \path{data.features_to_use} to \texttt{[text]} in the runtime configuration. \evd{E016}
+The Llama-3.2-3B component is TRIBE's internal text encoder; it is distinct from the frozen GPT-2 Medium distillation teacher. \evd{E016}
+Its \texttt{synthetic-text} configuration assigns each token a 0.35-s event followed by a 0.05-s gap, extends timelines shorter than 1.0~s, and uses a 1.0-s \ac{tr}. \evd{E016}
+Each sentence has a separate timeline, and its retained one-second predictions are averaged coordinatewise to form one 20,484-dimensional vector.
+The same construction is applied to Tuckute item IDs 1--1,000, with \texttt{item\_id=item\_index+1}. \evd{E016}\evd{E030}
+
+Let $Y_{ij}$ be synthetic response coordinate $j$ for training sentence $i$.
+Each coordinate is standardized using the training-corpus mean $\mu_{j,\mathrm{train}}$ and standard deviation $\sigma_{j,\mathrm{train}}$:
 \[
-  \widetilde Y_j=\frac{Y_j-\mu_{j,\mathrm{train}}}
-                       {\sigma_{j,\mathrm{train}}+10^{-6}},
+  \widetilde{Y}_{ij}
+  =
+  \frac{Y_{ij}-\mu_{j,\mathrm{train}}}
+       {\sigma_{j,\mathrm{train}}+10^{-6}}.
 \]
-with moments computed from float32 targets without a dtype override, stored as float32, and applied in float32.
-The student layer-6 sentence representation is connected to all standardized target coordinates by a jointly trained linear head; no \ac{pca} is used in this auxiliary training loss. \evd{E016}\evd{E026}
+This operation centers and scales each cortical coordinate using only the synthetic-response training corpus.
+The same stored moments are applied to held-out sentences, and the small constant prevents division by a near-zero scale.
+The moments and standardized targets are computed and stored in float32.
+The stored training target retains all 20,484 standardized coordinates.
+Appendix~\ref{app:training} specifies how the training objective uses them; no target \ac{pca} is applied before that use.
+When a later assay requires a lower-dimensional target, its \ac{pca} basis is learned only from the relevant outer-training rows. \evd{E016}\evd{E030}
 
-The \texttt{textfeat} arm is a nonbrain target built from mean-pooled GPT-2-medium layer-12 features after tokenization to at most 64 positions.
-Its projection implementation draws one float32 matrix with \texttt{numpy.random.default\_rng(0).standard\_normal((1024,20484))}, multiplies it by $1/\sqrt{1024}=0.03125$, and right-multiplies the float32 1,024-dimensional source matrix. \evd{E016}\evd{E026}
-The resulting 20,484 columns then pass through the same standardization, head, corpus, optimizer, and six-seed training path. \evd{E016}\evd{E026}
-This matches row identity, output width, and much of the training machinery.
-It does not demonstrate matched accessible stimulus information: the projected source has centered algebraic rank at most 1,024, and equal marginal scale does not equalize covariance spectrum, effective rank, baseline predictability, or remaining headroom.
+The text-derived auxiliary target preserves the target width and standardization procedure while replacing the TRIBE construction with frozen \ac{lm} features.
+Let $h_i\in\mathbb{R}^{1024}$ be the mean-pooled layer-12 representation of sentence $i$ extracted from the same frozen GPT-2 Medium model used as the distillation teacher, with at most 64 token positions.
+Let $R\in\mathbb{R}^{1024\times 20484}$ be drawn once with \texttt{numpy.random.default\_rng(0)}, with entries $R_{ab}\sim\mathcal{N}(0,1)$, and then frozen.
+The target for sentence $i$ is
+\[
+  T_i=\frac{h_iR}{\sqrt{1024}}.
+\]
+The projection gives the auxiliary target the same 20,484-coordinate width as the synthetic brain-response target.
+The factor $1/\sqrt{1024}$ keeps its scale from growing mechanically with the 1,024 input dimensions.
+Each projected column is standardized by the same formula, using its own mean and standard deviation computed on the WikiText training corpus. \evd{E016}\evd{E026}
 
-The comparator audit examines the two saved targets rather than assuming that dimension matching is sufficient for attribution to neural target content.
-On two disjoint deterministic samples of 4,096 training rows it reconstructs the training standardization and compares centered covariance spectra, stable rank, cumulative variance mass, within-document order structure, low-level and static-feature predictability, \ac{kd}-baseline target recovery, and remaining headroom.
-Across the six trained seeds it also compares parameter displacement and held-out layer-6 representation movement from byte-identical \ac{kd} checkpoints.
-The observed mismatches in rank, covariance geometry, \ac{kd}-baseline predictability, and remaining headroom show that the saved comparison cannot support attribution to neural target content.
-Initial-gradient comparability remains unknown because the initial gradients were not retained; the audit does not classify those gradients as unequal.
-Thirty of 55 frozen measured-axis checks fail and one is unresolved, while \texttt{textfeat} remains usable as a descriptive nonbrain arm. \evd{E026}
+\noindent\textbf{Pairing controls.}
+The controls differ in which relationship they disrupt.
+The following constructions make the preserved and disrupted relationships explicit.
 
-Two different row controls must not be conflated.
-The saved block-permutation sensitivity permutes contiguous target blocks, but it is not a derangement: depending on seed, 0--30\% of rows remain correctly paired, and unequal blocks duplicate one row and omit one row in five of six seeds.
-It is retained only as a defective-control sensitivity.
-The frozen Sattolo twin instead applies one hash-keyed derangement separately inside each 200-item outer block before target values or participant scores are read.
-That twin has no fixed points and preserves the exact row multiset within each block.
-For each outer fold, aligned TRIBE rows determine one train-only target \ac{pca}-50 basis, and the same basis is applied to the twin; nuisance models, representation \ac{pca}-50 transforms, ridge choices, and composed readouts are also fitted only on outer-training rows.
-The twin therefore controls row identity at matched target capacity, but one frozen twin cannot establish population-level invariance or a causal neural mechanism. \evd{E016}\evd{E030}
+The recorded-response intervention constructs its permutation only from the current 800-sentence training complement.
+The participant-averaged route uses one draw per fold and seed, whereas the participant-specific route fits five independently permuted controls per fold and seed and averages their scores.
+The control randomly reorders ten contiguous response blocks within the 800-sentence training complement.
+It disrupts sentence--response pairing while preserving the response-value multiset and within-block order, but it is not constrained to move every block. \evd{E005}\evd{E008}
+
+The saved synthetic block permutation and the frozen row twin serve different purposes.
+Because the legacy block permutation was not a derangement and truncated unequal block pairs, it can retain fixed rows and duplicate or omit rows; it is therefore only a sensitivity.
+A derangement is a permutation with no fixed points, so every stimulus is paired with another stimulus's target.
+The frozen row-twin control instead uses Sattolo's algorithm to construct one derangement inside each 200-item outer block before target values or participant scores are read.
+Its deterministic seed is derived from the block identifier.
+For each outer fold, aligned TRIBE rows define one train-only 50-component \ac{pca} basis, and the same basis is applied to the twin.
+This comparison isolates row identity at matched target-row content and linear target capacity.
+It concerns one frozen row-twin control and therefore does not establish invariance across possible derangements or identify a causal brain mechanism. \evd{E016}\evd{E030}
+
+Table~\ref{tab:appendix-target-controls} summarizes the construction and attribution role of each target or control.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Synthetic targets and pairing controls used in the thesis.}
+  \label{tab:appendix-target-controls}
+  \evd{E005}\evd{E008}\evd{E016}\evd{E030}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    Construction & Matched or preserved property & Attribution role \\
+    \midrule
+    Synthetic brain-response target & Sentence order, TRIBE geometry, standardization, and width & Synthetic-response supervision under study \\
+    \midrule
+    Text-derived auxiliary target & Sentence order, width, standardization, and corpus & Frozen GPT-2 Medium projection controlling for auxiliary supervision derived from text \\
+    \midrule
+    Recorded-response permutation & Response values, marginal distribution, and within-block order & Randomly reordered sentence--response pairing; fixed blocks remain possible \\
+    \midrule
+    Saved block-permutation sensitivity & Synthetic target values and approximate block structure & Legacy pairing sensitivity; fixed, duplicated, or omitted rows remain possible \\
+    \midrule
+    Frozen row-twin control & Exact within-block row multiset and train-only 50-component \ac{pca} capacity & Row identity under one deterministic derangement with no fixed points \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The text-derived auxiliary target matches the synthetic target on row order, output width, standardization procedure, and corpus.
+The two targets do not share a source representation, and matching width and standardization does not establish matched covariance, effective rank, recoverability, or optimization difficulty.
+Those differences limit the attribution question the comparison can answer; Section~\ref{sec:results-synthetic-manipulation} and Appendix~\ref{app:sensitivities} report the measured audit.
+With the data, targets, and controls fixed, Appendix~\ref{app:training} specifies how the training objectives use them.

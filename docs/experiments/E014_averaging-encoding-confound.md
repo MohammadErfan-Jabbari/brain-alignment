@@ -22,17 +22,17 @@ The thinking panel (counter-argument + first-principles, fable) rejected the "av
 1. **Per-subject scores are POSITIVE (7/9), not a well-powered zero.** So the E008 logic ("averaging manufactures a gap absent per-person") does NOT transfer to the encoding side — on the measurement, the per-individual signal is *present*; averaging just measures it with less noise. The "manufactures/artifactual" framing fails here.
 2. **The ~5× is mostly legitimate.** ~1.7× is the noise-ceiling rise (NC 0.49→0.83 at k=5; Lage-Castellanos 2019 / Nili 2014); the residual is the ridge estimator approaching the higher ceiling as target SNR rises + a near-zero per-subject denominator (the L016/L019 divide-by-noise-floor pathology). The averaged score measures a *different estimand* (alignment to the shared component g), not a 5×-biased per-individual estimate.
 3. **Found + fixed a real bug:** `pilot_lib` PCA was unseeded (randomized SVD) → nondeterministic unique R² (jitter ±0.005–0.01, larger than the small per-subject scores). Seeded it (`random_state=0`). Headline results (E006 A2, E008 null) are robust — they aggregate over many folds/voxels/seeds so PCA jitter averages out; E014's single-shot scores were the exposed ones (seeded re-run 5.15× vs unseeded 4.8× — ratio stable, finding survives).
-4. **Process WIN:** verified with the panel BEFORE folding into the manuscript → the paper is correctly UNCHANGED (contrast E013 v1, claimed-then-retracted). L028.
+4. **Process control:** the panel review preceded manuscript use. The manuscript now uses only the higher-SNR and estimand-shift interpretation; it does not present E014 as a stronger intervention result. L028.
 
 ## Status
-COMPLETE. **E014 is a legitimate-SNR / estimand-shift effect, NOT a second confound; it does not strengthen the paper and is NOT added to it.** The averaging-confound headline stays on E005-vs-E008 (well-powered per-individual ZERO on the *optimization* side, where the per-individual reality is genuinely null). Recorded in L028; PCA-seed fix in `pilot_lib.py`.
+COMPLETE. **E014 is a higher-SNR and estimand-shift effect, not a second confound.** It is used in the manuscript to explain why participant averaging can raise controlled predictivity while changing the estimand; it does not strengthen the recorded-response intervention claim. The intervention verdict remains owned by E005 and E008. Recorded in L028; PCA-seed fix in `pilot_lib.py`.
 
 
 ## Retained load-bearing artifact
 
 | Artifact | SHA-256 |
 |---|---|
-| `outputs/E014_averaging_encoding.json` | `b8f25449e313b17119b908a98e2c3647ca8749592ab9024b215d233034a22259` |
+| `outputs/E014_averaging_encoding_seeded.json` | `f16fbff6c9a86b65ac1ae6cc51a9ee9f9a1a82c1e3ef3aa4f0f17a7b980a5835` |
 
 ## Related
 - [`status.md`](../status.md) — the canonical status board

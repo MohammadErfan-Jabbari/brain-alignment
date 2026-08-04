@@ -105,6 +105,14 @@
 \DeclareResult{e009_plot_seed5}{-0.006}                                 % [E009] numeric plotting value, prerequisite alignment contrast
 \DeclareResult{e009_plot_seed6}{-0.002}                                 % [E009] numeric plotting value, prerequisite alignment contrast
 \DeclareResult{e009_plot_seed7}{-0.005}                                 % [E009] numeric plotting value, prerequisite alignment contrast
+\DeclareResult{e009_seed0}{$+0.063$} % [E009] technical-seed prerequisite alignment contrast
+\DeclareResult{e009_seed1}{$+0.014$} % [E009] technical-seed prerequisite alignment contrast
+\DeclareResult{e009_seed2}{$+0.004$} % [E009] technical-seed prerequisite alignment contrast
+\DeclareResult{e009_seed3}{$+0.016$} % [E009] technical-seed prerequisite alignment contrast
+\DeclareResult{e009_seed4}{$+0.005$} % [E009] technical-seed prerequisite alignment contrast
+\DeclareResult{e009_seed5}{$-0.006$} % [E009] technical-seed prerequisite alignment contrast
+\DeclareResult{e009_seed6}{$-0.002$} % [E009] technical-seed prerequisite alignment contrast
+\DeclareResult{e009_seed7}{$-0.005$} % [E009] technical-seed prerequisite alignment contrast
 \DeclareResult{e016_seed_n}{$n=6$}                                     % [E016] saved technical training-seed count
 \DeclareResult{e016_tribe_synth_gain}{$+0.078298$}                      % [E016] TRIBE-target R2 gain over KD, six seeds
 \DeclareResult{e016_tribe_synth_gain_ci}{[$+0.077198$, $+0.079398$]}   % [E016] two-sided seed-axis t-CI95 for WikiText-continuity TRIBE-target gain, n=6 technical seeds
@@ -127,15 +135,33 @@
 \DeclareResult{e025_tribe_movement_mean}{$0.2151$}                     % [E025] mean WikiText layer-6 centered relative-Frobenius movement from KD, TRIBE arm
 \DeclareResult{e025_quality_max_gap}{$0.002579$}                       % [E025] maximum absolute direct bits-per-byte difference across saved arms
 \DeclareResult{e025_quality_margin}{$0.005$}                           % [E025] frozen absolute bits-per-byte equivalence margin
-\DeclareResult{e025_uid797_row}{$-0.00023801,\;-0.00005311,\;+0.00018490$} % [E025] UID 797: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_uid837_row}{$+0.00227168,\;+0.00226591,\;-0.00000577$} % [E025] UID 837: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_uid841_row}{$+0.00000452,\;-0.00078813,\;-0.00079265$} % [E025] UID 841: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_uid848_row}{$-0.00002346,\;-0.00002667,\;-0.00000320$} % [E025] UID 848: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_uid856_row}{$-0.00022167,\;-0.00036255,\;-0.00014087$} % [E025] UID 856: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_uid865_row}{$-0.00064994,\;-0.00108762,\;-0.00043767$} % [E025] UID 865: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_uid875_row}{$+0.00009116,\;-0.00006339,\;-0.00015455$} % [E025] UID 875: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_uid876_row}{$-0.00013023,\;-0.00014342,\;-0.00001319$} % [E025] UID 876: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_uid880_row}{$+0.00012305,\;+0.00013517,\;+0.00001212$} % [E025] UID 880: TRIBE-textfeat, TRIBE-KD, textfeat-KD
+\DeclareResult{e025_uid797_brain_text}{$-0.00023801$} % [E025] UID 797: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_uid797_brain_kd}{$-0.00005311$} % [E025] UID 797: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_uid797_text_kd}{$+0.00018490$} % [E025] UID 797: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_uid837_brain_text}{$+0.00227168$} % [E025] UID 837: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_uid837_brain_kd}{$+0.00226591$} % [E025] UID 837: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_uid837_text_kd}{$-0.00000577$} % [E025] UID 837: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_uid841_brain_text}{$+0.00000452$} % [E025] UID 841: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_uid841_brain_kd}{$-0.00078813$} % [E025] UID 841: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_uid841_text_kd}{$-0.00079265$} % [E025] UID 841: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_uid848_brain_text}{$-0.00002346$} % [E025] UID 848: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_uid848_brain_kd}{$-0.00002667$} % [E025] UID 848: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_uid848_text_kd}{$-0.00000320$} % [E025] UID 848: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_uid856_brain_text}{$-0.00022167$} % [E025] UID 856: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_uid856_brain_kd}{$-0.00036255$} % [E025] UID 856: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_uid856_text_kd}{$-0.00014087$} % [E025] UID 856: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_uid865_brain_text}{$-0.00064994$} % [E025] UID 865: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_uid865_brain_kd}{$-0.00108762$} % [E025] UID 865: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_uid865_text_kd}{$-0.00043767$} % [E025] UID 865: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_uid875_brain_text}{$+0.00009116$} % [E025] UID 875: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_uid875_brain_kd}{$-0.00006339$} % [E025] UID 875: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_uid875_text_kd}{$-0.00015455$} % [E025] UID 875: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_uid876_brain_text}{$-0.00013023$} % [E025] UID 876: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_uid876_brain_kd}{$-0.00014342$} % [E025] UID 876: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_uid876_text_kd}{$-0.00001319$} % [E025] UID 876: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_uid880_brain_text}{$+0.00012305$} % [E025] UID 880: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_uid880_brain_kd}{$+0.00013517$} % [E025] UID 880: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_uid880_text_kd}{$+0.00001212$} % [E025] UID 880: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
 \DeclareResult{e025_plot_uid797}{-0.00005311}                           % [E025] plot coordinate, UID 797 direct TRIBE-minus-KD
 \DeclareResult{e025_plot_uid837}{0.00226591}                            % [E025] plot coordinate, UID 837 direct TRIBE-minus-KD
 \DeclareResult{e025_plot_uid841}{-0.00078813}                           % [E025] plot coordinate, UID 841 direct TRIBE-minus-KD
@@ -148,12 +174,24 @@
 \DeclareResult{e025_plot_mean}{-0.000014}                              % [E025] plot coordinate, direct TRIBE-minus-KD mean
 \DeclareResult{e025_plot_ci_low}{-0.000739}                            % [E025] plot coordinate, participant t-CI95 lower endpoint
 \DeclareResult{e025_plot_ci_high}{0.000711}                            % [E025] plot coordinate, participant t-CI95 upper endpoint
-\DeclareResult{e025_seed0_row}{$-0.00015727,\;-0.00035769,\;-0.00020042$} % [E025] seed 0: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_seed1_row}{$+0.00032614,\;+0.00003556,\;-0.00029058$} % [E025] seed 1: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_seed2_row}{$+0.00004025,\;+0.00000892,\;-0.00003133$} % [E025] seed 2: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_seed3_row}{$+0.00025080,\;+0.00015307,\;-0.00009773$} % [E025] seed 3: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_seed4_row}{$+0.00018344,\;-0.00006376,\;-0.00024721$} % [E025] seed 4: TRIBE-textfeat, TRIBE-KD, textfeat-KD
-\DeclareResult{e025_seed5_row}{$+0.00017470,\;+0.00014137,\;-0.00003333$} % [E025] seed 5: TRIBE-textfeat, TRIBE-KD, textfeat-KD
+\DeclareResult{e025_seed0_brain_text}{$-0.00015727$} % [E025] seed 0: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_seed0_brain_kd}{$-0.00035769$} % [E025] seed 0: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_seed0_text_kd}{$-0.00020042$} % [E025] seed 0: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_seed1_brain_text}{$+0.00032614$} % [E025] seed 1: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_seed1_brain_kd}{$+0.00003556$} % [E025] seed 1: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_seed1_text_kd}{$-0.00029058$} % [E025] seed 1: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_seed2_brain_text}{$+0.00004025$} % [E025] seed 2: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_seed2_brain_kd}{$+0.00000892$} % [E025] seed 2: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_seed2_text_kd}{$-0.00003133$} % [E025] seed 2: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_seed3_brain_text}{$+0.00025080$} % [E025] seed 3: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_seed3_brain_kd}{$+0.00015307$} % [E025] seed 3: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_seed3_text_kd}{$-0.00009773$} % [E025] seed 3: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_seed4_brain_text}{$+0.00018344$} % [E025] seed 4: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_seed4_brain_kd}{$-0.00006376$} % [E025] seed 4: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_seed4_text_kd}{$-0.00024721$} % [E025] seed 4: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
+\DeclareResult{e025_seed5_brain_text}{$+0.00017470$} % [E025] seed 5: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_text
+\DeclareResult{e025_seed5_brain_kd}{$+0.00014137$} % [E025] seed 5: TRIBE-textfeat, TRIBE-KD, textfeat-KD; brain_kd
+\DeclareResult{e025_seed5_text_kd}{$-0.00003333$} % [E025] seed 5: TRIBE-textfeat, TRIBE-KD, textfeat-KD; text_kd
 \DeclareResult{e026_check_split}{$30/55$}                              % [E026] failed measured-axis checks / all frozen checks
 \DeclareResult{e026_kd_targets}{$0.595327$ versus $0.911687$}          % [E026] mean KD target R2, TRIBE versus textfeat
 \DeclareResult{e026_headroom_ratio}{$4.582$}                           % [E026] mean remaining headroom, TRIBE / textfeat
@@ -202,15 +240,51 @@
 \DeclareResult{e030_plot_overlap_twin_mean}{0.000029}                 % [E030] numeric plotting value, aligned-minus-row-twin overlap increment
 \DeclareResult{e030_plot_overlap_twin_ci_low}{-0.000078}              % [E030] numeric plotting value
 \DeclareResult{e030_plot_overlap_twin_ci_high}{0.000136}              % [E030] numeric plotting value
-\DeclareResult{e030_uid797_row}{$-0.00266759,\;-0.00031777,\;+0.00045651,\;+0.00018799,\;+0.00019106$} % [E030] UID 797: A, Q, O, D, J
-\DeclareResult{e030_uid837_row}{$-0.00448823,\;-0.00785204,\;+0.00484230,\;+0.00029143,\;+0.00026774$} % [E030] UID 837: A, Q, O, D, J
-\DeclareResult{e030_uid841_row}{$-0.02042083,\;+0.00588154,\;+0.00038073,\;+0.00004280,\;+0.00003954$} % [E030] UID 841: A, Q, O, D, J
-\DeclareResult{e030_uid848_row}{$-0.00001541,\;+0.00158126,\;+0.00010189,\;-0.00005708,\;-0.00005644$} % [E030] UID 848: A, Q, O, D, J
-\DeclareResult{e030_uid856_row}{$-0.01394534,\;-0.00066703,\;-0.00040275,\;-0.00005387,\;-0.00005261$} % [E030] UID 856: A, Q, O, D, J
-\DeclareResult{e030_uid865_row}{$+0.00208088,\;+0.00684375,\;+0.00216009,\;-0.00006632,\;-0.00005151$} % [E030] UID 865: A, Q, O, D, J
-\DeclareResult{e030_uid875_row}{$+0.00266981,\;+0.01519279,\;+0.00447180,\;-0.00018830,\;-0.00019123$} % [E030] UID 875: A, Q, O, D, J
-\DeclareResult{e030_uid876_row}{$-0.00660269,\;-0.00590127,\;-0.00126093,\;+0.00008691,\;+0.00008438$} % [E030] UID 876: A, Q, O, D, J
-\DeclareResult{e030_uid880_row}{$+0.00293994,\;+0.00106256,\;+0.00043030,\;+0.00003540,\;+0.00003336$} % [E030] UID 880: A, Q, O, D, J
+\DeclareResult{e030_uid797_target_unique}{$-0.00266759$} % [E030] UID 797: A, Q, O, D, J; target_unique
+\DeclareResult{e030_uid797_target_twin}{$-0.00031777$} % [E030] UID 797: A, Q, O, D, J; target_twin
+\DeclareResult{e030_uid797_overlap_abs}{$+0.00045651$} % [E030] UID 797: A, Q, O, D, J; overlap_abs
+\DeclareResult{e030_uid797_overlap_kd}{$+0.00018799$} % [E030] UID 797: A, Q, O, D, J; overlap_kd
+\DeclareResult{e030_uid797_overlap_twin}{$+0.00019106$} % [E030] UID 797: A, Q, O, D, J; overlap_twin
+\DeclareResult{e030_uid837_target_unique}{$-0.00448823$} % [E030] UID 837: A, Q, O, D, J; target_unique
+\DeclareResult{e030_uid837_target_twin}{$-0.00785204$} % [E030] UID 837: A, Q, O, D, J; target_twin
+\DeclareResult{e030_uid837_overlap_abs}{$+0.00484230$} % [E030] UID 837: A, Q, O, D, J; overlap_abs
+\DeclareResult{e030_uid837_overlap_kd}{$+0.00029143$} % [E030] UID 837: A, Q, O, D, J; overlap_kd
+\DeclareResult{e030_uid837_overlap_twin}{$+0.00026774$} % [E030] UID 837: A, Q, O, D, J; overlap_twin
+\DeclareResult{e030_uid841_target_unique}{$-0.02042083$} % [E030] UID 841: A, Q, O, D, J; target_unique
+\DeclareResult{e030_uid841_target_twin}{$+0.00588154$} % [E030] UID 841: A, Q, O, D, J; target_twin
+\DeclareResult{e030_uid841_overlap_abs}{$+0.00038073$} % [E030] UID 841: A, Q, O, D, J; overlap_abs
+\DeclareResult{e030_uid841_overlap_kd}{$+0.00004280$} % [E030] UID 841: A, Q, O, D, J; overlap_kd
+\DeclareResult{e030_uid841_overlap_twin}{$+0.00003954$} % [E030] UID 841: A, Q, O, D, J; overlap_twin
+\DeclareResult{e030_uid848_target_unique}{$-0.00001541$} % [E030] UID 848: A, Q, O, D, J; target_unique
+\DeclareResult{e030_uid848_target_twin}{$+0.00158126$} % [E030] UID 848: A, Q, O, D, J; target_twin
+\DeclareResult{e030_uid848_overlap_abs}{$+0.00010189$} % [E030] UID 848: A, Q, O, D, J; overlap_abs
+\DeclareResult{e030_uid848_overlap_kd}{$-0.00005708$} % [E030] UID 848: A, Q, O, D, J; overlap_kd
+\DeclareResult{e030_uid848_overlap_twin}{$-0.00005644$} % [E030] UID 848: A, Q, O, D, J; overlap_twin
+\DeclareResult{e030_uid856_target_unique}{$-0.01394534$} % [E030] UID 856: A, Q, O, D, J; target_unique
+\DeclareResult{e030_uid856_target_twin}{$-0.00066703$} % [E030] UID 856: A, Q, O, D, J; target_twin
+\DeclareResult{e030_uid856_overlap_abs}{$-0.00040275$} % [E030] UID 856: A, Q, O, D, J; overlap_abs
+\DeclareResult{e030_uid856_overlap_kd}{$-0.00005387$} % [E030] UID 856: A, Q, O, D, J; overlap_kd
+\DeclareResult{e030_uid856_overlap_twin}{$-0.00005261$} % [E030] UID 856: A, Q, O, D, J; overlap_twin
+\DeclareResult{e030_uid865_target_unique}{$+0.00208088$} % [E030] UID 865: A, Q, O, D, J; target_unique
+\DeclareResult{e030_uid865_target_twin}{$+0.00684375$} % [E030] UID 865: A, Q, O, D, J; target_twin
+\DeclareResult{e030_uid865_overlap_abs}{$+0.00216009$} % [E030] UID 865: A, Q, O, D, J; overlap_abs
+\DeclareResult{e030_uid865_overlap_kd}{$-0.00006632$} % [E030] UID 865: A, Q, O, D, J; overlap_kd
+\DeclareResult{e030_uid865_overlap_twin}{$-0.00005151$} % [E030] UID 865: A, Q, O, D, J; overlap_twin
+\DeclareResult{e030_uid875_target_unique}{$+0.00266981$} % [E030] UID 875: A, Q, O, D, J; target_unique
+\DeclareResult{e030_uid875_target_twin}{$+0.01519279$} % [E030] UID 875: A, Q, O, D, J; target_twin
+\DeclareResult{e030_uid875_overlap_abs}{$+0.00447180$} % [E030] UID 875: A, Q, O, D, J; overlap_abs
+\DeclareResult{e030_uid875_overlap_kd}{$-0.00018830$} % [E030] UID 875: A, Q, O, D, J; overlap_kd
+\DeclareResult{e030_uid875_overlap_twin}{$-0.00019123$} % [E030] UID 875: A, Q, O, D, J; overlap_twin
+\DeclareResult{e030_uid876_target_unique}{$-0.00660269$} % [E030] UID 876: A, Q, O, D, J; target_unique
+\DeclareResult{e030_uid876_target_twin}{$-0.00590127$} % [E030] UID 876: A, Q, O, D, J; target_twin
+\DeclareResult{e030_uid876_overlap_abs}{$-0.00126093$} % [E030] UID 876: A, Q, O, D, J; overlap_abs
+\DeclareResult{e030_uid876_overlap_kd}{$+0.00008691$} % [E030] UID 876: A, Q, O, D, J; overlap_kd
+\DeclareResult{e030_uid876_overlap_twin}{$+0.00008438$} % [E030] UID 876: A, Q, O, D, J; overlap_twin
+\DeclareResult{e030_uid880_target_unique}{$+0.00293994$} % [E030] UID 880: A, Q, O, D, J; target_unique
+\DeclareResult{e030_uid880_target_twin}{$+0.00106256$} % [E030] UID 880: A, Q, O, D, J; target_twin
+\DeclareResult{e030_uid880_overlap_abs}{$+0.00043030$} % [E030] UID 880: A, Q, O, D, J; overlap_abs
+\DeclareResult{e030_uid880_overlap_kd}{$+0.00003540$} % [E030] UID 880: A, Q, O, D, J; overlap_kd
+\DeclareResult{e030_uid880_overlap_twin}{$+0.00003336$} % [E030] UID 880: A, Q, O, D, J; overlap_twin
 \DeclareResult{e030_plot_uid797}{-0.00266759}                           % [E030] plot coordinate, UID 797 exact-target unique signal
 \DeclareResult{e030_plot_uid837}{-0.00448823}                           % [E030] plot coordinate, UID 837 exact-target unique signal
 \DeclareResult{e030_plot_uid841}{-0.02042083}                           % [E030] plot coordinate, UID 841 exact-target unique signal
@@ -236,12 +310,30 @@
 \DeclareResult{e030_plot_twin_mean}{0.001758}                          % [E030] plot coordinate, participant-mean aligned-minus-frozen-twin contrast
 \DeclareResult{e030_plot_twin_ci_low}{-0.003575}                       % [E030] plot coordinate, Bonferroni family-95% lower endpoint
 \DeclareResult{e030_plot_twin_ci_high}{0.007091}                       % [E030] plot coordinate, Bonferroni family-95% upper endpoint
-\DeclareResult{e030_seed0_row}{$+0.03965524,\;+0.00013878,\;-0.00003781,\;-0.00004017$} % [E030] seed 0: M, B, D, J
-\DeclareResult{e030_seed1_row}{$+0.04096723,\;+0.00103098,\;-0.00004152,\;-0.00004668$} % [E030] seed 1: M, B, D, J
-\DeclareResult{e030_seed2_row}{$+0.03932328,\;-0.00159873,\;-0.00001666,\;-0.00001488$} % [E030] seed 2: M, B, D, J
-\DeclareResult{e030_seed3_row}{$+0.04291468,\;-0.00234707,\;+0.00006481,\;+0.00006414$} % [E030] seed 3: M, B, D, J
-\DeclareResult{e030_seed4_row}{$+0.03920675,\;-0.00038085,\;+0.00014778,\;+0.00014581$} % [E030] seed 4: M, B, D, J
-\DeclareResult{e030_seed5_row}{$+0.04228561,\;-0.00197014,\;+0.00006938,\;+0.00006797$} % [E030] seed 5: M, B, D, J
+\DeclareResult{e030_seed0_target_extract}{$+0.03965524$} % [E030] seed 0: M, B, D, J; target_extract
+\DeclareResult{e030_seed0_retention_delta}{$+0.00013878$} % [E030] seed 0: M, B, D, J; retention_delta
+\DeclareResult{e030_seed0_overlap_kd}{$-0.00003781$} % [E030] seed 0: M, B, D, J; overlap_kd
+\DeclareResult{e030_seed0_overlap_twin}{$-0.00004017$} % [E030] seed 0: M, B, D, J; overlap_twin
+\DeclareResult{e030_seed1_target_extract}{$+0.04096723$} % [E030] seed 1: M, B, D, J; target_extract
+\DeclareResult{e030_seed1_retention_delta}{$+0.00103098$} % [E030] seed 1: M, B, D, J; retention_delta
+\DeclareResult{e030_seed1_overlap_kd}{$-0.00004152$} % [E030] seed 1: M, B, D, J; overlap_kd
+\DeclareResult{e030_seed1_overlap_twin}{$-0.00004668$} % [E030] seed 1: M, B, D, J; overlap_twin
+\DeclareResult{e030_seed2_target_extract}{$+0.03932328$} % [E030] seed 2: M, B, D, J; target_extract
+\DeclareResult{e030_seed2_retention_delta}{$-0.00159873$} % [E030] seed 2: M, B, D, J; retention_delta
+\DeclareResult{e030_seed2_overlap_kd}{$-0.00001666$} % [E030] seed 2: M, B, D, J; overlap_kd
+\DeclareResult{e030_seed2_overlap_twin}{$-0.00001488$} % [E030] seed 2: M, B, D, J; overlap_twin
+\DeclareResult{e030_seed3_target_extract}{$+0.04291468$} % [E030] seed 3: M, B, D, J; target_extract
+\DeclareResult{e030_seed3_retention_delta}{$-0.00234707$} % [E030] seed 3: M, B, D, J; retention_delta
+\DeclareResult{e030_seed3_overlap_kd}{$+0.00006481$} % [E030] seed 3: M, B, D, J; overlap_kd
+\DeclareResult{e030_seed3_overlap_twin}{$+0.00006414$} % [E030] seed 3: M, B, D, J; overlap_twin
+\DeclareResult{e030_seed4_target_extract}{$+0.03920675$} % [E030] seed 4: M, B, D, J; target_extract
+\DeclareResult{e030_seed4_retention_delta}{$-0.00038085$} % [E030] seed 4: M, B, D, J; retention_delta
+\DeclareResult{e030_seed4_overlap_kd}{$+0.00014778$} % [E030] seed 4: M, B, D, J; overlap_kd
+\DeclareResult{e030_seed4_overlap_twin}{$+0.00014581$} % [E030] seed 4: M, B, D, J; overlap_twin
+\DeclareResult{e030_seed5_target_extract}{$+0.04228561$} % [E030] seed 5: M, B, D, J; target_extract
+\DeclareResult{e030_seed5_retention_delta}{$-0.00197014$} % [E030] seed 5: M, B, D, J; retention_delta
+\DeclareResult{e030_seed5_overlap_kd}{$+0.00006938$} % [E030] seed 5: M, B, D, J; overlap_kd
+\DeclareResult{e030_seed5_overlap_twin}{$+0.00006797$} % [E030] seed 5: M, B, D, J; overlap_twin
 \DeclareResult{e003_kd_cold_delta}{$+0.0181$}                           % [E003] cold-init KD gap vs teacher (p<0.001); 4-dp matches the E003 table
 \DeclareResult{e003_kd_cold_retention}{$0.37$ [$0.14$, $0.58$]}         % [E003] cold-init floor-anchored retention rho' + bootstrap CI
 \DeclareResult{e003_kd_cold_retention_point}{$0.37$}                    % [E003] cold-init floor-anchored retention rho' point estimate

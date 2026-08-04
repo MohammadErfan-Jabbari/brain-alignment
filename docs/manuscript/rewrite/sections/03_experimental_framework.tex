@@ -55,6 +55,8 @@ This section specifies the study design; Section~\ref{sec:results} reports the v
   \end{tabularx}
 \end{table}
 
+Appendix~\ref{app:evidence-provenance} maps these scientific roles to their final evidence owners and records the interpretations that were superseded during review.
+
 \subsection{Study Design, Datasets, and Data Partitioning}
 \label{sec:data-targets}
 
@@ -120,7 +122,7 @@ The arrows denote data use, training, or evaluation rather than causal influence
 \subsection{Measurement Prerequisites}
 \label{sec:measurement-prerequisites}
 
-Both controlled predictivity assays begin with the same question: does a contextual \ac{lm} representation improve held-out prediction of recorded \ac{fmri} responses beyond specified nuisance features?
+Both controlled brain predictivity assays begin with the same question: does a contextual \ac{lm} representation improve held-out prediction of recorded \ac{fmri} responses beyond specified nuisance features?
 Each assay first fits a nuisance-only readout containing its declared low-level and static features.
 The full readout adds a contextual representation block.
 The contextual and static blocks are reduced to the same \ac{pca} rank, which matches their individual widths.
@@ -151,7 +153,7 @@ Figure~\ref{fig:measurement-readouts} separates this nuisance comparison from th
 One control uses an untrained \ac{lm} with the same architecture and rank.
 It tests whether learned parameters matter.
 The frozen row twin instead tests whether correct sentence--target pairing matters.
-Repeating the contextual comparison across the teacher and students supplies the scores used by the quality-aware headroom analysis.
+Repeating the contextual comparison across the teacher and students supplies the scores used by the quality-aware distillation-headroom analysis.
 
 \begin{figure}[H]
   \centering
@@ -255,7 +257,7 @@ Appendix~\ref{app:inference} specifies the formulas, aggregation, and inference 
 \subsection{Recorded-Response Intervention}
 \label{sec:recorded-intervention}
 
-Within each outer fold and technical seed, the recorded-response and permuted-response arms start from the same student state and use the same sentences.
+Within each outer fold and technical seed, the recorded-response arm and permuted-response control start from the same student state and use the same sentences.
 They also share the ordinary-\ac{kd} objective, optimizer schedule, loss weight, and training budget.
 Only the pairing between recorded-response rows and their sentences differs.
 Both arms distil a Qwen2.5-1.5B teacher into a Qwen2.5-0.5B student using \ac{lora}.\evd{E005}\evd{E008}
@@ -389,7 +391,7 @@ None replaces the primary nine-participant contrast.\evd{E004}\evd{E011}\evd{E01
 \subsection{Synthetic-Response Intervention and Downstream Assays}
 \label{sec:synthetic-intervention}
 
-The synthetic-response intervention asks whether fixed, text-generated brain-response targets change a retained student beyond ordinary \ac{kd}.
+The synthetic-response intervention asks whether fixed synthetic brain-response targets generated from text change a retained student beyond ordinary \ac{kd}.
 Across six technical seeds, a frozen GPT-2 Medium teacher supervises a GPT-2 Small student in the synthetic-response, ordinary-distillation, and text-derived auxiliary-control arms.
 These arms share the initialized student, training text and order, tokenizer, ordinary-\ac{kd} objective, optimizer schedule, and training budget.
 The synthetic-response arm adds a fixed text-only TRIBE target, whereas the text-derived auxiliary-control arm mean-pools frozen teacher states and maps them through a fixed Gaussian projection.
@@ -416,8 +418,8 @@ Baseline learnability compares ordinary-distillation recovery and remaining head
 Passing every required axis is necessary but not sufficient for attributing an effect to brain-response content.
 Failure on any required axis makes the contrast non-identifying; if no required axis fails but a required measurement is missing, attribution remains unresolved.
 The available block-permuted targets are also non-identifying because their construction can retain aligned rows and can duplicate or omit a row.
-A frozen Sattolo row twin therefore supplies an exact target-only sensitivity.
-Because no student was trained against that twin, it cannot replace the text-derived trained-arm comparator.\evd{E026}\evd{E030}
+The frozen row-twin control therefore supplies an exact target-only sensitivity.
+Because no student was trained against that control, it cannot replace the text-derived auxiliary-control arm.\evd{E026}\evd{E030}
 
 The saved-student biological-transfer assay then asks whether the synthetic-response intervention improves prediction of independently recorded responses.
 Let \(U_{ufs}^{(a)}\) be the nuisance-controlled, \ac{roi}-averaged unique \(R^2\) for participant \(u\), contiguous fold \(f\), technical seed \(s\), and training arm \(a\).
@@ -477,11 +479,11 @@ U_{ufs}^{(\mathrm{textctrl})}.
 \end{aligned}
 \label{eq:synthetic-preregistered-contrast}
 \end{equation}
-Equation~\ref{eq:synthetic-preregistered-contrast} expresses the difference between two gains over ordinary distillation and shows why it reduces to synthetic response minus text-derived control.
+Equation~\ref{eq:synthetic-preregistered-contrast} expresses the difference between two gains over ordinary distillation and shows why it reduces to the synthetic-response arm minus the text-derived auxiliary-control arm.
 The cancellation is valid because the corresponding ordinary-distillation baselines were verified to be byte-identical within each seed.
 This contrast was preregistered as the primary attribution comparison, but its interpretation remains conditional on comparator adequacy.\evd{E025}\evd{E026}
 
-The same saved students support a second, mechanism-localizing analysis.
+The same saved students support the composed-path diagnostic.
 Let \(A_{H\rightarrow T\mid N}\) denote the representation-specific coefficient contribution in the train-fold model that predicts the synthetic target from nuisance features \(N\) and a frozen student representation \(H\).
 Let \(A_{T\rightarrow Y\mid N}\) denote the target-specific coefficient contribution in the train-fold model that predicts recorded responses \(Y\) from \(N\) and the target \(T\), and let \(\widehat{Y}_{N}\) be the nuisance-only response prediction.
 The composed prediction is
@@ -507,7 +509,7 @@ The direct saved-student endpoint remains the primary biological-transfer endpoi
 Language-quality checks qualify the synthetic-response contrasts but do not themselves establish practical benefit.
 Perplexity and bits per byte test whether the compared students remain within the declared quality margin.
 Passing the \(0.005\) bits-per-byte margin only excludes discrepancies larger than that margin on this metric; it does not prove the absence of language-quality confounding.\evd{E025}
-A separate practical-utility evaluation belongs to the recorded-response route.
+A separate bounded practical-utility evaluation belongs to the recorded-response route.
 It compares approximately quality-matched recorded-response and permuted-response students through out-of-domain to in-domain perplexity ratios on Pereira sentences and LeBel story text.
 For corpus \(d\), arm \(a\), and technical seed \(s\), define
 \begin{equation}
@@ -528,7 +530,7 @@ R_{d,\mathrm{permuted},s}.
 \end{equation}
 The ratio measures out-of-domain perplexity relative to the same student's in-domain perplexity.
 A negative \(\Delta R_{d,s}\) favors the recorded-response arm.
-The prerequisite alignment contrast is
+The prerequisite contrast in controlled brain predictivity is
 \begin{equation}
 A_s
 =
@@ -539,8 +541,8 @@ U_s^{\mathrm{permuted}},
 \end{equation}
 where \(U_s\) is held-out controlled brain predictivity.
 This contrast tests whether the recorded-response arm produced the representational change whose downstream value the utility comparison is intended to assess.
-Ordinary-distillation and text-derived-control arms remain descriptive references when their language quality is unmatched.
-This utility contrast is interpretable only if the prerequisite alignment contrast is reliable relative to its measured minimum detectable effect.
+Ordinary-distillation and text-derived auxiliary-control arms remain descriptive references when their language quality is unmatched.
+This utility contrast is interpretable only if the prerequisite contrast in controlled brain predictivity is reliable relative to its measured minimum detectable effect.
 Its seeds quantify technical variation, not independent biological evidence.
 Section~\ref{sec:estimands} states the formal aggregation and decision rules.\evd{E009}
 
@@ -603,39 +605,13 @@ q_{\mathrm{bpb}}(a,b,s)
 The first rule requires each scaled synthetic-target arm to remain within \(5\%\) of its seed-matched ordinary-\ac{kd} reference on the fixed WikiText quality probe.\evd{E016}
 The second requires the saved-student comparisons to remain within \(0.005\) bits per byte in every seed.\evd{E025}
 Passing a rule makes the contrast eligible under that metric and tolerance; it does not prove identical language behavior or remove possible differences inside the accepted margin.
-The paired recorded-response and permuted-response arms are evaluated on the same fixed WikiText probe and must satisfy their declared approximate quality match.
+The paired recorded-response arm and permuted-response control are evaluated on the same fixed WikiText probe and must satisfy their declared approximate quality match.
 Recorded-response comparisons with ordinary \ac{kd} additionally require checkpoint or curve matching on perplexity.
 Without the required match, the corresponding biological contrast remains descriptive.\evd{E005}\evd{E008}\evd{E015}\evd{E016}\evd{E017}\evd{E025}
 
-Aggregation follows the claim rather than the largest available number of observations.
-The participant-averaged recorded-response estimand averages seeds within each outer fold and treats the five shared folds as its fixed-stimulus inference values.
-The participant-specific recorded-response estimand instead aggregates seed--fold cells within each person before inference across participants.
-It uses the declared within-participant median.
-Saved-student biological transfer averages six seeds and five folds within each participant before inference across the nine participants.
-Within the exact-substrate diagnostic, exact synthetic-target measurability averages folds within participant and has no student-seed axis.
-The composed-path diagnostic averages folds and seeds within participant, whereas Tuckute target retention pools \(\mathrm{SSE}/\mathrm{SST}\) and summarizes six paired technical-seed contrasts.
-Synthetic-target recovery uses six matched technical-seed gains and does not provide biological replication.
-The WikiText recovery assay averages coordinate-level \(R^2\) equally, whereas the Tuckute target-retention diagnostic pools \(\mathrm{SSE}/\mathrm{SST}\) across coordinates.
-These two aggregations therefore answer different target-recovery questions.\evd{E005}\evd{E008}\evd{E016}\evd{E025}\evd{E030}
-
-The inference unit also fixes the scope of uncertainty.
-The controlled sentence assays report held-out-fold dispersion on a fixed sentence set.
-The naturalistic assay retains a within-participant trained-minus-untrained contrast and the signs of its five held-out story-block differences.
-Its earlier voxel-bootstrap interval is excluded because spatially dependent voxels from one participant are not independent population observations.
-Quality-aware headroom uses a fold--seed bootstrap conditional on convergence, while cross-family quality relations use family-cluster bootstrap estimates with Fisher intervals.
-The participant-averaged recorded-response intervention uses a five-fold \(t\) interval after technical seeds have been aggregated within fold.
-Synthetic-target uptake uses paired gains over six technical seeds, descriptive seed intervals, and the declared exact magnitude-preserving sign-flip test.
-Coordinates, voxels, folds, and seeds remain assay or technical measurements rather than substitutes for participants.\evd{E003}\evd{E004}\evd{E005}\evd{E006}\evd{E015}\evd{E016}
-
-When the intended claim concerns people, uncertainty must be computed at the participant level after all technical aggregation.
-The participant-specific recorded-response analysis reports a participant \(t\) interval and an exact one-sided sign test.
-A separate shared-fold \(t\) interval and cluster bootstrap assess whether its direction is stable across stimulus blocks; both participant and shared-fold readings must support a population claim.
-The saved-student biological-transfer assay reports a participant \(t\) interval, a one-sided upper bound, an exact sign test, and a Wilcoxon signed-rank sensitivity, while its seed and block summaries remain descriptive.
-Exact synthetic-target measurability and the composed-path diagnostic use participant intervals and exact signs.
-Tuckute target retention instead uses a descriptive paired-seed interval and an exact \(2^6\) sign-flip test.\evd{E030}
-Separate Bonferroni family-\(95\%\) intervals and simultaneous bounds govern target measurability, target retention, and the composed student-to-target-to-response path.
-The practical-utility evaluation instead uses eight technical seeds for paired arm contrasts and therefore remains bounded to its fixed models, corpora, and procedure.
-Appendix~\ref{app:inference} gives the exact estimators, nesting, tests, and sensitivity variants.\evd{E008}\evd{E009}\evd{E017}\evd{E025}\evd{E030}
+Aggregation follows the declared inference unit.
+Technical repetitions are combined before uncertainty is calculated across participants, fixed stimulus blocks, or technical seeds.
+Figure~\ref{fig:aggregation-paths} summarizes these routes; Appendix~\ref{app:inference} gives the exact nesting, estimators, tests, and multiplicity rules.\evd{E003}\evd{E005}\evd{E006}\evd{E008}\evd{E009}\evd{E015}\evd{E016}\evd{E017}\evd{E025}\evd{E030}
 
 Detectable-effect and continuation bounds answer narrower questions than statistical intervals.
 An \ac{mde} describes the effect size that an assay could reliably resolve under its stated variance model.
