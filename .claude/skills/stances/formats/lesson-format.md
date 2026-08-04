@@ -34,7 +34,7 @@ display `$$…$$` so it also reads in a plain markdown previewer without the ren
 
 > **Learning artifact — not canonical, not a report.** This is the process record of a teaching session.
 > Every number is cited to its source by code; nothing here is a source of truth. When this disagrees
-> with an E record or the extended manuscript, those authorities win.
+> with an E record or the canonical rewrite manuscript, those authorities win.
 
 ## Template
 

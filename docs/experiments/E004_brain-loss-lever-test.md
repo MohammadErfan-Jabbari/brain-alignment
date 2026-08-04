@@ -7,7 +7,7 @@ aliases: [E004]
 # Experiment — E004: is `$\mathcal{L}_{\text{brain}}$` a usable *lever*? (R03 Q2) + the D010 loss-form resolution
 
 **Created:** 2026-06-10 · **Re-locked:** 2026-06-11 (after oracle-reviewer HOLD → design reshaped) · **Status:** COMPLETE (ran 2026-06-11) — Q2 verdict **REVISED S25 (2026-06-19, Erfan-confirmed): NO DEMONSTRATED LEVER** (was "🟡 PARTIAL — fragile lever"). The headline +0.0032 [+0.0006,+0.0058] ("excludes 0") was a **15-cell pseudo-replicated bootstrap** (3 seeds × 5 folds as 15 independent — the L015 error the project fixed for E005 but never applied here); at the honest n=5-fold unit t-CI = **[−0.0023,+0.0086] includes 0**, fold-4 carries **64%** (LOFO-f4 → +0.0014), `beats_permuted_null=False`. → no valid-unit evidence the loss moves held-out alignment. **Caveat: n=5 underpowered to exclude a small (~+0.003) lever → "undemonstrated," NOT "proven zero."** Still perplexity-entangled (L011/L012). See the S25 recompute note at the bottom. · **Mode:** working
-**Direction:** Q2 lever test; current interpretation is in the [extended manuscript](../manuscript/extended/main-extended.tex) and [`status.md`](../status.md).
+**Direction:** Q2 lever test; current interpretation is in the [canonical thesis manuscript](../manuscript/rewrite/main-rewrite.tex) and [`status.md`](../status.md).
 **Theory:** [`../06-theory-grounding.md`](../06-theory-grounding.md) §1 (MI gen-bound), §2 (DPI ceiling), §3 (conditional MI = unique R²)
 **Predecessors:** [`E002`](E002_tuckute-encoding-feasibility.md) (A2 PASS — encoding signal is real on Tuckute) · [`E003`](E003_kd-alignment-preservation.md) (Q1 PARTIAL — KD lands below teacher, alignment co-varies with ppl, L011)
 **Resolves:** decision **D010** (the form of `$\mathcal{L}_{\text{brain}}$`) — empirically, on real neural data.
@@ -156,7 +156,7 @@ Ran 2026-06-11 (LoRA, 3 seeds × 5 rotating folds; gpt2 GPU0 ~27 min, Qwen GPU3 
 
 **Caveats (carried forward):** (1) ROI-coarse 5-dim screen, underpowered for the absolute lever — the verdict rests on the paired specificity contrast, which is the appropriate matched test but should be confirmed at voxel scale. (2) LoRA finetune still degrades ppl ~2× and alignment slightly — a gentler regime (lower lr / fewer steps / a perplexity-matched stop) is worth testing on LeBel. (3) The brain-specific effect is on Qwen-`mse` only; gpt2 shows no specificity — model-dependence to watch. (4) `frozen`'s "beats lm_only" is regularization, not a lever — do not over-read it.
 
-**Historical routing (superseded):** the original read proposed E006 and a voxelwise rerun. The corrected verdict is recorded in this file's final addendum and in the extended manuscript; current operations live in [`status.md`](../status.md).
+**Historical routing (superseded):** the original read proposed E006 and a voxelwise rerun. The corrected verdict is recorded in this file's final addendum and in the canonical thesis manuscript; current operations live in [`status.md`](../status.md).
 
 ---
 

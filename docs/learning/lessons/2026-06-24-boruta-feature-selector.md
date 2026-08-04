@@ -7,7 +7,7 @@ sources: [Kursa & Rudnicki 2010, "Feature Selection with the Boruta Package", J.
 
 > **Learning artifact — not canonical, not a report.** This is the process record of a teaching session.
 > Every number is cited to its source by code; nothing here is a source of truth. When this disagrees
-> with an owning E record or the extended manuscript, those authorities win.
+> with an owning E record or the canonical rewrite manuscript, those authorities win.
 
 # The Boruta feature selector
 

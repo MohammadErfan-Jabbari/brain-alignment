@@ -511,7 +511,7 @@ The terminal licenses remain:
 - repeat-aware LeBel target work under E031: **false**
 - student training: **false**
 
-Erfan's confirmation of the two scoped classifications remains required before they are synchronized into the extended manuscript. A separate prospectively frozen spatial-scope diagnostic may test the instrument-mismatch alternative while the C2 evaluation repeats remain sealed.
+Erfan's confirmation of the two scoped classifications remains required before they are synchronized into the canonical rewrite manuscript. A separate prospectively frozen spatial-scope diagnostic may test the instrument-mismatch alternative while the C2 evaluation repeats remain sealed.
 
 ## Related
 

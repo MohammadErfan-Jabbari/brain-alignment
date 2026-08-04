@@ -14,7 +14,7 @@ Every lesson grounds in the repo's own material and cites it. Find the source fo
 | Subject | Ground in |
 |---|---|
 | concept | `docs/00-charter`, `03-methodology`, `06-theory-grounding`, `07-concepts-primer` + course material |
-| manuscript claim | `docs/manuscript/extended/` plus its owning E record |
+| manuscript claim | `docs/manuscript/rewrite/` plus its owning E record |
 | file | the file itself |
 | experiment + its rationale | `docs/experiments/` + the code |
 | paper / a topic in it | `docs/literature/canonical/` (or the PDF / `data/paper-repos/`) |
@@ -62,7 +62,7 @@ process made visible, separate from the manuscript and evidence authorities.
   desktop app math also renders inline in chat; the file stays the durable artifact and the default, so the
   loop works identically in the CLI.)
 - **Not canonical.** Every lesson opens with the banner in `formats/lesson-format.md`: a learning
-  artifact, not an authority; numbers cite their E source; when it disagrees with an E record or the extended manuscript, those authorities win.
+artifact, not an authority; numbers cite their E source; when it disagrees with an E record or the canonical rewrite manuscript, those authorities win.
 
 Full template + banner + render command: `formats/lesson-format.md`.
 

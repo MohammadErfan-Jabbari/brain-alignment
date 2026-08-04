@@ -33,7 +33,7 @@ is a `\gap`, never invented.
 5. **Score against the manifest.** The landed verdict must match the manifest's claim and clear its
    overturn-if. If the evidence pushed the verdict off the manifest, that is a finding: say the claim
    moved and why, do not quietly keep the old framing.
-6. **Hand off to `/write`.** Once the verdict is clean and confirmed, a paper-relevant finding goes directly into the extended manuscript.
+6. **Hand off to `/write`.** Once the verdict is clean and confirmed, a paper-relevant finding goes directly into the canonical rewrite manuscript.
 
 ## Fresh-digest vs revision
 

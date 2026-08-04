@@ -20,7 +20,7 @@ tags: [methodology]
 | Design   | claim → locked fair test             | `experiments/ENNN_*.md`                                |
 | Run      | protocol → raw evidence              | artifacts plus the owning E record                     |
 | Judge    | evidence → adjudicated verdict       | owning E record, decision, or learning                 |
-| Argue    | settled verdicts → paper             | extended manuscript                                    |
+| Argue    | settled verdicts → paper             | canonical rewrite manuscript                           |
 | Compound | finished work → reusable lesson      | [`learnings.md`](learnings.md) and Git                 |
 
 The non-negotiables are competing hypotheses, predeclared kill criteria, a locked design, raw evidence separated from interpretation, at least three seeds for stochastic experiments, contiguous splits and nuisance controls for brain-alignment claims, and uncertainty reported at the correct inference unit.
@@ -30,7 +30,7 @@ The non-negotiables are competing hypotheses, predeclared kill criteria, a locke
 | Question                                 | Authority                                                                                                               |
 | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | What was run and what did it produce?    | The owning `experiments/ENNN_*.md` record plus retained load-bearing artifacts                                          |
-| What does the thesis currently conclude? | The live body in [`manuscript/extended/`](manuscript/extended/main-extended.tex)                                        |
+| What does the thesis currently conclude? | The live body in [`manuscript/rewrite/`](manuscript/rewrite/main-rewrite.tex)                                           |
 | Where are we and what happens next?      | [`status.md`](status.md)                                                                                                |
 | Why did the project change?              | [`decisions/decisions.md`](decisions/decisions.md), [`learnings.md`](learnings.md), selected durable timelines, and Git |
 
@@ -40,10 +40,11 @@ No other document may compete with these owners. Public manuscript cuts are immu
 
 The normal transaction is:
 
-`artifact → E record → extended manuscript when settled and paper-relevant → status when operations change`
+`artifact → E record → canonical rewrite manuscript when settled and paper-relevant → status when operations change`
 
 - The E record owns the design, provenance, artifact pointers, statistics, and adjudicated experiment verdict.
-- The extended manuscript owns current scientific interpretation and is corrected when a settled paper-relevant verdict changes.
+- The canonical rewrite manuscript owns current scientific interpretation and is corrected when a settled paper-relevant verdict changes.
+- `manuscript/extended/` is a legacy snapshot and is not an active writing target.
 - An interrupted manuscript correction immediately sets `manuscript-sync-pending` in `status.md`.
 - Corrections append or supersede upstream first. Recording evidence never waits for prose work.
 - A newly discovered scientific contradiction routes to `/interpret`; cleanup and writing do not silently adjudicate it.
@@ -59,7 +60,7 @@ The eight stances remain a lightweight vocabulary, not a stage machine. State th
 
 - `/work`: lock, run, and record evidence. Explicit-only.
 - `/interpret`: recompute the load-bearing contrast and adjudicate recorded evidence.
-- `/write`: draft directly into the extended manuscript from E records and the current manuscript.
+- `/write`: draft directly into the canonical rewrite manuscript from E records and the current manuscript.
 - `/teach`: transfer understanding without creating scientific truth.
 - `/scout`: bring external literature or data into canonical records.
 - `/plan`: choose direction without touching numbers.
@@ -73,7 +74,7 @@ Strict independent review remains at the two load-bearing boundaries: before a d
 1. Read the owning E records and current manuscript section.
 2. Complete the [question-led writing](../.claude/skills/question-led-writing/SKILL.md) question tree for the active scope.
 3. State the intended answer, claim, scope, caveats, and evidence.
-4. Draft directly into the extended manuscript.
+4. Draft directly into `docs/manuscript/rewrite/`.
 5. Run the deterministic manuscript provenance and build checks.
 6. Run one fresh independent question-chain, prose, and scientific-scope review.
 7. Revise; obtain Erfan’s approval for load-bearing framing before marking the manuscript share-ready.

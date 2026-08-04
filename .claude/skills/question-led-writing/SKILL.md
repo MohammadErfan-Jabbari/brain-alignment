@@ -25,7 +25,7 @@ Before the first claim-bearing judgment, identify the source constraints. For ev
 - **Unresolved:** the required authority or decision is absent or pending; route it and do not present the claim as settled.
 - **Authority conflict:** governing sources disagree; route the conflict to the governing adjudication process without resolving it during writing.
 
-In this repository, apply the [authority contract](../../../docs/03-methodology.md). The owning E record records result support and adjudicated verdicts; contradictions route through `/interpret`; and the extended manuscript owns current scientific interpretation. Use `\gap` only for a required missing manuscript value, never for a missing premise, absent citation, unsupported claim, or disputed verdict.
+In this repository, apply the [authority contract](../../../docs/03-methodology.md). The owning E record records result support and adjudicated verdicts; contradictions route through `/interpret`; and `docs/manuscript/rewrite/` owns current scientific interpretation. Use `\gap` only for a required missing manuscript value, never for a missing premise, absent citation, unsupported claim, or disputed verdict.
 
 **Complete when:** the working unit, reader, starting understanding, governing question, provisional answer, claim, scope, source constraints, and governing authorities are explicit.
 

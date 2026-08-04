@@ -149,7 +149,7 @@ The deferred gap-fill ran on 2026-06-10 (6 Sonnet subagents). **Seven new notes 
 
 ## Pointers into the rest of the brain
 
-- [`manuscript/extended/sections/03_methods.tex`](manuscript/extended/sections/03_methods.tex) — the manuscript derivations this file formally grounds (MI bound, DPI, weak-prior selection).
+- [`manuscript/rewrite/sections/03_experimental_framework.tex`](manuscript/rewrite/sections/03_experimental_framework.tex) — the canonical manuscript derivations this file formally grounds (MI bound, DPI, weak-prior selection).
 - [`01-research-landscape.md`](01-research-landscape.md) — the anti-confound protocol (= conditional MI) and the compression trade-off (= rate-distortion / DPI) the course backs.
 - [`learnings.md`](learnings.md) L003 — why every brain-alignment number must be unique variance after nuisance subtraction (the conditional-MI requirement).
 

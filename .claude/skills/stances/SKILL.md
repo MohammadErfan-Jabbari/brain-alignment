@@ -13,7 +13,7 @@ State the active stance in one line and switch when the work changes. Stances se
 |---|---|---|
 | `/work` | lock, run, and record evidence | explicit-only; produces numbers in E records |
 | `/interpret` | recompute and adjudicate recorded evidence | proposes a verdict; does not invent data |
-| `/write` | put settled claims directly into the extended manuscript | reports evidence; does not adjudicate it |
+| `/write` | put settled claims directly into the canonical rewrite manuscript | reports evidence; does not adjudicate it |
 | `/teach` | transfer understanding from repo sources | produces no scientific truth |
 | `/scout` | retrieve external papers or datasets into canonical records | external evidence only |
 | `/plan` | choose direction | no numbers produced or adjudicated |
@@ -31,7 +31,7 @@ State the active stance in one line and switch when the work changes. Stances se
 
 - Scientific numbers originate in `/work` and are recorded in an owning E record.
 - A missing number is a `\gap`, never a guess or synthetic stand-in.
-- The extended manuscript reports only recorded evidence with `\evd{Ennn}` or keyed `\result{...}` provenance.
+- The canonical rewrite manuscript reports only recorded evidence with `\evd{Ennn}` or keyed `\result{...}` provenance.
 - A contradiction found during writing routes upstream to `/interpret`; set `docs/status.md` to `manuscript-sync-pending` until resolved and synchronized.
 - `/work` locks kill criteria, controls, splits, inference units, and at least three seeds before compute.
 - `/interpret` independently recomputes load-bearing statistics and uses fresh adversarial review before a verdict is settled.

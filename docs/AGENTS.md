@@ -11,7 +11,7 @@
 | Need | Owner |
 |---|---|
 | Evidence, provenance, experiment verdict | `experiments/ENNN_*.md` plus retained artifacts |
-| Current scientific interpretation | `manuscript/extended/` |
+| Current scientific interpretation | `manuscript/rewrite/` |
 | Operational state and next actions | `status.md` |
 | Historical rationale | `decisions/`, `learnings.md`, selected timelines, Git |
 
@@ -21,7 +21,7 @@ Do not create a report, roadmap, dashboard, readiness matrix, audit memo, routin
 
 - Numbers originate in E records and must carry the correct inference unit and uncertainty.
 - Route scientific contradictions to `/interpret`; do not resolve them during cleanup or prose editing.
-- Write settled paper-relevant interpretation directly into the extended manuscript.
+- Write settled paper-relevant interpretation directly into the canonical rewrite manuscript.
 - Set `status.md` to `manuscript-sync-pending` whenever an upstream correction has not yet reached the manuscript.
 - Update only authorities whose state changed. No-op sessions create no documentation churn.
 - Timeline logs are exceptional: result, adjudication, correction, durable decision/learning, manuscript/public milestone, or lasting failure only.
@@ -44,7 +44,8 @@ Do not create a report, roadmap, dashboard, readiness matrix, audit memo, routin
 | `hypotheses/` | Falsifiable claims and gates |
 | `literature/canonical/` | Canonical paper notes |
 | `external-reviews/` | Verbatim, non-authoritative external-review provenance |
-| `manuscript/extended/` | Live scientific account |
+| `manuscript/rewrite/` | Canonical live scientific account |
+| `manuscript/extended/` | Legacy manuscript snapshot; do not edit |
 | `manuscript/public/` | Immutable cuts |
 | `decisions/`, `learnings.md` | Durable history |
 | `timeline/` | Selected consequential session records |

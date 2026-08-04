@@ -7,7 +7,7 @@ sources: [docs/03-methodology.md, docs/status.md, docs/decisions/decisions.md, .
 
 > **Learning artifact — not canonical, not a report.** This is the process record of a teaching session.
 > Every number is cited to its source by code; nothing here is a source of truth. When this disagrees
-> with an E record or the extended manuscript, those authorities win.
+> with an E record or the canonical rewrite manuscript, those authorities win.
 
 # The cleaned repository pipeline
 
@@ -22,12 +22,12 @@ Each fact has one proper owner.
 | Question | Owner |
 |---|---|
 | What was run, how, and what did it produce? | The owning E record and retained load-bearing artifacts |
-| What does the thesis currently conclude? | The extended manuscript |
+| What does the thesis currently conclude? | The canonical rewrite manuscript |
 | Where are we and what happens next? | `docs/status.md` |
 | Why did the project change? | Decisions, learnings, selected consequential timelines, and Git |
 
 The old ladder, upspeed file, task board, reports, checkpoint log, and writing orchestration were removed because they copied or competed with these owners.
-Public manuscript cuts remain immutable snapshots; the extended manuscript is the live scientific interpretation.
+Public manuscript cuts remain immutable snapshots; the canonical rewrite manuscript is the live scientific interpretation.
 
 ## Part 2 — The scientific transaction
 
@@ -56,7 +56,7 @@ Stances describe the job being done; they are not separate pipelines or database
 |---|---|---|
 | `/work` | Lock and run an experiment | Produces recorded evidence; explicit-only |
 | `/interpret` | Recompute and adjudicate evidence | Proposes a verdict for user confirmation |
-| `/write` | Integrate settled findings | Edits the extended manuscript directly |
+| `/write` | Integrate settled findings | Edits the canonical rewrite manuscript directly |
 | `/review` | Stress-test design, result, code, or prose | Critique only |
 | `/plan` | Choose the next direction | No new scientific result |
 | `/scout` | Retrieve papers or datasets | External evidence and canonical notes |
@@ -76,7 +76,7 @@ It does not reconstruct the present from timelines.
 The close procedure asks what actually changed and updates only the proper owner:
 
 1. Evidence or adjudication changed: update the E record.
-2. Current thesis interpretation changed: update the extended manuscript.
+2. Current thesis interpretation changed: update the canonical rewrite manuscript.
 3. Active work, blocker, or next action changed: update `status.md`.
 4. A durable rationale or reusable lesson emerged: update decisions or learnings.
 5. A consequential result, correction, milestone, decision, learning, or lasting failure occurred: optionally add one timeline.
@@ -99,4 +99,3 @@ The desired end state is not “every session leaves documents.”
 It is “every durable change reaches exactly one correct owner, and nothing is copied merely to prove the session happened.”
 
 **Check question.** If a session only reads the share-ready manuscript and finds no problem, what should `/wrap` change?
-

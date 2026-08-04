@@ -10,9 +10,9 @@ aliases: [manuscript-agents]
 
 | Path | Purpose |
 |---|---|
-| `extended/` | Live LaTeX master and authority for current scientific interpretation |
-| `rewrite/` | Independently buildable claim-led candidate; non-authoritative until Erfan explicitly approves replacement |
-| `public/vN/` | Immutable sharing/submission cuts derived from the extended master |
+| `rewrite/` | Canonical LaTeX thesis master and authority for current scientific interpretation |
+| `extended/` | Legacy manuscript snapshot; preserve unchanged and do not use for new writing |
+| `public/vN/` | Immutable sharing/submission cuts derived from the canonical rewrite master |
 | `figures/` | Selected committed figures; generation code lives in `scripts/figures/` |
 
 ## Direct writing loop
@@ -20,14 +20,14 @@ aliases: [manuscript-agents]
 1. Read the owning E records and current manuscript section.
 2. Read the maintained question map below and apply [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md) to the active scope.
 3. State the intended answer, claim, scope, caveats, and evidence.
-4. Edit the extended manuscript directly. Update this question map in the same change when the manuscript's argument changes.
+4. Edit `rewrite/` directly. Update this question map in the same change when the manuscript's argument changes.
 5. Preserve `\evd{Ennn}` as source-level evidence provenance and keyed values in `numbers.tex`; a missing value is a `\gap`. Evidence identifiers are hidden in the thesis build and may be displayed only for internal review.
-6. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/extended`.
+6. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/rewrite`.
 7. Run one fresh independent question-chain, prose, and scientific-scope review and obtain Erfan’s approval for load-bearing framing.
 
 Use `--share-ready` only when no gap remains. A contradiction routes to `/interpret` and sets `docs/status.md` to `manuscript-sync-pending`.
 
-The user-authorized `rewrite/` candidate follows its own maintained question tree and review contract in [`rewrite/AGENTS.md`](rewrite/AGENTS.md). Work there must not modify `extended/`, and its prose does not become the current scientific authority merely by compiling or passing review.
+The canonical `rewrite/` manuscript follows its maintained question tree and review contract in [`rewrite/AGENTS.md`](rewrite/AGENTS.md). Work there must not modify the legacy `extended/` snapshot.
 
 ## Manuscript-wide terminology
 
@@ -92,7 +92,7 @@ After changing prose, recheck the whole active section against the terminology a
 
 ## Maintained manuscript question map
 
-This map states the reader questions that the extended manuscript must answer. It is a writing and review contract, not a scientific authority: E records still own experimental evidence, and the extended manuscript still owns the current scientific interpretation.
+This map states the reader questions that the canonical rewrite manuscript must answer. It is a writing and review contract, not a scientific authority: E records still own experimental evidence, and `rewrite/` owns the current scientific interpretation.
 
 The map was produced on 2026-07-22 with the Plan branch of [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md). The complete manuscript and appendices were inspected, then four independent reviews applied the global decision skills `test-claims`, `remove-bottlenecks`, `allocate-for-compounding`, and `coordinate-strategy`. The reconciled map separates the quantity used to evaluate a frozen student, brain alignment, from the recorded fMRI responses or synthetic brain responses generated from text that are used during training.
 

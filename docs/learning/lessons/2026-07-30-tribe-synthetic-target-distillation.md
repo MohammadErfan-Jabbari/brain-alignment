@@ -11,7 +11,7 @@ sources:
 
 > **Learning artifact — not canonical, not a report.** This is the process record of a teaching session.
 > Every number is cited to its source by code; nothing here is a source of truth. When this disagrees
-> with an E record or the extended manuscript, those authorities win.
+> with an E record or the canonical rewrite manuscript, those authorities win.
 
 # Synthetic TRIBE targets in knowledge distillation
 
@@ -66,7 +66,7 @@ $$
 
 The temporary target head is discarded after training. This prevents success of that head by itself from
 being mistaken for a lasting change in the student. Fresh readouts are then fitted to the frozen retained
-student. The sources for this mechanism are Section 3.4 of the rewrite candidate, Appendix B's
+student. The sources for this mechanism are Section 3.4 of the canonical rewrite manuscript, Appendix B's
 “Synthetic brain-response and text-derived control targets,” Appendix C's training graph, and E016.
 
 The student is already smaller than the language teacher: the recorded pair is
@@ -79,4 +79,3 @@ does not estimate a scaling curve over several student sizes.
 
 **Question.** In one sentence, where does actual recorded fMRI enter this synthetic-response experiment:
 during student training, during downstream evaluation, or both?
-

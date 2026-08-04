@@ -972,8 +972,18 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Reverses if:** the frozen E026 state classification is invalidated; a prospectively matched comparator passes the pre-outcome and baseline conditions; or a declared paired E009 endpoint analysis changes the endpoint disposition. No raw result, artifact hash, or direct-transfer estimate changes under this decision.
 
+## D064: Promote the claim-led rewrite as the canonical thesis manuscript (2026-08-04, /meta + /write)
+
+**Decision.** `docs/manuscript/rewrite/` is the sole live thesis manuscript and owns the current scientific interpretation. All future manuscript writing, checking, building, and supervisor-facing export use `main-rewrite.tex` and `main-rewrite.pdf`. The registered thesis title is *Brain Alignment as a Signal for Language Models: From Measurement to Application*.
+
+**Legacy boundary.** `docs/manuscript/extended/` is preserved unchanged as a legacy snapshot. It is not an active writing target and need not be synchronized after this cutover. Existing frozen public cuts remain immutable.
+
+**Implementation.** Current authority contracts, writing commands, stance routing, manuscript checks, status, and maintained manuscript guidance point to `docs/manuscript/rewrite/`. Historical decisions and timelines retain their original references because they describe the state that existed when they were written.
+
+**Reverses if:** Erfan explicitly designates another manuscript source as canonical. A university formatting copy may derive from the canonical source without changing scientific ownership.
+
 ## Related
 
 - [`status.md`](../status.md) — operational authority
 - [`03-methodology.md`](../03-methodology.md) — four-authority contract
-- [`../manuscript/extended/main-extended.tex`](../manuscript/extended/main-extended.tex) — scientific authority
+- [`../manuscript/rewrite/main-rewrite.tex`](../manuscript/rewrite/main-rewrite.tex) — canonical thesis and scientific authority

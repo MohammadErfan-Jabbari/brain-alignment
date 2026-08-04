@@ -13,11 +13,11 @@ This repository is the execution and writing home for Erfan’s thesis on whethe
 | Question | Authority |
 |---|---|
 | What was run and what did it produce? | `docs/experiments/ENNN_*.md` plus retained load-bearing artifacts |
-| What does the thesis currently conclude? | `docs/manuscript/extended/` |
+| What does the thesis currently conclude? | `docs/manuscript/rewrite/` |
 | Where are we and what happens next? | `docs/status.md` |
 | Why did the project change? | decisions, learnings, selected consequential timelines, and Git |
 
-No report layer, alternate status board, claim database, artifact registry, dashboard, or routine timeline is authoritative. Public manuscript cuts are immutable. An interrupted upstream correction sets `manuscript-sync-pending` until the extended manuscript is synchronized.
+No report layer, alternate status board, claim database, artifact registry, dashboard, or routine timeline is authoritative. Public manuscript cuts are immutable. An interrupted upstream correction sets `manuscript-sync-pending` until the canonical rewrite manuscript is synchronized.
 
 ## Interaction stances
 
@@ -27,7 +27,7 @@ State the active stance and switch when work changes. The `stances` skill owns d
 |---|---|
 | `/work` | lock, run, and record evidence; explicit-only |
 | `/interpret` | recompute and adjudicate recorded evidence |
-| `/write` | draft settled claims directly into the extended manuscript |
+| `/write` | draft settled claims directly into the canonical rewrite manuscript |
 | `/teach` | transfer understanding from sources |
 | `/scout` | bring external literature/data into canonical records |
 | `/plan` | choose direction without touching numbers |
@@ -46,19 +46,19 @@ State the active stance and switch when work changes. The `stances` skill owns d
 
 The evidence transaction is:
 
-`artifact → E record → extended manuscript if settled and paper-relevant → status if operations changed`
+`artifact → E record → canonical rewrite manuscript if settled and paper-relevant → status if operations changed`
 
 Only load-bearing gitignored artifacts cited by the manuscript receive stable paths and SHA-256 values, in their owning E records.
 
 ## Writing
 
-Write directly from E records into `docs/manuscript/extended/`:
+Write directly from E records into `docs/manuscript/rewrite/`:
 
 1. Read the owning E records and current section.
 2. Apply [question-led writing](.claude/skills/question-led-writing/SKILL.md) before drafting.
 3. State the intended answer, claim, scope, caveats, and evidence.
 4. Draft with `\evd{Ennn}` markers and keyed values from `numbers.tex`.
-5. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/extended`.
+5. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/rewrite`.
 6. Run one fresh independent question-chain, prose, and scientific-scope review, revise, and obtain Erfan’s approval for load-bearing framing.
 
 Use `--share-ready` only when every gap is resolved and the manuscript is intended to ship. Do not create intermediate reports, claim lattices, convergence state, or checkpoint logs.

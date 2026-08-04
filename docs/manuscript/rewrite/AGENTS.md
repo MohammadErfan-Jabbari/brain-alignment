@@ -1,16 +1,16 @@
 ---
-title: "Claim-Led Manuscript Rewrite Contract"
+title: "Canonical Thesis Manuscript Contract"
 tags: [manuscript, rewrite, question-led-writing]
 aliases: [rewrite-contract]
 ---
 
-# Claim-Led Manuscript Rewrite Contract
+# Canonical Thesis Manuscript Contract
 
 ## Status and authority
 
-This directory is a from-scratch, claim-led manuscript candidate requested by Erfan on 2026-07-23. It may use the same settled evidence as the extended manuscript, but it must not copy the extended manuscript's chronology or silently change an E-record verdict.
+This directory is the canonical thesis manuscript. It uses settled evidence from the owning E records and must not silently change an E-record verdict.
 
-The current scientific authority remains [`../extended/`](../extended/) until Erfan explicitly approves replacing it. The candidate must therefore remain independently buildable, and work here must not modify files under `../extended/`.
+This directory owns the current scientific interpretation and must remain independently buildable. The legacy [`../extended/`](../extended/) directory is preserved as a historical snapshot and must not be modified.
 
 ## Reader, governing question, and answer
 
@@ -576,6 +576,6 @@ This appendix formalizes the limits introduced conceptually in Section 2.2; it m
 ## Related
 
 - [Manuscript guidance](../AGENTS.md)
-- [Current extended manuscript](../extended/)
+- [Legacy extended manuscript snapshot](../extended/)
 - [Evidence and authority contract](../../03-methodology.md)
 - [Operational status](../../status.md)

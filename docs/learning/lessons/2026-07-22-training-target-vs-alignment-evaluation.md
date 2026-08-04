@@ -2,12 +2,12 @@
 subject: training target versus brain-alignment evaluation
 mode: walkthrough
 date: 2026-07-22
-sources: [docs/manuscript/extended/sections/01_introduction.tex, docs/manuscript/extended/sections/03_methods.tex, docs/manuscript/extended/sections/07_conclusion.tex]
+sources: [docs/manuscript/rewrite/sections/01_introduction.tex, docs/manuscript/rewrite/sections/03_experimental_framework.tex, docs/manuscript/rewrite/sections/07_conclusion.tex]
 ---
 
 > **Learning artifact — not canonical, not a report.** This is the process record of a teaching session.
 > Every number is cited to its source by code; nothing here is a source of truth. When this disagrees
-> with an E record or the extended manuscript, those authorities win.
+> with an E record or the canonical rewrite manuscript, those authorities win.
 
 # Training target versus brain-alignment evaluation
 
@@ -21,7 +21,7 @@ The simplest distinction is **lesson versus exam**. During training, the student
 
 For each training stimulus, a selected student layer feeds a temporary neural prediction head. The head predicts a recorded or predicted neural-response target. Its prediction error is added to the ordinary knowledge-distillation loss. Gradients from that auxiliary error update the permitted student parameters and the temporary head.
 
-After training, the temporary head is discarded. This is defined in the Introduction's pipeline caption and the Methods subsection on intervention objectives ([Introduction](../../manuscript/extended/sections/01_introduction.tex), [Methods](../../manuscript/extended/sections/03_methods.tex)).
+After training, the temporary head is discarded. This is defined in the Introduction's pipeline caption and the Methods subsection on intervention objectives ([Introduction](../../manuscript/rewrite/sections/01_introduction.tex), [Methods](../../manuscript/rewrite/sections/03_experimental_framework.tex)).
 
 ```mermaid
 flowchart LR
@@ -34,7 +34,7 @@ flowchart LR
 
 ### What the thesis evaluated
 
-The retained student is frozen. A fresh ridge encoding model is then fitted from its hidden representations to recorded brain responses using only the training portion of an evaluation split. The fitted readout predicts responses for held-out stimuli, and the alignment statistic summarizes that held-out prediction beyond the declared controls. This evaluation does not update the student ([Methods](../../manuscript/extended/sections/03_methods.tex)).
+The retained student is frozen. A fresh ridge encoding model is then fitted from its hidden representations to recorded brain responses using only the training portion of an evaluation split. The fitted readout predicts responses for held-out stimuli, and the alignment statistic summarizes that held-out prediction beyond the declared controls. This evaluation does not update the student ([Methods](../../manuscript/rewrite/sections/03_experimental_framework.tex)).
 
 ```mermaid
 flowchart LR

@@ -9,7 +9,7 @@ aliases: [obsidian-conventions, markdown-conventions, vault-conventions]
 **The canonical spec for how every `.md` file in this repo is *structured*.** The repo is at once a
 **GitHub repo** (remote `origin`) and an **Obsidian vault**; every file must render correctly in
 *both*. This file governs the *container* (naming, frontmatter, links, formatting, layout). The
-*prose body* of the extended manuscript is drafted directly from the owning experiment records and reviewed under the manuscript workflow.
+*prose body* of the canonical rewrite manuscript is drafted directly from the owning experiment records and reviewed under the manuscript workflow.
 
 > **Structure from these conventions; words from `/write`.** The two never overlap. `.tex` files are
 > LaTeX, not Markdown — these conventions do not apply to them (only `/write` does).

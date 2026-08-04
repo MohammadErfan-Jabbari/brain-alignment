@@ -7,7 +7,7 @@ aliases: [E024]
 # Experiment — E024: brain/cognitive signal as train-only PRIVILEGED INFORMATION → sample-efficiency (ZuCo, P1)
 
 **Created:** 2026-06-18 (S25) · **Status:** COMPLETE AT PRECONDITION GATE — ZuCo-NR gaze was reliable but uninformative for the natural-reading relation target, while the task-directed contrast exposed leakage; the five-arm LUPI intervention was correctly stopped before build. · **Mode:** working→interpret
-**Direction:** Q4 privileged-information/sample-efficiency test; current interpretation is in the [extended manuscript](../manuscript/extended/main-extended.tex). The charter's
+**Direction:** Q4 privileged-information/sample-efficiency test; current interpretation is in the [canonical thesis manuscript](../manuscript/rewrite/main-rewrite.tex). The charter's
 **F2** returned to with a theory (LUPI), a higher-SNR regime (EEG+gaze), and the 5-control battery it lacked.
 **Theory:** [`06-theory-grounding.md`](../06-theory-grounding.md) §1 (MI bound), §2 (DPI ceiling); Lopez-Paz 2016 / Vapnik LUPI; Provodin 2024 (LUPI
 gains can be artifacts → zeroed-PI mandatory).

@@ -7,7 +7,7 @@ aliases: [E002]
 # Experiment — E002 real-data encoding feasibility on Tuckute 2024 (the A2 question)
 
 **Created:** 2026-06-10 · **Status:** done — A2 PASS across 3 models (gpt2, gpt2-medium, Qwen2.5-0.5B)
-**Direction:** Q0 measurement prerequisite; current interpretation is in the [extended manuscript](../manuscript/extended/main-extended.tex). · **Mode:** working
+**Direction:** Q0 measurement prerequisite; current interpretation is in the [canonical thesis manuscript](../manuscript/rewrite/main-rewrite.tex). · **Mode:** working
 **Code:** `scripts/run_encoding_feasibility.py`, `scripts/data_adapters.py:load_tuckute`, `scripts/pilot_lib.py`
 **Output:** `outputs/E002_tuckute_feasibility.json`
 **New to the vocabulary?** Voxel/ROI, encoding model, unique R², noise ceiling, "% of ceiling", what Tuckute is → [`../07-concepts-primer.md`](../07-concepts-primer.md).
