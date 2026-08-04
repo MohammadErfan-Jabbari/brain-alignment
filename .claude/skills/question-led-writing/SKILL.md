@@ -1,6 +1,6 @@
 ---
 name: question-led-writing
-description: Question-led guided writing. Use to plan explanatory prose from reader questions, draft each answer as a supported path from the reader's current understanding, review by reverse outline and inference audit, revise dense or discontinuous prose, or supply another writing workflow with reader questions.
+description: Question-led guided writing for explanatory, academic, and scientific prose. Use to plan from reader questions, draft supported inference paths, review by reverse outline and inference audit, revise dense or discontinuous prose, align claim-bearing equations or visuals with prose, audit terminology or stock AI-like phrasing, or supply another writing workflow with reader questions.
 ---
 
 # Question-led guided writing
@@ -11,6 +11,8 @@ Use two connected structures:
 - The **guided inference path** determines how the reader reaches each answer. Move from shared ground through only the distinctions and evidence needed for the scoped conclusion.
 
 The tree chooses the destination. The path makes the conclusion understandable and earned.
+
+For line-level style review, terminology audit, final-readiness review, or a request to remove jargon, inflated academic language, or AI-like phrasing, read [Style guardrails and repair patterns](references/style-guardrails.md) before applying Step 5. Do not load that reference for planning-only work.
 
 ## 1. Frame the reader and root
 
@@ -53,13 +55,15 @@ Before drafting a leaf answer, identify the shortest supported route from the re
 
 Use only the steps the leaf requires. A definition or procedural paragraph may need shared ground, a distinction, and a mechanism but no result. A result paragraph normally needs the mechanism or comparison before the evidence and interpretation. Never insert a limitation mechanically when it does not change the claim.
 
+When a comparison carries the inference, establish what the conditions share, the single claim-relevant difference, and the alternative explanation that difference tests before presenting its evidence.
+
 Each step must establish the premise used by the next. If a reader must guess why a comparison matters, remember an unstated definition, or accept a conclusion before seeing its support, the path has a gap.
 
 **Complete when:** the route contains no unsupported jump, no unnecessary detour, and no step that depends on information introduced later.
 
 ## 4. Answer the leaves
 
-For Draft and Revise, open each paragraph with its direct answer. Add only the reasoning, evidence, definition, example, or scope needed to support that answer. Introduce a technical term, symbol, or derivation when the current question requires it; otherwise place it under the question it answers. Use one stable term for each concept.
+For Draft and Revise, orient the reader immediately to the leaf answer. Open with the direct answer when its premises are already available; otherwise begin with the shared ground needed to earn it. Add only the reasoning, evidence, definition, example, or scope needed to support that answer. Introduce a technical term, symbol, or derivation when the current question requires it; otherwise place it under the question it answers. Use one stable term for each concept.
 
 Guide rather than announce. Draft first in the intended reader's conceptual language, then reconcile the wording against the evidence and necessary technical distinctions. Reveal one necessary distinction at a time. Explain why a method or comparison matters before relying on its result. Interpret evidence explicitly instead of leaving the reader to infer its role.
 
@@ -84,6 +88,7 @@ Then read the prose as a skeptical first-time reader:
 - Does every method or result arrive after the reader understands why it matters?
 - Does any sentence contain more conceptual work than its neighbors prepare the reader to absorb?
 - Would a compact equation make an important relationship easier to verify, and is every retained equation introduced and interpreted?
+- Does every retained figure or table materially reduce reader effort, use referent and comparison labels consistent with the prose, and make its inferential role explicit?
 - Could the reader explain why each paragraph is present and why the next one follows?
 - Does the conclusion state exactly what the evidence establishes, weakens, leaves unresolved, or does not test?
 
