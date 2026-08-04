@@ -119,5 +119,13 @@ The headline E001 could never produce: on **real** language-network BOLD, a trai
 |---|---|
 | `outputs/E002_tuckute_feasibility.json` | `ce45eb1786514a168e81248c426c472077a44245d8863ee5d0bbf6e4aacab44d` |
 
+## Interpretation correction (2026-08-04) — model-specific static nuisance narrows the trained-minus-untrained claim
+
+A thesis-wide examiner audit exposed a conflict between the recorded interpretation and the executed implementation.  The record previously described the trained and randomly initialized arms as passing through a byte-identical nuisance design.  In the retained runner, however, `run_model` constructs the static input-embedding nuisance from the model being evaluated.  The trained and randomly initialized arms therefore share the scalar nuisances, response matrix, folds, PCA rank, and estimator, but they do not share the same static embedding matrix.
+
+This correction does not change the recorded trained-model unique-\(R^2\) values.  Those values still support the narrow measurement claim that the tested trained representations add held-out predictive information beyond their implemented scalar and model-specific static nuisance blocks.  The trained-minus-untrained gap no longer cleanly isolates learned contextual parameters while holding every nuisance feature fixed.  Its learned-parameter interpretation is therefore **unresolved under the executed E002 nuisance construction**.  A fixed-static-nuisance recomputation would be needed to restore that stronger interpretation; no such recomputation is reported here.
+
+The E002 scientific disposition is consequently narrowed from an unconditional trained-versus-untrained control pass to: **controlled trained-model predictivity supported; learned-parameter attribution from the trained-minus-untrained gap unresolved under model-specific static nuisance residualization**.  No numerical result is changed.
+
 ## Related
 - [`status.md`](../status.md) — the canonical status board

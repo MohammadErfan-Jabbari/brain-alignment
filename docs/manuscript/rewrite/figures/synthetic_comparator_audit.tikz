@@ -19,10 +19,10 @@
   \node[anchor=west,font=\scriptsize,text=red!62!black] at (10.35,5.48)
     {any required failure makes the comparator non-identifying};
 
-  % Frozen measured-axis audit
+  % Corrected identification-set audit
   \fill[gray!5] (0.05,3.72) rectangle (16.10,5.15);
   \node[anchor=west,align=left,text width=39mm,font=\small] at (0.25,4.45)
-    {\textbf{Frozen comparator audit}\\55 measured-axis checks};
+    {\textbf{Comparator identification audit}\\37 pre-outcome or KD-baseline checks};
   \pgfmathsetmacro{\passw}{\xwidth*\result{e026_plot_check_pass}/\result{e026_plot_check_total}}
   \pgfmathsetmacro{\failw}{\xwidth*\result{e026_plot_check_fail}/\result{e026_plot_check_total}}
   \draw[passfill] (\xleft,4.20) rectangle ({\xleft+\passw},4.70);
@@ -63,5 +63,5 @@
     {\textbf{\result{e026_headroom_ratio}\(\times\) more mean headroom}\\for the synthetic target};
 
   \node[anchor=north,align=center,font=\scriptsize] at (8.10,0.45)
-    {Additional failed axes: covariance geometry, nuisance predictability, parameter displacement, and retained-representation movement.};
+    {Additional failed identification axes: covariance geometry, effective rank, and nuisance predictability. Post-training movement is diagnostic.};
 \end{tikzpicture}

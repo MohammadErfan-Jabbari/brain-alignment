@@ -46,11 +46,11 @@ Use the following terms throughout manuscript prose, including abstracts, captio
 | Synthetic brain-response target | A synthetic brain response generated from text when it is used in a training objective |
 | Target uptake | Recoverability of an optimized training target from retained student representations by a fresh post-training readout |
 | Retained-student movement | Parameter or representation difference from the declared training baseline that remains after temporary training components are discarded |
-| Exact-target measurability | Whether the exact synthetic training target adds controlled, practically relevant predictivity of recorded fMRI responses beyond the declared nuisance and frozen-generator controls |
+| 50-component linear target-projection measurability | Whether the declared fold-local PCA-50 target representation adds controlled predictivity of recorded fMRI responses beyond nuisance and the frozen row-twin control; this qualifies only that linear pathway |
 | Brain-response-specific attribution | Whether the brain-response-target arm outperforms its route-appropriate control on the outcome being claimed: correctly paired versus permuted responses for the recorded-response route, or synthetic brain responses versus a matched text-derived target for the synthetic-response route |
 | Biological transfer | Improvement on independently recorded fMRI responses that were not optimized as the training endpoint |
 | Brain-specific advantage | Incremental benefit beyond an appropriate text-derived or permuted control, at comparable language-model quality and the correct biological inference unit |
-| Evidence-chain stage | One claim-bearing step in the conceptual evidence chain. Use *stage* for this structure; use *criterion*, *threshold*, or *check* for an operational continuation rule, never *gate* for both |
+| Claim dependency | Evidence required for one named claim. Do not impose a universal stage order when direct transfer, attribution, linear-pathway evidence, and utility have different dependencies |
 
 Avoid unqualified *neural activity*, *neural representation*, *neural response*, and *neural target* when they could refer either to the biological brain or to a neural network. fMRI records a hemodynamic response associated with brain activity, not neuronal firing directly. Use *response* for what is measured, predicted, or evaluated. Reserve *target* for a response used in a training objective; write *recorded brain-response target* or *synthetic brain-response target* only after identifying its source. Do not write the generic phrase *response target*. Name a control by its construction and the alternative explanation it tests: use *text-feature control*, *text-derived control*, or *matched auxiliary target derived from language-model features*, not *nonbrain control*. Precision comes from naming the source, measurement, role, and comparison of an object, not from the adjective *neural* or a negation such as *nonbrain*.
 
@@ -63,14 +63,14 @@ The manuscript rewrite is the thesis content. Organize it by the scientific role
 | Route | Major source of training supervision | **recorded-response route**, **synthetic-response route** |
 | Intervention | Paired training family defined by the manipulated supervision | **recorded-response intervention**, **synthetic-response intervention** |
 | Arm or control | Condition within an intervention or assay | **ordinary-distillation arm**, **permuted-response control**, **frozen row-twin control**, **text-derived auxiliary-control arm** |
-| Assay | Protocol that measures a declared quantity | **controlled regional predictivity assay**, **controlled naturalistic voxelwise predictivity assay**, **exact synthetic-target measurability assay**, **synthetic-target recovery assay**, **saved-student biological-transfer assay** |
-| Analysis or audit | Contrast, diagnostic, or validity examination | **quality-aware distillation-headroom analysis**, **retained-student movement audit**, **comparator-adequacy audit and attribution assessment**, **response-averaging analysis** |
+| Assay | Protocol that measures a declared quantity | **controlled regional predictivity assay**, **controlled naturalistic voxelwise predictivity assay**, **50-component linear target-projection measurability assay**, **synthetic-target recovery assay**, **saved-student biological-transfer assay** |
+| Analysis or audit | Contrast, diagnostic, or validity examination | **distillation-headroom analysis**, **retained-student movement audit**, **comparator-adequacy audit and attribution assessment**, **response-averaging analysis** |
 | Evaluation | Recurring external endpoint | **language-quality evaluation**, **practical-utility evaluation** |
 | Evidence record | Internal provenance owner | `E###` appears only in source provenance, an internal-review build, or the provenance appendix |
 
 Use the shortest canonical term after its first definition. Dataset, model, layer, target dimension, and response construction are qualifiers used only when they distinguish variants. Participant-specific and participant-averaged identify response construction or inference level, not standalone experiments. TRIBE identifies the generator. A text-derived auxiliary target, frozen row twin, or permutation is a control within its owning comparison.
 
-The main thesis argument proceeds through controlled regional and naturalistic predictivity, quality-aware distillation headroom, exact synthetic-target measurability where applicable, intervention, retained manipulation, comparator adequacy and attribution, biological transfer, and practical utility. Supporting robustness analyses remain subordinate to their owning role. Pipeline validation, failed instruments, stopped pilots, and unexecuted designs belong in descriptively titled appendix or future-work categories.
+The main thesis argument uses claim-specific dependencies. Controlled predictivity supplies measurement context; route-specific headroom describes opportunity. The 50-component linear target-projection assay qualifies only the declared linear pathway. Direct transfer compares the synthetic-response arm with ordinary KD independently of the text-derived comparator, while brain-response-content attribution additionally requires an adequate nonbrain comparator. Practical utility has its own matched endpoint and, when framed as the payoff of improved controlled predictivity, requires a reliable prerequisite change. Post-training movement is diagnostic, not a comparator-matching condition.
 
 Do not expose evidence-record identifiers in ordinary thesis prose, headings, captions, tables, or result statements. Preserve `\evd{E###}` in source and suppress it in the thesis build. A single provenance appendix may map descriptive scientific roles to evidence records, artifacts, and status.
 
@@ -116,9 +116,9 @@ The map was produced on 2026-07-22 with the Plan branch of [`question-led-writin
 
 **Methods.** How does the study instantiate each scientific role with one study-specific design tuple comprising its data or response construction, intervention or assay, comparator, estimand, endpoint, and inference unit?
 
-**Results Across the Evidence Chain.** Where does each scientific role pass, fail, remain unresolved, or become non-identifying at its declared inference unit, and what narrow claim does each result license?
+**Results by Scientific Claim.** Which scientific roles are supported, not demonstrated, unresolved, or non-identifying at their declared inference units, and what narrow claim does each result license?
 
-**Discussion.** Where does the evidence chain break, which explanations are ruled out or remain possible, and what must future brain-guided training studies demonstrate?
+**Discussion.** Which route-specific claims are supported or limited, which explanations are ruled out or remain possible, and what must future brain-guided training studies demonstrate?
 
 **Limitations.** Which properties of the participants, stimuli, targets, models, controls, readouts, interventions, statistical power, external reproductions, and downstream tasks bound the interpretation?
 

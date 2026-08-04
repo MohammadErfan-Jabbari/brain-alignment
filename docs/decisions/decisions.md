@@ -962,6 +962,16 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Reverses if:** repeated use produces forced fragmentation, hides cross-cutting arguments, or costs more attention than it saves. In that case retain reverse outlining as a diagnostic and relax the drafting hierarchy.
 
+## D063: Separate comparator identification from post-training diagnostics and correct the utility disposition (2026-08-04, /interpret + /write)
+
+**Decision.** Supersede D059's use of post-training movement as a comparator-identification gate while preserving its raw audit arithmetic and non-identifying verdict. The corrected E026 identification set contains 37 pre-outcome or KD-baseline checks: 20 pass, 16 fail, and one is unresolved. The other 18 states are post-training diagnostics: 14 fall outside the original engineering margins and four fall within them. The saved text-derived auxiliary control remains non-identifying because target geometry, effective rank, nuisance predictability, KD-baseline recovery, and remaining headroom differ; movement describes the realized interventions but does not determine whether the comparator identifies brain-response content.
+
+**Utility correction.** Supersede E009's bounded-null interpretation. Its recorded Pereira and LeBel endpoint means favor the recorded-response arm, but the completed analysis retained no paired endpoint interval, test, or equivalence analysis. The endpoint is therefore inconclusive. Brain-specific practical utility is not established because the endpoint uncertainty is unreported and the prerequisite controlled-predictivity contrast is technically unstable. The MDE remains a sensitivity quantity, not a null or equivalence decision.
+
+**Thesis consequence.** Replace the universal evidence chain with claim-specific dependencies. Route-specific headroom supplies opportunity context rather than a universal gate. The 50-component linear target-projection measurability assay qualifies only the declared linear pathway. Direct synthetic-response versus ordinary-KD biological transfer remains interpretable independently of the text-derived comparator; the comparator is required only for brain-response-content attribution.
+
+**Reverses if:** the frozen E026 state classification is invalidated; a prospectively matched comparator passes the pre-outcome and baseline conditions; or a declared paired E009 endpoint analysis changes the endpoint disposition. No raw result, artifact hash, or direct-transfer estimate changes under this decision.
+
 ## Related
 
 - [`status.md`](../status.md) — operational authority

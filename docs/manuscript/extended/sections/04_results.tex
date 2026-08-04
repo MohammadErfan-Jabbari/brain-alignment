@@ -21,10 +21,10 @@ Table~\ref{tab:results-map} states the primary estimand and the order of aggrega
     \raggedright Claim & \raggedright Estimand and estimator & \raggedright Unit and inferential scope & \raggedright Result \tabularnewline
     \midrule
     \raggedright Controlled measurement & \raggedright Mean held-out $A(\mathrm{trained})-A(\mathrm{untrained})$ across fixed contiguous blocks. & \raggedright Held-out blocks within each fixed target; fitting folds share training items, and no population inference is made. & \raggedright Positive on both recorded-fMRI substrates \evd{E002}\evd{E006}. \tabularnewline
-    \raggedright Recorded-target intervention & \raggedright Average $A(\mathrm{real})-A(\mathrm{control})$ over seeds and folds within each participant, then average participants. & \raggedright Nine participants after seed and fold aggregation. & \raggedright No supported participant-level benefit in the tested regimes \evd{E008}\evd{E011}\evd{E013}. \tabularnewline
+\raggedright Recorded-target intervention & \raggedright Median $A(\mathrm{real})-A(\mathrm{control})$ over the 15 paired seed--fold cells within each participant, then average participants. & \raggedright Nine participants after within-participant aggregation. & \raggedright No supported participant-level benefit in the tested regimes \evd{E008}\evd{E011}\evd{E013}. \tabularnewline
     \raggedright Dense-proxy target measurability & \raggedright Participant-mean held-out unique $R^2$ of the aligned PCA-50 target above nuisance; aligned-minus-fixed-twin retained separately. & \raggedright Nine participants on the fixed 1,000 sentences and five ROIs. & \raggedright Simultaneous upper endpoint below the inherited $+0.002$ reference; twin contrast unresolved \evd{E030}. \tabularnewline
     \raggedright Dense-proxy uptake & \raggedright Seed-paired target-$R^2$ gain over KD, plus parameter and representation change from KD. & \raggedright Six technical training seeds for one fixed procedure; no biological or target-population inference. & \raggedright Target fit and student movement pass \evd{E016}\evd{E025}. \tabularnewline
-    \raggedright Comparator identification & \raggedright Frozen conjunction over target geometry, baseline predictability, and seed-paired student movement. & \raggedright Two deterministic item samples for geometry and six technical seeds for movement; no population inference. & \raggedright Saved text-feature comparator fails measured-axis comparability \evd{E026}. \tabularnewline
+\raggedright Comparator identification & \raggedright Target construction, nuisance predictability, and KD-baseline recovery and headroom; post-training movement is diagnostic. & \raggedright Two deterministic item samples and six technical seeds; no population inference. & \raggedright Saved text-feature comparator fails the corrected identification set \evd{E026}. \tabularnewline
     \raggedright Biological transfer & \raggedright Average TRIBE-minus-KD within each participant after seed and fold aggregation; retain the preregistered difference-in-differences as a separate relative comparison. & \raggedright Nine participants after seed and fold aggregation. & \raggedright Direct mean is near zero; the relative upper bound is below the continuation threshold but cannot identify target content after E026 \evd{E025}\evd{E026}. \tabularnewline
     \raggedright External utility & \raggedright Out-of-domain or sample-efficiency contrast, conditional on a verified intervention or informative privileged signal. & \raggedright Eight seeds for E009; paragraph groups for the E024 precondition. & \raggedright No payoff claim is licensed \evd{E009}\evd{E024}. \tabularnewline
     \bottomrule
@@ -41,7 +41,8 @@ The estimand is the held-out semipartial increment, or unique $R^2$, under five 
 A same-architecture untrained network controls for feature dimension and architecture without language training \evd{E002}.
 
 All three trained models have positive unique $R^2$, whereas every untrained seed is negative (Table~\ref{tab:roi}).
-The trained-minus-untrained gaps are $+0.030$ for GPT-2, $+0.033$ for GPT-2-medium, and $+0.050$ for Qwen2.5-0.5B \evd{E002}.
+The historical trained-minus-untrained gaps are $+0.030$ for GPT-2, $+0.033$ for GPT-2-medium, and $+0.050$ for Qwen2.5-0.5B \evd{E002}.
+Because E002 recomputed the static nuisance block for each model, these gaps do not isolate learned parameters against one fixed nuisance design; the trained controlled-predictivity scores remain supported relative to their implemented nuisance sets.
 The corrected mean ceiling coefficient for the five functional ROIs is $0.491$ \evd{E002}\evd{E004}.
 Because that coefficient and unique $R^2$ are not the same statistical quantity, their legacy ratio is not interpreted as a fraction of explainable variance.
 These estimates belong to one participant-averaged target evaluated over five stimulus folds; they establish conditional measurability on this benchmark, not population prevalence.
@@ -291,8 +292,9 @@ The mediator that would make the downstream test interpretable is the real-minus
 That mediator has mean \result{e009_fulcrum_mean}, median \result{e009_fulcrum_median}, and 5/8 positive seed signs.
 Its measured 80\%-power minimum detectable effect is $0.023$, and seed 0 contributes $+0.063$ while the remaining seven seeds average approximately $+0.004$ \evd{E009}.
 The representation fulcrum is therefore not reliable.
-Every OOD-perplexity contrast also lies inside its measured minimum detectable effect: real MSE minus KD-only is $+0.009$ on Pereira and $+0.053$ on LeBel, while real MSE minus the permuted twin is $-0.019$ and $-0.068$ \evd{E009}.
-E009 supports no detected brain-specific out-of-domain (OOD) perplexity payoff under this all-data, averaged-target setup.
+The real-MSE-minus-permuted mean contrasts are $-0.019$ on Pereira and $-0.068$ on LeBel, so both favor the recorded-response arm \evd{E009}.
+No paired endpoint interval or equivalence test was retained, and the minimum detectable effect is a sensitivity quantity rather than a decision threshold.
+The endpoint is therefore inconclusive; brain-specific practical utility is not established because endpoint uncertainty is unreported and the prerequisite representation contrast is technically unstable.
 It is a bounded result because the manipulation whose payoff was being tested did not reliably take hold, and because robustness and sample-efficiency outcomes were not run.
 
 E024 tests whether a cognitive measurement can help through a different channel: learning using privileged information (LUPI), where the auxiliary measurement is available only during training.

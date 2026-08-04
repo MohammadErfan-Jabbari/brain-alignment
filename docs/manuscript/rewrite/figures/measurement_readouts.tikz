@@ -40,7 +40,7 @@
   \draw[arrow] (xzeroscore) -- (xzerocompare);
   \draw[arrow] (xcompare.south) -- (xzerocompare.north);
 
-  \node[rowlabel] at (-20mm,-63mm) {Exact-target\\control};
+\node[rowlabel] at (-20mm,-63mm) {Linear target\\projection};
   \node[input] (target) at (0,-63mm) {Aligned target \(T\)\\or frozen row twin \(T^\pi\)};
   \node[fitted] (targetfit) at (37mm,-63mm) {Matched readouts\\from \([N,T]\), \([N,T^\pi]\)};
   \node[score] (targetscore) at (74mm,-63mm) {\(U_{\mathrm{aligned}}\)\\and \(U_{\mathrm{twin}}\)};

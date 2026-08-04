@@ -7,7 +7,7 @@ Section~\ref{sec:results} and Appendices~\ref{app:secondary}--\ref{app:sensitivi
 Temporary target heads never enter a later evaluation.
 A student checkpoint is retained only when the run explicitly saves one; otherwise evaluation uses the frozen in-memory student and only the result artifact survives.
 
-\subsection{Ordinary distillation and language-quality rules}
+\subsection{Ordinary \ac{kd} and language-quality rules}
 
 Let \(z_T(x)_t\) and \(z_S(x)_t\) be teacher and student logits at a non-padding causal-language-model position \(t\).
 At temperature \(\tau\), their softened token distributions are
@@ -54,9 +54,9 @@ Table~\ref{tab:language-training-rules} records those differences.
     \toprule
     Family & Teacher, student, and initialization & Language objective and corpus & Quality rule \\
     \midrule
-    Quality-aware distillation-headroom analysis & GPT-2 Medium teacher; GPT-2 Small student initialized either from pretrained weights or randomly & Output \ac{kd} on 96,000 WikiText sentences; 2,000 fixed held-out sentences & Held-out perplexity is a convergence measure; the warm and random-start routes differ in initialization and training duration \evd{E003} \\
+    Distillation-headroom analysis & GPT-2 Medium teacher; GPT-2 Small student initialized either from pretrained weights or randomly & Output \ac{kd} on 96,000 WikiText sentences; 2,000 fixed held-out sentences & Held-out perplexity is a convergence measure; the warm and random-start routes differ in initialization and training duration \evd{E003} \\
     \midrule
-    Recorded-response intervention (sentence) & Qwen2.5-0.5B student; Qwen2.5-1.5B teacher when the route is teacher-anchored & Masked next-token cross-entropy in the unanchored screen; output \ac{kd} in anchored routes; fixed WikiText quality probe & The recorded-response arm and permuted-response control share the scoring implementation; ordinary-\ac{kd} comparisons require comparable perplexity \evd{E004}\evd{E005}\evd{E008} \\
+    Recorded-response intervention (sentence) & Qwen2.5-0.5B student; Qwen2.5-1.5B teacher when the route is teacher-anchored & Masked next-token cross-entropy in the unanchored screen; output \ac{kd} in anchored routes; fixed WikiText quality probe & The recorded-response arm and permuted-response control share the scoring implementation; ordinary \ac{kd} comparisons require comparable perplexity \evd{E004}\evd{E005}\evd{E008} \\
     \midrule
     Recorded-response intervention (naturalistic) & Qwen2.5-0.5B student; frozen Qwen2.5-1.5B teacher in anchored routes & Unanchored or output-\ac{kd}-anchored language path, according to the executed grid & The full-parameter route uses its declared forgetting criterion on the language probe \evd{E013}\evd{E017} \\
     \midrule
@@ -111,7 +111,7 @@ For predictions \(\widehat Y\) and targets \(Y\) with minibatch size \(B\) and t
 This loss averages equally over minibatch rows and target coordinates.
 Consequently, every reported target weight is interpreted under this normalization.
 
-The common sentence-level regime places rank-16 \ac{lora} adapters with scaling 32 and dropout 0.05 in the model-appropriate attention and feed-forward projections. \evd{E004}
+The common sentence-level regime places rank-16 \ac{lora} adapters with scaling 32 and dropout 0.05 in the model-appropriate attention and feed-forward projections \autocite{hu2022}. \evd{E004}
 The pretrained base, input embeddings, and tied output matrix are frozen; the adapters and a co-trained \(W\) are optimizer parameters.
 The target gradient reaches \(W\) and the adapters that produce \(h_{12}\), while adapters after the attachment state receive only the language-loss gradient.
 After training, the adapters are merged into the student and the temporary target map is discarded.
@@ -144,7 +144,7 @@ Table~\ref{tab:recorded-training-variants} states only the implementation change
   \midrule
   Frozen readout & \(W_0\) is ridge-fitted on untuned outer-training features with \(\alpha=100\) and remains fixed during intervention training & Same sentence screen grid and paired-permutation construction as its matched comparison & Merged student; \(W_0\) discarded \evd{E004} \\
   \midrule
-  Contrastive & Symmetric InfoNCE compares normalized \(Wh_{12}\) with the paired five-\ac{roi} response using in-batch negatives & Rank 16; seeds 0--1; 3 epochs; target weight 1; temperature 0.07; three permutation draws & Merged student; \(W\) discarded \evd{E013} \\
+  Contrastive & Symmetric InfoNCE compares normalized \(Wh_{12}\) with the paired five-\ac{roi} response using in-batch negatives \autocite{oord2018} & Rank 16; seeds 0--1; 3 epochs; target weight 1; temperature 0.07; three permutation draws & Merged student; \(W\) discarded \evd{E013} \\
   \midrule
   Increased capacity & The co-trained \ac{mse} path is unchanged; adapter rank increases from 16 to 64 & Seeds 0--1; 6 epochs; target weight 10; five permutation draws; remaining settings inherited from the participant-specific grid & Merged student; \(W\) discarded \evd{E011} \\
   \midrule
@@ -156,7 +156,7 @@ Table~\ref{tab:recorded-training-variants} states only the implementation change
 
 The exploratory sentence screen changes only \(\mathcal L_{\mathrm{target}}\).
 Cosine and squared-Pearson losses use a co-trained target map.
-Linear \ac{cka} is readout-free: it compares the minibatch geometry of \(h_{12}\) and the response matrix directly, so no temporary \(W\) participates in that branch.
+Linear \ac{cka} is readout-free: it compares the minibatch geometry of \(h_{12}\) and the response matrix directly, so no temporary \(W\) participates in that branch \autocite{kornblith2019}.
 These are implementation variants of the recorded-response intervention; their outcomes remain in Section~\ref{sec:results-recorded} and Appendix~\ref{app:secondary}. \evd{E004}
 
 \subsection{Synthetic-response intervention}
@@ -197,16 +197,19 @@ The common optimization grid uses 95,999 training sentences, one epoch or 24,000
     \toprule
     Arm & Additional supervision & Shared optimization settings & Saved state \\
     \midrule
-    Ordinary-distillation arm & None; \(\lambda_{\mathrm{target}}=0\) and no temporary target map & Pretrained GPT-2 Small initialization, frozen GPT-2 Medium teacher, corpus, output-\ac{kd} loss, and seeds 0--5 & Student checkpoint only when artifact saving is enabled; otherwise result artifact \evd{E016}\evd{E025} \\
+    Ordinary \ac{kd} arm & None; \(\lambda_{\mathrm{target}}=0\) and no temporary target map & Pretrained GPT-2 Small initialization, frozen GPT-2 Medium teacher, corpus, output-\ac{kd} loss, and seeds 0--5 & Student checkpoint only when artifact saving is enabled; otherwise result artifact \evd{E016}\evd{E025} \\
     \midrule
-    Synthetic-response arm & Correctly paired synthetic brain-response target through \(W_{\mathrm{tmp}}\); \(\lambda_{\mathrm{target}}=0.1\) & Same initialization, teacher, corpus, schedule, and seeds 0--5 as the matched ordinary-distillation arm & Temporary map always discarded; student saved only under the configured artifact path \evd{E016}\evd{E025} \\
+    Synthetic-response arm & Correctly paired synthetic brain-response target through \(W_{\mathrm{tmp}}\); \(\lambda_{\mathrm{target}}=0.1\) & Same initialization, teacher, corpus, schedule, and seeds 0--5 as the matched ordinary \ac{kd} arm & Temporary map always discarded; student saved only under the configured artifact path \evd{E016}\evd{E025} \\
     \midrule
     Saved block-permutation sensitivity & Saved block-permuted synthetic target through the same \(W_{\mathrm{tmp}}\) and mean \ac{mse} & Same initialization, teacher, corpus, schedule, target weight, and seeds 0--5 & Temporary map discarded; result artifact retained; student saving follows the run configuration \evd{E016} \\
     \midrule
-    Text-derived auxiliary-control arm & Text-derived auxiliary target through the same target-map shape and mean \ac{mse}; \(\lambda_{\mathrm{target}}=0.1\) & Same pretrained student, teacher, corpus, and schedule; executed for seeds 0--2 & Temporary map discarded; seed-specific students saved when requested \evd{E016}\evd{E026} \\
+    Text-derived auxiliary-control arm & Text-derived auxiliary target through the same target-map shape and mean \ac{mse}; \(\lambda_{\mathrm{target}}=0.1\) & Same pretrained student, teacher, corpus, and schedule; executed for seeds 0--5 & Temporary map discarded; seed-specific students saved when requested \evd{E016}\evd{E026} \\
     \bottomrule
   \end{tabularx}
 \end{table}
+
+The text-derived auxiliary-control arm was first executed for seeds 0--2 and later extended prospectively to seeds 3--5.
+The combined six-seed analyses use seeds 0--5; earlier three-seed tables retain only the initial run for provenance.\evd{E016}
 
 At the final optimizer step, the temporary target map is always discarded.
 When no checkpoint is requested, synthetic-target recovery uses the frozen in-memory student and only the resulting measurements are stored.
@@ -214,7 +217,7 @@ When artifact saving is enabled, later assays reload the retained causal-languag
 Thus training can shape the retained student through the target gradient, but the training head itself cannot compute a later target-recovery or biological-transfer score. \evd{E016}\evd{E025}\evd{E030}
 
 The frozen row-twin control is not a training arm.
-It is constructed only for the later exact synthetic-target measurability assay described in Appendix~\ref{app:data-targets}.
+It is constructed only for the later 50-component linear target-projection measurability assay described in Appendix~\ref{app:data-targets}.
 Comparator adequacy and all arm outcomes are reported in Section~\ref{sec:results-synthetic-manipulation} and Appendix~\ref{app:sensitivities}. \evd{E026}\evd{E030}
 
 \subsection{Replay scope and provenance handoff}
@@ -232,7 +235,7 @@ It is not a command-complete substitute for the owning result configurations or 
     \toprule
     Family & Executed entry point & Final-state and retained-output rule & Provenance handoff \\
     \midrule
-    Quality-aware distillation-headroom analysis & \path{scripts/run_kd_alignment.py} & Final warm or random-start student evaluated in memory; result bundle records configuration and quality measurements & Verified retained bundles are indexed in Appendix~\ref{app:evidence-provenance} \evd{E003} \\
+    Distillation-headroom analysis & \path{scripts/run_kd_alignment.py} & Final warm or random-start student evaluated in memory; result bundle records configuration and quality measurements & Verified retained bundles are indexed in Appendix~\ref{app:evidence-provenance} \evd{E003} \\
     \midrule
     Recorded-response intervention (sentence) & \path{scripts/run_brain_lever.py}; target losses in \path{scripts/brain_loss.py} & Final merged student evaluated after each fold--seed cell; temporary target map discarded; no intermediate quality frontier retained & Primary and participant result shards are indexed in Appendix~\ref{app:evidence-provenance} \evd{E004}\evd{E005}\evd{E008}\evd{E011} \\
     \midrule

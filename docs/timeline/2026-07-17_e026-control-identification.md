@@ -35,6 +35,10 @@ E016 retains a valid within-TRIBE target-learning result, but its cross-target T
 
 Keep E027 and Package C closed. Keep Package B on HOLD. Use an exact-substrate Tuckute transport diagnostic to distinguish proxy/domain nontransport from directional-utility failure, and make E028's faithful external reproduction plus corrected participant analysis the binding top-venue gate.
 
+## Interpretation correction (2026-08-04)
+
+The original 55-state engineering audit combined comparator-identification conditions with post-training outcomes. Reclassification of the frozen states gives 37 identification checks, of which 16 fail, 20 pass, and one is unresolved. The remaining 18 states are post-training diagnostics, with 14 outside and four within the original engineering margins. The comparator remains non-identifying because pre-outcome target properties and KD-baseline recovery differ. Parameter and representation movement remain mechanism diagnostics rather than matching conditions. The original 30/55 arithmetic is retained only as historical engineering provenance.
+
 ## Related
 
 - [E026](../experiments/E026_tribe-textfeat-target-comparability.md)

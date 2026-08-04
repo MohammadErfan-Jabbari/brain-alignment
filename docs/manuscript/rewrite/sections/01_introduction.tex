@@ -27,7 +27,7 @@ Compression studies also show that brain alignment after pruning or quantization
 However, these studies differ in their modality, temporal resolution, participant specificity, model budget, endpoint, comparator, training seeds, and inference unit.
 They therefore do not establish whether training with brain responses gives a fixed smaller student an incremental advantage over a matched text-derived auxiliary control at comparable \ac{lm} quality.
 
-We therefore evaluate a brain-specific training advantage as an ordered chain of evidence.
+We therefore evaluate each brain-specific training claim through its own evidence dependencies.
 First, the model representations must show controlled brain predictivity, and the smaller model must leave room for improvement that cannot be explained only by worse \ac{lm} quality.
 For synthetic brain responses generated from text, we then ask whether the exact training target contains measurable information about recorded \ac{fmri} responses, whether the student learns that target, and whether training produces changes that remain after the temporary prediction head is removed.
 Finally, training with synthetic brain responses must be compared with training that uses a similarly constructed text-derived auxiliary target.
@@ -43,7 +43,7 @@ The target was nevertheless learnable on the training corpus, and training chang
 A fresh post-training readout on the Tuckute data did not resolve whether the student retained more information about the target than a student trained by ordinary \ac{kd}.
 The available text-derived auxiliary target was not sufficiently comparable to determine whether the observed differences arose specifically from brain-response content.
 The direct participant-level comparison between training with synthetic brain responses and ordinary \ac{kd} found a near-zero difference in prediction of recorded \ac{fmri} responses.
-The completed bounded practical-utility evaluation in the recorded-response route also did not support a brain-specific utility claim.
+The recorded-response practical-endpoint means favored the recorded-response arm, but paired endpoint uncertainty was not reported and the controlled-predictivity prerequisite was technically unstable; brain-specific utility was therefore not established.
 
 This study contributes controlled measurement of brain predictivity alongside \ac{lm} quality, participant-level tests of training with recorded \ac{fmri} responses, and an evaluation framework that distinguishes supported results, claims not demonstrated, unresolved questions, and non-identifying comparisons.
 The conclusion is restricted to the tested models, English stimuli, datasets, participants, targets, objectives, optimization regimes, controls, linear readouts, comparators, inference units, and endpoints.

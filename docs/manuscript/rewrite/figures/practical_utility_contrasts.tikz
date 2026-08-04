@@ -35,5 +35,5 @@
   \utilityendpointrow{1.15}{\textbf{LeBel story text}}{e009_plot_lebel_recorded_permuted}{\result{e009_lebel_recorded_permuted}}
 
   \node[anchor=west,align=left,text width=36mm,font=\scriptsize,text=gray!72!black] at (12.70,0.62)
-    {Each contrast remains within its measured MDE.};
+    {Descriptive technical-seed means; paired endpoint uncertainty was not reported.};
 \end{tikzpicture}

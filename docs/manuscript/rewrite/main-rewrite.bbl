@@ -825,11 +825,11 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{task-fMRI-derived representation intervention and fine-tuning; see canonical/xiao-2026_brain-guided-llm-reasoning}
-      \field{journaltitle}{Preprint (arXiv:2606.11893)}
+      \field{journaltitle}{Nature Machine Intelligence}
       \field{title}{Beyond Representational Alignment with Brain-Guided Language Models for Robust Reasoning}
       \field{year}{2026}
       \verb{doi}
-      \verb 10.48550/arXiv.2606.11893
+      \verb 10.1038/s42256-026-01278-w
       \endverb
     \endentry
     \entry{zhang2026}{inproceedings}{}
@@ -1081,6 +1081,114 @@
       \verb https://doi.org/10.1038/s41467-018-03068-4
       \endverb
     \endentry
+    \entry{hu2022}{inproceedings}{}
+      \name{author}{8}{}{%
+        {{hash=e6a95d07b8ae7f14e4eb777c6980a059}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Edward\bibnamedelima J.},
+           giveni={E\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=1701c0f05662e92cf52cfc8c16437496}{%
+           family={Shen},
+           familyi={S\bibinitperiod},
+           given={Yelong},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=ab0fdbc1586103dda7ac5e0852e5b2c3}{%
+           family={Wallis},
+           familyi={W\bibinitperiod},
+           given={Phillip},
+           giveni={P\bibinitperiod}}}%
+        {{hash=eaa5cc98b7f19b4ce07c832213a13b9d}{%
+           family={Allen-Zhu},
+           familyi={A\bibinithyphendelim Z\bibinitperiod},
+           given={Zeyuan},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=0d2c91b24f885b22d373a892a768abc8}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Yuanzhi},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=b654b88ecd4c3ff1ea29da275bce701c}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Shean},
+           giveni={S\bibinitperiod}}}%
+        {{hash=55f210233ac686af68eba11a97bd84e2}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Lu},
+           giveni={L\bibinitperiod}}}%
+        {{hash=05d71a9c5e7ac79222e01a55af0ccb93}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Weizhu},
+           giveni={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{d775178c34083951ab1e07df578582c3}
+      \strng{fullhash}{08f4b49735d5d145be00bc9c07f38975}
+      \strng{bibnamehash}{d775178c34083951ab1e07df578582c3}
+      \strng{authorbibnamehash}{d775178c34083951ab1e07df578582c3}
+      \strng{authornamehash}{d775178c34083951ab1e07df578582c3}
+      \strng{authorfullhash}{08f4b49735d5d145be00bc9c07f38975}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{International Conference on Learning Representations}
+      \field{title}{{LoRA}: Low-Rank Adaptation of Large Language Models}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://openreview.net/forum?id=nZeVKeeFYf9
+      \endverb
+      \verb{url}
+      \verb https://openreview.net/forum?id=nZeVKeeFYf9
+      \endverb
+    \endentry
+    \entry{kornblith2019}{article}{}
+      \name{author}{4}{}{%
+        {{hash=7fc0edf04cce351dda404579ede3d0d1}{%
+           family={Kornblith},
+           familyi={K\bibinitperiod},
+           given={Simon},
+           giveni={S\bibinitperiod}}}%
+        {{hash=e34c5aa67281924804d54d88e58ca38a}{%
+           family={Norouzi},
+           familyi={N\bibinitperiod},
+           given={Mohammad},
+           giveni={M\bibinitperiod}}}%
+        {{hash=d09ea8631bf43468107b5ef02c5195aa}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Honglak},
+           giveni={H\bibinitperiod}}}%
+        {{hash=9a8750ccdb2a4cf14d2655face1ce016}{%
+           family={Hinton},
+           familyi={H\bibinitperiod},
+           given={Geoffrey},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{85d441f32944674f6dd87a3cae8f2d38}
+      \strng{fullhash}{91ab27d387c86b37d5cad66ed3c2dfa3}
+      \strng{bibnamehash}{85d441f32944674f6dd87a3cae8f2d38}
+      \strng{authorbibnamehash}{85d441f32944674f6dd87a3cae8f2d38}
+      \strng{authornamehash}{85d441f32944674f6dd87a3cae8f2d38}
+      \strng{authorfullhash}{91ab27d387c86b37d5cad66ed3c2dfa3}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{CKA; geometry not function; see canonical/kornblith-2019}
+      \field{booktitle}{Proceedings of the 36th International Conference on Machine Learning}
+      \field{series}{Proceedings of Machine Learning Research}
+      \field{title}{Similarity of Neural Network Representations Revisited}
+      \field{volume}{97}
+      \field{year}{2019}
+      \field{pages}{3519\bibrangedash 3529}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.48550/arXiv.1905.00414
+      \endverb
+    \endentry
     \entry{dascoli2026}{article}{}
       \name{author}{8}{}{%
         {{hash=acd3c947ad5a74439a71c9f7bb96d621}{%
@@ -1141,6 +1249,43 @@
       \field{year}{2026}
       \verb{eprint}
       \verb 2605.04326
+      \endverb
+    \endentry
+    \entry{oord2018}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=705a5ed355c190be3a39e0a5134d2ae5}{%
+           family={Oord},
+           familyi={O\bibinitperiod},
+           given={Aaron},
+           giveni={A\bibinitperiod},
+           prefix={van\bibnamedelima den},
+           prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+        {{hash=ea8af3b8f68d4c40172af64bc26a53c6}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Yazhe},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=494b568c5dc85ba8f3f409635f9c5f25}{%
+           family={Vinyals},
+           familyi={V\bibinitperiod},
+           given={Oriol},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{1efd5dda788b89aab19d49327226496a}
+      \strng{fullhash}{1efd5dda788b89aab19d49327226496a}
+      \strng{bibnamehash}{1efd5dda788b89aab19d49327226496a}
+      \strng{authorbibnamehash}{1efd5dda788b89aab19d49327226496a}
+      \strng{authornamehash}{1efd5dda788b89aab19d49327226496a}
+      \strng{authorfullhash}{1efd5dda788b89aab19d49327226496a}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{arXiv preprint arXiv:1807.03748}
+      \field{title}{Representation Learning with Contrastive Predictive Coding}
+      \field{year}{2018}
+      \verb{doi}
+      \verb 10.48550/arXiv.1807.03748
       \endverb
     \endentry
     \entry{cover2006}{book}{}

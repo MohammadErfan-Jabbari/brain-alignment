@@ -82,7 +82,7 @@ Table~\ref{tab:related-designs} compares those designs without treating every po
     No brain-response target, smaller student, or brain-response-versus-control intervention. \\
     \textcite{bilgin2026} &
     Cosine loss against participant-specific \ac{fmri} responses and token loss update upper-layer adapters; held-out encoding, new-participant readouts, and a model-specific external task improve. &
-    No shuffled or matched text-derived target, smaller student, or ordinary-\ac{kd} comparator. \\
+    No shuffled or matched text-derived target, smaller student, or ordinary \ac{kd} comparator. \\
     \textcite{merlinData2026} &
     Participant-specific \ac{fmri}-response, stimulus-language, or joint objectives update adapters; brain-response training wins more linguistic-probe comparisons than stimulus tuning. &
     Target geometry and difficulty are unmatched; no participant-held-out transfer or compression comparison. \\
@@ -134,61 +134,64 @@ The next subsection states the evidence required to support that claim.
 \subsection{Evidence standard for a brain-specific training advantage}
 \label{sec:evidence-standard}
 
-Figure~\ref{fig:evidence-chain} separates four roles in the evidence chain: opportunity prerequisites, manipulation checks, brain-response-specific attribution, and endpoint evidence.
-In the figure, stages 1--3 are opportunity prerequisites, stages 4--5 are manipulation checks, stage 6 tests brain-response-specific attribution, and stages 7--8 test biological transfer and external utility.
-All intervention routes first require controlled brain predictivity and quality-aware headroom.
-Routes using synthetic brain responses require one additional prerequisite: the exact synthetic target must predict independently recorded \ac{fmri} responses beyond nuisance features and the declared frozen row-twin control; routes using recorded \ac{fmri} responses as training targets bypass this check.
+Figure~\ref{fig:evidence-chain} organizes the evidence by claim dependency rather than by a universal sequence.
+Controlled brain predictivity defines the biological endpoint shared by both routes.
+Route-specific headroom describes whether an intervention has room to improve that endpoint, but it does not determine the validity of a later paired intervention contrast.
+The recorded- and synthetic-response routes then require different evidence for manipulation, attribution, transfer, and utility.
 
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}[
-    stage/.style={draw, rounded corners, align=center, text width=33mm, minimum height=25mm, inner sep=3pt, font=\small},
-    opportunity/.style={stage, fill=blue!8},
-    manipulation/.style={stage, fill=orange!12},
-    attribution/.style={stage, fill=violet!10},
-    endpoint/.style={stage, fill=green!10},
-    group/.style={draw, rounded corners, align=center, text width=33mm, minimum height=7mm, inner sep=2pt, font=\footnotesize\bfseries},
-    link/.style={-{Latex[length=2mm]}, thick}
+    box/.style={draw, rounded corners, align=center, text width=36mm, minimum height=15mm, inner sep=3pt, font=\footnotesize},
+    context/.style={box, fill=blue!8},
+    recorded/.style={box, fill=orange!10},
+    synthetic/.style={box, fill=violet!9},
+    endpoint/.style={box, fill=green!9},
+    label/.style={font=\footnotesize\bfseries, anchor=east},
+    link/.style={-{Latex[length=2mm]}, thick},
+    contextlink/.style={link, dashed, gray!70}
   ]
-    \node[opportunity] (measure) {\textbf{1. Controlled brain predictivity}\\[-1mm]\footnotesize Recorded responses are predicted beyond controls};
-    \node[opportunity, right=3mm of measure] (headroom) {\textbf{2. Quality-aware headroom}\\[-1mm]\footnotesize A brain-predictivity gap remains at comparable \ac{lm} quality};
-    \node[opportunity, right=3mm of headroom] (target) {\textbf{3. Exact-target measurability}\\[-1mm]\footnotesize Synthetic target exceeds nuisance and frozen row-twin controls};
-    \node[manipulation, right=3mm of target] (uptake) {\textbf{4. Target uptake}\\[-1mm]\footnotesize A fresh readout recovers the target beyond ordinary \ac{kd}};
-    \node[manipulation, below=5mm of uptake] (movement) {\textbf{5. Retained-student movement}\\[-1mm]\footnotesize Retained change exceeds ordinary \ac{kd} at comparable \ac{lm} quality};
-    \node[attribution, left=3mm of movement] (attribute) {\textbf{6. Brain-response attribution}\\[-1mm]\footnotesize Effect exceeds the route-appropriate control};
-    \node[endpoint, left=3mm of attribute] (transfer) {\textbf{7. Biological\\transfer}\\[-1mm]\footnotesize Prediction of independent recorded \ac{fmri} responses improves};
-    \node[endpoint, left=3mm of transfer] (utility) {\textbf{8. External utility}\\[-1mm]\footnotesize A prespecified practical endpoint improves};
-    \node[group, fill=blue!8, above=18mm of measure] (group-opportunity) {Opportunity prerequisites};
-    \node[group, fill=orange!12, right=3mm of group-opportunity] (group-manipulation) {Manipulation checks};
-    \node[group, fill=violet!10, right=3mm of group-manipulation] (group-attribution) {Attribution};
-    \node[group, fill=green!10, right=3mm of group-attribution] (group-endpoint) {Endpoint evidence};
-    \draw[link] (measure) -- (headroom);
-    \draw[link] (headroom) -- (target);
-    \draw[link] (target) -- (uptake);
-  \draw[link,dashed] (headroom.north) to[bend left=28] node[above,font=\scriptsize,fill=white,inner sep=1pt] {recorded-response bypass} (uptake.north);
-    \draw[link] (uptake) -- (movement);
-    \draw[link] (movement) -- (attribute);
-    \draw[link] (attribute) -- (transfer);
-    \draw[link,dashed] (transfer) -- (utility);
+    \node[label] at (-0.4,0) {Shared context}; % \evd{E002}
+    \node[context] (measure) at (2.0,0) {\textbf{Controlled brain predictivity}\\defines the biological endpoint}; % \evd{E002}
+    \node[context] (headroom) at (6.2,0) {\textbf{Route-specific headroom}\\describes opportunity}; % \evd{E003}
+
+    \node[label] at (-0.4,-2.2) {Recorded route}; % \evd{E008}
+    \node[recorded] (pairing) at (2.0,-2.2) {\textbf{Recorded versus permuted responses}\\tests pairing-specific change}; % \evd{E008}
+    \node[endpoint] (recordedutility) at (6.2,-2.2) {\textbf{Matched practical endpoint}\\tests utility of an established change}; % \evd{E009}
+    \draw[link] (pairing) -- (recordedutility);
+
+    \node[label] at (-0.4,-4.9) {Synthetic route}; % \evd{E025}
+    \node[synthetic] (projection) at (2.0,-4.9) {\textbf{50-component linear target projection}\\qualifies only the declared linear pathway}; % \evd{E030}
+    \node[synthetic] (manipulation) at (6.2,-4.9) {\textbf{Target uptake and retained movement}\\show that training changed the student}; % \evd{E025}
+    \node[endpoint] (transfer) at (10.4,-4.2) {\textbf{Direct biological transfer}\\synthetic response versus ordinary \ac{kd}}; % \evd{E025}
+    \node[endpoint] (attribution) at (10.4,-5.7) {\textbf{Brain-response-content attribution}\\requires an adequate nonbrain comparator}; % \evd{E026}
+    \draw[link] (manipulation) -- (transfer);
+    \draw[link] (manipulation) -- (attribution);
+    \draw[contextlink] (measure.south) to[bend right=15] (pairing.north);
+    \draw[contextlink] (measure.north) -- ++(0,0.6) -| (transfer.north); % \evd{E002}
+    \draw[contextlink] (headroom.south) to[bend left=15] (manipulation.north);
   \end{tikzpicture}
-  \caption{Evidence chain for brain-response-specific training claims.}
+  \caption{Claim dependencies for recorded- and synthetic-response training. Dashed arrows provide measurement or opportunity context; solid arrows mark claim-specific dependencies.}
   \label{fig:evidence-chain}
 \end{figure}
 
-No single comparator supports every stage in Figure~\ref{fig:evidence-chain}.
-At stage 1, an architecture-matched untrained \ac{lm} tests whether controlled brain predictivity depends on learned parameters.
-At stages 4 and 5, an ordinary-\ac{kd} arm isolates the incremental effect of adding a brain-response objective to the same student-training regime, while comparable \ac{lm} quality prevents generic quality differences from confounding the comparison.
-At stage 6, the route-appropriate attribution control depends on the training target.
+No single comparator supports every claim in Figure~\ref{fig:evidence-chain}.
+An architecture-matched untrained \ac{lm} tests whether controlled brain predictivity depends on learned parameters.
+An ordinary \ac{kd} arm isolates the incremental effect of adding a brain-response objective to the same student-training regime, while comparable \ac{lm} quality limits generic quality differences.
+The route-appropriate attribution control depends on the training target.
 The recorded-response route compares correctly paired with permuted responses, testing whether the stimulus--response pairing matters while preserving the response values and their marginal distribution.
-The synthetic-response route compares the synthetic brain-response target with a text-derived auxiliary target matched in geometry, scale, baseline predictability, learnability, and optimization pressure.
+The synthetic-response route compares the synthetic brain-response target with a text-derived auxiliary target matched on properties fixed or calibrated before target-arm outcomes are interpreted, including geometry, scale, baseline predictability, remaining headroom, and initial optimization pressure.
+Post-training uptake and movement can explain how two target interventions differed, but they are outcomes of those interventions rather than comparator-matching conditions.
 For either route, brain-response-specific attribution requires the brain-response-target arm to outperform its control on the outcome being claimed.
-At stage 7, a freshly fitted readout on independently recorded \ac{fmri} responses tests biological transfer; successful recovery of the optimized training target cannot substitute for this endpoint.
-Stage 8 requires improvement over the appropriate baseline on a prespecified practical endpoint.
+A freshly fitted readout on independently recorded \ac{fmri} responses tests biological transfer; successful recovery of the optimized training target cannot substitute for this endpoint.
+Direct synthetic-response versus ordinary-\ac{kd} transfer is interpretable without the text-derived auxiliary control.
+The auxiliary control is additionally required only when the claim attributes a difference to brain-response content.
+The 50-component linear target-projection measurability assay qualifies the declared linear pathway; it does not veto an independently identifying direct-transfer result.
+A practical-utility claim requires improvement on its prespecified endpoint and, when framed as the utility of improved controlled brain predictivity, a reliable prerequisite change in that predictivity.
 
-Stages 1--7 are conjunctive for a claim of brain-response-specific improvement in predicting recorded \ac{fmri} responses; stage 8 is additionally required only for a practical-utility claim.
-Each stage licenses only its stated claim.
-If an earlier stage fails or remains unresolved, later target uptake, retained-student movement, or endpoint results may still be reported descriptively, but they cannot establish attribution or transfer that depends on the earlier stage.
-Conversely, failure at a later stage does not erase evidence supporting an earlier, narrower claim.
+Each result therefore licenses only the claim that depends on it.
+A failed manipulation check limits the interpretation of a null intervention result, but it does not invalidate a positive independently measured endpoint contrast.
+Failure in one branch does not erase evidence supporting another branch or an earlier, narrower claim.
 An unresolved comparison must remain unresolved rather than be converted into a null result, and failure under one readout, cohort, or target must not be generalized beyond that scope.
-This conjunctive interpretation prevents evidence at a later stage from substituting for an unsupported earlier claim and identifies the stage that requires redesign.
-Section~\ref{sec:framework} maps each stage to its data, training arms, estimand, comparator, endpoint, and inference unit; Section~\ref{sec:results} reports the corresponding role-specific verdicts.
+This dependency interpretation prevents one type of evidence from substituting for another while preserving valid route-specific conclusions.
+Section~\ref{sec:framework} maps each claim to its data, training arms, estimand, comparator, endpoint, and inference unit; Section~\ref{sec:results} reports the corresponding verdicts.

@@ -80,6 +80,24 @@ then the posterior mode minimizes
 \]
 This is a maximum a posteriori interpretation only under the stated Gaussian likelihood, isotropic zero-mean prior, and scaling convention.
 The fitted linear predictor represents the conditional mean only when that mean is linear and the model is correctly specified.
+
+The sentence-level Tuckute and WikiText readouts use the candidate penalties
+\[
+\{1,10,100,1000,10000\}.
+\]
+Each multi-output fit selects one scalar penalty on its training partition by ridge cross-validation; it does not select a separate penalty for every response or target coordinate.
+The naturalistic LeBel readouts use
+\[
+\{10,10^2,10^3,10^4,10^5,10^6,10^7\},
+\]
+again selecting one multi-output penalty from training stories only.
+
+The E026 comparator audit uses
+\[
+\{0.1,1,10,100,1000\} % \evd{E026}
+\]
+and selects one penalty by aggregate held-out \(R^2\) across both target families and both fixed coordinate samples within five contiguous inner folds.
+These selection rules are nested inside the corresponding training partition; the untouched outer block or held-out corpus is used once for evaluation.\evd{E002}\evd{E006}\evd{E016}\evd{E025}\evd{E026}\evd{E030}
 In the executed assays, \(\lambda\) is selected from a finite grid using the relevant training complement; operationally, it is predictive regularization rather than a fixed scientific prior.
 Neither this derivation nor a positive held-out score makes the fitted coefficients causal, identifies a biological mechanism, or shows that an \ac{lm} and the brain implement the same computation.
 
@@ -93,7 +111,7 @@ The naturalistic assays require one explicit distinction.
 Feature resampling, edge slicing, within-story feature and \ac{bold} z-scoring, and finite-impulse-response delay copies are fixed story-local operations.
 Because the held-out story's response normalization uses that story's own moments, the resulting estimand is conditional on this normalization protocol.
 Across-story \ac{pca}, assembled-design scaling, response centering, ridge selection, and readout fitting are learned only from the readout-training stories.
-The exact synthetic-target measurability assay has one other declared exception: it reuses target-standardization moments fixed during target construction, while its target \ac{pca} and readouts remain fold-local. \evd{E006}\evd{E013}\evd{E017}\evd{E030}
+The 50-component linear target-projection measurability assay has one other declared exception: it reuses target-standardization moments fixed during target construction, while its target \ac{pca} and readouts remain fold-local. \evd{E006}\evd{E013}\evd{E017}\evd{E030}
 
 Table~\ref{tab:cv-nesting} records the held-out boundary, learned operations, and final inference unit for each scientific role.
 
@@ -123,7 +141,7 @@ Table~\ref{tab:cv-nesting} records the held-out boundary, learned operations, an
   Centering, scaling, \ac{pca}, one multi-output ridge penalty, and the response readout &
   Declared \acp{roi} and folds are averaged; the sentence set is fixed, and untrained-model seeds are technical repetitions \evd{E002} \\
   \midrule
-  Quality-aware distillation-headroom analysis &
+  Distillation-headroom analysis &
   The same five Tuckute folds for brain predictivity and a fixed WikiText probe for language quality &
   Brain-response transforms and readouts are fitted inside each fold; quality scores use the fixed scoring protocol &
   Model condition is the descriptive unit, seeds index stochastic arms, and model families are the resampling clusters for the cross-family quality association \evd{E003}\evd{E015} \\
@@ -153,7 +171,7 @@ Table~\ref{tab:cv-nesting} records the held-out boundary, learned operations, an
   All representation transforms, nuisance transforms, penalties, and fresh response readouts use the 800-sentence complement &
   Six seeds and five folds are aggregated within each of nine participants; participants are the biological units \evd{E025} \\
   \midrule
-  Exact synthetic-target measurability assay &
+50-component linear target-projection measurability assay &
   Five contiguous Tuckute folds; aligned targets and the frozen row twin share the train-fold target-\ac{pca} basis &
   Each aligned or twin multi-output readout selects one scalar penalty on its own training complement &
   Folds are aggregated within each of nine participants; there is no student-seed axis \evd{E030} \\
@@ -168,7 +186,7 @@ Table~\ref{tab:cv-nesting} records the held-out boundary, learned operations, an
   Target-to-response and student-to-target coefficient blocks are fitted separately inside each fold &
   Folds and six seeds are aggregated within each of nine participants \evd{E030} \\
   \midrule
-  Bounded practical-utility evaluation &
+Practical-utility evaluation &
   Fixed in-domain and out-of-domain corpora are scored without fitting a biological readout &
   No evaluation-time model fitting; corpus-level losses are computed under the fixed scoring protocol &
   Paired arm contrasts end at eight technical seeds and remain conditional on the fixed models and corpora \evd{E009} \\
@@ -275,7 +293,7 @@ Table~\ref{tab:inference-map} maps each scientific role to its uncertainty proce
   Within-participant trained--untrained point contrasts and five story-block signs; no voxel-resampling interval &
   Spatial voxels are not independent units, and overlapping story folds remain robustness checks \evd{E006} \\
   \midrule
-  Quality-aware distillation-headroom analysis &
+Distillation-headroom analysis &
   Fold--seed bootstrap conditional on convergence; cross-family quality association uses a family-cluster bootstrap, with pooled Fisher intervals only as a sensitivity &
   The declared retention bands classify opportunity within this assay and are not universal alignment thresholds \evd{E003}\evd{E015} \\
   \midrule
@@ -297,13 +315,13 @@ Table~\ref{tab:inference-map} maps each scientific role to its uncertainty proce
   \midrule
   Comparator-adequacy audit and attribution assessment &
   Fixed-sample margins and paired arm contrasts are reported without coordinate-level \(p\)-values &
-  Comparator adequacy is a design condition for attribution; statistical precision cannot repair a non-identifying comparator \evd{E026}\evd{E030} \\
+  Comparator adequacy is a pre-outcome or baseline design condition for attribution; realized movement is diagnostic, and statistical precision cannot repair a non-identifying comparator \evd{E026}\evd{E030} \\
   \midrule
   Saved-student biological-transfer assay &
   Nine participant effects receive a \(t\) interval, a one-sided upper bound, an exact sign test, and a Wilcoxon sensitivity &
   Seeds and blocks remain descriptive; the upper bound is compared only with the prospectively inherited continuation rule \evd{E025} \\
   \midrule
-  Exact synthetic-target measurability assay &
+  50-component linear target-projection measurability assay &
   Participant effects receive \(t\) intervals and exact sign tests &
   Its participant quantities belong to a separate Bonferroni family with a simultaneous one-sided bound \evd{E030} \\
   \midrule
@@ -315,17 +333,45 @@ Table~\ref{tab:inference-map} maps each scientific role to its uncertainty proce
   Participant path-product quantities receive \(t\) intervals and exact sign tests &
   The composed path has its own adjusted interval family; it is predictive and is not a causal mediation effect \evd{E030} \\
   \midrule
-  Bounded practical-utility evaluation &
-  Eight paired technical-seed contrasts and an observed-variance 80\%-power \ac{mde} &
-  The conclusion remains conditional on the tested corpora, models, and procedure; task families are not biological repetitions \evd{E009} \\
+  Practical-utility evaluation &
+  Eight paired technical-seed endpoint observations were recorded, but the completed analysis reports only mean contrasts and an observed-variance sensitivity calculation &
+  No paired endpoint interval or equivalence test was retained; the \ac{mde} supplies no hypothesis or equivalence decision \evd{E009} \\
 \end{longtable}
 \endgroup
+
+For the primary retained-student movement audit, let \(H_s\) and \(H_s^{\mathrm{KD}}\) be layer-6 representation matrices for the same 1,999 untouched WikiText sentences in technical seed \(s\), and let \(C=I-\mathbf{1}\mathbf{1}^{\top}/n\) center examples.
+The centered relative-Frobenius distance and linear-\ac{cka} distance are
+\begin{equation}
+D_{F,s}
+=
+\frac{\lVert C(H_s-H_s^{\mathrm{KD}})\rVert_F}
+{\lVert C H_s^{\mathrm{KD}}\rVert_F},
+\qquad
+D_{\mathrm{CKA},s}
+=
+1-
+\frac{\lVert (CH_s)^{\top}(CH_s^{\mathrm{KD}})\rVert_F^2}
+{\lVert (CH_s)^{\top}(CH_s)\rVert_F\,
+ \lVert (CH_s^{\mathrm{KD}})^{\top}(CH_s^{\mathrm{KD}})\rVert_F}.
+\label{eq:movement-distances}
+\end{equation}
+The first quantity measures centered activation change relative to the ordinary-\ac{kd} activation norm.
+The second measures the change in centered linear representation geometry, with zero denoting identical linear-\ac{cka} geometry.
+Global parameter displacement is reported separately as
+\begin{equation}
+D_{\theta,s}
+=
+\frac{\lVert\theta_s-\theta_s^{\mathrm{KD}}\rVert_2}
+{\lVert\theta_s^{\mathrm{KD}}\rVert_2}.
+\label{eq:parameter-displacement}
+\end{equation}
+These post-training quantities diagnose the realized intervention; they are not comparator-identification conditions.\evd{E025}\evd{E026}
 
 An \ac{mde} describes the resolution of a planned contrast under its declared variance model, sample size, error rate, and power.
 It does not show that a smaller effect is zero or that a larger effect matters biologically.
 Likewise, language-quality criteria decide whether two arms are sufficiently comparable for a specified analysis; they do not establish a biological endpoint.
 
-The \result{e030_practical_threshold} unique-\(R^2\) rule was inherited prospectively to decide whether participant-level biological transfer justified a matched-control follow-up, then frozen as a reference for the exact synthetic-target measurability assay. \evd{E025}\evd{E030}
+The \result{e030_practical_threshold} unique-\(R^2\) rule was inherited prospectively to decide whether participant-level biological transfer justified a matched-control follow-up, then frozen as a reference for the 50-component linear target-projection measurability assay. \evd{E025}\evd{E030}
 It can support a statement about whether an assay-specific simultaneous bound reaches that continuation rule.
 It cannot define biological importance across another response scale, nuisance model, layer, cohort, or target.
 No retrospective choice of a more favorable analysis can change that scope.

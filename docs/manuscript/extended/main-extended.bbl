@@ -599,11 +599,11 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{task-fMRI-derived representation intervention and fine-tuning; see canonical/xiao-2026_brain-guided-llm-reasoning}
-      \field{journaltitle}{Preprint (arXiv:2606.11893)}
+      \field{journaltitle}{Nature Machine Intelligence}
       \field{title}{Beyond Representational Alignment with Brain-Guided Language Models for Robust Reasoning}
       \field{year}{2026}
       \verb{doi}
-      \verb 10.48550/arXiv.2606.11893
+      \verb 10.1038/s42256-026-01278-w
       \endverb
     \endentry
     \entry{moussa2025b}{inproceedings}{}

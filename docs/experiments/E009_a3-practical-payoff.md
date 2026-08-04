@@ -6,7 +6,7 @@ aliases: [E009]
 
 # Experiment — E009 (A3 / Q4): does brain-alignment buy anything PRACTICAL at matched perplexity?
 
-**Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11) — A3 bounded NULL, null-by-construction (n=8; no brain-specific OOD-ppl payoff; the matched-ppl fulcrum is itself ~0; L017) · **Mode:** working
+**Created:** 2026-06-11 · **Status:** COMPLETE (ran 2026-06-11; interpretation corrected 2026-08-04) — downstream endpoint inconclusive; brain-specific practical utility not established · **Mode:** working
 **Direction:** Q4 / A3 — the ladder's "real thesis risk" (the untested assumption) and the genuine open gap. The escape from the Tuckute stimulus-fold power ceiling (A3 is measured on downstream NLP, not fMRI stimuli — so it is not capped at ~5 folds).
 **Predecessors:** [`E005`](E005_alignment-guided-kd-tradeoff.md) (in-domain F1, small/borderline — L015) · [`E008`](E008_per-participant-f1-solidification.md) (per-participant solidification — its verdict sets whether we say "a brain-specific signal we induced" or "a tiny signal") · lit-scout A3 sweep (S8)
 **Output:** `outputs/E009_a3_*.json`
@@ -146,16 +146,16 @@ anti-confound methodology stand).
 | mse_perm (null) | 56.4 | +0.0063 | 0.594 | 1.955 |
 | textfeat (control) | 54.3 | +0.0021 | 0.572 | 1.843 |
 
-- **(a) The fulcrum is ~0.** Brain-specific repr gap (mse − mse_perm) = mean +0.011 but **median +0.0042, 5/8 seeds positive, MDE80 0.023 ≈ the mean → within noise**. Per-seed gap [+0.063, +0.014, +0.004, +0.016, +0.005, −0.006, −0.002, −0.005] — **seed-0 (+0.063) is the lone outlier; the other 7 average +0.004** (the L015/L016 outlier pathology, third occurrence). **A reliable brain-specific representational change at matched perplexity does not take hold at this scale.** λ=30 (pilot) couldn't grow it without collapsing ppl (53→92, one seed 148).
-- **(d) No brain-specific downstream effect.** At n=8 every OOD contrast is within the measured MDE: mse − lm_only Pereira +0.009 / LeBel +0.053 (both ~equal); mse − mse_perm −0.019 / −0.068 (~equal); mse − textfeat +0.004 / +0.044 (~equal). The n=3 "mse worse than lm_only" was noise.
+- **(a) The prerequisite is technically unstable.** The brain-specific representation gap (mse − mse_perm) has mean +0.011, median +0.0042, and 5/8 positive signs. Its observed-variance 80%-power MDE is 0.023, which is a sensitivity reference rather than a null test. Per-seed gaps are [+0.063, +0.014, +0.004, +0.016, +0.005, −0.006, −0.002, −0.005]; seed 0 contributes +0.063, while the other seven average about +0.004. The completed evidence does not establish a technically stable prerequisite change at matched perplexity.
+- **(d) The downstream endpoint is inconclusive.** The mse − mse_perm mean contrasts are −0.019 for Pereira and −0.068 for LeBel, so both point estimates favor the recorded-response arm. No paired endpoint interval, hypothesis test, or equivalence analysis was retained. The completed analysis therefore establishes neither a reliable endpoint advantage nor its absence.
 
-## Verdict: **A3 = bounded NULL (robustly characterized)** — practical payoff undemonstrated; the prerequisite fulcrum is itself ~0 at matched ppl (L017)
+## Verdict: **A3 downstream endpoint inconclusive; brain-specific practical utility not established**
 
 No brain-specific practical (OOD-perplexity) payoff, AND no reliable brain-specific representational change to test the payoff of — the manipulation doesn't take hold at matched perplexity at this scale (ties to E008/L016). Two-panel-adjudicated (counter-argument: "the fulcrum is broken, not just the downstream"; premortem: "null-by-construction — don't run a fuller A3 on a non-moving model; elevate L016 as the positive contribution instead"). **Stated limitations (honest, not hidden):** OOD-perplexity is a weak proxy (offline constraint); the perturbation-robustness slope + sample-efficiency axes were **not** run (with the fulcrum ~0, downstream tests are uninformative — a redesign that first induces a reliable brain-specific change would be needed, which the matched-ppl constraint + ~800 paired sentences + 0.5B scale structurally block); single student/teacher. **Negi 2025 reconciliation:** their positive downstream gains baseline against a *non-perplexity-matched* vanilla model — the L011 LM-quality confound our matched-ppl + permuted-twin control removes; our null is the brain-*specific* increment at matched ppl.
 
-## Status — A3 line complete (bounded null); experimental ladder essentially complete
+## Status — A3 line complete; interpretation corrected
 
-A3 recorded (bounded null). The thesis is **Fork B, complete**: A2 (real & powered) + **L016 the positive methodological contribution** (averaging manufactures apparent brain-specificity + the confound-clean protocol) + the well-powered per-subject F1 null (E008) + this A3 bounded null. **Next is a mode change → write-up** (or, if a per-individual positive is wanted, new higher-SNR data: within-subject fMRI repeats — not more averaging). Erfan's call.
+A3 is recorded with an inconclusive downstream endpoint and an unstable prerequisite contrast. The thesis may state that brain-specific practical utility was not established, but it may not state that utility is absent or equivalent. A future paired endpoint analysis would require its own declared evidence transaction.
 
 ---
 
@@ -172,6 +172,16 @@ multi-hour harness build is its own unit, not a tail-of-session rush; fully spec
 | Artifact | SHA-256 |
 |---|---|
 | `outputs/E009_a3_powered.json` | `1820c097a1a30d3a23bb0956221fbfb5b33c6dc67557e108ac6b79dc56c46afb` |
+
+## Interpretation correction (2026-08-04) — MDE is a sensitivity quantity, not a null test
+
+The completed analysis compared the observed downstream contrasts and the prerequisite controlled-predictivity contrast with observed-variance 80%-power minimum detectable effects.  An MDE describes sensitivity under its design assumptions.  It is not a hypothesis test, confidence interval, equivalence margin, or bound on the true effect.  The earlier `bounded NULL` wording therefore exceeds what the completed utility analysis establishes.
+
+The eight-seed prerequisite contrast remains seed-unstable, and no paired inferential interval or predeclared equivalence test was recorded for the Pereira or LeBel utility contrasts.  The corrected disposition is: **brain-specific practical utility is not demonstrated because the prerequisite controlled-predictivity change was not reliably established and the downstream utility contrasts remain descriptive under the completed analysis**.  The observed MDEs may be reported only as sensitivity references.  They cannot be used to classify an observed contrast as null, insignificant, or equivalent.
+
+This correction changes no recorded point estimate and introduces no new inferential result.  A future paired seed-level analysis would be post hoc unless prospectively declared in a new evidence transaction.
+
+The hash-matched powered run used a Qwen2.5-0.5B student and Qwen2.5-1.5B teacher, hidden-state index 12, seeds 0--7, auxiliary weight 10, 800 training items, three epochs, learning rate `2e-4`, batch size 16, and 400 items from each out-of-domain corpus. These settings complete provenance only; they do not add a new result.
 
 ## Related
 - [`status.md`](../status.md) — the canonical status board

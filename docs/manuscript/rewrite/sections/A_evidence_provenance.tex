@@ -25,7 +25,8 @@ The categories separate completed scientific records from restricted studies, st
 \toprule
 Disposition & Records & Permitted use \\
 \midrule
-Final executed scientific record & E002, E008, E009, E011, E016, E025, E026, E030 & Supports its settled scientific verdict. \\
+Final executed scientific record & E008, E011, E016, E025, E030 & Supports its settled scientific verdict. \\
+Executed; interpretation corrected or narrowed & E002, E009, E026 & Raw measurements remain fixed, while the learned-parameter, utility, or comparator-identification interpretation was narrowed on 2026-08-04. \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Executed; interpretation corrected or narrowed & E003, E004, E005, E006, E010, E014, E015, E021 & Supports only the corrected or scope-limited verdict. \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
@@ -43,7 +44,7 @@ Unused identifier & E007, E018 & Supports no scientific claim. \\
 \end{table}
 \endgroup
 
-Table~\ref{tab:evidence-ledger} follows the evidence chain used in Sections~\ref{sec:framework} and~\ref{sec:results}.
+Table~\ref{tab:evidence-ledger} follows the claim roles used in Sections~\ref{sec:framework} and~\ref{sec:results}.
 Each row names one scientific role, the record that owns its final verdict, and the Results subsection where the evidence is interpreted.
 
 \begingroup
@@ -70,27 +71,27 @@ Controlled regional predictivity assay & E002 & Controlled Tuckute \ac{roi} pred
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Controlled naturalistic voxelwise predictivity assay & E006 & Trained representations outperform matched untrained representations for UTS03 and five held-out story blocks. The assay does not support claims about individual voxels or a population of participants.\evd{E006} & \ref{sec:results-signal} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-Quality-aware distillation-headroom analysis & E003; E015 supports the quality analysis & Teacher--student comparisons show observed headroom associated with language quality. Its cause remains unresolved.\evd{E003}\evd{E015} & \ref{sec:results-headroom} \\
+Distillation-headroom analysis & E003; E015 supports the quality analysis & The cold GPT-2 route shows an observed quality-confounded gap; quality-aware warm-route headroom is unresolved and Qwen-route headroom is unmeasured.\evd{E003}\evd{E015} & \ref{sec:results-headroom} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Recorded-response intervention, participant-averaged estimand & E004 and E005; E010 and E014 bound the averaging interpretation & Fold-unit reanalyses of E004 and E005 supersede their earlier excludes-zero readings. E010 does not identify a participant-count response. E014 shows that averaging reduces response noise and emphasizes shared response while changing the estimand.\evd{E004}\evd{E005}\evd{E010}\evd{E014} & \ref{sec:results-recorded} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Recorded-response intervention, participant-specific estimand & E008; E011, E013, and E017 bound tested variants & No participant-general pairing advantage is demonstrated across the tested objectives and variants.\evd{E008}\evd{E011}\evd{E013}\evd{E017} & \ref{sec:results-recorded} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-Exact synthetic-target measurability assay & E030 & The fixed 50-component \ac{pca} target does not meet the internal \result{e030_practical_threshold} continuation rule. Aligned-minus-row-twin specificity remains unresolved.\evd{E030} & \ref{sec:results-predicted-identification} \\
+50-component linear target-projection measurability assay & E030 & The fixed 50-component \ac{pca} target does not meet the internal \result{e030_practical_threshold} continuation rule. Aligned-minus-row-twin specificity remains unresolved.\evd{E030} & \ref{sec:results-predicted-identification} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Synthetic-target recovery assay & E016 & WikiText assays support target uptake.\evd{E016} & \ref{sec:results-synthetic-manipulation} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Retained-student movement audit & E025; E016 supports the earlier assay & Retained-student movement is supported at acceptable measured \ac{lm} quality.\evd{E016}\evd{E025} & \ref{sec:results-synthetic-manipulation} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-Comparator-adequacy audit and attribution assessment & E026; E016 supplies the original comparator & The saved text-derived auxiliary-control arm is non-identifying because the required comparability checks do not hold.\evd{E016}\evd{E026} & \ref{sec:results-synthetic-manipulation} \\
+Comparator-adequacy audit and attribution assessment & E026; E016 supplies the original comparator & The saved text-derived auxiliary-control arm is non-identifying because pre-outcome target and KD-baseline comparability checks do not hold; post-training movement remains diagnostic.\evd{E016}\evd{E026} & \ref{sec:results-synthetic-manipulation} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Saved-student target-retention analysis & E030 & The exact target is recoverable from the synthetic-response students on Tuckute, while incremental retention beyond ordinary \ac{kd} remains unresolved.\evd{E030} & \ref{sec:results-synthetic-manipulation} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-Composed-path diagnostic & E030 & The composed route does not demonstrate predictive overlap, incremental overlap, or an aligned-over-row-twin increment when inference is performed across participants. Because the exact-target measurability criterion was not met first, these later quantities cannot establish where the path would fail next.\evd{E030} & \ref{sec:results-predicted-transfer} \\
+Composed-path diagnostic & E030 & Within the declared linear pathway, predictive overlap, incremental overlap, and the aligned-over-row-twin increment are not demonstrated across participants. These diagnostics do not constrain the independent direct-transfer contrast.\evd{E030} & \ref{sec:results-predicted-transfer} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Saved-student biological-transfer assay & E025; E026 bounds attribution & Participant-level biological transfer is not demonstrated. The direct synthetic-response-minus-\ac{kd} contrast is near zero, while the text-derived comparison is non-identifying.\evd{E025}\evd{E026} & \ref{sec:results-predicted-transfer} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-Bounded practical-utility evaluation & E009 & The recorded-response utility evaluation shows no detectable out-of-domain perplexity advantage, and its prerequisite contrast in controlled brain predictivity is not demonstrated.\evd{E009} & \ref{sec:results-utility} \\
+Practical-utility evaluation & E009 & Mean out-of-domain ratios favor the recorded-response arm, but paired endpoint uncertainty was not reported; the prerequisite contrast is technically unstable, so brain-specific utility is not established.\evd{E009} & \ref{sec:results-utility} \\
 \end{longtable}
 \endgroup
 
@@ -120,7 +121,7 @@ Records & Earlier interpretation & Final permitted reading \\
 \endfoot
 \bottomrule
 \endlastfoot
-E003 & \ac{kd} uniquely destroys or preserves alignment. & Quality-aware headroom is observed; its source remains unresolved.\evd{E003} \\
+E003 & \ac{kd} uniquely destroys or preserves alignment. & The cold GPT-2 gap is quality-confounded; quality-aware warm-route headroom remains unresolved.\evd{E003} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 E004, E005, E008 & Seed--fold cells provide independent uncertainty, and the averaged contrast excludes zero. & Fold-unit inference supersedes the cell bootstrap; E008 owns participant inference.\evd{E004}\evd{E005}\evd{E008} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
@@ -144,7 +145,7 @@ E019 & The local probe reproduces or refutes the external study. & It is a local
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 E020 & The controlled residual closes the stimulus-predictable ceiling question. & Reference reliability fails, so the ceiling remains bounded but unresolved.\evd{E020} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-E030 & Exact-target failure explains the E025 result. & E030 localizes the first unmet criterion without establishing its cause.\evd{E030} \\
+E030 & Failure of the 50-component linear target projection explains the E025 result. & E030 limits the declared linear pathway without explaining or invalidating the independent direct-transfer result.\evd{E030} \\
 \end{longtable}
 \endgroup
 
