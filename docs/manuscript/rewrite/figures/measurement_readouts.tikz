@@ -49,7 +49,7 @@
   \draw[arrow] (targetfit) -- (targetscore);
   \draw[arrow] (targetscore) -- (targetcompare);
 
-  \draw[arrow] (nscore.east) -- ++(4mm,0) |- (xcompare.north);
+  \draw[arrow] (nscore.east) to[out=0,in=90,looseness=0.85] (xcompare.north);
 
   \node[draw=gray!55,rounded corners,fill=gray!5,align=center,font=\scriptsize,
         text width=141mm,minimum height=7mm] at (55mm,-80mm)
