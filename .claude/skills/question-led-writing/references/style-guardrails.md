@@ -1,6 +1,8 @@
 # Style guardrails and repair patterns
 
-Use this reference during line editing, terminology audits, and final-readiness review. Aim for prose that is precise, restrained, and easy to reconstruct. Treat every item below as a review trigger, not an automatic replacement. Retain a suspect form only when it expresses an exact relationship more clearly than the direct alternative.
+Use this reference during line editing, terminology audits, and a final line-level pass. Aim for prose that is precise, restrained, and easy to reconstruct. A lexical match alone is not a finding. Flag or repair a form only when it creates ambiguity, unsupported strength, unstable terminology, or avoidable reader effort. Retain a suspect form when it expresses an exact relationship more clearly than the direct alternative.
+
+This reference is a lexical and line-editing checklist. It does not determine evidence strength, statistical meaning, novelty, scientific terminology, or claim scope. Preserve those decisions from their governing authority. When a repair would change one of them, report and route the issue instead of making the change during the style pass.
 
 ## Convention repairs
 
@@ -9,6 +11,7 @@ Use this reference during line editing, terminology audits, and final-readiness 
 | Contrast-first definitions such as “X is not Y,” “X rather than Y,” or “not merely X but Y” | Define X positively by its source, role, operation, or estimand. Give Y its own direct statement when the distinction remains necessary. | The alternative itself carries the inference, identifies a control, or prevents a material misreading. |
 | Negative category labels such as “non-X” | Name the object's actual source, construction, role, or tested alternative. | The field has an established, unambiguous technical term and replacing it would reduce precision. |
 | Several claims joined by `and`, `or`, `while`, or `respectively` | Use parallel grammar or separate sentences so the logical relation and scope of each claim are explicit. | The coordination has one unmistakable logical reading. |
+| Em dashes | Replace with a full stop, comma, colon, semicolon, or parentheses according to the relationship between the clauses. | Do not retain them in this style. |
 | Placeholder referents such as “this,” “these findings,” “the former,” or “the latter” | Name the result, method, comparison, or limitation being referenced. | The referent is adjacent and uniquely identifiable. |
 | Empty importance markers such as “Importantly,” “Notably,” “Interestingly,” or “It is important to note that” | State the consequence that makes the claim important. Delete the marker when the sentence already carries its own weight. | The word encodes a defined statistical or technical status. |
 | Author choreography such as “We now turn to,” “This section will discuss,” “As mentioned above,” or “It can be seen that” | State the next answer or the dependency that makes the next question follow. | Navigation is genuinely needed in a long document and names a useful destination. |
@@ -35,7 +38,7 @@ Review these words when they are used for tone rather than exact meaning. The po
 | comprehensive | Name the covered set. Retain only when the coverage is exhaustive relative to that declared set. |
 | robust | Name the perturbation, sensitivity analysis, or statistical property and its result. |
 | significant | Use “statistically significant” with the named test, or state the practical consequence instead. |
-| novel | State what differs from the closest prior work and verify the literature boundary. |
+| novel | State the difference from prior work only when the governing literature record establishes that boundary. Otherwise route the claim to the literature owner; do not settle novelty during a style pass. |
 | clearly, obviously, simply | State the reason or omit the modifier. |
 
 ## Repair examples
@@ -63,4 +66,4 @@ Unsupported strength:
 
 ## Completion criterion
 
-Complete the style pass when every triggered form has been reviewed, every retained exception carries exact meaning, each concept has one stable term, and the repairs preserve the claim, comparison, scope, and uncertainty. Stop when further changes affect only cadence or personal preference.
+Complete the style pass when every triggered form has been reviewed, every retained exception carries exact meaning, each concept has one stable term, and the repairs preserve the claim, comparison, scope, and uncertainty. Stop when further changes would affect only taste, not meaning, inferential continuity, referent clarity, or reading effort.
