@@ -11,9 +11,10 @@ aliases: [manuscript-agents]
 | Path | Purpose |
 |---|---|
 | `rewrite/` | Canonical LaTeX thesis master and authority for current scientific interpretation |
-| `extended/` | Legacy manuscript snapshot; preserve unchanged and do not use for new writing |
-| `public/vN/` | Immutable sharing/submission cuts derived from the canonical rewrite master |
+| `submission/` | Formatting-only supervisor derivative (UC3M cover + NeurIPS body); scientific content unchanged |
 | `figures/` | Selected committed figures; generation code lives in `scripts/figures/` |
+
+Legacy layers (`extended/`, `public/v0.9/`) were removed from HEAD on 2026-08-25 and survive only in Git history (last commits `7c445b0` and `6026021`). Do not recreate them; immutable-cut policy applies to any future cut.
 
 ## Direct writing loop
 
@@ -27,7 +28,7 @@ aliases: [manuscript-agents]
 
 Use `--share-ready` only when no gap remains. A contradiction routes to `/interpret` and sets `docs/status.md` to `manuscript-sync-pending`.
 
-The canonical `rewrite/` manuscript follows its maintained question tree and review contract in [`rewrite/AGENTS.md`](rewrite/AGENTS.md). Work there must not modify the legacy `extended/` snapshot.
+The canonical `rewrite/` manuscript follows its maintained question tree and review contract in [`rewrite/AGENTS.md`](rewrite/AGENTS.md).
 
 ## Manuscript-wide terminology
 

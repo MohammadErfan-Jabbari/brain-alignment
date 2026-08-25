@@ -10,7 +10,7 @@ aliases: [rewrite-contract]
 
 This directory is the canonical thesis manuscript. It uses settled evidence from the owning E records and must not silently change an E-record verdict.
 
-This directory owns the current scientific interpretation and must remain independently buildable. The legacy [`../extended/`](../extended/) directory is preserved as a historical snapshot and must not be modified.
+This directory owns the current scientific interpretation and must remain independently buildable. The legacy `../extended/` snapshot was removed from HEAD on 2026-08-25 and survives only in Git history (last commit `7c445b0`); any historical consultation reads from there.
 
 ## Reader, governing question, and answer
 
@@ -576,6 +576,5 @@ This appendix formalizes the limits introduced conceptually in Section 2.2; it m
 ## Related
 
 - [Manuscript guidance](../AGENTS.md)
-- [Legacy extended manuscript snapshot](../extended/)
 - [Evidence and authority contract](../../03-methodology.md)
 - [Operational status](../../status.md)

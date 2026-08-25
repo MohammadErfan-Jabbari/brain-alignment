@@ -8,13 +8,13 @@ aliases: [current-status]
 
 **Updated:** 2026-08-25
 
-**Manuscript:** `canonical rewrite ready for supervisor review`. The 70-page thesis in `docs/manuscript/rewrite/` is now the sole live manuscript and scientific-interpretation authority. It has completed Erfan's section-by-section rewrite and the accepted examiner-feedback pass, passes the strict share-ready source checker, builds without overfull boxes or unresolved references, and has received a complete visual audit. Its registered title is *Brain Alignment as a Signal for Language Models: From Measurement to Application*. The `extended/` directory is a preserved legacy snapshot and must not receive further edits. The frozen public v0.9 cut remains unchanged.
+**Manuscript:** `canonical rewrite ready for supervisor review`. The 70-page thesis in `docs/manuscript/rewrite/` is now the sole live manuscript and scientific-interpretation authority. It has completed Erfan's section-by-section rewrite and the accepted examiner-feedback pass, passes the strict share-ready source checker, builds without overfull boxes or unresolved references, and has received a complete visual audit. Its registered title is *Brain Alignment as a Signal for Language Models: From Measurement to Application*.
 
-**Latest frozen public cut:** [v0.9 Markdown](manuscript/public/v0.9/paper.md)
+**Legacy layers removed from HEAD (2026-08-25):** the `extended/` legacy snapshot and the frozen public v0.9 cut are preserved only in Git history (last commits: `extended/` at `7c445b0`, `public/v0.9/` at `6026021`). Do not recreate them as directories; cite the commits when historical access is needed.
 
 ## Research state
 
-| Rung | State | Owning evidence | Extended-manuscript location |
+| Rung | State | Owning evidence | Manuscript location (legacy extended numbering) |
 | --- | --- | --- | --- |
 | Q0 / A2 | CONDITIONAL PASS: trained-model controlled predictivity is supported under the executed assays; E002's learned-parameter attribution from the trained-minus-untrained gap is unresolved because the static nuisance block was model-specific; no E006 participant/population inference | [E002](experiments/E002_tuckute-encoding-feasibility.md), [E006](experiments/E006_lebel-voxelwise-feasibility.md) | Methods; Results §4.1 |
 | Q1 | PARTIAL: plain KD shows alignment headroom, but KD-specific shedding is not isolated from LM quality | [E003](experiments/E003_kd-alignment-preservation.md) | Results §4.2 |
@@ -28,7 +28,7 @@ aliases: [current-status]
 - New experiment development is closed by Erfan's direction ([D065](decisions/decisions.md), 2026-08-25). The prospective program below (E033, E032, E028 exact-lane resolution, queued dimensionality work) is paused, not executed, unless Erfan reopens it. The next task is adapting the canonical rewrite manuscript to the supervisor-provided university template as a formatting-only derivative (D064).
 - E033 is explicitly authorized and active. Its prospective L12-versus-final-hidden recorded-response placement test is design-locked after anti-confound and oracle review. The transaction must pass an outcome-blind block-gradient, dose-calibration, and dynamic nonabsorption gate plus a two-participant smoke before the nine-participant outcome run. The untouched five participants are confirmatory; both placements are scored at both fixed layers; no outcome has been opened.
 - Erfan's reader-first, section-by-section review and the accepted examiner-feedback pass are complete. The rewrite now distinguishes claim-specific dependencies, uses explicit Methods and appendix handoffs, and applies the fixed brain-response terminology and central `acronyms.tex` registry throughout.
-- The rewrite manuscript is the canonical thesis and current scientific-interpretation authority. All future manuscript writing, checks, builds, and supervisor-facing exports use `docs/manuscript/rewrite/`. The legacy extended manuscript and frozen public v0.9 cut remain unchanged.
+- The rewrite manuscript is the canonical thesis and current scientific-interpretation authority. All future manuscript writing, checks, builds, and supervisor-facing exports use `docs/manuscript/rewrite/`. The legacy extended manuscript and frozen public v0.9 cut are Git-history-only layers (see the manuscript note above).
 - E025 is complete and result-oracle clean. All language-quality, target-learning, and representation-movement gates passed. The direct TRIBE-minus-KD mean is `-0.000014`, CI95 `[-0.000739,+0.000711]`. The preregistered participant-first relative contrast is `+0.000136`, CI95 `[-0.000505,+0.000777]`, with one-sided UCB `+0.000653 < +0.002`; this relative estimand does not identify content after E026. UID 837 carries the sole clear participant positive in both views.
 - E026 is complete and independently audited. In the corrected identification set, 16/37 checks fail, 20 pass, and one is unresolved. The decisive mismatches are KD baseline/headroom, covariance spectrum/effective rank, and low-level nuisance predictability. Separately, 14/18 post-training diagnostic margins depart and four remain within margin; these outcomes describe the realized interventions but do not determine comparator identification. The raw cross-target difference remains non-identifying without invalidating TRIBE's within-target learnability or E025's direct TRIBE-minus-KD contrast.
 - E030 is complete, author-confirmed, independently recomputed, and synchronized into the canonical rewrite manuscript. All `270/360/6,480` C1/C2/C3 rows, `748` independently recomputed load-bearing leaves, and the full provenance chain are panel-clean. The target is strongly extractable from TRIBE students (`M=+0.040725`, family-95% CI `[+0.039053,+0.042398]`), but its aligned unique participant predictivity above nuisances fails first. The frozen-twin contrast, incremental retention over KD, and all bridge contrasts remain unresolved. No post-outcome E030 variant is licensed.
@@ -66,5 +66,4 @@ Former experiment next actions (E033 implementation, E031 confirmation with E032
 
 - [Methodology and authority contract](03-methodology.md)
 - [Canonical thesis source](manuscript/rewrite/main-rewrite.tex)
-- [Legacy extended manuscript snapshot](manuscript/extended/main-extended.tex)
 - [D057 conference package decision](decisions/decisions.md)
