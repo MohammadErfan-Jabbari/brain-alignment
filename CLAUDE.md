@@ -11,7 +11,7 @@ This repository is the execution and writing home for Erfan’s thesis on whethe
 ## Four authorities
 
 | Question | Authority |
-|---|---|
+| --- | --- |
 | What was run and what did it produce? | `docs/experiments/ENNN_*.md` plus retained load-bearing artifacts |
 | What does the thesis currently conclude? | `docs/manuscript/rewrite/` |
 | Where are we and what happens next? | `docs/status.md` |
@@ -24,7 +24,7 @@ No report layer, alternate status board, claim database, artifact registry, dash
 State the active stance and switch when work changes. The `stances` skill owns details.
 
 | Stance | Job |
-|---|---|
+| --- | --- |
 | `/work` | lock, run, and record evidence; explicit-only |
 | `/interpret` | recompute and adjudicate recorded evidence |
 | `/write` | draft settled claims directly into the canonical rewrite manuscript |
@@ -75,7 +75,7 @@ Use `--share-ready` only when every gap is resolved and the manuscript is intend
 Use agents at load-bearing scientific boundaries, not as a routine fan-out ritual.
 
 | Phase | Agents |
-|---|---|
+| --- | --- |
 | Before compute | `anti-confound-designer` then `oracle-reviewer` via `/precheck` |
 | After aggregated results | `stat-aggregation-auditor` |
 | Result/claim stress test | `counter-argument`, `socratic-thinker`, `premortem-analyst`, `first-principles-grounder`, plus `oracle-reviewer` when warranted |
