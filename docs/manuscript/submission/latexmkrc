@@ -1,0 +1,12 @@
+# latexmkrc - pinned build so no reader hand-runs the multi-pass or picks the
+# wrong bib backend. Build this candidate with: latexmk -pdf main-rewrite.tex
+# Commit the resulting PDF + .bbl alongside the source so sharing never depends
+# on the recipient's toolchain.
+
+$pdf_mode = 1;                 # produce PDF via pdflatex
+$bibtex_use = 2;               # run the bibliography tool as needed
+$biber = '/usr/bin/biber %O %S'; # pin biber matched to this tree's biblatex BCF format
+$pdflatex = 'pdflatex -interaction=nonstopmode -file-line-error -synctex=1 %O %S';
+
+# keep build artifacts out of the way; clean removes the biber intermediates too
+$clean_ext = 'bbl run.xml synctex.gz';

@@ -1,0 +1,130 @@
+% preamble.sty - independent preamble for the claim-led rewrite candidate.
+%
+% Both layers load this so a section copied from the extended manuscript into a
+% public cut compiles unchanged (the cut is content compression, not a re-port).
+% A public vN VENDORS its own copy of this file at cut time, so a later edit here
+% never changes how a frozen cut compiles. The main file (not a global toggle)
+% decides layer-specific behavior: main-public.tex redefines \evd after loading
+% this, so provenance tags move to an appendix instead of showing inline.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{preamble}[2026/07/23 brain-alignment rewrite preamble]
+
+% --- math, figures, tables, typography -----------------------------------
+\RequirePackage{amsmath,amssymb,amsthm,mathtools}
+\RequirePackage{graphicx}
+\RequirePackage{subcaption}
+\RequirePackage{float}
+\RequirePackage{placeins}
+\RequirePackage{booktabs,longtable,array,tabularx}
+\RequirePackage{xcolor}
+\RequirePackage[hidelinks]{hyperref}
+\RequirePackage{enumitem}
+\RequirePackage{ifthen}
+\RequirePackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,backgrounds,calc}
+
+% --- acronyms -------------------------------------------------------------
+% Prefer the standard acronym package used in the author's INFOCOM papers.
+% The fallback keeps this candidate buildable on the repo's minimal TeX image.
+\IfFileExists{acronym.sty}{%
+  \RequirePackage[printonlyused]{acronym}%
+}{%
+  \PackageWarning{preamble}{acronym.sty not found; using the local minimal fallback}%
+  \makeatletter
+  \newcommand{\ac@resetlist}{}
+  \newcommand{\acrodef}[1]{\@ifnextchar[{\ac@defopt{#1}}{\ac@defplain{#1}}}
+  \def\ac@defopt#1[#2]#3{%
+    \expandafter\gdef\csname ac@short@#1\endcsname{#2}%
+    \expandafter\gdef\csname ac@long@#1\endcsname{#3}%
+    \g@addto@macro\ac@resetlist{\global\expandafter\let\csname ac@used@#1\endcsname\@undefined}%
+  }
+  \def\ac@defplain#1#2{\ac@defopt{#1}[#1]{#2}}
+  \newcommand{\acrodefplural}[1]{\@ifnextchar[{\ac@defpluralopt{#1}}{\ac@defpluralplain{#1}}}
+  \def\ac@defpluralopt#1[#2]#3{%
+    \expandafter\gdef\csname ac@shortplural@#1\endcsname{#2}%
+    \expandafter\gdef\csname ac@longplural@#1\endcsname{#3}%
+  }
+  \def\ac@defpluralplain#1#2{\ac@defpluralopt{#1}[\acs{#1}s]{#2}}
+  \newcommand{\acs}[1]{\@ifundefined{ac@short@#1}{\textbf{[UNDEFINED ACRONYM: #1]}}{\csname ac@short@#1\endcsname}}
+  \newcommand{\acl}[1]{\@ifundefined{ac@long@#1}{\textbf{[UNDEFINED ACRONYM: #1]}}{\csname ac@long@#1\endcsname}}
+  \newcommand{\acsp}[1]{\@ifundefined{ac@shortplural@#1}{\acs{#1}s}{\csname ac@shortplural@#1\endcsname}}
+  \newcommand{\aclp}[1]{\@ifundefined{ac@longplural@#1}{\acl{#1}s}{\csname ac@longplural@#1\endcsname}}
+  \newcommand{\ac}[1]{%
+    \@ifundefined{ac@long@#1}{\textbf{[UNDEFINED ACRONYM: #1]}}{%
+      \@ifundefined{ac@used@#1}{\acl{#1} (\acs{#1})\global\expandafter\def\csname ac@used@#1\endcsname{1}}{\acs{#1}}%
+    }%
+  }
+  \newcommand{\acp}[1]{%
+    \@ifundefined{ac@long@#1}{\textbf{[UNDEFINED ACRONYM: #1]}}{%
+      \@ifundefined{ac@used@#1}{\aclp{#1} (\acsp{#1})\global\expandafter\def\csname ac@used@#1\endcsname{1}}{\acsp{#1}}%
+    }%
+  }
+  \newcommand{\acresetall}{\ac@resetlist}
+  \makeatother
+}
+
+% --- bibliography (pinned to biber in latexmkrc) -------------------------
+\RequirePackage[backend=biber,style=numeric-comp,sorting=none]{biblatex}
+% Keep URL breakpoints from stretching into visible spaces in justified DOI strings.
+\AtBeginBibliography{\raggedright}
+
+% --- semantic macros: the recurring objects, kept small + greppable -------
+% Repeat the same handle for the same concept everywhere (one term per concept).
+\newcommand{\Lbrain}{\ensuremath{\mathcal{L}_{\mathrm{brain}}}}   % the brain loss
+\newcommand{\uniqueR}{\ensuremath{\Delta R^2}}                    % unique (semi-partial) R^2
+\newcommand{\Eys}{\ensuremath{\mathbb{E}[Y \mid S]}}              % stimulus-predictable mean
+\newcommand{\permtwin}{permuted twin}                            % the per-kind permuted control
+
+% --- \safeimage: visible placeholder instead of a silent blank ------------
+% Our figure renders are gitignored and regenerated, so a missing file should
+% show a labelled box, not vanish. Always use \safeimage, never bare \includegraphics.
+\newcommand{\safeimage}[2][]{%
+  \IfFileExists{#2}{\includegraphics[#1]{#2}}%
+  {\fbox{\parbox[c][0.25\textheight][c]{0.8\textwidth}{\centering\small
+        Missing figure: \texttt{\detokenize{#2}}}}}%
+}
+
+% --- \figspec: a visible, self-documenting placeholder for an un-drawn -----
+% diagram (conceptual TikZ figures we scaffold now and render in a later round).
+% #1 (optional) = box height; #2 = short title; #3 = the spec the render must satisfy.
+% Result-data figures use \safeimage (missing-file box) instead; this is for
+% diagrams that have no source PNG and will be drawn in TikZ.
+\newcommand{\figspec}[3][0.24\textheight]{%
+  \setlength{\fboxsep}{8pt}%
+  \fcolorbox{gray}{gray!8}{\parbox[c][#1][c]{0.9\textwidth}{\centering\small
+      \textbf{[DIAGRAM PLACEHOLDER: #2]}\\[4pt]
+      \textcolor{blue!45!black}{\itshape #3}}}}
+
+% --- provenance: \evd (evidence record) and \gap (open slot) --------------
+% Evidence-record identifiers belong to the audit layer, not thesis prose.
+% The thesis build hides them by default. Set \showevidenceidstrue after loading
+% this package to produce an internal-review PDF with light-grey inline tags.
+\newif\ifshowevidenceids
+\showevidenceidsfalse
+\newcommand{\evd}[1]{%
+  \ifshowevidenceids{\footnotesize\textcolor{gray}{[#1]}}\fi}
+% \gap: a loud marker. It is allowed in the extended manuscript; check_gap_survival
+% blocks it from a public cut. Never write a guessed number; write the gap.
+\newcommand{\gap}[1]{{\textcolor{red}{\textbf{[GAP: #1]}}}}
+
+% --- keyed numbers: one source for the headline numbers -------------------
+% Declare each load-bearing number once (in numbers.tex), cite it with \result.
+% A \result for an undefined key emits a \gap, so a missing number cannot ship.
+\makeatletter
+\newcommand{\DeclareResult}[2]{\expandafter\def\csname result@#1\endcsname{#2}}
+\newcommand{\result}[1]{%
+  \@ifundefined{result@#1}{\gap{undefined result key: #1}}%
+  {\csname result@#1\endcsname}}
+\makeatother
+
+% --- theorem environments (for the extended manuscript's derivations) -----
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\endinput

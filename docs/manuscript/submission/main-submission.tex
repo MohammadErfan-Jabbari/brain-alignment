@@ -1,0 +1,115 @@
+% Supervisor submission derivative of ../rewrite (D064/D065).
+% Formatting-only: UC3M cover page (regulation Appendix I) + NeurIPS-style body.
+% No result, evidence state, estimator, inference unit, caveat, or claim may change.
+% Every retained load-bearing result keeps its \evd{Ennn} marker and numbers.tex key.
+% Build from this directory: latexmk -pdf main-submission.tex
+
+% ---- cover-page fields (CONFIRM with Erfan before sending) ----------------
+\newcommand{\DegreeName}{Machine Learning for Health}        % TODO confirm exact master name
+\newcommand{\AcademicYear}{2025--2026}                       % TODO confirm
+\newcommand{\ThesisTitle}{Brain Alignment as a Signal for Language Models: From Measurement to Application}
+\newcommand{\AuthorName}{MohammadErfan Jabbari}
+\newcommand{\FirstTutor}{Alejandro Lancho Serrano}           % TODO confirm tutor ordering
+\newcommand{\SecondTutor}{Pablo Mart\'inez Olmos}
+\newcommand{\PlaceAndDate}{Getafe, 2026}                     % TODO confirm place/date
+% ---------------------------------------------------------------------------
+
+\PassOptionsToPackage{hidelinks}{hyperref} % neurips_2025 and preamble both load hyperref
+\documentclass{article}
+\usepackage[final,nonatbib]{style/neurips_2025} % official NeurIPS 2025 style; nonatbib: we keep biblatex
+\makeatletter\renewcommand{\@noticestring}{}\makeatother % thesis, not a NeurIPS track: no notice string (final alone leaves \@trackname undefined)
+\usepackage{preamble} % vendored copy of ../rewrite/preamble.sty
+\addbibresource{../rewrite/references.bib} % single source of references
+\input{../rewrite/numbers}   % single source of keyed values
+\input{../rewrite/acronyms}  % single source of acronym registry
+
+\title{\ThesisTitle}
+\author{\AuthorName}
+\date{\today}
+
+\begin{document}
+
+% ========================= UC3M official cover page ========================
+% Layout per TFM regulation, Appendix I (UC3M cover must be the first page).
+\thispagestyle{empty}
+\begin{center}
+  \includegraphics[width=3.2cm]{style/uc3m_logo.png}\\[1.2em]
+  {\large Master Degree in \DegreeName}\\[0.6em]
+  {\large Academic Year \AcademicYear}\\[3em]
+  {\LARGE\bfseries Master Thesis}\\[2.5em]
+  {\Large\itshape ``\ThesisTitle''}\\[3em]
+  \begin{tabular}{@{}r@{\hspace{0.8em}}l@{}}
+    Author's complete name:   & \AuthorName \\
+    1st Tutor complete name:  & \FirstTutor \\
+    2nd Tutor complete name:  & \SecondTutor \\
+  \end{tabular}\\[3em]
+  {\large \PlaceAndDate}
+  \vfill
+  \begin{minipage}{0.85\textwidth}\footnotesize
+  \textbf{Avoid plagiarism.} The University uses the Turnitin Feedback Studio program within the
+  Aula Global for the delivery of student work. This program compares the originality of the work
+  delivered by each student with millions of electronic resources and detects those parts of the
+  text that are copied and pasted. Plagiarizing in a TFM is considered a Serious Misconduct, and
+  may result in permanent expulsion from the University.
+  \end{minipage}
+\end{center}
+\clearpage
+% ===========================================================================
+
+\maketitle
+
+\begin{abstract}
+% CONDENSED ABSTRACT PENDING: port and compress ../rewrite/main-rewrite.tex abstract
+% in the feedback pass; abstract content must not change scientifically.
+[Abstract pending condensation from the canonical rewrite.]
+\end{abstract}
+
+% ---------------------------------------------------------------------------
+% MAIN TEXT (target: 10--15 pages). One section per rewrite section 01--07.
+% Content condensation happens in the feedback pass; placeholders mark scope.
+% ---------------------------------------------------------------------------
+
+\section{Introduction}
+% Condensed from ../rewrite/sections/01_introduction.tex
+[Pending.]
+
+\section{The Valid Training Claim}
+% Condensed from ../rewrite/sections/02_valid_training_claim.tex
+[Pending.]
+
+\section{Experimental Framework}
+% Condensed from ../rewrite/sections/03_experimental_framework.tex (Methods)
+[Pending.]
+
+\section{Results}
+% Condensed from ../rewrite/sections/04_results.tex (question chain Q0--Q4)
+[Pending.]
+
+\section{Discussion}
+% Condensed from ../rewrite/sections/05_discussion.tex
+[Pending.]
+
+\section{Limitations}
+% Condensed from ../rewrite/sections/06_limitations.tex
+[Pending.]
+
+\section{Conclusion}
+% Condensed from ../rewrite/sections/07_conclusion.tex
+[Pending.]
+
+\clearpage
+\part*{Supplementary Material}
+\appendix
+% The rewrite appendices move here mostly as-is during the condensation pass.
+% Until then they are input directly from the canonical source so the
+% supplement is never stale relative to rewrite/.
+\input{../rewrite/sections/A_evidence_provenance}
+\input{../rewrite/sections/B_data_targets_preprocessing}
+\input{../rewrite/sections/C_training_architecture}
+\FloatBarrier
+\input{../rewrite/sections/D_estimators_inference}
+\input{../rewrite/sections/E_secondary_experiments}
+\input{../rewrite/sections/F_sensitivities_tables}
+
+\printbibliography
+\end{document}
