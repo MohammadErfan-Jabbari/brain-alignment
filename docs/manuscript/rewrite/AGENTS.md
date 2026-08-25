@@ -49,7 +49,7 @@ This directory owns the current scientific interpretation and must remain indepe
 This rewrite is the thesis content. Organize the narrative by the role a procedure plays in the scientific argument, not by experiment chronology or evidence-record number.
 
 | Level | Definition | Fixed terms |
-|---|---|---|
+| --- | --- | --- |
 | Route | Major source of training supervision | **recorded-response route**, **synthetic-response route** |
 | Intervention | Paired training family defined by the manipulated supervision | **recorded-response intervention**, **synthetic-response intervention** |
 | Arm or control | Condition inside an intervention or assay | **ordinary KD arm**, **permuted-response control**, **frozen row-twin control**, **text-derived auxiliary-control arm** |
@@ -69,7 +69,7 @@ Do not expose evidence-record identifiers in ordinary thesis prose, headings, ca
 ### Layer ownership and handoffs
 
 | Layer | Exclusive responsibility |
-|---|---|
+| --- | --- |
 | Section 2 | Conceptual evidence standard: what each stage licenses, why it is necessary, and its generic failure boundary |
 | Section 3 | One study-specific design tuple per scientific role: data or response construction, intervention or assay, comparator, estimand, endpoint, and inference unit |
 | Section 4 | Observations, uncertainty, verdict, and the narrow claim licensed by each Section 3 design |
@@ -85,6 +85,7 @@ Do not expose evidence-record identifiers in ordinary thesis prose, headings, ca
 For each scientific role, retain one Section 3 design summary, one Section 4 verdict location, one Section 5 interpretation when needed, and one appendix detail owner. If two locations answer the same level of question, move or delete one. Section 3 may link a design choice to Section 2 but must not repeat the conceptual argument or report a verdict. Section 4 must receive the named design tuple and must not restart its method description.
 
 Language-quality evaluation is a cross-cutting endpoint and criterion. Section 3 summarizes its protocol, Section 3.5 states acceptability rules, Appendices C and D own implementation, and Section 4 reports route-specific values and verdicts. The 50-component linear target-projection assay follows the same handoff: target construction in Appendix B, assay summary in Section 3, estimator in Appendix D, and verdict in Section 4.
+
 - When prose introduces a multi-part figure, explicitly map the figure's groups or stages to the surrounding paragraph questions. Do not make the reader infer whether the figure illustrates one paragraph or the whole subsection.
 
 ## Attention budget
@@ -98,7 +99,7 @@ Give the three evidence-chain artifacts different jobs. The Section 2 figure def
 ## Stable terminology
 
 | Term | Meaning |
-|---|---|
+| --- | --- |
 | Brain activity or brain responses | The general biological phenomenon. Avoid unqualified *neural* when it could refer to either the brain or a neural network. |
 | Recorded fMRI responses | The actual biological measurements used in this work. fMRI does not directly record neuronal firing. |
 | Model representations or model activations | Internal quantities of a language model or other neural network. |
@@ -560,7 +561,7 @@ This appendix formalizes the limits introduced conceptually in Section 2.2; it m
 11. Apply the skeptical-reader test: the prose must be understandable sentence by sentence without an unsupported jump, an unexplained result, or dependence on project history.
 12. Repeat for at most four rounds, stopping earlier when no reviewer identifies a material claim, structure, prose, citation, terminology, density, or handoff defect.
 13. After all units are complete, run the same four reviews over the whole manuscript and revise until the remaining findings are non-material.
-13. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/rewrite`, build the PDF, and inspect every rendered page before calling the candidate complete.
+14. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/rewrite`, build the PDF, and inspect every rendered page before calling the candidate complete.
 
 ## Section acceptance checks
 

@@ -9,7 +9,7 @@ aliases: [manuscript-agents]
 ## Layout
 
 | Path | Purpose |
-|---|---|
+| --- | --- |
 | `rewrite/` | Canonical LaTeX thesis master and authority for current scientific interpretation |
 | `submission/` | Formatting-only supervisor derivative (UC3M cover + NeurIPS body); scientific content unchanged |
 | `figures/` | Selected committed figures; generation code lives in `scripts/figures/` |
@@ -35,7 +35,7 @@ The canonical `rewrite/` manuscript follows its maintained question tree and rev
 Use the following terms throughout manuscript prose, including abstracts, captions, appendices, and future public cuts:
 
 | Referent | Fixed term |
-|---|---|
+| --- | --- |
 | General biological phenomenon | **brain activity** or **brain responses** |
 | Actual measurements | **recorded fMRI responses** |
 | Language-model internals | **model representations** or **model activations** |
@@ -60,7 +60,7 @@ Avoid unqualified *neural activity*, *neural representation*, *neural response*,
 The manuscript rewrite is the thesis content. Organize it by the scientific role that a procedure plays in the argument, never by execution date or evidence-record number.
 
 | Level | Meaning | Canonical terms |
-|---|---|---|
+| --- | --- | --- |
 | Route | Major source of training supervision | **recorded-response route**, **synthetic-response route** |
 | Intervention | Paired training family defined by the manipulated supervision | **recorded-response intervention**, **synthetic-response intervention** |
 | Arm or control | Condition within an intervention or assay | **ordinary-distillation arm**, **permuted-response control**, **frozen row-twin control**, **text-derived auxiliary-control arm** |
