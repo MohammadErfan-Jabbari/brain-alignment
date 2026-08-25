@@ -58,51 +58,45 @@
 
 \maketitle
 
+% Abstract copied verbatim from ../rewrite/main-rewrite.tex (formatting-only
+% derivative: abstract content must not change scientifically).
 \begin{abstract}
-% CONDENSED ABSTRACT PENDING: port and compress ../rewrite/main-rewrite.tex abstract
-% in the feedback pass; abstract content must not change scientifically.
-[Abstract pending condensation from the canonical rewrite.]
+
+Language-model representations can predict recorded \ac{fmri} responses to language, but this brain alignment does not show that brain responses can improve model training.
+This thesis tested whether recorded \ac{fmri} responses or synthetic brain responses generated from text could give a distilled student a reliable, brain-specific advantage.
+Controlled brain predictivity defined the biological endpoint, while route-specific teacher--student headroom described the opportunity for intervention.
+The recorded-response route compared correctly paired with permuted responses; the synthetic-response route assessed target uptake, retained-student movement, direct biological transfer over ordinary \ac{kd}, and brain-response-content attribution against a text-derived auxiliary control.
+A separate 50-component linear target-projection measurability assay tested only the declared linear pathway from the synthetic target to recorded responses.
+Controlled regional and naturalistic assays supported controlled brain predictivity.
+The cold-start GPT-2 comparison showed an observed but quality-confounded teacher--student gap; quality-aware headroom remains unresolved for the warm GPT-2 route and unmeasured for the Qwen recorded-response route.
+Recorded-response training did not reliably improve participant-level controlled brain predictivity over permuted-response training.
+Synthetic-response training produced target uptake and retained-student movement within the prespecified \ac{lm}-quality tolerance, but the 50-component linear target-projection assay did not meet its internal continuation criterion.
+The available text-derived auxiliary-control arm could not identify brain-response-specific attribution, and direct participant-level biological transfer over ordinary \ac{kd} was not demonstrated.
+The recorded-response practical-endpoint means favored the recorded-response arm, but paired endpoint uncertainty was not reported and the prerequisite controlled-predictivity contrast was technically unstable; the endpoint is therefore inconclusive and brain-specific utility is not established.
+The tested routes therefore did not establish a reliable, brain-specific training advantage.
+They instead separate what the measurement, manipulation, direct-transfer, attribution, and utility evidence establishes for each route; they do not show that brain-response-guided training is universally ineffective.
+
 \end{abstract}
+\acresetall
 
 % ---------------------------------------------------------------------------
-% MAIN TEXT (target: 10--15 pages). One section per rewrite section 01--07.
-% Content condensation happens in the feedback pass; placeholders mark scope.
+% MAIN TEXT: full duplicate of the canonical rewrite, input directly from
+% ../rewrite/sections/ so the submission can never diverge in content.
+% (Condensation toward Pablo's 10--15 page target is a separate later pass.)
 % ---------------------------------------------------------------------------
 
-\section{Introduction}
-% Condensed from ../rewrite/sections/01_introduction.tex
-[Pending.]
+\input{../rewrite/sections/01_introduction}
+\input{../rewrite/sections/02_valid_training_claim}
+\FloatBarrier
+\input{../rewrite/sections/03_experimental_framework}
+\FloatBarrier
+\input{../rewrite/sections/04_results}
+\input{../rewrite/sections/05_discussion}
+\input{../rewrite/sections/06_limitations}
+\input{../rewrite/sections/07_conclusion}
 
-\section{The Valid Training Claim}
-% Condensed from ../rewrite/sections/02_valid_training_claim.tex
-[Pending.]
-
-\section{Experimental Framework}
-% Condensed from ../rewrite/sections/03_experimental_framework.tex (Methods)
-[Pending.]
-
-\section{Results}
-% Condensed from ../rewrite/sections/04_results.tex (question chain Q0--Q4)
-[Pending.]
-
-\section{Discussion}
-% Condensed from ../rewrite/sections/05_discussion.tex
-[Pending.]
-
-\section{Limitations}
-% Condensed from ../rewrite/sections/06_limitations.tex
-[Pending.]
-
-\section{Conclusion}
-% Condensed from ../rewrite/sections/07_conclusion.tex
-[Pending.]
-
-\clearpage
-\part*{Supplementary Material}
 \appendix
-% The rewrite appendices move here mostly as-is during the condensation pass.
-% Until then they are input directly from the canonical source so the
-% supplement is never stale relative to rewrite/.
+% Appendices are also input directly from the canonical source.
 \input{../rewrite/sections/A_evidence_provenance}
 \input{../rewrite/sections/B_data_targets_preprocessing}
 \input{../rewrite/sections/C_training_architecture}

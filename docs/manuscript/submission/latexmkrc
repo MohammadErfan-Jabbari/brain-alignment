@@ -3,6 +3,10 @@
 # Commit the resulting PDF + .bbl alongside the source so sharing never depends
 # on the recipient's toolchain.
 
+# The submission inputs ../rewrite/sections/*, which reference figures/ and other
+# paths relative to ../rewrite. Put that directory on TeX's search path.
+$ENV{'TEXINPUTS'} = '../rewrite//:' . ($ENV{'TEXINPUTS'} || '');
+
 $pdf_mode = 1;                 # produce PDF via pdflatex
 $bibtex_use = 2;               # run the bibliography tool as needed
 $biber = '/usr/bin/biber %O %S'; # pin biber matched to this tree's biblatex BCF format
