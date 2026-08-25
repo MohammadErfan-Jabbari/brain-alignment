@@ -108,6 +108,15 @@ Codex is an independent code critic or rescue implementation, not a scientific a
 - Preserve unrelated user changes in a dirty worktree.
 - At close, push completed commits to `origin` unless Erfan says not to or the push is blocked.
 
+## Session history (Codex)
+
+Most of this repo's work was carried out in Codex sessions. When docs/ and Git do not explain what was done or how a decision was reached, consult those transcripts before asking Erfan or guessing:
+
+- `~/.codex/sessions/**/rollout-*.jsonl` and `~/.codex/archived_sessions/`. Select with `grep -l brain-alignment`; several hundred transcripts exist.
+- `~/.codex/history.jsonl` holds the prompt log.
+
+Transcripts are process evidence, not authority. They explain how a decision was made; the four authorities still record what stands. Query with `ctx_execute` or grep and print only extracted answers; raw transcripts are far too large to read into context.
+
 ## Reasoning
 
 Use [`docs/references/reasoning-frame.md`](docs/references/reasoning-frame.md): delete false constraints (Elon), explain the mechanism and failure boundary plainly (Feynman), prefer the smallest durable change that compounds (Naval), and name the estimand/estimator/identifying assumption before interpreting a measurement.
