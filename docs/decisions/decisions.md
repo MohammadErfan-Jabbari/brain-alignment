@@ -982,6 +982,12 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Reverses if:** Erfan explicitly designates another manuscript source as canonical. A university formatting copy may derive from the canonical source without changing scientific ownership.
 
+## D065: Close new experiment development; supervisor-template manuscript is the next task (2026-08-25, /plan)
+
+**Decision.** New experiment development is done. The prospective program recorded in `status.md` (E033 implementation and gates, the E032 acquisition-integrity transaction, E028 exact-lane resolution, and the queued dimensionality experiment) is stopped rather than executed unless Erfan reopens it; outstanding author-contact checkpoints lapse without action. The immediate next task is adapting the canonical rewrite manuscript to the supervisor-provided university template as a formatting-only derivative under D064. Scientific content, the four authorities, and all frozen experiment records are unchanged.
+
+**Reverses if:** Erfan explicitly reopens a prospective transaction, or supervisor or scientific feedback requires new evidence that the frozen record cannot supply.
+
 ## Related
 
 - [`status.md`](../status.md) — operational authority

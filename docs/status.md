@@ -6,7 +6,7 @@ aliases: [current-status]
 
 # Project status
 
-**Updated:** 2026-08-04
+**Updated:** 2026-08-25
 
 **Manuscript:** `canonical rewrite ready for supervisor review`. The 70-page thesis in `docs/manuscript/rewrite/` is now the sole live manuscript and scientific-interpretation authority. It has completed Erfan's section-by-section rewrite and the accepted examiner-feedback pass, passes the strict share-ready source checker, builds without overfull boxes or unresolved references, and has received a complete visual audit. Its registered title is *Brain Alignment as a Signal for Language Models: From Measurement to Application*. The `extended/` directory is a preserved legacy snapshot and must not receive further edits. The frozen public v0.9 cut remains unchanged.
 
@@ -25,6 +25,7 @@ aliases: [current-status]
 
 ## Active work
 
+- New experiment development is closed by Erfan's direction ([D065](decisions/decisions.md), 2026-08-25). The prospective program below (E033, E032, E028 exact-lane resolution, queued dimensionality work) is paused, not executed, unless Erfan reopens it. The next task is adapting the canonical rewrite manuscript to the supervisor-provided university template as a formatting-only derivative (D064).
 - E033 is explicitly authorized and active. Its prospective L12-versus-final-hidden recorded-response placement test is design-locked after anti-confound and oracle review. The transaction must pass an outcome-blind block-gradient, dose-calibration, and dynamic nonabsorption gate plus a two-participant smoke before the nine-participant outcome run. The untouched five participants are confirmatory; both placements are scored at both fixed layers; no outcome has been opened.
 - Erfan's reader-first, section-by-section review and the accepted examiner-feedback pass are complete. The rewrite now distinguishes claim-specific dependencies, uses explicit Methods and appendix handoffs, and applies the fixed brain-response terminology and central `acronyms.tex` registry throughout.
 - The rewrite manuscript is the canonical thesis and current scientific-interpretation authority. All future manuscript writing, checks, builds, and supervisor-facing exports use `docs/manuscript/rewrite/`. The legacy extended manuscript and frozen public v0.9 cut remain unchanged.
@@ -55,11 +56,11 @@ aliases: [current-status]
 
 ## Next actions
 
-1. Implement E033's dedicated runner, analyzer, manifest, and tests. Run the locked gradient/dose/nonabsorption gate and two-participant smoke; stop before outcome compute on either failure. If both pass, seal the calibration and manifest, run the shared-KD reference and UID-disjoint placement shards, then route aggregation to `/interpret`.
-2. Confirm E031's scoped `NO CONSENSUS INCREMENT` and `BUILDER INSTRUMENT FLOOR` classifications. Explicitly authorize `/work E032` if the now-panel-clean Kymata acquisition-integrity transaction should begin. That first transaction may download only the frozen files and inspect raw headers plus `STI101`; it may not compute a neural score.
-3. Send the checked canonical rewrite manuscript to the supervisors and collect their scientific and institutional-format feedback without adding results from the newer experiment program.
-4. After supervisor feedback, decide whether to create a new immutable public cut.
-5. Resolve E028's outcome-blind factual slots and exact-versus-reimplementation lane from the author response/public metadata; acquire no brain-response endpoint or author result before a production C1 lock. Inspect the response state on 2026-08-05 and send one concise follow-up if needed; on 2026-08-12 run Stage 1 only if complete hashable artifacts and final readiness exist, otherwise close the exact lane and move the main allocation to Xiao. Full Stages 2/3 remain forbidden unless corrected Stage 1 passes.
+1. Adapt `docs/manuscript/rewrite/` to the supervisor-provided university template (formatting-only derivative under D064; scientific content unchanged). This is the immediate next task.
+2. Send the template-conform manuscript to the supervisors and collect their scientific and institutional-format feedback without adding results from the newer experiment program.
+3. After supervisor feedback, decide whether to create a new immutable public cut.
+
+Former experiment next actions (E033 implementation, E031 confirmation with E032 authorization, E028 lane resolution) are closed under D065 unless Erfan reopens them.
 
 ## Related
 
