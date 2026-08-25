@@ -300,6 +300,7 @@ reviews code correctness and proposes implementations.
 sandbox is **disabled** (config `approval_policy=never`, `sandbox_mode=danger-full-access`; plugin
 `codex.mjs` patched to force `danger-full-access`). The Docker container is the external boundary — the
 configuration Codex's own docs sanction for externally-sandboxed envs. Safety = container + git diff review
+
 + the hard line, not the inner sandbox.
 **Rationale.** The thinking panel attacks the *conclusion*; Codex adds the *code* layer it can't reach (it
 runs the script). Verified live: Codex (xhigh) independently re-ran `reanalyze_e005_e006.py` and reproduced
@@ -371,6 +372,7 @@ no science number that flips a rung; verdicts are Erfan's, numbers come from the
 Health), and (2) extract **at least one top-venue AI publication** (ICML / ICLR / NeurIPS / AAAI-class) from
 the work. (2) raises the bar on every implementation step: senior-researcher rigor, everything grounded in the
 papers (`docs/literature/`, `data/papers`, `data/paper-repos`) and the course material ([`06-theory-grounding.md`](../06-theory-grounding.md)
+
 + `data/course-material`), and the *idea is not holy text* — it stays dynamic, refocused toward the genuine
 under-researched literature gap as evidence accumulates.
 
@@ -430,19 +432,19 @@ swarm — 4 lenses + Codex + lit-landscape). Full table in `ladder.md` → "THE 
 > ceiling walled out (artifact, not Fork-A) and is RETIRED. The F1-next step is now **E020** (empirical-E[Y|S]
 > ceiling, TRIBE-free); TRIBE → Phase 3 only. New order: F1-close(E020) → F2 → F3 → F4. See D028.
 
-- **F1 (next): E016 TRIBE Phase 1→2 — the information-theoretic CEILING.** Prereq: the **voxel-space mapping**
++ **F1 (next): E016 TRIBE Phase 1→2 — the information-theoretic CEILING.** Prereq: the **voxel-space mapping**
   (LeBel-volumetric ↔ TRIBE fsaverage5 — the real blocker per Codex). Phase 1 fidelity = **spatial-specificity**
   (the naive trained>untrained check is circular). Phase 2 = real−TRIBE residual **with a REQUIRED no-text-extractor
   ablation** (TRIBE's text extractor is Llama-3.2-3B → residual≈0 only counts if it holds vs no-text TRIBE; else
   it's Llama-shared-variance, not the DPI ceiling). residual>0 surviving no-text ⇒ Fork-A → STOP for Erfan.
-- **F2: E019 external reproduce-and-control** — reproduce a published brain-tuning POSITIVE (Bilgin/Negi/Moussa
++ **F2: E019 external reproduce-and-control** — reproduce a published brain-tuning POSITIVE (Bilgin/Negi/Moussa
   recipe on LeBel/denizenslab) then collapse it with matched-ppl + permuted-twin. **The 100% version of I2; the
   premortem calls it non-negotiable for the paper** (E009/E017 are our own nulls, not a demonstration that a
   *published* positive vanishes). Headline/spine framing remains Erfan's call when the number lands.
-- **F3: E013/I3 denizenslab n=6 full-FT** — the POWERED multi-subject induction test (data downloaded; 100% rule:
++ **F3: E013/I3 denizenslab n=6 full-FT** — the POWERED multi-subject induction test (data downloaded; 100% rule:
   close the induction question at adequate power, not the n=3 existence probe). Likely-null per 5 converging nulls.
-- **F4: E015 Q2 architecture-residual extension** — ≥3 modern-family sizes + base-vs-instruct ablation; claim or bury.
-- **A (analysis lane, Erfan):** the manuscript corrections (r≈−0.92→−0.78 via the 3-part argument; Y⊥θ*|S as an
++ **F4: E015 Q2 architecture-residual extension** — ≥3 modern-family sizes + base-vs-instruct ablation; claim or bury.
++ **A (analysis lane, Erfan):** the manuscript corrections (r≈−0.92→−0.78 via the 3-part argument; Y⊥θ*|S as an
   assumption; narrow the matched-ppl framing pending F2).
 **The unifying spine (the paper):** *the brain's training-useful signal is its stimulus-predictable part E[Y|S];
 beyond it, by Y⊥θ\*|S, the response is task-independent noise* — unifying the averaging confound + the matched-ppl
@@ -512,6 +514,7 @@ controls → STOP; E019 headline/spine framing is Erfan's call.
 **Decision (S14, autonomous, oracle-gated).** The locked E020 skeleton (D028) passed the *idea* but the oracle gate
 returned **HOLD** on the *implementation* — three fatal gaps that would have manufactured a false verdict. Hardened
 to v2 (`docs/experiments/E020_*.md` §v2) before any compute:
+
 1. **Claim reframed to a RATIO, not a femto-null.** A_resid is expected at +0.0001–+0.001; a femto-precise null is
    unachievable at n=6/~3 stories and unnecessary. The defensible claim is **A_resid ≪ A_shared** (A_shared =
    LM→E[Y|S] ≈ 0.355 NC-norm in higher-language, S13). Primary statistic ρ = A_resid/A_shared with a bound; ρ≲6%
@@ -543,6 +546,7 @@ HRF autocorrelation, both controlled away → gapped+partialled trained−untrai
 that the eng1000 nuisance-partial is **partly vacuous** (symmetric partial collapses A_shared +0.176→+0.033 too), and
 that the instrument is in the predeclared **KILL regime** (LOO reference reliability 0.33, ε split-half NC 0.17).
 **Verdict:**
+
 1. **No Fork-A → nothing escalates to Erfan** (the Fork-A guard worked, as designed; same discipline that caught the
    TRIBE false Fork-A — L038/L040).
 2. **Ceiling BOUNDED-NOT-CLOSED, not closed.** E020 is the SECOND ceiling instrument to wall at n=6 denizenslab
@@ -567,6 +571,7 @@ Erfan; ladder "next session" block updated to F2 but rung statuses untouched pen
 **Decision (S14, autonomous; first-principles design-grounding + oracle gate).** E019 (the paper-critical external
 reproduce-and-control) was grounded, locked (v2), and oracle-gated. The oracle returned **HOLD** with three fatal gaps;
 all addressed in E019 v3. The load-bearing changes:
+
 1. **Substrate: denizenslab → LeBel UTS01/02/03.** denizenslab was chosen (D027) ONLY for TRIBE's voxel→fsaverage5
    mapper, which E019 doesn't need; it has walled TWICE at n=6 (TRIBE L038, E020 L040) and only story_11 carries a noise
    ceiling. **LeBel is the proven-reliable substrate**: deep single-subjects, a multi-repeat held-out story for NC,
@@ -593,6 +598,7 @@ call when the number lands** (per the E019 doc). No rung flips. Forward order: F
 head (differentiable Lanczos+FIR+NT-Xent full-FT, Lanczos verified) on LeBel UTS01/02/03 produced **no positive
 encoding gain at any lr** (gentle gain_r −0.0006±0.0027 n=9; sweep 2e-5/3e-5/5e-5 monotone-negative; 1e-4 catastrophic).
 The first read ("Negi's gain doesn't reproduce") was **over-claimed** and the panel demolished it:
+
 1. **The raw-mean-r encoding ruler is quality-INSENSITIVE** — eval positive-control: enc_r for Qwen2.5-0.5B/1.5B/3B =
    +0.150/+0.147/+0.143 (flat-decreasing), so the metric can't register the quality-driven alignment differences E015
    found. A "no enc_r gain" claim is confounded by a partly-blind ruler. (The unique-R² metric IS E006-validated; its
@@ -613,14 +619,14 @@ F1-close DONE → F2 DONE (corroboration) → **F3 (I3 denizenslab n=6 full-FT, 
 **Decision (S14, autonomous; grounded in this session's results + the panels).** With F1-close (E020, bounded
 ceiling) and F2 (E019, corroboration) DONE, the implementation lane's **decisive** forward-program work is complete.
 Assessment of the remaining items:
-- **F3 (I3 = denizenslab n=6 full-FT induction) is SUPERSEDED / moot, not worth the compute.** The powered full-FT
++ **F3 (I3 = denizenslab n=6 full-FT induction) is SUPERSEDED / moot, not worth the compute.** The powered full-FT
   induction null is ALREADY in hand: **E017** ran full fine-tuning on LeBel (UTS01/02/03 × 3 seeds, ppl-preserving) →
   null (gap +0.0003, CI [−0.0002,+0.0008], p=0.27, L036), and **E019** just corroborated it on the faithful Negi head.
   denizenslab n=6 is reliability-walled (E020/TRIBE: ref-rel 0.33) AND its raw-mean-r ruler is quality-insensitive
   (S14 eval positive-control: enc_r 0.5B+0.150≈3B+0.143) — so F3 would be a LESS-powered, blind-ruler, walled-substrate
   repeat of an already-decided verdict. Marginal decision value ≈ 0 at multi-hour cost. **Run ONLY if Erfan wants
   literal 100%-rule coverage; otherwise skip.** (Not a science change — the induction null is powered + corroborated.)
-- **F4 (E015 Q2 architecture-residual extension) = analysis-lane** (add Llama/Mistral sizes to the bpb law; underpowered
++ **F4 (E015 Q2 architecture-residual extension) = analysis-lane** (add Llama/Mistral sizes to the bpb law; underpowered
   hypothesis, p=0.20). An extension of the recorded law, best done in the analysis lane, not a decisive rung.
 **The spine, fully supported by POWERED evidence (no new compute needed):** A2 real (E006) · per-individual induction
 NULL robust across LoRA/full-FT/objective/capacity (E008 powered + E011/E013/E013b/E017) · averaging confound (L016) ·
@@ -636,6 +642,7 @@ Raugel, Hadidi→Nature-Comms), and figures. No rung flips without Erfan.
 **Decision (S14, autonomous; oracle KILL + a data-fact check).** Considered re-running the E020 empirical-E[Y|S]
 ceiling on LeBel UTS01/02/03 (10-repeat NC story → far more reliable per-subject responses) to convert the denizenslab
 "bounded-not-closed" into a clean closure. **KILLED before compute, on two independent grounds:**
+
 1. **Reference-reliability arithmetic (oracle, quantitative):** LeBel n=3 → the leave-one-subject-out reference has only
    **n_ref=2 subjects**, so its cross-subject reliability is capped by the between-subject shared fraction and is
    *lower* than denizenslab's n=5 (predicted 0.28–0.42 vs denizenslab's measured 0.33). The 10-repeat advantage buys
@@ -660,9 +667,9 @@ science is COMPLETE; the spine is fully supported by powered evidence; remaining
 
 **Decision.** All written output flows through three layers, governed by one fat `scientific-writing` skill (`.claude/skills/scientific-writing/`). Full spec in [`docs/03-methodology.md`](../03-methodology.md) "Deliverable layers"; short pointer in `docs/references/scientific-writing.md`.
 
-- **Reports** (`docs/reports/*.md`, Markdown): the **continuous** single-topic synthesis layer, written and iterated as work happens in both session modes. Markdown because it is the agent's search surface — a grep test on real repo files settled it (md returns whole-paragraph matches; an edit cannot break a build).
-- **Extended manuscript** (`docs/manuscript/extended/`, LaTeX): the internal, supervisor-facing master. Hybrid structure = an always-current paper body (compresses cleanly into a public cut) plus an append-only dated checkpoint log. Updated **only at a checkpoint Erfan calls**.
-- **Public manuscript** (`docs/manuscript/public/vN/`, LaTeX): frozen versioned cuts, derived by **compression** from the extended manuscript + reports, only at a submission/share milestone. A `vN` vendors its own preamble and bib so it stays frozen.
++ **Reports** (`docs/reports/*.md`, Markdown): the **continuous** single-topic synthesis layer, written and iterated as work happens in both session modes. Markdown because it is the agent's search surface — a grep test on real repo files settled it (md returns whole-paragraph matches; an edit cannot break a build).
++ **Extended manuscript** (`docs/manuscript/extended/`, LaTeX): the internal, supervisor-facing master. Hybrid structure = an always-current paper body (compresses cleanly into a public cut) plus an append-only dated checkpoint log. Updated **only at a checkpoint Erfan calls**.
++ **Public manuscript** (`docs/manuscript/public/vN/`, LaTeX): frozen versioned cuts, derived by **compression** from the extended manuscript + reports, only at a submission/share milestone. A `vN` vendors its own preamble and bib so it stays frozen.
 
 Knowledge flows **down only** (evidence → report → extended → public); a number never enters at a lower layer than where it was recorded. D011 holds in all three.
 
@@ -673,9 +680,9 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 **Decision.** The scientific-ladder rungs are renamed from `L` to `Q` and renumbered into execution (climb) order. The old `L` collided with learning IDs (`L001–L043`) and ran out of execution order (L2a before L1). Mapping: `L0→Q0` (signal real, A2) · `L2a→Q1` (KD-preservation gate) · `L1→Q2` (the lever) · `L3→Q3` (headline, F1) · `L2b→Q4` (practical payoff, A3) · `L4→Q5` (fMRI-free proxy). Climb order is now `Q0→Q5`.
 
 **The naming convention (canonical, in `docs/map.md` + `CLAUDE.md`):**
-- **Stable artifacts keep flat, immutable, chronological IDs** — `E`nnn (experiment), `D`nnn (decision), `L`nnn (learning), `A`1–A3 (assumption). They are like issue numbers: never renumbered when interpretation shifts, and one experiment may serve several rungs (the structure is a DAG, not a tree — which is *why* fusing identity with ladder-position via hierarchical IDs like `E0.1` was rejected).
-- **The ladder is a separate hierarchical view**: rungs are `Q`n, the only rung vocabulary. "Layer N" is retired as a rung synonym (kept historically in R03/R04 with a mapping note; in the tutoring checklist it means a *teaching chapter*, not a rung).
-- Not rungs, left untouched: transformer layers (`L7`/`L12`), `L2`/`L∞` norms, lecture numbers, `λ`/`L_brain`/`L²`.
++ **Stable artifacts keep flat, immutable, chronological IDs** — `E`nnn (experiment), `D`nnn (decision), `L`nnn (learning), `A`1–A3 (assumption). They are like issue numbers: never renumbered when interpretation shifts, and one experiment may serve several rungs (the structure is a DAG, not a tree — which is *why* fusing identity with ladder-position via hierarchical IDs like `E0.1` was rejected).
++ **The ladder is a separate hierarchical view**: rungs are `Q`n, the only rung vocabulary. "Layer N" is retired as a rung synonym (kept historically in R03/R04 with a mapping note; in the tutoring checklist it means a *teaching chapter*, not a rung).
++ Not rungs, left untouched: transformer layers (`L7`/`L12`), `L2`/`L∞` norms, lecture numbers, `λ`/`L_brain`/`L²`.
 
 **Manuscript rule (enforced by the `scientific-writing` skill).** Codes are internal scaffolding. Reports use them freely; the extended manuscript uses a code only as a parenthetical pointer; the **public manuscript carries zero codes** — pure prose, so a reviewer never needs the repo to parse the paper.
 
@@ -748,10 +755,10 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 **Decision (Erfan-directed, two forks confirmed).** After the IMDEA supervisor (Claudio) flagged the v0.1 extended manuscript for "llm-specific sentence constructions" (four example sentences, all narration/storytelling register), root-cause the failure and install a standing defense. **The diagnosis (evidence-backed, L054):** two independent breaks. **(1) Process** — the entire extended manuscript was written in one unlogged burst (commit `3145140`, 2026-06-16 18:57, all four flagged sentences) tacked onto the end of a `/meta` tooling session (S18), with no `/write` session, no `session-logger`, no review pass; the `scientific-writing` full loop never ran. **(2) Content** — even had the loop run, the skill would have caught at most one of the four: Group C (lexical tells) is fully encoded with a linter, but Group B (passive) pointed the *wrong way* ("passive is acceptable") and Group A (storytelling/register: anthropomorphized abstractions, self-narrated rhetorical moves, internal-metaphor leakage, dramatized framing) was *never encoded* — and the linter returned "clean" on the exact file Claudio flagged, because Group A carries no banned token.
 
 **The remedy — four prose-defect classes placed on the deterministic↔agentic axis (the axis = "does a banned token betray it"):**
-- **Layer 3 (content):** `writing-style.md` §1 gains the "Register: state the claim, do not narrate it" judgment block (the four tells, with Claudio's four sentences as worked Before/After failures); §2's passive rule is flipped from permissive to deliberate-choice + density; `review-pass.md` gains a "Scientific register" lens.
-- **Layer 1 (deterministic):** `ai_tell_lint.py` gains a Class-A tripwire (agency-verb-on-abstraction, self-narration patterns, metaphor leakage) + a Class-B passive-density meter, as **soft warnings** (exit-neutral; the tripwire is intentionally incomplete — the agentic gate is the real Class-A catch).
-- **Layer 2 (agentic):** a new **`prose-register-auditor`** agent (sonnet, read-only), spawned by the review pass for supervisor-facing prose — the dedicated voice reader (the claim panel attacks the argument; the auditor attacks the prose). Validated on the v0.1 intro: caught all four flagged sentences + two more, with rewrites, and kept the one justified passive.
-- **Process / ship-gate:** a `prose_writecheck.py` PostToolUse hook (sibling to the D044 honesty hook) runs the linter on every `docs/{manuscript,reports}` write — the one check the unlogged-burst bypass *cannot* skip; plus a hard rule in SKILL.md + `modes/write.md` (a manuscript build is its own logged `/write` session; no `docs/manuscript/` prose reaches a human un-full-looped; a clean deterministic run is not a clearance); plus a `/wrap` B.3 backstop.
++ **Layer 3 (content):** `writing-style.md` §1 gains the "Register: state the claim, do not narrate it" judgment block (the four tells, with Claudio's four sentences as worked Before/After failures); §2's passive rule is flipped from permissive to deliberate-choice + density; `review-pass.md` gains a "Scientific register" lens.
++ **Layer 1 (deterministic):** `ai_tell_lint.py` gains a Class-A tripwire (agency-verb-on-abstraction, self-narration patterns, metaphor leakage) + a Class-B passive-density meter, as **soft warnings** (exit-neutral; the tripwire is intentionally incomplete — the agentic gate is the real Class-A catch).
++ **Layer 2 (agentic):** a new **`prose-register-auditor`** agent (sonnet, read-only), spawned by the review pass for supervisor-facing prose — the dedicated voice reader (the claim panel attacks the argument; the auditor attacks the prose). Validated on the v0.1 intro: caught all four flagged sentences + two more, with rewrites, and kept the one justified passive.
++ **Process / ship-gate:** a `prose_writecheck.py` PostToolUse hook (sibling to the D044 honesty hook) runs the linter on every `docs/{manuscript,reports}` write — the one check the unlogged-burst bypass *cannot* skip; plus a hard rule in SKILL.md + `modes/write.md` (a manuscript build is its own logged `/write` session; no `docs/manuscript/` prose reaches a human un-full-looped; a clean deterministic run is not a clearance); plus a `/wrap` B.3 backstop.
 
 **Two forks Erfan chose:** the semantic catch is a **dedicated auditor agent** (not a lens bolted onto the opus claim panel — voice is a distinct job and sonnet fits it); the deterministic check **fires via the always-on hook** (not run_checks-only), so the bypass that caused this can't recur silently.
 
@@ -801,7 +808,6 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Amendment (S42, same session, after the P3-readiness premortem).** The premortem flagged that "accept" skipped a cheap middle option between the high-FP auto-judge (rightly rejected) and doing nothing. D051 is amended: the F16 human gate gains a **forcing-function** — enumerate framing/transition sentences carrying an empirical verb (tracks/predicts/improves/outperforms/aligns/generalizes) and force a per-sentence *claim* (→ enter+bind in the lattice) vs *cited-background* (→ citation) tag. This bounds the residual into a human checklist rather than leaving it to unaided noticing. Recorded in the SKILL "Honest limits". Does not change the accept decision; strengthens its backstop.
 
-
 ## D052 — the repo is an Obsidian-native vault; markdown conventions are codified and binding — 2026-06-26 (S44, /meta)
 
 **Decision (Erfan-directed).** Make the repo a first-class Obsidian vault while keeping it GitHub-clean, and codify how every `.md` file is written in [`../references/obsidian-conventions.md`](../references/obsidian-conventions.md) (the binding container-layer spec). The repo is now read primarily in Obsidian.
@@ -847,7 +853,7 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 **Disposition registry.** Historical components already absent at cutover remain absent. Current surfaces are classified below; grouped rows share one owner and fate.
 
 | Components | Disposition | Evidence and migration |
-|---|---|---|
+| --- | --- | --- |
 | `orient`, `wrap` | KEEP, simplify | 42 and 19 verified direct command sessions; rewire to `status.md` and changed-authority-only close |
 | `work`, `interpret`, `write`, `teach`, `scout`, `plan`, `review`, `meta`, `precheck` | KEEP as thin stance entry points | Distinct scientific/interaction purposes; remove report/checkpoint/logging dependencies |
 | `goalsmith` | DELETE | No verified direct invocation; duplicates ordinary goal specification |
@@ -885,7 +891,7 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 **Provenance and authority.** The package concepts and much of their proposed burden came from the [initial strategic audit](../external-reviews/chatgpt-pro/2026-07-14-01-initial-manuscript-strategy-audit.md) and the [corrected research audit](../external-reviews/chatgpt-pro/2026-07-14-02-corrected-research-audit.md). Those documents are non-authoritative external reviews. This decision records the subset accepted after checking the repository, saved E016 artifacts, participant data, and canonical literature notes. Scientific results still originate only in E records and enter the extended manuscript only after settlement.
 
 | Package | Canonical identity | Current state | Activation condition | Pro source |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | A | Methodological and falsification protocol | **Default active route** | E025 participant E016 scope, E026 target comparability, clear novelty beyond L-PACT, and one prospective external application or faithful positive reproduction | [Corrected audit §24](../external-reviews/chatgpt-pro/2026-07-14-02-corrected-research-audit.md#24-package-a-methodological-and-falsification-protocol) |
 | B | Conditional theoretical boundary | **Conditional feasibility route** | A nontrivial finite-sample theorem or bound with observable terms that distinguishes at least one failure regime from one success regime | [Corrected audit §25](../external-reviews/chatgpt-pro/2026-07-14-02-corrected-research-audit.md#25-package-b-conditional-theoretical-boundary) |
 | C | Positive brain-guided mechanism | **Closed for tested regimes** | E025 is participant-positive and stable, E026 supports a defensible learning-matched control, and a predeclared E027 clears target-specific transfer before any expensive new substrate | [Corrected audit §26](../external-reviews/chatgpt-pro/2026-07-14-02-corrected-research-audit.md#26-package-c-positive-brain-guided-mechanism) |
@@ -990,6 +996,6 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 ## Related
 
-- [`status.md`](../status.md) — operational authority
-- [`03-methodology.md`](../03-methodology.md) — four-authority contract
-- [`../manuscript/rewrite/main-rewrite.tex`](../manuscript/rewrite/main-rewrite.tex) — canonical thesis and scientific authority
++ [`status.md`](../status.md) — operational authority
++ [`03-methodology.md`](../03-methodology.md) — four-authority contract
++ [`../manuscript/rewrite/main-rewrite.tex`](../manuscript/rewrite/main-rewrite.tex) — canonical thesis and scientific authority

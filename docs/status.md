@@ -15,7 +15,7 @@ aliases: [current-status]
 ## Research state
 
 | Rung | State | Owning evidence | Extended-manuscript location |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Q0 / A2 | CONDITIONAL PASS: trained-model controlled predictivity is supported under the executed assays; E002's learned-parameter attribution from the trained-minus-untrained gap is unresolved because the static nuisance block was model-specific; no E006 participant/population inference | [E002](experiments/E002_tuckute-encoding-feasibility.md), [E006](experiments/E006_lebel-voxelwise-feasibility.md) | Methods; Results §4.1 |
 | Q1 | PARTIAL: plain KD shows alignment headroom, but KD-specific shedding is not isolated from LM quality | [E003](experiments/E003_kd-alignment-preservation.md) | Results §4.2 |
 | Q2 | NO DEMONSTRATED INTERVENTION EFFECT at the valid inference unit; small effects are not ruled out | [E004](experiments/E004_brain-loss-lever-test.md) | Results §4.3 |
@@ -43,7 +43,7 @@ aliases: [current-status]
 ## Conference packages
 
 | Package | Identity | State | Next gate |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | A | Methodological/falsification protocol | **Strengthened default route; internal dissociation complete, external gate missing** | Run a 10-business-day E028 access/executable feasibility gate in parallel with a smallest-setting Xiao reproduction design; choose the external lane before expensive compute |
 | B | Conditional theoretical boundary | **HOLD** | Generic theorems are occupied; proceed only if an observable directional certificate prospectively predicts both failure and success regimes |
 | C | Positive brain-guided mechanism | **Closed; E025 continuation rule failed** | No E027: E025 failed the conjunctive participant-positive continuation rule, and direct TRIBE-minus-KD is near zero for this cohort |
