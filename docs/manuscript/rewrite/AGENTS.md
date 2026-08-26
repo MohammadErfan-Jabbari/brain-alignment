@@ -153,7 +153,7 @@ No subsections. Seven paragraphs:
 
 The three contributions are controlled measurement with quality-aware interpretation, participant-level tests of training with recorded fMRI responses, and separation of synthetic-target projection measurability, uptake, movement, comparator validity, and biological transfer. Do not use internal rung names, experiment history, or E identifiers here.
 
-### 2. Evidence Required for a Brain-Specific Training Advantage
+### 2. Background and Related Work
 
 **Section question.** What must be true before training with brain responses can be credited with a brain-specific advantage?
 
@@ -193,7 +193,7 @@ This subsection owns the factual pre-results literature comparison and the unres
 
 Keep four roles distinct: measurement and opportunity evidence, manipulation checks, attribution, and endpoint evidence. Section 2.2 explains why target uptake, reduced target loss, and retained-student movement are manipulation checks; this subsection must state why they do not establish brain-specific attribution, biological transfer, or utility. Name the comparator needed for each claim, including untrained networks, ordinary KD, permuted targets, matched text-derived auxiliary targets, matched language quality, and independent recorded-brain endpoints. Place the claim-dependency figure here. The Introduction may preview the dependencies, Section 3 must map each role to its estimand and comparison, Section 4 must report each role separately, Section 5.3 may derive design recommendations, and Appendix D must formalize the corresponding estimators and decision rules. Do not repeat a second full version elsewhere.
 
-### 3. Experimental Design and Evaluation
+### 3. Methods
 
 **Section question.** How did the study instantiate each scientific role with a distinct design tuple comprising its data or response construction, intervention or assay, comparator, estimand, endpoint, and inference unit?
 
@@ -248,7 +248,7 @@ This subsection is titled ``Synthetic-Response Intervention and Downstream Assay
 
 This subsection is titled ``Cross-Cutting Estimands and Decision Rules.'' End with one transition paragraph stating that Results follow these scientific roles rather than evidence-record number or execution date. Appendix D owns estimator derivations, variants, aggregation, and tests. Evidence owners: E003-E006, E008-E009, E015-E017, E025-E026, and E030.
 
-### 4. Results by Scientific Claim
+### 4. Results
 
 **Section question.** Where does each scientific role pass, fail, remain unresolved, or become non-identifying at its declared inference unit, and what narrow claim does each result license?
 
