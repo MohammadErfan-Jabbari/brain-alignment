@@ -13,5 +13,6 @@ This directory is a formatting-only derivative of [`../rewrite/`](../rewrite/), 
 - `style/` — official NeurIPS 2025 style package (downloaded from `media.neurips.cc`, 2026-08-25) plus the official UC3M logo for the cover page.
 - `preamble.sty` — vendored copy of `../rewrite/preamble.sty` (same pattern as public cuts; a later rewrite edit must not change how this derivative compiles).
 - `main-submission.tex` — UC3M cover page (regulation Appendix I fields at the top of the file) + NeurIPS-style body.
+- `deferred-review-items.md` — non-authoritative working checklist for submission-review items blocked on authorization or missing information.
 - `numbers.tex`, `acronyms.tex`, `references.bib` are NOT vendored: the main file inputs them from `../rewrite/` so keyed values and citations stay single-source.
 - The NeurIPS `final` option alone leaves `\@trackname` undefined; the main file empties `\@noticestring` since a thesis is not a NeurIPS track submission.
