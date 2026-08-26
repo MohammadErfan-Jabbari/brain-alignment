@@ -39,8 +39,4 @@
   \draw[arrow] (synthetic-source) -- (synthetic-split);
   \draw[arrow] (synthetic-split) -- (synthetic-fit);
   \draw[arrow] (synthetic-fit) -- (synthetic-end);
-
-  \node[draw=gray!55,rounded corners,fill=gray!5,align=center,font=\scriptsize,
-        text width=148mm,minimum height=7mm] at (63mm,-69mm)
-        {All learned fold-dependent transforms are fitted on training data; held-out responses are used only by the declared evaluation.};
 \end{tikzpicture}
