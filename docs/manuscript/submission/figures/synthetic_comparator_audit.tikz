@@ -6,9 +6,9 @@
   textfill/.style={fill=orange!58,draw=orange!78!black},
   axis/.style={gray!65,thin}
 ]
-  \path[use as bounding box] (0,-0.20) rectangle (16.2,5.75);
+  \path[use as bounding box] (0,-0.20) rectangle (14.35,5.75);
   \def\xleft{4.25}
-  \def\xwidth{7.35}
+  \def\xwidth{6.50}
 
   \node[anchor=west,font=\scriptsize] at (4.25,5.48)
     {\tikz{\draw[passfill] (0,0) rectangle (0.28,0.16);}\ passed};
@@ -16,27 +16,25 @@
     {\tikz{\draw[failfill] (0,0) rectangle (0.28,0.16);}\ failed};
   \node[anchor=west,font=\scriptsize] at (7.75,5.48)
     {\tikz{\draw[unresolvedfill] (0,0) rectangle (0.28,0.16);}\ unresolved};
-  \node[anchor=west,font=\scriptsize,text=red!62!black] at (10.35,5.48)
-    {any required failure makes the comparator non-identifying};
 
   % Corrected identification-set audit
-  \fill[gray!5] (0.05,3.72) rectangle (16.10,5.15);
+  \fill[gray!5] (0.05,3.72) rectangle (14.25,5.15);
   \node[anchor=west,align=left,text width=39mm,font=\small] at (0.25,4.45)
-    {\textbf{Comparator identification audit}\\37 pre-outcome or KD-baseline checks};
+    {\textbf{Comparator identification audit}\\\result{e026_plot_check_total} pre-outcome or KD-baseline checks};
   \pgfmathsetmacro{\passw}{\xwidth*\result{e026_plot_check_pass}/\result{e026_plot_check_total}}
   \pgfmathsetmacro{\failw}{\xwidth*\result{e026_plot_check_fail}/\result{e026_plot_check_total}}
   \draw[passfill] (\xleft,4.20) rectangle ({\xleft+\passw},4.70);
   \draw[failfill] ({\xleft+\passw},4.20) rectangle ({\xleft+\passw+\failw},4.70);
   \draw[unresolvedfill] ({\xleft+\passw+\failw},4.20) rectangle ({\xleft+\xwidth},4.70);
-  \node[font=\scriptsize] at ({\xleft+0.5*\passw},4.45) {24 passed};
-  \node[font=\scriptsize] at ({\xleft+\passw+0.5*\failw},4.45) {30 failed};
-  \draw[gray!68] ({\xleft+\xwidth},4.70)--(11.95,4.95);
-  \node[anchor=west,font=\scriptsize] at (12.05,4.95) {1 unresolved};
-  \node[anchor=west,align=left,text width=38mm,font=\small,text=red!62!black] at (12.05,4.25)
+  \node[font=\scriptsize] at ({\xleft+0.5*\passw},4.45) {\result{e026_plot_check_pass}\ passed};
+  \node[font=\scriptsize] at ({\xleft+\passw+0.5*\failw},4.45) {\result{e026_plot_check_fail}\ failed};
+  \draw[gray!68] ({\xleft+\xwidth},4.70)--(10.85,4.95);
+  \node[anchor=west,font=\scriptsize] at (10.95,4.95) {\result{e026_plot_check_unresolved}\ unresolved};
+  \node[anchor=west,align=left,text width=33mm,font=\small,text=red!62!black] at (10.95,4.25)
     {\textbf{Comparator status}\\non-identifying};
 
   % Baseline target recovery and remaining headroom
-  \fill[blue!3] (0.05,0.72) rectangle (16.10,3.48);
+  \fill[blue!3] (0.05,0.72) rectangle (14.25,3.48);
   \node[anchor=west,align=left,text width=39mm,font=\small] at (0.25,2.38)
     {\textbf{Before intervention}\\\acs{kd}-only target recovery};
   \node[anchor=west,font=\scriptsize] at (4.25,3.18) {synthetic target};
@@ -57,11 +55,9 @@
     \draw[axis] (\xtick,1.34)--(\xtick,1.24);
     \node[anchor=north,font=\scriptsize] at (\xtick,1.21) {\label};
   }
-  \node[anchor=west,align=left,text width=39mm,font=\scriptsize] at (12.05,2.83)
+  \node[anchor=west,align=left,text width=33mm,font=\scriptsize] at (10.95,2.83)
     {gray \(=\) remaining target-recovery headroom};
-  \node[anchor=west,align=left,text width=39mm,font=\small,text=red!62!black] at (12.05,1.85)
+  \node[anchor=west,align=left,text width=33mm,font=\small,text=red!62!black] at (10.95,1.85)
     {\textbf{\result{e026_headroom_ratio}\(\times\) more mean headroom}\\for the synthetic target};
 
-  \node[anchor=north,align=center,font=\scriptsize] at (8.10,0.45)
-    {Additional failed identification axes: covariance geometry, effective rank, and nuisance predictability. Post-training movement is diagnostic.};
 \end{tikzpicture}
