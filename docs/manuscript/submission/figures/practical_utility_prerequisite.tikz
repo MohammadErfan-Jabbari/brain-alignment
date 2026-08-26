@@ -1,0 +1,72 @@
+\begin{tikzpicture}[
+  seed/.style={circle,fill=teal!28,draw=teal!65!black,inner sep=2.2pt},
+  seedzero/.style={circle,fill=orange!62,draw=orange!70!black,inner sep=2.5pt},
+  meanline/.style={teal!68!black,very thick},
+  medianline/.style={teal!68!black,densely dotted,thick},
+  mdeline/.style={orange!75!black,dashed,thin},
+  axis/.style={gray!70,thin},
+  zeroline/.style={gray!72,densely dotted}
+]
+  \def\ymin{-0.030}
+  \def\ymax{0.070}
+  \def\yleft{1.70}
+  \def\yheight{2.45}
+  \def\xstart{3.35}
+  \def\xstep{1.23}
+  \path[use as bounding box] (0,-0.40) rectangle (16.35,4.72);
+
+  \fill[teal!3] (0.05,0.42) rectangle (16.25,4.28);
+  \node[anchor=west,font=\scriptsize] at (4.25,4.48)
+    {\tikz{\node[seed] {};}\ seed contrast};
+  \node[anchor=west,font=\scriptsize] at (6.55,4.48)
+    {\tikz{\node[seedzero] {};}\ seed 0};
+  \draw[meanline] (8.55,4.48)--(9.05,4.48);
+  \node[anchor=west,font=\scriptsize] at (9.15,4.48) {mean};
+  \draw[medianline] (10.50,4.48)--(11.00,4.48);
+  \node[anchor=west,font=\scriptsize] at (11.10,4.48) {median};
+  \draw[mdeline] (12.65,4.48)--(13.15,4.48);
+  \node[anchor=west,font=\scriptsize] at (13.25,4.48) {MDE magnitude};
+
+  \draw[axis] (2.55,\yleft)--(12.65,\yleft);
+  \draw[axis] (2.55,\yleft)--(2.55,{\yleft+\yheight});
+  \foreach \value/\label in {-0.02/{\(-0.02\)},0/{\(0\)},0.02/{\(+0.02\)},0.04/{\(+0.04\)},0.06/{\(+0.06\)}} {
+    \pgfmathsetmacro{\ytick}{\yleft+\yheight*(\value-\ymin)/(\ymax-\ymin)}
+    \draw[axis] (2.55,\ytick)--(2.45,\ytick);
+    \node[anchor=east,font=\scriptsize] at (2.38,\ytick) {\label};
+  }
+  \node[rotate=90,anchor=south,font=\scriptsize] at (1.28,{\yleft+0.5*\yheight})
+    {prerequisite alignment contrast \(A_s\)};
+
+  \pgfmathsetmacro{\yzero}{\yleft+\yheight*(0-\ymin)/(\ymax-\ymin)}
+  \draw[zeroline] (2.55,\yzero)--(12.65,\yzero);
+  \pgfmathsetmacro{\ymdehi}{\yleft+\yheight*(\result{e009_plot_fulcrum_mde}-\ymin)/(\ymax-\ymin)}
+  \pgfmathsetmacro{\ymdelo}{\yleft+\yheight*(-\result{e009_plot_fulcrum_mde}-\ymin)/(\ymax-\ymin)}
+  \draw[mdeline] (2.55,\ymdehi)--(12.65,\ymdehi);
+  \draw[mdeline] (2.55,\ymdelo)--(12.65,\ymdelo);
+
+  \foreach \key/\idx in {
+    e009_plot_seed0/0,e009_plot_seed1/1,e009_plot_seed2/2,e009_plot_seed3/3,
+    e009_plot_seed4/4,e009_plot_seed5/5,e009_plot_seed6/6,e009_plot_seed7/7} {
+    \pgfmathsetmacro{\px}{\xstart+\xstep*\idx}
+    \pgfmathsetmacro{\py}{\yleft+\yheight*(\result{\key}-\ymin)/(\ymax-\ymin)}
+    \ifnum\idx=0
+      \node[seedzero] at (\px,\py) {};
+    \else
+      \node[seed] at (\px,\py) {};
+    \fi
+    \node[anchor=north,font=\scriptsize] at (\px,1.61) {\idx};
+  }
+  \node[anchor=north,font=\scriptsize] at (7.65,1.22) {technical training seed};
+
+  \pgfmathsetmacro{\ymean}{\yleft+\yheight*(\result{e009_plot_fulcrum_mean}-\ymin)/(\ymax-\ymin)}
+  \pgfmathsetmacro{\ymedian}{\yleft+\yheight*(\result{e009_plot_fulcrum_median}-\ymin)/(\ymax-\ymin)}
+  \draw[meanline] (2.55,\ymean)--(12.65,\ymean);
+  \draw[medianline] (2.55,\ymedian)--(12.65,\ymedian);
+
+  \node[anchor=west,align=left,text width=32mm,font=\scriptsize] at (13.05,3.34)
+    {mean \result{e009_fulcrum_mean}\\median \result{e009_fulcrum_median}};
+  \node[anchor=west,align=left,text width=32mm,font=\scriptsize,text=orange!75!black] at (13.05,2.42)
+    {80\%-power MDE\\magnitude \result{e009_fulcrum_mde}};
+  \node[anchor=west,align=left,text width=32mm,font=\scriptsize,text=gray!72!black] at (13.05,1.44)
+    {Sensitivity reference,\\not an equivalence band.};
+\end{tikzpicture}

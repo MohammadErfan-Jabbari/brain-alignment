@@ -11,7 +11,7 @@ aliases: [manuscript-agents]
 | Path | Purpose |
 | --- | --- |
 | `rewrite/` | Canonical LaTeX thesis master and authority for current scientific interpretation |
-| `submission/` | Formatting-only supervisor derivative (UC3M cover + NeurIPS body); scientific content unchanged |
+| `submission/` | Supervisor-review derivative with local prose sources (UC3M cover + NeurIPS body); accepted scientific changes synchronize to `rewrite/` |
 | `figures/` | Selected committed figures; generation code lives in `scripts/figures/` |
 
 Legacy layers (`extended/`, `public/v0.9/`) were removed from HEAD on 2026-08-25 and survive only in Git history (last commits `7c445b0` and `6026021`). Do not recreate them; immutable-cut policy applies to any future cut.

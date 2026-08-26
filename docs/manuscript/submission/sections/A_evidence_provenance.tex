@@ -1,0 +1,322 @@
+\section{Evidence Records and Provenance}
+\label{app:evidence-provenance}
+
+The E001--E030 identifier range covers the analyses and dispositions used in this thesis.
+Each existing record states what was executed, what its retained artifacts support, and which interpretation survived review.
+The main text states the resulting thesis claims.
+This appendix connects those claims to their final evidence owners, classifies every record identifier, identifies earlier readings that were superseded, and reports the retained path--hash pairs used for reproduction.
+Engineering-only, unused, unexecuted, and precondition-stopped records support only their stated disposition.
+
+\subsection{Evidence-record dispositions and claim ownership}
+\label{app:evidence-ledger}
+
+Table~\ref{tab:evidence-dispositions} classifies every identifier once.
+The categories separate completed scientific records from restricted studies, stopped routes, design work, and unused identifiers.
+
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.06}
+\begin{table}[H]
+\centering
+\caption{Final dispositions of evidence identifiers E001--E030.}
+\label{tab:evidence-dispositions}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{42mm}>{\raggedright\arraybackslash}p{57mm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Disposition & Records & Permitted use \\
+\midrule
+Final executed scientific record & E008, E011, E016, E025, E030 & Supports its settled scientific verdict. \\
+Executed; interpretation corrected or narrowed & E002, E009, E026 & Raw measurements remain fixed, while the learned-parameter, utility, or comparator-identification interpretation was narrowed on 2026-08-04. \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Executed; interpretation corrected or narrowed & E003, E004, E005, E006, E010, E014, E015, E021 & Supports only the corrected or scope-limited verdict. \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Executed with a restricted diagnostic scope & E013, E017, E019, E020, E022 & Supports only the stated local or diagnostic conclusion. \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Precondition-stopped & E024 & Supports the stopping decision; the intervention was not tested. \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Deferred, analysis-only, or unauthorized & E012, E023, E027 & Supports only its stated design, activation criterion, or non-authorization; no intervention result was produced. \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Engineering or design record only & E001, E028, E029 & Documents pipeline work or an outcome-blind design; supports no scientific result. \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Unused identifier & E007, E018 & Supports no scientific claim. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\endgroup
+
+Table~\ref{tab:evidence-ledger} follows the claim roles used in Sections~\ref{sec:framework} and~\ref{sec:results}.
+Each row names one scientific role, the record that owns its final verdict, and the Results subsection where the evidence is interpreted.
+
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.03}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{34mm}>{\raggedright\arraybackslash}p{22mm}>{\raggedright\arraybackslash}p{68mm}>{\raggedright\arraybackslash}p{18mm}@{}}
+\caption{Scientific roles, final evidence owners, and settled conclusions.}
+\label{tab:evidence-ledger}\\
+\toprule
+Scientific role & Evidence owner(s) & Settled conclusion & Results owner \\
+\midrule
+\endfirsthead
+\toprule
+Scientific role & Evidence owner(s) & Settled conclusion & Results owner \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+Controlled regional predictivity assay & E002 & Controlled Tuckute \ac{roi} predictivity is supported under contiguous folds, nuisance subtraction, and an architecture-matched untrained control.\evd{E002} & \ref{sec:results-signal} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Controlled naturalistic voxelwise predictivity assay & E006 & Trained representations outperform matched untrained representations for UTS03 and five held-out story blocks. The assay does not support claims about individual voxels or a population of participants.\evd{E006} & \ref{sec:results-signal} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Distillation-headroom analysis & E003; E015 supports the quality analysis & The cold GPT-2 route shows an observed quality-confounded gap; quality-aware warm-route headroom is unresolved and Qwen-route headroom is unmeasured.\evd{E003}\evd{E015} & \ref{sec:results-headroom} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Recorded-response intervention, participant-averaged estimand & E004 and E005; E010 and E014 bound the averaging interpretation & Fold-unit reanalyses of E004 and E005 supersede their earlier excludes-zero readings. E010 does not identify a participant-count response. E014 shows that averaging reduces response noise and emphasizes shared response while changing the estimand.\evd{E004}\evd{E005}\evd{E010}\evd{E014} & \ref{sec:results-recorded} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Recorded-response intervention, participant-specific estimand & E008; E011, E013, and E017 bound tested variants & No participant-general pairing advantage is demonstrated across the tested objectives and variants.\evd{E008}\evd{E011}\evd{E013}\evd{E017} & \ref{sec:results-recorded} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+50-component linear target-projection measurability assay & E030 & The fixed 50-component \ac{pca} target does not meet the internal \result{e030_practical_threshold} continuation rule. Aligned-minus-row-twin specificity remains unresolved.\evd{E030} & \ref{sec:results-predicted-identification} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Synthetic-target recovery assay & E016 & WikiText assays support target uptake.\evd{E016} & \ref{sec:results-synthetic-manipulation} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Retained-student movement audit & E025; E016 supports the earlier assay & Retained-student movement is supported at acceptable measured \ac{lm} quality.\evd{E016}\evd{E025} & \ref{sec:results-synthetic-manipulation} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Comparator-adequacy audit and attribution assessment & E026; E016 supplies the original comparator & The saved text-derived auxiliary-control arm is non-identifying because pre-outcome target and KD-baseline comparability checks do not hold; post-training movement remains diagnostic.\evd{E016}\evd{E026} & \ref{sec:results-synthetic-manipulation} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Saved-student target-retention analysis & E030 & The exact target is recoverable from the synthetic-response students on Tuckute, while incremental retention beyond ordinary \ac{kd} remains unresolved.\evd{E030} & \ref{sec:results-synthetic-manipulation} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Composed-path diagnostic & E030 & Within the declared linear pathway, predictive overlap, incremental overlap, and the aligned-over-row-twin increment are not demonstrated across participants. These diagnostics do not constrain the independent direct-transfer contrast.\evd{E030} & \ref{sec:results-predicted-transfer} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Saved-student biological-transfer assay & E025; E026 bounds attribution & Participant-level biological transfer is not demonstrated. The direct synthetic-response-minus-\ac{kd} contrast is near zero, while the text-derived comparison is non-identifying.\evd{E025}\evd{E026} & \ref{sec:results-predicted-transfer} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+Practical-utility evaluation & E009 & Mean out-of-domain ratios favor the recorded-response arm, but paired endpoint uncertainty was not reported; the prerequisite contrast is technically unstable, so brain-specific utility is not established.\evd{E009} & \ref{sec:results-utility} \\
+\end{longtable}
+\endgroup
+
+\subsection{Superseded interpretations}
+\label{app:corrections}
+
+Some records were technically complete before their final interpretation was settled.
+Table~\ref{tab:evidence-corrections} preserves the corrections that change how those records may be cited.
+
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.03}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{18mm}>{\raggedright\arraybackslash}p{59mm}>{\raggedright\arraybackslash}p{71mm}@{}}
+\caption{Earlier interpretations and the verdicts that supersede them.}
+\label{tab:evidence-corrections}\\
+\toprule
+Records & Earlier interpretation & Final permitted reading \\
+\midrule
+\endfirsthead
+\toprule
+Records & Earlier interpretation & Final permitted reading \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+E003 & \ac{kd} uniquely destroys or preserves alignment. & The cold GPT-2 gap is quality-confounded; quality-aware warm-route headroom remains unresolved.\evd{E003} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E004, E005, E008 & Seed--fold cells provide independent uncertainty, and the averaged contrast excludes zero. & Fold-unit inference supersedes the cell bootstrap; E008 owns participant inference.\evd{E004}\evd{E005}\evd{E008} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E006, E007 & A voxel bootstrap supports population inference or a minimum detectable effect. & Those claims are withdrawn; the retained result concerns UTS03 and five held-out story blocks.\evd{E006} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E010, E014 & Nested participant subsets establish a monotone participant-count response. & Corrected random subsets do not identify a count response; E014 owns the response-reliability and estimand effects of averaging.\evd{E010}\evd{E014} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E015 & A narrow-family best-layer correlation establishes a general scaling relation. & The full-range quality association survives; the capable-band relation and architecture residual remain uncertain.\evd{E015} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E021 & The apparent advantage is cognition-specific. & A phase-randomized shape twin matches the apparent advantage; the final finding is shape-specific.\evd{E021} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E002 & The $0.491$ correlation ceiling can normalize unique $R^2$. & Correlation and variance-scale $R^2$ cannot be divided; the raw contrasts and verdict remain unchanged.\evd{E002} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E013 & The initial damaging variant establishes a stronger intervention result. & Only the anchored and contrastive tested branches inform the verdict; the larger expansion was not built.\evd{E013} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E016, E025, E026 & The defective permutation or the text-derived comparator matched only in dimension identifies brain-response content. & E025 owns the direct participant contrasts; E026 establishes that the auxiliary comparator is non-identifying.\evd{E016}\evd{E025}\evd{E026} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E017 & The aggressive forgetting configuration represents the full-tuning result. & The gentle matched-quality probe owns the scoped verdict.\evd{E017} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E019 & The local probe reproduces or refutes the external study. & It is a local lever diagnostic.\evd{E019} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E020 & The controlled residual closes the stimulus-predictable ceiling question. & Reference reliability fails, so the ceiling remains bounded but unresolved.\evd{E020} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E030 & Failure of the 50-component linear target projection explains the E025 result. & E030 limits the declared linear pathway without explaining or invalidating the independent direct-transfer result.\evd{E030} \\
+\end{longtable}
+\endgroup
+
+\subsection{Retained load-bearing artifacts}
+\label{app:artifacts}
+
+Table~\ref{tab:artifact-provenance} lists the verified subset of load-bearing path--hash pairs explicitly bound by an owning evidence record.
+It excludes smoke outputs, intermediate caches, prospective-design artifacts, and hashes not bound to exact filenames.
+The table reproduces the bindings for reader verification; the owning evidence record remains the authority for each artifact.
+Unbound E025 and E030 hashes and the E028 and E029 design artifacts are omitted.
+Appendices~\ref{app:training}, \ref{app:inference}, and \ref{app:sensitivities} report the corresponding training settings, estimators and inference rules, and complete numerical and sensitivity tables.
+
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{12mm}>{\raggedright\arraybackslash}p{136mm}@{}}
+\caption{Retained paths and verified SHA-256 digests.}
+\label{tab:artifact-provenance}\\
+\toprule
+Record & Retained path and SHA-256 \\
+\midrule
+\endfirsthead
+\toprule
+Record & Retained path and SHA-256 \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+E002 &
+\path{outputs/E002_tuckute_feasibility.json}\newline
+\textsc{sha-256}: \texttt{ce45eb1786514a168e81248c426c472077a44245d8863ee5d0bbf6e4aacab44d} \\
+E003 &
+\path{outputs/E003_cold.json}\newline
+\textsc{sha-256}: \texttt{a30dceb63832a2fce838907cc9c782b4f6e8297c2a0136f94b5aacc9056edd6e}\par\smallskip
+\path{outputs/E003_warm.json}\newline
+\textsc{sha-256}: \texttt{6e75770387b0a84866060049d8fb8d3aecda898a95b2ce159ceffc226a5bf387}\par\smallskip
+\path{outputs/E003_perplexity.json}\newline
+\textsc{sha-256}: \texttt{2385e67ec61b7c64276f01e7b8e717e1d54cb1c1b23023715922e685cab5f97b}\par\smallskip
+\path{outputs/E003_dissociation.json}\newline
+\textsc{sha-256}: \texttt{b7658aa0d1acf92bd62897aadec663aeda7a662abfa58890ca63eab6db5e5d38} \\
+E004 &
+\path{outputs/E004_brain_lever_Qwen.json}\newline
+\textsc{sha-256}: \texttt{5f5582a651ecd86c25691fe24b6827d49a258c33e95127f630c522563d8dc6d4} \\
+E005 &
+\path{outputs/E005_Qwen.json}\newline
+\textsc{sha-256}: \texttt{e9b7be5b739370ed224de1bd8c6d4fa34d33881db308d3508e1edba66ddfcf6e}\par\smallskip
+\path{outputs/E005_lambda_sweep_avg_Qwen_analysis.json}\newline
+\textsc{sha-256}: \texttt{85013e6ff961aa88bd40e9e16dd19aaab3c89656f0dac8cd74c64560469f7938} \\
+E006 &
+\path{outputs/E006_lebel_gpt2.json}\newline
+\textsc{sha-256}: \texttt{ea424b7d2f8a32dd289e8ef8066c8609749f4edc1b4cdd132373a78bd6b6830b}\par\smallskip
+\path{outputs/E006_lebel_Qwen.json}\newline
+\textsc{sha-256}: \texttt{09b77b8801e937d8232ce7e7f16435e490f0b9300c78ce4ede23d00bf07d2581} \\
+E008 &
+\path{outputs/E008_g0.json}\newline
+\textsc{sha-256}: \texttt{fa2d18629e3818412a493539438d211c60cb8052de13286dd632983642d056cd}\par\smallskip
+\path{outputs/E008_g1.json}\newline
+\textsc{sha-256}: \texttt{0a60a95009f8bdb2c9aca1ba8f17f9e88f2f1be584a7db13bd35f6c9b51e6b5a}\par\smallskip
+\path{outputs/E008_g2.json}\newline
+\textsc{sha-256}: \texttt{e51b58d2f4b19fa624ed7b46dd0e4bfe35d5fb5b57104d78aa06a269830aaecf}\par\smallskip
+\path{outputs/E008_g3.json}\newline
+\textsc{sha-256}: \texttt{70903174700a20b5eaf4b44f685a6e14317daff3f35c14b28d1d4ac645ac5803} \\
+E009 &
+\path{outputs/E009_a3_powered.json}\newline
+\textsc{sha-256}: \texttt{1820c097a1a30d3a23bb0956221fbfb5b33c6dc67557e108ac6b79dc56c46afb} \\
+E010 &
+\path{outputs/E010_averaging_doseresponse.json}\newline
+\textsc{sha-256}: \texttt{79312a649c3021df1fdc94aa46f3fcaf6c9b57fa30e59bd4fcd2e28db87ba5d0}\par\smallskip
+\path{outputs/E010b_random_subsets.json}\newline
+\textsc{sha-256}: \texttt{276d19bbf013f4f90d9ccbbd02151926a67fdc5af08dc5787902420d754f1d17} \\
+E011 &
+\path{outputs/E011_g0.json}\newline
+\textsc{sha-256}: \texttt{299ca57c7733932d9272a44d06fe3cb6976ec535a887b5ad27072002426ea9e2}\par\smallskip
+\path{outputs/E011_g1.json}\newline
+\textsc{sha-256}: \texttt{f3963b67cc01e0fae3807de354b613d4e6a3ca6ff8c6e55e1eed6b7c8b719bd3}\par\smallskip
+\path{outputs/E011_g2.json}\newline
+\textsc{sha-256}: \texttt{136449382dc627d5007df84b248b3c63d8b9bd4e2d1164c7399afbb9b867b4ce}\par\smallskip
+\path{outputs/E011_g3.json}\newline
+\textsc{sha-256}: \texttt{4da6639f3943c931beab6b7189fd6a03248161c846180a225e0e9c17af5b0745} \\
+E013 &
+\path{outputs/E013b_g0.json}\newline
+\textsc{sha-256}: \texttt{a98346f08ad41103d1cc7b9c28715dd810927c3fa09c63bf4d1db858ece19976}\par\smallskip
+\path{outputs/E013b_g1.json}\newline
+\textsc{sha-256}: \texttt{e472ee523b6af62701472bca554f79eed64f319944549349b01d6b54d3b43346}\par\smallskip
+\path{outputs/E013b_g2.json}\newline
+\textsc{sha-256}: \texttt{f9df4143b2b1cce4e871778f30a0b4f2bb48f561f4847693be0b5a4bd2c03361}\par\smallskip
+\path{outputs/E013b_g3.json}\newline
+\textsc{sha-256}: \texttt{ae741c2c4e948356841e45b9053686823071365f8cfb9e362018b66213126cad}\par\smallskip
+\path{outputs/E013v2_check.json}\newline
+\textsc{sha-256}: \texttt{a7ea8adbda9312c55192015f1b704948d13774fc2105937ac6b58d159c6e99de}\par\smallskip
+\path{outputs/E013v2_lam3.json}\newline
+\textsc{sha-256}: \texttt{35869107e166aade0097ef2e337d133a2ae98b27d7f494c1dc3a7b4b09c6a926}\par\smallskip
+\path{outputs/E013v2_lam6.json}\newline
+\textsc{sha-256}: \texttt{dcb0ab4a31f21da71cf2aea87bdfdada8a1eb530d2955fa8923eccde57e3421a} \\
+E014 &
+\path{outputs/E014_averaging_encoding_seeded.json}\newline
+\textsc{sha-256}: \texttt{f16fbff6c9a86b65ac1ae6cc51a9ee9f9a1a82c1e3ef3aa4f0f17a7b980a5835} \\
+E015 &
+\path{outputs/E015_expand/E015_expand_merged.json}\newline
+\textsc{sha-256}: \texttt{0aa4f149c1ae471f3b008ff77707570e2df9c4e3a5df7e61c189aa87f438abad}\par\smallskip
+\path{outputs/E015_expand/panel_followup.json}\newline
+\textsc{sha-256}: \texttt{6c5d9738e08028636a5bbbf21dfad1acde2da5756edeb3c628dd3f8664a6eefa} \\
+E016 &
+\path{outputs/E016_tribe/phase3/phase3_combined_tribe_gpt2_n95999_s0-5_lam0.1.json}\newline
+\textsc{sha-256}: \texttt{9fd5a657bde1d95cfad93a85a3e6513514c33b45d21d7245ef0a0336f7ee9d98}\par\smallskip
+\path{outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.json}\newline
+\textsc{sha-256}: \texttt{793af7beaab54aff1267e44ef16bdffa5b4f5854d8fc99bcfc99a2bbec0d382d}\par\smallskip
+\path{outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_comparison.interpret_audit.json}\newline
+\textsc{sha-256}: \texttt{2716234438f2b0a0519fab9d16bceebaffea2e1c6fc93e9cd6f90a6819df2f5e}\par\smallskip
+\path{outputs/E016_tribe/phase3/phase3_rerun_tribe_gpt2_n95999_s0-2_lam0.1_save.tuckute_alignment.json}\newline
+\textsc{sha-256}: \texttt{f7ea1607f48bb6b91c9e9f4087ac691aca527ac4c46ddfecb758fd90554827f7}\par\smallskip
+\path{outputs/E016_tribe/phase3/phase3_extra_tribe_gpt2_n95999_s3-5_lam0.1.tuckute_alignment.json}\newline
+\textsc{sha-256}: \texttt{cf5e7805bc5bd5fec4b6bd5df0d652b1b28368741c874d686c19ffa0c37096ac}\par\smallskip
+\path{outputs/E016_tribe/phase3/phase3_combined_textfeat_gpt2_n95999_s0-5_lam0.1.tuckute_alignment.json}\newline
+\textsc{sha-256}: \texttt{fa94779f2b0a06c748ef9016b9494720d82c9b345ea9fb577bc4bde6ee898024}\par\smallskip
+\path{outputs/E016_tribe/phase3/phase3_combined_tribe_vs_textfeat_s0-5_tuckute_alignment.interpret_recompute.json}\newline
+\textsc{sha-256}: \texttt{9fe1a4253bc39b1b75ce5d25184332825706b95518a493532af3a276d10f10eb} \\
+E017 &
+\path{outputs/E017_matched_ppl_control/fullft_gentle_3subj.json}\newline
+\textsc{sha-256}: \texttt{8f426e7b012f8461208bfb6a0e3e0bf3981eacf2feef91fb95f40638e5ca4e38} \\
+E019 &
+\path{outputs/E019_negi/results.json}\newline
+\textsc{sha-256}: \texttt{983805956f37d8e17d81d3172113d46bdfe174c6ccce581ce5d1ae040d165758}\par\smallskip
+\path{outputs/E019_negi/probe_strong.json}\newline
+\textsc{sha-256}: \texttt{2fed0402fcce0067a81d81330289829c6fd1d6c5128dfb30cccda14f9787664b}\par\smallskip
+\path{outputs/E019_negi/eval_posctrl.json}\newline
+\textsc{sha-256}: \texttt{c7a9a5f5c07b3802842c73dbde891f6e9185751f3898522dd13c8347c45c214f} \\
+E020 &
+\path{outputs/E020_eys/eys_story11_results.json}\newline
+\textsc{sha-256}: \texttt{d16d6f94f2f8f389db3178262bb399c93a8f973321684e1246bf1009f063acab}\par\smallskip
+\path{outputs/E020_eys/eys_diagnose.json}\newline
+\textsc{sha-256}: \texttt{e8fab13e0fed3840a94fb9605d2ca4868ddc6e78d6cc975cede6f7f03b8579b0}\par\smallskip
+\path{outputs/E020_eys/eys_diagnose2.json}\newline
+\textsc{sha-256}: \texttt{84d268dc4a6211e7775cc5bbeca84e5d64eb52fbd8af963799011014eacb1879} \\
+E021 &
+\path{outputs/e021/arms_v5_results.json}\newline
+\textsc{sha-256}: \texttt{95c05b8d259d82fb83c84d54c595176198a9ba9cfe50a70941c2cddd24d69b5b}\par\smallskip
+\path{outputs/e021/arms_v5_shard_all.json}\newline
+\textsc{sha-256}: \texttt{b53bf1c88de36b397a9be753587e0e3846fde107c648eb496250850a1b7314e1} \\
+E022 &
+\path{outputs/e022/pilot_results.json}\newline
+\textsc{sha-256}: \texttt{a95a1e23be864322fce4f26ad215927b8fb74739ae35156c0da0091a0eccd24c} \\
+E024 &
+\path{outputs/e024/zuco_nr_reliability.json}\newline
+\textsc{sha-256}: \texttt{34f412c1d40177510e2369296a223c00267da1aa3af940514ece47c3e5dfc4e2}\par\smallskip
+\path{outputs/e024/positive_control.json}\newline
+\textsc{sha-256}: \texttt{acea6d09191cbd1e31062dd4c3ed1963de5ff95387f87f4a8d26b836edaa8e1a}\par\smallskip
+\path{outputs/e024/gaze_richness_probe_NR.json}\newline
+\textsc{sha-256}: \texttt{b8eb0f32bd16e7eda77f957f23ad329c881ce2f550e9e5f4de0b48bef4ae606e}\par\smallskip
+\path{outputs/e024/gaze_richness_probe_TSR.json}\newline
+\textsc{sha-256}: \texttt{5d23870ad33f24a52044983446b347e51a9b6ee437c1e3659eaa633e8cc694a8} \\
+E025 &
+\path{outputs/E025/extraction.json}\newline
+\textsc{sha-256}: \texttt{b49c2795c55961cae161084afa1d3409dd662b893f9a40fa6a4e9373bc2c84c5}\par\smallskip
+\path{outputs/E025/analysis.json}\newline
+\textsc{sha-256}: \texttt{9a43410bfafced8130d286faa8c011c6e2097707979d476b5ce01d9ec44f106c} \\
+E026 &
+\path{outputs/E026/e026_audit.json}\newline
+\textsc{sha-256}: \texttt{dfac7498d89d488483f129ebd30f36013d98778a8304f0d3d97d9e0a8c1932ad}\par\smallskip
+\path{outputs/E026/e026_independent_result_audit.json}\newline
+\textsc{sha-256}: \texttt{b2dca54c87efeca60c78a0de8287b4571991dcf3e653ce17dacc60583d2fda9f} \\
+E030 &
+\path{outputs/E030/tribe_tuckute_condition-b_n1000_full.npz}\newline
+\textsc{sha-256}: \texttt{a1fb8667e5c27a7e9bde35cb5f3a4f24622ad13c3b79e91a884c119ef3b65233}\par\smallskip
+\path{outputs/E030/raw_scores.json}\newline
+\textsc{sha-256}: \texttt{cebea58cd7f7d82908b26a25714a1d256ab674a7b08d9a18d94835b0f7fcb6e4}\par\smallskip
+\path{outputs/E030/analysis.json}\newline
+\textsc{sha-256}: \texttt{43a4f3b01641072345149e651cdd0b1ae0c903bb74366db2006f31b89d8dd818} \\
+\end{longtable}
+\endgroup

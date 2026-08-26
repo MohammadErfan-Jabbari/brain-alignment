@@ -1,0 +1,257 @@
+\section{Training Interventions and Reproduction}
+\label{app:training}
+
+This appendix specifies the optimized objectives, the parameters reached by each gradient, and the student state available after training.
+Appendix~\ref{app:data-targets} owns the construction of the data, targets, and controls; Appendix~\ref{app:inference} owns fresh readouts and statistical inference; and Appendix~\ref{app:evidence-provenance} owns verified artifact paths and hashes.
+Section~\ref{sec:results} and Appendices~\ref{app:secondary}--\ref{app:sensitivities} own the resulting observations and verdicts.
+Temporary target heads never enter a later evaluation.
+A student checkpoint is retained only when the run explicitly saves one; otherwise evaluation uses the frozen in-memory student and only the result artifact survives.
+
+\subsection{Ordinary \ac{kd} and language-quality rules}
+
+Let \(z_T(x)_t\) and \(z_S(x)_t\) be teacher and student logits at a non-padding causal-language-model position \(t\).
+At temperature \(\tau\), their softened token distributions are
+\[
+  p_T^\tau(\cdot\mid x,t)
+  =\operatorname{softmax}\!\left(z_T(x)_t/\tau\right),
+  \qquad
+  q_S^\tau(\cdot\mid x,t)
+  =\operatorname{softmax}\!\left(z_S(x)_t/\tau\right).
+\]
+\begin{samepage}
+The implemented output-distillation loss is
+\begin{equation}
+  \mathcal L_{\mathrm{KD}}
+  =
+  \tau^2
+  \frac{
+    \sum_{x,t}m_{xt}
+    D_{\mathrm{KL}}\!\left(
+      p_T^\tau(\cdot\mid x,t)
+      \,\|\,
+      q_S^\tau(\cdot\mid x,t)
+    \right)
+  }{
+    \sum_{x,t}m_{xt}
+  },
+  \label{eq:implemented-kd}
+\end{equation}
+where \(m_{xt}\) is one at non-padding positions and zero otherwise.
+Equation~\ref{eq:implemented-kd} averages teacher-to-student token-level \ac{kl} divergence over valid positions.
+The factor \(\tau^2\) compensates for the gradient-scale change introduced by temperature softening.
+Every executed output-distillation route uses \(\tau=2\), gradient-norm clipping at 1, and AdamW. \evd{E003}\evd{E005}\evd{E016}
+\end{samepage}
+
+The language objective is shared within a paired intervention, but its initialization and quality role differ across families.
+Table~\ref{tab:language-training-rules} records those differences.
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \caption{Language objectives and quality rules by training family.}
+  \label{tab:language-training-rules}
+  \evd{E003}\evd{E004}\evd{E005}\evd{E008}\evd{E013}\evd{E016}\evd{E017}\evd{E025}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    Family & Teacher, student, and initialization & Language objective and corpus & Quality rule \\
+    \midrule
+    Distillation-headroom analysis & GPT-2 Medium teacher; GPT-2 Small student initialized either from pretrained weights or randomly & Output \ac{kd} on 96,000 WikiText sentences; 2,000 fixed held-out sentences & Held-out perplexity is a convergence measure; the warm and random-start routes differ in initialization and training duration \evd{E003} \\
+    \midrule
+    Recorded-response intervention (sentence) & Qwen2.5-0.5B student; Qwen2.5-1.5B teacher when the route is teacher-anchored & Masked next-token cross-entropy in the unanchored screen; output \ac{kd} in anchored routes; fixed WikiText quality probe & The recorded-response arm and permuted-response control share the scoring implementation; ordinary \ac{kd} comparisons require comparable perplexity \evd{E004}\evd{E005}\evd{E008} \\
+    \midrule
+    Recorded-response intervention (naturalistic) & Qwen2.5-0.5B student; frozen Qwen2.5-1.5B teacher in anchored routes & Unanchored or output-\ac{kd}-anchored language path, according to the executed grid & The full-parameter route uses its declared forgetting criterion on the language probe \evd{E013}\evd{E017} \\
+    \midrule
+    Synthetic-response intervention & GPT-2 Medium teacher; pretrained GPT-2 Small student shared within seed & Output \ac{kd} on 95,999 WikiText sentences; 1,999 fixed held-out sentences & Each target arm must satisfy Equation~\ref{eq:quality-eligibility}; saved-student comparisons also apply the within-seed bits-per-byte rule \evd{E016}\evd{E025} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The headroom family uses seeds 0--2, batch size 16, and maximum length 64.
+The pretrained student is trained for one epoch at \(5\times10^{-5}\), whereas the random-start student is trained for two epochs at \(3\times10^{-4}\).
+These are separate optimization regimes, not an initialization-only contrast. \evd{E003}
+The recorded- and synthetic-response settings are specified with their target paths below.
+
+\subsection{Recorded-response intervention}
+
+For a recorded response \(y_i\), the common sentence-level target path is
+\[
+  x_i
+  \longrightarrow h_{12}(x_i)
+  \longrightarrow W h_{12}(x_i)
+  \longrightarrow \mathcal L_{\mathrm{target}}.
+\]
+Here \(h_j\) denotes entry \(j\) in the model's returned hidden-state sequence, whose entry 0 is the embedding output.
+The thesis shorthand ``hidden-state index 12'' therefore names the exact attachment returned by the implementation.
+The vector \(h_{12}(x_i)\) is mean-pooled over non-padding token positions, and \(W\) is a temporary linear target map unless the selected loss is readout-free.
+
+\begin{samepage}
+The common joint objective is
+\begin{equation}
+  \mathcal L
+  =
+  \lambda_{\mathrm{lang}}\mathcal L_{\mathrm{lang}}
+  +
+  \lambda_{\mathrm{target}}\mathcal L_{\mathrm{target}},
+  \qquad
+  \lambda_{\mathrm{lang}}=1.
+  \label{eq:recorded-objective}
+\end{equation}
+The first term preserves the declared language objective, while the second exposes the retained student path to the recorded response.
+For teacher-anchored routes, \(\mathcal L_{\mathrm{lang}}=\mathcal L_{\mathrm{KD}}\); the unanchored screen instead uses masked next-token cross-entropy.
+\end{samepage}
+
+For predictions \(\widehat Y\) and targets \(Y\) with minibatch size \(B\) and target width \(D\), the squared-error target loss is
+\[
+  \operatorname{MSE}(\widehat Y,Y)
+  =
+  \frac{1}{BD}
+  \sum_{b=1}^{B}
+  \sum_{j=1}^{D}
+  \left(\widehat Y_{bj}-Y_{bj}\right)^2.
+\]
+This loss averages equally over minibatch rows and target coordinates.
+Consequently, every reported target weight is interpreted under this normalization.
+
+The common sentence-level regime places rank-16 \ac{lora} adapters with scaling 32 and dropout 0.05 in the model-appropriate attention and feed-forward projections \autocite{hu2022}. \evd{E004}
+The pretrained base, input embeddings, and tied output matrix are frozen; the adapters and a co-trained \(W\) are optimizer parameters.
+The target gradient reaches \(W\) and the adapters that produce \(h_{12}\), while adapters after the attachment state receive only the language-loss gradient.
+After training, the adapters are merged into the student and the temporary target map is discarded.
+The merged student is frozen before a fresh evaluation readout is fitted as specified in Appendix~\ref{app:inference}. \evd{E004}\evd{E005}\evd{E008}
+
+Table~\ref{tab:recorded-training-variants} states only the implementation change relative to this common path.
+
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.02}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{24mm}>{\raggedright\arraybackslash}p{42mm}>{\raggedright\arraybackslash}p{49mm}>{\raggedright\arraybackslash}p{31mm}@{}}
+  \caption{Recorded-response intervention variants.}
+  \label{tab:recorded-training-variants}\\
+  \toprule
+  Variant & Change from the common target path & Executed grid & Retained object \\
+  \midrule
+  \endfirsthead
+  \multicolumn{4}{c}{\tablename~\thetable{} (continued)} \\
+  \toprule
+  Variant & Change from the common target path & Executed grid & Retained object \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{4}{r}{Continued on next page} \\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  \evd{E004}\evd{E005}\evd{E008}\evd{E011}\evd{E013}\evd{E017}Co-trained \ac{mse} & A new \(W\) is trained jointly with the producing adapters; correctly paired and permuted responses use the same path & Rank 16; seeds 0--2; 3 epochs; \(2\times10^{-4}\); batch 16; target weight 10. Participant-averaged training uses one permutation draw; participant-specific training uses five & Merged student; \(W\) discarded \evd{E004}\evd{E005}\evd{E008} \\
+  \midrule
+  Frozen readout & \(W_0\) is ridge-fitted on untuned outer-training features with \(\alpha=100\) and remains fixed during intervention training & Same sentence screen grid and paired-permutation construction as its matched comparison & Merged student; \(W_0\) discarded \evd{E004} \\
+  \midrule
+  Contrastive & Symmetric InfoNCE compares normalized \(Wh_{12}\) with the paired five-\ac{roi} response using in-batch negatives \autocite{oord2018} & Rank 16; seeds 0--1; 3 epochs; target weight 1; temperature 0.07; three permutation draws & Merged student; \(W\) discarded \evd{E013} \\
+  \midrule
+  Increased capacity & The co-trained \ac{mse} path is unchanged; adapter rank increases from 16 to 64 & Seeds 0--1; 6 epochs; target weight 10; five permutation draws; remaining settings inherited from the participant-specific grid & Merged student; \(W\) discarded \evd{E011} \\
+  \midrule
+  Naturalistic voxelwise & A participant-specific head maps pooled 25-word segments to reliable voxels after a 4-s response delay & UTS01--03; 14 tuning and 6 evaluation stories; unanchored and output-\ac{kd}-anchored grids recorded in the owning configurations & Merged student; voxel head discarded \evd{E013} \\
+  \midrule
+  Full parameter & The voxelwise \ac{mse} and output-\ac{kd} anchor update all student parameters except the tied input/output embedding; no \ac{lora} is used & UTS01--03; seeds 0--2; 2 epochs; \(10^{-5}\); batch 16; target weight 10 & Student used for immediate frozen evaluation; voxel head discarded; no reusable student checkpoint retained \evd{E017} \\
+\end{longtable}
+\endgroup
+
+The exploratory sentence screen changes only \(\mathcal L_{\mathrm{target}}\).
+Cosine and squared-Pearson losses use a co-trained target map.
+Linear \ac{cka} is readout-free: it compares the minibatch geometry of \(h_{12}\) and the response matrix directly, so no temporary \(W\) participates in that branch \autocite{kornblith2019}.
+These are implementation variants of the recorded-response intervention; their outcomes remain in Section~\ref{sec:results-recorded} and Appendix~\ref{app:secondary}. \evd{E004}
+
+\subsection{Synthetic-response intervention}
+
+The synthetic-response intervention uses the same joint objective in Equation~\ref{eq:recorded-objective}, but the attachment and trainable path differ.
+For GPT-2 input \(x\), the retained student path is
+\[
+  x
+  \longrightarrow e_{\mathrm{tok}}(x)+e_{\mathrm{pos}}(x)
+  \longrightarrow h_6(x)
+  \longrightarrow h_{7:12}(x)
+  \longrightarrow q_S^\tau(\cdot\mid x),
+\]
+and the temporary target branch is
+\[
+  \operatorname{meanpool}\!\left(h_6(x)\right)
+  \longrightarrow
+  W_{\mathrm{tmp}}\operatorname{meanpool}\!\left(h_6(x)\right)
+  \longrightarrow
+  \mathcal L_{\mathrm{target}}.
+\]
+As above, \(h_6\) names hidden-state index 6 in the returned sequence, not an informal count of visible blocks.
+The output-\ac{kd} gradient reaches the entire student path.
+The target gradient reaches \(W_{\mathrm{tmp}}\), token and positional embeddings, normalization components, and student blocks that produce \(h_6\); blocks after the attachment receive only the output-\ac{kd} gradient.
+Because GPT-2 ties its token embedding and output matrix, that retained matrix receives the target gradient through its input role and the output-\ac{kd} gradient through both roles. \evd{E016}
+
+The teacher is frozen, whereas every student parameter and \(W_{\mathrm{tmp}}\) is optimized.
+All target arms map the 768-dimensional mean-pooled attachment state to all 20,484 coordinates using the same mean \ac{mse}.
+Appendix~\ref{app:data-targets} owns the construction and standardization of the synthetic brain-response target, the text-derived auxiliary target, and the saved block permutation.
+The common optimization grid uses 95,999 training sentences, one epoch or 24,000 optimizer steps, learning rate \(5\times10^{-5}\), batch size 4, and maximum length 64. \evd{E016}
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \caption{Synthetic-response training arms and retained states.}
+  \label{tab:synthetic-training-arms}
+  \evd{E016}\evd{E025}\evd{E026}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.21\textwidth}@{}}
+    \toprule
+    Arm & Additional supervision & Shared optimization settings & Saved state \\
+    \midrule
+    Ordinary \ac{kd} arm & None; \(\lambda_{\mathrm{target}}=0\) and no temporary target map & Pretrained GPT-2 Small initialization, frozen GPT-2 Medium teacher, corpus, output-\ac{kd} loss, and seeds 0--5 & Student checkpoint only when artifact saving is enabled; otherwise result artifact \evd{E016}\evd{E025} \\
+    \midrule
+    Synthetic-response arm & Correctly paired synthetic brain-response target through \(W_{\mathrm{tmp}}\); \(\lambda_{\mathrm{target}}=0.1\) & Same initialization, teacher, corpus, schedule, and seeds 0--5 as the matched ordinary \ac{kd} arm & Temporary map always discarded; student saved only under the configured artifact path \evd{E016}\evd{E025} \\
+    \midrule
+    Saved block-permutation sensitivity & Saved block-permuted synthetic target through the same \(W_{\mathrm{tmp}}\) and mean \ac{mse} & Same initialization, teacher, corpus, schedule, target weight, and seeds 0--5 & Temporary map discarded; result artifact retained; student saving follows the run configuration \evd{E016} \\
+    \midrule
+    Text-derived auxiliary-control arm & Text-derived auxiliary target through the same target-map shape and mean \ac{mse}; \(\lambda_{\mathrm{target}}=0.1\) & Same pretrained student, teacher, corpus, and schedule; executed for seeds 0--5 & Temporary map discarded; seed-specific students saved when requested \evd{E016}\evd{E026} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The text-derived auxiliary-control arm was first executed for seeds 0--2 and later extended prospectively to seeds 3--5.
+The combined six-seed analyses use seeds 0--5; earlier three-seed tables retain only the initial run for provenance.\evd{E016}
+
+At the final optimizer step, the temporary target map is always discarded.
+When no checkpoint is requested, synthetic-target recovery uses the frozen in-memory student and only the resulting measurements are stored.
+When artifact saving is enabled, later assays reload the retained causal-language-model checkpoint and still fit a fresh readout; the temporary training map is never reused.
+Thus training can shape the retained student through the target gradient, but the training head itself cannot compute a later target-recovery or biological-transfer score. \evd{E016}\evd{E025}\evd{E030}
+
+The frozen row-twin control is not a training arm.
+It is constructed only for the later 50-component linear target-projection measurability assay described in Appendix~\ref{app:data-targets}.
+Comparator adequacy and all arm outcomes are reported in Section~\ref{sec:results-synthetic-manipulation} and Appendix~\ref{app:sensitivities}. \evd{E026}\evd{E030}
+
+\subsection{Replay scope and provenance handoff}
+
+Replay requires four linked objects: the locked software environment, the executed entry point and arguments, the declared seed and final-state rule, and the retained result or student artifact.
+Table~\ref{tab:training-reproduction} provides the compact index.
+It is not a command-complete substitute for the owning result configurations or the verified path--hash ledger in Appendix~\ref{app:evidence-provenance}.
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \caption{Training entry points and retained replay information.}
+  \label{tab:training-reproduction}
+  \evd{E003}\evd{E004}\evd{E005}\evd{E008}\evd{E011}\evd{E013}\evd{E016}\evd{E017}\evd{E025}\evd{E026}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    Family & Executed entry point & Final-state and retained-output rule & Provenance handoff \\
+    \midrule
+    Distillation-headroom analysis & \path{scripts/run_kd_alignment.py} & Final warm or random-start student evaluated in memory; result bundle records configuration and quality measurements & Verified retained bundles are indexed in Appendix~\ref{app:evidence-provenance} \evd{E003} \\
+    \midrule
+    Recorded-response intervention (sentence) & \path{scripts/run_brain_lever.py}; target losses in \path{scripts/brain_loss.py} & Final merged student evaluated after each fold--seed cell; temporary target map discarded; no intermediate quality frontier retained & Primary and participant result shards are indexed in Appendix~\ref{app:evidence-provenance} \evd{E004}\evd{E005}\evd{E008}\evd{E011} \\
+    \midrule
+    Recorded-response intervention (naturalistic) & \path{scripts/run_lebel_tune.py} & Final merged or full-parameter student evaluated immediately; temporary voxel head discarded & Recorded grids and result bundles remain under their owning configurations; verified paths are delegated to Appendix~\ref{app:evidence-provenance} \evd{E013}\evd{E017} \\
+    \midrule
+    Synthetic-response intervention & \path{scripts/run_tribe_phase3.py} & Final student evaluated in memory; optional checkpoint written only when a save directory is supplied; temporary target map discarded & Target, saved-student, and analysis bundles are indexed in Appendix~\ref{app:evidence-provenance} \evd{E016}\evd{E025}\evd{E026} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The current replay environment uses the Python requirement in \path{pyproject.toml} and the exact package and CUDA build resolved by \path{uv.lock}.
+These files are current replay pins; they are not complete historical environment manifests for every earlier run.
+Result JSONs retain model identifiers and executed training configurations, and later saved-student bundles bind selected weights, inputs, runners, and analyses by hash.
+Many early runs do not record immutable upstream Hugging Face revision identifiers, so exact historical replay additionally depends on a retained model cache or a verified saved-student artifact.
+This limitation must be preserved rather than filled with an inferred revision.
+
+Smoke runs, logs, temporary caches, throughput probes, and model-loading checks are diagnostic outputs and do not receive manuscript-level path--hash rows.
+Appendix~\ref{app:evidence-provenance} owns the verified artifact ledger and any stated omissions.
+With the optimization and replay scope fixed, Appendix~\ref{app:inference} specifies how the retained students are evaluated and how uncertainty is assigned.

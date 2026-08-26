@@ -1,0 +1,39 @@
+\begin{tikzpicture}[
+  endpoint/.style={circle,fill=blue!58!black,draw=blue!58!black,inner sep=2.4pt},
+  axis/.style={gray!70,thin},
+  zeroline/.style={gray!72,densely dotted}
+]
+  \def\xmin{-0.080}
+  \def\xmax{0.015}
+  \def\xleft{5.20}
+  \def\xwidth{7.20}
+  \path[use as bounding box] (0,-0.62) rectangle (16.35,3.08);
+
+  \fill[blue!3] (0.05,0.38) rectangle (16.25,2.78);
+  \node[anchor=west,font=\scriptsize] at (6.10,2.93)
+    {\tikz{\node[endpoint] {};}\ technical-seed mean contrast; negative favors recorded response};
+
+  \draw[axis] (\xleft,0.30)--({\xleft+\xwidth},0.30);
+  \foreach \value/\label in {-0.08/{\(-0.08\)},-0.06/{\(-0.06\)},-0.04/{\(-0.04\)},-0.02/{\(-0.02\)},0/{\(0\)}} {
+    \pgfmathsetmacro{\xtick}{\xleft+\xwidth*(\value-\xmin)/(\xmax-\xmin)}
+    \draw[axis] (\xtick,0.30)--(\xtick,0.20);
+    \node[anchor=north,font=\scriptsize] at (\xtick,0.17) {\label};
+  }
+  \node[anchor=north,font=\scriptsize] at ({\xleft+0.5*\xwidth},-0.28)
+    {recorded-response minus permuted-response OOD/ID perplexity-ratio contrast};
+
+  \pgfmathsetmacro{\xzero}{\xleft+\xwidth*(0-\xmin)/(\xmax-\xmin)}
+  \draw[zeroline] (\xzero,0.30)--(\xzero,2.78);
+
+  \newcommand{\utilityendpointrow}[4]{%
+    \node[anchor=west,align=left,text width=44mm,font=\small] at (0.25,#1) {#2};
+    \pgfmathsetmacro{\px}{\xleft+\xwidth*(\result{#3}-\xmin)/(\xmax-\xmin)}
+    \node[endpoint] at (\px,#1) {};
+    \node[anchor=west,font=\small] at (12.70,#1) {#4};
+  }
+  \utilityendpointrow{2.08}{\textbf{Pereira sentences}}{e009_plot_pereira_recorded_permuted}{\result{e009_pereira_recorded_permuted}}
+  \utilityendpointrow{1.15}{\textbf{LeBel story text}}{e009_plot_lebel_recorded_permuted}{\result{e009_lebel_recorded_permuted}}
+
+  \node[anchor=west,align=left,text width=36mm,font=\scriptsize,text=gray!72!black] at (12.70,0.62)
+    {Descriptive technical-seed means; paired endpoint uncertainty was not reported.};
+\end{tikzpicture}

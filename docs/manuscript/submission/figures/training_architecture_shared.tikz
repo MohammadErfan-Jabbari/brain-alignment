@@ -1,0 +1,44 @@
+\begin{tikzpicture}[
+  core/.style={draw,rounded corners,align=center,text width=29mm,minimum height=13mm,inner sep=2pt,font=\footnotesize,fill=blue!7},
+  datum/.style={draw,rounded corners,align=center,text width=25mm,minimum height=12mm,inner sep=2pt,font=\footnotesize,fill=gray!8},
+  loss/.style={draw,rounded corners,align=center,text width=27mm,minimum height=13mm,inner sep=2pt,font=\footnotesize,fill=violet!9},
+  temporary/.style={draw,dashed,rounded corners,align=center,text width=33mm,minimum height=13mm,inner sep=2pt,font=\footnotesize,fill=orange!10},
+  route/.style={draw,rounded corners,align=center,text width=50mm,minimum height=21mm,inner sep=2pt,font=\footnotesize,fill=gray!5},
+  note/.style={draw=gray!55,rounded corners,fill=gray!5,align=center,font=\scriptsize,minimum height=8mm},
+  arrow/.style={-{Latex[length=2mm]},thick},
+  verb/.style={font=\scriptsize,fill=white,inner sep=0.4pt},
+  panel/.style={draw=gray!60,rounded corners,inner sep=6pt}
+]
+  \node[datum] (text) at (0,0) {training text};
+  \node[core] (early) at (36mm,0) {student blocks \(1{:}k\)};
+  \node[core] (state) at (72mm,0) {attachment state \(h_k\)\\[-1mm]\scriptsize \(k=12\): recorded; \(k=6\): synthetic};
+  \node[core] (late) at (108mm,0) {student blocks \(k{+}1{:}L\)};
+  \node[core] (lmout) at (144mm,0) {student \ac{lm} output};
+  \draw[arrow] (text) -- (early);
+  \draw[arrow] (early) -- (state);
+  \draw[arrow] (state) -- (late);
+  \draw[arrow] (late) -- (lmout);
+
+  \node[datum,above=16mm of late] (teacher) {frozen teacher\\output};
+  \node[loss,above=16mm of lmout] (kd) {ordinary \ac{kd} loss\\\(\mathcal L_{\mathrm{KD}}\)};
+  \draw[arrow] (text.north) |- node[pos=.74,verb] {queries} (teacher.west);
+  \draw[arrow] (teacher) -- node[verb] {targets} (kd);
+  \draw[arrow] (lmout) -- node[right,verb] {predicts} (kd);
+
+  \node[temporary] (head) at (72mm,-28mm) {temporary target head\\discarded after training};
+  \node[loss] (targetloss) at (112mm,-28mm) {auxiliary loss\\\(\mathcal L_{\mathrm{target}}\)};
+  \draw[arrow] (state) -- node[right,verb] {predicts} (head);
+  \draw[arrow] (head) -- node[verb] {scores} (targetloss);
+
+  \node[route] (routetarget) at (130mm,-57mm)
+    {\textbf{Route-specific target/control}\\
+     \textcolor{orange!75!black}{Recorded:} recorded brain-response target / permuted-response control\\
+     \textcolor{green!45!black}{Synthetic:} synthetic brain-response target / text-derived auxiliary-control arm};
+  \draw[arrow] (routetarget.north) -- node[right,verb] {targets} (targetloss.south);
+
+  \node[note,text width=88mm] (training-note) at (48mm,-57mm)
+    {Ordinary distillation sets \(\lambda=0\). Otherwise
+     \(\mathcal L_{\mathrm{train}}=\mathcal L_{\mathrm{KD}}+\lambda\mathcal L_{\mathrm{target}}\).
+     The auxiliary gradient updates the temporary head and only regime-permitted parameters that produce \(h_k\).};
+  \node[panel,fit=(text)(teacher)(kd)(training-note)(routetarget)] {};
+\end{tikzpicture}

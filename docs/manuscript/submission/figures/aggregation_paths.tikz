@@ -1,0 +1,45 @@
+\begin{tikzpicture}[
+  pathbox/.style={draw,rounded corners,align=center,text width=30mm,minimum height=18mm,inner sep=2pt,font=\footnotesize},
+  participant/.style={pathbox,fill=blue!8},
+  stimulus/.style={pathbox,fill=orange!11},
+  technical/.style={pathbox,fill=gray!9},
+  arrow/.style={-{Latex[length=2mm]},thick},
+  rowlabel/.style={font=\footnotesize\bfseries,anchor=east,align=right},
+  header/.style={font=\footnotesize\bfseries,align=center}
+]
+  \node[header] at (0,11mm) {Matched cell};
+  \node[header] at (38mm,11mm) {Paired contrast};
+  \node[header] at (76mm,11mm) {Technical aggregation};
+  \node[header] at (114mm,11mm) {Inference unit};
+
+  \node[rowlabel] at (-22mm,0) {Participant\\claim};
+  \node[participant] (pcell) at (0,0) {participant \(\times\) fold\\\(\times\) endpoint\\seed when applicable};
+  \node[participant] (pcontrast) at (38mm,0) {matched arm or\\target contrast};
+  \node[participant] (paggregate) at (76mm,0) {aggregate folds and\\any technical seeds\\within participant};
+  \node[participant] (punit) at (114mm,0) {participants\\biological inference};
+  \draw[arrow] (pcell) -- (pcontrast);
+  \draw[arrow] (pcontrast) -- (paggregate);
+  \draw[arrow] (paggregate) -- (punit);
+
+  \node[rowlabel] at (-22mm,-24mm) {Fixed-stimulus\\claim};
+  \node[stimulus] (fcell) at (0,-24mm) {held-out fold or story\\seed when applicable};
+  \node[stimulus] (fcontrast) at (38mm,-24mm) {matched prediction or\\training contrast};
+  \node[stimulus] (faggregate) at (76mm,-24mm) {aggregate any seeds\\within shared fold};
+  \node[stimulus] (funit) at (114mm,-24mm) {shared folds or stories\\fixed-stimulus scope};
+  \draw[arrow] (fcell) -- (fcontrast);
+  \draw[arrow] (fcontrast) -- (faggregate);
+  \draw[arrow] (faggregate) -- (funit);
+
+  \node[rowlabel] at (-22mm,-48mm) {Technical\\claim};
+  \node[technical] (tcell) at (0,-48mm) {paired technical seed\\on fixed data};
+  \node[technical] (tcontrast) at (38mm,-48mm) {seed-specific gain\\or quality difference};
+  \node[technical] (taggregate) at (76mm,-48mm) {summarize paired\\technical seeds};
+  \node[technical] (tunit) at (114mm,-48mm) {fixed models and corpora\\fixed procedure only};
+  \draw[arrow] (tcell) -- (tcontrast);
+  \draw[arrow] (tcontrast) -- (taggregate);
+  \draw[arrow] (taggregate) -- (tunit);
+
+  \node[draw=violet!60!black,rounded corners,fill=violet!7,align=center,font=\footnotesize,
+        text width=148mm,minimum height=9mm] at (57mm,-69mm)
+        {\textbf{Interpretive eligibility:} language-quality and comparator-adequacy criteria qualify the declared contrast; they do not change its inference unit or demonstrate an endpoint.};
+\end{tikzpicture}

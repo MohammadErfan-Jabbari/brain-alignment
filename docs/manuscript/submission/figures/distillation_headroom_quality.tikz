@@ -1,0 +1,111 @@
+\definecolor{famgpt}{HTML}{0072B2}
+\definecolor{fampythia}{HTML}{E69F00}
+\definecolor{famopt}{HTML}{009E73}
+\definecolor{famqwen}{HTML}{CC79A7}
+\definecolor{famllama}{HTML}{D55E00}
+\definecolor{fammistral}{HTML}{56B4E9}
+\begin{tikzpicture}[
+  point/.style={circle,minimum size=5pt,inner sep=0pt,line width=0.45pt},
+  axis/.style={gray!70,thin},
+  zeroline/.style={gray!65,densely dotted},
+  fitline/.style={black,line width=1.1pt},
+  boundary/.style={gray!75,dashed}
+]
+  % Include the rotated y-axis label and x-axis title in the declared canvas.
+  \path[use as bounding box] (-0.35,-0.90) rectangle (15.4,4.00);
+  \def\xmin{0.12}
+  \def\xmax{0.54}
+  \def\ymin{-0.005}
+  \def\ymax{0.050}
+  \def\xleft{1.20}
+  \def\xwidth{13.55}
+  \def\ybase{0.20}
+  \def\yheight{2.95}
+
+  % Capable-model band: bits per byte < 1.30, shown on the log-bpb x scale.
+  \pgfmathsetmacro{\xcap}{\xleft+\xwidth*(ln(1.30)-\xmin)/(\xmax-\xmin)}
+  \fill[blue!5] (\xleft,\ybase) rectangle (\xcap,{\ybase+\yheight});
+  \draw[boundary] (\xcap,\ybase)--(\xcap,{\ybase+\yheight});
+  \node[anchor=north east,font=\scriptsize,text=gray!70!black] at ({\xcap-0.05},{\ybase+\yheight-0.05}) {capable band};
+
+  \pgfmathsetmacro{\xzero}{\xleft}
+  \pgfmathsetmacro{\yzero}{\ybase+\yheight*(0-\ymin)/(\ymax-\ymin)}
+  \draw[zeroline] (\xleft,\yzero)--({\xleft+\xwidth},\yzero);
+  \draw[axis] (\xleft,\ybase)--(\xleft,{\ybase+\yheight});
+  \draw[axis] (\xleft,\ybase)--({\xleft+\xwidth},\ybase);
+
+  \foreach \bpb/\lab in {1.15/\(1.15\),1.30/\(1.30\),1.50/\(1.50\),1.70/\(1.70\)} {
+    \pgfmathsetmacro{\xt}{\xleft+\xwidth*(ln(\bpb)-\xmin)/(\xmax-\xmin)}
+    \draw[axis] (\xt,\ybase)--(\xt,{\ybase-0.08});
+    \node[anchor=north,font=\scriptsize] at (\xt,{\ybase-0.10}) {\lab};
+  }
+  \foreach \val/\lab in {0/\(0\),0.02/\(0.02\),0.04/\(0.04\)} {
+    \pgfmathsetmacro{\yt}{\ybase+\yheight*(\val-\ymin)/(\ymax-\ymin)}
+    \draw[axis] (\xleft,\yt)--({\xleft-0.08},\yt);
+    \node[anchor=east,font=\scriptsize] at ({\xleft-0.10},\yt) {\lab};
+  }
+  \node[anchor=north,font=\scriptsize] at ({\xleft+0.5*\xwidth},-0.25) {bits per byte (log scale; lower is better)};
+  \node[rotate=90,anchor=south,font=\scriptsize] at (0.16,{\ybase+0.5*\yheight}) {controlled unique \(R^2\)};
+
+  % Full-range descriptive least-squares fit: y = 0.04758 - 0.07961 log(bpb).
+  \pgfmathsetmacro{\xfitlo}{\xleft+\xwidth*(ln(1.134686)-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xifthi}{\xleft+\xwidth*(ln(1.699032)-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\yfitlo}{\ybase+\yheight*((0.0475829-0.0796091*ln(1.134686))-\ymin)/(\ymax-\ymin)}
+  \pgfmathsetmacro{\yfithi}{\ybase+\yheight*((0.0475829-0.0796091*ln(1.699032))-\ymin)/(\ymax-\ymin)}
+  \draw[fitline] (\xfitlo,\yfitlo)--(\xifthi,\yfithi);
+  \node[anchor=south west,font=\scriptsize,fill=white,inner sep=1.2pt] at (9.65,2.42) {descriptive \(r\): \result{e015_full_corr}};
+
+  \foreach \bpb/\score in {
+    1.350702/0.017285,1.393730/0.017651,1.486263/0.017045,1.628111/0.007076
+  } {
+    \pgfmathsetmacro{\xp}{\xleft+\xwidth*(ln(\bpb)-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\yp}{\ybase+\yheight*(\score-\ymin)/(\ymax-\ymin)}
+    \node[point,fill=famgpt,draw=famgpt!70!black] at (\xp,\yp) {};
+  }
+  \foreach \bpb/\score in {
+    1.239588/0.017407,1.283322/0.021333,1.314550/0.022576,
+    1.380825/0.023292,1.523097/0.020883,1.699032/-0.001249
+  } {
+    \pgfmathsetmacro{\xp}{\xleft+\xwidth*(ln(\bpb)-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\yp}{\ybase+\yheight*(\score-\ymin)/(\ymax-\ymin)}
+    \node[point,fill=fampythia,draw=fampythia!70!black] at (\xp,\yp) {};
+  }
+  \foreach \bpb/\score in {
+    1.222464/0.023295,1.276119/0.032369,1.314805/0.028143,
+    1.453090/0.025894,1.514087/0.014670
+  } {
+    \pgfmathsetmacro{\xp}{\xleft+\xwidth*(ln(\bpb)-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\yp}{\ybase+\yheight*(\score-\ymin)/(\ymax-\ymin)}
+    \node[point,fill=famopt,draw=famopt!70!black] at (\xp,\yp) {};
+  }
+  \foreach \bpb/\score in {
+    1.151958/0.023516,1.199968/0.037138,1.241717/0.029724,1.341594/0.035620
+  } {
+    \pgfmathsetmacro{\xp}{\xleft+\xwidth*(ln(\bpb)-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\yp}{\ybase+\yheight*(\score-\ymin)/(\ymax-\ymin)}
+    \node[point,fill=famqwen,draw=famqwen!70!black] at (\xp,\yp) {};
+  }
+  \foreach \bpb/\score in {1.163330/0.046352,1.248564/0.036043} {
+    \pgfmathsetmacro{\xp}{\xleft+\xwidth*(ln(\bpb)-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\yp}{\ybase+\yheight*(\score-\ymin)/(\ymax-\ymin)}
+    \node[point,fill=famllama,draw=famllama!70!black] at (\xp,\yp) {};
+  }
+  \foreach \bpb/\score in {1.134686/0.043797} {
+    \pgfmathsetmacro{\xp}{\xleft+\xwidth*(ln(\bpb)-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\yp}{\ybase+\yheight*(\score-\ymin)/(\ymax-\ymin)}
+    \node[point,fill=fammistral,draw=fammistral!70!black] at (\xp,\yp) {};
+  }
+
+  \node[point,fill=famgpt,draw=famgpt!70!black] at (2.15,3.62) {};
+  \node[anchor=west,font=\scriptsize] at (2.31,3.62) {GPT-2};
+  \node[point,fill=fampythia,draw=fampythia!70!black] at (4.10,3.62) {};
+  \node[anchor=west,font=\scriptsize] at (4.26,3.62) {Pythia};
+  \node[point,fill=famopt,draw=famopt!70!black] at (5.95,3.62) {};
+  \node[anchor=west,font=\scriptsize] at (6.11,3.62) {OPT};
+  \node[point,fill=famqwen,draw=famqwen!70!black] at (7.55,3.62) {};
+  \node[anchor=west,font=\scriptsize] at (7.71,3.62) {Qwen2.5};
+  \node[point,fill=famllama,draw=famllama!70!black] at (10.05,3.62) {};
+  \node[anchor=west,font=\scriptsize] at (10.21,3.62) {Llama 3.2};
+  \node[point,fill=fammistral,draw=fammistral!70!black] at (12.78,3.62) {};
+  \node[anchor=west,font=\scriptsize] at (12.94,3.62) {Mistral};
+\end{tikzpicture}

@@ -1,0 +1,24 @@
+\begin{tikzpicture}[
+  core/.style={draw,rounded corners,align=center,text width=29mm,minimum height=13mm,inner sep=2pt,font=\footnotesize,fill=blue!7},
+  datum/.style={draw,rounded corners,align=center,text width=25mm,minimum height=12mm,inner sep=2pt,font=\footnotesize,fill=gray!8},
+  endpoint/.style={draw,rounded corners,align=center,text width=58mm,minimum height=18mm,inner sep=2pt,font=\footnotesize,fill=green!9},
+  arrow/.style={-{Latex[length=2mm]},thick},
+  verb/.style={font=\scriptsize,fill=white,inner sep=0.4pt},
+  panel/.style={draw=gray!60,rounded corners,inner sep=6pt}
+]
+  \node[datum] (discard) at (0,0) {discard teacher and\\temporary head};
+  \node[core] (retained) at (39mm,0) {finalize trained parameters\\retain and freeze student};
+  \draw[arrow] (discard) -- node[verb] {retains} (retained);
+
+  \node[endpoint] (readouts) at (111mm,22mm)
+    {\textbf{Fresh fold-local readouts}\\synthetic-target recovery assay\\saved-student target-retention analysis\\saved-student biological-transfer assay};
+  \node[endpoint] (diagnostics) at (111mm,-4mm)
+    {\textbf{Paired diagnostic analyses}\\retained-student movement audit\\composed-path diagnostic};
+  \node[endpoint] (quality) at (111mm,-30mm)
+    {\textbf{Held-out language endpoints}\\language-quality evaluation\\practical-utility evaluation};
+
+  \draw[arrow] (retained.north east) -- node[verb,sloped] {supplies} (readouts.west);
+  \draw[arrow] (retained.east) -- node[verb] {supplies} (diagnostics.west);
+  \draw[arrow] (retained.south east) -- node[verb,sloped] {supplies} (quality.west);
+  \node[panel,fit=(discard)(retained)(readouts)(diagnostics)(quality)] {};
+\end{tikzpicture}

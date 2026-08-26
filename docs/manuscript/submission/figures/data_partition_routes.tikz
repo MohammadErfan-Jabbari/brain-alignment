@@ -1,0 +1,46 @@
+\begin{tikzpicture}[
+  routebox/.style={draw,rounded corners,align=center,text width=31mm,minimum height=19mm,inner sep=2.5pt,font=\footnotesize},
+  source/.style={routebox,fill=gray!8},
+  measurement/.style={routebox,fill=blue!8},
+  recorded/.style={routebox,fill=orange!12},
+  synthetic/.style={routebox,fill=green!10},
+  arrow/.style={-{Latex[length=2mm]},thick},
+  lane/.style={font=\footnotesize\bfseries,anchor=east,align=right},
+  header/.style={font=\footnotesize\bfseries,align=center}
+]
+  \node[header] at (0,12mm) {Data object};
+  \node[header] at (42mm,12mm) {Partition boundary};
+  \node[header] at (84mm,12mm) {Fitted or retained object};
+  \node[header] at (126mm,12mm) {Held-out endpoint};
+
+  \node[lane] at (-23mm,0) {Measurement\\assays};
+  \node[source] (measure-source) at (0,0) {Tuckute or LeBel UTS03\\recorded \ac{fmri} responses};
+  \node[measurement] (measure-split) at (42mm,0) {Tuckute: contiguous train/test blocks\\LeBel: held-out whole stories};
+  \node[measurement] (measure-fit) at (84mm,0) {Fresh fold-local\\ridge readout};
+  \node[measurement] (measure-end) at (126mm,0) {Held-out regional or\\voxelwise response prediction};
+  \draw[arrow] (measure-source) -- (measure-split);
+  \draw[arrow] (measure-split) -- (measure-fit);
+  \draw[arrow] (measure-fit) -- (measure-end);
+
+  \node[lane] at (-23mm,-25mm) {Recorded-response\\intervention};
+  \node[source] (recorded-source) at (0,-25mm) {Tuckute text and responses\\five-person average or\\nine participant\\matrices};
+  \node[recorded] (recorded-split) at (42mm,-25mm) {800 sentences train student\\200 remain untouched};
+  \node[recorded] (recorded-fit) at (84mm,-25mm) {Frozen\\retained student\\temporary head removed};
+  \node[recorded] (recorded-end) at (126mm,-25mm) {Inner-fold fresh response readout\\or Pereira/LeBel text utility};
+  \draw[arrow] (recorded-source) -- (recorded-split);
+  \draw[arrow] (recorded-split) -- (recorded-fit);
+  \draw[arrow] (recorded-fit) -- (recorded-end);
+
+  \node[lane] at (-23mm,-50mm) {Synthetic-response\\intervention};
+  \node[source] (synthetic-source) at (0,-50mm) {WikiText text and fixed\\text-generated targets};
+  \node[synthetic] (synthetic-split) at (42mm,-50mm) {95,999 train sentences\\1,999-sentence probe};
+  \node[synthetic] (synthetic-fit) at (84mm,-50mm) {Frozen\\retained student\\temporary head removed};
+  \node[synthetic] (synthetic-end) at (126mm,-50mm) {WikiText recovery\\or Tuckute \ac{fmri} transfer};
+  \draw[arrow] (synthetic-source) -- (synthetic-split);
+  \draw[arrow] (synthetic-split) -- (synthetic-fit);
+  \draw[arrow] (synthetic-fit) -- (synthetic-end);
+
+  \node[draw=gray!55,rounded corners,fill=gray!5,align=center,font=\scriptsize,
+        text width=148mm,minimum height=7mm] at (63mm,-69mm)
+        {All learned fold-dependent transforms are fitted on training data; held-out responses are used only by the declared evaluation.};
+\end{tikzpicture}

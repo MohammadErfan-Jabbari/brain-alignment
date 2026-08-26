@@ -1,0 +1,84 @@
+\begin{tikzpicture}[
+  targetpoint/.style={circle,fill=blue!28,draw=blue!72!black,inner sep=1.7pt},
+  twinpoint/.style={rectangle,rotate=45,fill=teal!28,draw=teal!70!black,minimum size=4pt,inner sep=0pt},
+  targetmean/.style={rectangle,fill=blue!78!black,draw=blue!78!black,minimum size=4.5pt,inner sep=0pt},
+  twinmean/.style={rectangle,fill=teal!72!black,draw=teal!72!black,minimum size=4.5pt,inner sep=0pt},
+  targetinterval/.style={blue!78!black,very thick},
+  twininterval/.style={teal!72!black,very thick},
+  axis/.style={gray!70,thin},
+  zeroline/.style={gray!72,densely dotted},
+  threshold/.style={red!72!black,dashed,thick}
+]
+  \newcommand{\plotresult}[1]{\csname result@#1\endcsname}
+  \def\xmin{-0.022}
+  \def\xmax{0.017}
+  \def\xleft{4.15}
+  \def\xwidth{8.35}
+  \path[use as bounding box] (0,-0.62) rectangle (16.35,4.10);
+
+  \fill[blue!3] (0.05,1.70) rectangle (16.25,3.12);
+  \fill[teal!3] (0.05,0.38) rectangle (16.25,1.62);
+
+  \node[anchor=west,font=\scriptsize] at (4.15,3.78)
+    {\tikz{\node[targetpoint] {};}\ participant effect};
+  \node[anchor=west,font=\scriptsize] at (7.30,3.78)
+    {\tikz{\node[targetmean] {};}\ mean with family-95\% interval};
+  \draw[threshold] (12.50,3.78)--(13.10,3.78);
+  \node[anchor=west,font=\scriptsize] at (13.20,3.78) {internal reference};
+
+  \draw[axis] (\xleft,0.30)--({\xleft+\xwidth},0.30);
+  \foreach \value/\label in {-0.02/{\(-0.02\)},-0.01/{\(-0.01\)},0/{\(0\)},0.01/{\(+0.01\)}} {
+    \pgfmathsetmacro{\xtick}{\xleft+\xwidth*(\value-\xmin)/(\xmax-\xmin)}
+    \draw[axis] (\xtick,0.30)--(\xtick,0.20);
+    \node[anchor=north,font=\scriptsize] at (\xtick,0.17) {\label};
+  }
+  \node[anchor=north,font=\scriptsize] at ({\xleft+0.5*\xwidth},-0.28)
+    {participant-level unique-\(R^2\) increment};
+
+  \pgfmathsetmacro{\xzero}{\xleft+\xwidth*(0-\xmin)/(\xmax-\xmin)}
+  \draw[zeroline] (\xzero,0.30)--(\xzero,3.12);
+
+  \pgfmathsetmacro{\xthreshold}{\xleft+\xwidth*(\result{e030_plot_threshold}-\xmin)/(\xmax-\xmin)}
+  \draw[threshold] (\xthreshold,1.72)--(\xthreshold,3.12);
+  \node[anchor=south west,font=\scriptsize,text=red!72!black] at ({\xthreshold+0.08},3.12)
+    {\(\tau_{\mathrm{cont}}=\result{e030_practical_threshold}\)};
+
+  \node[anchor=west,align=left,text width=38mm,font=\small] at (0.25,2.38)
+    {\textbf{Target increment}\\above nuisance: \(A(u)\)};
+  \node[anchor=west,align=left,text width=38mm,font=\small] at (0.25,1.02)
+    {\textbf{Pairing increment}\\aligned minus twin: \(Q(u)\)};
+
+  \foreach \key/\jy in {
+    e030_plot_uid797/2.02,e030_plot_uid837/2.16,e030_plot_uid841/2.30,
+    e030_plot_uid848/2.02,e030_plot_uid856/2.16,e030_plot_uid865/2.30,
+    e030_plot_uid875/2.02,e030_plot_uid876/2.16,e030_plot_uid880/2.30} {
+    \pgfmathsetmacro{\px}{\xleft+\xwidth*(\plotresult{\key}-\xmin)/(\xmax-\xmin)}
+    \node[targetpoint] at (\px,\jy) {};
+  }
+  \pgfmathsetmacro{\xlo}{\xleft+\xwidth*(\result{e030_plot_ci_low}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xhi}{\xleft+\xwidth*(\result{e030_plot_ci_high}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xmean}{\xleft+\xwidth*(\result{e030_plot_mean}-\xmin)/(\xmax-\xmin)}
+  \draw[targetinterval] (\xlo,2.70)--(\xhi,2.70);
+  \draw[targetinterval] (\xlo,2.61)--(\xlo,2.79);
+  \draw[targetinterval] (\xhi,2.61)--(\xhi,2.79);
+  \node[targetmean] at (\xmean,2.70) {};
+  \node[anchor=west,align=left,text width=35mm,font=\scriptsize] at (12.72,2.62)
+    {mean \result{e030_target_unique}\\family-95\% interval \result{e030_target_unique_ci}};
+
+  \foreach \key/\jy in {
+    e030_plot_twin_uid797/0.66,e030_plot_twin_uid837/0.80,e030_plot_twin_uid841/0.94,
+    e030_plot_twin_uid848/0.66,e030_plot_twin_uid856/0.80,e030_plot_twin_uid865/0.94,
+    e030_plot_twin_uid875/0.66,e030_plot_twin_uid876/0.80,e030_plot_twin_uid880/0.94} {
+    \pgfmathsetmacro{\px}{\xleft+\xwidth*(\plotresult{\key}-\xmin)/(\xmax-\xmin)}
+    \node[twinpoint] at (\px,\jy) {};
+  }
+  \pgfmathsetmacro{\xlo}{\xleft+\xwidth*(\result{e030_plot_twin_ci_low}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xhi}{\xleft+\xwidth*(\result{e030_plot_twin_ci_high}-\xmin)/(\xmax-\xmin)}
+  \pgfmathsetmacro{\xmean}{\xleft+\xwidth*(\result{e030_plot_twin_mean}-\xmin)/(\xmax-\xmin)}
+  \draw[twininterval] (\xlo,1.34)--(\xhi,1.34);
+  \draw[twininterval] (\xlo,1.25)--(\xlo,1.43);
+  \draw[twininterval] (\xhi,1.25)--(\xhi,1.43);
+  \node[twinmean] at (\xmean,1.34) {};
+  \node[anchor=west,align=left,text width=35mm,font=\scriptsize] at (12.72,1.26)
+    {mean \result{e030_target_twin}\\family-95\% interval \result{e030_target_twin_ci}};
+\end{tikzpicture}

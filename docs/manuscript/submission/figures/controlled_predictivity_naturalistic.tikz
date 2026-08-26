@@ -1,0 +1,42 @@
+\begin{tikzpicture}[
+  trained/.style={circle,fill=blue!70!black,draw=blue!85!black,minimum size=5.5pt,inner sep=0pt},
+  untrained/.style={circle,fill=gray!45,draw=gray!70,minimum size=5.5pt,inner sep=0pt},
+  pair/.style={gray!60,line width=1.1pt},
+  zeroline/.style={gray!70,densely dotted},
+  axis/.style={gray!70,thin}
+]
+  \newcommand{\plotresult}[1]{\csname result@#1\endcsname}
+  \path[use as bounding box] (0,-0.75) rectangle (8.15,3.55);
+  \def\xmin{-0.022}
+  \def\xmax{0.014}
+  \def\xleft{2.45}
+  \def\xwidth{5.25}
+
+  \pgfmathsetmacro{\xzero}{\xleft+\xwidth*(0-\xmin)/(\xmax-\xmin)}
+  \draw[zeroline] (\xzero,-0.10)--(\xzero,2.70);
+
+  \foreach \tick/\lab in {-0.02/\(-0.02\),-0.01/\(-0.01\),0/\(0\),0.01/\(+0.01\)} {
+    \pgfmathsetmacro{\xt}{\xleft+\xwidth*(\tick-\xmin)/(\xmax-\xmin)}
+    \draw[axis] (\xt,-0.10)--(\xt,-0.18);
+    \node[anchor=north,font=\scriptsize] at (\xt,-0.20) {\lab};
+  }
+  \draw[axis] (\xleft,-0.10)--({\xleft+\xwidth},-0.10);
+  \node[anchor=north,font=\scriptsize] at ({\xleft+0.5*\xwidth},-0.52) {mean voxelwise unique \(R^2\)};
+
+  \foreach \label/\trainkey/\untrainkey/\gap/\yy in {
+    {GPT-2 Small L7}/e006_plot_gpt2_trained/e006_plot_gpt2_untrained/e006_gpt2_gap/2.25,
+    {Qwen2.5-0.5B L12}/e006_plot_qwen_trained/e006_plot_qwen_untrained/e006_qwen_gap/1.10
+  } {
+    \pgfmathsetmacro{\xu}{\xleft+\xwidth*(\plotresult{\untrainkey}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xt}{\xleft+\xwidth*(\plotresult{\trainkey}-\xmin)/(\xmax-\xmin)}
+    \pgfmathsetmacro{\xm}{0.5*(\xu+\xt)}
+    \node[anchor=east,align=right,font=\scriptsize] at (2.30,\yy) {\label};
+    \draw[pair] (\xu,\yy)--(\xt,\yy);
+    \node[untrained] at (\xu,\yy) {};
+    \node[trained] at (\xt,\yy) {};
+    \node[anchor=south,font=\scriptsize,text=blue!65!black] at (\xm,{\yy+0.08}) {gap \result{\gap}};
+  }
+
+  \node[anchor=west,align=left,font=\scriptsize,text=gray!35!black] at (2.45,0.35)
+    {Both models: 5/5 held-out story blocks positive};
+\end{tikzpicture}
