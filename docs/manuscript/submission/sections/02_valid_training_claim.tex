@@ -157,8 +157,8 @@ The recorded- and synthetic-response routes then require different evidence for 
     \node[context] (rheadroom) at (4.7,-0.55) {\textbf{Route-specific\\headroom}\\opportunity only}; % \evd{E003}
     \node[recorded] (pairing) at (3.2,-2.45) {\textbf{Recorded vs.\ permuted responses}\\pairing-specific change in controlled predictivity}; % \evd{E008}
     \node[endpoint, text width=55mm] (recordedutility) at (3.2,-4.65) {\textbf{Matched practical endpoint}\\utility after an established change, with paired uncertainty}; % \evd{E009}
-    \draw[contextlink] (rmeasure.south) to[out=-90,in=145] (pairing.north west);
-    \draw[contextlink] (rheadroom.south) to[out=-90,in=35] (pairing.north east);
+    \draw[contextlink] (rmeasure.south) -- (rmeasure.south |- pairing.north);
+    \draw[contextlink] (rheadroom.south) -- (rheadroom.south |- pairing.north);
     \draw[link] (pairing) -- (recordedutility);
 
     \node[lane] at (10.5,0.65) {Synthetic-response route};
@@ -188,7 +188,9 @@ For either route, brain-response-specific attribution requires the brain-respons
 A freshly fitted readout on independently recorded \ac{fmri} responses tests biological transfer; successful recovery of the optimized training target cannot substitute for this endpoint.
 Direct synthetic-response versus ordinary-\ac{kd} transfer is interpretable without the text-derived auxiliary control.
 The auxiliary control is additionally required only when the claim attributes a difference to brain-response content.
-The 50-component linear target-projection assay qualifies the declared linear pathway; it does not veto an independently identifying direct-transfer result.
+The 50-component linear target-projection assay qualifies the declared linear pathway alone.
+It does not gate any manipulation, transfer, or attribution claim, so Figure~\ref{fig:evidence-chain} draws it as an isolated box with no arriving or departing dependency arrows.
+In particular, it does not veto an independently identifying direct-transfer result.
 A practical-utility claim requires improvement on its prespecified endpoint and, when framed as the utility of improved controlled brain predictivity, a reliable prerequisite change in that predictivity.
 
 Each result therefore licenses only the claim that depends on it.
