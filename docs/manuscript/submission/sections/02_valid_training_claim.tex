@@ -142,36 +142,38 @@ The recorded- and synthetic-response routes then require different evidence for 
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}[
-    box/.style={draw, rounded corners, align=center, text width=36mm, minimum height=15mm, inner sep=3pt, font=\footnotesize},
+    box/.style={draw, rounded corners=1.5pt, align=center, text width=27mm, minimum height=14mm, inner sep=2.5pt, font=\footnotesize},
+    widebox/.style={box, text width=55mm},
     context/.style={box, fill=blue!8},
-    recorded/.style={box, fill=orange!10},
+    recorded/.style={widebox, fill=orange!10},
     synthetic/.style={box, fill=violet!9},
     endpoint/.style={box, fill=green!9},
-    label/.style={font=\footnotesize\bfseries, anchor=east},
-    link/.style={-{Latex[length=2mm]}, thick},
+    lane/.style={font=\footnotesize\bfseries, text=black!75},
+    link/.style={-{Latex[length=1.8mm]}, semithick},
     contextlink/.style={link, dashed, gray!70}
   ]
-    \node[label] at (-0.4,0) {Shared context}; % \evd{E002}
-    \node[context] (measure) at (2.0,0) {\textbf{Controlled brain predictivity}\\defines the biological endpoint}; % \evd{E002}
-    \node[context] (headroom) at (6.2,0) {\textbf{Route-specific headroom}\\describes opportunity}; % \evd{E003}
-
-    \node[label] at (-0.4,-2.2) {Recorded route}; % \evd{E008}
-    \node[recorded] (pairing) at (2.0,-2.2) {\textbf{Recorded versus permuted responses}\\tests pairing-specific change}; % \evd{E008}
-    \node[endpoint] (recordedutility) at (6.2,-2.2) {\textbf{Matched practical endpoint}\\tests utility of an established change}; % \evd{E009}
+    \node[lane] at (3.2,0.65) {Recorded-response route};
+    \node[context] (rmeasure) at (1.7,-0.55) {\textbf{Controlled brain\\predictivity}\\shared endpoint}; % \evd{E002}
+    \node[context] (rheadroom) at (4.7,-0.55) {\textbf{Route-specific\\headroom}\\opportunity only}; % \evd{E003}
+    \node[recorded] (pairing) at (3.2,-2.45) {\textbf{Recorded vs.\ permuted responses}\\pairing-specific change in controlled predictivity}; % \evd{E008}
+    \node[endpoint, text width=55mm] (recordedutility) at (3.2,-4.65) {\textbf{Matched practical endpoint}\\utility after an established change, with paired uncertainty}; % \evd{E009}
+    \draw[contextlink] (rmeasure.south) to[out=-90,in=145] (pairing.north west);
+    \draw[contextlink] (rheadroom.south) to[out=-90,in=35] (pairing.north east);
     \draw[link] (pairing) -- (recordedutility);
 
-    \node[label] at (-0.4,-4.9) {Synthetic route}; % \evd{E025}
-    \node[synthetic] (projection) at (2.0,-4.9) {\textbf{50-component linear target projection}\\qualifies only the declared linear pathway}; % \evd{E030}
-    \node[synthetic] (manipulation) at (6.2,-4.9) {\textbf{Target uptake and retained movement}\\show that training changed the student}; % \evd{E025}
-    \node[endpoint] (transfer) at (10.4,-4.2) {\textbf{Direct biological transfer}\\synthetic response versus ordinary \ac{kd}}; % \evd{E025}
-    \node[endpoint] (attribution) at (10.4,-5.7) {\textbf{Brain-response-specific attribution}\\requires an adequate route-appropriate control}; % \evd{E026}
+    \node[lane] at (10.5,0.65) {Synthetic-response route};
+    \node[context] (sheadroom) at (8.9,-0.55) {\textbf{Route-specific\\headroom}\\opportunity only}; % \evd{E003}
+    \node[context] (smeasure) at (12.1,-0.55) {\textbf{Controlled brain\\predictivity}\\shared endpoint}; % \evd{E002}
+    \node[synthetic] (manipulation) at (8.9,-2.45) {\textbf{Target uptake and\\retained movement}\\student changed at\\acceptable \ac{lm} quality}; % \evd{E025}
+    \node[endpoint] (transfer) at (12.1,-2.45) {\textbf{Direct biological\\transfer}\\fresh \ac{fmri} endpoint\\vs.\ ordinary \ac{kd}}; % \evd{E025}
+    \node[endpoint] (attribution) at (8.9,-4.65) {\textbf{Brain-response-specific\\attribution}\\matched text-derived\\control required}; % \evd{E026}
+    \node[synthetic] (projection) at (12.1,-4.65) {\textbf{Independent pathway\\qualification}\\50-component linear\\target projection}; % \evd{E030}
+    \draw[contextlink] (sheadroom) -- (manipulation);
+    \draw[contextlink] (smeasure) -- (transfer);
     \draw[link] (manipulation) -- (transfer);
     \draw[link] (manipulation) -- (attribution);
-    \draw[contextlink] (measure.south) to[bend right=15] (pairing.north);
-    \draw[contextlink] (measure.north) -- ++(0,0.6) -| (transfer.north); % \evd{E002}
-    \draw[contextlink] (headroom.south) to[bend left=15] (manipulation.north);
   \end{tikzpicture}
-  \caption{Claim dependencies for recorded- and synthetic-response training. Dashed arrows provide measurement or opportunity context; solid arrows mark claim-specific dependencies.}
+  \caption{Claim dependencies for recorded- and synthetic-response training. Dashed arrows link shared endpoint or opportunity context; solid arrows mark claim dependencies. The target-projection assay independently qualifies only the declared linear pathway.}
   \label{fig:evidence-chain}
 \end{figure}
 
