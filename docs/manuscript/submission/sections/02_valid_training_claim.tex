@@ -73,7 +73,7 @@ Table~\ref{tab:related-designs} compares those designs without treating every po
   \renewcommand{\arraystretch}{\relatedarraystretch}
   \caption{Prior designs linking model interventions to brain predictivity.}
   \label{tab:related-designs}
-  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{27mm} >{\raggedright\arraybackslash}p{66mm} >{\raggedright\arraybackslash}p{59mm}@{}}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{24mm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
     \toprule
     Study & Intervention and relevant result & Why it does not settle this study's question \\
     \midrule
@@ -96,7 +96,7 @@ Table~\ref{tab:related-designs} compares those designs without treating every po
     A monkey-V1-response regularizer trains a vision model; shuffled targets reproduce the clean-accuracy gain, while real targets improve moderate-attack robustness. &
     The clean-task gain is generic regularization; only the robustness endpoint distinguishes brain-response content in that design. \\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
 
 Positive studies span language, speech, and vision and do not estimate a common intervention effect.
