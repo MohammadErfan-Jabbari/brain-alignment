@@ -38,7 +38,7 @@ Failure at an earlier stage limits what evidence from later stages can establish
 In the tested systems, trained \ac{lm} representations contained information useful for predicting held-out recorded \ac{fmri} responses beyond the specified nuisance variables and untrained-model controls.
 The distilled student had lower controlled brain predictivity than its teacher, but worse \ac{lm} quality remained a competing explanation for this gap.
 Training with recorded \ac{fmri} responses did not produce a reliable participant-level benefit in the tested regimes.
-For synthetic brain responses generated from text, the exact target after reduction to 50 principal components did not meet the inherited internal continuation rule for additional prediction of recorded \ac{fmri} responses beyond nuisance variables under the specified linear assay.
+For synthetic brain responses generated from text, the exact target after reduction to 50 principal components did not meet the continuation rule inherited from the earlier design for additional prediction of recorded \ac{fmri} responses beyond nuisance variables under the specified linear assay.
 The target was nevertheless learnable on the training corpus, and training changed the student's retained representations while preserving \ac{lm} quality within the prespecified tolerance.
 A fresh post-training readout on the Tuckute data did not resolve whether the student retained more information about the target than a student trained by ordinary \ac{kd}.
 The available text-derived auxiliary target was not sufficiently comparable to determine whether the observed differences arose specifically from brain-response content.

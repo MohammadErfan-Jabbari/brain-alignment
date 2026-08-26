@@ -56,7 +56,7 @@ Table~\ref{tab:results-status} summarizes these role-specific outcomes using \em
 
     \specialrule{0.15pt}{0.35ex}{0.35ex}
 
-    50-component linear target-projection measurability assay
+    50-component target-projection assay
     & \textbf{Not demonstrated}; row specificity \textbf{unresolved}
     & Aligned-target increment: \result{e030_target_unique} (simultaneous interval \result{e030_target_unique_ci}); row-twin contrast uncertain.\evd{E030} \\
 
@@ -310,8 +310,8 @@ Section~\ref{sec:measurement-prerequisites} defines \(A(u)\) as this unique incr
 It defines \(Q(u)\) as the additional value of correct sentence--target pairing over the frozen row-twin control.
 Both quantities are aggregated across folds within each participant, making the participant the biological inference unit.
 
-The aligned target does not pass the frozen internal continuation rule.
-Let \(\bar{A}\) denote the mean of \(A(u)\) across the \result{e030_participant_n} participants, let \(U^{\mathrm{family}}_{95\%}(\bar{A})\) denote the upper endpoint of its family-adjusted interval, and let \(\tau_{\mathrm{cont}}\) denote the inherited continuation reference.
+The aligned target does not pass the inherited continuation rule.
+Let \(\bar{A}\) denote the mean of \(A(u)\) across the \result{e030_participant_n} participants, let \(U^{\mathrm{family}}_{95\%}(\bar{A})\) denote the upper endpoint of its family-adjusted interval, and let \(\tau_{\mathrm{cont}}\) denote the inherited continuation threshold.
 The result is
 \begin{equation}
 \begin{aligned}
@@ -333,7 +333,7 @@ U^{\mathrm{family}}_{95\%}(\bar{A})
 \end{aligned}
 \label{eq:exact-target-measurability-result}
 \end{equation}
-Equation~\ref{eq:exact-target-measurability-result} shows that even the family-adjusted upper endpoint remains below the inherited continuation reference.
+Equation~\ref{eq:exact-target-measurability-result} shows that even the family-adjusted upper endpoint remains below the inherited continuation threshold.
 Only \result{e030_target_positive_n} participant effects are positive, and every participant- and block-leave-out mean remains negative.
 The assay therefore supports an internal noncontinuation decision under its frozen conditions.
 The reference does not define a universal threshold for biological importance. \evd{E030}
@@ -346,7 +346,7 @@ Its family-95\% interval is \result{e030_target_twin_ci}.
 The assay therefore does not establish that correct pairing adds predictive value over this frozen row-twin control. \evd{E030}
 
 Figure~\ref{fig:exact-target-measurability} places the two participant-level contrasts on a common scale.
-The red guide applies only to the aligned-target increment and marks the inherited internal continuation reference.
+The red guide applies only to the aligned-target increment and marks the inherited continuation threshold.
 Colored squares and horizontal bars show participant means and Bonferroni family-95\% intervals.
 
 \begin{figure}[H]
@@ -357,7 +357,7 @@ Colored squares and horizontal bars show participant means and Bonferroni family
 \end{figure}
 \FloatBarrier
 
-On the fixed sentence set, the 50-component linear target-projection assay does not meet its internal continuation criterion, and row-pairing specificity remains unresolved.
+On the fixed sentence set, the target-projection assay does not meet its inherited continuation rule, and row-pairing specificity remains unresolved.
 Training used the full 20,484-coordinate target, so this noncontinuation verdict does not adjudicate full-dimensional or nonlinear access to that target.
 The assay also leaves total or nuisance-redundant predictivity and effects under another target transform, cohort, or endpoint open; it does not causally explain the later student results.
 The result limits only the declared linear target-projection claim.
@@ -366,7 +366,7 @@ The next subsection asks the independent question of whether training produced t
 \subsection{Synthetic-response manipulation checks and attribution status}
 \label{sec:results-synthetic-manipulation}
 
-Training changed the saved student despite the negative result for the separate 50-component linear target-projection assay.
+Training changed the saved student despite the negative result for the separate target-projection assay.
 The first manipulation check asks whether a fresh readout recovers more of the synthetic target from the synthetic-response student than from its seed-matched ordinary \ac{kd} counterpart.
 Let \(R^2_{s,a}(T)\) denote held-out WikiText target recovery for technical seed \(s\), training arm \(a\), and target \(T\).
 Let \(S\) denote the number of saved technical seeds (\result{e016_seed_n}).

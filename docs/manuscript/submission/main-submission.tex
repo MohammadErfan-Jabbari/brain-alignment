@@ -58,23 +58,23 @@
 
 \maketitle
 
-% Abstract copied verbatim from ../rewrite/main-rewrite.tex (formatting-only
-% derivative: abstract content must not change scientifically).
+% Submission-specific wording pass over the canonical abstract; scientific claims
+% and evidence states remain unchanged.
 \begin{abstract}
 
-Language-model representations can predict recorded \ac{fmri} responses to language, but this brain alignment does not show that brain responses can improve model training.
-This thesis tested whether recorded \ac{fmri} responses or synthetic brain responses generated from text could give a distilled student a reliable, brain-specific advantage.
-Controlled brain predictivity defined the biological endpoint, while route-specific teacher--student headroom described the opportunity for intervention.
-The recorded-response route compared correctly paired with permuted responses; the synthetic-response route assessed target uptake, retained-student movement, direct biological transfer over ordinary \ac{kd}, and brain-response-content attribution against a text-derived auxiliary control.
-A separate 50-component linear target-projection measurability assay tested only the declared linear pathway from the synthetic target to recorded responses.
-Controlled regional and naturalistic assays supported controlled brain predictivity.
-The cold-start GPT-2 comparison showed an observed but quality-confounded teacher--student gap; quality-aware headroom remains unresolved for the warm GPT-2 route and unmeasured for the Qwen recorded-response route.
-Recorded-response training did not reliably improve participant-level controlled brain predictivity over permuted-response training.
-Synthetic-response training produced target uptake and retained-student movement within the prespecified \ac{lm}-quality tolerance, but the 50-component linear target-projection assay did not meet its internal continuation criterion.
-The available text-derived auxiliary-control arm could not identify brain-response-specific attribution, and direct participant-level biological transfer over ordinary \ac{kd} was not demonstrated.
-The recorded-response practical-endpoint means favored the recorded-response arm, but paired endpoint uncertainty was not reported and the prerequisite controlled-predictivity contrast was technically unstable; the endpoint is therefore inconclusive and brain-specific utility is not established.
-The tested routes therefore did not establish a reliable, brain-specific training advantage.
-They instead separate what the measurement, manipulation, direct-transfer, attribution, and utility evidence establishes for each route; they do not show that brain-response-guided training is universally ineffective.
+Language-model representations can predict recorded \ac{fmri} responses to language, but this does not show that brain responses can improve model training.
+We tested whether adding recorded \ac{fmri} responses or synthetic brain responses generated from text to knowledge distillation gave a smaller student an advantage specifically attributable to brain-response information.
+We first measured held-out \ac{fmri} predictivity beyond nuisance features and architecture-matched untrained models.
+We then compared recorded-response training with permuted-response training.
+For synthetic responses, we tested whether training made the target more recoverable, produced changes that remained after removing the temporary prediction head, and transferred to independently recorded \ac{fmri} responses beyond ordinary \ac{kd}; we also compared the synthetic-response arm with the available text-derived control for attribution.
+A separate 50-component linear target-projection assay tested only the declared linear pathway by asking whether the projected target improved held-out \ac{fmri} prediction beyond nuisance features and a frozen row-twin control.
+The regional and naturalistic assays supported controlled brain predictivity.
+The cold-start GPT-2 teacher--student gap was confounded by language quality; the corresponding comparable-quality gap remained unresolved for warm GPT-2 and was not measured for Qwen.
+Recorded-response training did not reliably improve participant-level controlled predictivity over permuted-response training.
+Synthetic-response training made the target more recoverable and changed the retained student while remaining within the prespecified \ac{lm}-quality tolerance, but the projected target did not meet the continuation rule inherited from the earlier design.
+The text-derived control was too mismatched to determine whether differences were specific to brain-response information, and direct participant-level transfer over ordinary \ac{kd} was not demonstrated.
+Practical-endpoint means favored recorded-response training, but paired uncertainty was unavailable and the required controlled-predictivity comparison was unstable, so brain-specific utility was not established.
+The tested routes therefore did not establish a reliable brain-specific training advantage, while leaving open whether other targets, controls, or training regimes could do so.
 
 \end{abstract}
 \acresetall
