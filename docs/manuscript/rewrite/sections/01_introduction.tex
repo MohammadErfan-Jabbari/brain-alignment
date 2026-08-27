@@ -37,12 +37,12 @@ Failure at an earlier stage limits what evidence from later stages can establish
 In the tested systems, trained \ac{lm} representations contained information useful for predicting held-out recorded \ac{fmri} responses beyond the specified nuisance variables and untrained-model controls.
 The distilled student had lower controlled brain predictivity than its teacher, but worse \ac{lm} quality remained a competing explanation for this gap.
 Training with recorded \ac{fmri} responses did not produce a reliable participant-level benefit in the tested regimes.
-For synthetic brain responses generated from text, the exact 50-component training target did not meet the prespecified continuation rule: under the declared linear assay it no longer added held-out prediction of recorded \ac{fmri} responses beyond the nuisance model.
+For synthetic brain responses generated from text, the training target, after compression to 50 principal components, did not meet the prespecified continuation rule: in the declared linear assay it no longer added held-out prediction of recorded \ac{fmri} responses beyond the nuisance model.
 The target was nevertheless learnable on the training corpus, and training changed the student's retained representations while preserving \ac{lm} quality within the prespecified tolerance.
-A post-training readout on the Tuckute data did not resolve whether the student retained more information about the target than a student trained by ordinary \ac{kd}.
+A post-training readout on the Tuckute \ac{fmri} data did not resolve whether the student retained more information about the target than a student trained by ordinary \ac{kd}.
 The available text-derived auxiliary target was not sufficiently comparable to determine whether the observed differences arose specifically from brain-response content.
 The direct participant-level comparison between training with synthetic brain responses and ordinary \ac{kd} found a near-zero difference in prediction of recorded \ac{fmri} responses.
-The recorded-response practical-endpoint means favored the recorded-response arm, but paired endpoint uncertainty was unavailable and the controlled-predictivity prerequisite was technically unstable; brain-specific utility was therefore not established.
+On the practical endpoint, the downstream task where a brain-specific advantage should pay off, the recorded-response arm scored higher on average, but paired endpoint uncertainty was unavailable and the controlled-predictivity prerequisite was technically unstable; brain-specific utility was therefore not established.
 
 This study contributes controlled measurement of brain predictivity alongside \ac{lm} quality, participant-level tests of training with recorded \ac{fmri} responses, and an evaluation framework that distinguishes supported results, claims not demonstrated, unresolved questions, and comparisons that cannot attribute a difference to brain-response content.
 The conclusion is restricted to the tested models, English stimuli, datasets, participants, targets, objectives, optimization regimes, controls, linear readouts, comparators, inference units, and endpoints.
