@@ -27,6 +27,33 @@ Do not change the title in either manuscript until Erfan confirms the administra
 3. Record a new decision without rewriting the historical title decision.
 4. Synchronize the approved title across the canonical rewrite, submission cover/body, and project status.
 
+## 2. Abstract jargon pass (professor's #1 writing complaint; scheduled last)
+
+**State:** Deferred — scheduled last in the 2026-08-27 section-by-section review (all body sections and appendices first).
+
+The UC3M supervisor's top writing remark targeted the abstract: terms a reader cannot yet grasp at that point.
+The abstract has already been de-jargonized once; the surviving spots as of 2026-08-27:
+
+- "The regional and naturalistic assays supported controlled brain predictivity" — names the defined term with no in-abstract gloss (the sentence above describes the same construct in plain words; decide whether to keep the name with a micro-gloss or paraphrase).
+- "the projected target did not meet the continuation rule inherited from the earlier design" — "continuation rule" and "the earlier design" are both unexplained at that point.
+- Check "frozen row-twin control", "cold-start GPT-2 teacher--student gap", and "warm GPT-2 / Qwen" on a first-time reader; "row-twin" is a fixed contract term defined only in §3.
+- Also check the abstract's passive/agent constructions against the same professor's earlier feedback.
+
+**To resolve:** after all other sections are reviewed, apply the same readability standard to `main-submission.tex` (abstract block), then synchronize the canonical rewrite abstract (same sentences in `../rewrite/main-rewrite.tex`), and rebuild both PDFs.
+
+## 3. Figure and typography pass on the rendered PDF
+
+**State:** Deferred — judge on the rendered PDF after content passes, per supervisor lesson 4.
+
+Professor remarks not yet verified or applied:
+
+- Figure 2: "the font in the bottom block looks small" — locate the exact block and bump legibility.
+- Table titles: make captions visually distinct (bold/small caps per good typography) — optional suggestion, professor said "feel free to keep them as they are"; decide once for all tables.
+- Watch appendix F tables: the source checker's build showed ~9.7 pt overfull hboxes there (converged build reported 0; confirm on the final PDF).
+- Confirm on the new PDF that the Figure 1 arrow redesign, Figure 10b count/width fixes, and Figure 6-level clarity hold.
+
+Checked 2026-08-27, no action needed: the §2 evidence-chain figure's node labels use the manuscript's fixed role terms and every coinage (route-specific headroom, target uptake, retained-student movement, biological transfer, declared linear pathway, frozen row-twin control) is glossed in the surrounding §2/§3 prose.
+
 ## Related
 
 - [Submission manuscript](main-submission.tex)
