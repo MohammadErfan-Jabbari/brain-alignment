@@ -452,13 +452,14 @@ The direct biological-transfer assay therefore compares each synthetic-response 
 Folds and technical seeds are averaged within each participant, and the participant is the biological inference unit (\result{e025_participant_n}).
 The participant-level result is
 \begin{equation}
+\begin{aligned}
 \widehat{\Delta}_{\mathrm{direct}}
-=
-\mbox{\result{e025_tribe_kd}},
-\qquad
+&=
+\mbox{\result{e025_tribe_kd}},\\
 \mathrm{CI}_{95\%}
-=
+&=
 \mbox{\result{e025_tribe_kd_ci}}.
+\end{aligned}
 \label{eq:results-direct-biological-transfer}
 \end{equation}
 Here, \(\widehat{\Delta}_{\mathrm{direct}}\) is the participant-mean change in held-out unique \(R^2\) produced by synthetic-response training relative to ordinary \ac{kd}.
@@ -467,17 +468,18 @@ It does not establish that the effect is exactly zero, and its scope remains lim
 
 The synthetic-response-versus-text-derived auxiliary-control contrast is numerically positive, but it does not overturn the direct result:
 \begin{equation}
+\begin{aligned}
 \widehat{\Delta}_{\mathrm{synthetic-text}}
-=
+&=
 \mbox{\result{e025_tribe_kd}}
 -
 \left(\mbox{\result{e025_textfeat_kd}}\right)
 =
-\mbox{\result{e025_participant_delta}},
-\qquad
+\mbox{\result{e025_participant_delta}},\\
 \mathrm{CI}_{95\%}
-=
+&=
 \mbox{\result{e025_participant_ci}}.
+\end{aligned}
 \label{eq:results-control-transfer-decomposition}
 \end{equation}
 This decomposition shows that the positive relative contrast arises because the text-derived auxiliary-control arm is more negative than ordinary \ac{kd}, not because the synthetic-response arm has a positive direct effect.
