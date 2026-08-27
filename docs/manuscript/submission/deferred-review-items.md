@@ -54,6 +54,17 @@ Professor remarks not yet verified or applied:
 
 Checked 2026-08-27, no action needed: the §2 evidence-chain figure's node labels use the manuscript's fixed role terms and every coinage (route-specific headroom, target uptake, retained-student movement, biological transfer, declared linear pathway, frozen row-twin control) is glossed in the surrounding §2/§3 prose.
 
+## 4. Repo-wide term unifications (surface during section passes)
+
+**State:** Deferred — settle once, globally; do not fix per-subsection.
+
+Flagged independently by both section-2 judges (2026-08-27):
+
+- "50-component linear target-projection **measurability** assay" (full contract form) vs "50-component linear target-projection assay" (short form) — both circulate (main-rewrite abstract, 03, 07, submission §2.4, figure nodes). Decide the canonical first-mention vs shorthand policy.
+- "brain-response-**specific** attribution" (prose) vs "brain-response-**content** attribution" (figure node, abstract) — a visible same-page mismatch in §2.
+- "brain-specific benefit" survives at `06_limitations.tex:31` — unify to "brain-specific training advantage" when §6 is reviewed.
+- Deliberately NOT variants: "under the **studied** assay" (§2.3, refers to the cited aw2023/gao2024 studies' assay, not ours); the submission's section title "Background and Related Work" vs rewrite's "Evidence Required for a Brain-Specific Training Advantage" (deliberate restructure).
+
 ## Related
 
 - [Submission manuscript](main-submission.tex)
