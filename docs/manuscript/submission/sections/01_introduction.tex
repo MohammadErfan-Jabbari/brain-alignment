@@ -9,7 +9,7 @@ Brain-response supervision is thus best treated as a training signal that may sh
 
 We assess brain alignment by fitting an encoding model that predicts recorded \ac{fmri} responses from frozen \ac{lm} representations, then evaluating its predictions on stimuli withheld from fitting.
 Successful prediction indicates that the representations contain information useful for predicting recorded \ac{fmri} responses to the same stimuli \autocite{oota2023,merlin2024}.
-The resulting score characterizes the complete assay rather than the \ac{lm} alone: it depends on the participants and response aggregation, stimulus distribution, data split, nuisance features, response reliability, readout class, and inference unit.
+The resulting score characterizes the complete assay rather than the \ac{lm} alone: it depends on the participants and response aggregation, stimulus distribution, data split, nuisance features (simple stimulus properties such as position and length), response reliability, readout class, and inference unit.
 In this manuscript, \emph{controlled brain predictivity} refers to brain alignment after the specified nuisance, split, and control-model checks.
 Section~\ref{sec:measurement-prerequisites} defines the main held-out scores and summarizes the readout protocol; Appendix~\ref{app:data-targets} specifies the nuisance features and preprocessing, and Appendix~\ref{app:inference} formalizes the estimators and inference.
 
@@ -42,7 +42,7 @@ The target was nevertheless learnable on the training corpus, and training chang
 A post-training readout on the Tuckute \ac{fmri} data did not resolve whether the student retained more information about the target than a student trained by ordinary \ac{kd}.
 The available text-derived auxiliary target was not sufficiently comparable to determine whether the observed differences arose specifically from brain-response content.
 The direct participant-level comparison between training with synthetic brain responses and ordinary \ac{kd} found a near-zero difference in prediction of recorded \ac{fmri} responses.
-On the practical endpoint, the downstream task where a brain-specific advantage should pay off, the recorded-response arm scored higher on average, but paired endpoint uncertainty was unavailable and the controlled-predictivity prerequisite was technically unstable; brain-specific utility was therefore not established.
+On the practical endpoint, the downstream task where a brain-specific advantage should pay off, the recorded-response arm scored higher on average, but paired endpoint uncertainty was unavailable and the controlled-predictivity prerequisite was unstable across technical seeds; brain-specific utility was therefore not established.
 
 This study contributes controlled measurement of brain predictivity alongside \ac{lm} quality, participant-level tests of training with recorded \ac{fmri} responses, and an evaluation framework that distinguishes supported results, claims not demonstrated, unresolved questions, and comparisons that cannot attribute a difference to brain-response content.
 The conclusion is restricted to the tested models, English stimuli, datasets, participants, targets, objectives, optimization regimes, controls, linear readouts, comparators, inference units, and endpoints.
