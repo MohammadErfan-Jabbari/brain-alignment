@@ -6,33 +6,65 @@ aliases: [manuscript-agents]
 
 # Manuscript Agent Guidance
 
+This file is the unified writing methodology for every manuscript tree in this folder: the drafting and review protocol, acceptance checks, terminology, prose, structure, table, and figure rules learned during the thesis rewrite. Folder `AGENTS.md` files hold only tree-specific instructions: [`rewrite/AGENTS.md`](rewrite/AGENTS.md) owns the canonical thesis's scientific position, argument structure, and maintained question tree; [`submission/AGENTS.md`](submission/AGENTS.md) owns the supervisor-review derivative's format and synchronization rules.
+
 ## Layout
 
 | Path | Purpose |
 | --- | --- |
 | `rewrite/` | Canonical LaTeX thesis master and authority for current scientific interpretation |
 | `submission/` | Supervisor-review derivative with local prose sources (UC3M cover + NeurIPS body); accepted scientific changes synchronize to `rewrite/` |
-| `figures/` | Selected committed figures; generation code lives in `scripts/figures/` |
+| `figures/` | Historical committed figure set (fig01–fig09) from the removed extended layer, referenced by older timeline notes; the active figures live in each tree's own `figures/` directory, and generation code lives in `scripts/figures/` |
 
 Legacy layers (`extended/`, `public/v0.9/`) were removed from HEAD on 2026-08-25 and survive only in Git history (last commits `7c445b0` and `6026021`). Do not recreate them; immutable-cut policy applies to any future cut.
 
-## Direct writing loop
+## Writing loop
 
-1. Read the owning E records and current manuscript section.
-2. Read the maintained question map below and apply [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md) to the active scope.
+1. Read the owning E records and the current section in the active tree (`rewrite/` for canonical scientific changes, `submission/` for supervisor-review edits).
+2. Read the active scope's leaf questions in the [maintained question tree](rewrite/AGENTS.md) and apply [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md) to the active scope.
 3. State the intended answer, claim, scope, caveats, and evidence.
-4. Edit `rewrite/` directly. Update this question map in the same change when the manuscript's argument changes.
+4. Edit the active tree directly. Update the question tree in the same change when the manuscript's argument changes.
 5. Preserve `\evd{Ennn}` as source-level evidence provenance and keyed values in `numbers.tex`; a missing value is a `\gap`. Evidence identifiers are hidden in the thesis build and may be displayed only for internal review.
-6. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/rewrite`.
+6. Run `uv run python .claude/scripts/manuscript_check.py` on the edited tree (for example `docs/manuscript/rewrite` or `docs/manuscript/submission`).
 7. Run one fresh independent question-chain, prose, and scientific-scope review and obtain Erfan’s approval for load-bearing framing.
 
-Use `--share-ready` only when no gap remains. A contradiction routes to `/interpret` and sets `docs/status.md` to `manuscript-sync-pending`.
+Use `--share-ready` only when no gap remains. A contradiction routes to `/interpret` and sets `docs/status.md` to `manuscript-sync-pending`. Scientific changes accepted in `submission/` synchronize to `rewrite/` before they become authoritative; see [`submission/AGENTS.md`](submission/AGENTS.md).
 
-The canonical `rewrite/` manuscript follows its maintained question tree and review contract in [`rewrite/AGENTS.md`](rewrite/AGENTS.md).
+## Drafting and review protocol
+
+1. Read the active leaf questions, their parent question, the owning evidence records, and the relevant canonical literature notes.
+2. Apply `question-led-writing` to state the reader's starting understanding, the intended answer and scope, and the shortest supported inference path for each active leaf.
+3. Locate every existing paragraph that answers the active leaf, then draft one complete proposed replacement. Propose moving overlapping prose instead of appending a duplicate.
+4. Draft adjacent leaf questions together only when they form one natural argumentative unit. Do not draft across a section boundary.
+5. Use `\evd{Ennn}` as nonprinting source provenance and keyed values from `numbers.tex`. A missing value is a `\gap`, never a reconstruction or guess.
+6. When a pass, failure, or continuation statement depends on a frozen rule, reproduce the exact criterion from its owning evidence record. Never replace it with a generic positive-contrast rule, infer temporal predeclaration from manuscript order, or write *preregistered* unless an external registration supports that term.
+7. Use the smallest applicable review set during ordinary paragraph work. Run all four independent reviews at load-bearing subsection or section boundaries, or when framing, scope, ownership, or attention allocation changes materially:
+   - claim support and scope using `test-claims`;
+   - reader and argument bottlenecks using `remove-bottlenecks`;
+   - attention, length, and opportunity cost using `allocate-for-compounding`;
+   - terminology, handoffs, ownership, and whole-manuscript fit using `coordinate-strategy`.
+8. When multiple reviews run, reconcile them into one proposed revision. Address each accepted item or explain concretely why it conflicts with evidence or a higher-level question.
+9. Erfan approves load-bearing wording and verdict framing. Edit manuscript source only after approval.
+10. At subsection close, reverse-outline both structures: every leaf is answered once, every paragraph has one owner, every inference is supported before use, and every transition prepares the next reader question.
+11. Apply the skeptical-reader test: the prose must be understandable sentence by sentence without an unsupported jump, an unexplained result, or dependence on project history.
+12. Repeat for at most four rounds, stopping earlier when no reviewer identifies a material claim, structure, prose, citation, terminology, density, or handoff defect.
+13. After all units are complete, run the same four reviews over the whole manuscript and revise until the remaining findings are non-material.
+14. Run `uv run python .claude/scripts/manuscript_check.py` on the edited tree, build the PDF, and inspect every rendered page before calling the candidate complete.
+
+## Section acceptance checks
+
+- **Introduction:** A reader can state the exact tested claim, the claim dependencies, and the scoped answer without knowing an E identifier.
+- **Section 2:** A reader can distinguish measurement, manipulation, attribution, transfer, and utility, and can name the comparator required for each.
+- **Section 3:** Every canonical scientific role has one design tuple, and the reader can identify its data or response construction, intervention or assay, comparator, estimand, endpoint, and inference unit without reading implementation detail.
+- **Section 4:** Every canonical scientific role has one result and verdict location, carries the correct evidence status, and avoids causal or universal claims unsupported by its evidence record.
+- **Section 5:** The discussion explains the pattern without replaying Results or turning failure localization into a causal explanation.
+- **Section 6:** Limitations bound the conclusion without inventing a new results narrative or repeating all caveats.
+- **Section 7:** The conclusion answers the governing question directly and contains no new evidence.
+- **Appendices:** A technical reader can reconstruct provenance, data and target construction, interventions, estimators, variants, and sensitivities without forcing the main text back into evidence-record chronology.
 
 ## Manuscript-wide terminology
 
-Use the following terms throughout manuscript prose, including abstracts, captions, appendices, and future public cuts:
+Use the following terms throughout manuscript prose in every tree, including abstracts, captions, appendices, and future public cuts:
 
 | Referent | Fixed term |
 | --- | --- |
@@ -43,21 +75,21 @@ Use the following terms throughout manuscript prose, including abstracts, captio
 | Training question | **whether brain responses can help train a smaller model** |
 | Brain alignment | Held-out predictivity of recorded fMRI responses from model representations under a declared readout and controls |
 | Controlled brain predictivity | Brain alignment after the specified nuisance, split, and control-model checks |
-| Recorded brain-response target | A recorded fMRI response when it is used in a training objective |
+| Recorded brain-response target | A recorded fMRI response when it is used in a training objective; otherwise write *recorded fMRI response* |
 | Synthetic brain-response target | A synthetic brain response generated from text when it is used in a training objective |
 | Target uptake | Recoverability of an optimized training target from retained student representations by a fresh post-training readout |
 | Retained-student movement | Parameter or representation difference from the declared training baseline that remains after temporary training components are discarded |
-| 50-component linear target-projection measurability | Whether the declared fold-local PCA-50 target representation adds controlled predictivity of recorded fMRI responses beyond nuisance and the frozen row-twin control; this qualifies only that linear pathway |
+| 50-component linear target-projection measurability | Whether the declared fold-local PCA-50 target representation adds controlled predictivity of recorded fMRI responses beyond nuisance and the frozen row-twin control; this qualifies only that linear pathway, not full-dimensional or nonlinear access to the 20,484-coordinate training target |
 | Brain-response-specific attribution | Whether the brain-response-target arm outperforms its route-appropriate control on the outcome being claimed: correctly paired versus permuted responses for the recorded-response route, or synthetic brain responses versus a matched text-derived target for the synthetic-response route |
 | Biological transfer | Improvement on independently recorded fMRI responses that were not optimized as the training endpoint |
-| Brain-specific advantage | Incremental benefit beyond an appropriate text-derived or permuted control, at comparable language-model quality and the correct biological inference unit |
+| Brain-specific advantage | Incremental benefit beyond an appropriate text-derived or permuted control, at comparable language-model quality and the correct biological inference unit. Reserve this term for identified contrasts |
 | Claim dependency | Evidence required for one named claim. Do not impose a universal stage order when direct transfer, attribution, linear-pathway evidence, and utility have different dependencies |
 
 Avoid unqualified *neural activity*, *neural representation*, *neural response*, and *neural target* when they could refer either to the biological brain or to a neural network. fMRI records a hemodynamic response associated with brain activity, not neuronal firing directly. Use *response* for what is measured, predicted, or evaluated. Reserve *target* for a response used in a training objective; write *recorded brain-response target* or *synthetic brain-response target* only after identifying its source. Do not write the generic phrase *response target*. Name a control by its construction and the alternative explanation it tests: use *text-feature control*, *text-derived control*, or *matched auxiliary target derived from language-model features*, not *nonbrain control*. Precision comes from naming the source, measurement, role, and comparison of an object, not from the adjective *neural* or a negation such as *nonbrain*.
 
 ### Thesis-facing experimental vocabulary
 
-The manuscript rewrite is the thesis content. Organize it by the scientific role that a procedure plays in the argument, never by execution date or evidence-record number.
+Organize manuscript prose by the scientific role that a procedure plays in the argument, never by execution date or evidence-record number.
 
 | Level | Meaning | Canonical terms |
 | --- | --- | --- |
@@ -81,71 +113,46 @@ In LaTeX sources, define each recurring acronym once in the manuscript's acronym
 
 Precision comes from making the relationship among the claim, comparison, evidence, and scope explicit, not from compressing them into technical labels. Open each paragraph with its answer in language available to the intended reader, then add only nonredundant support. When one sentence carries several independent claims, use parallel grammar or separate sentences so that conjunctions and inference boundaries are unmistakable.
 
+Use formal academic prose: state the claim or procedure directly, and remove meta-commentary about framing or writing unless that framing is itself the claim. Guide rather than announce. Keep one principal conceptual move per sentence, explain why a mechanism or comparison matters before relying on it, provide local bridges for required premises, and make each paragraph prepare the next.
+
 Define a technical object locally far enough for the reader to understand its role. If its exact construction or estimator belongs in Methods, add a concise forward reference rather than either duplicating the procedure or leaving the term unexplained. Describe a comparator by what both arms share and the single component that differs; this makes the alternative explanation being tested visible.
 
 Use mathematical notation when it clarifies an estimand, comparison, aggregation, constraint, or dependency. Introduce symbols before a display. Unless its meaning is already unmistakable, follow each claim-bearing equation with one or two plain-language sentences that state what it computes and why the resulting quantity matters for the current question. Keep compact claim-bearing formulas in the main text when they help the reader follow the argument; place standard machinery, derivations, estimator variants, and implementation details in their owning technical section or appendix. Avoid decorative mathematics and notation that is used only once without improving precision.
 
 Define an object's role positively and assign adjacent roles to their actual section or evidence owner. Avoid repeated “X rather than Y” or “X is not Y” constructions when two direct statements communicate the distinction more clearly.
 
+Introduce each concept once, operationalize it once, and report its result once. Later sections should synthesize rather than restate. Do not present reserved, unexecuted, or precondition-stopped experiments as results.
+
 Match each citation to the claim it actually supports. A general theoretical source does not support an optimization or learnability claim unless it analyzes that mechanism; present an untested mechanism as a hypothesis and cite the closest empirical or methodological literature. Describe permutations by their actual invariants: target permutation preserves target values and their marginal distribution while destroying stimulus--target pairing and joint structure.
 
-After changing prose, recheck the whole active section against the terminology and acronym contracts rather than validating only the edited sentence. Split a paragraph when it serves distinct reader questions, such as reporting findings and stating contributions, and synchronize the maintained question map when that changes the argument's structure.
+After changing prose, recheck the whole active section against the terminology and acronym contracts rather than validating only the edited sentence. Split a paragraph when it serves distinct reader questions, such as reporting findings and stating contributions, and synchronize the maintained question tree when that changes the argument's structure.
 
-## Maintained manuscript question map
+## Structure, tables, and figures
 
-This map states the reader questions that the canonical rewrite manuscript must answer. It is a writing and review contract, not a scientific authority: E records still own experimental evidence, and `rewrite/` owns the current scientific interpretation.
+- A subsection normally owns three to five related paragraph questions. A two-paragraph subsection is allowed only when it marks a real conceptual boundary. Merge a one-paragraph subsection into its parent.
+- Split a subsection if it exceeds about 1,000 to 1,200 words, contains more than six or seven substantive paragraphs, or answers more than one parent question.
+- Use tables for analysis or evidence-record disposition, many-to-many evidence mappings, and repeated variant results.
+- For dense mapping tables, separate compact identifiers from descriptive labels, give the flexible-width column to the substantive comparison, and use the full text width before reducing font size. Keep conceptually distinct evidence stages in separate rows.
+- Keep table and figure captions to one rendered line whenever possible. Use the caption to identify the object; place interpretation, caveats, and reading instructions in the surrounding prose.
+- In process figures, use equal-sized boxes based on the longest required item. Give parallel box labels that name the claim and the test that supports it; shorten wording before shrinking type or accepting distracting line breaks.
+- When color groups related stages in a figure, repeat the grouping with visible text labels and use light fills that preserve contrast; color must reinforce structure rather than carry it alone.
+- Treat every arrow as a scientific statement: make its relation explicit through a readable arrow label, adjacent text, or column heading, and never let geometry alone imply causation, mediation, successful attribution, or population generalization.
+- When prose introduces a multi-part figure, explicitly map the figure's groups or stages to the surrounding paragraph questions. Do not make the reader infer whether the figure illustrates one paragraph or the whole subsection.
 
-The map was produced on 2026-07-22 with the Plan branch of [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md). The complete manuscript and appendices were inspected, then four independent reviews applied the global decision skills `test-claims`, `remove-bottlenecks`, `allocate-for-compounding`, and `coordinate-strategy`. The reconciled map separates the quantity used to evaluate a frozen student, brain alignment, from the recorded fMRI responses or synthetic brain responses generated from text that are used during training.
+## Maintained question map
 
-### Reader and governing question
+The intended reader, governing question, provisional answer, and the complete maintained question tree for the main text and appendices live in [`rewrite/AGENTS.md`](rewrite/AGENTS.md), the canonical scientific-interpretation authority. That file is the single source for the question tree; do not duplicate or paraphrase its questions here.
 
-**Intended reader.** An ML/NLP reviewer or thesis examiner who understands basic machine learning and statistical evaluation but does not know fMRI encoding, this project's datasets, targets, controls, inference units, or experiment history.
-
-**Governing question.** Can recorded fMRI responses or synthetic brain responses generated from text help train a distilled student and provide a reliable, brain-specific advantage over a matched text-derived control?
-
-**Provisional answer.** In the tested settings, trained language-model representations contain linearly accessible information that predicts held-out fMRI beyond the specified controls. However, objectives based on recorded fMRI responses or synthetic brain responses generated from text do not demonstrate a reliable, brain-specific benefit for distilled students at comparable language-model quality.
-
-**Scope.** This answer is limited to the tested models, English stimuli, datasets, participants, recorded and predicted targets, objectives and optimization regimes, nuisance and intervention controls, linear readouts, comparators, inference units, and evaluation endpoints.
-
-### Front matter and main sections
-
-**Abstract.** What problem was tested, how was the measurement-to-intervention chain evaluated, which parts passed, failed, or remained unresolved, and what scoped answer follows?
-
-**Introduction.** What is brain alignment, how does measuring it differ from using brain responses as training targets, why test brain-response supervision in knowledge distillation, and what evidence would justify a reliable, brain-specific advantage?
-
-**Related work.** Why does prior work on measuring alignment, brain-response-guided optimization, privileged supervision, and compression leave the value of brain-response targets for controlled distillation unresolved?
-
-**Methods.** How does the study instantiate each scientific role with one study-specific design tuple comprising its data or response construction, intervention or assay, comparator, estimand, endpoint, and inference unit?
-
-**Results by Scientific Claim.** Which scientific roles are supported, not demonstrated, unresolved, or non-identifying at their declared inference units, and what narrow claim does each result license?
-
-**Discussion.** Which route-specific claims are supported or limited, which explanations are ruled out or remain possible, and what must future brain-guided training studies demonstrate?
-
-**Limitations.** Which properties of the participants, stimuli, targets, models, controls, readouts, interventions, statistical power, external reproductions, and downstream tasks bound the interpretation?
-
-**Conclusion.** What final, scope-bounded answer follows from the evidence and its limitations?
-
-### Appendices
-
-**Appendix A.** Which evidence records and artifacts support each thesis-facing scientific role, and which earlier interpretations were superseded?
-
-**Appendix B.** What do supporting analyses, diagnostics, failed instruments, stopped routes, and future designs contribute to the main evidence chain?
-
-**Appendix C.** Which formal assumptions, estimators, inference units, and sensitivity analyses are required to interpret the main claims?
-
-### Maintenance rule
-
-Treat this as a maintained reverse outline. Every main-text paragraph must answer a leaf question that contributes to its section question and ultimately to the governing question. Whenever a manuscript edit changes a section's purpose, evidentiary role, scope, or conclusion, update the affected question here in the same commit. When a changed E-record verdict alters the argument, correct the E record first, route the change through `/interpret`, update the manuscript, and then synchronize this map. Remove questions that no longer serve the governing question and add a question when the manuscript gains a necessary argumentative dependency. Review the complete map before declaring the manuscript share-ready.
+Treat the tree as a maintained reverse outline. Every main-text paragraph must answer a leaf question that contributes to its section question and ultimately to the governing question. Whenever a manuscript edit changes a section's purpose, evidentiary role, scope, or conclusion, update the affected question in the same commit. When a changed E-record verdict alters the argument, correct the E record first, route the change through `/interpret`, update the manuscript, and then synchronize the tree. Remove questions that no longer serve the governing question and add a question when the manuscript gains a necessary argumentative dependency. Review the complete tree before declaring the manuscript share-ready.
 
 ## Rules
 
-- Do not create a manuscript report, claim lattice, checkpoint log, convergence store, or any additional alternate draft tree beyond the explicitly authorized `rewrite/` candidate.
+- Do not create a manuscript report, claim lattice, checkpoint log, convergence store, or any additional alternate draft tree beyond the explicitly authorized `rewrite/` candidate and its declared derivatives.
 - Public cuts are frozen. A new milestone creates a new version.
 - Every scientific number and figure value traces to an owning E record; only load-bearing artifacts receive recorded paths and SHA-256 values.
 - Use the correct inference unit, uncertainty, and named test.
 - Keep internal provenance in non-printing BibLaTeX fields such as `annotation`, not printable `note` fields.
 - Keep source search-friendly: one sentence or paragraph per line, minimal custom macros, and no deep content nesting.
-- For dense mapping tables, separate compact identifiers from descriptive labels, give the flexible-width column to the substantive comparison, and use the full text width before reducing font size. Keep conceptually distinct evidence stages in separate rows.
 - Do not create a README; folder guidance belongs here.
 
 ## Figure path
@@ -154,5 +161,7 @@ Treat this as a maintained reverse outline. Every main-text paragraph must answe
 
 ## Related
 
+- [Canonical thesis contract](rewrite/AGENTS.md)
+- [Supervisor submission derivative](submission/AGENTS.md)
 - [Authority contract](../03-methodology.md)
 - [Current status](../status.md)

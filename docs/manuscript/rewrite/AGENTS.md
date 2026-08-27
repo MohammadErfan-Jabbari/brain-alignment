@@ -12,6 +12,8 @@ This directory is the canonical thesis manuscript. It uses settled evidence from
 
 This directory owns the current scientific interpretation and must remain independently buildable. The legacy `../extended/` snapshot was removed from HEAD on 2026-08-25 and survives only in Git history (last commit `7c445b0`); any historical consultation reads from there.
 
+Writing methodology — drafting and review protocol, acceptance checks, terminology, prose, structure, table, and figure rules — is unified in [`../AGENTS.md`](../AGENTS.md) and applies to this tree. This file holds only what is specific to the canonical thesis: its scientific position, argument structure, role contract, attention budget, and maintained question tree.
+
 ## Reader, governing question, and answer
 
 **Intended reader.** An ML/NLP reviewer or thesis examiner who understands basic machine learning and statistical evaluation but does not know fMRI encoding, this project's datasets, targets, controls, inference units, or experiment history.
@@ -24,24 +26,10 @@ This directory owns the current scientific interpretation and must remain indepe
 
 ## Structural rules
 
+The general prose, structure, table, and figure rules live in [`../AGENTS.md`](../AGENTS.md). The rules below are specific to this tree's argument.
+
 - Organize the argument by claims and their dependencies, not experiment order. Use *role* or the fixed assay name for a scientific test and *criterion*, *threshold*, or *check* for operational continuation rules. Do not imply that every claim follows one universal sequence.
-- Keep E identifiers as nonprinting `\evd{Ennn}` source provenance and provenance-appendix navigation, not reader-facing vocabulary. An internal-review build may display them.
-- Use formal academic prose: state the claim or procedure directly, and remove meta-commentary about framing or writing unless that framing is itself the claim.
-- Apply the unified question-tree and guided-inference method in `question-led-writing`: the tree maps what the reader must understand, and the inference path guides the reader there from shared ground one necessary distinction at a time.
-- Guide rather than announce. Keep one principal conceptual move per sentence, explain why a mechanism or comparison matters before relying on it, provide local bridges for required premises, and make each paragraph prepare the next.
-- Define an object's role positively and assign adjacent roles to their actual section or evidence owner. Avoid repeated “X rather than Y” or “X is not Y” constructions when two direct statements communicate the distinction more clearly.
-- A subsection normally owns three to five related paragraph questions. A two-paragraph subsection is allowed only when it marks a real conceptual boundary. Merge a one-paragraph subsection into its parent.
-- Split a subsection if it exceeds about 1,000 to 1,200 words, contains more than six or seven substantive paragraphs, or answers more than one parent question.
 - Main-text theory must change the interpretation of an estimand or control. Put non-decisive derivations and analogies in Appendix D.
-- Introduce every symbol before its equation. Unless the meaning is already unmistakable, follow each claim-bearing equation with one or two plain-language sentences that explain what it computes and why that quantity answers the current reader question.
-- Introduce each concept once, operationalize it once, and report its result once. Later sections should synthesize rather than restate.
-- Do not present reserved, unexecuted, or precondition-stopped experiments as results.
-- Use tables for analysis or evidence-record disposition, many-to-many evidence mappings, and repeated variant results.
-- For dense mapping tables, separate compact identifiers such as stage numbers from descriptive labels, allocate the flexible-width column to the substantive comparison, and use the full text width before reducing font size. Split conceptually distinct stages into separate rows even when they share an intervention, assay, or analysis.
-- Keep table and figure captions to one rendered line whenever possible. Use the caption to identify the object; place interpretation, caveats, and reading instructions in the surrounding prose.
-- In process figures, use equal-sized boxes based on the longest required item. Give parallel box labels that name the claim and the test that supports it; shorten wording before shrinking type or accepting distracting line breaks.
-- When color groups related stages in a figure, repeat the grouping with visible text labels and use light fills that preserve contrast; color must reinforce structure rather than carry it alone.
-- Treat every arrow as a scientific statement: make its relation explicit through a readable arrow label, adjacent text, or column heading, and never let geometry alone imply causation, mediation, successful attribution, or population generalization.
 - Give each figure one relationship to explain. In Section 3, data routing, competing readouts, intervention mechanics, and inference-unit aggregation have separate owners; do not redraw the Section 2 claim-dependency graph or the Results verdict table inside them.
 
 ## Thesis-facing scientific-role contract
@@ -86,8 +74,6 @@ For each scientific role, retain one Section 3 design summary, one Section 4 ver
 
 Language-quality evaluation is a cross-cutting endpoint and criterion. Section 3 summarizes its protocol, Section 3.5 states acceptability rules, Appendices C and D own implementation, and Section 4 reports route-specific values and verdicts. The 50-component linear target-projection assay follows the same handoff: target construction in Appendix B, assay summary in Section 3, estimator in Appendix D, and verdict in Section 4.
 
-- When prose introduces a multi-part figure, explicitly map the figure's groups or stages to the surrounding paragraph questions. Do not make the reader infer whether the figure illustrates one paragraph or the whole subsection.
-
 ## Attention budget
 
 Target 9,000 to 10,000 main-text words, or roughly 21 to 23 A4 pages excluding references: about 2 pages for the Introduction, 3 for Section 2, 4 to 4.5 for Section 3, 7 to 8 for Results, 2.5 for Discussion, 1 to 1.5 for Limitations, and 0.5 for the Conclusion. Keep Section 2.3 within about 700 to 900 words and Sections 4.3 and 4.5 within about 1,000 to 1,200 words each. Preserve Results as the largest allocation.
@@ -98,25 +84,7 @@ Give the three evidence-chain artifacts different jobs. The Section 2 figure def
 
 ## Stable terminology
 
-| Term | Meaning |
-| --- | --- |
-| Brain activity or brain responses | The general biological phenomenon. Avoid unqualified *neural* when it could refer to either the brain or a neural network. |
-| Recorded fMRI responses | The actual biological measurements used in this work. fMRI does not directly record neuronal firing. |
-| Model representations or model activations | Internal quantities of a language model or other neural network. |
-| Brain alignment | Held-out predictivity of recorded responses from model representations under a declared readout and controls. |
-| Controlled brain predictivity | Brain alignment after the specified nuisance, split, and control-model checks. |
-| Recorded brain-response target | A recorded fMRI response when its role as a training target must be explicit. Otherwise write *recorded fMRI response*. |
-| Synthetic brain responses generated from text | TRIBE outputs used in this work. Write *synthetic brain-response target* only when their role in a training objective must be explicit. |
-| Target uptake | Recoverability of the optimized target from retained student representations by a fresh post-training readout. |
-| Retained-student movement | Parameter or representation difference from the declared training baseline that remains after temporary training components are discarded. |
-| 50-component linear target-projection measurability | Whether a fold-local 50-component projection of the synthetic training target adds controlled predictivity of recorded responses beyond the declared nuisance and frozen row-twin controls. It evaluates the declared linear pathway, not full-dimensional or nonlinear access to the 20,484-coordinate training target. |
-| Brain-response-specific attribution | Whether the brain-response-target arm outperforms its route-appropriate control on the outcome being claimed: correctly paired versus permuted responses for the recorded-response route, or synthetic brain responses versus a matched text-derived target for the synthetic-response route. |
-| Biological transfer | Improvement on independently recorded responses that were not optimized as the training endpoint. |
-| Brain-specific advantage | Incremental benefit beyond an appropriate text-derived or permuted control, at comparable language-model quality and the correct biological inference unit. Reserve this term for identified contrasts. |
-
-Use the acronym definitions in `acronyms.tex`; never define the same acronym manually in prose. Use one term per concept unless the table above marks an intentional distinction.
-
-Match each citation to the mechanism or empirical claim it actually supports. Do not use a general theoretical citation as evidence for easier optimization or learnability unless it studies that relationship; label an untested mechanism as a hypothesis and cite the closest relevant methodological or empirical work. Describe a permutation by its actual invariants: target permutation preserves target values and their marginal distribution while destroying stimulus--target pairing and joint structure.
+Terminology and acronym rules follow the [manuscript-wide terminology contract](../AGENTS.md), including its citation-matching and permutation-invariant rules. The scientific-role contract above adds this tree's fixed role terms.
 
 ## Complete main-text question tree
 
@@ -544,35 +512,7 @@ This appendix formalizes the limits introduced conceptually in Section 2.2; it m
 
 ## Drafting and review protocol
 
-1. Read the active leaf questions, their parent question, the owning evidence records, and the relevant canonical literature notes.
-2. Apply `question-led-writing` to state the reader's starting understanding, the intended answer and scope, and the shortest supported inference path for each active leaf.
-3. Locate every existing paragraph that answers the active leaf, then draft one complete proposed replacement. Propose moving overlapping prose instead of appending a duplicate.
-4. Draft adjacent leaf questions together only when they form one natural argumentative unit. Do not draft across a section boundary.
-5. Use `\evd{Ennn}` as nonprinting source provenance and keyed values from `numbers.tex`. A missing value is a `\gap`, never a reconstruction or guess.
-6. When a pass, failure, or continuation statement depends on a frozen rule, reproduce the exact criterion from its owning evidence record. Never replace it with a generic positive-contrast rule, infer temporal predeclaration from manuscript order, or write *preregistered* unless an external registration supports that term.
-7. Use the smallest applicable review set during ordinary paragraph work. Run all four independent reviews at load-bearing subsection or section boundaries, or when framing, scope, ownership, or attention allocation changes materially:
-   - claim support and scope using `test-claims`;
-   - reader and argument bottlenecks using `remove-bottlenecks`;
-   - attention, length, and opportunity cost using `allocate-for-compounding`;
-   - terminology, handoffs, ownership, and whole-manuscript fit using `coordinate-strategy`.
-8. When multiple reviews run, reconcile them into one proposed revision. Address each accepted item or explain concretely why it conflicts with evidence or a higher-level question.
-9. Erfan approves load-bearing wording and verdict framing. Edit manuscript source only after approval.
-10. At subsection close, reverse-outline both structures: every leaf is answered once, every paragraph has one owner, every inference is supported before use, and every transition prepares the next reader question.
-11. Apply the skeptical-reader test: the prose must be understandable sentence by sentence without an unsupported jump, an unexplained result, or dependence on project history.
-12. Repeat for at most four rounds, stopping earlier when no reviewer identifies a material claim, structure, prose, citation, terminology, density, or handoff defect.
-13. After all units are complete, run the same four reviews over the whole manuscript and revise until the remaining findings are non-material.
-14. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/rewrite`, build the PDF, and inspect every rendered page before calling the candidate complete.
-
-## Section acceptance checks
-
-- **Introduction:** A reader can state the exact tested claim, the claim dependencies, and the scoped answer without knowing an E identifier.
-- **Section 2:** A reader can distinguish measurement, manipulation, attribution, transfer, and utility, and can name the comparator required for each.
-- **Section 3:** Every canonical scientific role has one design tuple, and the reader can identify its data or response construction, intervention or assay, comparator, estimand, endpoint, and inference unit without reading implementation detail.
-- **Section 4:** Every canonical scientific role has one result and verdict location, carries the correct evidence status, and avoids causal or universal claims unsupported by its evidence record.
-- **Section 5:** The discussion explains the pattern without replaying Results or turning failure localization into a causal explanation.
-- **Section 6:** Limitations bound the conclusion without inventing a new results narrative or repeating all caveats.
-- **Section 7:** The conclusion answers the governing question directly and contains no new evidence.
-- **Appendices:** A technical reader can reconstruct provenance, data and target construction, interventions, estimators, variants, and sensitivities without forcing the main text back into evidence-record chronology.
+Drafting, review rounds, and section acceptance checks follow the [unified protocol and acceptance checks](../AGENTS.md) in the parent manuscript guidance. The leaf questions that protocol operates on are the question tree above.
 
 ## Related
 
