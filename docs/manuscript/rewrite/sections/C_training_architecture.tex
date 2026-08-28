@@ -201,7 +201,7 @@ The common optimization grid uses 95,999 training sentences, one epoch or 24,000
     \midrule
     Synthetic-response arm & Correctly paired synthetic brain-response target through \(W_{\mathrm{tmp}}\); \(\lambda_{\mathrm{target}}=0.1\) & Same initialization, teacher, corpus, schedule, and seeds 0--5 as the matched ordinary \ac{kd} arm & Temporary map always discarded; student saved only under the configured artifact path \evd{E016}\evd{E025} \\
     \midrule
-    Saved block-permutation sensitivity & Saved block-permuted synthetic target through the same \(W_{\mathrm{tmp}}\) and mean \ac{mse} & Same initialization, teacher, corpus, schedule, target weight, and seeds 0--5 & Temporary map discarded; result artifact retained; student saving follows the run configuration \evd{E016} \\
+    Saved block-permutation sensitivity & Saved block-permuted synthetic target and saved block-permuted text-derived target, each through the same \(W_{\mathrm{tmp}}\) and mean \ac{mse} & Same initialization, teacher, corpus, schedule, target weight, and seeds 0--5 & Temporary map discarded; result artifact retained; student saving follows the run configuration \evd{E016}\evd{E026} \\
     \midrule
     Text-derived auxiliary-control arm & Text-derived auxiliary target through the same target-map shape and mean \ac{mse}; \(\lambda_{\mathrm{target}}=0.1\) & Same pretrained student, teacher, corpus, and schedule; executed for seeds 0--5 & Temporary map discarded; seed-specific students saved when requested \evd{E016}\evd{E026} \\
     \bottomrule
