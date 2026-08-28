@@ -116,7 +116,7 @@ Figure~\ref{fig:data-partition-routes} condenses these assignments into three ro
 \end{figure}
 \FloatBarrier
 
-The measurement lane fits readouts without changing an \ac{lm}; the two intervention lanes first produce a retained student and then evaluate it on held-out data.
+The measurement route fits readouts without changing an \ac{lm}; the two intervention routes first produce a retained student and then evaluate it on held-out data.
 The arrows denote data use, training, or evaluation rather than causal influence.
 
 \subsection{Measurement Assays and Opportunity Diagnostics}
@@ -153,7 +153,7 @@ Figure~\ref{fig:measurement-readouts} separates this nuisance comparison from th
 One control uses an untrained \ac{lm} with the same architecture and rank.
 In the naturalistic assay, this control uses the matched nuisance construction and tests whether learned parameters matter.
 The historical regional assay recomputed the static nuisance block for each model, so its trained-minus-untrained gap does not isolate learned parameters against a fixed nuisance block.
-The frozen row twin, a row-permuted copy of the target, instead tests whether correct sentence--target pairing matters.
+The frozen row twin, a row-permuted copy of the fixed synthetic brain-response target, instead tests whether correct sentence--target pairing matters.
 Repeating the contextual comparison across the teacher and students supplies the scores used by the distillation-headroom analysis.
 
 \begin{figure}[H]
@@ -533,7 +533,7 @@ The composed prediction is
 A_{T\rightarrow Y\mid N}
 \!\left(
 A_{H\rightarrow T\mid N}(H_{\mathrm{test}})
-\right),
+\right).
 \label{eq:synthetic-composed-path}
 \end{equation}
 Equation~\ref{eq:synthetic-composed-path} asks how much held-out recorded-response predictivity can pass through the specific synthetic-target subspace recovered from a frozen student.
@@ -654,8 +654,7 @@ Technical repetitions are combined before uncertainty is calculated across parti
 Figure~\ref{fig:aggregation-paths} summarizes these routes; Appendix~\ref{app:inference} gives the exact nesting, estimators, tests, and multiplicity rules.\evd{E003}\evd{E005}\evd{E006}\evd{E008}\evd{E009}\evd{E015}\evd{E016}\evd{E017}\evd{E025}\evd{E030}
 
 Detectable-effect and continuation bounds answer narrower questions than statistical intervals.
-An \ac{mde} describes the effect size that an assay could reliably resolve under its stated variance model.
-It does not imply that smaller effects are zero or biologically irrelevant.
+An \ac{mde}, defined above, does not imply that smaller effects are zero or biologically irrelevant.
 We exclude the previous naturalistic follow-up calculation because it used unmatched absolute fold variability rather than the intended paired contrast.
 The participant analyses calculate detectable-effect bounds from between-participant variation, whereas the practical-utility analysis uses variation across technical seeds.
 The inherited \result{e030_practical_threshold} unique-\(R^2\) reference is a fixed continuation rule for the declared participant assay.
