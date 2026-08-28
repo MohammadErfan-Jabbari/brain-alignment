@@ -24,4 +24,5 @@ This folder contains the Claude Code apparatus for the repo: commands, subagents
 | `commands/` | Slash-command workflows and stance entry points. |
 | `hooks/` | Automation and write/check gates. |
 | `skills/` | Repo-local skills and writing/research pipelines. |
+| `scripts/` | Runnable apparatus (manuscript checker, prose linter, section review swarm generator). |
 | `state/` | Ignored local state; do not treat as shared truth. |
