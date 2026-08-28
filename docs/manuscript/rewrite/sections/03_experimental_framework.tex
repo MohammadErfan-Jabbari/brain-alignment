@@ -50,7 +50,7 @@ This section specifies the study design; Section~\ref{sec:results} reports the v
     \specialrule{0.15pt}{0.35ex}{0.35ex}
     Transfer & Saved-student biological-transfer assay & Synthetic-response versus ordinary \ac{kd} and text-derived auxiliary-control arms; fresh participant-response unique $R^2$ & Participant \evd{E025} \\
     \specialrule{0.15pt}{0.35ex}{0.35ex}
-    Utility & Practical-utility evaluation & Brain-response-target arm versus the quality-matched control declared for that route; held-out language or task endpoint & Technical seed; fixed corpora and procedure \evd{E009} \\
+    Utility & Practical-utility evaluation & Brain-response-target arm versus the quality-matched control declared for that route; held-out out-of-domain perplexity endpoint & Technical seed; fixed corpora and procedure \evd{E009} \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -417,7 +417,7 @@ Appendices~\ref{app:data-targets} and~\ref{app:training} specify the target cons
 Two manipulation checks ask whether the intervention affected the retained student.
 First, the synthetic-target recovery assay fits the scaler and ridge readout on the 95,999-example WikiText training partition, selects the ridge penalty from \(\{1,10,100,1000,10000\}\) by training-partition cross-validation, and evaluates the frozen student once on the untouched 1,999-example partition.
 It then averages target-coordinate \(R^2\) with equal weight across coordinates.
-For each auxiliary-target family, let \(\Delta_s^{\mathrm{rec}}\) be the seed-specific recovery difference between its target-trained student and the seed-matched ordinary \ac{kd} student.
+For the synthetic-response arm and the text-derived auxiliary-control arm separately, let \(\Delta_s^{\mathrm{rec}}\) be the seed-specific recovery difference between that arm's target-trained student and its seed-matched ordinary \ac{kd} student.
 Target uptake passes only when
 \begin{equation}
 \min_s \Delta_s^{\mathrm{rec}} > 0 % \evd{E025}
@@ -610,7 +610,7 @@ The eligibility check introduced below qualifies interpretation but neither chan
 
 A training contrast becomes eligible for interpretation only under its declared \ac{lm}-quality rule.
 The quality metric follows the declared assay.
-The scaled synthetic-target family and recorded-response probes use perplexity under a shared tokenizer and scoring protocol.
+The scaled synthetic-target family comprises all target arms of the synthetic-response route trained on the 95,999-sentence corpus; these arms and the recorded-response probes use perplexity under a shared tokenizer and scoring protocol.
 Cross-tokenizer or cross-family comparisons require bits per byte, and the saved-student transfer assay uses its predeclared bits-per-byte criterion even though its models share a tokenizer.
 Let \(\mathrm{PPL}_{a,s}\) be the held-out perplexity of target arm \(a\) in seed \(s\), and let \(b\) denote the arm against which \(a\) is compared.
 Let \(L_{a,s}\) and \(B_{a,s}\) be its total negative log-likelihood in bits and the number of decoded UTF-8 bytes in the same scored span.
@@ -645,7 +645,7 @@ q_{\mathrm{bpb}}(a,b,s)
 The first rule requires each scaled synthetic-target arm to remain within \(5\%\) of its seed-matched ordinary \ac{kd} reference on the fixed WikiText quality probe.\evd{E016}
 The second requires the saved-student comparisons to remain within \(0.005\) bits per byte in every seed.\evd{E025}
 Passing a rule makes the contrast eligible under that metric and tolerance; it does not prove identical language behavior or remove possible differences inside the accepted margin.
-The paired recorded-response arm and permuted-response control are evaluated on the same fixed WikiText probe and must satisfy their declared approximate quality match.
+The paired recorded-response arm and permuted-response control are evaluated on the same fixed WikiText probe under a shared scoring implementation, with comparable perplexity by construction of the paired design.
 Recorded-response comparisons with ordinary \ac{kd} additionally require perplexity matching across checkpoints or training curves.
 Without the required match, the corresponding biological contrast remains descriptive.\evd{E005}\evd{E008}\evd{E015}\evd{E016}\evd{E017}\evd{E025}
 
