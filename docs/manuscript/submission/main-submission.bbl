@@ -1081,6 +1081,68 @@
       \verb https://doi.org/10.1038/s41467-018-03068-4
       \endverb
     \endentry
+    \entry{dascoli2026}{article}{}
+      \name{author}{8}{}{%
+        {{hash=acd3c947ad5a74439a71c9f7bb96d621}{%
+           family={d'Ascoli},
+           familyi={d\bibinitperiod},
+           given={Stéphane},
+           giveni={S\bibinitperiod}}}%
+        {{hash=353a2fcf507a7222fa6fd2c8a86a36a2}{%
+           family={Rapin},
+           familyi={R\bibinitperiod},
+           given={Jérémy},
+           giveni={J\bibinitperiod}}}%
+        {{hash=de73b0aa7fcdc0663efcdbaf2dc7c070}{%
+           family={Benchetrit},
+           familyi={B\bibinitperiod},
+           given={Yohann},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=483230ccb88a3e897d392c835dcc4f84}{%
+           family={Brooks},
+           familyi={B\bibinitperiod},
+           given={Teon},
+           giveni={T\bibinitperiod}}}%
+        {{hash=2f558188f752663fbeadd57580c55875}{%
+           family={Begany},
+           familyi={B\bibinitperiod},
+           given={Katelyn},
+           giveni={K\bibinitperiod}}}%
+        {{hash=f0114771bb41e95560c18e17576e5c39}{%
+           family={Raugel},
+           familyi={R\bibinitperiod},
+           given={Joséphine},
+           giveni={J\bibinitperiod}}}%
+        {{hash=af2fb2e40af03d3f1faeb62a35754fb7}{%
+           family={Banville},
+           familyi={B\bibinitperiod},
+           given={Hubert},
+           giveni={H\bibinitperiod}}}%
+        {{hash=d02875daf33f4342c5e20392f5cb4057}{%
+           family={King},
+           familyi={K\bibinitperiod},
+           given={Jean-Rémi},
+           giveni={J\bibinithyphendelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{6ccea6e72f141c9aa4702a942712b4d5}
+      \strng{fullhash}{7243c597356ec164c3fb217bd81a9e13}
+      \strng{bibnamehash}{6ccea6e72f141c9aa4702a942712b4d5}
+      \strng{authorbibnamehash}{6ccea6e72f141c9aa4702a942712b4d5}
+      \strng{authornamehash}{6ccea6e72f141c9aa4702a942712b4d5}
+      \strng{authorfullhash}{7243c597356ec164c3fb217bd81a9e13}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{TRIBE v2 source and model description}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{arXiv preprint arXiv:2605.04326}
+      \field{title}{A foundation model of vision, audition, and language for in-silico neuroscience}
+      \field{year}{2026}
+      \verb{eprint}
+      \verb 2605.04326
+      \endverb
+    \endentry
     \entry{hu2022}{inproceedings}{}
       \name{author}{8}{}{%
         {{hash=e6a95d07b8ae7f14e4eb777c6980a059}{%
@@ -1187,68 +1249,6 @@
       \range{pages}{11}
       \verb{doi}
       \verb 10.48550/arXiv.1905.00414
-      \endverb
-    \endentry
-    \entry{dascoli2026}{article}{}
-      \name{author}{8}{}{%
-        {{hash=acd3c947ad5a74439a71c9f7bb96d621}{%
-           family={d'Ascoli},
-           familyi={d\bibinitperiod},
-           given={Stéphane},
-           giveni={S\bibinitperiod}}}%
-        {{hash=353a2fcf507a7222fa6fd2c8a86a36a2}{%
-           family={Rapin},
-           familyi={R\bibinitperiod},
-           given={Jérémy},
-           giveni={J\bibinitperiod}}}%
-        {{hash=de73b0aa7fcdc0663efcdbaf2dc7c070}{%
-           family={Benchetrit},
-           familyi={B\bibinitperiod},
-           given={Yohann},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=483230ccb88a3e897d392c835dcc4f84}{%
-           family={Brooks},
-           familyi={B\bibinitperiod},
-           given={Teon},
-           giveni={T\bibinitperiod}}}%
-        {{hash=2f558188f752663fbeadd57580c55875}{%
-           family={Begany},
-           familyi={B\bibinitperiod},
-           given={Katelyn},
-           giveni={K\bibinitperiod}}}%
-        {{hash=f0114771bb41e95560c18e17576e5c39}{%
-           family={Raugel},
-           familyi={R\bibinitperiod},
-           given={Joséphine},
-           giveni={J\bibinitperiod}}}%
-        {{hash=af2fb2e40af03d3f1faeb62a35754fb7}{%
-           family={Banville},
-           familyi={B\bibinitperiod},
-           given={Hubert},
-           giveni={H\bibinitperiod}}}%
-        {{hash=d02875daf33f4342c5e20392f5cb4057}{%
-           family={King},
-           familyi={K\bibinitperiod},
-           given={Jean-Rémi},
-           giveni={J\bibinithyphendelim R\bibinitperiod}}}%
-      }
-      \strng{namehash}{6ccea6e72f141c9aa4702a942712b4d5}
-      \strng{fullhash}{7243c597356ec164c3fb217bd81a9e13}
-      \strng{bibnamehash}{6ccea6e72f141c9aa4702a942712b4d5}
-      \strng{authorbibnamehash}{6ccea6e72f141c9aa4702a942712b4d5}
-      \strng{authornamehash}{6ccea6e72f141c9aa4702a942712b4d5}
-      \strng{authorfullhash}{7243c597356ec164c3fb217bd81a9e13}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{annotation}{TRIBE v2 source and model description}
-      \field{eprinttype}{arXiv}
-      \field{journaltitle}{arXiv preprint arXiv:2605.04326}
-      \field{title}{A foundation model of vision, audition, and language for in-silico neuroscience}
-      \field{year}{2026}
-      \verb{eprint}
-      \verb 2605.04326
       \endverb
     \endentry
     \entry{oord2018}{inproceedings}{}
