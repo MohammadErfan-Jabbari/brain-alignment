@@ -4,7 +4,7 @@
 Brain-encoding \autocite{oota2023,merlin2024}, brain-response-guided optimization \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}, privileged-information and feature-distillation \autocite{lopezpaz2016,saadi2025}, and model-compression \autocite{oota2026} studies address different questions.
 Predicting recorded brain responses does not establish that training with those responses changes a student model.
 A change in the student also does not establish that the change (1)\ arises specifically from brain-response content, (2)\ transfers to independently recorded \ac{fmri} responses, or (3)\ improves a practical endpoint at comparable \ac{lm} quality.
-This section connects these claims and defines the evidence required to support a brain-specific training advantage.
+This section connects these claims and defines the evidence criteria for a brain-specific training advantage.
 
 \subsection{What controlled brain predictivity establishes}
 \label{sec:controlled-score}
@@ -129,10 +129,10 @@ An intervention comparison must therefore separate the effect of the brain-respo
 
 The unresolved question posed before any new experiment is therefore narrower than whether training with brain responses can change a model.
 For a fixed smaller student trained by ordinary \ac{kd}, do recorded \ac{fmri} responses or synthetic brain responses generated from text provide an incremental, brain-specific advantage over the appropriate permuted-response or text-derived auxiliary control at comparable \ac{lm} quality?
-The next subsection states the evidence required to support that advantage claim.
+The next subsection states the evidence criteria for that advantage claim.
 
-\subsection{Evidence standard for a brain-specific training advantage}
-\label{sec:evidence-standard}
+\subsection{Evidence criteria for a brain-specific training advantage}
+\label{sec:evidence-criteria}
 
 Figure~\ref{fig:evidence-chain} organizes the evidence by claim dependency rather than by a universal sequence.
 Controlled brain predictivity defines the biological endpoint shared by both routes.
