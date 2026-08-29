@@ -19,7 +19,7 @@ This folder contains the Claude Code apparatus for the repo: commands, subagents
 ## Subfolders
 
 | Path | Use |
-|---|---|
+| --- | --- |
 | `agents/` | Specialized Claude subagent prompts. |
 | `commands/` | Slash-command workflows and stance entry points. |
 | `hooks/` | Automation and write/check gates. |
