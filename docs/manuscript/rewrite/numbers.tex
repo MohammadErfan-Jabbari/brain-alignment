@@ -341,6 +341,7 @@
 \DeclareResult{e003_kd_cold_retention}{$0.37$ [$0.14$, $0.58$]}         % [E003] cold-init floor-anchored retention rho' + bootstrap CI
 \DeclareResult{e003_kd_cold_retention_point}{$0.37$}                    % [E003] cold-init floor-anchored retention rho' point estimate
 \DeclareResult{e003_kd_cold_retention_ci}{[$0.14$, $0.58$]}             % [E003] fold-by-seed bootstrap 95% CI for cold-init retention rho'
+\DeclareResult{e003_kd_cold_nodrop_p}{$0.000$}                           % [E003] predeclared bootstrap P(no drop from teacher) over the cold arm's seeds (E003:112)
 \DeclareResult{e003_teacher_ppl}{$74$}                                  % [E003] GPT-2 Medium teacher held-out perplexity
 \DeclareResult{e003_kd_cold_ppl}{$477$}                                 % [E003] randomly initialized GPT-2 Small logit-KD held-out perplexity
 \DeclareResult{e003_plot_floor_retention}{0.00}                         % [E003] plot coordinate, architecture-matched untrained GPT-2 Small floor
@@ -360,6 +361,7 @@
 \DeclareResult{e003_quality_corr}{$-0.88$}                              % [E003] Pearson r, alignment vs log-perplexity across arms (L011)
 \DeclareResult{e015_full_corr}{$-0.783$}                                % [E015] full-range Pearson correlation, alignment vs log bits per byte
 \DeclareResult{e015_full_ci}{[$-0.911$, $-0.500$]}                      % [E015] six-family cluster-bootstrap 95% CI for alignment vs log bits per byte
+\DeclareResult{e015_full_n}{$22$}                                        % [E015] decoder-only LM count in the full-range alignment--language-quality scan
 \DeclareResult{e015_capable_corr}{$-0.501$}                             % [E015] capable-model-band Pearson correlation, alignment vs log bits per byte
 \DeclareResult{e015_capable_ci}{[$-0.859$, $+0.188$]}                   % [E015] capable-model-band Fisher 95% CI for alignment vs log bits per byte
 \DeclareResult{e015_capable_n}{$n=10$}                                 % [E015] capable-model-band model count

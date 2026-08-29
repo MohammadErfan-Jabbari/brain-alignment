@@ -93,7 +93,7 @@ Table~\ref{tab:results-status} summarizes these role-specific outcomes using \em
     \specialrule{0.15pt}{0.35ex}{0.35ex}
 
     Composed-path diagnostic
-    & \textbf{Not demonstrated}
+    & \textbf{Unresolved}
     & Synthetic-response-minus-\ac{kd} increment: \result{e030_overlap_delta} (Bonferroni family-95\% interval \result{e030_overlap_delta_ci}).\evd{E030} \\
 
     \specialrule{0.15pt}{0.35ex}{0.35ex}
@@ -166,7 +166,7 @@ Section~\ref{sec:results-headroom} next asks what route-specific headroom is act
 
 The from-scratch GPT-2 comparison contains an observed teacher-relative gap, but it does not establish quality-aware headroom (a teacher--student gap measured at comparable language quality) for the intervention routes.
 Figure~\ref{fig:distillation-headroom-retention} places the GPT-2 teacher, floor, and student conditions on the floor-anchored retention scale defined in Equation~\ref{eq:floor-anchored-retention}.
-At the fixed Tuckute layers, the randomly initialized GPT-2 Small logit-\ac{kd} student is \result{e003_kd_cold_delta} below the GPT-2 Medium teacher in controlled brain predictivity.
+At the fixed Tuckute layers, the randomly initialized GPT-2 Small logit-\ac{kd} student is \result{e003_kd_cold_delta} below the GPT-2 Medium teacher in controlled brain predictivity (bootstrap no-drop \(p = \result{e003_kd_cold_nodrop_p}\) over the cold arm's seeds).
 Relative to the architecture-matched untrained GPT-2 Small floor, the student retains \result{e003_kd_cold_retention_point} of the teacher-to-floor interval.
 The recorded 95\% bootstrap interval over folds and seeds is \result{e003_kd_cold_retention_ci}.\evd{E003}
 The tested cold-start route therefore leaves an observed gap within this assay, although the comparison does not identify its source.
@@ -176,10 +176,10 @@ The randomly initialized student remains substantially weaker as an \ac{lm}, wit
 The evaluated conditions also differ in initialization and training history, not only in objective.
 Their ordered predictivity estimates establish a descriptive teacher--student gap, but they do not show that compression or \ac{kd} caused the gap.
 The pretrained GPT-2 Small condition supplies closer initialization and language-quality context for the synthetic-response route, but the completed analysis did not establish a formal quality-aware headroom result for that warm route.
-The recorded-response intervention uses Qwen2.5-1.5B and Qwen2.5-0.5B, for which we did not measure route-matched teacher--student headroom.\evd{E009}
+The recorded-response intervention uses Qwen2.5-1.5B and Qwen2.5-0.5B\evd{E009}, for which we did not measure route-matched teacher--student headroom.\evd{E003}\evd{E015}
 
 The broader model comparison shows why later interventions must control language quality.
-Across 22 decoder-only \acp{lm} from six families, controlled brain predictivity is negatively associated with log bits per byte, where higher values indicate poorer language quality.\evd{E015}
+Across \result{e015_full_n} decoder-only \acp{lm} from six families, controlled brain predictivity is negatively associated with log bits per byte, where higher values indicate poorer language quality.\evd{E015}
 Pearson \(r\) is \result{e015_full_corr}, with a family-cluster 95\% \ac{ci} of \result{e015_full_ci}.\evd{E015}
 Figure~\ref{fig:distillation-headroom-quality} shows this full-range association and marks the capable-model band, defined as the \result{e015_capable_n} models with bits per byte below \result{e015_capable_bpb_max}.
 Within that band, Pearson \(r\) is \result{e015_capable_corr}, with a Fisher 95\% \ac{ci} of \result{e015_capable_ci}.\evd{E015}
@@ -200,7 +200,7 @@ Model family, scale, training data, and language quality remain entangled, so th
     \centering
     \resizebox{\linewidth}{!}{\input{figures/distillation_headroom_quality.tikz}}
     \par\vspace{0.45em}
-    \caption{Controlled brain predictivity across 22 decoder-only \acp{lm}.}
+    \caption{Controlled brain predictivity across \result{e015_full_n} decoder-only \acp{lm}.}
     \label{fig:distillation-headroom-quality}
   \end{subfigure}
   \caption{Observed headroom and its association with language quality.\evd{E003}\evd{E015}}
@@ -400,7 +400,7 @@ They do not show that brain-response content caused the change or improved langu
 A fresh readout on the Tuckute sentences gives a narrower result.
 Absolute target extractability from the synthetic-response students is \result{e030_target_extract}, with Bonferroni family-95\% interval \result{e030_target_extract_ci}.
 The incremental synthetic-response-minus-ordinary \ac{kd} estimate is instead \result{e030_retention_delta}, with Bonferroni family-95\% interval \result{e030_retention_delta_ci}.
-Thus, the target is linearly recoverable from the trained students on these sentences, but the analysis does not establish that synthetic-response training increased its recoverability beyond ordinary \ac{kd}.
+Thus, the target is linearly recoverable from the trained students on these sentences, but whether synthetic-response training increased its recoverability beyond ordinary \ac{kd} remains unresolved.
 The \result{e030_seed_n} seeds again describe stability of the saved training procedure rather than biological replication. \evd{E030}
 
 Differences between the arms in these manipulation results cannot be attributed to brain-response content, because the available text-derived auxiliary-control arm is not adequately matched.
@@ -465,6 +465,7 @@ The participant-level result is
 \end{equation}
 Here, \(\widehat{\Delta}_{\mathrm{direct}}\) is the participant-mean change in held-out unique \(R^2\) produced by synthetic-response training relative to ordinary \ac{kd}.
 The participant \(t\) interval spans zero, so the direct assay does not support participant-general biological transfer in the tested cohort.
+The one-sided 95\% participant upper bound \result{e025_participant_ucb} lies below the internal continuation threshold \result{e030_practical_threshold}, so a participant-mean effect of at least that size is excluded.
 It does not establish that the effect is exactly zero, and its scope remains limited to the fixed target, student, layer, nuisance design, sentences, participants, and \ac{roi} endpoint. \evd{E025}
 
 The synthetic-response-versus-text-derived auxiliary-control contrast is numerically positive, but it does not overturn the direct result:
@@ -517,7 +518,7 @@ Figure~\ref{fig:saved-student-biological-transfer}b presents its three participa
 \end{align}
 Here, \(O\) measures absolute aligned predictive overlap, \(D\) measures its increment over seed-matched ordinary \ac{kd}, and \(J\) asks whether that increment is larger for correctly aligned targets than for the frozen row twin.
 Every Bonferroni family-95\% interval spans zero.
-The composed-path diagnostic therefore does not demonstrate predictive overlap, incremental overlap over ordinary \ac{kd}, or an aligned-over-row-twin increment.
+The composed-path diagnostic therefore leaves predictive overlap, incremental overlap over ordinary \ac{kd}, and any aligned-over-row-twin increment unresolved under participant inference.
 These quantities are predictive-path diagnostics, not causal-mediation estimates or replacements for the direct biological-transfer endpoint. \evd{E030}
 
 Figure~\ref{fig:saved-student-biological-transfer} summarizes the direct assay and the composed-path diagnostic after their estimands have been defined.
@@ -545,7 +546,7 @@ Panel~b shows the Bonferroni family-95\% intervals for \(O\), \(D\), and \(J\).
 \FloatBarrier
 
 Neither assay demonstrates participant-general biological transfer, and the text-derived comparison remains non-identifying.
-The next subsection asks what the completed practical-endpoint analysis establishes.
+The next subsection asks what the completed practical-utility evaluation establishes.
 
 \subsection{Practical-utility evaluation}
 \label{sec:results-utility}

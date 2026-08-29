@@ -73,21 +73,19 @@ Flagged independently by both section-2 judges (2026-08-27):
 
 ## 5. Section 4 review: owner-confirm items (from the 2026-08-29 evidence judge)
 
-**State:** Open — all need Erfan's call; none blocks the current prose. The swarm's evidence judge (kimi-k3, repo-verified) produced these after verifying against E records and `numbers.tex`.
+**State:** All 11 resolved 2026-08-29 by Erfan's decisions, applied to both manuscripts.
 
-1. **Cold-start gap test naming** — `e003_kd_cold_delta` carries no uncertainty interval or test; E003:112 records bootstrap p(no-drop)=0.000 over the arm's seeds. Add a `numbers.tex` macro (`e003_kd_cold_p`) so §4.2 and the status table can name the test, or keep the bare estimate?
-2. **Model-count literals** — "Across 22 decoder-only LMs from six families" (§4.2 prose + figure caption): no macro exists (`e015_capable_n` is n=10, a different count). The literals are verified correct. Add `e015_model_n` / family-count macros, or keep literals for one-off counts?
-3. **"quality-aware headroom" standing** — §4.2 now uses it consistently (glossed at first use, this review). Evidence judge asks whether it should unify with the fixed term "route-specific teacher--student headroom", and what standing the modifiers have — a repo-wide naming call.
-4. **§4.2 evd anchoring** — the sentence "for which we did not measure route-matched teacher--student headroom" carries only `\evd{E009}`; the status-table row attributes the unmeasured status to E003 and E015. Re-anchor as `\evd{E003}\evd{E015}` for the not-measured clause, or restructure so each clause carries its own record?
-5. **One convention for literal counts** — do not patch occurrence by occurrence. Options: words ("nine participants"), `$n=9$`-style macros (`e025_participant_n`, `e030_participant_n` exist), or `$9$`-style macros (`e008_participant_count` exists; `e017_participant_n` and `e030_target_dim` (20,484) do not). Applies to §4.3 "nine participants", §4.4 "20,484-coordinate target", §4.6 "nine direct participant effects", §4.3 "three-participant analysis" (E017), and the status table's "Nine-participant mean". Four accepted edits held for this decision.
-6. **Retention-increment verdict register** — §4.5: "the analysis does not establish that synthetic-response training increased its recoverability beyond ordinary KD" reads not-demonstrated, but E030:245 classifies the increment "unresolved" and the status-table row says **Unresolved**. Reword to the unresolved register ("whether ... remains unresolved") or adjudicate "does not establish" as acceptable?
-7. **Never-measured components: "unknown" vs "unresolved"** — §4.5's "Initial auxiliary-loss and gradient comparability remain unresolved because those quantities were not retained": E026's narrative says "unknown" (E026:48/132), its mechanical rule says "unresolved" (E026:79). Both record words exist; pick one.
-8. **Composed-path row label** — the status-table row says "Not demonstrated" while E030:247 labels the bridge estimands "unresolved"; does the C1-first ordered-failure logic license the manuscript-level "Not demonstrated"?
-9. **"frozen row twin" vs "frozen row-twin control"** — canonical form repo-wide after first definition (applies to §3 and §4 together).
-10. **"practical-endpoint analysis" descriptor** — §4.6's closing pointer uses it while the subsection is "Practical-utility evaluation"; unify or keep as a generic descriptor?
-11. **Unsurfaced exclusion bound** — E025's one-sided 95% upper bound (`e025_participant_ucb`) excludes a mean effect of +0.002 unique-R² for the cohort; add this supported practical exclusion sentence to §4.6, or keep the current scope?
-
-Note: the status-key gap behind item 12 of the evidence judge's list (Inconclusive/Unmeasured key entries) is already resolved by this review (entries added to `tab:results-status` in both manuscripts); remap-vs-key is thereby settled unless Erfan prefers remapping the two cells.
+1. **Cold-start gap test naming** — RESOLVED: added `\result{e003_kd_cold_nodrop_p}` (bootstrap no-drop p = 0.000 over the cold arm's seeds, E003:112) to numbers.tex; the §4.2 gap sentence now names the test.
+2. **Model-count literals** — RESOLVED: added `\result{e015_full_n}` (=22) and rerendered both occurrences (§4.2 prose + caption); "six families" stays a word (single occurrence).
+3. **"quality-aware headroom" standing** — RESOLVED: kept as the quality-matched variant of the fixed term "route-specific headroom"; §4.2 glosses it at first use. No rename.
+4. **§4.2 evd anchoring** — RESOLVED: anchors split (model pair ← `\evd{E009}`, not-measured clause ← `\evd{E003}\evd{E015}`, matching the status-table row).
+5. **One convention for literal counts** — RESOLVED: words in prose, macros only where a count feeds a formula. The four parked macro-conversion edits (§4.3 "nine participants", §4.3 "three-participant", §4.6 "nine direct participant effects", §4.4 "20,484-coordinate target") are rejected under this convention; the text stays as words.
+6. **Retention-increment verdict register** — RESOLVED: §4.5 prose reworded to the unresolved register ("whether synthetic-response training increased its recoverability beyond ordinary KD remains unresolved"), matching E030:245 and the status-table row.
+7. **Never-measured components** — RESOLVED: keep "unresolved" (matches E026's rule language and the keyed status). No text change.
+8. **Composed-path row label** — RESOLVED: status-table row changed to **Unresolved** (E030:247 is explicit that the bridge quantities are unresolved and cannot generate a downstream ordered-failure label); the §4.6 prose moved to the same register ("leaves ... unresolved under participant inference"), and Appendix A's evidence-provenance row was aligned ("remain unresolved across participants").
+9. **"frozen row twin" convention** — RESOLVED: full contract form "frozen row-twin control" at first use; the bare "frozen row twin" is allowed afterward (same pattern as the assay short forms). No text change.
+10. **"practical-endpoint analysis" descriptor** — RESOLVED: unified to "practical-utility evaluation" (the subsection's name) in §4.6's closing pointer.
+11. **Exclusion bound in §4.6** — RESOLVED: added the verified sentence "The one-sided 95\% participant upper bound \result{e025_participant_ucb} lies below the internal continuation threshold \result{e030_practical_threshold}, so a participant-mean effect of at least that size is excluded."
 
 ## Related
 
