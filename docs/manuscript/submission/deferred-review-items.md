@@ -71,6 +71,24 @@ Flagged independently by both section-2 judges (2026-08-27):
 - RESOLVED 2026-08-28 (surgical): Appendix C's `tab:synthetic-training-arms` block-permutation row now declares both executed arms (saved block-permuted synthetic target and saved block-permuted text-derived target, same runner grid, seeds 0--5, per E016's Step-43 textfeat control and E026's audit usage). The row was the only under-declaration; §3.4's plural "block-permuted targets" and Appendix F's defective-sensitivity verdict already covered both.
 - Deliberately NOT variants: "under the **studied** assay" (§2.3, refers to the cited aw2023/gao2024 studies' assay, not ours); the submission's section title "Background and Related Work" vs rewrite's "Evidence Required for a Brain-Specific Training Advantage" (deliberate restructure).
 
+## 5. Section 4 review: owner-confirm items (from the 2026-08-29 evidence judge)
+
+**State:** Open — all need Erfan's call; none blocks the current prose. The swarm's evidence judge (kimi-k3, repo-verified) produced these after verifying against E records and `numbers.tex`.
+
+1. **Cold-start gap test naming** — `e003_kd_cold_delta` carries no uncertainty interval or test; E003:112 records bootstrap p(no-drop)=0.000 over the arm's seeds. Add a `numbers.tex` macro (`e003_kd_cold_p`) so §4.2 and the status table can name the test, or keep the bare estimate?
+2. **Model-count literals** — "Across 22 decoder-only LMs from six families" (§4.2 prose + figure caption): no macro exists (`e015_capable_n` is n=10, a different count). The literals are verified correct. Add `e015_model_n` / family-count macros, or keep literals for one-off counts?
+3. **"quality-aware headroom" standing** — §4.2 now uses it consistently (glossed at first use, this review). Evidence judge asks whether it should unify with the fixed term "route-specific teacher--student headroom", and what standing the modifiers have — a repo-wide naming call.
+4. **§4.2 evd anchoring** — the sentence "for which we did not measure route-matched teacher--student headroom" carries only `\evd{E009}`; the status-table row attributes the unmeasured status to E003 and E015. Re-anchor as `\evd{E003}\evd{E015}` for the not-measured clause, or restructure so each clause carries its own record?
+5. **One convention for literal counts** — do not patch occurrence by occurrence. Options: words ("nine participants"), `$n=9$`-style macros (`e025_participant_n`, `e030_participant_n` exist), or `$9$`-style macros (`e008_participant_count` exists; `e017_participant_n` and `e030_target_dim` (20,484) do not). Applies to §4.3 "nine participants", §4.4 "20,484-coordinate target", §4.6 "nine direct participant effects", §4.3 "three-participant analysis" (E017), and the status table's "Nine-participant mean". Four accepted edits held for this decision.
+6. **Retention-increment verdict register** — §4.5: "the analysis does not establish that synthetic-response training increased its recoverability beyond ordinary KD" reads not-demonstrated, but E030:245 classifies the increment "unresolved" and the status-table row says **Unresolved**. Reword to the unresolved register ("whether ... remains unresolved") or adjudicate "does not establish" as acceptable?
+7. **Never-measured components: "unknown" vs "unresolved"** — §4.5's "Initial auxiliary-loss and gradient comparability remain unresolved because those quantities were not retained": E026's narrative says "unknown" (E026:48/132), its mechanical rule says "unresolved" (E026:79). Both record words exist; pick one.
+8. **Composed-path row label** — the status-table row says "Not demonstrated" while E030:247 labels the bridge estimands "unresolved"; does the C1-first ordered-failure logic license the manuscript-level "Not demonstrated"?
+9. **"frozen row twin" vs "frozen row-twin control"** — canonical form repo-wide after first definition (applies to §3 and §4 together).
+10. **"practical-endpoint analysis" descriptor** — §4.6's closing pointer uses it while the subsection is "Practical-utility evaluation"; unify or keep as a generic descriptor?
+11. **Unsurfaced exclusion bound** — E025's one-sided 95% upper bound (`e025_participant_ucb`) excludes a mean effect of +0.002 unique-R² for the cohort; add this supported practical exclusion sentence to §4.6, or keep the current scope?
+
+Note: the status-key gap behind item 12 of the evidence judge's list (Inconclusive/Unmeasured key entries) is already resolved by this review (entries added to `tab:results-status` in both manuscripts); remap-vs-key is thereby settled unless Erfan prefers remapping the two cells.
+
 ## Related
 
 - [Submission manuscript](main-submission.tex)

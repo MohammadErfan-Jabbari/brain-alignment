@@ -121,7 +121,7 @@ Trained representations exceeded the declared nuisance baseline in the controlle
 For the primary Qwen2.5-0.5B layer-12 comparison, controlled unique \(R^2\) was \result{e002_qwen_unique}, where the \(\pm\) term is the descriptive standard deviation across five contiguous stimulus folds.
 The previously recorded trained-minus-untrained difference was \result{e002_qwen_gap}, but the implementation recomputed the static nuisance block for each model.
 That gap therefore does not cleanly isolate learned parameters against one fixed nuisance design.
-Because the response target was averaged across five participants before readout fitting, the folds describe stimulus-block variation and do not support participant-level inference.
+Because we averaged the response target across five participants before readout fitting, the folds describe stimulus-block variation and do not support participant-level inference.
 The assay therefore supports controlled regional predictivity for this fixed participant-averaged target.\evd{E002}
 
 Trained representations also exceeded their matched untrained controls in the naturalistic assay when complete stories were held out.
@@ -334,7 +334,7 @@ U^{\mathrm{family}}_{95\%}(\bar{A})
 Equation~\ref{eq:exact-target-measurability-result} shows that even the Bonferroni family-95\% upper endpoint remains below the inherited continuation threshold.
 Only \result{e030_target_positive_n} participant effects are positive, and every participant- and block-leave-out mean remains negative.
 The assay therefore supports an internal noncontinuation decision under its frozen conditions.
-The reference does not define a universal threshold for biological importance. \evd{E030}
+The inherited continuation threshold marks no universal boundary for biological importance. \evd{E030}
 
 Correct sentence--target pairing remains unresolved.
 The frozen row twin preserves the target rows and readout procedure while breaking their pairing with sentences.
