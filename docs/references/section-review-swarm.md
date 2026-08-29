@@ -19,11 +19,14 @@ One reviewer pass produces prose-swap churn and misses design-fact errors; one j
 live .tex ──generator──► /tmp/sN-swarm.js (text embedded, sha256 stamped)
    Phase 1   N analysts (one per subsection scope)      review-only, read the section cold
    Phase 2   N counter-reviewers                        IMPROVE/WORSEN per proposal + MISSED items
-   Phase 3   2 judges in parallel (deepseek-v4-pro, kimi-k3)   APPLY/REJECT/MODIFY/ROUTE-EVIDENCE per ID
+   Phase 3   2-3 judges in parallel (decorrelated providers)   APPLY/REJECT/MODIFY/ROUTE-EVIDENCE per ID
+   EVIDENCE  routed design-fact items → evidence judge (repo access, must cite records)
    PARENT    parse → agreement → post-filters → evidence judge → apply → sync → round 2 → commit
 ```
 
-Model routing: analysts and counter-reviewers on the cheap default (glm-5.3-flash class), judges on two decorrelated strong providers, evidence judge on the strongest available model with repo access. Children never edit files; the parent is the sole writer and decision-maker.
+Model routing is the session's declared constraint. v3.1 (Section 4, Erfan 2026-08-29): workers = deepseek-v4-flash + kimi-k3 (one analyst and one counter per scope per model), judges = kimi-k3:high + deepseek-v4-flash:high; earlier rounds used glm-5.3-flash workers and a glm-5.3 judge, but ollama-cloud glm children proved unreliable in this role: the judge burned its entire 32k output cap on `:high` thinking and produced no output (twice — the model family is then exclusion-listed for hours), and one counter derailed into off-task content. Lesson: a judge model needs enough output-token headroom for the full decision list after thinking, and the thinking level must be set explicitly, never inherited.
+
+Children never edit files; the parent is the sole writer and decision-maker. Two Section-4 hazards the prompts cannot fully prevent and the parent must check: (a) native children have repo read access and some anchored quotes on the canonical rewrite twin instead of the embedded review text — verify every anchor against the reviewed file, not against whichever copy a child happened to read; (b) judges occasionally write finals as instructions ("insert after the Unresolved entry: ...") — interpret them against the live region instead of pasting.
 
 ## The v3 upgrades (each fixes a Section-3 defect)
 
@@ -38,6 +41,7 @@ Model routing: analysts and counter-reviewers on the cheap default (glm-5.3-flas
 | 7 | Round-2 blind pass + resolution judge are standard, not optional; the resolution judge must verify every QUOTE against live files and may return `OWNER-CONFIRM` | Round 2 caught 3 real defects (lane→route, row-twin antecedent with a wrong proposed referent, delimiter) and rejected 6 with verified reasons |
 | 8 | Settled-phrasings block regenerated per section from the current manuscript state, including the settled naming policy (full contract name at first use; short forms after) and "evidence criteria" | Hand-copied prompt constants drift from the manuscript as each section lands |
 | 9 | Owner-preference surface: parent runs a cheap register-word density and coinage census per paragraph and hands it to Erfan's paragraph-by-paragraph pass | Erfan's post-swarm pass surfaced owner allergies the swarm cannot adjudicate ("substrate" ×3 in one paragraph, "evidence standard" too harsh) |
+| 10 | v3.1: dual-model workers and judges, both from the session's declared model constraint; explicit thinking levels on every child | glm-5.3 children failed twice (output-cap death, off-task derailment); the inherited `:high` thinking level was the hidden cause of the cap death |
 
 Kept from v2 because they worked: live-text extraction at generation time with sha256 stamp, anchor assertions at generation (each `\subsection` title found exactly once), dual parallel judges, counter-reviewer "guardian of precision" role, CLEAN as an acceptable answer, deferred splits flagged but never fixed by children.
 

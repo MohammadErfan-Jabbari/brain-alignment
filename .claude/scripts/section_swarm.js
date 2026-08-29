@@ -82,14 +82,15 @@ const SECTIONS = {
     file: "docs/manuscript/submission/sections/04_results.tex",
     label: "Section 4 (Results)",
     routing: {
+      // Erfan 2026-08-29: only kimi-k3 and deepseek-v4-flash (glm cloud children proved
+      // unreliable: one judge died on the 32k output cap, one counter derailed).
       workers: [
         { tag: "ds", id: "deepseek/deepseek-v4-flash" },
-        { tag: "glm", id: "ollama-cloud/glm-5.3-flash" },
+        { tag: "kimi", id: "kimi-coding/k3" },
       ],
       judges: [
-        { tag: "deepseek", id: "deepseek/deepseek-v4-pro:medium" },
-        { tag: "kimi", id: "kimi-coding/k3" },
-        { tag: "glm", id: "ollama-cloud/glm-5.3" },
+        { tag: "kimi", id: "kimi-coding/k3:high" },
+        { tag: "ds", id: "deepseek/deepseek-v4-flash:high" },
       ],
     },
     criteria: `(d) number fidelity: every estimate must render through \\result{...} macros and carry its uncertainty and the named test (the three-technical-seed convention); flag literal numbers, missing uncertainty, or missing test names;
@@ -318,7 +319,7 @@ return { round2: out };
 function emitRound2Judge(cfg, text, findings) {
   const CONTEXT = buildContext(cfg);
   return `${stamp(cfg.label, text, "round-2 resolution judge")}
-// One judge (deepseek-v4-pro, repo access) adjudicates the blind reviewer's residual findings
+// One judge (kimi-k3, repo access) adjudicates the blind reviewer's residual findings
 // against the live files. Parent applies only APPLY/MODIFY after its own review.
 const CONTEXT = ${JSON.stringify(`You are the resolution judge for a round-2 residual-defect sweep of ${cfg.label} of an MSc thesis on brain-alignment-guided distillation. A fresh-eyes reviewer read the REVISED section cold and reported findings. You have repo access: verify every QUOTE against the live file ${cfg.file} and any appendix (docs/manuscript/submission/sections/B_data_targets_preprocessing.tex, C_training_architecture.tex, D_estimators_inference.tex, E_secondary_experiments.tex, F_sensitivities_tables.tex) or figure (docs/manuscript/submission/figures/*.tikz) before deciding.\\n\\n${CONTEXT}`)};
 
@@ -333,7 +334,7 @@ const task = CONTEXT + "\\n\\nFINDINGS TO ADJUDICATE (verbatim from the round-2 
   "OWNER-CONFIRM: for anything that needs a design decision only Erfan can make (naming policy, scope of a defined family, a declared tolerance) — never settle it yourself.\\n" +
   "Your entire output must consist of these blocks. No preamble.";
 
-const r = await runs.run("round2-judge", { agent: "reviewer", model: "deepseek/deepseek-v4-pro:medium", task });
+const r = await runs.run("round2-judge", { agent: "reviewer", model: "kimi-coding/k3", task });
 const out = (typeof r === "string" ? r : (r && (r.output || r.result)) || JSON.stringify(r));
 emit("ROUND2-JUDGE DONE: " + out.length + "ch");
 return { verdicts: out };
