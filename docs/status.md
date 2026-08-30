@@ -6,9 +6,9 @@ aliases: [current-status]
 
 # Project status
 
-**Updated:** 2026-08-25
+**Updated:** 2026-08-30
 
-**Manuscript:** `canonical rewrite ready for supervisor review`. The 70-page thesis in `docs/manuscript/rewrite/` is now the sole live manuscript and scientific-interpretation authority. It has completed Erfan's section-by-section rewrite and the accepted examiner-feedback pass, passes the strict share-ready source checker, builds without overfull boxes or unresolved references, and has received a complete visual audit. Its registered title is *Brain Alignment as a Signal for Language Models: From Measurement to Application*.
+**Manuscript:** `final argument and prose review before supervisor handoff`. The 70-page thesis in `docs/manuscript/rewrite/` remains the sole scientific-interpretation authority; `docs/manuscript/submission/` is its university-template derivative. Introduction through Results have completed the reader-first review. A fresh GPT-5.6 [scientific-scope review](manuscript/submission/deferred-review-items.md#6-discussion-through-conclusion-argument-review-hold) of Discussion through Conclusion returned `HOLD-BEFORE-PROSE-SWARM` on six framing issues: two estimator/dependency overstatements in Discussion, two inference/threshold overstatements in Limitations, and two endpoint/dependency closure issues in Conclusion. No scientific verdict or number changed. Its registered title remains *Brain Alignment as a Signal for Language Models: From Measurement to Application*.
 
 **Legacy layers removed from HEAD (2026-08-25):** the `extended/` legacy snapshot and the frozen public v0.9 cut are preserved only in Git history (last commits: `extended/` at `7c445b0`, `public/v0.9/` at `6026021`). Do not recreate them as directories; cite the commits when historical access is needed.
 
@@ -25,9 +25,9 @@ aliases: [current-status]
 
 ## Active work
 
-- New experiment development is closed by Erfan's direction ([D065](decisions/decisions.md), 2026-08-25). The prospective program below (E033, E032, E028 exact-lane resolution, queued dimensionality work) is paused, not executed, unless Erfan reopens it. The next task is adapting the canonical rewrite manuscript to the supervisor-provided university template as a formatting-only derivative (D064).
-- E033 is explicitly authorized and active. Its prospective L12-versus-final-hidden recorded-response placement test is design-locked after anti-confound and oracle review. The transaction must pass an outcome-blind block-gradient, dose-calibration, and dynamic nonabsorption gate plus a two-participant smoke before the nine-participant outcome run. The untouched five participants are confirmatory; both placements are scored at both fixed layers; no outcome has been opened.
-- Erfan's reader-first, section-by-section review and the accepted examiner-feedback pass are complete. The rewrite now distinguishes claim-specific dependencies, uses explicit Methods and appendix handoffs, and applies the fixed brain-response terminology and central `acronyms.tex` registry throughout.
+- New experiment development is closed by Erfan's direction ([D065](decisions/decisions.md), 2026-08-25). The prospective program below (E033, E032, E028 exact-lane resolution, queued dimensionality work) is paused, not executed, unless Erfan reopens it. The university-template derivative exists; the immediate task is resolving the six argument-review findings before the Section-5 prose swarm.
+- E033 remains design-locked but inactive under D065. Its prospective L12-versus-final-hidden recorded-response placement test has not opened an outcome and has no compute license unless Erfan reopens development.
+- Erfan's reader-first review is complete through Results. The rewrite distinguishes claim-specific dependencies, uses explicit Methods and appendix handoffs, and applies the fixed brain-response terminology and central `acronyms.tex` registry throughout. Discussion through Conclusion now have a bounded argument-review hold before their prose passes.
 - The rewrite manuscript is the canonical thesis and current scientific-interpretation authority. All future manuscript writing, checks, builds, and supervisor-facing exports use `docs/manuscript/rewrite/`. The legacy extended manuscript and frozen public v0.9 cut are Git-history-only layers (see the manuscript note above).
 - E025 is complete and result-oracle clean. All language-quality, target-learning, and representation-movement gates passed. The direct TRIBE-minus-KD mean is `-0.000014`, CI95 `[-0.000739,+0.000711]`. The preregistered participant-first relative contrast is `+0.000136`, CI95 `[-0.000505,+0.000777]`, with one-sided UCB `+0.000653 < +0.002`; this relative estimand does not identify content after E026. UID 837 carries the sole clear participant positive in both views.
 - E026 is complete and independently audited. In the corrected identification set, 16/37 checks fail, 20 pass, and one is unresolved. The decisive mismatches are KD baseline/headroom, covariance spectrum/effective rank, and low-level nuisance predictability. Separately, 14/18 post-training diagnostic margins depart and four remain within margin; these outcomes describe the realized interventions but do not determine comparator identification. The raw cross-target difference remains non-identifying without invalidating TRIBE's within-target learnability or E025's direct TRIBE-minus-KD contrast.
@@ -50,15 +50,16 @@ aliases: [current-status]
 
 ## Blockers
 
-- No scientific-evidence or manuscript-quality blocker remains for sending the canonical rewrite manuscript to supervisors. Creating a new immutable public cut remains a separate decision requiring Erfan's approval.
+- No scientific-evidence blocker remains for supervisor review, but the six argument-review findings in Discussion through Conclusion are a manuscript-quality hold before the remaining prose swarms and supervisor handoff. Creating a new immutable public cut remains a separate decision requiring Erfan's approval.
 - E028's exact lane remains blocked by author-controlled code, checkpoints, masks/folds, dataset facts, and result-regeneration artifacts. Its synthetic Stage-1 development slice is implemented, tested, and independently `PANEL-CLEAN`, but the production provider/chain/dimension benchmark and sealed endpoint-bundle review are absent; `ENDPOINT-READY: NO` remains unchanged.
 - A top-AI-conference claim is not currently supported. It requires a non-inconclusive prospective external adjudication and a reusable intervention-audit implementation; the unchanged thesis should not consume a top-tier main-track cycle.
 
 ## Next actions
 
-1. Adapt `docs/manuscript/rewrite/` to the supervisor-provided university template (formatting-only derivative under D064; scientific content unchanged). This is the immediate next task.
-2. Send the template-conform manuscript to the supervisors and collect their scientific and institutional-format feedback without adding results from the newer experiment program.
-3. After supervisor feedback, decide whether to create a new immutable public cut.
+1. Resolve [ARG-5-1, ARG-5-2, ARG-6-1, ARG-6-2, ARG-7-1, and ARG-7-2](manuscript/submission/deferred-review-items.md#6-discussion-through-conclusion-argument-review-hold) in the canonical rewrite; Erfan confirms the load-bearing framing before it lands.
+2. Run the hardened v3.2 prose swarms for Discussion, Limitations, and Conclusion, then close the deferred abstract and figure/typography passes.
+3. Rebuild the university-template derivative and send it to the supervisors without adding results from the closed experiment program.
+4. After supervisor feedback, decide whether to create a new immutable public cut.
 
 Former experiment next actions (E033 implementation, E031 confirmation with E032 authorization, E028 lane resolution) are closed under D065 unless Erfan reopens them.
 

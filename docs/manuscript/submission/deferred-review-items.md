@@ -87,6 +87,27 @@ Flagged independently by both section-2 judges (2026-08-27):
 10. **"practical-endpoint analysis" descriptor** — RESOLVED: unified to "practical-utility evaluation" (the subsection's name) in §4.6's closing pointer.
 11. **Exclusion bound in §4.6** — RESOLVED: added the verified sentence "The one-sided 95\% participant upper bound \result{e025_participant_ucb} lies below the internal continuation threshold \result{e030_practical_threshold}, so a participant-mean effect of at least that size is excluded."
 
+## 6. Discussion-through-conclusion argument-review hold
+
+**State:** HOLD before the Section-5 prose swarm — fresh GPT-5.6 scientific-scope review, 2026-08-30.
+
+These are argument and evidence-scope items, not prose-polish suggestions. Resolve them first in the canonical rewrite; synchronize the submission derivative afterward. No item changes a recorded scientific verdict or number.
+
+Blocking minimum:
+
+1. **ARG-5-1 — participant-general estimator wording:** narrow the universal claim that effects must always be calculated separately per participant. The requirement is participant-supported population inference; dependence-aware hierarchical estimators are not ruled out by E008/E025.
+2. **ARG-5-2 — placement of unmeasured Qwen headroom:** restructure the sentence so missing opportunity context is not presented as the point where the recorded intervention loses support. The identifying paired intervention contrast is the failed support transition.
+3. **ARG-6-1 — inference-unit collapse:** narrow the statement that folds, stories, voxels, and seeds must all be aggregated within participants. Section 3 also defines fixed-stimulus inference tracks; preserve the biological/fixed-stimulus/technical distinction.
+4. **ARG-6-2 — MDE versus continuation thresholds:** separate E008's sensitivity MDE from E025/E030 threshold-based exclusions; do not imply that E008 established practical-effect exclusion under a continuation criterion it did not use.
+5. **ARG-7-1 — endpoint closure:** make the Conclusion land explicitly on the settled overall endpoint, `inconclusive`, while distinguishing that endpoint from the supported controlled-measurement and staged-evidence-framework contribution.
+6. **ARG-7-2 — dependency-graph wording:** narrow “ordered set of separately supported steps” so it cannot be read as a universal linear gate; preserve route-specific dependencies and independently interpretable endpoints.
+
+Nonblocking Section-6 clarification:
+
+- **ARG-6-3 — variant scope:** state that the naturalistic and full-parameter variants were mechanism or three-participant existence probes and do not broaden participant-general inference (E013/E017).
+
+**To resolve:** draft the six blocking changes under `/write`, check them against the cited manuscript seams and E records, obtain Erfan's approval for the load-bearing framing, then launch the Section-5 prose swarm. Close ARG-6-3 during the Section-6 pass.
+
 ## Related
 
 - [Submission manuscript](main-submission.tex)
