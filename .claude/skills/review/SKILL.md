@@ -19,8 +19,12 @@ adjudicating a verdict; `/review` is the panel invoked standalone on any target.
   assumptions), `premortem-analyst` (assume it failed, trace back), `first-principles-grounder`
   (re-derive from mechanism and the math/papers). Plus `oracle-reviewer` in DESIGN mode before compute
   or RESULT mode after.
-- **Codex** (the code-level critic the panel does not reach): `/codex:adversarial-review`, or a
-  read-only persona panel via `codex:codex-rescue`. Use when the claim rests on a script.
+- **Codex** (the code-level critic the panel does not reach). Use when the claim rests on a script.
+  The `codex@openai-codex` plugin is **not currently installed**, so `/codex:adversarial-review` and
+  `codex:codex-rescue` do not resolve; either install that marketplace or invoke the `codex` CLI
+  directly. If invoking it directly, pass `--sandbox danger-full-access` explicitly, because
+  bubblewrap cannot initialise in this container and the sandboxed form returns values the model
+  guessed (L033). `bash_gate.py` denies the unsandboxed form.
 - Each agent emits a machine-readable `PANEL-VERDICT` block. Verify each objection against the data,
   address the ones that hold, re-run until `PANEL-CLEAN:YES`.
 
