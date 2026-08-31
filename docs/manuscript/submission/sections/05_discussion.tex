@@ -10,7 +10,7 @@ The recorded-response and synthetic-response routes lose support at different tr
 \subsection{Where support is lost across the two intervention routes}
 \label{sec:discussion-failure}
 
-Controlled brain predictivity establishes the measurement context for the recorded-response route, while route-matched Qwen teacher--student headroom was not measured.
+Controlled brain predictivity establishes the measurement context for the recorded-response route; route-matched Qwen teacher--student headroom, which describes opportunity rather than the validity of the paired intervention contrast, was not measured.
 The recorded-response intervention itself does not demonstrate a participant-general pairing advantage.
 Training with participant-averaged responses produced positive trends for a fixed shared target, but those comparisons did not demonstrate a reliable pairing advantage at the shared-fold inference unit.
 Averaging can strengthen measurement of shared response structure, but it changes the estimand and does not create participant replicates.
@@ -64,7 +64,7 @@ Whether materially different prior results would pass those additional stages re
 The recorded-response and synthetic-response losses require different design changes.
 For recorded-response training, response construction and inference must match the intended claim.
 A target averaged across participants estimates the shared response.
-Participant-general claims instead require effects calculated separately for each participant after folds, seeds, and other technical repetitions are aggregated within that person.
+Participant-general claims instead require population inference that preserves participants as the biological inference unit; here, folds, seeds, and other technical repetitions were aggregated within each participant before inference across participants.
 The two estimands are complementary, not interchangeable.\evd{E005}\evd{E008}\evd{E014}
 
 For synthetic-response training, the observed losses justify moving several checks before expensive optimization.

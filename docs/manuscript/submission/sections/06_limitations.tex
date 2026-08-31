@@ -22,7 +22,7 @@ What each result identifies depends on the nuisance set, comparator, readout, an
 Unique predictivity excludes only the included nuisance features, while the trained-versus-untrained contrast establishes learned predictive access rather than a shared biological or computational mechanism.\evd{E002}\evd{E006}
 The text-derived auxiliary-control arm differs from the synthetic target in baseline predictability, remaining headroom, covariance geometry, effective rank, and nuisance predictability, so its cross-target contrast cannot identify the contribution of brain-response content.\evd{E026}
 The 50-component linear target-projection measurability result is restricted to the declared \ac{pca} assay, and specificity against the frozen row-twin control remains unresolved.\evd{E030}
-Folds, stories, voxels, and training seeds are dependent technical measurements that must be aggregated within each participant before population inference.\evd{E008}\evd{E025}
+The thesis therefore keeps biological, fixed-stimulus, and technical inference tracks distinct: participant-general biological claims aggregate technical repetitions within each participant before inference across participants; fixed-stimulus analyses condition their inference on the declared sentence or story set; and seeds, folds, stories, voxels, and \acp{roi} do not become participant replicates.\evd{E008}\evd{E025}
 Even after this aggregation, the fixed or shared stimulus sets do not support generalization to all language stimuli.
 Appendix~\ref{app:inference} formalizes these identification and dependence boundaries.
 
@@ -31,7 +31,9 @@ It does not contain a known-positive brain-response intervention that is expecte
 The positive component checks therefore show that the readouts detect existing signal and that training changes the retained student; they do not establish the sensitivity of the full intervention-to-transfer path to a genuine brain-specific benefit.\evd{E002}\evd{E006}\evd{E025}
 This limitation leaves open whether a smaller or differently structured benefit would pass the complete path, subject to the interval and minimum-detectable-effect bounds reported in Section~\ref{sec:results-predicted-transfer}.
 
-Within those design bounds, the participant-level and exact-target intervals reported in Sections~\ref{sec:results-recorded}, \ref{sec:results-predicted-identification}, and \ref{sec:results-predicted-transfer} disfavor the tested pairing, transfer, and target-measurability contrasts at the relevant inherited continuation thresholds.
+Within those design bounds, the participant-level and exact-target intervals reported in Sections~\ref{sec:results-recorded}, \ref{sec:results-predicted-identification}, and \ref{sec:results-predicted-transfer} answer different sensitivity questions under different decision rules.
+E008 reports a participant-level interval for the recorded-response pairing contrast and a separate minimum detectable effect as a sensitivity analysis; neither is interpreted as excluding effects against a declared continuation threshold.
+By contrast, the E025 participant upper bound and E030 exact-target interval are interpreted against their declared continuation thresholds, disfavoring effects at least as large as those thresholds for direct biological transfer and target measurability, respectively.
 They do not establish that the corresponding effects are exactly zero.
 The direct synthetic-response versus ordinary-\ac{kd} transfer contrast is interpretable independently of the auxiliary comparator.
 Only brain-response-specific attribution is blocked because the available comparator cannot isolate an effect of brain-response content, while target-row specificity in the 50-component linear assay remains unresolved.
@@ -43,6 +45,7 @@ The intervention search was diagnostic rather than exhaustive.
 The central synthetic-response route tested a GPT-2 Small student paired with a GPT-2 Medium teacher, representing one teacher--student scale pairing within one architecture family.\evd{E016}
 Across both routes, the study did not jointly explore broader student architectures, objective families, loss weights, schedules, data volumes, target constructions, or participant-personalization strategies.
 The executed adapter-capacity, contrastive, voxelwise, and full-parameter variants inform only their tested parameterizations and data regimes.\evd{E011}\evd{E013}\evd{E017}
+The naturalistic and full-parameter variants were mechanism or three-participant existence probes, not participant-general tests; they therefore do not broaden population inference.\evd{E013}\evd{E017}
 Section~\ref{sec:results-recorded} and Appendix~\ref{app:secondary} report the individual variant designs and dispositions.
 Different model scales, targets, objectives, architectures, and optimization procedures remain open.
 

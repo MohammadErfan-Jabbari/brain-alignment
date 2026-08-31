@@ -26,7 +26,7 @@ Legacy layers (`extended/`, `public/v0.9/`) were removed from HEAD on 2026-08-25
 4. Edit the active tree directly. Update the question tree in the same change when the manuscript's argument changes.
 5. Preserve `\evd{Ennn}` as source-level evidence provenance and keyed values in `numbers.tex`; a missing value is a `\gap`. Evidence identifiers are hidden in the thesis build and may be displayed only for internal review.
 6. Run `uv run python .claude/scripts/manuscript_check.py` on the edited tree (for example `docs/manuscript/rewrite` or `docs/manuscript/submission`).
-7. Run one fresh independent question-chain, prose, and scientific-scope review and obtain Erfan’s approval for load-bearing framing.
+7. Run one fresh independent question-chain, prose, and scientific-scope review. Erfan approves changed scientific verdicts, claim scope, governing terminology, and unresolved preference choices; after parent adjudication, evidence-grounded clarity edits that preserve meaning may land without item-by-item approval.
 
 Use `--share-ready` only when no gap remains. A contradiction routes to `/interpret` and sets `docs/status.md` to `manuscript-sync-pending`. Scientific changes accepted in `submission/` synchronize to `rewrite/` before they become authoritative; see [`submission/AGENTS.md`](submission/AGENTS.md).
 
@@ -44,7 +44,7 @@ Use `--share-ready` only when no gap remains. A contradiction routes to `/interp
    - attention, length, and opportunity cost using `allocate-for-compounding`;
    - terminology, handoffs, ownership, and whole-manuscript fit using `coordinate-strategy`.
 8. When multiple reviews run, reconcile them into one proposed revision. Address each accepted item or explain concretely why it conflicts with evidence or a higher-level question.
-9. Erfan approves load-bearing wording and verdict framing. Edit manuscript source only after approval.
+9. Route changed scientific verdicts, claim scope, governing terminology, and genuinely preference-dependent choices to Erfan. The parent may directly apply reviewed, evidence-grounded edits that improve readability, understandability, clarity, or precision without changing scientific meaning.
 10. At subsection close, reverse-outline both structures: every leaf is answered once, every paragraph has one owner, every inference is supported before use, and every transition prepares the next reader question.
 11. Apply the skeptical-reader test: the prose must be understandable sentence by sentence without an unsupported jump, an unexplained result, or dependence on project history.
 12. Repeat for at most four rounds, stopping earlier when no reviewer identifies a material claim, structure, prose, citation, terminology, density, or handoff defect.

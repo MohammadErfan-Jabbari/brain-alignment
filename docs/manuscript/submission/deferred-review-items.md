@@ -81,11 +81,11 @@ Flagged independently by both section-2 judges (2026-08-27):
 
 ## 6. Discussion-through-conclusion argument-review hold
 
-**State:** HOLD before the Section-5 prose swarm — fresh GPT-5.6 scientific-scope review, 2026-08-30.
+**State:** RESOLVED before the Section-5 prose swarm — 2026-08-30.
 
-These are argument and evidence-scope items, not prose-polish suggestions. Resolve them first in the canonical rewrite; synchronize the submission derivative afterward. No item changes a recorded scientific verdict or number.
+The fresh GPT-5.6 scientific-scope review identified argument and evidence-scope defects rather than prose-polish suggestions. All were corrected in the canonical rewrite and then synchronized to the submission derivative. No recorded scientific verdict or number changed.
 
-Blocking minimum:
+Resolved repairs:
 
 1. **ARG-5-1 — participant-general estimator wording:** narrow the universal claim that effects must always be calculated separately per participant. The requirement is participant-supported population inference; dependence-aware hierarchical estimators are not ruled out by E008/E025.
 2. **ARG-5-2 — placement of unmeasured Qwen headroom:** restructure the sentence so missing opportunity context is not presented as the point where the recorded intervention loses support. The identifying paired intervention contrast is the failed support transition.
@@ -98,7 +98,7 @@ Nonblocking Section-6 clarification:
 
 - **ARG-6-3 — variant scope:** state that the naturalistic and full-parameter variants were mechanism or three-participant existence probes and do not broaden participant-general inference (E013/E017).
 
-**To resolve:** draft the six blocking changes under `/write`, check them against the cited manuscript seams and E records, obtain Erfan's approval for the load-bearing framing, then launch the Section-5 prose swarm. Close ARG-6-3 during the Section-6 pass.
+**Resolution:** The six blocking repairs and ARG-6-3 were applied under [D067](../../decisions/decisions.md): they improve scope accuracy and reader understanding while preserving the settled scientific meaning. The Section-5 prose swarm is unblocked.
 
 ## Related
 

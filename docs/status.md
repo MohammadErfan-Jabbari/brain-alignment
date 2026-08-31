@@ -8,7 +8,7 @@ aliases: [current-status]
 
 **Updated:** 2026-08-30
 
-**Manuscript:** `final argument and prose review before supervisor handoff`. The 70-page thesis in `docs/manuscript/rewrite/` remains the sole scientific-interpretation authority; `docs/manuscript/submission/` is its university-template derivative. Introduction through Results have completed the reader-first review. A fresh GPT-5.6 [scientific-scope review](manuscript/submission/deferred-review-items.md#6-discussion-through-conclusion-argument-review-hold) of Discussion through Conclusion returned `HOLD-BEFORE-PROSE-SWARM` on six framing issues: two estimator/dependency overstatements in Discussion, two inference/threshold overstatements in Limitations, and two endpoint/dependency closure issues in Conclusion. No scientific verdict or number changed. Its professor-approved title is *Evaluating Brain Alignment as a Training Signal for Language Models* ([D066](decisions/decisions.md)).
+**Manuscript:** `Section 5 prose swarm before final supervisor handoff review`. The 70-page thesis in `docs/manuscript/rewrite/` remains the sole scientific-interpretation authority; `docs/manuscript/submission/` is its university-template derivative. Introduction through Results have completed the reader-first review. The six blocking Discussion-through-Conclusion [argument findings](manuscript/submission/deferred-review-items.md#6-discussion-through-conclusion-argument-review-hold) and the nonblocking variant-scope clarification are resolved in both manuscript trees without changing a scientific verdict or number. Its professor-approved title is *Evaluating Brain Alignment as a Training Signal for Language Models* ([D066](decisions/decisions.md)).
 
 **Legacy layers removed from HEAD (2026-08-25):** the `extended/` legacy snapshot and the frozen public v0.9 cut are preserved only in Git history (last commits: `extended/` at `7c445b0`, `public/v0.9/` at `6026021`). Do not recreate them as directories; cite the commits when historical access is needed.
 
@@ -50,16 +50,15 @@ aliases: [current-status]
 
 ## Blockers
 
-- No scientific-evidence blocker remains for supervisor review, but the six argument-review findings in Discussion through Conclusion are a manuscript-quality hold before the remaining prose swarms and supervisor handoff. Creating a new immutable public cut remains a separate decision requiring Erfan's approval.
+- No scientific-evidence or argument-review blocker remains for the Section 5 prose swarm. Creating a new immutable public cut remains a separate decision requiring Erfan's approval.
 - E028's exact lane remains blocked by author-controlled code, checkpoints, masks/folds, dataset facts, and result-regeneration artifacts. Its synthetic Stage-1 development slice is implemented, tested, and independently `PANEL-CLEAN`, but the production provider/chain/dimension benchmark and sealed endpoint-bundle review are absent; `ENDPOINT-READY: NO` remains unchanged.
 - A top-AI-conference claim is not currently supported. It requires a non-inconclusive prospective external adjudication and a reusable intervention-audit implementation; the unchanged thesis should not consume a top-tier main-track cycle.
 
 ## Next actions
 
-1. Resolve [ARG-5-1, ARG-5-2, ARG-6-1, ARG-6-2, ARG-7-1, and ARG-7-2](manuscript/submission/deferred-review-items.md#6-discussion-through-conclusion-argument-review-hold) in the canonical rewrite; Erfan confirms the load-bearing framing before it lands.
-2. Run the hardened v3.2 prose swarms for Discussion, Limitations, and Conclusion, then close the deferred abstract and figure/typography passes.
-3. Rebuild the university-template derivative and send it to the supervisors without adding results from the closed experiment program.
-4. After supervisor feedback, decide whether to create a new immutable public cut.
+1. Run the hardened v3.3 prose swarms for Discussion, Limitations, and Conclusion, then close the deferred abstract and figure/typography passes.
+2. Rebuild the university-template derivative and send it to the supervisors without adding results from the closed experiment program.
+3. After supervisor feedback, decide whether to create a new immutable public cut.
 
 Former experiment next actions (E033 implementation, E031 confirmation with E032 authorization, E028 lane resolution) are closed under D065 unless Erfan reopens them.
 

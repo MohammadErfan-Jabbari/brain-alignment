@@ -619,6 +619,7 @@ F1-close DONE → F2 DONE (corroboration) → **F3 (I3 denizenslab n=6 full-FT, 
 **Decision (S14, autonomous; grounded in this session's results + the panels).** With F1-close (E020, bounded
 ceiling) and F2 (E019, corroboration) DONE, the implementation lane's **decisive** forward-program work is complete.
 Assessment of the remaining items:
+
 + **F3 (I3 = denizenslab n=6 full-FT induction) is SUPERSEDED / moot, not worth the compute.** The powered full-FT
   induction null is ALREADY in hand: **E017** ran full fine-tuning on LeBel (UTS01/02/03 × 3 seeds, ppl-preserving) →
   null (gap +0.0003, CI [−0.0002,+0.0008], p=0.27, L036), and **E019** just corroborated it on the faithful Negi head.
@@ -680,6 +681,7 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 **Decision.** The scientific-ladder rungs are renamed from `L` to `Q` and renumbered into execution (climb) order. The old `L` collided with learning IDs (`L001–L043`) and ran out of execution order (L2a before L1). Mapping: `L0→Q0` (signal real, A2) · `L2a→Q1` (KD-preservation gate) · `L1→Q2` (the lever) · `L3→Q3` (headline, F1) · `L2b→Q4` (practical payoff, A3) · `L4→Q5` (fMRI-free proxy). Climb order is now `Q0→Q5`.
 
 **The naming convention (canonical, in `docs/map.md` + `CLAUDE.md`):**
+
 + **Stable artifacts keep flat, immutable, chronological IDs** — `E`nnn (experiment), `D`nnn (decision), `L`nnn (learning), `A`1–A3 (assumption). They are like issue numbers: never renumbered when interpretation shifts, and one experiment may serve several rungs (the structure is a DAG, not a tree — which is *why* fusing identity with ladder-position via hierarchical IDs like `E0.1` was rejected).
 + **The ladder is a separate hierarchical view**: rungs are `Q`n, the only rung vocabulary. "Layer N" is retired as a rung synonym (kept historically in R03/R04 with a mapping note; in the tutoring checklist it means a *teaching chapter*, not a rung).
 + Not rungs, left untouched: transformer layers (`L7`/`L12`), `L2`/`L∞` norms, lecture numbers, `λ`/`L_brain`/`L²`.
@@ -755,6 +757,7 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 **Decision (Erfan-directed, two forks confirmed).** After the IMDEA supervisor (Claudio) flagged the v0.1 extended manuscript for "llm-specific sentence constructions" (four example sentences, all narration/storytelling register), root-cause the failure and install a standing defense. **The diagnosis (evidence-backed, L054):** two independent breaks. **(1) Process** — the entire extended manuscript was written in one unlogged burst (commit `3145140`, 2026-06-16 18:57, all four flagged sentences) tacked onto the end of a `/meta` tooling session (S18), with no `/write` session, no `session-logger`, no review pass; the `scientific-writing` full loop never ran. **(2) Content** — even had the loop run, the skill would have caught at most one of the four: Group C (lexical tells) is fully encoded with a linter, but Group B (passive) pointed the *wrong way* ("passive is acceptable") and Group A (storytelling/register: anthropomorphized abstractions, self-narrated rhetorical moves, internal-metaphor leakage, dramatized framing) was *never encoded* — and the linter returned "clean" on the exact file Claudio flagged, because Group A carries no banned token.
 
 **The remedy — four prose-defect classes placed on the deterministic↔agentic axis (the axis = "does a banned token betray it"):**
+
 + **Layer 3 (content):** `writing-style.md` §1 gains the "Register: state the claim, do not narrate it" judgment block (the four tells, with Claudio's four sentences as worked Before/After failures); §2's passive rule is flipped from permissive to deliberate-choice + density; `review-pass.md` gains a "Scientific register" lens.
 + **Layer 1 (deterministic):** `ai_tell_lint.py` gains a Class-A tripwire (agency-verb-on-abstraction, self-narration patterns, metaphor leakage) + a Class-B passive-density meter, as **soft warnings** (exit-neutral; the tripwire is intentionally incomplete — the agentic gate is the real Class-A catch).
 + **Layer 2 (agentic):** a new **`prose-register-auditor`** agent (sonnet, read-only), spawned by the review pass for supervisor-facing prose — the dedicated voice reader (the claim panel attacks the argument; the auditor attacks the prose). Validated on the v0.1 intro: caught all four flagged sentences + two more, with rewrites, and kept the one justified passive.
@@ -1001,6 +1004,16 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 **Scope.** This is a title-only change. It does not alter a scientific claim, recorded verdict, evidence state, experiment record, or canonical-manuscript authority. The title now states the thesis question as an evaluation and does not promise that brain alignment succeeds as a training signal. The canonical rewrite, university-template derivative, deferred-review checklist, and project status carry the approved title; historical decisions retain the title that was current when they were recorded.
 
 **Reverses if:** the university requires the previously registered title or Erfan and the professors approve another replacement.
+
+## D067: Delegate evidence-grounded manuscript wording after review (2026-08-30, /meta + /write)
+
+**Decision.** Erfan's standing preference is that the parent applies reviewed manuscript edits autonomously when they improve readability, understandability, clarity, or precision without changing the scientific meaning. This supersedes item-by-item approval for evidence-grounded editorial repairs, including scope corrections that remove an overstatement while preserving the recorded verdict.
+
+**Owner input remains required for:** a changed scientific verdict or factual claim; a material expansion or contraction of claim scope; a new governing terminology or naming policy; an external or administrative commitment; or a genuinely preference-dependent choice among evidence-equivalent alternatives. A child's `OWNER-CONFIRM` label does not itself trigger consultation: the parent first checks whether the item meets one of these conditions.
+
+**Unchanged controls.** Canonical-first editing, E-record grounding, independent review, manuscript validation, and Erfan's authority over final decisions remain in force.
+
+**Reverses if:** Erfan asks to restore item-by-item approval or defines a narrower delegation boundary.
 
 ## Related
 

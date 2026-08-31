@@ -77,7 +77,7 @@ Strict independent review remains at the two load-bearing boundaries: before a d
 4. Draft directly into `docs/manuscript/rewrite/`.
 5. Run the deterministic manuscript provenance and build checks.
 6. Run one fresh independent question-chain, prose, and scientific-scope review.
-7. Revise; obtain Erfan’s approval for load-bearing framing before marking the manuscript share-ready.
+7. Revise. Before marking the manuscript share-ready, obtain Erfan’s approval for changed scientific verdicts, claim scope, governing terminology, and unresolved preference choices; reviewed evidence-grounded clarity edits that preserve scientific meaning do not require item-by-item approval.
 
 Public versions are cut only for a named sharing or submission milestone and are never edited afterward.
 

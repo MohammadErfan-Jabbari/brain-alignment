@@ -320,7 +320,7 @@ Section 2.3 owns the factual literature map and unresolved pre-results gap. This
 
 #### 5.3 Design implications for future brain-response-guided training
 
-1. For recorded-response training, how must response construction and the inference unit match the intended participant or population claim?
+1. For recorded-response training, how must response construction and population inference preserve participants as the biological inference unit without treating the executed estimator as the only valid estimator?
 2. For synthetic targets evaluated through the planned linear assay, what measurability, specificity, and comparator checks should precede training, which diagnostics must be retained, and what would passing these checks still not guarantee?
 3. After manipulation succeeds, what matched-control and independent participant-level evidence is required for attribution and biological transfer, and when does a utility test become interpretable within its route?
 4. How should supported, not-demonstrated, unresolved, and non-identifying outcomes determine whether a study continues, redesigns its target, control, or assay, or stops downstream testing?
@@ -349,7 +349,7 @@ The opener must bridge from Section 5 and preview population and measurement cov
 
 1. How do the specified nuisance sets, comparator mismatch, restricted linear readout, 50-component \ac{pca} target assay, unresolved twin contrast, dependence structures, and absence of a known-positive intervention that traverses the complete biological-transfer path bound identification?
 2. What do the positive measurement and manipulation checks validate, and what do they leave untested about the sensitivity of the complete intervention-to-transfer path?
-3. Which tested participant-level contrasts and target-measurability increments are disfavored at the internal continuation scales, and which smaller effects, heterogeneous participant effects, or effects in other cohorts remain compatible with the data?
+3. How does E008's minimum detectable effect bound sensitivity without a continuation-threshold exclusion, which E025 and E030 contrasts are disfavored at their declared continuation scales, and which smaller, heterogeneous, or out-of-cohort effects remain compatible with the data?
 
 Section 4 owns the exact estimates and intervals. This subsection must cross-reference the relevant Results subsections and state only the scope those bounds support. Appendix D owns estimator and dependence details.
 
@@ -366,7 +366,7 @@ Keep the recorded-response and synthetic-response utility boundaries separate. S
 
 Two paragraphs:
 
-1. What is the direct, scope-bounded answer for the tested systems?
+1. Why is the overall endpoint inconclusive for the tested systems, and which narrower measurement, manipulation, and evidence-framework contributions remain supported?
 2. What durable methodological lesson follows about the evidence needed to turn a brain score into a training signal?
 
 ## Complete appendix question tree

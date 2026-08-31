@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// Section review swarm generator (v3.2) — reliability hardening after Sections 2-4.
-// Lineage: v1 ran Section 2, v2 ran Section 3, and v3.1 ran Section 4. v3.2 makes
-// routing explicit, fails on malformed or truncated phase output, enforces exact OLD→NEW
-// anchors against the canonical rewrite, and keeps round-2 review neutral.
+// Section review swarm generator (v3.3) — reliability hardening after Sections 2-4.
+// Lineage: v1 ran Section 2, v2 ran Section 3, v3.1 ran Section 4, and v3.2
+// hardened routing, phase gates, exact anchors, and neutral round two. v3.3 keeps
+// evidence-grounded editorial repairs out of the owner-confirm route.
 //
 // Usage (from repo root):
 //   node .claude/scripts/section_swarm.js 4                    → /tmp/s4-swarm.js      (round-1 workflow)
@@ -219,7 +219,7 @@ function ownerPreferenceSurface(text) {
       .filter(Boolean);
     if (counts.length) hits.push(`P${index + 1}: ${counts.join(", ")}`);
   });
-  return `OWNER-PREFERENCE PRE-PASS (attention hints, not automatic defects):\n${
+  return `REGISTER-WORD PRE-PASS (attention hints, not automatic defects):\n${
     hits.length ? hits.join("\n") : "no flagged register words"
   }`;
 }
@@ -251,7 +251,7 @@ function buildContext(cfg, text) {
 }
 
 function stamp(cfg, text, kind) {
-  return `// ${cfg.label} ${kind} — generated ${new Date().toISOString()} by .claude/scripts/section_swarm.js (v3.2)
+  return `// ${cfg.label} ${kind} — generated ${new Date().toISOString()} by .claude/scripts/section_swarm.js (v3.3)
 // Live-text embed sha256: ${sha256(text)}  (verify: node .claude/scripts/section_swarm.js ${cfg.number} --verify <this file>)
 // Review-only children: no file edits. The parent applies accepted changes to canonical rewrite first.
 `;
@@ -574,7 +574,7 @@ const task = CONTEXT + "\\n\\nFINDINGS TO ADJUDICATE (verbatim from the round-2 
   "OLD: (APPLY/MODIFY only) one exact source line that occurs once in the canonical live section.\\n" +
   "NEW: (APPLY/MODIFY only) one exact replacement LaTeX source line.\\n" +
   "WHY: one sentence, citing the file or record you verified against.\\n" +
-  "OWNER-CONFIRM: for anything that needs a design decision only Erfan can make (naming policy, scope of a defined family, a declared tolerance) — never settle it yourself.\\n" +
+  "OWNER-CONFIRM: use only when the choice changes a scientific verdict or factual claim, materially changes claim scope, establishes governing terminology, makes an external commitment, or requires a subjective preference among evidence-equivalent alternatives. Evidence-grounded clarity or precision repairs that preserve scientific meaning are APPLY/MODIFY, not OWNER-CONFIRM.\\n" +
   "Your entire output must consist of these blocks. No preamble.";
 
 const run = { key: "round2-judge", agent: "reviewer", model: MODEL, task };
