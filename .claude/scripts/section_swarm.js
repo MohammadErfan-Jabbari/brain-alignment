@@ -210,7 +210,10 @@ function ownerPreferenceSurface(text) {
   text.split(/\n\s*\n/).forEach((paragraph, index) => {
     const counts = terms
       .map((term) => {
-        const n = (paragraph.toLowerCase().match(new RegExp(`\\b${term}\\w*\\b`, "g")) || []).length;
+        const n = (
+          paragraph.toLowerCase().match(new RegExp(`\\b${term}\\w*\\b`, "g")) ||
+          []
+        ).length;
         return n ? `${term}=${n}` : null;
       })
       .filter(Boolean);
@@ -594,7 +597,9 @@ return { verdicts: out };
 
 function validateConfig(cfg) {
   if (!cfg.number || !cfg.file.startsWith("docs/manuscript/rewrite/")) {
-    throw new Error(`${cfg.label}: config must identify the canonical rewrite file`);
+    throw new Error(
+      `${cfg.label}: config must identify the canonical rewrite file`,
+    );
   }
   const routing = cfg.routing || {};
   const models = [
@@ -603,16 +608,30 @@ function validateConfig(cfg) {
     routing.round2 && routing.round2.id,
     routing.round2Judge && routing.round2Judge.id,
   ].filter(Boolean);
-  if (models.length < 4 || models.some((id) => !/:(off|minimal|low|medium|high|xhigh|max)$/.test(id))) {
-    throw new Error(`${cfg.label}: every child model needs an explicit thinking suffix`);
+  if (
+    models.length < 4 ||
+    models.some((id) => !/:(off|minimal|low|medium|high|xhigh|max)$/.test(id))
+  ) {
+    throw new Error(
+      `${cfg.label}: every child model needs an explicit thinking suffix`,
+    );
   }
 }
 
 function selftest() {
   const required = {
     round1: ["PHASE1 gate failed", "OLD:", "NEW:", "expectedJudgeIds"],
-    round2: ["ROUND2 gate failed after retry", "model: MODEL", "neutral checklist"],
-    judge: ["ROUND2-JUDGE gate failed after retry", "OLD:", "NEW:", "canonical live file"],
+    round2: [
+      "ROUND2 gate failed after retry",
+      "model: MODEL",
+      "neutral checklist",
+    ],
+    judge: [
+      "ROUND2-JUDGE gate failed after retry",
+      "OLD:",
+      "NEW:",
+      "canonical live file",
+    ],
   };
   for (const cfg of Object.values(SECTIONS)) {
     validateConfig(cfg);
@@ -624,9 +643,11 @@ function selftest() {
     };
     for (const [mode, markers] of Object.entries(required)) {
       for (const marker of markers) {
-        if (!outputs[mode].includes(marker)) throw new Error(`${cfg.label} ${mode}: missing ${marker}`);
+        if (!outputs[mode].includes(marker))
+          throw new Error(`${cfg.label} ${mode}: missing ${marker}`);
       }
-      if (outputs[mode].includes(".slice(0,")) throw new Error(`${cfg.label} ${mode}: silent truncation remains`);
+      if (outputs[mode].includes(".slice(0,"))
+        throw new Error(`${cfg.label} ${mode}: silent truncation remains`);
     }
     console.log(`PASS ${cfg.label}: ${cfg.file}`);
   }
