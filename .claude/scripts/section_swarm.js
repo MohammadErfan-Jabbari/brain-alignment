@@ -158,7 +158,7 @@ const SECTIONS = {
     routing: {
       workers: [
         { tag: "ds", id: "deepseek/deepseek-v4-flash:medium" },
-        { tag: "glm", id: "ollama-cloud/glm-5.3:medium" },
+        { tag: "luna", id: "openai-codex/gpt-5.6-luna:medium" },
       ],
       judges: [
         { tag: "luna", id: "openai-codex/gpt-5.6-luna:high" },
