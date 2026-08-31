@@ -1,8 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "env": {
-    "ECC_DISABLED_HOOKS": "pre:edit-write:gateguard-fact-force,pre:bash:gateguard-fact-force,pre:write:doc-file-warning"
-  },
   "hooks": {
     "PreToolUse": [
       {
@@ -13,19 +10,13 @@
             "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/agent_routing_lint.py\""
           }
         ]
-      }
-    ],
-    "PostToolUse": [
+      },
       {
-        "matcher": "Edit|Write|MultiEdit",
+        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/honesty_writecheck.py\""
-          },
-          {
-            "type": "command",
-            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/prose_writecheck.py\""
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/bash_gate.py\""
           }
         ]
       }

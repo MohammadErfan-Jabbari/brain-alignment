@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
-"""PreToolUse linter for agent spawns — nudge model-routing (D013/D026).
+"""PreToolUse gate for agent spawns: model routing (D013/D026, hardened D068).
 
-Non-blocking by design: always exits 0 and only writes a warning to stderr, so it
-can never break a spawn (incl. the workflow's own). Enforces what CLAUDE.md states
-in prose: fable is banned; judgment-heavy agents belong on opus; lit-scout /
-dataset-scout are task-dependent (sonnet to gather, opus to analyze) and are exempt.
+Two tiers, deliberately different:
+
+- fable is DENIED. A ban that only warns is not a ban, and the warning form let
+  every fable spawn through since the hook was written.
+- the opus preference for judgment-heavy agents stays a stderr warning, because
+  it is a preference and a wrong deny would break a legitimate spawn.
+
+Decides from `tool_input` alone (subagent_type, model). Reads no repo path.
+A missing model is left to the global require-subagent-model hook, which denies it.
 """
 import json
 import sys
@@ -27,12 +32,18 @@ def main() -> int:
     sub = (ti.get("subagent_type") or "")
     base = sub.split(":")[-1]
     model = (ti.get("model") or "").lower()
-    warns = []
     if "fable" in model:
-        warns.append(
-            f"fable is BANNED (D013/D026) — never route '{base or 'agent'}' to fable; "
-            "use opus/sonnet/haiku."
-        )
+        print(json.dumps({"hookSpecificOutput": {
+            "hookEventName": "PreToolUse",
+            "permissionDecision": "deny",
+            "permissionDecisionReason": (
+                f"fable is banned in this repo (D013/D026); '{base or 'agent'}' was routed "
+                f"to model='{model}'. Use opus for analysis/design/judgment, sonnet for "
+                "navigation/gathering/verification, haiku only for mechanical extraction."
+            ),
+        }}))
+        return 0
+    warns = []
     if base in OPUS_AGENTS and model and "opus" not in model:
         warns.append(
             f"'{base}' is judgment-heavy and should run on opus; got model='{model}'. "
