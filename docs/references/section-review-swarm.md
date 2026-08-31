@@ -7,7 +7,7 @@ tags: [reference, manuscript, review, subagents]
 
 The apparatus behind the section-by-section submission review (2026-08-27 onward). This is a process reference, not a status board: what was run and accepted lives in Git commits and the deferred list; [`../status.md`](../status.md) owns operations.
 
-Lineage: v1 ran Section 2 (2026-08-27, 9 children: 4 analysts, 4 counter-reviewers, judge + re-run judge). v2 ran Section 3 (2026-08-28, 17 children: live-text embed, 5+5, dual parallel judges, round-2 blind pass + resolution judge). v3.1 ran Section 4 with dual-model workers and judges. v3.2 added explicit routing, fail-loud phase gates, exact `OLD`→`NEW` anchors against the canonical rewrite, neutral round two, and canonical-first application. v3.4 is the current recipe: it applies [D067](../decisions/decisions.md), keeps evidence-grounded clarity repairs out of the owner-confirm route, canonically parses bold-format drift before gating, and rejects duplicate IDs, discarded drafts, placeholder blocks, and no-op edits at admission. It is implemented in [`../../.claude/scripts/section_swarm.js`](../../.claude/scripts/section_swarm.js).
+Lineage: v1 ran Section 2 (2026-08-27, 9 children: 4 analysts, 4 counter-reviewers, judge + re-run judge). v2 ran Section 3 (2026-08-28, 17 children: live-text embed, 5+5, dual parallel judges, round-2 blind pass + resolution judge). v3.1 ran Section 4 with dual-model workers and judges. v3.2 added explicit routing, fail-loud phase gates, exact `OLD`→`NEW` anchors against the canonical rewrite, neutral round two, and canonical-first application. v3.4 was the final recipe: it applies [D067](../decisions/decisions.md), keeps evidence-grounded clarity repairs out of the owner-confirm route, canonically parses bold-format drift before gating, and rejects duplicate IDs, discarded drafts, placeholder blocks, and no-op edits at admission. Its implementation (`.claude/scripts/section_swarm.js`) was retired by [D068](../decisions/decisions.md): it grew across five sessions with no authorizing decision, and its last four launches all ended in fail-loud infrastructure stops. This file is retained as a process record of what was run and what the routing failures taught, not as a live recipe. Recover the code from Git history if it is ever rebuilt under a recorded decision.
 
 ## Why a swarm at all
 
@@ -54,24 +54,11 @@ Children never edit files; the parent is the sole writer and decision-maker. v3.
 
 Kept from v2 because they worked: live-text extraction at generation time with sha256 stamp, anchor assertions at generation (each `\subsection` title found exactly once), dual parallel judges, counter-reviewer "guardian of precision" role, CLEAN as an acceptable answer, deferred splits flagged but never fixed by children.
 
-## Build and launch
+## Retired implementation
 
-From the repo root:
+The generator, its `--selftest` / `--verify` / `--round2` / `--round2-judge` entry points, and the `SECTIONS` routing table lived in `.claude/scripts/section_swarm.js` and were deleted by [D068](../decisions/decisions.md). Recover the file from Git history if the pipeline is ever rebuilt under a recorded decision; do not reconstruct it from this document, which records intent and defects rather than the code.
 
-```bash
-node .claude/scripts/section_swarm.js --selftest
-node .claude/scripts/section_swarm.js 5                     # round-1 workflow → /tmp/s5-swarm.js
-node .claude/scripts/section_swarm.js 5 --verify /tmp/s5-swarm.js   # byte-identical check
-```
-
-Then validate and launch with the subagent tool: `workflowScriptPath=/tmp/s5-swarm.js`, `async: true`, arm the wake subscription, and process the return value on completion. Do not auto-substitute a model after failure: routing is declared; a phase stops after one malformed-output retry and the parent decides any fallback.
-
-After the parent applies round-1 changes (and syncs the rewrite twin, runs the checker, rebuilds, commits):
-
-```bash
-node .claude/scripts/section_swarm.js 5 --round2            # blind reviewer on the revised text
-node .claude/scripts/section_swarm.js 5 --round2-judge FINDINGS.md   # resolution judge (repo access)
-```
+Two properties of it are worth carrying into any replacement, because both were earned the hard way: children never write files and the parent is the sole writer; and a phase stops after exactly one malformed-output retry rather than continuing with reduced review coverage. Never auto-substitute a model after a failure.
 
 ## Parent procedure after the swarm returns
 
@@ -87,9 +74,11 @@ node .claude/scripts/section_swarm.js 5 --round2-judge FINDINGS.md   # resolutio
 
 Before applying the prose swarm to Discussion, Limitations, or Conclusion, run a separate read-only scientific-scope and argument review. The prose swarm deliberately forbids restructuring and verdict changes, so it cannot detect missing synthesis, citation insufficiency, conclusion overreach, or a weak inference chain.
 
-## Adding the next section
+## What replaces it
 
-Add an entry to `SECTIONS` in [`../../.claude/scripts/section_swarm.js`](../../.claude/scripts/section_swarm.js): canonical rewrite file, explicit model-plus-thinking routing for every phase, label, section-type rules, analyst criteria, counter-reviewer guardian line, and scopes (one per subsection, anchored on the exact `\subsection{...}` title; preamble joins the first scope). Update `SHARED.settled` and `SHARED.deferred`, then run `node .claude/scripts/section_swarm.js --selftest`. The anchor assertion fails loudly if the manuscript drifted, which is the point.
+Judgment is the `/review` panel's job: `counter-argument`, `socratic-thinker`, `premortem-analyst`, and `first-principles-grounder`, with `oracle-reviewer` when a design gate is in scope. Mechanical verification that prose matches the record is a separate job from judging the prose, and belongs to read-only verification agents rather than to a prose swarm.
+
+The parent procedure above is retained because it is the bar any replacement still has to meet.
 
 ## Related
 

@@ -50,13 +50,13 @@ aliases: [current-status]
 
 ## Blockers
 
-- No scientific-evidence or argument-review blocker remains. The Section 5 prose swarm is parked by Erfan's 2026-08-31 stop after four fail-loud infrastructure stops (GLM output-cap deaths; OpenAI-Codex usage limit; kimi-coding weekly quota; counter output-format drift, since fixed by the v3.4 gate hardening). The openai-codex models are removed from routing; kimi is served by ollama-cloud/kimi-k3 when the swarm is next used. Creating a new immutable public cut remains a separate decision requiring Erfan's approval.
+- No scientific-evidence or argument-review blocker remains. The Section 5 prose swarm is parked by Erfan's 2026-08-31 stop after four fail-loud infrastructure stops (GLM output-cap deaths; OpenAI-Codex usage limit; kimi-coding weekly quota; counter output-format drift, since fixed by the v3.4 gate hardening). The swarm implementation was retired by [D068](decisions/decisions.md); the recorded Section 5 judgment calls are adjudicated under `/review` instead, and the routing lessons are kept in [`references/section-review-swarm.md`](references/section-review-swarm.md). Creating a new immutable public cut remains a separate decision requiring Erfan's approval.
 - E028's exact lane remains blocked by author-controlled code, checkpoints, masks/folds, dataset facts, and result-regeneration artifacts. Its synthetic Stage-1 development slice is implemented, tested, and independently `PANEL-CLEAN`, but the production provider/chain/dimension benchmark and sealed endpoint-bundle review are absent; `ENDPOINT-READY: NO` remains unchanged.
 - A top-AI-conference claim is not currently supported. It requires a non-inconclusive prospective external adjudication and a reusable intervention-audit implementation; the unchanged thesis should not consume a top-tier main-track cycle.
 
 ## Next actions
 
-1. On Erfan's direction, finish the Section 5 residual prose findings — relaunch the hardened v3.4 swarm (`node .claude/scripts/section_swarm.js 5`, DeepSeek + Ollama Kimi K3) or adjudicate the recorded judgment calls directly — then run the Limitations and Conclusion swarms, then close the deferred abstract and figure/typography passes.
+1. On Erfan's direction, finish the Section 5 residual prose findings — adjudicate the recorded judgment calls directly under `/review`, recovering them from that session's transcripts — then run the Limitations and Conclusion swarms, then close the deferred abstract and figure/typography passes.
 2. Rebuild the university-template derivative and send it to the supervisors without adding results from the closed experiment program.
 3. After supervisor feedback, decide whether to create a new immutable public cut.
 
