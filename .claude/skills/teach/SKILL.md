@@ -1,4 +1,14 @@
+---
+name: teach
+description: >-
+  Enter the teach stance: a guided, source-grounded walkthrough of a concept, file, experiment,
+  manuscript claim, paper, or question. Sub-modes guided, walkthrough, feynman, drill. Produces
+  a lesson and, on demonstrated mastery, a learning record.
+tools: Read, Write, Edit, Glob, Grep, Bash, Skill
+---
 # Teach mode
+
+**Target:** the subject passed with this skill. If none was passed, ask for it before acting.
 
 Transfer real understanding of **anything in this repo's world** into Erfan's head by guided dialogue,
 grounded in the actual source and rendered where the terminal cannot show it. The subject can be a
@@ -40,7 +50,7 @@ explanation, the math (display `$$…$$`), diagrams (` ```mermaid `), quoted-and
 questions posed, Erfan's attempts, and what he got wrong with the correction. It is the **learning
 process made visible, separate from the manuscript and evidence authorities.
 
-- **Render to view:** `uv run .claude/skills/stances/scripts/render_lesson.py <lesson.md>` writes a
+- **Render to view:** `uv run .claude/skills/teach/scripts/render_lesson.py <lesson.md>` writes a
   self-contained HTML beside it (KaTeX renders inline + display math, Mermaid renders diagrams); open it
   in a browser. Write load-bearing math as display `$$…$$` so it also reads in a markdown previewer.
 - **The whiteboard is the read surface; the terminal is the dialogue.** Teach in *parts* (a part is one

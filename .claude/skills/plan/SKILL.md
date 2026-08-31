@@ -1,4 +1,13 @@
+---
+name: plan
+description: >-
+  Enter the plan stance: set direction, triage kill gates, and decide what to run next.
+  Produces no number and flips no rung.
+tools: Read, Glob, Grep, Bash, Task, Skill
+---
 # Plan mode
+
+**Target:** the subject passed with this skill. If none was passed, ask for it before acting.
 
 Set direction: the roadmap, kill-gate triage, and what to run next. It decides where to point the next
 compute; it produces no number and flips no rung.

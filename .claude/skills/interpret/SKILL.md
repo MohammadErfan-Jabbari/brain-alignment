@@ -1,4 +1,14 @@
+---
+name: interpret
+description: >-
+  Enter the interpret stance: turn a recorded result into a panel-survived, manifest-scored
+  verdict. Use on "is this verdict real", "what does E0nn mean", or after a run produces
+  numbers and before the verdict lands anywhere. Proposes a verdict; never flips a rung.
+tools: Read, Glob, Grep, Bash, Task, Skill
+---
 # Interpret mode
+
+**Target:** the subject passed with this skill. If none was passed, ask for it before acting.
 
 Turn recorded evidence into an adjudicated verdict. Enter on "is this verdict real", "digest this
 result", "what does E0xx mean", or after a run produces numbers and before the verdict lands anywhere.

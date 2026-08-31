@@ -1,7 +1,10 @@
 ---
-description: Run the deterministic provenance, number, gap, citation/reference, and LaTeX checks for a manuscript.
-argument-hint: [path] [--share-ready]
-allowed-tools: Bash
+name: manuscript-check
+description: >-
+  Run the deterministic manuscript gate: evidence-marker resolution, keyed-number resolution
+  across the input graph, bare result-like numbers, gap survival under --share-ready, and the
+  LaTeX build.
+tools: Bash
 ---
 
 Run the single deterministic manuscript gate:

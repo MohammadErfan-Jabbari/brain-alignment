@@ -12,7 +12,7 @@ This folder contains the Claude Code apparatus for the repo: subagents, hooks, s
 
 - Do not create `README.md` files here; folder-local guidance belongs in `AGENTS.md`.
 - Keep root `AGENTS.md` as the shared operating contract; root `CLAUDE.md` symlinks to it so Claude Code auto-loads it.
-- When changing commands, agents, hooks, or skills, update the relevant docs or memories if the behavior matters outside Claude Code.
+- When changing agents, hooks, or skills, update the relevant docs or memories if the behavior matters outside Claude Code.
 - Do not loosen evidence or writing gates without recording the reason in `docs/decisions/decisions.md`.
 
 ## Subfolders
@@ -20,6 +20,5 @@ This folder contains the Claude Code apparatus for the repo: subagents, hooks, s
 | Path | Use |
 | --- | --- |
 | `agents/` | Specialized Claude subagent prompts. |
-| `commands/` | Slash-command workflows and stance entry points. |
 | `hooks/` | Automation and write/check gates. |
-| `skills/` | Repo-local skills and writing/research pipelines. |
+| `skills/` | Every stance and workflow entry point, one skill per directory. `/work` and `/wrap` set `disable-model-invocation: true`. |

@@ -24,11 +24,11 @@ This directory is the memory and working surface of the `/teach` stance. Keep ra
 - Render lesson Markdown to HTML for math/diagrams with:
 
 ```bash
-uv run .claude/skills/stances/scripts/render_lesson.py <file>
+uv run .claude/skills/teach/scripts/render_lesson.py <file>
 ```
 
-- Lesson format: `.claude/skills/stances/formats/lesson-format.md`.
-- Learning-record format and write gate: `.claude/skills/stances/formats/learning-record.md`.
+- Lesson format: `.claude/skills/teach/formats/lesson-format.md`.
+- Learning-record format and write gate: `.claude/skills/teach/formats/learning-record.md`.
 
 ## Related
 

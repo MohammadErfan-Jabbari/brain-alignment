@@ -1,4 +1,13 @@
+---
+name: review
+description: >-
+  Enter the review stance: stress-test a result, claim, design, or manuscript with the
+  adversarial panel plus Codex when a script is in question. Read-only judgment.
+tools: Read, Glob, Grep, Bash, Task, Skill
+---
 # Review mode
+
+**Target:** the subject passed with this skill. If none was passed, ask for it before acting.
 
 Stress-test a result, claim, or design on demand. The engine is the thinking panel plus Codex; this
 stance spawns them and reconciles. Distinct from `/interpret`, which runs the panel as one step of

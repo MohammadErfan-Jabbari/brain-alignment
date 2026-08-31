@@ -1,11 +1,21 @@
+---
+name: write
+description: >-
+  Enter the write stance: draft settled, paper-relevant evidence directly into the canonical
+  rewrite manuscript with evd markers and keyed values. Use for any docs/manuscript/ prose
+  work.
+tools: Read, Write, Edit, Bash, Glob, Grep, Task, Skill
+---
 # Write mode
+
+**Target:** the subject passed with this skill. If none was passed, ask for it before acting.
 
 Turn a settled, paper-relevant finding directly into the canonical rewrite manuscript.
 
 ## Loop
 
 1. Read the owning E records and current manuscript section.
-2. Apply [`question-led-writing`](../../question-led-writing/SKILL.md) and complete its question tree for the active scope.
+2. Apply [`question-led-writing`](../question-led-writing/SKILL.md) and complete its question tree for the active scope.
 3. State the intended answer, claim, scope, caveats, and evidence.
 4. Draft directly into `docs/manuscript/rewrite/`; do not create a report, lattice, convergence store, or checkpoint log.
 5. Keep `\evd{Ennn}` evidence markers and keyed values in `numbers.tex`. A missing value is a `\gap`.

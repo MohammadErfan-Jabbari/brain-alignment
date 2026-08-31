@@ -1,6 +1,10 @@
 ---
-description: Close a session by updating only authorities that changed, committing atomically, and pushing by default.
-allowed-tools: Read, Write, Edit, Bash, Grep, Glob
+name: wrap
+description: >-
+  Close a session by updating only the authorities that changed, committing atomically with
+  explicit paths, and pushing by default. A no-op session makes no edits and no commit.
+tools: Read, Write, Edit, Bash, Grep, Glob
+disable-model-invocation: true
 ---
 
 Close the session without routine documentation churn.

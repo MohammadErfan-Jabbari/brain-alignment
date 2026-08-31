@@ -1,4 +1,14 @@
+---
+name: work
+description: >-
+  Enter the work stance: produce evidence by locking a design, running it, judging the result,
+  and recording it in the owning E record. Explicit-only, never auto-fires.
+tools: Read, Write, Edit, Bash, Glob, Grep, Task, Skill
+disable-model-invocation: true
+---
 # Work mode
+
+**Target:** the subject passed with this skill. If none was passed, ask for it before acting.
 
 Produce evidence: lock a design, run it, judge the result, record it. The science moves here. This
 stance is **explicit-only** (it never auto-fires) and runs at high autonomy (long `/goal` runs).

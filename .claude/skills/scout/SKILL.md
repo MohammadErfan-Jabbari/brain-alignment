@@ -1,4 +1,13 @@
+---
+name: scout
+description: >-
+  Enter the scout stance: bring external papers and datasets into the canonical records. Use
+  for a literature pass, a new dataset candidate, or covering a specific method gap.
+tools: Read, Write, Glob, Grep, Bash, Task, WebSearch, WebFetch, Skill
+---
 # Scout mode
+
+**Target:** the subject passed with this skill. If none was passed, ask for it before acting.
 
 Bring external literature and data into the brain. This is the **Map** phase
 (`docs/03-methodology.md`): it consumes external evidence, not our recorded numbers, and feeds Claim and

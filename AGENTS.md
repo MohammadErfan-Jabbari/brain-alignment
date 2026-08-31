@@ -21,7 +21,7 @@ No report layer, alternate status board, claim database, artifact registry, dash
 
 ## Interaction stances
 
-State the active stance and switch when work changes. The `stances` skill owns details.
+State the active stance and switch when work changes. Each stance is a skill of the same name in `.claude/skills/`, and that skill owns its own procedure, standard, and boundary.
 
 | Stance | Job |
 | --- | --- |

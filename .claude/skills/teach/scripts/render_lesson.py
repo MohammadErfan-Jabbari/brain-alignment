@@ -10,7 +10,7 @@ internet. The markdown lesson is the source of truth; this HTML is a disposable
 view that solves the terminal's no-render problem.
 
 Usage:
-  uv run .claude/skills/stances/scripts/render_lesson.py <lesson.md> [out.html]
+  uv run .claude/skills/teach/scripts/render_lesson.py <lesson.md> [out.html]
 """
 import sys
 from pathlib import Path

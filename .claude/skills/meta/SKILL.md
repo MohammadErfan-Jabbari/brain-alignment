@@ -1,4 +1,13 @@
+---
+name: meta
+description: >-
+  Enter the meta stance: build, simplify, or repair the apparatus (agents, skills, hooks,
+  scripts, conventions, doc drift) without producing or adjudicating science.
+tools: Read, Write, Edit, Bash, Glob, Grep, Task, Skill
+---
 # Meta mode
+
+**Target:** the subject passed with this skill. If none was passed, ask for it before acting.
 
 Build or maintain the apparatus: **tooling** (agents, skills, hooks, scripts, the graph), **methodology**
 (the rules, conventions, decisions), and **maintenance** (reconcile the board, repair provenance, fix
@@ -14,7 +23,7 @@ is costing truth or continuity, never preemptively; a workflow reconstructed twi
 ## Records
 
 A real methodology decision goes in `docs/decisions/decisions.md`; a tooling change is committed
-atomically with a conventional message (D007). The stances reorg itself was a `/meta` session.
+atomically with a conventional message (D007).
 
 ## Boundary
 

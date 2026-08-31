@@ -24,7 +24,7 @@ terminal: that is the whole reason the file exists.
 
 The terminal does not render LaTeX. To see the math and diagrams:
 
-    uv run .claude/skills/stances/scripts/render_lesson.py docs/learning/lessons/<file>.md
+    uv run .claude/skills/teach/scripts/render_lesson.py docs/learning/lessons/<file>.md
 
 writes `<file>.html` beside it — open it in a browser (KaTeX renders `$…$` and `$$…$$`, Mermaid renders
 ` ```mermaid ` blocks; both load from a CDN, so the browser needs internet). Write load-bearing math as
