@@ -156,19 +156,19 @@ const SECTIONS = {
     file: "docs/manuscript/rewrite/sections/05_discussion.tex",
     label: "Section 5 (Discussion)",
     routing: {
-      // Erfan 2026-08-31: openai-codex models removed (usage-limit lockouts). Allowed
-      // pool: deepseek-v4-flash, kimi-k3, glm-5.3. GLM stays unrouted after repeated
-      // output-cap deaths; this is the proven Section-4 v3.1 recipe.
+      // Erfan 2026-08-31: openai-codex removed; kimi served by ollama-cloud/kimi-k3
+      // (kimi-coding hit its weekly quota mid-launch). GLM stays unrouted after
+      // output-cap deaths. Same proven Section-4 v3.1 role structure.
       workers: [
         { tag: "ds", id: "deepseek/deepseek-v4-flash:medium" },
-        { tag: "kimi", id: "kimi-coding/k3:medium" },
+        { tag: "kimi", id: "ollama-cloud/kimi-k3:medium" },
       ],
       judges: [
-        { tag: "kimi", id: "kimi-coding/k3:high" },
+        { tag: "kimi", id: "ollama-cloud/kimi-k3:high" },
         { tag: "ds", id: "deepseek/deepseek-v4-flash:high" },
       ],
       round2: { id: "deepseek/deepseek-v4-flash:medium" },
-      round2Judge: { id: "kimi-coding/k3:high" },
+      round2Judge: { id: "ollama-cloud/kimi-k3:high" },
     },
     criteria: `(d) inference fidelity: every interpretation must remain inside the owning E-record verdict and distinguish observation from hypothesis;
 (e) route fidelity: recorded-response and synthetic-response evidence must not be merged into one causal sequence or one utility claim;
