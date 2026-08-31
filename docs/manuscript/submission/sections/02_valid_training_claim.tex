@@ -185,8 +185,11 @@ An architecture-matched untrained \ac{lm} tests whether controlled brain predict
 An ordinary \ac{kd} arm isolates the incremental effect of adding a brain-response objective to the same student-training regime, while comparable \ac{lm} quality limits generic quality differences.
 The route-appropriate attribution control depends on the training target.
 In the recorded-response route, the attribution control compares correctly paired with permuted responses, testing whether the stimulus--response pairing matters while preserving the response values and their marginal distribution.
-In the synthetic-response route, the attribution control compares the synthetic brain-response target with a text-derived auxiliary target matched on properties fixed or calibrated before target-arm outcomes are interpreted. These properties include geometry, scale, baseline predictability, remaining headroom, and initial optimization pressure.
-Post-training target uptake and retained-student movement can explain how two target interventions differed, but they are outcomes of those interventions rather than comparator-matching conditions.
+In the synthetic-response route, the attribution control compares the synthetic brain-response target with a text-derived auxiliary target matched on properties fixed or calibrated before target-arm outcomes are interpreted.
+These properties include geometry, scale, baseline predictability, remaining headroom, and initial optimization pressure.
+Two further quantities describe what training did to the student, and both are named here because later sections rely on them.
+Target uptake is how well a fresh readout recovers the training target from the retained student; retained-student movement is how far that student's representations moved from the baseline it was trained against.
+Both can explain how two target interventions differed, but they are outcomes of those interventions rather than conditions the comparator must satisfy.
 For either route, brain-response-specific attribution requires the brain-response-target arm to outperform its control on the outcome being claimed.
 A freshly fitted readout on independently recorded \ac{fmri} responses tests biological transfer; successful recovery of the optimized training target cannot substitute for this endpoint.
 Direct synthetic-response versus ordinary-\ac{kd} transfer is interpretable without the text-derived auxiliary control.

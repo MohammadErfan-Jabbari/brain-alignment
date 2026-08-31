@@ -21,30 +21,33 @@ Resolve items here only after the stated blocker is cleared, then synchronize an
 
 ## 2. Abstract jargon pass (professor's #1 writing complaint; scheduled last)
 
-**State:** Deferred — scheduled last in the 2026-08-27 section-by-section review (all body sections and appendices first).
+**State:** Resolved 2026-09-01.
 
-The UC3M supervisor's top writing remark targeted the abstract: terms a reader cannot yet grasp at that point.
-The abstract has already been de-jargonized once; the surviving spots as of 2026-08-27:
+Both abstracts were replaced with one plain-language text and are now byte-identical, so the canonical tree and the derivative no longer diverge here.
 
-- "The regional and naturalistic assays supported controlled brain predictivity" — names the defined term with no in-abstract gloss (the sentence above describes the same construct in plain words; decide whether to keep the name with a micro-gloss or paraphrase).
-- "the projected target did not meet the continuation rule inherited from the earlier design" — "continuation rule" and "the earlier design" are both unexplained at that point.
-- Check "frozen row-twin control", "cold-start GPT-2 teacher--student gap", and "warm GPT-2 / Qwen" on a first-time reader; "row-twin" is a fixed contract term defined only in §3.
-- Also check the abstract's passive/agent constructions against the same professor's earlier feedback.
+How each flagged item was settled:
 
-**To resolve:** after all other sections are reviewed, apply the same readability standard to `main-submission.tex` (abstract block), then synchronize the canonical rewrite abstract (same sentences in `../rewrite/main-rewrite.tex`), and rebuild both PDFs.
+- "controlled brain predictivity" is paraphrased, not named: the abstract describes the measurement in plain words and then says both assays supported it. The term keeps its formal definition at its first main-text use in Section 1.
+- "the continuation rule inherited from the earlier design" became "did not clear the improvement threshold set beforehand".
+- "frozen row-twin control" became "a control that keeps the same target rows but breaks their pairing with the sentences", which is the control's actual construction.
+- "50-component linear target-projection measurability assay" became "a 50-component linear projection of the target", introduced as testing one narrow pathway alone.
+- "route-specific teacher-student headroom" became "the teacher-student gap available to an intervention".
+- "cold-start" and "warm" became "trained from scratch" and "pretrained".
+- "target uptake", "retained-student movement" and "brain-response-content attribution" are stated as the three questions they stand for rather than named.
+- Passive constructions that lost their agent were made active: we measured, we compared, we did not report.
+
+The abstract also gained a closing sentence naming the contribution, which the derivative had dropped.
 
 ## 3. Figure and typography pass on the rendered PDF
 
-**State:** Deferred — judge on the rendered PDF after content passes, per supervisor lesson 4.
+**State:** Resolved 2026-09-01, judged on the rendered PDF as supervisor lesson 4 requires.
 
-Professor remarks not yet verified or applied:
-
-- Figure 2: "the font in the bottom block looks small" — locate the exact block and bump legibility.
-- Table titles: make captions visually distinct (bold/small caps per good typography) — optional suggestion, professor said "feel free to keep them as they are"; decide once for all tables.
-- Watch appendix F tables: the source checker's build showed ~9.7 pt overfull hboxes there (converged build reported 0; confirm on the final PDF).
-- Confirm on the new PDF that the Figure 1 arrow redesign, Figure 10b count/width fixes, and Figure 6-level clarity hold.
-
-Checked 2026-08-27, no action needed: the §2 evidence-chain figure's node labels use the manuscript's fixed role terms and every coinage (route-specific headroom, target uptake, retained-student movement, biological transfer, declared linear pathway, frozen row-twin control) is glossed in the surrounding §2/§3 prose.
+- **Figure 1.** The canonical tree still carried the version whose context arrow routed over the blocks, which is exactly what the supervisor flagged; the derivative's redesign was adopted canonically. Both trees then received new geometry: equal-sized boxes, wider columns, taller rows. Two dependency arrows had been hidden between touching boxes and are now visible. The one deliberately unconnected box is explained in the caption and in the surrounding prose.
+- **Figure 2.** The small-font note block at the bottom was the "bottom block" in the remark. It is removed from the canonical tree and its text now sits in the caption, matching the derivative. The "re-/sponse" break in the top-right node is gone.
+- **Figure 10b.** The panel reads its counts from the keyed E026 values, so the figure, Table 22, and Section 4.5 all report 37 checks as 20 passed, 16 failed, 1 unresolved. It is set with `\resizebox{\linewidth}`, so nothing overflows the margin. Verified on the rendered page.
+- **Table titles.** Settled once for all tables: captions carry a bold label via `\captionsetup{labelfont=bf}` in `preamble.sty`.
+- **One-word paragraph endings.** Twenty in the rendered PDF; none remain in prose or captions. Fixed with `\finalhyphendemerits` so no word is hyphenated into a last line, `\looseness` on six paragraphs, ties on four sentence-final word pairs, and two rewordings. A global `\parfillskip` floor was tried and rejected: it only made final lines loose without re-breaking them.
+- **Appendix F overfull hboxes.** The final submission build reports zero overfull hboxes at 67 pages.
 
 ## 4. Repo-wide term unifications (surface during section passes)
 
