@@ -25,8 +25,8 @@ Together, these controls restrict the interpretation of the observed effect to h
 Even with these controls, controlled brain predictivity remains bounded by the declared assay.
 A linear readout tests whether recorded responses can be predicted from a linear combination of \ac{lm} representation dimensions; it does not test every form of information that might be present.
 Participant-specific responses measure predictivity for an individual, whereas averaged responses measure predictivity of a group-level response summary.
-How the response is defined and averaged, and how reliably it was measured, set a ceiling on what any model can predict \autocite{lage2019}.
-The stimulus distribution and the choice of brain regions bound the achievable score further.
+How reliably the response was measured, and how many repetitions were averaged to estimate it, set a ceiling on what any model can predict \autocite{lage2019}.
+The stimulus distribution, how the response is defined and aggregated, and the selected brain regions bound the achievable score further, which is why this thesis states each of them for every reported score.
 The inference unit determines the scope of uncertainty: many voxels or repeated folds from one participant do not provide evidence about many independent participants.
 Controlled brain predictivity therefore supports a bounded claim about held-out prediction under the declared assay, not a shared biological mechanism, causal equivalence, or general cognitive competence \autocite{jia2026}.
 Sections~\ref{sec:data-targets}, \ref{sec:measurement-prerequisites}, and \ref{sec:estimands} specify the response construction, estimator, controls, and inference unit used to instantiate this assay.
@@ -102,7 +102,8 @@ Table~\ref{tab:related-designs} compares selected designs without treating every
 
 Positive studies span language, speech, and vision and do not estimate a common intervention effect.
 Speech models adapted with recorded \ac{fmri} responses have improved brain-response prediction and performance on selected semantic or auditory tasks \autocite{moussa2025,moussa2025b,freteault2025}.
-Some of those gains also appear for participants whose responses were not used in adaptation \autocite{moussa2025b,freteault2025}, although the brain-prediction gains were scored on stimuli drawn from the same distribution as the adaptation data \autocite{freteault2025}.
+Some of those gains also appear for participants whose responses were not used in adaptation \autocite{moussa2025b}.
+In one of these studies the brain-prediction gains were scored on stimuli drawn from the same distribution as the adaptation data, so they do not establish transfer across stimulus distributions \autocite{freteault2025}.
 Text-model interventions report changes in multilingual performance, linguistic probes, visual commonsense, or reasoning after training with brain-response targets \autocite{negi2025,bilgin2026,merlinData2026,xiao2026}.
 Training with temporally precise electrocorticography responses has improved prediction within the electrocorticography modality, while training with slower \ac{fmri} responses has transferred to prediction in that faster modality for new participants and stimuli after fitting the required readout \autocite{zhang2026,vaidya2026}.
 Together, these studies show that brain-response-guided objectives can alter model representations or selected task outcomes.

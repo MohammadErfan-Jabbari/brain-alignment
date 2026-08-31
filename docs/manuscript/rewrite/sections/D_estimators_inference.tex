@@ -111,7 +111,7 @@ The naturalistic assays require one explicit distinction.
 Feature resampling, edge slicing, within-story feature and \ac{bold} z-scoring, and finite-impulse-response delay copies are fixed story-local operations.
 Because the held-out story's response normalization uses that story's own moments, the resulting estimand is conditional on this normalization protocol.
 Across-story \ac{pca}, assembled-design scaling, response centering, ridge selection, and readout fitting are learned only from the readout-training stories.
-The 50-component linear target-projection measurability assay has one other declared exception: it reuses target-standardization moments fixed during target construction, while its target \ac{pca} and readouts remain fold-local. \evd{E006}\evd{E013}\evd{E017}\evd{E030}
+The 50-component linear target-projection assay has one other declared exception: it reuses target-standardization moments fixed during target construction, while its target \ac{pca} and readouts remain fold-local. \evd{E006}\evd{E013}\evd{E017}\evd{E030}
 
 Table~\ref{tab:cv-nesting} records the held-out boundary, learned operations, and final inference unit for each scientific role.
 
@@ -171,7 +171,7 @@ Table~\ref{tab:cv-nesting} records the held-out boundary, learned operations, an
   All representation transforms, nuisance transforms, penalties, and fresh response readouts use the 800-sentence complement &
   Six seeds and five folds are aggregated within each of nine participants; participants are the biological units \evd{E025} \\
   \midrule
-50-component linear target-projection measurability assay &
+50-component linear target-projection assay &
   Five contiguous Tuckute folds; aligned targets and the frozen row twin share the train-fold target-\ac{pca} basis &
   Each aligned or twin multi-output readout selects one scalar penalty on its own training complement &
   Folds are aggregated within each of nine participants; there is no student-seed axis \evd{E030} \\
@@ -321,7 +321,7 @@ Distillation-headroom analysis &
   Nine participant effects receive a \(t\) interval, a one-sided upper bound, an exact sign test, and a Wilcoxon sensitivity &
   Seeds and blocks remain descriptive; the upper bound is compared only with the prospectively inherited continuation rule \evd{E025} \\
   \midrule
-  50-component linear target-projection measurability assay &
+  50-component linear target-projection assay &
   Participant effects receive \(t\) intervals and exact sign tests &
   Its participant quantities belong to a separate Bonferroni family with a simultaneous one-sided bound \evd{E030} \\
   \midrule
@@ -371,10 +371,10 @@ An \ac{mde} describes the resolution of a planned contrast under its declared va
 It does not show that a smaller effect is zero or that a larger effect matters biologically.
 Likewise, language-quality criteria decide whether two arms are sufficiently comparable for a specified analysis; they do not establish a biological endpoint.
 
-The \result{e030_practical_threshold} unique-\(R^2\) rule was inherited prospectively to decide whether participant-level biological transfer justified a matched-control follow-up, then frozen as a reference for the 50-component linear target-projection measurability assay. \evd{E025}\evd{E030}
+The \result{e030_practical_threshold} unique-\(R^2\) rule was inherited prospectively to decide whether participant-level biological transfer justified a matched-control follow-up, then frozen as a reference for the target-projection assay. \evd{E025}\evd{E030}
 It can support a statement about whether an assay-specific simultaneous bound reaches that continuation rule.
 It cannot define biological importance across another response scale, nuisance model, layer, cohort, or target.
-No retrospective choice of a more favorable analysis can change that scope.
+No retrospective choice of a more favorable analysis can change that~scope.
 
 \subsection{Information-theoretic boundaries}
 

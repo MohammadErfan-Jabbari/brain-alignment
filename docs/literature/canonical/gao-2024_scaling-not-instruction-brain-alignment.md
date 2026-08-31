@@ -65,6 +65,13 @@ For brain-alignment use cases in naturalistic reading, this source supports a "s
 - How robust is the effect across non-English reading datasets and non-STEM text domains?
 
 
+## Version correspondence
+
+This note was read from the bioRxiv preprint *Instruction-tuned large language models misalign with natural language comprehension in humans* (10.1101/2024.08.15.608196).
+`references.bib` cites the published version, *Increasing alignment of large language models with language processing in the human brain*, Nature Computational Science 2025 (10.1038/s43588-025-00863-0).
+Same authors and same scaling-versus-instruction-tuning result; the title changed on publication.
+Recorded 2026-09-01 under verification rule 18 so an auditor can resolve the bib entry to this note without inferring the correspondence.
+
 ## Read Date
 
 2026-03-02

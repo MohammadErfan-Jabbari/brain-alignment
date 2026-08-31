@@ -64,17 +64,19 @@
 
 Language-model representations can predict recorded \ac{fmri} responses to language, but that does not show that brain responses can improve model training.
 We tested whether adding recorded \ac{fmri} responses, or synthetic brain responses generated from text, to knowledge distillation gives a smaller student model an advantage that comes specifically from brain-response information.
-We first measured how well held-out \ac{fmri} responses could be predicted beyond nuisance features and beyond architecture-matched untrained models.
+We first measured how well held-out \ac{fmri} responses could be predicted beyond nuisance features and beyond architecture-matched untrained models, using two assays: one over brain regions responding to isolated sentences, one over voxels responding to a spoken story.
 We then compared training on correctly paired responses against training on permuted responses, which carry the same values but lose their pairing with the sentence that produced them.
-For synthetic responses we asked three further questions: whether training made the target easier to recover from the student, whether the resulting changes survived removal of the temporary prediction head, and whether the student improved on independently recorded \ac{fmri} responses beyond ordinary \ac{kd}.
+For synthetic responses we asked three further questions: whether training made the target easier to recover from the student, whether the resulting changes remained after the temporary prediction head was removed, and whether the student improved on independently recorded \ac{fmri} responses beyond ordinary \ac{kd}.
 We also compared the synthetic-response arm against the available text-derived control, since only such a comparison can attribute a difference to brain-response content rather than to any similarly structured target.
 A separate assay tested one narrow pathway alone: whether a 50-component linear projection of the target improved held-out \ac{fmri} prediction beyond nuisance features and beyond a control that keeps the same target rows but breaks their pairing with the sentences.
-Both the regional and the naturalistic assay supported brain prediction under those controls.
-For a GPT-2 student trained from scratch, the teacher--student gap available to an intervention was confounded by language quality; at comparable quality that gap remained unresolved for a pretrained GPT-2 student and was never measured for Qwen.
+Both assays supported brain prediction under those controls.
+For a GPT-2 student trained from scratch, the teacher--student gap available to an intervention was confounded by language quality.
+At comparable quality that gap remained unresolved for a pretrained GPT-2 student, and we never measured it for Qwen.
 Recorded-response training did not reliably improve participant-level brain prediction over permuted-response training.
-Synthetic-response training did make the target easier to recover and did change the retained student, while staying inside the language-quality tolerance fixed in advance, but the projected target did not clear the improvement threshold set beforehand.
+Synthetic-response training did make the target easier to recover and did change the student retained after the head was removed, while staying inside the language-quality tolerance fixed in advance, but the projected target did not clear the improvement threshold set beforehand.
 The text-derived control was too poorly matched to show whether any difference was specific to brain-response information, and direct participant-level transfer over ordinary \ac{kd} was not demonstrated.
-Mean scores on the practical endpoint favored recorded-response training, but we did not report paired uncertainty for that comparison and the brain-prediction result it depends on was unstable across technical seeds, so brain-specific utility was not established.
+Mean scores on the practical endpoint favored recorded-response training.
+We did not report paired uncertainty for that comparison, however, and the brain-prediction result it depends on was unstable across technical seeds, so brain-specific utility was not established.
 The routes we tested therefore did not establish a reliable brain-specific training advantage, and they do not show that brain-response-guided training is ineffective in general.
 The contribution is the separation itself: for each route, the thesis says which of measurement, manipulation, direct transfer, attribution, and utility the evidence actually supports.
 

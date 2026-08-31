@@ -1,13 +1,13 @@
 \section{Limitations}
 \label{sec:limitations}
 
-Section~\ref{sec:discussion} localized where support stopped in the recorded-response and synthetic-response routes.
+Section~\ref{sec:discussion} identified where support stopped in the recorded-response and synthetic-response routes.
 The reach of those conclusions is bounded by population and measurement coverage, identification and inference, and the intervention and utility space searched.
 
 \subsection{Population, data, and measurement scope}
 
 The biological evidence is limited to \ac{fmri} responses to English-language stimuli from the studied cohorts.
-The sentence-level assays summarize responses within fixed left-hemisphere language \acp{roi}, while the naturalistic voxelwise predictivity assay uses reliability-selected voxels from one deeply sampled story listener.
+The sentence-level assays summarize responses within fixed left-hemisphere language \acp{roi}, while the naturalistic voxelwise predictivity assay uses voxels selected for response reliability in one participant who was scanned extensively while listening to stories.
 Some recorded-response targets average responses across participants to emphasize a shared stimulus-locked component; the participant-level analyses instead retain one aggregated effect per person.
 The conclusions therefore concern these isolated-sentence and spoken-story response summaries, not language processing across the whole brain or population at large.\evd{E002}\evd{E006}\evd{E008}\evd{E025}
 
@@ -18,14 +18,16 @@ These untested settings may change what brain information is measured and how th
 \subsection{Identification and inference limitations}
 
 What each result identifies depends on the nuisance set, comparator, readout, and inference unit.
-Unique predictivity excludes only the included nuisance features, while the trained-versus-untrained contrast establishes learned predictive access rather than a shared biological or computational mechanism.\evd{E002}\evd{E006}
+Unique predictivity rules out only the nuisance features actually included as alternative explanations.
+Where both arms pass through byte-identical nuisance features, the trained-versus-untrained contrast establishes learned predictive access rather than a shared biological or computational mechanism.\evd{E006}
+In the regional assay the untrained arm's static-embedding nuisance was built from its own model, so that contrast leaves the learned-parameter reading unresolved.\evd{E002}
 The text-derived auxiliary-control arm differs from the synthetic target in baseline predictability, remaining headroom, covariance geometry, effective rank, and nuisance predictability.
 Its cross-target contrast therefore cannot identify the contribution of brain-response content.\evd{E026}
 The target-projection result is restricted to the declared \ac{pca} assay, and specificity against the frozen row-twin control remains unresolved.\evd{E030}
-The thesis therefore keeps three inference tracks distinct.
-Participant-general biological claims aggregate technical repetitions within each participant before comparing across participants.
-Fixed-stimulus analyses condition their inference on the declared sentence or story set.
-Seeds, folds, stories, voxels, and \acp{roi} never stand in for participants.\evd{E008}\evd{E025}
+The thesis therefore keeps three inference tracks distinct: biological, fixed-stimulus, and technical.
+On the biological track, participant-general claims aggregate technical repetitions within each participant before comparing across participants.
+On the fixed-stimulus track, analyses condition their inference on the declared sentence or story set.
+On the technical track, seeds, folds, stories, voxels, and \acp{roi} count as repetitions of a procedure and never stand in for participants.\evd{E008}\evd{E025}
 Even after this aggregation, the fixed or shared stimulus sets do not support generalization to all language stimuli.
 Appendix~\ref{app:inference} formalizes these identification and dependence boundaries.
 
@@ -42,7 +44,8 @@ By contrast, the participant upper bound from the biological-transfer assay and 
 Each disfavors effects at least as large as its own threshold, for direct biological transfer and for target measurability respectively.\evd{E025}\evd{E030}
 They do not establish that the corresponding effects are exactly zero.
 The direct synthetic-response versus ordinary-\ac{kd} transfer contrast is interpretable independently of the auxiliary comparator.
-Only brain-response-specific attribution is blocked because the available comparator cannot isolate an effect of brain-response content, while target-row specificity in the 50-component linear assay remains unresolved.
+Only brain-response-specific attribution is blocked, because the available comparator cannot isolate an effect of brain-response content.
+Target-row specificity in the 50-component linear assay remains unresolved.
 Smaller average contrasts across participants, heterogeneous participant effects, and effects in other cohorts remain compatible with the evidence.\evd{E008}\evd{E025}\evd{E026}\evd{E030}
 
 \subsection{Intervention and utility scope}
@@ -51,7 +54,7 @@ The intervention search was diagnostic rather than exhaustive.
 The central synthetic-response route tested a GPT-2 Small student paired with a GPT-2 Medium teacher, representing one teacher--student scale pairing within one architecture family.\evd{E016}
 Across both routes, the study did not jointly explore broader student architectures, objective families, loss weights, schedules, data volumes, target constructions, or participant-personalization strategies.
 The executed adapter-capacity, contrastive, voxelwise, and full-parameter variants inform only their tested parameterizations and data regimes.\evd{E011}\evd{E013}\evd{E017}
-The naturalistic and full-parameter variants were mechanism or three-participant existence probes, not participant-general tests; they therefore do not broaden population inference.\evd{E013}\evd{E017}
+The naturalistic and full-parameter variants were probes of mechanism, or three-participant existence checks, not participant-general tests, so they do not broaden population inference.\evd{E013}\evd{E017}
 Section~\ref{sec:results-recorded} and Appendix~\ref{app:secondary} report the individual variant designs and dispositions.
 Different model scales, targets, objectives, architectures, and optimization procedures remain open.
 
@@ -64,4 +67,4 @@ Sections~\ref{sec:results-predicted-identification} and \ref{sec:results-predict
 The supporting studies summarized in Appendix~\ref{app:secondary} tested narrow design levers, stopped before intervention, or stopped because the planned measurement was unusable.\evd{E019}\evd{E020}\evd{E022}\evd{E024}
 They therefore do not broaden the set of completed endpoints that identify brain-specific utility.
 No completed route supports a brain-specific practical-utility claim under the tested procedures.
-Practical effects at untested endpoints after a successfully identified biological intervention remain open.
+Whether an intervention whose biological effect had been successfully identified would also help at untested practical endpoints remains open.

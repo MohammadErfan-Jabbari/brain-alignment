@@ -41,7 +41,7 @@ This rewrite is the thesis content. Organize the narrative by the role a procedu
 | Route | Major source of training supervision | **recorded-response route**, **synthetic-response route** |
 | Intervention | Paired training family defined by the manipulated supervision | **recorded-response intervention**, **synthetic-response intervention** |
 | Arm or control | Condition inside an intervention or assay | **ordinary KD arm**, **permuted-response control**, **frozen row-twin control**, **text-derived auxiliary-control arm** |
-| Assay | Protocol measuring a declared quantity | **controlled regional predictivity assay**, **controlled naturalistic voxelwise predictivity assay**, **50-component linear target-projection measurability assay**, **synthetic-target recovery assay**, **saved-student biological-transfer assay** |
+| Assay | Protocol measuring a declared quantity | **controlled regional predictivity assay**, **controlled naturalistic voxelwise predictivity assay**, **50-component linear target-projection measurability assay** (short form **target-projection assay**), **synthetic-target recovery assay**, **saved-student biological-transfer assay** |
 | Analysis or audit | Contrast, diagnostic, or validity examination | **distillation-headroom analysis**, **retained-student movement audit**, **comparator-adequacy audit and attribution assessment**, **saved-student target-retention analysis**, **composed-path diagnostic**, **response-averaging analysis** |
 | Evaluation | Recurring external endpoint | **language-quality evaluation**, **practical-utility evaluation** |
 | Evidence record | Internal provenance owner | `E###` appears only in source provenance, an internal-review build, or the provenance appendix |

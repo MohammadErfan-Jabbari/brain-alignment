@@ -203,9 +203,9 @@ Perplexity provides this comparison within the shared-tokenizer study.
 A separate cross-family analysis uses tokenizer-comparable bits per byte.
 That cross-family analysis relates \(\overline{\Delta R^2}(m)\) directly to model quality; it does not define teacher-relative headroom across unrelated model families.
 The analysis measures route-specific headroom under the tested conditions and provides opportunity context rather than a universal intervention criterion.
-It does not identify model size, architecture, initialization, training history, distillation, or language quality as the cause of that headroom.\evd{E003}\evd{E015}
+It does not identify model size, architecture, initialization, training history, distillation, or language quality as the cause of that~headroom.\evd{E003}\evd{E015}
 
-The 50-component linear target-projection assay asks whether the declared fold-local \ac{pca} representation of the fixed synthetic brain-response target generated from text by TRIBE \autocite{dascoli2026}, a published text-to-brain response model, predicts recorded Tuckute responses on the same 1,000 sentences.
+The 50-component linear target-projection measurability assay, called the target-projection assay from here on, asks whether the declared fold-local \ac{pca} representation of the fixed synthetic brain-response target generated from text by TRIBE \autocite{dascoli2026}, a published text-to-brain response model, predicts recorded Tuckute responses on the same 1,000 sentences.
 For each participant, the assay fits three otherwise matched response readouts.
 The first contains nuisance features only.
 The second adds the aligned synthetic target.
@@ -589,7 +589,11 @@ Section~\ref{sec:estimands} states the formal aggregation and decision rules.\ev
 \subsection{Cross-Cutting Estimands and Decision Rules}
 \label{sec:estimands}
 
-Table~\ref{tab:evidence-map} binds each scientific role to its estimand, comparator, endpoint, and inference unit; the focal and comparator conditions are first evaluated on the same endpoint within the smallest matched analysis cell, such as a single fold--seed cell.
+Table~\ref{tab:evidence-map} binds each scientific role to its estimand, comparator, endpoint, and inference unit.
+The focal and comparator conditions are first evaluated on the same endpoint within the smallest matched analysis cell, such as a single fold--seed cell.
+Measurement roles compare representation-based predictions with nuisance or untrained controls.
+Intervention roles compare paired targets or training arms.
+Transfer and utility roles require an independently evaluated biological or language endpoint.
 The interpretation of a numerical difference changes when its comparator, endpoint, or inference unit changes, even if the same scoring function is used.\evd{E003}\evd{E005}\evd{E008}\evd{E016}\evd{E025}\evd{E030}
 
 Figure~\ref{fig:aggregation-paths} shows the common order from a matched analysis cell to the declared inference unit.
@@ -653,7 +657,7 @@ Figure~\ref{fig:aggregation-paths} summarizes these routes; Appendix~\ref{app:in
 An \ac{mde}, defined above, does not imply that smaller effects are zero or biologically irrelevant.
 We exclude the previous naturalistic follow-up calculation because it used unmatched absolute fold variability rather than the intended paired contrast.
 The participant analyses calculate detectable-effect bounds from between-participant variation, whereas the practical-utility analysis uses variation across technical seeds.
-The \result{e030_practical_threshold} unique-\(R^2\) threshold was inherited from the earlier design and fixed as the continuation rule for the declared participant assay.
+The \result{e030_practical_threshold} unique-\(R^2\) threshold was carried over from the biological-transfer design and fixed as the continuation rule for the declared participant assay.
 It is not a universal biological-importance threshold and cannot be transferred to another response scale, nuisance model, layer, or population.\evd{E006}\evd{E008}\evd{E009}\evd{E025}\evd{E030}
 
 Evidence status follows the claim dependencies in Figure~\ref{fig:evidence-chain}.

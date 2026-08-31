@@ -22,16 +22,16 @@
   % Corrected identification-set audit
   \fill[gray!5] (0.05,3.72) rectangle (16.10,5.15);
   \node[anchor=west,align=left,text width=39mm,font=\small] at (0.25,4.45)
-    {\textbf{Comparator identification audit}\\37 pre-outcome or KD-baseline checks};
+    {\textbf{Comparator identification audit}\\\result{e026_plot_check_total} pre-outcome or KD-baseline checks};
   \pgfmathsetmacro{\passw}{\xwidth*\result{e026_plot_check_pass}/\result{e026_plot_check_total}}
   \pgfmathsetmacro{\failw}{\xwidth*\result{e026_plot_check_fail}/\result{e026_plot_check_total}}
   \draw[passfill] (\xleft,4.20) rectangle ({\xleft+\passw},4.70);
   \draw[failfill] ({\xleft+\passw},4.20) rectangle ({\xleft+\passw+\failw},4.70);
   \draw[unresolvedfill] ({\xleft+\passw+\failw},4.20) rectangle ({\xleft+\xwidth},4.70);
-  \node[font=\scriptsize] at ({\xleft+0.5*\passw},4.45) {24 passed};
-  \node[font=\scriptsize] at ({\xleft+\passw+0.5*\failw},4.45) {30 failed};
+  \node[font=\scriptsize] at ({\xleft+0.5*\passw},4.45) {\result{e026_plot_check_pass}\ passed};
+  \node[font=\scriptsize] at ({\xleft+\passw+0.5*\failw},4.45) {\result{e026_plot_check_fail}\ failed};
   \draw[gray!68] ({\xleft+\xwidth},4.70)--(11.95,4.95);
-  \node[anchor=west,font=\scriptsize] at (12.05,4.95) {1 unresolved};
+  \node[anchor=west,font=\scriptsize] at (12.05,4.95) {\result{e026_plot_check_unresolved}\ unresolved};
   \node[anchor=west,align=left,text width=38mm,font=\small,text=red!62!black] at (12.05,4.25)
     {\textbf{Comparator status}\\non-identifying};
 

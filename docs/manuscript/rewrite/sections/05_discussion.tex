@@ -1,16 +1,16 @@
 \section{Discussion}
 \label{sec:discussion}
 
-The combined results separate two outcomes the experiments did achieve, controlled brain predictivity and a student that training measurably changed, from the outcome they did not: a brain-specific training benefit.
+The experiments achieved two outcomes, controlled brain predictivity and a student that training measurably changed, but not a third: a brain-specific training benefit.
 Controlled brain predictivity establishes that trained \ac{lm} representations contain information useful for predicting recorded \ac{fmri} responses.\evd{E002}\evd{E006}
-Supported post-training target uptake and retained-student movement establish that the synthetic-response objective altered the saved student.\evd{E016}\evd{E025}
+Two supported results establish that the synthetic-response objective altered the saved student: post-training target uptake, meaning the target became easier to recover from the student, and retained-student movement, meaning the student still differed from its baseline once the prediction head was removed.\evd{E016}\evd{E025}
 These results do not by themselves establish brain-response-specific attribution, biological transfer, or practical utility.
-The recorded-response and synthetic-response routes lose support at different transitions before a participant-general training benefit is established.
+Support for the recorded-response and synthetic-response routes stops at different stages, in both cases before a participant-general training benefit is established.
 
 \subsection{Where support is lost across the two intervention routes}
 \label{sec:discussion-failure}
 
-Controlled brain predictivity establishes the measurement context for the recorded-response route.
+Controlled brain predictivity settles the measurement stage of the recorded-response route: under the declared controls, model representations do predict recorded responses.
 We did not measure the Qwen teacher--student headroom for that route.
 Headroom describes how much room an intervention has to improve on, not whether the paired comparison is valid, so this gap limits the opportunity we can claim rather than the support for the contrast.
 The recorded-response intervention itself does not demonstrate a participant-general pairing advantage.
@@ -25,17 +25,17 @@ The practical-endpoint means are higher for the recorded-response arm, but we di
 The endpoint is therefore unresolved, and the analysis does not identify the observed endpoint contrast as the payoff of a reliably induced brain-response-specific change.\evd{E003}\evd{E005}\evd{E008}\evd{E009}\evd{E011}\evd{E013}\evd{E014}\evd{E015}\evd{E017}
 
 The synthetic-response evidence separates into parallel claims rather than one failure sequence.
-The unique linear predictivity of the 50-component \ac{pca} target representation did not meet the inherited continuation rule, while its advantage over the frozen row-twin control remained unresolved.\evd{E030}
+The unique linear predictivity of the 50-component \ac{pca} target representation did not meet the inherited continuation rule, while its advantage over the frozen row-twin control, the same target rows with their sentence pairing broken, remained unresolved.\evd{E030}
 Post-training target uptake and retained-student movement show that training altered the saved student while measured \ac{lm} quality remained within the declared margin.\evd{E016}\evd{E025}
 These manipulation results answer whether training changed the student.
 They do not change the earlier measurability finding or establish that brain-response content caused the retained change.
-The text-derived auxiliary-control arm is non-identifying, and neither the direct participant-level assay nor the composed-path diagnostic demonstrates biological transfer.\evd{E025}\evd{E026}\evd{E030}
+The text-derived auxiliary-control arm is non-identifying, meaning it cannot isolate an effect of brain-response content, and neither the direct participant-level assay nor the composed-path diagnostic demonstrates biological transfer.\evd{E025}\evd{E026}\evd{E030}
 A supported manipulation can therefore coexist with biological transfer that is not demonstrated.
 Neither the measurability result nor the comparator audit identifies the cause of the transfer outcome.
 
 Together, the controls narrow the explanation without identifying it.
 The nuisance and untrained-network controls make it unlikely that no controlled signal was present at all, and the manipulation and quality checks make it unlikely that training either failed to alter the student or badly damaged its language quality.\evd{E002}\evd{E006}\evd{E016}\evd{E025}
-Four explanation classes remain compatible with the evidence: target information or geometry; measurement modality, temporal resolution, or readout; optimization, model, or data scale; and nonlinear access or participant heterogeneity.
+Four explanations remain compatible with the evidence: the target may lack the needed information or geometry; the measurement modality, temporal resolution, or readout may be inadequate; the optimization, model, or data scale may be too small; or the signal may need nonlinear access, or may differ from participant to participant.
 These possibilities are hypotheses suggested by where support was lost, not causes established by the experiments.
 The evidence therefore identifies which claim roles are supported, unresolved, non-identifying, or not demonstrated within the targets, models, objectives, participants, controls, and endpoints tested here.
 It does not provide a causal explanation or establish a universal null for brain-response-guided training.
@@ -44,11 +44,11 @@ Because this localization is conditional on the tested designs, it can coexist w
 \subsection{Compatibility with positive prior studies}
 \label{sec:discussion-prior}
 
-The route-specific localization in this thesis does not directly contradict positive brain-response-guided studies.
+The route-specific account of where support stopped does not directly contradict positive brain-response-guided studies.
 As Section~\ref{sec:prior-gap} documents, prior work differs in recording modality and temporal resolution, participant-specific or pooled supervision, model and training budget, and whether the endpoint is target recovery, biological prediction, or task performance.
 Those choices change both the intervention and the effect being estimated.
 The present results are conditional on a fixed smaller student, the declared \ac{fmri} targets, and the tested controls and inference units.
-Design non-equivalence therefore prevents direct adjudication.
+Because the designs are not equivalent, the results here cannot directly adjudicate those studies.
 It does not show that any one design difference caused the outcomes to diverge.
 
 What a positive contrast establishes also depends on the reference condition it is measured against (Section~\ref{sec:evidence-criteria}).
@@ -66,14 +66,14 @@ Whether materially different prior results would pass those additional stages re
 \subsection{Design implications for future brain-response-guided training}
 \label{sec:discussion-design}
 
-The recorded-response and synthetic-response losses require different design changes.
+The two routes lost support at different points, so they call for different design changes.
 For recorded-response training, response construction and inference must match the intended claim.
 A target averaged across participants estimates the shared response.
 Participant-general claims instead require population inference that keeps the participant as the biological unit.
 Here we aggregated folds, seeds, and other technical repetitions within each participant before comparing across participants.
 The two estimands are complementary, not interchangeable.\evd{E005}\evd{E008}\evd{E014}
 
-For synthetic-response training, the observed losses justify moving several checks before expensive optimization.
+For synthetic-response training, the point at which support stopped is a reason to move several checks before expensive optimization.
 The training target, after compression to 50 principal components, should first be evaluated on held-out data from the intended recorded responses.
 That assay should use the planned nuisance model and readout, a frozen row-twin control, the inference unit required by the claim, and a prespecified assay-specific continuation rule.
 The frozen control tests sentence--target pairing; content attribution requires a separately trained text-derived auxiliary-control arm.
@@ -84,11 +84,11 @@ Not meeting the 50-component \ac{pca} linear criterion would still not rule out 
 
 Once target uptake and retained-student movement are supported at acceptable \ac{lm} quality, evaluation must move beyond the optimized target.
 Attribution requires comparison with the text-derived auxiliary-control arm after its pre-outcome target properties, KD-baseline recovery and headroom, and initial optimization scale have been checked.
-Post-training learnability and movement help interpret how the interventions differed, but they are not comparator-identification conditions.
+Post-training learnability and movement help interpret how the interventions differed, but they are not among the conditions a comparator must satisfy to identify a cause.
 Biological transfer then requires an independent recorded-response endpoint, with technical repetitions aggregated within each participant before population inference.
 These outcomes must remain separate because a reliable manipulation can coexist with biological transfer that is not demonstrated.\evd{E016}\evd{E025}\evd{E026}
 Utility is route-specific.
-It can be read as the payoff of improved controlled brain predictivity only once that prerequisite is reliably established and the practical endpoint carries paired uncertainty.
+It can be read as the payoff of improved controlled brain predictivity only once that prerequisite is reliably established and the practical endpoint is reported with paired uncertainty.
 The completed utility evaluation belongs to the recorded-response route and does not estimate synthetic-route utility.\evd{E009}
 
 The stage status should determine the next use of data and compute.
