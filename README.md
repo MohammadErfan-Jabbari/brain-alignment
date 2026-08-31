@@ -18,4 +18,4 @@ activation as a usable signal.** Brain-alignment-guided distillation is the firs
 - **Knowledge-base map:** [`docs/AGENTS.md`](docs/AGENTS.md)
 - **Repo-local Claude memories:** [`memories/AGENTS.md`](memories/AGENTS.md)
 
-Agent operating contract: [`CLAUDE.md`](CLAUDE.md). Codex-style agents read [`AGENTS.md`](AGENTS.md), which points to the same file. Run Python with `uv run`.
+Agent operating contract: [`AGENTS.md`](AGENTS.md). Claude Code reads [`CLAUDE.md`](CLAUDE.md), a symlink to the same file. Run Python with `uv run`.

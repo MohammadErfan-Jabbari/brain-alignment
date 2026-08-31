@@ -12,7 +12,7 @@ This folder contains the Claude Code apparatus for the repo: commands, subagents
 
 - Do not create `README.md` files here; folder-local guidance belongs in `AGENTS.md`.
 - Do not edit `.claude/state/` for shared knowledge. It is ignored per-worktree session state.
-- Keep root `CLAUDE.md` as the shared operating contract; root `AGENTS.md` symlinks to it for non-Claude agents.
+- Keep root `AGENTS.md` as the shared operating contract; root `CLAUDE.md` symlinks to it so Claude Code auto-loads it.
 - When changing commands, agents, hooks, or skills, update the relevant docs or memories if the behavior matters outside Claude Code.
 - Do not loosen evidence or writing gates without recording the reason in `docs/decisions/decisions.md`.
 
