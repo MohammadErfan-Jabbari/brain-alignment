@@ -8,7 +8,7 @@ aliases: [current-status]
 
 **Updated:** 2026-08-30
 
-**Manuscript:** `Section 5 prose swarm before final supervisor handoff review`. The 70-page thesis in `docs/manuscript/rewrite/` remains the sole scientific-interpretation authority; `docs/manuscript/submission/` is its university-template derivative. Introduction through Results have completed the reader-first review. The six blocking Discussion-through-Conclusion [argument findings](manuscript/submission/deferred-review-items.md#6-discussion-through-conclusion-argument-review-hold) and the nonblocking variant-scope clarification are resolved in both manuscript trees without changing a scientific verdict or number. Its professor-approved title is *Evaluating Brain Alignment as a Training Signal for Language Models* ([D066](decisions/decisions.md)).
+**Manuscript:** `Section 5 prose swarm parked on provider lockout; relaunch after 2026-09-01 ~13:00Z`. The 70-page thesis in `docs/manuscript/rewrite/` remains the sole scientific-interpretation authority; `docs/manuscript/submission/` is its university-template derivative. Introduction through Results have completed the reader-first review, and the six blocking Discussion-through-Conclusion [argument findings](manuscript/submission/deferred-review-items.md#6-discussion-through-conclusion-argument-review-hold) are resolved in both trees without changing a scientific verdict or number. The Section 5 swarm stopped twice at its fail-loud phase gate on provider failures (GLM analyst output-cap deaths; OpenAI-Codex usage limit; both excluded until ~2026-09-01 12:50Z). Under [D067](decisions/decisions.md) the parent applied the 13 rule-backed DeepSeek analyst normalizations canonical-first (fixed role terms, settled phrasings, register, banned words); the judgment-call findings await the full dual-model swarm. Its professor-approved title is *Evaluating Brain Alignment as a Training Signal for Language Models* ([D066](decisions/decisions.md)).
 
 **Legacy layers removed from HEAD (2026-08-25):** the `extended/` legacy snapshot and the frozen public v0.9 cut are preserved only in Git history (last commits: `extended/` at `7c445b0`, `public/v0.9/` at `6026021`). Do not recreate them as directories; cite the commits when historical access is needed.
 
@@ -50,13 +50,13 @@ aliases: [current-status]
 
 ## Blockers
 
-- No scientific-evidence or argument-review blocker remains for the Section 5 prose swarm. Creating a new immutable public cut remains a separate decision requiring Erfan's approval.
+- No scientific-evidence or argument-review blocker remains, but the Section 5 prose swarm is operationally parked: GLM (output-cap deaths) and the OpenAI-Codex tier (usage limit) are exclusion-listed until ~2026-09-01 12:50Z, leaving DeepSeek as the only usable allowed model. A DeepSeek-only degraded run was rejected to preserve dual-provider judge decorrelation. Creating a new immutable public cut remains a separate decision requiring Erfan's approval.
 - E028's exact lane remains blocked by author-controlled code, checkpoints, masks/folds, dataset facts, and result-regeneration artifacts. Its synthetic Stage-1 development slice is implemented, tested, and independently `PANEL-CLEAN`, but the production provider/chain/dimension benchmark and sealed endpoint-bundle review are absent; `ENDPOINT-READY: NO` remains unchanged.
 - A top-AI-conference claim is not currently supported. It requires a non-inconclusive prospective external adjudication and a reusable intervention-audit implementation; the unchanged thesis should not consume a top-tier main-track cycle.
 
 ## Next actions
 
-1. Run the hardened v3.3 prose swarms for Discussion, Limitations, and Conclusion, then close the deferred abstract and figure/typography passes.
+1. Relaunch the hardened v3.3 Section 5 prose swarm after the provider exclusions lift (~2026-09-01 13:00Z), then run the Limitations and Conclusion swarms, then close the deferred abstract and figure/typography passes.
 2. Rebuild the university-template derivative and send it to the supervisors without adding results from the closed experiment program.
 3. After supervisor feedback, decide whether to create a new immutable public cut.
 

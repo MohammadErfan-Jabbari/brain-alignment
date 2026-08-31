@@ -3,25 +3,25 @@
 
 The combined results separate controlled brain predictivity and successful student manipulation from a brain-specific training benefit.
 Controlled brain predictivity establishes that trained \ac{lm} representations contain information useful for predicting recorded \ac{fmri} responses.\evd{E002}\evd{E006}
-Supported target uptake and retained-student movement establish that the synthetic-response objective altered the saved student.\evd{E016}\evd{E025}
+Supported post-training target uptake and retained-student movement establish that the synthetic-response objective altered the saved student.\evd{E016}\evd{E025}
 These results do not by themselves establish brain-response-specific attribution, biological transfer, or practical utility.
 The recorded-response and synthetic-response routes lose support at different transitions before a participant-general training benefit is established.
 
 \subsection{Where support is lost across the two intervention routes}
 \label{sec:discussion-failure}
 
-Controlled brain predictivity establishes the measurement context for the recorded-response route; route-matched Qwen teacher--student headroom, which describes opportunity rather than the validity of the paired intervention contrast, was not measured.
+Controlled brain predictivity establishes the measurement context for the recorded-response route; route-specific Qwen teacher--student headroom, which describes opportunity rather than the validity of the paired intervention contrast, was not measured.
 The recorded-response intervention itself does not demonstrate a participant-general pairing advantage.
 Training with participant-averaged responses produced positive trends for a fixed shared target, but those comparisons did not demonstrate a reliable pairing advantage at the shared-fold inference unit.
 Averaging can strengthen measurement of shared response structure, but it changes the estimand and does not create participant replicates.
 When responses and technical repetitions were aggregated within participants, correct stimulus--response pairing did not demonstrate a participant-general advantage.
-The tested variants narrow only specific alternative explanations: greater adapter rank did not induce stronger movement, and the contrastive, naturalistic, and full-parameter analyses bound only their tested loss, data, and optimization regimes.
+The tested variants narrow only specific alternative explanations: greater adapter rank did not induce stronger movement, and the contrastive, naturalistic, and full-parameter analyses bound their conclusions only to the tested loss, data, and optimization regimes.
 They do not establish that every recorded target or training procedure would fail.
-The practical-endpoint means favor the recorded-response arm, but their paired uncertainty was not reported and the controlled-predictivity prerequisite is unstable across technical seeds. The endpoint is therefore unresolved, and the analysis does not identify the observed endpoint contrast as the payoff of a reliably induced brain-response-specific change.\evd{E003}\evd{E005}\evd{E008}\evd{E009}\evd{E011}\evd{E013}\evd{E014}\evd{E015}\evd{E017}
+The practical-endpoint means are higher for the recorded-response arm, but their paired uncertainty was not reported and the controlled-predictivity prerequisite is unstable across technical seeds. The endpoint is therefore unresolved, and the analysis does not identify the observed endpoint contrast as the payoff of a reliably induced brain-response-specific change.\evd{E003}\evd{E005}\evd{E008}\evd{E009}\evd{E011}\evd{E013}\evd{E014}\evd{E015}\evd{E017}
 
 The synthetic-response evidence separates into parallel claims rather than one failure sequence.
 The unique linear predictivity of the 50-component \ac{pca} target representation did not meet the inherited internal continuation rule, while its advantage over the frozen row-twin control remained unresolved.\evd{E030}
-Later target uptake and retained-student movement show that training altered the saved student while measured \ac{lm} quality remained within the declared margin.\evd{E016}\evd{E025}
+Post-training target uptake and retained-student movement show that training altered the saved student while measured \ac{lm} quality remained within the declared margin.\evd{E016}\evd{E025}
 These manipulation results answer whether training changed the student.
 They do not change the earlier measurability verdict or establish that brain-response content caused the retained change.
 The text-derived auxiliary-control arm is non-identifying, and neither the direct participant-level assay nor the composed-path diagnostic demonstrates biological transfer.\evd{E025}\evd{E026}\evd{E030}
@@ -47,17 +47,17 @@ Design non-equivalence therefore prevents direct adjudication.
 It does not show that any one design difference caused the outcomes to diverge.
 
 As Section~\ref{sec:evidence-criteria} explains, what a positive contrast establishes also depends on its reference condition.
-Improvement over a pretrained or language-only model does not isolate the incremental contribution of brain-response supervision in the way that comparison with ordinary \ac{kd} at comparable \ac{lm} quality does.
-For recorded-response training, a permuted-response control tests whether correct stimulus--target pairing matters.
+Improvement over a pretrained or language-only model does not isolate the incremental contribution of brain-response supervision in the way that comparison with the ordinary \ac{kd} arm at comparable \ac{lm} quality does.
+For recorded-response training, a permuted-response control tests whether correct stimulus--response pairing matters.
 For synthetic-response training, attribution to brain-response content additionally requires a suitably matched text-derived auxiliary target.
 Training seeds can establish procedural stability, but they cannot replace participant-level uncertainty when the claim concerns people.
 Endpoint choice sets another boundary: recovery of the optimized target establishes uptake, prediction of independently recorded responses tests biological transfer, and improvement on an external task addresses utility.
 A positive result for one of these outcomes need not satisfy the others.
 
-By applying these distinctions within one controlled framework, the thesis shows why positive findings at different stages can be valid without supporting the same training claim.\evd{E002}\evd{E006}\evd{E008}\evd{E016}\evd{E025}\evd{E026}\evd{E030}
-Its contribution is to keep measurement and manipulation distinct from attribution, transfer, and utility, and to specify the comparator, quality condition, endpoint, and inference unit needed for each claim.
+By applying these distinctions within one controlled framework, we show why positive findings at different stages can be valid without supporting the same training claim.\evd{E002}\evd{E006}\evd{E008}\evd{E016}\evd{E025}\evd{E026}\evd{E030}
+Our contribution is to keep measurement and manipulation distinct from attribution, transfer, and utility, and to specify the comparator, quality condition, endpoint, and inference unit needed for each claim.
 Whether materially different prior results would pass those additional stages remains an open empirical question.
-Section~\ref{sec:discussion-design} next turns this claim boundary into design recommendations for future brain-response-guided training.
+Section~\ref{sec:discussion-design} next turns this boundary between claims into design recommendations for future brain-response-guided training.
 
 \subsection{Design implications for future brain-response-guided training}
 \label{sec:discussion-design}
@@ -69,8 +69,8 @@ Participant-general claims instead require population inference that preserves p
 The two estimands are complementary, not interchangeable.\evd{E005}\evd{E008}\evd{E014}
 
 For synthetic-response training, the observed losses justify moving several checks before expensive optimization.
-The exact transformed target should first be evaluated on held-out data from the intended recorded-response substrate.
-That assay should use the planned nuisance model and readout, a frozen row-twin control, the inference unit required by the claim, and a predeclared assay-specific continuation criterion.
+The training target, after compression to 50 principal components, should first be evaluated on held-out data from the intended recorded responses.
+That assay should use the planned nuisance model and readout, a frozen row-twin control, the inference unit required by the claim, and a predeclared assay-specific continuation rule.
 The frozen control tests sentence--target pairing; content attribution requires a separately trained text-derived auxiliary-control arm.
 Before training, that auxiliary target should be checked for comparable scale, covariance geometry, nuisance predictability, baseline recoverability, remaining headroom, and held-out learnability.
 Initial auxiliary losses and gradient scales should also be retained so that optimization pressure can be audited directly.\evd{E026}\evd{E030}
@@ -82,7 +82,7 @@ Attribution requires comparison with the text-derived auxiliary-control arm afte
 Post-training learnability and movement help interpret how the interventions differed, but they are not comparator-identification conditions.
 Biological transfer then requires an independent recorded-response endpoint, with technical repetitions aggregated within each participant before population inference.
 These outcomes must remain separate because a reliable manipulation can coexist with biological transfer that is not demonstrated.\evd{E016}\evd{E025}\evd{E026}
-Utility is route-specific and becomes interpretable as the payoff of improved controlled brain predictivity only after that prerequisite change is reliably established and the paired utility endpoint has appropriate uncertainty.
+Utility is route-specific and becomes interpretable as the payoff of improved controlled brain predictivity only after the controlled-predictivity prerequisite is reliably established and the utility endpoint's paired uncertainty is appropriately reported.
 The completed utility evaluation belongs to the recorded-response route and does not estimate synthetic-route utility.\evd{E009}
 
 The stage status should determine the next use of data and compute.
