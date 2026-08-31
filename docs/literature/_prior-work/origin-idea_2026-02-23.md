@@ -12,6 +12,7 @@
 Use brain alignment as a first-class objective for model compression. Instead of distilling for perplexity only, train/prune a smaller student model to preserve features that predict neural/behavioral responses while discarding the high-precision statistical tail that mainly improves next-token prediction.
 
 Core pipeline candidate:
+
 1. Train or select teacher checkpoints across data scales (including developmentally plausible ~100M words).
 2. Measure representation alignment using encoding-model style metrics (fMRI/behavioral benchmarks).
 3. Perform alignment-aware pruning or distillation to produce a compact student.
@@ -26,6 +27,7 @@ Core pipeline candidate:
 - It has a clean gap hypothesis: current work measures brain alignment, but rarely uses it as the compression objective.
 
 Evidence-status labels for now:
+
 - Inference: alignment may saturate earlier than perplexity improvements.
 - Inference: brain-score-guided compression is underexplored relative to standard KD.
 - Guess: this will improve robustness-per-parameter on edge tasks.

@@ -160,6 +160,7 @@ Cross-idea matrix verdict remains HOLD, not PASS. This direction is still high-p
 - **Oracle review (2026-03-03):** Returned HOLD. Primary blocker: need a named brain benchmark with power analysis (which dataset, how many participants, noise floor, detectable effect size at available N).
 
 ### Dead Ends
+
 - Considered alignment loss as simple MSE on voxel-level brain predictions; rejected because it conflates recording noise with representational geometry and doesn't decompose into the layer-wise structure that Oota 2023 shows drives alignment (iteration 1).
 - Explored using an instruction-tuned teacher as the alignment source; rejected after [[gao-2024_scaling-not-instruction-brain-alignment|Gao et al., 2024]] showed instruction tuning is orthogonal to naturalistic reading alignment (iteration 2).
 - Considered dropping anti-confound controls as "too expensive for a first pass"; rejected because [[feghhi-2024_case-against-over-reliance-brain-scores|Feghhi et al., 2024]] showed that without them, alignment gains are indistinguishable from length/position artifacts (iteration 2).
