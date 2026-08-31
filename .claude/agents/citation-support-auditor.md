@@ -18,6 +18,10 @@ Read [`docs/references/manuscript-verification-rules.md`](../../docs/references/
 
 The rewrite tree carries 51 `\autocite` and 7 `\textcite`. Work item by item, one `ID:` block each.
 
+**What counts as one item.** One item is one *(line, citekey)* pair: a line carrying `\autocite{a,b,c}` is three items, not one, because each key backs the claim independently. Count result-like bare literals out of scope; they belong to `evidence-number-auditor`. The parent computes this floor independently and rejects a `CHECKED:` below it.
+
+The numbered points below are this contract's checks. They are **not** the numbered rules in the corpus, which are cited as `rule N` and are a separate list; do not cross-reference the two numbering schemes.
+
 1. **Resolve, then read.** Map the key through `docs/manuscript/rewrite/references.bib` to its note in `docs/literature/canonical/` (69 notes). Read the note. If there is no note, the citation is `UNGROUNDED`: name it for `paper-digest` and move on. **Never fetch the paper from the web** — an unread paper is a gap to name, not a hole to fill from memory.
 2. **Judge the support relation** against the exact sentence the citation is attached to: `SUPPORTS`, `PARTIAL`, `CONTRADICTS`, or `UNRELATED`. Be specific about which half of a compound claim the paper reaches. The repo rule this enforces: a general theoretical source does not support an optimization or learnability claim unless it analyzes that mechanism.
 3. **Alias double-counting.** `hadidi-2024_case-against-brainscore-reliance.md` and `feghhi-2024_case-against-over-reliance-brain-scores.md` are **one paper under two names**. Citing both in one place as independent support is `ALIAS-DOUBLE-COUNT`, and it is a live hazard in this tree, not a hypothetical. Check for any other pair that describes the same work.

@@ -18,6 +18,10 @@ Read [`docs/references/manuscript-verification-rules.md`](../../docs/references/
 
 Work through the scope item by item. One `ID:` block per item, no summaries.
 
+**What counts as one item.** One item is one *(line, provenance token)* pair: each `\result{key}` occurrence, each `\evd{Ennn}` marker, and each result-like bare literal, counted separately even when several sit on one line. Do not group co-located tokens into a single block; the parent computes this floor independently and rejects a `CHECKED:` below it. In the acceptance test one arm counted per token and hit the floor exactly while the other grouped and under-reported by six, so this is stated rather than left to judgment.
+
+The numbered points below are this contract's checks. They are **not** the numbered rules in the corpus, which are cited as `rule N` and are a separate list; do not cross-reference the two numbering schemes.
+
 1. **Every `\result{key}` in scope.** Resolve the key in `docs/manuscript/rewrite/numbers.tex`, capture its `% [ENNN]` provenance tag, open that record, and locate the value. All 356 declarations carry a tag; two are irregular (`% [E013b]`, `% [E025/E030]`) and both resolve to real records, so treat a compound tag as "check every named record".
 2. **Compare numerically, never by string.** A rounded restatement of the record is fine. `numbers.tex:44` declares `e008_ci` as `[$-0.00037$, $+0.00058$]`, which matches `E008` exactly while that record's own frontmatter shows `[−0.0004,+0.0006]`. Both are correct. What is not correct is a manuscript interval **tighter** than the record's, a sign flip, a point estimate outside the record's interval, or a unit or scale change. Compute the comparison; do not eyeball it.
 3. **Verdict fidelity.** The record's verdict word bounds what the prose may say. `E008` reads `WEAK / NULL`; a sentence around its number that reads as a positive finding is a `MISMATCH` even when the digits are right. Check the direction and the strength of the claim, not only the value.

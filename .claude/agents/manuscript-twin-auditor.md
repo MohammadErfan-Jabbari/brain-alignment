@@ -20,6 +20,10 @@ Then read `docs/manuscript/submission/AGENTS.md` for what that tree is *allowed*
 
 Diff the trees section by section and classify every divergent line. One `ID:` block per divergence, no summaries. Note that the two trees use different section filenames and a different template, so align by section role, not by filename.
 
+**What counts as one divergence.** A run of contiguous lines differing only by pure condensation is one divergence. Anything a reader could mistake for a changed claim, number, marker, verdict word, or role term is its own, even inside such a run.
+
+The numbered points below are this contract's checks. They are **not** the numbered rules in the corpus, which are cited as `rule N` and are a separate list; do not cross-reference the two numbering schemes.
+
 1. **`INTENTIONAL-CUT`** — the derivative is shorter: a dropped paragraph, a merged subsection, a table reduced to its headline rows, an appendix omitted. Format and condensation are what this tree is for. Not a finding, but count it.
 2. **`DRIFT`** — the two trees state the same thing differently in a way that matters: a different `\result{key}`, a different `\evd{Ennn}` marker, a different verdict or status word, a different count, a different interval, a different comparator name, or a fixed role term replaced by a looser one. Every one of these is a finding, because the derivative is supposed to carry the canonical claim unchanged even when it carries fewer words.
 3. **`REVERSE-EDIT`** — the derivative contains scientific prose, a number, a claim, or a citation that the canonical tree does **not** have. This is the authority inversion and it is always a `FAIL`, with no exceptions and no judgment call. Report the exact line and say plainly that the content must be applied to `rewrite/` first, then flow down.

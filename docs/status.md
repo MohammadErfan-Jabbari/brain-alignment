@@ -57,8 +57,13 @@ aliases: [current-status]
 ## Next actions
 
 1. On Erfan's direction, finish the Section 5 residual prose findings — adjudicate the recorded judgment calls directly under `/review`, recovering them from that session's transcripts — then run the Limitations and Conclusion swarms, then close the deferred abstract and figure/typography passes.
-2. Rebuild the university-template derivative and send it to the supervisors without adding results from the closed experiment program.
-3. After supervisor feedback, decide whether to create a new immutable public cut.
+2. Decide on four manuscript defects found by the first live run of the verification layer on 2026-09-01, all four verified by hand and none reachable by `manuscript_check.py`. This gates action 3, because one of them is in the derivative that would be sent.
+   - **Authority inversion, `submission/sections/04_results.tex:403`.** The derivative appends "; because these are pre-outcome or baseline identification conditions, any required failure leaves the comparator non-identifying for the attribution claim" to a sentence that ends at "identification checks" in `rewrite/sections/04_results.tex:407`. The clause is not wrong, since `03_experimental_framework.tex:452` already states that passing every required pre-outcome axis is necessary for attribution. It is still interpretive prose that entered through the derivative, so it must be applied to `rewrite/` first and flow down, or be dropped. Erfan's call, not a silent deletion.
+   - **Over-attributed citation, `rewrite/sections/02_valid_training_claim.tex:28`.** `lage2019` is cited for a four-clause claim; its canonical note is a single-subject noise-ceiling paper that reaches "response reliability" and "response definition and aggregation" but not "stimulus distribution" or "selected brain regions".
+   - **Over-attributed citation, `rewrite/sections/02_valid_training_claim.tex:103`.** `freteault2025` is co-cited for "transfer across datasets or participants", while its note records the authors' own caveat that training and test stimuli are within-distribution, all from one show, and concludes the paper "provides motivation but not transfer".
+   - **Ungrounded citation, `rewrite/sections/02_valid_training_claim.tex:125`.** `lazic2010` has no canonical note. It is topically apt, which is exactly why it must be read rather than assumed; hand it to `paper-digest`.
+3. Rebuild the university-template derivative and send it to the supervisors without adding results from the closed experiment program.
+4. After supervisor feedback, decide whether to create a new immutable public cut.
 
 Former experiment next actions (E033 implementation, E031 confirmation with E032 authorization, E028 lane resolution) are closed under D065 unless Erfan reopens them.
 

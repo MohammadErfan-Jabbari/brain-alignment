@@ -584,6 +584,29 @@ Erfan said he had not used the stances to write the rewrite. Checking it against
 
 **Carry-forward.** Before defending or extending a piece of apparatus, measure whether it was used, and separate three things the count will otherwise merge: the owner invoking it, the agent inferring it, and a document mentioning it. Absence of use in a window is only evidence when the window is the apparatus's own job, which is why this entry licenses retiring the writing loop ([D070](decisions/decisions.md)) and explicitly does not license judging `/work` or `/interpret` from a writing-only window.
 
+## L079 — A verification agent's control arm is the load-bearing half of its acceptance test — 2026-09-01
+
+The three read-only verification agents were accepted with a two-arm seeded test rather than a demonstration. One 90-line subsection (§4.3, recorded-response intervention) was copied twice; six defects were injected into one copy, one per rule class; both copies were audited by independent dispatches of the same agent, neither told anything had been seeded.
+
+| Arm | CHECKED | OK | FAILED | Result |
+| --- | --- | --- | --- | --- |
+| control, unmodified prose | 32 | 32 | 0 | PASS |
+| seeded, six defects | 22 | 18 | 4 | FAIL |
+
+Five of six were caught: a keyed value replaced by a bare literal, an `\evd` marker swapped to a real but wrong record, a fabricated interval, a verdict overreach on an `E008` (`WEAK / NULL`) number, and a sign flip. The catches were reasoned, not pattern-matched: the wrong marker was justified by opening `E014` and observing it contains no perplexity content at all, and the fabricated interval was flagged for being entirely positive where the record's straddles zero.
+
+**The control arm is what makes the seeded arm mean anything.** A detector that flags everything catches all six and is useless. `CHECKED: 32` matched the item floor computed independently by the parent, with zero false positives on prose the agent had every opportunity to nitpick, and it correctly declined to flag `50-component` as a bare literal because a PCA rank is a design parameter and not a measured result. That discrimination, not the detection rate, is what makes the layer usable per subsection.
+
+**Two defects in the apparatus, both found only by running it.**
+
+(a) **A rule can be unfireable rather than merely unfired.** `INCOMPLETE-ESTIMATE` returned zero hits in both arms, and the miss was the seeded deletion of `e008_fold_ci` and its inference unit from a stated estimate. An item-driven walk enumerates the tokens that are *present*, so a deleted uncertainty leaves nothing to inspect. A checklist rule phrased as "X without Y is a defect" needs an explicit inverse lookup, or it is decoration. Closed as corpus rule 17.
+
+(b) **An unstated counting unit makes the anti-degenerate gate unenforceable.** "One `ID:` block per item" did not define an item. The control arm counted per token and hit its floor of 32 exactly; the seeded arm grouped co-located tokens and reported 22 against a floor of 28; the citation arm counted per citekey instance and reported 48 for 22 unique keys. Had the parent been enforcing `CHECKED >= floor`, the weak arm would have been rejected and retried, which is the correct behaviour and did not happen because the floor was never computed. Coverage is the parent's number, and a gate that is not computed is not a gate ([L055](learnings.md) again, in a new place).
+
+**Also, the first live run found real defects, which is the point.** The twin auditor found one authority inversion in the submission derivative, and the citation auditor found two over-attributed citations and one ungrounded key, all four verified by hand afterwards. None of them was reachable by `manuscript_check.py`, which confirms an E record exists and a key is declared and never opens either.
+
+**Carry-forward.** Accept a verifier on two arms, never one. Seed the defects from the rule list so a rule that cannot fire is exposed as unfireable. Compute the coverage floor in the parent before reading a single finding, and define the counting unit in the contract rather than leaving it to the child's judgment.
+
 ## Related
 - [`status.md`](./status.md) — current project state
 - [`03-methodology.md`](./03-methodology.md) — authority and inference contract
