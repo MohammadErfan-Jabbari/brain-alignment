@@ -51,7 +51,7 @@ Evidence-status labels for now:
 
 ## Candidate Project Links
 
-- [[masters-thesis]]
+- [masters-thesis](../../manuscript/AGENTS.md)
 - Potential split-paper path: method paper (alignment-aware distillation) + evaluation paper (neural/behavioral benchmarking)
 
 ---
@@ -68,7 +68,7 @@ Evidence-status labels for now:
 
 - [x] Captured
 - [x] Promoted to Stage 1 artifact
-- [x] Converted to hypothesis: [[H001_alignment-guided-distillation_2026-02-27]]
+- [x] Converted to hypothesis: [[H001_alignment-guided-distillation]]
 - [ ] Archived (killed)
 
 **Archive reason (if killed):**

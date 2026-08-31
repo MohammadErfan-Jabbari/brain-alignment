@@ -3,7 +3,7 @@
 **First created:** 2026-02-24
 **Last updated:** 2026-03-06
 **Tags:** #idea #literature #masters-thesis #thesis #neuro-ai #edge-ai
-**Parent idea:** [[2026-02-23_brain-alignment-guided-distillation-for-edge-llms]]
+**Parent idea:** [[origin-idea_2026-02-23]]
 
 ## Validation Status
 
