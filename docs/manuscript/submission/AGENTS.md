@@ -1,9 +1,15 @@
+---
+title: "Supervisor Submission Derivative"
+tags: [agent-contract, manuscript, submission]
+aliases: [submission-contract]
+---
+
 # Supervisor submission derivative
 
 This directory is a supervisor-review derivative of [`../rewrite/`](../rewrite/), created under D064 and D065.
 
 - `../rewrite/` remains the sole scientific-interpretation authority. The local section files are a review workspace; accepted scientific changes must be synchronized to `../rewrite/` before they become authoritative.
-- Writing methodology (drafting and review protocol, acceptance checks, terminology, prose, structure, table, and figure rules) follows [`../AGENTS.md`](../AGENTS.md); the scientific position and maintained question tree follow [`../rewrite/AGENTS.md`](../rewrite/AGENTS.md).
+- Writing methodology (drafting and review protocol, acceptance checks, terminology, prose, structure, table, and figure rules) follows [`../AGENTS.md`](../AGENTS.md); the scientific position follows [`../rewrite/AGENTS.md`](../rewrite/AGENTS.md) and the maintained question tree follows [`../rewrite/question-tree.md`](../rewrite/question-tree.md).
 - The derivative uses the official UC3M cover-page fields and a one-column paper-style body. Its local section copies permit submission-specific restructuring, condensation, and supervisor-feedback edits without silently changing the canonical rewrite.
 - Condensation may remove detail or move it to the supplement, but it must not change a result, evidence state, estimator, inference unit, caveat, or scientific claim. Every retained load-bearing result keeps its `\\evd{Ennn}` provenance and keyed values.
 - This is not an immutable public cut. Create a public version only after supervisor feedback and Erfan's approval.
@@ -19,3 +25,9 @@ This directory is a supervisor-review derivative of [`../rewrite/`](../rewrite/)
 - `deferred-review-items.md` — non-authoritative working checklist for submission-review items blocked on authorization or missing information.
 - `numbers.tex`, `acronyms.tex`, `references.bib` are NOT vendored: the main file inputs them from `../rewrite/` so keyed values and citations stay single-source.
 - The NeurIPS `final` option alone leaves `\@trackname` undefined; the main file empties `\@noticestring` since a thesis is not a NeurIPS track submission.
+
+## Related
+
+- [Manuscript writing protocol and gates](../AGENTS.md)
+- [Canonical thesis contract](../rewrite/AGENTS.md)
+- [Maintained question tree](../rewrite/question-tree.md)

@@ -111,9 +111,18 @@ SELF_NARRATION = [
     r"what\s+(locates|reveals|defines)\s+the\s+(real\s+)?(contribution|point|question|stake|story)",
     r"only\s+earns\s+a\s+(thesis|paper|place|spot|seat)",
 ]
+# Words Erfan banned by name, in his own words, across sessions. Kept separate from
+# JARGON because the reason differs: a JARGON hit is a prompt to reconsider, while these
+# are simply not the author's vocabulary and must not appear. The list is open by intent;
+# its stated home is docs/manuscript/AGENTS.md, and an entry added there is mirrored here
+# in the same change or it is stated and unenforced.
+OWNER_BANNED = ["kill-gated", "standardly", "prose", "verdict"]
+
 # Class A3: internal-scaffolding metaphors leaking into reader-facing prose.
 # Includes the repo's own methodology jargon, which leaked into the v0.1/v0.2 manuscript.
-METAPHOR_RE = re.compile(r"\b(ladder|rungs?|kill-gated|load-bearing|lever)\b", re.I)
+# `kill-gated` used to sit here as a soft warning; it is a hard ban now, so it is gone
+# from this list rather than reported twice.
+METAPHOR_RE = re.compile(r"\b(ladder|rungs?|load-bearing|lever)\b", re.I)
 # Class B: reflex passive. A meter, not a per-sentence judgment.
 PASSIVE_RE = re.compile(
     r"\b(is|are|was|were|be|been|being)\s+(\w+ed|done|made|shown|found|measured|given|taken|"
@@ -159,6 +168,10 @@ def lint_file(path: Path, max_emdash: int):
         for w in JARGON:
             if re.search(rf"\b{re.escape(w)}\b", text, re.I):
                 findings.append((lineno, "jargon", f"'{w}': is this the most precise word, or a default?"))
+        for w in OWNER_BANNED:
+            if re.search(rf"\b{re.escape(w)}\b", text, re.I):
+                findings.append((lineno, "banned",
+                                 f"'{w}': banned by name; name the specific thing instead"))
         if ROBUST.search(text) and not ROBUST_OK.search(text):
             findings.append((lineno, "jargon", "'robust': outside a statistics sense, prefer a precise word"))
         if re.search(r"\bcomprehensive\b", text, re.I):

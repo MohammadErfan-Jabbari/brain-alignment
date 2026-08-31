@@ -1,54 +1,47 @@
+---
+title: "Docs Agent Guidance"
+tags: [agent-contract, docs]
+aliases: [docs-contract]
+---
+
 # Docs Agent Guidance
 
-## Load order
-
-1. [`status.md`](status.md) for current state and the next action.
-2. Follow only the E-record and manuscript links required for that action.
-3. Use [`03-methodology.md`](03-methodology.md) for evidence and authority rules.
-
-## Authorities
-
-| Need | Owner |
-|---|---|
-| Evidence, provenance, experiment verdict | `experiments/ENNN_*.md` plus retained artifacts |
-| Current scientific interpretation | `manuscript/rewrite/` |
-| Operational state and next actions | `status.md` |
-| Historical rationale | `decisions/`, `learnings.md`, selected timelines, Git |
-
-Do not create a report, roadmap, dashboard, readiness matrix, audit memo, routine timeline, claim database, or global artifact registry.
-
-## Rules
-
-- Numbers originate in E records and must carry the correct inference unit and uncertainty.
-- Route scientific contradictions to `/interpret`; do not resolve them during cleanup or prose editing.
-- Write settled paper-relevant interpretation directly into the canonical rewrite manuscript.
-- Set `status.md` to `manuscript-sync-pending` whenever an upstream correction has not yet reached the manuscript.
-- Update only authorities whose state changed. No-op sessions create no documentation churn.
-- Timeline logs are exceptional: result, adjudication, correction, durable decision/learning, manuscript or submission milestone, or lasting failure only.
-- Markdown must render in GitHub and Obsidian: relative Markdown links, no wikilinks, controlled frontmatter, supported callouts only.
-- Keep report/manuscript prose one paragraph per source line. LaTeX files follow LaTeX conventions, not Obsidian conventions.
-- Update the nearest `AGENTS.md` whenever folder structure or recurring commands change.
+The operating contract, the four authorities, the evidence transaction, and the session rules live in the root [`AGENTS.md`](../AGENTS.md) and are not restated here. This file owns only what is specific to `docs/`: where things live, and the rules that exist because this folder is simultaneously a GitHub repository and an Obsidian vault.
 
 ## Main map
 
 | Path | Purpose |
 |---|---|
+| `status.md` | Operational state, blockers, and next actions. Read first |
 | `00-charter.md` | Problem and scope |
 | `01-research-landscape.md` | Literature frontier |
 | `02-environment.md` | Compute, data, and run instructions |
-| `03-methodology.md` | Research and authority contract |
+| `03-methodology.md` | Evidence and authority contract |
 | `04-data-benchmarks.md`, `05-dataset-registry.md` | Dataset facts |
 | `06-theory-grounding.md` | Formal grounding |
-| `status.md` | Current operations |
-| `experiments/` | Evidence records |
-| `hypotheses/` | Falsifiable claims and gates |
-| `literature/canonical/` | Canonical paper notes |
-| `external-reviews/` | Verbatim, non-authoritative external-review provenance |
-| `manuscript/rewrite/` | Canonical live scientific account |
+| `experiments/` | Evidence records ([contract](experiments/AGENTS.md)) |
+| `hypotheses/` | Falsifiable claims and their gates |
+| `literature/canonical/` | Canonical paper notes ([contract](literature/AGENTS.md)) |
+| `external-reviews/` | Verbatim, non-authoritative external-review provenance ([contract](external-reviews/AGENTS.md)) |
+| `manuscript/` | Every manuscript tree and the writing gates ([contract](manuscript/AGENTS.md)) |
+| `manuscript/rewrite/` | Canonical live scientific account, plus the maintained [question tree](manuscript/rewrite/question-tree.md) |
 | `manuscript/submission/` | Supervisor-review derivative of `rewrite/`; never an authority |
-| `learning/` | `/teach` lessons and the mastery ledger |
-| `references/` | Conventions and shared reference material |
-| `decisions/`, `learnings.md` | Durable history |
-| `timeline/` | Selected consequential session records |
+| `learning/` | `/teach` lessons and the mastery ledger ([contract](learning/AGENTS.md)) |
+| `references/` | Conventions, the confound catalog, the reasoning frame, and process records |
+| `decisions/decisions.md`, `learnings.md` | Durable history: `Dnnn` decisions, `Lnnn` learnings |
+| `timeline/` | Selected consequential session records ([contract](timeline/AGENTS.md)) |
 
-Use `uv run` for Python. Heavy artifacts belong in gitignored `data/` or `outputs/`.
+## Rules specific to this folder
+
+- Do not create a report, roadmap, dashboard, readiness matrix, audit memo, claim database, or global artifact registry here. Root states that none of them would be authoritative; this folder is where they would otherwise appear, so the rule here is that they are not created at all.
+- Markdown must render in both GitHub and Obsidian: YAML frontmatter, relative Markdown links, no wikilinks, supported callouts only. The full contract is [`references/obsidian-conventions.md`](references/obsidian-conventions.md).
+- Keep Markdown prose one paragraph per source line, the same rule root states for `.tex`. It is what makes `grep` a usable index across more than 150 documents.
+- A new `Dnnn` or `Lnnn` is appended, never renumbered, and a superseded entry keeps its number with a currency note rather than being edited into agreement.
+- A retired mechanism is removed from every file that asserts it is live, in the same commit that retires it. Three hooks stayed documented as active while dead, retired, or unenforced because this was done later and then not at all ([L077](learnings.md)).
+- Update the nearest `AGENTS.md` when a subfolder's structure, commands, or traps change, and add its `CLAUDE.md` symlink in the same change.
+
+## Related
+
+- [Root operating contract](../AGENTS.md)
+- [Evidence and authority contract](03-methodology.md)
+- [Operational status](status.md)

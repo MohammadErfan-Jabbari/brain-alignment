@@ -42,26 +42,14 @@ This folder holds experiment runners, data adapters, analysis scripts, literatur
 | `figures/` | Figure generation scripts. |
 | `litsweep/` | Literature search and PDF utilities. See `litsweep/AGENTS.md`. |
 
-## Toy Pilot Legacy Context
+## Toy-pilot code (E001)
 
-The original toy pilot asked whether adding a brain-alignment loss during GPT-2-medium to GPT-2 distillation improves the student's encoding-model fit to fMRI under the anti-artifact protocol, versus identical brain-blind distillation.
-
-Core files:
+The scientific question, the estimand rule, the anti-confound protocol, and the run commands belong to [`E001`](../docs/experiments/E001_toy-pilot-gpt2.md), which owns them. This section is navigation only.
 
 | File | Role |
 |---|---|
-| `pilot_lib.py` | Scientific spine: seeding, hidden-state extraction, scalar/static nuisance baselines, contiguous-block CV, ridge encoding, capacity-fair variance partition. |
-| `distill.py` | GPT-2-medium to GPT-2 distillation loop: logit-KD plus optional trainable brain-alignment head. |
+| `pilot_lib.py` | Scientific spine: seeding, hidden-state extraction, scalar and static nuisance baselines, contiguous-block CV, ridge encoding, capacity-fair variance partition. |
+| `distill.py` | GPT-2-medium to GPT-2 distillation loop: logit KD plus an optional trainable brain-alignment head. |
 | `data_adapters.py` | Common `(texts, fmri, meta)` interface with synthetic, Pereira sentence, and Pereira neural-response paths. |
-| `run_toy_pilot.py` | Loads data, runs arms and seeds at matched budget, evaluates, writes `outputs/toy-pilot/<run>/{summary.json,results.csv}`. |
+| `run_toy_pilot.py` | Entry point; writes `outputs/toy-pilot/<run>/{summary.json,results.csv}`. |
 | `../configs/toy_pilot.json` | Hyperparameters and smoke overrides. |
-
-The only alignment number allowed from this pilot shape is `unique_R2`: contextual representation variance after length, position, and static lexical controls, with capacity-fair PCA. Raw R2 can be reported as diagnostic only.
-
-Run shape:
-
-```bash
-export HF_HOME=/home/centcom/data/hf-cache
-uv run python scripts/run_toy_pilot.py --config configs/toy_pilot.json --smoke
-uv run python scripts/run_toy_pilot.py --config configs/toy_pilot.json
-```

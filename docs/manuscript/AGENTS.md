@@ -6,7 +6,7 @@ aliases: [manuscript-agents]
 
 # Manuscript Agent Guidance
 
-This file is the repository gate layer for every manuscript tree in this folder: which tree to edit, evidence provenance, the review set, approval routing, acceptance checks, terminology, prose, structure, table, and figure rules learned during the thesis rewrite. The writing *method* is owned solely by the [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md) skill and is never restated here. Folder `AGENTS.md` files hold only tree-specific instructions: [`rewrite/AGENTS.md`](rewrite/AGENTS.md) owns the canonical thesis's scientific position, argument structure, and maintained question tree; [`submission/AGENTS.md`](submission/AGENTS.md) owns the supervisor-review derivative's format and synchronization rules.
+This file is the repository gate layer for every manuscript tree in this folder: which tree to edit, evidence provenance, the review set, approval routing, acceptance checks, terminology, prose, structure, table, and figure rules learned during the thesis rewrite. The writing *method* is owned solely by the [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md) skill and is never restated here. Folder `AGENTS.md` files hold only tree-specific instructions: [`rewrite/AGENTS.md`](rewrite/AGENTS.md) owns the canonical thesis's scientific position, argument structure, and role contract, with the question tree itself in the sibling [`rewrite/question-tree.md`](rewrite/question-tree.md); [`submission/AGENTS.md`](submission/AGENTS.md) owns the supervisor-review derivative's format and synchronization rules.
 
 ## Layout
 
@@ -22,7 +22,9 @@ Legacy layers (`extended/`, `public/v0.9/`) were removed from HEAD on 2026-08-25
 
 The **method** is owned by the [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md) skill: the question tree, the guided inference path, the Plan / Draft / Review / Revise branches, pass scopes, evidence states, and the Step 5 audits. Do not restate or paraphrase that method here or anywhere else. This section owns only what the skill deliberately leaves to the repository: which tree to edit, evidence provenance, the review set, the deterministic checks, and approval routing.
 
-1. Select the active tree and read in. `rewrite/` for any canonical scientific change; `submission/` only for supervisor-review format and condensation edits. Read the active leaf questions and their parent from the [maintained question tree](rewrite/AGENTS.md), the owning evidence records, and the relevant canonical literature notes.
+**Order.** Work forward through the manuscript section by section, and inside a section paragraph by paragraph. The abstract is the last thing drafted, after every section it summarizes has settled.
+
+1. Select the active tree and read in. `rewrite/` for any canonical scientific change; `submission/` only for supervisor-review format and condensation edits. Read the active leaf questions and their parent from the [maintained question tree](rewrite/question-tree.md), the owning evidence records, and the relevant canonical literature notes.
 2. Run the skill's Plan or Draft branch on the active scope. Its Step 1 output (reader, starting understanding, governing question, provisional answer, claim, scope, source constraints, evidence states) is the precondition for prose, not a formality: a leaf whose evidence state is unsupported, unresolved, or in authority conflict is not drafted as settled.
 3. Locate every existing paragraph that answers the active leaf, then draft one complete proposed replacement. Propose moving overlapping prose rather than appending a duplicate.
 4. Draft adjacent leaf questions together only when they form one natural argumentative unit. Do not draft across a section boundary.
@@ -121,6 +123,14 @@ Match each citation to the claim it actually supports. A general theoretical sou
 
 After changing prose, recheck the whole active section against the terminology and acronym contracts rather than validating only the edited sentence. Split a paragraph when it serves distinct reader questions, such as reporting findings and stating contributions, and synchronize the maintained question tree when that changes the argument's structure.
 
+### Banned tokens, and the split that decides the tool
+
+A closed token list is complete by construction, so it is enforced deterministically by `uv run python scripts/prose_lint.py`. Register, taste, hedging, and rhythm are not lintable and belong to the fresh independent review ([L052](../learnings.md)). That split decides the tool for every prose defect: if a banned token betrays it, it is a lint rule; if it does not, no script will ever find it, and writing one is wasted work.
+
+Banned outright in manuscript and report prose: the em dash in every form (Unicode `—`, and `---` in LaTeX source), *kill-gated*, *standardly*, and *prose* and *verdict* as generic nouns. `prose_lint.py` also carries a wider heuristic set that warns without gating.
+
+This section is the list's only home, and the list is open by intent. Add an entry here and mirror it into `prose_lint.py`'s `OWNER_BANNED` in the same change; a ban that is stated and not mirrored is a ban that does not hold.
+
 ## Structure, tables, and figures
 
 - A subsection normally owns three to five related paragraph questions. A two-paragraph subsection is allowed only when it marks a real conceptual boundary. Merge a one-paragraph subsection into its parent.
@@ -135,7 +145,7 @@ After changing prose, recheck the whole active section against the terminology a
 
 ## Maintained question map
 
-The intended reader, governing question, provisional answer, and the complete maintained question tree for the main text and appendices live in [`rewrite/AGENTS.md`](rewrite/AGENTS.md), the canonical scientific-interpretation authority. That file is the single source for the question tree; do not duplicate or paraphrase its questions here.
+The intended reader, governing question, and provisional answer live in [`rewrite/AGENTS.md`](rewrite/AGENTS.md), the canonical scientific-interpretation authority. The complete question tree for the main text and appendices lives in [`rewrite/question-tree.md`](rewrite/question-tree.md), which is its single source; do not duplicate or paraphrase its questions here.
 
 Treat the tree as a maintained reverse outline. Every main-text paragraph must answer a leaf question that contributes to its section question and ultimately to the governing question. Whenever a manuscript edit changes a section's purpose, evidentiary role, scope, or conclusion, update the affected question in the same commit. When a changed E-record verdict alters the argument, correct the E record first, route the change through `/interpret`, update the manuscript, and then synchronize the tree. Remove questions that no longer serve the governing question and add a question when the manuscript gains a necessary argumentative dependency. Review the complete tree before declaring the manuscript share-ready.
 
@@ -144,6 +154,7 @@ Treat the tree as a maintained reverse outline. Every main-text paragraph must a
 - Do not create a manuscript report, claim lattice, checkpoint log, convergence store, or any additional alternate draft tree beyond the explicitly authorized `rewrite/` candidate and its declared derivatives.
 - There is no public tree at HEAD. Creating one is a separate decision requiring Erfan's approval, and any future cut is frozen on creation.
 - Every scientific number and figure value traces to an owning E record; only load-bearing artifacts receive recorded paths and SHA-256 values.
+- If a keyed value does not exist in `numbers.tex`, write `\gap` and say so. Adding a `\DeclareResult` macro is an owner-confirm question, never something to fabricate, and never an occasion to change an epistemic verdict.
 - Use the correct inference unit, uncertainty, and named test.
 - Keep internal provenance in non-printing BibLaTeX fields such as `annotation`, not printable `note` fields.
 - Keep source search-friendly: one sentence or paragraph per line, minimal custom macros, and no deep content nesting.
@@ -156,6 +167,7 @@ Treat the tree as a maintained reverse outline. Every main-text paragraph must a
 ## Related
 
 - [Canonical thesis contract](rewrite/AGENTS.md)
+- [Maintained question tree](rewrite/question-tree.md)
 - [Supervisor submission derivative](submission/AGENTS.md)
 - [Authority contract](../03-methodology.md)
 - [Current status](../status.md)

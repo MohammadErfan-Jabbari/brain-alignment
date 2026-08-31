@@ -45,6 +45,8 @@ Every workflow is a skill in `.claude/skills/`, one directory each. Two ways in,
 
 State the active stance in one line and say when it switches. Reach for a skill rather than reconstructing its procedure inline; if a procedure is worth writing down twice, it belongs in the skill instead.
 
+The four reasoning methods this repo reviews with are user-level skills at `~/.claude/skills/`: `test-claims`, `remove-bottlenecks`, `allocate-for-compounding`, and `coordinate-strategy`. `thinking-panel` is the repo handle for them and says which one a situation calls for; reach for the smallest applicable set, and never confuse them with the four adversarial subagents of `/review`.
+
 ## Evidence rules
 
 - A scientific number is born in `/work` and recorded in an owning E record.
@@ -54,6 +56,7 @@ State the active stance in one line and say when it switches. Reach for a skill 
 - Keep raw artifacts separate from interpretation. Record the reason for each non-obvious design choice when it is made.
 - `/interpret` independently recomputes the load-bearing contrast, then uses adversarial review. Erfan confirms changed scientific verdicts.
 - A missing value is a `\gap`, never a guess. A contradiction discovered outside `/interpret` is routed there rather than silently resolved.
+- A predicted or defense-prep answer is advocacy, not evidence. Preparing persuasive answers for a viva or a reviewer is legitimate work, but such an answer is labeled as a prediction, is never copied into the manuscript or an E record, and never becomes the source of a number.
 
 The evidence transaction is:
 
@@ -69,7 +72,7 @@ The writing paradigm is **question-led**: a maintained question tree decides wha
 | --- | --- |
 | Method | [`question-led-writing`](.claude/skills/question-led-writing/SKILL.md) skill |
 | Repository gates, review set, approval routing | [`docs/manuscript/AGENTS.md`](docs/manuscript/AGENTS.md) |
-| The maintained question tree itself | [`docs/manuscript/rewrite/AGENTS.md`](docs/manuscript/rewrite/AGENTS.md) |
+| The maintained question tree itself | [`docs/manuscript/rewrite/question-tree.md`](docs/manuscript/rewrite/question-tree.md) |
 
 Do not restate the method or the protocol anywhere else, including here. Enter through the `write` skill or by editing a manuscript file, which auto-loads the protocol.
 
@@ -81,6 +84,16 @@ Contract-level non-negotiables that outrank any procedure: prose reports only ev
 - `/wrap` updates only authorities that changed. A no-op session makes no documentation changes.
 - Write a timeline only for a result, adjudication, correction, durable decision/learning, manuscript or submission milestone, or lasting failure.
 - Update the nearest `AGENTS.md` when a folder’s structure, commands, workflow, or traps change.
+
+## Working with Erfan
+
+- **Produce nothing that was not asked for.** Outside `/teach`, do not create a new artifact, file, report, or scratch document beyond the ones that already exist. This is the general case of the anti-report rule above, and it is the correction Erfan has had to repeat most often.
+- **Answer terse and scannable.** Lead with the answer, keep it short, and iterate. Do not lecture, do not restate the question, and do not pad a short answer to look thorough.
+- **Match the autonomy to the work.** Three rungs, and guessing wrong is a recurring friction:
+  - *Structural change to the repo or the apparatus:* confirm the list of changes before implementing.
+  - *Manuscript drafting in flow:* propose the complete unit and apply it on an explicit approval.
+  - *Long research or compute:* full autonomy. Do not stop until the steps are done or a finding worth publishing appears.
+- **Interrupting Erfan:** if it is sensitive, say it immediately. Otherwise let him finish, then say where the mistake is.
 
 ## Agent fleet
 
@@ -112,6 +125,7 @@ Codex is an independent code critic or rescue implementation, not a scientific a
 - Set `HF_HOME=/home/centcom/data/hf-cache` to reuse models.
 - Python 3.11, torch cu128, 4× L40S, single node; no Slurm, Docker, or tmux.
 - Heavy artifacts belong under gitignored `data/` and `outputs/`, never the overlay root.
+- Apparatus checks: `uv run python tests/test_bash_gate.py` (the Bash gate's 34 cases), `uv run python scripts/prose_lint.py --selftest`, and `uv run python scripts/manuscript_check.py`. Run the relevant one after changing a hook, the prose floor, or manuscript source.
 
 ## Git
 

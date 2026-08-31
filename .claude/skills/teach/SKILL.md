@@ -33,6 +33,8 @@ Every lesson grounds in the repo's own material and cites it. Find the source fo
 
 Read the source before teaching. Never teach from parametric memory when a source exists.
 
+**Grounding is not the same as restating.** Reproducing the source's own sentences, equations, or step list back to Erfan is not an explanation and has been rejected as one. For every step and every equation, say what it computes, why that step is needed, what it would look like if it were wrong, and what the symbols mean in this project's terms. If the explanation could have been written without understanding the source, it is not finished.
+
 ## The non-negotiable: numbers are cited, never invented
 
 When a lesson touches a recorded result, the honesty spine holds: teach

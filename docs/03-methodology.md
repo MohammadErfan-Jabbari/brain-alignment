@@ -75,7 +75,7 @@ The writing method is **question-led** and is owned by one skill; the repository
 
 - Method: [`question-led-writing`](../.claude/skills/question-led-writing/SKILL.md) (question tree, inference path, Plan/Draft/Review/Revise branches, evidence states, audits).
 - Gates and protocol: [`manuscript/AGENTS.md`](manuscript/AGENTS.md) (active tree, provenance, review set, deterministic checks, approval routing).
-- Maintained question tree: [`manuscript/rewrite/AGENTS.md`](manuscript/rewrite/AGENTS.md).
+- Maintained question tree: [`manuscript/rewrite/question-tree.md`](manuscript/rewrite/question-tree.md).
 
 What this contract fixes, and a procedure may not weaken: manuscript prose reports only values recorded upstream; a missing value is a `\gap`; every evidence marker resolves to an E record; deterministic checks and one fresh *independent* review run before a candidate is complete; and Erfan approves a changed scientific verdict, a material change in claim scope, new governing terminology, or a genuinely preference-dependent choice. Reviewed evidence-grounded clarity edits that preserve scientific meaning do not require item-by-item approval ([D067](decisions/decisions.md)).
 

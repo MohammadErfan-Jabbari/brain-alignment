@@ -1,3 +1,9 @@
+---
+title: "External Reviews Agent Guidance"
+tags: [agent-contract, external-review]
+aliases: [external-reviews-contract]
+---
+
 # External Reviews Agent Guidance
 
 This directory preserves user-supplied external reviews for provenance and future comparison. These files are references, not scientific or operational authorities.
@@ -11,3 +17,8 @@ This directory preserves user-supplied external reviews for provenance and futur
 - Verify proposed scientific changes against the owning E record, the canonical rewrite manuscript, and canonical literature notes before adopting them.
 - Route accepted operational consequences to `docs/status.md`; route settled scientific consequences through the normal artifact to E-record to manuscript transaction.
 - Do not create derivative roadmaps, claim databases, or audit summaries in this directory.
+
+## Related
+
+- [Docs guidance](../AGENTS.md)
+- [Evidence and authority contract](../03-methodology.md)

@@ -15,7 +15,7 @@ This skill carries no writing loop of its own. It exists to route, because five 
 
 1. **Method:** invoke [`question-led-writing`](../question-led-writing/SKILL.md). It owns the question tree, the guided inference path, the Plan / Draft / Review / Revise branches, pass scopes, evidence states, and the audits. Do not substitute a summary of it.
 2. **Gates:** follow the question-led writing protocol in [`docs/manuscript/AGENTS.md`](../../../docs/manuscript/AGENTS.md). It owns which tree to edit, `\evd{Ennn}` and keyed-value provenance, the review set, `manuscript_check.py`, and approval routing. That file auto-loads when you edit a manuscript file.
-3. **Tree:** the maintained question tree lives in [`docs/manuscript/rewrite/AGENTS.md`](../../../docs/manuscript/rewrite/AGENTS.md) and is the single source for the questions. Update it in the same change whenever the argument's structure moves.
+3. **Tree:** the maintained question tree lives in [`docs/manuscript/rewrite/question-tree.md`](../../../docs/manuscript/rewrite/question-tree.md) and is the single source for the questions. Update it in the same change whenever the argument's structure moves.
 
 ## Boundary
 

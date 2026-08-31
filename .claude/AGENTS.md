@@ -22,3 +22,19 @@ This folder contains the Claude Code apparatus for the repo: subagents, hooks, s
 | `agents/` | Specialized Claude subagent prompts. |
 | `hooks/` | Automation and write/check gates. |
 | `skills/` | Every stance and workflow entry point, one skill per directory. `/work` and `/wrap` set `disable-model-invocation: true`. |
+
+## Dispatch contract
+
+These apply to every spawn, so they are stated once here instead of retyped into each task prompt.
+
+- **A review agent is read-only and returns a verdict, not edits.** Give it no `Write` or `Edit`. Its output is its only product. Independence is the entire reason to spawn it: a reviewer that shares the working context under-detects, three residuals against roughly thirteen from a fresh pass (L055).
+- **First-round subagent output is never merged.** A proposal is read, argued against by a reviewer, and reconciled before anything is applied. The point of the round is to establish that the change is an improvement, not that it exists.
+- **Set `model:` and `effort:` explicitly on every child; a spawn inherits neither.** The recorded failure: an inherited high thinking level burned a judge's entire 32k output cap and returned nothing twice, after which the provider exclusion-listed the model family for 24 hours and stalled a manuscript section by about seven hours.
+- **Gate degenerate output instead of merging it.** A response below a plausible length or outside the declared format is rejected and re-dispatched, not reconciled. Off-task and 114-character replies have flowed downstream here before.
+- **Independent verification never runs the tool's own self-test.** A `--selftest` proves the script agrees with itself. Adjudicating a deterministic gate means fresh fixtures in a fresh session.
+- **Smallest diff wins; reject churn.** A reviewer that proposes a rewrite where a sentence would do is proposing risk, not quality.
+
+## Related
+
+- [Root operating contract](../AGENTS.md)
+- [Runnable apparatus](../scripts/AGENTS.md)

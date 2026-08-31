@@ -13,13 +13,13 @@ This directory is the memory and working surface of the `/teach` stance. Keep ra
 | Path | Use |
 |---|---|
 | `lessons/` | Rendered teaching artifacts, one Markdown file per teaching session. These are the whiteboard: explanation, math, diagrams, questions, and mistakes. |
-| `records/` | Curated mastery ledger. Each file is one durable mastery event, written only on demonstrated mastery or a corrected misconception. Currently empty, so `/teach` resumes from `lessons/` until the first record lands. |
+| `records/` | Curated mastery ledger. Each file is one durable mastery event, written only on demonstrated mastery or a corrected misconception. |
 
 ## Rules
 
 - Do not create a `README.md` here. Folder guidance belongs in `AGENTS.md`.
 - Lessons are raw process and must not leak into reports as evidence.
-- Records are the single source of resume truth for `/teach`.
+- Records are the resume authority for `/teach` once any exist. The ledger is still empty after five lessons, so resume reads `lessons/` today; the moment the first record lands it takes precedence. Do not treat the empty ledger as evidence that nothing was learned.
 - Supersede records when needed; do not delete them.
 - Render lesson Markdown to HTML for math/diagrams with:
 
@@ -32,4 +32,5 @@ uv run .claude/skills/teach/scripts/render_lesson.py <file>
 
 ## Related
 
-- `../status.md`
+- [Teach skill](../../.claude/skills/teach/SKILL.md)
+- [Operational status](../status.md)

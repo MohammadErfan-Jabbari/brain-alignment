@@ -23,24 +23,7 @@ This folder holds self-contained copies of papers actually read for the thesis. 
 - Use standard Markdown links and frontmatter per `../references/obsidian-conventions.md`.
 - If a dataset or paper role changes, update `../01-research-landscape.md` and the relevant report, not only the canonical note.
 
-## Paper Roles
-
-Use the landscape doc for the authoritative map. The old folder index grouped papers as:
-
-| Role | Examples |
-|---|---|
-| Alignment anchors | Gao 2024, Oota 2023/2026, Aw 2023, Merlin 2024, Alkhamissi 2025, Yin 2025, Zhu 2025 |
-| Brakes/counter-evidence | Feghhi 2024, Oota 2024 |
-| Distillation baselines | MiniLM, MGSKD, LRC-BERT, AlignDistil, MetaDistil, Jia 2024 |
-| Systems constraints | Ji 2025, RazorAttention |
-| Measurement/theory | CKA, Platonic Representation |
-
-## Fresh-Search Gaps
-
-- Language-fMRI datasets and their power: Pereira, Narratives, LeBel, Fedorenko.
-- Any controlled brain-guided distillation or compression-at-fixed-quality work after [Oota et al. 2026](canonical/oota-2026_brain-encoding-scale-compression.md); Oota tests post-hoc quantization and pruning, not brain-supervised KD.
-
 ## Related
 
-- `../01-research-landscape.md`
-- `../status.md`
+- [Research landscape, the authoritative role map](../01-research-landscape.md)
+- [Operational status](../status.md)
