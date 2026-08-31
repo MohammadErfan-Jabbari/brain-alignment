@@ -42,6 +42,7 @@ Every workflow is a skill in `.claude/skills/`, one directory each. Two ways in,
 | `orient` / `wrap` | open and close a session |
 | `precheck` | gate a design before compute |
 | `manuscript-check` | run the deterministic manuscript gate |
+| `session-mining` | answer a question from the session transcripts without reading them in |
 
 State the active stance in one line and say when it switches. Reach for a skill rather than reconstructing its procedure inline; if a procedure is worth writing down twice, it belongs in the skill instead.
 
@@ -105,8 +106,11 @@ Use agents at load-bearing scientific boundaries, not as a routine fan-out ritua
 | After aggregated results | `stat-aggregation-auditor` |
 | Result/claim stress test | `counter-argument`, `socratic-thinker`, `premortem-analyst`, `first-principles-grounder`, plus `oracle-reviewer` when warranted |
 | Literature/data | `lit-scout`, `paper-digest`, `dataset-scout`, `dataset-verifier` |
+| Manuscript verification | `evidence-number-auditor`, `citation-support-auditor`, `manuscript-twin-auditor` |
 
-Route by tier: fable for hard adversarial judgment (the `/review` panel and `oracle-reviewer`), opus for analysis, design, and recomputation, sonnet for navigation and gathering, haiku only for genuinely mechanical extraction. Each agent declares `model:` and `effort:` in frontmatter, and a spawn never inherits either.
+The three verification agents are the layer that checks whether what is written matches what is recorded, which the deterministic gate structurally cannot: it confirms an E record exists and a key is declared, and never opens the record. They are read-only by construction and carry no `Write` or `Edit`. Their rule corpus is [`docs/references/manuscript-verification-rules.md`](docs/references/manuscript-verification-rules.md), which may only gain checks; an auditor proposes a rule and never edits one.
+
+Route by tier: fable for hard adversarial judgment (the `/review` panel and `oracle-reviewer`), opus for analysis, design, and recomputation, sonnet for navigation and gathering including the verification auditors, haiku only for genuinely mechanical extraction. Each agent declares `model:` and `effort:` in frontmatter, and a spawn never inherits either.
 
 Codex is an independent code critic or rescue implementation, not a scientific adjudicator. It never produces a thesis number or settles a verdict.
 
