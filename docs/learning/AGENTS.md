@@ -13,8 +13,7 @@ This directory is the memory and working surface of the `/teach` stance. Keep ra
 | Path | Use |
 |---|---|
 | `lessons/` | Rendered teaching artifacts, one Markdown file per teaching session. These are the whiteboard: explanation, math, diagrams, questions, and mistakes. |
-| `records/` | Curated mastery ledger. Each file is one durable mastery event, written only on demonstrated mastery or a corrected misconception. |
-| `thesis-arc-checklist.md` | Prior whole-thesis comprehension tracker, kept for history. |
+| `records/` | Curated mastery ledger. Each file is one durable mastery event, written only on demonstrated mastery or a corrected misconception. Currently empty, so `/teach` resumes from `lessons/` until the first record lands. |
 
 ## Rules
 

@@ -8,7 +8,7 @@ aliases: [memories, claude-memories]
 
 This folder mirrors the saved Claude project memories for `brain-alignment` from `/home/centcom/.claude/projects/-home-centcom-data-brain-alignment/memory/`. The point is portability: agents should not need hidden harness state to remember Erfan's collaboration and writing preferences.
 
-These files are behavior guidance, not evidence. They can shape how an agent asks questions, writes, teaches, or reviews, but they do not authorize numbers or verdicts. For results, use [`docs/experiments/`](../docs/experiments) and the [extended manuscript](../docs/manuscript/extended/main-extended.tex); for current operations use [`docs/status.md`](../docs/status.md).
+These files are behavior guidance, not evidence. They can shape how an agent asks questions, writes, teaches, or reviews, but they do not authorize numbers or verdicts. For results, use [`docs/experiments/`](../docs/experiments) and the [canonical rewrite manuscript](../docs/manuscript/rewrite/); for current operations use [`docs/status.md`](../docs/status.md).
 
 Do not add a `README.md` in this folder. Folder-local agent guidance belongs in `AGENTS.md`.
 

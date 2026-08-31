@@ -7,7 +7,7 @@ Read `docs/status.md`, then run `git status --short`. Follow only the E-record o
 
 Return a compact briefing:
 
-- manuscript state and latest frozen public cut;
+- manuscript state and whether `manuscript-sync-pending` is set;
 - current active work and blockers;
 - the first recommended action and its stance;
 - dirty-worktree or unpushed-commit warning, if any.

@@ -34,7 +34,7 @@ The non-negotiables are competing hypotheses, predeclared kill criteria, a locke
 | Where are we and what happens next?      | [`status.md`](status.md)                                                                                                |
 | Why did the project change?              | [`decisions/decisions.md`](decisions/decisions.md), [`learnings.md`](learnings.md), selected durable timelines, and Git |
 
-No other document may compete with these owners. Public manuscript cuts are immutable. Q/E handles remain the project’s identifiers; there is no separate claim database or global artifact registry.
+No other document may compete with these owners. Q/E handles remain the project’s identifiers; there is no separate claim database or global artifact registry.
 
 ## Evidence transaction
 
@@ -44,7 +44,7 @@ The normal transaction is:
 
 - The E record owns the design, provenance, artifact pointers, statistics, and adjudicated experiment verdict.
 - The canonical rewrite manuscript owns current scientific interpretation and is corrected when a settled paper-relevant verdict changes.
-- `manuscript/extended/` is a legacy snapshot and is not an active writing target.
+- `manuscript/submission/` is a supervisor-review derivative of `manuscript/rewrite/`. Accepted scientific changes are synchronized upstream to the rewrite before they are authoritative; never review or apply against the derivative.
 - An interrupted manuscript correction immediately sets `manuscript-sync-pending` in `status.md`.
 - Corrections append or supersede upstream first. Recording evidence never waits for prose work.
 - A newly discovered scientific contradiction routes to `/interpret`; cleanup and writing do not silently adjudicate it.
@@ -79,14 +79,13 @@ Strict independent review remains at the two load-bearing boundaries: before a d
 6. Run one fresh independent question-chain, prose, and scientific-scope review.
 7. Revise. Before marking the manuscript share-ready, obtain Erfan’s approval for changed scientific verdicts, claim scope, governing terminology, and unresolved preference choices; reviewed evidence-grounded clarity edits that preserve scientific meaning do not require item-by-item approval.
 
-Public versions are cut only for a named sharing or submission milestone and are never edited afterward.
 
 ## Start and close
 
 - `/orient` reads `status.md`, checks Git, and follows only the E/manuscript links required for the first next action.
 - During `/work` and `/interpret`, update the owning E record when evidence or its adjudication changes.
 - `/wrap` updates only authorities that changed, then commits and pushes scoped changes. A no-op session produces no documentation churn.
-- Create a timeline only for a result, adjudication, correction, durable decision or learning, manuscript/public milestone, or lasting failure. Routine orientation, monitoring, continuation, and formatting work need no timeline.
+- Create a timeline only for a result, adjudication, correction, durable decision or learning, manuscript or submission milestone, or lasting failure. Routine orientation, monitoring, continuation, and formatting work need no timeline.
 
 ## Working preferences
 

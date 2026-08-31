@@ -16,4 +16,4 @@ If a source is contradictory or statistically suspect, stop writing that claim, 
 
 ## Boundary
 
-`/write` reports settled evidence. It does not create a science number, adjudicate an experiment, rewrite a frozen public cut, or mark the manuscript share-ready before all deterministic checks and fresh review pass.
+`/write` reports settled evidence. It does not create a science number, adjudicate an experiment, apply scientific changes against the submission derivative, or mark the manuscript share-ready before all deterministic checks and fresh review pass.

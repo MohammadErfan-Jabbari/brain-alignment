@@ -15,7 +15,7 @@
 | Operational state and next actions | `status.md` |
 | Historical rationale | `decisions/`, `learnings.md`, selected timelines, Git |
 
-Do not create a report, roadmap, dashboard, readiness matrix, audit memo, routine timeline, claim database, or global artifact registry. Public manuscript cuts are frozen.
+Do not create a report, roadmap, dashboard, readiness matrix, audit memo, routine timeline, claim database, or global artifact registry.
 
 ## Rules
 
@@ -24,7 +24,7 @@ Do not create a report, roadmap, dashboard, readiness matrix, audit memo, routin
 - Write settled paper-relevant interpretation directly into the canonical rewrite manuscript.
 - Set `status.md` to `manuscript-sync-pending` whenever an upstream correction has not yet reached the manuscript.
 - Update only authorities whose state changed. No-op sessions create no documentation churn.
-- Timeline logs are exceptional: result, adjudication, correction, durable decision/learning, manuscript/public milestone, or lasting failure only.
+- Timeline logs are exceptional: result, adjudication, correction, durable decision/learning, manuscript or submission milestone, or lasting failure only.
 - Markdown must render in GitHub and Obsidian: relative Markdown links, no wikilinks, controlled frontmatter, supported callouts only.
 - Keep report/manuscript prose one paragraph per source line. LaTeX files follow LaTeX conventions, not Obsidian conventions.
 - Update the nearest `AGENTS.md` whenever folder structure or recurring commands change.
@@ -45,8 +45,9 @@ Do not create a report, roadmap, dashboard, readiness matrix, audit memo, routin
 | `literature/canonical/` | Canonical paper notes |
 | `external-reviews/` | Verbatim, non-authoritative external-review provenance |
 | `manuscript/rewrite/` | Canonical live scientific account |
-| `manuscript/extended/` | Legacy manuscript snapshot; do not edit |
-| `manuscript/public/` | Immutable cuts |
+| `manuscript/submission/` | Supervisor-review derivative of `rewrite/`; never an authority |
+| `learning/` | `/teach` lessons and the mastery ledger |
+| `references/` | Conventions and shared reference material |
 | `decisions/`, `learnings.md` | Durable history |
 | `timeline/` | Selected consequential session records |
 

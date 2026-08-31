@@ -17,7 +17,7 @@ This repository is the execution and writing home for Erfan’s thesis on whethe
 | Where are we and what happens next? | `docs/status.md` |
 | Why did the project change? | decisions, learnings, selected consequential timelines, and Git |
 
-No report layer, alternate status board, claim database, artifact registry, dashboard, or routine timeline is authoritative. Public manuscript cuts are immutable. An interrupted upstream correction sets `manuscript-sync-pending` until the canonical rewrite manuscript is synchronized.
+No report layer, alternate status board, claim database, artifact registry, dashboard, or routine timeline is authoritative. `docs/manuscript/submission/` is a supervisor-review derivative, never an authority. An interrupted upstream correction sets `manuscript-sync-pending` until the canonical rewrite manuscript is synchronized.
 
 ## Interaction stances
 
@@ -67,7 +67,7 @@ Use `--share-ready` only when every gap is resolved and the manuscript is intend
 
 - `/orient` reads `status.md`, checks Git, and follows only the links needed for the first next action.
 - `/wrap` updates only authorities that changed. A no-op session makes no documentation changes.
-- Write a timeline only for a result, adjudication, correction, durable decision/learning, manuscript/public milestone, or lasting failure.
+- Write a timeline only for a result, adjudication, correction, durable decision/learning, manuscript or submission milestone, or lasting failure.
 - Update the nearest `AGENTS.md` when a folder’s structure, commands, workflow, or traps change.
 
 ## Agent fleet
