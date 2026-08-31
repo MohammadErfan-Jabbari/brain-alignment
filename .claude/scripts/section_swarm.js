@@ -1,8 +1,10 @@
 #!/usr/bin/env node
-// Section review swarm generator (v3.3) — reliability hardening after Sections 2-4.
-// Lineage: v1 ran Section 2, v2 ran Section 3, v3.1 ran Section 4, and v3.2
-// hardened routing, phase gates, exact anchors, and neutral round two. v3.3 keeps
-// evidence-grounded editorial repairs out of the owner-confirm route.
+// Section review swarm generator (v3.4) — reliability hardening after Sections 2-4.
+// Lineage: v1 ran Section 2, v2 ran Section 3, v3.1 ran Section 4, v3.2 hardened
+// routing, phase gates, exact anchors, and neutral round two, and v3.3 kept
+// evidence-grounded editorial repairs out of the owner-confirm route. v3.4 adds
+// tolerant canon parsing of bold-format drift and strict admission against
+// duplicate IDs, discarded drafts, placeholder blocks, and no-op edits.
 //
 // Usage (from repo root):
 //   node .claude/scripts/section_swarm.js 4                    → /tmp/s4-swarm.js      (round-1 workflow)
@@ -254,7 +256,7 @@ function buildContext(cfg, text) {
 }
 
 function stamp(cfg, text, kind) {
-  return `// ${cfg.label} ${kind} — generated ${new Date().toISOString()} by .claude/scripts/section_swarm.js (v3.3)
+  return `// ${cfg.label} ${kind} — generated ${new Date().toISOString()} by .claude/scripts/section_swarm.js (v3.4)
 // Live-text embed sha256: ${sha256(text)}  (verify: node .claude/scripts/section_swarm.js ${cfg.number} --verify <this file>)
 // Review-only children: no file edits. The parent applies accepted changes to canonical rewrite first.
 `;
@@ -266,7 +268,14 @@ function resultText(r) {
   const value = typeof r === "string" ? r : (r && (r.output || r.result)) || r;
   return typeof value === "string" ? value : JSON.stringify(value);
 }
+function canon(text) {
+  let t = text.replace(/\\*\\*/g, "");
+  t = t.replace(/^ID:\\s*([A-Za-z0-9._-]+)\\s*[—–-]\\s*VERDICT:/gm, "ID: $1\\nVERDICT:");
+  t = t.replace(/^([A-Za-z0-9][A-Za-z0-9._-]*)\\s*[—–-]\\s*VERDICT:/gm, "ID: $1\\nVERDICT:");
+  return t;
+}
 function idsIn(text) {
+  text = canon(text);
   const ids = [];
   const re = /^ID:\\s*(\\S+)/gm;
   let match;
@@ -274,6 +283,7 @@ function idsIn(text) {
   return ids;
 }
 function blocksIn(text) {
+  text = canon(text);
   const starts = [];
   const re = /^ID:\\s*(\\S+).*$/gm;
   let match;
@@ -291,6 +301,7 @@ function exactCount(text, needle) {
   return needle ? text.split(needle).length - 1 : 0;
 }
 function basicError(out, minChars, maxChars, requiredTokens) {
+  out = canon(out);
   if (out.length < minChars) return "output too short: " + out.length + " characters";
   if (out.length > maxChars) return "output too long: " + out.length + " characters; return complete concise blocks";
   for (const token of requiredTokens) if (!out.includes(token)) return "missing required token: " + token;
@@ -308,10 +319,15 @@ function proposalError(out, liveText, requiredTokens, maxChars) {
   if (basic) return basic;
   const blocks = blocksIn(out);
   if (!blocks.length) return /\\bclean\\b/i.test(out) ? null : "no finding blocks and no CLEAN verdict";
+  const idList = blocks.map(function (b) { return b.id; });
+  const dup = idList.filter(function (id, i) { return idList.indexOf(id) !== i; });
+  if (dup.length) return "duplicate finding IDs: " + Array.from(new Set(dup)).join(", ");
+  if (/no — discard|discard; corrected|\\(placeholder/i.test(out)) return "output contains a discarded draft or placeholder block; emit only final findings";
   for (const block of blocks) {
     const oldText = fieldIn(block.body, "OLD");
     const newText = fieldIn(block.body, "NEW");
     if (!oldText || !newText) return block.id + " must contain one-line OLD and NEW fields";
+    if (oldText === newText) return block.id + " OLD and NEW are identical; remove no-op blocks";
     if (exactCount(liveText, oldText) !== 1) return block.id + " OLD anchor must occur exactly once in the canonical section";
   }
   return null;
@@ -388,6 +404,7 @@ function analystPrompt(sub, w) {
   "If a paragraph has no defect write: " + sub.key + "-" + w.tag + "-P<n> CLEAN.\\n" +
   "TYPE=design-fact marks any proposal that asserts, removes, or changes a design fact (arm inventories, grid or corpus values, seed counts, declared rules or tolerances, what a control permutes or matches). Raise them; they will be verified against experiment records, not judged as prose.\\n" +
   "Close with: TOP3: the three highest-value changes in your scope. Then FLAG-LINE: any deferred repo-wide split you encountered (or 'none').\\n" +
+  "Every ID must be unique: never emit two blocks with the same ID, a discarded draft, a placeholder, or a self-correction; if you revise a finding, output only the corrected block.\\n" +
   "DO NOT EDIT ANY FILE. Use only the supplied section text even if repository-reading tools are available; never anchor on another manuscript twin. Your output is your only product.\\n\\n" +
   "FULL SECTION TEXT FOLLOWS:\\n\\n" + SECTION;
 }
@@ -429,8 +446,9 @@ function counterPrompt(sub, w) {
   "ID: <the proposal's ID>\\n" +
   "VERDICT: IMPROVE | WORSEN | UNCLEAR\\n" +
   "ARGUMENT: 1-3 sentences (name the exact failure if WORSEN: precision loss, term-contract break, design-fact loss, verdict drift, register drop, churn, meaning drift).\\n" +
-  "If you propose a safer replacement, add OLD: <one exact source line> and NEW: <one exact replacement source line>.\\n\\n" +
-  "Then add: MISSED: up to 3 defects both analysts missed in this scope (or 'none'). Each missed defect uses a fresh ID " + sub.key + "-" + w.tag + "-M<k> plus OLD, NEW, PROBLEM, and RATIONALE fields.\\n" +
+  "If you propose a safer replacement, add OLD: <one exact source line> and NEW: <one exact replacement source line>.\\n" +
+  "PLAIN TEXT ONLY: no markdown headers, no bold, no JSON. Each verdict block begins with the literal line 'ID: <id>' on its own line, followed by its own 'VERDICT:' line.\\n\\n" +
+  "Then close with the literal line 'MISSED:' followed by up to 3 defects both analysts missed in this scope (or the single line 'MISSED: none'). Each missed defect uses a fresh ID " + sub.key + "-" + w.tag + "-M<k> plus OLD, NEW, PROBLEM, and RATIONALE fields.\\n" +
   "DO NOT EDIT ANY FILE. Use only the supplied section text even if repository-reading tools are available; never anchor on another manuscript twin. Your output is your only product.\\n\\n" +
   "FULL SECTION TEXT (context):\\n\\n" + SECTION + "\\n\\nALL PROPOSALS FOR YOUR SCOPE:\\n\\n" + merged;
 }
@@ -482,7 +500,7 @@ const expectedJudgeIds = Array.from(new Set(SUBS.flatMap(function (s) {
 })));
 const judgeBody = CONTEXT +
   "\\n\\nYOUR TASK. You are an independent judge for a revision of ${L} of the thesis. Below, for each scope, are proposals from two independent analysts and verdicts from two adversarial counter-reviewers; every item carries a unique ID (scope-workertag-P...). Different analysts may independently flag the same defect under different IDs; output one decision block per ID anyway (identical NEW fields are fine; note the overlap in WHY).\\n" +
-  "Output EXACTLY one decision block per ID, in the order IDs first appear, and nothing before the first block:\\n" +
+  "Output EXACTLY one decision block per ID, in the order IDs first appear, and nothing before the first block. Plain text only: no markdown, no bold, no JSON; each block begins with the literal 'ID: <id>' line:\\n" +
   "ID: <id>\\n" +
   "DECISION: APPLY | REJECT | MODIFY | ROUTE-EVIDENCE\\n" +
   "OLD: (APPLY/MODIFY only) one exact source line that occurs once in the supplied section.\\n" +
@@ -571,7 +589,7 @@ const FINDINGS = ${JSON.stringify(findings)};
 ${runtimeHelpers()}
 const expectedIds = Array.from(new Set(idsIn(FINDINGS)));
 const task = CONTEXT + "\\n\\nFINDINGS TO ADJUDICATE (verbatim from the round-2 reviewer):\\n\\n" + FINDINGS + "\\n\\n" +
-  "For EACH finding output one block:\\n" +
+  "For EACH finding output one block (plain text only: no markdown, no bold, no JSON; each block begins with the literal 'ID: <id>' line):\\n" +
   "ID: <the finding's ID>\\n" +
   "DECISION: APPLY | REJECT | MODIFY | OWNER-CONFIRM\\n" +
   "OLD: (APPLY/MODIFY only) one exact source line that occurs once in the canonical live section.\\n" +
