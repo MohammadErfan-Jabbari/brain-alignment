@@ -23,9 +23,18 @@ WHITELIST = re.compile(
 )
 DECLARE = re.compile(r"\\DeclareResult\{([^}]+)\}\{(.*)\}\s*(?:%.*)?$")
 USE = re.compile(r"\\result\{([^}]+)\}")
+INPUT = re.compile(r"\\(?:input|include)\{([^}]+)\}")
 GAP = re.compile(r"\\gap\{")
 FORMAT_ONLY = re.compile(
     r"^\s*\\(?:specialrule|vspace|par\\vspace|renewcommand\{\\arraystretch\})"
+)
+# LaTeX dimensions and TikZ coordinates are layout, not results. Stripped before the
+# bare-number check so `[width=3.2cm]`, `\\[1.2em]` and `at (3.2,0.65)` stop reading as
+# unsourced findings. The FORMAT_ONLY line whitelist above only covered whole lines.
+LAYOUT = re.compile(
+    r"\d+(?:\.\d+)?\s*(?:pt|mm|cm|in|em|ex|bp|dd|pc|sp"
+    r"|\\(?:text|line|column|page)width|\\(?:text|page)height|\\baselineskip)\b"
+    r"|\(\s*-?\d+(?:\.\d+)?\s*,\s*-?\d+(?:\.\d+)?\s*\)"
 )
 
 
@@ -37,9 +46,39 @@ def repo_root(start: Path) -> Path:
 
 
 def source_files(target: Path) -> list[Path]:
+    """The .tex files whose prose is checked."""
     if target.is_file():
-        return [target]
-    return sorted(p for p in target.rglob("*.tex") if ".archive-manuscript" not in p.parts)
+        return [target.resolve()]
+    # `style/` is a vendored publisher template (neurips_2025.tex), not our prose.
+    return sorted(
+        p.resolve() for p in target.rglob("*.tex")
+        if ".archive-manuscript" not in p.parts and "style" not in p.parts
+    )
+
+
+def declaration_scope(files: list[Path]) -> list[Path]:
+    """Every .tex whose \\DeclareResult lines are in scope when `files` compile.
+
+    Declarations live in one shared numbers.tex that the target usually does not
+    \\input itself, so the scope is the \\input/\\include closure of both the
+    target files and the enclosing main*.tex. Without this, checking one section
+    reports every key as undefined, and the submission twin reports all of them
+    because it compiles against ../rewrite/numbers.
+    """
+    seen = set(files)
+    for path in files:
+        for directory in (path.parent, path.parent.parent):
+            seen.update(m.resolve() for m in directory.glob("main*.tex"))
+    queue = list(seen)
+    while queue:
+        path = queue.pop()
+        for _, line in prose_lines(path):
+            for name in INPUT.findall(line):
+                dep = (path.parent / (name if name.endswith(".tex") else name + ".tex")).resolve()
+                if dep.is_file() and dep not in seen:
+                    seen.add(dep)
+                    queue.append(dep)
+    return sorted(seen)
 
 
 def resolves(key: str, root: Path) -> bool:
@@ -62,42 +101,40 @@ def prose_lines(path: Path):
 def check_sources(files: list[Path], root: Path, share_ready: bool) -> list[str]:
     findings: list[str] = []
     declarations: dict[str, str] = {}
-    uses: list[tuple[Path, int, str]] = []
-    for path in files:
+    for path in declaration_scope(files):
         for lineno, line in prose_lines(path):
-            for key in EVD.findall(line):
-                if not resolves(key, root):
-                    findings.append(f"{path}:{lineno}: unresolved evidence marker {key}")
-            for key in USE.findall(line):
-                uses.append((path, lineno, key))
             match = DECLARE.search(line)
             if match:
                 key, value = match.group(1).strip(), match.group(2).strip()
                 if key in declarations and declarations[key] != value:
                     findings.append(f"{path}:{lineno}: conflicting declaration for {key}")
                 declarations[key] = value
+    for path in files:
+        for lineno, line in prose_lines(path):
+            for key in EVD.findall(line):
+                if not resolves(key, root):
+                    findings.append(f"{path}:{lineno}: unresolved evidence marker {key}")
+            for key in USE.findall(line):
+                if key not in declarations:
+                    findings.append(f"{path}:{lineno}: undefined keyed number {key}")
             if share_ready and GAP.search(line):
                 findings.append(f"{path}:{lineno}: unresolved \\gap")
             if path.name == "numbers.tex" or "\\newcommand" in line or "\\DeclareResult" in line:
                 continue
             if FORMAT_ONLY.search(line):
                 continue
+            line = LAYOUT.sub("", line)
             if RESULT.search(line) and not ANY_SOURCE.search(line) and not WHITELIST.search(line):
                 findings.append(f"{path}:{lineno}: result-like number lacks \\evd or \\result")
-    for path, lineno, key in uses:
-        if key not in declarations:
-            findings.append(f"{path}:{lineno}: undefined keyed number {key}")
     return findings
 
 
 def compile_latex(target: Path) -> list[str]:
     directory = target if target.is_dir() else target.parent
-    main = directory / "main-extended.tex"
-    if not main.exists():
-        mains = sorted(directory.glob("main*.tex"))
-        if len(mains) != 1:
-            return [f"{directory}: expected one manuscript main .tex file"]
-        main = mains[0]
+    mains = sorted(directory.glob("main*.tex"))
+    if len(mains) != 1:
+        return [f"{directory}: expected one manuscript main .tex file"]
+    main = mains[0]
     if shutil.which("tectonic"):
         command = ["tectonic", "-X", "compile", main.name, "--keep-intermediates"]
     elif shutil.which("latexmk"):
@@ -123,7 +160,7 @@ def compile_latex(target: Path) -> list[str]:
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("path", nargs="?", type=Path, default=Path("docs/manuscript/extended"))
+    parser.add_argument("path", nargs="?", type=Path, default=Path("docs/manuscript/rewrite"))
     parser.add_argument("--share-ready", action="store_true", help="also reject every unresolved \\gap")
     parser.add_argument("--no-build", action="store_true")
     args = parser.parse_args(argv)
