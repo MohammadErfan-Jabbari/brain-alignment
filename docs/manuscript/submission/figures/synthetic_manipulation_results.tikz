@@ -65,7 +65,7 @@
   % Incremental Tuckute retention
   \fill[orange!4] (0.05,0.86) rectangle (16.10,2.40);
   \node[anchor=west,align=left,text width=39mm,font=\small] at (0.25,1.66)
-    {\textbf{Tuckute incremental retention}\\synthetic-response minus \acs{kd}};
+    {\textbf{Tuckute incremental\\retention}\\synthetic-response minus \acs{kd}};
   \def\xmin{-0.003}
   \def\xmax{0.001}
   \draw[axis] (\xleft,1.18)--({\xleft+\xwidth},1.18);

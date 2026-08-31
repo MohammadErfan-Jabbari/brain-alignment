@@ -145,7 +145,7 @@ The recorded- and synthetic-response routes then require different evidence for 
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}[
-    box/.style={draw, rounded corners=1.5pt, align=center, text width=27mm, minimum height=14mm, inner sep=2.5pt, font=\footnotesize},
+    box/.style={draw, rounded corners=1.5pt, align=center, text width=26mm, minimum height=21mm, inner sep=3pt, font=\footnotesize},
     widebox/.style={box, text width=55mm},
     context/.style={box, fill=blue!8},
     recorded/.style={widebox, fill=orange!10},
@@ -155,22 +155,22 @@ The recorded- and synthetic-response routes then require different evidence for 
     link/.style={-{Latex[length=1.8mm]}, semithick},
     contextlink/.style={link, dashed, gray!70}
   ]
-    \node[lane] at (3.2,0.65) {Recorded-response route};
-    \node[context] (rmeasure) at (1.7,-0.55) {\textbf{Controlled brain\\predictivity}\\shared endpoint}; % \evd{E002}
-    \node[context] (rheadroom) at (4.7,-0.55) {\textbf{Route-specific\\headroom}\\opportunity only}; % \evd{E003}
-    \node[recorded] (pairing) at (3.2,-2.45) {\textbf{Recorded vs.\ permuted responses}\\pairing-specific change in controlled brain predictivity}; % \evd{E008}
-    \node[endpoint, text width=55mm] (recordedutility) at (3.2,-4.65) {\textbf{Matched practical endpoint}\\utility after an established change, with paired uncertainty}; % \evd{E009}
+    \node[lane] at (3.2,0.85) {Recorded-response route};
+    \node[context] (rmeasure) at (1.60,-0.70) {\textbf{Controlled brain\\predictivity}\\shared endpoint}; % \evd{E002}
+    \node[context] (rheadroom) at (4.85,-0.70) {\textbf{Route-specific\\headroom}\\opportunity only}; % \evd{E003}
+    \node[recorded] (pairing) at (3.2,-3.40) {\textbf{Recorded vs.\ permuted responses}\\pairing-specific change in controlled brain predictivity}; % \evd{E008}
+    \node[endpoint, text width=55mm] (recordedutility) at (3.2,-6.10) {\textbf{Matched practical endpoint}\\utility after an established change, with paired uncertainty}; % \evd{E009}
     \draw[contextlink] (rmeasure.south) -- (rmeasure.south |- pairing.north);
     \draw[contextlink] (rheadroom.south) -- (rheadroom.south |- pairing.north);
     \draw[link] (pairing) -- (recordedutility);
 
-    \node[lane] at (10.5,0.65) {Synthetic-response route};
-    \node[context] (sheadroom) at (8.9,-0.55) {\textbf{Route-specific\\headroom}\\opportunity only}; % \evd{E003}
-    \node[context] (smeasure) at (12.1,-0.55) {\textbf{Controlled brain\\predictivity}\\shared endpoint}; % \evd{E002}
-    \node[synthetic] (manipulation) at (8.9,-2.45) {\textbf{Target uptake and\\retained movement}\\student changed at\\acceptable \ac{lm} quality}; % \evd{E025}
-    \node[endpoint] (transfer) at (12.1,-2.45) {\textbf{Direct biological\\transfer}\\fresh \ac{fmri} endpoint\\vs.\ ordinary \ac{kd}}; % \evd{E025}
-    \node[endpoint] (attribution) at (8.9,-4.65) {\textbf{Brain-response-specific\\attribution}\\matched text-derived\\control required}; % \evd{E026}
-    \node[synthetic] (projection) at (12.1,-4.65) {\textbf{Independent pathway\\qualification}\\50-component linear\\target projection}; % \evd{E030}
+    \node[lane] at (10.6,0.85) {Synthetic-response route};
+    \node[context] (sheadroom) at (8.85,-0.70) {\textbf{Route-specific\\headroom}\\opportunity only}; % \evd{E003}
+    \node[context] (smeasure) at (12.35,-0.70) {\textbf{Controlled brain\\predictivity}\\shared endpoint}; % \evd{E002}
+    \node[synthetic] (manipulation) at (8.85,-3.40) {\textbf{Target uptake and\\retained movement}\\student changed at\\acceptable \ac{lm} quality}; % \evd{E025}
+    \node[endpoint] (transfer) at (12.35,-3.40) {\textbf{Direct biological\\transfer}\\fresh \ac{fmri} endpoint\\vs.\ ordinary \ac{kd}}; % \evd{E025}
+    \node[endpoint] (attribution) at (8.85,-6.10) {\textbf{Brain-response-specific\\attribution}\\matched text-derived\\control required}; % \evd{E026}
+    \node[synthetic] (projection) at (12.35,-6.10) {\textbf{Independent pathway\\qualification}\\50-component linear\\target projection}; % \evd{E030}
     \draw[contextlink] (sheadroom) -- (manipulation);
     \draw[contextlink] (smeasure) -- (transfer);
     \draw[link] (manipulation) -- (transfer);

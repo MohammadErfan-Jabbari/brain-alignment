@@ -17,7 +17,7 @@
   \node[source] (measure-source) at (0,0) {Tuckute or LeBel UTS03\\recorded \ac{fmri} responses};
   \node[measurement] (measure-split) at (42mm,0) {Tuckute: contiguous train/test blocks\\LeBel: held-out whole stories};
   \node[measurement] (measure-fit) at (84mm,0) {Fresh fold-local\\ridge readout};
-  \node[measurement] (measure-end) at (126mm,0) {Held-out regional or\\voxelwise response prediction};
+  \node[measurement] (measure-end) at (126mm,0) {Held-out regional or\\voxelwise response\\prediction};
   \draw[arrow] (measure-source) -- (measure-split);
   \draw[arrow] (measure-split) -- (measure-fit);
   \draw[arrow] (measure-fit) -- (measure-end);

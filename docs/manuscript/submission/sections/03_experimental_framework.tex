@@ -256,7 +256,7 @@ The nine pairs \(\{A(u),Q(u)\}\) enter participant-level inference.
 The assay therefore tests participant-level predictive measurability on this fixed stimulus set.
 It does not establish causal mediation, brain-response-specific attribution, or stimulus-population generality.\evd{E030}
 
-All measurement prerequisites use the same general held-out readout protocol.
+\looseness=-1 All measurement prerequisites use the same general held-out readout protocol.
 A fresh ridge readout is fitted to frozen features for every evaluated model or target.
 Ordinary \(R^2\) compares prediction error with variation in the held-out responses.
 Negative values are retained when predictions are worse than the held-out-mean baseline.
@@ -395,7 +395,7 @@ The participant-averaged analysis instead aggregates seeds within each shared fo
 A held-out WikiText probe checks language-quality balance between arms.
 Appendix~\ref{app:inference} specifies the intervals, tests, shared-fold checks, and sensitivity analyses.\evd{E005}\evd{E008}
 
-The frozen auxiliary-head, increased-\ac{lora}-capacity, contrastive-objective, naturalistic voxelwise, and full-fine-tuning studies retain the paired recorded-versus-permuted comparison while changing the target, target loss, language anchor, trainable subset, or evaluation scope.
+\looseness=-1 The frozen auxiliary-head, increased-\ac{lora}-capacity, contrastive-objective, naturalistic voxelwise, and full-fine-tuning studies retain the paired recorded-versus-permuted comparison while changing the target, target loss, language anchor, trainable subset, or evaluation scope.
 Appendix~\ref{app:training} defines these variants, and Section~\ref{sec:results} reports their study-specific outcomes.
 None replaces the primary nine-participant contrast.\evd{E004}\evd{E011}\evd{E013}\evd{E017}
 
@@ -566,9 +566,9 @@ R_{d,\mathrm{recorded},s}
 R_{d,\mathrm{permuted},s}.
 \label{eq:practical-utility-ratio}
 \end{equation}
-The ratio measures out-of-domain perplexity relative to the same student's in-domain perplexity.
+\looseness=-1 The ratio measures out-of-domain perplexity relative to the same student's in-domain perplexity.
 A negative \(\Delta R_{d,s}\) favors the recorded-response arm.
-The prerequisite contrast in controlled brain predictivity is
+The prerequisite contrast in controlled brain predictivity is defined at the technical-seed level as
 \begin{equation}
 A_s
 =
@@ -577,7 +577,7 @@ U_s^{\mathrm{recorded}}
 U_s^{\mathrm{permuted}},
 \label{eq:practical-utility-prerequisite}
 \end{equation}
-where \(U_s\) is held-out controlled brain predictivity.
+where \(U_s\) is held-out controlled brain~\mbox{predictivity}.
 This contrast tests whether the recorded-response arm produced the representational change whose downstream value the utility comparison is intended to assess.
 Ordinary \ac{kd} and text-derived auxiliary-control arms remain descriptive references when their language quality is unmatched.
 The ratio contrast estimates endpoint behavior on each fixed corpus.
@@ -649,7 +649,7 @@ Aggregation follows the declared inference unit.
 Technical repetitions are combined before uncertainty is calculated across participants or fixed stimulus blocks; when technical seeds are the inference unit, each seed enters the uncertainty calculation directly.
 Figure~\ref{fig:aggregation-paths} summarizes these routes; Appendix~\ref{app:inference} gives the exact nesting, estimators, tests, and multiplicity rules.\evd{E003}\evd{E005}\evd{E006}\evd{E008}\evd{E009}\evd{E015}\evd{E016}\evd{E017}\evd{E025}\evd{E030}
 
-Detectable-effect and continuation bounds answer narrower questions than statistical intervals.
+\looseness=-1 Detectable-effect and continuation bounds answer narrower questions than statistical intervals.
 An \ac{mde}, defined above, does not imply that smaller effects are zero or biologically irrelevant.
 We exclude the previous naturalistic follow-up calculation because it used unmatched absolute fold variability rather than the intended paired contrast.
 The participant analyses calculate detectable-effect bounds from between-participant variation, whereas the practical-utility analysis uses variation across technical seeds.

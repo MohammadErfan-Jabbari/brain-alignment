@@ -127,4 +127,14 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
+% --- typography: supervisor remarks (2026-06/08) --------------------------
+% Never hyphenate a word across the break into a paragraph's last line: that is what
+% leaves a final line holding only the tail of one word.
+\finalhyphendemerits=1000000
+% Remaining one-word final lines are fixed per paragraph with \string\looseness. A global
+% \string\parfillskip floor is not used: it only makes final lines loose without re-breaking.
+% Table and figure captions carry a bold label so titles are visually distinct.
+\RequirePackage{caption}
+\captionsetup{labelfont=bf}
+
 \endinput
