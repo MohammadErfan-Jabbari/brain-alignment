@@ -607,6 +607,19 @@ Five of six were caught: a keyed value replaced by a bare literal, an `\evd` mar
 
 **Carry-forward.** Accept a verifier on two arms, never one. Seed the defects from the rule list so a rule that cannot fire is exposed as unfireable. Compute the coverage floor in the parent before reading a single finding, and define the counting unit in the contract rather than leaving it to the child's judgment.
 
+
+## L080 — The gate that reads prose is blind to the picture, and the picture is what the supervisor read — 2026-09-01
+
+The supervisor's feedback on the submission derivative reported that Figure 10b and Table 22 disagreed. They did, and the disagreement had survived every gate the repository had.
+
+The figure sized its bars from `\result{e026_plot_check_pass}` and `\result{e026_plot_check_fail}`, which resolve through `numbers.tex` to the corrected `20` and `16`. It labelled those same bars with the hardcoded strings `24 passed` and `30 failed`, left over from the superseded count that E026's 2026-08-04 correction replaced. So the bar lengths were right, the labels were wrong, the labels did not even sum to the total printed beside them, and `manuscript_check.py` never noticed, because it scans prose for bare result-like numbers and does not open a `.tikz`.
+
+**A number can be keyed and hardcoded in the same object.** The partial migration is what made this invisible: had the figure been fully hardcoded it would have been caught by inspection, and had it been fully keyed it would have self-corrected when the record did. Half-migrated, it looked keyed to anyone who grepped for `\result` and looked correct to anyone who read only the bars.
+
+**It was found by diffing the two trees, not by reading either one.** The derivative had already been repaired; the canonical tree had not, so the twin auditor's diff surfaced it as a REVERSE-EDIT. A single-tree read of either file would have passed: the derivative because it was correct, the canonical because the contradiction is between a label and a computed width and neither is visible in the source without resolving the keys. Recorded as corpus rule 19.
+
+**Corollary for the evidence transaction.** `artifact -> E record -> manuscript` assumed the manuscript is prose. A figure source is manuscript, it carries numbers, and a correction to an E record has to reach it too. The 2026-08-04 E026 correction reached the table, the results text, and the bar widths, and stopped one line short of the labels.
+
 ## Related
 - [`status.md`](./status.md) — current project state
 - [`03-methodology.md`](./03-methodology.md) — authority and inference contract
