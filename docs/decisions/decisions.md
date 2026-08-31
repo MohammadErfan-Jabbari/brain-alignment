@@ -994,6 +994,14 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Reverses if:** Erfan explicitly reopens a prospective transaction, or supervisor or scientific feedback requires new evidence that the frozen record cannot supply.
 
+## D066: Adopt the professor-approved thesis title (2026-08-30, /write + /meta)
+
+**Decision.** With professor approval and Erfan's confirmation, change the thesis title to *Evaluating Brain Alignment as a Training Signal for Language Models*.
+
+**Scope.** This is a title-only change. It does not alter a scientific claim, recorded verdict, evidence state, experiment record, or canonical-manuscript authority. The title now states the thesis question as an evaluation and does not promise that brain alignment succeeds as a training signal. The canonical rewrite, university-template derivative, deferred-review checklist, and project status carry the approved title; historical decisions retain the title that was current when they were recorded.
+
+**Reverses if:** the university requires the previously registered title or Erfan and the professors approve another replacement.
+
 ## Related
 
 + [`status.md`](../status.md) — operational authority
