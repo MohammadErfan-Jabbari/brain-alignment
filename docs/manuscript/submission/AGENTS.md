@@ -7,7 +7,7 @@ This directory is a supervisor-review derivative of [`../rewrite/`](../rewrite/)
 - The derivative uses the official UC3M cover-page fields and a one-column paper-style body. Its local section copies permit submission-specific restructuring, condensation, and supervisor-feedback edits without silently changing the canonical rewrite.
 - Condensation may remove detail or move it to the supplement, but it must not change a result, evidence state, estimator, inference unit, caveat, or scientific claim. Every retained load-bearing result keeps its `\\evd{Ennn}` provenance and keyed values.
 - This is not an immutable public cut. Create a public version only after supervisor feedback and Erfan's approval.
-- Build from this directory with `latexmk -pdf main-submission.tex`; generated auxiliary files are ignored and the PDF is the supervisor-facing artifact. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/submission` on edited prose, same as for `rewrite/`.
+- Build from this directory with `latexmk -pdf main-submission.tex`; generated auxiliary files are ignored and the PDF is the supervisor-facing artifact. Run `uv run python scripts/manuscript_check.py docs/manuscript/submission` on edited prose, same as for `rewrite/`.
 
 ## Files
 

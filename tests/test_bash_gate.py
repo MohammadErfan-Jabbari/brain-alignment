@@ -36,7 +36,7 @@ CASES = [
     ("git " + "log --format=%H", False),
     ("git " + "checkout -b newbranch", False),
     ('codex exec --sandbox danger-full-access "count"', False),
-    ("uv run python .claude/scripts/manuscript_check.py docs/manuscript/rewrite", False),
+    ("uv run python scripts/manuscript_check.py docs/manuscript/rewrite", False),
     # --- must allow: the pattern only as text, no git token ---
     ('grep -rn "reset --hard" docs/', False),
     ('echo "never run clean -f here"', False),

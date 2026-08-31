@@ -5,7 +5,7 @@ This repository is the execution and writing home for Erfan’s thesis on whethe
 ## Read first
 
 1. [`docs/status.md`](docs/status.md): operational state, blockers, and at most five next actions.
-2. Follow only the E-record and extended-manuscript links needed for the active action.
+2. Follow only the E-record and canonical-rewrite-manuscript links needed for the active action.
 3. Use [`docs/03-methodology.md`](docs/03-methodology.md) for the authority and evidence contract.
 
 ## Four authorities
@@ -58,7 +58,7 @@ Write directly from E records into `docs/manuscript/rewrite/`:
 2. Apply [question-led writing](.claude/skills/question-led-writing/SKILL.md) before drafting.
 3. State the intended answer, claim, scope, caveats, and evidence.
 4. Draft with `\evd{Ennn}` markers and keyed values from `numbers.tex`.
-5. Run `uv run python .claude/scripts/manuscript_check.py docs/manuscript/rewrite`.
+5. Run `uv run python scripts/manuscript_check.py docs/manuscript/rewrite`.
 6. Run one fresh independent question-chain, prose, and scientific-scope review, revise, and obtain Erfan’s approval for load-bearing framing.
 
 Use `--share-ready` only when every gap is resolved and the manuscript is intended to ship. Do not create intermediate reports, claim lattices, convergence state, or checkpoint logs.

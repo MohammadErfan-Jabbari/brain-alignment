@@ -6,7 +6,7 @@ aliases: [claude-agents-guidance]
 
 # Claude Apparatus Agent Guidance
 
-This folder contains the Claude Code apparatus for the repo: commands, subagents, hooks, and skills. Edit it as workflow infrastructure, not as research evidence.
+This folder contains the Claude Code apparatus for the repo: subagents, hooks, skills, and settings, and nothing else. Runnable apparatus lives in the repo-root [`scripts/`](../scripts/AGENTS.md). Edit this folder as workflow infrastructure, not as research evidence.
 
 ## Rules
 
@@ -23,4 +23,3 @@ This folder contains the Claude Code apparatus for the repo: commands, subagents
 | `commands/` | Slash-command workflows and stance entry points. |
 | `hooks/` | Automation and write/check gates. |
 | `skills/` | Repo-local skills and writing/research pipelines. |
-| `scripts/` | Runnable apparatus (manuscript checker, prose linter). Slated to move to the repo-root `scripts/`. |

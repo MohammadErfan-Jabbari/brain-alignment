@@ -25,7 +25,7 @@ Legacy layers (`extended/`, `public/v0.9/`) were removed from HEAD on 2026-08-25
 3. State the intended answer, claim, scope, caveats, and evidence.
 4. Edit the active tree directly. Update the question tree in the same change when the manuscript's argument changes.
 5. Preserve `\evd{Ennn}` as source-level evidence provenance and keyed values in `numbers.tex`; a missing value is a `\gap`. Evidence identifiers are hidden in the thesis build and may be displayed only for internal review.
-6. Run `uv run python .claude/scripts/manuscript_check.py` on the edited tree (for example `docs/manuscript/rewrite` or `docs/manuscript/submission`).
+6. Run `uv run python scripts/manuscript_check.py` on the edited tree (for example `docs/manuscript/rewrite` or `docs/manuscript/submission`).
 7. Run one fresh independent question-chain, prose, and scientific-scope review. Erfan approves changed scientific verdicts, claim scope, governing terminology, and unresolved preference choices; after parent adjudication, evidence-grounded clarity edits that preserve meaning may land without item-by-item approval.
 
 Use `--share-ready` only when no gap remains. A contradiction routes to `/interpret` and sets `docs/status.md` to `manuscript-sync-pending`. Scientific changes accepted in `submission/` synchronize to `rewrite/` before they become authoritative; see [`submission/AGENTS.md`](submission/AGENTS.md).
@@ -49,7 +49,7 @@ Use `--share-ready` only when no gap remains. A contradiction routes to `/interp
 11. Apply the skeptical-reader test: the prose must be understandable sentence by sentence without an unsupported jump, an unexplained result, or dependence on project history.
 12. Repeat for at most four rounds, stopping earlier when no reviewer identifies a material claim, structure, prose, citation, terminology, density, or handoff defect.
 13. After all units are complete, run the same four reviews over the whole manuscript and revise until the remaining findings are non-material.
-14. Run `uv run python .claude/scripts/manuscript_check.py` on the edited tree, build the PDF, and inspect every rendered page before calling the candidate complete.
+14. Run `uv run python scripts/manuscript_check.py` on the edited tree, build the PDF, and inspect every rendered page before calling the candidate complete.
 
 ## Section acceptance checks
 
