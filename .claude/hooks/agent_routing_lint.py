@@ -1,26 +1,35 @@
 #!/usr/bin/env python3
-"""PreToolUse gate for agent spawns: model routing (D013/D026, hardened D068).
+"""PreToolUse linter for agent spawns: model routing (D026, D068, D069).
 
-Two tiers, deliberately different:
-
-- fable is DENIED. A ban that only warns is not a ban, and the warning form let
-  every fable spawn through since the hook was written.
-- the opus preference for judgment-heavy agents stays a stderr warning, because
-  it is a preference and a wrong deny would break a legitimate spawn.
+Warn-only. It writes to stderr and always exits 0, so it can never break a spawn.
+That is deliberate: after D069 there is no banned model left to deny, and every
+remaining rule here is a *preference* about tier, where a wrong deny costs more
+than a wrong warning. The two real denials in this repo live elsewhere: fable was
+never the hazard, a model-less spawn is (global require-subagent-model.sh), and so
+is an unsandboxed codex exec (bash_gate.py).
 
 Decides from `tool_input` alone (subagent_type, model). Reads no repo path.
-A missing model is left to the global require-subagent-model hook, which denies it.
 """
 import json
 import sys
 
-OPUS_AGENTS = {
+# Hard adversarial judgment: the /review panel plus the pre-compute design gate.
+# D069 restores fable here, which is the rule D026 superseded only because the
+# model had vanished. opus remains acceptable; anything below is a warning.
+FRONTIER_AGENTS = {
     "counter-argument", "socratic-thinker", "premortem-analyst",
     "first-principles-grounder", "oracle-reviewer",
+}
+# Analysis, assembly, and recomputation: correctness matters more than adversarial
+# depth, so these stay on opus rather than moving up.
+OPUS_AGENTS = {
     "stat-aggregation-auditor", "anti-confound-designer", "paper-digest",
 }
-# Exempt (task-dependent / lower tier): lit-scout, dataset-scout (sonnet to gather),
-# dataset-verifier (sonnet); use haiku only for truly mechanical extraction.
+# Exempt (task-dependent / lower tier): lit-scout, dataset-scout (sonnet to gather,
+# opus to analyze), dataset-verifier (sonnet). Use haiku only for truly mechanical
+# extraction.
+
+FRONTIER = ("opus", "fable")
 
 
 def main() -> int:
@@ -29,25 +38,18 @@ def main() -> int:
     except Exception:
         return 0
     ti = data.get("tool_input", {}) or {}
-    sub = (ti.get("subagent_type") or "")
-    base = sub.split(":")[-1]
+    base = (ti.get("subagent_type") or "").split(":")[-1]
     model = (ti.get("model") or "").lower()
-    if "fable" in model:
-        print(json.dumps({"hookSpecificOutput": {
-            "hookEventName": "PreToolUse",
-            "permissionDecision": "deny",
-            "permissionDecisionReason": (
-                f"fable is banned in this repo (D013/D026); '{base or 'agent'}' was routed "
-                f"to model='{model}'. Use opus for analysis/design/judgment, sonnet for "
-                "navigation/gathering/verification, haiku only for mechanical extraction."
-            ),
-        }}))
-        return 0
     warns = []
+    if base in FRONTIER_AGENTS and model and not any(m in model for m in FRONTIER):
+        warns.append(
+            f"'{base}' is hard adversarial judgment and belongs on fable or opus; "
+            f"got model='{model}'."
+        )
     if base in OPUS_AGENTS and model and "opus" not in model:
         warns.append(
-            f"'{base}' is judgment-heavy and should run on opus; got model='{model}'. "
-            "(lit-scout / dataset-scout are task-dependent and exempt.)"
+            f"'{base}' is analysis or recomputation and belongs on opus; got model='{model}'. "
+            "(lit-scout / dataset-scout / dataset-verifier are task-dependent and exempt.)"
         )
     if warns:
         sys.stderr.write("[agent-routing-lint] " + " ".join(warns) + "\n")

@@ -81,7 +81,7 @@ Use agents at load-bearing scientific boundaries, not as a routine fan-out ritua
 | Result/claim stress test | `counter-argument`, `socratic-thinker`, `premortem-analyst`, `first-principles-grounder`, plus `oracle-reviewer` when warranted |
 | Literature/data | `lit-scout`, `paper-digest`, `dataset-scout`, `dataset-verifier` |
 
-Use opus for analysis/design/judgment, sonnet for navigation/gathering, and haiku only for genuinely mechanical extraction. Fable is banned. Each agent declares `model:` and `effort:` in frontmatter.
+Route by tier: fable for hard adversarial judgment (the `/review` panel and `oracle-reviewer`), opus for analysis, design, and recomputation, sonnet for navigation and gathering, haiku only for genuinely mechanical extraction. Each agent declares `model:` and `effort:` in frontmatter, and a spawn never inherits either.
 
 Codex is an independent code critic or rescue implementation, not a scientific adjudicator. It never produces a thesis number or settles a verdict.
 

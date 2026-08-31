@@ -2,7 +2,7 @@
 name: oracle-reviewer
 description: Adversarially stress-test a hypothesis, experiment design, or claimed result BEFORE committing compute or writing it up. Returns a PASS / HOLD / KILL verdict with specific gaps. Use at Claim→Design and Design→Run gates, and before believing any surprising result. This reproduces the single most valuable artifact from the prior work — the HOLD review that exposed every soft spot.
 tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
-model: opus
+model: fable
 effort: high
 ---
 

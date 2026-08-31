@@ -1038,6 +1038,20 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Reverses if:** a hook-shaped check is found for a defect class genuinely betrayed by a token in the intercepted call, or the verification agents prove unable to reject a degenerate child and a deterministic floor becomes the lesser evil.
 
+## D069 — Fable restored for hard adversarial judgment; routing is four tiers — 2026-08-31 (/meta, Erfan-directed)
+
+**Decision (Erfan).** Fable is available again and is the routing target for hard tasks run through subagents. The `/review` adversarial panel (`counter-argument`, `socratic-thinker`, `premortem-analyst`, `first-principles-grounder`) and the pre-compute design gate (`oracle-reviewer`) move to `model: fable`. `stat-aggregation-auditor`, `anti-confound-designer`, and `paper-digest` stay on opus; `lit-scout`, `dataset-scout`, and `dataset-verifier` stay on sonnet. Haiku remains reserved for genuinely mechanical extraction.
+
+**This restores rather than invents.** D026 banned fable on 2026-06-13 for one reason, stated in its own text: the model "no longer exists (banned) — it errored mid-session ('claude-fable-5 may not exist')". Its closing line is `Supersedes the prior "fable for hard adversarial work" rule.` So the rule being reinstated here is the one D026 replaced, and it was replaced on availability, never on judgment quality. Nothing in the record says fable produced a bad verdict. (D026's ban was cited in the routing hook as "D013/D026"; D013 is about staging two datasets and has nothing to do with model routing. The citation was wrong and is corrected.)
+
+**Why this split and not "fable everywhere".** The panel's job is to attack a claim, where depth of adversarial reasoning is the whole product and a missed objection is the failure mode. `stat-aggregation-auditor` re-computes a load-bearing contrast, where arithmetic correctness and reproducibility matter more than adversarial depth; `anti-confound-designer` assembles a control battery from a catalog and explicitly does not critique; `paper-digest` reads a paper and writes a note. Those three are better served by the tier the repo has already validated them on than by a change with no stated defect behind it.
+
+**Hook consequence.** `agent_routing_lint.py` no longer denies anything and is now warn-only, because after this decision no banned model remains and every rule left in it is a preference about tier, where a wrong deny costs more than a wrong warning. The repo's two real denials are unaffected and both remain argument-only under D068: a model-less spawn (global `require-subagent-model.sh`) and an unsandboxed `codex exec` (`bash_gate.py`). The global hook's denial text, which already read "fable only when frontier capability is genuinely required", now agrees with the repo instead of contradicting it.
+
+**Unchanged.** Every agent still declares `model:` and `effort:` explicitly and a spawn never inherits either. That rule is independent of which models exist: its root cause was a judge inheriting `:high` thinking, burning its entire 32k output cap and returning nothing twice.
+
+**Reverses if:** fable becomes unavailable again, or a fable-run panel verdict is found to be worse than its opus equivalent on the same input, which is a comparison worth making the first time the panel runs on a live claim.
+
 ## Related
 
 + [`status.md`](../status.md) — operational authority
