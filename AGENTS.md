@@ -19,20 +19,31 @@ This repository is the execution and writing home for Erfan’s thesis on whethe
 
 No report layer, alternate status board, claim database, artifact registry, dashboard, or routine timeline is authoritative. `docs/manuscript/submission/` is a supervisor-review derivative, never an authority. An interrupted upstream correction sets `manuscript-sync-pending` until the canonical rewrite manuscript is synchronized.
 
-## Interaction stances
+## Skills are the entry points
 
-State the active stance and switch when work changes. Each stance is a skill of the same name in `.claude/skills/`, and that skill owns its own procedure, standard, and boundary.
+Every workflow is a skill in `.claude/skills/`, one directory each. Two ways in, both first-class:
 
-| Stance | Job |
+- **Auto-activation on matching intent** is the normal path and needs no invocation. This is what actually happened across 11,416 owner prompts in the rewrite era: the stance was inferred, never typed ([L078](docs/learnings.md)).
+- **Explicit `/name`** forces one. `work` and `wrap` are explicit-only by construction (`disable-model-invocation: true`), so `/work` never auto-fires and `/wrap` never auto-commits.
+
+| Skill | Job |
 | --- | --- |
-| `/work` | lock, run, and record evidence; explicit-only |
-| `/interpret` | recompute and adjudicate recorded evidence |
-| `/write` | draft settled claims directly into the canonical rewrite manuscript |
-| `/teach` | transfer understanding from sources |
-| `/scout` | bring external literature/data into canonical records |
-| `/plan` | choose direction without touching numbers |
-| `/review` | stress-test result, claim, design, or manuscript |
-| `/meta` | simplify or maintain apparatus |
+| `work` | lock, run, and record evidence; explicit-only |
+| `interpret` | recompute and adjudicate recorded evidence |
+| `write` | route manuscript prose work to the method and the gates |
+| `question-led-writing` | the writing method: question tree, inference path, audits |
+| `thinking-panel` | the four review methods: claims, bottlenecks, allocation, coordination |
+| `teach` | transfer understanding from sources |
+| `scout` | bring external literature or data into canonical records |
+| `firecrawl-research-index` | the retrieval lane `scout` uses for papers |
+| `plan` | choose direction without touching numbers |
+| `review` | stress-test a result, claim, design, or manuscript |
+| `meta` | simplify or maintain apparatus |
+| `orient` / `wrap` | open and close a session |
+| `precheck` | gate a design before compute |
+| `manuscript-check` | run the deterministic manuscript gate |
+
+State the active stance in one line and say when it switches. Reach for a skill rather than reconstructing its procedure inline; if a procedure is worth writing down twice, it belongs in the skill instead.
 
 ## Evidence rules
 
@@ -52,16 +63,17 @@ Only load-bearing gitignored artifacts cited by the manuscript receive stable pa
 
 ## Writing
 
-Write directly from E records into `docs/manuscript/rewrite/`:
+The writing paradigm is **question-led**: a maintained question tree decides what the reader must understand, and a guided inference path makes each answer earned. Three owners, no fourth copy:
 
-1. Read the owning E records and current section.
-2. Apply [question-led writing](.claude/skills/question-led-writing/SKILL.md) before drafting.
-3. State the intended answer, claim, scope, caveats, and evidence.
-4. Draft with `\evd{Ennn}` markers and keyed values from `numbers.tex`.
-5. Run `uv run python scripts/manuscript_check.py docs/manuscript/rewrite`.
-6. Run one fresh independent question-chain, prose, and scientific-scope review, revise, and obtain Erfan’s approval for load-bearing framing.
+| Layer | Owner |
+| --- | --- |
+| Method | [`question-led-writing`](.claude/skills/question-led-writing/SKILL.md) skill |
+| Repository gates, review set, approval routing | [`docs/manuscript/AGENTS.md`](docs/manuscript/AGENTS.md) |
+| The maintained question tree itself | [`docs/manuscript/rewrite/AGENTS.md`](docs/manuscript/rewrite/AGENTS.md) |
 
-Use `--share-ready` only when every gap is resolved and the manuscript is intended to ship. Do not create intermediate reports, claim lattices, convergence state, or checkpoint logs.
+Do not restate the method or the protocol anywhere else, including here. Enter through the `write` skill or by editing a manuscript file, which auto-loads the protocol.
+
+Contract-level non-negotiables that outrank any procedure: prose reports only evidence recorded upstream, carrying `\evd{Ennn}` markers and keyed values from `numbers.tex`; a missing value is a `\gap`, never a reconstruction; `--share-ready` only when no gap remains and the manuscript is intended to ship; a contradiction found while writing routes to `/interpret` and sets `manuscript-sync-pending`. Do not create intermediate reports, claim lattices, convergence state, or checkpoint logs.
 
 ## Start and close
 
@@ -72,7 +84,7 @@ Use `--share-ready` only when every gap is resolved and the manuscript is intend
 
 ## Agent fleet
 
-Use agents at load-bearing scientific boundaries, not as a routine fan-out ritual.
+Use agents at load-bearing scientific boundaries, not as a routine fan-out ritual. Where the table names an agent, spawn it rather than doing the job inline: a reviewer that shares the working context under-detects, three residuals against roughly thirteen from a fresh pass (L055). Independence is the reason to spawn, so a review agent gets no `Write` or `Edit`.
 
 | Phase | Agents |
 | --- | --- |

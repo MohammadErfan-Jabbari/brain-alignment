@@ -1052,6 +1052,36 @@ Knowledge flows **down only** (evidence → report → extended → public); a n
 
 **Reverses if:** fable becomes unavailable again, or a fable-run panel verdict is found to be worse than its opus equivalent on the same input, which is a comparison worth making the first time the panel runs on a live claim.
 
+## D070 — Question-led writing is the writing method, with one owner per layer — 2026-08-31 (/meta, Erfan-directed)
+
+**Decision (Erfan).** Remove the old writing loop entirely and use the `question-led-writing` skill as the sole writing method. Writing now has exactly three owners and no fourth copy:
+
+| Layer | Owner |
+| --- | --- |
+| Method: question tree, guided inference path, Plan / Draft / Review / Revise branches, pass scopes, evidence states, audits | `.claude/skills/question-led-writing/SKILL.md` |
+| Repository gates: active tree, `\evd` and keyed-value provenance, review set, deterministic checks, approval routing, acceptance checks, prose / structure / figure rules | `docs/manuscript/AGENTS.md` |
+| The maintained question tree itself | `docs/manuscript/rewrite/AGENTS.md` |
+
+No other file states a writing procedure. The root contract and `03-methodology.md` keep only the contract-level non-negotiables that no procedure may weaken, and point.
+
+**The defect this fixes: five copies, already drifted at the load-bearing gate.** The same loop existed in the root contract, `03-methodology.md`, the `write` stance, and *twice* inside `docs/manuscript/AGENTS.md` (a 7-step "Writing loop" and a 14-step "Drafting and review protocol"). They did not agree on whether the question tree must be **completed** (methodology, write stance), merely **applied before drafting** (root contract), or **read from the maintained tree** (manuscript writing loop). Whichever file a session happened to read decided how strict writing was. The review gate had drifted the same way: three unnamed review dimensions in two copies against four named `thinking-panel` methods with a stakes-scaling rule in the fourth. This is the identical failure found hours earlier between `commands/` and `modes/`, which is why one-owner-per-layer is now the rule rather than a preference.
+
+**Transcript evidence, and it is unambiguous.** Streaming the user-role turns out of 339 brain-alignment Codex rollouts (2.3 GB, 2026-07-01 to 2026-08-04), counting only a `/name` inside a prompt's opening 60 characters and dropping every injected `AGENTS.md` preamble:
+
+| Era | Typed owner prompts | Real stance invocations |
+| --- | --- | --- |
+| pre-rewrite, to 07-12 | 292 | 6, all on 2026-07-02, four of them `/orient` or `/wrap` |
+| rewrite build, 07-13 to 07-23 | 876 | **0** |
+| post-rewrite, 07-24 to 08-04 | 10,540 | **0** |
+
+`/write` was never invoked once in the era when writing the rewrite was the entire job. Agent-side the crossover is just as clear: stance announcements fell from 5.84% of assistant turns during the rewrite build to 0.56% after it, while question-led language rose from 0.18% to 4.81% to 7.63%, ending at 13.7 times the stance rate in the same window. The stances that survived agent-side were `/review` and `/scout`, the audit and retrieval ones, never `/write`.
+
+**What this does not license.** The window is a *writing* window, so low `/work` and `/interpret` usage in it is expected and is not evidence that the evidence spine is unused. This decision retires the writing *loop*, not the stance vocabulary: the eight stances remain as skills, because agent-side inference is how they were actually used and `orient` and `wrap` are the only entry points Erfan ever typed. The measured conclusion is narrow and about `/write` alone.
+
+**Also applied.** The four global reasoning methods (`test-claims`, `remove-bottlenecks`, `allocate-for-compounding`, `coordinate-strategy`) were load-bearing at step 7 of the manuscript protocol but named in no instruction file Claude Code reads, and Erfan had invoked them by description 25 times while asking for a handle. They now have one: the `thinking-panel` skill, which also disambiguates them from the `/review` subagent panel, this repo's most common naming collision. They live at `~/.claude/skills/` and are named in `~/.codex/AGENTS.md` and `~/.pi/agent/AGENTS.md` but not in `~/.claude/CLAUDE.md`, which is 8 bytes: Codex and Pi were told to use them and Claude Code never was. Closing that global gap remains owed and is outside this repository.
+
+**Reverses if:** a writing procedure is found that the skill genuinely cannot express, in which case it is added to the skill rather than restated elsewhere.
+
 ## Related
 
 + [`status.md`](../status.md) — operational authority

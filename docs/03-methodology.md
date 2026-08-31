@@ -71,14 +71,13 @@ Strict independent review remains at the two load-bearing boundaries: before a d
 
 ## Direct manuscript loop
 
-1. Read the owning E records and current manuscript section.
-2. Complete the [question-led writing](../.claude/skills/question-led-writing/SKILL.md) question tree for the active scope.
-3. State the intended answer, claim, scope, caveats, and evidence.
-4. Draft directly into `docs/manuscript/rewrite/`.
-5. Run the deterministic manuscript provenance and build checks.
-6. Run one fresh independent question-chain, prose, and scientific-scope review.
-7. Revise. Before marking the manuscript share-ready, obtain Erfan’s approval for changed scientific verdicts, claim scope, governing terminology, and unresolved preference choices; reviewed evidence-grounded clarity edits that preserve scientific meaning do not require item-by-item approval.
+The writing method is **question-led** and is owned by one skill; the repository gates are owned by one folder contract. Neither is restated here.
 
+- Method: [`question-led-writing`](../.claude/skills/question-led-writing/SKILL.md) (question tree, inference path, Plan/Draft/Review/Revise branches, evidence states, audits).
+- Gates and protocol: [`manuscript/AGENTS.md`](manuscript/AGENTS.md) (active tree, provenance, review set, deterministic checks, approval routing).
+- Maintained question tree: [`manuscript/rewrite/AGENTS.md`](manuscript/rewrite/AGENTS.md).
+
+What this contract fixes, and a procedure may not weaken: manuscript prose reports only values recorded upstream; a missing value is a `\gap`; every evidence marker resolves to an E record; deterministic checks and one fresh *independent* review run before a candidate is complete; and Erfan approves a changed scientific verdict, a material change in claim scope, new governing terminology, or a genuinely preference-dependent choice. Reviewed evidence-grounded clarity edits that preserve scientific meaning do not require item-by-item approval ([D067](decisions/decisions.md)).
 
 ## Start and close
 

@@ -6,7 +6,7 @@ aliases: [manuscript-agents]
 
 # Manuscript Agent Guidance
 
-This file is the unified writing methodology for every manuscript tree in this folder: the drafting and review protocol, acceptance checks, terminology, prose, structure, table, and figure rules learned during the thesis rewrite. Folder `AGENTS.md` files hold only tree-specific instructions: [`rewrite/AGENTS.md`](rewrite/AGENTS.md) owns the canonical thesis's scientific position, argument structure, and maintained question tree; [`submission/AGENTS.md`](submission/AGENTS.md) owns the supervisor-review derivative's format and synchronization rules.
+This file is the repository gate layer for every manuscript tree in this folder: which tree to edit, evidence provenance, the review set, approval routing, acceptance checks, terminology, prose, structure, table, and figure rules learned during the thesis rewrite. The writing *method* is owned solely by the [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md) skill and is never restated here. Folder `AGENTS.md` files hold only tree-specific instructions: [`rewrite/AGENTS.md`](rewrite/AGENTS.md) owns the canonical thesis's scientific position, argument structure, and maintained question tree; [`submission/AGENTS.md`](submission/AGENTS.md) owns the supervisor-review derivative's format and synchronization rules.
 
 ## Layout
 
@@ -18,38 +18,32 @@ This file is the unified writing methodology for every manuscript tree in this f
 
 Legacy layers (`extended/`, `public/v0.9/`) were removed from HEAD on 2026-08-25 and survive only in Git history (last commits `7c445b0` and `6026021`). Do not recreate them; immutable-cut policy applies to any future cut.
 
-## Writing loop
+## Question-led writing protocol
 
-1. Read the owning E records and the current section in the active tree (`rewrite/` for canonical scientific changes, `submission/` for supervisor-review edits).
-2. Read the active scope's leaf questions in the [maintained question tree](rewrite/AGENTS.md) and apply [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md) to the active scope.
-3. State the intended answer, claim, scope, caveats, and evidence.
-4. Edit the active tree directly. Update the question tree in the same change when the manuscript's argument changes.
-5. Preserve `\evd{Ennn}` as source-level evidence provenance and keyed values in `numbers.tex`; a missing value is a `\gap`. Evidence identifiers are hidden in the thesis build and may be displayed only for internal review.
-6. Run `uv run python scripts/manuscript_check.py` on the edited tree (for example `docs/manuscript/rewrite` or `docs/manuscript/submission`).
-7. Run one fresh independent question-chain, prose, and scientific-scope review. Erfan approves changed scientific verdicts, claim scope, governing terminology, and unresolved preference choices; after parent adjudication, evidence-grounded clarity edits that preserve meaning may land without item-by-item approval.
+The **method** is owned by the [`question-led-writing`](../../.claude/skills/question-led-writing/SKILL.md) skill: the question tree, the guided inference path, the Plan / Draft / Review / Revise branches, pass scopes, evidence states, and the Step 5 audits. Do not restate or paraphrase that method here or anywhere else. This section owns only what the skill deliberately leaves to the repository: which tree to edit, evidence provenance, the review set, the deterministic checks, and approval routing.
 
-Use `--share-ready` only when no gap remains. A contradiction routes to `/interpret` and sets `docs/status.md` to `manuscript-sync-pending`. Scientific changes accepted in `submission/` synchronize to `rewrite/` before they become authoritative; see [`submission/AGENTS.md`](submission/AGENTS.md).
-
-## Drafting and review protocol
-
-1. Read the active leaf questions, their parent question, the owning evidence records, and the relevant canonical literature notes.
-2. Apply `question-led-writing` to state the reader's starting understanding, the intended answer and scope, and the shortest supported inference path for each active leaf.
-3. Locate every existing paragraph that answers the active leaf, then draft one complete proposed replacement. Propose moving overlapping prose instead of appending a duplicate.
+1. Select the active tree and read in. `rewrite/` for any canonical scientific change; `submission/` only for supervisor-review format and condensation edits. Read the active leaf questions and their parent from the [maintained question tree](rewrite/AGENTS.md), the owning evidence records, and the relevant canonical literature notes.
+2. Run the skill's Plan or Draft branch on the active scope. Its Step 1 output (reader, starting understanding, governing question, provisional answer, claim, scope, source constraints, evidence states) is the precondition for prose, not a formality: a leaf whose evidence state is unsupported, unresolved, or in authority conflict is not drafted as settled.
+3. Locate every existing paragraph that answers the active leaf, then draft one complete proposed replacement. Propose moving overlapping prose rather than appending a duplicate.
 4. Draft adjacent leaf questions together only when they form one natural argumentative unit. Do not draft across a section boundary.
-5. Use `\evd{Ennn}` as nonprinting source provenance and keyed values from `numbers.tex`. A missing value is a `\gap`, never a reconstruction or guess.
+5. Use `\evd{Ennn}` as non-printing source provenance and keyed values from `numbers.tex`. A missing manuscript value is a `\gap`, never a reconstruction or guess. Evidence identifiers are hidden in the thesis build and may be displayed only for internal review.
 6. When a pass, failure, or continuation statement depends on a frozen rule, reproduce the exact criterion from its owning evidence record. Never replace it with a generic positive-contrast rule, infer temporal predeclaration from manuscript order, or write *preregistered* unless an external registration supports that term.
-7. Use the smallest applicable review set during ordinary paragraph work. Run all four independent reviews at load-bearing subsection or section boundaries, or when framing, scope, ownership, or attention allocation changes materially:
-   - claim support and scope using `test-claims`;
-   - reader and argument bottlenecks using `remove-bottlenecks`;
-   - attention, length, and opportunity cost using `allocate-for-compounding`;
-   - terminology, handoffs, ownership, and whole-manuscript fit using `coordinate-strategy`.
-8. When multiple reviews run, reconcile them into one proposed revision. Address each accepted item or explain concretely why it conflicts with evidence or a higher-level question.
-9. Route changed scientific verdicts, claim scope, governing terminology, and genuinely preference-dependent choices to Erfan. The parent may directly apply reviewed, evidence-grounded edits that improve readability, understandability, clarity, or precision without changing scientific meaning.
-10. At subsection close, reverse-outline both structures: every leaf is answered once, every paragraph has one owner, every inference is supported before use, and every transition prepares the next reader question.
+7. Scale the review set to the stakes. Use the smallest applicable set during ordinary paragraph work. Run all four [`thinking-panel`](../../.claude/skills/thinking-panel/SKILL.md) reviews at a load-bearing subsection or section boundary, or when framing, scope, ownership, or attention allocation changes materially:
+   - claim support and scope with `test-claims`;
+   - reader and argument bottlenecks with `remove-bottlenecks`;
+   - attention, length, and opportunity cost with `allocate-for-compounding`;
+   - terminology, handoffs, ownership, and whole-manuscript fit with `coordinate-strategy`.
+
+   Independence is the point: a reviewer that shares the drafting context under-detects. The demonstrated failure is three residuals found in-session against roughly thirteen found by a fresh pass (L055).
+8. Reconcile multiple reviews into one proposed revision. Address each accepted item or explain concretely why it conflicts with evidence or a higher-level question.
+9. Route to Erfan only a changed scientific verdict, a material change in claim scope, a new governing terminology or naming policy, an external commitment, or a genuinely preference-dependent choice among evidence-equivalent alternatives. Under [D067](../decisions/decisions.md) the parent applies reviewed, evidence-grounded edits that improve readability, clarity, or precision without changing scientific meaning.
+10. At subsection close, run the skill's Step 5a reverse outline over both structures: every leaf answered once, every paragraph with one owner, every inference supported before use, every transition preparing the next reader question. Update the question tree in the same change whenever the argument's structure moved.
 11. Apply the skeptical-reader test: the prose must be understandable sentence by sentence without an unsupported jump, an unexplained result, or dependence on project history.
 12. Repeat for at most four rounds, stopping earlier when no reviewer identifies a material claim, structure, prose, citation, terminology, density, or handoff defect.
 13. After all units are complete, run the same four reviews over the whole manuscript and revise until the remaining findings are non-material.
 14. Run `uv run python scripts/manuscript_check.py` on the edited tree, build the PDF, and inspect every rendered page before calling the candidate complete.
+
+Use `--share-ready` only when no `\gap` remains and the manuscript is intended to ship; the skill's own completion criteria do not make prose share-ready. A contradiction found while writing stops that claim, sets `docs/status.md` to `manuscript-sync-pending`, and routes to `/interpret`. Scientific changes accepted in `submission/` synchronize to `rewrite/` before they become authoritative; see [`submission/AGENTS.md`](submission/AGENTS.md).
 
 ## Section acceptance checks
 
@@ -64,7 +58,7 @@ Use `--share-ready` only when no gap remains. A contradiction routes to `/interp
 
 ## Manuscript-wide terminology
 
-Use the following terms throughout manuscript prose in every tree, including abstracts, captions, appendices, and future public cuts:
+Use the following terms throughout manuscript prose in every tree, including abstracts, captions, and appendices:
 
 | Referent | Fixed term |
 | --- | --- |
@@ -148,7 +142,7 @@ Treat the tree as a maintained reverse outline. Every main-text paragraph must a
 ## Rules
 
 - Do not create a manuscript report, claim lattice, checkpoint log, convergence store, or any additional alternate draft tree beyond the explicitly authorized `rewrite/` candidate and its declared derivatives.
-- Public cuts are frozen. A new milestone creates a new version.
+- There is no public tree at HEAD. Creating one is a separate decision requiring Erfan's approval, and any future cut is frozen on creation.
 - Every scientific number and figure value traces to an owning E record; only load-bearing artifacts receive recorded paths and SHA-256 values.
 - Use the correct inference unit, uncertainty, and named test.
 - Keep internal provenance in non-printing BibLaTeX fields such as `annotation`, not printable `note` fields.
