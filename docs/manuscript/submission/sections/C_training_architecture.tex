@@ -39,7 +39,7 @@ The implemented output-distillation loss is
 where \(m_{xt}\) is one at non-padding positions and zero otherwise.
 Equation~\ref{eq:implemented-kd} averages teacher-to-student token-level \ac{kl} divergence over valid positions.
 The factor \(\tau^2\) compensates for the gradient-scale change introduced by temperature softening.
-Every executed output-distillation route uses \(\tau=2\), gradient-norm clipping at 1, and AdamW.
+Every executed output-distillation route uses \(\tau=2\), gradient-norm clipping at 1, and AdamW at its library default decay rates and weight decay, with a constant learning rate and no warmup.
 Two route types recur below: an unanchored route, which trains the student without a teacher and keeps language quality with its own next-token objective, and a teacher-anchored route, which adds output \ac{kd} from a frozen teacher. \evd{E003}\evd{E005}\evd{E016}
 \end{samepage}
 
@@ -112,7 +112,7 @@ For predictions \(\widehat Y\) and targets \(Y\) with minibatch size \(B\) and t
 This loss averages equally over minibatch rows and target coordinates.
 Consequently, every reported target weight is interpreted under this normalization.
 
-The common sentence-level regime places rank-16 \ac{lora} adapters with scaling 32 and dropout 0.05 in the model-appropriate attention and feed-forward projections \autocite{hu2022}. \evd{E004}
+The common sentence-level regime places rank-16 \ac{lora} adapters with scaling 32 and dropout 0.05 in the attention and feed-forward projections of the student family: \texttt{c\_attn}, \texttt{c\_proj}, and \texttt{c\_fc} for GPT-2, and \texttt{q\_proj}, \texttt{k\_proj}, \texttt{v\_proj}, \texttt{o\_proj}, \texttt{gate\_proj}, \texttt{up\_proj}, and \texttt{down\_proj} for Qwen2.5 \autocite{hu2022}. \evd{E004}
 The pretrained base, input embeddings, and tied output matrix are frozen; the adapters and a co-trained \(W\) are optimizer parameters.
 The target gradient reaches \(W\) and the adapters that produce \(h_{12}\), while adapters after the attachment state receive only the language-loss gradient.
 After training, the adapters are merged into the student and the temporary target map is discarded.

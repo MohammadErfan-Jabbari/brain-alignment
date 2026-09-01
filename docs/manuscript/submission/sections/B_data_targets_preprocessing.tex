@@ -87,7 +87,7 @@ Table~\ref{tab:appendix-feature-blocks} summarizes these blocks before the fold-
     \toprule
     Assay & Contextual block & Low-level nuisance block & Static or additional block \\
     \midrule
-    Tuckute & Mean-pooled activations of the declared \ac{lm} layer over non-padding token positions & Sentence token length and normalized item position & Mean noncontextual input embedding; released imageability ratings in the primary design, which reuses the released response matrices unchanged \\
+    Tuckute & Mean-pooled activations of the declared \ac{lm} layer over non-padding token positions & Sentence token length and item position, the zero-based index divided by one less than the sentence count & Mean noncontextual input embedding; released imageability ratings in the primary design, which reuses the released response matrices unchanged \\
     \midrule
     LeBel & Final-subtoken hidden state for each word under its available left context & Word rate, phoneme rate, word duration, word length, and log word frequency & the released \texttt{english1000} lexical-semantic basis (985 dimensions) \\
     \bottomrule
@@ -140,7 +140,7 @@ The Llama-3.2-3B component is TRIBE's internal text encoder; it is distinct from
 The published TRIBE description does not list the Tuckute sentence set among its training datasets. This supports dataset separation at the level of reported provenance, but it is not a categorical proof that no overlapping text or derivative data entered any upstream component.\autocite{dascoli2026}
 For this thesis, the sentence-level target is the average of TRIBE's one-second output samples for that sentence.
 This operation creates one training vector per sentence; it is not a claim of physical alignment to the acquisition timing of the Tuckute \ac{fmri} responses.
-Its \texttt{synthetic-text} configuration assigns each token a 0.35-s event followed by a 0.05-s gap, extends timelines shorter than 1.0~s, and uses a 1.0-s \ac{tr}. \evd{E016}
+Its \texttt{synthetic-text} configuration assigns each token a 0.35-s event followed by a 0.05-s gap, lengthens the final event of any timeline shorter than 1.0~s until the timeline reaches 1.0~s, and uses a 1.0-s \ac{tr}. \evd{E016}
 Each sentence has a separate timeline, and its retained one-second predictions are averaged coordinatewise to form one 20,484-dimensional vector.
 The same construction is applied to Tuckute item IDs 1--1,000, with \texttt{item\_id=item\_index+1}. \evd{E016}\evd{E030}
 

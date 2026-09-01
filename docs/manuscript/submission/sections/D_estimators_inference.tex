@@ -85,7 +85,7 @@ The sentence-level Tuckute and WikiText readouts use the candidate penalties
 \[
 \{1,10,100,1000,10000\}.
 \]
-Each multi-output fit selects one scalar penalty on its training partition by ridge cross-validation; it does not select a separate penalty for every response or target coordinate.
+Each multi-output fit selects one scalar penalty on its training partition by generalized cross-validation, the closed-form leave-one-out criterion, rather than by an explicit fold split; it does not select a separate penalty for every response or target coordinate.
 The naturalistic LeBel readouts use
 \[
 \{10,10^2,10^3,10^4,10^5,10^6,10^7\},
