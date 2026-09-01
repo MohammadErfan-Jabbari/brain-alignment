@@ -6,14 +6,14 @@
 
 % ---- cover-page fields (CONFIRM with Erfan before sending) ----------------
 \newcommand{\DegreeName}{Machine Learning for Health}        % confirmed by Erfan, 2026-09-01
-\newcommand{\AcademicYear}{2025--2026}                       % TODO confirm
+\newcommand{\AcademicYear}{2025-2026}                        % confirmed by Erfan, 2026-09-01
 \newcommand{\ThesisTitle}{Evaluating Brain Alignment as a Training Signal for Language Models}
 \newcommand{\AuthorName}{MohammadErfan Jabbari}
 \newcommand{\FirstTutor}{Alejandro Lancho Serrano}           % TODO confirm tutor ordering
 \newcommand{\SecondTutor}{Pablo Mart\'inez Olmos}
 \newcommand{\ExternalSupervisorA}{Marco Fiore}              % IMDEA Networks; spelling verified against networks.imdea.org
 \newcommand{\ExternalSupervisorB}{Claudio Fiandrino}        % IMDEA Networks; spelling verified against networks.imdea.org
-\newcommand{\PlaceAndDate}{Legan\'es, 2026}                    % Escuela Politecnica Superior, Leganes campus (Erfan, 2026-09-01)
+\newcommand{\PlaceAndDate}{Legan\'es, September 2026}                    % Escuela Politecnica Superior, Leganes campus (Erfan, 2026-09-01)
 % ---------------------------------------------------------------------------
 
 \PassOptionsToPackage{hidelinks}{hyperref} % neurips_2025 and preamble both load hyperref
@@ -32,36 +32,70 @@
 \begin{document}
 
 % ========================= UC3M official cover page ========================
-% Layout per TFM regulation, Appendix I (UC3M cover must be the first page).
-\thispagestyle{empty}
-\begin{center}
-  \includegraphics[width=3.2cm]{style/uc3m_logo.png}\\[1.2em]
-  {\large Master Degree in \DegreeName}\\[0.6em]
-  {\large Academic Year \AcademicYear}\\[3em]
-  {\LARGE\bfseries Master Thesis}\\[2.5em]
-  {\Large\itshape ``\ThesisTitle''}\\[3em]
-  \begin{tabular}{@{}r@{\hspace{0.8em}}l@{}}
-    Author's complete name:   & \AuthorName \\
-    1st Tutor complete name:  & \FirstTutor \\
-    2nd Tutor complete name:  & \SecondTutor \\
-    External supervisor:      & \ExternalSupervisorA\ (IMDEA Networks) \\
-    External supervisor:      & \ExternalSupervisorB\ (IMDEA Networks) \\
-  \end{tabular}\\[3em]
-  {\large \PlaceAndDate}
+% Ported verbatim from the official UC3M Overleaf TFM template (IEEE style),
+% file memoria.tex, with only the field values substituted. Structure, fonts,
+% colour, logo width, rule, box and Creative Commons block are the template's.
+% The body from page 2 onward stays in the NeurIPS one-column style both
+% tutors approved.
+\definecolor{azulUC3M}{RGB}{0,0,102}
+% The template sets its cover on a 12pt base over a 15.6cm measure (report
+% class, hmargin 3cm). NeurIPS gives a 10pt base over a narrower measure, so
+% the cover's widths and sizes are stated explicitly here to reproduce the
+% template's page rather than a reflowed approximation of it.
+\newlength{\coverwidth}\setlength{\coverwidth}{15.6cm}
+\newcommand{\coverLarge}{\fontsize{17.28}{22}\selectfont}
+\newcommand{\coverLARGE}{\fontsize{20.74}{25}\selectfont}
+\newcommand{\coverHuge}{\fontsize{24.88}{30}\selectfont}
+\newcommand{\coverfoot}{\fontsize{10}{12}\selectfont}
+\begin{titlepage}
+  \begin{sffamily}
+  \color{azulUC3M}
+  \begin{center}
+    \begin{figure}[H] % UC3M Logo
+      \makebox[\textwidth][c]{\includegraphics[width=16cm]{style/logo_UC3M.png}}
+    \end{figure}
+    \vspace{1.2cm}
+
+    \makebox[\textwidth][c]{\begin{minipage}{\coverwidth}\centering
+      {\coverLarge
+        Master's Degree in \DegreeName\\
+        \AcademicYear\\
+        \vspace{1cm}
+        \textsl{Master Thesis}\\
+      }
+      \bigskip
+
+      {\coverHuge ``\ThesisTitle''}\\
+      \vspace*{0.5cm}
+      \rule{10.5cm}{0.1mm}\\
+      \vspace*{0.9cm}
+      {\coverLARGE \AuthorName}\\
+      \vspace*{0.7cm}
+      {\coverLarge
+        \FirstTutor\\
+        \SecondTutor\\
+        \ExternalSupervisorA\ (IMDEA Networks)\\
+        \ExternalSupervisorB\ (IMDEA Networks)\\
+        \PlaceAndDate\\
+      }
+    \end{minipage}}
+  \end{center}
   \vfill
-  \begin{minipage}{0.85\textwidth}\footnotesize
-  \textbf{Avoid plagiarism.} The University uses the Turnitin Feedback Studio program within the
-  Aula Global for the delivery of student work. This program compares the originality of the work
-  delivered by each student with millions of electronic resources and detects those parts of the
-  text that are copied and pasted. Plagiarizing in a TFM is considered a Serious Misconduct, and
-  may result in permanent expulsion from the University.
-  \end{minipage}\\[1.2em]
-  \begin{minipage}{0.85\textwidth}\footnotesize
-  This work is licensed under Creative Commons \textbf{Attribution -- Non Commercial --
-  Non Derivatives}.
-  \end{minipage}
-\end{center}
-\clearpage
+  \color{black}
+  \makebox[\textwidth][c]{\fbox{%
+  \begin{minipage}{\dimexpr\coverwidth-2\fboxsep-2\fboxrule\relax}
+    \fontsize{12}{14}\selectfont\textbf{AVOID PLAGIARISM}\\[2pt]
+    {\coverfoot The University uses the \textbf{Turnitin Feedback Studio} program within the Aula Global for the delivery of student work. This program compares the originality of the work delivered by each student with millions of electronic resources and detects those parts of the text that are copied and pasted. Plagiarizing in a TFM is considered a \textbf{\underline{Serious Misconduct}}, and may result in permanent expulsion from the University.\par}
+  \end{minipage}}}
+
+  % Creative Commons licence: Erfan opted into the Open Access University Repository.
+  \makebox[\textwidth][c]{\begin{minipage}{\coverwidth}
+    \noindent\includegraphics[width=4.2cm]{style/creativecommons.png}\\
+    {\coverfoot This work is licensed under Creative Commons \textbf{Attribution -- Non Commercial -- Non Derivatives}\par}
+  \end{minipage}}
+
+  \end{sffamily}
+\end{titlepage}
 % ===========================================================================
 
 \maketitle
