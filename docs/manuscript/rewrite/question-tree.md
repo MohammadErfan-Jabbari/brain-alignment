@@ -41,7 +41,7 @@ No subsections. Seven paragraphs:
 2. What is brain alignment operationally, and which parts of that definition are assay-dependent?
 3. Why does a positive brain-alignment score not establish that brain responses can help train a smaller model, a brain-specific advantage, biological transfer, or utility?
 4. What remains unresolved after prior encoding, brain-response-guided optimization, privileged-information, and compression work?
-5. Which ordered evidence-chain stages would justify a brain-specific training advantage at comparable language-model quality?
+5. Which claim-specific dependencies would justify a brain-specific training advantage at comparable language-model quality?
 6. What scoped answer does this study provide, and where is support lost or unresolved?
 7. What three contributions does the study make, and what limits the conclusion?
 
