@@ -35,7 +35,7 @@
     \node[anchor=east,font=\scriptsize] at (2.38,\ytick) {\label};
   }
   \node[rotate=90,anchor=south,font=\scriptsize] at (1.28,{\yleft+0.5*\yheight})
-    {prerequisite alignment contrast \(A_s\)};
+    {prerequisite predictivity contrast \(A_s\)};
 
   \pgfmathsetmacro{\yzero}{\yleft+\yheight*(0-\ymin)/(\ymax-\ymin)}
   \draw[zeroline] (2.55,\yzero)--(12.65,\yzero);

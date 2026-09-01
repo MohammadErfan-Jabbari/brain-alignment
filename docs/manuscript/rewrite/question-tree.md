@@ -145,7 +145,7 @@ This subsection is titled ``Cross-Cutting Estimands and Decision Rules.'' End wi
 
 **Section question.** Where does each scientific role pass, fail, remain unresolved, or become non-identifying at its declared inference unit, and what narrow claim does each result license?
 
-Open with one compact three-column status table keyed to the exact canonical role names and Section 3 design tuples: **scientific role**, **status**, and **decisive observation**. Use *supported*, *not demonstrated*, *unresolved*, and *non-identifying comparator* consistently. Give every Section 3 scientific role one clearly named Results verdict location.
+Open with one compact three-column status table keyed to the exact canonical role names and Section 3 design tuples: **scientific role**, **status**, and **decisive observation**. Use *supported*, *not demonstrated*, *unresolved*, *unmeasured*, and *non-identifying comparator* consistently, with the decision rules Section 3.5 declares. Give every Section 3 scientific role one clearly named Results verdict location.
 
 Each result path follows the same order: **observation**, **uncertainty at the declared inference unit**, **canonical verdict**, and **narrow licensed claim**. Retain only the comparator or inference-unit reminder needed to interpret a result. Section 3 owns the design tuple, Section 5 owns cross-stage synthesis and causal interpretation, and Appendices B--F own construction, training detail, formal inference, supporting analyses, and full sensitivities.
 
