@@ -117,15 +117,14 @@ Table~\ref{tab:results-status} summarizes these role-specific outcomes using \em
 \label{sec:results-signal}
 
 Trained representations exceeded the declared nuisance baseline in the controlled regional predictivity assay.
-For the primary Qwen2.5-0.5B layer-12 comparison, controlled unique \(R^2\) was \result{e002_qwen_unique}, where the \(\pm\) term is the descriptive standard deviation across five contiguous stimulus folds.
+For the primary Qwen2.5-0.5B layer-12 comparison, controlled unique \(R^2\) was \result{e002_qwen_unique}, where \(\pm\) is the descriptive standard deviation across the five stimulus folds.
 The recorded trained-minus-untrained difference is \result{e002_qwen_gap}, but the executed runner built the static nuisance block separately for each model.
-That gap therefore does not cleanly isolate learned parameters against one fixed nuisance design.
-Because we averaged the recorded responses across five participants before readout fitting, the folds describe stimulus-block variation and do not support participant-level inference.
+Because the target is participant-averaged, the folds describe stimulus-block variation and do not support participant-level inference.
 The assay therefore supports controlled regional predictivity for this fixed participant-averaged target.\evd{E002}
 
-Trained representations also exceeded their matched untrained controls in the controlled naturalistic voxelwise assay when complete stories were held out.
+Trained representations also exceeded their matched untrained controls in the controlled naturalistic voxelwise predictivity assay when complete stories were held out.
 For participant UTS03, the mean differences were \result{e006_gpt2_gap} for GPT-2 Small and \result{e006_qwen_gap} for Qwen2.5-0.5B, and all five held-out-story blocks had positive differences.
-The voxels are spatially dependent, and the story folds share training stories, so neither the voxel set nor the story folds provide independent biological replication.
+Voxels are spatially dependent and story folds share training stories, so neither provides independent biological replication.
 This assay therefore supports a within-participant controlled brain predictivity result conditional on UTS03 and the fixed naturalistic~protocol.\evd{E006}
 
 \begin{figure}[H]
@@ -147,37 +146,31 @@ This assay therefore supports a within-participant controlled brain predictivity
 \end{figure}
 \FloatBarrier
 
-Together, the assays show that the tested trained \ac{lm} representations contain linearly accessible information useful for predicting held-out recorded \ac{fmri} responses beyond their model-specific nuisance features (Figure~\ref{fig:controlled-predictivity-results}); learned-parameter attribution from the regional gap remains unresolved.
-Their numerical estimates are not pooled or compared in magnitude because the response construction, target resolution, nuisance set, and inference unit differ.
+Together, the assays show that the tested trained \ac{lm} representations improve linear prediction of held-out recorded \ac{fmri} responses beyond their model-specific nuisance features (Figure~\ref{fig:controlled-predictivity-results}); learned-parameter attribution from the regional gap remains unresolved.
+Their estimates are not pooled because response construction, target resolution, nuisance set, and inference unit differ.
 
 The assays do not identify a shared computation between the \acp{lm} and the brain or establish population-general controlled brain predictivity.
-They also do not test whether using brain responses during training changes a retained student or improves language behavior.
-Section~\ref{sec:results-headroom} next asks what route-specific headroom is actually established.
 
 \subsection{Observed distillation headroom and its association with language quality}
 \label{sec:results-headroom}
 
-The from-scratch GPT-2 comparison contains an observed teacher-relative gap, but it does not establish quality-aware headroom (a teacher--student gap measured at comparable language quality) for the intervention routes.
-Figure~\ref{fig:distillation-headroom-retention} places the GPT-2 teacher, floor, and student conditions on the floor-anchored retention scale defined in Equation~\ref{eq:floor-anchored-retention}.
-At the fixed Tuckute layers, the randomly initialized GPT-2 Small logit-\ac{kd} student is \result{e003_kd_cold_delta} below the GPT-2 Medium teacher in controlled brain predictivity (bootstrap no-drop \(p = \result{e003_kd_cold_nodrop_p}\) over the cold arm's folds and seeds).
-Relative to the architecture-matched untrained GPT-2 Small floor, the student retains \result{e003_kd_cold_retention_point} of the teacher-to-floor interval.
+The from-scratch GPT-2 comparison shows an observed teacher-relative gap, not the quality-aware headroom the intervention routes need: a teacher--student gap measured at comparable language quality.
+At the fixed Tuckute layers, the randomly initialized GPT-2 Small logit-\ac{kd} student is \result{e003_kd_cold_delta} below the GPT-2 Medium teacher in controlled brain predictivity (bootstrap probability that the student does not drop below the teacher, \(p = \result{e003_kd_cold_nodrop_p}\), over the cold arm's folds and seeds).
+Relative to the architecture-matched untrained GPT-2 Small floor, the student retains \result{e003_kd_cold_retention_point} of the teacher-to-floor interval (Figure~\ref{fig:distillation-headroom-retention}, Equation~\ref{eq:floor-anchored-retention}).
 The recorded 95\% bootstrap interval over folds and seeds is \result{e003_kd_cold_retention_ci}.\evd{E003}
-The tested cold-start route therefore leaves an observed gap within this assay, although the comparison does not identify its source.
 
 Language quality is a material competing explanation.
 The randomly initialized student remains substantially weaker as an \ac{lm}, with perplexity \result{e003_kd_cold_ppl}, compared with \result{e003_teacher_ppl} for the teacher.\evd{E003}
-The evaluated conditions also differ in initialization and training history, not only in objective, so the ordered predictivity estimates do not show that compression or \ac{kd} caused the gap.
-The pretrained GPT-2 Small condition is closer to the teacher in initialization and language quality, which makes it the relevant reference for the synthetic-response route.
-The completed analysis did not establish a formal quality-aware headroom result for that warm route.
+The conditions also differ in initialization and training history, not only in objective, so the estimates do not show that compression or \ac{kd} caused the gap.
+The pretrained GPT-2 Small condition, the warm route, is closer to the teacher in initialization and language quality and is the relevant reference for the synthetic-response route.
 The recorded-response intervention uses Qwen2.5-1.5B and Qwen2.5-0.5B\evd{E009}, for which we did not measure route-matched teacher--student headroom.\evd{E003}\evd{E015}
 
-The broader model comparison shows why later interventions must control language quality.
 Across \result{e015_full_n} decoder-only \acp{lm} from six families, participant-averaged controlled brain predictivity is negatively associated with log bits per byte, where higher values indicate poorer language quality.\evd{E015}
 Pearson \(r\) is \result{e015_full_corr}, with a family-cluster 95\% \ac{ci} of \result{e015_full_ci}.\evd{E015}
-Figure~\ref{fig:distillation-headroom-quality} shows this full-range association and marks the capable-model band, defined as the \result{e015_capable_n} models with bits per byte below \result{e015_capable_bpb_max}.
+The capable-model band comprises the \result{e015_capable_n} models with bits per byte below \result{e015_capable_bpb_max} (Figure~\ref{fig:distillation-headroom-quality}).
 Within that band, Pearson \(r\) is \result{e015_capable_corr}, with a Fisher 95\% \ac{ci} of \result{e015_capable_ci}.\evd{E015}
 The point estimate remains moderately negative, but its interval includes zero.
-Model family, scale, training data, and language quality remain entangled, so the association identifies language quality as a design constraint rather than a causal explanation.
+Model family, scale, training data, and language quality remain entangled, so the association is a design constraint, not a causal explanation.
 
 \begin{figure}[H]
   \centering
@@ -203,9 +196,8 @@ Model family, scale, training data, and language quality remain entangled, so th
 
 Together, the results support an observed, assay-conditional gap between the GPT-2 teacher and randomly initialized student.
 Quality-aware headroom remains unresolved for the warm GPT-2 route and unmeasured for the Qwen route.
-They do not establish that the headroom is brain-specific or recoverable through a brain-response objective.
+These results do not establish that the headroom is brain-specific or recoverable through a brain-response objective.
 A valid intervention comparison must therefore test the brain-response objective against a same-procedure control while maintaining comparable \ac{lm} quality.
-Section~\ref{sec:results-recorded} applies this requirement to the recorded-response intervention.
 
 \subsection{Recorded-response intervention at valid inference units}
 \label{sec:results-recorded}
@@ -215,26 +207,22 @@ In the loss-form screen that selected the auxiliary response loss, the mean cont
 In the \ac{kd}-anchored paired intervention, the mean contrast is \result{e005_apparent}, with a five-fold \(t\) interval of \result{e005_fold_ci}.\evd{E005}
 The recorded-response arm and permuted-response control have perplexities \result{e005_real_ppl} and \result{e005_permuted_ppl}, respectively, showing no gross quality imbalance without establishing a formal equivalence margin.\evd{E005}
 Both intervals include zero, and both estimates are sensitive to a dominant fold.
-The point estimates are positive, but a pairing advantage is not demonstrated.
+A pairing advantage is not demonstrated (Figure~\ref{fig:recorded-response-averaged}).
 
-These averaged-response comparisons answer a narrower question than participant-level inference.
 Averaging responses before training creates one shared stimulus-locked target, so the fold-level contrast asks whether correct stimulus--response pairing helps for that fixed target.
 It does not estimate the mean intervention effect across participants.
 
-The participant-count diagnostic probes how the contrast varies with the number of participants.
-In the original nested sequence each subset contained the previous one, so participant count varied together with participant identity; with random subsets instead, the diagnostic shows no stable monotone relationship.\evd{E010}
-With the model representations held fixed, averaging nevertheless increases controlled brain predictivity by reducing response noise and emphasizing the shared response component; individual responses still contain measurable signal.\evd{E014}
-Averaging can therefore strengthen measurement of the shared response without creating biological replication.
+The participant-count diagnostic, re-run with random subsets so that count no longer varies with participant identity, shows no stable monotone relationship between participant count and the contrast.\evd{E010}
+With model representations held fixed, averaging increases controlled brain predictivity by reducing response noise and emphasizing the shared response component; individual responses still carry measurable signal, so averaging strengthens measurement of the shared response without creating biological replication.\evd{E014}
 
 The participant-specific intervention does not demonstrate a participant-general advantage at the biological inference unit, the participant.
-After the technical seed and fold repetitions are aggregated within each participant as defined in Section~\ref{sec:recorded-intervention}, the mean recorded-response-minus-permuted-response effect across nine participants is \result{e008_mean}, with participant \(t\) interval \result{e008_ci}.\evd{E008}
-The shared-fold summary is also centered near zero at \result{e008_fold_mean}, with five-fold \(t\) interval \result{e008_fold_ci}.\evd{E008}
+Aggregating seed and fold repetitions within each participant (Section~\ref{sec:recorded-intervention}), the mean recorded-response-minus-permuted-response effect across nine participants is \result{e008_mean}, with participant \(t\) interval \result{e008_ci}.\evd{E008}
+The shared-fold summary is also centered near zero at \result{e008_fold_mean}, with five-fold \(t\) interval \result{e008_fold_ci} (Figure~\ref{fig:recorded-response-participant}).\evd{E008}
 
 The minimum detectable effect at 80\% power, computed from the observed variance, is approximately \result{e008_mde_range} for the participant analysis.
 This range is far below the earlier participant-averaged point estimate of \result{e005_apparent}.
-The participant analysis would therefore have detected an individual-level effect of that magnitude on this scale with at least 80\% probability, although the averaged-target estimate belongs to a different response construction and estimand.
-The participant result neither proves an exactly zero effect nor extends beyond the tested target, model, cohort, objective, and readout.\evd{E005}\evd{E008}
-Figure~\ref{fig:recorded-response-inference} therefore gives each estimand its own panel and scale.
+The participant analysis would therefore have detected an individual-level effect of that magnitude with at least 80\% probability, although the two estimates belong to different response constructions and estimands.
+The participant result does not prove an exactly zero effect.\evd{E005}\evd{E008}
 
 \begin{figure}[H]
   \centering
@@ -258,9 +246,8 @@ Figure~\ref{fig:recorded-response-inference} therefore gives each estimand its o
 \end{figure}
 \FloatBarrier
 
-The tested variants address specific alternative explanations, but none provides evidence that changes the participant-general conclusion.
-Table~\ref{tab:recorded-variants} gives each variant's strongest valid observation and the conclusion its own design scopes.
-Objectives and schedules are documented in Appendix~\ref{app:training}, secondary-variant dispositions in Appendix~\ref{app:secondary}, and full numerical tables in Appendix~\ref{app:sensitivities}.
+The tested variants address specific alternative explanations, but none provides evidence that changes the participant-general conclusion (Table~\ref{tab:recorded-variants}).
+Appendices~\ref{app:training}, \ref{app:secondary}, and \ref{app:sensitivities} give objectives and schedules, variant dispositions, and full numerical tables.
 
 \begin{table}[H]
   \centering
@@ -290,23 +277,22 @@ Objectives and schedules are documented in Appendix~\ref{app:training}, secondar
     & The intended manipulation is not demonstrated; this is not a naturalistic population null. \\
     \midrule
     Naturalistic full fine-tuning
-    & Lower-intensity training shows no brain-specific paired gain across three participant probes; higher-intensity training causes forgetting of previously learned language-model behavior.\evd{E017}
+    & Lower-intensity training shows no brain-specific paired gain across three participant probes; higher-intensity training collapses previously learned language-model quality.\evd{E017}
     & The tested full-parameter route does not rescue the effect, and no population-general inference is supported. \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
 Across the tested recorded-response interventions, a participant-general advantage of correct stimulus--response pairing is not demonstrated for the tested targets, models, objectives, cohorts, and readouts; this is not a universal null.
-The synthetic-response route is a separate intervention route.
-Section~\ref{sec:results-predicted-identification} first evaluates the declared 50-component linear pathway from the synthetic target to recorded responses.
+The synthetic-response route is separate, and Section~\ref{sec:results-predicted-identification} first evaluates its declared 50-component linear pathway from the synthetic target to recorded responses.
 
 \subsection{Measurability of the 50-component linear target projection}
 \label{sec:results-predicted-identification}
 
-Section~\ref{sec:measurement-prerequisites} defines \(A(u)\) as the aligned-target increment over nuisance for participant \(u\), and \(Q(u)\) as the added value of correct sentence--target pairing over the frozen row-twin control.
-Both are aggregated across folds within each participant, so the participant is the biological inference unit.
+Section~\ref{sec:measurement-prerequisites} defines the aligned-target increment \(A(u)\) over nuisance and the correct-pairing increment \(Q(u)\) over the frozen row-twin control, both aggregated across folds so that the participant is the biological inference unit.
 
 The aligned-target increment does not pass the continuation rule carried over from the biological-transfer design.
+It is an internal decision rule: it requires the upper endpoint of the family-95\% interval to exceed \(\tau_{\mathrm{cont}}\).
 Let \(\bar{A}\) be the participant mean of \(A(u)\) (\result{e030_participant_n}).
 Let \(U^{\mathrm{family}}_{95\%}(\bar{A})\) be the upper endpoint of its two-sided Bonferroni family-95\% interval and \(\tau_{\mathrm{cont}}\) the continuation threshold.
 The result is
@@ -331,14 +317,10 @@ U^{\mathrm{family}}_{95\%}(\bar{A})
 \label{eq:exact-target-measurability-result}
 \end{equation}
 Only \result{e030_target_positive_n} participant effects are positive, and every leave-one-out mean, dropping any single participant or stimulus block, remains negative.
-The increment therefore does not warrant the declared follow-up under the fixed conditions of the assay.
 
-The frozen row twin preserves the target rows and readout procedure while breaking their pairing with sentences.
-The participant mean of \(Q(u)\), the aligned-minus-row-twin contrast, is \result{e030_target_twin}.
+The participant mean of the correct-pairing increment \(Q(u)\) is \result{e030_target_twin}.
 Its Bonferroni family-95\% interval is \result{e030_target_twin_ci}.
-\result{e030_target_twin_positive_n} participant contrasts are positive, but the interval spans zero. \evd{E030}
-
-Figure~\ref{fig:exact-target-measurability} places the two participant-level contrasts on a common scale.
+\result{e030_target_twin_positive_n} participant contrasts are positive, but the interval spans zero (Figure~\ref{fig:exact-target-measurability}). \evd{E030}
 
 \begin{figure}[H]
   \centering
@@ -350,42 +332,34 @@ Figure~\ref{fig:exact-target-measurability} places the two participant-level con
 
 \looseness=-1 On the fixed sentence set, linear measurability of the target projection is not demonstrated, and row-pairing specificity remains unresolved.
 Training used the full 20,484-coordinate target, so not clearing the continuation rule says nothing about full-dimensional or nonlinear access to that target.
-The assay also leaves open total predictivity, predictivity redundant with the nuisance model, and effects under another target transform, cohort, or endpoint; it does not causally explain the later student results.
-The next subsection asks the independent question of whether training produced target uptake and retained-student movement, and whether the available comparator attributes any arm difference to brain-response content.
+The assay leaves open total predictivity, predictivity redundant with the nuisance model, and effects under another target transform, cohort, or endpoint.
+The next subsection asks independently whether training produced target uptake and retained-student movement, and whether the available comparator attributes any arm difference to brain-response content.
 
 \subsection{Synthetic-response manipulation checks and attribution status}
 \label{sec:results-synthetic-manipulation}
 
-Training changed the saved student even though the separate target-projection assay did not meet its continuation rule.
-The first manipulation check asks whether a fresh readout recovers more of the synthetic target from the synthetic-response student than from its seed-matched ordinary \ac{kd} student.
-Across the \result{e016_seed_n} saved technical seeds, the mean recovery difference of Equation~\ref{eq:target-uptake-rule} is \result{e016_tribe_synth_gain}, with two-sided 95\% seed-axis \(t\) interval \result{e016_tribe_synth_gain_ci}.
-Every saved technical seed improves recovery, so the saved procedure passes the WikiText target-uptake check.
+Training changed the saved student.
+Across the \result{e016_seed_n} saved technical seeds, a fresh readout recovers more of the synthetic target from the synthetic-response student than from its seed-matched ordinary \ac{kd} student, by \result{e016_tribe_synth_gain} under Equation~\ref{eq:target-uptake-rule}, with two-sided 95\% seed-axis \(t\) interval \result{e016_tribe_synth_gain_ci}.
+Every saved technical seed improves recovery, so the saved procedure passes the WikiText target-uptake check and uptake is supported.
 These seeds quantify technical stability, not biological or model-population uncertainty. \evd{E016}\evd{E025}
 
-The retained student also moved while measured language quality remained within the declared margin.
-Mean movement from the ordinary \ac{kd} student, measured by layer-6 centered relative Frobenius distance, is \result{e025_tribe_movement_mean}.
+The retained student also moved away from its ordinary \ac{kd} counterpart, by a mean layer-6 centered relative Frobenius distance of \result{e025_tribe_movement_mean}.
 Every saved technical seed passes the movement check.
 Across the direct saved-arm comparisons, the largest absolute language-quality difference is \result{e025_quality_max_gap} bits per byte, below the frozen \result{e025_quality_margin} margin.
-These results show that the intervention changed the retained student without a detected language-quality discrepancy larger than the declared margin.
-They do not show that brain-response content caused the change or improved language quality. \evd{E025}
+The movement is therefore established at language quality within the declared margin, but not shown to arise from brain-response content. \evd{E025}
 
-On held-out Tuckute sentences, scored beyond the nuisance model, the same contrast does not reproduce that WikiText recovery gain.
+On fresh held-out Tuckute sentences, scored beyond the nuisance model, that recovery gain over ordinary \ac{kd} does not reappear.
 Absolute target extractability from the synthetic-response students is \result{e030_target_extract}, with Bonferroni family-95\% interval \result{e030_target_extract_ci}.
 The incremental synthetic-response-minus-ordinary \ac{kd} estimate is instead \result{e030_retention_delta}, with Bonferroni family-95\% interval \result{e030_retention_delta_ci}.
-Thus, the target is linearly recoverable from the trained students on these sentences, but whether synthetic-response training increased its recoverability beyond ordinary \ac{kd} remains unresolved. \evd{E030}
+Thus, the target is linearly recoverable from the trained students on these sentences, but whether synthetic-response training increased its recoverability beyond ordinary \ac{kd} remains unresolved (Figure~\ref{fig:synthetic-manipulation-results}). \evd{E030}
 
-Differences between the arms in these manipulation results cannot be attributed to brain-response content, because the available text-derived auxiliary-control arm is not adequately matched.
-The text-derived auxiliary-control arm fails \result{e026_check_split} identification checks.
-Baseline learnability differs most: before intervention, ordinary \ac{kd} representations recover mean target \(R^2\) of \result{e026_kd_targets} for the synthetic and text-derived targets, respectively.
-This leaves \result{e026_headroom_ratio} times as much remaining room for target recovery for the synthetic target.
+Differences between the synthetic-response and text-derived arms in these manipulation results cannot be attributed to brain-response content: the text-derived auxiliary-control arm fails \result{e026_check_split} identification checks (Figure~\ref{fig:synthetic-comparator-audit}).
+Baseline learnability differs most: before intervention, ordinary \ac{kd} representations recover mean target \(R^2\) of \result{e026_kd_targets} for the synthetic and text-derived targets, leaving \result{e026_headroom_ratio} times as much remaining room for the synthetic target.
 The arm also fails the required target-parity margins for covariance geometry, effective rank, and low-level nuisance predictability.
 Training parity is unresolved for initial auxiliary loss and gradient magnitude, which were not retained.
 
-Separately, \result{e026_diagnostic_split} post-training diagnostic margins depart from their original engineering ranges.
-The pre-outcome and baseline mismatches can affect apparent learnability and retained-student movement without any difference in brain-response content.
-The audit does not establish which mismatch caused the observed cross-target difference. \evd{E026}
-
-Figure~\ref{fig:synthetic-manipulation-attribution} separates these manipulation results from the attribution audit.
+Separately, \result{e026_diagnostic_split} post-training diagnostic margins fall outside the audit's original engineering tolerances, which were descriptive margins and not declared decision rules.
+The pre-outcome and baseline mismatches can affect apparent learnability and retained-student movement without any difference in brain-response content. \evd{E026}
 
 \begin{figure}[H]
   \centering
@@ -409,16 +383,14 @@ Figure~\ref{fig:synthetic-manipulation-attribution} separates these manipulation
 \end{figure}
 \FloatBarrier
 
-The saved block-permuted arm cannot resolve this attribution problem, because its construction is not an exact null (Section~\ref{sec:framework}). \evd{E016}
+The saved block-permuted arm cannot resolve this attribution problem, because it leaves some rows correctly paired and can duplicate or omit a row (Section~\ref{sec:framework}). \evd{E016}
 
-The intervention therefore produced target uptake and retained-student movement, but the available comparator remained non-identifying for the attribution claim.
-The next subsection tests biological transfer while preserving that limit.
+The intervention therefore produced target uptake and retained-student movement, but the available comparator remained non-identifying for attribution; the next subsection tests biological transfer under that limit.
 
 \subsection{Saved-student biological-transfer assays}
 \label{sec:results-predicted-transfer}
 
-The direct biological-transfer assay compares each synthetic-response student with its seed-matched ordinary \ac{kd} student.
-Folds and technical seeds are averaged within each participant, and the participant is the biological inference unit (\result{e025_participant_n}).
+The direct biological-transfer assay compares each synthetic-response student with its seed-matched ordinary \ac{kd} student, averaging folds and technical seeds within each participant so that the participant is the biological inference unit (\result{e025_participant_n}).
 The participant-level result is
 \begin{equation}
 \begin{aligned}
@@ -431,7 +403,7 @@ The participant-level result is
 \end{aligned}
 \label{eq:results-direct-biological-transfer}
 \end{equation}
-Here, \(\widehat{\Delta}_{\mathrm{direct}}\) is the participant-mean change in held-out unique \(R^2\) produced by synthetic-response training relative to ordinary \ac{kd}.
+Here \(\widehat{\Delta}_{\mathrm{direct}}\) is the participant-mean change in held-out unique \(R^2\) from synthetic-response training relative to ordinary \ac{kd} (Figure~\ref{fig:saved-student-biological-transfer}a).
 The participant \(t\) interval spans zero, so participant-general biological transfer is not demonstrated in the tested cohort.
 Its scope remains limited to the fixed target, student, layer, nuisance design, sentences, participants, and \ac{roi} endpoint. \evd{E025}
 
@@ -455,12 +427,9 @@ The positive relative contrast arises because the text-derived auxiliary-control
 The participant \(t\) interval also spans zero.
 The one-sided 95\% participant upper bound \result{e025_participant_ucb} lies below the continuation threshold \result{e030_practical_threshold}, so a participant-mean effect of at least that size is excluded, though not shown to be exactly zero.
 The observed-variance 80\% \ac{mde} for this contrast is \result{e025_participant_mde}.
-Section~\ref{sec:results-synthetic-manipulation} shows that the text-derived auxiliary-control arm is not adequately matched as a comparator.
-The contrast therefore cannot identify an effect of brain-response content. \evd{E025}\evd{E026}
+Because the text-derived auxiliary-control arm is not adequately matched (Section~\ref{sec:results-synthetic-manipulation}), this contrast cannot identify an effect of brain-response content. \evd{E025}\evd{E026}
 
-The composed-path diagnostic asks a different question.
-It measures whether the synthetic-target component that a fresh readout recovers from the frozen student also predicts recorded responses.
-Figure~\ref{fig:saved-student-biological-transfer}b presents its three participant-level estimands:
+The composed-path diagnostic instead measures whether the synthetic-target component that a fresh readout recovers from the frozen student also predicts recorded responses, through three participant-level estimands (Figure~\ref{fig:saved-student-biological-transfer}b):
 \begin{align}
 \widehat{O}
 &=
@@ -488,12 +457,8 @@ Figure~\ref{fig:saved-student-biological-transfer}b presents its three participa
 \end{align}
 Here, \(O\) measures absolute aligned predictive overlap, \(D\) measures its increment over seed-matched ordinary \ac{kd}, and \(J\) asks whether that increment is larger for correctly aligned targets than for the frozen row twin.
 Every Bonferroni family-95\% interval spans zero.
-The composed-path diagnostic therefore leaves predictive overlap, incremental overlap over ordinary \ac{kd}, and any aligned-over-row-twin increment unresolved under participant inference.
+All three quantities therefore remain unresolved under participant inference.
 These quantities are predictive-path diagnostics, not causal-mediation estimates. \evd{E030}
-
-Figure~\ref{fig:saved-student-biological-transfer} summarizes the direct assay and the composed-path diagnostic.
-Panel~a shows the nine direct participant effects and their participant-level interval; the zero line makes the uncertain direction visible without treating folds or technical seeds as additional biological observations.
-Panel~b shows the Bonferroni family-95\% intervals for \(O\), \(D\), and \(J\).
 
 \begin{figure}[H]
   \centering
@@ -521,7 +486,7 @@ Panel~b shows the Bonferroni family-95\% intervals for \(O\), \(D\), and \(J\).
 \label{sec:results-utility}
 
 The only completed practical-utility evaluation compares the averaged recorded-response arm with its approximately quality-matched permuted-response control across \result{e009_seed_n} technical training seeds.
-Negative values of the recorded-response-minus-permuted-response contrast defined in Equation~\ref{eq:practical-utility-ratio} favor the recorded-response arm.
+Negative values of that contrast (Equation~\ref{eq:practical-utility-ratio}) favor the recorded-response arm.
 Averaging that contrast across seeds gives
 \begin{equation}
 \overline{\Delta R}_{\mathrm{Pereira}}
@@ -533,13 +498,11 @@ Averaging that contrast across seeds gives
 \mbox{\result{e009_lebel_recorded_permuted}}.
 \label{eq:results-practical-utility}
 \end{equation}
-These are the mean contrasts for Pereira sentences~\autocite{pereira2018} and LeBel story text~\autocite{lebel2023}, respectively.
-Both point estimates favor the recorded-response arm.
-The completed analysis retained no paired technical-seed uncertainty interval or formal equivalence test, and an \ac{mde} cannot substitute for either.
+Both mean contrasts, for Pereira sentences~\autocite{pereira2018} and LeBel story text~\autocite{lebel2023}, favor the recorded-response arm (Figure~\ref{fig:bounded-practical-utility}a).
+The completed analysis retained no paired technical-seed uncertainty interval or formal equivalence test.
 The endpoint contrasts are therefore unresolved. \evd{E009}
 
-The endpoint means can be credited to brain-response training only if that training reliably changed controlled brain predictivity.
-Equation~\ref{eq:practical-utility-prerequisite} defines this prerequisite contrast in controlled brain predictivity as \(A_s\).
+The endpoint means can be credited to brain-response training only if that training reliably changed controlled brain predictivity, the prerequisite contrast \(A_s\) of Equation~\ref{eq:practical-utility-prerequisite}.
 Its seed-level summary is
 \begin{equation}
 \operatorname{mean}_s(A_s)
@@ -555,13 +518,11 @@ Its seed-level summary is
 \mbox{\result{e009_fulcrum_mde}}.
 \label{eq:results-utility-prerequisite}
 \end{equation}
-The \ac{mde} in Equation~\ref{eq:results-utility-prerequisite} is a sensitivity reference for the prerequisite contrast, not an acceptance threshold or equivalence margin.
+The \ac{mde} is a sensitivity reference, not an acceptance threshold or equivalence margin.
 
 Only \result{e009_positive_seed_signs} of the technical-seed prerequisite contrasts are positive.
 Seed~0 contributes \result{e009_seed0_gap}, whereas the remaining seeds average approximately \result{e009_other_seven_mean}.
-The mixed signs and seed-0 influence leave the controlled-predictivity prerequisite not demonstrated across technical seeds. \evd{E009}
-
-Figure~\ref{fig:bounded-practical-utility} shows the two limits on the practical-utility conclusion.
+The mixed signs and seed-0 influence leave the controlled-predictivity prerequisite not demonstrated across technical seeds (Figure~\ref{fig:bounded-practical-utility}b). \evd{E009}
 
 \begin{figure}[H]
   \centering
