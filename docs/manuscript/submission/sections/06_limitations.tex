@@ -9,67 +9,47 @@ The reach of those conclusions is bounded by the populations and measurements co
 The biological evidence is limited to \ac{fmri} responses to English-language stimuli from the studied cohorts.
 The sentence-level assays summarize responses within fixed left-hemisphere language \acp{roi}.
 The naturalistic voxelwise predictivity assay instead uses voxels selected for response reliability in one participant who was scanned extensively while listening to stories.
-Some recorded-response targets average responses across participants to emphasize a shared stimulus-locked component; the participant-level analyses instead retain one within-participant summary effect per person.
+Some recorded-response targets average responses across participants; the participant-level analyses instead retain one within-participant summary effect per person.
 The conclusions therefore concern these isolated-sentence and spoken-story response summaries, not language processing across the whole brain or population at large.\evd{E002}\evd{E006}\evd{E008}\evd{E025}
 
 The study does not cover recording modalities with finer temporal resolution, populations that differ in language background or in clinical and developmental status, non-English or nonlinguistic stimuli, or broader reading, listening, and interactive contexts.
-It also does not test whether nonlinear mappings could recover information that the declared linear ridge readouts miss or at different temporal scales.
-These untested settings may change what brain information is measured and how that information can enter training, so the route-specific conclusions do not extend to them.\evd{E006}\evd{E030}
+It also does not test whether nonlinear mappings could recover information that the declared linear ridge readouts miss.
+The route-specific conclusions therefore do not extend to these settings.\evd{E006}\evd{E030}
 
 \subsection{Identification and inference limitations}
 
 What each result identifies depends on the nuisance set, comparator, readout, and inference unit.
 Unique predictivity rules out, as alternative explanations, only the nuisance features that were actually included.
-Where both arms pass through byte-identical nuisance features, the trained-versus-untrained contrast shows that training produced the predictive access; it does not show a shared biological or computational mechanism.\evd{E006}
-In the regional assay the untrained arm's static-embedding nuisance was built from its own model, so that contrast leaves unresolved whether the predictivity gain comes from the learned parameters.\evd{E002}
+In the regional assay the untrained arm's static-embedding nuisance was built from its own model, so the trained-versus-untrained contrast leaves unresolved whether the predictivity gain comes from the learned parameters.\evd{E002}
 The text-derived auxiliary-control arm differs from the synthetic target in baseline predictability, remaining headroom, covariance geometry, effective rank, and nuisance predictability.
 Its cross-target contrast therefore cannot identify the contribution of brain-response content.\evd{E026}
-The target-projection result is restricted to the declared \ac{pca} assay, and specificity against the frozen row-twin control remains unresolved.\evd{E030}
-To keep these boundaries explicit, the thesis separates three inference tracks: biological, fixed-stimulus, and technical.
-On the biological track, participant-general claims aggregate technical repetitions within each participant before comparing across participants.
-On the fixed-stimulus track, analyses condition their inference on the declared sentence or story set.
-On the technical track, seeds, folds, stories, voxels, and \acp{roi} count as repetitions of a procedure and never stand in for participants.\evd{E008}\evd{E025}
-Even after this aggregation, the fixed or shared stimulus sets do not support generalization to all language stimuli.
+The target-projection result is restricted to the declared 50-component linear pathway, and specificity against the frozen row-twin control remains unresolved.\evd{E030}
+Section~\ref{sec:estimands} defines the biological, fixed-stimulus, and technical tracks that keep the inference units apart, and even correct aggregation cannot extend a fixed or shared stimulus set to all language stimuli.\evd{E008}\evd{E025}
 Appendix~\ref{app:inference} formalizes these identification and dependence boundaries.
 
 The study contains positive checks for separate parts of the argument: the measurement assays support controlled brain predictivity, and the synthetic-response intervention satisfies the target-uptake and retained-student-movement criteria.
 It does not contain a positive control, that is, a brain-response intervention already expected to improve participant-level biological transfer through the complete evaluation path.
-The positive component checks therefore show that the readouts detect existing signal and that training changes the retained student.
-They do not establish that the full intervention-to-transfer path is sensitive enough to reveal a genuine brain-specific training advantage.\evd{E002}\evd{E006}\evd{E025}
-This limitation leaves open whether a smaller or differently structured benefit would pass the complete path, subject to the interval and minimum-detectable-effect bounds reported in Section~\ref{sec:results-predicted-transfer}.
+The component checks do not establish that the full intervention-to-transfer path is sensitive enough to reveal a genuine brain-specific training advantage.\evd{E002}\evd{E006}\evd{E025}
 
-\looseness=-1 Within those design bounds, the participant-level and exact-target intervals reported in Sections~\ref{sec:results-recorded}, \ref{sec:results-predicted-identification}, and \ref{sec:results-predicted-transfer} answer different sensitivity questions under different decision rules.
-The recorded-response pairing analysis reports a participant-level interval and, separately, a minimum detectable effect as a sensitivity quantity.
-Neither is interpreted as excluding effects at least as large as a declared continuation threshold.\evd{E008}
-By contrast, the participant upper bound from the biological-transfer assay and the exact-target interval from the target-projection assay are read against their declared continuation thresholds.
-Each disfavors effects at least as large as its own threshold, for direct biological transfer and for target measurability respectively.\evd{E025}\evd{E030}
-They do not establish that the corresponding effects are exactly zero.
-The direct synthetic-response versus ordinary-\ac{kd} transfer contrast is interpretable independently of the auxiliary comparator.
-Brain-response-specific attribution, however, is not identified, because the available comparator cannot isolate an effect of brain-response content.
-As noted above, specificity against the frozen row-twin control in the 50-component linear assay remains unresolved.
-Smaller average contrasts across participants, heterogeneous participant effects, and effects in other cohorts remain compatible with the evidence.\evd{E008}\evd{E025}\evd{E026}\evd{E030}
+The recorded-response participant analysis (Section~\ref{sec:results-recorded}) reports an interval and a minimum detectable effect but declared no continuation threshold, so it bounds sensitivity without excluding any effect size.\evd{E008}
+The threshold exclusions in Sections~\ref{sec:results-predicted-identification} and \ref{sec:results-predicted-transfer} belong to the target-projection assay and to the attribution endpoint, the cross-target contrast above, not to the direct biological-transfer contrast, which is bounded only by its participant interval.\evd{E025}\evd{E030}
+Smaller average contrasts across participants, heterogeneous participant effects, and effects in other cohorts remain compatible with the evidence.\evd{E008}\evd{E025}\evd{E030}
 
 \subsection{Intervention and utility scope}
 
-The intervention search aimed to diagnose where each route failed, not to cover the design space.
 The central synthetic-response route tested a GPT-2 Small student paired with a GPT-2 Medium teacher, representing one teacher--student scale pairing within one architecture family (Section~\ref{sec:synthetic-intervention}).\evd{E016}
 The recorded-response route instead distils a Qwen2.5-1.5B teacher into a Qwen2.5-0.5B student (Section~\ref{sec:recorded-intervention}).\evd{E005}
-Qwen was selected for that route because it was the strongest aligner in the regional assay of Section~\ref{sec:results-signal} and the better-powered substrate.\evd{E002}\evd{E004}\evd{E005}
-The two routes therefore run in different model families.
-Each route is evaluated only against its own control at comparable language quality, under the eligibility rule in Section~\ref{sec:estimands}, so no result compares one route with the other and no reported contrast depends on the family difference.
+The routes therefore run in different model families, and each is evaluated only against its own control under the eligibility rule in Section~\ref{sec:estimands}, so no result compares one route with the other and no reported contrast depends on the family difference.
 Across both routes, the study did not jointly explore broader student architectures, objective families, loss weights, schedules, data volumes, target constructions, or participant-personalization strategies.
-The executed adapter-capacity, contrastive, voxelwise, and full-parameter variants inform only their tested parameterizations and data regimes.\evd{E011}\evd{E013}\evd{E017}
-The naturalistic and full-parameter variants were probes of mechanism, or three-participant existence checks, not participant-general tests, so they do not broaden population inference.\evd{E013}\evd{E017}
+The naturalistic and full-parameter variants were probes of mechanism, or three-participant existence probes, not participant-general tests, so they do not broaden population inference.\evd{E013}\evd{E017}
 Section~\ref{sec:results-recorded} and Appendix~\ref{app:secondary} report the individual variant designs and dispositions.
-Different model scales, targets, objectives, architectures, and optimization procedures remain open.
 
 The practical-utility evaluation in Section~\ref{sec:results-utility} rests on a narrow set of endpoints.
 Perplexity served both as a language-quality control and as the primary out-of-domain utility measure; the study therefore did not evaluate task accuracy, calibration, robustness, sample efficiency, or deployment-specific value.
-The completed endpoint analysis reports descriptive means across eight technical seeds but no paired endpoint interval or equivalence test, so the direct endpoint advantage remains unresolved.
+The completed endpoint analysis reports descriptive means across technical seeds but no paired endpoint interval or equivalence test, so the direct endpoint advantage remains unresolved.\evd{E009}
 The recorded-response route also did not establish the technically stable change in controlled brain predictivity that would be required to interpret that endpoint contrast as brain-specific utility.\evd{E009}
 No synthetic-response utility test was run.
 Sections~\ref{sec:results-predicted-identification} and \ref{sec:results-predicted-transfer} report that the target-projection assay did not meet its continuation rule and that participant-level biological transfer was not demonstrated.\evd{E025}\evd{E030}
 The supporting studies summarized in Appendix~\ref{app:secondary} tested narrow design levers, stopped before intervention, or stopped because the planned measurement was unusable.\evd{E019}\evd{E020}\evd{E022}\evd{E024}
 They therefore do not broaden the set of completed endpoints that identify brain-specific utility.
-No completed route supports a brain-specific practical-utility claim under the tested procedures.
 Whether an intervention with a successfully identified biological effect would also help at untested practical endpoints remains open.

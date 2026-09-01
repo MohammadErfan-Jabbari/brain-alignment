@@ -272,15 +272,15 @@ The opener must bridge from Section 5 and preview population and measurement cov
 
 #### 6.2 Identification and inference limitations
 
-1. How do the specified nuisance sets, comparator mismatch, restricted linear readout, 50-component \ac{pca} target assay, unresolved twin contrast, dependence structures, and absence of a known-positive intervention that traverses the complete biological-transfer path bound identification?
+1. How do the specified nuisance sets, comparator mismatch, restricted linear readout, 50-component \ac{pca} target assay, and unresolved twin contrast bound identification?
 2. What do the positive measurement and manipulation checks validate, and what do they leave untested about the sensitivity of the complete intervention-to-transfer path?
-3. How does E008's minimum detectable effect bound sensitivity without a continuation-threshold exclusion, which E025 and E030 contrasts are disfavored at their declared continuation scales, and which smaller, heterogeneous, or out-of-cohort effects remain compatible with the data?
+3. How does E008's minimum detectable effect bound sensitivity without a continuation-threshold exclusion, which analyses carry such an exclusion and which do not, and which smaller, heterogeneous, or out-of-cohort effects remain compatible with the data?
 
-Section 4 owns the exact estimates and intervals. This subsection must cross-reference the relevant Results subsections and state only the scope those bounds support. Appendix D owns estimator and dependence details.
+Section 4 owns the exact estimates and intervals. This subsection must cross-reference the relevant Results subsections and state only the scope those bounds support. Appendix D owns estimator and dependence details. An exclusion belongs to the contrast that carries it: E025's threshold-read upper bound is the attribution endpoint's, and reading it onto the direct biological-transfer contrast, which carries only a participant interval, is how this subsection previously claimed more than Section 4 reports.
 
 #### 6.3 Intervention and utility scope
 
-1. Relative to the executed model and objective search, which student scales, architectures, objectives, schedules, data scales, target constructions, and personalization strategies remain untested?
+1. Relative to the executed model and objective search, which student scales, architectures, objectives, schedules, data scales, target constructions, and personalization strategies remain untested, and why can no result be read across the two routes?
 2. Why do limited language-quality and downstream endpoints, narrow supporting reproductions, and routes that did not satisfy the requirements for an interpretable utility test leave broader practical utility unresolved?
 
 Keep the recorded-response and synthetic-response utility boundaries separate. Section 4 owns the completed utility and prerequisite verdicts, while Appendix E owns named supporting reproductions and stopped-study details. Section 6 may summarize why those limits leave broader utility unresolved but must not create a second results narrative.
