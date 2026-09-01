@@ -1,0 +1,80 @@
+% Cover page produced by the OFFICIAL UC3M TFM Overleaf template (IEEE style).
+% The titlepage block below is memoria.tex's own, byte for byte, with only the
+% placeholder field values substituted. Do not restyle it.
+%
+% Rebuild:  cd docs/manuscript/submission/cover && latexmk -pdf cover.tex
+% main-submission.tex includes the resulting cover.pdf as page 1.
+
+\documentclass[12pt]{report} % font: 12pt
+
+% margins: 2.5 cm top and bottom; 3 cm left and right
+% letterpaper, not the template's a4paper: the body is letter, and the accepted
+% UC3M Machine Learning for Health thesis this follows is letter too.
+\usepackage[letterpaper,vmargin=2.5cm,hmargin=3cm]{geometry}
+
+\renewcommand{\baselinestretch}{1.15}
+\parskip=6pt
+
+\usepackage[table]{xcolor}
+\definecolor{azulUC3M}{RGB}{0,0,102}
+
+\usepackage{txfonts}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{graphicx}
+\graphicspath{{../style/}} % the two template images, vendored beside the NeurIPS style
+
+\pagestyle{empty}
+\begin{document}
+\begin{titlepage}
+	\begin{sffamily}
+	\color{azulUC3M}
+	\begin{center}
+		\begin{figure}[H] % UC3M Logo
+			\makebox[\textwidth][c]{\includegraphics[width=16cm]{logo_UC3M.png}}
+		\end{figure}
+		\vspace{1.0cm} % Template value is 2.5cm. The template's example lists one
+		              % tutor; this cover lists four names, and the three extra
+		              % lines are ~2.1cm tall. \vfill below absorbs what it can;
+		              % this is the remainder. No text is removed.
+		\begin{Large}
+			Master's Degree in Machine Learning for Health\\			
+			2025-2026\\ % Academic year
+			\vspace{2cm}		
+			\textsl{Master Thesis}
+			\bigskip
+			
+		\end{Large}
+		 	{\Huge ``Evaluating Brain Alignment as a Training Signal for Language Models''}\\
+		 	\vspace*{0.5cm}
+	 		\rule{10.5cm}{0.1mm}\\
+			\vspace*{0.9cm}
+			{\LARGE MohammadErfan Jabbari}\\ 
+			\vspace*{1cm}
+		\begin{Large}
+			Alejandro Lancho Serrano\\
+			Pablo Mart\'inez Olmos\\
+			Marco Fiore (IMDEA Networks)\\
+			Claudio Fiandrino (IMDEA Networks)\\
+			Legan\'es, September 2026\\
+		\end{Large}
+	\end{center}
+	\vfill
+	\color{black}
+	\fbox{
+	\begin{minipage}{\linewidth}
+    	\textbf{AVOID PLAGIARISM}\\
+    	\footnotesize{The University uses the \textbf{Turnitin Feedback Studio} for the delivery of student work. This program compares the originality of the work delivered by each student with millions of electronic resources and detects those parts of the text that are copied and pasted. Plagiarizing in a TFM is considered a  \textbf{\underline{Serious Misconduct}}, and may result in permanent expulsion from the University.}\end{minipage}}
+
+	% IF OUR WORK IS TO BE PUBLISHED UNDER A CREATIVE COMMONS LICENSE, INCLUDE THESE LINES. IS THE RECOMMENDED OPTION.
+	% Wrapped so the badge and its licence line cannot be split across pages;
+	% LaTeX broke between them. No template content or spacing is changed.
+	\noindent\begin{minipage}{\linewidth}
+	\noindent\includegraphics[width=4.2cm]{creativecommons.png}\\ % Creative Commons Logo
+    \footnotesize{This work is licensed under Creative Commons \textbf{Attribution – Non Commercial – Non Derivatives}}
+	\end{minipage}
+	
+	\end{sffamily}
+\end{titlepage}
+\end{document}
