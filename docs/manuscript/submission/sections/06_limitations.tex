@@ -53,6 +53,9 @@ Smaller average contrasts across participants, heterogeneous participant effects
 
 The intervention search aimed to diagnose where each route failed, not to cover the design space.
 The central synthetic-response route tested a GPT-2 Small student paired with a GPT-2 Medium teacher, representing one teacher--student scale pairing within one architecture family.\evd{E016}
+The recorded-response route instead distils a Qwen2.5-1.5B teacher into a Qwen2.5-0.5B student, selected because Qwen was the strongest aligner in the regional assay and the better-powered substrate.\evd{E002}\evd{E004}\evd{E005}
+The two routes therefore run in different model families.
+Each route is evaluated only against its own control at comparable language quality, so no result compares one route with the other and no reported contrast depends on the family difference.
 Across both routes, the study did not jointly explore broader student architectures, objective families, loss weights, schedules, data volumes, target constructions, or participant-personalization strategies.
 The executed adapter-capacity, contrastive, voxelwise, and full-parameter variants inform only their tested parameterizations and data regimes.\evd{E011}\evd{E013}\evd{E017}
 The naturalistic and full-parameter variants were probes of mechanism, or three-participant existence checks, not participant-general tests, so they do not broaden population inference.\evd{E013}\evd{E017}
