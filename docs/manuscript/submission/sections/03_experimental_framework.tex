@@ -453,7 +453,9 @@ These target-construction, baseline, and pre-update calibration properties are i
 Parameter and representation movement are post-training diagnostics that may explain how the interventions differed; they are not comparator-matching conditions.
 Passing every required pre-outcome or baseline axis is necessary but not sufficient for attributing an effect to brain-response content.
 Failure on any such axis makes the contrast non-identifying; if no required axis fails but a required measurement is missing, attribution remains unresolved.
-The available block-permuted targets are also non-identifying because their construction can retain aligned rows and can duplicate or omit a row.
+The available block-permuted targets are also non-identifying, for a reason in how they were built.
+The construction splits the sentences into ten contiguous blocks, permutes the block order, and pairs each destination block with its source block only up to the shorter of the two lengths.
+Because the blocks come out unequal in length, a destination row past that cut keeps its own target, and a source row past that cut is never used, so the result retains some correctly aligned rows and can duplicate or omit a row rather than being an exact permutation.\evd{E016}
 The frozen row-twin control therefore supplies an exact-permutation sensitivity check that alters only the target.
 Because no student was trained against that control, it cannot replace the text-derived auxiliary-control arm.\evd{E026}\evd{E030}
 
