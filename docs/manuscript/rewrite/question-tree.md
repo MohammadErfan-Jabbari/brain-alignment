@@ -40,9 +40,9 @@ No subsections. Seven paragraphs:
 1. Why might brain responses select among language-compatible model representations in a smaller model?
 2. What is brain alignment operationally, and which parts of that definition are assay-dependent?
 3. Why does a positive brain-alignment score not establish that brain responses can help train a smaller model, a brain-specific advantage, biological transfer, or utility?
-4. What remains unresolved after prior encoding, brain-response-guided optimization, privileged-information, and compression work?
-5. Which claim-specific dependencies would justify a brain-specific training advantage at comparable language-model quality?
-6. What scoped answer does this study provide, and where is support lost or unresolved?
+4. What remains unresolved after prior brain-response-guided optimization and privileged-information work, and why does settling it require a matched control?
+5. What exact claim does this study test, and which claim-specific dependencies, with their comparators for each route, would justify a brain-specific training advantage at comparable language-model quality?
+6. What scoped answer does this study give for each dependency named in the preceding paragraph, and where is support lost or unresolved?
 7. What three contributions does the study make, and what limits the conclusion?
 
 The three contributions are controlled measurement with quality-aware interpretation, participant-level tests of training with recorded fMRI responses, and separation of synthetic-target projection measurability, uptake, movement, comparator validity, and biological transfer. Do not use internal rung names, experiment history, or E identifiers here.

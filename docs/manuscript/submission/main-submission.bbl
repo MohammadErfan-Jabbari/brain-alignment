@@ -290,8 +290,8 @@
       \strng{authorbibnamehash}{465cc39a8544a05ddd7d01cd43e41f75}
       \strng{authornamehash}{465cc39a8544a05ddd7d01cd43e41f75}
       \strng{authorfullhash}{465cc39a8544a05ddd7d01cd43e41f75}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{L2 voxelwise loss, ~90M speech LMs; see canonical/moussa-2025}
@@ -336,8 +336,8 @@
       \strng{authorbibnamehash}{57b986460475fb2398d81b80692aa806}
       \strng{authornamehash}{57b986460475fb2398d81b80692aa806}
       \strng{authorfullhash}{0df3796f834399bf29dfe9d58d22068b}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{reproduction target; baseline not perplexity-matched; see canonical/negi-2025}
@@ -369,8 +369,8 @@
       \strng{authorbibnamehash}{17b5caba01a157ffa04d88a5f78e9d4a}
       \strng{authornamehash}{17b5caba01a157ffa04d88a5f78e9d4a}
       \strng{authorfullhash}{17b5caba01a157ffa04d88a5f78e9d4a}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{brain, stimulus, and joint LoRA tuning on BERT and GPT-2; see canonical/merlin-2026_what-brain-data-adds}
@@ -407,8 +407,8 @@
       \strng{authorbibnamehash}{dc3ed915b74d96751c918553ad4bc117}
       \strng{authornamehash}{dc3ed915b74d96751c918553ad4bc117}
       \strng{authorfullhash}{dc3ed915b74d96751c918553ad4bc117}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{fMRI-to-ECoG transfer across participants, stimulus, and modality; see canonical/vaidya-2026_slow-fmri-fast-ecog-transfer}
@@ -468,8 +468,8 @@
       \strng{authorbibnamehash}{afb4606d0f17a9de8269851c7ba7c9db}
       \strng{authornamehash}{afb4606d0f17a9de8269851c7ba7c9db}
       \strng{authorfullhash}{c7f162f1681cae7ecc6b5d24a2a1d018}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{AWQ/SmoothQuant preserve on >=3B; GPTQ/pruning degrade; KD untested; see canonical/oota-2026}
@@ -632,8 +632,8 @@
       \strng{authorbibnamehash}{eff9cafab79148a0143dfbc3ae79f52c}
       \strng{authornamehash}{eff9cafab79148a0143dfbc3ae79f52c}
       \strng{authorfullhash}{e732dc7e355c1cf48151f09ea46c8667}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{GPT-2 124M + LLaMA-2 7B, cosine brain loss, random-shuffle splits; see canonical/bilgin-2026}
@@ -661,8 +661,8 @@
       \strng{authornamehash}{14596cf0e4f055b53cafc5d2629281d1}
       \strng{authorfullhash}{14596cf0e4f055b53cafc5d2629281d1}
       \field{extraname}{2}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{gradient-reversal de-alignment hurts 200+ tasks; see canonical/merlin-2026}
@@ -707,8 +707,8 @@
       \strng{authorbibnamehash}{dbd4bef26d157fa8bee89e4b7475ad9b}
       \strng{authornamehash}{dbd4bef26d157fa8bee89e4b7475ad9b}
       \strng{authorfullhash}{527166f0f820fb563d4a828ba6769a96}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{accuracy gain survives a shuffled-label control; only robustness needs neural data; see canonical/pirlot-2022}
@@ -738,8 +738,8 @@
       \strng{authorbibnamehash}{60bb12df873b02267c6d38e0b52d1a48}
       \strng{authornamehash}{60bb12df873b02267c6d38e0b52d1a48}
       \strng{authorfullhash}{60bb12df873b02267c6d38e0b52d1a48}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{per-participant LoRA, 3 training participants; see canonical/moussa-2025b}
@@ -784,8 +784,8 @@
       \strng{authorbibnamehash}{0e6242deaa763dd798d3406ac6a7a60d}
       \strng{authornamehash}{0e6242deaa763dd798d3406ac6a7a60d}
       \strng{authorfullhash}{99e816526cefd40f1b271ee7e1beac75}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{12/19 HEAR tasks; low-data advantage uncontrolled; see canonical/freteault-2025}
@@ -820,8 +820,8 @@
       \strng{authorbibnamehash}{7230ebcdc3ba515605710f17ac624a02}
       \strng{authornamehash}{7230ebcdc3ba515605710f17ac624a02}
       \strng{authorfullhash}{7230ebcdc3ba515605710f17ac624a02}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{task-fMRI-derived representation intervention and fine-tuning; see canonical/xiao-2026_brain-guided-llm-reasoning}
@@ -866,8 +866,8 @@
       \strng{authorbibnamehash}{268f43ec90dc014f806b0866f04fe63f}
       \strng{authornamehash}{268f43ec90dc014f806b0866f04fe63f}
       \strng{authorfullhash}{9ddd3e45eb7bcf0cdb92ad3dfe26bb8b}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{word-aligned ECoG tuning of speech encoders; see canonical/zhang-2026_temporal-precision-ecog-tuning}
@@ -894,8 +894,8 @@
       \strng{authorbibnamehash}{68ae677d9ccca05643f42e39ea7890ea}
       \strng{authornamehash}{68ae677d9ccca05643f42e39ea7890ea}
       \strng{authorfullhash}{68ae677d9ccca05643f42e39ea7890ea}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{BMC Neuroscience}
@@ -930,8 +930,8 @@
       \strng{authorbibnamehash}{cc3450e5b9366586e953ca651ecdd71c}
       \strng{authornamehash}{cc3450e5b9366586e953ca651ecdd71c}
       \strng{authorfullhash}{cc3450e5b9366586e953ca651ecdd71c}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{1000 isolated sentences, 5 LH language ROIs; see 05-dataset-registry}
@@ -958,8 +958,8 @@
       \strng{authorbibnamehash}{0a792207c50070e8660e4f7416bf3a82}
       \strng{authornamehash}{0a792207c50070e8660e4f7416bf3a82}
       \strng{authorfullhash}{0a792207c50070e8660e4f7416bf3a82}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{ds003020; UTS01-03 deep-sampled; CC\_norm ceiling; see canonical + 05-dataset-registry}
@@ -999,8 +999,8 @@
       \strng{authorbibnamehash}{972b02c11ff5fcedc2f0de40b392f3d2}
       \strng{authornamehash}{972b02c11ff5fcedc2f0de40b392f3d2}
       \strng{authorfullhash}{e241a4ca42800a9ac612e63e616d27b2}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{International Conference on Learning Representations}
@@ -1059,8 +1059,8 @@
       \strng{authorbibnamehash}{05226c023ccc5803e574559998f219a0}
       \strng{authornamehash}{05226c023ccc5803e574559998f219a0}
       \strng{authorfullhash}{36f142c602fdd7299a2fba14f748df59}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Nature Communications}
@@ -1130,8 +1130,8 @@
       \strng{authorbibnamehash}{6ccea6e72f141c9aa4702a942712b4d5}
       \strng{authornamehash}{6ccea6e72f141c9aa4702a942712b4d5}
       \strng{authorfullhash}{7243c597356ec164c3fb217bd81a9e13}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{TRIBE v2 source and model description}
@@ -1192,8 +1192,8 @@
       \strng{authorbibnamehash}{d775178c34083951ab1e07df578582c3}
       \strng{authornamehash}{d775178c34083951ab1e07df578582c3}
       \strng{authorfullhash}{08f4b49735d5d145be00bc9c07f38975}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{International Conference on Learning Representations}
@@ -1235,8 +1235,8 @@
       \strng{authorbibnamehash}{85d441f32944674f6dd87a3cae8f2d38}
       \strng{authornamehash}{85d441f32944674f6dd87a3cae8f2d38}
       \strng{authorfullhash}{91ab27d387c86b37d5cad66ed3c2dfa3}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{CKA; geometry not function; see canonical/kornblith-2019}
@@ -1277,8 +1277,8 @@
       \strng{authorbibnamehash}{1efd5dda788b89aab19d49327226496a}
       \strng{authornamehash}{1efd5dda788b89aab19d49327226496a}
       \strng{authorfullhash}{1efd5dda788b89aab19d49327226496a}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{arXiv preprint arXiv:1807.03748}
@@ -1310,8 +1310,8 @@
       \strng{authorbibnamehash}{e427ba6c0eda5292558c30c786236c01}
       \strng{authornamehash}{e427ba6c0eda5292558c30c786236c01}
       \strng{authorfullhash}{e427ba6c0eda5292558c30c786236c01}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{annotation}{DPI, conditional MI, Gaussian closed form, rate-distortion; mapped in 06-theory-grounding}

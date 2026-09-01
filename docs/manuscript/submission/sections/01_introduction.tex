@@ -4,7 +4,7 @@
 Brain responses to language could help train a smaller \ac{lm}.
 In \ac{kd}, a smaller student model learns to reproduce the output distribution of a larger teacher \autocite{hinton2015}, but comparable output behavior does not require the two models to organize information identically in their middle layers.
 When several model representations support text prediction about equally well, brain responses could favor one of them over the others.
-Under \ac{lupi}, a target available only during training can shape which representation the student settles on without changing the inputs available at deployment \autocite{lopezpaz2016,saadi2025}.
+Privileged information, a target available only during training, can shape which representation the student settles on without changing the inputs available at deployment \autocite{lopezpaz2016,saadi2025}.
 Here that target is either a recorded \ac{fmri} response or a synthetic brain response generated from text by a separate model trained to predict \ac{fmri} responses.
 
 Whether brain responses and model representations share information at all is first a measurement question.
@@ -20,34 +20,31 @@ It therefore does not establish that training with brain responses can change th
 Even if such a change occurs, the score does not establish three further claims: (1)\ that the change is caused specifically by brain-response content rather than generic geometric properties of the target or the extra optimization pressure of any auxiliary loss; (2)\ that it transfers to independently recorded \ac{fmri} responses; and (3)\ that it improves a practical endpoint such as a downstream task, at comparable \ac{lm} quality.
 
 Prior work does not resolve whether brain responses can help train a smaller model.
-Encoding studies map which linguistic properties and model layers support prediction of recorded \ac{fmri} responses \autocite{oota2023,merlin2024}.
 Studies that turn recorded brain responses into a training target report changes in model representations or task behavior in several language and speech settings \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}.
 Whether such a change comes from brain-response content is a separate question, because privileged-information and feature-distillation research shows that a dense training-only target can help a student for reasons unrelated to its source \autocite{lopezpaz2016,saadi2025}.
-Compression research varies model size without changing the training objective, and reports that brain alignment after pruning or quantization depends on the compression method and model scale \autocite{oota2026}.
-Together these studies do not establish whether training with brain responses gives a fixed smaller student an incremental advantage over a matched text-derived auxiliary target, at comparable \ac{lm} quality and with inference taken over participants.
 
-We therefore test that question directly, evaluating each of its component claims against the evidence that claim alone requires.
+We therefore ask directly whether training with brain responses gives a fixed smaller student an incremental advantage over a matched control, at comparable \ac{lm} quality and with inference taken over participants.
+We evaluate each component of that question against the evidence that component alone requires.
 The model representations must show controlled brain predictivity.
 How far the smaller model's controlled brain predictivity falls below its teacher's, beyond what worse \ac{lm} quality explains, bounds the opportunity that training with brain responses could recover.
+Training with recorded \ac{fmri} responses must be compared with training on the same responses permuted, which preserves the response values and breaks their pairing with stimuli.
 For synthetic brain responses generated from text, we ask whether the declared 50-component linear projection of the training target adds measurable information about recorded \ac{fmri} responses, and whether the student learns that target.
 We also ask whether training produces changes that remain after removing the prediction head, an auxiliary output layer added only for training.
 Training with synthetic brain responses must be compared with training that uses a similarly constructed text-derived auxiliary target, at comparable \ac{lm} quality and at the participant level.
 Because both arms share the same student-training regime and differ only in how the auxiliary target was constructed, this comparison tests whether any difference is specific to brain-response content.
-We must also determine whether training improves prediction of independently recorded \ac{fmri} responses and performance on an external task.
-A failure at one step limits what the claims that depend on it can establish, and leaves the other claims untouched.
+We must also determine whether training improves prediction of independently recorded \ac{fmri} responses beyond ordinary \ac{kd}, and performance on an external task.
+A failure of one of these requirements limits what the claims that depend on it can establish, and leaves the other claims untouched.
 
-This study established controlled brain predictivity and a student that training measurably changed, but not a brain-specific training benefit.
-In the systems we tested, trained \ac{lm} representations contained information useful for predicting held-out recorded \ac{fmri} responses beyond the specified nuisance variables and untrained-model controls.
+In the systems tested, this study established controlled brain predictivity and a student that training measurably changed, but not a brain-specific training benefit.
 The distilled student had lower controlled brain predictivity than its teacher, but worse \ac{lm} quality remained a competing explanation for this gap.
 Training with recorded \ac{fmri} responses did not produce a reliable participant-level benefit in the tested regimes.
 On the practical endpoint, the recorded-response arm performed better on average than its permuted-response control.
 We did not report uncertainty for that paired comparison, and the controlled-predictivity prerequisite was unstable across random seeds, so brain-specific utility was not demonstrated.
-For synthetic brain responses generated from text, the 50-component projection of the training target did not clear the threshold fixed in advance for that linear assay, which required a minimum increment in held-out prediction of recorded \ac{fmri} responses beyond the nuisance model.
+For synthetic brain responses generated from text, the 50-component projection of the training target did not clear the threshold fixed in advance for that linear assay.
 No other claim tested here depends on that assay.
 The target was nevertheless learnable on the training corpus, and training changed the student's retained representations while preserving \ac{lm} quality within the prespecified tolerance.
-A post-training readout on the independent Tuckute sentences did not resolve whether the student retained more information about the target than a student trained by ordinary \ac{kd}.
 The direct participant-level comparison between training with synthetic brain responses and ordinary \ac{kd} found a near-zero difference in prediction of recorded \ac{fmri} responses.
-The available text-derived auxiliary target was not sufficiently comparable to attribute any difference between the two arms specifically to brain-response content.
+The available text-derived auxiliary target was not sufficiently comparable to attribute any difference between the synthetic and text-derived arms specifically to brain-response content.
 
 This study contributes controlled measurement of brain predictivity alongside \ac{lm} quality, and participant-level tests of training with recorded \ac{fmri} responses.
 It also separates five questions about training with synthetic brain responses generated from text: whether a declared linear projection of the target was measurable, whether the student learned it, whether the change survived removal of the prediction head, whether an adequate comparator existed, and whether the change transferred to independently recorded \ac{fmri} responses.
