@@ -39,10 +39,11 @@ The implemented output-distillation loss is
 where \(m_{xt}\) is one at non-padding positions and zero otherwise.
 Equation~\ref{eq:implemented-kd} averages teacher-to-student token-level \ac{kl} divergence over valid positions.
 The factor \(\tau^2\) compensates for the gradient-scale change introduced by temperature softening.
-Every executed output-distillation route uses \(\tau=2\), gradient-norm clipping at 1, and AdamW. \evd{E003}\evd{E005}\evd{E016}
+Every executed output-distillation route uses \(\tau=2\), gradient-norm clipping at 1, and AdamW.
+Two route types recur below: an unanchored route, which trains the student without a teacher and keeps language quality with its own next-token objective, and a teacher-anchored route, which adds output \ac{kd} from a frozen teacher. \evd{E003}\evd{E005}\evd{E016}
 \end{samepage}
 
-The language objective is shared within a paired intervention, but its initialization and quality role differ across families.
+The language objective is shared within a paired intervention, but the student initialization and the quality rule that applies differ across families.
 Table~\ref{tab:language-training-rules} records those differences.
 
 \begin{table}[H]
@@ -56,11 +57,11 @@ Table~\ref{tab:language-training-rules} records those differences.
     \midrule
     Distillation-headroom analysis & GPT-2 Medium teacher; GPT-2 Small student initialized either from pretrained weights or randomly & Output \ac{kd} on 96,000 WikiText sentences; 2,000 fixed held-out sentences & Held-out perplexity is a convergence measure; the warm and random-start routes differ in initialization and training duration \evd{E003} \\
     \midrule
-    Recorded-response intervention (sentence) & Qwen2.5-0.5B student; Qwen2.5-1.5B teacher when the route is teacher-anchored & Masked next-token cross-entropy in the unanchored screen; output \ac{kd} in anchored routes; fixed WikiText quality probe & The recorded-response arm and permuted-response control share the scoring implementation; ordinary \ac{kd} comparisons require comparable perplexity \evd{E004}\evd{E005}\evd{E008} \\
+    Recorded-response intervention (sentence) & Qwen2.5-0.5B student; Qwen2.5-1.5B teacher when the route is teacher-anchored & Masked next-token cross-entropy in the unanchored screen; output \ac{kd} in anchored routes; fixed WikiText quality probe & The recorded-response arm and permuted-response control share the scoring implementation; ordinary \ac{kd} comparisons require perplexity within the tolerance stated in Appendix~\ref{app:inference} \evd{E004}\evd{E005}\evd{E008} \\
     \midrule
-    Recorded-response intervention (naturalistic) & Qwen2.5-0.5B student; frozen Qwen2.5-1.5B teacher in anchored routes & Unanchored or output-\ac{kd}-anchored language path, according to the executed grid & The full-parameter route uses its declared forgetting criterion on the language probe \evd{E013}\evd{E017} \\
+    Recorded-response intervention (naturalistic) & Qwen2.5-0.5B student; frozen Qwen2.5-1.5B teacher in anchored routes & Unanchored or output-\ac{kd}-anchored language path, according to the executed grid & The full-parameter route holds the student to its predeclared maximum allowed loss of language quality on the fixed probe \evd{E013}\evd{E017} \\
     \midrule
-    Synthetic-response intervention & GPT-2 Medium teacher; pretrained GPT-2 Small student shared within seed & Output \ac{kd} on 95,999 WikiText sentences; 1,999 fixed held-out sentences & Each target arm must satisfy Equation~\ref{eq:quality-eligibility}; saved-student comparisons also apply the within-seed bits-per-byte rule \evd{E016}\evd{E025} \\
+    Synthetic-response intervention & GPT-2 Medium teacher; pretrained GPT-2 Small student shared within seed & Output \ac{kd} on 95,999 WikiText sentences; 1,999 fixed held-out sentences & Each target arm must satisfy Equation~\ref{eq:quality-eligibility}; saved-student comparisons also apply the within-seed bits-per-byte tolerance of Appendix~\ref{app:inference} \evd{E016}\evd{E025} \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -81,7 +82,7 @@ For a recorded response \(y_i\), the common sentence-level target path is
 \]
 Here \(h_j\) denotes entry \(j\) in the model's returned hidden-state sequence, whose entry 0 is the embedding output.
 The thesis shorthand ``hidden-state index 12'' therefore names the exact attachment returned by the implementation.
-The vector \(h_{12}(x_i)\) is mean-pooled over non-padding token positions, and \(W\) is a temporary linear target map unless the selected loss is readout-free.
+The vector \(h_{12}(x_i)\) is mean-pooled over non-padding token positions, and \(W\) is a temporary linear map from the pooled hidden state to the five-\ac{roi} response vector of Appendix~\ref{app:data-targets}, unless the selected loss is readout-free.
 
 \begin{samepage}
 The common joint objective is
@@ -142,19 +143,19 @@ Table~\ref{tab:recorded-training-variants} states only the implementation change
   \endlastfoot
   \evd{E004}\evd{E005}\evd{E008}\evd{E011}\evd{E013}\evd{E017}Co-trained \ac{mse} & A new \(W\) is trained jointly with the producing adapters; correctly paired and permuted responses use the same path & Rank 16; seeds 0--2; 3 epochs; \(2\times10^{-4}\); batch 16; target weight 10. Participant-averaged training uses one permutation draw; participant-specific training uses five & Merged student; \(W\) discarded \evd{E004}\evd{E005}\evd{E008} \\
   \midrule
-  Frozen readout & \(W_0\) is ridge-fitted on untuned outer-training features with \(\alpha=100\) and remains fixed during intervention training & Same sentence screen grid and paired-permutation construction as its matched comparison & Merged student; \(W_0\) discarded \evd{E004} \\
+  Frozen readout & \(W_0\) is ridge-fitted on untuned outer-training features with \(\alpha=100\) and remains fixed during intervention training & Same grid and paired-permutation construction as the co-trained \ac{mse} row & Merged student; \(W_0\) discarded \evd{E004} \\
   \midrule
   Contrastive & Symmetric InfoNCE compares normalized \(Wh_{12}\) with the paired five-\ac{roi} response using in-batch negatives \autocite{oord2018} & Rank 16; seeds 0--1; 3 epochs; target weight 1; temperature 0.07; three permutation draws & Merged student; \(W\) discarded \evd{E013} \\
   \midrule
-  Increased capacity & The co-trained \ac{mse} path is unchanged; adapter rank increases from 16 to 64 & Seeds 0--1; 6 epochs; target weight 10; five permutation draws; remaining settings inherited from the participant-specific grid & Merged student; \(W\) discarded \evd{E011} \\
+  Increased capacity & The co-trained \ac{mse} path is unchanged; adapter rank increases from 16 to 64 & Seeds 0--1; 6 epochs; target weight 10; five permutation draws; otherwise as in the participant-specific grid & Merged student; \(W\) discarded \evd{E011} \\
   \midrule
-  Naturalistic voxelwise & A participant-specific head maps pooled 25-word segments to reliable voxels after a 4-s response delay & UTS01--03; 14 tuning and 6 evaluation stories; unanchored and output-\ac{kd}-anchored grids recorded in the owning configurations & Merged student; voxel head discarded \evd{E013} \\
+  Naturalistic voxelwise & A participant-specific head maps pooled 25-word segments to reliable voxels after a 4-s response delay & UTS01--03; 14 tuning and 6 evaluation stories. The unanchored grid ran all three participants at seeds 0--1, two permutation draws, and target weight 10. The output-\ac{kd}-anchored grid swept target weights 1, 3, and 6 on UTS03 over the 2,801 voxels whose repeat reliability exceeds 0.7 & Merged student; voxel head discarded \evd{E013} \\
   \midrule
   Full parameter & The voxelwise \ac{mse} and output-\ac{kd} anchor update all student parameters except the tied input/output embedding; no \ac{lora} is used & UTS01--03; seeds 0--2; 2 epochs; \(10^{-5}\); batch 16; target weight 10 & Student used for immediate frozen evaluation; voxel head discarded; no reusable student checkpoint retained \evd{E017} \\
 \end{longtable}
 \endgroup
 
-The exploratory sentence screen changes only \(\mathcal L_{\mathrm{target}}\).
+The unanchored sentence screen also explored alternative target losses, holding the co-trained \ac{mse} grid fixed and changing only \(\mathcal L_{\mathrm{target}}\).
 Cosine and squared-Pearson losses use a co-trained target map.
 Linear \ac{cka} is readout-free: it compares the minibatch geometry of \(h_{12}\) and the response matrix directly, so no temporary \(W\) participates in that branch \autocite{kornblith2019}.
 These are implementation variants of the recorded-response intervention; their outcomes remain in Section~\ref{sec:results-recorded} and Appendix~\ref{app:secondary}. \evd{E004}
@@ -186,7 +187,7 @@ Because GPT-2 ties its token embedding and output matrix, that retained matrix r
 The teacher is frozen, whereas every student parameter and \(W_{\mathrm{tmp}}\) is optimized.
 All target arms map the 768-dimensional mean-pooled attachment state to all 20,484 coordinates using the same mean \ac{mse}.
 Appendix~\ref{app:data-targets} owns the construction and standardization of the synthetic brain-response target, the text-derived auxiliary target, and the saved block permutation.
-The common optimization grid uses 95,999 training sentences, one epoch or 24,000 optimizer steps, learning rate \(5\times10^{-5}\), batch size 4, and maximum length 64. \evd{E016}
+The common optimization grid uses 95,999 training sentences, one epoch, which is 24,000 optimizer steps at batch size 4,, learning rate \(5\times10^{-5}\), batch size 4, and maximum length 64. \evd{E016}
 
 \begin{table}[H]
   \centering

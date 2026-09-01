@@ -55,7 +55,7 @@ Tables~\ref{tab:claim-changing-sensitivities} and~\ref{tab:confirmatory-sensitiv
   Quality band and model family
 & Distillation-headroom analysis
   & Scope-bounding
-  & The full-range association was \result{e015_full_corr}; within the capable-model band it was \result{e015_capable_corr}, with interval \result{e015_capable_ci}. Language quality remains a required control, not a deterministic explanation.\evd{E015} \\
+  & The full-range Pearson correlation between bits per byte and unique \(R^2\) was \result{e015_full_corr}; within the capable-model band it was \result{e015_capable_corr}, with interval \result{e015_capable_ci}. Language quality remains a required control, not a deterministic explanation.\evd{E015} \\
 
   \specialrule{0.15pt}{0.3ex}{0.3ex}
 
@@ -76,14 +76,14 @@ Tables~\ref{tab:claim-changing-sensitivities} and~\ref{tab:confirmatory-sensitiv
   Held-out stimulus block
 & Controlled naturalistic voxelwise predictivity assay; recorded-response intervention; saved-student biological-transfer assay; 50-component linear target-projection assay
   & Scope-bounding
-& The naturalistic assay remains a one-participant result. No leave-one-block-out intervention analysis produced a positive participant-mean contrast that changed the participant-level disposition, and the linear target-projection result held under every block deletion.\evd{E006}\evd{E008}\evd{E025}\evd{E030} \\
+& The naturalistic assay remains a one-participant result. No leave-one-block-out intervention analysis produced a positive participant-mean contrast that changed the participant-level conclusion, and the linear target-projection result held under every block deletion.\evd{E006}\evd{E008}\evd{E025}\evd{E030} \\
 
   \specialrule{0.15pt}{0.3ex}{0.3ex}
 
   Controlled-predictivity contrast by seed
   & Practical-utility evaluation
   & Scope-bounding
-  & Only \result{e009_positive_seed_signs} technical-seed signs were positive. The utility analysis therefore follows a seed-unstable prerequisite rather than a reliably induced target-specific change.\evd{E009} \\
+  & Only \result{e009_positive_seed_signs} of the eight technical-seed signs were positive. The utility analysis therefore follows a seed-unstable prerequisite rather than a reliably induced target-specific change.\evd{E009} \\
 \end{longtable}
 \endgroup
 
@@ -102,21 +102,21 @@ Tables~\ref{tab:claim-changing-sensitivities} and~\ref{tab:confirmatory-sensitiv
     Layer, nuisance set, and target aggregation
 & Saved-student biological-transfer assay and 50-component linear target-projection assay
     & Confirmatory
-    & Prespecified nearby choices did not overturn the primary rules. The 50-component linear target projection did not meet its continuation rule; retention and composed-path quantities remain diagnostics of that pathway.\evd{E025}\evd{E030} \\
+    & Prespecified nearby choices did not overturn the primary rules. The 50-component linear target projection did not meet the improvement threshold fixed for it in advance (Section~\ref{sec:results-predicted-identification}); retention and composed-path quantities remain diagnostics of that pathway.\evd{E025}\evd{E030} \\
 
     \specialrule{0.15pt}{0.3ex}{0.3ex}
 
     Saved-student optimization seed
-    & Synthetic-target recovery assay; retained-student movement audit; saved-student target-retention analysis; saved-student biological-transfer assay; composed-path diagnostic
+    & Synthetic-target recovery assay; retained-student movement audit; saved-student target-retention analysis; saved-student biological-transfer assay; composed-path diagnostic. The saved student and the retained student are the same post-training model
     & Confirmatory
-    & Seed agreement can establish reproducible optimization or manipulation, but it cannot substitute for participant agreement.\evd{E016}\evd{E025}\evd{E030} \\
+    & The seeds agreed where the manipulation itself was measured, with target extraction positive and the movement criterion met in all six, and disagreed in sign on the endpoint contrasts for incremental retention, biological transfer, and the composed path. Seed agreement can establish reproducible optimization or manipulation, but it cannot substitute for participant agreement.\evd{E016}\evd{E025}\evd{E030} \\
 
     \specialrule{0.15pt}{0.3ex}{0.3ex}
 
     Saved controls audited after training
     & Comparator-adequacy audit and attribution assessment
     & Limitation or correction
-    & The saved block-permutation sensitivity is defective, and the text-derived auxiliary control fails pre-outcome and KD-baseline comparability. Neither can identify an effect of brain-response content.\evd{E016}\evd{E026} \\
+    & The saved block-permutation sensitivity is defective, and the text-derived auxiliary control fails the comparability checks made before outcomes were inspected, including comparability with the ordinary-\ac{kd} baseline. Neither can identify an effect of brain-response content.\evd{E016}\evd{E026} \\
 
     \bottomrule
   \end{tabularx}
@@ -125,11 +125,11 @@ Tables~\ref{tab:claim-changing-sensitivities} and~\ref{tab:confirmatory-sensitiv
 \begin{table}[H]
   \centering
   \small
-  \caption{Corrected classification of the frozen comparator audit.}
+  \caption{Classification of the comparator-audit checks into identification checks and post-training diagnostics.}
   \label{tab:e026-corrected-audit}
   \begin{tabularx}{\textwidth}{@{}l r r r X@{}}
     \toprule
-    Role & Total & Pass or within & Fail or outside & Interpretation \\
+    Role & Total & Pass or within tolerance & Fail or outside tolerance & Interpretation \\
     \midrule
     Identification checks & 37 & 20 & 16 & One additional check is unresolved; failures include KD-baseline recovery and headroom, covariance geometry, effective rank, and nuisance predictability. \\
     Post-training diagnostics & 18 & 4 & 14 & Parameter, Frobenius, and \ac{cka} margins describe realized intervention differences and do not determine comparator validity. \\
@@ -168,7 +168,7 @@ The resulting \(U=\result{e008_participant_count}\) participant effects, each ba
   \label{tab:recorded-participant-values}
   \begin{tabular}{rc}
     \toprule
-    \ac{uid} & Participant effect \(e_u\) \\
+    \ac{uid} & Participant effect \(e_u\) (unique \(R^2\) difference) \\
     \midrule
     797 & \result{e008_uid797} \\
     837 & \result{e008_uid837} \\
@@ -231,7 +231,7 @@ Seeds and outer folds are averaged within each participant before these contrast
 \end{table}
 
 The transfer contrasts are also heterogeneous.
-The relative mean \(\Delta^{T-X}\) is small and positive, while the direct mean \(\Delta^{T-K}\) is \result{e025_tribe_kd}; removing the predeclared highest-baseline participant changes the relative point estimate to \result{e025_drop_highest}.
+The relative mean \(\Delta^{T-X}\) is small and positive, while the direct mean \(\Delta^{T-K}\) is \result{e025_tribe_kd}; removing the participant with the highest ordinary-\ac{kd} brain-predictivity baseline, predeclared for deletion, changes the relative point estimate to \result{e025_drop_highest}.
 These rows explain why the relative comparator cannot replace the direct contrast or participant-first inference. \evd{E025}\evd{E026}
 
 The two participant tables must not be pooled or compared row by row.
@@ -240,8 +240,8 @@ They use different targets, contrasts, and within-participant aggregators; the s
 \subsection{Participant-level mechanism diagnostics}
 
 The target-projection diagnostic evaluates the declared 50-component linear pathway on the same sentence substrate; it is not a prerequisite for the independent direct-transfer contrast.
-For each participant, \(A_u\) measures the target's unique response predictivity above nuisance, and \(Q_u\) compares that score with the frozen row-twin control.
-These quantities compare target-above-nuisance predictivity with sentence-pairing specificity before the later target-retention analysis and composed-path diagnostic are interpreted.
+For each participant, \(A_u\) measures the target's unique response predictivity above nuisance, and \(Q_u\) compares that score with the frozen row-twin control, which keeps the target rows and the readout procedure but breaks their pairing with the sentences (Section~\ref{sec:results-predicted-identification}).
+These quantities compare target-above-nuisance predictivity with sentence-pairing specificity. They are read before the later target-retention analysis and composed-path diagnostic.
 
 \begin{table}[H]
   \centering
@@ -270,8 +270,8 @@ These quantities compare target-above-nuisance predictivity with sentence-pairin
 \end{table}
 
 The mean target-above-nuisance score is \result{e030_target_unique}, and every leave-one-participant-out mean remains negative.
-This first prerequisite misses its frozen practical rule.
-The aligned-minus-frozen-twin values have substantial effects of both signs, so that paired specificity question remains unresolved rather than contradicting the first result. \evd{E030}
+This first prerequisite misses the improvement threshold fixed for it in advance (Section~\ref{sec:results-predicted-identification}).
+The aligned-minus-frozen-twin values have substantial effects of both signs, so the paired specificity question remains unresolved. It does not contradict the first result. \evd{E030}
 
 The later diagnostics ask whether the part of the target that a student predicts overlaps with the target direction that predicts participant responses.
 For participant \(u\), \(O_u\) is the absolute composed student-to-target-to-response overlap, \(D_u\) is its brain-target-minus-\ac{kd} increment, and \(J_u\) is the aligned-minus-frozen-twin increment.
@@ -312,8 +312,9 @@ Within the declared linear pathway, these downstream diagnostics cannot repair t
 Optimization seeds test whether a fixed training procedure behaves reproducibly.
 They do not support biological generalization, because the same participants and stimuli are reused within each seed.
 
-The brain-specific interpretation of the practical-utility evaluation depends on a reliable prerequisite contrast in controlled brain predictivity between the recorded-response arm and its matched permuted-response control.
-Table~\ref{tab:utility-seed-values} reports the complete seed vector used to judge that prerequisite~contrast.
+The practical-utility evaluation has a prerequisite: a reliable contrast in controlled brain predictivity between the recorded-response arm and its matched permuted-response control.
+Its brain-specific interpretation depends on that contrast.
+Table~\ref{tab:utility-seed-values} reports the complete seed vector used to judge that prerequisite contrast; it declared eight seeds, where the transfer and target-extraction procedures declared~six.
 
 \begin{table}[H]
   \centering
@@ -324,7 +325,7 @@ Table~\ref{tab:utility-seed-values} reports the complete seed vector used to jud
   \label{tab:utility-seed-values}
   \begin{tabular}{rc}
     \toprule
-    Seed & Target minus permuted-target representation contrast \\
+    Seed & Recorded-minus-permuted contrast in controlled brain predictivity \\
     \midrule
     0 & \result{e009_seed0} \\
     1 & \result{e009_seed1} \\
@@ -432,7 +433,7 @@ The separation shows that fitting the target in absolute terms does not establis
 \begin{table}[H]
   \centering
   \small
-  \caption{Primary retained-student movement values by technical seed.}
+  \caption{Movement of the retained synthetic-target student away from its seed-matched ordinary-\ac{kd} student, by technical seed.}
   \label{tab:e025-movement-seeds}
   \begin{tabular}{@{}r r r@{}}
     \toprule
@@ -448,7 +449,8 @@ The separation shows that fitting the target in absolute terms does not establis
   \end{tabular}
 \end{table}
 
-The values use layer 6 and the same 1,999 untouched WikiText sentences in every arm; Equation~\ref{eq:movement-distances} defines both distances.\evd{E025}
+The values use layer 6 and the same 1,999 WikiText sentences held out from every training arm; Equation~\ref{eq:movement-distances} defines both distances.
+Before participant responses were opened, every seed was required to exceed \(10^{-4}\) in centered relative-Frobenius change and to exceed ten times the duplicate-extraction noise in linear-\ac{cka} distance; all six seeds met both, and repeated extraction of the same checkpoint reproduced it exactly.\evd{E025}
 
 No seed-only table is reported for the participant-specific recorded-response intervention.
 Its primary participant statistic is a median over crossed seed--block cells, so a seed-only vector cannot reconstruct the nonlinear participant aggregate in Equation~\ref{eq:appendix-recorded-participant}.
@@ -489,7 +491,7 @@ Pythia-70M & Pythia & 0.07B & 3 & 1.699 & -0.0012 \evd{E015} \\
 \bottomrule
 \end{longtable}
 
-All 22 models enter the primary middle-layer correlation.\evd{E015}
+Unique \(R^2\) is the variance explained above the declared nuisance set, and all 22 models enter the primary middle-layer correlation.\evd{E015}
 The capable-model sensitivity retains the ten models below 1.30 bits per byte.\evd{E015}
 The family-factor analysis excludes Llama and Mistral because each has fewer than three model sizes; those exclusions do not apply to the primary cross-family correlation.\evd{E015}
 

@@ -26,15 +26,15 @@ The categories separate completed scientific records from restricted studies, st
 Disposition & Records & Permitted use \\
 \midrule
 Final executed scientific record & E008, E011, E016, E025, E030 & Supports its settled scientific conclusion. \\
-Executed; interpretation corrected or narrowed & E002, E009, E026 & Raw measurements remain fixed, while the learned-parameter, utility, or comparator-identification interpretation was narrowed on 2026-08-04. \\
+Executed; interpretation narrowed by a recorded correction & E002, E009, E026 & Supports the raw measurements, which are unchanged, and only the narrowed learned-parameter, utility, or comparator-identification reading that replaced the original one. \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-Executed; interpretation corrected or narrowed & E003, E004, E005, E006, E010, E014, E015, E021 & Supports only the corrected or scope-limited conclusion. \\
+Executed; conclusion corrected or scope-limited & E003, E004, E005, E006, E010, E014, E015, E021 & Supports only the corrected or scope-limited conclusion. \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Executed with a restricted diagnostic scope & E013, E017, E019, E020, E022 & Supports only the stated local or diagnostic conclusion. \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Precondition-stopped & E024 & Supports the stopping decision; the intervention was not tested. \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-Deferred, analysis-only, or unauthorized & E012, E023, E027 & Supports only its stated design, activation criterion, or non-authorization; no intervention result was produced. \\
+Deferred, analysis-only, or unauthorized & E012 deferred; E023 analysis-only; E027 unauthorized & Supports only its stated design, its unmet activation criterion, or the decision not to run it; no intervention result was produced. \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Engineering or design record only & E001, E028, E029 & Documents pipeline work or an outcome-blind design; supports no scientific result. \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
@@ -77,7 +77,7 @@ Recorded-response intervention, participant-averaged estimand & E004 and E005; E
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Recorded-response intervention, participant-specific estimand & E008; E011, E013, and E017 bound tested variants & No participant-general pairing advantage is demonstrated across the tested objectives and variants.\evd{E008}\evd{E011}\evd{E013}\evd{E017} & \ref{sec:results-recorded} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-50-component linear target-projection assay & E030 & The fixed 50-component \ac{pca} target does not meet the inherited continuation rule at \result{e030_practical_threshold}. Aligned-minus-row-twin specificity remains unresolved.\evd{E030} & \ref{sec:results-predicted-identification} \\
+50-component linear target-projection assay & E030 & The fixed 50-component \ac{pca} target does not clear the improvement threshold of \result{e030_practical_threshold} set for it in advance. Aligned-minus-row-twin specificity remains unresolved.\evd{E030} & \ref{sec:results-predicted-identification} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Synthetic-target recovery assay & E016 & WikiText assays support target uptake.\evd{E016} & \ref{sec:results-synthetic-manipulation} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
@@ -125,7 +125,9 @@ E003 & \ac{kd} uniquely destroys or preserves alignment. & The cold GPT-2 gap is
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 E004, E005, E008 & Seed--fold cells provide independent uncertainty, and the averaged contrast excludes zero. & Fold-unit inference supersedes the cell bootstrap; E008 owns participant inference.\evd{E004}\evd{E005}\evd{E008} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-E006, E007 & A voxel bootstrap supports population inference or a minimum detectable effect. & Those claims are withdrawn; the retained result concerns UTS03 and five held-out story blocks.\evd{E006} \\
+E006 & A voxel bootstrap supports population inference or a minimum detectable effect. & Those claims are withdrawn; the retained result concerns UTS03 and five held-out story blocks.\evd{E006} \\
+\specialrule{0.15pt}{0.35ex}{0.35ex}
+E009 & A minimum detectable effect on the practical endpoint tests the null. & The minimum detectable effect is a sensitivity quantity only; no point estimate changed and the paired endpoint uncertainty was never reported.\evd{E009} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 E010, E014 & Nested participant subsets establish a monotone participant-count response. & Corrected random subsets do not identify a count response; E014 owns the response-reliability and estimand effects of averaging.\evd{E010}\evd{E014} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}

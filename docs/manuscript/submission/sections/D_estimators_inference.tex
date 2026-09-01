@@ -194,11 +194,11 @@ Practical-utility evaluation &
 \endgroup
 
 The aggregation order can be written without treating technical repetitions as new scientific units.
-Let \(d_{u,r}\) be a matched contrast for final unit \(u\) and technical cell \(r\), and let \(\mathcal A_u\) denote the declared within-unit aggregation:
+Let \(\mathcal C_u\) be the set of technical cells contributing to final unit \(u\), such as its seeds, folds, or seed--fold combinations, let \(d_{u,c}\) be the matched contrast in cell \(c\), and let \(\mathcal A_u\) denote the declared within-unit aggregation:
 \begin{equation}
   \widehat\theta_u
   =
-  \mathcal A_u\!\left(\{d_{u,r}:r\in\mathcal R_u\}\right),
+  \mathcal A_u\!\left(\{d_{u,c}:c\in\mathcal C_u\}\right),
   \qquad
   \widehat\Theta
   =
@@ -237,8 +237,9 @@ For \(U\) final-unit estimates \(\widehat\theta_1,\ldots,\widehat\theta_U\), the
   \overline{\theta}=\frac{1}{U}\sum_{u=1}^{U}\widehat\theta_u.
   \label{eq:t-interval}
 \end{equation}
-Here \(\alpha\) is the two-sided error rate.
+Here \(\alpha\) is the two-sided error rate and \(s_\theta\) is the sample standard deviation of the \(U\) final-unit estimates.
 Equation~\ref{eq:t-interval} uses the number of final units \(U\), not the number of coordinates, folds, or technical runs.
+Where a table reports a descriptive interval over technical seeds, it applies the same formula to the \(K\) matched seed contrasts below and is read as a stability summary of one frozen procedure, not as a sampling interval over scientific units.
 Its sampling interpretation requires independent final-unit estimates and approximate normality when \(U\) is small.
 Participant intervals are conditional on the fixed stimuli, trained students, and analysis protocol used to construct each participant estimate.
 
@@ -255,7 +256,7 @@ For \(K\) matched technical contrasts \(d_1,\ldots,d_K\), the exact two-sided ma
   \right].
   \label{eq:sign-flip}
 \end{equation}
-This test requires the contrast signs to be exchangeable under the null conditional on their magnitudes.
+Under the null hypothesis that each matched contrast is symmetrically distributed about zero, the contrast signs are exchangeable conditional on their magnitudes, which is what this test requires.
 It differs from the participant sign test, which uses only the number of positive and negative participant effects and requires independent participant signs.
 The Wilcoxon signed-rank sensitivity additionally assumes independent and approximately symmetric paired effects.
 The shared-fold cluster bootstrap resamples the five outer-fold summaries as clusters.
@@ -319,7 +320,7 @@ Distillation-headroom analysis &
   \midrule
   Saved-student biological-transfer assay &
   Nine participant effects receive a \(t\) interval, a one-sided upper bound, an exact sign test, and a Wilcoxon sensitivity &
-  Seeds and blocks remain descriptive; the upper bound is compared only with the prospectively inherited continuation rule \evd{E025} \\
+  Seeds and blocks remain descriptive; the upper bound is compared only with the improvement threshold fixed before the results were seen \evd{E025} \\
   \midrule
   50-component linear target-projection assay &
   Participant effects receive \(t\) intervals and exact sign tests &
@@ -339,7 +340,7 @@ Distillation-headroom analysis &
 \end{longtable}
 \endgroup
 
-For the primary retained-student movement audit, let \(H_s\) and \(H_s^{\mathrm{KD}}\) be layer-6 representation matrices for the same 1,999 untouched WikiText sentences in technical seed \(s\), and let \(C=I-\mathbf{1}\mathbf{1}^{\top}/n\) center examples.
+For the primary retained-student movement audit, let \(H_s\) be the layer-6 representation matrix of the retained synthetic-target student and \(H_s^{\mathrm{KD}}\) that of its seed-matched ordinary-\ac{kd} student, both on the same \(n=1{,}999\) WikiText sentences held out from every training arm in technical seed \(s\), and let \(C=I-\mathbf{1}\mathbf{1}^{\top}/n\) center examples.\evd{E025}
 The centered relative-Frobenius distance and linear-\ac{cka} distance are
 \begin{equation}
 D_{F,s}
@@ -371,7 +372,7 @@ An \ac{mde} describes the resolution of a planned contrast under its declared va
 It does not show that a smaller effect is zero or that a larger effect matters biologically.
 Likewise, language-quality criteria decide whether two arms are sufficiently comparable for a specified analysis; they do not establish a biological endpoint.
 
-The \result{e030_practical_threshold} unique-\(R^2\) rule was inherited prospectively to decide whether participant-level biological transfer justified a matched-control follow-up, then frozen as a reference for the target-projection assay. \evd{E025}\evd{E030}
+The \result{e030_practical_threshold} unique-\(R^2\) rule was fixed before the transfer results were seen, to decide whether participant-level biological transfer justified a matched-control follow-up, and was then kept unchanged as the reference for the target-projection assay. \evd{E025}\evd{E030}
 It can support a statement about whether an assay-specific simultaneous bound reaches that continuation rule.
 It cannot define biological importance across another response scale, nuisance model, layer, cohort, or target.
 No retrospective choice of a more favorable analysis can change that~scope.
@@ -390,6 +391,7 @@ For scalar \(Y\), jointly Gaussian \((X,Y,Z)\), correctly specified population-l
   \left(1-\mathcal R_N^2\right)R_{\mathrm{partial}}^2.
   \label{eq:gaussian-cmi-r2}
 \end{equation}
+Here \(\Delta\mathcal R_{\mathrm{semi}}^2=\mathcal R_F^2-\mathcal R_N^2\) is the population analogue of the cross-validated increment defined above.
 Equation~\ref{eq:gaussian-cmi-r2} converts a population residual-variance ratio into conditional mutual information under the stated Gaussian model.
 The multivariate analogue uses a log-determinant ratio.
 The thesis instead estimates finite-sample, cross-validated semipartial differences from separately regularized ridge fits.
@@ -413,12 +415,12 @@ Data processing therefore supplies a bound only after the relevant conditional i
 \end{samepage}
 
 Output matching and auxiliary-target fitting impose still weaker constraints on retained representations.
-Let \(d_H\) be any declared discrepancy between teacher and student internal states.
+Let \(p^\tau_{\mathrm{tch}}\) and \(q^\tau_{\mathrm{stu}}\) be the teacher and student output distributions at softmax temperature \(\tau\), let \(H_{\mathrm{tch}}\) and \(H_{\mathrm{stu}}\) be their internal states, let \(d_H\) be any declared discrepancy between those states, and let \(\Delta R_{\mathrm{transfer}}^2\) be the held-out biological-transfer contrast on recorded responses.
 Then, without additional identifying assumptions,
 \[
-  D_{\mathrm{KL}}\!\left(p_T^\tau\middle\|q_S^\tau\right)=0
+  D_{\mathrm{KL}}\!\left(p^\tau_{\mathrm{tch}}\middle\|q^\tau_{\mathrm{stu}}\right)=0
   \ \not\Rightarrow\
-  d_H(H_S,H_T)=0,
+  d_H(H_{\mathrm{stu}},H_{\mathrm{tch}})=0,
   \qquad
   \mathcal L_{\mathrm{target}}\downarrow
   \ \not\Rightarrow\

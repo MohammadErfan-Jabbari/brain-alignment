@@ -39,7 +39,7 @@ This work inherits the released \texttt{response\_target}; it does not reconstru
 In the released target, voxel responses were z-scored within scanning session and then averaged within each \ac{roi}.
 The remaining operations select condition B, order rows by \texttt{item\_id}, and construct either an averaged or participant-specific response matrix. \evd{E002}
 
-The participant-averaged construction combines five original training participants cell by cell.
+The participant-averaged construction combines, cell by cell, the five participants the Tuckute release designates as its training set.
 Their \acp{uid} are 848, 853, 865, 875, and 876.
 A missing contributor is skipped, but the resulting sentence-by-\ac{roi} matrix must be complete before analysis.
 This response is used by the controlled regional assay and the participant-averaged recorded-response intervention.
@@ -48,16 +48,16 @@ It estimates predictivity for the shared response of this fixed group because av
 Participant-specific construction retains one complete sentence-by-\ac{roi} matrix per person.
 \ac{uid}~853 is excluded because 60 entries are missing and the five-\ac{roi} grid is incomplete.
 The inclusion rules differ because cell-wise averaging can use an available entry, whereas participant-level inference requires a complete sentence-by-\ac{roi} matrix for each person.
-UID853 has 60 missing sentence--\ac{roi} cells: those 60 participant-averaged cells use four contributors, while the other 4,940 use all five.
+\ac{uid}~853 has 60 missing sentence--\ac{roi} cells: those 60 participant-averaged cells use four contributors, while the other 4,940 use all five.
 This construction distinction does not assume that the missing entries are ignorable for every estimand.
-The remaining participants are \acp{uid} 797, 837, 841, 848, 856, 865, 875, 876, and 880.
+Ten participants have condition-B coverage; the nine that remain after this exclusion are \acp{uid} 797, 837, 841, 848, 856, 865, 875, 876, and 880.
 Within this set, \{848, 865, 875, 876\} form the inherited training-participant subgroup and \{797, 837, 841, 856, 880\} form the held-out-participant subgroup.
 Appendix~\ref{app:inference} specifies the fold and seed aggregation; the nine retained participants are the biological inference units.
 Thus participant averaging changes both the signal-to-noise ratio and the estimand; it does not create additional independent participants. \evd{E002}\evd{E008}\evd{E025}
 
 The naturalistic assay uses participant UTS03 from the LeBel story-listening resource \autocite{lebel2023}.
 The responses were acquired at a nominal \ac{tr} of 2.0~s. \evd{E006}
-The present implementation places the stimulus features and released response matrices on the 2.0045-s grid used by the dataset adapter. \evd{E006}
+The present implementation places the stimulus features and released response matrices on the 2.0045-s effective sampling grid recorded in the released dataset metadata. \evd{E006}
 Each released HDF5 \texttt{data} matrix contains one row per scanner sample and 95,556 cortical-voxel columns.
 This work begins from those matrices and does not rerun reconstruction, motion correction, or cortical registration. \evd{E006}
 
@@ -87,9 +87,9 @@ Table~\ref{tab:appendix-feature-blocks} summarizes these blocks before the fold-
     \toprule
     Assay & Contextual block & Low-level nuisance block & Static or additional block \\
     \midrule
-    Tuckute & Mean-pooled activations of the declared \ac{lm} layer over non-padding token positions & Sentence token length and normalized item position & Mean noncontextual input embedding; released imageability in the exact-substrate primary design \\
+    Tuckute & Mean-pooled activations of the declared \ac{lm} layer over non-padding token positions & Sentence token length and normalized item position & Mean noncontextual input embedding; released imageability ratings in the primary design, which reuses the released response matrices unchanged \\
     \midrule
-    LeBel & Final-subtoken hidden state for each word under its available left context & Word rate, phoneme rate, mean word duration, word length, and log word frequency & 985-dimensional \texttt{english1000} lexical-semantic features \\
+    LeBel & Final-subtoken hidden state for each word under its available left context & Word rate, phoneme rate, word duration, word length, and log word frequency & the released \texttt{english1000} lexical-semantic basis, which retains 985 dimensions \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -130,8 +130,9 @@ The synthetic-response route uses a fixed WikiText-103 corpus that is disjoint f
 The corpus builder reads the training split of \path{Salesforce/wikitext}, configuration \path{wikitext-103-raw-v1}, in dataset order.
 It removes blank lines and document headers, splits each remaining line after sentence-final punctuation, retains sentences of 4--45 whitespace-delimited words, and removes case-insensitive duplicates and exact case-insensitive matches to Tuckute sentences.
 The first retained sentences form the fixed training file and the following sentences form the untouched held-out file.
-The distillation-headroom corpus build recorded 96,000 training sentences and 2,000 held-out sentences before the later target-cache filtering step.\evd{E003}
-The synthetic-target caches contain 95,999 training sentences and 1,999 held-out sentences after that step; these counts describe two retained builds rather than one drifting split. \evd{E003}\evd{E016}
+The distillation-headroom corpus build recorded 96,000 training sentences and 2,000 held-out sentences.\evd{E003}
+When the target builder later reads those files it skips any line that is empty once surrounding whitespace is removed, which discarded one line from each file.
+The synthetic-target caches therefore contain 95,999 training sentences and 1,999 held-out sentences; the two pairs of counts describe the same split before and after that step rather than one drifting split. \evd{E003}\evd{E016}
 
 TRIBE~v2 maps each sentence to synthetic brain responses on a standardized cortical surface with 20,484 fsaverage5 locations \autocite{dascoli2026}.
 The target builder loads \path{facebook/tribev2}, sets \path{data.text_feature.model_name} to \path{unsloth/Llama-3.2-3B}, and sets \path{data.features_to_use} to \texttt{[text]} in the runtime configuration. \evd{E016}
@@ -174,12 +175,12 @@ The controls differ in which relationship they disrupt.
 The following constructions make the preserved and disrupted relationships explicit.
 
 The recorded-response intervention constructs its permutation only from the current 800-sentence training complement.
-The participant-averaged route uses one draw per fold and seed, whereas the participant-specific route fits five independently permuted controls per fold and seed and averages their scores.
+The participant-averaged route uses one draw per fold and seed, whereas the participant-specific route fits five independently permuted controls per fold and seed and averages their scores; that replicate count is a fixed choice and is unrelated to the five \acp{roi}.
 The control randomly reorders ten contiguous response blocks within the 800-sentence training complement.
 It disrupts sentence--response pairing while preserving the response-value multiset and within-block order, but it is not constrained to move every block. \evd{E005}\evd{E008}
 
 The saved synthetic block permutation and the frozen row twin serve different purposes.
-Because the legacy block permutation was not a derangement and truncated unequal block pairs, it can retain fixed rows and duplicate or omit rows; it is therefore only a sensitivity.
+The earlier saved block permutation split the rows into ten contiguous blocks, permuted the block order, and copied each source block into its destination block only up to the shorter of the two lengths. Because the blocks are unequal, a destination row past that cut keeps its own target and a source row past that cut is never used, so the result can retain correctly paired rows and can duplicate or omit a row. It is therefore only a sensitivity.
 The retained manifest does not record an exact fixed-row count, so the thesis does not quantify or treat this control as an identifying comparator.
 A derangement is a permutation with no fixed points, so every stimulus is paired with another stimulus's target.
 The frozen row-twin control instead uses Sattolo's algorithm to construct one derangement inside each 200-item outer block before target values or participant scores are read.
