@@ -42,6 +42,8 @@
 \DeclareResult{e004_plot_fold4}{0.0101}                                 % [E004] plot coordinate, fold 4 real-minus-permuted contrast
 \DeclareResult{e008_mean}{$+0.00010$}                                    % [E008] cohort mean over nine participant medians
 \DeclareResult{e008_ci}{[$-0.00037$, $+0.00058$]}                        % [E008] 95\% subject-axis t-CI, n=9
+\DeclareResult{e008_sign_positive_n}{$5$ of $9$}                        % [E008] positive participant medians, recorded-response minus permuted-response
+\DeclareResult{e008_sign_p}{$0.50$}                                     % [E008] exact two-sided sign test over nine participant medians
 \DeclareResult{e008_mde_range}{$0.0006$--$0.0013$}                       % [E008] approximate observed-variance 80%-power MDE range
 \DeclareResult{e008_fold_mean}{$+0.00026$}                               % [E008] fold-clustered mean, n=5
 \DeclareResult{e008_fold_ci}{[$-0.0004$, $+0.0009$]}                    % [E008] fold-clustered t-CI, n=5
@@ -116,7 +118,7 @@
 \DeclareResult{e009_seed7}{$-0.005$} % [E009] technical-seed prerequisite alignment contrast
 \DeclareResult{e016_seed_n}{$n=6$}                                     % [E016] saved technical training-seed count
 \DeclareResult{e016_tribe_synth_gain}{$+0.078298$}                      % [E016] TRIBE-target R2 gain over KD, six seeds
-\DeclareResult{e016_tribe_synth_gain_ci}{[$+0.077198$, $+0.079398$]}   % [E016] two-sided seed-axis t-CI95 for WikiText-continuity TRIBE-target gain, n=6 technical seeds
+\DeclareResult{e016_tribe_synth_gain_ci}{[$+0.077198$, $+0.079398$]}   % [E025] two-sided seed-axis t-CI95 for WikiText-continuity TRIBE-target gain, n=6 technical seeds; E016 records the point estimate, E025:137 the interval
 \DeclareResult{e016_plot_gain_mean}{0.078298}                           % [E016] numeric plotting value
 \DeclareResult{e016_plot_gain_ci_low}{0.077198}                         % [E016] numeric plotting value
 \DeclareResult{e016_plot_gain_ci_high}{0.079398}                        % [E016] numeric plotting value
@@ -128,6 +130,8 @@
 \DeclareResult{e025_participant_ci}{[$-0.000505$, $+0.000777$]}        % [E025] participant t-CI95, n=9
 \DeclareResult{e025_participant_ucb}{$+0.000653$}                      % [E025] one-sided participant upper 95%, below internal +0.002 continuation threshold
 \DeclareResult{e025_participant_mde}{$0.000890$}                       % [E025] observed-variance 80% MDE, n=9
+\DeclareResult{e025_participant_positive_n}{$4$ of $9$}                % [E025] positive participant attribution contrasts, synthetic-response minus text-derived
+\DeclareResult{e025_participant_sign_p}{$1.0$}                         % [E025] exact two-sided sign test over nine participant attribution contrasts
 \DeclareResult{e025_participant_median}{$-0.000023$}                   % [E025] participant-first TRIBE-minus-textfeat median
 \DeclareResult{e025_drop_highest}{$-0.000131$}                         % [E025] participant mean after excluding highest-KD-alignment UID 837
 \DeclareResult{e025_tribe_kd}{$-0.000014$}                             % [E025] direct TRIBE-minus-KD participant mean
@@ -215,9 +219,11 @@
 \DeclareResult{e030_target_unique_ci}{[$-0.010695$, $+0.001707$]}      % [E030] Bonferroni family-95% two-sided t interval
 \DeclareResult{e030_target_unique_upper}{$+0.001707$}                  % [E030] upper endpoint of the Bonferroni family-95% two-sided t interval
 \DeclareResult{e030_target_positive_n}{$3$ of $9$}                     % [E030] positive participant-level aligned-target unique increments
+\DeclareResult{e030_target_sign_p}{$0.5078$}                           % [E030] exact two-sided sign test over nine participant aligned-target increments
 \DeclareResult{e030_target_twin}{$+0.001758$}                          % [E030] participant-mean aligned-minus-frozen-twin contrast, n=9
 \DeclareResult{e030_target_twin_ci}{[$-0.003575$, $+0.007091$]}        % [E030] Bonferroni family-95% two-sided t interval
 \DeclareResult{e030_target_twin_positive_n}{$5$ of $9$}                % [E030] positive participant-level aligned-minus-frozen-twin contrasts
+\DeclareResult{e030_target_twin_sign_p}{$1.0$}                         % [E030] exact two-sided sign test over nine participant aligned-minus-frozen-twin contrasts
 \DeclareResult{e030_target_extract}{$+0.040725$}                       % [E030] six-seed absolute TRIBE-target extractability
 \DeclareResult{e030_target_extract_ci}{[$+0.039053$, $+0.042398$]}     % [E030] Bonferroni family-95% two-sided t interval
 \DeclareResult{e030_retention_delta}{$-0.000855$}                      % [E030] six-seed TRIBE-minus-KD retention increment
