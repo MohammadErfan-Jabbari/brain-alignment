@@ -1,7 +1,8 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Brain responses to language could help train a smaller \ac{lm}: when several internal representations predict text about equally well, brain responses could favor one of them over the others.
+Brain responses to language could help train a smaller \ac{lm}.
+When several internal representations predict text about equally well, brain responses could favor one of them over the others.
 In \ac{kd}, a smaller student learns to reproduce the output distribution of a larger teacher, but comparable output behavior does not require the two models to organize information identically in their middle layers \autocite{hinton2015}.
 Under \ac{lupi}, a recorded \ac{fmri} response or a synthetic brain response generated from text, the output of a separate model trained to predict \ac{fmri} responses from text can serve as a training-only target: it may favor one model representation over another without changing the inputs available at deployment.
 Feature-distillation and \ac{lupi} research support this possibility, while also showing that an auxiliary target can produce a similar improvement for reasons unrelated to whether it contains information about brain responses \autocite{lopezpaz2016,saadi2025}.
