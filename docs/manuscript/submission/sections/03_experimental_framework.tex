@@ -73,6 +73,7 @@ The resulting estimand concerns held-out-story prediction within UTS03 and does 
 
 The Tuckute responses can be constructed at two response-aggregation levels.
 Participant averaging combines the five Tuckute training participants declared in Appendix~\ref{app:data-targets} into one sentence-by-\ac{roi} matrix.
+These five are the participants the original Tuckute encoding fit used, so the averaged target follows the published construction rather than a subset selected here.\evd{E002}
 This matrix describes the shared stimulus-locked response, but it cannot support participant-level inference.
 Participant-specific construction begins from the 10 recorded participants.
 One participant is excluded because that participant's required five-\ac{roi} response matrix is incomplete, leaving nine valid participants.
@@ -321,7 +322,7 @@ Appendix~\ref{app:data-targets} gives the exact permutation construction.\evd{E0
 Participant-averaged and participant-specific responses instantiate the same paired intervention but answer different questions.
 In the participant-averaged regime, each fold--seed run uses the fixed participant-averaged response construction (averaged cell by cell) defined in Section~\ref{sec:data-targets}.
 Its contrast describes the effect of correct pairing for that shared stimulus-locked target.
-The participant-specific regime instead trains separate paired arms for each of the nine participants with complete five-\ac{roi} response matrices.
+The participant-specific regime instead trains separate paired arms for each participant with a complete five-\ac{roi} response matrix, nine of the ten released.\evd{E008}
 Its contrast supports inference about variation across the tested participants.
 Averaging responses before training is not equivalent to averaging participant effects after training.
 The participant-averaged contrast therefore cannot be interpreted as the cohort-mean intervention effect.\evd{E005}\evd{E008}
