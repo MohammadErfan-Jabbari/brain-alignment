@@ -238,10 +238,10 @@ Treat the two routes separately and organize each by the claim its comparison ca
 #### 5.2 Compatibility with positive prior studies
 
 1. Why do the intervention and evaluation differences documented in Section 2.3 prevent the present results from directly adjudicating materially different positive studies?
-2. How do baseline choice, comparable \ac{lm} quality, comparator validity, endpoint choice, training seeds, and inference unit change what a positive contrast establishes?
+2. How do baseline choice at comparable \ac{lm} quality, training seeds, and inference unit change what a positive contrast establishes?
 3. What does this thesis add without reinterpreting or claiming to refute those prior results?
 
-Section 2.3 owns the factual literature map and unresolved pre-results gap. This subsection owns only the post-results compatibility judgment and must cross-reference, not resummarize, the earlier studies. Design differences establish non-equivalence; do not claim that they caused the different outcomes.
+Section 2.3 owns the factual literature map and unresolved pre-results gap. This subsection owns only the post-results compatibility judgment and must cross-reference, not resummarize, the earlier studies. Design differences establish non-equivalence; do not claim that they caused the different outcomes. Leaf 2 deliberately omits comparator validity and endpoint choice: Section 2.4 declares both ex ante and Section 7 restates them, so stating them here is a third copy rather than a post-results judgment.
 
 #### 5.3 Design implications for future brain-response-guided training
 
@@ -253,7 +253,7 @@ Section 2.3 owns the factual literature map and unresolved pre-results gap. This
 Section 2.4 owns the ex ante evidence standard and comparator catalog. This subsection owns only design changes newly justified by the observed failure locations. Frame them as recommendations supported by the diagnostic logic, not as an experimentally proven universal recipe.
 Do not universalize the 50-component \ac{pca} linear measurability screen as a necessary condition for every nonlinear intervention, present comparator matching as sufficient for attribution, or let the recorded-route utility evaluation stand in for an unperformed synthetic-route utility test.
 
-Target one opening paragraph followed by a 3/3/4 paragraph structure across Sections 5.1--5.3, for approximately 1,200--1,300 words in total. Add no new figure unless prose cannot express a genuinely new relationship: Figure~1 already owns the claim dependencies and Table~3 owns the role-specific verdicts.
+Target one opening paragraph followed by a 3/3/4 paragraph structure across Sections 5.1--5.3, for approximately 1,150--1,250 words in total. Add no new figure unless prose cannot express a genuinely new relationship: Figure~1 already owns the claim dependencies and Table~3 owns the role-specific verdicts.
 
 ### 6. Limitations
 
