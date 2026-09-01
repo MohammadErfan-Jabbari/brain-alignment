@@ -50,9 +50,13 @@ def source_files(target: Path) -> list[Path]:
     if target.is_file():
         return [target.resolve()]
     # `style/` is a vendored publisher template (neurips_2025.tex), not our prose.
+    # `cover/` is the official UC3M title-page template, compiled separately and
+    # included as a PDF; it carries layout lengths, not results.
     return sorted(
         p.resolve() for p in target.rglob("*.tex")
-        if ".archive-manuscript" not in p.parts and "style" not in p.parts
+        if ".archive-manuscript" not in p.parts
+        and "style" not in p.parts
+        and "cover" not in p.parts
     )
 
 
