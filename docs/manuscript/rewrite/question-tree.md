@@ -47,7 +47,7 @@ No subsections. Seven paragraphs:
 
 The three contributions are controlled measurement with quality-aware interpretation, participant-level tests of training with recorded fMRI responses, and separation of synthetic-target projection measurability, uptake, movement, comparator validity, and biological transfer. Do not use internal rung names, experiment history, or E identifiers here.
 
-### 2. Evidence Required for a Brain-Specific Training Advantage
+### 2. Background and Related Work
 
 **Section question.** What must be true before training with brain responses can be credited with a brain-specific advantage?
 
@@ -74,18 +74,17 @@ This subsection owns the conceptual mechanism and its limits: output objectives 
 1. What evidence shows that training with recorded fMRI responses or synthetic brain responses generated from text can change model representations or task performance, and what claim does each result support?
 2. Why do differences in modality, temporal resolution, personalization, model budget, endpoint, comparator, training seeds, and inference unit prevent those studies from establishing an incremental benefit for a fixed smaller student at comparable language-model quality?
 3. Why do privileged-information and feature-distillation studies create the alternative explanation that any benefit may come from adding a dense, learnable auxiliary target rather than from brain-response content?
-4. Which requirements from measurement-validity and compression research must an intervention study satisfy, including nuisance controls, leakage-resistant splits, language-quality matching, and separation of training-time objectives from post-training brain-predictivity evaluation?
+4. Which requirements from measurement-validity and compression research must an intervention study satisfy beyond the assay controls Section 2.1 owns, including language-quality matching and separation of training-time objectives from post-training brain-predictivity evaluation?
 
 This subsection owns the factual pre-results literature comparison and the unresolved intervention gap. Compare estimands and designs, use the table to support Questions 1 and 2 rather than create another argumentative branch, and do not claim that positive prior studies are invalid or that they all lack controls for brain-response content. Section 2.4 converts the gap into this manuscript's evidence standard, Section 3 implements that standard, and Section 5.2 owns only the post-results compatibility judgment.
 
 #### 2.4 What evidence standard supports a brain-specific training advantage?
 
-1. Which measurement and opportunity results motivate intervention, and which of them license only route-specific or pathway-specific claims?
-2. What do target uptake and retained-student movement each establish about whether the intervention affected the retained student?
-3. Which comparisons are required to establish brain-response-specific attribution, transfer to independently recorded \ac{fmri} responses, and external utility?
-4. Which claims depend on which comparisons, and which opportunity or mechanism diagnostics do not veto an independently identifying downstream arm contrast?
+1. Which measurement and opportunity results motivate intervention, and why do they license only route-specific claims?
+2. Which comparisons are required to establish brain-response-specific attribution, transfer to independently recorded \ac{fmri} responses, and external utility?
+3. Which claims depend on which comparisons, and which opportunity or mechanism diagnostics do not veto an independently identifying downstream arm contrast?
 
-Keep four roles distinct: measurement and opportunity evidence, manipulation checks, attribution, and endpoint evidence. Section 2.2 explains why target uptake, reduced target loss, and retained-student movement are manipulation checks; this subsection must state why they do not establish brain-specific attribution, biological transfer, or utility. Name the comparator needed for each claim, including untrained networks, ordinary KD, permuted targets, matched text-derived auxiliary targets, matched language quality, and independent recorded-brain endpoints. Place the claim-dependency figure here. The Introduction may preview the dependencies, Section 3 must map each role to its estimand and comparison, Section 4 must report each role separately, Section 5.3 may derive design recommendations, and Appendix D must formalize the corresponding estimators and decision rules. Do not repeat a second full version elsewhere.
+Keep four roles distinct: measurement and opportunity evidence, manipulation checks, attribution, and endpoint evidence. Section 2.2 owns target uptake, reduced target loss, and retained-student movement: why they are manipulation checks, and why they establish neither attribution, transfer, nor utility. This subsection states only that they are outcomes of an intervention rather than conditions its comparator must satisfy. Name the comparator needed for each claim, including untrained networks, ordinary KD, permuted targets, matched text-derived auxiliary targets, matched language quality, and independent recorded-brain endpoints. Place the claim-dependency figure here. The Introduction may preview the dependencies, Section 3 must map each role to its estimand and comparison, Section 4 must report each role separately, Section 5.3 may derive design recommendations, and Appendix D must formalize the corresponding estimators and decision rules. Do not repeat a second full version elsewhere.
 
 ### 3. Experimental Design and Evaluation
 

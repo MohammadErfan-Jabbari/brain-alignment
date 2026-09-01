@@ -1,73 +1,68 @@
 \section{Background and Related Work}
 \label{sec:valid-claim}
 
-Four adjacent literatures inform this thesis but answer different questions: brain-encoding studies \autocite{oota2023,merlin2024}, brain-response-guided optimization \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}, privileged-information and feature-distillation work \autocite{lopezpaz2016,saadi2025}, and model-compression studies \autocite{oota2026}.
-Predicting recorded brain responses does not establish that training with those responses changes a student model, the smaller model trained to imitate a larger teacher.
-A change in the student also does not establish that the change (1)\ arises specifically from brain-response content, (2)\ transfers to independently recorded \ac{fmri} responses, or (3)\ improves a practical endpoint, such as a downstream task, while the student's language-modeling quality stays comparable to the baseline's.
-This section connects these claims and defines the evidence criteria for a brain-specific training advantage, a benefit attributable to brain-response content rather than to any auxiliary target.
-Five words recur throughout the thesis for the five things that must be told apart: \emph{measurement} is predicting recorded responses from a frozen model, \emph{manipulation} is changing the student with a brain-response objective, \emph{attribution} is tracing that change specifically to brain-response content, \emph{transfer} is improvement on independently recorded responses, and \emph{utility} is improvement on a practical endpoint.
+Four adjacent literatures bear on the question, each studying something different: brain-encoding studies \autocite{oota2023,merlin2024}, brain-response-guided optimization \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}, privileged-information and feature-distillation work \autocite{lopezpaz2016,saadi2025}, and model-compression studies \autocite{oota2026}.
+Five words distinguish the five claims this thesis keeps apart: \emph{measurement} is predicting recorded responses from a frozen model, \emph{manipulation} is changing the student with a brain-response objective, \emph{attribution} is tracing that change specifically to brain-response content, \emph{transfer} is improvement on independently recorded responses, and \emph{utility} is improvement on a practical endpoint.
+None of these claims establishes another: predicting recorded brain responses does not establish that training with those responses changes the student, and a change in the student leaves attribution, transfer, and utility open.
+A brain-specific training advantage is an incremental benefit of brain-response content beyond a matched control, at comparable \ac{lm} quality and measured at the correct biological inference unit.
 
 \subsection{What controlled brain predictivity establishes}
 \label{sec:controlled-score}
 
-Controlled brain predictivity tests whether representations extracted from a frozen \ac{lm} contain information useful for predicting recorded \ac{fmri} responses to held-out stimuli.
+Controlled brain predictivity is the measurement claim: it tests whether representations extracted from a frozen \ac{lm} contain information useful for predicting recorded \ac{fmri} responses to held-out stimuli.
 An encoding model is fitted to predict responses from those representations on one set of stimuli and evaluated on a separate set.
-This held-out evaluation tests whether prediction generalizes beyond the fitting stimuli rather than merely reflecting overfitting to them \autocite{oota2023,merlin2024}.
-Under a linear readout, a positive controlled score means that a linear combination of \ac{lm} representation dimensions improves prediction beyond the controls described next.
+This held-out evaluation tests whether prediction generalizes beyond the fitting stimuli \autocite{oota2023,merlin2024}.
 
-Three controls are required to determine whether predictive performance is associated with learned \ac{lm} representations rather than simpler alternatives.
+Three controls are required before predictive performance can be attributed to learned parameters rather than to simpler alternatives or to leakage between fitting and evaluation sets.
 First, a nuisance-only model predicts recorded \ac{fmri} responses from stimulus properties such as position, length, and static lexical features.
 Comparing it with a full model that also includes the tested representations measures what those representations add.
 Second, an architecture-matched untrained \ac{lm} retains the tokenizer, dimensionality, and architecture of the trained model but lacks its learned parameters.
-This comparison tests whether predictive performance depends on learned representations rather than the model's fixed structure.
+This comparison tests whether predictive performance depends on learned parameters rather than the architecture alone.
 Third, contiguous or blocked splits keep locally related samples from being scattered across fitting and evaluation sets, reducing inflated scores caused by dependence or leakage between them \autocite{hadidi2026}.
-Together, these controls restrict the interpretation of the observed effect to held-out predictive value added by learned \ac{lm} representations under the declared assay, that is, the stated combination of stimuli, response definition, readout, and controls.
+Together, these controls restrict the interpretation of a positive score to held-out predictive value added by learned \ac{lm} representations under the declared assay: the stated combination of stimuli, response definition, readout, and controls.
 
 Even with these controls, controlled brain predictivity remains bounded by the declared assay.
 A linear readout tests whether recorded responses can be predicted from a linear combination of \ac{lm} representation dimensions; it does not test every form of information that might be present.
-Participant-specific responses measure predictivity for an individual, whereas averaged responses measure predictivity of a group-level response summary.
-How reliably the response was measured, and how many repetitions were averaged to estimate it, set a ceiling on what any model can predict \autocite{lage2019}.
-The stimulus distribution, how the response is defined and aggregated, and the selected brain regions bound the achievable score further.
-This thesis therefore states each of them for every reported score.
+Participant-specific responses measure predictivity for an individual, whereas averaged responses measure predictivity of a group average.
 The inference unit determines the scope of uncertainty: many voxels or repeated folds from one participant do not provide evidence about many independent participants.
-Controlled brain predictivity therefore supports a bounded claim about held-out prediction under the declared assay, not a shared biological mechanism, causal equivalence, or general cognitive competence \autocite{jia2026}.
-Sections~\ref{sec:data-targets}, \ref{sec:measurement-prerequisites}, and \ref{sec:estimands} specify the response construction, estimator, controls, and inference unit used to instantiate this assay.
+Measurement reliability and the number of averaged repetitions set a ceiling on what any model can predict \autocite{lage2019}.
+The stimulus distribution and the selected brain regions bound it further.
+Controlled brain predictivity therefore supports a bounded claim about held-out prediction under the declared assay, not a shared biological mechanism or causal equivalence \autocite{jia2026}.
+Sections~\ref{sec:measurement-prerequisites} and \ref{sec:estimands} specify how this assay was instantiated.
 
 \subsection{Why brain-response targets might help a student}
 \label{sec:target-rationale}
 
 Ordinary \ac{kd} trains a student to reproduce the teacher's output distribution, but this objective does not uniquely determine how the student organizes information in its middle layers.
 Different bases, subspaces, and feature organizations can support similar token predictions.
-Two students can therefore show similar language behavior while retaining different information in their model representations.
 This leaves room for an auxiliary training target to favor one representation over another without necessarily improving or degrading the language objective.
-Feature-distillation research further shows that the value of such guidance depends on which information is emphasized and how teacher and student capacities are matched, rather than simply on copying a large dense vector \autocite{saadi2025}.
 
-This flexibility leaves room for brain-response targets to serve as privileged information, meaning data available during training but unnecessary at deployment \autocite{lopezpaz2016}.
-The student retains the same \ac{lm} objective, while an auxiliary objective favors representations from which the training target can be predicted.
-Recorded \ac{fmri} responses provide observed biological measurements, whereas synthetic brain responses generated from text carry only the structure learned by a fixed generator, a model trained beforehand to map text to brain responses.
+Brain-response targets can fill that role as privileged information, data available during training but unnecessary at deployment \autocite{lopezpaz2016}.
+The student keeps the \ac{lm} objective used in ordinary \ac{kd}, while an auxiliary objective favors representations from which the training target can be predicted.
+Recorded \ac{fmri} responses vary with the participant and session beyond what the text fixes, whereas synthetic brain responses generated from text carry only the structure learned by a fixed generator, a model trained beforehand to map text to brain responses.
 Because each synthetic response is determined by the text and generator, it cannot provide example-specific information that varies independently of them.
-It may nevertheless present generator-learned structure in a form that is easier for the student to learn or recover.
-This is a hypothesis about the intervention, motivated by privileged-information and feature-distillation results, not a consequence of the target's deterministic construction \autocite{lopezpaz2016,saadi2025}.
+It may nevertheless present generator-learned structure in a form that is easier for the student to learn or recover, a hypothesis motivated by privileged-information and feature-distillation results rather than a consequence of the target's deterministic construction \autocite{lopezpaz2016,saadi2025}.
 
 Evidence that the auxiliary objective affected training does not establish a brain-specific training advantage.
-Reduced target loss may show only that components present during training learned to predict the auxiliary target; those components can be discarded afterwards, leaving the retained student unchanged.
-Target uptake instead requires a new prediction model, fitted after training, to recover the target from the frozen representations of the retained student, the model kept once the training-only components are removed, better than from the declared baseline.
-Retained-student movement separately requires parameter or representation differences from ordinary \ac{kd} that remain after components used only during training are removed.
-These checks show, respectively, that target information became recoverable beyond the baseline and that the intervention changed the retained student beyond ordinary \ac{kd}.
-They do not establish that the changes (1)\ arose specifically from brain-response content, (2)\ transferred to independently recorded \ac{fmri} responses, or (3)\ improved a practical endpoint.
-Sections~\ref{sec:data-targets}, \ref{sec:recorded-intervention}, \ref{sec:synthetic-intervention}, and \ref{sec:estimands} specify the target construction, training objectives, gradient paths, retained components, and comparison baselines used for these checks.
+Reduced target loss can show only that components present during training learned to predict the auxiliary target, and those components can be discarded afterwards.
+The retained student, the model kept once those components are removed, may therefore be unchanged.
+Manipulation is therefore checked in two parts, both against the ordinary \ac{kd} arm.
+Target uptake requires a new prediction model, fitted after training, to recover the target better from the retained student's frozen representations than from that baseline.
+Retained-student movement separately requires parameter or representation differences from the same baseline that remain after components used only during training are removed.
+Neither uptake nor movement establishes attribution, transfer, or utility.
+Sections~\ref{sec:recorded-intervention} and \ref{sec:synthetic-intervention} specify the objectives, gradient paths, and baselines for these checks.
 
 \subsection{What prior brain-response-guided training leaves unresolved}
 \label{sec:prior-gap}
 
 Prior work assigns brain responses two distinct roles: post-training evaluation and training supervision.
 Post-training encoding studies use recorded \ac{fmri} responses to evaluate model representations after the model has been changed for another reason.
-Narrative-summarization tuning can increase brain-predictivity scores without using brain responses during training, while model scaling can increase naturalistic brain alignment even when matched-size instruction tuning does not under the studied assay \autocite{aw2023,gao2024}.
+Narrative-summarization tuning can increase brain-predictivity scores without using brain responses during training, while model scaling can increase naturalistic brain alignment under the studied assay even when matched-size instruction tuning does not \autocite{aw2023,gao2024}.
 These findings show that brain predictivity can change because of the training objective or model scale alone; they do not estimate the value of brain responses as training targets.
 Brain-response-guided studies instead use recorded brain responses or model-generated brain-response predictions during training \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}.
 Their positive findings show that training with these responses can change model representations, brain-predictivity scores, or selected task outcomes.
 However, the claim supported by each result depends on its comparator, evaluation data, and inference unit.
-Table~\ref{tab:related-designs} compares selected designs without treating every positive brain-predictivity result as evidence for the same claim.
+Table~\ref{tab:related-designs} compares selected designs and what each leaves unsettled.
 
 \begin{table}[H]
   \centering
@@ -75,76 +70,56 @@ Table~\ref{tab:related-designs} compares selected designs without treating every
   \setlength{\tabcolsep}{3pt}
   \newcommand{\relatedarraystretch}{1.08}
   \renewcommand{\arraystretch}{\relatedarraystretch}
-  \caption{Prior designs linking model interventions to brain predictivity.}
+  \caption{Prior model interventions that train with brain responses, and their reported outcomes.}
   \label{tab:related-designs}
   \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{24mm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
     \toprule
     Study & Intervention and relevant result & Why it does not settle this study's question \\
     \midrule
-    \textcite{aw2023}; \textcite{gao2024} &
-    Post-training evaluation after summarization tuning, scaling, or instruction tuning shows that brain predictivity can change without brain-response training. &
-    Uses no brain-response target, no smaller student, and no brain-response-versus-control intervention. \\
     \textcite{bilgin2026} &
     A cosine loss against participant-specific \ac{fmri} responses, together with a token loss, updates upper-layer adapters; held-out encoding, new-participant readouts, and a model-specific external task improve. &
-    No shuffled or matched text-derived target, smaller student, or ordinary \ac{kd} comparator. \\
+    No permuted or matched text-derived target, smaller student, or ordinary \ac{kd} comparator. \\
     \textcite{merlinData2026} &
     Participant-specific \ac{fmri}-response, stimulus-language, or joint objectives update adapters; brain-response training wins more linguistic-probe comparisons than stimulus tuning. &
     Target geometry and difficulty are not matched between the brain-response and stimulus-language objectives; no participant-held-out transfer or compression comparison. \\
     \textcite{merlin2026} &
     Complementary objectives add or remove brain-predictive information; a permuted-response control and matched \ac{lm} loss accompany changes in linguistic probes. &
     No smaller student; the readout used to add or remove information may itself carry linguistic variance not specific to brain-response content. \\
-    \textcite{freteault2025} &
-    Individual or group \ac{fmri} responses fine-tune selected auditory-network layers; held-out brain predictivity and external auditory tasks improve. &
-    No matched text-derived or shuffled-target arm; the model and modality differ from text distillation. \\
     \textcite{pirlot2022} &
     A monkey-V1-response regularizer trains a vision model; permuted targets reproduce the clean-accuracy gain, while real targets improve moderate-attack robustness. &
-    The clean-task gain is generic regularization; only the robustness endpoint distinguishes brain-response content in that design. \\
+    Only the robustness endpoint distinguishes brain-response content in that design. \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
 Positive studies span language, speech, and vision; they do not estimate a single shared effect of brain-response training.
-Speech models adapted with recorded \ac{fmri} responses have improved brain-response prediction and performance on selected semantic or auditory tasks \autocite{moussa2025,moussa2025b,freteault2025}.
-Some of those gains also appear for participants whose responses were not used in adaptation \autocite{moussa2025b}.
+Speech models adapted with recorded \ac{fmri} responses have improved brain-response prediction and selected semantic or auditory tasks, with some gains extending to participants whose responses were not used in adaptation \autocite{moussa2025,moussa2025b,freteault2025}.
+Text-model interventions report gains on multilingual, probe, commonsense, and reasoning endpoints \autocite{negi2025,bilgin2026,merlinData2026,xiao2026}.
+Training with temporally precise electrocorticography responses has improved prediction within the same modality, while training with slower \ac{fmri} responses has transferred to electrocorticography prediction for new participants and stimuli after fitting a new readout \autocite{zhang2026,vaidya2026}.
 In one of these studies the brain-prediction gains were scored on stimuli drawn from the same distribution as the adaptation data, so they do not establish transfer across stimulus distributions \autocite{freteault2025}.
-Text-model interventions report changes in multilingual performance, linguistic probes, visual commonsense, or reasoning after training with brain-response targets \autocite{negi2025,bilgin2026,merlinData2026,xiao2026}.
-Training with temporally precise electrocorticography responses has improved prediction within the electrocorticography modality, while training with slower \ac{fmri} responses has transferred to prediction in that faster modality for new participants and stimuli after fitting the required readout \autocite{zhang2026,vaidya2026}.
-Together, these studies show that brain-response-guided objectives can alter model representations or selected task outcomes.
-However, they test different models, training targets, endpoints, and transfer settings.
-Some adapt a full encoder or adapters rather than a smaller student, some use participant-specific targets, and some require different amounts of brain-response training data per participant.
-Their positive results therefore do not establish one common effect or the incremental value of brain responses for a fixed smaller student.
-
-Different controls rule out different explanations for a positive result.
-A target permutation (the permuted-response control) destroys the stimulus--target pairing while preserving the target values and their marginal distribution, testing whether the correct pairing matters.
-A task-only or stimulus-language condition tests whether additional training or a conventional objective is sufficient.
-Evaluation on a held-out participant or dataset tests whether the change transfers beyond the training setting, often after fitting a new readout.
-None of these controls replaces a text-derived auxiliary target matched to the brain-response target in dimensionality, covariance, baseline predictability, learnability, and optimization pressure; only such a matched target separates brain-response content from the generic benefit of any dense auxiliary target.
-The vision study is instructive: permuted targets reproduce the clean-accuracy improvement, while only the robustness endpoint distinguishes the real brain-response target \autocite{pirlot2022}.
-Positive results should therefore be interpreted only within the scope of the claims their designs support, and a result should be attributed to brain-response content only to the extent that the design's controls rule out the competing explanations.
+However, these studies differ in model, training target, endpoint, personalization, and transfer setting, so their positive results do not establish the incremental value of brain responses for a fixed smaller student.
 
 Privileged-information and feature-distillation studies provide a competing explanation for any benefit from training with brain responses.
 A dense training-only target may produce an improvement by emphasizing distinctions useful to the student or, as a so-far untested hypothesis, by making optimization easier, regardless of whether the target contains brain-response content.
+The vision study in Table~\ref{tab:related-designs} is the case in point \autocite{pirlot2022}.
 Its value depends on the information carried by the target, the student's capacity, and how the teacher and student representations are matched \autocite{lopezpaz2016,saadi2025}.
-An improvement from a brain-response target therefore requires comparison with a similarly learnable text-derived auxiliary target under the same \ac{lm} objective before it can be attributed specifically to brain-response content.
+Ruling that explanation out therefore requires an arm whose target matches the brain-response target in density and learnability but is derived from text alone, under the same \ac{lm} objective.
 
-Measurement-validity research identifies separate requirements for evaluating the student after training.
+Measurement-validity research adds requirements for evaluating the student after training.
 Post-training brain predictivity must be measured with leakage-resistant splits and nuisance controls \autocite{hadidi2026,jia2026}.
 It must also be measured at an inference unit appropriate to the claim: the number that enters a test is the number of independent units, not the number of observations pooled from them \autocite{lazic2010}.
-Reduced auxiliary loss during training cannot replace this fresh evaluation.
 Compression studies further show that pruning or quantization method and model scale can change brain predictivity without brain-response training \autocite{oota2026}.
 An intervention comparison must therefore separate the effect of the brain-response objective from changes in \ac{lm} quality and must evaluate the retained student with a fresh measurement rather than rely on the value of its own training loss.
 
 The unresolved question posed before any new experiment is therefore narrower than whether training with brain responses can change a model.
 For a fixed smaller student trained by ordinary \ac{kd}, do recorded \ac{fmri} responses or synthetic brain responses generated from text provide an incremental, brain-specific advantage over the appropriate control: permuted responses for recorded targets, and a matched text-derived target for synthetic targets at comparable \ac{lm} quality?
-The next subsection states the evidence criteria for that advantage claim.
 
 \subsection{Evidence criteria for a brain-specific training advantage}
 \label{sec:evidence-criteria}
 
 Figure~\ref{fig:evidence-chain} organizes the evidence by what each claim depends on, rather than as one fixed sequence every claim must pass through.
-Controlled brain predictivity defines the biological endpoint shared by both routes.
-Route-specific headroom describes whether an intervention has room to improve that endpoint, but it does not determine the validity of a later paired intervention contrast.
-The recorded- and synthetic-response routes then require different evidence for manipulation, attribution, transfer, and utility claims.
+Route-specific headroom describes only the opportunity to improve the shared endpoint, not the validity of a later paired intervention contrast.
+The two routes then carry different claims: pairing-specific attribution and utility in the recorded-response route, and manipulation, transfer, and attribution in the synthetic-response route, alongside an independent pathway qualification.
 
 \begin{figure}[H]
   \centering
@@ -152,35 +127,33 @@ The recorded- and synthetic-response routes then require different evidence for 
     box/.style={draw, rounded corners=1.5pt, align=center, text width=26mm, minimum height=21mm, inner sep=3pt, font=\footnotesize},
     widebox/.style={box, text width=55mm},
     context/.style={box, fill=blue!8},
-    recorded/.style={widebox, fill=orange!10},
-    synthetic/.style={box, fill=violet!9},
-    endpoint/.style={box, fill=green!9},
     lane/.style={font=\footnotesize\bfseries, text=black!75},
     link/.style={-{Latex[length=1.8mm]}, semithick},
-    contextlink/.style={link, dashed, gray!70}
+    contextlink/.style={link, dashed, gray!70},
+    alabel/.style={font=\tiny, text=black!70, inner sep=1.5pt, fill=white}
   ]
     \node[lane] at (3.2,0.85) {Recorded-response route};
     \node[context] (rmeasure) at (1.60,-0.70) {\textbf{Controlled brain\\predictivity}\\shared endpoint}; % \evd{E002}
     \node[context] (rheadroom) at (4.85,-0.70) {\textbf{Route-specific\\headroom}\\opportunity only}; % \evd{E003}
-    \node[recorded] (pairing) at (3.2,-3.40) {\textbf{Recorded vs.\ permuted responses}\\pairing-specific change in controlled brain predictivity}; % \evd{E008}
-    \node[endpoint, text width=55mm] (recordedutility) at (3.2,-6.10) {\textbf{Matched practical endpoint}\\utility after an established change, with paired uncertainty}; % \evd{E009}
-    \draw[contextlink] (rmeasure.south) -- (rmeasure.south |- pairing.north);
-    \draw[contextlink] (rheadroom.south) -- (rheadroom.south |- pairing.north);
-    \draw[link] (pairing) -- (recordedutility);
+    \node[widebox] (pairing) at (3.2,-3.40) {\textbf{Pairing-specific attribution}\\recorded vs.\ permuted responses, change in controlled brain predictivity}; % \evd{E008}
+    \node[widebox] (recordedutility) at (3.2,-6.10) {\textbf{Matched practical endpoint}\\utility after an established change, with paired uncertainty}; % \evd{E009}
+    \draw[contextlink] (rmeasure.south) -- node[alabel,right]{context} (rmeasure.south |- pairing.north);
+    \draw[contextlink] (rheadroom.south) -- node[alabel,right]{context} (rheadroom.south |- pairing.north);
+    \draw[link] (pairing) -- node[alabel,right,align=center]{must pass\\first} (recordedutility);
 
     \node[lane] at (10.6,0.85) {Synthetic-response route};
     \node[context] (sheadroom) at (8.85,-0.70) {\textbf{Route-specific\\headroom}\\opportunity only}; % \evd{E003}
     \node[context] (smeasure) at (12.35,-0.70) {\textbf{Controlled brain\\predictivity}\\shared endpoint}; % \evd{E002}
-    \node[synthetic] (manipulation) at (8.85,-3.40) {\textbf{Target uptake and\\retained movement}\\student changed at\\acceptable \ac{lm} quality}; % \evd{E025}
-    \node[endpoint] (transfer) at (12.35,-3.40) {\textbf{Direct biological\\transfer}\\fresh \ac{fmri} endpoint\\vs.\ ordinary \ac{kd}}; % \evd{E025}
-    \node[endpoint] (attribution) at (8.85,-6.10) {\textbf{Brain-response-specific\\attribution}\\matched text-derived\\control required}; % \evd{E026}
-    \node[synthetic] (projection) at (12.35,-6.10) {\textbf{Independent pathway\\qualification}\\50-component linear\\target projection}; % \evd{E030}
-    \draw[contextlink] (sheadroom) -- (manipulation);
-    \draw[contextlink] (smeasure) -- (transfer);
-    \draw[link] (manipulation) -- (transfer);
-    \draw[link] (manipulation) -- (attribution);
+    \node[box] (manipulation) at (8.85,-3.40) {\textbf{Target uptake and\\retained-student movement}\\student changed at\\acceptable \ac{lm} quality}; % \evd{E025}
+    \node[box] (transfer) at (12.35,-3.40) {\textbf{Direct biological\\transfer}\\fresh \ac{fmri} endpoint\\vs.\ ordinary \ac{kd}}; % \evd{E025}
+    \node[box] (attribution) at (8.85,-6.10) {\textbf{Brain-response-specific\\attribution}\\matched text-derived\\control required}; % \evd{E026}
+    \node[box] (projection) at (12.35,-6.10) {\textbf{Independent pathway\\qualification}\\50-component linear\\target projection}; % \evd{E030}
+    \draw[contextlink] (sheadroom) -- node[alabel,right]{context} (manipulation);
+    \draw[contextlink] (smeasure) -- node[alabel,right]{context} (transfer);
+    \draw[link] (manipulation) -- node[alabel,above,align=center]{must pass\\first} (transfer);
+    \draw[link] (manipulation) -- node[alabel,right,align=center]{must pass\\first} (attribution);
   \end{tikzpicture}
-  \caption{Claim dependencies for recorded- and synthetic-response training. Dashed arrows link shared endpoint or opportunity context; solid arrows mark claim dependencies. The target-projection assay independently qualifies only the declared linear pathway.}
+  \caption{Claim dependencies for recorded- and synthetic-response training.}
   \label{fig:evidence-chain}
 \end{figure}
 
@@ -190,22 +163,17 @@ An ordinary \ac{kd} arm isolates the incremental effect of adding a brain-respon
 The route-appropriate attribution control depends on the training target.
 In the recorded-response route, the attribution control compares correctly paired with permuted responses, testing whether the stimulus--response pairing matters while preserving the response values and their marginal distribution.
 In the synthetic-response route, the attribution control compares the synthetic brain-response target with a text-derived auxiliary target matched on properties that we fix or calibrate in advance, before interpreting the target-arm outcomes.
-These properties include geometry, scale, baseline predictability, remaining headroom (how much the target's prediction can still improve), and initial optimization pressure (the early gradient magnitude the target exerts).
-Target uptake and retained-student movement, defined above, can explain how two target interventions differed, but they are outcomes of those interventions rather than conditions the comparator must satisfy.
-For either route, brain-response-specific attribution requires the brain-response-target arm to outperform its control on the outcome being claimed.
+These properties include geometry, scale, baseline predictability, how much the target's prediction can still improve, and the early gradient magnitude it exerts.
+Target uptake and retained-student movement, defined in Section~\ref{sec:target-rationale}, can explain how two target interventions differed, but they are outcomes of those interventions rather than conditions the comparator must satisfy.
 
 A freshly fitted readout on independently recorded \ac{fmri} responses tests biological transfer; successful recovery of the optimized training target cannot substitute for this endpoint.
+A practical-utility claim requires improvement over its route-appropriate control on a prespecified endpoint; when the claim is that improved controlled brain predictivity pays off practically, it additionally requires that the predictivity improvement itself be reliably established first.
 The direct transfer comparison, the synthetic-response arm against ordinary \ac{kd}, is interpretable without the text-derived auxiliary control.
 The auxiliary control is additionally required only when the claim attributes a difference to brain-response content.
 
-The 50-component linear target-projection assay tests whether a declared 50-component linear projection of the training target adds controlled predictivity; it qualifies that linear pathway alone.
-It does not gate any manipulation, transfer, or attribution claim, so Figure~\ref{fig:evidence-chain} draws it as an isolated box with no arriving or departing dependency arrows.
-In particular, a failure of this assay does not overturn a direct-transfer result that its own comparison identifies.
-A practical-utility claim requires improvement on its prespecified endpoint; when the claim is that improved controlled brain predictivity pays off practically, it additionally requires that the predictivity improvement itself be reliably established first.
-
 Each result therefore licenses only the claim that depends on it.
-A failed manipulation check (target uptake or retained-student movement) limits the interpretation of a null intervention result, but it does not invalidate a positive independently measured endpoint contrast.
-Failure in one branch does not erase evidence supporting another branch or an earlier, narrower claim.
+A failed manipulation check limits the interpretation of a null intervention result, but it does not invalidate a positive independently measured endpoint contrast.
+The 50-component linear target-projection assay tests whether the declared projection of the training target adds controlled predictivity of recorded \ac{fmri} responses beyond nuisance and the frozen row-twin control, the same target rows with their sentence pairing broken; it qualifies that linear pathway alone.
+It does not gate any manipulation, transfer, or attribution claim, so Figure~\ref{fig:evidence-chain} draws it as an isolated box with no arriving or departing dependency arrows.
 An unresolved comparison must remain unresolved rather than be converted into a null result, and failure under one readout, cohort, or target must not be generalized beyond that scope.
-This dependency interpretation prevents one type of evidence from substituting for another while preserving valid route-specific conclusions.
 Section~\ref{sec:framework} maps each claim to its data, training arms, estimand, comparator, endpoint, and inference unit; Section~\ref{sec:results} reports the corresponding verdicts.
