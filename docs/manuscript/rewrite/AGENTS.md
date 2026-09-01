@@ -6,6 +6,11 @@ aliases: [rewrite-contract]
 
 # Canonical Thesis Manuscript Contract
 
+> [!warning] Frozen at `5688de9` until Erfan lifts the sync suspension
+> This tree is not being edited. All manuscript work is happening in [`../submission/`](../submission/AGENTS.md). Do not edit any file here, and do not mirror a submission change into it. The suspension and the terms for lifting it are in the [root operating contract](../../../AGENTS.md).
+> `numbers.tex`, `acronyms.tex`, and `references.bib` remain single-source and are still read from here by the derivative. Reading them is fine; editing anything here is not.
+
+
 ## Status and authority
 
 This directory is the canonical thesis manuscript. It uses settled evidence from the owning E records and must not silently change an E-record verdict.

@@ -19,6 +19,17 @@ This repository is the execution and writing home for Erfan’s thesis on whethe
 
 No report layer, alternate status board, claim database, artifact registry, dashboard, or routine timeline is authoritative. `docs/manuscript/submission/` is a supervisor-review derivative, never an authority. An interrupted upstream correction sets `manuscript-sync-pending` until the canonical rewrite manuscript is synchronized.
 
+> [!important] Sync suspension in force (from 2026-09-01, until Erfan lifts it)
+> Erfan directed that `docs/manuscript/submission/` is the only manuscript tree being worked on, and that `docs/manuscript/rewrite/` is left untouched. For the duration:
+> - **Do not edit `rewrite/`, and do not mirror any change into it.** Not for a scientific change, not for a prose fix, not for typography.
+> - **Do not treat divergence between the trees as a defect.** `submission/` is the working tree; `rewrite/` is frozen at commit `5688de9`, where a clean twin audit over 41 file pairs found the two identical except for format-only lines. That commit is the exact divergence point.
+> - **Do not dispatch `manuscript-twin-auditor`**, and do not act on a twin finding as though it required a fix. Its authority-direction rule assumes both trees are live.
+> - **Check Git history before undoing anything.** A sentence missing from `submission/` may have been cut deliberately; `submission/AGENTS.md` permits condensation. Run `git log -S "<the sentence>"` before restoring it. This rule exists because restoring five sentences the owner had removed in `7345b63` is how the suspension was discovered to be needed.
+> - `manuscript-sync-pending` is set in `docs/status.md` on purpose and is not a blocker to clear. It records that the sync-back is owed, not that it is due now.
+> - `rewrite/numbers.tex`, `rewrite/acronyms.tex`, and `rewrite/references.bib` stay single-source and are still read across the tree boundary. Reading them is not editing `rewrite/`.
+>
+> Lifting this restores canonical-first: every submission-only change after `5688de9` flows back into `rewrite/`, and only then is `rewrite/` an authority again.
+
 ## Skills are the entry points
 
 Every workflow is a skill in `.claude/skills/`, one directory each. Two ways in, both first-class:
