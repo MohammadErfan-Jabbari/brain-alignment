@@ -86,7 +86,7 @@ This subsection owns the factual pre-results literature comparison and the unres
 
 Keep four roles distinct: measurement and opportunity evidence, manipulation checks, attribution, and endpoint evidence. Section 2.2 owns target uptake, reduced target loss, and retained-student movement: why they are manipulation checks, and why they establish neither attribution, transfer, nor utility. This subsection states only that they are outcomes of an intervention rather than conditions its comparator must satisfy. Name the comparator needed for each claim, including untrained networks, ordinary KD, permuted targets, matched text-derived auxiliary targets, matched language quality, and independent recorded-brain endpoints. Place the claim-dependency figure here. The Introduction may preview the dependencies, Section 3 must map each role to its estimand and comparison, Section 4 must report each role separately, Section 5.3 may derive design recommendations, and Appendix D must formalize the corresponding estimators and decision rules. Do not repeat a second full version elsewhere.
 
-### 3. Experimental Design and Evaluation
+### 3. Methods
 
 **Section question.** How did the study instantiate each scientific role with a distinct design tuple comprising its data or response construction, intervention or assay, comparator, estimand, endpoint, and inference unit?
 
@@ -106,40 +106,40 @@ This subsection owns the study map and the interpretively necessary dataset and 
 1. How do the controlled regional and controlled naturalistic voxelwise predictivity assays implement held-out nuisance-controlled prediction with architecture-matched controls?
 2. How does the distillation-headroom analysis compare teacher and student predictivity while treating \ac{lm} quality, initialization, and route matching as limits on interpretation?
 3. How does the 50-component linear target-projection measurability assay compare the projected target with the nuisance model and frozen row-twin control on recorded responses?
-4. How do ordinary and unique \(R^2\), reliability context, fresh ridge readouts, and leakage-safe transformations apply across these assays?
+4. How do the reliability context and the shared fresh-ridge readout protocol apply across these assays?
 
 This subsection owns summary-level assay design and the compact formulas for its main estimands. Section 2 owns what each assay licenses, Appendix B owns exact inputs and preprocessing, and Appendix D owns estimator derivations, variants, aggregation, tests, and inference. Evidence owners: E002-E003, E006, E015, and E030.
 
 #### 3.3 How is the recorded-response intervention instantiated?
 
-1. Which teacher, student, initialization, ordinary KD objective, data, and training budget are shared by its paired arms?
+1. Which teacher, student, initialization, ordinary KD objective, and data are shared by its paired arms?
 2. What is held fixed between the recorded-response arm and permuted-response control, and what manipulation differs?
 3. How do participant-averaged and participant-specific response constructions define descriptive and primary estimands within the same intervention?
 4. Where does the auxiliary loss attach, which retained parameters receive its gradient, and what components survive evaluation?
 5. Which endpoint and inference unit test the participant-general intervention claim?
 6. Which study-specific variants retain the paired recorded-versus-permuted design, and which target, loss, language anchor, trainable subset, or evaluation scope does each variant change?
+7. Which practical-utility endpoint and prerequisite contrast belong to the recorded-response route, and what limits a brain-specific utility interpretation?
 
 This subsection owns the common intervention design and its study-specific variants. Appendix C owns exact loss paths, schedules, parameter states, and robustness implementations; Appendix D owns formal inference. Evidence owners: E004-E005, E008, E011, E013, and E017.
 
 #### 3.4 How is the synthetic-response intervention connected to manipulation, attribution, transfer, and utility assays?
 
-1. Which components are shared by the synthetic-response, ordinary KD, and text-derived auxiliary-control arms, what changes between them, and why are the saved block-permuted arms sensitivity checks rather than peer claim-identifying arms?
+1. Which components are shared by the synthetic-response, ordinary KD, and text-derived auxiliary-control arms, and what changes between them?
 2. How do the synthetic-target recovery assay and retained-student movement audit test whether training affected the retained student, and which frozen seed-axis criteria define each pass?
 3. How does the comparator-adequacy audit determine whether the available contrast can identify brain-response-specific attribution?
 4. How do the saved-student target-retention analysis, direct saved-student biological-transfer assay, and composed-path diagnostic reuse frozen students, synthetic targets, or independently recorded participant responses, and what distinct question does each answer?
-5. Which language-quality checks qualify the synthetic-response contrasts, which practical-utility evaluation belongs to the separate recorded-response route, and what claim-specific condition limits each interpretation?
+5. Which language-quality checks qualify the synthetic-response contrasts, and what claim-specific condition limits their interpretation?
 
-This subsection is titled ``Synthetic-Response Intervention and Downstream Assays'' and owns the intervention-to-endpoint design chain. Target recovery and retained-student movement are manipulation checks, not peer interventions. Saved block-permuted arms are sensitivities because their construction does not guarantee an exact row derangement. Appendix B owns target and control construction, Appendix C owns training and retained components, and Appendices D and F own estimators and sensitivities. Evidence owners: E009, E016, E025-E026, and E030.
+This subsection is titled ``Synthetic-Response Intervention and Downstream Assays'' and owns the intervention-to-endpoint design chain. Target recovery, retained-student movement, and saved-student target retention are manipulation checks, not peer interventions. Saved block-permuted arms are sensitivities because their construction does not guarantee an exact row derangement. Appendix B owns target and control construction, Appendix C owns training and retained components, and Appendices D and F own estimators and sensitivities. Evidence owners: E009, E016, E025-E026, and E030. The practical-utility evaluation (E009) is a recorded-route design and lives in Section 3.3.
 
 #### 3.5 What cross-cutting estimands, quality rules, and inference procedures govern the comparisons?
 
-1. What estimand, comparator, endpoint, and inference unit belongs to each canonical scientific role?
-2. How is acceptable and comparable \ac{lm} quality defined for each route, and when does mismatch make a contrast descriptive rather than identified?
-3. How are folds, coordinates, regions, voxels, seeds, and participants ordered and aggregated?
-4. Which uncertainty procedures, named tests, multiplicity corrections, and practical or detectable-effect bounds answer each estimand?
-5. How do unmeasured, unresolved, and non-identifying statuses constrain the claims reported later in the Results?
+1. How is acceptable and comparable \ac{lm} quality defined for each route, and when does mismatch make a contrast descriptive rather than identified?
+2. How are seeds, folds, and participants ordered and aggregated to reach each declared inference unit, and which test family answers each estimand?
+3. Which detectable-effect and continuation bounds apply, and what do they not imply?
+4. Which study-specific decision rules assign supported, not demonstrated, unresolved, and non-identifying statuses?
 
-This subsection is titled ``Cross-Cutting Estimands and Decision Rules.'' End with one transition paragraph stating that Results follow these scientific roles rather than evidence-record number or execution date. Appendix D owns estimator derivations, variants, aggregation, and tests. Evidence owners: E003-E006, E008-E009, E015-E017, E025-E026, and E030.
+This subsection is titled ``Cross-Cutting Estimands and Decision Rules.'' End with one transition sentence stating that Results follow these scientific roles rather than evidence-record number or execution date. Appendix D owns estimator derivations, variants, aggregation, and tests. Evidence owners: E003-E006, E008-E009, E015-E017, E025-E026, and E030.
 
 ### 4. Results by Scientific Claim
 
