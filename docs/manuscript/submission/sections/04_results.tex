@@ -4,7 +4,7 @@
 The subsections follow the claim dependencies in Figure~\ref{fig:evidence-chain} and the scientific roles defined in Section~\ref{sec:framework}.
 Table~\ref{tab:results-status} summarizes these role-specific outcomes using \emph{supported}, \emph{not demonstrated}, \emph{unresolved}, \emph{unmeasured}, and \emph{non-identifying comparator}.
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \footnotesize
   \setlength{\tabcolsep}{4pt}
@@ -127,7 +127,7 @@ For participant UTS03, the mean differences were \result{e006_gpt2_gap} for GPT-
 Voxels are spatially dependent and story folds share training stories, so neither provides independent biological replication.
 This assay therefore supports a within-participant controlled brain predictivity result conditional on UTS03 and the fixed naturalistic~protocol.\evd{E006}
 
-\begin{figure}[H]
+\begin{figure}[tbp]
   \centering
   \begin{subfigure}[t]{.495\textwidth}
     \centering
@@ -144,7 +144,6 @@ This assay therefore supports a within-participant controlled brain predictivity
   \caption{Assay-specific trained--untrained contrasts; scales and inference units remain separate.\evd{E002}\evd{E006}}
   \label{fig:controlled-predictivity-results}
 \end{figure}
-\FloatBarrier
 
 Together, the assays show that the tested trained \ac{lm} representations improve linear prediction of held-out recorded \ac{fmri} responses beyond their model-specific nuisance features (Figure~\ref{fig:controlled-predictivity-results}); learned-parameter attribution from the regional gap remains unresolved.
 Their estimates are not pooled because response construction, target resolution, nuisance set, and inference unit differ.
@@ -170,7 +169,7 @@ Pearson \(r\) is \result{e015_full_corr}, with a family-cluster 95\% \ac{ci} of 
 Within the capable-model band, the \result{e015_capable_n} models with bits per byte below \result{e015_capable_bpb_max}, the association stays moderately negative but its interval includes zero (Figure~\ref{fig:distillation-headroom-quality}, Appendix~\ref{app:sensitivities}).\evd{E015}
 Model family, scale, training data, and language quality remain entangled, so the association is a design constraint, not a causal explanation.
 
-\begin{figure}[H]
+\begin{figure}[tbp]
   \centering
   \begin{subfigure}[t]{\textwidth}
     \centering
@@ -190,7 +189,6 @@ Model family, scale, training data, and language quality remain entangled, so th
   \caption{Observed headroom and its association with language quality.\evd{E003}\evd{E015}}
   \label{fig:distillation-headroom-quality-results}
 \end{figure}
-\FloatBarrier
 
 Together, the results support an observed, assay-conditional gap between the GPT-2 teacher and randomly initialized student.
 Quality-aware headroom remains unresolved for the warm GPT-2 route and unmeasured for the Qwen route.
@@ -223,7 +221,7 @@ This range is far below the earlier participant-averaged point estimate of \resu
 The participant analysis would therefore have detected an individual-level effect of that magnitude with at least 80\% probability, although the two estimates belong to different response constructions and estimands.
 The participant result does not prove an exactly zero effect.\evd{E005}\evd{E008}
 
-\begin{figure}[H]
+\begin{figure}[tbp]
   \centering
   \begin{subfigure}[t]{\textwidth}
     \centering
@@ -243,12 +241,11 @@ The participant result does not prove an exactly zero effect.\evd{E005}\evd{E008
   \caption{Recorded-response contrasts at their valid fold and participant inference units.\evd{E004}\evd{E005}\evd{E008}}
   \label{fig:recorded-response-inference}
 \end{figure}
-\FloatBarrier
 
 The tested variants address specific alternative explanations, but none provides evidence that changes the participant-general conclusion (Table~\ref{tab:recorded-variants}).
 Appendices~\ref{app:training}, \ref{app:secondary}, and \ref{app:sensitivities} give objectives and schedules, variant dispositions, and full numerical tables.
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \footnotesize
   \setlength{\tabcolsep}{3pt}
@@ -321,13 +318,12 @@ The participant mean of the correct-pairing increment \(Q(u)\) is \result{e030_t
 Its Bonferroni family-95\% interval is \result{e030_target_twin_ci}.
 \result{e030_target_twin_positive_n} participant contrasts are positive, with exact sign test \(p\) = \result{e030_target_twin_sign_p}, but the interval spans zero (Figure~\ref{fig:exact-target-measurability}). \evd{E030}
 
-\begin{figure}[H]
+\begin{figure}[tbp]
   \centering
   \resizebox{\linewidth}{!}{\input{figures/exact_target_measurability.tikz}}
   \caption{Participant means and Bonferroni family-95\% intervals for the aligned-target increment and the row-pairing contrast; the threshold guide applies to the increment only.\evd{E030}}
   \label{fig:exact-target-measurability}
 \end{figure}
-\FloatBarrier
 
 \looseness=-1 On the fixed sentence set, linear measurability of the target projection is not demonstrated, and row-pairing specificity remains unresolved.
 Training used the full 20,484-coordinate target, so not clearing the continuation rule says nothing about full-dimensional or nonlinear access to that target.
@@ -360,7 +356,7 @@ Training parity is unresolved for initial auxiliary loss and gradient magnitude,
 Separately, \result{e026_diagnostic_split} post-training diagnostic margins fall outside the audit's original engineering tolerances, which were descriptive margins and not declared decision rules.
 The pre-outcome and baseline mismatches can affect apparent learnability and retained-student movement without any difference in brain-response content. \evd{E026}
 
-\begin{figure}[H]
+\begin{figure}[tbp]
   \centering
   \begin{subfigure}[t]{\textwidth}
     \centering
@@ -380,7 +376,6 @@ The pre-outcome and baseline mismatches can affect apparent learnability and ret
   \caption{Synthetic-response manipulation and attribution evidence.\evd{E016}\evd{E025}\evd{E026}\evd{E030}}
   \label{fig:synthetic-manipulation-attribution}
 \end{figure}
-\FloatBarrier
 
 The saved block-permuted arm cannot resolve this attribution problem, because it leaves some rows correctly paired and can duplicate or omit a row (Section~\ref{sec:framework}). \evd{E016}
 
@@ -459,7 +454,7 @@ Every Bonferroni family-95\% interval spans zero.
 All three quantities therefore remain unresolved under participant inference.
 These quantities are predictive-path diagnostics, not causal-mediation estimates. \evd{E030}
 
-\begin{figure}[H]
+\begin{figure}[tbp]
   \centering
   \begin{subfigure}[t]{\textwidth}
     \centering
@@ -477,7 +472,6 @@ These quantities are predictive-path diagnostics, not causal-mediation estimates
   \caption{Direct biological transfer and the composed-path diagnostic.\evd{E025}\evd{E030}}
   \label{fig:saved-student-biological-transfer}
 \end{figure}
-\FloatBarrier
 
 \looseness=-1 The direct assay does not demonstrate participant-general biological transfer, and the composed-path diagnostic leaves its overlap quantities unresolved.
 
@@ -523,7 +517,7 @@ Only \result{e009_positive_seed_signs} of the technical-seed prerequisite contra
 Seed~0 contributes \result{e009_seed0_gap}, whereas the remaining seeds average approximately \result{e009_other_seven_mean}.
 The mixed signs and seed-0 influence leave the controlled-predictivity prerequisite not demonstrated across technical seeds (Figure~\ref{fig:bounded-practical-utility}b). \evd{E009}
 
-\begin{figure}[H]
+\begin{figure}[tbp]
   \centering
   \begin{subfigure}[t]{\textwidth}
     \centering
@@ -541,7 +535,6 @@ The mixed signs and seed-0 influence leave the controlled-predictivity prerequis
   \caption{Descriptive endpoint contrasts and their prerequisite contrast in controlled brain~\mbox{predictivity}.\evd{E009}}
   \label{fig:bounded-practical-utility}
 \end{figure}
-\FloatBarrier
 
 The completed analysis does not demonstrate a reliable brain-response-specific practical advantage for these corpora, this student--teacher pair, and this recorded-response procedure at approximately matched \ac{lm} quality.
 The result also does not establish the absence of an endpoint advantage.

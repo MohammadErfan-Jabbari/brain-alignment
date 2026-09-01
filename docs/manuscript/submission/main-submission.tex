@@ -16,6 +16,7 @@
 \newcommand{\PlaceAndDate}{Legan\'es, September 2026}                    % Escuela Politecnica Superior, Leganes campus (Erfan, 2026-09-01)
 % ---------------------------------------------------------------------------
 
+\PassOptionsToPackage{section}{placeins} % contain floats within their section
 \PassOptionsToPackage{hidelinks}{hyperref} % neurips_2025 and preamble both load hyperref
 \documentclass{article}
 \usepackage[final,nonatbib]{style/neurips_2025} % official NeurIPS 2025 style; nonatbib: we keep biblatex
@@ -23,6 +24,20 @@
 \usepackage{preamble} % vendored copy of ../rewrite/preamble.sty
 \usepackage{pdfpages} % page 1 is the official UC3M template's own output
 \addbibresource{references.bib} % single source of references
+
+% ---- float placement -------------------------------------------------------
+% Floats are [tbp], not [H]. An [H] float cannot move, so a tall one that does not
+% fit ends the page early; NeurIPS sets \flushbottom, which then injects the slack
+% into mid-page gaps instead of leaving it at the foot. Measured cost: 4 pages.
+\raggedbottom                        % collect slack at the page foot, not mid-page
+\renewcommand{\topfraction}{0.9}     % a float may own 90% of a page top (default .7)
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\textfraction}{0.07}   % a page needs only 7% text (default .2)
+\renewcommand{\floatpagefraction}{0.75} % a float page must be 75% full (default .5)
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+% -----------------------------------------------------------------------------
 \input{../rewrite/numbers}   % single source of keyed values
 \input{../rewrite/acronyms}  % single source of acronym registry
 

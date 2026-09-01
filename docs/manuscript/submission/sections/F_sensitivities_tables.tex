@@ -87,7 +87,7 @@ Tables~\ref{tab:claim-changing-sensitivities} and~\ref{tab:confirmatory-sensitiv
 \end{longtable}
 \endgroup
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \footnotesize
   \setlength{\tabcolsep}{4pt}
@@ -122,7 +122,7 @@ Tables~\ref{tab:claim-changing-sensitivities} and~\ref{tab:confirmatory-sensitiv
   \end{tabularx}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \small
   \caption{Classification of the comparator-audit checks into identification checks and post-training diagnostics.}
@@ -159,7 +159,7 @@ The participant-specific recorded-response estimator first forms a paired target
 Equation~\ref{eq:appendix-recorded-participant} subtracts the mean matched permuted-target score inside every seed--block cell, then aggregates the crossed cells within participant before averaging participants.
 The resulting \(U=\result{e008_participant_count}\) participant effects, each based on \result{e008_cells_per_participant} paired cells, are the biological inputs to the cohort estimate.
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \small
   \setlength{\tabcolsep}{12pt}
@@ -204,7 +204,7 @@ The three displayed contrasts satisfy
 Equation~\ref{eq:appendix-transfer-identity} shows why a positive relative contrast against the auxiliary control need not imply improvement over ordinary \ac{kd}: the auxiliary control may instead have moved downward.
 Seeds and outer folds are averaged within each participant before these contrasts are formed.
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \small
   \setlength{\tabcolsep}{8pt}
@@ -243,7 +243,7 @@ The target-projection diagnostic evaluates the declared 50-component linear path
 For each participant, \(A_u\) measures the target's unique response predictivity above nuisance, and \(Q_u\) compares that score with the frozen row-twin control, which keeps the target rows and the readout procedure but breaks their pairing with the sentences (Section~\ref{sec:results-predicted-identification}).
 These quantities compare target-above-nuisance predictivity with sentence-pairing specificity. They are read before the later target-retention analysis and composed-path diagnostic.
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \small
   \setlength{\tabcolsep}{10pt}
@@ -277,7 +277,7 @@ The later diagnostics ask whether the part of the target that a student predicts
 For participant \(u\), \(O_u\) is the absolute composed student-to-target-to-response overlap, \(D_u\) is its brain-target-minus-\ac{kd} increment, and \(J_u\) is the aligned-minus-frozen-twin increment.
 All three average optimization seeds and outer folds within participant before participant-level inspection.
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \small
   \setlength{\tabcolsep}{8pt}
@@ -316,7 +316,7 @@ The practical-utility evaluation has a prerequisite: a reliable contrast in cont
 Its brain-specific interpretation depends on that contrast.
 Table~\ref{tab:utility-seed-values} reports the complete seed vector used to judge that prerequisite contrast; it declared eight seeds, where the transfer and target-extraction procedures declared~six.
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \small
   \setlength{\tabcolsep}{12pt}
@@ -349,7 +349,7 @@ The complete vector documents mixed signs and seed-0 sensitivity; it does not es
 For the saved-student biological-transfer assay, each seed row averages participants and outer folds.
 The three columns use the same contrasts as Equation~\ref{eq:appendix-transfer-identity}.
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \small
   \setlength{\tabcolsep}{8pt}
@@ -379,7 +379,7 @@ The seed table therefore checks an interpretable manipulation while leaving biol
 The exact-target seed diagnostics separate absolute target extraction from improvement over seed-matched ordinary \ac{kd} and from composed-path increments.
 Within each seed, target extraction and incremental retention aggregate held-out target recovery; the two overlap increments average participants and outer folds.
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \small
   \setlength{\tabcolsep}{10pt}
@@ -402,7 +402,7 @@ Within each seed, target extraction and incremental retention aggregate held-out
   \end{tabular}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \small
   \setlength{\tabcolsep}{10pt}
@@ -430,7 +430,7 @@ Incremental retention has mixed signs and an interval containing zero.
 Both composed-path increments show the same uncertainty.
 The separation shows that fitting the target in absolute terms does not establish improvement over ordinary \ac{kd} or transfer along the composed path. \evd{E030}
 
-\begin{table}[H]
+\begin{table}[tbp]
   \centering
   \small
   \caption{Movement of the retained synthetic-target student away from its seed-matched ordinary-\ac{kd} student, by technical seed.}
