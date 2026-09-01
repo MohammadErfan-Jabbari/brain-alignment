@@ -121,26 +121,17 @@ The merged student is frozen before a fresh evaluation readout is fitted as spec
 Table~\ref{tab:recorded-training-variants} states only the implementation change relative to this common path.
 
 \begingroup
-\footnotesize
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.02}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{22mm}>{\raggedright\arraybackslash}p{38mm}>{\raggedright\arraybackslash}p{44mm}>{\raggedright\arraybackslash}p{28mm}@{}}
+\begin{table}[tbp]
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{1.02}
+  \centering
   \caption{Recorded-response intervention variants.}
-  \label{tab:recorded-training-variants}\\
+  \label{tab:recorded-training-variants}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{22mm}>{\raggedright\arraybackslash}p{38mm}>{\raggedright\arraybackslash}p{44mm}>{\raggedright\arraybackslash}p{28mm}@{}}
   \toprule
   Variant & Change from the common target path & Executed grid & Retained object \\
   \midrule
-  \endfirsthead
-  \multicolumn{4}{c}{\tablename~\thetable{} (continued)} \\
-  \toprule
-  Variant & Change from the common target path & Executed grid & Retained object \\
-  \midrule
-  \endhead
-  \midrule
-  \multicolumn{4}{r}{Continued on next page} \\
-  \endfoot
-  \bottomrule
-  \endlastfoot
   \evd{E004}\evd{E005}\evd{E008}\evd{E011}\evd{E013}\evd{E017}Co-trained \ac{mse} & A new \(W\) is trained jointly with the producing adapters; correctly paired and permuted responses use the same path & Rank 16; seeds 0--2; 3 epochs; \(2\times10^{-4}\); batch 16; target weight 10. Participant-averaged training uses one permutation draw; participant-specific training uses five & Merged student; \(W\) discarded \evd{E004}\evd{E005}\evd{E008} \\
   \midrule
   Frozen readout & \(W_0\) is ridge-fitted on untuned outer-training features with \(\alpha=100\) and remains fixed during intervention training & Same grid and paired-permutation construction as the co-trained \ac{mse} row & Merged student; \(W_0\) discarded \evd{E004} \\
@@ -152,7 +143,9 @@ Table~\ref{tab:recorded-training-variants} states only the implementation change
   Naturalistic voxelwise & A participant-specific head maps pooled 25-word segments to reliable voxels after a 4-s response delay & UTS01--03; 14 tuning and 6 evaluation stories. The unanchored grid ran all three participants at seeds 0--1, two permutation draws, and target weight 10. The output-\ac{kd}-anchored grid swept target weights 1, 3, and 6 on UTS03 over the 2,801 voxels whose repeat reliability exceeds 0.7 & Merged student; voxel head discarded \evd{E013} \\
   \midrule
   Full parameter & The voxelwise \ac{mse} and output-\ac{kd} anchor update all student parameters except the tied input/output embedding; no \ac{lora} is used & UTS01--03; seeds 0--2; 2 epochs; \(10^{-5}\); batch 16; target weight 10 & Student used for immediate frozen evaluation; voxel head discarded; no reusable student checkpoint retained \evd{E017} \\
-\end{longtable}
+  \bottomrule
+  \end{tabular}
+\end{table}
 \endgroup
 
 The unanchored sentence screen also explored alternative target losses, holding the co-trained \ac{mse} grid fixed and changing only \(\mathcal L_{\mathrm{target}}\).

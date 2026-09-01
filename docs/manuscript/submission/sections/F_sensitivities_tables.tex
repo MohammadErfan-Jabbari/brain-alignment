@@ -20,23 +20,17 @@ A \emph{limitation or correction} removes authority from a design element rather
 Tables~\ref{tab:claim-changing-sensitivities} and~\ref{tab:confirmatory-sensitivities} apply these labels to the analyses that matter for the thesis claims.
 
 \begingroup
-\footnotesize
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.03}
-\begin{longtable}{@{}p{28mm}p{31mm}p{22mm}p{51mm}@{}}
+\begin{table}[tbp]
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{1.03}
+  \centering
   \caption{Interpretation-changing and scope-bounding analyses.}
-  \label{tab:claim-changing-sensitivities}\\
+  \label{tab:claim-changing-sensitivities}
+  \begin{tabular}{@{}p{28mm}p{31mm}p{22mm}p{51mm}@{}}
   \toprule
   Analysis choice & Scientific role & Status & Effect on interpretation \\
   \midrule
-  \endfirsthead
-  \multicolumn{4}{c}{\tablename~\thetable{} (continued)} \\
-  \toprule
-  Analysis choice & Scientific role & Status & Effect on interpretation \\
-  \midrule
-  \endhead
-  \bottomrule
-  \endlastfoot
 
   Representation rank
 & Distillation-headroom analysis
@@ -84,7 +78,9 @@ Tables~\ref{tab:claim-changing-sensitivities} and~\ref{tab:confirmatory-sensitiv
   & Practical-utility evaluation
   & Scope-bounding
   & Only \result{e009_positive_seed_signs} of the eight technical-seed signs were positive. The utility analysis therefore follows a seed-unstable prerequisite rather than a reliably induced target-specific change.\evd{E009} \\
-\end{longtable}
+  \bottomrule
+  \end{tabular}
+\end{table}
 \endgroup
 
 \begin{table}[tbp]
@@ -456,16 +452,13 @@ No seed-only table is reported for the participant-specific recorded-response in
 Its primary participant statistic is a median over crossed seed--block cells, so a seed-only vector cannot reconstruct the nonlinear participant aggregate in Equation~\ref{eq:appendix-recorded-participant}.
 Seed variability remains inside each participant value, while the shared-block summary diagnoses the other crossed axis. \evd{E008}
 
-\begin{longtable}{@{}p{42mm}p{17mm}r r r r@{}}
-\caption{Models in the cross-family language-quality analysis.}\label{tab:e015-model-panel}\\
+\begin{table}[tbp]
+  \centering
+  \caption{Models in the cross-family language-quality analysis.}\label{tab:e015-model-panel}
+  \begin{tabular}{@{}p{42mm}p{17mm}r r r r@{}}
 \toprule
 Model & Family & Parameters & Mid layer & Bits/byte & Unique \(R^2\) \\
 \midrule
-\endfirsthead
-\toprule
-Model & Family & Parameters & Mid layer & Bits/byte & Unique \(R^2\) \\
-\midrule
-\endhead
 Mistral-7B-v0.1 & Mistral & 7.24B & 16 & 1.135 & +0.0438 \evd{E015} \\
 Qwen2.5-7B & Qwen & 7.62B & 14 & 1.152 & +0.0235 \evd{E015} \\
 Llama-3.2-3B & Llama & 3.21B & 14 & 1.163 & +0.0464 \evd{E015} \\
@@ -488,8 +481,9 @@ OPT-125M & OPT & 0.13B & 6 & 1.514 & +0.0147 \evd{E015} \\
 Pythia-160M & Pythia & 0.16B & 6 & 1.523 & +0.0209 \evd{E015} \\
 DistilGPT-2 & GPT-2 & 0.08B & 3 & 1.628 & +0.0071 \evd{E015} \\
 Pythia-70M & Pythia & 0.07B & 3 & 1.699 & -0.0012 \evd{E015} \\
-\bottomrule
-\end{longtable}
+  \bottomrule
+  \end{tabular}
+\end{table}
 
 Unique \(R^2\) is the variance explained above the declared nuisance set, and all 22 models enter the primary middle-layer correlation.\evd{E015}
 The capable-model sensitivity retains the ten models below 1.30 bits per byte.\evd{E015}

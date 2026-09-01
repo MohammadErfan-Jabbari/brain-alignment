@@ -14,10 +14,10 @@ Table~\ref{tab:evidence-dispositions} classifies every identifier once.
 The categories separate completed scientific records from restricted studies, stopped routes, design work, and unused identifiers.
 
 \begingroup
-\footnotesize
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.06}
 \begin{table}[tbp]
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.06}
 \centering
 \caption{Final dispositions of evidence identifiers E001--E030.}
 \label{tab:evidence-dispositions}
@@ -48,25 +48,17 @@ Table~\ref{tab:evidence-ledger} follows the claim roles used in Sections~\ref{se
 Each row names one scientific role, the record that owns its final conclusion, and the Results subsection where the evidence is interpreted.
 
 \begingroup
-\footnotesize
-\setlength{\tabcolsep}{2pt}
-\renewcommand{\arraystretch}{1.03}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{32mm}>{\raggedright\arraybackslash}p{21mm}>{\raggedright\arraybackslash}p{64mm}>{\raggedright\arraybackslash}p{17mm}@{}}
-\caption{Scientific roles, final evidence owners, and settled conclusions.}
-\label{tab:evidence-ledger}\\
+\begin{table}[tbp]
+  \scriptsize
+  \setlength{\tabcolsep}{2pt}
+  \renewcommand{\arraystretch}{0.98}
+  \centering
+  \caption{Scientific roles, final evidence owners, and settled conclusions.}
+  \label{tab:evidence-ledger}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{32mm}>{\raggedright\arraybackslash}p{21mm}>{\raggedright\arraybackslash}p{64mm}>{\raggedright\arraybackslash}p{17mm}@{}}
 \toprule
 Scientific role & Evidence owner(s) & Settled conclusion & Results owner \\
 \midrule
-\endfirsthead
-\toprule
-Scientific role & Evidence owner(s) & Settled conclusion & Results owner \\
-\midrule
-\endhead
-\midrule
-\multicolumn{4}{r}{Continued on next page}\\
-\endfoot
-\bottomrule
-\endlastfoot
 Controlled regional predictivity assay & E002 & Controlled Tuckute \ac{roi} predictivity is supported under contiguous folds, nuisance subtraction, and an architecture-matched untrained control.\evd{E002} & \ref{sec:results-signal} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Controlled naturalistic voxelwise predictivity assay & E006 & Trained representations outperform matched untrained representations for UTS03 and five held-out story blocks. The assay does not support claims about individual voxels or a population of participants.\evd{E006} & \ref{sec:results-signal} \\
@@ -92,7 +84,9 @@ Composed-path diagnostic & E030 & Within the declared linear pathway, predictive
 Saved-student biological-transfer assay & E025; E026 bounds attribution & Participant-level biological transfer is not demonstrated. The direct synthetic-response-minus-\ac{kd} contrast is near zero, while the text-derived comparison is non-identifying.\evd{E025}\evd{E026} & \ref{sec:results-predicted-transfer} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Practical-utility evaluation & E009 & Mean out-of-domain ratios favor the recorded-response arm, but paired endpoint uncertainty was not reported; the prerequisite contrast is unstable across technical seeds, so brain-specific utility is not demonstrated.\evd{E009} & \ref{sec:results-utility} \\
-\end{longtable}
+  \bottomrule
+  \end{tabular}
+\end{table}
 \endgroup
 
 \subsection{Superseded interpretations}
@@ -102,25 +96,17 @@ Some records were technically complete before their final interpretation was set
 Table~\ref{tab:evidence-corrections} preserves the corrections that change how those records may be cited.
 
 \begingroup
-\footnotesize
-\setlength{\tabcolsep}{2pt}
-\renewcommand{\arraystretch}{1.03}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{17mm}>{\raggedright\arraybackslash}p{54mm}>{\raggedright\arraybackslash}p{65mm}@{}}
-\caption{Earlier interpretations and the verdicts that supersede them.}
-\label{tab:evidence-corrections}\\
+\begin{table}[tbp]
+  \footnotesize
+  \setlength{\tabcolsep}{2pt}
+  \renewcommand{\arraystretch}{1.03}
+  \centering
+  \caption{Earlier interpretations and the verdicts that supersede them.}
+  \label{tab:evidence-corrections}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{17mm}>{\raggedright\arraybackslash}p{54mm}>{\raggedright\arraybackslash}p{65mm}@{}}
 \toprule
 Records & Earlier interpretation & Final permitted reading \\
 \midrule
-\endfirsthead
-\toprule
-Records & Earlier interpretation & Final permitted reading \\
-\midrule
-\endhead
-\midrule
-\multicolumn{3}{r}{Continued on next page}\\
-\endfoot
-\bottomrule
-\endlastfoot
 E003 & \ac{kd} uniquely destroys or preserves alignment. & The cold GPT-2 gap is quality-confounded; quality-aware warm-route headroom remains unresolved.\evd{E003} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 E004, E005, E008 & Seed--fold cells provide independent uncertainty, and the averaged contrast excludes zero. & Fold-unit inference supersedes the cell bootstrap; E008 owns participant inference.\evd{E004}\evd{E005}\evd{E008} \\
@@ -148,7 +134,9 @@ E019 & The local probe reproduces or refutes the external study. & It is a local
 E020 & The controlled residual closes the stimulus-predictable ceiling question. & Reference reliability fails, so the ceiling remains bounded but unresolved.\evd{E020} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 E030 & Failure of the 50-component linear target projection explains the E025 result. & E030 limits the declared linear pathway without explaining or invalidating the independent direct-transfer result.\evd{E030} \\
-\end{longtable}
+  \bottomrule
+  \end{tabular}
+\end{table}
 \endgroup
 
 \subsection{Retained artifacts the results depend on}
@@ -160,6 +148,7 @@ The table reproduces the bindings for reader verification; the owning evidence r
 Unbound E025 and E030 hashes and the E028 and E029 design artifacts are omitted.
 Appendices~\ref{app:training}, \ref{app:inference}, and \ref{app:sensitivities} report the corresponding training settings, estimators and inference rules, and complete numerical and sensitivity tables.
 
+\FloatBarrier % flush pending floats before the inline longtable so numbering matches appearance
 \begingroup
 \scriptsize
 \setlength{\tabcolsep}{3pt}

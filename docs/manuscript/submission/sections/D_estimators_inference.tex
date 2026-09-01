@@ -116,26 +116,17 @@ The 50-component linear target-projection assay has one other declared exception
 Table~\ref{tab:cv-nesting} records the held-out boundary, learned operations, and final inference unit for each scientific role.
 
 \begingroup
-\footnotesize
-\setlength{\tabcolsep}{2pt}
-\renewcommand{\arraystretch}{1}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{27mm}>{\raggedright\arraybackslash}p{29mm}>{\raggedright\arraybackslash}p{47mm}>{\raggedright\arraybackslash}p{31mm}@{}}
+\begin{table}[tbp]
+  \scriptsize
+  \setlength{\tabcolsep}{2pt}
+  \renewcommand{\arraystretch}{1}
+  \centering
   \caption{Cross-validation nesting and inference units by scientific role.}
-  \label{tab:cv-nesting}\\
+  \label{tab:cv-nesting}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{27mm}>{\raggedright\arraybackslash}p{29mm}>{\raggedright\arraybackslash}p{47mm}>{\raggedright\arraybackslash}p{31mm}@{}}
   \toprule
   Scientific role & Held-out boundary & Operations learned inside the boundary & Aggregation and final unit \\
   \midrule
-  \endfirsthead
-  \multicolumn{4}{c}{\tablename~\thetable{} (continued)} \\
-  \toprule
-  Scientific role & Held-out boundary & Operations learned inside the boundary & Aggregation and final unit \\
-  \midrule
-  \endhead
-  \midrule
-  \multicolumn{4}{r}{Continued on next page} \\
-  \endfoot
-  \bottomrule
-  \endlastfoot
   Controlled regional predictivity assay &
   Five contiguous Tuckute folds, each with an 800-sentence training complement and a 200-sentence test block &
   Centering, scaling, \ac{pca}, one multi-output ridge penalty, and the response readout &
@@ -190,7 +181,9 @@ Practical-utility evaluation &
   Fixed in-domain and out-of-domain corpora are scored without fitting a biological readout &
   No evaluation-time model fitting; corpus-level losses are computed under the fixed scoring protocol &
   Paired arm contrasts end at eight technical seeds and remain conditional on the fixed models and corpora \evd{E009} \\
-\end{longtable}
+  \bottomrule
+  \end{tabular}
+\end{table}
 \endgroup
 
 The aggregation order can be written without treating technical repetitions as new scientific units.
@@ -266,26 +259,17 @@ The cross-family quality bootstrap instead resamples model families rather than 
 Table~\ref{tab:inference-map} maps each scientific role to its uncertainty procedure and stage-specific decision scope.
 
 \begingroup
-\footnotesize
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{27mm}>{\raggedright\arraybackslash}p{48mm}>{\raggedright\arraybackslash}p{59mm}@{}}
+\begin{table}[tbp]
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{1}
+  \centering
   \caption{Uncertainty procedures and decision rules by scientific role.}
-  \label{tab:inference-map}\\
+  \label{tab:inference-map}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{27mm}>{\raggedright\arraybackslash}p{48mm}>{\raggedright\arraybackslash}p{59mm}@{}}
   \toprule
   Scientific role & Interval or test and its unit & Multiplicity and decision scope \\
   \midrule
-  \endfirsthead
-  \multicolumn{3}{c}{\tablename~\thetable{} (continued)} \\
-  \toprule
-  Scientific role & Interval or test and its unit & Multiplicity and decision scope \\
-  \midrule
-  \endhead
-  \midrule
-  \multicolumn{3}{r}{Continued on next page} \\
-  \endfoot
-  \bottomrule
-  \endlastfoot
   Controlled regional predictivity assay &
   Held-out-fold dispersion and trained--untrained contrasts on the fixed sentence set &
   Prespecified layer and nuisance grids bound the assay; folds do not support participant or stimulus-population inference \evd{E002} \\
@@ -337,7 +321,9 @@ Distillation-headroom analysis &
   Practical-utility evaluation &
   Eight paired technical-seed endpoint observations were recorded, but the completed analysis reports only mean contrasts and an observed-variance sensitivity calculation &
   No paired endpoint interval or equivalence test was retained; the \ac{mde} supplies no hypothesis or equivalence decision \evd{E009} \\
-\end{longtable}
+  \bottomrule
+  \end{tabular}
+\end{table}
 \endgroup
 
 For the primary retained-student movement audit, let \(H_s\) be the layer-6 representation matrix of the retained synthetic-target student and \(H_s^{\mathrm{KD}}\) that of its seed-matched ordinary-\ac{kd} student, both on the same \(n=1{,}999\) WikiText sentences held out from every training arm in technical seed \(s\), and let \(C=I-\mathbf{1}\mathbf{1}^{\top}/n\) center examples.\evd{E025}
