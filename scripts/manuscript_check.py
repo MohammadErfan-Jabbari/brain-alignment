@@ -139,12 +139,13 @@ def compile_latex(target: Path) -> list[str]:
     if len(mains) != 1:
         return [f"{directory}: expected one manuscript main .tex file"]
     main = mains[0]
-    if shutil.which("tectonic"):
-        command = ["tectonic", "-X", "compile", main.name, "--keep-intermediates"]
-    elif shutil.which("latexmk"):
-        command = ["latexmk", "-pdf", "-interaction=nonstopmode", main.name]
-    else:
-        return ["LaTeX build unavailable: install latexmk or tectonic"]
+    # One engine only. Tectonic ships biblatex 3.17 (control file 3.8) and TeX Live
+    # 2023 ships 3.19 (control file 3.10), so alternating engines in one directory
+    # leaves a .bcf the other one's biber refuses, and the committed PDF silently
+    # swaps pagination. Each tree's latexmkrc pins the matching biber.
+    if not shutil.which("latexmk"):
+        return ["LaTeX build unavailable: install latexmk (TeX Live)"]
+    command = ["latexmk", "-pdf", "-interaction=nonstopmode", main.name]
     try:
         proc = subprocess.run(
             command,
@@ -157,7 +158,11 @@ def compile_latex(target: Path) -> list[str]:
     if proc.returncode != 0:
         tail = "\n".join(output.splitlines()[-30:])
         findings.append(f"LaTeX build failed (exit {proc.returncode}):\n{tail}")
-    if re.search(r"LaTeX Warning:.*undefined|There were undefined references|Citation .* undefined", output, re.I):
+    # Judge undefined references from the final .log, never from latexmk's stdout:
+    # stdout accumulates every pass, and pass one always warns before the .aux exists.
+    log = main.with_suffix(".log")
+    log_text = log.read_text(errors="ignore") if log.exists() else output
+    if re.search(r"Citation .* undefined|Reference .* undefined|There were undefined references", log_text, re.I):
         findings.append("LaTeX build reports undefined citations or references")
     return findings
 

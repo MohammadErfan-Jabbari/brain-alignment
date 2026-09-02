@@ -141,6 +141,7 @@ Codex is an independent code critic or rescue implementation, not a scientific a
 - Python 3.11, torch cu128, 4× L40S, single node; no Slurm, Docker, or tmux.
 - Heavy artifacts belong under gitignored `data/` and `outputs/`, never the overlay root.
 - The shell is zsh with `noclobber`: `> file` fails with "file exists". Use `>|` or `rm -f` first.
+- LaTeX builds use TeX Live 2023 through `latexmk` only. Tectonic is retired: its bundle is frozen at TeX Live 2021 and its biblatex disagrees with the system one, so mixing engines corrupts the build. See [L056](docs/learnings.md).
 - Apparatus checks: `uv run python tests/test_bash_gate.py` (the Bash gate's 34 cases), `uv run python scripts/prose_lint.py --selftest`, and `uv run python scripts/manuscript_check.py`. Run the relevant one after changing a hook, the prose floor, or manuscript source.
 
 ## Git
