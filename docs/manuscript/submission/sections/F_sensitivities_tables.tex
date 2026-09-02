@@ -49,7 +49,7 @@ Tables~\ref{tab:claim-changing-sensitivities} and~\ref{tab:confirmatory-sensitiv
   Quality band and model family
 & Distillation-headroom analysis
   & Scope-bounding
-  & The full-range Pearson correlation between bits per byte and unique \(R^2\) was \result{e015_full_corr}; within the capable-model band it was \result{e015_capable_corr}, with interval \result{e015_capable_ci}. Language quality remains a required control, not a deterministic explanation.\evd{E015} \\
+  & The full-range Pearson correlation between bits per byte and unique \(R^2\) was \result{e015_full_corr}, with interval \result{e015_full_ci}; within the capable-model band it was \result{e015_capable_corr}, with interval \result{e015_capable_ci}. Language quality remains a required control, not a deterministic explanation.\evd{E015} \\
 
   \specialrule{0.15pt}{0.3ex}{0.3ex}
 
@@ -98,7 +98,7 @@ Tables~\ref{tab:claim-changing-sensitivities} and~\ref{tab:confirmatory-sensitiv
     Layer, nuisance set, and target aggregation
 & Saved-student biological-transfer assay and 50-component linear target-projection assay
     & Confirmatory
-    & Prespecified nearby choices did not overturn the primary rules. The 50-component linear target projection did not meet the improvement threshold fixed for it in advance (Section~\ref{sec:results-predicted-identification}); retention and composed-path quantities remain diagnostics of that pathway.\evd{E025}\evd{E030} \\
+    & Prespecified nearby choices did not overturn the primary rules. The 50-component linear target projection did not meet the continuation rule fixed for it in advance (Section~\ref{sec:results-predicted-identification}); retention and composed-path quantities remain diagnostics of that pathway.\evd{E025}\evd{E030} \\
 
     \specialrule{0.15pt}{0.3ex}{0.3ex}
 
@@ -227,7 +227,7 @@ Seeds and outer folds are averaged within each participant before these contrast
 \end{table}
 
 The transfer contrasts are also heterogeneous.
-The relative mean \(\Delta^{T-X}\) is small and positive, while the direct mean \(\Delta^{T-K}\) is \result{e025_tribe_kd}; removing the participant with the highest ordinary-\ac{kd} brain-predictivity baseline, predeclared for deletion, changes the relative point estimate to \result{e025_drop_highest}.
+The relative mean \(\Delta^{T-X}\) is small and positive, while the direct mean \(\Delta^{T-K}\) is \result{e025_tribe_kd}, with interval \result{e025_tribe_kd_ci}; removing the participant with the highest ordinary-\ac{kd} brain-predictivity baseline, predeclared for deletion, changes the relative point estimate to \result{e025_drop_highest}.
 These rows explain why the relative comparator cannot replace the direct contrast or participant-first inference. \evd{E025}\evd{E026}
 
 The two participant tables must not be pooled or compared row by row.
@@ -265,8 +265,8 @@ These quantities compare target-above-nuisance predictivity with sentence-pairin
   \end{tabular}
 \end{table}
 
-The mean target-above-nuisance score is \result{e030_target_unique}, and every leave-one-participant-out mean remains negative.
-This first prerequisite misses the improvement threshold fixed for it in advance (Section~\ref{sec:results-predicted-identification}).
+The mean target-above-nuisance score is \result{e030_target_unique}, with Bonferroni family-95\% interval \result{e030_target_unique_ci} and \result{e030_target_positive_n} participant increments positive under an exact sign test at \result{e030_target_sign_p}, and every leave-one-participant-out mean remains negative.
+This first prerequisite does not meet the continuation rule fixed for it in advance (Section~\ref{sec:results-predicted-identification}).
 The aligned-minus-frozen-twin values have substantial effects of both signs, so the paired specificity question remains unresolved. It does not contradict the first result. \evd{E030}
 
 The later diagnostics ask whether the part of the target that a student predicts overlaps with the target direction that predicts participant responses.
@@ -446,7 +446,7 @@ The separation shows that fitting the target in absolute terms does not establis
 \end{table}
 
 The values use layer 6 and the same 1,999 WikiText sentences held out from every training arm; Equation~\ref{eq:movement-distances} defines both distances.
-Before participant responses were opened, every seed was required to exceed \(10^{-4}\) in centered relative-Frobenius change and to exceed ten times the duplicate-extraction noise in linear-\ac{cka} distance; all six seeds met both, and repeated extraction of the same checkpoint reproduced it exactly.\evd{E025}
+Before participant responses were opened, every seed was required to exceed \(10^{-4}\) in centered relative-Frobenius change and to exceed the larger of \(10^{-6}\) and ten times the duplicate-extraction noise in linear-\ac{cka} distance; all six seeds met both, and repeated extraction of the same checkpoint reproduced it exactly, so the fixed \(10^{-6}\) floor was the operative bound.\evd{E025}
 
 No seed-only table is reported for the participant-specific recorded-response intervention.
 Its primary participant statistic is a median over crossed seed--block cells, so a seed-only vector cannot reconstruct the nonlinear participant aggregate in Equation~\ref{eq:appendix-recorded-participant}.

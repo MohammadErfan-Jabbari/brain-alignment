@@ -13,7 +13,7 @@ The headline empirical verdicts remain in Section~\ref{sec:results}.
   \footnotesize
   \setlength{\tabcolsep}{4pt}
   \renewcommand{\arraystretch}{1.04}
-  \caption{Evidence-status categories used in this appendix.}
+  \caption{Categories of supporting analysis used in this appendix.}
   \label{tab:secondary-status}
   \begin{tabularx}{\textwidth}{
     @{}
@@ -120,7 +120,7 @@ Table~\ref{tab:recorded-robustness} maps each change to its objection and scope.
 
     Auxiliary weight was poorly chosen.
     & Repeated the recorded-response intervention over the tested weight range.
-    & No stable target-specific gain appeared within that range.\evd{E005}
+    & Only the highest tested weight cleared its fold-level interval against the matched permuted control, and it did so at a substantial language-quality cost.\evd{E005}
     & Other objectives or schedules could behave differently. \\
 
     \specialrule{0.15pt}{0.3ex}{0.3ex}
@@ -141,7 +141,7 @@ Table~\ref{tab:recorded-robustness} maps each change to its objection and scope.
 
     Regional targets hid a voxelwise effect.
     & Tested the available naturalistic voxelwise training procedure.
-    & Target-matched tuning lowered held-out predictivity below the untuned model at every tested target weight, so the intended change was never induced and the arms compare two degraded models.\evd{E013}
+    & Target-matched tuning was neutral at the lowest tested target weight and degraded held-out predictivity at higher weights, never exceeding either the untuned model or its permuted twin, so the intended change was never induced.\evd{E013}
     & The broader multi-participant full-parameter route was not built. \\
 
     \specialrule{0.15pt}{0.3ex}{0.3ex}
@@ -191,7 +191,7 @@ Once a clean temporal gap was imposed, the controlled residual predictivity was 
 The ceiling instrument therefore failed; the analysis does not show that participant-specific structure is absent or that a universal biological ceiling has been reached. \evd{E020}
 
 The reading-time route asked whether a cognitive target could provide a simpler intervention signal than \ac{fmri}.
-Probes trained on frozen model representations initially predicted raw and residualized reading-time targets better than simple control targets.
+Training a model with an auxiliary head on residualized reading times initially improved a frozen-representation probe on held-out text, and the improvement exceeded every control matched on how learnable its own target was.
 A phase-randomized control preserved the target's marginal distribution and temporal structure, however, and matched those advantages.
 The design therefore did not isolate cognition-specific content from target shape.
 This attribution failure does not imply that reading time contains no useful signal; it means that the available contrast could not identify that signal. \evd{E021}
@@ -211,12 +211,12 @@ The remaining routes specify questions that would be useful only after their act
 They have no weight in the empirical verdicts of this thesis.
 
 The same-lineage alignment--quality design would compare models from one lineage along an alignment--quality frontier, then test paired ordinary fine-tuning where alignment changes while language quality remains approximately stable.
-A screen of the alignment-versus-quality curve, run on recorded values without new training, found no region where language quality stays high while alignment varies enough to justify the intervention.
-Because no such region was found, no paired training test was run, so the screen contributes no evidence for or against whether ordinary fine-tuning loses brain alignment because of its training objective. \evd{E023}
+A screen of the alignment-versus-quality curve, run on recorded values without new training, looked for a region where alignment is nearly flat in language quality, because only there can a difference be attributed to the training objective rather than to quality.
+One qualifying pair was found, but only below the language-quality range the design required, so no decisive paired training test was run and the screen contributes no evidence for or against whether ordinary fine-tuning loses brain alignment because of its training objective. \evd{E023}
 
 The matched auxiliary-control design would ask whether any intervention benefit came from brain-response content rather than generic target geometry, learnability, optimization pressure, or retained-student movement.
 The planned control would match those properties while removing brain-response content.
-Building it required the preceding saved-student transfer result to clear its predeclared participant-level improvement threshold, and that threshold was not cleared.
+Building it required the preceding saved-student transfer result to meet its predeclared participant-level continuation rule, and that rule was not met.
 The text-derived auxiliary target already in hand could not stand in, because it differs from the synthetic target on properties that must match before outcomes are compared: how well ordinary \ac{kd} already predicts it, how much room for improvement is left, its covariance geometry and effective rank, and how well low-level text features predict it.
 No target or student from this branch supports a scientific comparison. \evd{E025}\evd{E026}
 
