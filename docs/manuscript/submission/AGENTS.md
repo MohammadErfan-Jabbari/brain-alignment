@@ -14,6 +14,7 @@ This directory is a supervisor-review derivative of [`../rewrite/`](../rewrite/)
 - Condensation may remove detail or move it to the supplement, but it must not change a result, evidence state, estimator, inference unit, caveat, or scientific claim. Every retained load-bearing result keeps its `\\evd{Ennn}` provenance and keyed values.
 - This is not an immutable public cut. Create a public version only after supervisor feedback and Erfan's approval.
 - Build from this directory with `latexmk -pdf main-submission.tex`; generated auxiliary files are ignored and the PDF is the supervisor-facing artifact. Run `uv run python scripts/manuscript_check.py docs/manuscript/submission` on edited prose, same as for `rewrite/`.
+- **Trap: `main-submission.bbl` is committed and load-bearing.** biber and biblatex are mismatched in this environment (the `.bcf` is control version 3.8, the biber `latexmk` resolves wants 3.10), so the bibliography cannot be regenerated here. Never delete the `.bbl`. `manuscript_check.py` runs a full `latexmk` on every invocation, which retries biber, fails, and leaves a PDF with no bibliography and wrong pagination; rebuild and check `pdfinfo` before committing the PDF after running the gate. This shipped a 65-page bibliography-less PDF in `717a9a7`, fixed in `40505b7`.
 
 ## Files
 
