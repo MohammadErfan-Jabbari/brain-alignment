@@ -26,7 +26,7 @@ USE = re.compile(r"\\result\{([^}]+)\}")
 INPUT = re.compile(r"\\(?:input|include)\{([^}]+)\}")
 GAP = re.compile(r"\\gap\{")
 FORMAT_ONLY = re.compile(
-    r"^\s*\\(?:specialrule|vspace|par\\vspace|renewcommand\{\\arraystretch\})"
+    r"^\s*\\(?:specialrule|vspace|par\\vspace|renewcommand\{\\(?:arraystretch|topfraction|bottomfraction|textfraction|floatpagefraction)\})"
 )
 # LaTeX dimensions and TikZ coordinates are layout, not results. Stripped before the
 # bare-number check so `[width=3.2cm]`, `\\[1.2em]` and `at (3.2,0.65)` stop reading as
