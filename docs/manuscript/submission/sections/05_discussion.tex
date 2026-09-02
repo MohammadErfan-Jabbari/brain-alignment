@@ -1,16 +1,17 @@
 \section{Discussion}
 \label{sec:discussion}
 
-In the systems tested, the experiments achieved two outcomes, controlled brain predictivity and a student that training measurably changed, but not a third: a brain-specific training benefit.
+In the systems tested, the experiments support two outcomes, controlled brain predictivity and a student that training measurably changed, but not a brain-specific training benefit.
 Controlled brain predictivity establishes that trained \ac{lm} representations contain information useful for predicting recorded \ac{fmri} responses.\evd{E002}\evd{E006}
-Two supported results establish that the synthetic-response objective altered the saved student: post-training target uptake and retained-student movement.\evd{E016}\evd{E025}
+Post-training target uptake and retained-student movement, both supported, establish that the synthetic-response objective altered the saved student.\evd{E016}\evd{E025}
 These results do not by themselves establish brain-response-specific attribution, biological transfer, or practical utility.
 Support for the recorded-response and synthetic-response routes stops at different stages, in both cases before a participant-general training benefit is established.
 
 \subsection{Where support is lost across the two intervention routes}
 \label{sec:discussion-failure}
 
-Controlled brain predictivity supports the measurement claim of the recorded-response route: under the declared controls, model representations do predict recorded responses.
+Controlled brain predictivity supports the measurement claim of the recorded-response route.
+Under the declared controls, model representations do predict recorded responses.
 The recorded-response intervention does not demonstrate a participant-general pairing advantage.
 Training with participant-averaged responses produced positive trends for a fixed shared target.
 Those comparisons did not demonstrate a reliable pairing advantage even at the unit they can address, a held-out fold of the one shared averaged target rather than an individual participant.
@@ -29,7 +30,7 @@ A supported manipulation can therefore coexist with biological transfer that is 
 
 The nuisance and untrained-network controls make it unlikely that no controlled signal was present at all, and the manipulation and quality checks make it unlikely that training either failed to alter the student or badly damaged its language quality.\evd{E006}\evd{E016}\evd{E025}
 Together, the controls narrow the explanation without identifying it.
-Several possibilities remain compatible with the evidence: the targets may not carry the needed information; it may be present but out of reach of the declared linear readout; the optimization, model, or data scale may be too small to use it; or it may be participant-specific.
+Several possibilities remain compatible with the evidence, namely that the targets may not carry the needed information; that it may be present but out of reach of the declared linear readout; that the optimization, model, or data scale may be too small to use it; or that it may be participant-specific.
 These possibilities are hypotheses suggested by where support was lost, not causes established by the experiments.
 This localization of where support was lost holds only within the targets, models, objectives, participants, controls, and endpoints tested, and provides no causal explanation or universal null for brain-response-guided training.
 
@@ -42,11 +43,12 @@ The present results are conditional on the tested student, targets, controls, an
 Because the designs are not equivalent, the results here cannot directly adjudicate those studies.
 No single design difference is shown to have caused the divergence.
 
-What a positive contrast establishes depends on its reference condition (Section~\ref{sec:evidence-criteria}): improvement over a pretrained or language-only model leaves the effect of the brain-response objective entangled with generic quality differences; the ordinary \ac{kd} arm isolates that effect, and comparable \ac{lm} quality limits those differences.
-Comparator and endpoint choice bound the reading the same way (Section~\ref{sec:evidence-criteria}): a control that is not route-appropriate cannot attribute a gain to brain-response content, and recovery of the optimized target is not the biological transfer or task gain a different endpoint would test.
+What a positive contrast establishes depends on its reference condition (Section~\ref{sec:evidence-criteria}).
+Improvement over a pretrained or language-only model leaves the effect of the brain-response objective entangled with generic quality differences, while the ordinary \ac{kd} arm isolates that effect, and comparable \ac{lm} quality limits those differences.
+Comparator and endpoint choice bound the reading the same way (Section~\ref{sec:evidence-criteria}), since a control that is not route-appropriate cannot attribute a gain to brain-response content, and recovery of the optimized target is not the biological transfer or task gain a different endpoint would test.
 Training seeds can establish procedural stability, but they cannot replace participant-level uncertainty when the claim concerns people.
 
-Our contribution is to keep measurement and manipulation distinct from attribution, transfer, and utility, and to specify the comparator, quality condition, endpoint, and inference unit needed for each claim.\evd{E002}\evd{E006}\evd{E008}\evd{E009}\evd{E016}\evd{E025}\evd{E026}\evd{E030}
+We keep measurement and manipulation distinct from attribution, transfer, and utility, and specify the comparator, quality condition, endpoint, and inference unit needed for each claim.\evd{E002}\evd{E006}\evd{E008}\evd{E009}\evd{E016}\evd{E025}\evd{E026}\evd{E030}
 Whether materially different prior results would pass those additional stages remains an open empirical question.
 
 \subsection{Design implications for future brain-response-guided training}
