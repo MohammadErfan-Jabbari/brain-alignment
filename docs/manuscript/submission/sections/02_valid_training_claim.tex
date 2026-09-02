@@ -1,15 +1,15 @@
 \section{Background and Related Work}
 \label{sec:valid-claim}
 
-Four adjacent literatures bear on the question: brain-encoding studies \autocite{oota2023,merlin2024}, brain-response-guided optimization \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}, privileged-information and feature-distillation work \autocite{lopezpaz2016,saadi2025}, and model-compression studies \autocite{oota2026}.
-Five words distinguish the five claims this thesis keeps apart: \emph{measurement} is predicting recorded responses from a frozen model, \emph{manipulation} is changing the student with a brain-response objective, \emph{attribution} is tracing that change specifically to brain-response content, \emph{transfer} is improvement on independently recorded responses, and \emph{utility} is improvement on a practical endpoint.
-None of these claims establishes another: predicting recorded brain responses does not establish that training with those responses changes the student, and a change in the student leaves attribution, transfer, and utility open.
+Four adjacent literatures bear on the question. These are brain-encoding studies \autocite{oota2023,merlin2024}, brain-response-guided optimization \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}, privileged-information and feature-distillation work \autocite{lopezpaz2016,saadi2025}, and model-compression studies \autocite{oota2026}.
+Five words distinguish the five claims this thesis keeps apart. \emph{Measurement} is predicting recorded responses from a frozen model, \emph{manipulation} is changing the student with a brain-response objective, \emph{attribution} is tracing that change specifically to brain-response content, \emph{transfer} is improvement on independently recorded responses, and \emph{utility} is improvement on a practical endpoint.
+None of these claims establishes another. Predicting recorded brain responses does not establish that training with those responses changes the student, and a change in the student leaves attribution, transfer, and utility open.
 A brain-specific training advantage is an incremental benefit of brain-response content beyond a matched control, at comparable \ac{lm} quality and measured at the correct biological inference unit.
 
 \subsection{What controlled brain predictivity establishes}
 \label{sec:controlled-score}
 
-Controlled brain predictivity is the measurement claim: it tests whether representations extracted from a frozen \ac{lm} contain information useful for predicting recorded \ac{fmri} responses to held-out stimuli.
+Controlled brain predictivity is the measurement claim. It tests whether representations extracted from a frozen \ac{lm} contain information useful for predicting recorded \ac{fmri} responses to held-out stimuli.
 An encoding model is fitted to predict responses from those representations on one set of stimuli and evaluated on a separate set.
 This held-out evaluation tests whether prediction generalizes beyond the fitting stimuli \autocite{oota2023,merlin2024}.
 
@@ -25,7 +25,7 @@ That assay is the stated combination of stimuli, response definition, readout, a
 Even with these controls, controlled brain predictivity remains bounded by the declared assay.
 A linear readout tests whether recorded responses can be predicted from a linear combination of \ac{lm} representation dimensions; it does not test every form of information that might be present.
 Participant-specific responses measure predictivity for an individual, whereas averaged responses measure predictivity of a group average.
-The inference unit determines the scope of uncertainty: many voxels or repeated folds from one participant do not provide evidence about many independent participants.
+The inference unit determines the scope of uncertainty, because many voxels or repeated folds from one participant do not provide evidence about many independent participants.
 Measurement reliability and the number of averaged repetitions set a ceiling on what any model can predict \autocite{lage2019}.
 The stimulus distribution and the selected brain regions bound it further.
 Controlled brain predictivity therefore supports a bounded claim about held-out prediction under the declared assay, not a shared biological mechanism or causal equivalence \autocite{jia2026}.
@@ -58,7 +58,7 @@ Sections~\ref{sec:recorded-intervention} and \ref{sec:synthetic-intervention} sp
 \subsection{What prior brain-response-guided training leaves unresolved}
 \label{sec:prior-gap}
 
-Prior work assigns brain responses two distinct roles: post-training evaluation and training supervision.
+Prior work assigns brain responses two distinct roles, post-training evaluation and training supervision.
 Post-training encoding studies use recorded \ac{fmri} responses to evaluate model representations after the model has been changed for another reason.
 Narrative-summarization tuning can increase brain-predictivity scores without using brain responses during training, while model scaling can increase naturalistic brain alignment under the studied assay even when matched-size instruction tuning does not \autocite{aw2023,gao2024}.
 These findings show that brain predictivity can change because of the training objective or model scale alone; they do not estimate the value of brain responses as training targets.
@@ -110,19 +110,19 @@ Ruling that explanation out therefore requires an arm whose target matches the b
 
 Evaluating the student after training must also meet requirements from measurement-validity research.
 Post-training brain predictivity must be measured with leakage-resistant splits and nuisance controls \autocite{hadidi2026,jia2026}.
-It must also be measured at an inference unit appropriate to the claim: the number that enters a test is the number of independent units, not the number of observations pooled from them \autocite{lazic2010}.
+It must also be measured at an inference unit appropriate to the claim, because the number that enters a test is the number of independent units, not the number of observations pooled from them \autocite{lazic2010}.
 Compression studies show that pruning or quantization method and model scale can change brain predictivity without brain-response training \autocite{oota2026}.
 An intervention comparison must therefore separate the effect of the brain-response objective from changes in \ac{lm} quality and must evaluate the retained student with a fresh measurement rather than rely on the value of its own training loss.
 
 The unresolved question posed before any new experiment is therefore narrower than whether training with brain responses can change a model.
-For a fixed smaller student trained by ordinary \ac{kd}, do recorded \ac{fmri} responses or synthetic brain responses generated from text provide an incremental, brain-specific advantage over the appropriate control: permuted responses for recorded targets, and a matched text-derived target for synthetic targets at comparable \ac{lm} quality?
+For a fixed smaller student trained by ordinary \ac{kd}, do recorded \ac{fmri} responses or synthetic brain responses generated from text provide an incremental, brain-specific advantage over the appropriate control, which is permuted responses for recorded targets and a matched text-derived target for synthetic targets at comparable \ac{lm} quality?
 
 \subsection{Evidence criteria for a brain-specific training advantage}
 \label{sec:evidence-criteria}
 
 Figure~\ref{fig:evidence-chain} organizes the evidence by what each claim depends on, rather than as one fixed sequence every claim must pass through.
 Route-specific headroom describes only the opportunity to improve the shared endpoint, not the validity of a later paired intervention contrast.
-\looseness=-1 The two routes then carry different claims: pairing-specific attribution and utility in the recorded-response route, and manipulation, transfer, and attribution in the synthetic-response route, alongside an independent pathway qualification.
+\looseness=-1 The two routes then carry different claims, namely pairing-specific attribution and utility in the recorded-response route, and manipulation, transfer, and attribution in the synthetic-response route, alongside an independent pathway qualification.
 
 \begin{figure}[tbp]
   \centering

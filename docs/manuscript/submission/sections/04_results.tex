@@ -153,7 +153,7 @@ The assays do not identify a shared computation between the \acp{lm} and the bra
 \subsection{Observed distillation headroom and its association with language quality}
 \label{sec:results-headroom}
 
-The from-scratch GPT-2 comparison shows an observed teacher-relative gap, not the quality-aware headroom the intervention routes need: a teacher--student gap measured at comparable language quality.
+The from-scratch GPT-2 comparison shows an observed teacher-relative gap, not the quality-aware headroom the intervention routes need, which is a teacher--student gap measured at comparable language quality.
 At the fixed Tuckute layers, the randomly initialized GPT-2 Small logit-\ac{kd} student is \result{e003_kd_cold_delta} below the GPT-2 Medium teacher in controlled brain predictivity (bootstrap probability that the student does not drop below the teacher, \(p\) = \result{e003_kd_cold_nodrop_p}, over the cold arm's folds and seeds).
 Relative to the architecture-matched untrained GPT-2 Small floor, the student retains \result{e003_kd_cold_retention_point} of the teacher-to-floor interval (Figure~\ref{fig:distillation-headroom-retention}, Equation~\ref{eq:floor-anchored-retention}).
 The recorded 95\% bootstrap interval over folds and seeds is \result{e003_kd_cold_retention_ci}.\evd{E003}
@@ -288,7 +288,7 @@ The synthetic-response route is separate, and Section~\ref{sec:results-predicted
 Section~\ref{sec:measurement-prerequisites} defines the aligned-target increment \(A(u)\) over nuisance and the correct-pairing increment \(Q(u)\) over the frozen row-twin control, both aggregated across folds so that the participant is the biological inference unit.
 
 The aligned-target increment does not pass the continuation rule carried over from the biological-transfer design.
-It is an internal decision rule: it requires the simultaneous family-95\% one-sided upper bound to exceed \(\tau_{\mathrm{cont}}\).
+It is an internal decision rule, and it requires the simultaneous family-95\% one-sided upper bound to exceed \(\tau_{\mathrm{cont}}\).
 Let \(\bar{A}\) be the participant mean of \(A(u)\) (\result{e030_participant_n}).
 Let \(U^{\mathrm{family}}_{95\%}(\bar{A})\) be its simultaneous family-95\% one-sided upper bound and \(\tau_{\mathrm{cont}}\) the continuation threshold.
 The result is
@@ -313,7 +313,7 @@ U^{\mathrm{family}}_{95\%}(\bar{A})
 \label{eq:exact-target-measurability-result}
 \end{equation}
 Only \result{e030_target_positive_n} participant effects are positive, with exact sign test \(p\) = \result{e030_target_sign_p}, and every leave-one-out mean, dropping any single participant or stimulus block, remains negative.
-The bound excludes a participant-mean effect of at least \(\tau_{\mathrm{cont}}\) without showing the effect to be zero, and it does so because the point estimate is negative rather than because the estimate is precise: the observed-variance 80\% \ac{mde} for this contrast is \result{e030_target_mde}. \evd{E030}
+The bound excludes a participant-mean effect of at least \(\tau_{\mathrm{cont}}\) without showing the effect to be zero, and it does so because the point estimate is negative rather than because the estimate is precise. The observed-variance 80\% \ac{mde} for this contrast is \result{e030_target_mde}. \evd{E030}
 
 The participant mean of the correct-pairing increment \(Q(u)\) is \result{e030_target_twin}.
 Its two-sided 95\% \(t\) interval is \result{e030_target_twin_ci}.
@@ -349,8 +349,8 @@ Absolute target extractability from the synthetic-response students is \result{e
 The incremental synthetic-response-minus-ordinary \ac{kd} estimate is instead \result{e030_retention_delta}, with two-sided 95\% \(t\) interval \result{e030_retention_delta_ci}.
 Thus, the target is linearly recoverable from the trained students on these sentences, but whether synthetic-response training increased its recoverability beyond ordinary \ac{kd} remains unresolved (Figure~\ref{fig:synthetic-manipulation-results}). \evd{E030}
 
-Differences between the synthetic-response and text-derived arms in these manipulation results cannot be attributed to brain-response content: the text-derived auxiliary-control arm fails \result{e026_check_split} identification checks (Figure~\ref{fig:synthetic-comparator-audit}).
-Baseline learnability differs most: before intervention, ordinary \ac{kd} representations recover mean target \(R^2\) of \result{e026_kd_targets} for the synthetic and text-derived targets, leaving \result{e026_headroom_ratio} times as much remaining room for the synthetic target.
+Differences between the synthetic-response and text-derived arms in these manipulation results cannot be attributed to brain-response content, because the text-derived auxiliary-control arm fails \result{e026_check_split} identification checks (Figure~\ref{fig:synthetic-comparator-audit}).
+Baseline learnability differs most. Before intervention, ordinary \ac{kd} representations recover mean target \(R^2\) of \result{e026_kd_targets} for the synthetic and text-derived targets, leaving \result{e026_headroom_ratio} times as much remaining room for the synthetic target.
 The arm also fails the required target-parity margins for covariance geometry, effective rank, and low-level nuisance predictability.
 Training parity is unresolved for initial auxiliary loss and gradient magnitude, which were not retained.
 

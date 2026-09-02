@@ -40,7 +40,7 @@ where \(m_{xt}\) is one at non-padding positions and zero otherwise.
 Equation~\ref{eq:implemented-kd} averages teacher-to-student token-level \ac{kl} divergence over valid positions.
 The factor \(\tau^2\) compensates for the gradient-scale change introduced by temperature softening.
 Every executed output-distillation route uses \(\tau=2\), gradient-norm clipping at 1, and AdamW at its library default decay rates and weight decay, with a constant learning rate and no warmup.
-Two route types recur below: an unanchored route, which trains the student without a teacher and keeps language quality with its own next-token objective, and a teacher-anchored route, which adds output \ac{kd} from a frozen teacher. \evd{E003}\evd{E005}\evd{E016}
+Two route types recur below. An unanchored route trains the student without a teacher and keeps language quality with its own next-token objective, and a teacher-anchored route adds output \ac{kd} from a frozen teacher. \evd{E003}\evd{E005}\evd{E016}
 \end{samepage}
 
 The language objective is shared within a paired intervention, but the student initialization and the quality rule that applies differ across families.
@@ -112,7 +112,7 @@ For predictions \(\widehat Y\) and targets \(Y\) with minibatch size \(B\) and t
 This loss averages equally over minibatch rows and target coordinates.
 Consequently, every reported target weight is interpreted under this normalization.
 
-The common sentence-level regime places rank-16 \ac{lora} adapters with scaling 32 and dropout 0.05 in the attention and feed-forward projections of the student family: \texttt{c\_attn}, \texttt{c\_proj}, and \texttt{c\_fc} for GPT-2, and \texttt{q\_proj}, \texttt{k\_proj}, \texttt{v\_proj}, \texttt{o\_proj}, \texttt{gate\_proj}, \texttt{up\_proj}, and \texttt{down\_proj} for Qwen2.5 \autocite{hu2022}. \evd{E004}
+The common sentence-level regime places rank-16 \ac{lora} adapters with scaling 32 and dropout 0.05 in the attention and feed-forward projections of the student family, namely \texttt{c\_attn}, \texttt{c\_proj}, and \texttt{c\_fc} for GPT-2, and \texttt{q\_proj}, \texttt{k\_proj}, \texttt{v\_proj}, \texttt{o\_proj}, \texttt{gate\_proj}, \texttt{up\_proj}, and \texttt{down\_proj} for Qwen2.5 \autocite{hu2022}. \evd{E004}
 The pretrained base, input embeddings, and tied output matrix are frozen; the adapters and a co-trained \(W\) are optimizer parameters.
 The target gradient reaches \(W\) and the adapters that produce \(h_{12}\), while adapters after the attachment state receive only the language-loss gradient.
 After training, the adapters are merged into the student and the temporary target map is discarded.
@@ -150,10 +150,10 @@ Table~\ref{tab:recorded-training-variants} states only the implementation change
 
 The unanchored sentence screen also explored alternative target losses, holding the co-trained \ac{mse} grid fixed and changing only \(\mathcal L_{\mathrm{target}}\).
 Cosine and squared-Pearson losses use a co-trained target map.
-Linear \ac{cka} is readout-free: it compares the minibatch geometry of \(h_{12}\) and the response matrix directly, so no temporary \(W\) participates in that branch \autocite{kornblith2019}.
+Linear \ac{cka} is readout-free. It compares the minibatch geometry of \(h_{12}\) and the response matrix directly, so no temporary \(W\) participates in that branch \autocite{kornblith2019}.
 These are implementation variants of the recorded-response intervention; their outcomes remain in Section~\ref{sec:results-recorded} and Appendix~\ref{app:secondary}. \evd{E004}
 
-The practical-utility evaluation used this same recorded-response training path: a Qwen2.5-0.5B student against a Qwen2.5-1.5B teacher at \(h_{12}\), seeds 0--7, target weight 10, 800 training items, three epochs, learning rate \(2\times10^{-4}\), and batch size 16, then 400 items scored from each of the two out-of-domain corpora of Section~\ref{sec:estimands}. \evd{E009}
+The practical-utility evaluation used this same recorded-response training path, with a Qwen2.5-0.5B student against a Qwen2.5-1.5B teacher at \(h_{12}\), seeds 0--7, target weight 10, 800 training items, three epochs, learning rate \(2\times10^{-4}\), and batch size 16, then 400 items scored from each of the two out-of-domain corpora of Section~\ref{sec:estimands}. \evd{E009}
 
 \subsection{Synthetic-response intervention}
 
@@ -218,7 +218,7 @@ Comparator adequacy and all arm outcomes are reported in Section~\ref{sec:result
 
 \subsection{Replay scope and provenance handoff}
 
-Replay requires four linked objects: the locked software environment, the executed entry point and arguments, the declared seed and final-state rule, and the retained result or student artifact.
+Replay requires four linked objects. These are the locked software environment, the executed entry point and arguments, the declared seed and final-state rule, and the retained result or student artifact.
 Table~\ref{tab:training-reproduction} provides the compact index.
 It is not a command-complete substitute for the owning result configurations or the path--hash bindings in the owning evidence records.
 
