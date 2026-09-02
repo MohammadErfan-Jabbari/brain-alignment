@@ -298,7 +298,7 @@ The result is
 &=
 \text{\result{e030_target_unique}},
 \\
-\mathrm{CI}^{\mathrm{family}}_{95\%}(\bar{A})
+\mathrm{CI}_{95\%}(\bar{A})
 &=
 \text{\result{e030_target_unique_ci}},
 \\
@@ -313,6 +313,7 @@ U^{\mathrm{family}}_{95\%}(\bar{A})
 \label{eq:exact-target-measurability-result}
 \end{equation}
 Only \result{e030_target_positive_n} participant effects are positive, with exact sign test \(p\) = \result{e030_target_sign_p}, and every leave-one-out mean, dropping any single participant or stimulus block, remains negative.
+The bound excludes a participant-mean effect of at least \(\tau_{\mathrm{cont}}\) without showing the effect to be zero, and it does so because the point estimate is negative rather than because the estimate is precise: the observed-variance 80\% \ac{mde} for this contrast is \result{e030_target_mde}. \evd{E030}
 
 The participant mean of the correct-pairing increment \(Q(u)\) is \result{e030_target_twin}.
 Its two-sided 95\% \(t\) interval is \result{e030_target_twin_ci}.
@@ -429,7 +430,7 @@ The composed-path diagnostic instead measures whether the synthetic-target compo
 &=
 \mbox{\result{e030_overlap_abs}},
 &
-\mathrm{CI}^{\mathrm{family}}_{95\%}(\widehat{O})
+\mathrm{CI}_{95\%}(\widehat{O})
 &=
 \mbox{\result{e030_overlap_abs_ci}},
 \\
@@ -437,7 +438,7 @@ The composed-path diagnostic instead measures whether the synthetic-target compo
 &=
 \mbox{\result{e030_overlap_delta}},
 &
-\mathrm{CI}^{\mathrm{family}}_{95\%}(\widehat{D})
+\mathrm{CI}_{95\%}(\widehat{D})
 &=
 \mbox{\result{e030_overlap_delta_ci}},
 \\
@@ -445,7 +446,7 @@ The composed-path diagnostic instead measures whether the synthetic-target compo
 &=
 \mbox{\result{e030_overlap_twin}},
 &
-\mathrm{CI}^{\mathrm{family}}_{95\%}(\widehat{J})
+\mathrm{CI}_{95\%}(\widehat{J})
 &=
 \mbox{\result{e030_overlap_twin_ci}}.
 \end{align}
