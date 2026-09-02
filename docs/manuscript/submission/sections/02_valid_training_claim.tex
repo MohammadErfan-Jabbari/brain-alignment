@@ -1,9 +1,8 @@
 \section{Background and Related Work}
 \label{sec:valid-claim}
 
-Four adjacent literatures bear on the question.
-These are brain-encoding studies \autocite{oota2023,merlin2024}, brain-response-guided optimization \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}, privileged-information and feature-distillation work \autocite{lopezpaz2016,saadi2025}, and model-compression studies \autocite{oota2026}.
-Five words distinguish the five claims this thesis keeps apart.
+Four adjacent literatures bear on the question: brain-encoding studies \autocite{oota2023,merlin2024}, brain-response-guided optimization \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}, privileged-information and feature-distillation work \autocite{lopezpaz2016,saadi2025}, and model-compression studies \autocite{oota2026}.
+This thesis keeps five claims apart.
 \emph{Measurement} is predicting recorded responses from a frozen model, \emph{manipulation} is changing the student with a brain-response objective, \emph{attribution} is tracing that change specifically to brain-response content, \emph{transfer} is improvement on independently recorded responses, and \emph{utility} is improvement on a practical endpoint.
 None of these claims establishes another.
 Predicting recorded brain responses does not establish that training with those responses changes the student, and a change in the student leaves attribution, transfer, and utility open.
@@ -86,12 +85,15 @@ Table~\ref{tab:related-designs} compares selected designs and what each leaves u
     \textcite{bilgin2026} &
     A cosine loss against participant-specific \ac{fmri} responses, together with a token loss, updates upper-layer adapters; held-out encoding, new-participant readouts, and a model-specific external task improve. &
     No permuted or matched text-derived target, smaller student, or ordinary \ac{kd} arm. \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
     \textcite{merlinData2026} &
     Participant-specific \ac{fmri}-response, stimulus-language, or joint objectives update adapters; brain-response training outperforms stimulus tuning on more linguistic-probe comparisons. &
     Target geometry and difficulty are not matched between the brain-response and stimulus-language objectives; no participant-held-out transfer or compression comparison. \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
     \textcite{merlin2026} &
     Complementary objectives add or remove brain-predictive information; a permuted-response control and matched \ac{lm} loss accompany changes in linguistic probes. &
     No smaller student; the readout used to add or remove information may itself carry linguistic variance not specific to brain-response content. \\
+    \specialrule{0.15pt}{0.35ex}{0.35ex}
     \textcite{pirlot2022} &
     A monkey-V1-response regularizer trains a vision model; permuted targets reproduce the clean-accuracy gain, while real targets improve moderate-attack robustness. &
     Only the robustness endpoint distinguishes brain-response content in that design. \\

@@ -2,8 +2,7 @@
 \label{app:inference}
 
 Section~\ref{sec:estimands} states the design-level estimands and inference units.
-This appendix answers four narrower questions.
-They are how the predictive quantities are related, how fitting and aggregation are nested, how uncertainty and decision rules are assigned, and where information-theoretic analogies stop.
+This appendix answers four narrower questions: how the predictive quantities are related, how fitting and aggregation are nested, how uncertainty and decision rules are assigned, and where information-theoretic analogies stop.
 Appendix~\ref{app:data-targets} defines the inputs and preprocessing, Appendix~\ref{app:training} defines the training objectives and retained model states, and Section~\ref{sec:results} reports the empirical outcomes.
 The quantities below are assay-conditional predictive contrasts.
 They are neither causal effects nor direct estimates of information-theoretic objects.
@@ -104,8 +103,7 @@ Neither this derivation nor a positive held-out score makes the fitted coefficie
 
 \subsection{Cross-validation, aggregation, and inference units}
 
-The governing leakage rule is simple.
-Every data-adaptive operation that can use stimulus-domain information is fitted on the relevant training complement.
+Under the governing leakage rule, every data-adaptive operation that can use stimulus-domain information is fitted on the relevant training complement.
 Fixed protocol operations may be applied before the split, but learned centering, scaling, dimensionality reduction, penalty selection, and readout fitting remain inside it.
 Appendix~\ref{app:data-targets} specifies the exact fixed preprocessing and split definitions.
 

@@ -42,8 +42,14 @@
 \input{../rewrite/acronyms}  % single source of acronym registry
 
 \title{\ThesisTitle}
-\author{\AuthorName}
-\date{\today}
+\author{%
+  \AuthorName\\
+  Universidad Carlos III de Madrid\\
+  IMDEA Networks Institute\\
+  Master's Degree in \DegreeName\\
+  \texttt{mohammaderfan.jabbari@networks.imdea.org}%
+}
+\date{}
 
 \begin{document}
 
@@ -81,9 +87,14 @@ Transfer beyond ordinary \ac{kd} was not demonstrated at the participant level, 
 The measurement assays and manipulation checks are themselves positive, so these negative findings are not a failed pipeline.
 No end-to-end positive control was available, however, so the sensitivity of the full intervention-to-transfer path remains unestablished.
 Neither route establishes brain alignment as a usable training signal, and neither rules out a benefit from other targets, interventions, or populations.
-The contribution is the separation that keeps a valid positive result at one stage from being read as support for the training claim.\footnote{Code, experiment records, and manuscript source: \url{https://github.com/MohammadErfan-Jabbari/brain-alignment}}
+The contribution is the separation that keeps a valid positive result at one stage from being read as support for the training claim.
 \end{abstract}
 \acresetall
+
+\clearpage
+\setcounter{tocdepth}{2}
+\tableofcontents
+\clearpage
 
 % ---------------------------------------------------------------------------
 % MAIN TEXT: local copy of the canonical rewrite for submission-specific review.
@@ -106,5 +117,11 @@ The contribution is the separation that keeps a valid positive result at one sta
 \input{sections/E_secondary_experiments}
 \input{sections/F_sensitivities_tables}
 
-\printbibliography
+\section*{Data and code availability}
+\addcontentsline{toc}{section}{Data and code availability}
+The Tuckute condition-B responses \autocite{tuckute2024}, the LeBel story-listening responses \autocite{lebel2023}, the Pereira sentence set \autocite{pereira2018}, WikiText-103 \autocite{merity2017}, and TRIBE~v2 \autocite{dascoli2026} are publicly available from their original sources.
+The analysis code, the numbered experiment records E001 to E030, and the source of this manuscript are available at \url{https://github.com/MohammadErfan-Jabbari/brain-alignment}.
+Appendix~\ref{app:training} states the reproduction scope and the limits on exact replay.
+
+\printbibliography[heading=bibintoc]
 \end{document}

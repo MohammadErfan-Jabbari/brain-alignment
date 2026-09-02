@@ -4,10 +4,8 @@
 This appendix reports the verification detail needed to judge whether the main conclusions depend on an analysis choice or an unstable aggregate.
 Section~\ref{sec:results} states the decisive observations and scientific verdicts, and Appendix~\ref{app:evidence-provenance} maps each of them to the experiment that settled it.
 
-\looseness=-1 The tables preserve the distinction between inference units.
-Participant-level effects support inference across the sampled biological units under the assumptions in Appendix~\ref{app:inference}.
-Held-out blocks diagnose dependence on the fixed stimulus partition, and optimization seeds diagnose the stability of a fixed training procedure.
-Neither blocks nor seeds create additional biological or model-population replicates.
+The tables preserve the inference-unit distinction defined in Appendix~\ref{app:inference}.
+Participant-level effects support inference across the sampled biological units, whereas held-out blocks diagnose dependence on the fixed stimulus partition and optimization seeds diagnose the stability of a fixed training procedure.
 
 \subsection{Claim-relevant analysis choices}
 
@@ -102,7 +100,7 @@ Tables~\ref{tab:claim-changing-sensitivities} and~\ref{tab:confirmatory-sensitiv
     \specialrule{0.15pt}{0.3ex}{0.3ex}
 
     Saved-student optimization seed
-    & Synthetic-target recovery assay; retained-student movement audit; saved-student target-retention analysis; saved-student biological-transfer assay; composed-path diagnostic. The saved student and the retained student are the same post-training model
+    & Synthetic-target recovery assay; retained-student movement audit; saved-student target-retention analysis; saved-student biological-transfer assay; composed-path diagnostic
     & Confirmatory
     & The seeds agreed where the manipulation itself was measured, with target extraction positive and the movement criterion met in all six, and disagreed in sign on the endpoint contrasts for incremental retention, biological transfer, and the composed path. Seed agreement can establish reproducible optimization or manipulation, but it cannot substitute for participant agreement.\evd{E016}\evd{E025}\evd{E030} \\
 
@@ -488,4 +486,3 @@ The capable-model sensitivity retains the ten models below 1.30 bits per byte.\e
 The family-factor analysis excludes Llama and Mistral because each has fewer than three model sizes; those exclusions do not apply to the primary cross-family correlation.\evd{E015}
 
 These tables distinguish choices that changed or bounded an interpretation from checks of local stability.
-Participant heterogeneity and technical-seed variation answer different questions; neither can substitute for the other or expand the claims reported in Section~\ref{sec:results}.

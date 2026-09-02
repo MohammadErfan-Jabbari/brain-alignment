@@ -57,7 +57,7 @@ A role may appear in more than one row when different datasets, response constru
 
 Appendix~\ref{app:evidence-provenance} maps these scientific roles to the experiments that settled them and records the interpretations that were superseded during review.
 
-\subsection{Study Design, Datasets, and Data Partitioning}
+\subsection{Study design, datasets, and data partitioning}
 \label{sec:data-targets}
 
 Two datasets provide the recorded \ac{fmri} responses.
@@ -68,6 +68,10 @@ The LeBel corpus \autocite{lebel2023} provides continuous story stimuli for the 
 That assay uses participant UTS03, reliability-screened voxels (Appendix~\ref{app:data-targets}), and 20 stories divided into five held-out-story folds.
 Holding out complete stories keeps temporally dependent samples from the same story on one side of the evaluation boundary.
 The resulting estimand concerns held-out-story prediction within UTS03 and does not support population inference across people.\evd{E006}
+
+All recorded responses come from previously published, publicly released datasets and are analyzed here as secondary data; no new human data were acquired for this thesis.
+Participant recruitment, informed consent, and ethical approval were the responsibility of the originating studies and are reported there \autocite{tuckute2024,lebel2023}.
+The released data carry only study-assigned participant identifiers, which are the identifiers used throughout.
 
 The Tuckute responses can be constructed at two response-aggregation levels.
 Participant averaging combines the five Tuckute training participants declared in Appendix~\ref{app:data-targets} into one sentence-by-\ac{roi} matrix.
@@ -116,7 +120,7 @@ The arrows denote data use, training, or evaluation rather than causal influence
   \label{fig:data-partition-routes}
 \end{figure}
 
-\subsection{Measurement Assays and Opportunity Diagnostics}
+\subsection{Measurement assays and opportunity diagnostics}
 \label{sec:measurement-prerequisites}
 
 Both controlled brain predictivity assays address the same question.
@@ -134,8 +138,7 @@ R_j^2(M)
 {\sum_{i\in\mathcal T}(y_{ij}-\bar y_{\mathcal Tj})^2}.
 \label{eq:heldout-r2}
 \end{equation}
-Equation~\ref{eq:heldout-r2} expresses held-out performance as the fraction of response variation explained beyond a prediction that always uses the held-out mean.
-A value of one denotes perfect prediction, zero matches that mean baseline, and a negative value means that the fitted readout predicts worse than the baseline.
+A value of one denotes perfect prediction, zero matches a prediction that always uses the held-out mean, and a negative value means that the fitted readout predicts worse than that baseline.
 The nuisance-only and full scores are \(R_j^2(N)\) and \(R_j^2([N,X])\).
 Their cross-validated semipartial, or unique, score is
 \begin{equation}
@@ -144,8 +147,7 @@ Their cross-validated semipartial, or unique, score is
 R_j^2([N,X])-R_j^2(N).
 \label{eq:semipartial-r2}
 \end{equation}
-Equation~\ref{eq:semipartial-r2} measures the change in held-out predictive value when the contextual block is added to the declared nuisance design.
-A positive value therefore means that the contextual \ac{lm} representation improves held-out response prediction beyond those nuisance features.
+A positive value means that the contextual \ac{lm} representation improves held-out response prediction beyond the declared nuisance features.
 
 Figure~\ref{fig:measurement-readouts} separates this nuisance comparison from the two additional controls.
 One control uses an untrained \ac{lm} with the same architecture and rank.
@@ -176,8 +178,7 @@ For teacher \(m_T\), the seed-specific headroom is
 \overline{\Delta R^2}(m,s).
 \label{eq:headroom}
 \end{equation}
-Equation~\ref{eq:headroom} measures the teacher predictivity that the tested student has not recovered.
-Positive headroom means that the teacher retains a predictivity advantage, while zero headroom means that their averaged scores are equal under this assay.
+Equation~\ref{eq:headroom} measures the teacher predictivity that the tested student has not recovered, so zero headroom means their averaged scores are equal under this assay.
 For Figure~\ref{fig:distillation-headroom-retention}, let \(A_0\), \(A_S\), and \(A_T\) denote the corresponding untrained-model floor, student, and teacher scores.
 The floor-anchored retention is
 \begin{equation}
@@ -250,7 +251,7 @@ All learned preprocessing, response centering, regularization selection, and rea
 Appendix~\ref{app:data-targets} specifies the exact inputs, preprocessing, and declared standardization exception.
 Appendix~\ref{app:inference} specifies the formulas, aggregation, and inference procedures.\evd{E002}\evd{E003}\evd{E006}\evd{E015}\evd{E030}
 
-\subsection{Recorded-Response Intervention}
+\subsection{Recorded-response intervention}
 \label{sec:recorded-intervention}
 
 Within each outer fold and technical seed, the recorded-response arm and permuted-response control start from the same student state and use the same sentences.
@@ -352,8 +353,7 @@ A separate aggregation across the five shared outer folds checks whether the con
 The participant-averaged analysis instead aggregates seeds within each shared fold.
 Appendix~\ref{app:inference} specifies the intervals, tests, shared-fold checks, and sensitivity analyses.\evd{E005}\evd{E008}
 
-Five variants retain the paired recorded-versus-permuted comparison while changing the target, target loss, language anchor, trainable subset, or evaluation scope.
-They are the frozen auxiliary head, increased \ac{lora} capacity, contrastive objective, naturalistic voxelwise evaluation, and full fine-tuning.
+The frozen auxiliary head, increased \ac{lora} capacity, a contrastive objective, naturalistic voxelwise evaluation, and full fine-tuning each retain the paired recorded-versus-permuted comparison while changing the target, target loss, language anchor, trainable subset, or evaluation scope.
 Appendix~\ref{app:training} defines these variants, and Section~\ref{sec:results} reports their study-specific outcomes.
 None replaces the primary nine-participant contrast.\evd{E004}\evd{E011}\evd{E013}\evd{E017}
 
@@ -391,7 +391,7 @@ This contrast tests whether the recorded-response arm produced the representatio
 A brain-specific utility interpretation additionally requires two things: a reliable brain-response-specific change in the prerequisite contrast, and an uncertainty estimate for the paired endpoint contrast at the technical-seed unit.
 Section~\ref{sec:estimands} states the formal aggregation and decision rules.\evd{E009}
 
-\subsection{Synthetic-Response Intervention and Downstream Assays}
+\subsection{Synthetic-response intervention and downstream assays}
 \label{sec:synthetic-intervention}
 
 The synthetic-response intervention asks whether fixed synthetic brain-response targets generated from text change a retained student beyond ordinary \ac{kd}.
@@ -506,7 +506,7 @@ The direct saved-student endpoint remains the primary biological-transfer endpoi
 
 The synthetic-response contrasts are eligible for interpretation only when perplexity and bits per byte keep the compared students within the declared quality margins of Section~\ref{sec:estimands}.\evd{E025}
 
-\subsection{Cross-Cutting Estimands and Decision Rules}
+\subsection{Cross-cutting estimands and decision rules}
 \label{sec:estimands}
 
 Figure~\ref{fig:aggregation-paths} shows the common order from a matched analysis cell to the declared inference unit.
