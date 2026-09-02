@@ -140,6 +140,7 @@ Codex is an independent code critic or rescue implementation, not a scientific a
 - Set `HF_HOME=/home/centcom/data/hf-cache` to reuse models.
 - Python 3.11, torch cu128, 4× L40S, single node; no Slurm, Docker, or tmux.
 - Heavy artifacts belong under gitignored `data/` and `outputs/`, never the overlay root.
+- The shell is zsh with `noclobber`: `> file` fails with "file exists". Use `>|` or `rm -f` first.
 - Apparatus checks: `uv run python tests/test_bash_gate.py` (the Bash gate's 34 cases), `uv run python scripts/prose_lint.py --selftest`, and `uv run python scripts/manuscript_check.py`. Run the relevant one after changing a hook, the prose floor, or manuscript source.
 
 ## Git

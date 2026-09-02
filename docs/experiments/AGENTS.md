@@ -22,6 +22,7 @@ The template is the minimum, not the ceiling. Load-bearing entries:
 
 - **Status** on the header line, kept current: `design` / `DESIGN LOCKED` / `running` / `done` / `killed`, plus whether an outcome has been opened.
 - **The predeclaration, locked before running:** kill criteria, design, baselines, controls, seeds, stop rule, estimand, estimator, inference unit, and identifying assumptions. A design edited after seeing an outcome is a new record, not a revision of this one.
+- **Every quantity the design predeclares reporting must appear in `## Results`.** A design section that says "report X as sensitivity" is a commitment, and the artifact having computed X is not the same as the record stating it. E030 predeclared an MDE and power at its inherited reference, stored both in `analysis.json`, and transcribed neither. Before closing a record, grep its design section for *report* and check that each one landed.
 - **Confound controls named explicitly:** contiguous splits, nuisance columns, and confound subtraction for any brain-alignment claim. The reusable battery is [`references/confound-catalog.md`](../references/confound-catalog.md).
 - **Results separate from interpretation.** Raw numbers with uncertainty and the named test in `## Results`; what the evidence licenses and what it does not in `## Interpretation`. Do not let a verdict migrate up into the results table.
 - **The reason for each non-obvious design choice, recorded when it is made.** Reconstructing it later is how a rationale becomes a guess.

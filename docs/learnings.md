@@ -634,6 +634,20 @@ E030 headed all three of its result tables "Bonferroni family-95% two-sided t in
 
 **Operational rule.** A verification pass that checks whether a number is *right* will not catch a number that is right under the wrong name. When an interval is reported next to a decision rule, check that the reported quantity is the one the rule adjudicates, and check it at more than one family size.
 
+## L082 — A predeclared reporting commitment can be computed and never written down — 2026-09-02
+
+**A design section that says "report X" is a commitment, and nothing in the apparatus checks that it was kept.**
+
+E030 line 97 predeclared: "Report observed-variance MDE and power at the inherited `+0.002` unique-R2 reference as sensitivity, not as a newly selected cutoff." The analyzer computed both and wrote them to `outputs/E030/analysis.json` under `c1.cells.imageability_primary.A_aligned_above_nuisance.statistics.observed_variance_sensitivity`. Neither value ever reached the record's `## Results`, and neither reached the manuscript. The gap was found only because a reader asked how thin the C1 margin was.
+
+**Why nothing caught it.** Every existing check runs in the wrong direction. `manuscript_check.py` verifies that a cited key is declared; `evidence-number-auditor` verifies that a written number matches its record. Both start from what was written and ask whether it is right. A quantity that was never written has nothing to start from, so it is invisible to all of them. The one artifact that would have caught it, the design's own predeclaration, is read before the run and then not again.
+
+**Why it mattered here.** The manuscript reported an 80% MDE for the E025 exclusion against the `+0.002` reference and nothing for the E030 C1 exclusion against the same reference. The weaker of the two exclusions carried the stronger-looking presentation. The C1 bound clears its reference by `0.00033`, roughly a twentieth of its own MDE, and no reader could see that.
+
+**The interpretive trap that made silence tempting.** Power at the reference is `0.10`, which invites the reading that the exclusion is underpowered. It is not: the exclusion holds because the observed upper bound fell below `+0.002`, and it fell there because the point estimate is negative, not because the estimate is precise. Power concerns *detecting* an effect; this rule performs an *exclusion*. Per E009 line 178 an MDE is never a null, an equivalence margin, or a bound on the true effect. The right move is to state the number with that distinction attached, not to omit it because it could be misread.
+
+**Operational rule.** Before closing an evidence record, grep its design section for *report* and confirm each named quantity appears in `## Results`. Related to L081: both are defects of naming and omission rather than computation, and neither is reachable by a check that starts from what was written.
+
 ## Related
 - [`status.md`](./status.md) — current project state
 - [`03-methodology.md`](./03-methodology.md) — authority and inference contract
