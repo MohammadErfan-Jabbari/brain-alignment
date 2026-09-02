@@ -48,7 +48,7 @@ It estimates predictivity for the shared response of this fixed group because av
 Participant-specific construction retains one complete sentence-by-\ac{roi} matrix per person.
 \ac{uid}~853 is excluded because 60 entries are missing and the five-\ac{roi} grid is incomplete.
 The inclusion rules differ because cell-wise averaging can use an available entry, whereas participant-level inference requires a complete sentence-by-\ac{roi} matrix for each person.
-\ac{uid}~853 has 60 missing sentence--\ac{roi} cells: those 60 participant-averaged cells use four contributors, while the other 4,940 use all five.
+\ac{uid}~853 has 60 missing sentence--\ac{roi} cells, so those 60 participant-averaged cells use four contributors, while the other 4,940 use all five.
 This construction distinction does not assume that the missing entries are ignorable for every estimand.
 Ten participants have condition-B coverage; the nine that remain after this exclusion are \acp{uid} 797, 837, 841, 848, 856, 865, 875, 876, and 880.
 Within this set, \{848, 865, 875, 876\} form the inherited training-participant subgroup and \{797, 837, 841, 856, 880\} form the held-out-participant subgroup.
@@ -103,7 +103,8 @@ GPT-2 XL surprisal and probabilistic context-free-grammar surprisal provide a se
 The Tuckute analyses use five contiguous outer folds of 200 sentences.
 For each fold, stimulus-domain scaling and contextual and static \ac{pca} are fitted on the other 800 sentences and applied unchanged to the held-out block.
 Contextual and static feature blocks are each reduced to rank 50, equalizing their nominal dimensions before readout fitting, while the scalar nuisances remain unprojected.
-The synthetic brain-response target has one fixed exception: its coordinate standardization is learned once from the external WikiText training corpus, as described below.
+The synthetic brain-response target has one fixed exception.
+Its coordinate standardization is learned once from the external WikiText training corpus, as described below.
 Any target \ac{pca} used in a Tuckute assay is still fitted only on the corresponding 800 outer-training rows. \evd{E002}\evd{E025}\evd{E030}
 
 The LeBel preprocessing begins with the time-aligned word and phone annotations in the TextGrid files.

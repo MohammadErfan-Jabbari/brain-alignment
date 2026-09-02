@@ -2,7 +2,8 @@
 \label{sec:framework}
 
 Section~\ref{sec:evidence-criteria} defines the evidence criteria for converting controlled brain predictivity into a brain-specific training claim.
-This section instantiates those criteria: for each claim it names the data, the intervention or assay, the comparator, the estimand, the endpoint, and the inference unit.
+This section instantiates those criteria.
+For each claim it names the data, the intervention or assay, the comparator, the estimand, the endpoint, and the inference unit.
 An estimand is the specific quantity or effect that an analysis is designed to estimate.
 Table~\ref{tab:evidence-map} maps each claim role to its design tuple.
 A role may appear in more than one row when different datasets, response constructions, or population units define different estimands.
@@ -75,7 +76,8 @@ This matrix describes the shared stimulus-locked response, but it cannot support
 Participant-specific construction instead keeps one response matrix per recorded participant.
 One participant is excluded because that participant's required five-\ac{roi} response matrix is incomplete, leaving nine valid participants.
 Contrasts can therefore be aggregated within participant before inference across the nine tested participants.
-Response coordinates also differ in spatial resolution: an \ac{roi} coordinate summarizes responses within a predefined language region, whereas a voxel coordinate is a finer spatial measurement.
+Response coordinates also differ in spatial resolution.
+An \ac{roi} coordinate summarizes responses within a predefined language region, whereas a voxel coordinate is a finer spatial measurement.
 Table~\ref{tab:evidence-map} pairs these constructions with their comparisons and inference units.\evd{E002}\evd{E006}\evd{E008}\evd{E014}\evd{E025}
 
 Each training and evaluation role draws on a declared text and response source.
@@ -98,7 +100,8 @@ Within that held-out block, five inner folds separate fresh-readout fitting from
 The synthetic-response route uses its two WikiText partitions for student training and target-recovery evaluation.
 Within that route, recorded Tuckute responses enter only the later target-projection and saved-student biological-transfer assays.
 Fold-dependent transformations are fitted on the corresponding training portion.
-The target-projection assay has one declared exception: it reuses the target mean and scale that were fixed once during target construction, before any fold split existed.
+The target-projection assay has one declared exception.
+It reuses the target mean and scale that were fixed once during target construction, before any fold split existed.
 Its subsequent target \ac{pca} and all readout transformations remain fold-local.
 Appendices~\ref{app:data-targets} and~\ref{app:inference} report the exact inclusion, preprocessing, partition, and nesting definitions.\evd{E002}\evd{E003}\evd{E005}\evd{E008}\evd{E015}\evd{E016}\evd{E025}\evd{E030}
 
@@ -116,7 +119,8 @@ The arrows denote data use, training, or evaluation rather than causal influence
 \subsection{Measurement Assays and Opportunity Diagnostics}
 \label{sec:measurement-prerequisites}
 
-Both controlled brain predictivity assays address the same question: does a contextual \ac{lm} representation improve held-out prediction of recorded \ac{fmri} responses beyond specified nuisance features?
+Both controlled brain predictivity assays address the same question.
+Does a contextual \ac{lm} representation improve held-out prediction of recorded \ac{fmri} responses beyond specified nuisance features?
 Each assay first fits a nuisance-only readout containing its declared low-level and static features.
 The full readout adds a contextual representation block.
 The contextual and static blocks are each reduced to the same \ac{pca} rank, so their widths match.
@@ -348,7 +352,8 @@ A separate aggregation across the five shared outer folds checks whether the con
 The participant-averaged analysis instead aggregates seeds within each shared fold.
 Appendix~\ref{app:inference} specifies the intervals, tests, shared-fold checks, and sensitivity analyses.\evd{E005}\evd{E008}
 
-Five variants retain the paired recorded-versus-permuted comparison while changing the target, target loss, language anchor, trainable subset, or evaluation scope: frozen auxiliary head, increased \ac{lora} capacity, contrastive objective, naturalistic voxelwise evaluation, and full fine-tuning.
+Five variants retain the paired recorded-versus-permuted comparison while changing the target, target loss, language anchor, trainable subset, or evaluation scope.
+They are the frozen auxiliary head, increased \ac{lora} capacity, contrastive objective, naturalistic voxelwise evaluation, and full fine-tuning.
 Appendix~\ref{app:training} defines these variants, and Section~\ref{sec:results} reports their study-specific outcomes.
 None replaces the primary nine-participant contrast.\evd{E004}\evd{E011}\evd{E013}\evd{E017}
 
@@ -436,7 +441,7 @@ These training, target, and baseline properties are identification conditions be
 Parameter and representation movement are post-training diagnostics that may explain how the interventions differed; they are not comparator-matching conditions.
 Passing every required pre-outcome or baseline axis is necessary but not sufficient for attributing an effect to brain-response content.
 Failure on any such axis makes the contrast non-identifying; if no required axis fails but a required measurement is missing, attribution remains unresolved.
-The saved block-permuted target variants trained alongside these arms are sensitivity checks and are non-identifying by construction: they leave some rows correctly paired and can duplicate or omit a row (Appendix~\ref{app:data-targets}).\evd{E016}
+The saved block-permuted target variants trained alongside these arms are sensitivity checks and are non-identifying by construction, because they leave some rows correctly paired and can duplicate or omit a row (Appendix~\ref{app:data-targets}).\evd{E016}
 The frozen row-twin control instead applies an exact permutation and alters only the target.
 Because no student was trained against that control, it cannot replace the text-derived auxiliary-control arm.\evd{E026}\evd{E030}
 
