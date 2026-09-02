@@ -119,7 +119,7 @@ For a fixed smaller student trained by ordinary \ac{kd}, do recorded \ac{fmri} r
 
 Figure~\ref{fig:evidence-chain} organizes the evidence by what each claim depends on, rather than as one fixed sequence every claim must pass through.
 Route-specific headroom describes only the opportunity to improve the shared endpoint, not the validity of a later paired intervention contrast.
-The two routes then carry different claims: pairing-specific attribution and utility in the recorded-response route, and manipulation, transfer, and attribution in the synthetic-response route, alongside an independent pathway qualification.
+\looseness=-1 The two routes then carry different claims: pairing-specific attribution and utility in the recorded-response route, and manipulation, transfer, and attribution in the synthetic-response route, alongside an independent pathway qualification.
 
 \begin{figure}[tbp]
   \centering
@@ -129,31 +129,31 @@ The two routes then carry different claims: pairing-specific attribution and uti
     context/.style={box, fill=blue!8},
     lane/.style={font=\footnotesize\bfseries, text=black!75},
     link/.style={-{Latex[length=1.8mm]}, semithick},
-    contextlink/.style={link, dashed, gray!70},
-    alabel/.style={font=\tiny, text=black!70, inner sep=1.5pt, fill=white}
+    contextlink/.style={link, dashed, gray!70}
   ]
     \node[lane] at (3.2,0.85) {Recorded-response route};
     \node[context] (rmeasure) at (1.60,-0.70) {\textbf{Controlled brain\\predictivity}\\shared endpoint}; % \evd{E002}
     \node[context] (rheadroom) at (4.85,-0.70) {\textbf{Route-specific\\headroom}\\opportunity only}; % \evd{E003}
-    \node[widebox] (pairing) at (3.2,-3.40) {\textbf{Pairing-specific attribution}\\recorded vs.\ permuted responses, change in controlled brain predictivity}; % \evd{E008}
-    \node[widebox] (recordedutility) at (3.2,-6.10) {\textbf{Matched practical endpoint}\\utility after an established change, with paired uncertainty}; % \evd{E009}
-    \draw[contextlink] (rmeasure.south) -- node[alabel,right]{context} (rmeasure.south |- pairing.north);
-    \draw[contextlink] (rheadroom.south) -- node[alabel,right]{context} (rheadroom.south |- pairing.north);
-    \draw[link] (pairing) -- node[alabel,right,align=center]{must pass\\first} (recordedutility);
+    \node[widebox] (pairing) at (3.2,-3.55) {\textbf{Pairing-specific attribution}\\recorded vs.\ permuted responses, change in controlled brain predictivity}; % \evd{E008}
+    \node[widebox] (recordedutility) at (3.2,-6.40) {\textbf{Matched practical endpoint}\\utility after an established change, with paired uncertainty}; % \evd{E009}
+    \draw[contextlink] (rmeasure.south) -- (rmeasure.south |- pairing.north);
+    \draw[contextlink] (rheadroom.south) -- (rheadroom.south |- pairing.north);
+    \draw[link] (pairing) -- (recordedutility);
 
     \node[lane] at (10.6,0.85) {Synthetic-response route};
     \node[context] (sheadroom) at (8.85,-0.70) {\textbf{Route-specific\\headroom}\\opportunity only}; % \evd{E003}
     \node[context] (smeasure) at (12.35,-0.70) {\textbf{Controlled brain\\predictivity}\\shared endpoint}; % \evd{E002}
-    \node[box] (manipulation) at (8.85,-3.40) {\textbf{Target uptake and\\retained-student movement}\\student changed at\\acceptable \ac{lm} quality}; % \evd{E025}
-    \node[box] (transfer) at (12.35,-3.40) {\textbf{Direct biological\\transfer}\\fresh \ac{fmri} endpoint\\vs.\ ordinary \ac{kd}}; % \evd{E025}
-    \node[box] (attribution) at (8.85,-6.10) {\textbf{Brain-response-specific\\attribution}\\matched text-derived\\control required}; % \evd{E026}
-    \node[box] (projection) at (12.35,-6.10) {\textbf{Independent pathway\\qualification}\\50-component linear\\target projection}; % \evd{E030}
-    \draw[contextlink] (sheadroom) -- node[alabel,right]{context} (manipulation);
-    \draw[contextlink] (smeasure) -- node[alabel,right]{context} (transfer);
-    \draw[link] (manipulation) -- node[alabel,above,align=center]{must pass\\first} (transfer);
-    \draw[link] (manipulation) -- node[alabel,right,align=center]{must pass\\first} (attribution);
+    \node[box] (manipulation) at (8.85,-3.55) {\textbf{Target uptake and\\retained-student movement}\\student changed at\\acceptable \ac{lm} quality}; % \evd{E025}
+    \node[box] (transfer) at (12.35,-3.55) {\textbf{Direct biological\\transfer}\\fresh \ac{fmri} endpoint\\vs.\ ordinary \ac{kd}}; % \evd{E025}
+    \node[box] (attribution) at (8.85,-6.40) {\textbf{Brain-response-specific\\attribution}\\matched text-derived\\control required}; % \evd{E026}
+    \node[box] (projection) at (12.35,-6.40) {\textbf{Independent pathway\\qualification}\\50-component linear\\target projection}; % \evd{E030}
+    \draw[contextlink] (sheadroom) -- (manipulation);
+    \draw[contextlink] (smeasure) -- (transfer);
+    \draw[link] (manipulation) -- (transfer);
+    \draw[link] (manipulation) -- (attribution);
   \end{tikzpicture}
-  \caption{Claim dependencies for recorded- and synthetic-response training.}
+  \caption{Claim dependencies for recorded- and synthetic-response training.
+  Dashed arrows mark a claim that supplies context for the claim it points to; solid arrows mark a claim that must pass first.}
   \label{fig:evidence-chain}
 \end{figure}
 
