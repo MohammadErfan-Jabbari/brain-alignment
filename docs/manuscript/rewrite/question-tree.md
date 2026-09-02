@@ -291,7 +291,7 @@ Keep the recorded-response and synthetic-response utility boundaries separate. S
 
 Two paragraphs:
 
-1. Why is the overall endpoint inconclusive for the tested systems, and which narrower measurement, manipulation, and evidence-framework contributions remain supported?
+1. Why do the tested routes not establish a usable brain-specific training signal, with attribution non-identifying in the synthetic route and not demonstrated in the recorded route, and which narrower measurement, manipulation, and evidence-framework contributions remain supported?
 2. What durable methodological lesson follows about the evidence needed to turn a brain score into a training signal?
 
 ## Complete appendix question tree
