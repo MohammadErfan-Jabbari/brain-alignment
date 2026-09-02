@@ -105,7 +105,7 @@ These studies differ in model, training target, endpoint, personalization, and t
 Privileged-information and feature-distillation studies provide a competing explanation for any benefit from training with brain responses.
 A dense training-only target may produce an improvement by emphasizing distinctions useful to the student or, as a so-far untested hypothesis, by making optimization easier, regardless of whether the target contains brain-response content.
 The vision study in Table~\ref{tab:related-designs} is one such case \autocite{pirlot2022}.
-A dense target's value depends on the information it carries, the student's capacity, and how the teacher and student representations are matched \autocite{lopezpaz2016,saadi2025}.
+The value of a dense training-only target depends on the information it carries, the student's capacity, and how the teacher and student representations are matched \autocite{lopezpaz2016,saadi2025}.
 Ruling that explanation out therefore requires an arm whose target matches the brain-response target in density and learnability but is derived from text alone, under the same \ac{lm} objective.
 
 Evaluating the student after training must also meet requirements from measurement-validity research.
@@ -166,7 +166,7 @@ An ordinary \ac{kd} arm isolates the incremental effect of adding a brain-respon
 The route-appropriate attribution control depends on the training target.
 In the recorded-response route, the attribution control compares correctly paired with permuted responses, testing whether the stimulus--response pairing matters while preserving the response values and their marginal distribution.
 In the synthetic-response route, the attribution control compares the synthetic brain-response target with a text-derived auxiliary target matched on properties that we fix or calibrate in advance, before interpreting the target-arm outcomes.
-These properties include geometry, scale, baseline predictability, the target's remaining room to improve, and the early gradient magnitude it exerts.
+These properties include geometry, scale, baseline predictability, remaining headroom, and the early gradient magnitude it exerts.
 Target uptake and retained-student movement, defined in Section~\ref{sec:target-rationale}, can explain how two target interventions differed, but they are outcomes of those interventions rather than conditions the comparator must satisfy.
 
 A freshly fitted readout on independently recorded \ac{fmri} responses tests biological transfer; successful recovery of the optimized training target cannot substitute for this endpoint.
@@ -177,7 +177,7 @@ The auxiliary control is additionally required only when the claim attributes a 
 Each result therefore licenses only the claim that depends on it.
 A failed manipulation check limits the interpretation of a null intervention result, but it does not invalidate a positive independently measured endpoint contrast.
 The 50-component linear target-projection assay tests whether the declared projection of the training target adds controlled predictivity of recorded \ac{fmri} responses beyond nuisance and the frozen row-twin control, which is the same target rows with their sentence pairing broken.
-It qualifies that linear pathway alone.
+The assay qualifies that linear pathway alone.
 It does not gate any manipulation, transfer, or attribution claim, so Figure~\ref{fig:evidence-chain} draws it as an isolated box with no arriving or departing dependency arrows.
 An unresolved comparison must remain unresolved rather than be converted into a null result, and failure under one readout, cohort, or target must not be generalized beyond that scope.
 Section~\ref{sec:framework} maps each claim to its data, training arms, estimand, comparator, endpoint, and inference unit; Section~\ref{sec:results} reports the corresponding verdicts.
