@@ -26,7 +26,7 @@ give a smaller student model an advantage that comes **specifically from brain-r
 
 ## What was found
 
-Five claims are kept apart, because none of them establishes the next.
+Five claims are kept apart, because none of them establishes another.
 
 | Claim | Question | Status |
 | --- | --- | --- |
@@ -37,9 +37,8 @@ Five claims are kept apart, because none of them establishes the next.
 | **Utility** | Does it help a practical endpoint at comparable LM quality? | **Not demonstrated** |
 
 Neither route establishes brain alignment as a usable training signal, and neither rules out a
-benefit from different targets, interventions, or populations. The contribution is the framework
-that keeps these claims apart — showing how a positive result at one stage can be entirely valid
-without supporting the training claim.
+benefit from different targets, interventions, or populations. The contribution is the separation
+that keeps a valid positive result at one stage from being read as support for the training claim.
 
 Full statuses, estimands, and uncertainty are in
 [Section 4 of the thesis](docs/manuscript/submission/main-submission.pdf).
