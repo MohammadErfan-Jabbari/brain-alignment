@@ -120,7 +120,7 @@ Table~\ref{tab:recorded-robustness} maps each change to its objection and scope.
 
     Auxiliary weight was poorly chosen.
     & Repeated the recorded-response intervention over the tested weight range.
-    & Only the highest tested weight cleared its fold-level interval against the matched permuted control, and it did so at a substantial language-quality cost.\evd{E005}
+    & Only the highest tested weight gave a fold-level interval against the matched permuted control that excluded zero, and at a substantial language-quality cost, so no quality-matched target-specific gain is supported.\evd{E005}
     & Other objectives or schedules could behave differently. \\
 
     \specialrule{0.15pt}{0.3ex}{0.3ex}
@@ -191,8 +191,8 @@ Once a clean temporal gap was imposed, the controlled residual predictivity was 
 The ceiling instrument therefore failed; the analysis does not show that participant-specific structure is absent or that a universal biological ceiling has been reached. \evd{E020}
 
 The reading-time route asked whether a cognitive target could provide a simpler intervention signal than \ac{fmri}.
-Training a model with an auxiliary head on residualized reading times initially improved a frozen-representation probe on held-out text, and the improvement exceeded every control matched on how learnable its own target was.
-A phase-randomized control preserved the target's marginal distribution and temporal structure, however, and matched those advantages.
+Training a model with an auxiliary head on residualized reading times initially improved how efficiently a probe on the frozen representation learned held-out text, by more than any control whose target was matched for learnability.
+A phase-randomized control preserved the target's marginal distribution and temporal structure, however, and matched that improvement.
 The design therefore did not isolate cognition-specific content from target shape.
 This attribution failure does not imply that reading time contains no useful signal; it means that the available contrast could not identify that signal. \evd{E021}
 
@@ -211,8 +211,8 @@ The remaining routes specify questions that would be useful only after their act
 They have no weight in the empirical verdicts of this thesis.
 
 The same-lineage alignment--quality design would compare models from one lineage along an alignment--quality frontier, then test paired ordinary fine-tuning where alignment changes while language quality remains approximately stable.
-A screen of the alignment-versus-quality curve, run on recorded values without new training, looked for a region where alignment is nearly flat in language quality, because only there can a difference be attributed to the training objective rather than to quality.
-One qualifying pair was found, but only below the language-quality range the design required, so no decisive paired training test was run and the screen contributes no evidence for or against whether ordinary fine-tuning loses brain alignment because of its training objective. \evd{E023}
+A screen of the alignment-versus-quality curve, run on recorded values without new training, looked for a stretch of the curve where alignment barely moves with language quality, because only there can an alignment difference be attributed to the training objective rather than to quality.
+One qualifying pair was found, but only below the language-quality range the design required, so no paired training test was run and the screen contributes no evidence for or against whether ordinary fine-tuning loses brain alignment because of its training objective. \evd{E023}
 
 The matched auxiliary-control design would ask whether any intervention benefit came from brain-response content rather than generic target geometry, learnability, optimization pressure, or retained-student movement.
 The planned control would match those properties while removing brain-response content.

@@ -4,7 +4,7 @@
 The E001--E030 identifier range covers the analyses and dispositions used in this thesis.
 Each existing record states what was executed, what its retained artifacts support, and which interpretation survived review.
 The main text states the resulting thesis claims.
-This appendix connects those claims to their final evidence owners, classifies every record identifier, identifies earlier readings that were superseded, and reports the retained path--hash pairs used for reproduction.
+This appendix connects those claims to their final evidence owners, classifies every record identifier, identifies earlier readings that were superseded, and states where the retained path--hash pairs are bound.
 Engineering-only, unused, unexecuted, and precondition-stopped records support only their stated disposition.
 
 \subsection{Evidence-record dispositions and claim ownership}
@@ -26,7 +26,7 @@ The categories separate completed scientific records from restricted studies, st
 Disposition & Records & Permitted use \\
 \midrule
 Final executed scientific record & E008, E011, E025, E030 & Supports its settled scientific conclusion. \\
-Executed; interpretation narrowed by a recorded correction & E002, E009, E016, E026 & Supports the raw measurements, which are unchanged, and only the narrowed learned-parameter, utility, or comparator-identification reading that replaced the original one. \\
+Executed; interpretation narrowed by a recorded correction & E002, E009, E016, E026 & Supports the raw measurements, which are unchanged, and only the narrowed reading that replaced the original one. \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Executed; conclusion corrected or scope-limited & E003, E004, E005, E006, E010, E014, E015, E021 & Supports only the corrected or scope-limited conclusion. \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
@@ -139,11 +139,8 @@ E030 & Failure of the 50-component linear target projection explains the E025 re
 \end{table}
 \endgroup
 
-\subsection{Retained artifacts the results depend on}
-\label{app:artifacts}
-
 Every reported result depends on retained artifacts whose exact path and SHA-256 digest are bound in the owning evidence record, which remains the authority for each binding.
 The bindings exclude smoke outputs, intermediate caches, prospective-design artifacts, and digests not bound to an exact filename.
-The digests themselves are not reproduced here, because the artifacts are not distributed with the thesis and a reader cannot recompute a digest from this document.
+The digests are not reproduced here because the artifacts are not distributed with the thesis.
 Appendices~\ref{app:training}, \ref{app:inference}, and \ref{app:sensitivities} report the corresponding training settings, estimators and inference rules, and complete numerical and sensitivity tables.
 

@@ -2,7 +2,7 @@
 \label{app:training}
 
 This appendix specifies the optimized objectives, the parameters reached by each gradient, and the student state available after training.
-Appendix~\ref{app:data-targets} owns the construction of the data, targets, and controls; Appendix~\ref{app:inference} owns fresh readouts and statistical inference; and Appendix~\ref{app:evidence-provenance} owns verified artifact paths and hashes.
+Appendix~\ref{app:data-targets} owns the construction of the data, targets, and controls; Appendix~\ref{app:inference} owns fresh readouts and statistical inference; and Appendix~\ref{app:evidence-provenance} states where the artifact paths and hashes are bound.
 Section~\ref{sec:results} and Appendices~\ref{app:secondary}--\ref{app:sensitivities} own the resulting observations and verdicts.
 Temporary target heads never enter a later evaluation.
 A student checkpoint is retained only when the run explicitly saves one; otherwise evaluation uses the frozen in-memory student and only the result artifact is kept.
@@ -153,7 +153,7 @@ Cosine and squared-Pearson losses use a co-trained target map.
 Linear \ac{cka} is readout-free: it compares the minibatch geometry of \(h_{12}\) and the response matrix directly, so no temporary \(W\) participates in that branch \autocite{kornblith2019}.
 These are implementation variants of the recorded-response intervention; their outcomes remain in Section~\ref{sec:results-recorded} and Appendix~\ref{app:secondary}. \evd{E004}
 
-The practical-utility evaluation trained a Qwen2.5-0.5B student against a Qwen2.5-1.5B teacher at hidden-state index 12, seeds 0 to 7, target weight 10, 800 training items, three epochs, learning rate \(2\times10^{-4}\), and batch size 16, then scored 400 items from each out-of-domain corpus. \evd{E009}
+The practical-utility evaluation used this same recorded-response training path: a Qwen2.5-0.5B student against a Qwen2.5-1.5B teacher at \(h_{12}\), seeds 0--7, target weight 10, 800 training items, three epochs, learning rate \(2\times10^{-4}\), and batch size 16, then 400 items scored from each of the two out-of-domain corpora of Section~\ref{sec:estimands}. \evd{E009}
 
 \subsection{Synthetic-response intervention}
 
@@ -220,7 +220,7 @@ Comparator adequacy and all arm outcomes are reported in Section~\ref{sec:result
 
 Replay requires four linked objects: the locked software environment, the executed entry point and arguments, the declared seed and final-state rule, and the retained result or student artifact.
 Table~\ref{tab:training-reproduction} provides the compact index.
-It is not a command-complete substitute for the owning result configurations or the verified path--hash ledger in Appendix~\ref{app:evidence-provenance}.
+It is not a command-complete substitute for the owning result configurations or the path--hash bindings in the owning evidence records.
 
 \begin{table}[tbp]
   \centering
@@ -231,13 +231,13 @@ It is not a command-complete substitute for the owning result configurations or 
     \toprule
     Family & Executed entry point & Final-state and retained-output rule & Provenance handoff \\
     \midrule
-    Distillation-headroom analysis & \path{scripts/run_kd_alignment.py} & Final warm or random-start student evaluated in memory; result bundle records configuration and quality measurements & Verified retained bundles are indexed in Appendix~\ref{app:evidence-provenance} \evd{E003} \\
+    Distillation-headroom analysis & \path{scripts/run_kd_alignment.py} & Final warm or random-start student evaluated in memory; result bundle records configuration and quality measurements & Verified retained bundles are bound in the owning evidence record \evd{E003} \\
     \midrule
-    Recorded-response intervention (sentence) & \path{scripts/run_brain_lever.py}; target losses in \path{scripts/brain_loss.py} & Final merged student evaluated after each fold--seed cell; temporary target map discarded; no intermediate quality frontier retained & Primary and participant result shards are indexed in Appendix~\ref{app:evidence-provenance} \evd{E004}\evd{E005}\evd{E008}\evd{E011} \\
+    Recorded-response intervention (sentence) & \path{scripts/run_brain_lever.py}; target losses in \path{scripts/brain_loss.py} & Final merged student evaluated after each fold--seed cell; temporary target map discarded; no intermediate quality frontier retained & Primary and participant result shards are bound in the owning evidence record \evd{E004}\evd{E005}\evd{E008}\evd{E011} \\
     \midrule
-    Recorded-response intervention (naturalistic) & \path{scripts/run_lebel_tune.py} & Final merged or full-parameter student evaluated immediately; temporary voxel head discarded & Recorded grids and result bundles remain under their owning configurations; verified paths are delegated to Appendix~\ref{app:evidence-provenance} \evd{E013}\evd{E017} \\
+    Recorded-response intervention (naturalistic) & \path{scripts/run_lebel_tune.py} & Final merged or full-parameter student evaluated immediately; temporary voxel head discarded & Recorded grids and result bundles remain under their owning configurations; verified paths are bound in the owning evidence record \evd{E013}\evd{E017} \\
     \midrule
-    Synthetic-response intervention & \path{scripts/run_tribe_phase3.py} & Final student evaluated in memory; optional checkpoint written only when a save directory is supplied; temporary target map discarded & Target, saved-student, and analysis bundles are indexed in Appendix~\ref{app:evidence-provenance} \evd{E016}\evd{E025}\evd{E026} \\
+    Synthetic-response intervention & \path{scripts/run_tribe_phase3.py} & Final student evaluated in memory; optional checkpoint written only when a save directory is supplied; temporary target map discarded & Target, saved-student, and analysis bundles are bound in the owning evidence record \evd{E016}\evd{E025}\evd{E026} \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -249,5 +249,5 @@ Many early runs do not record immutable upstream Hugging Face revision identifie
 This limitation must be preserved rather than filled with an inferred revision.
 
 Smoke runs, logs, temporary caches, throughput probes, and model-loading checks are diagnostic outputs and do not receive manuscript-level path--hash rows.
-Appendix~\ref{app:evidence-provenance} owns the verified artifact ledger and any stated omissions.
+Appendix~\ref{app:evidence-provenance} states the binding scope and its exclusions.
 With the optimization and replay scope fixed, Appendix~\ref{app:inference} specifies how the retained students are evaluated and how uncertainty is assigned.
