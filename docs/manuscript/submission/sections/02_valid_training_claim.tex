@@ -1,15 +1,19 @@
 \section{Background and Related Work}
 \label{sec:valid-claim}
 
-Four adjacent literatures bear on the question. These are brain-encoding studies \autocite{oota2023,merlin2024}, brain-response-guided optimization \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}, privileged-information and feature-distillation work \autocite{lopezpaz2016,saadi2025}, and model-compression studies \autocite{oota2026}.
-Five words distinguish the five claims this thesis keeps apart. \emph{Measurement} is predicting recorded responses from a frozen model, \emph{manipulation} is changing the student with a brain-response objective, \emph{attribution} is tracing that change specifically to brain-response content, \emph{transfer} is improvement on independently recorded responses, and \emph{utility} is improvement on a practical endpoint.
-None of these claims establishes another. Predicting recorded brain responses does not establish that training with those responses changes the student, and a change in the student leaves attribution, transfer, and utility open.
+Four adjacent literatures bear on the question.
+These are brain-encoding studies \autocite{oota2023,merlin2024}, brain-response-guided optimization \autocite{moussa2025,negi2025,merlinData2026,vaidya2026}, privileged-information and feature-distillation work \autocite{lopezpaz2016,saadi2025}, and model-compression studies \autocite{oota2026}.
+Five words distinguish the five claims this thesis keeps apart.
+\emph{Measurement} is predicting recorded responses from a frozen model, \emph{manipulation} is changing the student with a brain-response objective, \emph{attribution} is tracing that change specifically to brain-response content, \emph{transfer} is improvement on independently recorded responses, and \emph{utility} is improvement on a practical endpoint.
+None of these claims establishes another.
+Predicting recorded brain responses does not establish that training with those responses changes the student, and a change in the student leaves attribution, transfer, and utility open.
 A brain-specific training advantage is an incremental benefit of brain-response content beyond a matched control, at comparable \ac{lm} quality and measured at the correct biological inference unit.
 
 \subsection{What controlled brain predictivity establishes}
 \label{sec:controlled-score}
 
-Controlled brain predictivity is the measurement claim. It tests whether representations extracted from a frozen \ac{lm} contain information useful for predicting recorded \ac{fmri} responses to held-out stimuli.
+Controlled brain predictivity is the measurement claim.
+It tests whether representations extracted from a frozen \ac{lm} contain information useful for predicting recorded \ac{fmri} responses to held-out stimuli.
 An encoding model is fitted to predict responses from those representations on one set of stimuli and evaluated on a separate set.
 This held-out evaluation tests whether prediction generalizes beyond the fitting stimuli \autocite{oota2023,merlin2024}.
 

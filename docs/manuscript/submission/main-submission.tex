@@ -64,7 +64,8 @@
 \parfillskip=0pt plus 0.65\linewidth % the abstract is narrower than \textwidth
 Language-model representations can predict human brain responses to language recorded with \ac{fmri}, but that does not show these responses can improve model training.
 We tested whether adding recorded \ac{fmri} responses, or synthetic brain responses generated from text, as an auxiliary objective alongside \ac{kd} gives a smaller student model an advantage that comes specifically from brain-response information.
-Five questions decide that, in order. They ask whether the signal can be measured, whether adding it changes the student, whether the student transfers to independently recorded responses, whether any difference is specific to brain-response content, and whether it helps a practical endpoint.
+Five questions decide that, in order.
+They ask whether the signal can be measured, whether adding it changes the student, whether the student transfers to independently recorded responses, whether any difference is specific to brain-response content, and whether it helps a practical endpoint.
 We answered the first question on two datasets, brain regions responding to isolated sentences and voxels responding to a spoken story.
 In both, the model's representation predicted held-out brain responses beyond what word length, word frequency, how fast words arrive, and a word-meaning lookup ignoring the surrounding sentence already explained.
 The distilled student has lower brain predictivity than its teacher, but its worse language quality remains a competing explanation for that gap.

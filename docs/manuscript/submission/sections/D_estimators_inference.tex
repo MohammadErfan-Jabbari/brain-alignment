@@ -2,7 +2,8 @@
 \label{app:inference}
 
 Section~\ref{sec:estimands} states the design-level estimands and inference units.
-This appendix answers four narrower questions. They are how the predictive quantities are related, how fitting and aggregation are nested, how uncertainty and decision rules are assigned, and where information-theoretic analogies stop.
+This appendix answers four narrower questions.
+They are how the predictive quantities are related, how fitting and aggregation are nested, how uncertainty and decision rules are assigned, and where information-theoretic analogies stop.
 Appendix~\ref{app:data-targets} owns the inputs and preprocessing definitions, Appendix~\ref{app:training} owns the training objectives and retained model states, and Section~\ref{sec:results} owns the empirical outcomes.
 The quantities below are assay-conditional predictive contrasts.
 They are neither causal effects nor direct estimates of information-theoretic objects.
@@ -103,7 +104,8 @@ Neither this derivation nor a positive held-out score makes the fitted coefficie
 
 \subsection{Cross-validation, aggregation, and inference units}
 
-The governing leakage rule is simple. Every data-adaptive operation that can use stimulus-domain information is fitted on the relevant training complement.
+The governing leakage rule is simple.
+Every data-adaptive operation that can use stimulus-domain information is fitted on the relevant training complement.
 Fixed protocol operations may be applied before the split, but learned centering, scaling, dimensionality reduction, penalty selection, and readout fitting remain inside it.
 Appendix~\ref{app:data-targets} specifies the exact fixed preprocessing and split definitions.
 
@@ -111,7 +113,8 @@ The naturalistic assays require one explicit distinction.
 Feature resampling, edge slicing, within-story feature and \ac{bold} z-scoring, and finite-impulse-response delay copies are fixed story-local operations.
 Because the held-out story's response normalization uses that story's own moments, the resulting estimand is conditional on this normalization protocol.
 Across-story \ac{pca}, assembled-design scaling, response centering, ridge selection, and readout fitting are learned only from the readout-training stories.
-The 50-component linear target-projection assay has one other declared exception. It reuses target-standardization moments fixed during target construction, while its target \ac{pca} and readouts remain fold-local. \evd{E006}\evd{E013}\evd{E017}\evd{E030}
+The 50-component linear target-projection assay has one other declared exception.
+It reuses target-standardization moments fixed during target construction, while its target \ac{pca} and readouts remain fold-local. \evd{E006}\evd{E013}\evd{E017}\evd{E030}
 
 \looseness=-1 Table~\ref{tab:cv-nesting} records the held-out boundary, learned operations, and final inference unit for each scientific role.
 
@@ -394,7 +397,8 @@ The chain
 \]
 would require all information from \(B\) that reaches \(H\) to pass through \(T\), which would imply \(I(B;H)\leq I(B;T)\).
 The executed design does not establish this chain because \(S\) directly supplies both \(T\) and \(H\), and it also drives \(B\).
-Conditioning on \(S\) changes the question. Because \(T\) is deterministic given \(S\), \(I(T;B\mid S)=0\).
+Conditioning on \(S\) changes the question.
+Because \(T\) is deterministic given \(S\), \(I(T;B\mid S)=0\).
 That identity does not show that the target is useless.
 It shows that conditioning on the exact stimulus cannot establish additional target information beyond that stimulus or recover the desired unconditioned mediation claim.
 Data processing therefore supplies a bound only after the relevant conditional independence is defended; it does not predict the sign of a held-out encoding contrast \autocite{cover2006}. \evd{E016}\evd{E030}
