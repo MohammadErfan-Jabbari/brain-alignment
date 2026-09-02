@@ -2,8 +2,7 @@
 \label{app:sensitivities}
 
 This appendix reports the verification detail needed to judge whether the main conclusions depend on an analysis choice or an unstable aggregate.
-Section~\ref{sec:results} owns the decisive observations and scientific verdicts; Appendix~\ref{app:evidence-provenance} owns the visible evidence-record crosswalk.
-Every value below traces to its owning evidence record, including values whose artifacts that record does not bind by path and digest.
+Section~\ref{sec:results} states the decisive observations and scientific verdicts, and Appendix~\ref{app:evidence-provenance} maps each of them to the experiment that settled it.
 
 \looseness=-1 The tables preserve the distinction between inference units.
 Participant-level effects support inference across the sampled biological units under the assumptions in Appendix~\ref{app:inference}.
@@ -133,11 +132,9 @@ Tables~\ref{tab:claim-changing-sensitivities} and~\ref{tab:confirmatory-sensitiv
   \end{tabularx}
 \end{table}
 
-The original combined engineering count, \result{e026_engineering_split}, is retained only as provenance for the frozen audit.\evd{E026}
 
-The interpretation-changing analysis altered the question being answered; it was not a more favorable reanalysis of the earlier averaged-target result.
+The interpretation-changing analysis altered the question being answered rather than reanalysing the earlier averaged-target result.
 The remaining sensitivities either narrowed the scope, confirmed stability near a frozen specification, or exposed a limitation.
-None licenses replacing a prospective primary estimator or decision rule with a more favorable variant.
 
 \subsection{Participant-level intervention contrasts}
 
@@ -342,7 +339,7 @@ Table~\ref{tab:utility-seed-values} reports the complete seed vector used to jud
 \end{table}
 
 The signs are split, and the mean is strongly influenced by seed~0.
-The seed rows are rounded independently to three decimal places; the displayed mean and median are computed from artifact-precision values.
+The seed rows are rounded independently to three decimal places, whereas the mean and median are computed from the unrounded values.
 The complete vector documents mixed signs and seed-0 sensitivity; it does not establish a null or equivalence. \evd{E009}
 
 For the saved-student biological-transfer assay, each seed row averages participants and outer folds.
@@ -438,22 +435,20 @@ The separation shows that fitting the target in absolute terms does not establis
     \toprule
     Seed & Centered relative-Frobenius & Linear-\ac{cka} distance \\
     \midrule
-    0 & 0.186369 & 0.002633 \evd{E025} \\
-    1 & 0.216294 & 0.005457 \evd{E025} \\
-    2 & 0.298694 & 0.011778 \evd{E025} \\
-    3 & 0.195493 & 0.003585 \evd{E025} \\
-    4 & 0.197089 & 0.003925 \evd{E025} \\
-    5 & 0.196519 & 0.003423 \evd{E025} \\
+    0 & 0.1864 & 0.0026 \evd{E025} \\
+    1 & 0.2163 & 0.0055 \evd{E025} \\
+    2 & 0.2987 & 0.0118 \evd{E025} \\
+    3 & 0.1955 & 0.0036 \evd{E025} \\
+    4 & 0.1971 & 0.0039 \evd{E025} \\
+    5 & 0.1965 & 0.0034 \evd{E025} \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 The values use layer 6 and the same 1,999 WikiText sentences held out from every training arm; Equation~\ref{eq:movement-distances} defines both distances.
-Before participant responses were opened, every seed was required to exceed \(10^{-4}\) in centered relative-Frobenius change and to exceed the larger of \(10^{-6}\) and ten times the duplicate-extraction noise in linear-\ac{cka} distance; all six seeds met both, and repeated extraction of the same checkpoint reproduced it exactly, so the fixed \(10^{-6}\) floor was the operative bound.\evd{E025}
-
-No seed-only table is reported for the participant-specific recorded-response intervention.
-Its primary participant statistic is a median over crossed seed--block cells, so a seed-only vector cannot reconstruct the nonlinear participant aggregate in Equation~\ref{eq:appendix-recorded-participant}.
-Seed variability remains inside each participant value, while the shared-block summary diagnoses the other crossed axis. \evd{E008}
+Before participant responses were opened, every seed was required to exceed \(10^{-4}\) in centered relative-Frobenius change and to exceed the larger of \(10^{-6}\) and ten times the duplicate-extraction noise in linear-\ac{cka} distance.
+Because repeated extraction of the same checkpoint reproduced it exactly, \(10^{-6}\) was the binding floor.
+All six seeds cleared both criteria.\evd{E025}
 
 \begin{table}[tbp]
   \centering

@@ -2,10 +2,8 @@
 \label{app:training}
 
 This appendix specifies the optimized objectives, the parameters reached by each gradient, and the student state available after training.
-Appendix~\ref{app:data-targets} owns the construction of the data, targets, and controls; Appendix~\ref{app:inference} owns fresh readouts and statistical inference; and Appendix~\ref{app:evidence-provenance} states where the artifact paths and hashes are bound.
-Section~\ref{sec:results} and Appendices~\ref{app:secondary}--\ref{app:sensitivities} own the resulting observations and verdicts.
+Appendix~\ref{app:data-targets} defines the data, targets, and controls; Appendix~\ref{app:inference} defines the fresh readouts and statistical inference; and Section~\ref{sec:results} with Appendices~\ref{app:secondary}--\ref{app:sensitivities} report the resulting observations and verdicts.
 Temporary target heads never enter a later evaluation.
-A student checkpoint is retained only when the run explicitly saves one; otherwise evaluation uses the frozen in-memory student and only the result artifact is kept.
 
 \subsection{Ordinary \ac{kd} and language-quality rules}
 
@@ -183,74 +181,69 @@ Because GPT-2 ties its token embedding and output matrix, that retained matrix r
 
 The teacher is frozen, whereas every student parameter and \(W_{\mathrm{tmp}}\) is optimized.
 All target arms map the 768-dimensional mean-pooled attachment state to all 20,484 coordinates using the same mean \ac{mse}.
-Appendix~\ref{app:data-targets} owns the construction and standardization of the synthetic brain-response target, the text-derived auxiliary target, and the saved block permutation.
+Appendix~\ref{app:data-targets} defines the construction and standardization of the synthetic brain-response target, the text-derived auxiliary target, and the saved block permutation.
 The common optimization grid uses 95,999 training sentences, one epoch, learning rate \(5\times10^{-5}\), batch size 4, and maximum length 64. \evd{E016}
 
 \begin{table}[tbp]
   \centering
   \footnotesize
-  \caption{Synthetic-response training arms and retained states.}
+  \caption{Synthetic-response training arms.}
   \label{tab:synthetic-training-arms}
-  \evd{E016}\evd{E025}\evd{E026}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.21\textwidth}@{}}
+  \evd{E016}\evd{E025}\evd{E026}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
     \toprule
-    Arm & Additional supervision & Shared optimization settings & Saved state \\
+    Arm & Additional supervision & Shared optimization settings \\
     \midrule
-    Ordinary \ac{kd} arm & None; \(\lambda_{\mathrm{target}}=0\) and no temporary target map & Pretrained GPT-2 Small initialization, frozen GPT-2 Medium teacher, corpus, output-\ac{kd} loss, and seeds 0--5 & Student checkpoint only when artifact saving is enabled; otherwise result artifact \evd{E016}\evd{E025} \\
+    Ordinary \ac{kd} arm & None; \(\lambda_{\mathrm{target}}=0\) and no temporary target map & Pretrained GPT-2 Small initialization, frozen GPT-2 Medium teacher, corpus, output-\ac{kd} loss, and seeds 0--5 \evd{E016}\evd{E025} \\
     \midrule
-    Synthetic-response arm & Correctly paired synthetic brain-response target through \(W_{\mathrm{tmp}}\); \(\lambda_{\mathrm{target}}=0.1\) & Same initialization, teacher, corpus, schedule, and seeds 0--5 as the matched ordinary \ac{kd} arm & Temporary map always discarded; student saved only under the configured artifact path \evd{E016}\evd{E025} \\
+    Synthetic-response arm & Correctly paired synthetic brain-response target through \(W_{\mathrm{tmp}}\); \(\lambda_{\mathrm{target}}=0.1\) & Same initialization, teacher, corpus, schedule, and seeds 0--5 as the matched ordinary \ac{kd} arm \evd{E016}\evd{E025} \\
     \midrule
-    Saved block-permutation sensitivity & Saved block-permuted synthetic target and saved block-permuted text-derived target, each through the same \(W_{\mathrm{tmp}}\) and mean \ac{mse} & Same initialization, teacher, corpus, schedule, target weight, and seeds 0--5 & Temporary map discarded; result artifact retained; student saving follows the run configuration \evd{E016}\evd{E026} \\
+    Saved block-permutation sensitivity & Saved block-permuted synthetic target and saved block-permuted text-derived target, each through the same \(W_{\mathrm{tmp}}\) and mean \ac{mse} & Same initialization, teacher, corpus, schedule, target weight, and seeds 0--5 \evd{E016}\evd{E026} \\
     \midrule
-    Text-derived auxiliary-control arm & Text-derived auxiliary target through the same target-map shape and mean \ac{mse}; \(\lambda_{\mathrm{target}}=0.1\) & Same pretrained student, teacher, corpus, and schedule; executed for seeds 0--5 & Temporary map discarded; seed-specific students saved when requested \evd{E016}\evd{E026} \\
+    Text-derived auxiliary-control arm & Text-derived auxiliary target through the same target-map shape and mean \ac{mse}; \(\lambda_{\mathrm{target}}=0.1\) & Same pretrained student, teacher, corpus, and schedule; executed for seeds 0--5 \evd{E016}\evd{E026} \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
-The text-derived auxiliary-control arm was first executed for seeds 0--2 and later extended prospectively to seeds 3--5.
-The combined six-seed analyses use seeds 0--5; earlier three-seed tables retain only the initial run for provenance.\evd{E016}
+The text-derived auxiliary-control arm was first run for seeds 0--2 and extended to seeds 3--5 before any participant outcome was scored; all reported analyses use the full six seeds.\evd{E016}
 
 At the final optimizer step, the temporary target map is always discarded.
-When no checkpoint is requested, synthetic-target recovery uses the frozen in-memory student and only the resulting measurements are stored.
-When artifact saving is enabled, later assays reload the retained causal-language-model checkpoint and still fit a fresh readout; the temporary training map is never reused.
-Thus training can shape the retained student through the target gradient, but the training head itself cannot compute a later target-recovery or biological-transfer score. \evd{E016}\evd{E025}\evd{E030}
+Whether a run evaluates its student immediately or a later assay reloads a saved checkpoint, every post-training score comes from a readout fitted afresh on the frozen student.
+Training can therefore shape the retained student through the target gradient, but the training head itself never computes a target-recovery or biological-transfer score. \evd{E016}\evd{E025}\evd{E030}
 
 The frozen row-twin control is not a training arm.
 It is constructed only for the later 50-component linear target-projection assay, and Appendix~\ref{app:data-targets} specifies how it is constructed.
 Comparator adequacy and all arm outcomes are reported in Section~\ref{sec:results-synthetic-manipulation} and Appendix~\ref{app:sensitivities}. \evd{E026}\evd{E030}
 
-\subsection{Replay scope and provenance handoff}
+\subsection{Reproduction scope}
 
-Replay requires four linked objects.
-These are the locked software environment, the executed entry point and arguments, the declared seed and final-state rule, and the retained result or student artifact.
-Table~\ref{tab:training-reproduction} provides the compact index.
-It is not a command-complete substitute for the owning result configurations or the path--hash bindings in the owning evidence records.
+Reproducing a run requires four linked objects.
+These are the locked software environment, the executed entry point and arguments, the declared seed and final-state rule, and the retained output.
+Table~\ref{tab:training-reproduction} indexes the first three; each experiment's own record states the exact configuration.
 
 \begin{table}[tbp]
   \centering
   \footnotesize
   \caption{Training entry points and retained replay information.}
   \label{tab:training-reproduction}
-  \evd{E003}\evd{E004}\evd{E005}\evd{E008}\evd{E011}\evd{E013}\evd{E016}\evd{E017}\evd{E025}\evd{E026}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+  \evd{E003}\evd{E004}\evd{E005}\evd{E008}\evd{E011}\evd{E013}\evd{E016}\evd{E017}\evd{E025}\evd{E026}\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.26\textwidth}>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}X@{}}
     \toprule
-    Family & Executed entry point & Final-state and retained-output rule & Provenance handoff \\
+    Family & Executed entry point & Final-state and retained-output rule \\
     \midrule
-    Distillation-headroom analysis & \path{scripts/run_kd_alignment.py} & Final warm or random-start student evaluated in memory; result bundle records configuration and quality measurements & Verified retained bundles are bound in the owning evidence record \evd{E003} \\
+    Distillation-headroom analysis & \path{scripts/run_kd_alignment.py} & Final warm or random-start student evaluated in memory; the run records its configuration and quality measurements \evd{E003} \\
     \midrule
-    Recorded-response intervention (sentence) & \path{scripts/run_brain_lever.py}; target losses in \path{scripts/brain_loss.py} & Final merged student evaluated after each fold--seed cell; temporary target map discarded; no intermediate quality frontier retained & Primary and participant result shards are bound in the owning evidence record \evd{E004}\evd{E005}\evd{E008}\evd{E011} \\
+    Recorded-response intervention (sentence) & \path{scripts/run_brain_lever.py}; target losses in \path{scripts/brain_loss.py} & Final merged student evaluated after each fold--seed cell; temporary target map discarded; no intermediate quality frontier retained \evd{E004}\evd{E005}\evd{E008}\evd{E011} \\
     \midrule
-    Recorded-response intervention (naturalistic) & \path{scripts/run_lebel_tune.py} & Final merged or full-parameter student evaluated immediately; temporary voxel head discarded & Recorded grids and result bundles remain under their owning configurations; verified paths are bound in the owning evidence record \evd{E013}\evd{E017} \\
+    Recorded-response intervention (naturalistic) & \path{scripts/run_lebel_tune.py} & Final merged or full-parameter student evaluated immediately; temporary voxel head discarded \evd{E013}\evd{E017} \\
     \midrule
-    Synthetic-response intervention & \path{scripts/run_tribe_phase3.py} & Final student evaluated in memory; optional checkpoint written only when a save directory is supplied; temporary target map discarded & Target, saved-student, and analysis bundles are bound in the owning evidence record \evd{E016}\evd{E025}\evd{E026} \\
+    Synthetic-response intervention & \path{scripts/run_tribe_phase3.py} & Final student evaluated in memory; optional checkpoint written only when a save directory is supplied; temporary target map discarded \evd{E016}\evd{E025}\evd{E026} \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
-The current replay environment uses the Python requirement in \path{pyproject.toml} and the exact package and CUDA build resolved by \path{uv.lock}.
-These files are current replay pins; they are not complete historical environment manifests for every earlier run.
-Result JSONs retain model identifiers and executed training configurations, and later saved-student bundles bind selected weights, inputs, runners, and analyses by hash.
-Many early runs do not record immutable upstream Hugging Face revision identifiers, so exact historical replay additionally depends on a retained model cache or a verified saved-student artifact.
-This limitation must be preserved rather than filled with an inferred revision.
+The environment is defined by the Python requirement in \path{pyproject.toml} and the exact package and CUDA build resolved by \path{uv.lock}.
+These pin the current environment rather than reconstruct the one every earlier run used.
+Each run stores the model identifiers and training configuration it executed.
+Many early runs, however, do not record an immutable upstream Hugging Face revision, so exact replay of those runs additionally depends on a retained model cache or a saved student.
+This is a real limit on reproduction and is reported rather than filled with an inferred revision.
 
-Smoke runs, logs, temporary caches, throughput probes, and model-loading checks are diagnostic outputs and do not receive manuscript-level path--hash rows.
-Appendix~\ref{app:evidence-provenance} states the binding scope and its exclusions.
-With the optimization and replay scope fixed, Appendix~\ref{app:inference} specifies how the retained students are evaluated and how uncertainty is assigned.
+With the optimization and reproduction scope fixed, Appendix~\ref{app:inference} specifies how the retained students are evaluated and how uncertainty is assigned.
