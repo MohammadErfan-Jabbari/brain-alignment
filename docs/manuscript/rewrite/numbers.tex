@@ -216,18 +216,19 @@
 \DeclareResult{e030_seed_n}{$n=6$}                                     % [E030] paired technical training-seed count for C2
 \DeclareResult{e030_practical_threshold}{$+0.002$}                     % [E025/E030] E025-origin internal continuation threshold inherited by E030 for exact-target practical exclusion
 \DeclareResult{e030_target_unique}{$-0.004494$}                        % [E030] participant-mean PCA-50 aligned-target unique increment above nuisance, n=9
-\DeclareResult{e030_target_unique_ci}{[$-0.010695$, $+0.001707$]}      % [E030] Bonferroni family-95% two-sided t interval
-\DeclareResult{e030_target_unique_upper}{$+0.001707$}                  % [E030] upper endpoint of the Bonferroni family-95% two-sided t interval
+\DeclareResult{e030_target_unique_ci}{[$-0.010695$, $+0.001707$]}      % [E030] two-sided 95% t interval, unadjusted
+\DeclareResult{e030_target_unique_upper}{$+0.001707$}                  % [E030] simultaneous family-95% one-sided upper bound; equals the two-sided endpoint because this family has size 2
 \DeclareResult{e030_target_positive_n}{$3$ of $9$}                     % [E030] positive participant-level aligned-target unique increments
 \DeclareResult{e030_target_sign_p}{$0.5078$}                           % [E030] exact two-sided sign test over nine participant aligned-target increments
+\DeclareResult{e030_target_mde}{$0.008608$}                            % [E030] observed-variance 80% MDE at the inherited +0.002 reference, n=9; sensitivity only, not a null or a bound
 \DeclareResult{e030_target_twin}{$+0.001758$}                          % [E030] participant-mean aligned-minus-frozen-twin contrast, n=9
-\DeclareResult{e030_target_twin_ci}{[$-0.003575$, $+0.007091$]}        % [E030] Bonferroni family-95% two-sided t interval
+\DeclareResult{e030_target_twin_ci}{[$-0.003575$, $+0.007091$]}        % [E030] two-sided 95% t interval, unadjusted
 \DeclareResult{e030_target_twin_positive_n}{$5$ of $9$}                % [E030] positive participant-level aligned-minus-frozen-twin contrasts
 \DeclareResult{e030_target_twin_sign_p}{$1.0$}                         % [E030] exact two-sided sign test over nine participant aligned-minus-frozen-twin contrasts
 \DeclareResult{e030_target_extract}{$+0.040725$}                       % [E030] six-seed absolute TRIBE-target extractability
-\DeclareResult{e030_target_extract_ci}{[$+0.039053$, $+0.042398$]}     % [E030] Bonferroni family-95% two-sided t interval
+\DeclareResult{e030_target_extract_ci}{[$+0.039053$, $+0.042398$]}     % [E030] two-sided 95% t interval, unadjusted
 \DeclareResult{e030_retention_delta}{$-0.000855$}                      % [E030] six-seed TRIBE-minus-KD retention increment
-\DeclareResult{e030_retention_delta_ci}{[$-0.002246$, $+0.000537$]}    % [E030] Bonferroni family-95% two-sided t interval
+\DeclareResult{e030_retention_delta_ci}{[$-0.002246$, $+0.000537$]}    % [E030] two-sided 95% t interval, unadjusted
 \DeclareResult{e030_plot_extract_mean}{0.040725}                       % [E030] numeric plotting value
 \DeclareResult{e030_plot_extract_ci_low}{0.039053}                     % [E030] numeric plotting value
 \DeclareResult{e030_plot_extract_ci_high}{0.042398}                    % [E030] numeric plotting value
@@ -235,11 +236,11 @@
 \DeclareResult{e030_plot_retention_ci_low}{-0.002246}                  % [E030] numeric plotting value
 \DeclareResult{e030_plot_retention_ci_high}{0.000537}                  % [E030] numeric plotting value
 \DeclareResult{e030_overlap_abs}{$+0.001242$}                          % [E030] participant-mean absolute aligned predictive overlap, n=9
-\DeclareResult{e030_overlap_abs_ci}{[$-0.000400$, $+0.002885$]}        % [E030] Bonferroni family-95% two-sided t interval
+\DeclareResult{e030_overlap_abs_ci}{[$-0.000400$, $+0.002885$]}        % [E030] two-sided 95% t interval, unadjusted
 \DeclareResult{e030_overlap_delta}{$+0.000031$}                        % [E030] participant-mean TRIBE-minus-KD bridge, n=9
-\DeclareResult{e030_overlap_delta_ci}{[$-0.000080$, $+0.000142$]}      % [E030] Bonferroni family-95% two-sided t interval
+\DeclareResult{e030_overlap_delta_ci}{[$-0.000080$, $+0.000142$]}      % [E030] two-sided 95% t interval, unadjusted
 \DeclareResult{e030_overlap_twin}{$+0.000029$}                         % [E030] participant-mean aligned-minus-twin bridge increment, n=9
-\DeclareResult{e030_overlap_twin_ci}{[$-0.000078$, $+0.000136$]}       % [E030] Bonferroni family-95% two-sided t interval
+\DeclareResult{e030_overlap_twin_ci}{[$-0.000078$, $+0.000136$]}       % [E030] two-sided 95% t interval, unadjusted
 \DeclareResult{e030_plot_overlap_abs_mean}{0.001242}                  % [E030] numeric plotting value, absolute aligned overlap
 \DeclareResult{e030_plot_overlap_abs_ci_low}{-0.000400}               % [E030] numeric plotting value
 \DeclareResult{e030_plot_overlap_abs_ci_high}{0.002885}               % [E030] numeric plotting value
@@ -304,8 +305,8 @@
 \DeclareResult{e030_plot_uid876}{-0.00660269}                           % [E030] plot coordinate, UID 876 exact-target unique signal
 \DeclareResult{e030_plot_uid880}{0.00293994}                            % [E030] plot coordinate, UID 880 exact-target unique signal
 \DeclareResult{e030_plot_mean}{-0.004494}                              % [E030] plot coordinate, participant-mean exact-target unique signal
-\DeclareResult{e030_plot_ci_low}{-0.010695}                            % [E030] plot coordinate, Bonferroni family-95% lower endpoint
-\DeclareResult{e030_plot_ci_high}{0.001707}                            % [E030] plot coordinate, Bonferroni family-95% upper endpoint
+\DeclareResult{e030_plot_ci_low}{-0.010695}                            % [E030] plot coordinate, two-sided 95% t lower endpoint
+\DeclareResult{e030_plot_ci_high}{0.001707}                            % [E030] plot coordinate, two-sided 95% t upper endpoint
 \DeclareResult{e030_plot_threshold}{0.002}                             % [E025/E030] plot coordinate, inherited internal continuation reference
 \DeclareResult{e030_plot_twin_uid797}{-0.00031777}                     % [E030] plot coordinate, UID 797 aligned-minus-frozen-twin contrast
 \DeclareResult{e030_plot_twin_uid837}{-0.00785204}                     % [E030] plot coordinate, UID 837 aligned-minus-frozen-twin contrast
@@ -317,8 +318,8 @@
 \DeclareResult{e030_plot_twin_uid876}{-0.00590127}                     % [E030] plot coordinate, UID 876 aligned-minus-frozen-twin contrast
 \DeclareResult{e030_plot_twin_uid880}{0.00106256}                      % [E030] plot coordinate, UID 880 aligned-minus-frozen-twin contrast
 \DeclareResult{e030_plot_twin_mean}{0.001758}                          % [E030] plot coordinate, participant-mean aligned-minus-frozen-twin contrast
-\DeclareResult{e030_plot_twin_ci_low}{-0.003575}                       % [E030] plot coordinate, Bonferroni family-95% lower endpoint
-\DeclareResult{e030_plot_twin_ci_high}{0.007091}                       % [E030] plot coordinate, Bonferroni family-95% upper endpoint
+\DeclareResult{e030_plot_twin_ci_low}{-0.003575}                       % [E030] plot coordinate, two-sided 95% t lower endpoint
+\DeclareResult{e030_plot_twin_ci_high}{0.007091}                       % [E030] plot coordinate, two-sided 95% t upper endpoint
 \DeclareResult{e030_seed0_target_extract}{$+0.03965524$} % [E030] seed 0: M, B, D, J; target_extract
 \DeclareResult{e030_seed0_retention_delta}{$+0.00013878$} % [E030] seed 0: M, B, D, J; retention_delta
 \DeclareResult{e030_seed0_overlap_kd}{$-0.00003781$} % [E030] seed 0: M, B, D, J; overlap_kd
