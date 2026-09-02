@@ -2,13 +2,13 @@
 \label{sec:limitations}
 
 Section~\ref{sec:discussion} identified where the evidence stopped supporting the recorded-response and synthetic-response routes.
-The reach of those conclusions is bounded by the populations and measurements covered, by what each analysis can identify, and by the range of interventions and utility endpoints~searched.
+Those conclusions are bounded by the populations and measurements covered, by what each analysis can identify, and by the range of interventions and utility endpoints~searched.
 
 \subsection{Population, data, and measurement scope}
 
 The biological evidence is limited to \ac{fmri} responses to English-language stimuli from the studied cohorts.
 The sentence-level assays summarize responses within fixed left-hemisphere language \acp{roi}.
-The naturalistic voxelwise predictivity assay instead uses voxels selected for response reliability in one participant who was scanned extensively while listening to stories.
+The naturalistic voxelwise predictivity assay uses voxels selected for response reliability in one participant who was scanned extensively while listening to stories.
 Some recorded-response targets average responses across participants; the participant-level analyses instead retain one within-participant summary effect per person.
 The conclusions therefore concern these isolated-sentence and spoken-story response summaries, not language processing across the whole brain or population at large.\evd{E002}\evd{E006}\evd{E008}\evd{E025}
 
@@ -18,8 +18,8 @@ The route-specific conclusions therefore do not extend to these settings.\evd{E0
 
 \subsection{Identification and inference limitations}
 
-What each result identifies depends on the nuisance set, comparator, readout, and inference unit.
-Unique predictivity rules out, as alternative explanations, only the nuisance features that were actually included.
+The nuisance set, comparator, readout, and inference unit determine what each result identifies.
+Unique predictivity rules out only the nuisance features that were actually included, and no other alternative explanation.
 In the regional assay the untrained arm's static-embedding nuisance was built from its own model, so the trained-versus-untrained contrast leaves unresolved whether the predictivity gain comes from the learned parameters.\evd{E002}
 The text-derived auxiliary-control arm differs from the synthetic target in baseline predictability, remaining headroom, covariance geometry, effective rank, and nuisance predictability.
 Its cross-target contrast therefore cannot identify the contribution of brain-response content.\evd{E026}
@@ -27,7 +27,7 @@ The target-projection result is restricted to the declared 50-component linear p
 Section~\ref{sec:estimands} defines the biological, fixed-stimulus, and technical tracks that keep the inference units apart, and even correct aggregation cannot extend a fixed or shared stimulus set to all language stimuli.\evd{E008}\evd{E025}
 Appendix~\ref{app:inference} formalizes these identification and dependence boundaries.
 
-The study contains positive checks for separate parts of the argument: the measurement assays support controlled brain predictivity, and the synthetic-response intervention satisfies the target-uptake and retained-student-movement criteria.
+The study contains positive checks for separate parts of the argument, with the measurement assays supporting controlled brain predictivity and the synthetic-response intervention satisfying the target-uptake and retained-student-movement criteria.
 It does not contain a positive control, that is, a brain-response intervention already expected to improve participant-level biological transfer through the complete evaluation path.
 The component checks do not establish that the full intervention-to-transfer path is sensitive enough to reveal a genuine brain-specific training advantage.\evd{E002}\evd{E006}\evd{E025}
 
@@ -39,7 +39,7 @@ Smaller average contrasts across participants, heterogeneous participant effects
 
 The central synthetic-response route tested a GPT-2 Small student paired with a GPT-2 Medium teacher, representing one teacher--student scale pairing within one architecture family (Section~\ref{sec:synthetic-intervention}).\evd{E016}
 The recorded-response route instead distils a Qwen2.5-1.5B teacher into a Qwen2.5-0.5B student (Section~\ref{sec:recorded-intervention}).\evd{E005}
-The routes therefore run in different model families, and each is evaluated only against its own control under the eligibility rule in Section~\ref{sec:estimands}, so no result compares one route with the other and no reported contrast depends on the family difference.
+The routes run in different model families, and each is evaluated only against its own control under the eligibility rule in Section~\ref{sec:estimands}, so no result compares one route with the other and no reported contrast depends on the family difference.
 Across both routes, the study did not jointly explore broader student architectures, objective families, loss weights, schedules, data volumes, target constructions, or participant-personalization strategies.
 The naturalistic and full-parameter variants were probes of mechanism, or three-participant existence probes, not participant-general tests, so they do not broaden population inference.\evd{E013}\evd{E017}
 Section~\ref{sec:results-recorded} and Appendix~\ref{app:secondary} report the individual variant designs and dispositions.
@@ -52,4 +52,4 @@ No synthetic-response utility test was run.
 Sections~\ref{sec:results-predicted-identification} and \ref{sec:results-predicted-transfer} report that the target-projection assay did not meet its continuation rule and that participant-level biological transfer was not demonstrated.\evd{E025}\evd{E030}
 The supporting studies summarized in Appendix~\ref{app:secondary} tested narrow design levers, stopped before intervention, or stopped because the planned measurement was unusable.\evd{E019}\evd{E020}\evd{E022}\evd{E024}
 They therefore do not broaden the set of completed endpoints that identify brain-specific utility.
-Whether an intervention with a successfully identified biological effect would also help at untested practical endpoints remains open.
+Whether an intervention with an identified biological effect would also help at untested practical endpoints remains open.
