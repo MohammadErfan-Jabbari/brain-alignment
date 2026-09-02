@@ -348,7 +348,8 @@ def main():
             student.train()
             # Arm-appropriate LR: cold must learn from scratch (a fine-tune LR
             # would leave it ~random — a trivial confound), warm fine-tunes.
-            # Matched across arms: data, step count, architecture.
+            # Matched across arms: data, batch size, architecture. Step count and
+            # LR both differ by arm; see the E003 provenance corrections.
             arm_lr = args.cold_lr if arm == "kd_cold" else args.lr
             arm_cfg = DistillConfig(**{**asdict(dcfg), "lr": arm_lr})
             if arm == "lmft_warm":
