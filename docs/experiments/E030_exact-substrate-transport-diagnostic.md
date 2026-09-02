@@ -228,25 +228,28 @@ The canonical result paths are `outputs/E030/raw_scores.json`, SHA-256 `cebea58c
 
 Under layer-independent target PCA-50, the imageability-complete nuisance model, five fixed ROIs, and participant inference at `n=9`, the aligned target's unique increment above nuisance was:
 
-| Estimand | Mean | Bonferroni family-95% two-sided t interval | Signs and exact test | Status |
+| Estimand | Mean | Two-sided 95% t interval (unadjusted) | Signs and exact test | Status |
 |---|---:|---:|---:|---|
 | `A`, aligned above nuisance | `-0.00449438` | `[-0.01069542,+0.00170665]` | `3/9` positive; exact sign `p=0.5078` | nonpass; simultaneous upper bound `+0.00170665 < +0.002` |
 | `Q`, aligned minus frozen twin | `+0.00175820` | `[-0.00357480,+0.00709120]` | `5/9` positive; exact sign `p=1.0` | unresolved |
 
 Every leave-one-block and leave-one-participant mean for `A` was negative. The train-four mean was `-0.00046685`; the prospectively held-out-five mean was `-0.00771641`. The inherited `+0.002` reference is an internal continuation threshold carried from E025, not an externally established practical-importance threshold for this different estimand.
 
+
+**Label correction (2026-09-02).** The interval column in the three tables above was headed "Bonferroni family-95% two-sided t interval". That label is wrong: every interval reported is the *unadjusted* two-sided 95% t interval (`two_sided_t_ci95` in `outputs/E030/analysis.json`), and the headers are corrected accordingly. The adjustment enters only through the separate `simultaneous_family_one_sided_t_upper95` field, which is the quantity the predeclared rules at lines 97, 115, 143 and 152 name and the quantity `scripts/e030_analyze_exact_substrate.py:2912` classifies from. For the C1 and C2 families (size 2) the simultaneous one-sided bound is numerically identical to the reported two-sided upper endpoint, because Bonferroni one-sided alpha `0.05/2` equals the unadjusted two-sided endpoint alpha `0.025`; for the C3 bridge family (size 3, endpoint alpha `0.0167`) it is not, so the C3 table's endpoints are two-sided values and the simultaneous bounds are `O +0.00306982`, `D +0.00015505`, `J +0.00014858`. **No classification moves under any construction:** C1 is nonpass on `+0.00170665 < +0.002` (and on the marginal one-sided `+0.00050610`), C2 `M` has a positive lower bound throughout, and every C3 quantity spans zero throughout. The label mattered because a reader applying it literally would compute a Bonferroni two-sided upper endpoint of `+0.00290469` for `A`, above `+0.002`, and reach INCONCLUSIVE. The predeclared rule governs: it is in freeze commit `26bb912` at 00:27 UTC, the raw result was created at 00:41 UTC, and the table header first appears in the later result commit.
+
 ### C2 target retention and C3 bridge diagnostics
 
 The TRIBE-trained students retained the exact target absolutely, but did not show a reliable incremental retention advantage over KD:
 
-| Estimand | Mean | Bonferroni family-95% two-sided t interval | Stability evidence | Status |
+| Estimand | Mean | Two-sided 95% t interval (unadjusted) | Stability evidence | Status |
 |---|---:|---:|---:|---|
 | `M`, absolute TRIBE target extractability | `+0.04072547` | `[+0.03905273,+0.04239820]` | `6/6` positive; exact sign `p=0.03125` | supported positive interval |
 | `B`, TRIBE minus KD retention | `-0.00085451` | `[-0.00224613,+0.00053712]` | `2/6` positive; exact magnitude-preserving sign-flip `p=0.1875` | unresolved |
 
 The bridge quantities were all unresolved under participant inference and cannot generate a downstream ordered failure label because C1 failed first:
 
-| Estimand | Mean | Bonferroni family-95% two-sided t interval | Stability evidence |
+| Estimand | Mean | Two-sided 95% t interval (unadjusted) | Stability evidence |
 |---|---:|---:|---|
 | `O`, absolute aligned predictive overlap | `+0.00124221` | `[-0.00040020,+0.00288463]` | `7/9` positive; exact sign `p=0.1797` |
 | `D`, TRIBE minus KD bridge | `+0.00003100` | `[-0.00008049,+0.00014248]` | `5/9` positive; seed sign-flip `p=0.375` |

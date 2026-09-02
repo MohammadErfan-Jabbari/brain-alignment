@@ -54,7 +54,7 @@ Table~\ref{tab:results-status} summarizes these role-specific outcomes using \em
 
     Target-projection assay
     & \textbf{Not demonstrated}; row-pairing specificity \textbf{unresolved}
-    & Aligned-target increment: \result{e030_target_unique} (Bonferroni family-95\% interval \result{e030_target_unique_ci}); row-twin contrast unresolved.\evd{E030} \\
+    & Aligned-target increment: \result{e030_target_unique} (two-sided 95\% \(t\) interval \result{e030_target_unique_ci}); row-twin contrast unresolved.\evd{E030} \\
 
     \specialrule{0.15pt}{0.35ex}{0.35ex}
 
@@ -72,7 +72,7 @@ Table~\ref{tab:results-status} summarizes these role-specific outcomes using \em
 
     Saved-student target-retention analysis
     & \textbf{Unresolved}
-    & Fresh held-out Tuckute retention increment: \result{e030_retention_delta} (Bonferroni family-95\% interval \result{e030_retention_delta_ci}).\evd{E030} \\
+    & Fresh held-out Tuckute retention increment: \result{e030_retention_delta} (two-sided 95\% \(t\) interval \result{e030_retention_delta_ci}).\evd{E030} \\
 
     \specialrule{0.15pt}{0.35ex}{0.35ex}
 
@@ -90,7 +90,7 @@ Table~\ref{tab:results-status} summarizes these role-specific outcomes using \em
 
     Composed-path diagnostic
     & \textbf{Unresolved}
-    & Synthetic-response-minus-\ac{kd} increment: \result{e030_overlap_delta} (Bonferroni family-95\% interval \result{e030_overlap_delta_ci}).\evd{E030} \\
+    & Synthetic-response-minus-\ac{kd} increment: \result{e030_overlap_delta} (two-sided 95\% \(t\) interval \result{e030_overlap_delta_ci}).\evd{E030} \\
 
     \specialrule{0.15pt}{0.35ex}{0.35ex}
 
@@ -288,9 +288,9 @@ The synthetic-response route is separate, and Section~\ref{sec:results-predicted
 Section~\ref{sec:measurement-prerequisites} defines the aligned-target increment \(A(u)\) over nuisance and the correct-pairing increment \(Q(u)\) over the frozen row-twin control, both aggregated across folds so that the participant is the biological inference unit.
 
 The aligned-target increment does not pass the continuation rule carried over from the biological-transfer design.
-It is an internal decision rule: it requires the upper endpoint of the family-95\% interval to exceed \(\tau_{\mathrm{cont}}\).
+It is an internal decision rule: it requires the simultaneous family-95\% one-sided upper bound to exceed \(\tau_{\mathrm{cont}}\).
 Let \(\bar{A}\) be the participant mean of \(A(u)\) (\result{e030_participant_n}).
-Let \(U^{\mathrm{family}}_{95\%}(\bar{A})\) be the upper endpoint of its two-sided Bonferroni family-95\% interval and \(\tau_{\mathrm{cont}}\) the continuation threshold.
+Let \(U^{\mathrm{family}}_{95\%}(\bar{A})\) be its simultaneous family-95\% one-sided upper bound and \(\tau_{\mathrm{cont}}\) the continuation threshold.
 The result is
 \begin{equation}
 \begin{aligned}
@@ -315,13 +315,13 @@ U^{\mathrm{family}}_{95\%}(\bar{A})
 Only \result{e030_target_positive_n} participant effects are positive, with exact sign test \(p\) = \result{e030_target_sign_p}, and every leave-one-out mean, dropping any single participant or stimulus block, remains negative.
 
 The participant mean of the correct-pairing increment \(Q(u)\) is \result{e030_target_twin}.
-Its Bonferroni family-95\% interval is \result{e030_target_twin_ci}.
+Its two-sided 95\% \(t\) interval is \result{e030_target_twin_ci}.
 \result{e030_target_twin_positive_n} participant contrasts are positive, with exact sign test \(p\) = \result{e030_target_twin_sign_p}, but the interval spans zero (Figure~\ref{fig:exact-target-measurability}). \evd{E030}
 
 \begin{figure}[tbp]
   \centering
   \resizebox{\linewidth}{!}{\input{figures/exact_target_measurability.tikz}}
-  \caption{Participant means and Bonferroni family-95\% intervals for the aligned-target increment and the row-pairing contrast; the threshold guide applies to the increment only.\evd{E030}}
+  \caption{Participant means and two-sided 95\% \(t\) intervals for the aligned-target increment and the row-pairing contrast; the threshold guide applies to the increment only.\evd{E030}}
   \label{fig:exact-target-measurability}
 \end{figure}
 
@@ -344,8 +344,8 @@ Across the direct saved-arm comparisons, the largest absolute language-quality d
 The movement is therefore established at language quality within the declared margin, but not shown to arise from brain-response content. \evd{E025}
 
 On fresh held-out Tuckute sentences, scored beyond the nuisance model, that recovery gain over ordinary \ac{kd} does not reappear.
-Absolute target extractability from the synthetic-response students is \result{e030_target_extract}, with Bonferroni family-95\% interval \result{e030_target_extract_ci}.
-The incremental synthetic-response-minus-ordinary \ac{kd} estimate is instead \result{e030_retention_delta}, with Bonferroni family-95\% interval \result{e030_retention_delta_ci}.
+Absolute target extractability from the synthetic-response students is \result{e030_target_extract}, with two-sided 95\% \(t\) interval \result{e030_target_extract_ci}.
+The incremental synthetic-response-minus-ordinary \ac{kd} estimate is instead \result{e030_retention_delta}, with two-sided 95\% \(t\) interval \result{e030_retention_delta_ci}.
 Thus, the target is linearly recoverable from the trained students on these sentences, but whether synthetic-response training increased its recoverability beyond ordinary \ac{kd} remains unresolved (Figure~\ref{fig:synthetic-manipulation-results}). \evd{E030}
 
 Differences between the synthetic-response and text-derived arms in these manipulation results cannot be attributed to brain-response content: the text-derived auxiliary-control arm fails \result{e026_check_split} identification checks (Figure~\ref{fig:synthetic-comparator-audit}).
@@ -450,7 +450,7 @@ The composed-path diagnostic instead measures whether the synthetic-target compo
 \mbox{\result{e030_overlap_twin_ci}}.
 \end{align}
 Here, \(O\) measures absolute aligned predictive overlap, \(D\) measures its increment over seed-matched ordinary \ac{kd}, and \(J\) asks whether that increment is larger for correctly aligned targets than for the frozen row twin.
-Every Bonferroni family-95\% interval spans zero.
+Every two-sided 95\% \(t\) interval spans zero.
 All three quantities therefore remain unresolved under participant inference.
 These quantities are predictive-path diagnostics, not causal-mediation estimates. \evd{E030}
 
@@ -467,7 +467,7 @@ These quantities are predictive-path diagnostics, not causal-mediation estimates
     \centering
     \resizebox{\linewidth}{!}{\input{figures/composed_path_diagnostics.tikz}}
     \par\vspace{0.35em}
-    \caption{Bonferroni family-95\% composed-path diagnostic intervals.}
+    \caption{Composed-path diagnostic two-sided 95\% \(t\) intervals.}
   \end{subfigure}
   \caption{Direct biological transfer and the composed-path diagnostic.\evd{E025}\evd{E030}}
   \label{fig:saved-student-biological-transfer}
