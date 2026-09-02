@@ -47,6 +47,8 @@ The **method** is owned by the [`question-led-writing`](../../.claude/skills/que
 15. Compute coverage yourself rather than trusting a child's claim: grep the scope, require one `ID:` block per item, reject `RESULT: PASS` with `CHECKED: 0`, and spot-check two `RECORD: file:line` values against the file. Retry a degenerate reply once with the reason appended, then surface it to Erfan. The full gate is in [`.claude/AGENTS.md`](../../.claude/AGENTS.md).
 16. Build the PDF and inspect every rendered page before calling the candidate complete.
 
+Build every tree with `latexmk -pdf`, never tectonic, and never mix the two in one directory. Tectonic bundles biblatex 3.17 (control file 3.8) and TeX Live 2023 ships 3.19 (control file 3.10), so each engine's biber refuses the other's `.bcf` and the committed PDF silently changes pagination. Each tree's tracked `latexmkrc` pins the matching biber, and `manuscript_check.py` uses latexmk for the same reason. Confirm the artifact with `pdfinfo main-*.pdf | grep Producer`, which must say `pdfTeX`.
+
 Use `--share-ready` only when no `\gap` remains and the manuscript is intended to ship; the skill's own completion criteria do not make prose share-ready. A contradiction found while writing stops that claim, sets `docs/status.md` to `manuscript-sync-pending`, and routes to `/interpret`. Scientific changes accepted in `submission/` synchronize to `rewrite/` before they become authoritative; see [`submission/AGENTS.md`](submission/AGENTS.md). **Suspended until further notice; see the sync-suspension note in the [root operating contract](../../AGENTS.md).**
 
 ## Section acceptance checks
