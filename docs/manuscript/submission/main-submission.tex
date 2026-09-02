@@ -69,32 +69,26 @@
 \begin{abstract}
 \parfillskip=0pt plus 0.65\linewidth % the abstract is narrower than \textwidth
 Language-model representations can predict human brain responses to language recorded with \ac{fmri}.
-That is a measurement result, and it does not show these responses can improve how a model is trained.
-This thesis tests the training claim directly.
+That result comes from frozen models, so it leaves the training question open.
 Does adding brain responses as an auxiliary objective alongside \ac{kd} give a smaller student model an advantage that comes specifically from brain-response content?
-Those responses are either recorded from people or synthesized from text by a model trained on recorded responses.
-The question resolves into five claims that this thesis keeps apart.
-\emph{Measurement} is predicting recorded responses from a frozen model, \emph{manipulation} is changing the student with a brain-response objective, \emph{attribution} is tracing that change to brain-response content rather than to any dense target, \emph{transfer} is improving prediction of independently recorded responses, and \emph{utility} is improving a practical endpoint.
+The responses are either recorded from people or synthesized from text by a model trained on recorded responses.
+The question splits into five claims.
+\emph{Measurement} is predicting recorded responses from a frozen model; \emph{manipulation} is changing the student with a brain-response objective; \emph{attribution} traces that change to brain-response content rather than to any dense target; \emph{transfer} is improved prediction of independently recorded responses; and \emph{utility} is improvement on a practical endpoint.
 Each claim needs its own comparator, and none establishes another.
 Measurement holds.
 On an isolated-sentence dataset and a spoken-story dataset from one deeply sampled participant, frozen representations predicted held-out responses beyond simple stimulus properties, and in the story data beyond an architecture-matched untrained model.
-The recorded-response route stops at attribution.
+Training on recorded responses then failed at attribution.
 Against a control trained on the same responses permuted across sentences, correct pairing gave no reliable advantage across nine participants, the inference unit this claim requires.
-Mean scores on a downstream language endpoint did favor the recorded responses, but the predictivity change they were meant to pay off was unstable across seeds.
-The synthetic-response route passes manipulation and stops immediately after.
+Mean scores on a downstream language endpoint favored the recorded responses, while the predictivity change they were meant to pay off proved unstable across seeds.
+Training on synthetic responses reached manipulation and went no further.
 The student learned the target and stayed changed after the training-only components were removed, at language quality inside a tolerance set in advance.
 Transfer beyond ordinary \ac{kd} was not demonstrated at the participant level, and the text-derived control was too poorly matched to attribute any difference to brain-response content.
-The measurement assays and manipulation checks are themselves positive, so these negative findings are not a failed pipeline.
+The measurement assays and the manipulation checks passed, so a broken pipeline does not explain these negative findings.
 No end-to-end positive control was available, however, so the sensitivity of the full intervention-to-transfer path remains unestablished.
-Neither route establishes brain alignment as a usable training signal, and neither rules out a benefit from other targets, interventions, or populations.
+Neither route establishes brain alignment as a usable training signal; both leave open a benefit from other targets, interventions, or populations.
 The contribution is the separation that keeps a valid positive result at one stage from being read as support for the training claim.
 \end{abstract}
 \acresetall
-
-\clearpage
-\setcounter{tocdepth}{2}
-\tableofcontents
-\clearpage
 
 % ---------------------------------------------------------------------------
 % MAIN TEXT: local copy of the canonical rewrite for submission-specific review.
@@ -118,10 +112,9 @@ The contribution is the separation that keeps a valid positive result at one sta
 \input{sections/F_sensitivities_tables}
 
 \section*{Data and code availability}
-\addcontentsline{toc}{section}{Data and code availability}
 The Tuckute condition-B responses \autocite{tuckute2024}, the LeBel story-listening responses \autocite{lebel2023}, the Pereira sentence set \autocite{pereira2018}, WikiText-103 \autocite{merity2017}, and TRIBE~v2 \autocite{dascoli2026} are publicly available from their original sources.
 The analysis code, the numbered experiment records E001 to E030, and the source of this manuscript are available at \url{https://github.com/MohammadErfan-Jabbari/brain-alignment}.
 Appendix~\ref{app:training} states the reproduction scope and the limits on exact replay.
 
-\printbibliography[heading=bibintoc]
+\printbibliography
 \end{document}
