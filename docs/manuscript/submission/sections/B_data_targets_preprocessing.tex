@@ -53,7 +53,7 @@ This construction distinction does not assume that the missing entries are ignor
 Ten participants have condition-B coverage; the nine that remain after this exclusion are \acp{uid} 797, 837, 841, 848, 856, 865, 875, 876, and 880.
 Within this set, \{848, 865, 875, 876\} form the inherited training-participant subgroup and \{797, 837, 841, 856, 880\} form the held-out-participant subgroup.
 Appendix~\ref{app:inference} specifies the fold and seed aggregation; the nine retained participants are the biological inference units.
-Thus participant averaging changes both the signal-to-noise ratio and the estimand; it does not create additional independent participants. \evd{E002}\evd{E008}\evd{E025}
+Participant averaging changes both the signal-to-noise ratio and the estimand; it does not create additional independent participants. \evd{E002}\evd{E008}\evd{E014}\evd{E025}
 
 The naturalistic assay uses participant UTS03 from the LeBel story-listening resource \autocite{lebel2023}.
 The responses were acquired at a nominal \ac{tr} of 2.0~s. \evd{E006}
@@ -62,7 +62,6 @@ Each released HDF5 \texttt{data} matrix contains one row per scanner sample and 
 This work begins from those matrices and does not rerun reconstruction, motion correction, or cortical registration. \evd{E006}
 
 The 20 assay stories follow their recorded order and are divided into the five contiguous four-story folds in Table~\ref{tab:appendix-data-partitions}.
-Complete stories are held out, which keeps temporally dependent samples from the same story on one side of the evaluation boundary.
 The separate story \texttt{wheretheressmoke} is excluded from model fitting and scoring and is used only for voxel reliability selection. \evd{E006}
 
 Reliability is estimated from the ten released repeats of \texttt{wheretheressmoke}.
@@ -95,7 +94,7 @@ Table~\ref{tab:appendix-feature-blocks} summarizes these blocks before the fold-
 \end{table}
 
 In the controlled regional assay, the original implementation recomputed the static embedding block for each trained or untrained \ac{lm}.\evd{E002}
-The trained score therefore remains controlled relative to its implemented nuisance set, but the trained-minus-untrained gap does not isolate learned parameters against a byte-identical static nuisance block.
+The trained score remains controlled relative to its implemented nuisance set, but the trained-minus-untrained gap does not isolate learned parameters against a byte-identical static nuisance block.
 The saved-student biological-transfer assay instead fixes the static block to GPT-2 Medium so that every student arm is evaluated against the same nuisance representation.
 The 50-component linear target-projection assay adds the released imageability covariate in its primary design; Appendix~\ref{app:sensitivities} reports the design without imageability as a continuity sensitivity.
 GPT-2 XL surprisal and probabilistic context-free-grammar surprisal provide a secondary stress test because both contain model-derived contextual information that overlaps the construct being measured. \evd{E002}\evd{E025}\evd{E030}

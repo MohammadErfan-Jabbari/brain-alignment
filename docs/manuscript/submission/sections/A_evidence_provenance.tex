@@ -1,17 +1,17 @@
 \section{Evidence Records and Provenance}
 \label{app:evidence-provenance}
 
-The E001--E030 identifier range covers the analyses and dispositions used in this thesis.
-Each existing record states what was executed, what its retained artifacts support, and which interpretation survived review.
-The main text states the resulting thesis claims.
-This appendix connects those claims to their final evidence owners, classifies every record identifier, identifies earlier readings that were superseded, and states where the retained path--hash pairs are bound.
-Engineering-only, unused, unexecuted, and precondition-stopped records support only their stated disposition.
+Every experiment reported here has a numbered record, E001 to E030, in the accompanying repository under \path{docs/experiments/}.
+Each record states what was executed, what its retained results support, and which interpretation survived review.
+The main text states the resulting claims.
+This appendix links those claims to the experiments behind them.
+It states how far each record's conclusion may be taken, names the experiment that settled each scientific role, and preserves the earlier readings that were later superseded.
 
-\subsection{Evidence-record dispositions and claim ownership}
+\subsection{Record dispositions and claim ownership}
 \label{app:evidence-ledger}
 
-Table~\ref{tab:evidence-dispositions} classifies every identifier once.
-The categories separate completed scientific records from restricted studies, stopped routes, design work, and unused identifiers.
+Table~\ref{tab:evidence-dispositions} states how far each record's conclusion may be taken.
+The categories separate settled scientific records from those whose reading was later narrowed, those with a restricted diagnostic scope, and work that stopped before an interpretable test.
 
 \begingroup
 \begin{table}[tbp]
@@ -34,18 +34,14 @@ Executed with a restricted diagnostic scope & E013, E017, E019, E020, E022 & Sup
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Precondition-stopped & E024 & Supports the stopping decision; the intervention was not tested. \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-Deferred, analysis-only, or unauthorized & E012 deferred; E023 analysis-only; E027 unauthorized & Supports only its stated design, its unmet activation criterion, or the decision not to run it; no intervention result was produced. \\
-\specialrule{0.15pt}{0.35ex}{0.35ex}
-Engineering or design record only & E001, E028, E029 & Documents pipeline work or an outcome-blind design; supports no scientific result. \\
-\specialrule{0.15pt}{0.35ex}{0.35ex}
-Unused identifier & E007, E018 & Supports no scientific claim. \\
+Pipeline validation only & E001 & Documents end-to-end implementation checks; supports no scientific result. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 \endgroup
 
 Table~\ref{tab:evidence-ledger} follows the claim roles used in Sections~\ref{sec:framework} and~\ref{sec:results}.
-Each row names one scientific role, the record that owns its final conclusion, and the Results subsection where the evidence is interpreted.
+Each row names one scientific role, the experiment that settled it, and the Results subsection where its evidence is interpreted.
 
 \begingroup
 \begin{table}[tbp]
@@ -57,13 +53,13 @@ Each row names one scientific role, the record that owns its final conclusion, a
   \label{tab:evidence-ledger}
   \begin{tabular}{@{}>{\raggedright\arraybackslash}p{32mm}>{\raggedright\arraybackslash}p{21mm}>{\raggedright\arraybackslash}p{64mm}>{\raggedright\arraybackslash}p{17mm}@{}}
 \toprule
-Scientific role & Evidence owner(s) & Settled conclusion & Results owner \\
+Scientific role & Evidence record(s) & Settled conclusion & Reported in \\
 \midrule
 Controlled regional predictivity assay & E002 & Controlled Tuckute \ac{roi} predictivity is supported under contiguous folds, nuisance subtraction, and an architecture-matched untrained control.\evd{E002} & \ref{sec:results-signal} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Controlled naturalistic voxelwise predictivity assay & E006 & Trained representations outperform matched untrained representations for UTS03 and five held-out story blocks. The assay does not support claims about individual voxels or a population of participants.\evd{E006} & \ref{sec:results-signal} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-Distillation-headroom analysis & E003; E015 supports the quality analysis & The cold GPT-2 route shows an observed quality-confounded gap; quality-aware warm-route headroom is unresolved and Qwen-route headroom is unmeasured.\evd{E003}\evd{E015} & \ref{sec:results-headroom} \\
+Distillation-headroom analysis & E003; E015 supports the quality analysis & The cold GPT-2 route shows an observed teacher-relative gap; quality-aware warm-route headroom is unresolved and Qwen-route headroom is unmeasured.\evd{E003}\evd{E015} & \ref{sec:results-headroom} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 Recorded-response intervention, participant-averaged estimand & E004 and E005; E010 and E014 bound the averaging interpretation & Fold-unit reanalyses of E004 and E005 supersede their earlier excludes-zero readings. E010 does not identify a participant-count response. E014 shows that averaging reduces response noise and emphasizes shared response while changing the estimand.\evd{E004}\evd{E005}\evd{E010}\evd{E014} & \ref{sec:results-recorded} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
@@ -107,15 +103,15 @@ Table~\ref{tab:evidence-corrections} preserves the corrections that change how t
 \toprule
 Records & Earlier interpretation & Final permitted reading \\
 \midrule
-E003 & \ac{kd} uniquely destroys or preserves alignment. & The cold GPT-2 gap is quality-confounded; quality-aware warm-route headroom remains unresolved.\evd{E003} \\
+E003 & \ac{kd} uniquely destroys or preserves alignment. & The cold GPT-2 comparison does not establish a teacher--student gap at comparable language quality; quality-aware warm-route headroom remains unresolved.\evd{E003} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-E004, E005, E008 & Seed--fold cells provide independent uncertainty, and the averaged contrast excludes zero. & Fold-unit inference supersedes the cell bootstrap; E008 owns participant inference.\evd{E004}\evd{E005}\evd{E008} \\
+E004, E005, E008 & Seed--fold cells provide independent uncertainty, and the averaged contrast excludes zero. & Fold-unit inference supersedes the cell bootstrap; E008 supplies the participant inference.\evd{E004}\evd{E005}\evd{E008} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 E006 & A voxel bootstrap supports population inference or a minimum detectable effect. & Those claims are withdrawn; the retained result concerns UTS03 and five held-out story blocks.\evd{E006} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 E009 & A minimum detectable effect on the practical endpoint tests the null. & The minimum detectable effect is a sensitivity quantity only; no point estimate changed and the paired endpoint uncertainty was never reported.\evd{E009} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-E010, E014 & Nested participant subsets establish a monotone participant-count response. & Corrected random subsets do not identify a count response; E014 owns the response-reliability and estimand effects of averaging.\evd{E010}\evd{E014} \\
+E010, E014 & Nested participant subsets establish a monotone participant-count response. & Corrected random subsets do not identify a count response; E014 covers the response-reliability and estimand effects of averaging.\evd{E010}\evd{E014} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 E015 & A narrow-family best-layer correlation establishes a general scaling relation. & The full-range quality association survives; the capable-band relation and architecture residual remain uncertain.\evd{E015} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
@@ -125,9 +121,9 @@ E002 & The correlation ceiling can normalize unique $R^2$. & Correlation and var
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 E013 & The initial damaging variant establishes a stronger intervention result. & Only the anchored and contrastive tested branches inform the conclusion; the larger expansion was not built.\evd{E013} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-E016, E025, E026 & The defective permutation or the text-derived comparator matched only in dimension identifies brain-response content. & E025 owns the direct participant contrasts; E026 establishes that the auxiliary comparator is non-identifying.\evd{E016}\evd{E025}\evd{E026} \\
+E016, E025, E026 & The defective permutation or the text-derived comparator matched only in dimension identifies brain-response content. & E025 supplies the direct participant contrasts; E026 establishes that the auxiliary comparator is non-identifying.\evd{E016}\evd{E025}\evd{E026} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
-E017 & The aggressive forgetting configuration represents the full-tuning result. & The gentle matched-quality probe owns the scoped conclusion.\evd{E017} \\
+E017 & The aggressive forgetting configuration represents the full-tuning result. & Only the gentle matched-quality probe supports the scoped conclusion.\evd{E017} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
 E019 & The local probe reproduces or refutes the external study. & It is a restricted local diagnostic and neither reproduces nor refutes the source study.\evd{E019} \\
 \specialrule{0.15pt}{0.35ex}{0.35ex}
@@ -139,10 +135,5 @@ E030 & Failure of the 50-component linear target projection explains the E025 re
 \end{table}
 \endgroup
 
-\subsection{Artifact bindings}
-
-Where a reported result depends on a retained artifact that its owning evidence record binds, that record states the exact path and SHA-256 digest and remains the authority for the binding.
-The bindings exclude smoke outputs, intermediate caches, prospective-design artifacts, and digests not bound to an exact filename.
-The digests are not reproduced here because the artifacts are not distributed with the thesis.
 Appendices~\ref{app:training}, \ref{app:inference}, and \ref{app:sensitivities} report the corresponding training settings, estimators and inference rules, and complete numerical and sensitivity tables.
 
