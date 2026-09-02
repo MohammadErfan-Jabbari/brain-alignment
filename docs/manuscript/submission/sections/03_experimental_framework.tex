@@ -59,13 +59,13 @@ Appendix~\ref{app:evidence-provenance} maps these scientific roles to the experi
 \subsection{Study Design, Datasets, and Data Partitioning}
 \label{sec:data-targets}
 
-Two datasets provide the recorded \ac{fmri} responses used in this study.
+Two datasets provide the recorded \ac{fmri} responses.
 The Tuckute condition-B dataset \autocite{tuckute2024} contains 1,000 isolated English sentences, responses from 10 participants, and five fixed left-hemisphere language \acp{roi}.
 The dataset supports the controlled regional predictivity assay and the distillation-headroom analysis.
 The same sentences later support the recorded-response route and the Tuckute endpoints of the target-projection and saved-student biological-transfer assays.\evd{E002}\evd{E003}\evd{E004}\evd{E005}\evd{E008}\evd{E015}\evd{E025}\evd{E030}
 The LeBel corpus \autocite{lebel2023} provides continuous story stimuli for the controlled naturalistic voxelwise predictivity assay.
 That assay uses participant UTS03, reliability-screened voxels (Appendix~\ref{app:data-targets}), and 20 stories divided into five held-out-story folds.
-Holding out complete stories prevents temporally dependent samples from the same story from crossing the evaluation boundary.
+Holding out complete stories keeps temporally dependent samples from the same story on one side of the evaluation boundary.
 The resulting estimand concerns held-out-story prediction within UTS03 and does not support population inference across people.\evd{E006}
 
 The Tuckute responses can be constructed at two response-aggregation levels.
@@ -75,8 +75,7 @@ This matrix describes the shared stimulus-locked response, but it cannot support
 Participant-specific construction instead keeps one response matrix per recorded participant.
 One participant is excluded because that participant's required five-\ac{roi} response matrix is incomplete, leaving nine valid participants.
 Contrasts can therefore be aggregated within participant before inference across the nine tested participants.
-Spatial resolution is a separate distinction.
-An \ac{roi} coordinate summarizes responses within a predefined language region, whereas a voxel coordinate provides a finer spatial measurement.
+Response coordinates also differ in spatial resolution: an \ac{roi} coordinate summarizes responses within a predefined language region, whereas a voxel coordinate is a finer spatial measurement.
 Table~\ref{tab:evidence-map} pairs these constructions with their comparisons and inference units.\evd{E002}\evd{E006}\evd{E008}\evd{E014}\evd{E025}
 
 Each training and evaluation role draws on a declared text and response source.
@@ -292,7 +291,7 @@ Its contrast supports inference across the tested participants.
 Averaging responses before training is not equivalent to averaging participant effects after training.
 The participant-averaged contrast therefore cannot be interpreted as the cohort-mean intervention effect.\evd{E005}\evd{E008}
 
-The auxiliary branch attaches to the masked-mean layer-12 student state through a temporary linear head \(W\), whose prediction the auxiliary loss scores.
+The auxiliary branch attaches to the masked-mean layer-12 student state through a temporary linear head \(W\), and the auxiliary loss scores the prediction from \(W\).
 In the primary \ac{lora} regime, the pretrained base model and tied input/output embedding remain frozen, while \(W\) and the adapters are optimized.
 The auxiliary gradient can reach \(W\) and trainable adapters that produce the layer-12 state.
 It cannot reach later adapters through this branch, although those adapters can still receive gradients from \(\mathcal L_{\mathrm{KD}}\).
@@ -396,7 +395,7 @@ These arms share the initialized student, training text and order, tokenizer, or
 The synthetic-response arm adds a fixed text-only TRIBE target, whereas the text-derived auxiliary-control arm mean-pools frozen teacher states and maps them through a fixed Gaussian projection.
 Both auxiliary targets are standardized to 20,484 coordinates and predicted from the student's layer-6 representation with a mean-squared-error loss.
 Training updates the student and a temporary prediction head; the head is then discarded and the retained student is frozen.
-Figure~\ref{fig:training-architecture-training} locates the synthetic target and text-derived auxiliary control within the shared training core.
+Figure~\ref{fig:training-architecture-training} locates the synthetic target and the text-derived auxiliary target within the shared training core.
 Figure~\ref{fig:training-architecture-evaluation} separates target recovery, retained-student movement, biological transfer, composed predictive overlap, and language evaluation after the temporary head has been removed.
 Appendices~\ref{app:data-targets} and~\ref{app:training} specify the target construction and exact training procedure.\evd{E016}
 
@@ -472,9 +471,10 @@ Equation~\ref{eq:synthetic-direct-transfer} first compares paired synthetic-resp
 The final mean therefore describes biological transfer across the nine tested participants, with participants rather than folds or seeds as the biological inference units.
 We fixed Layer~7 as the primary biological-transfer layer before participant responses were scored and did not allow best-layer selection.
 We retained Layer~6, where the auxiliary target attached during training, as a prespecified mechanistic sensitivity analysis.
-The direct contrast answers whether the synthetic intervention improves recorded-response predictivity relative to ordinary \ac{kd}, without attributing any difference to brain-response content.\evd{E025}\evd{E026}
+The direct contrast answers whether the synthetic-response intervention improves recorded-response predictivity relative to ordinary \ac{kd}, without attributing any difference to brain-response content.\evd{E025}\evd{E026}
 
-The attribution endpoint, fixed before participant scoring, applies the same cell scores and compares each arm's gain over ordinary \ac{kd}; because the two arms share a byte-identical \ac{kd} baseline in each seed, this reduces to the synthetic-response minus text-derived difference.
+The attribution endpoint, fixed before participant scoring, applies the same cell scores and compares each arm's gain over ordinary \ac{kd}.
+Because the two arms share a byte-identical \ac{kd} baseline in each seed, this reduces to the synthetic-response minus text-derived difference.
 Its interpretation remains conditional on comparator adequacy.\evd{E025}\evd{E026}
 
 The same saved students support two further analyses.
@@ -509,7 +509,8 @@ Figure~\ref{fig:aggregation-paths} shows the common order from a matched analysi
 Its three tracks separate biological inference across participants, fixed-stimulus inference across shared folds or stories, and technical inference across seeds.
 Focal and comparator conditions are first evaluated on the same endpoint within the smallest matched analysis cell, such as a single fold--seed cell.
 Technical repetitions are then combined before uncertainty is calculated across participants or fixed stimulus blocks; when technical seeds are the inference unit, each seed enters the uncertainty calculation directly.
-Participant estimands receive a \(t\) interval and an exact sign test; matched seed contrasts receive a descriptive \(t\) interval and, where declared, an exact sign-flip test; the target-projection, target-retention, and composed-path quantities receive Bonferroni simultaneous bounds within each declared family; Appendix~\ref{app:inference} gives the exact nesting, estimators, and multiplicity rules.\evd{E003}\evd{E005}\evd{E006}\evd{E008}\evd{E009}\evd{E015}\evd{E016}\evd{E017}\evd{E025}\evd{E030}
+Participant estimands receive a \(t\) interval and an exact sign test; matched seed contrasts receive a descriptive \(t\) interval and, where declared, an exact sign-flip test; the target-projection, target-retention, and composed-path quantities receive Bonferroni simultaneous bounds within each declared family.\evd{E003}\evd{E005}\evd{E006}\evd{E008}\evd{E009}\evd{E015}\evd{E016}\evd{E017}\evd{E025}\evd{E030}
+Appendix~\ref{app:inference} gives the exact nesting, estimators, and multiplicity rules.
 
 \begin{figure}[tbp]
   \centering
