@@ -9,7 +9,7 @@ aliases: [brain-alignment, home]
 Research code, evidence records, and manuscript source for an MSc thesis (Machine Learning for
 Health, Universidad Carlos III de Madrid).
 
-[![Thesis PDF](https://img.shields.io/badge/thesis-PDF%20(58%20pp.)-8A2BE2)](docs/manuscript/submission/main-submission.pdf)
+[![Thesis PDF](https://img.shields.io/badge/thesis-PDF%20(57%20pp.)-8A2BE2)](docs/manuscript/submission/main-submission.pdf)
 [![Python](https://img.shields.io/badge/python-3.11-blue)](pyproject.toml)
 [![Package manager](https://img.shields.io/badge/deps-uv-261230)](https://docs.astral.sh/uv/)
 
