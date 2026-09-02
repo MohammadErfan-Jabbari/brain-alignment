@@ -620,6 +620,20 @@ The figure sized its bars from `\result{e026_plot_check_pass}` and `\result{e026
 
 **Corollary for the evidence transaction.** `artifact -> E record -> manuscript` assumed the manuscript is prose. A figure source is manuscript, it carries numbers, and a correction to an E record has to reach it too. The 2026-08-04 E026 correction reached the table, the results text, and the bar widths, and stopped one line short of the labels.
 
+## L081
+
+**A record's results table can be labelled with a statistic the record never computed, and the label can be the one that flips the classification.**
+
+E030 headed all three of its result tables "Bonferroni family-95% two-sided t interval". Every interval under that header is the *unadjusted* two-sided 95% t interval (`two_sided_t_ci95`). The Bonferroni adjustment lives only in a separate field, `simultaneous_family_one_sided_t_upper95`, which is what the predeclared rules name and what `scripts/e030_analyze_exact_substrate.py:2912` actually classifies from. Nothing was miscomputed; the prose header named the wrong object.
+
+**Why it survived a year of review.** For the C1 and C2 families (size 2) the two readings are numerically identical, because Bonferroni one-sided alpha `0.05/2` equals the unadjusted two-sided endpoint alpha `0.025`. Every spot-check of the headline number therefore passed. The identity holds only at `k=2`: at the C3 family (size 3) the printed endpoints match neither label, and the simultaneous bounds are different numbers. A coincidence that makes a defect invisible at the most-inspected cell is the worst kind.
+
+**Why it mattered.** Applying the label literally gives `A` a Bonferroni two-sided upper endpoint of `+0.00290469`, above the `+0.002` continuation rule, which returns INCONCLUSIVE instead of the recorded nonpass. The thesis-level verdict is unaffected, but E030's own terminal classification is not.
+
+**How the tie was broken, and how it should be.** Not by "the rule sentence outranks the table" -- the repo has no such tier. By the artifact and by Git: the analyzer computes and classifies from the simultaneous field, the one-sided rule is in freeze commit `26bb912` at 00:27 UTC, the raw result was created at 00:41, and the header first appears in the later result commit. Locked predeclaration, evidenced by timestamp. When a record contradicts itself, look for the third witness rather than arguing prose against prose.
+
+**Operational rule.** A verification pass that checks whether a number is *right* will not catch a number that is right under the wrong name. When an interval is reported next to a decision rule, check that the reported quantity is the one the rule adjudicates, and check it at more than one family size.
+
 ## Related
 - [`status.md`](./status.md) — current project state
 - [`03-methodology.md`](./03-methodology.md) — authority and inference contract
