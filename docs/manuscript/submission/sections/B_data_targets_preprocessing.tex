@@ -62,7 +62,7 @@ Each released HDF5 \texttt{data} matrix contains one row per scanner sample and 
 This work begins from those matrices and does not rerun reconstruction, motion correction, or cortical registration. \evd{E006}
 
 The 20 assay stories follow their recorded order and are divided into the five contiguous four-story folds in Table~\ref{tab:appendix-data-partitions}.
-Complete stories are held out, which prevents temporally dependent samples from the same story from crossing the evaluation boundary.
+Complete stories are held out, which keeps temporally dependent samples from the same story on one side of the evaluation boundary.
 The separate story \texttt{wheretheressmoke} is excluded from model fitting and scoring and is used only for voxel reliability selection. \evd{E006}
 
 Reliability is estimated from the ten released repeats of \texttt{wheretheressmoke}.

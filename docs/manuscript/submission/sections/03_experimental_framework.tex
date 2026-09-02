@@ -494,7 +494,6 @@ A_{H\rightarrow T\mid N}(H_{\mathrm{test}})
 \right).
 \label{eq:synthetic-composed-path}
 \end{equation}
-Equation~\ref{eq:synthetic-composed-path} asks how much held-out recorded-response predictivity can pass through the specific synthetic-target subspace recovered from a frozen student.
 The composed score is the held-out unique \(R^2\) of this prediction beyond nuisance, computed per participant; all fold-dependent steps are fitted on training folds (Appendix~\ref{app:inference}).
 Comparing aligned and frozen row-twin targets tests whether sentence-level target pairing matters, while comparing synthetic-response and ordinary \ac{kd} students tests whether training changed access to that path.
 This composed score measures predictive overlap; it does not establish causal mediation.
@@ -561,9 +560,9 @@ Recorded-response comparisons with ordinary \ac{kd} additionally require perplex
 Without the required match, the corresponding biological contrast remains descriptive.\evd{E005}\evd{E008}\evd{E015}\evd{E016}\evd{E017}\evd{E025}
 The eligibility check qualifies interpretation but neither changes the inference unit nor supplies endpoint evidence.
 
-\looseness=-1 Detectable-effect bounds and continuation thresholds, the values fixed in advance for deciding whether a follow-up proceeds, answer narrower questions than statistical intervals.
+\looseness=-1 \acp{mde} and continuation thresholds answer narrower questions than statistical intervals.
 An \ac{mde}, the effect size an assay could reliably resolve under its variance model, does not imply that smaller effects are zero or biologically irrelevant.
-The participant analyses calculate detectable-effect bounds from between-participant variation, whereas the practical-utility analysis uses variation across technical seeds.
+The participant analyses calculate \acp{mde} from between-participant variation, whereas the practical-utility analysis uses variation across technical seeds.
 The \result{e030_practical_threshold} unique-\(R^2\) threshold was reused from the biological-transfer design and fixed in advance as the rule for deciding whether the target-projection assay warrants a follow-up.
 It is not a universal biological-importance threshold and cannot be transferred to another response scale, nuisance model, layer, or population.\evd{E006}\evd{E008}\evd{E009}\evd{E025}\evd{E030}
 
