@@ -139,7 +139,9 @@ E030 & Failure of the 50-component linear target projection explains the E025 re
 \end{table}
 \endgroup
 
-Every reported result depends on retained artifacts whose exact path and SHA-256 digest are bound in the owning evidence record, which remains the authority for each binding.
+\subsection{Artifact bindings}
+
+Where a reported result depends on a retained artifact that its owning evidence record binds, that record states the exact path and SHA-256 digest and remains the authority for the binding.
 The bindings exclude smoke outputs, intermediate caches, prospective-design artifacts, and digests not bound to an exact filename.
 The digests are not reproduced here because the artifacts are not distributed with the thesis.
 Appendices~\ref{app:training}, \ref{app:inference}, and \ref{app:sensitivities} report the corresponding training settings, estimators and inference rules, and complete numerical and sensitivity tables.
