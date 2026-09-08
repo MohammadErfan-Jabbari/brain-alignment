@@ -650,6 +650,18 @@ E030 line 97 predeclared: "Report observed-variance MDE and power at the inherit
 
 **Operational rule.** Before closing an evidence record, grep its design section for *report* and confirm each named quantity appears in `## Results`. Related to L081: both are defects of naming and omission rather than computation, and neither is reachable by a check that starts from what was written.
 
+## L083 — An explicit-only entry point is unreachable for an owner who does not type slash commands, and this repo's evidence spine was built that way — 2026-09-08
+
+[L078](learnings.md) measured stance adoption in the Codex writing window and explicitly declined to judge `/work` or `/interpret` from it. This entry closes that gap from the other harness. Across all 147 Claude Code transcripts for this repo, 2026-06-08 to 2026-09-08, counting structured `Skill` tool-use records rather than prompt text: **76 skill invocations total, of which `/work` is 0, `/precheck` is 0, `/review` is 0, and `/interpret` is 1.** `/wrap` was invoked 14 times, all before August; in the submission era, 2026-08-01 onward, the repo-skill total is 12, of which `thinking-panel` and `question-led-writing` are 7. The gathering agents were doing the work instead: `Explore` and `general-purpose` accounted for 124 of 171 spawns in that same window.
+
+**Erfan's own verdict, unprompted, on 2026-09-08: "I don't use modes any more honestly, i just want to start talking with you and you do the task with any means necessary... at least one learning is that this format doesn't work properly, or i can't use it properly."** He is right on the first clause and too generous on the second: the format's reachability was a design choice, not a usage failure.
+
+**The mechanism, which is the transferable part.** `disable-model-invocation: true` was set on `work` and `wrap` deliberately, so that `/work` could never auto-fire and `/wrap` could never auto-commit. That setting has a second effect nobody priced: it removes inference as an entry path, leaving typing as the *only* one. Paired with an owner who does not type slash commands, the flag does not make a skill deliberate, it makes it unreachable. The two skills carrying the strictest guarantees in the repo, the one that births every scientific number and the one that closes a session, are exactly the two that were switched off in practice. Meanwhile every skill that stayed model-invocable kept firing, because inference is the path that actually carries load here.
+
+**What this does and does not license.** It licenses treating an explicit-only gate as a *deleted* gate unless something else enforces the same contract, and it explains why the evidence rules held anyway: they are enforced by the E-record contract, hooks, and `manuscript_check.py`, none of which route through `/work`. It does not license removing the predeclaration discipline, which is the contract the skill was a wrapper around. Before setting `disable-model-invocation` on anything, state which path is left and whether the owner uses it; if the honest answer is "typing, and he does not", the guarantee belongs in a hook or a file contract instead of a skill.
+
+**Method note.** Codex rollouts replay the full conversation on every turn, so a raw grep over them inflates counts by an order of magnitude: 12,981 `role=user` records collapse to 586 distinct typed turns after deduplication. Deduplicate before quoting any frequency from that corpus. The Claude Code figures above do not have this problem because they count `tool_use` blocks, not text.
+
 ## Related
 - [`status.md`](./status.md) — current project state
 - [`03-methodology.md`](./03-methodology.md) — authority and inference contract
