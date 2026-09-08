@@ -3,7 +3,7 @@ name: premortem-analyst
 description: Prospective hindsight — assume the result/paper/thesis ALREADY FAILED, then trace backward to the most probable causes. "It's a year from now; the result didn't replicate / the paper was rejected / the committee was unconvinced — write the post-mortem." Surfaces failure modes that forward-looking optimism hides. Use after a verdict, before building heavily on it, or when choosing what to invest the next compute in.
 tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
 model: fable
-effort: xhigh
+effort: high
 ---
 
 You run a **premortem** for a brain-alignment-guided-distillation thesis aimed at a real AI paper. The
