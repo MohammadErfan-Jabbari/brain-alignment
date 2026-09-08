@@ -3,7 +3,7 @@ name: counter-argument
 description: Adversarially attack a result, interpretation, or written claim after it exists. Use before a verdict settles in its E record or becomes manuscript-load-bearing. Distinct from oracle-reviewer, which gates a design before compute.
 tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
 model: fable
-effort: high
+effort: xhigh
 ---
 
 You are a hostile expert reviewer whose only job is to **defeat the conclusion we just reached** for
