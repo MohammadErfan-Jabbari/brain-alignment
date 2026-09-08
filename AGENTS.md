@@ -29,6 +29,8 @@ No report layer, alternate status board, claim database, artifact registry, dash
 > - `rewrite/numbers.tex`, `rewrite/acronyms.tex`, and `rewrite/references.bib` stay single-source and are still read across the tree boundary. Reading them is not editing `rewrite/`.
 >
 > Lifting this restores canonical-first: every submission-only change after `5688de9` flows back into `rewrite/`, and only then is `rewrite/` an authority again.
+>
+> **When it is lifted, retire it everywhere in the same commit.** This block is the only place that states the terms; six other sites point at it and each must lose its pointer, or a retired rule stays documented as live, which is exactly the failure [L077](docs/learnings.md) records. The sites are `docs/manuscript/AGENTS.md` (the `submission/` layout row, protocol step 14, and the synchronization sentence after the `--share-ready` rule), `docs/manuscript/submission/AGENTS.md` (the authority bullet and the `sections/` bullet), `docs/manuscript/rewrite/AGENTS.md` (the frozen callout under the title), and the `Manuscript:` line in `docs/status.md`. Verify with `grep -rn "sync.suspension\|Suspended until further notice" --include=AGENTS.md .` returning nothing.
 
 ## Skills are the entry points
 
@@ -99,7 +101,8 @@ Contract-level non-negotiables that outrank any procedure: prose reports only ev
 
 ## Working with Erfan
 
-- **Produce nothing that was not asked for.** Outside `/teach`, do not create a new artifact, file, report, or scratch document beyond the ones that already exist. This is the general case of the anti-report rule above, and it is the correction Erfan has had to repeat most often.
+- **Produce nothing that was not asked for.** Outside `/teach`, do not create a new artifact, file, report, or scratch document beyond the ones that already exist. This is the general case of the anti-report rule above.
+- **His standing preferences are files, not folklore.** [`memories/`](memories/AGENTS.md) mirrors fourteen recorded preferences covering how he wants questions asked, progress reported, sections drafted and cut, layout judged, agents briefed, and findings verified. Read the one that matches the work instead of rediscovering it. Across the transcripts the corrections he has actually had to repeat are about page layout and wasted vertical space, prose taste and em dashes, and terminology that drifts back after a decision; each has an owning memory.
 - **Answer terse and scannable.** Lead with the answer, keep it short, and iterate. Do not lecture, do not restate the question, and do not pad a short answer to look thorough.
 - **Match the autonomy to the work.** Three rungs, and guessing wrong is a recurring friction:
   - *Structural change to the repo or the apparatus:* confirm the list of changes before implementing.
@@ -118,6 +121,9 @@ Use agents at load-bearing scientific boundaries, not as a routine fan-out ritua
 | Result/claim stress test | `counter-argument`, `socratic-thinker`, `premortem-analyst`, `first-principles-grounder`, plus `oracle-reviewer` when warranted |
 | Literature/data | `lit-scout`, `paper-digest`, `dataset-scout`, `dataset-verifier` |
 | Manuscript verification | `evidence-number-auditor`, `citation-support-auditor`, `manuscript-twin-auditor` |
+| Search and gathering | the built-in `Explore`, or `general-purpose` when the task needs to run commands as well as read |
+
+The built-in agents are the workhorses and the table used to omit them: across the submission era they were 124 of 171 spawns, against 47 for every named agent combined. That is the right split, because most delegation here is finding things, not judging them. Use `Explore` whenever the answer means sweeping many files and you want the conclusion rather than the file dumps, and `general-purpose` when the sweep also has to execute something. Neither carries this repo's scientific judgment, so neither substitutes for a named agent at a boundary the table covers: a design gate, an aggregation audit, a claim stress test, or a manuscript verification pass. The dispatch contract in [`.claude/AGENTS.md`](.claude/AGENTS.md) applies to a built-in agent exactly as it does to a named one, including the coverage floor you compute yourself.
 
 The three verification agents are the layer that checks whether what is written matches what is recorded, which the deterministic gate structurally cannot: it confirms an E record exists and a key is declared, and never opens the record. They are read-only by construction and carry no `Write` or `Edit`. Their rule corpus is [`docs/references/manuscript-verification-rules.md`](docs/references/manuscript-verification-rules.md), which may only gain checks; an auditor proposes a rule and never edits one.
 

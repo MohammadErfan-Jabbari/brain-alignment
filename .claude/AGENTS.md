@@ -27,6 +27,7 @@ This folder contains the Claude Code apparatus for the repo: subagents, hooks, s
 
 These apply to every spawn, so they are stated once here instead of retyped into each task prompt.
 
+- **These rules bind the built-in agents too.** `Explore` and `general-purpose` do most of the spawning here, and every rule below applies to them unchanged: declare `model:` and `effort:`, compute the coverage floor yourself, reject a degenerate reply. The one thing they do not inherit is standing: a built-in agent gathers and reports, and its output is never the judgment at a scientific boundary that `agents/` covers.
 - **A review agent is read-only and returns a verdict, not edits.** Give it no `Write` or `Edit`. Its output is its only product. Independence is the entire reason to spawn it: a reviewer that shares the working context under-detects, three residuals against roughly thirteen from a fresh pass (L055).
 - **First-round subagent output is never merged.** A proposal is read, argued against by a reviewer, and reconciled before anything is applied. The point of the round is to establish that the change is an improvement, not that it exists.
 - **Set `model:` and `effort:` explicitly on every child; a spawn inherits neither.** The recorded failure: an inherited high thinking level burned a judge's entire 32k output cap and returned nothing twice, after which the provider exclusion-listed the model family for 24 hours and stalled a manuscript section by about seven hours.
