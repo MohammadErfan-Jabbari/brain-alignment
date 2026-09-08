@@ -147,6 +147,20 @@ This section is the list's only home, and the list is open by intent. Add an ent
 - Treat every arrow as a scientific statement: make its relation explicit through a readable arrow label, adjacent text, or column heading, and never let geometry alone imply causation, mediation, successful attribution, or population generalization.
 - When prose introduces a multi-part figure, explicitly map the figure's groups or stages to the surrounding paragraph questions. Do not make the reader infer whether the figure illustrates one paragraph or the whole subsection.
 
+### Layout and vertical space
+
+Blank vertical space on a page is a defect, not a cosmetic matter, and a table that fits on one page must not break across two. Both are Erfan's standing rules from the 2026-09-02 submission read. Layout defects have structural causes, so fix the cause and never the symptom.
+
+- **Let floats float.** Use `[tbp]`, not `[H]`. A `[H]` float cannot move, so a tall one that does not fit ends the page early; 34 of 36 were `[H]` before the repair that took the submission tree from 66 pages to 61 without changing a single word in any section.
+- **Never add `\FloatBarrier`, `\newpage`, or `\enlargethispage` to fix a layout symptom.** A `\FloatBarrier` placed after a float is harmless while that float is `[H]` and actively harmful once it can move, because it forbids following text from flowing back; one stranded a page at 40% full. Section-level containment is `placeins[section]`, which is load-bearing and stays.
+- **Do not use `longtable` for a table that fits.** It breaks at a page boundary by design even when the content would fit on a fresh page. Use `table[tbp]` unless the content genuinely overflows.
+- **Put type-size and spacing setup inside the float.** `\@floatboxreset` resets the font to `\normalsize` inside a float, so a size set in a `\begingroup` before a `longtable` is silently lost when that table becomes a float.
+- **Delete a stale typographic hint rather than leaving it inert.** A `\looseness`, `\enlargethispage`, or manual break whose paragraph has since been rewritten is a no-op the next pass has to re-diagnose.
+- **Avoid two-word orphan lines** at the end of a paragraph where a light rewording removes them. Do not force it; a contorted sentence costs more than the orphan.
+- **Read a page count only after two consecutive `latexmk -pdf` runs agree,** and do not attribute a page change to your own edit without isolating that commit. See the float-convergence and engine-verification entries in [`submission/AGENTS.md`](submission/AGENTS.md), which own the incident detail.
+
+Hand-moving text to fill a page is manual repagination: it works once and breaks on the next edit. After any reflow, rebuild to convergence and then check the page count, `Float too large for page` warnings, zero `continued` markers in `pdftotext` output, and float order from the `.aux`. The full account, including the `latexmk -outdir` trap that truncates the tracked `.bbl`, is in [`memories/manuscript-typesetting-preferences.md`](../../memories/manuscript-typesetting-preferences.md).
+
 ## Maintained question map
 
 The intended reader, governing question, and provisional answer live in [`rewrite/AGENTS.md`](rewrite/AGENTS.md), the canonical scientific-interpretation authority. The complete question tree for the main text and appendices lives in [`rewrite/question-tree.md`](rewrite/question-tree.md), which is its single source; do not duplicate or paraphrase its questions here.
