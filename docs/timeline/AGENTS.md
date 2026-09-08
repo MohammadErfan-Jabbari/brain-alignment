@@ -28,7 +28,7 @@ YAML frontmatter (`title`, `tags: [timeline]`, `aliases`), then the sections the
 
 - An entry is written after the fact and stays fixed. A later correction gets its own entry or a note in the owning authority; entries are not edited to agree with what was learned afterwards.
 - A number that appears here is a quotation from its owning E record, not a source. If the two disagree, the E record wins and the discrepancy routes to `/interpret`.
-- 53 entries is already at the edge of useful. Prefer not writing one over writing a thin one.
+- This folder passed the point of being comfortably readable some time ago. Prefer not writing an entry over writing a thin one, and treat every additional entry as needing to justify the ones a reader must skim past to reach it.
 
 ## Related
 

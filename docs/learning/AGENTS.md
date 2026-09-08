@@ -19,7 +19,7 @@ This directory is the memory and working surface of the `/teach` stance. Keep ra
 
 - Do not create a `README.md` here. Folder guidance belongs in `AGENTS.md`.
 - Lessons are raw process and must not leak into reports as evidence.
-- Records are the resume authority for `/teach` once any exist. The ledger is still empty after five lessons, so resume reads `lessons/` today; the moment the first record lands it takes precedence. Do not treat the empty ledger as evidence that nothing was learned.
+- Records are the resume authority for `/teach` once any exist. The ledger is still empty while `lessons/` keeps growing, so resume reads `lessons/` today; the moment the first record lands it takes precedence. Do not treat the empty ledger as evidence that nothing was learned, and do not read the gap between the two directories as a backlog to fill: a record is written only on demonstrated mastery, so most lessons correctly never produce one.
 - Supersede records when needed; do not delete them.
 - Render lesson Markdown to HTML for math/diagrams with:
 
