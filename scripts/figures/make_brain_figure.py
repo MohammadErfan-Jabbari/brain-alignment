@@ -48,10 +48,10 @@ VIEW_W = 320.0            # SVG user units across the hemisphere
 STROKE = 1.25             # px at 320 px wide
 RASTER_W = 2400           # px, working raster and PNG width
 CREASE_MM = 3.0           # depth jump between neighbouring pixels that counts as a sulcal crease
-# Landmark sulci kept, as MNI boxes (y_min, y_max, z_min, z_max); the longest crease with
-# >= 70% of its pixels inside a box is that landmark.
-LANDMARKS = {"Sylvian": (-45, 35, -22, 22), "Central": (-40, 2, 20, 80), "STS": (-70, 8, -32, -5)}
-LINE_PX = 9.0             # crease line width in raster px (= STROKE at 320 px display)
+CREASE_MIN_PX = 400       # shortest crease drawn, in raster px at RASTER_W
+SULCUS_STROKE = 1.0       # sulcal line width in SVG units (px at 320 px display)
+PARCEL_SIGMA = 5.0        # Gaussian smoothing of parcel masks, raster px
+SIMPLIFY_TOL = 0.25       # Douglas-Peucker tolerance for all outlines, SVG units
 MIN_PARCEL_COVERAGE = 0.5 # fraction of depth samples inside the parcel
 
 
@@ -118,7 +118,7 @@ def rasterize(xy, faces, depth, values, extent, shape) -> np.ndarray:
     return buf - 1
 
 
-def contours(mask: np.ndarray, sigma: float = 2.5, min_area: float = 0.0) -> list[np.ndarray]:
+def contours(mask: np.ndarray, sigma: float = 2.5, min_area: float = 0.0, clean: int = 0) -> list[np.ndarray]:
     """Smoothed 0.5-level contours of a binary mask, largest components only."""
     lab, n = ndimage.label(mask)
     if n == 0:
@@ -126,6 +126,8 @@ def contours(mask: np.ndarray, sigma: float = 2.5, min_area: float = 0.0) -> lis
     sizes = ndimage.sum(mask, lab, range(1, n + 1))
     keep = np.isin(lab, 1 + np.flatnonzero(sizes >= max(min_area, 1)))
     keep = ndimage.binary_fill_holes(keep)
+    if clean:
+        keep = ndimage.binary_opening(ndimage.binary_closing(keep, iterations=clean), iterations=clean)
     sm = ndimage.gaussian_filter(keep.astype(float), sigma)
     fig, ax = plt.subplots()
     cs = ax.contour(sm, levels=[0.5])
@@ -138,12 +140,12 @@ def contours(mask: np.ndarray, sigma: float = 2.5, min_area: float = 0.0) -> lis
     return polys
 
 
-def creases(xy, faces, depth, extent, shape, cortex_mask, mm_per_px):
+def creases(xy, faces, depth, extent, shape, cortex_mask, line_px):
     """Depth-discontinuity lines of the lateral pial view: the longest ones, as filled slivers.
 
     A sulcus seen from the side is a jump in depth between the near bank and the far bank
     (or the fissure floor), so thresholding the depth gradient draws the sulcal map without
-    any shading. Returns polygons (raster px) of the landmark creases in LANDMARKS.
+    any shading. Returns polygons (raster px) of every crease at least CREASE_MIN_PX long, as slivers line_px wide.
     """
     q = np.round((depth - depth.min()) / (depth.max() - depth.min()) * 240).astype(int)
     d = rasterize(xy, faces, depth, q, extent, shape).astype(float)
@@ -151,32 +153,38 @@ def creases(xy, faces, depth, extent, shape, cortex_mask, mm_per_px):
     gy, gx = np.gradient(d)
     jump = np.nan_to_num(np.hypot(gx, gy)) * (depth.max() - depth.min()) / 240
     crease = ndimage.binary_closing(jump > CREASE_MM, iterations=2)
-    crease &= ndimage.binary_erosion(cortex_mask, iterations=int(LINE_PX))  # keep off the silhouette
+    crease &= ndimage.binary_erosion(cortex_mask, iterations=line_px)  # keep off the silhouette
     lab, n = ndimage.label(crease)
     sizes = ndimage.sum(crease, lab, range(1, n + 1))
-    chosen = []
-    for name, (y0, y1, z0, z1) in LANDMARKS.items():
-        best = None
-        for i in np.argsort(sizes)[::-1][:40]:
-            ys, xs = np.nonzero(lab == i + 1)
-            Y = -(extent[0] + xs * mm_per_px); Z = -(extent[2] + ys * mm_per_px)   # MNI y, z
-            inside = ((Y >= y0) & (Y <= y1) & (Z >= z0) & (Z <= z1)).mean()
-            if inside >= 0.7 and (best is None or sizes[i] > sizes[best]):
-                best = i
-        assert best is not None, f"no crease found for {name}"
-        chosen.append(best + 1)
-        print(f"{name}: crease of {int(sizes[best])} px")
-    keep = ndimage.binary_dilation(np.isin(lab, chosen), iterations=int(LINE_PX // 2))
+    keep = np.isin(lab, 1 + np.flatnonzero(sizes >= CREASE_MIN_PX))
+    keep = ndimage.binary_dilation(keep, iterations=line_px // 2)
+    print(f"sulcal creases drawn: {int((sizes >= CREASE_MIN_PX).sum())} of {n}")
     return contours(keep, sigma=2.0)
 
 
 def simplify(poly: np.ndarray, tol: float) -> np.ndarray:
-    """Drop points closer than tol to the previously kept point."""
-    keep = [poly[0]]
-    for p in poly[1:]:
-        if np.hypot(*(p - keep[-1])) >= tol:
-            keep.append(p)
-    return np.asarray(keep)
+    """Douglas-Peucker on a closed polygon (iterative, tol in the polygon's units)."""
+    pts = np.asarray(poly, float)
+    if np.allclose(pts[0], pts[-1]):
+        pts = pts[:-1]
+    n = len(pts)
+    if n < 4:
+        return pts
+    keep = np.zeros(n, bool); keep[[0, n // 2]] = True
+    stack = [(0, n // 2), (n // 2, n)]   # second segment wraps to the start
+    while stack:
+        i, j = stack.pop()
+        seg = pts[i + 1:j]
+        if len(seg) == 0:
+            continue
+        a, b = pts[i], pts[j % n]
+        ab = b - a; L = np.hypot(*ab)
+        d = np.abs(np.cross(ab, seg - a)) / L if L > 0 else np.hypot(*(seg - a).T)
+        k = int(d.argmax())
+        if d[k] > tol:
+            keep[i + 1 + k] = True
+            stack += [(i, i + 1 + k), (i + 1 + k, j)]
+    return pts[keep]
 
 
 def svg_path(polys: list[np.ndarray], scale: float) -> str:
@@ -214,7 +222,7 @@ def main() -> None:
     cortex_mask = rasterize(xy, faces, depth, np.zeros(len(faces), int), extent, shape) >= 0
 
     scale = VIEW_W / w
-    tol = 0.6 * (w / VIEW_W)   # ~0.6 user units
+    tol = SIMPLIFY_TOL * (w / VIEW_W)
 
     cortex_polys = [simplify(p, tol) for p in contours(cortex_mask, sigma=3.0, min_area=0.05 * cortex_mask.sum())]
     parcel_polys: dict[str, list[np.ndarray]] = {}
@@ -222,13 +230,14 @@ def main() -> None:
     for k, r in enumerate(REGIONS):
         m = reg_img == k
         n_vis = int(m.sum())
-        polys = contours(m, sigma=2.5, min_area=0.03 * max(n_vis, 1))
+        polys = contours(m, sigma=PARCEL_SIGMA, min_area=0.03 * max(n_vis, 1), clean=3)
         parcel_polys[r] = [simplify(p, tol) for p in polys]
         coverage[r] = {"visible_px": n_vis, "vertices": int((region == k).sum()), "pieces": len(polys)}
         assert polys, f"{r} not visible in lateral view"
 
     # Major sulci: the longest depth-discontinuity creases of the lateral view.
-    sulc_polys = [simplify(p, tol) for p in creases(xy, faces, depth, extent, shape, cortex_mask, (extent[1] - extent[0]) / w)]
+    line_px = int(round(SULCUS_STROKE * w / VIEW_W))
+    sulc_polys = [simplify(p, tol) for p in creases(xy, faces, depth, extent, shape, cortex_mask, line_px)]
 
     # --- SVG ---------------------------------------------------------------
     W = w * scale; H = h * scale
@@ -312,8 +321,8 @@ def main() -> None:
 
 - Surface: nilearn `fetch_surf_fsaverage("fsaverage")` (FreeSurfer fsaverage, 163,842 vertices per hemisphere), left hemisphere, **pial** surface. Pial was chosen over inflated because the silhouette stays recognisably a brain at slide size; all five parcels remain visible on the lateral pial surface (per-parcel visible pixel counts below).
 - Projection: each parcel mask sampled along the white-to-pial depth at seven points (`vol_to_surf`, linear interpolation of the binary mask); a vertex belongs to the parcel with the highest coverage if that coverage is at least {MIN_PARCEL_COVERAGE:.0%}. Faces take the majority vertex label.
-- View: orthographic lateral projection (drop MNI x; screen x = -y so anterior is left, screen y = -z so dorsal is up). Hidden surfaces removed by depth-sorted painting at {RASTER_W} px width, then vector outlines traced from the label raster (Gaussian smoothing sigma 2.5 px at {RASTER_W} px, 0.5-level contour, components below 3% of the parcel's visible area dropped).
-- Sulcal lines: the lateral view is depth-buffered, so a sulcus appears as a jump in depth between neighbouring pixels. Pixels where that jump exceeds {CREASE_MM} mm are creases; the longest connected crease lying (70% of its pixels) inside each landmark box {json.dumps(LANDMARKS)} (MNI y_min, y_max, z_min, z_max; Sylvian fissure, central sulcus, superior temporal sulcus) is kept and drawn as filled {LINE_PX:.0f} px slivers (the same visual weight as the {STROKE} px strokes at 320 px). No `sulc` map or shading is used.
+- View: orthographic lateral projection (drop MNI x; screen x = -y so anterior is left, screen y = -z so dorsal is up). Hidden surfaces removed by depth-sorted painting at {RASTER_W} px width, then vector outlines traced from the label raster (morphological close/open of 3 px, Gaussian smoothing sigma {PARCEL_SIGMA} px at {RASTER_W} px, 0.5-level contour, Douglas-Peucker simplification at {SIMPLIFY_TOL} SVG units, components below 3% of the parcel's visible area dropped).
+- Sulcal lines: the lateral view is depth-buffered, so a sulcus appears as a jump in depth between neighbouring pixels. Pixels where that jump exceeds {CREASE_MM} mm are creases; every connected crease at least {CREASE_MIN_PX} px long at {RASTER_W} px is drawn as a filled sliver {SULCUS_STROKE} SVG units wide ({SULCUS_STROKE} px at 320 px display). No `sulc` or `curv` map is used for the lines: on the pial surface the high-curvature fundi are hidden inside the sulci and a curvature threshold yields only fragments, whereas the depth crease is exactly what a lateral pial view shows as a sulcus.
 - Colours: cortex {CORTEX}, parcels {PARCEL}, lines {LINE}; strokes {STROKE} user units where the SVG viewBox is {VIEW_W:.0f} units wide, so {STROKE} px at 320 px display. No shading, gradients, transparency in fills, or text. Background alpha 0.
 - Library versions: {json.dumps(vers)}.
 
@@ -328,7 +337,7 @@ def main() -> None:
 ## Deviations from the brief
 
 - The brief calls the set "langloc / SN220"; the distributed file is `allParcels-language-SN220`. Same set.
-- The brief suggested the Sylvian fissure, STS and inferior frontal sulcus as landmarks. The central sulcus replaces the inferior frontal sulcus: in the depth-buffered lateral pial view the IFS is fragmented into short creases, while the central sulcus is one continuous crease and separates the MFG parcel from parietal cortex, which is the orientation the figure has to defend.
+- The brief asked for sparse landmark sulci; review of the first render asked instead for the full sulcal line set so the shape reads as a brain. All creases above the length floor are drawn at one weight, which includes the Sylvian fissure, STS, central sulcus and inferior frontal sulcus.
 - `check-320px.png` is written alongside the deliverables as the 320 px acceptance render on #f0eee6; it is not part of the figure set.
 - Parcel geometry is what the atlas defines. The MFG parcel (MNI y {centroids['MFG']['mni_min'][1]:.0f} to {centroids['MFG']['mni_max'][1]:.0f}) sits in posterior middle frontal gyrus adjacent to, but as labelled by the atlas not inside, precentral cortex.
 """
